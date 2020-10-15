@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_OXC_UAT_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phr-${PHR_OXC_UAT_NAMESPACE}-service-accounts
+  namespace: $PHR_OXC_UAT_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: phr-${PHR_OXC_UAT_NAMESPACE}-service-accounts
+  template:
+    metadata:
+      labels:
+        app: phr-${PHR_OXC_UAT_NAMESPACE}-service-accounts
+    spec:
+      containers:
+      - name: phr-${PHR_OXC_UAT_NAMESPACE}-service-accounts
+        image: ${PHR_REGISTRY}/phr-${PHR_OXC_UAT_NAMESPACE}-service-accounts:v${BUILD_NUMBER}
+        env:
+        - name: APP_PORT
+          value: '3003'
+        - name: DATABASE_URL
+          value: https://phr-${PHR_OXC_UAT_NAMESPACE}-service-database:3001
+        - name: NODE_ENV
+          value: development
+        - name: EMAIL_SERVICE
+          value: https://phr-${PHR_OXC_UAT_NAMESPACE}-service-email:3020
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        ports:
+        - containerPort: 3003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phr-${PHR_OXC_UAT_NAMESPACE}-service-accounts
+  namespace: $PHR_OXC_UAT_NAMESPACE
+spec:
+  selector:
+    app: phr-${PHR_OXC_UAT_NAMESPACE}-service-accounts
+  ports:
+  - port: 3003

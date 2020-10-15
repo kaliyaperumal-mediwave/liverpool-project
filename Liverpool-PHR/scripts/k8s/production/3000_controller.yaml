@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_OXC_PROD_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-controller
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: phr-${PHR_OXC_PROD_NAMESPACE}-service-controller
+  template:
+    metadata:
+      labels:
+        app: phr-${PHR_OXC_PROD_NAMESPACE}-service-controller
+    spec:
+      containers:
+      - name: phr-${PHR_OXC_PROD_NAMESPACE}-service-controller
+        image: ${PHR_OXC_PROD_REGISTRY}/phr-${PHR_OXC_PROD_NAMESPACE}-service-controller:v${BUILD_NUMBER}
+        env:
+          - name: APP_PORT
+            value: '3000'
+          - name: APP_NAME
+            value: service-controller
+          - name: NODE_ENV
+            value: development
+          - name: SERVICE_CONFIGURATION
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-configuration:2000
+          - name: SERVICE_AUTH
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-authentication:3002
+          - name: SERVICE_ACCOUNT
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-accounts:3003
+          - name: SERVICE_COPING_STRATEGIES
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-coping-strategies:3005
+          - name: SERVICE_PROBLEM_TRACKER
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-problem-tracker:3007
+          - name: SERVICE_GOALS
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-goals:3004
+          - name: SERVICE_SLEEP
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-sleep-tracker:3006
+          - name: SERVICE_DIARY
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-diary:3009
+          - name: SERVICE_MEDICATION
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-medication:3011
+          - name: SERVICE_CARE_PLAN
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-careplan:3012
+          - name: SERVICE_SCHOOL_FEEDBACK
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-school-feedback:3013
+          - name: SERVICE_ABOUT_ME
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-about-me:3014
+          - name: SERVICE_MESSAGE
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-message:3016
+          - name: SERVICE_ROOM
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-room:3017
+          - name: SERVICE_SURVEY
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-survey-builder:3018
+          - name: SERVICE_CIRCLE
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-circle:3019
+          - name: SERVICE_EMAIL
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-email:3020
+          - name: SERVICE_CHAT
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-chat:3015
+          - name: SERVICE_MOOD
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-mood:3022
+          - name: SERVICE_XDS
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-xds:4003
+          - name: SERVICE_PAIN
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-pain:3024
+          - name: SERVICE_ALCOHOL
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-alcohol:3023
+          - name: SERVICE_SMOKE
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-smoke:3025
+          - name: SERVICE_QUESTIONNAIRES
+            value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires:4005
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: '0'
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-controller
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    app: phr-${PHR_OXC_PROD_NAMESPACE}-service-controller
+  ports:
+  - port: 3000
+    targetPort: 3000

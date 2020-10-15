@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_OXC_PROD_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-mcdna
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: phr-${PHR_OXC_PROD_NAMESPACE}-service-mcdna
+  template:
+    metadata:
+      labels:
+        app: phr-${PHR_OXC_PROD_NAMESPACE}-service-mcdna
+    spec:
+      containers:
+      - name: phr-${PHR_OXC_PROD_NAMESPACE}-service-mcdna
+        image: ${PHR_OXC_PROD_REGISTRY}/phr-${PHR_OXC_PROD_NAMESPACE}-service-mcdna:v${BUILD_NUMBER}
+        env:
+        - name: NODE_ENV
+          value: development
+        - name: APP_NAME
+          value: service-mcdna
+        - name: APP_PORT
+          value: '4002'
+        - name: MSSQL_DB
+          value: ${PHR_MCDNA_MSSQL_DB}
+        - name: MSSQL_USER
+          value: ${PHR_MCDNA_MSSQL_USER}
+        - name: MSSQL_PASSWORD
+          value: ${PHR_MCDNA_MSSQL_PASSWORD}
+        - name: MSSQL_HOST
+          value: ${PHR_MCDNA_MSSQL_HOST}
+        - name: MSSQL_PORT
+          value: ${PHR_MCDNA_MSSQL_PORT}
+        - name: DATABASE_URL
+          value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-database:3001
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        ports:
+        - containerPort: 4002
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-mcdna
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    app: phr-${PHR_OXC_PROD_NAMESPACE}-service-mcdna
+  ports:
+  - port: 4002

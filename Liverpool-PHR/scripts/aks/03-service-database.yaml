@@ -1,0 +1,71 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-database
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-database
+    spec:
+      imagePullSecrets:
+      - name: acr-credentials
+      containers:
+        - name: service-database
+          image: mindwavephr.azurecr.io/phr-service-database:v755
+          env:
+          - name: NODE_ENV
+            value: development
+          - name: APP_NAME
+            value: service-database
+          - name: APP_PORT
+            value: '3001'
+          - name: POSTGRES_DB
+            value: 'postgres'
+          - name: POSTGRES_USER
+            value: 'staginguser@staging-phr'
+          - name: POSTGRES_PASSWORD
+            value: 'JWffVAlV8o1eM7ig'
+          - name: POSTGRES_HOST
+            value: 'staging-phr.postgres.database.azure.com'
+          - name: POSTGRES_PORT
+            value: '5432'
+          - name: SSL
+            value: 'true'
+          - name: IS_ACTIVE
+            value: 'true'
+          - name: EPJS_URL
+            value: https://service-epjs:4001
+          - name: McDNA_URL
+            value: https://service-mcdna:4002
+          - name: AUTH_SERVICE
+            value: https://service-authentication:3002
+          - name: EMAIL_SERVICE
+            value: https://service-email:3020
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: '0'
+          - name: CAPTCHA_SECRET_KEY
+            value: '6LfWCZAUAAAAAPBKWJxpEWscTm6zwuD-TRF0t2N3'
+          - name: ATTEMPT_TIME_LIMIT
+            value: '10'
+          ports:
+            - containerPort: 3001
+      imagePullSecrets:
+       - name: regcred            
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-database
+  labels:
+    name: service-database
+spec:
+  ports:
+    - port: 3001
+      targetPort: 3001
+      protocol: TCP
+  selector:
+    app: service-database
+  type: ClusterIP

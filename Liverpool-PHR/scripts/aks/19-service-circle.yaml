@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-circle
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-circle
+    spec:
+      imagePullSecrets:
+      - name: acr-credentials
+      containers:
+        - name: service-circle
+          image: mindwavephr.azurecr.io/phr-service-circle:v755
+          env:
+          - name: APP_PORT
+            value: '3019'
+          - name: DATABASE_URL
+            value: https://service-database:3001
+          - name: NODE_ENV
+            value: development
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: '0'
+          ports:
+            - containerPort: 3019
+      imagePullSecrets:
+       - name: regcred            
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-circle
+  labels:
+    name: service-circle
+spec:
+  ports:
+    - port: 3019
+      targetPort: 3019
+      protocol: TCP
+  selector:
+    app: service-circle
+  type: ClusterIP

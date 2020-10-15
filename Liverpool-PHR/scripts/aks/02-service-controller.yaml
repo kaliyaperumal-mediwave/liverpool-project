@@ -1,0 +1,83 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-controller
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-controller
+    spec:
+      imagePullSecrets:
+      - name: acr-credentials
+      containers:
+        - name: service-controller
+          image: mindwavephr.azurecr.io/phr-service-controller:v755
+          env:
+          - name: APP_PORT
+            value: '3000'
+          - name: APP_NAME
+            value: service-controller
+          - name: NODE_ENV
+            value: development
+          - name: SERVICE_CONFIGURATION
+            value: https://service-configuration:2000
+          - name: SERVICE_AUTH
+            value: https://service-authentication:3002
+          - name: SERVICE_ACCOUNT
+            value: https://service-accounts:3003
+          - name: SERVICE_COPING_STRATEGIES
+            value: https://service-coping-strategies:3005
+          - name: SERVICE_PROBLEM_TRACKER
+            value: https://service-problem-tracker:3007
+          - name: SERVICE_GOALS
+            value: https://service-goals:3004
+          - name: SERVICE_SLEEP
+            value: https://service-sleep-tracker:3006
+          - name: SERVICE_DIARY
+            value: https://service-diary:3009
+          - name: SERVICE_MEDICATION
+            value: https://service-medication:3011
+          - name: SERVICE_CARE_PLAN
+            value: https://service-careplan:3012
+          - name: SERVICE_SCHOOL_FEEDBACK
+            value: https://service-school-feedback:3013
+          - name: SERVICE_ABOUT_ME
+            value: https://service-about-me:3014
+          - name: SERVICE_MESSAGE
+            value: https://service-message:3016
+          - name: SERVICE_ROOM
+            value: https://service-room:3017
+          - name: SERVICE_SURVEY
+            value: https://survey-builder:3018
+          - name: SERVICE_CIRCLE
+            value: https://service-circle:3019
+          - name: SERVICE_EMAIL
+            value: https://service-email:3020
+          - name: SERVICE_CHAT
+            value: https://service-chat:3015
+          - name: SERVICE_MOOD
+            value: https://service-mood:3022
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: '0'
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+       - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-controller
+  labels:
+    name: service-controller
+spec:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: service-controller
+  type: ClusterIP

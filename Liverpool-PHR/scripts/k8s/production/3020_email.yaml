@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_OXC_PROD_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-email
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: phr-${PHR_OXC_PROD_NAMESPACE}-service-email
+  template:
+    metadata:
+      labels:
+        app: phr-${PHR_OXC_PROD_NAMESPACE}-service-email
+    spec:
+      containers:
+      - name: phr-${PHR_OXC_PROD_NAMESPACE}-service-email
+        image: ${PHR_OXC_PROD_REGISTRY}/phr-${PHR_OXC_PROD_NAMESPACE}-service-email:v${BUILD_NUMBER}
+        env:
+        - name: APP_PORT
+          value: '3020'
+        - name: DATABASE_URL
+          value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-database:3001
+        - name: SERVICE_CONFIGURATION
+          value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-configuration:2000
+        - name: NODE_ENV
+          value: development
+        - name: EMAIL_HOST
+          value: ${PHR_OXC_PROD_EMAIL_HOST}
+        - name: EMAIL_PORT
+          value: ${PHR_OXC_PROD_EMAIL_PORT}
+          #- name: EMAIL_SECURE
+          #value: 'false'
+        - name: EMAIL_AUTH_USERNAME
+          value: ${PHR_OXC_PROD_EMAIL_AUTH_USERNAME}
+        - name: EMAIL_AUTH_PASSWORD
+          value: ${PHR_OXC_PROD_EMAIL_AUTH_PASSWORD}
+        - name: EMAIL_FROM_ADDRESS
+          value: ${PHR_OXC_PROD_EMAIL_FROM_ADDRESS}
+        - name: EMAIL_TO_ADDRESS
+          value: ${PHR_OXC_PROD_EMAIL_TO_ADDRESS}
+        - name: APOSTROPHE_ORIGIN
+          value: ${PHR_OXC_PROD_APOSTROPHE_ORIGIN}
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        - name: TRUST
+          value: ${PHR_OXC_TRUST}
+        - name: TRUST_MESSAGE
+          value: ${PHR_OXC_TRUST_MESSAGE}
+        ports:
+        - containerPort: 3020
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-email
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    app: phr-${PHR_OXC_PROD_NAMESPACE}-service-email
+  ports:
+  - port: 3020

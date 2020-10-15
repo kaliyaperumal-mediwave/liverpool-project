@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-alcohol
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-alcohol
+    spec:
+      imagePullSecrets:
+      - name: acr-credentials
+      containers:
+        - name: service-alcohol
+          image: mindwavephr.azurecr.io/phr-service-alcohol:v755
+          env:
+          - name: APP_PORT
+            value: '3024'
+          - name: DATABASE_URL
+            value: https://service-database:3001
+          - name: NODE_ENV
+            value: development
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: '0'
+          ports:
+            - containerPort: 3024
+      imagePullSecrets:
+       - name: regcred
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-alcohol
+  labels:
+    name: service-alcohol
+spec:
+  ports:
+    - port: 3024
+      targetPort: 3024
+      protocol: TCP
+  selector:
+    app: service-alcohol
+  type: ClusterIP

@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_OXC_PROD_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-chat
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: phr-${PHR_OXC_PROD_NAMESPACE}-service-chat
+  template:
+    metadata:
+      labels:
+        app: phr-${PHR_OXC_PROD_NAMESPACE}-service-chat
+    spec:
+      containers:
+      - name: phr-${PHR_OXC_PROD_NAMESPACE}-service-chat
+        image: ${PHR_OXC_PROD_REGISTRY}/phr-${PHR_OXC_PROD_NAMESPACE}-service-chat:v${BUILD_NUMBER}
+        env:
+        - name: APP_PORT
+          value: '3015'
+        - name: DATABASE_URL
+          value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-database:3001
+        - name: NODE_ENV
+          value: development
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        ports:
+        - containerPort: 3015
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-chat
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    app: phr-${PHR_OXC_PROD_NAMESPACE}-service-chat
+  ports:
+  - port: 3015

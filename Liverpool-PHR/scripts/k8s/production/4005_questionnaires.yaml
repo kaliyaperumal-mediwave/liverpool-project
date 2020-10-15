@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_OXC_PROD_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires
+  template:
+    metadata:
+      labels:
+        app: phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires
+    spec:
+      containers:
+      - name: phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires
+        image: ${PHR_OXC_PROD_REGISTRY}/phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires:v${BUILD_NUMBER}
+        env:
+        - name: NODE_ENV
+          value: development
+        - name: APP_NAME
+          value: service-worcdemog
+        - name: APP_PORT
+          value: '4005'
+        - name: MSSQL_DB
+          value: ${PHR_WHCNT_DEMO_MSSQL_DB}
+        - name: MSSQL_USER
+          value: ${PHR_WHCNT_DEMO_MSSQL_USER}
+        - name: MSSQL_PASSWORD
+          value: ${PHR_WHCNT_DEMO_MSSQL_PASSWORD}
+        - name: MSSQL_HOST
+          value: ${PHR_WHCNT_DEMO_MSSQL_HOST}
+        - name: MSSQL_PORT
+          value: ${PHR_WHCNT_DEMO_MSSQL_PORT}
+        - name: DATABASE_URL
+          value: https://phr-${PHR_OXC_PROD_NAMESPACE}-service-database:3001
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        ports:
+        - containerPort: 4005
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires
+  namespace: $PHR_OXC_PROD_NAMESPACE
+spec:
+  selector:
+    app: phr-${PHR_OXC_PROD_NAMESPACE}-service-questionnaires
+  ports:
+  - port: 4005

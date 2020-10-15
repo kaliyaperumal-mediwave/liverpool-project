@@ -1,0 +1,59 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: service-email
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-email
+    spec:
+      imagePullSecrets:
+      - name: acr-credentials
+      containers:
+        - name: service-email
+          image: mindwavephr.azurecr.io/phr-service-email:v755
+          env:
+          - name: APP_PORT
+            value: '3020'
+          - name: DATABASE_URL
+            value: https://service-database:3001
+          - name: NODE_ENV
+            value: development
+          - name: EMAIL_HOST
+            value: smtp.gmail.com
+          - name: EMAIL_PORT
+            value: '587'
+            #- name: EMAIL_SECURE
+            #value: 'false'
+          - name: EMAIL_AUTH_USERNAME
+            value: mindwavesmtp@gmail.com
+          - name: EMAIL_AUTH_PASSWORD
+            value: m!nd!ndia89
+          - name: EMAIL_FROM_ADDRESS
+            value: mindwavesmtp@gmail.com
+          - name: APOSTROPHE_ORIGIN
+            value: http://51.141.26.90
+          - name: NODE_TLS_REJECT_UNAUTHORIZED
+            value: '0'
+          ports:
+            - containerPort: 3020
+      imagePullSecrets:
+       - name: regcred            
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-email
+  labels:
+    name: service-email
+spec:
+  ports:
+    - port: 3020
+      targetPort: 3020
+      protocol: TCP
+  selector:
+    app: service-email
+  type: ClusterIP

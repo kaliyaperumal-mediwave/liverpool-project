@@ -1,0 +1,275 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build Services 1') {
+      parallel {
+
+        stage('Build Controller') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/controller", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-controller:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-controller:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG" )
+          }
+        }
+
+        stage('Build Database') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/database", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-database:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-database:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Authentication') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/auth", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-authentication:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-authentication:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Account') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/user", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-accounts:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-accounts:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Coping Strategies') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/coping", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-coping-strategies:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-coping-strategies:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Problem') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/problem", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-problem-tracker:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-problem-tracker:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Goal') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/goal", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-goals:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-goals:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Sleep Service') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/sleep", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-sleep-tracker:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-sleep-tracker:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Diary') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/diary", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-diary:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-diary:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Sms') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/sms", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-sms:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-sms:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+          }
+        }
+
+        stage('Build Services 2') {
+          parallel {
+
+        stage('Build Care Plan') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/careplan", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-careplan:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-careplan:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build School feedback') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/schoolfeedback", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-school-feedback:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-school-feedback:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build About me') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/aboutme", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-aboutme:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-aboutme:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Circle') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/circle", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-circle:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-circle:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Job') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/job", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-job:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-job:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Email') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/email", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-email:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-email:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build Mood Tracker') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/mood", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-mood:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-mood:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build mcDNA') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/mcDNA", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-mcdna:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-mcdna:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build pain') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/pain", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-pain:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-pain:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build smoke') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/smoke", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-smoke:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-smoke:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+        stage('Build alcohol') {
+          steps {
+            acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "services/alcohol", imageNames: [[image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-alcohol:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/phr-$env.PHR_OXC_UAT_NAMESPACE-service-alcohol:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG")
+          }
+        }
+
+      }
+    }
+
+    stage('Deployment') {
+      parallel {
+        stage('Deploy Controller') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3000_controller.yaml')
+          }
+        }
+
+        stage('Deploy Database') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3001_database.yaml')
+          }
+        }
+
+        stage('Deploy Authentication') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3002_authentication.yaml')
+          }
+        }
+
+        stage('Deploy Account') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3003_account.yaml')
+          }
+        }
+
+        stage('Deploy Coping Strategies') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3005_coping-strategies.yaml')
+          }
+        }
+
+        stage('Deploy Problem') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3007_problem.yaml')
+          }
+        }
+
+        stage('Deploy Goal') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3004_golals.yaml')
+          }
+        }
+
+        stage('Deploy Sleep service build') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3006_sleep-tracker.yaml')
+          }
+        }
+
+        stage('Deploy Diary') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3009_diary.yaml')
+          }
+        }
+
+        stage('Deploy Care Plan') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3012_careplan.yaml')
+          }
+        }
+
+        stage('Deploy School feedback') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3013_school-feedback.yaml')
+          }
+        }
+
+        stage('Deploy About me') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3014_aboutme.yaml')
+          }
+        }
+
+        stage('Deploy Circle') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3019_circle.yaml')
+          }
+        }
+
+        stage('Deploy Job') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3021_jobs.yaml')
+          }
+        }
+
+        stage('Deploy email') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3020_email.yaml')
+          }
+        }
+
+        stage('Deploy Mood tracker') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3022_mood.yaml')
+          }
+        }
+
+
+        stage('Deploy mcDNA') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/4002_mcdna.yaml')
+          }
+        }
+
+        stage('Deploy alcohol') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3023_alcohol.yaml')
+          }
+        }
+
+        stage('Deploy pain') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3024_pain.yaml')
+          }
+        }
+
+        stage('Deploy smoke') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/3025_smoke.yaml')
+          }
+        }
+
+        stage('Deploy sms') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'scripts/k8s/UAT/4005_sms.yaml')
+          }
+        }
+
+      }
+    }
+
+  }
+}
