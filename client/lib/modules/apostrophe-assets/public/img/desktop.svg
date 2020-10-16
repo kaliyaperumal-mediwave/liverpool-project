@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1904" viewBox="0 0 1920 1904">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2244" data-name="Rectangle 2244" width="1920" height="1904" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-Desktop_Background">
+      <rect width="1920" height="1904"/>
+    </clipPath>
+  </defs>
+  <g id="Desktop_Background" clip-path="url(#clip-Desktop_Background)">
+    <rect width="1920" height="1904" fill="#fff"/>
+    <g id="Mask_Group_2" data-name="Mask Group 2" clip-path="url(#clip-path)">
+      <path id="Path_13245" data-name="Path 13245" d="M2075.179,2682.6c-719.824,770.035-1921.709,695.638-1008.867,1734.258s2003.317,849.928,2323.506-41.462S3834.072,2682.1,3465.41,2490.129,2075.179,2682.6,2075.179,2682.6Z" transform="matrix(0.996, -0.087, 0.087, 0.996, -1797.097, -1952.549)" fill="#8ecae6"/>
+      <path id="Path_13243" data-name="Path 13243" d="M2012.092,2682.6C1326.215,3452.636,181.01,3378.238,1050.8,4416.859s1908.841,849.928,2213.931-41.462,423.3-1693.293,72.027-1885.268S2012.092,2682.6,2012.092,2682.6Z" transform="matrix(0.996, -0.087, 0.087, 0.996, -1837.625, -2993.42)" fill="#8ecae6" stroke="#707070" stroke-width="1"/>
+      <path id="Path_13245-2" data-name="Path 13245" d="M2105.032,2682.6c-735.888,770.035-1964.6,695.638-1031.381,1734.258s2048.024,849.928,2375.36-41.462S3903.178,2682.1,3526.29,2490.129,2105.032,2682.6,2105.032,2682.6Z" transform="matrix(0.996, -0.087, 0.087, 0.996, -1873.777, -1342.381)" fill="#8ecae6"/>
+      <path id="Path_13242" data-name="Path 13242" d="M2498.925,3551.079c-19.821-12.605-233.118-283.574-674.95,0s-641.828,339.91-495.884,865.471,1736.1,1349.8,1769.1,582.77S2498.925,3551.079,2498.925,3551.079Z" transform="translate(6279.57 341.896) rotate(110)" fill="#ffb703"/>
+      <path id="Path_13244" data-name="Path 13244" d="M1221.448,3760.168c-105.063-638.8,1050.389-128.335,1550.23,224.145s734.5,1573.285,201.915,1580.251S1326.512,4398.97,1221.448,3760.168Z" transform="matrix(0.978, -0.208, 0.208, 0.978, -2013.208, -2843.887)" fill="#fb8500"/>
+    </g>
+  </g>
+</svg>
