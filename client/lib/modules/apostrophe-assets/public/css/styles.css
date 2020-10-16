@@ -1,0 +1,147 @@
+@font-face {
+  font-family: "century-gothic";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "century-gothic";
+  font-style: normal;
+  font-weight: bold;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "century-gothic";
+  font-style: normal;
+  font-weight: bold;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "century-gothic";
+  font-style: italic;
+  font-weight: bold;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "century-gothic";
+  font-style: italic;
+  font-weight: normal;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype"); }
+
+body {
+  font-family: "century-gothic" !important; }
+
+.header-title {
+  font-size: 38px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1; }
+
+.header-bg {
+  background: #8ecae6 0% 0% no-repeat padding-box;
+  opacity: 1; }
+
+.main-content-bg {
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed; }
+
+.sub-header-bg {
+  background: #012f46 0% 0% no-repeat padding-box;
+  opacity: 1; }
+
+.header-logo {
+  height: 112px;
+  width: auto; }
+
+.main-content-area {
+  background: #fafafa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+  opacity: 1;
+  width: 934px; }
+
+.content-header-text {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1; }
+
+.content-secondary-header-text {
+  font-size: 38px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1; }
+
+.content-text {
+  font-size: 20px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1; }
+
+.secondary-content-bg {
+  width: 934px;
+  background: #012f46 0% 0% no-repeat padding-box;
+  opacity: 1; }
+
+.secondary-content-area {
+  background: #fafafa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 24px;
+  opacity: 1;
+  width: 869px; }
+
+.last-content-area {
+  background: #fafafa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+  width: 934px;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px; }
+
+.cursor-pointer {
+  cursor: pointer; }
+
+.hint-text {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1; }
+
+.btn-txt {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1; }
+
+.btn-primary-main {
+  background: #219ebc 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  opacity: 1;
+  width: 187px;
+  height: 46px; }
+
+.ham-logo {
+  height: 55px;
+  width: auto; }
+
+.footer-text {
+  font-size: 20px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: #feffff;
+  opacity: 1; }
+
+.support-logo {
+  height: 35px;
+  width: auto; }
+
+.footer-bg {
+  background: #012f46 0% 0% no-repeat padding-box;
+  opacity: 1; }

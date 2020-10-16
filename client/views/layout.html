@@ -2,32 +2,43 @@
 {% extends data.outerLayout %}
 
 {% block title %}
-  {# Create a useful, SEO-friendly title tag based on what we have #}
-  {% if data.piece %}
-    {{ data.piece.title }}
-  {% elseif data.page %}
-    {{ data.page.title }}
-  {% else %}
-    {{ apos.log('Looks like you forgot to override the title block in a template that does not have access to an Apostrophe page or piece.') }}
-  {% endif %}
+{# Create a useful, SEO-friendly title tag based on what we have #}
+{% if data.piece %}
+{{ data.piece.title }}
+{% elseif data.page %}
+{{ data.page.title }}
+{% else %}
+{{ apos.log('Looks like you forgot to override the title block in a template that does not have access to an Apostrophe page or piece.') }}
+{% endif %}
 {% endblock %}
 
 {% block extraHead %}
-  {#
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://use.fontawesome.com/901da64fb9.js"></script>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
-  #}
+  #} -->
 {% endblock %}
 
 {% block beforeMain %}
-  {#
+<!-- {#
     We recommend you use the beforeMain block for global page components
     like headers or navigation.
-  #}
+  #} -->
 {% endblock %}
 
 {% block main %}
-  {#
+{#
     Usually, your page templates in the apostrophe-pages module will override
     this block. It is safe to assume this is where your page-specific content
     should go.
@@ -35,7 +46,16 @@
 {% endblock %}
 
 {% block afterMain %}
-  {#
+<div class="footer-bg">
+  <div class="row col-md-6 justify-content-between mx-auto">
+    <a class="footer-text px-4 py-3 m-0 cursor-pointer">About</a>
+    <a class="footer-text px-4 py-3 m-0 cursor-pointer">Privacy</a>
+    <a class="footer-text px-4 py-3 m-0 cursor-pointer">Contact</a>
+    <a class="footer-text px-4 py-3 m-0 cursor-pointer">T & Cs</a>
+  </div>
+</div>
+
+<!-- {#
     This would be a great place to put a global footer.
-  #}
+  #} -->
 {% endblock %}
