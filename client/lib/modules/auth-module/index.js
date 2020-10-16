@@ -6,10 +6,10 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.auth);
+      self.dispatch('/', self.role);
     };
-    self.auth = function (req, callback) {
-      return self.sendPage(req, self.renderer('home', {}));
+    self.role = function (req, callback) {
+      return self.sendPage(req, self.renderer('role', {}));
     };
   }
 }
