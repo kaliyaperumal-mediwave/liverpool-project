@@ -119,17 +119,57 @@ body {
   opacity: 1;
 }
 
-.header-logo {
-  height: 112px;
-  width: auto;
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
+    width: 86px;
+    height: 86px;
+  }
 }
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
+    width: 86px;
+    height: 86px;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    height: 100px;
+    width: 99px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    height: 112px;
+    width: 111px;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    height: 112px;
+    width: 111px;
+  }
+}
+
 .main-content-area {
   background: #fafafa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-top-left-radius: 22px;
   border-top-right-radius: 22px;
   opacity: 1;
-  width: 934px;
 }
 
 .content-header-text {
@@ -156,7 +196,6 @@ body {
 }
 
 .secondary-content-bg {
-  width: 934px;
   background: $primary-sub-header-color 0% 0% no-repeat padding-box;
   opacity: 1;
 }
@@ -166,14 +205,12 @@ body {
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 24px;
   opacity: 1;
-  width: 869px;
 }
 
 .last-content-area {
   background: #fafafa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   opacity: 1;
-  width: 934px;
   border-bottom-left-radius: 22px;
   border-bottom-right-radius: 22px;
 }
