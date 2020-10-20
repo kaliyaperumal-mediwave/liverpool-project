@@ -8,7 +8,8 @@ exports.eligibility = ctx => {
     return user.create({
       need_interpreter: ctx.request.body.interpreter,
       provide_information: ctx.request.body.isInformation,
-      registerd_gp: ctx.request.body.registerd_gp
+      registerd_gp: ctx.request.body.registerd_gp,
+      user_section:1
     }).then((childUserInfo) => {
       childUserInfo.setType("1")
       const responseData = {
@@ -26,6 +27,7 @@ exports.eligibility = ctx => {
 exports.about = ctx => {
 
   const user = ctx.orm().User;
+  const userSection = ctx.orm();
 
   return user.update(
     {
@@ -46,6 +48,7 @@ exports.about = ctx => {
       child_household_dob: ctx.request.body.houseHoldDOB,
       child_household_profession: ctx.request.body.houseHoldProfession,
       child_care_adult: ctx.request.body.childCareAdult,
+      user_section:2
     },
     {
       where:
@@ -93,8 +96,8 @@ exports.profession = ctx => {
 
       child_socialworker: ctx.request.body.isSocialWorker,
       child_socialworker_name: ctx.request.body.socialWorkerName,
-      child_socialworker_contact: ctx.request.body.socialWorkerContactNumber
-
+      child_socialworker_contact: ctx.request.body.socialWorkerContactNumber,
+      user_section:3
     },
     {
       where:
@@ -117,6 +120,18 @@ exports.profession = ctx => {
 
 exports.signUpUser = ctx => {
 
+  const responseData = {
+    role: "child",
+    interpreter: "no",
+    childDob:'2020-10-09',
+    camhsSelect:'yes',
+    gp:"B"
+  }
+
+
+  console.log(ctx.request.body)
+  return ctx.body = responseData;
+return;
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral;
 
