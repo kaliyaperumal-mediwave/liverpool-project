@@ -1,70 +1,16 @@
-$primary-color: #ffffff;
+//$primary-color: #ffffff;
 $secondary-color: #000000;
 $primary-header-color: #8ecae6;
-$primary-sub-header-color: #012f46;
+$sub-header-color: #012f46;
 $primary-content-bg-img: url("/modules/my-apostrophe-assets/img/desktop.svg");
 $content-header-color: #023047;
-// $primary-heading:#F0F0F0;
-// $primary-head-para:#F0F0F0;
-// $primary-icon:#4DC6A4;
-// $primary-add-btn:#FFBF00;
-// $primary-add-btn-text:#1C2025;
-// $primary-add-btn-hover:#8B6513;
-// $secondary-add-btn:#FFAF00;
-// $primary-cancel-btn:#FF7161;
-// $primary-cancel-btn-text:#1C2025;
-// $primary-cancel-btn-hover:#A84034;
-// $primary-save-btn:#CED127;
-// $primary-save-btn-text:#1C2025;
-// $primary-save-btn-hover:#94961E;
-// $primary-card-bg:#2E313E;
-// $secondary-card-bg:#2E313E;
-// $primary-card-border:#DBDBDB;
-// $primary-body-inner:#1C2025;
-// $secondary-body-inner:#000000;
-// $primary-main-menu:#053C7C;
-// $primary-main-menu-active:#F0F0F0;
-// $primary-header-main-nav:transparent;
-// $primary-sub-menu:#333745;
-// $primary-sub-menu-text:#FFFFFF;
-// $primary-sub-menu-active:#F0F0F0;
-// $primary-body-border:#61bca4;
-// $primary-menu:#61BCA4;
-// $primary-menu-active:#61BCA4;
-// $primary-titel-para:#FFFFFF;
-// $primary-card-panel:#FFFFFF;
-// $secondary-card-panel:#F0F0F0;
-// $primary-link:#ffbf00;
-// $primary-popup-view-btn:#61BCA4;
-// $primary-popup-add-btn:#FFBF00;
-// $primary-popup-view-btn-text:#000000;
-// $primary-popup-add-btn-text:#000000;
-// $primary-nav-border:#DBDBDB;
-// $primary-profile-label:#000000;
-// $secondary-profile-label:#FFFFFF;
-// $primary-Quartenary-btn:#FFBF00;
-// $primary-Quartenary-btn-text:#1C2025;
-// $primary-input-icon:#FFFFFF;
-// $primary-footer-icon:#FFFFFF;
-// $primary-calendar-bg:#2E313E;
-// $primary-calendar-active:#4DC6A4;
-// $primary-calendar-active-text:#FFFFFF;
-// $primary-calendar-text:#FFFFFF;
-// $primary-delete-link:#FF7161;
-// $primary-skin-inactive:#F0F0F0;
-// $primary-skin-mode:linear-gradient(-45deg,#ed584f 50%,#ffaf00 50%);
-// $primary-header-bg:#2e313e;
-// $primary-auth-link:#61bca4;
-// $primary-auth-pop-bg:#61BCA4;
-// $primary-auth-pop-titel-para:#000000;
-// $primary-auth-pop-btn:#1C2025;
-// $primary-auth-pop-btn-text:#000000;
-// $primary-archive-btn:#ffbf00;
-// $primary-header-bg-img:url("/modules/my-apostrophe-assets/img/header-bg.png");
-// $primary-footer-menu:#2E313E;
-// $secondary-nav-icon-color:#23252E;
-// $primary-check-color:#CED127;
-// $primary-accordion-icon:#61BCA4;
+
+$header-text-color: #ffffff;
+$content-color: #fafafa;
+$footer-text-color: #feffff;
+
+$question-text-color: #023047;
+
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
@@ -97,13 +43,49 @@ $content-header-color: #023047;
 }
 body {
   font-family: "century-gothic" !important;
+
+  input[type="radio"] {
+    -ms-transform: scale(3); /* IE 9 */
+    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
+    transform: scale(3);
+  }
+
+  input[type="radio"]:before {
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+    border: 1px solid #023047 !important;
+    border-radius: 102px !important;
+    opacity: 1 !important;
+  }
+  // input[type="radio"]:checked:after {
+  // }
 }
+
+/* This CSS will re-used. */
+
+/* Start  */
+%font-shared {
+  letter-spacing: 0px;
+  opacity: 1;
+}
+
+%content-shared {
+  background: $content-color 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+}
+
+%header-footer-bg {
+  background: $sub-header-color 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+/* End */
+
 .header-title {
   font-size: 38px;
   font-weight: bold;
-  letter-spacing: 0px;
-  color: #ffffff;
-  opacity: 1;
+  @extend %font-shared;
+  color: $header-text-color;
 }
 
 .header-bg {
@@ -111,12 +93,16 @@ body {
   opacity: 1;
 }
 
+.sub-header-bg {
+  @extend %header-footer-bg;
+}
+
+.footer-bg {
+  @extend %header-footer-bg;
+}
+
 .main-content-bg {
   background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
-}
-.sub-header-bg {
-  background: $primary-sub-header-color 0% 0% no-repeat padding-box;
-  opacity: 1;
 }
 
 // Extra small devices (portrait phones, less than 576px)
@@ -196,7 +182,7 @@ body {
 }
 
 .secondary-content-bg {
-  background: $primary-sub-header-color 0% 0% no-repeat padding-box;
+  background: $sub-header-color 0% 0% no-repeat padding-box;
   opacity: 1;
 }
 
@@ -259,7 +245,22 @@ body {
   width: auto;
 }
 
-.footer-bg {
-  background: $primary-sub-header-color 0% 0% no-repeat padding-box;
+.question-font {
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: $question-text-color;
   opacity: 1;
+}
+
+.option-font {
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: $question-text-color;
+  opacity: 1;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  background-color: green;
 }
