@@ -16,6 +16,9 @@ module.exports = {
   scripts: [
     {
       name: 'site'
-    }
+    },
+    {
+      name: process.env.ENV === 'development' ? 'vue' : 'vue.min'
+    },
   ]
 };

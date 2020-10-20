@@ -7,22 +7,48 @@
 <div>
     <nav class="navbar header-bg p-4">
         <div class="row mx-0 w-100 justify-content-between">
-            <img src="/modules/my-apostrophe-assets/img/logo.svg" alt="logo" class="header-logo">
-            <h2 class="d-flex align-self-center header-title d-none d-sm-block">It’s okay to not be okay.</h2>
+            <div alt="logo" class="header-logo"></div>
+            <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">It’s okay to
+                not be okay.</h2>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
                 aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars fa-4x" aria-hidden="true"></i>
+                <i class="fa fa-bars fa-4x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
+                <i class="fa fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
+                <i class="fa fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
             </button>
         </div>
     </nav>
 </div>
 <div class="sub-header-bg">
-    <div class="text-center container py-4 header-title">
+    <div class="text-center mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title">
         Section 1 of 5: Eligibility Before we get too far, let’s check that you or the child / young person is eligible
         to refer into this service.
     </div>
 </div>
 <div class="main-content-bg py-4">
+    <div class="secondary-content-area col-md-6 col-sm-10 col-12 col-lg-6 col-xl-6 mx-auto">
+        <div class="px-2 py-2" id="role-form">
+            <span class="question-font">I am a</span>
+            <div class="form-check py-2">
+                <input class="form-check-input" type="radio" name="aboutYou" id="aboutYou" value="">
+                <label class="form-check-label option-font" for="aboutYou">
+                    Child / Young Person
+                </label>
+            </div>
+            <div class="form-check py-2">
+                <input class="form-check-input" type="radio" name="aboutYou" id="aboutYou" value="">
+                <label class="form-check-label option-font" for="aboutYou">
+                    Parent / Carer
+                </label>
+            </div>
+            <div class="form-check py-2">
+                <input class="form-check-input" type="radio" name="aboutYou" id="aboutYou" value="">
+                <label class="form-check-label option-font" for="aboutYou">
+                    Professional
+                </label>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
