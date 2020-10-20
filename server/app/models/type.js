@@ -1,10 +1,10 @@
 module.exports = function modelType(sequelize, types) {
   const Type = sequelize.define('Type', {
     name: {
-      type: types.STRING(90),
+      type: types.TEXT
     },
     description: {
-      type: types.STRING(255),
+      type: types.TEXT
     },
   }, {
     tableName: 'types',

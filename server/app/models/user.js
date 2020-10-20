@@ -117,11 +117,9 @@ module.exports = function modelUser(sequelize, types) {
         legal_care_status:{
           type: types.TEXT
         },
-
-
-
-
-
+        user_section:{
+          type: types.INTEGER
+        },
 
     },{
         tableName: 'users',
@@ -135,6 +133,11 @@ module.exports = function modelUser(sequelize, types) {
       User.belongsToMany(sequelize.models.Referral, {
         as: 'referral',
         through: 'UserReferral',
+      });
+
+      User.belongsToMany(sequelize.models.Section, {
+        as: 'section',
+        through: 'UserSection',
       });
 
 
