@@ -9,6 +9,8 @@ $header-text-color: #ffffff;
 $content-color: #fafafa;
 $footer-text-color: #feffff;
 
+$question-text-color: #023047;
+
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
@@ -226,4 +228,20 @@ body {
 .support-logo {
   height: 35px;
   width: auto;
+}
+
+.question-font {
+  font-size: 18px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: $question-text-color;
+  opacity: 1;
+}
+
+.option-font {
+  font-size: 17px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: $question-text-color;
+  opacity: 1;
 }
