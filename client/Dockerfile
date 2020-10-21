@@ -20,5 +20,5 @@ VOLUME /app/data
 VOLUME /app/public/uploads
 
 # ENV NODE_TLS_REJECT_UNAUTHORIZED 0
-EXPOSE 80
+EXPOSE 3000
 CMD [ "npm", "start" ]
