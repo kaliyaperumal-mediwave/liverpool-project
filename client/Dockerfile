@@ -1,7 +1,6 @@
 FROM node:carbon-alpine
 # Create app directory
-RUN mkdir -p /app
-#WORKDIR /app
+WORKDIR /app
 # ADD cert/* /tmp/cert/
 #
 # RUN apk add --no-cache ca-certificates
@@ -9,7 +8,7 @@ RUN mkdir -p /app
 # RUN update-ca-certificates
 # Bundle app source
 COPY . .
-RUN npm init
+RUN npm init -y
 RUN npm install
 # Mount persistent storage
 #VOLUME /app/data
