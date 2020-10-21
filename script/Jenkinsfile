@@ -1,0 +1,15 @@
+pipeline {
+  agent any
+  stages {
+    stage('Build Apostrophe') {
+      steps {
+        acrQuickTask(azureCredentialsId: "$env.AZURE_SP" , local: "client", imageNames: [[image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-Apostrophe:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-Apostrophe:latest"]], registryName: "$env.AZURE_CONTAINERREGISTRY", resourceGroupName: "$env.AZURE_RESOURCEGROUP", timeout: 28800)
+      }
+    }
+    stage('Build phr') {
+      steps {
+        acrQuickTask(azureCredentialsId: "$env.AZURE_SP" , local: "server", imageNames: [[image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-phr:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-phr:latest"]], registryName: "$env.AZURE_CONTAINERREGISTRY", resourceGroupName: "$env.AZURE_RESOURCEGROUP", timeout: 28800)
+      }
+    }
+  }
+}

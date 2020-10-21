@@ -1,7 +1,7 @@
 FROM node:12.19.0-stretch
 
 # Create app directory
-RUN mkdir -p /app
+#RUN mkdir -p /app
 WORKDIR /app
 
 # ADD cert/* /tmp/cert/
