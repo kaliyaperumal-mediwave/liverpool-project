@@ -17,7 +17,8 @@ LABEL environment=$APP_ENV
 LABEL tier="backend"
 LABEL company="Mindwave Ventures LTD"
 RUN echo environment $APP_ENV
-#WORKDIR /appserver
+WORKDIR /app
+COPY package.json ./app
 ADD . .
 RUN npm install
 CMD npm install pg --save
