@@ -9,6 +9,7 @@ RUN mkdir -p /app
 # RUN update-ca-certificates
 # Bundle app source
 COPY . .
+RUN npm init
 RUN npm install
 # Mount persistent storage
 #VOLUME /app/data
