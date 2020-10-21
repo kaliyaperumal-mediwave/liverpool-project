@@ -21,7 +21,7 @@ WORKDIR /app
 #COPY package.json ./app
 ADD . .
 RUN npm init -y
-RUN npm install
+RUN npm install npm@latest -g
 CMD npm install pg --save
 EXPOSE 3001
 # WORKDIR /app
