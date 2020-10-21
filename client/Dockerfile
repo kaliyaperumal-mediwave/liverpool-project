@@ -8,7 +8,6 @@ WORKDIR /app
 # RUN update-ca-certificates
 # Bundle app source
 COPY . .
-RUN npm init -y
 RUN npm install
 # Mount persistent storage
 #VOLUME /app/data
