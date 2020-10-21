@@ -18,7 +18,7 @@ LABEL tier="backend"
 LABEL company="Mindwave Ventures LTD"
 RUN echo environment $APP_ENV
 WORKDIR /app
-COPY package.json ./app
+#COPY package.json ./app
 ADD . .
 RUN npm init -y
 RUN npm install
