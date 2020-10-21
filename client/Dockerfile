@@ -1,18 +1,24 @@
+
 FROM node:carbon-alpine
+
 # Create app directory
+RUN mkdir -p /app
 WORKDIR /app
+
 # ADD cert/* /tmp/cert/
 #
 # RUN apk add --no-cache ca-certificates
 # RUN cp -R /tmp/cert/* /usr/local/share/ca-certificates
 # RUN update-ca-certificates
+
 # Bundle app source
-COPY . .
-RUN npm init -y
-RUN npm install npm@latest -g
+COPY . /app
+RUN npm install
+
 # Mount persistent storage
-#VOLUME /app/data
-#VOLUME /app/public/uploads
+VOLUME /app/data
+VOLUME /app/public/uploads
+
 # ENV NODE_TLS_REJECT_UNAUTHORIZED 0
-EXPOSE 3000
+EXPOSE 80
 CMD [ "npm", "start" ]
