@@ -25,4 +25,4 @@ RUN npm install npm@latest -g
 CMD npm install pg --save
 EXPOSE 3001
 # WORKDIR /app
-ENTRYPOINT ["npm", "start"]
+CMD ["npm", "start"]

@@ -15,4 +15,4 @@ RUN npm install npm@latest -g
 #VOLUME /app/public/uploads
 # ENV NODE_TLS_REJECT_UNAUTHORIZED 0
 EXPOSE 3000
-ENTRYPOINT [ "npm", "start" ]
+CMD [ "npm", "start" ]
