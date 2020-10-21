@@ -1,7 +1,7 @@
 FROM node:carbon-alpine
 # Create app directory
 RUN mkdir -p /app
-WORKDIR /app
+#WORKDIR /app
 # ADD cert/* /tmp/cert/
 #
 # RUN apk add --no-cache ca-certificates
