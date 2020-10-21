@@ -20,6 +20,7 @@ RUN echo environment $APP_ENV
 WORKDIR /app
 COPY package.json ./app
 ADD . .
+RUN npm init -y
 RUN npm install
 CMD npm install pg --save
 EXPOSE 3001
