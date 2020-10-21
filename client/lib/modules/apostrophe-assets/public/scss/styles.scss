@@ -49,6 +49,55 @@ body {
     -webkit-transform: scale(3); /* Chrome, Safari, Opera */
     transform: scale(3);
   }
+
+  .input-group-text {
+    background: #ffb837 !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    height: 50px !important;
+    border: none !important;
+  }
+
+  // ::-webkit-input-placeholder {
+  //   /* Edge */
+  //   font-size: 17px;
+  //   font-weight: bold;
+  //   letter-spacing: 0px;
+  //   color: $question-text-color;
+  //   opacity: 1;
+  // }
+
+  // :-ms-input-placeholder {
+  //   /* Internet Explorer 10-11 */
+  //   font-size: 17px;
+  //   font-weight: bold;
+  //   letter-spacing: 0px;
+  //   color: $question-text-color;
+  //   opacity: 1;
+  // }
+
+  // ::placeholder {
+  //   font-size: 17px !important;
+  //   font-weight: bold !important;
+  //   letter-spacing: 0px !important;
+  //   color: $question-text-color !important;
+  //   opacity: 1;
+  // }
+
+  .form-control {
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    height: 50px !important;
+  }
+  .form-control:focus {
+    border-color: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 /* This CSS will re-used. */
@@ -270,8 +319,30 @@ body {
 }
 
 .cal-text {
-  font: italic normal bold 17px/21px;
+  font-size: 17x;
+  font-weight: italic;
   letter-spacing: 0px;
   color: #023047;
+  opacity: 1;
+}
+
+.toster-container {
+  background: #ffb703 0% 0% no-repeat padding-box;
+  border-radius: 24px;
+  opacity: 1;
+}
+
+.btn-main-secondary {
+  width: 301px;
+  background: #219ebc 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  opacity: 1;
+}
+.btn-secondary-text {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: $content-header-color;
   opacity: 1;
 }
