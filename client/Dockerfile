@@ -9,7 +9,7 @@ WORKDIR /app
 # Bundle app source
 COPY . .
 RUN npm init -y
-npm install npm@latest -g
+RUN npm install npm@latest -g
 # Mount persistent storage
 #VOLUME /app/data
 #VOLUME /app/public/uploads
