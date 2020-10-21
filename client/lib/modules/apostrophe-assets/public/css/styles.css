@@ -36,11 +36,24 @@ body {
     -webkit-transform: scale(3);
     /* Chrome, Safari, Opera */
     transform: scale(3); }
-  body input[type="radio"]:before {
+  body .input-group-text {
+    background: #ffb837 !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    height: 50px !important;
+    border: none !important; }
+  body .form-control {
     background: #e8edee 0% 0% no-repeat padding-box !important;
-    border: 1px solid #023047 !important;
-    border-radius: 102px !important;
-    opacity: 1 !important; }
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    height: 50px !important; }
+  body .form-control:focus {
+    border-color: none !important;
+    outline: none !important;
+    box-shadow: none !important; }
 
 /* This CSS will re-used. */
 /* Start  */
@@ -194,5 +207,43 @@ body {
   color: #023047;
   opacity: 1; }
 
-.custom-control-input:checked ~ .custom-control-label::before {
-  background-color: green; }
+.calendar-bg {
+  background: #e8edee 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  opacity: 1; }
+
+.cal-icon-bg {
+  background: #ffb703 0% 0% no-repeat padding-box; }
+
+.cal-header-text {
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1; }
+
+.cal-text {
+  font-size: 17x;
+  font-weight: italic;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1; }
+
+.toster-container {
+  background: #ffb703 0% 0% no-repeat padding-box;
+  border-radius: 24px;
+  opacity: 1; }
+
+.btn-main-secondary {
+  width: 301px;
+  background: #219ebc 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  opacity: 1; }
+
+.btn-secondary-text {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1; }
