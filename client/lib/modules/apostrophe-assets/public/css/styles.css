@@ -261,3 +261,6 @@ body {
   letter-spacing: 0px;
   color: #023047;
   opacity: 1; }
+
+.main-min-height {
+  min-height: 603px !important; }

@@ -29,28 +29,28 @@
         <p class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
     </div>
 </div>
-<div class="main-content-bg py-4">
+<div class="main-content-bg py-4 main-min-height">
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
         <div id="role-form" class="py-4">
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">I am a</p>
                 <div class="form-check py-3">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="aboutYou"
-                        value="child"  @change="onChange($event)">
+                        value="child" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="aboutYou">
                         Child / Young Person
                     </label>
                 </div>
                 <div class="form-check py-3">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
-                        value="parent"  @change="onChange($event)">
+                        value="parent" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="whom">
                         Parent / Carer
                     </label>
                 </div>
                 <div class="form-check py-3">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
-                        id="profession" value="professional"  @change="onChange($event)">
+                        id="profession" value="professional" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="profession">
                         Professional
                     </label>
@@ -76,11 +76,11 @@
             </div>
 
             <!-- calender start-->
-            <div v-if=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') && elgibilityObj.interpreter == 'no'"
+            <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') && elgibilityObj.interpreter == 'no'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is your date of birth?</p>
-                <div class="input-group date" data-provide="datepicker">
-                    <input type="text" class="form-control">
+                <div class="input-group">
+                    <input type="date" class="form-control"  @change="getDate($event)">
                     <div class="input-group-addon">
                     </div>
                 </div>
@@ -218,7 +218,7 @@
             <div v-if="elgibilityObj.role == 'professional'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
-                <div class="input-group date" data-provide="datepicker">
+                <div class="input-group">
                     <input type="text" class="form-control">
                     <div class="input-group-addon">
                     </div>
@@ -269,15 +269,17 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio"  id="aboutYou"   v-model="elgibilityObj.parentConcernInformation"
-                    name="parentConcernSelect" @change="onChange($event)"  value="no">
+                    <input class="form-check-input" type="radio" id="aboutYou"
+                        v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
+                        @change="onChange($event)" value="no">
                     <label class="form-check-label option-font px-4" for="aboutYou">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio"  id="whom" value="yes"  v-model="elgibilityObj.parentConcernInformation"
-                    name="parentConcernSelect" @change="onChange($event)" >
+                    <input class="form-check-input" type="radio" id="whom" value="yes"
+                        v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
+                        @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="whom">
                         Yes
                     </label>
@@ -297,15 +299,16 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio"  id="aboutYou" value="no"  v-model="elgibilityObj.childConcernInformation"
-                    name="childConcernSelect" @change="onChange($event)" >
+                    <input class="form-check-input" type="radio" id="aboutYou" value="no"
+                        v-model="elgibilityObj.childConcernInformation" name="childConcernSelect"
+                        @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="aboutYou">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.childConcernInformation"
-                    name="childConcernSelect" @change="onChange($event)" id="whom" value="yes">
+                        name="childConcernSelect" @change="onChange($event)" id="whom" value="yes">
                     <label class="form-check-label option-font px-4" for="whom">
                         Yes
                     </label>

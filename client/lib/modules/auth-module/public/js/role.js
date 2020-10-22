@@ -79,6 +79,9 @@ $(document).ready(function () {
 
             },
 
+            getDate(e) {
+                console.log(e.target.value);
+            },
 
             onChange(event) {
                 var optionText = event.target.name;
