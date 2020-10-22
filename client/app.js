@@ -23,6 +23,7 @@ var apos = require('apostrophe')({
       uri: process.env.MONGO_STRING
     },
     'auth-module': {},
+    'about-module': {},
     'home-module': {},
     'apostrophe-templates': { viewsFolderFallback: path.join(__dirname, 'views') }
 
