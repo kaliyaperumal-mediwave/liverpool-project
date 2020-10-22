@@ -2,13 +2,38 @@
 
 
 exports.eligibility = ctx => {
+
   const user = ctx.orm().User;
   var userid;
-  if (ctx.request.body.type == "Child") {
+
+  console.log("-----------");
+
+  console.log(ctx.request.body);
+  if (ctx.request.body.role == "child") {
     return user.create({
       need_interpreter: ctx.request.body.interpreter,
       provide_information: ctx.request.body.isInformation,
       registerd_gp: ctx.request.body.registerd_gp,
+      user_section:1
+    }).then((childUserInfo) => {
+      childUserInfo.setType("1")
+      const responseData = {
+        userid: childUserInfo.id,
+        status: "ok"
+      }
+      userid = childUserInfo.id
+      return ctx.body = responseData;
+    }).catch((error) => {
+
+    });
+  }
+  else if (ctx.request.body.role == "professional") {
+    return user.create({
+      professional_name: ctx.request.body.profName,
+      professional_email: ctx.request.body.profEmail,
+      professional_contact_number: ctx.request.body.profContactNumber,
+      // professional_information_child: ctx.request.body.interpreter,
+      // professional_information_parent: ctx.request.body.isInformation,
       user_section:1
     }).then((childUserInfo) => {
       childUserInfo.setType("1")
