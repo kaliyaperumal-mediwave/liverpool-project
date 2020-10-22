@@ -1,17 +1,14 @@
-
-
-
 pipeline {
   agent any
   stages {
-stage('Build Apostrophe') {
+    stage('Build apostrophe') {
       steps {
-        acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "client", imageNames: [[image: "liverpoolacr.azurecr.io/phr-Liverpool staging-apostrophe:v$env.BUILD_NUMBER" ], [image: "liverpoolacr.azurecr.io/phr-Liverpool staging-apostrophe apostrophe:latest"]], registryName: "liverpoolacr", resourceGroupName: "liverpoolcamhs-staging")
+        acrQuickTask(azureCredentialsId: "$env.AZURE_SP" , local:"client", imageNames: [[image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-apostrophe:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-apostrophe:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG", timeout: 28800)
       }
     }
-    stage('Build Controller') {
+    stage('Build phr') {
       steps {
-        acrQuickTask(azureCredentialsId: "$env.AZURE_SP", local: "server", imageNames: [[image: "liverpoolacr.azurecr.io/phr-Liverpool staging-service-controller:v$env.BUILD_NUMBER" ], [image: "liverpoolacr.azurecr.io/phr-Liverpool staging-apostrophe-service-controller:latest"]], registryName: "liverpoolacr", resourceGroupName: "liverpoolcamhs-staging" )
+        acrQuickTask(azureCredentialsId: "$env.AZURE_SP" , local:"server", imageNames: [[image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-phr:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-phr:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG", timeout: 28800)
       }
     }
   }
