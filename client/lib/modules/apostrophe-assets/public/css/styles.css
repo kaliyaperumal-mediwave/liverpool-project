@@ -43,6 +43,20 @@ body {
     border-color: white !important;
     height: 50px !important;
     border: none !important; }
+  body .ui-widget.ui-widget-content {
+    border: none !important; }
+  body .ui-widget-content {
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    background: #e8edee 0% 0% no-repeat padding-box !important; }
+  body .ui-widget {
+    font-size: 18px !important;
+    font-weight: normal !important;
+    letter-spacing: 0px !important;
+    color: #023047 !important;
+    opacity: 1 !important; }
   body .form-control {
     background: #e8edee 0% 0% no-repeat padding-box !important;
     border-radius: 2px !important;
