@@ -61,73 +61,61 @@
                 <p class="question-font">Do you need an interpreter?</p>
                 <div class="form-check py-3">
                     <input class="form-check-input" type="radio" name="interpreter" id="aboutYou"
-                        v-model="elgibilityObj.interpreter" value="yes">
+                        v-model="elgibilityObj.interpreter" value="no" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="aboutYou">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
                     <input class="form-check-input" type="radio" name="interpreter" id="whom"
-                        v-model="elgibilityObj.interpreter" value="no">
+                        v-model="elgibilityObj.interpreter" value="yes" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="whom">
                         Yes
                     </label>
                 </div>
             </div>
 
+            <!-- toster-container start -->
+            <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.interpreter == 'yes'"
+                class="px-4 py-4">
+                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 py-2">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 py-2">Please call 01874 673985 to get help completing your referral</p>
+                    </div>
+                </div>
+            </div>
+            <!-- toster-container start -->
+
+
+
             <!-- calender start-->
             <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') && elgibilityObj.interpreter == 'no'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p class="question-font m-0">What is your date of birth?</p>
+                <p v-if="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?</p>
+                <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
                 <div class="input-group">
-                    <input type="date" class="form-control"  @change="getDate($event)">
+                    <input type="date" class="form-control" name="child"  v-model="elgibilityObj.childDob"  @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>
                 </div>
-
-                <!-- <div class="d-flex">
-                    <div class="d-block py-2 pr-2">
-                        <div class="py-2 cal-header-text">
-                            DAY
-                        </div>
-                        <div class="calendar-bg py-3 px-3 cal-text">
-                            07
-                        </div>
-                    </div>
-                    <div class="d-block py-2 pr-2">
-                        <div class="py-2 cal-header-text">
-                            MONTH
-                        </div>
-                        <div class="calendar-bg py-3 px-3 cal-text cal-text">
-                            07
-                        </div>
-                    </div>
-                    <div class="d-block py-2 pr-2">
-                        <div class="py-2 cal-header-text">
-                            YEAR
-                        </div>
-                        <div class="calendar-bg py-3 px-3 cal-text">
-                            2003
-                        </div>
-                    </div>
-                    <div class="d-block align-self-end py-2 pr-2">
-                        <div class="cal-icon-bg py-3 px-3 cal-text">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <!-- calendar-end -->
 
 
             <!-- consent start-->
 
-            <div v-if=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') && elgibilityObj.interpreter == 'no'"
+            <div v-if="elgibilityObj.camhs== 'show'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p class="question-font">Do you give consent for us to use the information that you provide and
+                    <p v-if="elgibilityObj.role=='child'"   class="question-font">Do you give consent for us to use the information that you provide and
                         share it
                         with other CAMHS partners so that we can help you?</p>
+
+                    <p v-if="elgibilityObj.role=='parent'"  class="question-font">Do you have consent from your child for us to use the information that you
+                        provide, and share it with other CAMHS partners so that we can help them?</p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-check py-3">
@@ -148,11 +136,26 @@
 
             <!-- consent-ent -->
 
+              <!-- toster-container start -->
+              <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no'"
+              class="px-4 py-4">
+              <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                  <div class="px-2 py-2">
+                      <p class="text-center m-0 py-2">
+                          <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                      </p>
+                      <p class="question-font text-center m-0 py-2">We need your consent to continue.</p>
+                  </div>
+              </div>
+          </div>
+          <!-- toster-container start -->
+
             <!-- GP Location start -->
             <div v-show=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
-                    <label for="gpLocation" class="question-font">Which GP are you registered with?</label>
+                    <label v-if="elgibilityObj.role=='child'"  for="gpLocation" class="question-font">Which GP are you registered with?</label>
+                    <label v-if="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is your child registered with?</label>
                     <div class="input-group">
                         <input type="text" class="form-control" v-model="elgibilityObj.registerd_gp"
                             @focus="getAddress($event)" id="gpLocation" aria-label="location">
@@ -201,15 +204,18 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="fullName" class="question-font">Your full name</label>
-                    <input type="text" class="form-control" id="fullName" placeholder="">
+                    <input type="text" v-model="elgibilityObj.profName" class="form-control" id="fullName"
+                        placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="emailAddress" class="question-font">Your email address - optional</label>
-                    <input type="email" class="form-control" id="emailAddress" placeholder="">
+                    <input type="email" v-model="elgibilityObj.profEmail" class="form-control" id="emailAddress"
+                        placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="contact" class="question-font">Enter your contact number</label>
-                    <input type="text" class="form-control" id="contact" placeholder="">
+                    <input type="text" v-model="elgibilityObj.profContactNumber" class="form-control" id="contact"
+                        placeholder="">
                 </div>
             </div>
             <!-- Professional Info End -->
@@ -219,48 +225,17 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
                 <div class="input-group">
-                    <input type="text" class="form-control">
+                    <input type="date" class="form-control" v-model="elgibilityObj.profChildDob"
+                        @change="changeDob($event)" name="prof">
                     <div class="input-group-addon">
                     </div>
                 </div>
-
-                <!-- <div class="d-flex">
-                    <div class="d-block py-2 pr-2">
-                        <div class="py-2 cal-header-text">
-                            DAY
-                        </div>
-                        <div class="calendar-bg py-3 px-3 cal-text">
-                            07
-                        </div>
-                    </div>
-                    <div class="d-block py-2 pr-2">
-                        <div class="py-2 cal-header-text">
-                            MONTH
-                        </div>
-                        <div class="calendar-bg py-3 px-3 cal-text cal-text">
-                            07
-                        </div>
-                    </div>
-                    <div class="d-block py-2 pr-2">
-                        <div class="py-2 cal-header-text">
-                            YEAR
-                        </div>
-                        <div class="calendar-bg py-3 px-3 cal-text">
-                            2003
-                        </div>
-                    </div>
-                    <div class="d-block align-self-end py-2 pr-2">
-                        <div class="cal-icon-bg py-3 px-3 cal-text">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <!-- calendar-end -->
 
             <!-- consent parent start-->
 
-            <div v-if="elgibilityObj.role == 'professional'"
+            <div v-if="elgibilityObj.parentConcern== 'show'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
                     <p class="question-font">Do you have consent from the child / young person’s parent / carer for us
@@ -287,6 +262,21 @@
             </div>
 
             <!-- consent- parent end -->
+
+              <!-- toster-container start -->
+              <div v-if="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no'"
+              class="px-4 py-4">
+              <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                  <div class="px-2 py-2">
+                      <p class="text-center m-0 py-2">
+                          <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                      </p>
+                      <p class="question-font text-center m-0 py-2">We need the child / young person’s parent / carer’s consent to continue.</p>
+                  </div>
+              </div>
+          </div>
+          <!-- toster-container start -->
+
 
             <!-- consent child start-->
 
@@ -317,6 +307,20 @@
 
             <!-- consent- child end -->
 
+             <!-- toster-container start -->
+             <div v-if="elgibilityObj.role == 'professional' &&  elgibilityObj.childConcernInformation == 'no'"
+             class="px-4 py-4">
+             <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                 <div class="px-2 py-2">
+                     <p class="text-center m-0 py-2">
+                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                     </p>
+                     <p class="question-font text-center m-0 py-2">We need the child / young person’s consent to continue.</p>
+                 </div>
+             </div>
+         </div>
+         <!-- toster-container start -->
+
 
             <!-- GP Location start -->
             <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.childConcernInformation == 'yes'"
@@ -324,7 +328,7 @@
                 <div class="form-group">
                     <label for="gpLocation" class="question-font">Which GP are you registered with?</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" v-model="elgibilityObj.registerd_gp"
+                        <input type="text" class="form-control" v-model="elgibilityObj.profRegisterd_gp"
                             @focus="getProfAddress($event)" id="gpProfLocation" aria-label="location">
                         <div class="input-group-append">
                             <span class="input-group-text">
@@ -355,7 +359,7 @@
 
             <div v-if="elgibilityObj.role === 'professional' && submitProfForm == 'true'" class="text-center py-4">
                 <a>
-                    <button v-on:click="changeDob()" type="button" class="btn-main-secondary"><span
+                    <button @click="save()" type="button" class="btn-main-secondary"><span
                             class="btn-secondary-text">SAVE &
                             CONTINUE</span></button>
                 </a>

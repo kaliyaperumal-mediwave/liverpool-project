@@ -12,7 +12,7 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#role-form',
         mounted: function () {
-            ///  this.getGP();
+              //this.getGP();
         },
         data: {
 
@@ -86,11 +86,18 @@ $(document).ready(function () {
             onChange(event) {
                 var optionText = event.target.name;
 
-                console.log(optionText);
+                console.log(this.elgibilityObj.interpreter);
+
 
                 if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
+
+                    console.log(optionText);
+
                     this.elgibilityObj.interpreter = "";
                     this.elgibilityObj.childDob = "";
+                    this.elgibilityObj.camhs = "";
+                    this.elgibilityObj.isInformation = "";
+                    this.elgibilityObj.registerd_gp = "";
                     this.submitForm = "false";
 
                 }
@@ -99,6 +106,7 @@ $(document).ready(function () {
                     this.elgibilityObj.childDob = "";
                     this.elgibilityObj.camhs = "";
                     this.elgibilityObj.camhsSelect = "";
+                    this.elgibilityObj.isInformation = "";
                     this.submitForm = "false";
                 }
 
@@ -123,17 +131,36 @@ $(document).ready(function () {
                     this.elgibilityObj.parentConcern = "";
                     this.elgibilityObj.parentConcernInformation = "";
                     this.elgibilityObj.childConcernInformation = "";
-                    this.elgibilityObj.registerd_gp = "";
+                    this.elgibilityObj.profRegisterd_gp = "";
                     this.submitProfForm = "false";
                 }
 
 
-
-                if (optionText == "childConcernSelect") {
-
-                    this.getProfGP();
+                if (optionText == "parentConcernSelect") {
+                    var selectTxt = event.target.value
+                    if (selectTxt == "no" && this.elgibilityObj.childConcernInformation != undefined) {
+                        console.log("--");
+                        this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.registerd_gp = "";
+                        this.submitProfForm = "false";
+                    }
 
                 }
+
+                if (optionText == "childConcernSelect") {
+                    this.getProfGP();
+
+                    var selectTxt = event.target.value
+                    if (selectTxt == "no") {
+                        console.log("--");
+
+                        this.elgibilityObj.registerd_gp = "";
+                        this.submitProfForm = "false";
+                    }
+
+                }
+
+
 
 
             },
@@ -154,15 +181,22 @@ $(document).ready(function () {
                     if (e.target.value === '') {
                         app.submitProfForm = "false";
                     } else {
-                        app.elgibilityObj.registerd_gp = e.target.value
+                        app.elgibilityObj.profRegisterd_gp = e.target.value
                         app.submitProfForm = "true";
                     }
                 });
             },
-            changeDob(e) {
-                $('#datepicker').datepicker().on(picker_event, function (e) {
-                    console.log(e)
-                });;
+            changeDob(event) {
+
+                var roleText = event.target.name;
+                if (roleText == 'child') {
+                    this.elgibilityObj.camhs = "show";
+                    this.submitForm = "false";
+                }
+                else if (roleText == 'prof') {
+                    this.elgibilityObj.parentConcern = "show";
+                    this.submitProfForm = "false";
+                }
             },
             changeGP() {
                 this.submitForm = "true";
@@ -177,15 +211,15 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(this.elgibilityObj),
                     success: function (data) {
-                        console.log(data)
+                        alert("section 1 saved.");
+                        location.reload();
+                        
                     },
 
                 });
-            }
+            },
 
         }
     })
-    console.log('loaded')
-    console.log('vue app', app)
 
 });
