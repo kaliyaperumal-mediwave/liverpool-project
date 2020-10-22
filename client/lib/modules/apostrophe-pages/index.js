@@ -12,6 +12,10 @@ module.exports = {
       label: 'Auth Module'
     },
     {
+      name: 'about-module',
+      label: 'About Module'
+    },
+    {
       name: 'home-module',
       label: 'Home Module'
     }

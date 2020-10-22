@@ -63,5 +63,11 @@
 	"Append (Adds to the existing permissions)": "Append (Adds to the existing permissions)",
 	"Search...": "Search...",
 	"Browse": "Browse",
-	"Limit Reached": "Limit Reached"
+	"Limit Reached": "Limit Reached",
+	"Set the options for a new page.": "Set the options for a new page.",
+	"Slug": "Slug",
+	"Published": "Published",
+	"About Module": "About Module",
+	"An error has occurred": "An error has occurred",
+	"An error has occurred. We're working on it. We apologize for the inconvenience.": "An error has occurred. We're working on it. We apologize for the inconvenience."
 }
