@@ -8,7 +8,7 @@ module.exports = function modelUser(sequelize, types) {
         parent_name: {
           type: types.TEXT
         },
-        professor_name: {
+        professional_name: {
           type: types.TEXT
         },
         need_interpreter: {
@@ -119,6 +119,18 @@ module.exports = function modelUser(sequelize, types) {
         },
         user_section:{
           type: types.INTEGER
+        },
+        professional_email: {
+          type: types.TEXT
+        },
+        professional_contact_number: {
+          type: types.TEXT
+        },
+        professional_information_child: {
+          type: types.TEXT
+        },
+        professional_information_parent: {
+          type: types.TEXT
         },
 
     },{

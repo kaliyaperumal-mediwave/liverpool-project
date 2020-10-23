@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="26" height="26" viewBox="0 0 26 26">
+  <defs>
+    <style>
+      .cls-1 {
+        clip-path: url(#clip-Artboard_5);
+      }
+
+      .cls-2 {
+        fill: #023047;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        fill: #feb837;
+      }
+    </style>
+    <clipPath id="clip-Artboard_5">
+      <rect width="26" height="26"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_5" data-name="Artboard – 5" class="cls-1">
+    <g id="Group_3" data-name="Group 3" transform="translate(-368 -565)">
+      <rect id="Rectangle_86" data-name="Rectangle 86" class="cls-2" width="24" height="24" rx="12" transform="translate(369 566)"/>
+      <g id="help-24px" transform="translate(366 563)">
+        <path id="Path_34" data-name="Path 34" class="cls-3" d="M0,0H30.06V30.06H0Z"/>
+        <path id="Path_35" data-name="Path 35" class="cls-4" d="M14.608,2A12.608,12.608,0,1,0,27.216,14.608,12.613,12.613,0,0,0,14.608,2Zm1.261,21.433H13.347V20.912h2.522Zm2.61-9.771-1.135,1.16a4.416,4.416,0,0,0-1.311,2.131,5.784,5.784,0,0,0-.164,1.437H13.347v-.63a5.1,5.1,0,0,1,.277-1.652,5.04,5.04,0,0,1,1.2-1.916L16.386,12.6a2.475,2.475,0,0,0,.693-2.269A2.51,2.51,0,0,0,15.327,8.4a2.542,2.542,0,0,0-3.114,1.6,1.113,1.113,0,0,1-1.034.82H10.8A1.092,1.092,0,0,1,9.766,9.413a5.053,5.053,0,0,1,4.072-3.568,5.129,5.129,0,0,1,4.879,2.269A4.17,4.17,0,0,1,18.479,13.662Z" transform="translate(0.422 0.422)"/>
+      </g>
+    </g>
+  </g>
+</svg>

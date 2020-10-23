@@ -12,8 +12,16 @@ module.exports = {
       label: 'Auth Module'
     },
     {
+      name: 'about-module',
+      label: 'About Module'
+    },
+    {
       name: 'home-module',
       label: 'Home Module'
+    },
+    {
+      name: 'education-employment-module',
+      label: 'Education Employment Module'
     }
 
     // Add more page types here, but make sure you create a corresponding

@@ -2,16 +2,62 @@
 
 
 exports.eligibility = ctx => {
+
   const user = ctx.orm().User;
   var userid;
-  if (ctx.request.body.type == "Child") {
+
+  console.log(ctx.request.body);
+  if (ctx.request.body.role == "child") {
     return user.create({
       need_interpreter: ctx.request.body.interpreter,
       provide_information: ctx.request.body.isInformation,
       registerd_gp: ctx.request.body.registerd_gp,
-      user_section:1
+      child_dob:ctx.request.body.childDob,
+      user_section: 1
     }).then((childUserInfo) => {
       childUserInfo.setType("1")
+      const responseData = {
+        userid: childUserInfo.id,
+        status: "ok"
+      }
+      userid = childUserInfo.id
+      return ctx.body = responseData;
+    }).catch((error) => {
+
+    });
+  }
+  else if (ctx.request.body.role == "parent") {
+    return user.create({
+      need_interpreter: ctx.request.body.interpreter,
+      provide_information: ctx.request.body.isInformation,
+      registerd_gp: ctx.request.body.registerd_gp,
+      child_dob:ctx.request.body.childDob,
+      user_section: 1
+    }).then((childUserInfo) => {
+      childUserInfo.setType("2")
+      const responseData = {
+        userid: childUserInfo.id,
+        status: "ok"
+      }
+      userid = childUserInfo.id
+      return ctx.body = responseData;
+    }).catch((error) => {
+
+    });
+  }
+
+  else if (ctx.request.body.role == "professional") {
+    return user.create({
+      professional_name: ctx.request.body.profName,
+      professional_email: ctx.request.body.profEmail,
+      professional_contact_number: ctx.request.body.profContactNumber,
+      professional_information_child: ctx.request.body.childConcernInformation,
+      professional_information_parent: ctx.request.body.parentConcernInformation,
+      child_dob:ctx.request.body.profChildDob,
+      registerd_gp: ctx.request.body.profRegisterd_gp,
+      user_section: 1
+    }).then((childUserInfo) => {
+      childUserInfo.setType("3")
       const responseData = {
         userid: childUserInfo.id,
         status: "ok"
@@ -48,7 +94,7 @@ exports.about = ctx => {
       child_household_dob: ctx.request.body.houseHoldDOB,
       child_household_profession: ctx.request.body.houseHoldProfession,
       child_care_adult: ctx.request.body.childCareAdult,
-      user_section:2
+      user_section: 2
     },
     {
       where:
@@ -97,7 +143,7 @@ exports.profession = ctx => {
       child_socialworker: ctx.request.body.isSocialWorker,
       child_socialworker_name: ctx.request.body.socialWorkerName,
       child_socialworker_contact: ctx.request.body.socialWorkerContactNumber,
-      user_section:3
+      user_section: 3
     },
     {
       where:
@@ -123,15 +169,15 @@ exports.signUpUser = ctx => {
   const responseData = {
     role: "child",
     interpreter: "no",
-    childDob:'2020-10-09',
-    camhsSelect:'yes',
-    gp:"B"
+    childDob: '2020-10-09',
+    camhsSelect: 'yes',
+    gp: "B"
   }
 
 
   console.log(ctx.request.body)
   return ctx.body = responseData;
-return;
+  return;
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral;
 

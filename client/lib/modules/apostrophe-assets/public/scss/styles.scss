@@ -47,17 +47,84 @@ body {
   input[type="radio"] {
     -ms-transform: scale(3); /* IE 9 */
     -webkit-transform: scale(3); /* Chrome, Safari, Opera */
-    transform: scale(3);
+    transform: scale(2.7);
   }
 
-  input[type="radio"]:before {
+  input[type="checkbox"] {
+    -ms-transform: scale(3); /* IE 9 */
+    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
+    transform: scale(2.7);
+  }
+
+  .input-group-text {
+    background: #ffb837 !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    height: 50px !important;
+    border: none !important;
+  }
+
+  .ui-widget.ui-widget-content {
+    border: none !important;
+  }
+
+  .ui-widget-content {
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    //background:  50% top repeat-x;
     background: #e8edee 0% 0% no-repeat padding-box !important;
-    border: 1px solid #023047 !important;
-    border-radius: 102px !important;
+  }
+
+  .ui-widget {
+    font-size: 18px !important;
+    font-weight: normal !important;
+    letter-spacing: 0px !important;
+    color: #023047 !important;
     opacity: 1 !important;
   }
-  // input[type="radio"]:checked:after {
+
+  // ::-webkit-input-placeholder {
+  //   /* Edge */
+  //   font-size: 17px;
+  //   font-weight: bold;
+  //   letter-spacing: 0px;
+  //   color: $question-text-color;
+  //   opacity: 1;
   // }
+
+  // :-ms-input-placeholder {
+  //   /* Internet Explorer 10-11 */
+  //   font-size: 17px;
+  //   font-weight: bold;
+  //   letter-spacing: 0px;
+  //   color: $question-text-color;
+  //   opacity: 1;
+  // }
+
+  // ::placeholder {
+  //   font-size: 17px !important;
+  //   font-weight: bold !important;
+  //   letter-spacing: 0px !important;
+  //   color: $question-text-color !important;
+  //   opacity: 1;
+  // }
+
+  .form-control {
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    height: 50px !important;
+  }
+  .form-control:focus {
+    border-color: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
 }
 
 /* This CSS will re-used. */
@@ -103,6 +170,7 @@ body {
 
 .main-content-bg {
   background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background-size: cover;
 }
 
 // Extra small devices (portrait phones, less than 576px)
@@ -148,6 +216,10 @@ body {
     height: 112px;
     width: 111px;
   }
+}
+
+#ui-id-1 {
+  width: auto !important;
 }
 
 .main-content-area {
@@ -261,6 +333,68 @@ body {
   opacity: 1;
 }
 
-.custom-control-input:checked ~ .custom-control-label::before {
-  background-color: green;
+.calendar-bg {
+  background: #e8edee 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  opacity: 1;
+}
+.cal-icon-bg {
+  background: #ffb703 0% 0% no-repeat padding-box;
+}
+
+.cal-header-text {
+  font-size: 14px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: $question-text-color;
+  opacity: 1;
+}
+
+.cal-text {
+  font-size: 17x;
+  font-weight: italic;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1;
+}
+
+.toster-container {
+  background: #ffb703 0% 0% no-repeat padding-box;
+  border-radius: 24px;
+  opacity: 1;
+}
+
+.btn-main-secondary {
+  width: 301px;
+  background: #219ebc 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  opacity: 1;
+}
+.btn-secondary-text {
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: $content-header-color;
+  opacity: 1;
+}
+
+.main-min-height {
+  min-height: 603px !important;
+}
+
+.question-header-font {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1;
+}
+
+.add-more-hint {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1;
 }
