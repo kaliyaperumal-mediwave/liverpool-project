@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+
+{% endblock %}
+{% block main %}
+<div>
+    <nav class="navbar header-bg p-4">
+        <div class="row mx-0 w-100 justify-content-between">
+            <div alt="logo" class="header-logo"></div>
+            <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">It’s okay to
+                not be okay.</h2>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars fa-4x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
+                <i class="fa fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
+                <i class="fa fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+            </button>
+        </div>
+    </nav>
+</div>
+<div class="sub-header-bg">
+    <h2 class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 3 of 5: Education /
+        employment & support needs</h2>
+    <div
+        class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
+        Before we get too far, let’s check that you or the child / young person is eligible
+        to refer into this service.
+    </div>
+    <p class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
+</div>
+
+<div class="main-content-bg py-4 main-min-height">
+    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+        <div id="education-form" class="py-4">
+
+            <!-- About Your Self -->
+
+            <!-- Section completed Toaster container -->
+            <div class="px-4 py-4">
+                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 py-2">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 py-2">Another section finished. Lets move on to
+                            education / employment & support needs</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Section completed Toaster container -->
+            <div class="text-center py-4">
+                <a href="/role">
+                    <button type="button" class="btn-primary-main"><span class="btn-txt">PROCEED</span></button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

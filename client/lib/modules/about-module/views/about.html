@@ -31,9 +31,281 @@
     <p class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
 </div>
 
-<div class="main-content-bg">
-    <div class="col-md-8 col-lg-8 col-xl-6 col-sm-10 col-12 col-12 mx-auto py-4">
-        <div class="main-content-area mx-auto">
+<div class="main-content-bg py-4 main-min-height">
+    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+        <div id="role-form" class="py-4">
+            <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
+            <!-- NHS Number Start-->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="nhs" class="question-font">Your NHS number - optional</label>
+                    <input type="text" class="form-control" id="nhs" placeholder="Enter your 10 digit NHS number">
+                </div>
+                <div class="form-group">
+                    <label for="fullName" class="question-font">Your full name</label>
+                    <input type="email" class="form-control" id="fullName" placeholder="Enter your first and last name">
+                </div>
+                <div class="form-group">
+                    <label for="emailAddressOpts" class="question-font">Your email address - optional</label>
+                    <input type="email" class="form-control" id="emailAddressOpts"
+                        placeholder="Enter your email address">
+                </div>
+                <div class="form-group">
+                    <label for="contact" class="question-font">Enter your contact number</label>
+                    <input type="text" class="form-control" id="contact" placeholder="Enter your contact number">
+                </div>
+                <div class="form-group">
+                    <label for="gpLocation" class="question-font">Your address</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Start typing to search" id="gpProfLocation"
+                            aria-label="location">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- NHS Number End-->
+
+            <!-- Post Section Start-->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">Are you happy for post to be sent to this address?</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="no">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <label class="form-check-label option-font px-4" for="yes">
+                        Yes
+                    </label>
+                </div>
+            </div>
+            <!-- Post Section End-->
+
+            <!-- Gender Section Start -->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="d-flex align-items-start justify-content-between">
+                    <p class="question-font">Your gender?</p>
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" id="gender" placeholder="Enter your gender">
+                </div>
+
+            </div>
+            <!-- Gender Section End -->
+
+            <!-- Gender Indentification Start -->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="d-flex align-items-start">
+                    <p class="question-font">Do you identify with the gender you were assigned at birth?
+                    </p>
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="no">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <label class="form-check-label option-font px-4" for="yes">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="Unsure" value="Unsure">
+                    <label class="form-check-label option-font px-4" for="Unsure">
+                        Unsure
+                    </label>
+                </div>
+            </div>
+
+            <!-- Gender Indentification Start -->
+
+            <!-- Your sexual orientation - optional Start -->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="sexual" class="question-font">Your sexual orientation - optional</label>
+                    <input type="text" class="form-control" id="sexual"
+                        placeholder="Enter your sexual orientation (e.g. straight, pan, bi etc.)">
+                </div>
+            </div>
+            <!-- Your sexual orientation - optional End -->
+
+            <!-- Your ethnicity - optional Start -->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="ethnicity" class="question-font">Your ethnicity - optional</label>
+                    <input type="text" class="form-control" id="ethnicity" placeholder="Enter your ethnicity">
+                </div>
+            </div>
+            <!-- Your ethnicity - optional End -->
+
+            <!-- Your household Start -->
+            <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your household
+            </h2>
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="Name" class="question-font">Name of who you live with - optional</label>
+                    <input type="text" class="form-control" id="Name" placeholder="Joe Blogs">
+                </div>
+                <div class="form-group">
+                    <label for="relationship" class="question-font">Relationship - optional</label>
+                    <input type="text" class="form-control" id="relationship" placeholder="Brother">
+                </div>
+                <div class="form-group">
+                    <label for="dob" class="question-font">Date of birth - optional</label>
+                    <input type="text" class="form-control" id="dob" placeholder="10/10/2010">
+                </div>
+                <div class="form-group">
+                    <label for="employment" class="question-font">School / College / Employment - optional</label>
+                    <input type="text" class="form-control" id="employment" placeholder="Joe Blogs">
+                </div>
+                <p class="text-right add-more-hint m-0">Add more +</p>
+            </div>
+
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">Do you care for an adult?</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="no">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <label class="form-check-label option-font px-4" for="yes">
+                        Yes
+                    </label>
+                </div>
+            </div>
+            <!-- Your household End -->
+
+            <!-- Your parent / carer Start -->
+            <h2 class="px-4 py-4 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your parent /
+                carer</h2>
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="carer" class="question-font">What is your parent / carer’s name?</label>
+                    <input type="text" class="form-control" id="carer" placeholder="Joe Bucket">
+                </div>
+            </div>
+            <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">Does this person have parental responsibility for you?</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="no">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <label class="form-check-label option-font px-4" for="yes">
+                        Yes
+                    </label>
+                </div>
+            </div>
+            <!-- Your parent / carer End -->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="relationshipYou" class="question-font">What is this persons relationship to you?</label>
+                    <input type="text" class="form-control" id="relationshipYou"
+                        placeholder="eg mother, grandfather, foster parent etc">
+                </div>
+                <div class="form-group">
+                    <label for="contactNumber" class="question-font">What is their contact number?</label>
+                    <input type="text" class="form-control" id="contactNumber"
+                        placeholder="Enter your parent / carer’s phone number">
+                </div>
+                <div class="form-group">
+                    <label for="emailAddress" class="question-font">What is their email address? - optional</label>
+                    <input type="email" class="form-control" id="emailAddress"
+                        placeholder="Enter your parent / carer’s email address">
+                </div>
+            </div>
+
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">Does this person live in the same house as you?</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="sameHouseNo" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="sameHouseNo">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="sameHouseYes"
+                        value="yes">
+                    <label class="form-check-label option-font px-4" for="sameHouseYes">
+                        Yes
+                    </label>
+                </div>
+            </div>
+
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="gpParentorCarerLocation" class="question-font">What is your parents / carer’s address? -
+                        optional</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Start typing to search"
+                            id="gpParentorCarerLocation" aria-label="location">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="d-flex align-items-start">
+                    <p class="question-font">Your legal care status (“legal care status” means who has legal
+                        guardianship over you)
+                    </p>
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer" alt="">
+                </div>
+
+                <div class="input-group">
+                    <select class="custom-select form-control">
+                        <option value="0">I am under the care of a parent</option>
+                        <option value="1">I am under the care of a carer</option>
+                        <option value="2">I am under the care of a Professional</option>
+                        <option value="3">I am under the care of a Social Worker</option>
+                    </select>
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-chevron-down fa-1x" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section completed Toaster container -->
+            <div class="px-4 py-4">
+                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 py-2">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 py-2">Another section finished. Lets move on to
+                            education / employment & support needs</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Section completed Toaster container -->
+
+            <div class="text-center py-4">
+                <a href="/role">
+                    <button type="button" class="btn-primary-main"><span class="btn-txt">PROCEED</span></button>
+                </a>
+            </div>
 
         </div>
     </div>

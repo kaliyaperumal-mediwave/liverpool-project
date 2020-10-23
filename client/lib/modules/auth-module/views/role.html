@@ -83,13 +83,12 @@
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">Please call 01874 673985 to get help completing your referral</p>
+                        <p class="question-font text-center m-0 py-2">Please call 01874 673985 to get help completing
+                            your referral</p>
                     </div>
                 </div>
             </div>
             <!-- toster-container start -->
-
-
 
             <!-- calender start-->
             <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') && elgibilityObj.interpreter == 'no'"
@@ -97,24 +96,24 @@
                 <p v-if="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?</p>
                 <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
                 <div class="input-group">
-                    <input type="date" class="form-control" name="child"  v-model="elgibilityObj.childDob"  @change="changeDob($event)">
+                    <input type="date" class="form-control" name="child" v-model="elgibilityObj.childDob"
+                        @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>
                 </div>
             </div>
             <!-- calendar-end -->
 
-
             <!-- consent start-->
-
-            <div v-if="elgibilityObj.camhs== 'show'"
-                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-if="elgibilityObj.camhs== 'show'" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p v-if="elgibilityObj.role=='child'"   class="question-font">Do you give consent for us to use the information that you provide and
+                    <p v-if="elgibilityObj.role=='child'" class="question-font">Do you give consent for us to use the
+                        information that you provide and
                         share it
                         with other CAMHS partners so that we can help you?</p>
 
-                    <p v-if="elgibilityObj.role=='parent'"  class="question-font">Do you have consent from your child for us to use the information that you
+                    <p v-if="elgibilityObj.role=='parent'" class="question-font">Do you have consent from your child for
+                        us to use the information that you
                         provide, and share it with other CAMHS partners so that we can help them?</p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
@@ -136,26 +135,28 @@
 
             <!-- consent-ent -->
 
-              <!-- toster-container start -->
-              <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no'"
-              class="px-4 py-4">
-              <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                  <div class="px-2 py-2">
-                      <p class="text-center m-0 py-2">
-                          <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                      </p>
-                      <p class="question-font text-center m-0 py-2">We need your consent to continue.</p>
-                  </div>
-              </div>
-          </div>
-          <!-- toster-container start -->
+            <!-- toster-container start -->
+            <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no'"
+                class="px-4 py-4">
+                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 py-2">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 py-2">We need your consent to continue.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- toster-container start -->
 
             <!-- GP Location start -->
             <div v-show=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
-                    <label v-if="elgibilityObj.role=='child'"  for="gpLocation" class="question-font">Which GP are you registered with?</label>
-                    <label v-if="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is your child registered with?</label>
+                    <label v-if="elgibilityObj.role=='child'" for="gpLocation" class="question-font">Which GP are you
+                        registered with?</label>
+                    <label v-if="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is your
+                        child registered with?</label>
                     <div class="input-group">
                         <input type="text" class="form-control" v-model="elgibilityObj.registerd_gp"
                             @focus="getAddress($event)" id="gpLocation" aria-label="location">
@@ -263,19 +264,20 @@
 
             <!-- consent- parent end -->
 
-              <!-- toster-container start -->
-              <div v-if="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no'"
-              class="px-4 py-4">
-              <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                  <div class="px-2 py-2">
-                      <p class="text-center m-0 py-2">
-                          <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                      </p>
-                      <p class="question-font text-center m-0 py-2">We need the child / young person’s parent / carer’s consent to continue.</p>
-                  </div>
-              </div>
-          </div>
-          <!-- toster-container start -->
+            <!-- toster-container start -->
+            <div v-if="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no'"
+                class="px-4 py-4">
+                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 py-2">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 py-2">We need the child / young person’s parent /
+                            carer’s consent to continue.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- toster-container start -->
 
 
             <!-- consent child start-->
@@ -307,19 +309,20 @@
 
             <!-- consent- child end -->
 
-             <!-- toster-container start -->
-             <div v-if="elgibilityObj.role == 'professional' &&  elgibilityObj.childConcernInformation == 'no'"
-             class="px-4 py-4">
-             <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                 <div class="px-2 py-2">
-                     <p class="text-center m-0 py-2">
-                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                     </p>
-                     <p class="question-font text-center m-0 py-2">We need the child / young person’s consent to continue.</p>
-                 </div>
-             </div>
-         </div>
-         <!-- toster-container start -->
+            <!-- toster-container start -->
+            <div v-if="elgibilityObj.role == 'professional' &&  elgibilityObj.childConcernInformation == 'no'"
+                class="px-4 py-4">
+                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 py-2">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 py-2">We need the child / young person’s consent to
+                            continue.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- toster-container start -->
 
 
             <!-- GP Location start -->

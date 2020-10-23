@@ -18,6 +18,10 @@ module.exports = {
     {
       name: 'home-module',
       label: 'Home Module'
+    },
+    {
+      name: 'education-employment-module',
+      label: 'Education Employment Module'
     }
 
     // Add more page types here, but make sure you create a corresponding
