@@ -47,7 +47,13 @@ body {
   input[type="radio"] {
     -ms-transform: scale(3); /* IE 9 */
     -webkit-transform: scale(3); /* Chrome, Safari, Opera */
-    transform: scale(3);
+    transform: scale(2.7);
+  }
+
+  input[type="checkbox"] {
+    -ms-transform: scale(3); /* IE 9 */
+    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
+    transform: scale(2.7);
   }
 
   .input-group-text {

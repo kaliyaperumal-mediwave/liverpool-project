@@ -34,8 +34,139 @@
 <div class="main-content-bg py-4 main-min-height">
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
         <div id="education-form" class="py-4">
+            <!-- About Your Self Start-->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">I am a</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" name="role" id="education" value="education"
+                        @change="onChange($event)">
+                    <label class="form-check-label option-font px-4" for="education">
+                        Education
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" name="role" id="employment" value="employment"
+                        @change="onChange($event)">
+                    <label class="form-check-label option-font px-4" for="employment">
+                        Employment
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="checkbox" name="role" id="neither" value="neither">
+                    <label class="form-check-label option-font px-4" for="neither">
+                        Neither
+                    </label>
+                </div>
+            </div>
+            <!-- About Your Self End-->
 
-            <!-- About Your Self -->
+            <!-- Which school / college / university / do you attend? Start  -->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="gpParentorCarerLocation" class="question-font">Which school / college / university / do
+                        you attend?</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Start typing to search"
+                            id="gpParentorCarerLocation" aria-label="location">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Which school / college / university / do you attend? End  -->
+
+            <!-- Education or HealthCare Plan Start-->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">Do you have an Education & Health Care Plan (EHCP)?</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="planNo" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="planNo">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="planYes" value="yes">
+                    <label class="form-check-label option-font px-4" for="planYes">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="planUnsure"
+                        value="Unsure">
+                    <label class="form-check-label option-font px-4" for="planUnsure">
+                        Unsure
+                    </label>
+                </div>
+            </div>
+            <!-- Education or HealthCare Plan End-->
+
+
+            <!-- Early Help Assessment Tool Start-->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">Do you have an open Early Help Assessment Tool (EHAT)?</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="assessmentNo">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="assessmentYes"
+                        value="yes">
+                    <label class="form-check-label option-font px-4" for="assessmentYes">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="assessmentUnsure"
+                        value="Unsure">
+                    <label class="form-check-label option-font px-4" for="assessmentUnsure">
+                        Unsure
+                    </label>
+                </div>
+            </div>
+            <!-- Early Help Assessment Tool End-->
+
+            <!-- Have a Social Worker Start-->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font">Do you have a social worker?</p>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" id="workerNo" value="no" name="childConcernSelect">
+                    <label class="form-check-label option-font px-4" for="workerNo">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="workerYes" value="yes">
+                    <label class="form-check-label option-font px-4" for="workerYes">
+                        Yes
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="workerUnsure"
+                        value="Unsure">
+                    <label class="form-check-label option-font px-4" for="workerUnsure">
+                        Unsure
+                    </label>
+                </div>
+            </div>
+            <!-- Have a Social Worker Start-->
+
+            <!-- Social Worker Form Start -->
+            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="socialWorker" class="question-font">What is the name of your social worker?</label>
+                    <input type="text" class="form-control" id="socialWorker" placeholder="Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label for="contactWorker" class="question-font">Contact number for your social worker</label>
+                    <input type="text" class="form-control" id="contactWorker" placeholder="01548 659874">
+                </div>
+            </div>
+            <!-- Social Worker Form Start -->
 
             <!-- Section completed Toaster container -->
             <div class="px-4 py-4">
@@ -44,8 +175,8 @@
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">Another section finished. Lets move on to
-                            education / employment & support needs</p>
+                        <p class="question-font text-center m-0 py-2">Over half way there! Next section: the reasons for
+                            your referral request.</p>
                     </div>
                 </div>
             </div>

@@ -35,7 +35,13 @@ body {
     /* IE 9 */
     -webkit-transform: scale(3);
     /* Chrome, Safari, Opera */
-    transform: scale(3); }
+    transform: scale(2.7); }
+  body input[type="checkbox"] {
+    -ms-transform: scale(3);
+    /* IE 9 */
+    -webkit-transform: scale(3);
+    /* Chrome, Safari, Opera */
+    transform: scale(2.7); }
   body .input-group-text {
     background: #ffb837 !important;
     border-radius: 2px !important;
