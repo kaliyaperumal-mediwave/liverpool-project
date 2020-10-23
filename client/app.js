@@ -19,6 +19,14 @@ var apos = require('apostrophe')({
 
     // If a template is not found somewhere else, serve it from the top-level
     // `views/` folder of the project
+    
+    settings: {
+      // So we can write `apos.settings` in a template
+      alias: 'PHRMODULE',
+      // NOTE: LIVE ENV FILE . Comment when working in local.
+      'phr-module': process.env.SERVICE_PHR
+      // 'phr-module': 'https://localhost:3010'
+    },
     "apostrophe-db": {
       uri: process.env.MONGO_STRING
     },
