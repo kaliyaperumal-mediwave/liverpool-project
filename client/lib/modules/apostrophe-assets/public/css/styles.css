@@ -90,7 +90,8 @@ body {
   opacity: 1; }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed; }
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background-size: cover; }
 
 @media (max-width: 575.98px) {
   .header-logo {
