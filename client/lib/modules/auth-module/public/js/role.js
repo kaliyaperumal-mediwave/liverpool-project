@@ -1,5 +1,5 @@
 
-const apiUrl = "http://0.0.0.0:3001/user/eligibility"
+const apiUrl = "http://localhost:3001/user/eligibility"
 
 $(document).ready(function () {
 
@@ -19,7 +19,9 @@ $(document).ready(function () {
             gpListShow: [],
             elgibilityObj: {},
             submitForm: "",
-            submitProfForm: ""
+            submitProfForm: "",
+            belowAgeLimit:"",
+            aboveLimit:""
         },
         methods: {
 
@@ -203,15 +205,15 @@ $(document).ready(function () {
                     if(age<15)
                     {
                       
-                        this.elgibilityObj.belowAgeLimit = "yes";
-                        this.elgibilityObj.aboveLimit = "";
+                        this.belowAgeLimit = "yes";
+                        this.aboveLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
                     }
                     else if(age>25)
                     {
-                        this.elgibilityObj.aboveLimit = "yes";
-                        this.elgibilityObj.belowAgeLimit = "";
+                        this.aboveLimit = "yes";
+                        this.belowAgeLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
 
@@ -220,8 +222,8 @@ $(document).ready(function () {
                     {
                       
                         this.elgibilityObj.camhs = "show";
-                        this.elgibilityObj.belowAgeLimit = "";
-                        this.elgibilityObj.aboveLimit = "";
+                        this.belowAgeLimit = "";
+                        this.aboveLimit = "";
                         this.submitForm = "false";
                     }
                
