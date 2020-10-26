@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-
+<script src="/modules/about-module/js/about.js"></script>
 {% endblock %}
 {% block main %}
 <div>
@@ -33,32 +33,32 @@
 
 <div class="main-content-bg py-4 main-min-height">
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
-        <div id="role-form" class="py-4">
+        <div id="about-form" class="py-4">
             <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
             <!-- NHS Number Start-->
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="nhs" class="question-font">Your NHS number - optional</label>
-                    <input type="text" class="form-control" id="nhs" placeholder="Enter your 10 digit NHS number">
+                    <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"  placeholder="Enter your 10 digit NHS number">
                 </div>
                 <div class="form-group">
                     <label for="fullName" class="question-font">Your full name</label>
-                    <input type="email" class="form-control" id="fullName" placeholder="Enter your first and last name">
+                    <input type="email" class="form-control"  v-model="aboutObj.childName"  id="fullName" placeholder="Enter your first and last name">
                 </div>
                 <div class="form-group">
                     <label for="emailAddressOpts" class="question-font">Your email address - optional</label>
                     <input type="email" class="form-control" id="emailAddressOpts"
-                        placeholder="Enter your email address">
+                        placeholder="Enter your email address"  v-model="aboutObj.childEmail">
                 </div>
                 <div class="form-group">
                     <label for="contact" class="question-font">Enter your contact number</label>
-                    <input type="text" class="form-control" id="contact" placeholder="Enter your contact number">
+                    <input type="text" class="form-control" id="contact" placeholder="Enter your contact number"  v-model="aboutObj.childContactNumber" >
                 </div>
                 <div class="form-group">
                     <label for="gpLocation" class="question-font">Your address</label>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Start typing to search" id="gpProfLocation"
-                            aria-label="location">
+                            aria-label="location" v-model="aboutObj.childAddress">
                         <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -73,13 +73,13 @@
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Are you happy for post to be sent to this address?</p>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect"  v-model="aboutObj.sendPost">
                     <label class="form-check-label option-font px-4" for="no">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes" v-model="aboutObj.sendPost">
                     <label class="form-check-label option-font px-4" for="yes">
                         Yes
                     </label>
@@ -94,7 +94,7 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="gender" placeholder="Enter your gender">
+                    <input type="text" class="form-control" id="gender" placeholder="Enter your gender" v-model="aboutObj.childGender">
                 </div>
 
             </div>
@@ -108,19 +108,19 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="" v-model="aboutObj.childGenderBirth">
                     <label class="form-check-label option-font px-4" for="no">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes" v-model="aboutObj.childGenderBirth">
                     <label class="form-check-label option-font px-4" for="yes">
                         Yes
                     </label>
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="Unsure" value="Unsure">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="Unsure" value="Unsure" v-model="aboutObj.childGenderBirth">
                     <label class="form-check-label option-font px-4" for="Unsure">
                         Unsure
                     </label>
@@ -134,7 +134,7 @@
                 <div class="form-group">
                     <label for="sexual" class="question-font">Your sexual orientation - optional</label>
                     <input type="text" class="form-control" id="sexual"
-                        placeholder="Enter your sexual orientation (e.g. straight, pan, bi etc.)">
+                        placeholder="Enter your sexual orientation (e.g. straight, pan, bi etc.)" v-model="aboutObj.childSexualOrientation">
                 </div>
             </div>
             <!-- Your sexual orientation - optional End -->
@@ -143,7 +143,7 @@
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="ethnicity" class="question-font">Your ethnicity - optional</label>
-                    <input type="text" class="form-control" id="ethnicity" placeholder="Enter your ethnicity">
+                    <input type="text" class="form-control" id="ethnicity" placeholder="Enter your ethnicity" v-model="aboutObj.childEthnicity">
                 </div>
             </div>
             <!-- Your ethnicity - optional End -->
@@ -154,19 +154,19 @@
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="Name" class="question-font">Name of who you live with - optional</label>
-                    <input type="text" class="form-control" id="Name" placeholder="Joe Blogs">
+                    <input type="text" class="form-control" id="Name" placeholder="Joe Blogs" v-model="aboutObj.houseHoldName">
                 </div>
                 <div class="form-group">
                     <label for="relationship" class="question-font">Relationship - optional</label>
-                    <input type="text" class="form-control" id="relationship" placeholder="Brother">
+                    <input type="text" class="form-control" id="relationship" placeholder="Brother" v-model="aboutObj.houseHoldRelationship">
                 </div>
-                <div class="form-group">
+                <div class="form-group"> 
                     <label for="dob" class="question-font">Date of birth - optional</label>
-                    <input type="text" class="form-control" id="dob" placeholder="10/10/2010">
+                    <input type="text" class="form-control" id="dob" placeholder="10/10/2010" v-model="aboutObj.houseHoldDOB">
                 </div>
                 <div class="form-group">
                     <label for="employment" class="question-font">School / College / Employment - optional</label>
-                    <input type="text" class="form-control" id="employment" placeholder="Joe Blogs">
+                    <input type="text" class="form-control" id="employment" placeholder="Joe Blogs" v-model="aboutObj.houseHoldProfession">
                 </div>
                 <p class="text-right add-more-hint m-0">Add more +</p>
             </div>
@@ -174,13 +174,13 @@
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Do you care for an adult?</p>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect" v-model="aboutObj.childCareAdult">
                     <label class="form-check-label option-font px-4" for="no">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes" v-model="aboutObj.childCareAdult">
                     <label class="form-check-label option-font px-4" for="yes">
                         Yes
                     </label>
@@ -194,19 +194,19 @@
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="carer" class="question-font">What is your parent / carer’s name?</label>
-                    <input type="text" class="form-control" id="carer" placeholder="Joe Bucket">
+                    <input type="text" class="form-control" id="carer" placeholder="Joe Bucket" v-model="aboutObj.parentName">
                 </div>
             </div>
             <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Does this person have parental responsibility for you?</p>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect">
+                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect" v-model="aboutObj.parentialResponsibility">
                     <label class="form-check-label option-font px-4" for="no">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes" v-model="aboutObj.parentialResponsibility">
                     <label class="form-check-label option-font px-4" for="yes">
                         Yes
                     </label>
@@ -217,31 +217,31 @@
                 <div class="form-group">
                     <label for="relationshipYou" class="question-font">What is this persons relationship to you?</label>
                     <input type="text" class="form-control" id="relationshipYou"
-                        placeholder="eg mother, grandfather, foster parent etc">
+                        placeholder="eg mother, grandfather, foster parent etc" v-model="aboutObj.childParentRelationship">
                 </div>
                 <div class="form-group">
                     <label for="contactNumber" class="question-font">What is their contact number?</label>
                     <input type="text" class="form-control" id="contactNumber"
-                        placeholder="Enter your parent / carer’s phone number">
+                        placeholder="Enter your parent / carer’s phone number" v-model="aboutObj.parentContactNumber">
                 </div>
                 <div class="form-group">
                     <label for="emailAddress" class="question-font">What is their email address? - optional</label>
                     <input type="email" class="form-control" id="emailAddress"
-                        placeholder="Enter your parent / carer’s email address">
+                        placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
                 </div>
             </div>
 
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Does this person live in the same house as you?</p>
                 <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="sameHouseNo" value="no" name="childConcernSelect">
+                    <input class="form-check-input" type="radio" id="sameHouseNo" value="no" name="childConcernSelect" v-model="aboutObj.parentSameHouse">
                     <label class="form-check-label option-font px-4" for="sameHouseNo">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3">
                     <input class="form-check-input" type="radio" name="childConcernSelect" id="sameHouseYes"
-                        value="yes">
+                        value="yes" v-model="aboutObj.parentSameHouse">
                     <label class="form-check-label option-font px-4" for="sameHouseYes">
                         Yes
                     </label>
@@ -254,7 +254,7 @@
                         optional</label>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Start typing to search"
-                            id="gpParentorCarerLocation" aria-label="location">
+                            id="gpParentorCarerLocation" aria-label="location" v-model="aboutObj.parentAddress">
                         <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -273,7 +273,7 @@
                 </div>
 
                 <div class="input-group">
-                    <select class="custom-select form-control">
+                    <select class="custom-select form-control" v-model="aboutObj.legalCareStatus">
                         <option value="0">I am under the care of a parent</option>
                         <option value="1">I am under the care of a carer</option>
                         <option value="2">I am under the care of a Professional</option>
@@ -302,8 +302,8 @@
             <!-- Section completed Toaster container -->
 
             <div class="text-center py-4">
-                <a href="/education">
-                    <button type="button" class="btn px-md-4 py-2 px-3"><span class="btn-secondary-text">SAVE &
+                <a >
+                    <button type="button" class="btn px-md-4 py-2 px-3" @click="saveAbout()"><span class="btn-secondary-text">SAVE &
                             CONTINUE</span></button>
                 </a>
             </div>
