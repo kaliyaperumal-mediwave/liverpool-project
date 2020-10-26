@@ -34,21 +34,21 @@
         <div id="role-form" class="py-4">
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">I am a</p>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="aboutYou"
                         value="child" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="aboutYou">
                         Child / Young Person
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
                         value="parent" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="whom">
                         Parent / Carer
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
                         id="profession" value="professional" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="profession">
@@ -59,14 +59,14 @@
             <div v-if="elgibilityObj.role == 'child' || elgibilityObj.role=='parent'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Do you need an interpreter?</p>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" name="interpreter" id="aboutYou"
                         v-model="elgibilityObj.interpreter" value="no" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="aboutYou">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" name="interpreter" id="whom"
                         v-model="elgibilityObj.interpreter" value="yes" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="whom">
@@ -117,14 +117,14 @@
                         provide, and share it with other CAMHS partners so that we can help them?</p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" name="camhsSelect"
                         v-model="elgibilityObj.isInformation" id="aboutYou" value="no" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="aboutYou">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" name="camhsSelect"
                         v-model="elgibilityObj.isInformation" id="whom" value="yes" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="whom">
@@ -244,7 +244,7 @@
                         help them??</p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" id="aboutYou"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)" value="no">
@@ -252,7 +252,7 @@
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" id="whom" value="yes"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)">
@@ -290,7 +290,7 @@
                     </p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" id="aboutYou" value="no"
                         v-model="elgibilityObj.childConcernInformation" name="childConcernSelect"
                         @change="onChange($event)">
@@ -298,7 +298,7 @@
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.childConcernInformation"
                         name="childConcernSelect" @change="onChange($event)" id="whom" value="yes">
                     <label class="form-check-label option-font px-4" for="whom">
