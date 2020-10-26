@@ -94,7 +94,12 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="gender" placeholder="Enter your gender" v-model="aboutObj.childGender">
+                    <!-- <input type="text" class="form-control" id="gender" placeholder="Enter your gender" v-model="aboutObj.childGender"> -->
+                    <select  @change="onChange($event)"  class="custom-select form-control" v-model="aboutObj.childGender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        
+                    </select>
                 </div>
 
             </div>
@@ -160,14 +165,29 @@
                     <label for="relationship" class="question-font">Relationship - optional</label>
                     <input type="text" class="form-control" id="relationship" placeholder="Brother" v-model="aboutObj.houseHoldRelationship">
                 </div>
-                <div class="form-group"> 
+                <!-- <div class="form-group"> 
                     <label for="dob" class="question-font">Date of birth - optional</label>
                     <input type="text" class="form-control" id="dob" placeholder="10/10/2010" v-model="aboutObj.houseHoldDOB">
+                </div> -->
+
+                 <!-- calender start-->
+                    <div 
+                    class="form-group">
+                    <p  class="question-font m-0">What is your  date of birth?</p>
+                    <div class="input-group">
+                        <input type="date" class="form-control" name="child" v-model="aboutObj.childDob"
+                            @change="changeDob($event)">
+                        <div class="input-group-addon">
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
+                <!-- calendar-end -->
+                <!-- School / College / Employment - optional -start -->
+                <div  v-show="showBelowAge == 'yes'" class="form-group">
                     <label for="employment" class="question-font">School / College / Employment - optional</label>
                     <input type="text" class="form-control" id="employment" placeholder="Joe Blogs" v-model="aboutObj.houseHoldProfession">
                 </div>
+                  <!-- School / College / Employment - optional -end -->
                 <p class="text-right add-more-hint m-0">Add more +</p>
             </div>
 
@@ -185,8 +205,29 @@
                         Yes
                     </label>
                 </div>
+
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="Unsure" value="Unsure" v-model="aboutObj.childCareAdult ">
+                    <label class="form-check-label option-font px-4" for="Unsure">
+                        Unsure
+                    </label>
+                </div>
+
             </div>
             <!-- Your household End -->
+
+             <!-- Toaster container -->
+             <div  v-show="aboutObj.childCareAdult == 'yes'"  class="px-4 py-4">
+                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 py-2">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <p class="question-font text-center m-0 py-2">Help and support for children and young people who are carers</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Toaster container -->
 
             <!-- Your parent / carer Start -->
             <h2 class="px-4 py-4 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your parent /
@@ -272,12 +313,12 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer" alt="">
                 </div>
 
-                <div class="input-group">
-                    <select class="custom-select form-control" v-model="aboutObj.legalCareStatus">
-                        <option value="0">I am under the care of a parent</option>
-                        <option value="1">I am under the care of a carer</option>
-                        <option value="2">I am under the care of a Professional</option>
-                        <option value="3">I am under the care of a Social Worker</option>
+                <div  class="input-group">
+                    <select  @change="onChange($event)"  class="custom-select form-control" v-model="aboutObj.legalCareStatus">
+                        <option value="parent">I am under the care of a parent</option>
+                        <option value="carer">I am under the care of a carer</option>
+                        <option value="professional">I am under the care of a professional</option>
+                        <option value="social worker">I am under the care of a social worker</option>
                     </select>
                     <div class="input-group-append">
                         <span class="input-group-text">
@@ -288,7 +329,7 @@
             </div>
 
             <!-- Section completed Toaster container -->
-            <div class="px-4 py-4">
+            <div v-show="aboutObj.legalCareStatus != undefined" class="px-4 py-4">
                 <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
@@ -301,7 +342,7 @@
             </div>
             <!-- Section completed Toaster container -->
 
-            <div class="text-center py-4">
+            <div  v-show="aboutObj.legalCareStatus != undefined"  class="text-center py-4">
                 <a >
                     <button type="button" class="btn px-md-4 py-2 px-3" @click="saveAbout()"><span class="btn-secondary-text">SAVE &
                             CONTINUE</span></button>
