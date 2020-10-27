@@ -90,9 +90,8 @@ body {
     position: relative;
     padding-left: 56px;
     cursor: pointer;
-    line-height: 46px;
+    height: 40px;
     display: inline-block;
-    color: #666;
   }
   [type="radio"]:checked + label:before,
   [type="radio"]:not(:checked) + label:before {
@@ -112,11 +111,12 @@ body {
     content: "";
     width: 22px;
     height: 22px;
-    background: #000;
+    background: $question-text-color 0% 0% no-repeat padding-box;
     position: absolute;
     top: 9px;
     left: 9px;
-    border-radius: 100%;
+    border-radius: 102px;
+    opacity: 1;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease;
     padding: 2px;
