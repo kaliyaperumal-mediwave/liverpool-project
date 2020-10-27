@@ -1,2 +1,2 @@
 # Liverpool-CAMHS
-Liverpool CAMHS.
+Liverpool CAMHS
