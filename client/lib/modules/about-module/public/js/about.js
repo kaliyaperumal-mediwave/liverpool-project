@@ -1,20 +1,20 @@
-
-const apiUrl = "http://0.0.0.0:3001/user/about"
-
+var API_URI = "/modules/about-module";
 $(document).ready(function () {
 
 
     var _self = this;
     var app = new Vue({
         el: '#about-form',
-        mounted: function () {
-            console.log("vue js loaded");
-        },
         data: {
+            labelToDisplay:"",
             aboutObj: {},
             childDob: "",
             showBelowAge: "",
             submitForm:""
+        },
+        mounted: function () {
+            this.labelToDisplay= new URL(location.href).searchParams.get('role');
+            console.log(this.labelToDisplay)
         },
         methods: {
             onChange(event){
@@ -47,19 +47,25 @@ $(document).ready(function () {
                 this.aboutObj.userid=userid;
                 this.aboutObj.role=role;
                 console.log(this.aboutObj);
+
                 $.ajax({
-                    url: apiUrl,
+                    url: API_URI + "/about",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify(this.aboutObj),
                     success: function (data) {
                         alert("section 2 saved.");
-                       // location.reload();
-                       location.href="/education?userid="+data.userid+"&role="+role;
+                        console.log(data)
+                        // location.reload();
+                        // console.log("/about?userid="+data.userid+"&role="+role)
+                        location.href="/education?userid="+data.userid+"&role="+role;
+
                     },
 
                 });
+
+                
             },
             diff_years(dt2, dt1)
             {
@@ -68,6 +74,18 @@ $(document).ready(function () {
                return Math.abs(Math.round(diff/365.25));
             }
         }
+    })
+
+
+    var app1 = new Vue({
+        el: '#about-form-header',
+        data: {
+            headerToDisplay:"",
+        },
+        mounted: function () {
+            this.headerToDisplay= new URL(location.href).searchParams.get('role');
+            console.log(this.labelToDisplay)
+        },
     })
 
 });

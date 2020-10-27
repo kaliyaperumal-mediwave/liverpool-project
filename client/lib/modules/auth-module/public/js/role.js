@@ -1,6 +1,6 @@
 
-const apiUrl = "http://0.0.0.0:3001/user/eligibility"
-
+//const apiUrl = "/user/eligibility"
+var API_URI = "/modules/auth-module";
 $(document).ready(function () {
 
 
@@ -12,7 +12,7 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#role-form',
         mounted: function () {
-              //this.getGP();
+            //this.getGP();
         },
         data: {
 
@@ -20,10 +20,10 @@ $(document).ready(function () {
             elgibilityObj: {},
             submitForm: "",
             submitProfForm: "",
-            belowAgeLimit:"",
-            aboveLimit:"",
-            profBelowAgeLimit:"",
-            profaboveLimit:""
+            belowAgeLimit: "",
+            aboveLimit: "",
+            profBelowAgeLimit: "",
+            profaboveLimit: ""
         },
         methods: {
 
@@ -99,22 +99,24 @@ $(document).ready(function () {
 
                     this.elgibilityObj.interpreter = "";
                     this.elgibilityObj.childDob = "";
-                    this.elgibilityObj.belowAgeLimit = "";
-                    this.elgibilityObj.aboveLimit = "";
+                    this.belowAgeLimit = "";
+                    this.aboveLimit = "";
                     this.elgibilityObj.camhs = "";
                     this.elgibilityObj.isInformation = "";
                     this.elgibilityObj.registerd_gp = "";
+                    this.elgibilityObj.contactParent = "";
                     this.submitForm = "false";
 
                 }
 
                 if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
                     this.elgibilityObj.childDob = "";
-                    this.elgibilityObj.belowAgeLimit = "";
-                    this.elgibilityObj.aboveLimit = "";
+                    this.belowAgeLimit = "";
+                    this.aboveLimit = "";
                     this.elgibilityObj.camhs = "";
                     this.elgibilityObj.camhsSelect = "";
                     this.elgibilityObj.isInformation = "";
+                    this.elgibilityObj.contactParent = "";
                     this.submitForm = "false";
                 }
 
@@ -140,7 +142,11 @@ $(document).ready(function () {
                     this.elgibilityObj.parentConcernInformation = "";
                     this.elgibilityObj.childConcernInformation = "";
                     this.elgibilityObj.profRegisterd_gp = "";
+                    this.profBelowAgeLimit = "";
+                    this.profaboveLimit = "";
+                    this.elgibilityObj.contactProfParent ="";
                     this.submitProfForm = "false";
+
                 }
 
 
@@ -150,7 +156,12 @@ $(document).ready(function () {
                         console.log("--");
                         this.elgibilityObj.childConcernInformation = "";
                         this.elgibilityObj.registerd_gp = "";
+                        this.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.profBelowAgeLimit = "";
+                        this.profaboveLimit = "";
                         this.submitProfForm = "false";
+
                     }
 
                 }
@@ -163,6 +174,8 @@ $(document).ready(function () {
                         console.log("--");
 
                         this.elgibilityObj.registerd_gp = "";
+                        this.profBelowAgeLimit = "";
+                        this.profaboveLimit = "";
                         this.submitProfForm = "false";
                     }
 
@@ -195,63 +208,57 @@ $(document).ready(function () {
                 });
             },
             changeDob(event) {
-              
-               
-                var today=new Date();
-                var selectedDate=new Date(event.target.value);
-                var age = this.diff_years(today,selectedDate);
+
+
+                var today = new Date();
+                var selectedDate = new Date(event.target.value);
+                var age = this.diff_years(today, selectedDate);
                 var roleText = event.target.name;
                 console.log(this.elgibilityObj.childDob);
                 if (roleText == 'child') {
 
-                    if(age<15)
-                    {
-                      
+                    if (age < 15) {
+
                         this.belowAgeLimit = "yes";
                         this.aboveLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
                     }
-                    else if(age>25)
-                    {
+                    else if (age > 25) {
                         this.aboveLimit = "yes";
                         this.belowAgeLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
 
                     }
-                    else
-                    {
-                      
+                    else {
+
                         this.elgibilityObj.camhs = "show";
                         this.belowAgeLimit = "";
                         this.aboveLimit = "";
                         this.submitForm = "false";
                     }
-               
+
                 }
                 else if (roleText == 'prof') {
 
 
-                    if(age<15)
-                    {
-                      
+                    if (age < 15) {
+
                         this.profBelowAgeLimit = "yes";
                         this.profaboveLimit = "";
                         this.elgibilityObj.parentConcern = "";
                         this.submitProfForm = "false";
                     }
-                    else if(age>25)
-                    {
+                    else if (age > 25) {
                         this.profaboveLimit = "yes";
                         this.profBelowAgeLimit = "";
                         this.elgibilityObj.parentConcern = "";
                         this.submitProfForm = "false";
 
                     }
-                    else
-                    {
-                      
+                    else {
+
                         this.elgibilityObj.parentConcern = "show";
                         this.profBelowAgeLimit = "";
                         this.profaboveLimit = "";
@@ -265,10 +272,10 @@ $(document).ready(function () {
             save() {
 
                 console.log(this.elgibilityObj)
-                var role=this.elgibilityObj.role;
+                var role = this.elgibilityObj.role;
 
                 $.ajax({
-                    url: apiUrl,
+                    url: API_URI + "/eligibility",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -276,20 +283,19 @@ $(document).ready(function () {
                     success: function (data) {
                         alert("section 1 saved.");
                         console.log(data)
-                       // location.reload();
-                      // console.log("/about?userid="+data.userid+"&role="+role)
-                       location.href="/about?userid="+data.userid+"&role="+role;
-                        
+                        // location.reload();
+                        // console.log("/about?userid="+data.userid+"&role="+role)
+                        location.href = "/about?userid=" + data.userid + "&role=" + role;
+
                     },
 
                 });
             },
 
-            diff_years(dt2, dt1)
-            {
-                var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+            diff_years(dt2, dt1) {
+                var diff = (dt2.getTime() - dt1.getTime()) / 1000;
                 diff /= (60 * 60 * 24);
-               return Math.abs(Math.round(diff/365.25));
+                return Math.abs(Math.round(diff / 365.25));
             }
 
         }

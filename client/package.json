@@ -13,7 +13,8 @@
   "author": "Apostrophe Technologies, Inc.",
   "license": "MIT",
   "dependencies": {
-    "apostrophe": "^2.103.1"
+    "apostrophe": "^2.103.1",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
