@@ -1,5 +1,5 @@
 
-const apiUrl = "http://localhost:3001/user/education"
+var API_URI = "/modules/education-employment-module";
 
 $(document).ready(function () {
 
@@ -55,15 +55,18 @@ $(document).ready(function () {
                 this.professionObj.role=role;
 
                 $.ajax({
-                    url: apiUrl,
+                    url: API_URI + "/education",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify(this.professionObj),
                     success: function (data) {
                         alert("section 3 saved.");
-                        location.href="/"
-                        
+                        console.log(data)
+                        // location.reload();
+                        // console.log("/about?userid="+data.userid+"&role="+role)
+                        location.href="/";
+
                     },
 
                 });
