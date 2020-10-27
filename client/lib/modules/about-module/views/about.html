@@ -20,9 +20,13 @@
         </div>
     </nav>
 </div>
-<div class="sub-header-bg">
-    <h2 class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 2 of 5: About you & your
+<div  id="about-form-header"   class="sub-header-bg">
+    <h2 v-if="headerToDisplay =='child'" class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 2 of 5: About you & your
         household</h2>
+
+    <h2 v-if="headerToDisplay =='parent'" class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 2 of 5: About the child & their household </h2>
+
+    <h2 v-if="headerToDisplay =='professional'" class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 2 of 5: About the child / young person & their household </h2>
     <div
         class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
         Before we get too far, let’s check that you or the child / young person is eligible
@@ -31,12 +35,14 @@
     <p class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
 </div>
 
-<div class="main-content-bg py-4 main-min-height">
-    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
-        <div id="about-form" class="py-4">
-            <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
-            <!-- NHS Number Start-->
-            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+<div id="about-form" class="main-content-bg py-4 main-min-height">
+    <div  class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+        <div class="py-4">
+            <h2 v-if="labelToDisplay =='child'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
+            <h2 v-if="labelToDisplay =='parent'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your child</h2>
+            <h2 v-if="labelToDisplay =='professional'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your child / young person</h2>
+            <!-- childs NHS Number Start-->
+            <div v-if="labelToDisplay =='child'"  class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="nhs" class="question-font">Your NHS number - optional</label>
                     <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"  placeholder="Enter your 10 digit NHS number">
@@ -67,7 +73,75 @@
                     </div>
                 </div>
             </div>
-            <!-- NHS Number End-->
+            <!--childs NHS Number End-->
+
+            <!-- parent NHS Number Start-->
+            <div v-if="labelToDisplay =='parent'"  class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="nhs" class="question-font">Your child's NHS number - optional</label>
+                    <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"  placeholder="Enter your child's  10 digit NHS number">
+                </div>
+                <div class="form-group">
+                    <label for="fullName" class="question-font">Your child's  full name</label>
+                    <input type="email" class="form-control"  v-model="aboutObj.childName"  id="fullName" placeholder="Enter your child's  first and last name">
+                </div>
+                <div class="form-group">
+                    <label for="emailAddressOpts" class="question-font">Your child's  email address - optional</label>
+                    <input type="email" class="form-control" id="emailAddressOpts"
+                        placeholder="Enter your email address"  v-model="aboutObj.childEmail">
+                </div>
+                <div class="form-group">
+                    <label for="contact" class="question-font">Your child's contact number</label>
+                    <input type="text" class="form-control" id="contact" placeholder="Enter your child's contact number"  v-model="aboutObj.childContactNumber" >
+                </div>
+                <div class="form-group">
+                    <label for="gpLocation" class="question-font">Your child's address</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Start typing to search" id="gpProfLocation"
+                            aria-label="location" v-model="aboutObj.childAddress">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--parent NHS Number End-->  
+            
+            <!-- profession NHS Number Start-->
+            <div v-if="labelToDisplay =='professional'"  class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="form-group">
+                    <label for="nhs" class="question-font">The child/young person's NHS number - optional</label>
+                    <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"  placeholder="Enter the child/young person's 10 digit NHS number">
+                </div>
+                <div class="form-group">
+                    <label for="fullName" class="question-font">The child/young person's full name</label>
+                    <input type="email" class="form-control"  v-model="aboutObj.childName"  id="fullName" placeholder="Enter the child/young person's first and last name">
+                </div>
+                <div class="form-group">
+                    <label for="emailAddressOpts" class="question-font">The child/young person's email address - optional</label>
+                    <input type="email" class="form-control" id="emailAddressOpts"
+                        placeholder="Enter the child/young person's email address"  v-model="aboutObj.childEmail">
+                </div>
+                <div class="form-group">
+                    <label for="contact" class="question-font">The child/young person's contact number</label>
+                    <input type="text" class="form-control" id="contact" placeholder="Enter the child/young person's contact number"  v-model="aboutObj.childContactNumber" >
+                </div>
+                <div class="form-group">
+                    <label for="gpLocation" class="question-font">The child/young person's address</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Start typing to search" id="gpProfLocation"
+                            aria-label="location" v-model="aboutObj.childAddress">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--profession NHS Number End-->   
 
             <!-- Post Section Start-->
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
