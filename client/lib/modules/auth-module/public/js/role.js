@@ -19,7 +19,11 @@ $(document).ready(function () {
             gpListShow: [],
             elgibilityObj: {},
             submitForm: "",
-            submitProfForm: ""
+            submitProfForm: "",
+            belowAgeLimit:"",
+            aboveLimit:"",
+            profBelowAgeLimit:"",
+            profaboveLimit:""
         },
         methods: {
 
@@ -95,6 +99,8 @@ $(document).ready(function () {
 
                     this.elgibilityObj.interpreter = "";
                     this.elgibilityObj.childDob = "";
+                    this.elgibilityObj.belowAgeLimit = "";
+                    this.elgibilityObj.aboveLimit = "";
                     this.elgibilityObj.camhs = "";
                     this.elgibilityObj.isInformation = "";
                     this.elgibilityObj.registerd_gp = "";
@@ -104,6 +110,8 @@ $(document).ready(function () {
 
                 if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
                     this.elgibilityObj.childDob = "";
+                    this.elgibilityObj.belowAgeLimit = "";
+                    this.elgibilityObj.aboveLimit = "";
                     this.elgibilityObj.camhs = "";
                     this.elgibilityObj.camhsSelect = "";
                     this.elgibilityObj.isInformation = "";
@@ -187,22 +195,77 @@ $(document).ready(function () {
                 });
             },
             changeDob(event) {
-
+              
+               
+                var today=new Date();
+                var selectedDate=new Date(event.target.value);
+                var age = this.diff_years(today,selectedDate);
                 var roleText = event.target.name;
+                console.log(this.elgibilityObj.childDob);
                 if (roleText == 'child') {
-                    this.elgibilityObj.camhs = "show";
-                    this.submitForm = "false";
+
+                    if(age<15)
+                    {
+                      
+                        this.belowAgeLimit = "yes";
+                        this.aboveLimit = "";
+                        this.elgibilityObj.camhs = "";
+                        this.submitForm = "false";
+                    }
+                    else if(age>25)
+                    {
+                        this.aboveLimit = "yes";
+                        this.belowAgeLimit = "";
+                        this.elgibilityObj.camhs = "";
+                        this.submitForm = "false";
+
+                    }
+                    else
+                    {
+                      
+                        this.elgibilityObj.camhs = "show";
+                        this.belowAgeLimit = "";
+                        this.aboveLimit = "";
+                        this.submitForm = "false";
+                    }
+               
                 }
                 else if (roleText == 'prof') {
-                    this.elgibilityObj.parentConcern = "show";
-                    this.submitProfForm = "false";
+
+
+                    if(age<15)
+                    {
+                      
+                        this.profBelowAgeLimit = "yes";
+                        this.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+                    }
+                    else if(age>25)
+                    {
+                        this.profaboveLimit = "yes";
+                        this.profBelowAgeLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+
+                    }
+                    else
+                    {
+                      
+                        this.elgibilityObj.parentConcern = "show";
+                        this.profBelowAgeLimit = "";
+                        this.profaboveLimit = "";
+                        this.submitProfForm = "false";
+                    }
                 }
             },
             changeGP() {
                 this.submitForm = "true";
             },
             save() {
+
                 console.log(this.elgibilityObj)
+                var role=this.elgibilityObj.role;
 
                 $.ajax({
                     url: apiUrl,
@@ -212,12 +275,22 @@ $(document).ready(function () {
                     data: JSON.stringify(this.elgibilityObj),
                     success: function (data) {
                         alert("section 1 saved.");
-                        location.reload();
+                        console.log(data)
+                       // location.reload();
+                      // console.log("/about?userid="+data.userid+"&role="+role)
+                       location.href="/about?userid="+data.userid+"&role="+role;
                         
                     },
 
                 });
             },
+
+            diff_years(dt2, dt1)
+            {
+                var diff =(dt2.getTime() - dt1.getTime()) / 1000;
+                diff /= (60 * 60 * 24);
+               return Math.abs(Math.round(diff/365.25));
+            }
 
         }
     })

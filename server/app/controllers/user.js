@@ -18,7 +18,7 @@ exports.eligibility = ctx => {
       childUserInfo.setType("1")
       const responseData = {
         userid: childUserInfo.id,
-        status: "ok"
+        status: "ok",
       }
       userid = childUserInfo.id
       return ctx.body = responseData;
@@ -73,22 +73,23 @@ exports.eligibility = ctx => {
 exports.about = ctx => {
 
   const user = ctx.orm().User;
-  const userSection = ctx.orm();
 
+
+  console.log(ctx.request.body);
   return user.update(
     {
       child_name: ctx.request.body.childName,
       child_NHS: ctx.request.body.childNHS,
       child_email: ctx.request.body.childEmail,
       child_contact_number: ctx.request.body.childContactNumber,
-
       child_address: ctx.request.body.childAddress,
+
       can_send_post: ctx.request.body.sendPost,
 
       child_gender: ctx.request.body.childGender,
       child_gender_birth: ctx.request.body.childGenderBirth,
       child_sexual_orientation: ctx.request.body.childSexualOrientation,
-
+      child_ethnicity:ctx.request.body.childEthnicity,
       child_household_name: ctx.request.body.houseHoldName,
       child_household_relationship: ctx.request.body.houseHoldRelationship,
       child_household_dob: ctx.request.body.houseHoldDOB,
@@ -98,7 +99,7 @@ exports.about = ctx => {
     },
     {
       where:
-        { id: ctx.request.body.userId }
+        { id: ctx.request.body.userid }
     }
   ).then((result) => {
 
@@ -108,6 +109,7 @@ exports.about = ctx => {
       child_parent_relationship: ctx.request.body.childParentRelationship,
       parent_contact_number: ctx.request.body.parentContactNumber,
       parent_email: ctx.request.body.parentEmail,
+      parent_same_house:ctx.request.body.parentSameHouse,
       parent_address: ctx.request.body.parentAddress,
       legal_care_status: ctx.request.body.legalCareStatus,
     }).then((parentUserInfo) => {
@@ -115,8 +117,9 @@ exports.about = ctx => {
       parentUserInfo.setType("2")
       parentUserInfo.setParent(ctx.request.body.userId)
       const responseData = {
-        userid: parentUserInfo.id,
-        status: "ok"
+        userid: ctx.request.body.userid,
+        status: "ok",
+        role:ctx.request.body.role
       }
       return ctx.body = responseData;
     }).catch((error) => {
@@ -133,6 +136,8 @@ exports.profession = ctx => {
 
   const user = ctx.orm().User;
 
+  console.log(ctx.request.body);
+
   return user.update(
     {
       child_profession: ctx.request.body.childProfession,
@@ -147,7 +152,7 @@ exports.profession = ctx => {
     },
     {
       where:
-        { id: ctx.request.body.userId }
+        { id: ctx.request.body.userid }
     }
   ).then((result) => {
 

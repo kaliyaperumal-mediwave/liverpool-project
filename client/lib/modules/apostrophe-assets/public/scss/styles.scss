@@ -10,6 +10,7 @@ $content-color: #fafafa;
 $footer-text-color: #feffff;
 
 $question-text-color: #023047;
+$primary-button-color: #219ebc;
 
 @font-face {
   font-family: "century-gothic";
@@ -41,91 +42,6 @@ $question-text-color: #023047;
   font-weight: normal;
   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
-body {
-  font-family: "century-gothic" !important;
-
-  input[type="radio"] {
-    -ms-transform: scale(3); /* IE 9 */
-    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
-    transform: scale(2.7);
-  }
-
-  input[type="checkbox"] {
-    -ms-transform: scale(3); /* IE 9 */
-    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
-    transform: scale(2.7);
-  }
-
-  .input-group-text {
-    background: #ffb837 !important;
-    border-radius: 2px !important;
-    opacity: 1 !important;
-    border-color: white !important;
-    height: 50px !important;
-    border: none !important;
-  }
-
-  .ui-widget.ui-widget-content {
-    border: none !important;
-  }
-
-  .ui-widget-content {
-    border-radius: 2px !important;
-    opacity: 1 !important;
-    border-color: white !important;
-    border: none !important;
-    //background:  50% top repeat-x;
-    background: #e8edee 0% 0% no-repeat padding-box !important;
-  }
-
-  .ui-widget {
-    font-size: 18px !important;
-    font-weight: normal !important;
-    letter-spacing: 0px !important;
-    color: #023047 !important;
-    opacity: 1 !important;
-  }
-
-  // ::-webkit-input-placeholder {
-  //   /* Edge */
-  //   font-size: 17px;
-  //   font-weight: bold;
-  //   letter-spacing: 0px;
-  //   color: $question-text-color;
-  //   opacity: 1;
-  // }
-
-  // :-ms-input-placeholder {
-  //   /* Internet Explorer 10-11 */
-  //   font-size: 17px;
-  //   font-weight: bold;
-  //   letter-spacing: 0px;
-  //   color: $question-text-color;
-  //   opacity: 1;
-  // }
-
-  // ::placeholder {
-  //   font-size: 17px !important;
-  //   font-weight: bold !important;
-  //   letter-spacing: 0px !important;
-  //   color: $question-text-color !important;
-  //   opacity: 1;
-  // }
-
-  .form-control {
-    background: #e8edee 0% 0% no-repeat padding-box !important;
-    border-radius: 2px !important;
-    opacity: 1 !important;
-    border-color: white !important;
-    border: none !important;
-    height: 50px !important;
-  }
-  .form-control:focus {
-    border-color: none !important;
-    outline: none !important;
-    box-shadow: none !important;
-  }
-}
 
 /* This CSS will re-used. */
 
@@ -146,7 +62,85 @@ body {
   opacity: 1;
 }
 
+%btn-shared {
+  background: $primary-button-color 0% 0% no-repeat padding-box !important;
+  box-shadow: 0px 3px 6px #00000029 !important;
+  border-radius: 10px !important;
+  opacity: 1 !important;
+}
+
 /* End */
+
+body {
+  font-family: "century-gothic" !important;
+
+  input[type="radio"] {
+    -ms-transform: scale(3); /* IE 9 */
+    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
+    transform: scale(2.7);
+  }
+
+  input[type="checkbox"] {
+    -ms-transform: scale(3); /* IE 9 */
+    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
+    transform: scale(2.7);
+  }
+
+  .btn {
+    @extend %btn-shared;
+  }
+  // .btn-main-secondary .btn {
+  //   width: 301px !important;
+  //   height: 46px !important;
+  // }
+
+  .btn:focus {
+    box-shadow: none !important;
+  }
+
+  .input-group-text {
+    background: #ffb837 !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    height: 50px !important;
+    border: none !important;
+  }
+
+  .ui-widget.ui-widget-content {
+    border: none !important;
+  }
+
+  .ui-widget-content {
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+  }
+
+  .ui-widget {
+    font-size: 18px !important;
+    font-weight: normal !important;
+    letter-spacing: 0px !important;
+    color: #023047 !important;
+    opacity: 1 !important;
+  }
+
+  .form-control {
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    height: 50px !important;
+  }
+  .form-control:focus {
+    border-color: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
 
 .header-title {
   font-size: 38px;

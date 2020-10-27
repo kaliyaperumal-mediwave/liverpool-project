@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-
+<script src="/modules/education-employment-module/js/education.js"></script>
 {% endblock %}
 {% block main %}
 <div>
@@ -37,22 +37,23 @@
             <!-- About Your Self Start-->
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">I am a</p>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="checkbox" name="role" id="education" value="education"
-                        @change="onChange($event)">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="childProfession" id="education" value="education"
+                        @change="onChange($event)" v-model="professionObj.childProfession">
                     <label class="form-check-label option-font px-4" for="education">
                         Education
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="checkbox" name="role" id="employment" value="employment"
-                        @change="onChange($event)">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="childProfession" id="employment"
+                        value="employment" @change="onChange($event)" v-model="professionObj.childProfession">
                     <label class="form-check-label option-font px-4" for="employment">
                         Employment
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="checkbox" name="role" id="neither" value="neither">
+                <div class="form-check py-3 px-4">
+                    <input @change="onChange($event)" class="form-check-input" type="radio" name="childProfession"
+                        id="neither" value="neither" v-model="professionObj.childProfession">
                     <label class="form-check-label option-font px-4" for="neither">
                         Neither
                     </label>
@@ -61,13 +62,15 @@
             <!-- About Your Self End-->
 
             <!-- Which school / college / university / do you attend? Start  -->
-            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-if="professionObj.childProfession =='education'"
+                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="gpParentorCarerLocation" class="question-font">Which school / college / university / do
                         you attend?</label>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Start typing to search"
-                            id="gpParentorCarerLocation" aria-label="location">
+                            id="gpParentorCarerLocation" aria-label="location"
+                            v-model="professionObj.childEducationPlace">
                         <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -79,24 +82,27 @@
             <!-- Which school / college / university / do you attend? End  -->
 
             <!-- Education or HealthCare Plan Start-->
-            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-if="professionObj.childProfession =='education' || professionObj.childProfession =='employment'|| professionObj.childProfession =='neither'"
+                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Do you have an Education & Health Care Plan (EHCP)?</p>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="planNo" value="no" name="childConcernSelect">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" id="planNo" value="no" name="childEHCP"
+                        v-model="professionObj.childEHCP" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="planNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="planYes" value="yes">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="childEHCP" id="planYes" value="yes"
+                        v-model="professionObj.childEHCP" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="planYes">
                         Yes
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="planUnsure"
-                        value="Unsure">
-                    <label class="form-check-label option-font px-4" for="planUnsure">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="childEHCP" id="assessmentUnsure" value="unsure"
+                        v-model="professionObj.childEHCP" @change="onChange($event)">
+                    <label class="form-check-label option-font px-4" for="assessmentUnsure">
                         Unsure
                     </label>
                 </div>
@@ -105,24 +111,26 @@
 
 
             <!-- Early Help Assessment Tool Start-->
-            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-if="professionObj.childEHCP =='no' || professionObj.childEHCP =='yes'|| professionObj.childEHCP =='unsure'"
+                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Do you have an open Early Help Assessment Tool (EHAT)?</p>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="childConcernSelect">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="childEHAT"
+                        v-model="professionObj.childEHAT" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="assessmentNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="assessmentYes"
-                        value="yes">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="childEHAT" id="assessmentYes" value="yes"
+                        v-model="professionObj.childEHAT" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="assessmentYes">
                         Yes
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="assessmentUnsure"
-                        value="Unsure">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="childEHAT" id="assessmentUnsure" value="unsure"
+                        v-model="professionObj.childEHAT" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="assessmentUnsure">
                         Unsure
                     </label>
@@ -131,24 +139,27 @@
             <!-- Early Help Assessment Tool End-->
 
             <!-- Have a Social Worker Start-->
-            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-if="professionObj.childEHAT =='no' || professionObj.childEHAT =='yes' || professionObj.childEHAT =='unsure'"
+                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font">Do you have a social worker?</p>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="workerNo" value="no" name="childConcernSelect">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" id="workerNo" value="no" name="isSocialWorker"
+                        v-model="professionObj.isSocialWorker" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="workerNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="workerYes" value="yes">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="isSocialWorker" id="workerYes" value="yes"
+                        v-model="professionObj.isSocialWorker" @change="onChange($event)">
                     <label class="form-check-label option-font px-4" for="workerYes">
                         Yes
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="workerUnsure"
-                        value="Unsure">
-                    <label class="form-check-label option-font px-4" for="workerUnsure">
+                <div class="form-check py-3 px-4">
+                    <input class="form-check-input" type="radio" name="isSocialWorker" id="assessmentUnsure"
+                        value="unsure" v-model="professionObj.isSocialWorker" @change="onChange($event)">
+                    <label class="form-check-label option-font px-4" for="assessmentUnsure">
                         Unsure
                     </label>
                 </div>
@@ -156,20 +167,24 @@
             <!-- Have a Social Worker Start-->
 
             <!-- Social Worker Form Start -->
-            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-if="professionObj.isSocialWorker =='yes'"
+                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="socialWorker" class="question-font">What is the name of your social worker?</label>
-                    <input type="text" class="form-control" id="socialWorker" placeholder="Jane Doe">
+                    <input type="text" class="form-control" id="socialWorker" placeholder="Jane Doe"
+                        v-model="professionObj.socialWorkerName">
                 </div>
                 <div class="form-group">
                     <label for="contactWorker" class="question-font">Contact number for your social worker</label>
-                    <input type="text" class="form-control" id="contactWorker" placeholder="01548 659874">
+                    <input type="text" class="form-control" id="contactWorker" placeholder="01548 659874"
+                        v-model="professionObj.socialWorkerContactNumber">
                 </div>
             </div>
             <!-- Social Worker Form Start -->
 
             <!-- Section completed Toaster container -->
-            <div class="px-4 py-4">
+            <div v-if="professionObj.isSocialWorker =='no' || professionObj.isSocialWorker =='yes'|| professionObj.isSocialWorker =='unsure'"
+                class="px-4 py-4">
                 <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
@@ -181,9 +196,12 @@
                 </div>
             </div>
             <!-- Section completed Toaster container -->
-            <div class="text-center py-4">
-                <a href="/role">
-                    <button type="button" class="btn-primary-main"><span class="btn-txt">PROCEED</span></button>
+            <div v-if="professionObj.isSocialWorker =='no' || professionObj.isSocialWorker =='yes'|| professionObj.isSocialWorker =='unsure'"
+                class="text-center py-4">
+                <a>
+                    <button @click="saveEducation()" type="button" class="btn px-md-4 py-2 px-3"><span
+                            class="btn-secondary-text">SAVE &
+                            CONTINUE</span></button>
                 </a>
             </div>
         </div>
