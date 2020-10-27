@@ -7,11 +7,12 @@ $(document).ready(function () {
     var _self = this;
     var app = new Vue({
         el: '#education-form',
-        mounted: function () {
-            console.log("vue js loaded");
-        },
         data: {
+            labelToDisplay:"",
             professionObj: {},
+        },
+        mounted: function () {
+            this.labelToDisplay= new URL(location.href).searchParams.get('role');
         },
         methods: {
 

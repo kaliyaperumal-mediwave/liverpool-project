@@ -290,15 +290,15 @@
                 </div>
                 <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactProfParent"
-                        id="infoNo" value="no" @change="onChange($event)">
-                    <label class="form-check-label option-font d-flex align-items-center" for="infoNo">
+                        id="infoBelogAgeNo" value="no" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="infoBelogAgeNo">
                         No
                     </label>
                 </div>
                 <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactProfParent"
-                        id="infoYes" value="yes" @change="onChange($event)">
-                    <label class="form-check-label option-font d-flex align-items-center" for="infoYes">
+                        id="infoBelowAgeYes" value="yes" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="infoBelowAgeYes">
                         Yes
                     </label>
                 </div>
@@ -347,18 +347,18 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-check pt-3 pb-1 pl-0">
-                    <input class="form-check-input" type="radio" id="aboutYou"
+                    <input class="form-check-input" type="radio" id="aboutYouParentConcern"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)" value="no">
-                    <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
+                    <label class="form-check-label option-font d-flex align-items-center" for="aboutYouParentConcern">
                         No
                     </label>
                 </div>
                 <div class="form-check py-2 pl-0">
-                    <input class="form-check-input" type="radio" id="whom" value="yes"
+                    <input class="form-check-input" type="radio" id="whomParentConcern" value="yes"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)">
-                    <label class="form-check-label option-font d-flex align-items-center" for="whom">
+                    <label class="form-check-label option-font d-flex align-items-center" for="whomParentConcern">
                         Yes
                     </label>
                 </div>
