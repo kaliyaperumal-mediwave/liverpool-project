@@ -1,5 +1,5 @@
 
-const apiUrl = "http://localhost:3001/user/eligibility"
+const apiUrl = "http://0.0.0.0:3001/user/eligibility"
 
 $(document).ready(function () {
 
@@ -21,7 +21,9 @@ $(document).ready(function () {
             submitForm: "",
             submitProfForm: "",
             belowAgeLimit:"",
-            aboveLimit:""
+            aboveLimit:"",
+            profBelowAgeLimit:"",
+            profaboveLimit:""
         },
         methods: {
 
@@ -229,8 +231,32 @@ $(document).ready(function () {
                
                 }
                 else if (roleText == 'prof') {
-                    this.elgibilityObj.parentConcern = "show";
-                    this.submitProfForm = "false";
+
+
+                    if(age<15)
+                    {
+                      
+                        this.profBelowAgeLimit = "yes";
+                        this.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+                    }
+                    else if(age>25)
+                    {
+                        this.profaboveLimit = "yes";
+                        this.profBelowAgeLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+
+                    }
+                    else
+                    {
+                      
+                        this.elgibilityObj.parentConcern = "show";
+                        this.profBelowAgeLimit = "";
+                        this.profaboveLimit = "";
+                        this.submitProfForm = "false";
+                    }
                 }
             },
             changeGP() {
@@ -239,6 +265,7 @@ $(document).ready(function () {
             save() {
 
                 console.log(this.elgibilityObj)
+                var role=this.elgibilityObj.role;
 
                 $.ajax({
                     url: apiUrl,
@@ -248,7 +275,10 @@ $(document).ready(function () {
                     data: JSON.stringify(this.elgibilityObj),
                     success: function (data) {
                         alert("section 1 saved.");
-                        location.reload();
+                        console.log(data)
+                       // location.reload();
+                      // console.log("/about?userid="+data.userid+"&role="+role)
+                       location.href="/about?userid="+data.userid+"&role="+role;
                         
                     },
 

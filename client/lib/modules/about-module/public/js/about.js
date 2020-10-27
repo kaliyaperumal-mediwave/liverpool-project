@@ -1,5 +1,5 @@
 
-const apiUrl = "http://localhost:3001/user/about"
+const apiUrl = "http://0.0.0.0:3001/user/about"
 
 $(document).ready(function () {
 
@@ -42,6 +42,10 @@ $(document).ready(function () {
             },
             saveAbout() {
 
+                var userid= new URL(location.href).searchParams.get('userid');
+                var role= new URL(location.href).searchParams.get('role');
+                this.aboutObj.userid=userid;
+                this.aboutObj.role=role;
                 console.log(this.aboutObj);
                 $.ajax({
                     url: apiUrl,
@@ -51,8 +55,8 @@ $(document).ready(function () {
                     data: JSON.stringify(this.aboutObj),
                     success: function (data) {
                         alert("section 2 saved.");
-                        location.reload();
-                        
+                       // location.reload();
+                       location.href="/education?userid="+data.userid+"&role="+role;
                     },
 
                 });

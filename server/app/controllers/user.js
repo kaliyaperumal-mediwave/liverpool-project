@@ -18,7 +18,7 @@ exports.eligibility = ctx => {
       childUserInfo.setType("1")
       const responseData = {
         userid: childUserInfo.id,
-        status: "ok"
+        status: "ok",
       }
       userid = childUserInfo.id
       return ctx.body = responseData;
@@ -73,7 +73,7 @@ exports.eligibility = ctx => {
 exports.about = ctx => {
 
   const user = ctx.orm().User;
-  const userSection = ctx.orm();
+
 
   console.log(ctx.request.body);
   return user.update(
@@ -99,7 +99,7 @@ exports.about = ctx => {
     },
     {
       where:
-        { id: ctx.request.body.userId }
+        { id: ctx.request.body.userid }
     }
   ).then((result) => {
 
@@ -117,8 +117,9 @@ exports.about = ctx => {
       parentUserInfo.setType("2")
       parentUserInfo.setParent(ctx.request.body.userId)
       const responseData = {
-        userid: parentUserInfo.id,
-        status: "ok"
+        userid: ctx.request.body.userid,
+        status: "ok",
+        role:ctx.request.body.role
       }
       return ctx.body = responseData;
     }).catch((error) => {
@@ -151,7 +152,7 @@ exports.profession = ctx => {
     },
     {
       where:
-        { id: ctx.request.body.userId }
+        { id: ctx.request.body.userid }
     }
   ).then((result) => {
 

@@ -105,7 +105,7 @@
             <!-- calendar-end -->
 
               <!-- Age under 14 start-->
-              <div  v-if="elgibilityObj.role == 'child' &&  belowAgeLimit == 'yes'" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+              <div  v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  belowAgeLimit == 'yes'" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
                     <p class="question-font">Can we contact your parent or carer?</p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
@@ -130,13 +130,26 @@
 
 
            <!-- toster-container start -->
-           <div v-if="elgibilityObj.role == 'child' &&  aboveLimit == 'yes'" class="px-4 py-4">
+           <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  aboveLimit == 'yes'" class="px-4 py-4">
             <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                 <div class="px-2 py-2">
                     <p class="text-center m-0 py-2">
                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                     </p>
                     <p class="question-font text-center m-0 py-2">unfortunately we cannot accept referrals from people over 25 years of age </p>
+                </div>
+            </div>
+        </div>
+        <!-- toster-container start -->
+
+         <!-- toster-container start -->
+         <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.contactParent == 'no'" class="px-4 py-4">
+            <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                <div class="px-2 py-2">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <p class="question-font text-center m-0 py-2">Anonymous help and advice for under 14s</p>
                 </div>
             </div>
         </div>
@@ -273,10 +286,48 @@
                 </div>
             </div>
             <!-- calendar-end -->
+            <!-- Age under 14 start-->
+            <div  v-if="elgibilityObj.role == 'professional' &&  profBelowAgeLimit == 'yes'" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="d-flex align-items-start">
+                    <p class="question-font">Do you have concern from the child/young person's  parent/carer for us to use information that you provide, and share it with other CAMHS partners so that we can help them?</p>
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name=""
+                        v-model="elgibilityObj.contactProfParent" id="aboutYou" value="no" @change="onChange($event)">
+                    <label class="form-check-label option-font px-4" for="aboutYou">
+                        No
+                    </label>
+                </div>
+                <div class="form-check py-3">
+                    <input class="form-check-input" type="radio" name=""
+                      v-model="elgibilityObj.contactProfParent" id="whom" value="yes" @change="onChange($event)">
+                    <label class="form-check-label option-font px-4" for="whom">
+                        Yes
+                    </label>
+                </div>
+            </div>
+
+           <!-- Age under 14 end-->
+
+           
+           <!-- toster-container start -->
+           <div v-if="elgibilityObj.role == 'professional' &&  profaboveLimit == 'yes'" class="px-4 py-4">
+            <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                <div class="px-2 py-2">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <p class="question-font text-center m-0 py-2">unfortunately we cannot accept referrals from people over 25 years of age </p>
+                </div>
+            </div>
+        </div>
+        <!-- toster-container start -->
+        
 
             <!-- consent parent start-->
 
-            <div v-if="elgibilityObj.parentConcern== 'show'"
+            <div v-if="elgibilityObj.parentConcern== 'show' || elgibilityObj.contactProfParent== 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
                     <p class="question-font">Do you have consent from the child / young person’s parent / carer for us
