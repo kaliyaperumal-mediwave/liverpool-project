@@ -15,6 +15,9 @@
 {% block extraHead %}
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
 <script src="https://use.fontawesome.com/901da64fb9.js"></script>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -43,6 +46,8 @@
 <script
   src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"></script>
 
+
+
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
@@ -50,6 +55,20 @@
 {% endblock %}
 
 {% block beforeMain %}
+<nav class="navbar header-bg p-4">
+  <div class="row mx-0 w-100 justify-content-between">
+    <div alt="logo" class="header-logo"></div>
+    <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">It’s okay to
+      not be okay.</h2>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+      aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fal fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
+      <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
+      <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+      <!-- <img src="/modules/my-apostrophe-assets/img/menu.svg" alt="" class="img-class"> -->
+    </button>
+  </div>
+</nav>
 <!-- {#
     We recommend you use the beforeMain block for global page components
     like headers or navigation.

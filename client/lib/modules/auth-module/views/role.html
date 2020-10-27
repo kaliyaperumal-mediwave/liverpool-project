@@ -4,19 +4,6 @@
 <script src="/modules/auth-module/js/role.js"></script>
 {% endblock %}
 {% block main %}
-<nav class="navbar header-bg p-4">
-    <div class="row mx-0 w-100 justify-content-between">
-        <div alt="logo" class="header-logo"></div>
-        <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">It’s okay to
-            not be okay.</h2>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-            aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
-            <i class="fa fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
-            <i class="fa fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
-        </button>
-    </div>
-</nav>
 <div class="sub-header-bg">
     <h2 class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 1 of 5: Eligibility</h2>
     <div
@@ -303,15 +290,15 @@
                 </div>
                 <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactProfParent"
-                        id="infoNo" value="no" @change="onChange($event)">
-                    <label class="form-check-label option-font d-flex align-items-center" for="infoNo">
+                        id="infoBelogAgeNo" value="no" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="infoBelogAgeNo">
                         No
                     </label>
                 </div>
                 <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactProfParent"
-                        id="infoYes" value="yes" @change="onChange($event)">
-                    <label class="form-check-label option-font d-flex align-items-center" for="infoYes">
+                        id="infoBelowAgeYes" value="yes" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="infoBelowAgeYes">
                         Yes
                     </label>
                 </div>
@@ -360,18 +347,18 @@
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
                 <div class="form-check pt-3 pb-1 pl-0">
-                    <input class="form-check-input" type="radio" id="aboutYou"
+                    <input class="form-check-input" type="radio" id="aboutYouParentConcern"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)" value="no">
-                    <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
+                    <label class="form-check-label option-font d-flex align-items-center" for="aboutYouParentConcern">
                         No
                     </label>
                 </div>
                 <div class="form-check py-2 pl-0">
-                    <input class="form-check-input" type="radio" id="whom" value="yes"
+                    <input class="form-check-input" type="radio" id="whomParentConcern" value="yes"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)">
-                    <label class="form-check-label option-font d-flex align-items-center" for="whom">
+                    <label class="form-check-label option-font d-flex align-items-center" for="whomParentConcern">
                         Yes
                     </label>
                 </div>

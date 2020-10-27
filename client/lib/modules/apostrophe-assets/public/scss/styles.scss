@@ -12,6 +12,10 @@ $footer-text-color: #feffff;
 $question-text-color: #023047;
 $primary-button-color: #219ebc;
 
+$header-font-size: 32px;
+$sub-header-font-size: 28px;
+$content-text-font-size: 18px;
+
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
@@ -191,7 +195,14 @@ body {
 }
 
 .header-title {
-  font-size: 38px;
+  font-size: $header-font-size;
+  font-weight: bold;
+  @extend %font-shared;
+  color: $header-text-color;
+}
+
+.sub-header-title {
+  font-size: $sub-header-font-size;
   font-weight: bold;
   @extend %font-shared;
   color: $header-text-color;
@@ -222,6 +233,10 @@ body {
     width: 86px;
     height: 86px;
   }
+  .img-class {
+    height: 25px;
+    width: auto;
+  }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -230,6 +245,10 @@ body {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;
     height: 86px;
+  }
+  .img-class {
+    height: 25px;
+    width: auto;
   }
 }
 
@@ -281,14 +300,14 @@ body {
 }
 
 .content-secondary-header-text {
-  font-size: 38px;
+  font-size: $header-font-size;
   font-weight: bold;
   letter-spacing: 0px;
   color: $content-header-color;
   opacity: 1;
 }
 .content-text {
-  font-size: 20px;
+  font-size: $content-text-font-size;
   font-weight: normal;
   letter-spacing: 0px;
   color: $content-header-color;
@@ -447,6 +466,6 @@ body {
 }
 
 .img-class {
-  height: 25px;
+  height: 35px;
   width: auto;
 }
