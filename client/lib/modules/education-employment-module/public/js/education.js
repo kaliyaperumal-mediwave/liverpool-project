@@ -49,6 +49,10 @@ $(document).ready(function () {
             saveEducation() {
 
                 console.log(this.professionObj);
+                var userid= new URL(location.href).searchParams.get('userid');
+                var role= new URL(location.href).searchParams.get('role');
+                this.professionObj.userid=userid;
+                this.professionObj.role=role;
 
                 $.ajax({
                     url: apiUrl,
@@ -58,7 +62,7 @@ $(document).ready(function () {
                     data: JSON.stringify(this.professionObj),
                     success: function (data) {
                         alert("section 3 saved.");
-                        location.reload();
+                        location.href="/"
                         
                     },
 

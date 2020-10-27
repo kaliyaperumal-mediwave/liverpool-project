@@ -19,7 +19,11 @@ $(document).ready(function () {
             gpListShow: [],
             elgibilityObj: {},
             submitForm: "",
-            submitProfForm: ""
+            submitProfForm: "",
+            belowAgeLimit:"",
+            aboveLimit:"",
+            profBelowAgeLimit:"",
+            profaboveLimit:""
         },
         methods: {
 
@@ -203,15 +207,15 @@ $(document).ready(function () {
                     if(age<15)
                     {
                       
-                        this.elgibilityObj.belowAgeLimit = "yes";
-                        this.elgibilityObj.aboveLimit = "";
+                        this.belowAgeLimit = "yes";
+                        this.aboveLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
                     }
                     else if(age>25)
                     {
-                        this.elgibilityObj.aboveLimit = "yes";
-                        this.elgibilityObj.belowAgeLimit = "";
+                        this.aboveLimit = "yes";
+                        this.belowAgeLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
 
@@ -220,15 +224,39 @@ $(document).ready(function () {
                     {
                       
                         this.elgibilityObj.camhs = "show";
-                        this.elgibilityObj.belowAgeLimit = "";
-                        this.elgibilityObj.aboveLimit = "";
+                        this.belowAgeLimit = "";
+                        this.aboveLimit = "";
                         this.submitForm = "false";
                     }
                
                 }
                 else if (roleText == 'prof') {
-                    this.elgibilityObj.parentConcern = "show";
-                    this.submitProfForm = "false";
+
+
+                    if(age<15)
+                    {
+                      
+                        this.profBelowAgeLimit = "yes";
+                        this.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+                    }
+                    else if(age>25)
+                    {
+                        this.profaboveLimit = "yes";
+                        this.profBelowAgeLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+
+                    }
+                    else
+                    {
+                      
+                        this.elgibilityObj.parentConcern = "show";
+                        this.profBelowAgeLimit = "";
+                        this.profaboveLimit = "";
+                        this.submitProfForm = "false";
+                    }
                 }
             },
             changeGP() {
@@ -237,6 +265,7 @@ $(document).ready(function () {
             save() {
 
                 console.log(this.elgibilityObj)
+                var role=this.elgibilityObj.role;
 
                 $.ajax({
                     url: apiUrl,
@@ -246,7 +275,10 @@ $(document).ready(function () {
                     data: JSON.stringify(this.elgibilityObj),
                     success: function (data) {
                         alert("section 1 saved.");
-                        location.reload();
+                        console.log(data)
+                       // location.reload();
+                      // console.log("/about?userid="+data.userid+"&role="+role)
+                       location.href="/about?userid="+data.userid+"&role="+role;
                         
                     },
 
