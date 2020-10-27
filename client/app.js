@@ -1,5 +1,6 @@
 var path = require('path');
-
+const dotenv = require("dotenv");
+dotenv.config();
 var apos = require('apostrophe')({
   shortName: 'client',
 
@@ -22,10 +23,10 @@ var apos = require('apostrophe')({
     
     settings: {
       // So we can write `apos.settings` in a template
-      alias: 'PHRMODULE',
+      alias: 'LIVERPOOLMODULE',
       // NOTE: LIVE ENV FILE . Comment when working in local.
       'phr-module': process.env.SERVICE_PHR
-      // 'phr-module': 'https://localhost:3010'
+       //'phr-module': 'https://localhost:3010'
     },
     "apostrophe-db": {
       uri: process.env.MONGO_STRING
