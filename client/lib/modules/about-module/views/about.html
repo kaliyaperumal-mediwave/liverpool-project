@@ -165,23 +165,24 @@
 
             <!-- Post Section Start-->
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p v-if="labelToDisplay =='child'" class="question-font">Are you happy for post to be sent to this
+                <p v-if="labelToDisplay =='child'" class="question-font m-0">Are you happy for post to be sent to this
                     address?</p>
-                <p v-if="labelToDisplay =='parent'" class="question-font">Are you and your child happy for post to be
+                <p v-if="labelToDisplay =='parent'" class="question-font m-0">Are you and your child happy for post to
+                    be
                     sent to this address?</p>
-                <p v-if="labelToDisplay =='professional'" class="question-font">Are you and the child / young person
+                <p v-if="labelToDisplay =='professional'" class="question-font m-0">Are you and the child / young person
                     happy for post to be sent to this address?</p>
-                <div class="form-check py-3">
+                <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" id="no" value="no" name="sendPost"
                         v-model="aboutObj.sendPost">
-                    <label class="form-check-label option-font px-4" for="no">
+                    <label class="form-check-label option-font d-flex align-items-center" for="no">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check  py-2 pl-0">
                     <input class="form-check-input" type="radio" name="sendPost" id="yes" value="yes"
                         v-model="aboutObj.sendPost">
-                    <label class="form-check-label option-font px-4" for="yes">
+                    <label class="form-check-label option-font d-flex align-items-center" for="yes">
                         Yes
                     </label>
                 </div>
@@ -213,35 +214,37 @@
             <!-- Gender Indentification Start -->
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p v-if="labelToDisplay =='child'" class="question-font">Do you identify with the gender you were
+                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you identify with the gender you
+                        were
                         assigned at birth?
                     </p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font">Does your child identify with the gender
+                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child identify with the
+                        gender
                         you were assigned at birth?
                     </p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font">Does the child / young person
+                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person
                         identify with the gender they were assigned at birth?
                     </p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" value="no" name="childGenderBirth"
+                <div class="form-check pt-3 pb-1 pl-0">
+                    <input class="form-check-input" type="radio" value="no" id="genderNo" name="childGenderBirth"
                         v-model="aboutObj.childGenderBirth">
-                    <label class="form-check-label option-font px-4" for="no">
+                    <label class="form-check-label option-font d-flex align-items-center" for="genderNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childGenderBirth" value="yes"
+                <div class="form-check py-2 pl-0">
+                    <input class="form-check-input" type="radio" name="childGenderBirth" value="yes" id="genderYes"
                         v-model="aboutObj.childGenderBirth">
-                    <label class="form-check-label option-font px-4" for="yes">
+                    <label class="form-check-label option-font d-flex align-items-center" for="genderYes">
                         Yes
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" name="childGenderBirth" value="Unsure"
-                        v-model="aboutObj.childGenderBirth">
-                    <label class="form-check-label option-font px-4" for="Unsure">
+                        id="genderUnsure" v-model="aboutObj.childGenderBirth">
+                    <label class="form-check-label option-font d-flex align-items-center" for="genderUnsure">
                         Unsure
                     </label>
                 </div>
@@ -441,29 +444,30 @@
             </div>
             <!-- --professional details start-- -->
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p v-if="labelToDisplay =='child'" class="question-font">Do you care for an adult?</p>
-                <p v-if="labelToDisplay =='parent'" class="question-font">Does your child care for an adult?</p>
-                <p v-if="labelToDisplay =='professional'" class="question-font">Does the child / young person care for
+                <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you care for an adult?</p>
+                <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child care for an adult?</p>
+                <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person care
+                    for
                     an adult?</p>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="no" value="no" name="childCareAdult"
+                <div class="form-check pt-3 pb-1 pl-0">
+                    <input class="form-check-input" type="radio" id="careNo" value="no" name="childCareAdult"
                         v-model="aboutObj.childCareAdult">
-                    <label class="form-check-label option-font px-4" for="no">
+                    <label class="form-check-label option-font d-flex align-items-center" for="careNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childCareAdult" id="yes" value="yes"
+                <div class="form-check py-2 pl-0">
+                    <input class="form-check-input" type="radio" name="childCareAdult" id="careYes" value="yes"
                         v-model="aboutObj.childCareAdult">
-                    <label class="form-check-label option-font px-4" for="yes">
+                    <label class="form-check-label option-font d-flex align-items-center" for="careYes">
                         Yes
                     </label>
                 </div>
 
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childCareAdult" id="Unsure" value="Unsure"
+                <div class="form-check py-2 pl-0">
+                    <input class="form-check-input" type="radio" name="childCareAdult" id="careUnsure" value="Unsure"
                         v-model="aboutObj.childCareAdult ">
-                    <label class="form-check-label option-font px-4" for="Unsure">
+                    <label class="form-check-label option-font d-flex align-items-center" for="careUnsure">
                         Unsure
                     </label>
                 </div>
@@ -506,23 +510,25 @@
                 </div>
             </div>
             <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p v-if="labelToDisplay =='child'" class="question-font">Does this person have parental responsibility
+                <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person have parental
+                    responsibility
                     for you?</p>
-                <p v-if="labelToDisplay =='parent'" class="question-font">Do you have parental responsibility for your
+                <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do you have parental responsibility for
+                    your
                     child?</p>
-                <p v-if="labelToDisplay =='professional'" class="question-font">Does this person have parental
+                <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does this person have parental
                     responsibility for the child / young person?</p>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" id="no" value="no" name="childConcernSelect"
-                        v-model="aboutObj.parentialResponsibility">
-                    <label class="form-check-label option-font px-4" for="no">
+                <div class="form-check pt-3 pb-1 pl-0">
+                    <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
+                        name="childConcernSelect" v-model="aboutObj.parentialResponsibility">
+                    <label class="form-check-label option-font d-flex align-items-center" for="responsibilityNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="childConcernSelect" id="yes" value="yes"
-                        v-model="aboutObj.parentialResponsibility">
-                    <label class="form-check-label option-font px-4" for="yes">
+                <div class="form-check py-2 pl-0">
+                    <input class="form-check-input" type="radio" name="childConcernSelect" id="responsibilityYes"
+                        value="yes" v-model="aboutObj.parentialResponsibility">
+                    <label class="form-check-label option-font d-flex align-items-center" for="responsibilityYes">
                         Yes
                     </label>
                 </div>
@@ -577,23 +583,26 @@
             </div>
 
             <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p v-if="labelToDisplay =='child'" class="question-font">Does this person live in the same house as you?
+                <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person live in the same house as
+                    you?
                 </p>
-                <p v-if="labelToDisplay =='parent'" class="question-font">Do you live in the same house as your child?
+                <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do you live in the same house as your
+                    child?
                 </p>
-                <p v-if="labelToDisplay =='professional'" class="question-font">Does the parent / carer live in the same
+                <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the parent / carer live in the
+                    same
                     house as the child / young person?</p>
-                <div class="form-check py-3">
+                <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" id="sameHouseNo" value="no" name="childConcernSelect"
                         v-model="aboutObj.parentSameHouse">
-                    <label class="form-check-label option-font px-4" for="sameHouseNo">
+                    <label class="form-check-label option-font d-flex align-items-center" for="sameHouseNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" name="childConcernSelect" id="sameHouseYes" value="yes"
                         v-model="aboutObj.parentSameHouse">
-                    <label class="form-check-label option-font px-4" for="sameHouseYes">
+                    <label class="form-check-label option-font d-flex align-items-center" for="sameHouseYes">
                         Yes
                     </label>
                 </div>
