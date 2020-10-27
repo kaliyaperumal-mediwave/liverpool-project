@@ -4,72 +4,70 @@
 <script src="/modules/auth-module/js/role.js"></script>
 {% endblock %}
 {% block main %}
-<div>
-    <nav class="navbar header-bg p-4">
-        <div class="row mx-0 w-100 justify-content-between">
-            <div alt="logo" class="header-logo"></div>
-            <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">It’s okay to
-                not be okay.</h2>
-            <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
-                <i class="fa fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
-                <i class="fa fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
-            </button>
-        </div>
-    </nav>
-    <div class="sub-header-bg">
-        <h2 class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 1 of 5: Eligibility</h2>
-        <div
-            class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
-            Before we get too far, let’s check that you or the child / young person is eligible
-            to refer into this service.
-        </div>
-        <p class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
+<nav class="navbar header-bg p-4">
+    <div class="row mx-0 w-100 justify-content-between">
+        <div alt="logo" class="header-logo"></div>
+        <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">It’s okay to
+            not be okay.</h2>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
+            aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
+            <i class="fa fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
+            <i class="fa fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+        </button>
     </div>
+</nav>
+<div class="sub-header-bg">
+    <h2 class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 1 of 5: Eligibility</h2>
+    <div
+        class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
+        Before we get too far, let’s check that you or the child / young person is eligible
+        to refer into this service.
+    </div>
+    <p class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
 </div>
 <div class="main-content-bg py-4 main-min-height">
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
         <div id="role-form" class="py-4">
-            <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p class="question-font">I am a</p>
-                <div class="form-check py-3 px-4">
+            <div class="px-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p class="question-font m-0">I am a</p>
+
+                <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="aboutYou"
                         value="child" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="aboutYou">
+                    <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
                         Child / Young Person
                     </label>
                 </div>
-                <div class="form-check py-3 px-4">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
                         value="parent" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="whom">
+                    <label class="form-check-label option-font d-flex align-items-center" for="whom">
                         Parent / Carer
                     </label>
                 </div>
-                <div class="form-check py-3 px-4">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
                         id="profession" value="professional" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="profession">
+                    <label class="form-check-label d-flex align-items-center option-font" for="profession">
                         Professional
                     </label>
                 </div>
             </div>
             <div v-if="elgibilityObj.role == 'child' || elgibilityObj.role=='parent'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p class="question-font">Do you need an interpreter?</p>
-                <div class="form-check py-3 px-4">
-                    <input class="form-check-input" type="radio" name="interpreter" id="aboutYou"
+                <p class="question-font m-0">Do you need an interpreter?</p>
+                <div class="form-check pt-3 pb-1 pl-0">
+                    <input class="form-check-input" type="radio" name="interpreter" id="interpreterNo"
                         v-model="elgibilityObj.interpreter" value="no" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="aboutYou">
+                    <label class="form-check-label option-font d-flex align-items-center" for="interpreterNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3 px-4">
-                    <input class="form-check-input" type="radio" name="interpreter" id="whom"
+                <div class="form-check py-2 pl-0">
+                    <input class="form-check-input" type="radio" name="interpreter" id="interpreterYes"
                         v-model="elgibilityObj.interpreter" value="yes" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="whom">
+                    <label class="form-check-label option-font d-flex align-items-center" for="interpreterYes">
                         Yes
                     </label>
                 </div>
@@ -108,20 +106,21 @@
             <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  belowAgeLimit == 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p class="question-font">Can we contact your parent or carer?</p>
-                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                    <p class="question-font m-0">Can we contact your parent or carer?</p>
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class"
+                        data-toggle="modal" data-target="#consentModal" alt="">
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactParent"
-                        id="aboutYou" value="no" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="aboutYou">
+                        id="contactNo" value="no" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="contactNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
-                    <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactParent" id="whom"
-                        value="yes" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="whom">
+                <div class="form-check py-2 pl-0">
+                    <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactParent"
+                        id="contactYes" value="yes" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="contactYes">
                         Yes
                     </label>
                 </div>
@@ -165,27 +164,30 @@
             <div v-if="elgibilityObj.camhs== 'show' || elgibilityObj.contactParent=='yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p v-if="elgibilityObj.role=='child'" class="question-font">Do you give consent for us to use the
+                    <p v-if="elgibilityObj.role=='child'" class="question-font m-0">Do you give consent for us to use
+                        the
                         information that you provide and
                         share it
                         with other CAMHS partners so that we can help you?</p>
 
-                    <p v-if="elgibilityObj.role=='parent'" class="question-font">Do you have consent from your child for
+                    <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">Do you have consent from your child
+                        for
                         us to use the information that you
                         provide, and share it with other CAMHS partners so that we can help them?</p>
-                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class" alt="">
                 </div>
-                <div class="form-check py-3 px-4">
+                <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" name="camhsSelect"
-                        v-model="elgibilityObj.isInformation" id="aboutYou" value="no" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="aboutYou">
+                        v-model="elgibilityObj.isInformation" id="consentInfoNo" value="no" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="consentInfoNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3 px-4">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" name="camhsSelect"
-                        v-model="elgibilityObj.isInformation" id="whom" value="yes" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="whom">
+                        v-model="elgibilityObj.isInformation" id="consentInfoYes" value="yes"
+                        @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="consentInfoYes">
                         Yes
                     </label>
                 </div>
@@ -249,13 +251,11 @@
             <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  submitForm == 'true'"
                 class="text-center py-4">
                 <a>
-                    <button v-on:click="save()" type="button" class="btn btn px-md-4 py-1 px-3"><span
+                    <button v-on:click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
                             class="btn-secondary-text">SAVE &
                             CONTINUE</span></button>
                 </a>
             </div>
-
-
 
 
             <!-- Professional Info start -->
@@ -295,22 +295,23 @@
             <div v-if="elgibilityObj.role == 'professional' &&  profBelowAgeLimit == 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p class="question-font">Do you have concern from the child/young person's parent/carer for us to
+                    <p class="question-font m-0">Do you have concern from the child/young person's parent/carer for us
+                        to
                         use information that you provide, and share it with other CAMHS partners so that we can help
                         them?</p>
-                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class" alt="">
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactProfParent"
-                        id="aboutYou" value="no" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="aboutYou">
+                        id="infoNo" value="no" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="infoNo">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" name="" v-model="elgibilityObj.contactProfParent"
-                        id="whom" value="yes" @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="whom">
+                        id="infoYes" value="yes" @change="onChange($event)">
+                    <label class="form-check-label option-font d-flex align-items-center" for="infoYes">
                         Yes
                     </label>
                 </div>
@@ -352,24 +353,25 @@
             <div v-if="elgibilityObj.parentConcern== 'show' || elgibilityObj.contactProfParent== 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p class="question-font">Do you have consent from the child / young person’s parent / carer for us
+                    <p class="question-font m-0">Do you have consent from the child / young person’s parent / carer for
+                        us
                         to use the information that you provide, and share it with other CAMHS partners so that we can
                         help them??</p>
                     <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                 </div>
-                <div class="form-check py-3 px-4">
+                <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" id="aboutYou"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)" value="no">
-                    <label class="form-check-label option-font px-4" for="aboutYou">
+                    <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
                         No
                     </label>
                 </div>
-                <div class="form-check py-3 px-4">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" id="whom" value="yes"
                         v-model="elgibilityObj.parentConcernInformation" name="parentConcernSelect"
                         @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="whom">
+                    <label class="form-check-label option-font d-flex align-items-center" for="whom">
                         Yes
                     </label>
                 </div>
@@ -398,23 +400,23 @@
             <div v-if="elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
-                    <p class="question-font">Do you have consent from the child / young person for us to use the
+                    <p class="question-font m-0">Do you have consent from the child / young person for us to use the
                         information that you provide, and share it with other CAMHS partners so that we can help them?
                     </p>
-                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class" alt="">
                 </div>
-                <div class="form-check py-3 px-4">
-                    <input class="form-check-input" type="radio" id="aboutYou" value="no"
+                <div class="form-check pt-3 pb-1 pl-0">
+                    <input class="form-check-input" type="radio" id="camhsNo" value="no"
                         v-model="elgibilityObj.childConcernInformation" name="childConcernSelect"
                         @change="onChange($event)">
-                    <label class="form-check-label option-font px-4" for="aboutYou">
+                    <label class="form-check-label option-font d-flex align-items-center" for="camhsNo">
                         No
                     </label>
                 </div>
                 <div class="form-check py-3 px-4">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.childConcernInformation"
-                        name="childConcernSelect" @change="onChange($event)" id="whom" value="yes">
-                    <label class="form-check-label option-font px-4" for="whom">
+                        name="childConcernSelect" @change="onChange($event)" id="camhYes" value="yes">
+                    <label class="form-check-label option-font d-flex align-items-center" for="camhYes">
                         Yes
                     </label>
                 </div>
@@ -482,5 +484,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Start -->
+    <div class="modal fade" id="consentModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="px-2 py-4">
+                    <p class="text-center m-0 cursor-pointer"><img src="/modules/my-apostrophe-assets/img/support.svg"
+                            alt="logo" class="support-logo"></p>
+                    <h3 class="px-4 py-2 pb-2 content-secondary-header-text text-center">
+                        Consent</h3>
+                    <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
+                        <h3 class="content-text text-left py-2"> Consent is when one person agrees to or gives
+                            permission to another person to do something. Consent means agreeing to an action based on
+                            your knowledge of what that action involves, its likely consequences and having the option
+                            of saying no. The absence of no does not mean yes. > Link to video explaining consent
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Start -->
+
 </div>
 {% endblock %}
