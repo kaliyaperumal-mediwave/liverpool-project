@@ -64,7 +64,7 @@
             <!-- About Your Self End-->
 
             <!-- Which school / college / university / do you attend? Start  -->
-            <div v-if="professionObj.childProfession =='education'"
+            <div v-show="professionObj.childProfession =='education'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label v-if="labelToDisplay =='child'"  for="gpParentorCarerLocation" class="question-font">Which school / college / university / do
@@ -74,7 +74,7 @@
                    
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Start typing to search"
-                            id="gpParentorCarerLocation" aria-label="location"
+                            id="childEducationPlace" aria-label="location"
                             v-model="professionObj.childEducationPlace">
                         <div class="input-group-append">
                             <span class="input-group-text">
