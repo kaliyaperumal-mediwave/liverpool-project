@@ -3,18 +3,31 @@ var API_URI = "/modules/education-employment-module";
 
 $(document).ready(function () {
 
-
-    var _self = this;
     var app = new Vue({
         el: '#education-form',
         data: {
             labelToDisplay:"",
             professionObj: {},
+            childEducation:""
         },
         mounted: function () {
-            this.labelToDisplay= new URL(location.href).searchParams.get('role');
+            var _self = this;
+            _self.labelToDisplay= new URL(location.href).searchParams.get('role');
+            google.maps.event.addDomListener(window, 'load', _self.initialize);
         },
         methods: {
+
+            initialize() {
+                var _self = this;
+                var autoCompleteChild;
+                autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('childEducationPlace')), {
+                    types: ['geocode'],
+                });
+                google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
+                    _self.childEducation = autoCompleteChild.getPlace().formatted_address;
+                });
+            },
+
 
             onChange(event) {
 
@@ -49,11 +62,14 @@ $(document).ready(function () {
             },
             saveEducation() {
 
-                console.log(this.professionObj);
+                var _self = this;
                 var userid= new URL(location.href).searchParams.get('userid');
                 var role= new URL(location.href).searchParams.get('role');
                 this.professionObj.userid=userid;
                 this.professionObj.role=role;
+                this.professionObj.childEducationPlace=_self.childEducation;
+
+                console.log(this.professionObj);
 
                 $.ajax({
                     url: API_URI + "/education",
