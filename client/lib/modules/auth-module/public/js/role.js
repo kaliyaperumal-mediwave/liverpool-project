@@ -2,12 +2,6 @@
 //const apiUrl = "/user/eligibility"
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-
-
-    // $("#gpLocation").autocomplete({
-    //     source: availableTags
-    // });
-
     var _self = this;
     var app = new Vue({
         el: '#role-form',
@@ -15,7 +9,6 @@ $(document).ready(function () {
             //this.getGP();
         },
         data: {
-
             gpListShow: [],
             elgibilityObj: {},
             submitForm: "",
@@ -26,7 +19,6 @@ $(document).ready(function () {
             profaboveLimit: ""
         },
         methods: {
-
             getGP() {
                 console.log("Er");
                 gpList = [];
@@ -34,15 +26,10 @@ $(document).ready(function () {
                     url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
                     type: 'get',
                     success: function (response) {
-
                         this.gpListShow = response.Organisations;
-
                         for (i = 0; i < this.gpListShow.length; i++) {
-
                             gpList.push(this.gpListShow[i].Name)
-
                         }
-
                         $("#gpLocation").autocomplete({
                             source: gpList
                         });
@@ -52,7 +39,6 @@ $(document).ready(function () {
                         console.log(err)
                     },
                 })
-
             },
 
             getProfGP() {
@@ -62,15 +48,10 @@ $(document).ready(function () {
                     url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
                     type: 'get',
                     success: function (response) {
-
                         this.gpListShow = response.Organisations;
-
                         for (i = 0; i < this.gpListShow.length; i++) {
-
                             gpList.push(this.gpListShow[i].Name)
-
                         }
-
                         $("#gpProfLocation").autocomplete({
                             source: gpList
                         });
@@ -80,22 +61,12 @@ $(document).ready(function () {
                         console.log(err)
                     },
                 })
-
-            },
-
-            getDate(e) {
-                console.log(e.target.value);
             },
 
             onChange(event) {
                 var optionText = event.target.name;
-
-
-
                 if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
-
                     console.log(optionText);
-
                     this.elgibilityObj.interpreter = "";
                     this.elgibilityObj.childDob = "";
                     this.belowAgeLimit = "";
@@ -105,7 +76,6 @@ $(document).ready(function () {
                     this.elgibilityObj.registerd_gp = "";
                     this.elgibilityObj.contactParent = "";
                     this.submitForm = "false";
-
                 }
 
                 if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
@@ -121,7 +91,6 @@ $(document).ready(function () {
                 }
 
                 if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
-
                     this.elgibilityObj.isInformation = "";
                     this.elgibilityObj.registerd_gp = "";
                     this.submitForm = "false";
@@ -131,14 +100,11 @@ $(document).ready(function () {
                     this.getGP();
                 }
                 if (optionText == "camhsSelect" && this.submitForm != undefined) {
-
                     this.submitForm = "false";
-
                 }
 
                 //reset fields for prof
                 if (optionText == "role" && this.elgibilityObj.parentConcernInformation != undefined) {
-
                     this.elgibilityObj.profName = "";
                     this.elgibilityObj.profEmail = "";
                     this.elgibilityObj.profContactNumber = "";
@@ -151,9 +117,7 @@ $(document).ready(function () {
                     this.profaboveLimit = "";
                     this.elgibilityObj.contactProfParent = "";
                     this.submitProfForm = "false";
-
                 }
-
 
                 if (optionText == "parentConcernSelect") {
                     var selectTxt = event.target.value
@@ -166,30 +130,22 @@ $(document).ready(function () {
                         this.profBelowAgeLimit = "";
                         this.profaboveLimit = "";
                         this.submitProfForm = "false";
-
                     }
-
                 }
 
                 if (optionText == "childConcernSelect") {
                     this.getProfGP();
-
                     var selectTxt = event.target.value
                     if (selectTxt == "no") {
                         console.log("--");
-
                         this.elgibilityObj.registerd_gp = "";
                         this.profBelowAgeLimit = "";
                         this.profaboveLimit = "";
                         this.submitProfForm = "false";
                     }
-
                 }
-
-
-
-
             },
+
             getAddress(e) {
                 $("#gpLocation").on("autocompleteclose", function (event, ui) {
                     console.log('this', _self, app);
@@ -201,6 +157,7 @@ $(document).ready(function () {
                     }
                 });
             },
+
             getProfAddress(e) {
                 $("#gpProfLocation").on("autocompleteclose", function (event, ui) {
                     console.log('this', _self, app);
@@ -212,18 +169,15 @@ $(document).ready(function () {
                     }
                 });
             },
+
             changeDob(event) {
-
-
                 var today = new Date();
                 var selectedDate = new Date(event.target.value);
                 var age = this.diff_years(today, selectedDate);
                 var roleText = event.target.name;
                 console.log(this.elgibilityObj.childDob);
                 if (roleText == 'child') {
-
                     if (age < 15) {
-
                         this.belowAgeLimit = "yes";
                         this.aboveLimit = "";
                         this.elgibilityObj.camhs = "";
@@ -234,22 +188,16 @@ $(document).ready(function () {
                         this.belowAgeLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
-
                     }
                     else {
-
                         this.elgibilityObj.camhs = "show";
                         this.belowAgeLimit = "";
                         this.aboveLimit = "";
                         this.submitForm = "false";
                     }
-
                 }
                 else if (roleText == 'prof') {
-
-
                     if (age < 15) {
-
                         this.profBelowAgeLimit = "yes";
                         this.profaboveLimit = "";
                         this.elgibilityObj.parentConcern = "";
@@ -260,10 +208,8 @@ $(document).ready(function () {
                         this.profBelowAgeLimit = "";
                         this.elgibilityObj.parentConcern = "";
                         this.submitProfForm = "false";
-
                     }
                     else {
-
                         this.elgibilityObj.parentConcern = "show";
                         this.profBelowAgeLimit = "";
                         this.profaboveLimit = "";
@@ -271,14 +217,14 @@ $(document).ready(function () {
                     }
                 }
             },
+
             changeGP() {
                 this.submitForm = "true";
             },
-            save() {
 
+            save() {
                 console.log(this.elgibilityObj)
                 var role = this.elgibilityObj.role;
-
                 $.ajax({
                     url: API_URI + "/eligibility",
                     type: 'post',
@@ -288,12 +234,8 @@ $(document).ready(function () {
                     success: function (data) {
                         alert("section 1 saved.");
                         console.log(data)
-                        // location.reload();
-                        // console.log("/about?userid="+data.userid+"&role="+role)
                         location.href = "/about?userid=" + data.userid + "&role=" + role;
-
                     },
-
                 });
             },
 
