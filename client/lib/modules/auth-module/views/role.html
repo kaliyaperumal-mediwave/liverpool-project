@@ -98,15 +98,15 @@
                         data-toggle="modal" data-target="#consentModal" alt="">
                 </div>
                 <div class="form-check pt-3 pb-1 pl-0">
-                    <input class="form-check-input" type="radio" name="belowAgeParent" v-model="elgibilityObj.contactParent"
-                        id="contactNo" value="no" @change="onChange($event)">
+                    <input class="form-check-input" type="radio" name="belowAgeParent"
+                        v-model="elgibilityObj.contactParent" id="contactNo" value="no" @change="onChange($event)">
                     <label class="form-check-label option-font d-flex align-items-center" for="contactNo">
                         No
                     </label>
                 </div>
                 <div class="form-check py-2 pl-0">
-                    <input class="form-check-input" type="radio" name="belowAgeParent" v-model="elgibilityObj.contactParent"
-                        id="contactYes" value="yes" @change="onChange($event)">
+                    <input class="form-check-input" type="radio" name="belowAgeParent"
+                        v-model="elgibilityObj.contactParent" id="contactYes" value="yes" @change="onChange($event)">
                     <label class="form-check-label option-font d-flex align-items-center" for="contactYes">
                         Yes
                     </label>
@@ -250,18 +250,18 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="fullName" class="question-font">Your full name</label>
-                    <input type="text" v-model="elgibilityObj.profName" class="form-control" id="fullName"
-                        placeholder="">
+                    <input type="text" v-model="elgibilityObj.profName" placeholder="Jane Doe" class="form-control"
+                        id="fullName" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="emailAddress" class="question-font">Your email address - optional</label>
-                    <input type="email" v-model="elgibilityObj.profEmail" class="form-control" id="emailAddress"
-                        placeholder="">
+                    <input type="email" v-model="elgibilityObj.profEmail" placeholder="JaneDoe@example.com"
+                        class="form-control" id="emailAddress" placeholder="">
                 </div>
                 <div class="form-group">
                     <label for="contact" class="question-font">Enter your contact number</label>
-                    <input type="text" v-model="elgibilityObj.profContactNumber" class="form-control" id="contact"
-                        placeholder="">
+                    <input type="text" v-model="elgibilityObj.profContactNumber" placeholder="01548 659874"
+                        class="form-control" id="contact" placeholder="">
                 </div>
             </div>
             <!-- Professional Info End -->
@@ -400,7 +400,7 @@
                         No
                     </label>
                 </div>
-                <div class="form-check py-3 px-4">
+                <div class="form-check py-2 pl-0">
                     <input class="form-check-input" type="radio" v-model="elgibilityObj.childConcernInformation"
                         name="childConcernSelect" @change="onChange($event)" id="camhYes" value="yes">
                     <label class="form-check-label option-font d-flex align-items-center" for="camhYes">

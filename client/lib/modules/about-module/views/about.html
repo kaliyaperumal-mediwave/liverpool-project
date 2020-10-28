@@ -187,6 +187,7 @@
                     <!-- <input type="text" class="form-control" id="gender" placeholder="Enter your gender" v-model="aboutObj.childGender"> -->
                     <select @change="onChange($event)" class="custom-select form-control"
                         v-model="aboutObj.childGender">
+                        <option value="" disabled>Choose a gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
 
