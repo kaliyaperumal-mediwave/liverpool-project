@@ -90,7 +90,6 @@ $(document).ready(function () {
             onChange(event) {
                 var optionText = event.target.name;
 
-                console.log(this.elgibilityObj.interpreter);
 
 
                 if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
@@ -116,14 +115,20 @@ $(document).ready(function () {
                     this.elgibilityObj.camhs = "";
                     this.elgibilityObj.camhsSelect = "";
                     this.elgibilityObj.isInformation = "";
+                    this.elgibilityObj.registerd_gp = "";
                     this.elgibilityObj.contactParent = "";
                     this.submitForm = "false";
                 }
 
+                if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
+
+                    this.elgibilityObj.isInformation = "";
+                    this.elgibilityObj.registerd_gp = "";
+                    this.submitForm = "false";
+                }
+
                 if (optionText == "camhsSelect") {
-
                     this.getGP();
-
                 }
                 if (optionText == "camhsSelect" && this.submitForm != undefined) {
 
@@ -144,7 +149,7 @@ $(document).ready(function () {
                     this.elgibilityObj.profRegisterd_gp = "";
                     this.profBelowAgeLimit = "";
                     this.profaboveLimit = "";
-                    this.elgibilityObj.contactProfParent ="";
+                    this.elgibilityObj.contactProfParent = "";
                     this.submitProfForm = "false";
 
                 }
