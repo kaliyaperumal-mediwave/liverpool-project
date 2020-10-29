@@ -75,8 +75,8 @@
             </div>
             <!-- toster-container start -->
 
-            <!-- calender start-->
-            <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') && elgibilityObj.interpreter == 'no'"
+            <!-- calender start child-->
+            <div v-if="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p v-if="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?</p>
                 <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
@@ -87,7 +87,20 @@
                     </div>
                 </div>
             </div>
-            <!-- calendar-end -->
+            <!-- calendar-end  child-->
+
+            <!-- calender start child-->
+            <div v-if="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'"
+                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
+                <div class="input-group">
+                    <input type="date"  max="2020-10-29" class="form-control" name="parent" v-model="elgibilityObj.childDob"
+                        @change="changeDob($event)">
+                    <div class="input-group-addon">
+                    </div>
+                </div>
+            </div>
+            <!-- calendar-end  child-->
 
             <!-- Age under 14 start-->
             <div v-if="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  belowAgeLimit == 'yes'"
@@ -344,7 +357,7 @@
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">Anonymous help and advice for under 14s</p>
+                        <p class="question-font text-center m-0 py-2">We need the child/young person's parents consent to continue</p>
                     </div>
                 </div>
             </div>

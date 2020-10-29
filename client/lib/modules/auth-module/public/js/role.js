@@ -227,6 +227,23 @@ $(document).ready(function () {
                         this.submitProfForm = "false";
                     }
                 }
+
+                else if (roleText == 'parent') {
+                    if (age > 25) {
+                        this.aboveLimit = "yes";
+                        this.elgibilityObj.camhs = "";
+                        this.submitForm = "false";
+                    }
+                    else
+                    {
+                        this.elgibilityObj.camhs = "show";
+                        this.belowAgeLimit = "";
+                        this.aboveLimit = "";
+                        this.submitForm = "false";
+                    }
+
+                }
+
             },
 
             changeGP() {
