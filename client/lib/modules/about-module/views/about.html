@@ -338,7 +338,7 @@
                 <div class="form-group">
                     <p class="question-font m-0">What is your date of birth?</p>
                     <div class="input-group py-2 my-2">
-                        <input type="date" class="form-control" name="child" v-model="aboutObj.childDob"
+                        <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="aboutObj.childDob"
                             @change="changeDob($event)">
                         <div class="input-group-addon">
                         </div>
@@ -375,7 +375,7 @@
                 <div class="form-group py-2 my-2">
                     <p class="question-font m-0">Date of birth- optional</p>
                     <div class="input-group">
-                        <input type="date" class="form-control" name="child" v-model="aboutObj.childDob"
+                        <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="aboutObj.childDob"
                             @change="changeDob($event)">
                         <div class="input-group-addon">
                         </div>
@@ -415,7 +415,7 @@
                     <p class="question-font m-0">Date of birth of the person the child / young person lives with -
                         optional</p>
                     <div class="input-group">
-                        <input type="date" class="form-control" name="child" v-model="aboutObj.childDob"
+                        <input type="date" max="2020-10-29"  class="form-control" name="child" v-model="aboutObj.childDob"
                             @change="changeDob($event)">
                         <div class="input-group-addon">
                         </div>
