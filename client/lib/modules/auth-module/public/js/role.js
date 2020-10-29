@@ -6,7 +6,6 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#role-form',
         mounted: function () {
-            debugger;
             this.loaded();
         },
         data: {
@@ -74,7 +73,7 @@ $(document).ready(function () {
             },
 
             onChange(event) {
-                debugger;
+            
                 var optionText = event.target.name;
                 if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
                     console.log(optionText);
@@ -111,6 +110,7 @@ $(document).ready(function () {
                     this.getGP();
                 }
                 if (optionText == "camhsSelect" && this.submitForm != undefined) {
+                    this.elgibilityObj.registerd_gp = "";
                     this.submitForm = "false";
                 }
 
@@ -354,7 +354,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                        alert("section 1 saved.");
+                        //alert("section 1 saved.");
                         console.log(data);
                         this.isSubmitted = false;
                         if (role === 'professional') {

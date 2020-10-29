@@ -123,7 +123,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(this.aboutObj),
                     success: function (data) {
-                        alert("section 2 saved.");
+                        //alert("section 2 saved.");
                         console.log(data)
                         // location.reload();
                         // console.log("/about?userid="+data.userid+"&role="+role)
