@@ -6,7 +6,7 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#role-form',
         mounted: function () {
-            //this.getGP();
+            this.loaded();
         },
         data: {
             gpListShow: [],
@@ -16,9 +16,18 @@ $(document).ready(function () {
             belowAgeLimit: "",
             aboveLimit: "",
             profBelowAgeLimit: "",
-            profaboveLimit: ""
+            profaboveLimit: "",
+            hasNameReqError: false,
+            hasContactReqError: false,
+            hasNameInvalidError: false,
+            hasContactInvalidError: false,
+            hasEmailInvalidError: false,
+            isSubmitted: false
         },
         methods: {
+            loaded() {
+                console.log('loaded')
+            },
             getGP() {
                 console.log("Er");
                 gpList = [];
@@ -64,6 +73,7 @@ $(document).ready(function () {
             },
 
             onChange(event) {
+            
                 var optionText = event.target.name;
                 if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
                     console.log(optionText);
@@ -100,6 +110,7 @@ $(document).ready(function () {
                     this.getGP();
                 }
                 if (optionText == "camhsSelect" && this.submitForm != undefined) {
+                    this.elgibilityObj.registerd_gp = "";
                     this.submitForm = "false";
                 }
 
@@ -222,21 +233,145 @@ $(document).ready(function () {
                 this.submitForm = "true";
             },
 
+            onVaueChange(e, type) {
+                if (this.isSubmitted) {
+                    var phoneRegex = /^[0-9,-]{10,15}$|^$/;
+                    var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
+                    var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
+                    if (type === 'fullName') {
+                        if (e.target.value.length === 0) {
+                            this.hasNameReqError = true;
+                        } else {
+                            if (!nameRegex.test(e.target.value)) {
+                                this.hasNameInvalidError = true;
+                            } else {
+                                this.hasNameInvalidError = false;
+                            }
+                            this.hasNameReqError = false;
+                        }
+
+                    } else if (type === 'email') {
+                        if (e.target.value.length === 0) {
+                            this.hasEmailInvalidError = false;
+                        } else {
+                            if (emailRegex.test(e.target.value)) {
+                                this.hasEmailInvalidError = false;
+                            } else {
+                                this.hasEmailInvalidError = true;
+                            }
+                            //this.hasNameReqError = false;
+                        }
+                    }
+
+                    else if (type === 'contact') {
+                        if (e.target.value.length === 0) {
+                            this.hasContactReqError = true;
+                            this.hasContactInvalidError = false;
+                        } else {
+                            if (!phoneRegex.test(e.target.value)) {
+                                this.hasContactInvalidError = true;
+                            } else {
+                                this.hasContactInvalidError = false;
+                            }
+                            this.hasContactReqError = false;
+                        }
+
+                    }
+                }
+            },
+
             save() {
-                console.log(this.elgibilityObj)
+                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
+                var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
+                var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
+                this.isSubmitted = true;
+                console.log(this.elgibilityObj);
                 var role = this.elgibilityObj.role;
+                if (role === 'professional') {
+                    if (this.elgibilityObj.profName && this.elgibilityObj.profContactNumber) {
+                        if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
+                            if (this.elgibilityObj.profEmail) {
+                                if (emailRegex.test(this.elgibilityObj.profEmail)) {
+                                    this.apiRequest(this.elgibilityObj, role);
+
+                                } else {
+                                    this.hasEmailInvalidError = true;
+                                }
+
+                            } else {
+                                this.apiRequest(this.elgibilityObj, role);
+                            }
+                        }
+                        else {
+                            if (!nameRegex.test(this.elgibilityObj.profName)) {
+                                this.hasNameInvalidError = true;
+                            } else {
+                                this.hasNameInvalidError = false;
+                            }
+                            if (!phoneRegex.test(this.elgibilityObj.profContactNumber)) {
+                                this.hasContactInvalidError = true;
+                            } else {
+                                this.hasContactInvalidError = false;
+                            }
+                            if (this.elgibilityObj.profEmail) {
+                                if (!emailRegex.test(this.elgibilityObj.profEmail)) {
+                                    this.hasEmailInvalidError = true;
+                                }
+                            }
+                            window.scrollTo(0, 0)
+                        }
+                    } else {
+                        if (this.elgibilityObj.profName === undefined) {
+                            this.hasNameReqError = true;
+                        } else {
+                            this.hasNameReqError = false;
+                        }
+                        if (this.elgibilityObj.profContactNumber === undefined) {
+                            this.hasContactReqError = true;
+                        } else {
+                            this.hasContactReqError = false;
+                        }
+                        if (this.elgibilityObj.profEmail) {
+                            if (!emailRegex.test(this.elgibilityObj.profEmail)) {
+                                this.hasEmailInvalidError = true;
+                            }
+                        }
+                        window.scrollTo(0, 0)
+                    }
+                } else if (role === 'parent') {
+                    this.apiRequest(this.elgibilityObj, role);
+                }
+                else if (role === 'child') {
+                    this.apiRequest(this.elgibilityObj, role);
+                }
+            },
+
+            apiRequest(payload, role) {
                 $.ajax({
                     url: API_URI + "/eligibility",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
-                    data: JSON.stringify(this.elgibilityObj),
+                    data: JSON.stringify(payload),
                     success: function (data) {
-                        alert("section 1 saved.");
-                        console.log(data)
+                        //alert("section 1 saved.");
+                        console.log(data);
+                        this.isSubmitted = false;
+                        if (role === 'professional') {
+                            this.resetValidation();;
+                        }
                         location.href = "/about?userid=" + data.userid + "&role=" + role;
                     },
                 });
+            },
+
+
+            resetValidation() {
+                this.hasNameInvalidError = false;
+                this.hasNameReqError = false;
+                this.hasEmailInvalidError = false;
+                this.hasContactInvalidError = flase;
+                this.hasContactReqError = false;
             },
 
             diff_years(dt2, dt1) {

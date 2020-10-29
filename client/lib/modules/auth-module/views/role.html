@@ -81,7 +81,7 @@
                 <p v-if="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?</p>
                 <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
                 <div class="input-group">
-                    <input type="date" class="form-control" name="child" v-model="elgibilityObj.childDob"
+                    <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="elgibilityObj.childDob"
                         @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>
@@ -250,18 +250,33 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label for="fullName" class="question-font">Your full name</label>
-                    <input type="text" v-model="elgibilityObj.profName" placeholder="Jane Doe" class="form-control"
-                        id="fullName" placeholder="">
+                    <input type="text" v-model="elgibilityObj.profName" @input="onVaueChange($event,'fullName')"
+                        placeholder="Jane Doe" class="form-control" id="fullName">
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
+                        Please provide a name.
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-none': hasNameInvalidError }">
+                        Please provide a valid name.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="emailAddress" class="question-font">Your email address - optional</label>
-                    <input type="email" v-model="elgibilityObj.profEmail" placeholder="JaneDoe@example.com"
-                        class="form-control" id="emailAddress" placeholder="">
+                    <input type="email" v-model="elgibilityObj.profEmail" @input="onVaueChange($event,'email')"
+                        placeholder="JaneDoe@example.com" class="form-control" id="emailAddress">
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasEmailInvalidError }">
+                        Please provide a valid email.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="contact" class="question-font">Enter your contact number</label>
-                    <input type="text" v-model="elgibilityObj.profContactNumber" placeholder="01548 659874"
-                        class="form-control" id="contact" placeholder="">
+                    <input type="text" v-model="elgibilityObj.profContactNumber" @input="onVaueChange($event,'contact')"
+                        placeholder="01548 659874" class="form-control" id="contact">
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactReqError }">
+                        Please provide a number.
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactInvalidError }">
+                        Please provide a valid number.
+                    </div>
                 </div>
             </div>
             <!-- Professional Info End -->
@@ -271,7 +286,7 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
                 <div class="input-group">
-                    <input type="date" class="form-control" v-model="elgibilityObj.profChildDob"
+                    <input type="date" max="currentDate" class="form-control" v-model="elgibilityObj.profChildDob"
                         @change="changeDob($event)" name="prof">
                     <div class="input-group-addon">
                     </div>

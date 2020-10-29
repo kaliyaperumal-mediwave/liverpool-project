@@ -10,7 +10,9 @@ $(document).ready(function () {
             showBelowAge: "",
             submitForm: "",
             selectedChildAddress: "",
-            selectedParentAddress: ""
+            selectedParentAddress: "",
+            empClgSchool:"",
+            saveAndCont:""
         },
         mounted: function () {
             var _self = this;
@@ -36,11 +38,56 @@ $(document).ready(function () {
                 });
                 google.maps.event.addListener(autoCompleteParent, 'place_changed', function () {
                     _self.selectedParentAddress = autoCompleteParent.getPlace().formatted_address;
+                    document.getElementById("showAdToast").style.display = "block";
+                    document.getElementById("showAdBtn").style.display = "block";
                 });
+
+                // var autoCompleteSchClg;
+                // autoCompleteSchClg = new google.maps.places.Autocomplete((document.getElementById('txtEmpClg')), {
+                //     types: ['geocode'],
+                // });
+                // google.maps.event.addListener(autoCompleteSchClg, 'place_changed', function () {
+                //     _self.empClgSchool = autoCompleteSchClg.getPlace().formatted_address;
+                // });
+
             },
 
             onChange(event) {
-                console.log(event.target.value);
+                var optionTxt=event.target.name;
+
+                if(optionTxt=="parentialResponsibility")
+                {
+                    this.aboutObj.parentContactName="";
+                    this.aboutObj.childParentRelationship="";
+                    this.aboutObj.parentContactNumber="";
+                    this.aboutObj.parentEmail = "";
+                }
+
+                if(optionTxt=="parentialResponsibility" && this.aboutObj.parentSameHouse != undefined)
+                {
+                    this.aboutObj.parentSameHouse="";
+                    this.aboutObj.legalCareStatus = "";
+                    this.saveAndCont='false';
+                    document.getElementById("showAdToast").style.display = "none";
+                    document.getElementById("showAdBtn").style.display = "none";
+                    document.getElementById('txtParentAddress').value="";
+                }
+                if(optionTxt=="parentSameHouseYes")
+                {
+                    document.getElementById("showAdToast").style.display = "none";
+                    document.getElementById("showAdBtn").style.display = "none";
+                    document.getElementById('txtParentAddress').value="";
+                }
+
+                if(optionTxt=="legalCare")
+                {
+                    this.saveAndCont='true';
+                }
+                if(optionTxt=="parentSameHouseYes")
+                {
+                    this.aboutObj.legalCareStatus = "";
+                    this.saveAndCont='false';
+                }
 
                 this.submitForm = "yes";
 
@@ -76,7 +123,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(this.aboutObj),
                     success: function (data) {
-                        alert("section 2 saved.");
+                        //alert("section 2 saved.");
                         console.log(data)
                         // location.reload();
                         // console.log("/about?userid="+data.userid+"&role="+role)
