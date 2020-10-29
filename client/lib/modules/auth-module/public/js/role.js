@@ -266,6 +266,7 @@ $(document).ready(function () {
                     else if (type === 'contact') {
                         if (e.target.value.length === 0) {
                             this.hasContactReqError = true;
+                            this.hasContactInvalidError = false;
                         } else {
                             if (!phoneRegex.test(e.target.value)) {
                                 this.hasContactInvalidError = true;
@@ -307,11 +308,17 @@ $(document).ready(function () {
                             } else {
                                 this.hasNameInvalidError = false;
                             }
-                            if (!nameRegex.test(this.elgibilityObj.profContactNumber)) {
+                            if (!phoneRegex.test(this.elgibilityObj.profContactNumber)) {
                                 this.hasContactInvalidError = true;
                             } else {
                                 this.hasContactInvalidError = false;
                             }
+                            if (this.elgibilityObj.profEmail) {
+                                if (!emailRegex.test(this.elgibilityObj.profEmail)) {
+                                    this.hasEmailInvalidError = true;
+                                }
+                            }
+                            window.scrollTo(0, 0)
                         }
                     } else {
                         if (this.elgibilityObj.profName === undefined) {
@@ -324,6 +331,12 @@ $(document).ready(function () {
                         } else {
                             this.hasContactReqError = false;
                         }
+                        if (this.elgibilityObj.profEmail) {
+                            if (!emailRegex.test(this.elgibilityObj.profEmail)) {
+                                this.hasEmailInvalidError = true;
+                            }
+                        }
+                        window.scrollTo(0, 0)
                     }
                 } else if (role === 'parent') {
                     this.apiRequest(this.elgibilityObj, role);
