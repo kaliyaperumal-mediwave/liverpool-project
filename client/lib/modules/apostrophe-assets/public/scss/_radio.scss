@@ -1,0 +1,58 @@
+/* Radio Button Global classes */
+
+%radio-shared {
+  content: "";
+  position: absolute;
+  border-radius: 102px;
+  opacity: 1;
+}
+
+@mixin dynamicRadioClass($width, $height, $top, $left, $background) {
+  width: $width;
+  height: $height;
+  top: $top;
+  left: $left;
+  background: $background 0% 0% no-repeat padding-box;
+  @extend %radio-shared;
+}
+
+[type="radio"] {
+  &:checked,
+  &:not(:checked) {
+    position: absolute;
+    left: -9999px;
+  }
+
+  &:checked + label,
+  &:not(:checked) + label {
+    position: relative;
+    padding-left: 56px;
+    cursor: pointer;
+    height: 40px;
+    display: inline-block;
+  }
+
+  &:checked + label:before,
+  &:not(:checked) + label:before {
+    @include dynamicRadioClass(40px, 40px, 0, 0, $primary-input-color);
+    border: 1px solid $primary-color;
+  }
+
+  &:checked + label:after {
+    @include dynamicRadioClass(22px, 22px, 9px, 9px, $primary-color);
+    @include transition(all 0.2s ease);
+    padding: 2px;
+  }
+
+  &:not(:checked) + label:after {
+    @include dynamicRadioClass(22px, 22px, 9px, 9px, $primary-color);
+    @include transition(all 0.2s ease);
+    padding: 2px;
+    @include transform(scale(0));
+  }
+
+  &:checked + label:after {
+    opacity: 1;
+    @include transform(scale(1));
+  }
+}

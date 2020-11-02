@@ -1,0 +1,25 @@
+/* Input Fields Global classes */
+
+%input-shared {
+  border-radius: 2px !important;
+  opacity: 1 !important;
+  border-color: white !important;
+  border: none !important;
+  height: 50px !important;
+}
+
+.form-control {
+  @include set-background($primary-input-color, "");
+  @extend %input-shared;
+
+  &:focus {
+    border-color: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.input-group-text {
+  @include set-background($tertiary-color, "");
+  @extend %input-shared;
+}
