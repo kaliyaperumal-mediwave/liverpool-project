@@ -115,7 +115,7 @@ exports.about = ctx => {
     }).then((parentUserInfo) => {
 
       parentUserInfo.setType("2")
-      parentUserInfo.setParent(ctx.request.body.userId)
+      parentUserInfo.setParent(ctx.request.body.userid)
       const responseData = {
         userid: ctx.request.body.userid,
         status: "ok",
