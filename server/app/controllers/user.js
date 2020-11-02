@@ -17,7 +17,7 @@ exports.eligibility = ctx => {
     }).then((childUserInfo) => {
       childUserInfo.setType("1")
       const responseData = {
-        userid: childUserInfo.id,
+        userid: childUserInfo.uuid,
         status: "ok",
       }
       userid = childUserInfo.id
@@ -36,7 +36,7 @@ exports.eligibility = ctx => {
     }).then((childUserInfo) => {
       childUserInfo.setType("2")
       const responseData = {
-        userid: childUserInfo.id,
+        userid: childUserInfo.uuid,
         status: "ok"
       }
       userid = childUserInfo.id
@@ -59,7 +59,7 @@ exports.eligibility = ctx => {
     }).then((childUserInfo) => {
       childUserInfo.setType("3")
       const responseData = {
-        userid: childUserInfo.id,
+        userid: childUserInfo.uuid,
         status: "ok"
       }
       userid = childUserInfo.id

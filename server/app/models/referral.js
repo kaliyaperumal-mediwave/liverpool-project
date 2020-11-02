@@ -36,6 +36,9 @@ module.exports = function modelReferral(sequelize, types) {
       other_services:{
         type: types.TEXT
       },
+      local_services:{
+        type: types.TEXT
+      },
 
     }, {
       tableName: 'referrals',
