@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.header-title, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .btn-txt, .footer-text, .question-font, .option-font {
+.header-title, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .btn-txt, .btn-secondary-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -182,6 +182,11 @@ body {
   font-weight: bold;
   color: #023047; }
 
+.btn-secondary-text {
+  font-size: 26px;
+  font-weight: bold;
+  color: #023047; }
+
 .footer-text {
   font-size: 19px;
   font-weight: bold;
@@ -197,6 +202,16 @@ body {
   font-weight: bold;
   color: #023047; }
 
+.question-header-font {
+  font-size: 28px;
+  font-weight: bold;
+  color: #023047; }
+
+.add-more-hint {
+  font-size: 18px;
+  font-weight: bold;
+  color: #023047; }
+
 .header-bg {
   background: #8ecae6 0% 0% no-repeat padding-box !important;
   opacity: 1; }
@@ -204,6 +219,11 @@ body {
 .sub-header-bg {
   background: #012f46 0% 0% no-repeat padding-box !important;
   opacity: 1; }
+
+.toster-container {
+  background: #ffb703 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  border-radius: 24px; }
 
 .secondary-content-bg {
   background: #012f46 0% 0% no-repeat padding-box !important;
@@ -216,6 +236,59 @@ body {
 .main-content-bg {
   background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover; }
+
+#ui-id-1 {
+  width: auto !important; }
+
+.main-content-area {
+  background: #fafafa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px; }
+
+.secondary-content-area {
+  background: #fafafa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+  border-radius: 24px; }
+
+.last-content-area {
+  background: #fafafa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px; }
+
+.cursor-pointer {
+  cursor: pointer; }
+
+.support-logo {
+  height: 35px;
+  width: auto; }
+
+.calendar-bg {
+  background: #e8edee 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  opacity: 1; }
+
+.ham-logo {
+  height: 55px;
+  width: auto; }
+
+.cal-icon-bg {
+  background: #ffb703 0% 0% no-repeat padding-box; }
+
+.main-min-height {
+  min-height: 603px !important; }
+
+.modal-bg {
+  background: #ffb837 0% 0% no-repeat padding-box;
+  opacity: 1; }
+
+.img-class {
+  height: 35px;
+  width: auto; }
 
 @media (max-width: 575.98px) {
   .header-logo {
@@ -252,96 +325,3 @@ body {
     background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
     height: 112px;
     width: 111px; } }
-
-#ui-id-1 {
-  width: auto !important; }
-
-.main-content-area {
-  background: #fafafa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px;
-  opacity: 1; }
-
-.secondary-content-area {
-  background: #fafafa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 24px;
-  opacity: 1; }
-
-.last-content-area {
-  background: #fafafa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  opacity: 1;
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px; }
-
-.cursor-pointer {
-  cursor: pointer; }
-
-.support-logo {
-  height: 35px;
-  width: auto; }
-
-.calendar-bg {
-  background: #e8edee 0% 0% no-repeat padding-box;
-  border-radius: 2px;
-  opacity: 1; }
-
-.ham-logo {
-  height: 55px;
-  width: auto; }
-
-.cal-icon-bg {
-  background: #ffb703 0% 0% no-repeat padding-box; }
-
-.cal-header-text {
-  font-size: 14px;
-  font-weight: normal;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1; }
-
-.cal-text {
-  font-size: 17x;
-  font-weight: italic;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1; }
-
-.toster-container {
-  background: #ffb703 0% 0% no-repeat padding-box;
-  border-radius: 24px;
-  opacity: 1; }
-
-.btn-secondary-text {
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1; }
-
-.main-min-height {
-  min-height: 603px !important; }
-
-.question-header-font {
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1; }
-
-.add-more-hint {
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1; }
-
-.modal-bg {
-  background: #ffb837 0% 0% no-repeat padding-box;
-  opacity: 1; }
-
-.img-class {
-  height: 35px;
-  width: auto; }

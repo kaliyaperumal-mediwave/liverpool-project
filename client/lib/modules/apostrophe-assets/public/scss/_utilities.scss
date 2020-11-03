@@ -17,6 +17,21 @@
   color: $color;
 }
 
+@mixin set-cardStyle($color, $bl, $br, $border, $bordertbOnly) {
+  background: $color 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+  @if ($bordertbOnly == "top") {
+    border-top-left-radius: $bl;
+    border-top-right-radius: $br;
+  } @else if ($bordertbOnly == "bottom") {
+    border-bottom-left-radius: $bl;
+    border-bottom-right-radius: $br;
+  } @else {
+    border-radius: $border;
+  }
+}
+
 @mixin transform($property) {
   -webkit-transform: $property;
   -ms-transform: $property;
