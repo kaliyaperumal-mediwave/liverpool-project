@@ -1,0 +1,49 @@
+%font-shared {
+  letter-spacing: 0px;
+  opacity: 1;
+}
+
+@mixin set-background($color, $opacity) {
+  background: $color 0% 0% no-repeat padding-box !important;
+  @if ($opacity != "") {
+    opacity: $opacity;
+  }
+}
+
+@mixin set-titleStyles($size, $weight, $color) {
+  @extend %font-shared;
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+}
+
+@mixin set-cardStyle($color, $bl, $br, $border, $bordertbOnly) {
+  background: $color 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+  @if ($bordertbOnly == "top") {
+    border-top-left-radius: $bl;
+    border-top-right-radius: $br;
+  } @else if ($bordertbOnly == "bottom") {
+    border-bottom-left-radius: $bl;
+    border-bottom-right-radius: $br;
+  } @else {
+    border-radius: $border;
+  }
+}
+
+@mixin transform($property) {
+  -webkit-transform: $property;
+  -ms-transform: $property;
+  -ms-transform: $property;
+  -o-transform: $property;
+  transform: $property;
+}
+
+@mixin transition($x...) {
+  -webkit-transition: $x;
+  -moz-transition: $x;
+  -ms-transition: $x;
+  -o-transition: $x;
+  transition: $x;
+}
