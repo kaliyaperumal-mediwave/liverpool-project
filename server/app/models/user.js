@@ -27,9 +27,9 @@ module.exports = function modelUser(sequelize, types) {
     child_dob: {
       type: types.DATE
     },
-    provide_information: {
-      type: types.TEXT
-    },
+    // provide_information: {
+    //   type: types.TEXT
+    // },
     registerd_gp: {
       type: types.TEXT
     },
@@ -151,13 +151,6 @@ module.exports = function modelUser(sequelize, types) {
     professional_contact_number: {
       type: types.TEXT
     },
-    professional_information_child: {
-      type: types.TEXT
-    },
-    professional_information_parent: {
-      type: types.TEXT
-    },
-
   }, {
     tableName: 'users',
   });

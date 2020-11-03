@@ -129,6 +129,7 @@ $(document).ready(function () {
                         }
                     }
                 }
+                this.apiRequest(this.professionObj, role);
             },
 
             apiRequest(payload, role) {
@@ -145,7 +146,7 @@ $(document).ready(function () {
                         if (role === 'yes') {
                             this.resetValidation();
                         }
-                        location.href = "/";
+                     //   location.href = "/";
                     },
                 });
             },

@@ -127,7 +127,7 @@ $(document).ready(function () {
                         console.log(data)
                         // location.reload();
                         // console.log("/about?userid="+data.userid+"&role="+role)
-                        location.href = "/education?userid=" + data.userid + "&role=" + role;
+                       location.href = "/education?userid=" + data.userid + "&role=" + role;
 
                     },
 
