@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.header-title, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .btn-txt, .btn-secondary-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.header-title, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -174,6 +174,16 @@ body {
 
 .hint-text {
   font-size: 14px;
+  font-weight: bold;
+  color: #023047; }
+
+.link-text {
+  font-size: 17px;
+  font-weight: bold;
+  color: #023047; }
+
+.link-secondary {
+  font-size: 16px;
   font-weight: bold;
   color: #023047; }
 

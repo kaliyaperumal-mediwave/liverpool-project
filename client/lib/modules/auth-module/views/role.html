@@ -70,6 +70,8 @@
                         </p>
                         <p class="question-font text-center m-0 py-2">Please call 01874 673985 to get help completing
                             your referral</p>
+
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Change my previous answer</p>
                     </div>
                 </div>
             </div>
@@ -80,8 +82,8 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p v-if="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?</p>
                 <div class="input-group">
-                    <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="elgibilityObj.childDob"
-                        @change="changeDob($event)">
+                    <input type="date" max="2020-10-29" class="form-control" name="child"
+                        v-model="elgibilityObj.childDob" @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>
                 </div>
@@ -93,8 +95,8 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
                 <div class="input-group">
-                    <input type="date"  max="2020-10-29" class="form-control" name="parent" v-model="elgibilityObj.childDob"
-                        @change="changeDob($event)">
+                    <input type="date" max="2020-10-29" class="form-control" name="parent"
+                        v-model="elgibilityObj.childDob" @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>
                 </div>
@@ -106,9 +108,13 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
                     <p class="question-font m-0">Can we contact your parent or carer?</p>
-                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class"
-                        data-toggle="modal" data-target="#consentModal" alt="">
+                    <!-- <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class"
+                        data-toggle="modal" data-target="#consentModal" alt=""> -->
                 </div>
+                <span class="hint-text">In order to continue, we will need to contact your parent, guardian or caregiver
+                    to complete form
+                    on your behalf. If this is not okay, we can provide you with information to find anonymous help and
+                    advice.</span>
                 <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" name="belowAgeParent"
                         v-model="elgibilityObj.contactParent" id="contactNo" value="no" @change="onChange($event)">
@@ -136,8 +142,17 @@
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">unfortunately we cannot accept referrals from
-                            people over 25 years of age </p>
+                        <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
+                            people over 25 years of age</p>
+                        <p class="link-text text-center py-2">Free mental health services for adults:</p>
+                        <p class="link-secondary text-center m-0 py-2">If your GP is registered in Liverpool: <a
+                                href="#">Talk Liverpool</a></p>
+                        <p class="link-secondary text-center m-0 py-2">If your GP is registered in Sefton: <a href="#">
+                                Access
+                                Sefton</a>
+                        </p>
+                        <p class="link-secondary text-center m-0 py-2"> <a href="#"> Samaritans</a> is available via
+                            phone for anyone </p>
                     </div>
                 </div>
             </div>
@@ -152,6 +167,10 @@
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
                         <p class="question-font text-center m-0 py-2">Anonymous help and advice for under 14s</p>
+                        <p class="link-text text-center cursor-pointer m-0 py-2"> > Link to eg childline if appropriate?
+                        </p>
+                        <p class="link-text text-center cursor-pointer m-0 py-2"> > Link to service for children</p>
+                        <p class="link-text text-center cursor-pointer m-0 py-2"> > Link to service for children</p>
                     </div>
                 </div>
             </div>
@@ -202,7 +221,12 @@
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">We need your consent to continue.</p>
+                        <p v-if="elgibilityObj.role=='child'" class="question-font text-center m-0 py-2">We need your
+                            consent to continue.</p>
+                        <p v-if="elgibilityObj.role=='parent'" class="question-font text-center m-0 py-2">We need your
+                            child's consent to continue.</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Change my previous answer</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Tell me more about consent</p>
                     </div>
                 </div>
             </div>
@@ -341,8 +365,18 @@
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">unfortunately we cannot accept referrals from
-                            people over 25 years of age </p>
+                        <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
+                            people over 25 years of age</p>
+                        <p class="link-text text-center  py-2">Free mental health services for adults:</p>
+                        <p class="link-secondary text-center m-0 py-2">If your GP is registered in Liverpool:
+                            <a href="#">Talk Liverpool</a></p>
+                        <p class="link-secondary text-center m-0 py-2">If your GP is registered in Sefton: <a href="#">
+                                Access
+                                Sefton</a></p>
+
+                        <p class="link-secondary text-center m-0 py-2"><a href="#"> Samaritans</a> is available via
+                            phone for anyone
+                        </p>
                     </div>
                 </div>
             </div>
@@ -356,7 +390,10 @@
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
-                        <p class="question-font text-center m-0 py-2">We need the child/young person's parents consent to continue</p>
+                        <p class="question-font text-center m-0 py-2">We need the child/young person's parents consent
+                            to continue</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Change my previous answer</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Tell me more about consent</p>
                     </div>
                 </div>
             </div>
@@ -403,6 +440,8 @@
                         </p>
                         <p class="question-font text-center m-0 py-2">We need the child / young person’s parent /
                             carer’s consent to continue.</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Change my previous answer</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Tell me more about consent</p>
                     </div>
                 </div>
             </div>
@@ -448,6 +487,8 @@
                         </p>
                         <p class="question-font text-center m-0 py-2">We need the child / young person’s consent to
                             continue.</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Change my previous answer</p>
+                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Tell me more about consent</p>
                     </div>
                 </div>
             </div>

@@ -95,6 +95,14 @@ body {
   @include set-titleStyles($quinary-font-size, bold, $primary-color);
 }
 
+.link-text {
+  @include set-titleStyles($hint-font-size, bold, $primary-color);
+}
+
+.link-secondary {
+  @include set-titleStyles($mobile-quaternary-font-size, bold, $primary-color);
+}
+
 .btn-txt {
   @include set-titleStyles($button-font-size, bold, $primary-color);
 }
