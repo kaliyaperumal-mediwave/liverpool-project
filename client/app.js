@@ -20,13 +20,13 @@ var apos = require('apostrophe')({
 
     // If a template is not found somewhere else, serve it from the top-level
     // `views/` folder of the project
-    
+
     settings: {
       // So we can write `apos.settings` in a template
       alias: 'LIVERPOOLMODULE',
       // NOTE: LIVE ENV FILE . Comment when working in local.
       'phr-module': process.env.SERVICE_PHR
-       //'phr-module': 'https://localhost:3010'
+      //'phr-module': 'https://localhost:3010'
     },
     "apostrophe-db": {
       uri: process.env.MONGO_STRING
@@ -34,6 +34,7 @@ var apos = require('apostrophe')({
     'auth-module': {},
     'about-module': {},
     'home-module': {},
+    'referral-module': {},
     'education-employment-module': {},
     'apostrophe-templates': { viewsFolderFallback: path.join(__dirname, 'views') }
 
