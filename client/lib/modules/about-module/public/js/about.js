@@ -12,14 +12,23 @@ $(document).ready(function () {
             selectedChildAddress: "",
             selectedParentAddress: "",
             empClgSchool:"",
-            saveAndCont:""
+            saveAndCont:"",
+            headerToDisplay: ""
         },
         mounted: function () {
+           
             var _self = this;
+            _self.headerToDisplay = new URL(location.href).searchParams.get('role');
             _self.labelToDisplay = new URL(location.href).searchParams.get('role');
             google.maps.event.addDomListener(window, 'load', _self.initialize);
         },
         methods: {
+            backElgibility(){
+                var uid= new URL(location.href).searchParams.get('userid');
+                var role =  new URL(location.href).searchParams.get('role');
+                location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
+                console.log("print ok");
+            },
             initialize() {
                 var _self = this;
                 var autoCompleteChild;
@@ -127,7 +136,7 @@ $(document).ready(function () {
                         console.log(data)
                         // location.reload();
                         // console.log("/about?userid="+data.userid+"&role="+role)
-                       location.href = "/education?userid=" + data.userid + "&role=" + role;
+                   //    location.href = "/education?userid=" + data.userid + "&role=" + role;
 
                     },
 
@@ -144,15 +153,15 @@ $(document).ready(function () {
     })
 
 
-    var app1 = new Vue({
-        el: '#about-form-header',
-        data: {
-            headerToDisplay: "",
-        },
-        mounted: function () {
-            this.headerToDisplay = new URL(location.href).searchParams.get('role');
-            console.log(this.labelToDisplay)
-        },
-    })
+    // var app1 = new Vue({
+    //     el: '#about-form-header',
+    //     data: {
+    //         headerToDisplay: "",
+    //     },
+    //     mounted: function () {
+    //         this.headerToDisplay = new URL(location.href).searchParams.get('role');
+    //         console.log(this.labelToDisplay)
+    //     },
+    // })
 
 });
