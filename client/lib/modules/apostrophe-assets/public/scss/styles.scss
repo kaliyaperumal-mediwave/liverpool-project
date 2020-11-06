@@ -1,6 +1,7 @@
 @import "config";
 @import "utilities";
 @import "radio";
+@import "checkbox";
 @import "button";
 @import "inputs";
 
@@ -52,6 +53,10 @@ body {
 
   .ui-widget.ui-widget-content {
     border: none !important;
+  }
+
+  .h-112 {
+    height: 112px !important;
   }
 
   .ui-widget-content {

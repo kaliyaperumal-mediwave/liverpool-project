@@ -9,7 +9,10 @@ module.exports = {
       self.dispatch('/', self.referral);
     };
     self.referral = function (req, callback) {
-      return self.sendPage(req, self.renderer('referral', {}));
+      return self.sendPage(req, self.renderer('referral', {
+        content: "hello",
+        subContent: ""
+      }));
     };
   }
 }
