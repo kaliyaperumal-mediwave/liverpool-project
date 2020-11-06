@@ -62,14 +62,47 @@ $(document).ready(function () {
 
             setValues(data) {
                 console.log(data);
-                Vue.set(this.elgibilityObj,"role",new URL(location.href).searchParams.get('role'));
-                Vue.set(this.elgibilityObj,"interpreter",data.need_interpreter);
-                Vue.set(this.elgibilityObj,"childDob",this.convertDate(data.child_dob));
-                this.fetchAgeLogic(data.child_dob,new URL(location.href).searchParams.get('role')) 
-                Vue.set(this.elgibilityObj,"contactParent",data.contact_parent);
-                Vue.set(this.elgibilityObj,"isInformation",data.consent_child);
-                Vue.set(this.elgibilityObj,"registerd_gp",this.bindGpAddress(data.registerd_gp));
-                $('input[name=role]').attr("disabled",true);
+                if(new URL(location.href).searchParams.get('role')=="child")
+                {
+                    Vue.set(this.elgibilityObj,"role",new URL(location.href).searchParams.get('role'));
+                    Vue.set(this.elgibilityObj,"interpreter",data.need_interpreter);
+                    Vue.set(this.elgibilityObj,"childDob",this.convertDate(data.child_dob));
+                    this.fetchAgeLogic(data.child_dob,new URL(location.href).searchParams.get('role')) 
+                    Vue.set(this.elgibilityObj,"contactParent",data.contact_parent);
+                    Vue.set(this.elgibilityObj,"isInformation",data.consent_child);
+                    Vue.set(this.elgibilityObj,"registerd_gp",this.bindGpAddress(data.registerd_gp));
+                    $('input[name=role]').attr("disabled",true);
+                    this.getGP();
+                }
+                else if(new URL(location.href).searchParams.get('role')=="parent")
+                {
+                    console.log(data);
+
+                    Vue.set(this.elgibilityObj,"role",new URL(location.href).searchParams.get('role'));
+                    Vue.set(this.elgibilityObj,"interpreter",data[0].need_interpreter);
+                    Vue.set(this.elgibilityObj,"childDob",this.convertDate(data[0].parent[0].child_dob));
+                    this.fetchAgeLogic(data.child_dob,new URL(location.href).searchParams.get('role')) 
+                    Vue.set(this.elgibilityObj,"contactParent",data[0].contact_parent);
+                    Vue.set(this.elgibilityObj,"isInformation",data[0].consent_child);
+                    Vue.set(this.elgibilityObj,"registerd_gp",this.bindGpAddress(data[0].parent[0].registerd_gp,new URL(location.href).searchParams.get('role')));
+                    $('input[name=role]').attr("disabled",true);
+                    this.getGP();
+                }
+                else if(new URL(location.href).searchParams.get('role')=="professional")
+                {
+                    console.log(data);
+                    Vue.set(this.elgibilityObj,"role",new URL(location.href).searchParams.get('role'));
+                    Vue.set(this.elgibilityObj,"profName",data[0].professional_name);
+                    Vue.set(this.elgibilityObj,"profEmail",data[0].professional_email);
+                    Vue.set(this.elgibilityObj,"profContactNumber",data[0].professional_contact_number);
+                    Vue.set(this.elgibilityObj,"profChildDob",this.convertDate(data[0].professional[0].child_dob));
+                    this.fetchAgeLogic(data[0].professional[0].child_dob,new URL(location.href).searchParams.get('role')) 
+                    Vue.set(this.elgibilityObj,"contactProfParent",data[0].consent_parent);
+                    Vue.set(this.elgibilityObj,"parentConcernInformation",data[0].consent_child);
+                    Vue.set(this.elgibilityObj,"profRegisterd_gp",this.bindGpAddress(data[0].professional[0].registerd_gp,new URL(location.href).searchParams.get('role')));
+                    this.getProfGP();
+                }
+                
             },
             getGP() {
                 console.log("Er");
@@ -352,6 +385,7 @@ $(document).ready(function () {
             },
 
             save() {
+                console.log(this.elgibilityObj);
                 this.elgibilityObj.editFlag=new URL(location.href).searchParams.get('edt');
                 this.elgibilityObj.uuid=new URL(location.href).searchParams.get('userid');
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
@@ -467,6 +501,7 @@ $(document).ready(function () {
               },
 
               fetchAgeLogic(dbdob,roleText) {
+                  console.log(dbdob);
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
@@ -491,7 +526,7 @@ $(document).ready(function () {
                         this.submitForm = "false";
                     }
                 }
-                else if (roleText == 'prof') {
+                else if (roleText == 'professional') {
                     if (age < 15) {
                         this.profBelowAgeLimit = "yes";
                         this.profaboveLimit = "";
@@ -530,14 +565,24 @@ $(document).ready(function () {
 
             },
 
-            bindGpAddress(gpAddress)
+            bindGpAddress(gpAddress,role)
             {
-                if(gpAddress!=undefined || gpAddress!="")
+                if(role=="professional")
                 {
-                    this.submitForm = "true";
-                    return gpAddress;
+                    if(gpAddress!=undefined || gpAddress!="")
+                    {
+                        this.submitProfForm = "true";
+                        return gpAddress;
+                    }
                 }
-               
+                else
+                {
+                    if(gpAddress!=undefined || gpAddress!="")
+                    {
+                        this.submitForm = "true";
+                        return gpAddress;
+                    }
+                }
             }
 
         }

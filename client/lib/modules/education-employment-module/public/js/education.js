@@ -20,6 +20,11 @@ $(document).ready(function () {
             google.maps.event.addDomListener(window, 'load', _self.initialize);
         },
         methods: {
+            backToAbout(){
+                var uid= new URL(location.href).searchParams.get('userid');
+                var role =  new URL(location.href).searchParams.get('role');
+                location.href = "/about?userid=" + uid + "&role=" + role + "&edt=1";
+            },
             initialize() {
                 var _self = this;
                 var autoCompleteChild;

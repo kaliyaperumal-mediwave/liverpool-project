@@ -12,7 +12,7 @@
     <div
     class="d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title" @click="backElgibility()">
     back
-</div>
+    </div>
 
     <h2 v-if="headerToDisplay =='child'" class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">
         Section 2 of 5: About you & your
@@ -349,7 +349,7 @@
                 <div class="form-group">
                     <p class="question-font m-0">What is your date of birth?</p>
                     <div class="input-group py-2 my-2">
-                        <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="aboutObj.childDob"
+                        <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="aboutObj.childHouseHoldDob"
                             @change="changeDob($event)">
                         <div class="input-group-addon">
                         </div>
@@ -765,7 +765,7 @@
                         class="question-font">What is the their address? - optional</label>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Start typing to search"
-                            id="txtParentAddress" aria-label="location">
+                            id="txtParentAddress" aria-label="location" v-model="aboutObj.selectedParentAddress">
                         <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>

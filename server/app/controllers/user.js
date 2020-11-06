@@ -17,7 +17,6 @@ exports.eligibility = ctx => {
         contact_parent: ctx.request.body.contactParent,
         consent_child:ctx.request.body.isInformation,
         registerd_gp: ctx.request.body.registerd_gp,
-        user_section: 1
       },
     {
       where:
@@ -57,57 +56,167 @@ exports.eligibility = ctx => {
 
   }
   else if (ctx.request.body.role == "parent") {
-    return user.create({
-      child_dob: ctx.request.body.childDob,
-      registerd_gp: ctx.request.body.registerd_gp,
-    }).then((childUserInfo) => {
-      childUserInfo.setType("1")
-      return user.create({
-        need_interpreter: ctx.request.body.interpreter,
-        consent_child: ctx.request.body.isInformation,
-        user_section: 1
-      }).then((parentUserInfo) => {
-        parentUserInfo.setType("2")
-        parentUserInfo.setParent(childUserInfo.id)
-        const responseData = {
-          userid: parentUserInfo.uuid,
-          status: "ok"
-        }
-        return ctx.body = responseData;
-      }).catch((error) => {
+    if(ctx.request.body.editFlag!=null)
+    {
+      return user.findOne({
+        where: {
+          uuid: ctx.request.body.uuid,
+        },
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'parent',
+            },
+          ],
+          where: {
+            id: result.id,
+          },
+        }).then((userResult) => {
 
+          var childId = userResult[0].parent[0].ChildParents.parentId;
+          return user.update({
+            child_dob: ctx.request.body.childDob,
+            registerd_gp: ctx.request.body.registerd_gp,
+          },
+          {
+            where:
+              { id: childId }
+          }).then((childUserInfo)=> {
+            return user.update({
+              need_interpreter: ctx.request.body.interpreter,
+              consent_child: ctx.request.body.isInformation,
+            },
+            {
+              where:
+              {uuid:ctx.request.body.uuid}
+            },).then((parentUserInfo)=>{
+              const responseData = {
+                userid: ctx.request.body.uuid,
+                status: "ok",
+              }
+              return ctx.body = responseData;
+            })
+          })
+        })
+      })
+    }
+    else
+    {
+      return user.create({
+        child_dob: ctx.request.body.childDob,
+        registerd_gp: ctx.request.body.registerd_gp,
+      }).then((childUserInfo) => {
+        childUserInfo.setType("1")
+        return user.create({
+          need_interpreter: ctx.request.body.interpreter,
+          consent_child: ctx.request.body.isInformation,
+          user_section: 1
+        }).then((parentUserInfo) => {
+          parentUserInfo.setType("2")
+          parentUserInfo.setParent(childUserInfo.id)
+          const responseData = {
+            userid: parentUserInfo.uuid,
+            status: "ok"
+          }
+          return ctx.body = responseData;
+        }).catch((error) => {
+  
+        });
+      }).catch((error) => {
       });
-    }).catch((error) => {
-    });
+
+    }
   }
 
   else if (ctx.request.body.role == "professional") {
+    console.log(ctx.request.body);
+    if(ctx.request.body.editFlag!=null)
+    {
 
-    return user.create({
-      child_dob: ctx.request.body.profChildDob,
-      registerd_gp: ctx.request.body.profRegisterd_gp,
-    }).then((childUserInfo) => {
-      childUserInfo.setType("1")
+      return user.findOne({
+        where: {
+          uuid: ctx.request.body.uuid,
+        },
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'professional',
+            },
+          ],
+          where: {
+            id: result.id,
+          },
+        }).then((userResult) => {
+          
+          var childId = userResult[0].professional[0].ChildProfessional.professionalId;
+          return user.update({
+            child_dob: ctx.request.body.profChildDob,
+            registerd_gp: ctx.request.body.profRegisterd_gp,
+          },
+          {
+            where:
+              { id: childId }
+          }).then((childUserInfo)=> {
+            return user.update({
+              professional_name: ctx.request.body.profName,
+              professional_email: ctx.request.body.profEmail,
+              professional_contact_number: ctx.request.body.profContactNumber,
+              consent_parent: ctx.request.body.contactProfParent,
+              consent_child: ctx.request.body.parentConcernInformation,
+            },
+            {
+              where:
+              {uuid:ctx.request.body.uuid}
+            },).then((parentUserInfo)=>{
+              const responseData = {
+                userid: ctx.request.body.uuid,
+                status: "ok",
+              }
+              return ctx.body = responseData;
+            })
+          })
+
+
+        })
+      })
+    }
+    else
+    {
       return user.create({
-        professional_name: ctx.request.body.profName,
-        professional_email: ctx.request.body.profEmail,
-        professional_contact_number: ctx.request.body.profContactNumber,
-        consent_parent: ctx.request.body.parentConcernInformation,
-        consent_child: ctx.request.body.childConcernInformation,
-        user_section: 1
-      }).then((professionalUserInfo) => {
-        professionalUserInfo.setType("3")
-        professionalUserInfo.setProfessional(childUserInfo.id)
-        const responseData = {
-          userid: professionalUserInfo.uuid,
-          status: "ok"
-        }
-        return ctx.body = responseData;
+        child_dob: ctx.request.body.profChildDob,
+        registerd_gp: ctx.request.body.profRegisterd_gp,
+      }).then((childUserInfo) => {
+        childUserInfo.setType("1")
+        return user.create({
+          professional_name: ctx.request.body.profName,
+          professional_email: ctx.request.body.profEmail,
+          professional_contact_number: ctx.request.body.profContactNumber,
+          consent_parent: ctx.request.body.contactProfParent,
+          consent_child: ctx.request.body.parentConcernInformation,
+          user_section: 1
+        }).then((professionalUserInfo) => {
+          professionalUserInfo.setType("3")
+          professionalUserInfo.setProfessional(childUserInfo.id)
+          const responseData = {
+            userid: professionalUserInfo.uuid,
+            status: "ok"
+          }
+          return ctx.body = responseData;
+        }).catch((error) => {
+  
+        });
       }).catch((error) => {
-
       });
-    }).catch((error) => {
-    });
+    }
   }
 };
 
@@ -135,7 +244,7 @@ exports.fetchEligibility = ctx => {
   
     })
   }
-  if(ctx.request.body.role=="parent")
+ else if(ctx.request.body.role=="parent")
   {
     return user.findOne({
       where: {
@@ -144,7 +253,14 @@ exports.fetchEligibility = ctx => {
       attributes: ['id', 'uuid']
     }).then((result) => {
   
-      return user.findOne({
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
+        ],
         where: {
           id: result.id,
         },
@@ -156,8 +272,35 @@ exports.fetchEligibility = ctx => {
   
     })
   }
-  //console.log(ctx.request.body);
- 
+
+  else if(ctx.request.body.role=="professional")
+  {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.uuid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+  
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'professional',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+  
+        return ctx.body = userResult;
+  
+      })
+  
+    })
+  }
 }
 
 
@@ -165,6 +308,8 @@ exports.about = ctx => {
   const user = ctx.orm().User;
   console.log(ctx.request.body);
   if (ctx.request.body.role == "child") {
+
+    if()
 
     return user.update(
       {
@@ -211,7 +356,7 @@ exports.about = ctx => {
         }).then((parentUserInfo) => {
 
           parentUserInfo.setType("2")
-          parentUserInfo.setParent(userResult.id)
+          userResult.setParent(parentUserInfo.id)
           const responseData = {
             userid: ctx.request.body.userid,
             status: "ok",
@@ -372,6 +517,99 @@ exports.about = ctx => {
   }
 
 };
+
+
+exports.fetchAbout = ctx => {
+  console.log("fetchAbout")
+  const user = ctx.orm().User;
+  if(ctx.request.body.role=="child")
+  {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.uuid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+
+      return user.findOne({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
+        ],
+        
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+  
+        return ctx.body = userResult;
+  
+      })
+  
+    })
+  }
+ else if(ctx.request.body.role=="parent")
+  {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.uuid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+  
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+  
+        return ctx.body = userResult;
+  
+      })
+  
+    })
+  }
+
+  else if(ctx.request.body.role=="professional")
+  {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.uuid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+  
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'professional',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+  
+        return ctx.body = userResult;
+  
+      })
+  
+    })
+  }
+}
 
 
 

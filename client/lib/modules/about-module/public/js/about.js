@@ -13,21 +13,114 @@ $(document).ready(function () {
             selectedParentAddress: "",
             empClgSchool:"",
             saveAndCont:"",
-            headerToDisplay: ""
+            headerToDisplay: "",
+            edFlag:false,
+            sendObj:{}
         },
         mounted: function () {
-           
             var _self = this;
             _self.headerToDisplay = new URL(location.href).searchParams.get('role');
             _self.labelToDisplay = new URL(location.href).searchParams.get('role');
             google.maps.event.addDomListener(window, 'load', _self.initialize);
+
+            if(new URL(location.href).searchParams.get('edt')==1)
+            {
+                this.fetchSavedData()
+            }
+            else
+            {
+               // console.log("if else")
+            }
         },
         methods: {
+            fetchSavedData(){
+                console.log("if")
+                this.sendObj.uuid=new URL(location.href).searchParams.get('userid');
+                this.sendObj.role=new URL(location.href).searchParams.get('role');
+                console.log(this.sendObj);
+                var roleType=new URL(location.href).searchParams.get('role')
+                $.ajax({
+                    url: API_URI + "/fetchAbout",
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(this.sendObj),
+                    success: function (data) {
+                    //    alert("section 1 saved.");
+                  //   console.log(data);
+                     app.setValues(data);
+                        
+                    },
+                });
+            },
+
+            setValues(data) {
+                console.log(data);
+                Vue.set(this.aboutObj,"childNHS",data.child_NHS);
+                Vue.set(this.aboutObj,"childName",data.child_name);
+                Vue.set(this.aboutObj,"childEmail",data.child_email);
+                Vue.set(this.aboutObj,"childContactNumber",data.child_contact_number);
+                Vue.set(this.aboutObj,"childAddress",data.child_address);
+                Vue.set(this.aboutObj,"sendPost",data.can_send_post);
+                Vue.set(this.aboutObj,"childGender",data.child_gender);
+                Vue.set(this.aboutObj,"childGenderBirth",data.child_gender_birth);
+                Vue.set(this.aboutObj,"childSexualOrientation",data.child_sexual_orientation);
+                Vue.set(this.aboutObj,"childEthnicity",data.child_ethnicity);
+                Vue.set(this.aboutObj,"houseHoldName",data.child_household_name );
+                Vue.set(this.aboutObj,"houseHoldRelationship",data.child_household_relationship );
+                Vue.set(this.aboutObj,"childHouseHoldDob",this.convertDate(data.child_household_dob));
+                Vue.set(this.aboutObj,"houseHoldProfession",data.child_household_profession );
+                Vue.set(this.aboutObj,"childCareAdult",data.child_care_adult );
+                Vue.set(this.aboutObj,"houseHoldName",data.child_household_name );
+
+                if(new URL(location.href).searchParams.get('role')=="child")
+                {
+                     Vue.set(this.aboutObj,"parentName",data.parent[0].parent_name );
+                     Vue.set(this.aboutObj,"parentialResponsibility",data.parent[0].parential_responsibility );
+                     Vue.set(this.aboutObj,"childParentRelationship",data.parent[0].child_parent_relationship );
+                     Vue.set(this.aboutObj,"parentContactNumber",data.parent[0].parent_contact_number );
+                     Vue.set(this.aboutObj,"parentEmail",data.parent[0].parent_email );
+                     Vue.set(this.aboutObj,"parentSameHouse",data.parent[0].parent_same_house );
+                     Vue.set(this.aboutObj,"selectedParentAddress",data.parent[0].parent_address );
+                     Vue.set(this.aboutObj,"legalCareStatus",data.parent[0].legal_care_status );
+                     document.getElementById("showAdToast").style.display = "block";
+                     document.getElementById("showAdBtn").style.display = "block";
+                   
+                }
+                // else if(new URL(location.href).searchParams.get('role')=="parent")
+                // {
+                //     console.log(data);
+
+                //     Vue.set(this.elgibilityObj,"role",new URL(location.href).searchParams.get('role'));
+                //     Vue.set(this.elgibilityObj,"interpreter",data[0].need_interpreter);
+                //     Vue.set(this.elgibilityObj,"childDob",this.convertDate(data[0].parent[0].child_dob));
+                //     this.fetchAgeLogic(data.child_dob,new URL(location.href).searchParams.get('role')) 
+                //     Vue.set(this.elgibilityObj,"contactParent",data[0].contact_parent);
+                //     Vue.set(this.elgibilityObj,"isInformation",data[0].consent_child);
+                //     Vue.set(this.elgibilityObj,"registerd_gp",this.bindGpAddress(data[0].parent[0].registerd_gp,new URL(location.href).searchParams.get('role')));
+                //     $('input[name=role]').attr("disabled",true);
+                //     this.getGP();
+                // }
+                // else if(new URL(location.href).searchParams.get('role')=="professional")
+                // {
+                //     console.log(data);
+                //     Vue.set(this.elgibilityObj,"role",new URL(location.href).searchParams.get('role'));
+                //     Vue.set(this.elgibilityObj,"profName",data[0].professional_name);
+                //     Vue.set(this.elgibilityObj,"profEmail",data[0].professional_email);
+                //     Vue.set(this.elgibilityObj,"profContactNumber",data[0].professional_contact_number);
+                //     Vue.set(this.elgibilityObj,"profChildDob",this.convertDate(data[0].professional[0].child_dob));
+                //     this.fetchAgeLogic(data[0].professional[0].child_dob,new URL(location.href).searchParams.get('role')) 
+                //     Vue.set(this.elgibilityObj,"contactProfParent",data[0].consent_parent);
+                //     Vue.set(this.elgibilityObj,"parentConcernInformation",data[0].consent_child);
+                //     Vue.set(this.elgibilityObj,"profRegisterd_gp",this.bindGpAddress(data[0].professional[0].registerd_gp,new URL(location.href).searchParams.get('role')));
+                //     this.getProfGP();
+                // }
+                
+            },
             backElgibility(){
                 var uid= new URL(location.href).searchParams.get('userid');
                 var role =  new URL(location.href).searchParams.get('role');
                 location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
-                console.log("print ok");
             },
             initialize() {
                 var _self = this;
@@ -132,11 +225,11 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(this.aboutObj),
                     success: function (data) {
-                        //alert("section 2 saved.");
+                        alert("section 2 saved.");
                         console.log(data)
                         // location.reload();
                         // console.log("/about?userid="+data.userid+"&role="+role)
-                   //    location.href = "/education?userid=" + data.userid + "&role=" + role;
+                      location.href = "/education?userid=" + data.userid + "&role=" + role;
 
                     },
 
@@ -148,7 +241,34 @@ $(document).ready(function () {
                 var diff = (dt2.getTime() - dt1.getTime()) / 1000;
                 diff /= (60 * 60 * 24);
                 return Math.abs(Math.round(diff / 365.25));
-            }
+            },
+
+            convertDate(dbDate) {
+                var date= new Date(dbDate)
+               var yyyy = date.getFullYear().toString();
+               var mm = (date.getMonth()+1).toString();
+               var dd  = date.getDate().toString();
+             
+               var mmChars = mm.split('');
+               var ddChars = dd.split('');
+               this.fetchAgeLogic(dbDate);
+             
+               return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
+             },
+
+             fetchAgeLogic(dob,pro)
+             {
+                var today = new Date();
+                var selectedDate = new Date(dob);
+                var age = this.diff_years(today, selectedDate);
+                if (age < 18) {
+                    this.showBelowAge = "yes";
+                }
+                else {
+                    this.showBelowAge = "";
+
+                }
+             }
         }
     })
 
