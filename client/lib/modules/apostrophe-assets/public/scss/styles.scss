@@ -119,6 +119,10 @@ body {
   @include set-titleStyles($button-font-size, bold, $primary-color);
 }
 
+.btn-modal-text {
+  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
+}
+
 .footer-text {
   @include set-titleStyles($footer-font-size, bold, $footer-text-color);
 }
