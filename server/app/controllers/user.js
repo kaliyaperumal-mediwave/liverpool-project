@@ -309,66 +309,148 @@ exports.about = ctx => {
   console.log(ctx.request.body);
   if (ctx.request.body.role == "child") {
 
-    if()
-
-    return user.update(
-      {
-        child_name: ctx.request.body.childName,
-        child_NHS: ctx.request.body.childNHS,
-        child_email: ctx.request.body.childEmail,
-        child_contact_number: ctx.request.body.childContactNumber,
-        child_address: ctx.request.body.childAddress,
-        can_send_post: ctx.request.body.sendPost,
-        child_gender: ctx.request.body.childGender,
-        child_gender_birth: ctx.request.body.childGenderBirth,
-        child_sexual_orientation: ctx.request.body.childSexualOrientation,
-        child_ethnicity: ctx.request.body.childEthnicity,
-        child_household_name: ctx.request.body.houseHoldName,
-        child_household_relationship: ctx.request.body.houseHoldRelationship,
-        child_household_dob: ctx.request.body.houseHoldDOB,
-        child_household_profession: ctx.request.body.houseHoldProfession,
-        child_care_adult: ctx.request.body.childCareAdult,
-        user_section: 2
-      },
-      {
-        where:
-          { uuid: ctx.request.body.userid }
-      }
-    ).then((result) => {
-
+    if(ctx.request.body.editFlag!=null)
+    {
       return user.findOne({
         where: {
           uuid: ctx.request.body.userid,
         },
         attributes: ['id', 'uuid']
-      }).then((userResult) => {
+      }).then((result) => {
+  
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'parent',
+            },
+          ],
+          where: {
+            id: result.id,
+          },
+        }).then((userResult) => {
 
-        console.log(userResult.id + "====>" + userResult.uuid);
-        return user.create({
-          parent_name: ctx.request.body.parentName,
-          parential_responsibility: ctx.request.body.parentialResponsibility,
-          child_parent_relationship: ctx.request.body.childParentRelationship,
-          parent_contact_number: ctx.request.body.parentContactNumber,
-          parent_email: ctx.request.body.parentEmail,
-          parent_same_house: ctx.request.body.parentSameHouse,
-          parent_address: ctx.request.body.parentAddress,
-          legal_care_status: ctx.request.body.legalCareStatus,
-        }).then((parentUserInfo) => {
+          var parentid= userResult[0].parent[0].ChildParents.parentId
+          return user.update(
+            {
+              child_name: ctx.request.body.childName,
+              child_NHS: ctx.request.body.childNHS,
+              child_email: ctx.request.body.childEmail,
+              child_contact_number: ctx.request.body.childContactNumber,
+              child_address: ctx.request.body.childAddress,
+              can_send_post: ctx.request.body.sendPost,
+              child_gender: ctx.request.body.childGender,
+              child_gender_birth: ctx.request.body.childGenderBirth,
+              child_sexual_orientation: ctx.request.body.childSexualOrientation,
+              child_ethnicity: ctx.request.body.childEthnicity,
+              child_household_name: ctx.request.body.houseHoldName,
+              child_household_relationship: ctx.request.body.houseHoldRelationship,
+              child_household_dob: ctx.request.body.childHouseHoldDob,
+              child_household_profession: ctx.request.body.houseHoldProfession,
+              child_care_adult: ctx.request.body.childCareAdult,
+              user_section: 2
+            },
+            {
+              where:
+                { id: result.id }
+            }
+          ).then((result) => {
+    
+            return user.update(
+              {
+                parent_name: ctx.request.body.parentName,
+                parential_responsibility: ctx.request.body.parentialResponsibility,
+                child_parent_relationship: ctx.request.body.childParentRelationship,
+                parent_contact_number: ctx.request.body.parentContactNumber,
+                parent_email: ctx.request.body.parentEmail,
+                parent_same_house: ctx.request.body.parentSameHouse,
+                parent_address: ctx.request.body.parentAddress,
+                legal_care_status: ctx.request.body.legalCareStatus,
+              },
+              {
+                where:
+                  { id: parentid }
+              }
+            ).then((result) => {
+      
+              const responseData = {
+                userid: ctx.request.body.userid,
+                status: "ok",
+                role: ctx.request.body.role
+              }
+              return ctx.body = responseData;
+            })
+    
+          })
+        })
 
-          parentUserInfo.setType("2")
-          userResult.setParent(parentUserInfo.id)
-          const responseData = {
-            userid: ctx.request.body.userid,
-            status: "ok",
-            role: ctx.request.body.role
-          }
-          return ctx.body = responseData;
-        }).catch((error) => {
+        })
+    }
 
-        });
+    else
+    {
 
+      return user.update(
+        {
+          child_name: ctx.request.body.childName,
+          child_NHS: ctx.request.body.childNHS,
+          child_email: ctx.request.body.childEmail,
+          child_contact_number: ctx.request.body.childContactNumber,
+          child_address: ctx.request.body.childAddress,
+          can_send_post: ctx.request.body.sendPost,
+          child_gender: ctx.request.body.childGender,
+          child_gender_birth: ctx.request.body.childGenderBirth,
+          child_sexual_orientation: ctx.request.body.childSexualOrientation,
+          child_ethnicity: ctx.request.body.childEthnicity,
+          child_household_name: ctx.request.body.houseHoldName,
+          child_household_relationship: ctx.request.body.houseHoldRelationship,
+          child_household_dob: ctx.request.body.childHouseHoldDob,
+          child_household_profession: ctx.request.body.houseHoldProfession,
+          child_care_adult: ctx.request.body.childCareAdult,
+          user_section: 2
+        },
+        {
+          where:
+            { uuid: ctx.request.body.userid }
+        }
+      ).then((result) => {
+  
+        return user.findOne({
+          where: {
+            uuid: ctx.request.body.userid,
+          },
+          attributes: ['id', 'uuid']
+        }).then((userResult) => {
+  
+          console.log(userResult.id + "====>" + userResult.uuid);
+          return user.create({
+            parent_name: ctx.request.body.parentName,
+            parential_responsibility: ctx.request.body.parentialResponsibility,
+            child_parent_relationship: ctx.request.body.childParentRelationship,
+            parent_contact_number: ctx.request.body.parentContactNumber,
+            parent_email: ctx.request.body.parentEmail,
+            parent_same_house: ctx.request.body.parentSameHouse,
+            parent_address: ctx.request.body.parentAddress,
+            legal_care_status: ctx.request.body.legalCareStatus,
+          }).then((parentUserInfo) => {
+  
+            parentUserInfo.setType("2")
+            userResult.setParent(parentUserInfo.id)
+            const responseData = {
+              userid: ctx.request.body.userid,
+              status: "ok",
+              role: ctx.request.body.role
+            }
+            return ctx.body = responseData;
+          }).catch((error) => {
+  
+          });
+  
+        })
       })
-    })
+      
+    }
   }
   else if (ctx.request.body.role == "parent") {
     return user.findOne({
@@ -445,7 +527,10 @@ exports.about = ctx => {
   }
 
   else if (ctx.request.body.role == "professional") {
-    return user.findOne({
+    if(ctx.request.body.editFlag!=null)
+    {
+     // return ctx.body = ctx.request.body;
+     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
       },
@@ -489,33 +574,118 @@ exports.about = ctx => {
           }
         ).then((updateResult) => {
 
-          return user.create({
-            parent_name: ctx.request.body.parentName,
-            parential_responsibility: ctx.request.body.parentialResponsibility,
-            child_parent_relationship: ctx.request.body.childParentRelationship,
-            parent_contact_number: ctx.request.body.parentContactNumber,
-            parent_email: ctx.request.body.parentEmail,
-            parent_same_house: ctx.request.body.parentSameHouse,
-            parent_address: ctx.request.body.parentAddress,
-            legal_care_status: ctx.request.body.legalCareStatus,
-          }
-          ).then((parentResult) => {
 
-            parentResult.setType("2")
-            parentResult.setParent(childId)
+          return user.findOne({
+            where: {
+              uuid: ctx.request.body.parentUUID,
+            },
+            attributes: ['id', 'uuid']
+          }).then((result) => {
 
-            const responseData = {
-              userid: ctx.request.body.userid,
-              status: "ok",
-              role: ctx.request.body.role
+            return user.update({
+              parent_name: ctx.request.body.parentName,
+              parential_responsibility: ctx.request.body.parentialResponsibility,
+              child_parent_relationship: ctx.request.body.childParentRelationship,
+              parent_contact_number: ctx.request.body.parentContactNumber,
+              parent_email: ctx.request.body.parentEmail,
+              parent_same_house: ctx.request.body.parentSameHouse,
+              parent_address: ctx.request.body.parentAddress,
+              legal_care_status: ctx.request.body.legalCareStatus,
+            },
+            {
+              where:
+                { id: result.id }
             }
-            return ctx.body = responseData;
+            ).then((parentResult) => {
+  
+              const responseData = {
+                userid: ctx.request.body.userid,
+                status: "ok",
+                role: ctx.request.body.role
+              }
+              return ctx.body = responseData;
+            })
+
           })
+
         })
       })
     })
+    }
+    else
+    {
+ 
+      return user.findOne({
+        where: {
+          uuid: ctx.request.body.userid,
+        },
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+  
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'professional',
+            },
+          ],
+          where: {
+            id: result.id,
+          },
+        }).then((userResult) => {
+          var childId = userResult[0].professional[0].ChildProfessional.professionalId
+          return user.update(
+            {
+              child_name: ctx.request.body.childName,
+              child_NHS: ctx.request.body.childNHS,
+              child_email: ctx.request.body.childEmail,
+              child_contact_number: ctx.request.body.childContactNumber,
+              child_address: ctx.request.body.childAddress,
+              can_send_post: ctx.request.body.sendPost,
+              child_gender: ctx.request.body.childGender,
+              child_gender_birth: ctx.request.body.childGenderBirth,
+              child_sexual_orientation: ctx.request.body.childSexualOrientation,
+              child_ethnicity: ctx.request.body.childEthnicity,
+              child_household_name: ctx.request.body.houseHoldName,
+              child_household_relationship: ctx.request.body.houseHoldRelationship,
+              child_household_dob: ctx.request.body.houseHoldDOB,
+              child_household_profession: ctx.request.body.houseHoldProfession,
+              child_care_adult: ctx.request.body.childCareAdult,
+            },
+            {
+              where:
+                { id: childId }
+            }
+          ).then((updateResult) => {
+  
+            return user.create({
+              parent_name: ctx.request.body.parentName,
+              parential_responsibility: ctx.request.body.parentialResponsibility,
+              child_parent_relationship: ctx.request.body.childParentRelationship,
+              parent_contact_number: ctx.request.body.parentContactNumber,
+              parent_email: ctx.request.body.parentEmail,
+              parent_same_house: ctx.request.body.parentSameHouse,
+              parent_address: ctx.request.body.parentAddress,
+              legal_care_status: ctx.request.body.legalCareStatus,
+            }
+            ).then((parentResult) => {
+  
+              parentResult.setType("2")
+              parentResult.setParent(childId)
+  
+              const responseData = {
+                userid: ctx.request.body.userid,
+                status: "ok",
+                role: ctx.request.body.role
+              }
+              return ctx.body = responseData;
+            })
+          })
+        })
+      })
+    }
   }
-
 };
 
 
@@ -588,7 +758,7 @@ exports.fetchAbout = ctx => {
         uuid: ctx.request.body.uuid,
       },
       attributes: ['id', 'uuid']
-    }).then((result) => {
+    }).then((professionalResult) => {
   
       return user.findAll({
         include: [
@@ -597,14 +767,40 @@ exports.fetchAbout = ctx => {
             nested: true,
             as: 'professional',
           },
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
         ],
+
         where: {
-          id: result.id,
+          id: professionalResult.id,
         },
-      }).then((userResult) => {
-  
-        return ctx.body = userResult;
-  
+      }).then((childResult) => {
+
+      //  return ctx.body = childResult;
+        var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) +2
+       // return ctx.body = childResult;
+       console.log(parentId)
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'parent',
+            },
+          ],
+          where: {
+            id: parentId,
+          },
+        }).then((parentResult) => {
+    
+          return ctx.body = parentResult;
+    
+        })
+
+     
       })
   
     })
@@ -775,6 +971,81 @@ exports.profession = ctx => {
       })
     })
   }
+}
+
+
+exports.fetchProfession = ctx => {
+
+  const user = ctx.orm().User;
+  if(ctx.request.body.role=="child")
+  {
+
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.uuid,
+      },
+     
+    }).then((result) => {
+      return ctx.body = result;
+    })
+  }
+  else if(ctx.request.body.role=="parent")
+  {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.uuid,
+      },
+     
+    }).then((result) => {
+
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+        //  console.log(userResult);
+        return ctx.body = userResult;
+        console.log(userResult[0].parent[0].ChildParents.parentId)
+        var childId = userResult[0].parent[0].ChildParents.parentId
+      })
+    })
+  }
+
+  else if(ctx.request.body.role=="professional")
+  {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.uuid,
+      },
+     
+    }).then((result) => {
+
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'professional',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+        //  console.log(userResult);
+        return ctx.body = userResult;
+        console.log(userResult[0].parent[0].ChildParents.parentId)
+        var childId = userResult[0].parent[0].ChildParents.parentId
+      })
+    })
+  } 
 }
 
 
