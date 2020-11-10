@@ -1,0 +1,50 @@
+/* CheckBox Global classes */
+
+.custom-form-group {
+  display: block;
+  margin-bottom: 15px;
+  position: relative;
+
+  input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+  }
+
+  label {
+    position: relative;
+    cursor: pointer;
+
+    &:before {
+      content: "";
+      -webkit-appearance: none;
+      width: 40px;
+      height: 40px;
+      background: #e8edee 0% 0% no-repeat padding-box;
+      border: 1px solid #023047;
+      padding: 10px;
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+  }
+
+  input:checked + label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    width: 6px;
+    height: 21px;
+    width: 10px;
+    border: solid #023047;
+    border-width: 0 5px 4px 0;
+    transform: rotate(45deg);
+  }
+}

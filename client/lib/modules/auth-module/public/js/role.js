@@ -149,7 +149,7 @@ $(document).ready(function () {
             },
 
             onChange(event) {
-            
+
                 var optionText = event.target.name;
                 console.log(optionText);
                 if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
@@ -321,8 +321,7 @@ $(document).ready(function () {
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
                     }
-                    else
-                    {
+                    else {
                         this.elgibilityObj.camhs = "show";
                         this.belowAgeLimit = "";
                         this.aboveLimit = "";

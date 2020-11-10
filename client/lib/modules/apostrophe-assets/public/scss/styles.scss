@@ -1,5 +1,10 @@
-//$primary-color: #ffffff;
-$secondary-color: #000000;
+@import "config";
+@import "utilities";
+@import "radio";
+@import "checkbox";
+@import "button";
+@import "inputs";
+
 $primary-header-color: #8ecae6;
 $sub-header-color: #012f46;
 $primary-content-bg-img: url("/modules/my-apostrophe-assets/img/desktop.svg");
@@ -10,11 +15,7 @@ $content-color: #fafafa;
 $footer-text-color: #feffff;
 
 $question-text-color: #023047;
-$primary-button-color: #219ebc;
-
 $header-font-size: 32px;
-$sub-header-font-size: 28px;
-$content-text-font-size: 18px;
 
 @font-face {
   font-family: "century-gothic";
@@ -47,120 +48,15 @@ $content-text-font-size: 18px;
   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
-/* This CSS will re-used. */
-
-/* Start  */
-%font-shared {
-  letter-spacing: 0px;
-  opacity: 1;
-}
-
-%content-shared {
-  background: $content-color 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  opacity: 1;
-}
-
-%header-footer-bg {
-  background: $sub-header-color 0% 0% no-repeat padding-box;
-  opacity: 1;
-}
-
-%btn-shared {
-  background: $primary-button-color 0% 0% no-repeat padding-box !important;
-  box-shadow: 0px 3px 6px #00000029 !important;
-  border-radius: 10px !important;
-  opacity: 1 !important;
-}
-
-/* End */
-
 body {
   font-family: "century-gothic" !important;
 
-  input[type="radio"] {
-    -ms-transform: scale(3); /* IE 9 */
-    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
-    transform: scale(2.7);
-  }
-
-  [type="radio"]:checked,
-  [type="radio"]:not(:checked) {
-    position: absolute;
-    left: -9999px;
-  }
-  [type="radio"]:checked + label,
-  [type="radio"]:not(:checked) + label {
-    position: relative;
-    padding-left: 56px;
-    cursor: pointer;
-    height: 40px;
-    display: inline-block;
-  }
-  [type="radio"]:checked + label:before,
-  [type="radio"]:not(:checked) + label:before {
-    content: "";
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 40px;
-    height: 40px;
-    border: 1px solid #023047;
-    background: #e8edee 0% 0% no-repeat padding-box;
-    border-radius: 102px;
-  }
-  [type="radio"]:checked + label:after,
-  [type="radio"]:not(:checked) + label:after {
-    content: "";
-    width: 22px;
-    height: 22px;
-    background: $question-text-color 0% 0% no-repeat padding-box;
-    position: absolute;
-    top: 9px;
-    left: 9px;
-    border-radius: 102px;
-    opacity: 1;
-    -webkit-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    padding: 2px;
-  }
-  [type="radio"]:not(:checked) + label:after {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-  }
-  [type="radio"]:checked + label:after {
-    opacity: 1;
-    -webkit-transform: scale(1);
-    transform: scale(1);
-  }
-
-  input[type="checkbox"] {
-    -ms-transform: scale(3); /* IE 9 */
-    -webkit-transform: scale(3); /* Chrome, Safari, Opera */
-    transform: scale(2.7);
-  }
-
-  .btn {
-    @extend %btn-shared;
-  }
-
-  .btn:focus {
-    box-shadow: none !important;
-  }
-
-  .input-group-text {
-    background: #ffb837 !important;
-    border-radius: 2px !important;
-    opacity: 1 !important;
-    border-color: white !important;
-    height: 50px !important;
-    border: none !important;
-  }
-
   .ui-widget.ui-widget-content {
     border: none !important;
+  }
+
+  .h-112 {
+    height: 112px !important;
   }
 
   .ui-widget-content {
@@ -178,52 +74,168 @@ body {
     color: #023047 !important;
     opacity: 1 !important;
   }
-
-  .form-control {
-    background: #e8edee 0% 0% no-repeat padding-box !important;
-    border-radius: 2px !important;
-    opacity: 1 !important;
-    border-color: white !important;
-    border: none !important;
-    height: 50px !important;
-  }
-  .form-control:focus {
-    border-color: none !important;
-    outline: none !important;
-    box-shadow: none !important;
+  a {
+    color: #023087 !important;
   }
 }
 
 .header-title {
-  font-size: $header-font-size;
-  font-weight: bold;
-  @extend %font-shared;
-  color: $header-text-color;
+  @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }
 
 .sub-header-title {
-  font-size: $sub-header-font-size;
-  font-weight: bold;
-  @extend %font-shared;
-  color: $header-text-color;
+  @include set-titleStyles($primary-font-size, bold, $header-text-color);
+}
+
+.content-header-text {
+  @include set-titleStyles(22px, bold, $primary-color);
+}
+
+.content-secondary-header-text {
+  @include set-titleStyles($header-font-size, bold, $primary-color);
+}
+
+.content-text {
+  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+}
+
+.hint-text {
+  @include set-titleStyles($quinary-font-size, bold, $primary-color);
+}
+
+.link-text {
+  @include set-titleStyles($hint-font-size, bold, $primary-color);
+}
+
+.link-secondary {
+  @include set-titleStyles($mobile-quaternary-font-size, bold, $primary-color);
+}
+
+.btn-txt {
+  @include set-titleStyles($button-font-size, bold, $primary-color);
+}
+
+.btn-secondary-text {
+  @include set-titleStyles($button-font-size, bold, $primary-color);
+}
+
+.btn-modal-text {
+  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
+}
+
+.footer-text {
+  @include set-titleStyles($footer-font-size, bold, $footer-text-color);
+}
+
+.question-font {
+  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+}
+
+.option-font {
+  @include set-titleStyles($option-font-size, bold, $primary-color);
+}
+
+.question-header-font {
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
+}
+
+.add-more-hint {
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
 }
 
 .header-bg {
-  background: $primary-header-color 0% 0% no-repeat padding-box;
-  opacity: 1;
+  @include set-background($header-color, 1);
 }
 
 .sub-header-bg {
-  @extend %header-footer-bg;
+  @include set-background($sub-header-color, 1);
+}
+
+.toster-container {
+  @include set-background($tertiary-color, 1);
+  border-radius: 24px;
+}
+
+.secondary-content-bg {
+  @include set-background($sub-header-color, 1);
 }
 
 .footer-bg {
-  @extend %header-footer-bg;
+  @include set-background($primary-color, 1);
 }
 
 .main-content-bg {
   background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
+}
+
+#ui-id-1 {
+  width: auto !important;
+}
+
+.main-content-area {
+  @include set-cardStyle($secondary-color, 22px, 22px, "", "top");
+}
+
+.secondary-content-area {
+  @include set-cardStyle($secondary-color, "", "", 24px, "no");
+}
+
+.last-content-area {
+  @include set-cardStyle($secondary-color, 22px, 22px, "", "bottom");
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.support-logo {
+  height: 35px;
+  width: auto;
+}
+
+.calendar-bg {
+  background: #e8edee 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  opacity: 1;
+}
+
+.ham-logo {
+  height: 55px;
+  width: auto;
+}
+.cal-icon-bg {
+  background: #ffb703 0% 0% no-repeat padding-box;
+}
+
+// .cal-header-text {
+//   font-size: 14px;
+//   font-weight: normal;
+//   letter-spacing: 0px;
+//   color: $question-text-color;
+//   opacity: 1;
+// }
+
+// .cal-text {
+//   font-size: 17x;
+//   font-weight: italic;
+//   letter-spacing: 0px;
+//   color: #023047;
+//   opacity: 1;
+// }
+
+.main-min-height {
+  min-height: 603px !important;
+}
+
+.modal-bg {
+  background: #ffb837 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.img-class {
+  height: 35px;
+  width: auto;
 }
 
 // Extra small devices (portrait phones, less than 576px)
@@ -277,195 +289,4 @@ body {
     height: 112px;
     width: 111px;
   }
-}
-
-#ui-id-1 {
-  width: auto !important;
-}
-
-.main-content-area {
-  background: #fafafa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px;
-  opacity: 1;
-}
-
-.content-header-text {
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: $content-header-color;
-  opacity: 1;
-}
-
-.content-secondary-header-text {
-  font-size: $header-font-size;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: $content-header-color;
-  opacity: 1;
-}
-.content-text {
-  font-size: $content-text-font-size;
-  font-weight: normal;
-  letter-spacing: 0px;
-  color: $content-header-color;
-  opacity: 1;
-}
-
-.secondary-content-bg {
-  background: $sub-header-color 0% 0% no-repeat padding-box;
-  opacity: 1;
-}
-
-.secondary-content-area {
-  background: #fafafa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 24px;
-  opacity: 1;
-}
-
-.last-content-area {
-  background: #fafafa 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  opacity: 1;
-  border-bottom-left-radius: 22px;
-  border-bottom-right-radius: 22px;
-}
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.hint-text {
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: $content-header-color;
-  opacity: 1;
-}
-.btn-txt {
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: #ffffff;
-  opacity: 1;
-}
-.btn-primary-main {
-  background: #219ebc 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  opacity: 1;
-  width: 187px;
-  height: 46px;
-}
-
-.ham-logo {
-  height: 55px;
-  width: auto;
-}
-
-.footer-text {
-  font-size: 20px;
-  font-weight: normal;
-  letter-spacing: 0px;
-  color: #feffff;
-  opacity: 1;
-}
-
-.support-logo {
-  height: 35px;
-  width: auto;
-}
-
-.question-font {
-  font-size: 18px;
-  font-weight: normal;
-  letter-spacing: 0px;
-  color: $question-text-color;
-  opacity: 1;
-}
-
-.option-font {
-  font-size: 17px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: $question-text-color;
-  opacity: 1;
-}
-
-.calendar-bg {
-  background: #e8edee 0% 0% no-repeat padding-box;
-  border-radius: 2px;
-  opacity: 1;
-}
-.cal-icon-bg {
-  background: #ffb703 0% 0% no-repeat padding-box;
-}
-
-.cal-header-text {
-  font-size: 14px;
-  font-weight: normal;
-  letter-spacing: 0px;
-  color: $question-text-color;
-  opacity: 1;
-}
-
-.cal-text {
-  font-size: 17x;
-  font-weight: italic;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1;
-}
-
-.toster-container {
-  background: #ffb703 0% 0% no-repeat padding-box;
-  border-radius: 24px;
-  opacity: 1;
-}
-
-.btn-main-secondary {
-  width: 301px;
-  background: #219ebc 0% 0% no-repeat padding-box;
-  box-shadow: 0px 3px 6px #00000029;
-  border-radius: 10px;
-  opacity: 1;
-}
-.btn-secondary-text {
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: $content-header-color;
-  opacity: 1;
-}
-
-.main-min-height {
-  min-height: 603px !important;
-}
-
-.question-header-font {
-  font-size: 28px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1;
-}
-
-.add-more-hint {
-  font-size: 18px;
-  font-weight: bold;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 1;
-}
-
-.modal-bg {
-  background: #ffb837 0% 0% no-repeat padding-box;
-  opacity: 1;
-}
-
-.img-class {
-  height: 35px;
-  width: auto;
 }

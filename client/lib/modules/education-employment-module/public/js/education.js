@@ -204,6 +204,8 @@ $(document).ready(function () {
                             this.hasContactReqError = false;
                         }
                     }
+                } else {
+                    this.apiRequest(this.professionObj, this.professionObj.isSocialWorker);
                 }
             //    this.apiRequest(this.professionObj, role);
             },
