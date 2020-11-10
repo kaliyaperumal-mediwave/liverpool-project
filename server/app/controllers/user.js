@@ -1041,15 +1041,170 @@ exports.fetchProfession = ctx => {
       }).then((userResult) => {
         //  console.log(userResult);
         return ctx.body = userResult;
-        console.log(userResult[0].parent[0].ChildParents.parentId)
-        var childId = userResult[0].parent[0].ChildParents.parentId
+       
       })
     })
   } 
 }
 
 
+exports.saveReferal = ctx => {
 
+  console.log(ctx.request.body)
+
+  var array = ctx.request.body.cars
+  //array.push(ctx.request.body.array)
+  // console.log(array.length);
+  // for (i = 0; i < array.length; i++) {
+  //   console.log(array[i].name)
+  // }
+  console.log(array.length);
+
+  for (i = 0; i < array.length; i++) {
+    console.log(array[i].name)
+  }
+
+  ctx.body=ctx.request.body;
+  return;
+
+  if (ctx.request.body.role == "professional") {
+    const user = ctx.orm().User;
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'professional',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+
+        console.log(userResult[0].professional[0].ChildProfessional.professionalId)
+
+        var childId = userResult[0].professional[0].ChildProfessional.professionalId
+
+        return user.update(
+          {
+
+          },
+          {
+            where:
+              { id: childId }
+          }
+        ).then((updateResult) => {
+
+          return user.update(
+            { user_section: 3 },
+            { where: { id: result.id } }
+          ).then((result) => {
+            const responseData = {
+              userid: ctx.request.body.userid,
+              status: "ok",
+              role: ctx.request.body.role
+            }
+            return ctx.body = responseData;
+          }).catch((error) => {
+            console.log(error)
+          });
+        })
+      })
+
+    })
+  }
+  else if (ctx.request.body.role == "parent") {
+    const user = ctx.orm().User;
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+        //  console.log(userResult);
+        console.log(userResult[0].parent[0].ChildParents.parentId)
+        var childId = userResult[0].parent[0].ChildParents.parentId
+
+        return user.update(
+          {
+            
+
+          },
+          {
+            where:
+              { id: childId }
+          }
+        ).then((updateResult) => {
+
+          return user.update(
+            { user_section: 3 },
+            { where: { id: result.id } }
+          ).then((result) => {
+            const responseData = {
+              userid: ctx.request.body.userid,
+              status: "ok",
+              role: ctx.request.body.role
+            }
+            return ctx.body = responseData;
+          }).catch((error) => {
+            console.log(error)
+          });
+        })
+      })
+
+    })
+  }
+
+  else if (ctx.request.body.role == "child") {
+    const user = ctx.orm().User;
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+      return user.update(
+        {
+          
+        },
+        {
+          where:
+            { id: result.id }
+        }
+      ).then((result) => {
+
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+      })
+    })
+  }
+}
 
 exports.signUpUser = ctx => {
 

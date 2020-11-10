@@ -170,6 +170,10 @@ module.exports = function modelUser(sequelize, types) {
     through: 'UserSection',
   });
 
+  User.belongsToMany(sequelize.models.Services, {
+    as: 'services',
+    through: 'ReferralServices',
+  });
 
   User.belongsToMany(User, {
     as: 'parent',
@@ -180,5 +184,8 @@ module.exports = function modelUser(sequelize, types) {
     as: 'professional',
     through: 'ChildProfessional',
   });
+
+
+
   return User;
 };
