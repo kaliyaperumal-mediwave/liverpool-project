@@ -1049,26 +1049,11 @@ exports.fetchProfession = ctx => {
 
 
 exports.saveReferal = ctx => {
-
-  console.log(ctx.request.body)
-
-  var array = ctx.request.body.cars
-  //array.push(ctx.request.body.array)
-  // console.log(array.length);
-  // for (i = 0; i < array.length; i++) {
-  //   console.log(array[i].name)
-  // }
-  console.log(array.length);
-
-  for (i = 0; i < array.length; i++) {
-    console.log(array[i].name)
-  }
-
-  ctx.body=ctx.request.body;
-  return;
+  const user = ctx.orm().User;
+  const referral = ctx.orm().Referral
 
   if (ctx.request.body.role == "professional") {
-    const user = ctx.orm().User;
+   
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1089,40 +1074,44 @@ exports.saveReferal = ctx => {
         },
       }).then((userResult) => {
 
-        console.log(userResult[0].professional[0].ChildProfessional.professionalId)
+      //  console.log(userResult[0].professional[0].ChildProfessional.professionalId)
 
         var childId = userResult[0].professional[0].ChildProfessional.professionalId
 
-        return user.update(
+        return referral.create(
           {
-
+            referral_type: ctx.request.body.referral_type,
+             is_covid: "professional",
+             mental_diagnosis: ctx.request.body.mentalDiagnosis,
+             mental_symptoms_supportneeds:ctx.request.body.symptoms,
+            // eating_diagnosis:ctx.request.body.isInformation,
+            // symptoms_supportneeds: ctx.request.body.registerd_gp,
+            services:ctx.request.body.services,
           },
-          {
-            where:
-              { id: childId }
-          }
-        ).then((updateResult) => {
-
-          return user.update(
-            { user_section: 3 },
-            { where: { id: result.id } }
-          ).then((result) => {
+        ).then((fetchResult) => {
+          result.setReferral(childId)
+          return referral.findOne({
+            where: {
+              id: fetchResult.id,
+            },
+            //attributes: ['id', 'uuid']
+          }).then((sendResult) => {
+            
+          //  return ctx.body = sendResult;
             const responseData = {
               userid: ctx.request.body.userid,
+              data: sendResult,
               status: "ok",
               role: ctx.request.body.role
             }
             return ctx.body = responseData;
-          }).catch((error) => {
-            console.log(error)
-          });
+          })
         })
       })
 
     })
   }
   else if (ctx.request.body.role == "parent") {
-    const user = ctx.orm().User;
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1145,39 +1134,44 @@ exports.saveReferal = ctx => {
         //  console.log(userResult);
         console.log(userResult[0].parent[0].ChildParents.parentId)
         var childId = userResult[0].parent[0].ChildParents.parentId
-
-        return user.update(
+        return referral.create(
           {
-            
-
+            referral_type: ctx.request.body.referral_type,
+             is_covid: "parent",
+             mental_diagnosis: ctx.request.body.mentalDiagnosis,
+             mental_symptoms_supportneeds:ctx.request.body.symptoms,
+            // eating_diagnosis:ctx.request.body.isInformation,
+            // symptoms_supportneeds: ctx.request.body.registerd_gp,
+            services:ctx.request.body.services,
           },
-          {
-            where:
-              { id: childId }
-          }
-        ).then((updateResult) => {
-
-          return user.update(
-            { user_section: 3 },
-            { where: { id: result.id } }
-          ).then((result) => {
+        ).then((fetchResult) => {
+          result.setReferral(childId)
+          return referral.findOne({
+            where: {
+              id: fetchResult.id,
+            },
+            //attributes: ['id', 'uuid']
+          }).then((sendResult) => {
+            
+          //  return ctx.body = sendResult;
             const responseData = {
               userid: ctx.request.body.userid,
+              data: sendResult,
               status: "ok",
               role: ctx.request.body.role
             }
             return ctx.body = responseData;
-          }).catch((error) => {
-            console.log(error)
-          });
+          })
         })
+
       })
 
     })
   }
 
   else if (ctx.request.body.role == "child") {
-    const user = ctx.orm().User;
+
+  //  console.log(ctx.request.body.services);
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1185,114 +1179,310 @@ exports.saveReferal = ctx => {
       attributes: ['id', 'uuid']
     }).then((result) => {
 
-      return user.update(
+      return referral.create(
         {
-          
+          referral_type: ctx.request.body.referral_type,
+           is_covid: "child",
+           mental_diagnosis: ctx.request.body.mentalDiagnosis,
+           mental_symptoms_supportneeds:ctx.request.body.symptoms,
+          // eating_diagnosis:ctx.request.body.isInformation,
+          // symptoms_supportneeds: ctx.request.body.registerd_gp,
+          services:ctx.request.body.services,
         },
-        {
-          where:
-            { id: result.id }
-        }
-      ).then((result) => {
+      ).then((fetchResult) => {
 
-        const responseData = {
-          userid: ctx.request.body.userid,
-          status: "ok",
-          role: ctx.request.body.role
-        }
-        return ctx.body = responseData;
+        result.setReferral(fetchResult.id)
+
+        return referral.findOne({
+          where: {
+            id: fetchResult.id,
+          },
+        }).then((sendResult) => {
+          const responseData = {
+            userid: ctx.request.body.userid,
+            data: sendResult,
+            status: "ok",
+            role: ctx.request.body.role
+          }
+          return ctx.body = responseData;
+        })
       })
     })
   }
 }
 
-exports.signUpUser = ctx => {
+exports.fetchReferral = ctx => {
 
-  const responseData = {
-    role: "child",
-    interpreter: "no",
-    childDob: '2020-10-09',
-    camhsSelect: 'yes',
-    gp: "B"
-  }
-
-
-  console.log(ctx.request.body)
-  return ctx.body = responseData;
-  return;
   const user = ctx.orm().User;
-  const referral = ctx.orm().Referral;
+  const referral = ctx.orm().Referral
 
-  if (ctx.request.body.type == "child") {
+  if (ctx.request.body.role == "child") {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((fetchResult) => {
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().Referral,
+            nested: true,
+            as: 'referral',
+          },
+                ],
+          where: {
+            id: fetchResult.id,
+          },
+        }).then((userResult) => {
+       //   console.log(userResult);
+       console.log(userResult[0].referral[0].id)
+       var refId=userResult[0].referral[0].id;
+        
+          return referral.findOne({
+            where: {
+              id: refId,
+            },
+            
+          }).then((referralResult) => {
+            console.log(referralResult)
+            return ctx.body = referralResult;
+          })
 
-    user.create({
-      name: ctx.request.body.p_name,
-    }).then((parentUserInfo) => {
+          console.log(userResult)
+        })
+      console.log(fetchResult.id)
+     
 
-      parentUserInfo.setType("2")
-
-      referral.create({
-        referral_type: ctx.request.body.ref_type,
-        covid: ctx.request.body.isCovid,
-      }).then((referralInfo) => {
-
-        user.create({
-          name: ctx.request.body.name,
-        }).then((childUserInfo) => {
-
-          childUserInfo.setType("1")
-          childUserInfo.setParent(parentUserInfo.id)
-          childUserInfo.setReferral(referralInfo.id)
-
-        }).catch((error) => {
-        });
-      }).catch((error) => {
-        console.log(error)
-      });
-    }).catch((error) => {
-    });
-
+    })
   }
-  else {
+  else if (ctx.request.body.role == "parent") {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
 
+      return user.findAll({
+      include: [
+        {
+          model: ctx.orm().User,
+          nested: true,
+          as: 'parent',
+        },
+              ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+        console.log(userResult[0].parent[0].ChildParents.parentId)
+        var childId = userResult[0].parent[0].ChildParents.parentId
+        return referral.findOne(
+          {
+            where: {
+              id: childId,
+            },
+          },
+        ).then((fetchResult) => {
+         // result.setReferral(childId)
+         const responseData = {
+          userid: ctx.request.body.userid,
+            userData: fetchResult,
+            status: "ok",
+            role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+        })
 
-    user.create({
-      name: ctx.request.body.prof_name,
-    }).then((profUserInfo) => {
-      profUserInfo.setType("3")
-      user.create({
-        name: ctx.request.body.p_name,
-      }).then((parentUserInfo) => {
+      })
 
-        parentUserInfo.setType("2")
-
-        referral.create({
-          referral_type: ctx.request.body.ref_type,
-          covid: ctx.request.body.isCovid,
-        }).then((referralInfo) => {
-
-          user.create({
-            name: ctx.request.body.name,
-          }).then((childUserInfo) => {
-
-
-            childUserInfo.setType("1")
-            childUserInfo.setProfessional(profUserInfo.id)
-            childUserInfo.setParent(parentUserInfo.id)
-            childUserInfo.setReferral(referralInfo.id)
-
-          }).catch((error) => {
-          });
-        }).catch((error) => {
-          console.log(error)
-        });
-      }).catch((error) => {
-      });
-
-    }).catch((error) => {
-    });
-
+    })
   }
-  ctx.body = ctx;
-};
+  else if (ctx.request.body.role == "professional") {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'professional',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+     //   console.log(userResult[0].parent[0].ChildParents.parentId)
+       var childId = userResult[0].professional[0].ChildProfessional.professionalId
+        return referral.findOne(
+          {
+            where: {
+              id: childId,
+            },
+          },
+        ).then((fetchResult) => {
+         // result.setReferral(childId)
+         const responseData = {
+          userid: ctx.request.body.userid,
+            userData: fetchResult,
+            status: "ok",
+            role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+        })
+      })
+
+    })
+  }
+
+}
+
+
+exports.fetchReview = ctx => {
+
+  const user = ctx.orm().User;
+  const referral = ctx.orm().Referral
+
+  if(ctx.request.body.role=="child")
+  {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+      return user.findOne({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
+        ],
+        
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+
+        return referral.findOne({
+          where: {
+            id: userResult.id,
+          },
+          
+        }).then((referralResult) => {
+
+          const responseData = {
+            userid: ctx.request.body.userid,
+            userData: userResult,
+            referralData:referralResult,
+            status: "ok",
+            role: ctx.request.body.role
+          }
+          return ctx.body = responseData;
+
+        })  
+      })
+  
+    })
+  }
+
+  else if (ctx.request.body.role == "parent") {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+     //   console.log(userResult[0].parent[0].ChildParents.parentId)
+        var childId = userResult[0].parent[0].ChildParents.parentId
+        return referral.findOne(
+          {
+            where: {
+              id: childId,
+            },
+          },
+        ).then((fetchResult) => {
+         // result.setReferral(childId)
+         const responseData = {
+          userid: ctx.request.body.userid,
+            userData: userResult,
+            referralData:fetchResult,
+            status: "ok",
+            role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+        })
+
+      })
+
+    })
+  }
+  else if (ctx.request.body.role == "professional") {
+    return user.findOne({
+      where: {
+        uuid: ctx.request.body.userid,
+      },
+      attributes: ['id', 'uuid']
+    }).then((result) => {
+
+      return user.findAll({
+        include: [
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'professional',
+          },
+        ],
+        where: {
+          id: result.id,
+        },
+      }).then((userResult) => {
+     //   console.log(userResult[0].parent[0].ChildParents.parentId)
+       var childId = userResult[0].professional[0].ChildProfessional.professionalId
+        return referral.findOne(
+          {
+            where: {
+              id: childId,
+            },
+          },
+        ).then((fetchResult) => {
+         // result.setReferral(childId)
+         const responseData = {
+          userid: ctx.request.body.userid,
+            userData: userResult,
+            referralData:fetchResult,
+            status: "ok",
+            role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+        })
+
+      })
+
+    })
+  }
+
+}
 

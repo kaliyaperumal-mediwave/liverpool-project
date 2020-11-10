@@ -1,3 +1,4 @@
+var API_URI = "/modules/referral-module";
 $(window).on('load', function () {
     var _self = this;
     var Jquery = $;
@@ -114,9 +115,39 @@ $(window).on('load', function () {
             diagnosisCheckBoxArray: [],
             problemsCheckBoxArray: [],
             hasAccessedServiceArray: [],
-            toggleModal: false
+            toggleModal: false,
+            sendObj:{}
         },
         methods: {
+            backToEducation(){
+                // var uid= new URL(location.href).searchParams.get('userid');
+                // var role =  new URL(location.href).searchParams.get('role');
+                // location.href = "/education?userid=" + uid + "&role=" + role + "&edt=1";
+                this.sendObj.role= new URL(location.href).searchParams.get('role');
+                this.sendObj.referral_type = "health";
+                this.sendObj.userid= new URL(location.href).searchParams.get('userid');
+                this.sendObj.services= this.listOfAvailableService
+                this.sendObj.mentalDiagnosis = this.listOfDiagnosis;
+                this.sendObj.symptoms = this.listOfDiagnosis;
+
+          console.log(this.sendObj);
+
+                $.ajax({
+                    url: API_URI + "/saveReferral",
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(this.sendObj),
+                    success: function (data) {
+                        alert("section 4 saved.");
+                  console.log(data);
+                   //  app.setValues(data);
+                        
+                    },
+                });
+
+
+            },
             onOptionChange(event) {
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;

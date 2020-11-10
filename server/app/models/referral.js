@@ -11,10 +11,10 @@ module.exports = function modelReferral(sequelize, types) {
       },
 
       mental_diagnosis: {
-        type: types.TEXT
+        type: types.JSONB
       },
       eating_diagnosis: {
-        type: types.TEXT
+        type: types.JSONB
       },
 
       symptoms_supportneeds: {
@@ -22,10 +22,10 @@ module.exports = function modelReferral(sequelize, types) {
       },
 
       mental_symptoms_supportneeds: {
-        type: types.TEXT
+        type: types.JSONB
       },
       eating_symptoms_supportneeds: {
-        type: types.TEXT
+        type: types.JSONB
       },
 
       referral_issues:{
@@ -52,16 +52,8 @@ module.exports = function modelReferral(sequelize, types) {
         type: types.TEXT
       },
 
-     name_of_services:{
-        type: types.TEXT
-      },
-
-      name_of_professional_service:{
-        type: types.TEXT
-      },
-
-      contact_professional_service:{
-        type: types.TEXT
+     services:{
+        type: types.JSONB
       },
 
     }, {

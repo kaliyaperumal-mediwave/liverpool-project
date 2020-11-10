@@ -27,6 +27,9 @@ $(document).ready(function () {
 
         mounted: function () {
 
+            console.log("edt",new URL(location.href).searchParams.get('edt'));
+
+
             if(new URL(location.href).searchParams.get('edt')==1)
             {
                 this.fetchSavedData()
@@ -38,6 +41,8 @@ $(document).ready(function () {
         },
 
         methods: {
+
+            
 
             fetchSavedData(){
                 console.log("if")
@@ -467,7 +472,18 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self .resetValidation();;
                         }
-                        location.href = "/about?userid=" + data.userid + "&role=" + role;
+
+                      //  console.log(new URL(location.href).searchParams.get('edt'));
+
+                        if(new URL(location.href).searchParams.get('edt')==null)
+                        {
+                            location.href = "/about?userid=" + data.userid + "&role=" + role; 
+                        }
+                        else
+                        {
+                           history.back();
+                        }
+                        
                     },
                 });
             },
