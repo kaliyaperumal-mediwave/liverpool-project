@@ -9,7 +9,8 @@ module.exports = function modelUser(sequelize, types) {
     },
 
     reference_code: {
-      type: types.TEXT
+      type: types.TEXT,
+      unique: true,
     },
 
     child_name: {
