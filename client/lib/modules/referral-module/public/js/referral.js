@@ -12,7 +12,6 @@ $(window).on('load', function () {
                 support: '',
                 covid: '',
                 diagnosis: '',
-                diagnosisList: '',
                 diagnosisOther: '',
                 supportOrSymptoms: '',
                 problemsOther: '',
@@ -24,6 +23,23 @@ $(window).on('load', function () {
                 isAccessingService: '',
                 listService: '',
             },
+            dependent: [
+                {
+                    parentKey: 'diagnosis',
+                    childKey: 'diagnosisList'
+                },
+                {
+                    parentKey: 'supportOrSymptoms',
+                    childKey: 'problemsList'
+                },
+                {
+                    parentKey: 'supportOrSymptoms',
+                    childKey: 'accessList'
+                }
+            ],
+            diagnosisList: [],
+            problemsList: [],
+            accessList: [],
             serviceData: {
                 name: null,
                 professional: null,
@@ -123,55 +139,18 @@ $(window).on('load', function () {
                 var formLenght = Array.from(document.forms).indexOf(event.target.form);
                 if (questionIdentifier === 'support') {
                     if (optionsName.support === 'mentalHealth' || optionsName.support === 'eatingDisorder' || optionsName.support === 'bothMental&Eating') {
-                        this.showCovid = true;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
-                        this.showDiagnosis = false;
-                        this.showDiagnosisList = false;
-                        this.showSymptomsOrSupport = false;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showCovid = false;
                     }
                 } else if (questionIdentifier === 'covidReferal') {
                     if (optionsName.covid === 'unsure' || optionsName.covid === 'yes' || optionsName.covid === 'no') {
-                        this.showDiagnosis = true;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
-                        this.showDiagnosisList = false;
-                        this.showSymptomsOrSupport = false;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showDiagnosis = false;
                     }
                 }
                 else if (questionIdentifier === 'mentalDiagnosis') {
                     if (optionsName.diagnosis === 'yes') {
-                        this.showDiagnosisList = true;
-                        this.showSymptomsOrSupport = false;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showDiagnosisList = false;
-                        this.showSymptomsOrSupport = true;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
+                    } else {
+                        this.resetValues(event.target.form);
                     }
                 }
                 else if (questionIdentifier === 'listDiagnosis') {
@@ -182,41 +161,19 @@ $(window).on('load', function () {
                         this.diagnosisCheckBoxArray.splice(remVal, 1)
                     }
                     console.log(this.diagnosisCheckBoxArray);
-                    if (this.diagnosisCheckBoxArray.length) {
-                        this.showSymptomsOrSupport = true;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
+                    if (!this.diagnosisCheckBoxArray.length) {
                         if (optionsName.diagnosisOther === '') {
-                            this.showSymptomsOrSupport = false;
-                            this.showProblemsList = false;
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
-                            this.showAddService = false;
                             this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
                         }
                     }
 
                 }
                 else if (questionIdentifier === 'symptomOrSupport') {
                     if (optionsName.supportOrSymptoms === 'yes') {
-                        this.showProblemsList = true;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showProblemInfoTextArea = true;
-                        this.showProblemsList = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
+                    }
+                    else {
+                        this.resetValues(event.target.form);
                     }
                 }
 
@@ -227,19 +184,10 @@ $(window).on('load', function () {
                         var remVal = event.target.value;
                         this.problemsCheckBoxArray.splice(remVal, 1)
                     }
-                    if (this.problemsCheckBoxArray.length) {
-                        this.showProblemInfoTextArea = true;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        if (optionsName.problemsOther == '') {
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
-                            this.showAddService = false;
-                            this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
+                    if (!this.problemsCheckBoxArray.length) {
+                        if (optionsName.problemsOther === '') {
+                            this.problemsCheckBoxArray = [];
+                            this.resetForm(event.target.form);
                         }
                     }
                 }
@@ -248,17 +196,10 @@ $(window).on('load', function () {
                     if (optionsName.accessService === 'yes') {
                         if (this.hasAccessedServiceArray.length) {
                             this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
                         }
-                        this.showAvailableService = true;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
+
                     } else {
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = true;
-                        this.showAddService = false;
-                        // this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
+                        this.resetValues(event.target.form);
                     }
                 }
 
@@ -303,16 +244,7 @@ $(window).on('load', function () {
                 if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisCheckBoxArray.length) {
                         if (e.target.value) {
-                            this.showSymptomsOrSupport = true;
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
                         } else {
-                            this.showSymptomsOrSupport = false;
-                            this.showProblemsList = false;
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
                             this.resetValues(event.target.form);
                             this.resetForm(formLenght);
                         }
@@ -320,15 +252,9 @@ $(window).on('load', function () {
 
                 } else if (questionIdentifier === 'listProblems') {
                     if (e.target.value) {
-                        this.showProblemInfoTextArea = true;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
                     } else {
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
+                        //this.resetValues(event.target.form);
+                        // this.resetForm(formLenght);
                     }
                 }
             },
@@ -414,16 +340,27 @@ $(window).on('load', function () {
 
             //Reset Two-Way-Model Values
             resetValues(currentForm) {
-                var formIndex = Array.from(document.forms).indexOf(currentForm);
+                var allForms = Array.from(document.forms);
+                var formIndex = allForms.indexOf(currentForm);
                 console.log(formIndex);
-                var objectKeys = Object.keys(this.referralData);
-                for (let index = 0; index < objectKeys.length; index++) {
-                    var key = objectKeys[index];
-                    var keyIndex = objectKeys.indexOf(key);
-                    console.log(objectKeys.indexOf(key), formIndex);
-                    if (formIndex < keyIndex) {
-                        this.referralData[key] = '';
+                // var objectKeys = Object.keys(this.referralData);
+                for (let i = 0; i < allForms.length; i++) {
+                    var attributevalue = $(allForms[i]).data('options');
+                    console.log("loop index.........", i, allForms.indexOf(allForms[i]), attributevalue);
+                    if (formIndex < i) {
+                        this.referralData[attributevalue] = '';
                     }
+                    if (formIndex <= i) {
+                        this.clearDependentValues(attributevalue);
+                    }
+                }
+            },
+
+            clearDependentValues(parentKey) {
+                var foundKeyPair = this.dependent.find(function (ele) { return ele.parentKey === parentKey });
+                console.log("foundKeyPair.......", parentKey, foundKeyPair);
+                if (foundKeyPair) {
+                    this[foundKeyPair.childKey] = [];
                 }
             },
 
