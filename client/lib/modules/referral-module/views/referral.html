@@ -135,7 +135,7 @@
                     <div class="form-group py-4 m-0">
                         <label for="others" class="question-font">Other</label>
                         <textarea class="h-112 form-control" name="listDiagnosis" id="others"
-                            v-model="referralData.diagnosisOther" @keypress="onValueEnter($event)" rows="4"></textarea>
+                            v-model="referralData.diagnosisOther" @keyup="onValueEnter($event)" rows="4"></textarea>
                     </div>
                 </div>
             </form>
@@ -302,7 +302,7 @@
 
             <!-- Currently Accessesing Service Start -->
             <form id="isAccessed-Service-form" data-options="isAccessingService">
-                <div v-if="(referralData.accessService == 'no' || accessList.length  )"
+                <div v-if="(referralData.accessService == 'no' || accessList.length )"
                     class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <p class="question-font m-0">Are you currently accessing any services?</p>
                     <div class="form-check pt-3 pb-1 pl-0">

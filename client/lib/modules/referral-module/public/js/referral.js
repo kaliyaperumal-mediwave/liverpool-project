@@ -113,23 +113,10 @@ $(window).on('load', function () {
                 { id: 'po89767', value: 'Merseyside Youth Association', isActive: false },
                 { id: '908978xczx', value: 'PSS Spinning World', isActive: false },
                 { id: 'lijbxc', value: 'Venus', isActive: false },
-                { id: 'dfjj848', value: 'YPAS', isActive: false },
-                { id: 'dfghjd89', value: 'Other', isActive: false },
+                { id: '85fhtsewre', value: 'YPAS', isActive: false },
+                { id: '0dfsu8u', value: 'Other', isActive: false },
             ],
             allAvailableService: [],
-            showCovid: false,
-            showDiagnosis: false,
-            showDiagnosisList: false,
-            showSymptomsOrSupport: false,
-            showProblemsList: false,
-            showProblemInfoTextArea: false,
-            showAccessedService: false,
-            showAvailableService: false,
-            showAnyAccessingService: false,
-            showAddService: false,
-            diagnosisCheckBoxArray: [],
-            problemsCheckBoxArray: [],
-            hasAccessedServiceArray: [],
             toggleModal: false
         },
         methods: {
@@ -154,14 +141,8 @@ $(window).on('load', function () {
                     }
                 }
                 else if (questionIdentifier === 'listDiagnosis') {
-                    if (event.target.checked) {
-                        this.diagnosisCheckBoxArray.push(event.target.value);
-                    } else {
-                        var remVal = event.target.value;
-                        this.diagnosisCheckBoxArray.splice(remVal, 1)
-                    }
-                    console.log(this.diagnosisCheckBoxArray);
-                    if (!this.diagnosisCheckBoxArray.length) {
+                    console.log(this.diagnosisList);
+                    if (!this.diagnosisList.length) {
                         if (optionsName.diagnosisOther === '') {
                             this.resetValues(event.target.form);
                         }
@@ -178,25 +159,16 @@ $(window).on('load', function () {
                 }
 
                 else if (questionIdentifier === 'listProblems') {
-                    if (event.target.checked) {
-                        this.problemsCheckBoxArray.push(event.target.value);
-                    } else {
-                        var remVal = event.target.value;
-                        this.problemsCheckBoxArray.splice(remVal, 1)
-                    }
-                    if (!this.problemsCheckBoxArray.length) {
+                    if (!this.problemsList.length) {
                         if (optionsName.problemsOther === '') {
-                            this.problemsCheckBoxArray = [];
-                            this.resetForm(event.target.form);
+                            this.resetValues(event.target.form);
                         }
                     }
                 }
 
                 else if (questionIdentifier === 'accessedService') {
                     if (optionsName.accessService === 'yes') {
-                        if (this.hasAccessedServiceArray.length) {
-                            this.resetValues(event.target.form);
-                        }
+                        this.resetValues(event.target.form);
 
                     } else {
                         this.resetValues(event.target.form);
@@ -204,34 +176,16 @@ $(window).on('load', function () {
                 }
 
                 else if (questionIdentifier === 'listService') {
-                    if (event.target.checked) {
-                        this.hasAccessedServiceArray.push(event.target.value);
-                    } else {
-                        var remVal = event.target.value;
-                        this.hasAccessedServiceArray.splice(remVal, 1)
-                    }
-                    if (this.hasAccessedServiceArray.length === 1) {
-                        this.showAnyAccessingService = true;
-                        this.showAddService = false;
-
-                    } else if (this.hasAccessedServiceArray.length > 1) {
-                        this.showAnyAccessingService = true;
-                        this.showAddService = false;
-                    } else {
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
+                    if (!this.accessList.length) {
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
                     }
                 }
 
                 else if (questionIdentifier === 'anyService') {
                     if (optionsName.isAccessingService === 'yes') {
-                        this.showAddService = true;
-                    } else {
-                        this.showAddService = true;
                         this.resetValues(event.target.form);
-                        // this.resetForm(formLenght);
+                    } else {
+                        this.resetValues(event.target.form);
                     }
                 }
             },
@@ -242,19 +196,15 @@ $(window).on('load', function () {
                 var optionsName = this.referralData;
                 var formLenght = Array.from(document.forms).indexOf(event.target.form);
                 if (questionIdentifier === 'listDiagnosis') {
-                    if (!this.diagnosisCheckBoxArray.length) {
-                        if (e.target.value) {
-                        } else {
+                    if (!this.diagnosisList.length) {
+                        if (!e.target.value) {
                             this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
                         }
                     }
 
                 } else if (questionIdentifier === 'listProblems') {
-                    if (e.target.value) {
-                    } else {
-                        //this.resetValues(event.target.form);
-                        // this.resetForm(formLenght);
+                    if (!e.target.value) {
+                        this.resetValues(event.target.form);
                     }
                 }
             },
