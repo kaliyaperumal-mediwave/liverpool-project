@@ -141,6 +141,17 @@
 .input-group-text {
   background: #ffb703 0% 0% no-repeat padding-box !important; }
 
+.modal-content {
+  background: #ffb703 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  border-radius: 24px !important; }
+
+.modal-header {
+  border-bottom: 0px !important; }
+
+.modal-footer {
+  border-top: 0px !important; }
+
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
@@ -301,6 +312,11 @@ body {
   opacity: 1;
   border-radius: 24px; }
 
+.modal-bg {
+  background: #ffb703 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  border-radius: 24px !important; }
+
 .secondary-content-bg {
   background: #012f46 0% 0% no-repeat padding-box !important;
   opacity: 1; }
@@ -357,10 +373,6 @@ body {
 
 .main-min-height {
   min-height: 603px !important; }
-
-.modal-bg {
-  background: #ffb837 0% 0% no-repeat padding-box;
-  opacity: 1; }
 
 .img-class {
   height: 35px;
