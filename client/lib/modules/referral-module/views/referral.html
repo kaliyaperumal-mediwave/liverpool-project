@@ -30,186 +30,221 @@
                     referral
                 </h2>
 
-                <!--  Support-Start-->
-                <form id="support-form">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">What are your support needs?</p>
-                        <div class="d-flex form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental" @change="onOptionChange($event)" value="mentalHealth">
-                            <label class="form-check-label option-font d-flex align-items-center" for="mental">
-                                Mental health
-                            </label>
-                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-lg-3 px-2 pb-3 cursor-pointer"
-                                alt="">
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="disorder" @change="onOptionChange($event)" value="eatingDisorder">
-                            <label class="form-check-label option-font d-flex align-items-center" for="disorder">
-                                Eating disorder
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental&disorder" @change="onOptionChange($event)" value="bothMental&Eating">
-                            <label class="form-check-label option-font d-flex align-items-center" for="mental&disorder">
-                                Mental health & eating disorder
-                            </label>
-                        </div>
+            <!--  Support-Start-->
+            <form id="support-form" data-options="support">
+                <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">What are your support needs?</p>
+                    <div class="d-flex form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
+                            id="mental" @change="onOptionChange($event)" value="mentalHealth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="mental">
+                            Mental health
+                        </label>
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-lg-3 px-2 pb-3 cursor-pointer"
+                            alt="">
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
+                            id="disorder" @change="onOptionChange($event)" value="eatingDisorder">
+                        <label class="form-check-label option-font d-flex align-items-center" for="disorder">
+                            Eating disorder
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
+                            id="mental&disorder" @change="onOptionChange($event)" value="bothMental&Eating">
+                        <label class="form-check-label option-font d-flex align-items-center" for="mental&disorder">
+                            Mental health & eating disorder
+                        </label>
                     </div>
                 </form>
                 <!-- Support-End-->
 
-                <!--  Covid-Referrral-Start-->
-                <form v-if="showCovid" id="covid-form">
-                    <!-- <input type="text" class="d-none" value="support-form"> -->
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Is this referral related to Covid-19?</p>
-                        <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.covid" name="covidReferal"
-                                id="refYes" @change="onOptionChange($event)" value="yes">
-                            <label class="form-check-label option-font d-flex align-items-center" for="refYes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.covid" name="covidReferal"
-                                id="refNo" @change="onOptionChange($event)" value="no">
-                            <label class="form-check-label option-font d-flex align-items-center" for="refNo">
-                                No
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.covid" name="covidReferal"
-                                id="refUnsure" @change="onOptionChange($event)" value="unsure">
-                            <label class="form-check-label option-font d-flex align-items-center" for="refUnsure">
-                                Unsure
-                            </label>
-                        </div>
+            <!--  Covid-Referrral-Start-->
+            <form id="covid-form" data-options="covid">
+                <div v-if="(referralData.support == 'mentalHealth' || referralData.support == 'eatingDisorder' || referralData.support == 'bothMental&Eating')"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Is this referral related to Covid-19?</p>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.covid" name="covidReferal"
+                            id="refYes" @change="onOptionChange($event)" value="yes">
+                        <label class="form-check-label option-font d-flex align-items-center" for="refYes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.covid" name="covidReferal"
+                            id="refNo" @change="onOptionChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center" for="refNo">
+                            No
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.covid" name="covidReferal"
+                            id="refUnsure" @change="onOptionChange($event)" value="unsure">
+                        <label class="form-check-label option-font d-flex align-items-center" for="refUnsure">
+                            Unsure
+                        </label>
                     </div>
                 </form>
                 <!-- Covid-Referrra-End-->
 
-
-
-
-                <!-- Mental Diagnosis-Start-->
-                <form v-if="showDiagnosis" id="diagnosis-form">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Do you have a mental health diagnosis?</p>
-                        <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.diagnosis"
-                                name="mentalDiagnosis" id="diagnosisYes" @change="onOptionChange($event)" value="yes">
-                            <label class="form-check-label option-font d-flex align-items-center" for="diagnosisYes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.diagnosis"
-                                name="mentalDiagnosis" id="diagnosisNo" @change="onOptionChange($event)" value="no">
-                            <label class="form-check-label option-font d-flex align-items-center" for="diagnosisNo">
-                                No
-                            </label>
-                        </div>
+            <!-- Mental Diagnosis-Start-->
+            <form id="diagnosis-form" data-options="diagnosis">
+                <div v-if="(referralData.covid == 'yes' || referralData.covid == 'no' || referralData.covid == 'unsure')"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Do you have a mental health diagnosis?</p>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.diagnosis"
+                            name="mentalDiagnosis" id="diagnosisYes" @change="onOptionChange($event)" value="yes">
+                        <label class="form-check-label option-font d-flex align-items-center" for="diagnosisYes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.diagnosis"
+                            name="mentalDiagnosis" id="diagnosisNo" @change="onOptionChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center" for="diagnosisNo">
+                            No
+                        </label>
                     </div>
                 </form>
                 <!--  Mental Diagnosis-End-->
 
-                <!-- List of Diagnosis-Start-->
-                <form v-if="showDiagnosisList" id="diagnosis-list-form">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text box
-                            at the bottom of the list</p>
-                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfDiagnosis" :key="index">
-                            {% raw %}
-                            <input type="checkbox" v-bind:id="item.id" name="listDiagnosis" v-bind:value="item.value"
-                                v-bind:checked="item.isActive" @change="onOptionChange($event)">
-                            <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
-                            {% endraw %}
-                        </div>
-
-                        <div class="form-group py-4 m-0">
-                            <label for="others" class="question-font">Other</label>
-                            <textarea class="h-112 form-control" name="listDiagnosis" id="others"
-                                v-model="referralData.diagnosisOther" @change="onValueEnter($event)" rows="4"></textarea>
-                        </div>
+            <!-- List of Diagnosis-Start-->
+            <form id="diagnosis-list-form" data-options="diagnosisList">
+                <div v-if="referralData.diagnosis == 'yes'"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text box
+                        at the bottom of the list</p>
+                    {% raw %}
+                    <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfDiagnosis" :key="index">
+                        <input type="checkbox" v-bind:id="item.id" name="listDiagnosis" v-model="diagnosisList"
+                            v-bind:value="item.value" v-bind:checked="item.isActive" @change="onOptionChange($event)">
+                        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                            {{ item.value  }}</label>
                     </div>
+                    {% endraw %}
+                </div>
+            </form>
+            <!-- List of Diagnosis-End-->
 
-                </form>
-                <!-- List of Diagnosis-End-->
 
-                <!-- Mental Diagnosis-Start-->
-                <form v-if="showSymptomsOrSupport" id="symtomsSupport-form">
-                    <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Do you have any other symptoms or support needs you would like to
-                            discuss?</p>
-                        <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.supportOrSymptoms"
-                                name="symptomOrSupport" id="supportYes" @change="onOptionChange($event)" value="yes">
-                            <label class="form-check-label option-font d-flex align-items-center" for="supportYes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.supportOrSymptoms"
-                                name="symptomOrSupport" id="supportNo" @change="onOptionChange($event)" value="no">
-                            <label class="form-check-label option-font d-flex align-items-center" for="supportNo">
-                                No
-                            </label>
-                        </div>
+            <!-- List of Diagnosis Others Start -->
+            <form id="diagnosis-list-others-form" data-options="diagnosisOther">
+                <div v-if="referralData.diagnosis == 'yes'"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="form-group py-4 m-0">
+                        <label for="others" class="question-font">Other</label>
+                        <textarea class="h-112 form-control" name="listDiagnosis" id="others"
+                            v-model="referralData.diagnosisOther" @keyup="onValueEnter($event)" rows="4"></textarea>
+                    </div>
+                </div>
+            </form>
+
+
+            <!-- Mental Diagnosis-Start-->
+            <form id="symtomsSupport-form" data-options="supportOrSymptoms">
+                <div v-if="(referralData.diagnosis == 'no' || diagnosisList.length || referralData.diagnosisOther)"
+                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Do you have any other symptoms or support needs you would like to
+                        discuss?</p>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.supportOrSymptoms"
+                            name="symptomOrSupport" id="supportYes" @change="onOptionChange($event)" value="yes">
+                        <label class="form-check-label option-font d-flex align-items-center" for="supportYes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.supportOrSymptoms"
+                            name="symptomOrSupport" id="supportNo" @change="onOptionChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center" for="supportNo">
+                            No
+                        </label>
                     </div>
                 </form>
                 <!--  Mental Diagnosis-End-->
 
-                <!-- List of Troubles-Start-->
-                <form v-if="showProblemsList" id="problems-list-form">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text box
-                            at the bottom of the list</p>
-                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfProblems" :key="index">
-                            {% raw %}
-                            <input type="checkbox" v-bind:id="item.id" name="listProblems" v-bind:value="item.value"
-                                v-bind:checked="item.isActive" @change="onOptionChange($event)">
-                            <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
-                            {% endraw %}
-                        </div>
-
-                        <div class="form-group py-4 m-0">
-                            <label for="proOthers" class="question-font">Other</label>
-                            <textarea class="h-112 form-control" name="listProblems" id="proOthers"
-                                v-model="referralData.problemsOther" @change="onValueEnter($event)" rows="4"></textarea>
-                        </div>
+            <!-- List of Troubles-Start-->
+            <form id="problems-list-form" data-options="problemsList">
+                <div v-if="referralData.supportOrSymptoms == 'yes'"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text box
+                        at the bottom of the list</p>
+                    <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfProblems" :key="index">
+                        {% raw %}
+                        <input type="checkbox" v-bind:id="item.id" name="listProblems" v-bind:value="item.value"
+                            v-model="problemsList" v-bind:checked="item.isActive" @change="onOptionChange($event)">
+                        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                            {{ item.value  }}</label>
+                        {% endraw %}
                     </div>
+                </div>
+            </form>
+            <!-- List of Troubles-End-->
 
-                </form>
-                <!-- List of Troubles-End-->
 
-                <!-- List of TextArea Inputs-->
-                <form v-if="showProblemInfoTextArea" id="problems-list-form">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <div class="form-group">
-                            <label for="textInfo1" class="question-font">Please provide more information on your main
-                                referral issues. (Please include how long this has been an issue and how it is impacting
-                                your day-to-day life).</label>
-                            <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
-                                v-model="referralData.referralInfo" @change="onValueEnter($event)" rows="4"></textarea>
-                        </div>
-                        <div class="form-group py-1">
-                            <label for="textInfo2" class="question-font">Has anything helped?</label>
-                            <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
-                                v-model="referralData.hasAnythingInfo" @change="onValueEnter($event)" rows="4"></textarea>
-                        </div>
-                        <div class="form-group py-1">
-                            <label for="textInfo3" class="question-font">Do you have any particular triggers?</label>
-                            <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
-                                v-model="referralData.triggerInfo" @change="onValueEnter($event)" rows="4"></textarea>
-                        </div>
+            <!-- List of other troubles start -->
+            <form id="problems-list-others-form" data-options="problemsOther">
+                <div v-if="referralData.supportOrSymptoms == 'yes'"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="form-group py-4 m-0">
+                        <label for="proOthers" class="question-font">Other</label>
+                        <textarea class="h-112 form-control" name="listProblems" id="proOthers"
+                            v-model="referralData.problemsOther" @keyup="onValueEnter($event)" rows="4"></textarea>
                     </div>
-                    <!-- Your History Start-->
-                    <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your history
+                </div>
+            </form>
+            <!-- List of other troubles end -->
+
+            <!-- List of TextArea Inputs-->
+            <form id="problems-list-form" data-options="referralInfo">
+                <div v-if="referralData.supportOrSymptoms == 'no' || referralData.problemsOther || problemsList.length"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="form-group">
+                        <label for="textInfo1" class="question-font">Please provide more information on your main
+                            referral issues. (Please include how long this has been an issue and how it is impacting
+                            your day-to-day life).</label>
+                        <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
+                            v-model="referralData.referralInfo" @change="onValueEnter($event)" rows="4"></textarea>
+                    </div>
+                </div>
+            </form>
+            <!-- List of Troubles-End-->
+
+            <!-- Has anything helped-start -->
+            <form id="anything-helped-form" data-options="hasAnythingInfo">
+                <div v-if="referralData.supportOrSymptoms == 'no' || referralData.problemsOther || problemsList.length"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="form-group py-1">
+                        <label for="textInfo2" class="question-font">Has anything helped?</label>
+                        <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
+                            v-model="referralData.hasAnythingInfo" @change="onValueEnter($event)" rows="4"></textarea>
+                    </div>
+                </div>
+            </form>
+            <!--Has anything helped-end -->
+
+            <!-- Particular-triggers-start -->
+            <form id="problems-list-form" data-options="triggerInfo">
+                <div v-if="referralData.supportOrSymptoms == 'no' || referralData.problemsOther || problemsList.length"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="form-group py-1">
+                        <label for="textInfo3" class="question-font">Do you have any particular triggers?</label>
+                        <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
+                            v-model="referralData.triggerInfo" @change="onValueEnter($event)" rows="4"></textarea>
+                    </div>
+                </div>
+            </form>
+            <!-- Particular-triggers-end -->
+
+            <!-- Your History Start-->
+            <form id="history-start-form" data-options="disabilityOrDifficulty">
+                <div v-if="referralData.supportOrSymptoms == 'no' || referralData.problemsOther || problemsList.length"
+                    class="pt-2">
+                    <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
+                        history
                     </h2>
                     <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group">
@@ -220,101 +255,99 @@
                                 rows="5"></textarea>
                         </div>
                     </div>
-                    <!-- Your History-End-->
+                </div>
+            </form>
+            <!-- Your History-End-->
 
-                    <!-- Accesses Service Start -->
-                    <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Have you previously accessed any other services?</p>
-                        <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.accessService"
-                                name="accessedService" id="accessSerYes" @change="onOptionChange($event)" value="yes">
-                            <label class="form-check-label option-font d-flex align-items-center" for="accessSerYes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.accessService"
-                                name="accessedService" id="accessSeNo" @change="onOptionChange($event)" value="no">
-                            <label class="form-check-label option-font d-flex align-items-center" for="accessSeNo">
-                                No
-                            </label>
-                        </div>
+            <!-- Accesses Service Start -->
+            <form id="access-service-start-form" data-options="accessService">
+                <div v-if="referralData.supportOrSymptoms == 'no' || referralData.problemsOther || problemsList.length"
+                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Have you previously accessed any other services?</p>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.accessService"
+                            name="accessedService" id="accessSerYes" @change="onOptionChange($event)" value="yes">
+                        <label class="form-check-label option-font d-flex align-items-center" for="accessSerYes">
+                            Yes
+                        </label>
                     </div>
-                    <!-- Accesses Service End -->
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.accessService"
+                            name="accessedService" id="accessSeNo" @change="onOptionChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center" for="accessSeNo">
+                            No
+                        </label>
+                    </div>
+                </div>
+            </form>
+            <!-- Accesses Service End -->
 
-                </form>
-                <!-- List of Troubles-End-->
 
-                <!-- List Available Start -->
-                <form v-if="showAvailableService" id="accessed-service-form">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Have you accessed any of the following services? (Select all options
-                            that are relevant)</p>
-                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfAvailableService"
-                            :key="index">
-                            {% raw %}
-                            <input type="checkbox" v-bind:id="item.id" name="listService" v-bind:value="item.value"
-                                v-bind:checked="item.isActive" @change="onOptionChange($event)">
-                            <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
-                            {% endraw %}
-                        </div>
+            <!-- List Available Start -->
+            <form v-if="referralData.accessService == 'yes'" data-options="accessList">
+                <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Have you accessed any of the following services? (Select all options
+                        that are relevant)</p>
+                    <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfAvailableService"
+                        :key="index">
+                        {% raw %}
+                        <input type="checkbox" v-bind:id="item.id" name="listService" v-bind:value="item.value"
+                            v-model="accessList" v-bind:checked="item.isActive" @change="onOptionChange($event)">
+                        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                            {{ item.value  }}</label>
+                        {% endraw %}
                     </div>
                 </form>
                 <!-- List Available Start -->
 
-                <!-- Currently Accessesing Service Start -->
-                <form v-if="showAnyAccessingService" id="isAccessed-Service-form">
-                    <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Are you currently accessing any services?</p>
-                        <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.isAccessingService"
-                                name="anyService" id="isCurAccessYes" @change="onOptionChange($event)" value="yes">
-                            <label class="form-check-label option-font d-flex align-items-center" for="isCurAccessYes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" v-model="referralData.isAccessingService"
-                                name="anyService" id="isCurAccessNo" @change="onOptionChange($event)" value="no">
-                            <label class="form-check-label option-font d-flex align-items-center" for="isCurAccessNo">
-                                No
-                            </label>
-                        </div>
+            <!-- Currently Accessesing Service Start -->
+            <form id="isAccessed-Service-form" data-options="isAccessingService">
+                <div v-if="(referralData.accessService == 'no' || accessList.length )"
+                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Are you currently accessing any services?</p>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.isAccessingService"
+                            name="anyService" id="isCurAccessYes" @change="onOptionChange($event)" value="yes">
+                        <label class="form-check-label option-font d-flex align-items-center" for="isCurAccessYes">
+                            Yes
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" v-model="referralData.isAccessingService"
+                            name="anyService" id="isCurAccessNo" @change="onOptionChange($event)" value="no">
+                        <label class="form-check-label option-font d-flex align-items-center" for="isCurAccessNo">
+                            No
+                        </label>
                     </div>
                 </form>
                 <!-- Currently Accessesing Start -->
 
-                <!--Add a Service Start-->
-                <form v-if="showAddService" id="addService-form">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Are you want to add
-                            any service?</p>
-                        <div class="text-center py-4">
-                            <template v-if="allAvailableService.length">
-                                <div class="card" v-for="(item, index) in allAvailableService" :key="index">
-                                    {% raw %}
-                                    <ul class="list-group">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                                            <b class="px-2">{{item.name}}</b>
-                                            <b class="px-2"> {{item.professional}}</b>
-                                            <b class="px-2">{{item.contact}}</b>
-                                            <span class="badge badge-primary badge-pill cursor-pointer" data-toggle="modal"
-                                                data-target="#serviceModal" @click="patchService(item,index)"><i
-                                                    class="fa fa-pencil" aria-hidden="true"></i>
-                                            </span>
-                                            <span class="badge badge-primary badge-pill cursor-pointer"><i
-                                                    class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </span>
-                                        </li>
-                                        <!-- <div class="card-body">
-                                        <h4 class="card-title">{{item.name}}</h4>
-                                        <p class="card-text">{{item.professional}}</p>
-                                        <p class="card-text">{{item.contact}}</p>
-                                    </div> -->
-                                        {% endraw %}
-                                </div>
-                            </template>
+            <!--Add a Service Start-->
+            <form id="addService-form">
+                <div v-if="referralData.isAccessingService == 'yes'"
+                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <p class="question-font m-0">Are you want to add
+                        any service?</p>
+                    <div class="text-center py-4">
+                        <template v-if="allAvailableService.length">
+                            <div class="card" v-for="(item, index) in allAvailableService" :key="index">
+                                {% raw %}
+                                <ul class="list-group">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <b class="px-2">{{item.name}}</b>
+                                        <b class="px-2"> {{item.professional}}</b>
+                                        <b class="px-2">{{item.contact}}</b>
+                                        <span class="badge badge-primary badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#serviceModal" @click="patchService(item,index)"><i
+                                                class="fa fa-pencil" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="badge badge-primary badge-pill cursor-pointer"><i
+                                                class="fa fa-trash-o" aria-hidden="true"></i>
+                                        </span>
+                                    </li>
+                                    {% endraw %}
+                            </div>
+                        </template>
 
                             <p class="text-left cursor-pointer" data-toggle="modal" data-target="#serviceModal"><span
                                     v-if="!allAvailableService.length">Currently,you don't have any

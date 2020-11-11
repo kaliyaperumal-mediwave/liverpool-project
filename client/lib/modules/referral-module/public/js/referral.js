@@ -13,7 +13,6 @@ $(window).on('load', function () {
                 support: '',
                 covid: '',
                 diagnosis: '',
-                diagnosisList: '',
                 diagnosisOther: '',
                 supportOrSymptoms: '',
                 problemsOther: '',
@@ -25,6 +24,23 @@ $(window).on('load', function () {
                 isAccessingService: '',
                 listService: '',
             },
+            dependent: [
+                {
+                    parentKey: 'diagnosis',
+                    childKey: 'diagnosisList'
+                },
+                {
+                    parentKey: 'supportOrSymptoms',
+                    childKey: 'problemsList'
+                },
+                {
+                    parentKey: 'supportOrSymptoms',
+                    childKey: 'accessList'
+                }
+            ],
+            diagnosisList: [],
+            problemsList: [],
+            accessList: [],
             serviceData: {
                 name: null,
                 professional: null,
@@ -98,25 +114,11 @@ $(window).on('load', function () {
                 { id: 'po89767', value: 'Merseyside Youth Association', isActive: false },
                 { id: '908978xczx', value: 'PSS Spinning World', isActive: false },
                 { id: 'lijbxc', value: 'Venus', isActive: false },
-                { id: 'dfjj848', value: 'YPAS', isActive: false },
-                { id: 'dfghjd89', value: 'Other', isActive: false },
+                { id: '85fhtsewre', value: 'YPAS', isActive: false },
+                { id: '0dfsu8u', value: 'Other', isActive: false },
             ],
             allAvailableService: [],
-            showCovid: false,
-            showDiagnosis: false,
-            showDiagnosisList: false,
-            showSymptomsOrSupport: false,
-            showProblemsList: false,
-            showProblemInfoTextArea: false,
-            showAccessedService: false,
-            showAvailableService: false,
-            showAnyAccessingService: false,
-            showAddService: false,
-            diagnosisCheckBoxArray: [],
-            problemsCheckBoxArray: [],
-            hasAccessedServiceArray: [],
-            toggleModal: false,
-            sendObj:{}
+            toggleModal: false
         },
         methods: {
             backToEducation(){
@@ -168,174 +170,66 @@ $(window).on('load', function () {
                 var formLenght = Array.from(document.forms).indexOf(event.target.form);
                 if (questionIdentifier === 'support') {
                     if (optionsName.support === 'mentalHealth' || optionsName.support === 'eatingDisorder' || optionsName.support === 'bothMental&Eating') {
-                        this.showCovid = true;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
-                        this.showDiagnosis = false;
-                        this.showDiagnosisList = false;
-                        this.showSymptomsOrSupport = false;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showCovid = false;
                     }
                 } else if (questionIdentifier === 'covidReferal') {
                     if (optionsName.covid === 'unsure' || optionsName.covid === 'yes' || optionsName.covid === 'no') {
-                        this.showDiagnosis = true;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
-                        this.showDiagnosisList = false;
-                        this.showSymptomsOrSupport = false;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showDiagnosis = false;
                     }
                 }
                 else if (questionIdentifier === 'mentalDiagnosis') {
                     if (optionsName.diagnosis === 'yes') {
-                        this.showDiagnosisList = true;
-                        this.showSymptomsOrSupport = false;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showDiagnosisList = false;
-                        this.showSymptomsOrSupport = true;
-                        this.showProblemsList = false;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
+                    } else {
+                        this.resetValues(event.target.form);
                     }
                 }
                 else if (questionIdentifier === 'listDiagnosis') {
-                    if (event.target.checked) {
-                        this.diagnosisCheckBoxArray.push(event.target.value);
-                    } else {
-                        var remVal = event.target.value;
-                        this.diagnosisCheckBoxArray.splice(remVal, 1)
-                    }
-                    console.log(this.diagnosisCheckBoxArray);
-                    if (this.diagnosisCheckBoxArray.length) {
-                        this.showSymptomsOrSupport = true;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
+                    console.log(this.diagnosisList);
+                    if (!this.diagnosisList.length) {
                         if (optionsName.diagnosisOther === '') {
-                            this.showSymptomsOrSupport = false;
-                            this.showProblemsList = false;
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
-                            this.showAddService = false;
                             this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
                         }
                     }
 
                 }
                 else if (questionIdentifier === 'symptomOrSupport') {
                     if (optionsName.supportOrSymptoms === 'yes') {
-                        this.showProblemsList = true;
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        this.showProblemInfoTextArea = true;
-                        this.showProblemsList = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
+                    }
+                    else {
+                        this.resetValues(event.target.form);
                     }
                 }
 
                 else if (questionIdentifier === 'listProblems') {
-                    if (event.target.checked) {
-                        this.problemsCheckBoxArray.push(event.target.value);
-                    } else {
-                        var remVal = event.target.value;
-                        this.problemsCheckBoxArray.splice(remVal, 1)
-                    }
-                    if (this.problemsCheckBoxArray.length) {
-                        this.showProblemInfoTextArea = true;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
-                    } else {
-                        if (optionsName.problemsOther == '') {
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
-                            this.showAddService = false;
+                    if (!this.problemsList.length) {
+                        if (optionsName.problemsOther === '') {
                             this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
                         }
                     }
                 }
 
                 else if (questionIdentifier === 'accessedService') {
                     if (optionsName.accessService === 'yes') {
-                        if (this.hasAccessedServiceArray.length) {
-                            this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
-                        }
-                        this.showAvailableService = true;
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
+                        this.resetValues(event.target.form);
+
                     } else {
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = true;
-                        this.showAddService = false;
-                        // this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
+                        this.resetValues(event.target.form);
                     }
                 }
 
                 else if (questionIdentifier === 'listService') {
-                    if (event.target.checked) {
-                        this.hasAccessedServiceArray.push(event.target.value);
-                    } else {
-                        var remVal = event.target.value;
-                        this.hasAccessedServiceArray.splice(remVal, 1)
-                    }
-                    if (this.hasAccessedServiceArray.length === 1) {
-                        this.showAnyAccessingService = true;
-                        this.showAddService = false;
-
-                    } else if (this.hasAccessedServiceArray.length > 1) {
-                        this.showAnyAccessingService = true;
-                        this.showAddService = false;
-                    } else {
-                        this.showAnyAccessingService = false;
-                        this.showAddService = false;
+                    if (!this.accessList.length) {
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
                     }
                 }
 
                 else if (questionIdentifier === 'anyService') {
                     if (optionsName.isAccessingService === 'yes') {
-                        this.showAddService = true;
-                    } else {
-                        this.showAddService = true;
                         this.resetValues(event.target.form);
-                        // this.resetForm(formLenght);
+                    } else {
+                        this.resetValues(event.target.form);
                     }
                 }
             },
@@ -346,34 +240,15 @@ $(window).on('load', function () {
                 var optionsName = this.referralData;
                 var formLenght = Array.from(document.forms).indexOf(event.target.form);
                 if (questionIdentifier === 'listDiagnosis') {
-                    if (!this.diagnosisCheckBoxArray.length) {
-                        if (e.target.value) {
-                            this.showSymptomsOrSupport = true;
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
-                        } else {
-                            this.showSymptomsOrSupport = false;
-                            this.showProblemsList = false;
-                            this.showProblemInfoTextArea = false;
-                            this.showAvailableService = false;
-                            this.showAnyAccessingService = false;
+                    if (!this.diagnosisList.length) {
+                        if (!e.target.value) {
                             this.resetValues(event.target.form);
-                            this.resetForm(formLenght);
                         }
                     }
 
                 } else if (questionIdentifier === 'listProblems') {
-                    if (e.target.value) {
-                        this.showProblemInfoTextArea = true;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
-                    } else {
-                        this.showProblemInfoTextArea = false;
-                        this.showAvailableService = false;
-                        this.showAnyAccessingService = false;
+                    if (!e.target.value) {
                         this.resetValues(event.target.form);
-                        this.resetForm(formLenght);
                     }
                 }
             },
@@ -459,16 +334,27 @@ $(window).on('load', function () {
 
             //Reset Two-Way-Model Values
             resetValues(currentForm) {
-                var formIndex = Array.from(document.forms).indexOf(currentForm);
+                var allForms = Array.from(document.forms);
+                var formIndex = allForms.indexOf(currentForm);
                 console.log(formIndex);
-                var objectKeys = Object.keys(this.referralData);
-                for (let index = 0; index < objectKeys.length; index++) {
-                    var key = objectKeys[index];
-                    var keyIndex = objectKeys.indexOf(key);
-                    console.log(objectKeys.indexOf(key), formIndex);
-                    if (formIndex < keyIndex) {
-                        this.referralData[key] = '';
+                // var objectKeys = Object.keys(this.referralData);
+                for (let i = 0; i < allForms.length; i++) {
+                    var attributevalue = $(allForms[i]).data('options');
+                    console.log("loop index.........", i, allForms.indexOf(allForms[i]), attributevalue);
+                    if (formIndex < i) {
+                        this.referralData[attributevalue] = '';
                     }
+                    if (formIndex <= i) {
+                        this.clearDependentValues(attributevalue);
+                    }
+                }
+            },
+
+            clearDependentValues(parentKey) {
+                var foundKeyPair = this.dependent.find(function (ele) { return ele.parentKey === parentKey });
+                console.log("foundKeyPair.......", parentKey, foundKeyPair);
+                if (foundKeyPair) {
+                    this[foundKeyPair.childKey] = [];
                 }
             },
 
