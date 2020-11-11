@@ -51,30 +51,30 @@ $(window).on('load', function () {
             },
             hasSubmittedServiceForm: false,
             listOfDiagnosis: [
-                { id: '11E', value: 'ADD/ADHD', isActive: false },
-                { id: '1154', value: 'Anxiety', },
-                { id: '11243', value: 'Autism' },
-                { id: '1187C43', value: 'Bullying related' },
-                { id: '118754', value: 'Conduct disorder' },
-                { id: '198HT', value: 'Depression' },
-                { id: '987GH', value: 'Dyslexia' },
-                { id: '9HS8G+', value: 'Drinking and drugs related' },
-                { id: 'SDF87H', value: 'Eating Disorders' },
-                { id: '78TH', value: 'Family Difficulty' },
-                { id: '2VDF20', value: 'Gender dysphoria' },
+                { id: '11E', value: 'ADD/ADHD', isActive: false},
+                { id: '1154', value: 'Anxiety', isActive: false},
+                { id: '11243', value: 'Autism', isActive: false},
+                { id: '1187C43', value: 'Bullying related' , isActive: false},
+                { id: '118754', value: 'Conduct disorder', isActive: false },
+                { id: '198HT', value: 'Depression' , isActive: false},
+                { id: '987GH', value: 'Dyslexia' , isActive: false},
+                { id: '9HS8G+', value: 'Drinking and drugs related' , isActive: false},
+                { id: 'SDF87H', value: 'Eating Disorders' , isActive: false},
+                { id: '78TH', value: 'Family Difficulty' , isActive: false},
+                { id: '2VDF20', value: 'Gender dysphoria' , isActive: false},
                 { id: '43R4', value: 'Obsessive-compulsive disorder (OCD)' },
-                { id: '1F5G4', value: 'Panic attacks' },
-                { id: '47FBGH', value: 'Phobias' },
+                { id: '1F5G4', value: 'Panic attacks' , isActive: false},
+                { id: '47FBGH', value: 'Phobias' , isActive: false},
                 { id: '1187', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
-                { id: 'DF3V6S', value: 'Self-harm' },
-                { id: '1DS', value: 'Pulling hair out' },
-                { id: '96DFG', value: 'Pulling hair out' },
-                { id: '4F7', value: 'Separation anxiety' },
-                { id: '1154FVGD', value: 'Stress' },
-                { id: 'OI9P8', value: 'Suicidal thoughts' },
-                { id: '7TR', value: 'Social phobia' },
-                { id: '1NFH', value: 'Tics and Tourette’s' },
-                { id: 'TRYE', value: 'Wetting and soiling' }
+                { id: 'DF3V6S', value: 'Self-harm' , isActive: false},
+                { id: '1DS', value: 'Pulling hair out' , isActive: false},
+                { id: '96DFG', value: 'Pulling hair out' , isActive: false},
+                { id: '4F7', value: 'Separation anxiety' , isActive: false},
+                { id: '1154FVGD', value: 'Stress' , isActive: false},
+                { id: 'OI9P8', value: 'Suicidal thoughts', isActive: false },
+                { id: '7TR', value: 'Social phobia' , isActive: false},
+                { id: '1NFH', value: 'Tics and Tourette’s' , isActive: false},
+                { id: 'TRYE', value: 'Wetting and soiling', isActive: false }
             ],
             listOfProblems: [
                 { id: 'sdf', value: 'ADD/ADHD', isActive: false },
@@ -118,7 +118,8 @@ $(window).on('load', function () {
                 { id: '0dfsu8u', value: 'Other', isActive: false },
             ],
             allAvailableService: [],
-            toggleModal: false
+            toggleModal: false,
+            sendObj:{}
         },
         methods: {
             backToEducation() {
@@ -153,18 +154,37 @@ $(window).on('load', function () {
             },
             setValues(data) {
 
-
+            
+               
                 Vue.set(this.referralData, "support", data.referral_type);
-                //  this.showCovid = true;
                 Vue.set(this.referralData, "covid", data.is_covid);
+                Vue.set(this.referralData, "diagnosis", data.mental_health_diagnosis);
+            
                 Vue.set(this.referralData, "supportOrSymptoms", data.symptoms_supportneeds);
                 Vue.set(this.referralData, "referralInfo", data.referral_issues);
                 Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
                 Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
+                Vue.set(this.referralData, "isAccessingService", data.currently_accessing_services);
+
                 Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
-                Vue.set(this.referralData, "referralInfo", data.referral_issues);
+
+                for (var i = 0; i < data.diagnosis.length; i++) {
+                    
+                    for (var j = 0; j < this.listOfDiagnosis.length; j++) {
+                     
+                        if(data.diagnosis[i]==this.listOfDiagnosis[j].value)
+                        {
+                            console.log(this.listOfDiagnosis[j].value)
+                            this.listOfDiagnosis[j].isActive=true;
+                        }
+                        
+                    }
+
+                }
+                console.log(this.listOfDiagnosis)
             },
             onOptionChange(event) {
+
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
                 var formLenght = Array.from(document.forms).indexOf(event.target.form);
@@ -374,7 +394,7 @@ $(window).on('load', function () {
 
                 this.sendObj.role = new URL(location.href).searchParams.get('role');
                 this.sendObj.services = this.listOfAvailableService
-                this.sendObj.mentalDiagnosis = this.listOfDiagnosis;
+                this.sendObj.selectedDiagnosis = this.diagnosisList;
                 this.sendObj.symptoms = this.listOfDiagnosis;
                 this.sendObj.referralData = this.referralData;
                 this.sendObj.userid = new URL(location.href).searchParams.get('userid');

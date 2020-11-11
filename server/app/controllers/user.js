@@ -1083,7 +1083,7 @@ exports.saveReferal = ctx => {
           {
             referral_type: ctx.request.body.referralData.support,
             is_covid: "professional",
-            mental_health_diagnosis: ctx.request.body.mentalDiagnosis,
+            mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
             mental_symptoms_supportneeds:ctx.request.body.symptoms,
             diagnosis:ctx.request.body.symptoms,
             symptoms_supportneeds:ctx.request.body.referralData.support,
@@ -1194,7 +1194,7 @@ exports.saveReferal = ctx => {
           mental_health_diagnosis: ctx.request.body.diagnosis,
 
           mental_symptoms_supportneeds:ctx.request.body.symptoms,
-          //diagnosis:ctx.request.body.symptoms,//--------------------diagnosis list for both mental and eating
+          diagnosis:ctx.request.body.selectedDiagnosis,//--------------------diagnosis list for both mental and eating
 
           symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
 
