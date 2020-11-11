@@ -354,7 +354,8 @@
                                 v-if="!allAvailableService.length">Currently,you don't have any
                                 service.</span> Please click
                             here to add a service
-                            <span class="px-2"> <i class="fa fa-plus-circle" aria-hidden="true"></i></span></p>
+                            <span class="px-2"> <i class="fa fa-plus-circle" color="#023047"
+                                    aria-hidden="true"></i></span></p>
                     </div>
                 </div>
             </form>
@@ -365,18 +366,16 @@
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content modal-bg">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addModalLabel">Add Service</h5>
-                            <button type="button" class="close" data-dismiss="modal" @click="resetModal($event)"
-                                aria-label="Close">
-                                <span aria-hidden="true"><i class="fa fa-times" aria-hidden="true"></i>
-                                </span>
-                            </button>
+                        <div class="modal-header justify-content-center">
+                            <h5 class="question-header-font" id="addModalLabel">Add Service</h5>
+                            <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                @click="resetModal($event)" aria-label="Close"><i
+                                    class="fal fa-times fa-2x cursor-pointer"></i></i>
                         </div>
-                        <div class="modal-body">
+                        <div class="modal-body py-1 px-4">
                             <form id="add-service-form">
                                 <div class="form-group">
-                                    <label for="service-name" class="col-form-label">Name of service</label>
+                                    <label for="service-name" class="question-font">Name of service</label>
                                     <input type="text" class="form-control" @keyup="onValueEnterService($event,'name')"
                                         v-model="serviceData.name" id="service-name"
                                         placeholder="Enter the name of the service you have used">
@@ -386,7 +385,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="profAtService" class="col-form-label">Name of professional at
+                                    <label for="profAtService" class="question-font">Name of professional at
                                         service</label>
                                     <input type="text" v-model="serviceData.professional"
                                         @keyup="onValueEnterService($event,'prof')" class="form-control"
@@ -397,7 +396,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contactNumber" class="col-form-label">Contact
+                                    <label for="contactNumber" class="question-font">Contact
                                         number for
                                         professional</label>
                                     <input type="text" class="form-control"
@@ -411,10 +410,8 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn px-md-4 py-1 px-3" data-dismiss="modal"
-                                @click="resetModal()"><span class="btn-modal-text">Cancel</span></button>
-                            <button type="submit" class="btn px-md-4 py-1 px-3" id="closeModal"
-                                @click="upsertService($event)"><span class="btn-modal-text">Add
+                            <button type="submit" class="btn px-md-4 w-50" id="closeModal"
+                                @click="upsertService($event,'add')"><span class="btn-modal-text">ADD
                                 </span></button>
                         </div>
                     </div>

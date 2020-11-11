@@ -34,7 +34,7 @@ $(window).on('load', function () {
                     childKey: 'problemsList'
                 },
                 {
-                    parentKey: 'supportOrSymptoms',
+                    parentKey: 'accessService',
                     childKey: 'accessList'
                 }
             ],
@@ -254,13 +254,17 @@ $(window).on('load', function () {
             },
 
             //Adding a service
-            upsertService(event) {
+            upsertService(event, type) {
                 console.log('all service', this.allAvailableService);
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
+                if (type === 'add') {
+                    serviceForm.id = this.uuidv4();
+                }
                 if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
                     this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
                     this.resetModal();
+                    console.log('after added service', this.allAvailableService);
                     var modal = document.getElementById('closeModal');
                     modal.setAttribute("data-dismiss", "modal");
                 } else {
@@ -285,7 +289,13 @@ $(window).on('load', function () {
                 serviceForm.name = service.name;
                 serviceForm.professional = service.professional;
                 serviceForm.contact = service.contact;
-                serviceForm.index = index;
+                //serviceForm.mode = 'edit';
+                this.allAvailableService.map(function (i) {
+                    if (i.id === service.id) {
+                        i.mode = "update";
+                    }
+
+                })
             },
 
             deleteService(service) {
@@ -370,8 +380,15 @@ $(window).on('load', function () {
                 }
             },
 
-            save() {
+            //Random UUID Generator
+            uuidv4() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            },
 
+            save() {
                 this.sendObj.role = new URL(location.href).searchParams.get('role');
                 this.sendObj.services = this.listOfAvailableService
                 this.sendObj.mentalDiagnosis = this.listOfDiagnosis;

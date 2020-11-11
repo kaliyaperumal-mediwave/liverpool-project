@@ -121,7 +121,7 @@ body {
 }
 
 .btn-modal-text {
-  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
+  @include set-titleStyles($modalbtn-font-size, bold, #0b181e);
 }
 
 .footer-text {
