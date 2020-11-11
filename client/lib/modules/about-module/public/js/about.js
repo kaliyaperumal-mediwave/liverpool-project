@@ -261,8 +261,15 @@ $(document).ready(function () {
                         console.log(data)
                         // location.reload();
                         // console.log("/about?userid="+data.userid+"&role="+role)
-                      location.href = "/education?userid=" + data.userid + "&role=" + role;
-
+                        if(new URL(location.href).searchParams.get('edt')==null)
+                        {
+                            location.href = "/education?userid=" + data.userid + "&role=" + role;
+                        }
+                        else
+                        {
+                           history.back();
+                        }
+                        
                     },
 
                 });

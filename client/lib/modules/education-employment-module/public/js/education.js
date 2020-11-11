@@ -18,6 +18,7 @@ $(document).ready(function () {
         mounted: function () {
             var _self = this;
             _self.labelToDisplay = new URL(location.href).searchParams.get('role');
+            console.log(_self.labelToDisplay);
             google.maps.event.addDomListener(window, 'load', _self.initialize);
 
             if(new URL(location.href).searchParams.get('edt')==1)
@@ -221,10 +222,17 @@ $(document).ready(function () {
                         alert("section 3 saved.");
                         this.isSubmitted = false;
                         console.log(data);
-                        if (role === 'yes') {
-                            this.resetValidation();
+                        // if (role === 'yes') {
+                        //     this.resetValidation();
+                        // }
+                        if(new URL(location.href).searchParams.get('edt')==null)
+                        {
+                            location.href = "/referral?userid=" + data.userid + "&role=" + new URL(location.href).searchParams.get('role');
                         }
-                     //   location.href = "/";
+                        else
+                        {
+                           history.back();
+                        }
                     },
                 });
             },
