@@ -17,7 +17,8 @@ router.post('/user/fetchAbout', userController.fetchAbout);
 router.post('/user/education', userController.profession);
 router.post('/user/fetchProfession', userController.fetchProfession);
 
-router.post('/user/referral', userController.fetchReferral);
+router.post('/user/referral', userController.saveReferal);
+router.post('/user/fetchReferral', userController.fetchReferral);
 
 
 

@@ -1047,6 +1047,7 @@ exports.fetchProfession = ctx => {
   } 
 }
 
+//Section 4
 
 exports.saveReferal = ctx => {
   const user = ctx.orm().User;
@@ -1080,13 +1081,20 @@ exports.saveReferal = ctx => {
 
         return referral.create(
           {
-            referral_type: ctx.request.body.referral_type,
-             is_covid: "professional",
-             mental_diagnosis: ctx.request.body.mentalDiagnosis,
-             mental_symptoms_supportneeds:ctx.request.body.symptoms,
-            // eating_diagnosis:ctx.request.body.isInformation,
-            // symptoms_supportneeds: ctx.request.body.registerd_gp,
-            services:ctx.request.body.services,
+            referral_type: ctx.request.body.referralData.support,
+            is_covid: "professional",
+            mental_health_diagnosis: ctx.request.body.mentalDiagnosis,
+            mental_symptoms_supportneeds:ctx.request.body.symptoms,
+            diagnosis:ctx.request.body.symptoms,
+            symptoms_supportneeds:ctx.request.body.referralData.support,
+            referral_issues:ctx.request.body.referralData.support,
+            has_anything_helped:ctx.request.body.referralData.support,
+            any_particular_trigger:ctx.request.body.referralData.support,
+            disabilities:ctx.request.body.referralData.support,
+            any_other_services:ctx.request.body.referralData.support,
+            local_services:ctx.request.body.referralData.support,
+            currently_accessing_services:ctx.request.body.referralData.support,
+            services:ctx.request.body.services
           },
         ).then((fetchResult) => {
           result.setReferral(childId)
@@ -1171,7 +1179,7 @@ exports.saveReferal = ctx => {
 
   else if (ctx.request.body.role == "child") {
 
-  //  console.log(ctx.request.body.services);
+    console.log("//--------------------");
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1181,15 +1189,35 @@ exports.saveReferal = ctx => {
 
       return referral.create(
         {
-          referral_type: ctx.request.body.referral_type,
-           is_covid: "child",
-           mental_diagnosis: ctx.request.body.mentalDiagnosis,
-           mental_symptoms_supportneeds:ctx.request.body.symptoms,
-          // eating_diagnosis:ctx.request.body.isInformation,
-          // symptoms_supportneeds: ctx.request.body.registerd_gp,
-          services:ctx.request.body.services,
+          referral_type: ctx.request.body.referralData.support,
+          is_covid: ctx.request.body.referralData.covid,
+          mental_health_diagnosis: ctx.request.body.diagnosis,
+
+          mental_symptoms_supportneeds:ctx.request.body.symptoms,
+          //diagnosis:ctx.request.body.symptoms,//--------------------diagnosis list for both mental and eating
+
+          symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
+
+          //symptoms : ctx.request.body.symptoms,//--------------------symptoms list for both mental and eating 
+
+          referral_issues:ctx.request.body.referralData.referralInfo,
+
+          has_anything_helped:ctx.request.body.referralData.hasAnythingInfo,
+
+          any_particular_trigger:ctx.request.body.referralData.triggerInfo,
+
+          disabilities:ctx.request.body.referralData.disabilityOrDifficulty,
+
+          any_other_services:ctx.request.body.referralData.accessService,
+
+       //   local_services:ctx.request.body.referralData.support,//---------->checkbox
+
+          currently_accessing_services:ctx.request.body.referralData.isAccessingService
+          ,
+      //    services:ctx.request.body.services//------------->dynamic add service for only child
         },
       ).then((fetchResult) => {
+
 
         result.setReferral(fetchResult.id)
 
@@ -1344,6 +1372,8 @@ exports.fetchReferral = ctx => {
 
 }
 
+
+//Section 5
 
 exports.fetchReview = ctx => {
 

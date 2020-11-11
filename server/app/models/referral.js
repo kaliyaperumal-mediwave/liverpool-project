@@ -6,14 +6,13 @@ module.exports = function modelReferral(sequelize, types) {
       is_covid: {
         type: types.TEXT
       },
+
+      
       mental_health_diagnosis: {
         type: types.TEXT
       },
 
-      mental_diagnosis: {
-        type: types.JSONB
-      },
-      eating_diagnosis: {
+      diagnosis: {
         type: types.JSONB
       },
 
@@ -21,10 +20,7 @@ module.exports = function modelReferral(sequelize, types) {
         type: types.TEXT
       },
 
-      mental_symptoms_supportneeds: {
-        type: types.JSONB
-      },
-      eating_symptoms_supportneeds: {
+      symptoms: {
         type: types.JSONB
       },
 
@@ -45,7 +41,7 @@ module.exports = function modelReferral(sequelize, types) {
       },
 
       local_services:{
-        type: types.TEXT
+        type: types.JSONB
       },
 
       currently_accessing_services:{
