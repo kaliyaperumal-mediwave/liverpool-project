@@ -21,9 +21,11 @@ $(window).on('load', function () {
                 triggerInfo: '',
                 disabilityOrDifficulty: '',
                 accessService: '',
-                isAccessingService: '',
+                //isAccessingService: '',
                 listService: '',
             },
+            serviceOthers: [],
+            showAddOtherService: false,
             dependent: [
                 {
                     parentKey: 'diagnosis',
@@ -152,8 +154,6 @@ $(window).on('load', function () {
                 });
             },
             setValues(data) {
-
-
                 Vue.set(this.referralData, "support", data.referral_type);
                 //  this.showCovid = true;
                 Vue.set(this.referralData, "covid", data.is_covid);
@@ -220,6 +220,15 @@ $(window).on('load', function () {
                 }
 
                 else if (questionIdentifier === 'listService') {
+                    if (event.target.checked) {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = true;
+                        }
+                    } else {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = false;
+                        }
+                    }
                     if (!this.accessList.length) {
                         this.resetValues(event.target.form);
                     }
@@ -258,12 +267,39 @@ $(window).on('load', function () {
                 console.log('all service', this.allAvailableService);
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
+                if (serviceForm.mode === 'update') {
+                    if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
+                        this.allAvailableService = this.allAvailableService.map(function (it) {
+                            if (it.mode === 'update' && it.id === serviceForm.id) {
+                                it = serviceForm;
+                                return it;
+                            }
+                        });
+                        console.log('after added service', this.allAvailableService);
+                        var modal = document.getElementById('closeModal');
+                        modal.setAttribute("data-dismiss", "modal");
+                        return false;
+                    } else {
+                        this.toggleModal = false;
+                        if (!serviceForm.name) {
+                            serviceForm.hasNameReqError = true;
+                        }
+                        if (!serviceForm.professional) {
+                            serviceForm.hasProfReqError = true;
+                        }
+                        if (!serviceForm.contact) {
+                            serviceForm.hasContactReqError = true;
+                        }
+                        return false;
+                    }
+                }
                 if (type === 'add') {
                     serviceForm.id = this.uuidv4();
+                    serviceForm.mode = 'add';
                 }
                 if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
                     this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
-                    this.resetModal();
+                    //this.resetModal();
                     console.log('after added service', this.allAvailableService);
                     var modal = document.getElementById('closeModal');
                     modal.setAttribute("data-dismiss", "modal");
@@ -283,19 +319,18 @@ $(window).on('load', function () {
             },
 
             patchService(service, index) {
-                console.log('all service', this.allAvailableService);
-                console.log('index', index);
                 var serviceForm = this.serviceData;
                 serviceForm.name = service.name;
                 serviceForm.professional = service.professional;
                 serviceForm.contact = service.contact;
-                //serviceForm.mode = 'edit';
+                serviceForm.mode = 'update';
                 this.allAvailableService.map(function (i) {
                     if (i.id === service.id) {
                         i.mode = "update";
                     }
 
-                })
+                });
+                console.log('patch valuessss', this.allAvailableService);
             },
 
             deleteService(service) {
@@ -332,14 +367,32 @@ $(window).on('load', function () {
 
             },
 
-            resetModal() {
-                this.hasSubmittedServiceForm = false;
-                this.serviceData.name = '';
-                this.serviceData.professional = '';
-                this.serviceData.contact = '';
-                this.serviceData.hasNameReqError = false;
-                this.serviceData.hasProfReqError = false;
-                this.serviceData.hasContactReqError = false;
+            resetModal(e, type) {
+                console.log(this.serviceData);
+                if (type === 'add') {
+                    this.hasSubmittedServiceForm = false;
+                    this.serviceData.name = '';
+                    this.serviceData.professional = '';
+                    this.serviceData.contact = '';
+                    this.serviceData.hasNameReqError = false;
+                    this.serviceData.hasProfReqError = false;
+                    this.serviceData.hasContactReqError = false;
+                } else {
+                    if (this.serviceData.mode === 'update') {
+                        return true;
+
+                    } else {
+                        this.hasSubmittedServiceForm = false;
+                        this.serviceData.name = '';
+                        this.serviceData.professional = '';
+                        this.serviceData.contact = '';
+                        this.serviceData.hasNameReqError = false;
+                        this.serviceData.hasProfReqError = false;
+                        this.serviceData.hasContactReqError = false;
+                    }
+                }
+
+
             },
 
             //Reset Two-Way-Model Values
@@ -358,6 +411,7 @@ $(window).on('load', function () {
                         this.clearDependentValues(attributevalue);
                     }
                 }
+                this.showAddOtherService = false;
             },
 
             clearDependentValues(parentKey) {
