@@ -24,6 +24,13 @@ $(window).on('load', function () {
                 //isAccessingService: '',
                 listService: '',
             },
+            requiredFields: {
+                hasInfoReqError: false,
+                hasAnythingReqError: false,
+                hasTriggersReqError: false,
+                hasHistoryReqError: false,
+            },
+            isFormSubmitted: false,
             serviceOthers: [],
             showAddOtherService: false,
             dependent: [
@@ -120,7 +127,6 @@ $(window).on('load', function () {
                 { id: '0dfsu8u', value: 'Other', isActive: false },
             ],
             allAvailableService: [],
-            toggleModal: false
         },
         methods: {
             backToEducation() {
@@ -246,8 +252,6 @@ $(window).on('load', function () {
             //Getting values from Input
             onValueEnter(e) {
                 var questionIdentifier = event.target.name;
-                var optionsName = this.referralData;
-                var formLenght = Array.from(document.forms).indexOf(event.target.form);
                 if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
                         if (!e.target.value) {
@@ -271,16 +275,22 @@ $(window).on('load', function () {
                     if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
                         this.allAvailableService = this.allAvailableService.map(function (it) {
                             if (it.mode === 'update' && it.id === serviceForm.id) {
-                                it = serviceForm;
+                                it = JSON.parse(JSON.stringify(serviceForm));
+                                delete it.mode;
+                                return it;
+                            }
+                            else {
+                                delete it.mode;
                                 return it;
                             }
                         });
                         console.log('after added service', this.allAvailableService);
+                        this.resetModalValues();
+                        serviceForm.mode == ''
                         var modal = document.getElementById('closeModal');
                         modal.setAttribute("data-dismiss", "modal");
                         return false;
                     } else {
-                        this.toggleModal = false;
                         if (!serviceForm.name) {
                             serviceForm.hasNameReqError = true;
                         }
@@ -294,17 +304,17 @@ $(window).on('load', function () {
                     }
                 }
                 if (type === 'add') {
-                    serviceForm.id = this.uuidv4();
+                    serviceForm.id = this.uuidV4();
                     serviceForm.mode = 'add';
                 }
                 if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
                     this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
-                    //this.resetModal();
                     console.log('after added service', this.allAvailableService);
+                    this.resetModalValues();
                     var modal = document.getElementById('closeModal');
                     modal.setAttribute("data-dismiss", "modal");
+                    serviceForm.mode == ''
                 } else {
-                    this.toggleModal = false;
                     if (!serviceForm.name) {
                         serviceForm.hasNameReqError = true;
                     }
@@ -318,23 +328,65 @@ $(window).on('load', function () {
                 }
             },
 
-            patchService(service, index) {
+            resetModalValues() {
+                this.serviceData.name = '';
+                this.serviceData.professional = '';
+                this.serviceData.contact = '';
+                this.serviceData.hasNameReqError = false;
+                this.serviceData.hasProfReqError = false;
+                this.serviceData.hasContactReqError = false;
+            },
+
+            resetModal(e, type) {
+                console.log(this.serviceData);
+                if (type === 'add') {
+                    this.hasSubmittedServiceForm = false;
+                    this.serviceData.name = '';
+                    this.serviceData.mode = '';
+                    this.serviceData.professional = '';
+                    this.serviceData.contact = '';
+                    this.serviceData.hasNameReqError = false;
+                    this.serviceData.hasProfReqError = false;
+                    this.serviceData.hasContactReqError = false;
+                } else {
+                    if (this.serviceData.mode === 'update') {
+                        return true;
+
+                    } else {
+                        this.hasSubmittedServiceForm = false;
+                        this.serviceData.name = '';
+                        this.serviceData.professional = '';
+                        this.serviceData.contact = '';
+                        this.serviceData.hasNameReqError = false;
+                        this.serviceData.hasProfReqError = false;
+                        this.serviceData.hasContactReqError = false;
+                    }
+                }
+
+
+            },
+
+            patchService(service) {
                 var serviceForm = this.serviceData;
                 serviceForm.name = service.name;
                 serviceForm.professional = service.professional;
                 serviceForm.contact = service.contact;
+                serviceForm.id = service.id;
                 serviceForm.mode = 'update';
                 this.allAvailableService.map(function (i) {
                     if (i.id === service.id) {
                         i.mode = "update";
+                    } else {
+                        delete i.mode;
                     }
 
                 });
-                console.log('patch valuessss', this.allAvailableService);
             },
 
             deleteService(service) {
                 console.log(service);
+                console.log(this.allAvailableService);
+                this.findIndex(this.allAvailableService, service);
             },
 
             onValueEnterService(e, type) {
@@ -367,56 +419,24 @@ $(window).on('load', function () {
 
             },
 
-            resetModal(e, type) {
-                console.log(this.serviceData);
-                if (type === 'add') {
-                    this.hasSubmittedServiceForm = false;
-                    this.serviceData.name = '';
-                    this.serviceData.professional = '';
-                    this.serviceData.contact = '';
-                    this.serviceData.hasNameReqError = false;
-                    this.serviceData.hasProfReqError = false;
-                    this.serviceData.hasContactReqError = false;
-                } else {
-                    if (this.serviceData.mode === 'update') {
-                        return true;
-
-                    } else {
-                        this.hasSubmittedServiceForm = false;
-                        this.serviceData.name = '';
-                        this.serviceData.professional = '';
-                        this.serviceData.contact = '';
-                        this.serviceData.hasNameReqError = false;
-                        this.serviceData.hasProfReqError = false;
-                        this.serviceData.hasContactReqError = false;
-                    }
-                }
-
-
-            },
-
             //Reset Two-Way-Model Values
             resetValues(currentForm) {
                 var allForms = Array.from(document.forms);
                 var formIndex = allForms.indexOf(currentForm);
-                console.log(formIndex);
-                // var objectKeys = Object.keys(this.referralData);
                 for (let i = 0; i < allForms.length; i++) {
-                    var attributevalue = $(allForms[i]).data('options');
-                    console.log("loop index.........", i, allForms.indexOf(allForms[i]), attributevalue);
+                    var attributeValue = $(allForms[i]).data('options');
                     if (formIndex < i) {
-                        this.referralData[attributevalue] = '';
+                        this.referralData[attributeValue] = '';
                     }
                     if (formIndex <= i) {
-                        this.clearDependentValues(attributevalue);
+                        this.clearDependentValues(attributeValue);
                     }
                 }
                 this.showAddOtherService = false;
             },
 
             clearDependentValues(parentKey) {
-                var foundKeyPair = this.dependent.find(function (ele) { return ele.parentKey === parentKey });
-                console.log("foundKeyPair.......", parentKey, foundKeyPair);
+                var foundKeyPair = this.dependent.filter(function (ele) { return ele.parentKey === parentKey })[0];
                 if (foundKeyPair) {
                     this[foundKeyPair.childKey] = [];
                 }
@@ -435,14 +455,59 @@ $(window).on('load', function () {
             },
 
             //Random UUID Generator
-            uuidv4() {
+            uuidV4() {
                 return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
                     return v.toString(16);
                 });
             },
 
+            //Find Index Utility Function for IE 11
+            findIndex(arr, value) {
+                var index;
+                arr.some(function (e, i) {
+                    if (e.id == value.id) {
+                        index = i;
+                        return true;
+                    }
+                });
+                this.allAvailableService.splice(index, 1)
+            },
+
+
+            //Section 4 Save Logic
             save() {
+                var formData = this.referralData;
+                var reqFields =  this.requiredFields
+                if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
+
+                } else {
+                    if (!formData.referralInfo) {
+                        reqFields.hasInfoReqError = true;
+
+                    } else {
+                        reqFields.hasInfoReqError = false;
+                    }
+                    if (!formData.hasAnythingInfo) {
+                        reqFields.hasAnythingReqError = true;
+
+                    } else {
+                        reqFields.hasAnythingReqError = false;
+                    }
+                    if (!formData.triggerInfo) {
+                        reqFields.hasTriggersReqError = true;
+
+                    } else {
+                        reqFields.hasTriggersReqError = false;
+                    }
+                    if (!formData.disabilityOrDifficulty) {
+                        reqFields.hasHistoryReqError = true;
+
+                    } else {
+                        reqFields.hasHistoryReqError = false;
+                    }
+                    return false;
+                }
                 this.sendObj.role = new URL(location.href).searchParams.get('role');
                 this.sendObj.services = this.listOfAvailableService
                 this.sendObj.mentalDiagnosis = this.listOfDiagnosis;

@@ -207,6 +207,9 @@
                             your day-to-day life).</label>
                         <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
                             v-model="referralData.referralInfo" @change="onValueEnter($event)" rows="4"></textarea>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': requiredFields.hasInfoReqError }">
+                                Please provide a information
+                            </div>
                     </div>
                 </div>
             </form>
@@ -220,6 +223,9 @@
                         <label for="textInfo2" class="question-font">Has anything helped?</label>
                         <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
                             v-model="referralData.hasAnythingInfo" @change="onValueEnter($event)" rows="4"></textarea>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': requiredFields.hasAnythingReqError }">
+                                Please provide a information
+                            </div>
                     </div>
                 </div>
             </form>
@@ -233,6 +239,9 @@
                         <label for="textInfo3" class="question-font">Do you have any particular triggers?</label>
                         <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
                             v-model="referralData.triggerInfo" @change="onValueEnter($event)" rows="4"></textarea>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': requiredFields.hasTriggersReqError }">
+                                Please provide a information
+                            </div>
                     </div>
                 </div>
             </form>
@@ -252,6 +261,9 @@
                             <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
                                 v-model="referralData.disabilityOrDifficulty" @change="onValueEnter($event)"
                                 rows="5"></textarea>
+                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': requiredFields.hasHistoryReqError }">
+                                    Please provide a information
+                                </div>
                         </div>
                     </div>
                 </div>
@@ -309,30 +321,35 @@
             <!--Add a Service Start-->
             <form id="addService-form">
                 <div v-if="showAddOtherService" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p class="question-font m-0">Are you want to add
+                    <p class="question-font">Are you want to add
                         any service?</p>
-                    <div class="text-center py-4">
+                    <!-- <div class="text-center"> -->
                         <template v-if="allAvailableService.length">
-                            <div class="card" v-for="(item, index) in allAvailableService" :key="index">
+                            <div class="card text-left mb-2" v-for="(item, index) in allAvailableService" :key="index">
                                 {% raw %}
-                                <ul class="list-group">
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <b class="px-2">{{item.name}}</b>
-                                        <b class="px-2"> {{item.professional}}</b>
-                                        <b class="px-2">{{item.contact}}</b>
-                                        <span class="badge badge-primary badge-pill cursor-pointer" data-toggle="modal"
-                                            data-target="#serviceModal" @click="patchService(item,index)"><i
-                                                class="fa fa-pencil" aria-hidden="true"></i>
-                                        </span>
-                                        <span class="badge badge-primary badge-pill cursor-pointer"><i
-                                                class="fa fa-trash-o" aria-hidden="true"></i>
-                                        </span>
-                                    </li>
-                                    {% endraw %}
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center justify-content-between my-1">
+                                        <h5 class="card-title">{{item.name}}</h5>
+                                        <div>
+                                            <span class="badge badge-pill cursor-pointer"
+                                                data-toggle="modal" data-target="#serviceModal"
+                                                @click="patchService(item)"><i class="fa fa-pencil fa-2x"
+                                                    aria-hidden="true"></i>
+                                            </span>
+                                            <span class="badge badge-pill cursor-pointer"><i
+                                                    @click="deleteService(item,index)" class="fa fa-trash-o fa-2x"
+                                                    aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{item.professional}}</h6>
+                                    <p class="card-text">{{item.contact}}</p>
+                                </div>
+                                {% endraw %}
                             </div>
                         </template>
 
-                        <p class="text-left cursor-pointer" data-toggle="modal" data-target="#serviceModal"
+                        <p class="text-left mx-1 my-2 cursor-pointer" data-toggle="modal" data-target="#serviceModal"
                             @click="resetModal($event,'add')"><span v-if="!allAvailableService.length">Currently,you
                                 don't
                                 have any
@@ -340,7 +357,7 @@
                             here to add a service
                             <span class="px-2"> <i class="fa fa-plus-circle" color="#023047"
                                     aria-hidden="true"></i></span></p>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </form>
             <!-- Add a Service End -->
@@ -352,8 +369,7 @@
                     <div class="modal-content modal-bg">
                         <div class="modal-header justify-content-center">
                             <h5 class="question-header-font" id="addModalLabel">Add Service</h5>
-                            <span aria-hidden="true" class="modal-close" data-dismiss="modal"
-                                @click="resetModal($event)" aria-label="Close"><i
+                            <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                     class="fal fa-times fa-2x cursor-pointer"></i></i>
                         </div>
                         <div class="modal-body py-1 px-4">
@@ -442,7 +458,7 @@
             </template>
             <!-- Dynamic Toaster end -->
 
-            <!-- Dynamic Toaster start Scenerio 1-->
+            <!-- Dynamic Toaster start Scenerio 2-->
             <template v-if="referralData.accessService == 'no'">
                 <div class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
@@ -479,7 +495,45 @@
                     </a>
                 </div>
             </template>
-            <!-- Dynamic Toaster end
+
+
+            <!-- Dynamic Toaster start Scenerio 3-->
+            <template v-if="allAvailableService.length">
+                <div class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <template v-if="referralData.referralInfo  && referralData.hasAnythingInfo && 
+                                    referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </template>
+                                <template v-else>
+                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                </template>
+                            </p>
+                            <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
+                                referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                <p class="question-font text-center m-0 py-2">Fab. Last but not least, lets get your
+                                    contact
+                                    preferences, and give you a chance to review
+                                    your answers.</p>
+
+                            </template>
+                            <template v-else>
+                                <p class="question-font text-center m-0 py-2">You have missed out a section on this page
+                                </p>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center py-4">
+                    <a>
+                        <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </a>
+                </div>
+            </template>
 
         </div>
     </div>
