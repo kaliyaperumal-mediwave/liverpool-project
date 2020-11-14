@@ -506,6 +506,7 @@ $(window).on('load', function () {
                     } else {
                         reqFields.hasHistoryReqError = false;
                     }
+                    this.scrollToInvalidInput();
                     return false;
                 }
                 this.sendObj.role = new URL(location.href).searchParams.get('role');
@@ -527,7 +528,22 @@ $(window).on('load', function () {
                         //  app.setValues(data);
                     },
                 });
-            }
+            },
+
+            //Scroll to top for an Invalid Inputs
+            scrollToInvalidInput() {
+                var errorElements =$('.invalid-feedback,d-block');
+                window.scroll({
+                    top: this.getTopOffset(errorElements[0].parentElement.parentElement),
+                    left: 0,
+                    behavior: "smooth"
+                  });
+            },
+
+            getTopOffset(controlEl) {
+                var labelOffset = 50;
+                return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
+              }
 
         },
     });
