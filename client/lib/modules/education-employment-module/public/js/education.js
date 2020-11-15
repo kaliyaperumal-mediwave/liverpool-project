@@ -17,11 +17,13 @@ $(document).ready(function () {
         },
         mounted: function () {
             var _self = this;
-            _self.labelToDisplay = new URL(location.href).searchParams.get('role');
+            var roleType = this.getUrlVars()["role"]
+
+            _self.labelToDisplay = roleType;
             console.log(_self.labelToDisplay);
             google.maps.event.addDomListener(window, 'load', _self.initialize);
 
-            if(new URL(location.href).searchParams.get('edt')==1)
+            if(this.getUrlVars()['edt']==1)
             {
                 this.fetchSavedData()
             }
@@ -32,10 +34,10 @@ $(document).ready(function () {
 
         },
         methods: {
-            fetchSavedData(){
+            fetchSavedData: function(){
                 console.log("if")
-                this.sendObj.uuid=new URL(location.href).searchParams.get('userid');
-                this.sendObj.role=new URL(location.href).searchParams.get('role');
+                this.sendObj.uuid=this.getUrlVars()['userid'];
+                this.sendObj.role=this.getUrlVars()['role'];
                 console.log(this.sendObj);
           //     var roleType=new URL(location.href).searchParams.get('role')
                 $.ajax({
@@ -53,9 +55,10 @@ $(document).ready(function () {
                 });
             },
 
-            setValues(data) {
-                console.log(data);
-                if(new URL(location.href).searchParams.get('role')=="child")
+            setValues: function(data) {
+              //  console.log(data);
+                var roleType = this.getUrlVars()["role"]
+                if(roleType=="child")
                 {
                 
                     Vue.set(this.professionObj,"childProfession",data.child_profession);
@@ -66,9 +69,9 @@ $(document).ready(function () {
                     Vue.set(this.professionObj,"socialWorkerName",data.child_socialworker_name);
                     Vue.set(this.professionObj,"socialWorkerContactNumber",data.child_socialworker_contact);
                 }
-                else if(new URL(location.href).searchParams.get('role')=="parent")
+                else if(roleType=="parent")
                 {
-                    console.log(data);
+                  //  console.log(data);
 
                     Vue.set(this.professionObj,"childProfession",data[0].parent[0].child_profession);
                     Vue.set(this.professionObj,"childEducationPlace",data[0].parent[0].child_education_place);
@@ -78,7 +81,7 @@ $(document).ready(function () {
                     Vue.set(this.professionObj,"socialWorkerName",data[0].parent[0].child_socialworker_name);
                     Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].parent[0].child_socialworker_contact);
                 }
-                else if(new URL(location.href).searchParams.get('role')=="professional")
+                else if(roleType=="professional")
                 {
                      
                      Vue.set(this.professionObj,"childProfession",data[0].professional[0].child_profession);
@@ -92,12 +95,12 @@ $(document).ready(function () {
                 
             },
 
-            backToAbout(){
-                var uid= new URL(location.href).searchParams.get('userid');
-                var role =  new URL(location.href).searchParams.get('role');
+            backToAbout: function(){
+                var uid= this.getUrlVars()['userid'];
+                var role =  this.getUrlVars()['role'];
                 location.href = "/about?userid=" + uid + "&role=" + role + "&edt=1";
             },
-            initialize() {
+            initialize: function() {
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('childEducationPlace')), {
@@ -108,7 +111,7 @@ $(document).ready(function () {
                 });
             },
 
-            onChange(event) {
+            onChange: function(event) {
                 var optionText = event.target.name;
                 if ((optionText == "childProfession" && this.professionObj.childEducationPlace != undefined) || (optionText == "childProfession" && this.professionObj.childEHCP != undefined)) {
                     this.professionObj.childEducationPlace = "";
@@ -133,7 +136,7 @@ $(document).ready(function () {
                 }
             },
 
-            onVaueChange(e, type) {
+            onVaueChange: function(e, type) {
                 if (this.isSubmitted) {
                     var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
@@ -166,13 +169,13 @@ $(document).ready(function () {
                 }
             },
 
-            saveEducation() {
+            saveEducation: function() {
                 var _self = this;
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 this.isSubmitted = true;
-                var userid = new URL(location.href).searchParams.get('userid');
-                var role = new URL(location.href).searchParams.get('role');
+                var userid = this.getUrlVars()['userid'];
+                var role = this.getUrlVars()['role'];
                 this.professionObj.userid = userid;
                 this.professionObj.role = role;
                 this.professionObj.childEducationPlace = _self.childEducation;
@@ -211,7 +214,7 @@ $(document).ready(function () {
             //    this.apiRequest(this.professionObj, role);
             },
 
-            apiRequest(payload, role) {
+            apiRequest: function(payload, role) {
                 $.ajax({
                     url: API_URI + "/education",
                     type: 'post',
@@ -225,7 +228,7 @@ $(document).ready(function () {
                         // if (role === 'yes') {
                         //     this.resetValidation();
                         // }
-                        if(new URL(location.href).searchParams.get('edt')==null)
+                        if(_self.getUrlVars()['edt']==null)
                         {
                             location.href = "/referral?userid=" + data.userid + "&role=" + new URL(location.href).searchParams.get('role');
                         }
@@ -236,12 +239,23 @@ $(document).ready(function () {
                     },
                 });
             },
-            resetValidation() {
+            resetValidation: function() {
                 this.hasNameInvalidError = false;
                 this.hasNameReqError = false;
                 this.hasContactInvalidError = flase;
                 this.hasContactReqError = false;
             },
+
+            getUrlVars:function () {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+                function(m,key,value) {
+                  vars[key] = value;
+                });
+    
+              
+                return vars;
+              }
         }
     })
 });

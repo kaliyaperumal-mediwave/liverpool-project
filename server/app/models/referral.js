@@ -16,11 +16,18 @@ module.exports = function modelReferral(sequelize, types) {
         type: types.JSONB
       },
 
+      diagnosis_other: {
+        type: types.JSONB
+      },
       symptoms_supportneeds: {
         type: types.TEXT
       },
 
       symptoms: {
+        type: types.JSONB
+      },
+
+      symptoms_other: {
         type: types.JSONB
       },
 

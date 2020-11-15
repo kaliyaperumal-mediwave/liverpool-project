@@ -174,12 +174,14 @@
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text box
                             at the bottom of the list</p>
-                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfProblems" :key="index">
+                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(problemsItem, index) in listOfProblems" :key="index">
                             {% raw %}
-                            <input type="checkbox" v-bind:id="item.id" name="listProblems" v-bind:value="item.value"
-                                v-model="problemsList" v-bind:checked="item.isActive" @change="onOptionChange($event)">
-                            <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                           
+
+                            <input type="checkbox" v-bind:id="problemsItem.id" name="listProblems" v-bind:value="problemsItem.value"
+                            v-model="problemsItem.isActive" v-bind:checked="problemsItem.isActive" @change="onOptionChange($event)">
+                            <label v-bind:for="problemsItem.id" class="option-font d-flex align-items-center">
+                                {{ problemsItem.value  }}</label>
                             {% endraw %}
                         </div>
                     </div>

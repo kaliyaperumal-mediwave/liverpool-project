@@ -77,30 +77,30 @@ $(window).on('load', function () {
                 { id: 'TRYE', value: 'Wetting and soiling', isActive: false }
             ],
             listOfProblems: [
-                { id: 'sdf', value: 'ADD/ADHD', isActive: false },
-                { id: '564dfh', value: 'Anxiety', },
-                { id: '564j', value: 'Autism' },
-                { id: 'hj', value: 'Bullying related' },
-                { id: '02h', value: 'Conduct disorder' },
-                { id: '9897', value: 'Depression' },
-                { id: 'dfj7t8y', value: 'Dyslexia' },
-                { id: 'g4df56+', value: 'Drinking and drugs related' },
-                { id: 'fjuyt18', value: 'Eating Disorders' },
-                { id: 'rujr98yu', value: 'Family Difficulty' },
-                { id: 'fjyhj1', value: 'Gender dysphoria' },
-                { id: 'dfjj848', value: 'Obsessive-compulsive disorder (OCD)' },
-                { id: 'dfghjd89', value: 'Panic attacks' },
-                { id: 'dfg8', value: 'Phobias' },
-                { id: '1187', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
-                { id: 'df198oijd', value: 'Self-harm' },
-                { id: 'gdfh98', value: 'Pulling hair out' },
-                { id: '0205dfg', value: 'Pulling hair out' },
-                { id: '2432fg', value: 'Separation anxiety' },
-                { id: 'p989df', value: 'Stress' },
-                { id: 'mk89uj8', value: 'Suicidal thoughts' },
-                { id: '9ig89u', value: 'Social phobia' },
-                { id: '8mfg8', value: 'Tics and Tourette’s' },
-                { id: '88gfh', value: 'Wetting and soiling' }
+                { id: '111E', value: 'ADD/ADHD', isActive: false},
+                { id: '11154', value: 'Anxiety', isActive: false},
+                { id: '111243', value: 'Autism', isActive: false},
+                { id: '11187C43', value: 'Bullying related' , isActive: false},
+                { id: '1118754', value: 'Conduct disorder', isActive: false },
+                { id: '1198HT', value: 'Depression' , isActive: false},
+                { id: '9187GH', value: 'Dyslexia' , isActive: false},
+                { id: '91HS8G+', value: 'Drinking and drugs related' , isActive: false},
+                { id: 'SD1F87H', value: 'Eating Disorders' , isActive: false},
+                { id: '781TH', value: 'Family Difficulty' , isActive: false},
+                { id: '21VDF20', value: 'Gender dysphoria' , isActive: false},
+                { id: '413R4', value: 'Obsessive-compulsive disorder (OCD)' },
+                { id: '11F5G4', value: 'Panic attacks' , isActive: false},
+                { id: '47F1BGH', value: 'Phobias' , isActive: false},
+                { id: '11187', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
+                { id: 'DF13V6S', value: 'Self-harm' , isActive: false},
+                { id: '1D1S', value: 'Pulling hair out' , isActive: false},
+                { id: '961DFG', value: 'Pulling hair out' , isActive: false},
+                { id: '411F7', value: 'Separation anxiety' , isActive: false},
+                { id: '11154FVGD', value: 'Stress' , isActive: false},
+                { id: 'OI19P8', value: 'Suicidal thoughts', isActive: false },
+                { id: '7T1R', value: 'Social phobia' , isActive: false},
+                { id: '11NFH', value: 'Tics and Tourette’s' , isActive: false},
+                { id: 'T1RYE', value: 'Wetting and soiling', isActive: false }
             ],
             listOfAvailableService: [
                 { id: 'oopdfh', value: 'Addvanced Solutions', isActive: false },
@@ -133,7 +133,7 @@ $(window).on('load', function () {
                 this.sendObj.mentalDiagnosis = this.listOfDiagnosis;
                 this.sendObj.symptoms = this.listOfDiagnosis;
 
-                console.log(this.sendObj);
+                
 
                 $.ajax({
                     url: API_URI + "/fetchReferral",
@@ -167,21 +167,26 @@ $(window).on('load', function () {
                 Vue.set(this.referralData, "isAccessingService", data.currently_accessing_services);
 
                 Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
-
-                for (var i = 0; i < data.diagnosis.length; i++) {
+             //   Vue.set(this.listOfDiagnosis, data.diagnosis);
+                this.listOfDiagnosis = data.diagnosis;
+                Vue.set(this.referralData, "diagnosisOther", data.diagnosis_other);
+                this.listOfProblems = data.symptoms;
+                Vue.set(this.referralData, "problemsOther", data.diagnosis_other);
+                 console.log(data.symptoms);
+                // console.log(data.mental_health_diagnosis);
+                // for (var i = 0; i < data.diagnosis.length; i++) {
                     
-                    for (var j = 0; j < this.listOfDiagnosis.length; j++) {
+                //     for (var j = 0; j < this.listOfDiagnosis.length; j++) {
                      
-                        if(data.diagnosis[i]==this.listOfDiagnosis[j].value)
-                        {
-                            console.log(this.listOfDiagnosis[j].value)
-                            this.listOfDiagnosis[j].isActive=true;
-                        }
+                //         if(data.diagnosis[i]==this.listOfDiagnosis[j].value)
+                //         {
+                //             console.log(this.listOfDiagnosis[j].value)
+                //             this.listOfDiagnosis[j].isActive=true;
+                //         }
                         
-                    }
+                //     }
 
-                }
-                console.log(this.listOfDiagnosis)
+                // }
             },
             onOptionChange(event) {
 
@@ -394,11 +399,11 @@ $(window).on('load', function () {
 
                 this.sendObj.role = new URL(location.href).searchParams.get('role');
                 this.sendObj.services = this.listOfAvailableService
-                this.sendObj.selectedDiagnosis = this.diagnosisList;
-                this.sendObj.symptoms = this.listOfDiagnosis;
+                this.sendObj.selectedDiagnosis = this.listOfDiagnosis;
+                this.sendObj.selectedSymptoms = this.listOfProblems;
                 this.sendObj.referralData = this.referralData;
                 this.sendObj.userid = new URL(location.href).searchParams.get('userid');
-                console.log(this.sendObj);
+             //   console.log(this.sendObj);
                 $.ajax({
                     url: API_URI + "/saveReferral",
                     type: 'post',
