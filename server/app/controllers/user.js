@@ -23,7 +23,7 @@ exports.eligibility = ctx => {
         { uuid: ctx.request.body.uuid }
     }
     ).then((childUserInfo) => {
-       // childUserInfo.setType("1")
+        childUserInfo.setType("1")
         const responseData = {
           userid: ctx.request.body.uuid,
           status: "ok",
@@ -37,7 +37,7 @@ exports.eligibility = ctx => {
     {
       return user.create({
         need_interpreter: ctx.request.body.interpreter,
-        child_dob: ctx.request.body.childDob,
+      //  child_dob: ctx.request.body.childDob,
         contact_parent: ctx.request.body.contactParent,
         consent_child:ctx.request.body.isInformation,
         registerd_gp: ctx.request.body.registerd_gp,
@@ -1191,14 +1191,19 @@ exports.saveReferal = ctx => {
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
-          mental_health_diagnosis: ctx.request.body.diagnosis,
 
-          mental_symptoms_supportneeds:ctx.request.body.symptoms,
+          mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+
+    //      mental_symptoms_supportneeds:ctx.request.body.symptoms,
           diagnosis:ctx.request.body.selectedDiagnosis,//--------------------diagnosis list for both mental and eating
+
+          diagnosis_other: ctx.request.body.referralData.diagnosisOther,
 
           symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
 
-          //symptoms : ctx.request.body.symptoms,//--------------------symptoms list for both mental and eating 
+          symptoms : ctx.request.body.selectedSymptoms,//--------------------symptoms list for both mental and eating 
+
+          symptoms_other: ctx.request.body.referralData.problemsOther,
 
           referral_issues:ctx.request.body.referralData.referralInfo,
 
@@ -1241,6 +1246,7 @@ exports.saveReferal = ctx => {
 
 exports.fetchReferral = ctx => {
 
+  console.log("-------------------------------------------------------------------------------------------");
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral
 
