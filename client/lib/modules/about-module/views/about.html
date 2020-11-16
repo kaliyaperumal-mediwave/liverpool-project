@@ -2,6 +2,7 @@
 
 {% block extraBody %}
 <script src="/modules/about-module/js/about.js"></script>
+
 {% endblock %}
 {% block main %}
 <div id="about-form">
@@ -402,7 +403,7 @@
                 <!-- School / College / Employment - optional -end -->
                 <p class="text-right add-more-hint m-0">Add more +</p>
             </div>
-            <!-- --professional details start-- -->
+            <!----professional details start---->
             <div v-if="labelToDisplay =='professional'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group py-2 my-2">
                     <label for="Name" class="question-font">Name of who the child / young person lives with -
@@ -442,7 +443,7 @@
                 <!-- School / College / Employment - optional -end -->
                 <p class="text-right add-more-hint m-0">Add more +</p>
             </div>
-            <!-- --professional details start-- -->
+            <!----professional details start---->
             <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you care for an adult?</p>
                 <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child care for an adult?</p>
@@ -746,7 +747,7 @@
                     </label>
                 </div>
             </div>
-<!-- -------------------- -->
+
 
             <div v-show="aboutObj.parentSameHouse=='no'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group py-2 m-0">
