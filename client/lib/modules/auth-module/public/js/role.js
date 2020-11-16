@@ -5,12 +5,10 @@ $(document).ready(function () {
     var _self = this;
     var app = new Vue({
         el: '#role-form',
-        mounted: function () {
-            this.loaded();
-        },
+
         data: {
             gpListShow: [],
-            elgibilityObj: {},
+            elgibilityObj: {"childDob":"2020-09-29T00:00:00.000Z"},
             submitForm: "",
             submitProfForm: "",
             belowAgeLimit: "",
@@ -23,12 +21,100 @@ $(document).ready(function () {
             hasContactInvalidError: false,
             hasEmailInvalidError: false,
             isSubmitted: false,
+            edFlag:false,
+            sendObj:{}
         },
+
+        mounted: function () {
+
+            this.getGP();
+            //console.log(roleType);
+           // this.getUrlVars()["edt"]
+         //   console.log(this.getUrlVars()["edt"]);
+           
+           // location.href = "/about?userid=" + "11444" + "&role=" + "child"; 
+            if(this.getUrlVars()["edt"]==1)
+            {
+                this.fetchSavedData()
+            }
+            else
+            {
+                console.log("if else")
+            }
+        },
+
         methods: {
-            loaded() {
-                console.log('loaded')
+
+            
+
+            fetchSavedData:function (){
+                console.log("if")
+                this.sendObj.uuid=this.getUrlVars()["userid"];
+                this.sendObj.role=this.getUrlVars()["role"];
+                console.log(this.sendObj);
+                //var roleType=new URL(location.href).searchParams.get('role')
+                $.ajax({
+                    url: API_URI + "/fetchEligibility",
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(this.sendObj),
+                    success: function (data) {
+                        //alert("section 1 saved.");
+                  //   console.log(data);
+                     app.setValues(data);
+                        
+                    },
+                });
             },
-            getGP() {
+
+            setValues :function(data) {
+                console.log(data);
+                var roleType = this.getUrlVars()["role"]
+                if(roleType=="child")
+                {
+                    Vue.set(this.elgibilityObj,"role",this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj,"interpreter",data.need_interpreter);
+                    Vue.set(this.elgibilityObj,"childDob",this.convertDate(data.child_dob));
+                    this.fetchAgeLogic(data.child_dob,this.getUrlVars()["role"]) 
+                    Vue.set(this.elgibilityObj,"contactParent",data.contact_parent);
+                    Vue.set(this.elgibilityObj,"isInformation",data.consent_child);
+                    Vue.set(this.elgibilityObj,"registerd_gp",this.bindGpAddress(data.registerd_gp));
+                    $('input[name=role]').attr("disabled",true);
+                    this.getGP();
+                }
+                else if(roleType=="parent")
+                {
+                    console.log(data);
+
+                    Vue.set(this.elgibilityObj,"role",this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj,"interpreter",data[0].need_interpreter);
+                    Vue.set(this.elgibilityObj,"childDob",this.convertDate(data[0].parent[0].child_dob));
+                    this.fetchAgeLogic(data.child_dob,this.getUrlVars()["role"]) 
+                    Vue.set(this.elgibilityObj,"contactParent",data[0].contact_parent);
+                    Vue.set(this.elgibilityObj,"isInformation",data[0].consent_child);
+                    Vue.set(this.elgibilityObj,"registerd_gp",this.bindGpAddress(data[0].parent[0].registerd_gp,this.getUrlVars()["role"]));
+                    $('input[name=role]').attr("disabled",true);
+                    this.getGP();
+                }
+                else if(roleType=="professional")
+                {
+                    console.log(data);
+                    Vue.set(this.elgibilityObj,"role",this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj,"profName",data[0].professional_name);
+                    Vue.set(this.elgibilityObj,"profEmail",data[0].professional_email);
+                    Vue.set(this.elgibilityObj,"profContactNumber",data[0].professional_contact_number);
+                    Vue.set(this.elgibilityObj,"profChildDob",this.convertDate(data[0].professional[0].child_dob));
+                    this.fetchAgeLogic(data[0].professional[0].child_dob,this.getUrlVars()["role"]) 
+                    Vue.set(this.elgibilityObj,"contactProfParent",data[0].consent_parent);
+                    Vue.set(this.elgibilityObj,"parentConcernInformation",data[0].consent_child);
+                    Vue.set(this.elgibilityObj,"profRegisterd_gp",this.bindGpAddress(data[0].professional[0].registerd_gp,this.getUrlVars()["role"]));
+                    this.getProfGP();
+                }
+                
+            },
+            getGP :function() {
+                var _self = this;
                 console.log("Er");
                 gpList = [];
                 $.ajax({
@@ -50,7 +136,7 @@ $(document).ready(function () {
                 })
             },
 
-            getProfGP() {
+            getProfGP :function() {
                 console.log("Er");
                 gpList = [];
                 $.ajax({
@@ -72,7 +158,10 @@ $(document).ready(function () {
                 })
             },
 
-            onChange(event) {
+            onChange :function(event) {
+
+                var fType = this.getUrlVars()["role"];
+                console.log(fType);
 
                 var optionText = event.target.name;
                 console.log(optionText);
@@ -164,7 +253,7 @@ $(document).ready(function () {
                 // }
             },
 
-            getAddress(e) {
+            getAddress:function(e) {
                 $("#gpLocation").on("autocompleteclose", function (event, ui) {
                     console.log('this', _self, app);
                     if (e.target.value === '') {
@@ -176,7 +265,7 @@ $(document).ready(function () {
                 });
             },
 
-            getProfAddress(e) {
+            getProfAddress:function(e) {
                 $("#gpProfLocation").on("autocompleteclose", function (event, ui) {
                     console.log('this', _self, app);
                     if (e.target.value === '') {
@@ -188,7 +277,7 @@ $(document).ready(function () {
                 });
             },
 
-            changeDob(event) {
+            changeDob:function(event) {
                 var today = new Date();
                 var selectedDate = new Date(event.target.value);
                 var age = this.diff_years(today, selectedDate);
@@ -256,11 +345,11 @@ $(document).ready(function () {
 
             },
 
-            changeGP() {
+            changeGP:function() {
                 this.submitForm = "true";
             },
 
-            onVaueChange(e, type) {
+            onVaueChange:function(e, type) {
                 if (this.isSubmitted) {
                     var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
@@ -307,12 +396,20 @@ $(document).ready(function () {
                 }
             },
 
-            save() {
+            save:function() {
+                console.log("3334");
+                console.log(this.elgibilityObj);
+                ///this.elgibilityObj.editFlag=new URL(location.href).searchParams.get('edt');
+                // this.elgibilityObj.uuid=new URL(location.href).searchParams.get('userid');
+
+                 this.elgibilityObj.editFlag=this.getUrlVars()["edt"];
+                 this.elgibilityObj.uuid=this.getUrlVars()["userid"];
+                 this.elgibilityObj.editFlag=this.getUrlVars()['edt'];
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
-                console.log(this.elgibilityObj);
+                console.log(this.elgibilityObj.role);
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     if (this.elgibilityObj.profName && this.elgibilityObj.profContactNumber) {
@@ -373,12 +470,13 @@ $(document).ready(function () {
                 }
             },
 
-            apiRequest(payload, role) {
+            apiRequest:function(payload, role) {
+                console.log(payload)
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/eligibility",
                     type: 'post',
-                    dataType: 'json',
+                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
@@ -386,15 +484,25 @@ $(document).ready(function () {
                         console.log(data);
                         _self .isSubmitted = false;
                         if (role === 'professional') {
-                            _self .resetValidation();;
+                            _self .resetValidation();
                         }
-                        location.href = "/about?userid=" + data.userid + "&role=" + role;
+                      console.log("edt",_self.getUrlVars()["edt"]);
+
+                        if(_self.getUrlVars()["edt"]==null)
+                        {
+                            location.href = "/about?userid=" + data.userid + "&role=" + role; 
+                        }
+                        else
+                        {
+                           history.back();
+                        }
+                        
                     },
                 });
             },
 
 
-            resetValidation() {
+            resetValidation:function() {
                 this.hasNameInvalidError = false;
                 this.hasNameReqError = false;
                 this.hasEmailInvalidError = false;
@@ -402,11 +510,119 @@ $(document).ready(function () {
                 this.hasContactReqError = false;
             },
 
-            diff_years(dt2, dt1) {
+            diff_years:function(dt2, dt1) {
                 var diff = (dt2.getTime() - dt1.getTime()) / 1000;
                 diff /= (60 * 60 * 24);
                 return Math.abs(Math.round(diff / 365.25));
-            }
+            },
+
+             convertDate:function(dbDate) {
+                 var date= new Date(dbDate)
+                var yyyy = date.getFullYear().toString();
+                var mm = (date.getMonth()+1).toString();
+                var dd  = date.getDate().toString();
+              
+                var mmChars = mm.split('');
+                var ddChars = dd.split('');
+              
+                return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
+              },
+
+              fetchAgeLogic:function(dbdob,roleText) {
+                  console.log(dbdob);
+                var today = new Date();
+                var selectedDate = new Date(dbdob);
+                var age = this.diff_years(today, selectedDate);
+                console.log(age);
+                if (roleText == 'child') {
+                    if (age < 15) {
+                        this.belowAgeLimit = "yes";
+                        this.aboveLimit = "";
+                        this.elgibilityObj.camhs = "";
+                        this.submitForm = "false";
+                    }
+                    else if (age > 25) {
+                        this.aboveLimit = "yes";
+                        this.belowAgeLimit = "";
+                        this.elgibilityObj.camhs = "";
+                        this.submitForm = "false";
+                    }
+                    else {
+                        this.elgibilityObj.camhs = "show";
+                            this.belowAgeLimit = "";
+                            this.aboveLimit = "";
+                        this.submitForm = "false";
+                    }
+                }
+                else if (roleText == 'professional') {
+                    if (age < 15) {
+                        this.profBelowAgeLimit = "yes";
+                        this.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+                    }
+                    else if (age > 25) {
+                        this.profaboveLimit = "yes";
+                        this.profBelowAgeLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.submitProfForm = "false";
+                    }
+                    else {
+                        this.elgibilityObj.parentConcern = "show";
+                        this.profBelowAgeLimit = "";
+                        this.profaboveLimit = "";
+                        this.submitProfForm = "false";
+                    }
+                }
+
+                else if (roleText == 'parent') {
+                    if (age > 25) {
+                        this.aboveLimit = "yes";
+                        this.elgibilityObj.camhs = "";
+                        this.submitForm = "false";
+                    }
+                    else
+                    {
+                        this.elgibilityObj.camhs = "show";
+                        this.belowAgeLimit = "";
+                        this.aboveLimit = "";
+                        this.submitForm = "false";
+                    }
+
+                }
+
+            },
+
+            bindGpAddress:function(gpAddress,role)
+            {
+                if(role=="professional")
+                {
+                    if(gpAddress!=undefined || gpAddress!="")
+                    {
+                        this.submitProfForm = "true";
+                        return gpAddress;
+                    }
+                }
+                else
+                {
+                    if(gpAddress!=undefined || gpAddress!="")
+                    {
+                        this.submitForm = "true";
+                        return gpAddress;
+                    }
+                }
+            },
+
+            getUrlVars:function () {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+                function(m,key,value) {
+                  vars[key] = value;
+                });
+
+              
+                return vars;
+              }
 
         }
     })

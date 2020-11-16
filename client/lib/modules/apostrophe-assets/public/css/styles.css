@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.header-title, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.header-title, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -72,6 +72,47 @@
   -o-transform: scale(1);
   transform: scale(1); }
 
+/* CheckBox Global classes */
+.custom-form-group {
+  display: block;
+  margin-bottom: 15px;
+  position: relative; }
+  .custom-form-group input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer; }
+  .custom-form-group label {
+    position: relative;
+    cursor: pointer; }
+    .custom-form-group label:before {
+      content: "";
+      -webkit-appearance: none;
+      width: 40px;
+      height: 40px;
+      background: #e8edee 0% 0% no-repeat padding-box;
+      border: 1px solid #023047;
+      padding: 10px;
+      display: inline-block;
+      position: relative;
+      vertical-align: middle;
+      cursor: pointer;
+      margin-right: 15px; }
+  .custom-form-group input:checked + label:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 8px;
+    left: 16px;
+    width: 6px;
+    height: 21px;
+    width: 10px;
+    border: solid #023047;
+    border-width: 0 5px 4px 0;
+    transform: rotate(45deg); }
+
 /* Button Global classes */
 .btn {
   background: #219ebc 0% 0% no-repeat padding-box !important;
@@ -99,6 +140,38 @@
 
 .input-group-text {
   background: #ffb703 0% 0% no-repeat padding-box !important; }
+
+.modal-content {
+  background: #ffb703 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  border-radius: 24px !important; }
+
+.modal-header {
+  border-bottom: 0px !important; }
+
+.modal-footer {
+  border-top: 0px !important; }
+
+.modal-footer {
+  justify-content: center !important; }
+
+.modal-close {
+  position: absolute;
+  right: 20px; }
+
+.modal-content .form-control {
+  background: #ebebeb 0% 0% no-repeat padding-box !important; }
+
+.modal-content .btn {
+  background: #ffffff 0% 0% no-repeat padding-box !important; }
+
+::placeholder {
+  text-align: left;
+  font-size: 16px;
+  font-weight: normal;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 0.3; }
 
 @font-face {
   font-family: "century-gothic";
@@ -134,6 +207,10 @@ body {
   font-family: "century-gothic" !important; }
   body .ui-widget.ui-widget-content {
     border: none !important; }
+  body .dropdown-divider {
+    border-top: 1px solid #023047 !important; }
+  body .h-112 {
+    height: 112px !important; }
   body .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -146,81 +223,116 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important; }
+  body a {
+    color: #023087 !important; }
 
 .header-title {
   font-size: 32px;
   font-weight: bold;
-  color: #ffffff; }
+  color: #ffffff;
+  cursor: pointer; }
 
 .sub-header-title {
   font-size: 32px;
   font-weight: bold;
-  color: #ffffff; }
+  color: #ffffff;
+  cursor: pointer; }
 
 .content-header-text {
   font-size: 22px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .content-secondary-header-text {
   font-size: 32px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .content-text {
   font-size: 18px;
   font-weight: normal;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .hint-text {
   font-size: 14px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
+
+.support-modal-header-text {
+  font-size: 24px;
+  font-weight: bold;
+  color: #023047;
+  cursor: pointer; }
+
+.support-modal-content-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #023047;
+  cursor: pointer; }
 
 .link-text {
   font-size: 17px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .link-secondary {
   font-size: 16px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .btn-txt {
   font-size: 26px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .btn-secondary-text {
   font-size: 26px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
+
+.btn-modal-text {
+  font-size: 20px;
+  font-weight: bold;
+  color: #0b181e;
+  cursor: pointer; }
 
 .footer-text {
   font-size: 19px;
   font-weight: bold;
-  color: #feffff; }
+  color: #feffff;
+  cursor: pointer; }
 
 .question-font {
   font-size: 18px;
   font-weight: normal;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .option-font {
   font-size: 17px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .question-header-font {
   font-size: 28px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .add-more-hint {
   font-size: 18px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  cursor: pointer; }
 
 .header-bg {
   background: #8ecae6 0% 0% no-repeat padding-box !important;
@@ -234,6 +346,11 @@ body {
   background: #ffb703 0% 0% no-repeat padding-box !important;
   opacity: 1;
   border-radius: 24px; }
+
+.modal-bg {
+  background: #ffb703 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  border-radius: 24px !important; }
 
 .secondary-content-bg {
   background: #012f46 0% 0% no-repeat padding-box !important;
@@ -291,10 +408,6 @@ body {
 
 .main-min-height {
   min-height: 603px !important; }
-
-.modal-bg {
-  background: #ffb837 0% 0% no-repeat padding-box;
-  opacity: 1; }
 
 .img-class {
   height: 35px;

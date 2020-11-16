@@ -22,6 +22,14 @@ module.exports = {
     {
       name: 'education-employment-module',
       label: 'Education Employment Module'
+    },
+    {
+      name: 'referral-module',
+      label: 'Referral Module'
+    },
+    {
+      name: 'review-module',
+      label: 'Review Module'
     }
 
     // Add more page types here, but make sure you create a corresponding

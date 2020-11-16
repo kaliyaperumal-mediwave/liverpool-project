@@ -1,20 +1,22 @@
 module.exports = {
   extend: 'apostrophe-custom-pages',
-  label: 'About Module',
+  label: 'Referral Module',
   afterConstruct: function (self) {
     self.addDispatchRoutes();
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.about);
+      self.dispatch('/', self.referral);
     };
-    self.about = function (req, callback) {
-      return self.sendPage(req, self.renderer('about', {}));
+    self.referral = function (req, callback) {
+      return self.sendPage(req, self.renderer('referral', {
+        content: "hello",
+        subContent: ""
+      }));
     };
-
     require('../../middleware')(self, options);
-    self.route('post', 'about', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module')+ '/user/about';
+    self.route('post', 'saveReferral', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module')+ '/user/referral';
       console.log("-------");
       console.log(url);
       console.log("-------");
@@ -25,9 +27,8 @@ module.exports = {
          return res.status(error.statusCode).send(error.error);
       });
    });
-
-   self.route('post', 'fetchAbout', function (req, res) {
-    var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module')+ '/user/fetchAbout';
+   self.route('post', 'fetchReferral', function (req, res) {
+    var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module')+ '/user/fetchReferral';
     console.log("-------");
     console.log(url);
     console.log("-------");
@@ -38,6 +39,5 @@ module.exports = {
        return res.status(error.statusCode).send(error.error);
     });
  });
-
   }
 }
