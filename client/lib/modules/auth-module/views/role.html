@@ -78,11 +78,11 @@
             <!-- toster-container start -->
 
             <!-- calender start child-->
-            <div v-if="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
+            <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                <p v-if="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?</p>
+                <p v-if="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth? {{elgibilityObj.maxDate}}</p>
                 <div class="input-group">
-                    <input type="date" max="2020-10-29" class="form-control" name="child"
+                    <input id="txtDateChild" type="date" class="form-control" name="child"
                         v-model="elgibilityObj.childDob" @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>
@@ -91,11 +91,11 @@
             <!-- calendar-end  child-->
 
             <!-- calender start parent-->
-            <div v-if="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'"
+            <div v-show="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
                 <div class="input-group">
-                    <input type="date" max="2020-10-29" class="form-control" name="parent"
+                    <input id="txtDateParent" type="date"  class="form-control" name="parent"
                         v-model="elgibilityObj.childDob" @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>
@@ -326,11 +326,11 @@
             <!-- Professional Info End -->
 
             <!-- calender start-->
-            <div v-if="elgibilityObj.role == 'professional'"
+            <div v-show="elgibilityObj.role == 'professional'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
                 <div class="input-group">
-                    <input type="date" max="currentDate" class="form-control" v-model="elgibilityObj.profChildDob"
+                    <input id="txtDateProf" type="date" class="form-control" v-model="elgibilityObj.profChildDob"
                         @change="changeDob($event)" name="prof">
                     <div class="input-group-addon">
                     </div>
@@ -511,7 +511,7 @@
             <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes'"
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
-                    <label for="gpLocation" class="question-font">Which GP are you registered with?</label>
+                    <label for="gpLocation" class="question-font">Which GP is the child / young person registered with?</label>
                     <div class="input-group">
                         <input type="text" class="form-control" v-model="elgibilityObj.profRegisterd_gp"
                             @focus="getProfAddress($event)" id="gpProfLocation" aria-label="location">
