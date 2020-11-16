@@ -4,6 +4,7 @@
 @import "checkbox";
 @import "button";
 @import "inputs";
+@import "modal";
 
 $primary-header-color: #8ecae6;
 $sub-header-color: #012f46;
@@ -120,7 +121,7 @@ body {
 }
 
 .btn-modal-text {
-  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
+  @include set-titleStyles($modalbtn-font-size, bold, #0b181e);
 }
 
 .footer-text {
@@ -154,6 +155,11 @@ body {
 .toster-container {
   @include set-background($tertiary-color, 1);
   border-radius: 24px;
+}
+
+.modal-bg {
+  @include set-background($tertiary-color, 1);
+  border-radius: 24px !important;
 }
 
 .secondary-content-bg {
@@ -226,11 +232,6 @@ body {
 
 .main-min-height {
   min-height: 603px !important;
-}
-
-.modal-bg {
-  background: #ffb837 0% 0% no-repeat padding-box;
-  opacity: 1;
 }
 
 .img-class {
