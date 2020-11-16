@@ -171,7 +171,6 @@ $(document).ready(function () {
                 if (questionIdentifier === 'support') {
                     if (optionsName.support === 'mentalHealth' || optionsName.support === 'eatingDisorder' || optionsName.support === 'bothMental&Eating') {
                         this.resetValues(event.target.form);
-                        this.scrollToNextQuestion(allForms[formIndex+1]);
                     }
                 } else if (questionIdentifier === 'covidReferal') {
                     if (optionsName.covid === 'unsure' || optionsName.covid === 'yes' || optionsName.covid === 'no') {
@@ -552,13 +551,6 @@ $(document).ready(function () {
             },
 
             upsertReferralForm(payload) {
-                // this.sendObj.role = new URL(location.href).searchParams.get('role');
-                // this.sendObj.services = this.listOfAvailableService
-                // this.sendObj.mentalDiagnosis = this.listOfDiagnosis;
-                // this.sendObj.symptoms = this.listOfDiagnosis;
-                // this.sendObj.referralData = this.referralData;
-                // this.sendObj.userid = new URL(location.href).searchParams.get('userid');
-                // console.log(this.sendObj);
                 $.ajax({
                     url: API_URI + "/saveReferral",
                     type: 'post',
