@@ -207,10 +207,10 @@
                             referral issues. (Please include how long this has been an issue and how it is impacting
                             your day-to-day life).</label>
                         <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
-                            v-model="referralData.referralInfo" @keyup="validationOnValueEnter($event,'info')" rows="4"></textarea>
+                            v-model="referralData.referralInfo" @keyup="validationOnValueEnter($event,'info')"
+                            rows="4"></textarea>
                         <div class="invalid-feedback d-none"
-                            v-bind:class="{ 'd-block': requiredFields.hasInfoReqError,'invalid-fields':!referralData.referralInfo }"
-                            >
+                            v-bind:class="{ 'd-block': requiredFields.hasInfoReqError,'invalid-fields':!referralData.referralInfo }">
                             Please provide a information
                         </div>
                     </div>
@@ -225,7 +225,8 @@
                     <div class="form-group py-1">
                         <label for="textInfo2" class="question-font">Has anything helped?</label>
                         <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
-                            v-model="referralData.hasAnythingInfo" @keyup="validationOnValueEnter($event,'anything')" rows="4"></textarea>
+                            v-model="referralData.hasAnythingInfo" @keyup="validationOnValueEnter($event,'anything')"
+                            rows="4"></textarea>
                         <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': requiredFields.hasAnythingReqError,'invalid-fields':!referralData.hasAnythingInfo }">
                             Please provide a information
@@ -242,7 +243,8 @@
                     <div class="form-group py-1">
                         <label for="textInfo3" class="question-font">Do you have any particular triggers?</label>
                         <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
-                            v-model="referralData.triggerInfo" @keyup="validationOnValueEnter($event,'triggers')" rows="4"></textarea>
+                            v-model="referralData.triggerInfo" @keyup="validationOnValueEnter($event,'triggers')"
+                            rows="4"></textarea>
                         <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': requiredFields.hasTriggersReqError ,'invalid-fields':!referralData.triggerInfo}">
                             Please provide a information
@@ -264,8 +266,8 @@
                             <label for="disability" class="question-font">Do you have any disabilities, difficulties or
                                 challenging behaviours (diagnosed or under investigation)?</label>
                             <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
-                                v-model="referralData.disabilityOrDifficulty" @keyup="validationOnValueEnter($event,'disabilities')"
-                                rows="5"></textarea>
+                                v-model="referralData.disabilityOrDifficulty"
+                                @keyup="validationOnValueEnter($event,'disabilities')" rows="5"></textarea>
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': requiredFields.hasHistoryReqError, 'invalid-fields':!referralData.disabilityOrDifficulty}">
                                 Please provide a information
@@ -381,9 +383,9 @@
                             <form id="add-service-form">
                                 <div class="form-group">
                                     <label for="service-name" class="question-font">Name of service</label>
-                                    <input type="text" class="form-control" @keyup="validateServiceOnValueEnter($event,'name')"
-                                        v-model="serviceData.name" id="service-name"
-                                        placeholder="Enter the name of the service you have used">
+                                    <input type="text" class="form-control"
+                                        @keyup="validateServiceOnValueEnter($event,'name')" v-model="serviceData.name"
+                                        id="service-name" placeholder="Enter the name of the service you have used">
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': serviceData.hasNameReqError }">
                                         Please provide a service name.
@@ -405,8 +407,9 @@
                                         number for
                                         professional</label>
                                     <input type="text" class="form-control"
-                                        @keyup="validateServiceOnValueEnter($event,'contact')" v-model="serviceData.contact"
-                                        id="contactNumber" placeholder="Enter a phone number for the professional">
+                                        @keyup="validateServiceOnValueEnter($event,'contact')"
+                                        v-model="serviceData.contact" id="contactNumber"
+                                        placeholder="Enter a phone number for the professional">
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': serviceData.hasContactReqError }">
                                         Please provide a contact number.
