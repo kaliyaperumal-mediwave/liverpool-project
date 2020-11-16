@@ -36,7 +36,7 @@
                             Mental health
                         </label>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-lg-3 px-2 pb-3 cursor-pointer"
-                            alt="">
+                            data-toggle="modal" data-target="#mentalConsentModal" alt="">
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
@@ -462,7 +462,42 @@
                 </a>
             </div>
 
-
+            <!-- support content modal start -->
+            <div class="modal fade" id="mentalConsentModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="px-2 py-4">
+                            <p class="text-center m-0 cursor-pointer"><img
+                                    src="/modules/my-apostrophe-assets/img/support.svg" alt="logo" class="support-logo">
+                            </p>
+                            <h3 class="px-4 py-2 pb-2 support-modal-header-text text-center">
+                                Mental health is a broad term covering many different conditions.</h3>
+                            <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
+                                <h3 class="support-modal-content-text text-left py-2"> Mental health problems can affect
+                                    the way you
+                                    think, feel and behave. They range from common mental health problems (such as
+                                    depression and anxiety) to more rare problems (such as schizophrenia and bipolar
+                                    disorder).
+                                </h3>
+                                <h3 class="support-modal-content-text text-left py-2"> Depending on which mental health
+                                    condition they
+                                    have, people may feel tired, sad, helpless, angry or agitated all the time. They
+                                    might make irrational decisions such as spending too much money, having
+                                    inappropriate relationships, or they might feel like life just isn’t worth living.
+                                </h3>
+                                <h3 class="support-modal-content-text text-left py-2"> Mental health can also cause
+                                    physical symptoms,
+                                    for example, fatigue, bed wetting or
+                                    outbursts of anger.
+                                </h3>
+                                <p class="link-text cursor-pointer text-left m-0 py-2"> > Find out more about mental
+                                    health</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- support content modal end -->
         </div>
     </div>
 </div>

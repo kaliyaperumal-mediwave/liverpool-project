@@ -26,6 +26,10 @@ module.exports = {
     {
       name: 'referral-module',
       label: 'Referral Module'
+    },
+    {
+      name: 'review-module',
+      label: 'Review Module'
     }
 
     // Add more page types here, but make sure you create a corresponding

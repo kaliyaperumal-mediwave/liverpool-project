@@ -54,6 +54,9 @@ body {
   .ui-widget.ui-widget-content {
     border: none !important;
   }
+  .dropdown-divider {
+    border-top: 1px solid $primary-color !important;
+  }
 
   .h-112 {
     height: 112px !important;
@@ -101,6 +104,14 @@ body {
 
 .hint-text {
   @include set-titleStyles($quinary-font-size, bold, $primary-color);
+}
+
+.support-modal-header-text {
+  @include set-titleStyles($support-header-font-size, bold, $primary-color);
+}
+
+.support-modal-content-text {
+  @include set-titleStyles($support-content-font-size, bold, $primary-color);
 }
 
 .link-text {
