@@ -29,18 +29,6 @@ $(document).ready(function () {
         mounted: function () {
 
             this.getGP();
-         // this.maxDate=this.restrictDate();
-        
-         this.elgibilityObj.maxDate = "2020-10-29";
-       
-          //  console.log( this.elgibilityObj.maxDate);
-          //  document.getElementById("txtDate").setAttribute("max", this.restrictDate());
-          
-           // document.getElementsByName("date")[0].setAttribute('max', this.restrictDate())
-           // this.getUrlVars()["edt"]
-         //   console.log(this.getUrlVars()["edt"]);
-           
-           // location.href = "/about?userid=" + "11444" + "&role=" + "child"; 
             if(this.getUrlVars()["edt"]==1)
             {
                 this.fetchSavedData()

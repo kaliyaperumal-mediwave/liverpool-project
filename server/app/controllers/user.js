@@ -23,21 +23,21 @@ exports.eligibility = ctx => {
         { uuid: ctx.request.body.uuid }
     }
     ).then((childUserInfo) => {
-        childUserInfo.setType("1")
+      //  childUserInfo.setType("1")
         const responseData = {
           userid: ctx.request.body.uuid,
           status: "ok",
         }
         return ctx.body = responseData;
       }).catch((error) => {
-  
+  console.log(error)
       });
     }
     else
     {
       return user.create({
         need_interpreter: ctx.request.body.interpreter,
-      //  child_dob: ctx.request.body.childDob,
+        child_dob: ctx.request.body.childDob,
         contact_parent: ctx.request.body.contactParent,
         consent_child:ctx.request.body.isInformation,
         registerd_gp: ctx.request.body.registerd_gp,

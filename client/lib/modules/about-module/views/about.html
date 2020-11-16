@@ -170,14 +170,14 @@
                     happy for post to be sent to this address?</p>
                 <div class="form-check pt-3 pb-1 pl-0">
                     <input class="form-check-input" type="radio" id="no" value="no" name="sendPost"
-                        v-model="aboutObj.sendPost">
+                        v-model="aboutObj.sendPost" @change="onChange($event)">
                     <label class="form-check-label option-font d-flex align-items-center" for="no">
                         No
                     </label>
                 </div>
                 <div class="form-check  py-2 pl-0">
                     <input class="form-check-input" type="radio" name="sendPost" id="yes" value="yes"
-                        v-model="aboutObj.sendPost">
+                        v-model="aboutObj.sendPost" @change="onChange($event)">
                     <label class="form-check-label option-font d-flex align-items-center" for="yes">
                         Yes
                     </label>
@@ -330,7 +330,7 @@
                 /young
                 person’s household
             </h2>
-            <div v-if="labelToDisplay =='child'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-show="labelToDisplay =='child'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group py-2 my-2">
                     <label for="Name" class="question-font">Name of who you live with - optional</label>
                     <input type="text" class="form-control" id="Name" placeholder="Joe Blogs"
@@ -350,7 +350,7 @@
                 <div class="form-group">
                     <p class="question-font m-0">What is your date of birth?</p>
                     <div class="input-group py-2 my-2">
-                        <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="aboutObj.childHouseHoldDob"
+                        <input type="date" id="txtHseDobChild" class="form-control" name="child" v-model="aboutObj.childHouseHoldDob"
                             @change="changeDob($event)">
                         <div class="input-group-addon">
                         </div>
@@ -367,7 +367,7 @@
                 <p class="text-right add-more-hint m-0">Add more +</p>
             </div>
 
-            <div v-if="labelToDisplay =='parent'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-show="labelToDisplay =='parent'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group py-2 my-2">
                     <label for="Name" class="question-font">Name of who your child lives with - optional</label>
                     <input type="text" class="form-control" id="Name" placeholder="Joe Blogs"
@@ -387,7 +387,7 @@
                 <div class="form-group py-2 my-2">
                     <p class="question-font m-0">Date of birth- optional</p>
                     <div class="input-group">
-                        <input type="date"  max="2020-10-29" class="form-control" name="child" v-model="aboutObj.childDob"
+                        <input type="date"  id="txtHseDobParent" class="form-control" name="child" v-model="aboutObj.childDob"
                             @change="changeDob($event)">
                         <div class="input-group-addon">
                         </div>
@@ -404,7 +404,7 @@
                 <p class="text-right add-more-hint m-0">Add more +</p>
             </div>
             <!----professional details start---->
-            <div v-if="labelToDisplay =='professional'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div v-show="labelToDisplay =='professional'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group py-2 my-2">
                     <label for="Name" class="question-font">Name of who the child / young person lives with -
                         optional</label>
@@ -427,7 +427,7 @@
                     <p class="question-font m-0">Date of birth of the person the child / young person lives with -
                         optional</p>
                     <div class="input-group">
-                        <input type="date" max="2020-10-29"  class="form-control" name="child" v-model="aboutObj.childDob"
+                        <input type="date" id="txtHseDobProf"  class="form-control" name="child" v-model="aboutObj.childDob"
                             @change="changeDob($event)">
                         <div class="input-group-addon">
                         </div>
