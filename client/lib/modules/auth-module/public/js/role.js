@@ -22,17 +22,13 @@ $(document).ready(function () {
             hasEmailInvalidError: false,
             isSubmitted: false,
             edFlag:false,
-            sendObj:{}
+            sendObj:{},
+            maxDate:""
         },
 
         mounted: function () {
 
             this.getGP();
-            //console.log(roleType);
-           // this.getUrlVars()["edt"]
-         //   console.log(this.getUrlVars()["edt"]);
-           
-           // location.href = "/about?userid=" + "11444" + "&role=" + "child"; 
             if(this.getUrlVars()["edt"]==1)
             {
                 this.fetchSavedData()
@@ -160,11 +156,25 @@ $(document).ready(function () {
 
             onChange :function(event) {
 
+                var optionText = event.target.name;
+                console.log(this.elgibilityObj.role);
+                var today = this.restrictDate();
+                if(optionText=="interpreter" && this.elgibilityObj.role=="child")
+                {
+                    document.getElementById("txtDateChild").setAttribute("max", today);
+                }
+                else if(optionText=="interpreter" && this.elgibilityObj.role=="parent")
+                {
+                   
+                    document.getElementById("txtDateParent").setAttribute("max", today);
+                }
+                else if(this.elgibilityObj.role=="professional")
+                {
+                   
+                     document.getElementById("txtDateProf").setAttribute("max", today);
+                }
                 var fType = this.getUrlVars()["role"];
                 console.log(fType);
-
-                var optionText = event.target.name;
-                console.log(optionText);
                 if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
                     console.log(optionText);
                     this.elgibilityObj.interpreter = "";
@@ -223,6 +233,11 @@ $(document).ready(function () {
                     this.submitProfForm = "false";
                 }
                 
+                if (optionText == "contactProfParent" && this.elgibilityObj.parentConcernInformation != undefined) {
+                    this.elgibilityObj.profRegisterd_gp = "";
+                    this.elgibilityObj.parentConcernInformation = "";
+                    this.submitProfForm = "false";
+                }
 
                 if (optionText == "parentConcernSelect") {
                     this.getProfGP();
@@ -240,6 +255,8 @@ $(document).ready(function () {
                     }
                 }
 
+        
+
                 // if (optionText == "parentConcernSelect") {
                 //     this.getProfGP();
                 //     var selectTxt = event.target.value
@@ -254,19 +271,21 @@ $(document).ready(function () {
             },
 
             getAddress:function(e) {
-                $("#gpLocation").on("autocompleteclose", function (event, ui) {
-                    console.log('this', _self, app);
+                $("#gpLocation").on("autocompleteselect", function (event, ui) {
+
+                    console.log(ui.item.label);
                     if (e.target.value === '') {
                         app.submitForm = "false";
                     } else {
-                        app.elgibilityObj.registerd_gp = e.target.value
+                        console.log(e.target.value);
+                        app.elgibilityObj.registerd_gp = ui.item.label
                         app.submitForm = "true";
                     }
                 });
             },
 
             getProfAddress:function(e) {
-                $("#gpProfLocation").on("autocompleteclose", function (event, ui) {
+                $("#gpProfLocation").on("autocompleteselect", function (event, ui) {
                     console.log('this', _self, app);
                     if (e.target.value === '') {
                         app.submitProfForm = "false";
@@ -622,7 +641,26 @@ $(document).ready(function () {
 
               
                 return vars;
-              }
+              },
+
+            restrictDate:function(){
+
+                var dtToday = new Date();
+
+                var month = dtToday.getMonth() + 1;
+                var day = dtToday.getDate();
+                var year = dtToday.getFullYear();
+
+                if(month < 10)
+                    month = '0' + month.toString();
+                if(day < 10)
+                    day = '0' + day.toString();
+
+                var currentDate = year + '-' + month + '-' + day;
+
+                return currentDate;
+
+            }
 
         }
     })

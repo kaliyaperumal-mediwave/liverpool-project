@@ -18,31 +18,46 @@ $(document).ready(function () {
             sendObj:{}
         },
         mounted: function () {
-
-
-            var roleType = this.getUrlVars()["role"]
-         //   console.log(roleType);
-            
             var _self = this;
             var roleType = _self.getUrlVars()["role"]
             _self.headerToDisplay = roleType;
             _self.labelToDisplay =  roleType;
-
-            //_self.initialize();
-
            
             google.maps.event.addDomListener(window, 'load', _self.initialize);
-
+          
             if(_self.getUrlVars()['edt']==1)
             {
                 _self.fetchSavedData()
             }
             else
             {
+
+                
                 console.log("if else")
             }
+
+           
         },
         methods: {
+
+            setMaxDate:function()
+            {
+                var roleType = this.getUrlVars()["role"]
+                var today = this.restrictDate();
+                if(roleType=="child")
+                {
+                    console.log("--------------")
+                    document.getElementById("txtHseDobChild").setAttribute("max", today);
+                }
+                else if(roleType=="parent")
+                {
+                    document.getElementById("txtHseDobParent").setAttribute("max", today);
+                }
+                else if(roleType=="professional")
+                {
+                    document.getElementById("txtHseDobProf").setAttribute("max", today);
+                }
+            },
             fetchSavedData:function(){
                 console.log("if")
                 this.sendObj.uuid= this.getUrlVars()['userid'];
@@ -165,7 +180,6 @@ $(document).ready(function () {
                 location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
             },
             initialize:function() {
-                console.log("google map");
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
@@ -187,6 +201,7 @@ $(document).ready(function () {
                     document.getElementById("showAdBtn").style.display = "block";
                 });
 
+               // this.setMaxDate();
                 // var autoCompleteSchClg;
                 // autoCompleteSchClg = new google.maps.places.Autocomplete((document.getElementById('txtEmpClg')), {
                 //     types: ['geocode'],
@@ -194,11 +209,16 @@ $(document).ready(function () {
                 // google.maps.event.addListener(autoCompleteSchClg, 'place_changed', function () {
                 //     _self.empClgSchool = autoCompleteSchClg.getPlace().formatted_address;
                 // });
-
+                _self.setMaxDate();
             },
 
             onChange:function(event) {
                 var optionTxt=event.target.name;
+
+                if(optionTxt=="sendPost")
+                {
+                    this.setMaxDate();
+                }
 
                 if(optionTxt=="parentialResponsibility")
                 {
@@ -238,9 +258,6 @@ $(document).ready(function () {
 
             },
             changeDob:function(event) {
-
-
-
                 var today = new Date();
                 var selectedDate = new Date(event.target.value);
                 var age = this.diff_years(today, selectedDate);
@@ -327,7 +344,26 @@ $(document).ready(function () {
     
               
                 return vars;
-              }
+              },
+
+              restrictDate:function(){
+
+                var dtToday = new Date();
+
+                var month = dtToday.getMonth() + 1;
+                var day = dtToday.getDate();
+                var year = dtToday.getFullYear();
+
+                if(month < 10)
+                    month = '0' + month.toString();
+                if(day < 10)
+                    day = '0' + day.toString();
+
+                var currentDate = year + '-' + month + '-' + day;
+
+                return currentDate;
+
+            }
         }
 
     })
