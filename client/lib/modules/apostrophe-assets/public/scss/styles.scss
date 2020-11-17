@@ -108,11 +108,11 @@ body {
 }
 
 .support-modal-header-text {
-  @include set-titleStyles($support-header-font-size, bold, $primary-color);
+  @include set-titleStyles($support-header-font-size, bold, $modal-text-color);
 }
 
 .support-modal-content-text {
-  @include set-titleStyles($support-content-font-size, bold, $primary-color);
+  @include set-titleStyles($support-content-font-size, bold, $modal-text-color);
 }
 
 .link-text {

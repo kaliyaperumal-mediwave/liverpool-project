@@ -4,12 +4,13 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#referral-form',
         mounted: function () {
+            this.dynamicLabels = allLabels;
             this.userMode = this.getQueryStringValue('mode');
             this.userRole = this.getQueryStringValue('role');
             this.userId = this.getQueryStringValue('userId');
+            console.log('role', this.userRole);
             if (this.userMode === 'edit') {
                 this.patchValue();
-
             }
             if(this.getUrlVars()['edt']==1)
             {
@@ -36,6 +37,7 @@ $(document).ready(function () {
                 //isAccessingService: '',
                 listService: '',
             },
+            dynamicLabels: {},
             requiredFields: {
                 hasInfoReqError: false,
                 hasAnythingReqError: false,
@@ -62,7 +64,8 @@ $(document).ready(function () {
                 contact: null,
                 hasNameReqError: false,
                 hasProfReqError: false,
-                hasContactReqError: false
+                hasContactReqError: false,
+                hasContactInvalidError: false
             },
             isFormSubmitted: false,
             serviceOthers: [],
@@ -291,8 +294,15 @@ $(document).ready(function () {
                 console.log('all service', this.allAvailableService);
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
+                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 if (serviceForm.mode === 'update') {
                     if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
+                        if (!phoneRegex.test(this.professionObj.socialWorkerContactNumber)) {
+                            this.hasContactInvalidError = true;
+                            return false;
+                        } else {
+                            this.hasContactInvalidError = false;
+                        }
                         this.allAvailableService = this.allAvailableService.map(function (it) {
                             if (it.mode === 'update' && it.id === serviceForm.id) {
                                 it = JSON.parse(JSON.stringify(serviceForm));
@@ -328,6 +338,12 @@ $(document).ready(function () {
                     serviceForm.mode = 'add';
                 }
                 if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
+                    if (!phoneRegex.test(serviceForm.contact)) {
+                        serviceForm.hasContactInvalidError = true;
+                        return false;
+                    } else {
+                        this.hasContactInvalidError = false;
+                    }
                     this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
                     console.log('after added service', this.allAvailableService);
                     this.resetModalValues();
@@ -410,7 +426,8 @@ $(document).ready(function () {
             //VALIDATION LOGIC FOR SERVICE MODAL WHILE ENTERING VALUES ON INPUT FILEDS
             validateServiceOnValueEnter(e, type) {
                 console.log(e)
-                var serviceForm = this.serviceData
+                var serviceForm = this.serviceData;
+                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 if (this.hasSubmittedServiceForm) {
                     if (type === 'name') {
                         if (!e.target.value) {
@@ -428,7 +445,13 @@ $(document).ready(function () {
                     else if (type === 'contact') {
                         if (!e.target.value) {
                             serviceForm.hasContactReqError = true;
+                            serviceForm.hasContactInvalidError = false;
                         } else {
+                            if (!phoneRegex.test(e.target.value)) {
+                                serviceForm.hasContactInvalidError = true;
+                            } else {
+                                serviceForm.hasContactInvalidError = false;
+                            }
                             serviceForm.hasContactReqError = false;
                         }
                     }
