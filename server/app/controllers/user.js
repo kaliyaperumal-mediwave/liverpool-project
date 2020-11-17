@@ -1,3 +1,4 @@
+const P = require("pino");
 
 
 
@@ -1050,197 +1051,295 @@ exports.fetchProfession = ctx => {
 //Section 4
 
 exports.saveReferal = ctx => {
+
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral
 
   if (ctx.request.body.role == "professional") {
-   
-    return user.findOne({
-      where: {
-        uuid: ctx.request.body.userid,
-      },
-      attributes: ['id', 'uuid']
-    }).then((result) => {
 
-      return user.findAll({
-        include: [
-          {
-            model: ctx.orm().User,
-            nested: true,
-            as: 'professional',
-          },
-        ],
-        where: {
-          id: result.id,
-        },
-      }).then((userResult) => {
-
-      //  console.log(userResult[0].professional[0].ChildProfessional.professionalId)
-
-        var childId = userResult[0].professional[0].ChildProfessional.professionalId
-
-        return referral.create(
-          {
-            referral_type: ctx.request.body.referralData.support,
-            is_covid: "professional",
-            mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-            mental_symptoms_supportneeds:ctx.request.body.symptoms,
-            diagnosis:ctx.request.body.symptoms,
-            symptoms_supportneeds:ctx.request.body.referralData.support,
-            referral_issues:ctx.request.body.referralData.support,
-            has_anything_helped:ctx.request.body.referralData.support,
-            any_particular_trigger:ctx.request.body.referralData.support,
-            disabilities:ctx.request.body.referralData.support,
-            any_other_services:ctx.request.body.referralData.support,
-            local_services:ctx.request.body.referralData.support,
-            currently_accessing_services:ctx.request.body.referralData.support,
-            services:ctx.request.body.services
-          },
-        ).then((fetchResult) => {
-          result.setReferral(childId)
-          return referral.findOne({
-            where: {
-              id: fetchResult.id,
-            },
-            //attributes: ['id', 'uuid']
-          }).then((sendResult) => {
-            
-          //  return ctx.body = sendResult;
-            const responseData = {
-              userid: ctx.request.body.userid,
-              data: sendResult,
-              status: "ok",
-              role: ctx.request.body.role
-            }
-            return ctx.body = responseData;
-          })
-        })
-      })
-
-    })
-  }
-  else if (ctx.request.body.role == "parent") {
-    return user.findOne({
-      where: {
-        uuid: ctx.request.body.userid,
-      },
-      attributes: ['id', 'uuid']
-    }).then((result) => {
-
-      return user.findAll({
-        include: [
-          {
-            model: ctx.orm().User,
-            nested: true,
-            as: 'parent',
-          },
-        ],
-        where: {
-          id: result.id,
-        },
-      }).then((userResult) => {
-        //  console.log(userResult);
-        console.log(userResult[0].parent[0].ChildParents.parentId)
-        var childId = userResult[0].parent[0].ChildParents.parentId
-        return referral.create(
-          {
-            referral_type: ctx.request.body.referral_type,
-             is_covid: "parent",
-             mental_diagnosis: ctx.request.body.mentalDiagnosis,
-             mental_symptoms_supportneeds:ctx.request.body.symptoms,
-            // eating_diagnosis:ctx.request.body.isInformation,
-            // symptoms_supportneeds: ctx.request.body.registerd_gp,
-            services:ctx.request.body.services,
-          },
-        ).then((fetchResult) => {
-          result.setReferral(childId)
-          return referral.findOne({
-            where: {
-              id: fetchResult.id,
-            },
-            //attributes: ['id', 'uuid']
-          }).then((sendResult) => {
-            
-          //  return ctx.body = sendResult;
-            const responseData = {
-              userid: ctx.request.body.userid,
-              data: sendResult,
-              status: "ok",
-              role: ctx.request.body.role
-            }
-            return ctx.body = responseData;
-          })
-        })
-
-      })
-
-    })
-  }
-
-  else if (ctx.request.body.role == "child") {
-
-    console.log("//--------------------");
-    return user.findOne({
-      where: {
-        uuid: ctx.request.body.userid,
-      },
-      attributes: ['id', 'uuid']
-    }).then((result) => {
-
-      return referral.create(
+    if(ctx.request.body.editFlag!=null)
+    {
+      return referral.update(
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
-
           mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-
-    //      mental_symptoms_supportneeds:ctx.request.body.symptoms,
-          diagnosis:ctx.request.body.selectedDiagnosis,//--------------------diagnosis list for both mental and eating
-
+          diagnosis:ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           diagnosis_other: ctx.request.body.referralData.diagnosisOther,
-
           symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
-
-          symptoms : ctx.request.body.selectedSymptoms,//--------------------symptoms list for both mental and eating 
-
+          symptoms : ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
           symptoms_other: ctx.request.body.referralData.problemsOther,
-
           referral_issues:ctx.request.body.referralData.referralInfo,
-
           has_anything_helped:ctx.request.body.referralData.hasAnythingInfo,
-
           any_particular_trigger:ctx.request.body.referralData.triggerInfo,
-
           disabilities:ctx.request.body.referralData.disabilityOrDifficulty,
-
           any_other_services:ctx.request.body.referralData.accessService,
-
-       //   local_services:ctx.request.body.referralData.support,//---------->checkbox
-
-          currently_accessing_services:ctx.request.body.referralData.isAccessingService
-          ,
-      //    services:ctx.request.body.services//------------->dynamic add service for only child
+          local_services:ctx.request.body.accessList,//---------->checkbox
+          currently_accessing_services:ctx.request.body.referralData.isAccessingService,
+          services:ctx.request.body.allAvailableService//------------->dynamic add service for only child
         },
-      ).then((fetchResult) => {
-
-
-        result.setReferral(fetchResult.id)
-
-        return referral.findOne({
+        {
+          where:
+            { id: ctx.request.body.id }
+        }
+      ).then((result) => {
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+      })
+    }
+    else
+    {
+      return user.findOne({
+        where: {
+          uuid: ctx.request.body.userid,
+        },
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+  
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'professional',
+            },
+          ],
           where: {
-            id: fetchResult.id,
+            id: result.id,
           },
-        }).then((sendResult) => {
-          const responseData = {
-            userid: ctx.request.body.userid,
-            data: sendResult,
-            status: "ok",
-            role: ctx.request.body.role
-          }
-          return ctx.body = responseData;
+        }).then((userResult) => {
+  
+        //  console.log(userResult[0].professional[0].ChildProfessional.professionalId)
+  
+          var childId = userResult[0].professional[0].ChildProfessional.professionalId
+  
+          return referral.create(
+            {
+              referral_type: ctx.request.body.referralData.support,
+            is_covid: ctx.request.body.referralData.covid,
+            mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+            diagnosis:ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+            diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+            symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
+            symptoms : ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+            symptoms_other: ctx.request.body.referralData.problemsOther,
+            referral_issues:ctx.request.body.referralData.referralInfo,
+            has_anything_helped:ctx.request.body.referralData.hasAnythingInfo,
+            any_particular_trigger:ctx.request.body.referralData.triggerInfo,
+            disabilities:ctx.request.body.referralData.disabilityOrDifficulty,
+            any_other_services:ctx.request.body.referralData.accessService,
+            local_services:ctx.request.body.accessList,//---------->checkbox
+            currently_accessing_services:ctx.request.body.referralData.isAccessingService,
+            services:ctx.request.body.allAvailableService//------------->dynamic add service for only child
+            },
+          ).then((fetchResult) => {
+            result.setReferral(fetchResult.id)
+            return referral.findOne({
+              where: {
+                id: fetchResult.id,
+              },
+              //attributes: ['id', 'uuid']
+            }).then((sendResult) => {
+              
+            //  return ctx.body = sendResult;
+              const responseData = {
+                userid: ctx.request.body.userid,
+                data: sendResult,
+                status: "ok",
+                role: ctx.request.body.role
+              }
+              return ctx.body = responseData;
+            })
+          })
+        })
+  
+      })
+    }
+  }
+  else if (ctx.request.body.role == "parent") {
+    if(ctx.request.body.editFlag!=null)
+    {
+      return referral.update(
+        {
+          referral_type: ctx.request.body.referralData.support,
+          is_covid: ctx.request.body.referralData.covid,
+          mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+          diagnosis:ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+          diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+          symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
+          symptoms : ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+          symptoms_other: ctx.request.body.referralData.problemsOther,
+          referral_issues:ctx.request.body.referralData.referralInfo,
+          has_anything_helped:ctx.request.body.referralData.hasAnythingInfo,
+          any_particular_trigger:ctx.request.body.referralData.triggerInfo,
+          disabilities:ctx.request.body.referralData.disabilityOrDifficulty,
+          any_other_services:ctx.request.body.referralData.accessService,
+          local_services:ctx.request.body.accessList,//---------->checkbox
+          currently_accessing_services:ctx.request.body.referralData.isAccessingService,
+          services:ctx.request.body.allAvailableService//------------->dynamic add service for only child
+        },
+        {
+          where:
+            { id: ctx.request.body.id }
+        }
+      ).then((result) => {
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+      })
+    }
+    else
+    {
+      console.log("333");
+      return user.findOne({
+        where: {
+          uuid: ctx.request.body.userid,
+        },
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+  
+        return user.findAll({
+          include: [
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'parent',
+            },
+          ],
+          where: {
+            id: result.id,
+          },
+        }).then((userResult) => {
+          //  console.log(userResult);
+          console.log(userResult[0].parent[0].ChildParents.parentId)
+          var childId = userResult[0].parent[0].ChildParents.parentId
+          return referral.create(
+            {
+              referral_type: ctx.request.body.referralData.support,
+            is_covid: ctx.request.body.referralData.covid,
+            mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+            diagnosis:ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+            diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+            symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
+            symptoms : ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+            symptoms_other: ctx.request.body.referralData.problemsOther,
+            referral_issues:ctx.request.body.referralData.referralInfo,
+            has_anything_helped:ctx.request.body.referralData.hasAnythingInfo,
+            any_particular_trigger:ctx.request.body.referralData.triggerInfo,
+            disabilities:ctx.request.body.referralData.disabilityOrDifficulty,
+            any_other_services:ctx.request.body.referralData.accessService,
+            local_services:ctx.request.body.accessList,//---------->checkbox
+            currently_accessing_services:ctx.request.body.referralData.isAccessingService,
+            services:ctx.request.body.allAvailableService//------------->dynamic add service for only child
+            },
+          ).then((fetchResult) => {
+            result.setReferral(fetchResult.id)
+            const responseData = {
+              userid: ctx.request.body.userid,
+              status: "ok",
+              role: ctx.request.body.role
+            }
+            return ctx.body = responseData;
+          })
+  
+        })
+  
+      })
+    }
+    
+  }
+
+  else if (ctx.request.body.role == "child") {
+    if(ctx.request.body.editFlag!=null)
+    {
+      return referral.update(
+        {
+          referral_type: ctx.request.body.referralData.support,
+          is_covid: ctx.request.body.referralData.covid,
+          mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+          diagnosis:ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+          diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+          symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
+          symptoms : ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+          symptoms_other: ctx.request.body.referralData.problemsOther,
+          referral_issues:ctx.request.body.referralData.referralInfo,
+          has_anything_helped:ctx.request.body.referralData.hasAnythingInfo,
+          any_particular_trigger:ctx.request.body.referralData.triggerInfo,
+          disabilities:ctx.request.body.referralData.disabilityOrDifficulty,
+          any_other_services:ctx.request.body.referralData.accessService,
+          local_services:ctx.request.body.accessList,//---------->checkbox
+          currently_accessing_services:ctx.request.body.referralData.isAccessingService,
+          services:ctx.request.body.allAvailableService//------------->dynamic add service for only child
+        },
+        {
+          where:
+            { id: ctx.request.body.id }
+        }
+      ).then((result) => {
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+      })
+    }
+    else
+    {
+      return user.findOne({
+        where: {
+          uuid: ctx.request.body.userid,
+        },
+        attributes: ['id', 'uuid']
+      }).then((result) => {
+  
+        return referral.create(
+          {
+            referral_type: ctx.request.body.referralData.support,
+            is_covid: ctx.request.body.referralData.covid,
+            mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+            diagnosis:ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+            diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+            symptoms_supportneeds:ctx.request.body.referralData.supportOrSymptoms,
+            symptoms : ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+            symptoms_other: ctx.request.body.referralData.problemsOther,
+            referral_issues:ctx.request.body.referralData.referralInfo,
+            has_anything_helped:ctx.request.body.referralData.hasAnythingInfo,
+            any_particular_trigger:ctx.request.body.referralData.triggerInfo,
+            disabilities:ctx.request.body.referralData.disabilityOrDifficulty,
+            any_other_services:ctx.request.body.referralData.accessService,
+            local_services:ctx.request.body.accessList,//---------->checkbox
+            currently_accessing_services:ctx.request.body.referralData.isAccessingService,
+            services:ctx.request.body.allAvailableService//------------->dynamic add service for only child
+          },
+        ).then((fetchResult) => {
+  
+  
+          result.setReferral(fetchResult.id)
+  
+          return referral.findOne({
+            where: {
+              id: fetchResult.id,
+            },
+          }).then((sendResult) => {
+            const responseData = {
+              userid: ctx.request.body.userid,
+              data: sendResult,
+              status: "ok",
+              role: ctx.request.body.role
+            }
+            return ctx.body = responseData;
+          })
         })
       })
-    })
+    } 
   }
 }
 
@@ -1250,7 +1349,7 @@ exports.fetchReferral = ctx => {
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral
 
-  if (ctx.request.body.role == "child") {
+
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1289,92 +1388,11 @@ exports.fetchReferral = ctx => {
      
 
     })
-  }
-  else if (ctx.request.body.role == "parent") {
-    return user.findOne({
-      where: {
-        uuid: ctx.request.body.userid,
-      },
-      attributes: ['id', 'uuid']
-    }).then((result) => {
-
-      return user.findAll({
-      include: [
-        {
-          model: ctx.orm().User,
-          nested: true,
-          as: 'parent',
-        },
-              ],
-        where: {
-          id: result.id,
-        },
-      }).then((userResult) => {
-        console.log(userResult[0].parent[0].ChildParents.parentId)
-        var childId = userResult[0].parent[0].ChildParents.parentId
-        return referral.findOne(
-          {
-            where: {
-              id: childId,
-            },
-          },
-        ).then((fetchResult) => {
-         // result.setReferral(childId)
-         const responseData = {
-          userid: ctx.request.body.userid,
-            userData: fetchResult,
-            status: "ok",
-            role: ctx.request.body.role
-        }
-        return ctx.body = responseData;
-        })
-
-      })
-
-    })
-  }
-  else if (ctx.request.body.role == "professional") {
-    return user.findOne({
-      where: {
-        uuid: ctx.request.body.userid,
-      },
-      attributes: ['id', 'uuid']
-    }).then((result) => {
-
-      return user.findAll({
-        include: [
-          {
-            model: ctx.orm().User,
-            nested: true,
-            as: 'professional',
-          },
-        ],
-        where: {
-          id: result.id,
-        },
-      }).then((userResult) => {
-     //   console.log(userResult[0].parent[0].ChildParents.parentId)
-       var childId = userResult[0].professional[0].ChildProfessional.professionalId
-        return referral.findOne(
-          {
-            where: {
-              id: childId,
-            },
-          },
-        ).then((fetchResult) => {
-         // result.setReferral(childId)
-         const responseData = {
-          userid: ctx.request.body.userid,
-            userData: fetchResult,
-            status: "ok",
-            role: ctx.request.body.role
-        }
-        return ctx.body = responseData;
-        })
-      })
-
-    })
-  }
+  
+  // else if (ctx.request.body.role == "parent") {
+  // }
+  // else if (ctx.request.body.role == "professional") {
+  // }
 
 }
 

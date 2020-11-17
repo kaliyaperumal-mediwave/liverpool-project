@@ -215,6 +215,7 @@ $(document).ready(function () {
             },
 
             apiRequest: function(payload, role) {
+                var _self = this;
                 $.ajax({
                     url: API_URI + "/education",
                     type: 'post',

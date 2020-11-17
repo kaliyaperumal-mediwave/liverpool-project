@@ -17,7 +17,7 @@ module.exports = function modelReferral(sequelize, types) {
       },
 
       diagnosis_other: {
-        type: types.JSONB
+        type: types.TEXT
       },
       symptoms_supportneeds: {
         type: types.TEXT
@@ -28,7 +28,7 @@ module.exports = function modelReferral(sequelize, types) {
       },
 
       symptoms_other: {
-        type: types.JSONB
+        type: types.TEXT
       },
 
       referral_issues:{

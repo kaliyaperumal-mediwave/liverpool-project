@@ -9,7 +9,7 @@ $(document).ready(function () {
         data: {
             gpListShow: [],
             elgibilityObj: {"childDob":"2020-09-29T00:00:00.000Z"},
-            submitForm: "",
+            submitForm: "true",
             submitProfForm: "",
             belowAgeLimit: "",
             aboveLimit: "",
@@ -121,6 +121,7 @@ $(document).ready(function () {
                         for (i = 0; i < this.gpListShow.length; i++) {
                             gpList.push(this.gpListShow[i].Name)
                         }
+                        gplist=["1","2","3"]
                         $("#gpLocation").autocomplete({
                             source: gpList
                         });
