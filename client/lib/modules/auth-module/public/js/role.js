@@ -9,7 +9,7 @@ $(document).ready(function () {
         data: {
             gpListShow: [],
             elgibilityObj: {"childDob":"2020-09-29T00:00:00.000Z"},
-            submitForm: "true",
+            submitForm: "",
             submitProfForm: "",
             belowAgeLimit: "",
             aboveLimit: "",
@@ -105,6 +105,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj,"contactProfParent",data[0].consent_parent);
                     Vue.set(this.elgibilityObj,"parentConcernInformation",data[0].consent_child);
                     Vue.set(this.elgibilityObj,"profRegisterd_gp",this.bindGpAddress(data[0].professional[0].registerd_gp,this.getUrlVars()["role"]));
+                    $('input[name=role]').attr("disabled",true);
                     this.getProfGP();
                 }
                 

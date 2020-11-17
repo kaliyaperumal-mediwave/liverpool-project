@@ -1406,11 +1406,13 @@ exports.fetchReview = ctx => {
 
   if(ctx.request.body.role=="child")
   {
+
+    //console.log("//Section 5//Section 5//Section 5//Section 5//Section 5");
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
       },
-      attributes: ['id', 'uuid']
+    //  attributes: ['id', 'uuid']
     }).then((result) => {
 
       return user.findOne({
@@ -1436,7 +1438,8 @@ exports.fetchReview = ctx => {
 
           const responseData = {
             userid: ctx.request.body.userid,
-            userData: userResult,
+            childData: result,
+            parentData:userResult.parent,
             referralData:referralResult,
             status: "ok",
             role: ctx.request.body.role
@@ -1454,7 +1457,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.request.body.userid,
       },
-      attributes: ['id', 'uuid']
+    //  attributes: ['id', 'uuid']
     }).then((result) => {
 
       return user.findAll({
@@ -1481,7 +1484,8 @@ exports.fetchReview = ctx => {
          // result.setReferral(childId)
          const responseData = {
           userid: ctx.request.body.userid,
-            userData: userResult,
+            parentData: result,
+            childData:userResult[0].parent,
             referralData:fetchResult,
             status: "ok",
             role: ctx.request.body.role
@@ -1498,7 +1502,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.request.body.userid,
       },
-      attributes: ['id', 'uuid']
+    //  attributes: ['id', 'uuid']
     }).then((result) => {
 
       return user.findAll({
@@ -1513,26 +1517,44 @@ exports.fetchReview = ctx => {
           id: result.id,
         },
       }).then((userResult) => {
-     //   console.log(userResult[0].parent[0].ChildParents.parentId)
-       var childId = userResult[0].professional[0].ChildProfessional.professionalId
-        return referral.findOne(
-          {
-            where: {
-              id: childId,
-            },
-          },
-        ).then((fetchResult) => {
-         // result.setReferral(childId)
-         const responseData = {
-          userid: ctx.request.body.userid,
-            userData: userResult,
-            referralData:fetchResult,
-            status: "ok",
-            role: ctx.request.body.role
-        }
-        return ctx.body = responseData;
-        })
+     var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) +2
+     return user.findAll({
+      include: [
+        {
+          model: ctx.orm().User,
+          nested: true,
+          as: 'parent',
+        },
+      ],
+      where: {
+        id: parentId,
+      },
+    }).then((parentResult) => {
 
+     // return ctx.body = parentResult;
+      var childId = userResult[0].professional[0].ChildProfessional.professionalId
+      return referral.findOne(
+        {
+          where: {
+            id: childId,
+          },
+        },
+      ).then((fetchResult) => {
+       // result.setReferral(childId)
+       console.log("33");
+       const responseData = {
+        userid: ctx.request.body.userid,
+          profData: userResult,
+          childData:userResult[0].professional[0],
+          parentData:parentResult,
+          referralData:fetchResult,
+          status: "ok",
+          role: ctx.request.body.role
+      }
+      return ctx.body = responseData;
+      })
+
+    })
       })
 
     })
@@ -1540,3 +1562,6 @@ exports.fetchReview = ctx => {
 
 }
 
+exports.saveReview = ctx => {
+
+}

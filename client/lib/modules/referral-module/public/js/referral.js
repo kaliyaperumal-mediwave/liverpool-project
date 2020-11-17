@@ -583,6 +583,7 @@ $(document).ready(function () {
 
             upsertReferralForm(payload) {
                 console.log(payload);
+                var _self = this;
                 $.ajax({
                     url: API_URI + "/saveReferral",
                     type: 'post',
@@ -592,6 +593,15 @@ $(document).ready(function () {
                     success: function (data) {
                         alert("section 4 saved.");
                         console.log(data);
+                        location.href = "/review?userid=" + data.userid + "&role=" + data.role; 
+                        // if(_self.getUrlVars()["edt"]==null)
+                        // {
+                        //     location.href = "/review?userid=" + data.userid + "&role=" + role; 
+                        // }
+                        // else
+                        // {
+                        //    history.back();
+                        // }
                         //  app.setValues(data);
                     },
                 });
