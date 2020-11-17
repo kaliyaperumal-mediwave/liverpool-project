@@ -184,7 +184,7 @@ $(document).ready(function () {
                 Vue.set(this.referralData, "problemsOther", data.symptoms_other);
                 Vue.set(this.referralData, "referralInfo", data.referral_issues);
                 Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
-                Vue.set(this.referralData, "triggerInfo", 'Please note that changing answers to this section may result in you being ineligible for referral.');
+                Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
                 Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                 Vue.set(this.referralData, "accessService",data.any_other_services);
                // Vue.set(this.referralData, "accessService", 'yes');
