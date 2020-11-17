@@ -11,6 +11,14 @@ $(document).ready(function () {
                 this.patchValue();
 
             }
+            if(this.getUrlVars()['edt']==1)
+            {
+                this.fetchSavedData()
+            }
+            else
+            {
+                console.log("if else")
+            }
         },
         data: {
             referralData: {
@@ -132,37 +140,54 @@ $(document).ready(function () {
                 { id: '0dfsu8u', value: 'Other' },
             ],
             allAvailableService: [],
+            sendObj:{},
+            referralId:""
         },
         methods: {
-            patchValue() {
-                console.log(this.listOfDiagnosis);
-                this.diagnosisList = ["Drinking and drugs related", "Gender dysphoria"];
-                this.problemsList = ["Psychosis (hearing or seeing things that other’s can’t)", "Dyslexia"];
-                this.accessList = ["EDYS", "ADHD Foundation", "Other"];
+            fetchSavedData: function(){
+                console.log("if")
+                this.sendObj.userid=this.getUrlVars()['userid'];
+                this.sendObj.role=this.getUrlVars()['role'];
+                console.log(this.sendObj);
+          //     var roleType=new URL(location.href).searchParams.get('role')
+                $.ajax({
+                    url: API_URI + "/fetchReferral",
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(this.sendObj),
+                    success: function (data) {
+                        //alert("section 1 saved.");
+                   //  console.log(data);
+                     app.patchValue(data);
+                        
+                    },
+                });
+            },
+            patchValue(data) {
+                console.log(data);
+                this.diagnosisList = data.diagnosis;
+                this.problemsList = data.diagnosis;
+                this.accessList = data.local_services;
+                this.referralId= data.id
                 if (this.accessList.indexOf("Other") > -1) {
                     this.showAddOtherService = true;
                 } else {
                     this.showAddOtherService = false;
                 }
-                this.allAvailableService = [{
-                    contact: "ZXCZX",
-                    id: "c06e7ac7-8869-4f33-8728-99ee27f1f036",
-                    mode: "add",
-                    name: "rAJKUMAR",
-                    professional: "ZXCZXC",
-                }];
-                Vue.set(this.referralData, "support", 'mentalHealth');
-                Vue.set(this.referralData, "covid", 'no');
-                Vue.set(this.referralData, "diagnosis", 'yes');
-                Vue.set(this.referralData, "diagnosisOther", '');
-                Vue.set(this.referralData, "supportOrSymptoms", 'yes');
-                Vue.set(this.referralData, "problemsOther", '');
-                Vue.set(this.referralData, "referralInfo", 'Tension with Depression');
-                Vue.set(this.referralData, "hasAnythingInfo", 'Tension with Depression and anxiety');
+                this.allAvailableService = data.services;
+                Vue.set(this.referralData, "support", data.referral_type);
+                Vue.set(this.referralData, "covid", data.is_covid);
+                Vue.set(this.referralData, "diagnosis", data.mental_health_diagnosis);
+                Vue.set(this.referralData, "diagnosisOther", data.diagnosis_other);
+               Vue.set(this.referralData, "supportOrSymptoms", data.symptoms_supportneeds);
+                Vue.set(this.referralData, "problemsOther", data.symptoms_other);
+                Vue.set(this.referralData, "referralInfo", data.referral_issues);
+                Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
                 Vue.set(this.referralData, "triggerInfo", 'Please note that changing answers to this section may result in you being ineligible for referral.');
-                Vue.set(this.referralData, "disabilityOrDifficulty", 'yes');
-                Vue.set(this.referralData, "accessService", 'yes');
-                Vue.set(this.referralData, "accessService", 'yes');
+                Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
+                Vue.set(this.referralData, "accessService",data.any_other_services);
+               // Vue.set(this.referralData, "accessService", 'yes');
             },
 
             onOptionChange(event) {
@@ -506,12 +531,18 @@ $(document).ready(function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
                 var reqFields = this.requiredFields;
+                var roleType = this.getUrlVars()["role"];
+                var userid = this.getUrlVars()["userid"];
                 if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
-                    this.payloadData = JSON.parse(JSON.stringify(this.referralData));
+                    this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
+                    this.payloadData.role=roleType;
+                    this.payloadData.userid=userid;
                     this.payloadData.diagnosisList = this.diagnosisList;
                     this.payloadData.problemsList = this.problemsList;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
+                    this.payloadData.editFlag=this.getUrlVars()['edt'];
+                    this.payloadData.id= this.referralId;
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
                     } else {
@@ -551,6 +582,7 @@ $(document).ready(function () {
             },
 
             upsertReferralForm(payload) {
+                console.log(payload);
                 $.ajax({
                     url: API_URI + "/saveReferral",
                     type: 'post',
@@ -578,7 +610,17 @@ $(document).ready(function () {
             getTopOffset(controlEl) {
                 var labelOffset = 50;
                 return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
-            }
+            },
+            getUrlVars:function () {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+                function(m,key,value) {
+                  vars[key] = value;
+                });
+    
+              
+                return vars;
+              },
 
         },
     });
