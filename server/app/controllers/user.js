@@ -1,5 +1,5 @@
 const P = require("pino");
-
+var uniqid = require('uniqid');
 
 
 exports.eligibility = ctx => {
@@ -307,7 +307,8 @@ exports.fetchEligibility = ctx => {
 
 exports.about = ctx => {
   const user = ctx.orm().User;
-  console.log(ctx.request.body);
+  console.log(ctx.request.body.parentContactName);
+
   if (ctx.request.body.role == "child") {
 
     if(ctx.request.body.editFlag!=null)
@@ -362,6 +363,7 @@ exports.about = ctx => {
               {
                 parent_name: ctx.request.body.parentName,
                 parential_responsibility: ctx.request.body.parentialResponsibility,
+                responsibility_parent_name:ctx.request.body.parentContactName,
                 child_parent_relationship: ctx.request.body.childParentRelationship,
                 parent_contact_number: ctx.request.body.parentContactNumber,
                 parent_email: ctx.request.body.parentEmail,
@@ -428,6 +430,7 @@ exports.about = ctx => {
           return user.create({
             parent_name: ctx.request.body.parentName,
             parential_responsibility: ctx.request.body.parentialResponsibility,
+            responsibility_parent_name:ctx.request.body.parentContactName,
             child_parent_relationship: ctx.request.body.childParentRelationship,
             parent_contact_number: ctx.request.body.parentContactNumber,
             parent_email: ctx.request.body.parentEmail,
@@ -488,7 +491,7 @@ exports.about = ctx => {
             child_ethnicity: ctx.request.body.childEthnicity,
             child_household_name: ctx.request.body.houseHoldName,
             child_household_relationship: ctx.request.body.houseHoldRelationship,
-            child_household_dob: ctx.request.body.houseHoldDOB,
+            child_household_dob: ctx.request.body.childHouseHoldDob,
             child_household_profession: ctx.request.body.houseHoldProfession,
             child_care_adult: ctx.request.body.childCareAdult,
           },
@@ -501,6 +504,7 @@ exports.about = ctx => {
           return user.update({
             parent_name: ctx.request.body.parentName,
             parential_responsibility: ctx.request.body.parentialResponsibility,
+            responsibility_parent_name:ctx.request.body.parentContactName,
             child_parent_relationship: ctx.request.body.childParentRelationship,
             parent_contact_number: ctx.request.body.parentContactNumber,
             parent_email: ctx.request.body.parentEmail,
@@ -565,7 +569,7 @@ exports.about = ctx => {
             child_ethnicity: ctx.request.body.childEthnicity,
             child_household_name: ctx.request.body.houseHoldName,
             child_household_relationship: ctx.request.body.houseHoldRelationship,
-            child_household_dob: ctx.request.body.houseHoldDOB,
+            child_household_dob: ctx.request.body.childHouseHoldDob,
             child_household_profession: ctx.request.body.houseHoldProfession,
             child_care_adult: ctx.request.body.childCareAdult,
           },
@@ -586,6 +590,7 @@ exports.about = ctx => {
             return user.update({
               parent_name: ctx.request.body.parentName,
               parential_responsibility: ctx.request.body.parentialResponsibility,
+              responsibility_parent_name:ctx.request.body.parentContactName,
               child_parent_relationship: ctx.request.body.childParentRelationship,
               parent_contact_number: ctx.request.body.parentContactNumber,
               parent_email: ctx.request.body.parentEmail,
@@ -650,7 +655,7 @@ exports.about = ctx => {
               child_ethnicity: ctx.request.body.childEthnicity,
               child_household_name: ctx.request.body.houseHoldName,
               child_household_relationship: ctx.request.body.houseHoldRelationship,
-              child_household_dob: ctx.request.body.houseHoldDOB,
+              child_household_dob: ctx.request.body.childHouseHoldDob,
               child_household_profession: ctx.request.body.houseHoldProfession,
               child_care_adult: ctx.request.body.childCareAdult,
             },
@@ -664,6 +669,7 @@ exports.about = ctx => {
               parent_name: ctx.request.body.parentName,
               parential_responsibility: ctx.request.body.parentialResponsibility,
               child_parent_relationship: ctx.request.body.childParentRelationship,
+              responsibility_parent_name:ctx.request.body.parentContactName,
               parent_contact_number: ctx.request.body.parentContactNumber,
               parent_email: ctx.request.body.parentEmail,
               parent_same_house: ctx.request.body.parentSameHouse,
@@ -1406,11 +1412,13 @@ exports.fetchReview = ctx => {
 
   if(ctx.request.body.role=="child")
   {
+
+    //console.log("//Section 5//Section 5//Section 5//Section 5//Section 5");
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
       },
-      attributes: ['id', 'uuid']
+    //  attributes: ['id', 'uuid']
     }).then((result) => {
 
       return user.findOne({
@@ -1436,7 +1444,8 @@ exports.fetchReview = ctx => {
 
           const responseData = {
             userid: ctx.request.body.userid,
-            userData: userResult,
+            childData: result,
+            parentData:userResult.parent,
             referralData:referralResult,
             status: "ok",
             role: ctx.request.body.role
@@ -1454,7 +1463,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.request.body.userid,
       },
-      attributes: ['id', 'uuid']
+    //  attributes: ['id', 'uuid']
     }).then((result) => {
 
       return user.findAll({
@@ -1481,7 +1490,8 @@ exports.fetchReview = ctx => {
          // result.setReferral(childId)
          const responseData = {
           userid: ctx.request.body.userid,
-            userData: userResult,
+            parentData: result,
+            childData:userResult[0].parent,
             referralData:fetchResult,
             status: "ok",
             role: ctx.request.body.role
@@ -1498,7 +1508,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.request.body.userid,
       },
-      attributes: ['id', 'uuid']
+    //  attributes: ['id', 'uuid']
     }).then((result) => {
 
       return user.findAll({
@@ -1513,26 +1523,44 @@ exports.fetchReview = ctx => {
           id: result.id,
         },
       }).then((userResult) => {
-     //   console.log(userResult[0].parent[0].ChildParents.parentId)
-       var childId = userResult[0].professional[0].ChildProfessional.professionalId
-        return referral.findOne(
-          {
-            where: {
-              id: childId,
-            },
-          },
-        ).then((fetchResult) => {
-         // result.setReferral(childId)
-         const responseData = {
-          userid: ctx.request.body.userid,
-            userData: userResult,
-            referralData:fetchResult,
-            status: "ok",
-            role: ctx.request.body.role
-        }
-        return ctx.body = responseData;
-        })
+     var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) +2
+     return user.findAll({
+      include: [
+        {
+          model: ctx.orm().User,
+          nested: true,
+          as: 'parent',
+        },
+      ],
+      where: {
+        id: parentId,
+      },
+    }).then((parentResult) => {
 
+     // return ctx.body = parentResult;
+      var childId = userResult[0].professional[0].ChildProfessional.professionalId
+      return referral.findOne(
+        {
+          where: {
+            id: childId,
+          },
+        },
+      ).then((fetchResult) => {
+       // result.setReferral(childId)
+       console.log("33");
+       const responseData = {
+        userid: ctx.request.body.userid,
+          profData: userResult,
+          childData:userResult[0].professional[0],
+          parentData:parentResult,
+          referralData:fetchResult,
+          status: "ok",
+          role: ctx.request.body.role
+      }
+      return ctx.body = responseData;
+      })
+
+    })
       })
 
     })
@@ -1540,3 +1568,36 @@ exports.fetchReview = ctx => {
 
 }
 
+exports.saveReview = ctx => {
+  console.log(ctx.request.body);
+  const user = ctx.orm().User;
+  const uniqueNo = uniqid().toUpperCase();
+  return user.findOne({
+    where: {
+      reference_code: uniqueNo,
+    },
+  }).then((result) => {
+    if(result==null)
+    {
+      return user.update({
+        reference_code:uniqueNo,
+        contact_preferences:ctx.request.body.contactPreference
+      },
+    {
+      where:
+        { uuid: ctx.request.body.userid }
+    }
+    ).then((childUserInfo) => {
+      const responseData = {
+        userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role,
+          refNo:uniqueNo
+      }
+      return ctx.body =responseData;
+      }).catch((error) => {
+    console.log(error)
+      });
+    }
+  })
+}

@@ -32,6 +32,7 @@
     "request-promise": "^4.2.6",
     "sequelize": "^6.3.5",
     "swagger-jsdoc": "^3.5.0",
+    "uniqid": "^5.2.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {

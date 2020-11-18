@@ -20,6 +20,9 @@ router.post('/user/fetchProfession', userController.fetchProfession);
 router.post('/user/referral', userController.saveReferal);
 router.post('/user/fetchReferral', userController.fetchReferral);
 
+router.post('/user/fetchReview', userController.fetchReview);
+router.post('/user/saveReview', userController.saveReview);
+
 
 
 
