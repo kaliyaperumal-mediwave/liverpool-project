@@ -307,7 +307,8 @@ exports.fetchEligibility = ctx => {
 
 exports.about = ctx => {
   const user = ctx.orm().User;
-  console.log(ctx.request.body);
+  console.log(ctx.request.body.parentContactName);
+
   if (ctx.request.body.role == "child") {
 
     if(ctx.request.body.editFlag!=null)
@@ -362,6 +363,7 @@ exports.about = ctx => {
               {
                 parent_name: ctx.request.body.parentName,
                 parential_responsibility: ctx.request.body.parentialResponsibility,
+                responsibility_parent_name:ctx.request.body.parentContactName,
                 child_parent_relationship: ctx.request.body.childParentRelationship,
                 parent_contact_number: ctx.request.body.parentContactNumber,
                 parent_email: ctx.request.body.parentEmail,
@@ -428,6 +430,7 @@ exports.about = ctx => {
           return user.create({
             parent_name: ctx.request.body.parentName,
             parential_responsibility: ctx.request.body.parentialResponsibility,
+            responsibility_parent_name:ctx.request.body.parentContactName,
             child_parent_relationship: ctx.request.body.childParentRelationship,
             parent_contact_number: ctx.request.body.parentContactNumber,
             parent_email: ctx.request.body.parentEmail,
@@ -488,7 +491,7 @@ exports.about = ctx => {
             child_ethnicity: ctx.request.body.childEthnicity,
             child_household_name: ctx.request.body.houseHoldName,
             child_household_relationship: ctx.request.body.houseHoldRelationship,
-            child_household_dob: ctx.request.body.houseHoldDOB,
+            child_household_dob: ctx.request.body.childHouseHoldDob,
             child_household_profession: ctx.request.body.houseHoldProfession,
             child_care_adult: ctx.request.body.childCareAdult,
           },
@@ -501,6 +504,7 @@ exports.about = ctx => {
           return user.update({
             parent_name: ctx.request.body.parentName,
             parential_responsibility: ctx.request.body.parentialResponsibility,
+            responsibility_parent_name:ctx.request.body.parentContactName,
             child_parent_relationship: ctx.request.body.childParentRelationship,
             parent_contact_number: ctx.request.body.parentContactNumber,
             parent_email: ctx.request.body.parentEmail,
@@ -565,7 +569,7 @@ exports.about = ctx => {
             child_ethnicity: ctx.request.body.childEthnicity,
             child_household_name: ctx.request.body.houseHoldName,
             child_household_relationship: ctx.request.body.houseHoldRelationship,
-            child_household_dob: ctx.request.body.houseHoldDOB,
+            child_household_dob: ctx.request.body.childHouseHoldDob,
             child_household_profession: ctx.request.body.houseHoldProfession,
             child_care_adult: ctx.request.body.childCareAdult,
           },
@@ -586,6 +590,7 @@ exports.about = ctx => {
             return user.update({
               parent_name: ctx.request.body.parentName,
               parential_responsibility: ctx.request.body.parentialResponsibility,
+              responsibility_parent_name:ctx.request.body.parentContactName,
               child_parent_relationship: ctx.request.body.childParentRelationship,
               parent_contact_number: ctx.request.body.parentContactNumber,
               parent_email: ctx.request.body.parentEmail,
@@ -650,7 +655,7 @@ exports.about = ctx => {
               child_ethnicity: ctx.request.body.childEthnicity,
               child_household_name: ctx.request.body.houseHoldName,
               child_household_relationship: ctx.request.body.houseHoldRelationship,
-              child_household_dob: ctx.request.body.houseHoldDOB,
+              child_household_dob: ctx.request.body.childHouseHoldDob,
               child_household_profession: ctx.request.body.houseHoldProfession,
               child_care_adult: ctx.request.body.childCareAdult,
             },
@@ -664,6 +669,7 @@ exports.about = ctx => {
               parent_name: ctx.request.body.parentName,
               parential_responsibility: ctx.request.body.parentialResponsibility,
               child_parent_relationship: ctx.request.body.childParentRelationship,
+              responsibility_parent_name:ctx.request.body.parentContactName,
               parent_contact_number: ctx.request.body.parentContactNumber,
               parent_email: ctx.request.body.parentEmail,
               parent_same_house: ctx.request.body.parentSameHouse,

@@ -223,7 +223,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                        alert("section 3 saved.");
+                      //  alert("section 3 saved.");
                         this.isSubmitted = false;
                         console.log(data);
                         // if (role === 'yes') {

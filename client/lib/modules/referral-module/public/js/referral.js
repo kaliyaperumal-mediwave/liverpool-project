@@ -614,7 +614,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                        alert("section 4 saved.");
+                    //    alert("section 4 saved.");
                         console.log(data);
                         location.href = "/review?userid=" + data.userid + "&role=" + data.role; 
                         // if(_self.getUrlVars()["edt"]==null)

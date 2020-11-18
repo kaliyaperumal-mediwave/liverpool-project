@@ -292,7 +292,7 @@ $(document).ready(function () {
                     if (e.target.value === '') {
                         app.submitProfForm = "false";
                     } else {
-                        app.elgibilityObj.profRegisterd_gp = e.target.value
+                        app.elgibilityObj.profRegisterd_gp = ui.item.label
                         app.submitProfForm = "true";
                     }
                 });
@@ -320,6 +320,7 @@ $(document).ready(function () {
                         this.belowAgeLimit = "";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
+                        this.elgibilityObj.contactParent = "";
                     }
                     else {
                         this.elgibilityObj.camhs = "show";
@@ -339,6 +340,9 @@ $(document).ready(function () {
                         this.profaboveLimit = "yes";
                         this.profBelowAgeLimit = "";
                         this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.contactProfParent = "";
+                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.childConcernInformation
                         this.submitProfForm = "false";
                     }
                     else {

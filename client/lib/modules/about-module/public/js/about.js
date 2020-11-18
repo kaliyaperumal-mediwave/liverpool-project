@@ -80,6 +80,7 @@ $(document).ready(function () {
             },
 
             setValues:function(data) {
+                //console.log(data);
                 var roleType = this.getUrlVars()["role"]
                 if(roleType=="child")
                 {
@@ -96,10 +97,12 @@ $(document).ready(function () {
                     Vue.set(this.aboutObj,"houseHoldName",data.child_household_name );
                     Vue.set(this.aboutObj,"houseHoldRelationship",data.child_household_relationship );
                     Vue.set(this.aboutObj,"childHouseHoldDob",this.convertDate(data.child_household_dob));
+                    this.fetchAgeLogic(data.child_household_dob);
                     Vue.set(this.aboutObj,"houseHoldProfession",data.child_household_profession );
                     Vue.set(this.aboutObj,"childCareAdult",data.child_care_adult );
                     Vue.set(this.aboutObj,"houseHoldName",data.child_household_name );
                     Vue.set(this.aboutObj,"parentName",data.parent[0].parent_name );
+                    Vue.set(this.aboutObj,"parentContactName",data.parent[0].responsibility_parent_name );
                     Vue.set(this.aboutObj,"parentialResponsibility",data.parent[0].parential_responsibility );
                     Vue.set(this.aboutObj,"childParentRelationship",data.parent[0].child_parent_relationship );
                     Vue.set(this.aboutObj,"parentContactNumber",data.parent[0].parent_contact_number );
@@ -109,6 +112,7 @@ $(document).ready(function () {
                     Vue.set(this.aboutObj,"legalCareStatus",data.parent[0].legal_care_status );
                     document.getElementById("showAdToast").style.display = "block";
                     document.getElementById("showAdBtn").style.display = "block";
+                    
                    
                 }
               else if(roleType=="parent")
@@ -127,10 +131,12 @@ $(document).ready(function () {
                     Vue.set(this.aboutObj,"houseHoldName",data[0].parent[0].child_household_name );
                     Vue.set(this.aboutObj,"houseHoldRelationship",data[0].parent[0].child_household_relationship );
                     Vue.set(this.aboutObj,"childHouseHoldDob",this.convertDate(data[0].parent[0].child_household_dob));
+                    this.fetchAgeLogic(data[0].parent[0].child_household_dob);
                     Vue.set(this.aboutObj,"houseHoldProfession",data[0].parent[0].child_household_profession );
                     Vue.set(this.aboutObj,"childCareAdult",data[0].parent[0].child_care_adult );
                     Vue.set(this.aboutObj,"houseHoldName",data[0].parent[0].child_household_name );
                     Vue.set(this.aboutObj,"parentName",data[0].parent_name );
+                    Vue.set(this.aboutObj,"parentContactName",data[0].responsibility_parent_name );
                     Vue.set(this.aboutObj,"parentialResponsibility",data[0].parential_responsibility );
                     Vue.set(this.aboutObj,"childParentRelationship",data[0].child_parent_relationship );
                     Vue.set(this.aboutObj,"parentContactNumber",data[0].parent_contact_number );
@@ -158,10 +164,12 @@ $(document).ready(function () {
                     Vue.set(this.aboutObj,"houseHoldName",data[0].parent[0].child_household_name );
                     Vue.set(this.aboutObj,"houseHoldRelationship",data[0].parent[0].child_household_relationship );
                     Vue.set(this.aboutObj,"childHouseHoldDob",this.convertDate(data[0].parent[0].child_household_dob));
+                    this.fetchAgeLogic(data[0].parent[0].child_household_dob);
                     Vue.set(this.aboutObj,"houseHoldProfession",data[0].parent[0].child_household_profession );
                     Vue.set(this.aboutObj,"childCareAdult",data[0].parent[0].child_care_adult );
                     Vue.set(this.aboutObj,"houseHoldName",data[0].parent[0].child_household_name );
                     Vue.set(this.aboutObj,"parentName",data[0].parent_name );
+                    Vue.set(this.aboutObj,"parentContactName",data[0].responsibility_parent_name );
                     Vue.set(this.aboutObj,"parentialResponsibility",data[0].parential_responsibility );
                     Vue.set(this.aboutObj,"childParentRelationship",data[0].child_parent_relationship );
                     Vue.set(this.aboutObj,"parentContactNumber",data[0].parent_contact_number );
@@ -188,6 +196,7 @@ $(document).ready(function () {
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
                     console.log('place chnaged ', autoCompleteChild.getPlace().formatted_address)
                     _self.selectedChildAddress = autoCompleteChild.getPlace().formatted_address;
+                    _self.aboutObj.childAddress = _self.selectedChildAddress;
                     console.log(_self.selectedChildAddress)
                     console.log('========')
                 });
@@ -197,6 +206,7 @@ $(document).ready(function () {
                 });
                 google.maps.event.addListener(autoCompleteParent, 'place_changed', function () {
                     _self.selectedParentAddress = autoCompleteParent.getPlace().formatted_address;
+                    _self.aboutObj.selectedParentAddress = _self.selectedParentAddress;
                     document.getElementById("showAdToast").style.display = "block";
                     document.getElementById("showAdBtn").style.display = "block";
                 });
@@ -214,6 +224,8 @@ $(document).ready(function () {
 
             onChange:function(event) {
                 var optionTxt=event.target.name;
+
+                console.log(optionTxt);
 
                 if(optionTxt=="sendPost")
                 {
@@ -251,6 +263,7 @@ $(document).ready(function () {
                 if(optionTxt=="parentSameHouseYes")
                 {
                     this.aboutObj.legalCareStatus = "";
+                    this.aboutObj.selectedParentAddress = "";
                     this.saveAndCont='false';
                 }
 
@@ -278,7 +291,8 @@ $(document).ready(function () {
                 this.aboutObj.role = role;
                 this.aboutObj.childAddress = _self.selectedChildAddress;
                 this.aboutObj.parentAddress = _self.selectedParentAddress;
-                console.log(this.aboutObj);
+              //  console.log(this.aboutObj);
+               
                 $.ajax({
                     url: API_URI + "/about",
                     type: 'post',
@@ -286,7 +300,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(this.aboutObj),
                     success: function (data) {
-                        alert("section 2 saved.");                     
+                      //  alert("section 2 saved.");                     
                         if(_self.getUrlVars()["edt"]==null)
                         {
                             location.href = "/education?userid=" + data.userid + "&role=" + role;
@@ -321,8 +335,9 @@ $(document).ready(function () {
                return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
              },
 
-             fetchAgeLogic:function(dob,pro)
+             fetchAgeLogic:function(dob)
              {
+                 console.log(dob)
                 var today = new Date();
                 var selectedDate = new Date(dob);
                 var age = this.diff_years(today, selectedDate);
