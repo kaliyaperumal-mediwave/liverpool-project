@@ -295,7 +295,7 @@ $(document).ready(function () {
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 if (serviceForm.mode === 'update') {
                     if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
-                        if (!phoneRegex.test(this.professionObj.socialWorkerContactNumber)) {
+                        if (!phoneRegex.test(serviceForm.contact)) {
                             this.hasContactInvalidError = true;
                             return false;
                         } else {
