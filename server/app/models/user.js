@@ -152,6 +152,9 @@ module.exports = function modelUser(sequelize, types) {
     professional_contact_number: {
       type: types.TEXT
     },
+    contact_preferences:{
+      type: types.JSONB
+    },
   }, {
     tableName: 'users',
   });

@@ -1,5 +1,5 @@
 const P = require("pino");
-
+var uniqid = require('uniqid');
 
 
 exports.eligibility = ctx => {
@@ -1563,5 +1563,33 @@ exports.fetchReview = ctx => {
 }
 
 exports.saveReview = ctx => {
-
+  const user = ctx.orm().User;
+  const uniqueNo = uniqid()
+  return user.findOne({
+    where: {
+      reference_code: uniqueNo,
+    },
+  }).then((result) => {
+    if(result==null)
+    {
+      return user.update({
+        reference_code:uniqueNo
+      },
+    {
+      where:
+        { uuid: ctx.request.body.userid }
+    }
+    ).then((childUserInfo) => {
+      const responseData = {
+        userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role,
+          refNo:uniqueNo
+      }
+      return ctx.body =responseData;
+      }).catch((error) => {
+    console.log(error)
+      });
+    }
+  })
 }
