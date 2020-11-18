@@ -1569,8 +1569,9 @@ exports.fetchReview = ctx => {
 }
 
 exports.saveReview = ctx => {
+  console.log(ctx.request.body);
   const user = ctx.orm().User;
-  const uniqueNo = uniqid()
+  const uniqueNo = uniqid().toUpperCase();
   return user.findOne({
     where: {
       reference_code: uniqueNo,
@@ -1579,7 +1580,8 @@ exports.saveReview = ctx => {
     if(result==null)
     {
       return user.update({
-        reference_code:uniqueNo
+        reference_code:uniqueNo,
+        contact_preferences:ctx.request.body.contactPreference
       },
     {
       where:

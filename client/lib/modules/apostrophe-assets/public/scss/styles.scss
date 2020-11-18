@@ -87,6 +87,14 @@ body {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }
 
+.back-text {
+  @include set-titleStyles($button-font-size, bold, $header-text-color);
+}
+
+.send-font {
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+}
+
 .sub-header-title {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }

@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.header-title, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.header-title, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -230,6 +230,18 @@ body {
   font-size: 32px;
   font-weight: bold;
   color: #ffffff;
+  cursor: pointer; }
+
+.back-text {
+  font-size: 26px;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer; }
+
+.send-font {
+  font-size: 18px;
+  font-weight: bold;
+  color: #023047;
   cursor: pointer; }
 
 .sub-header-title {
