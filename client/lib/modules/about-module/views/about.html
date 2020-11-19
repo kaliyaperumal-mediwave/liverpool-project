@@ -8,16 +8,16 @@
 <div id="about-form">
 
     <div class="sub-header-bg">
-        <h2 v-if="headerToDisplay =='child'"
+        <h2 v-show="headerToDisplay =='child'"
             class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">
             Section 2 of 5: About you & your
             household</h2>
 
-        <h2 v-if="headerToDisplay =='parent'"
+        <h2 v-show="headerToDisplay =='parent'"
             class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">
             Section 2 of 5: About the child & their household </h2>
 
-        <h2 v-if="headerToDisplay =='professional'"
+        <h2 v-show="headerToDisplay =='professional'"
             class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 2 of 5: About the child
             /
             young person & their household </h2>
@@ -37,18 +37,18 @@
     <div class="main-content-bg py-4 main-min-height">
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-4">
-                <h2 v-if="labelToDisplay =='child'"
+                <h2 v-show="labelToDisplay =='child'"
                     class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
-                <h2 v-if="labelToDisplay =='parent'"
+                <h2 v-show="labelToDisplay =='parent'"
                     class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your
                     child
                 </h2>
-                <h2 v-if="labelToDisplay =='professional'"
+                <h2 v-show="labelToDisplay =='professional'"
                     class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your
                     child /
                     young person</h2>
                 <!-- childs NHS Number Start-->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div v-show="labelToDisplay =='child'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
                         <label for="nhs" class="question-font">Your NHS number - optional</label>
                         <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
@@ -85,7 +85,7 @@
                 <!--childs NHS Number End-->
 
                 <!-- parent NHS Number Start-->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div v-show="labelToDisplay =='parent'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
                         <label for="nhs" class="question-font">Your child's NHS number - optional</label>
                         <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
@@ -123,7 +123,7 @@
                 <!--parent NHS Number End-->
 
                 <!-- profession NHS Number Start-->
-                <div v-if="labelToDisplay =='professional'"
+                <div v-show="labelToDisplay =='professional'"
                     class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
                         <label for="nhs" class="question-font">The child/young person's NHS number - optional</label>
@@ -164,14 +164,14 @@
 
                 <!-- Post Section Start-->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Are you happy for post to be sent to
+                    <p v-show="labelToDisplay =='child'" class="question-font m-0">Are you happy for post to be sent to
                         this
                         address?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Are you and your child happy for post
+                    <p v-show="labelToDisplay =='parent'" class="question-font m-0">Are you and your child happy for post
                         to
                         be
                         sent to this address?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">is the the child / young person
+                    <p v-show="labelToDisplay =='professional'" class="question-font m-0">is the the child / young person
                         happy for post to be sent to this address?</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="no" value="no" name="sendPost"
@@ -193,9 +193,9 @@
                 <!-- Gender Section Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start justify-content-between">
-                        <p v-if="labelToDisplay =='child'" class="question-font my-2">Your gender?</p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font my-2">Your child's gender?</p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font my-2">The child / young person’s
+                        <p v-show="labelToDisplay =='child'" class="question-font my-2">Your gender?</p>
+                        <p v-show="labelToDisplay =='parent'" class="question-font my-2">Your child's gender?</p>
+                        <p v-show="labelToDisplay =='professional'" class="question-font my-2">The child / young person’s
                             gender -
                             optional</p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
@@ -217,15 +217,15 @@
                 <!-- Gender Indentification Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you identify with the gender you
+                        <p v-show="labelToDisplay =='child'" class="question-font m-0">Do you identify with the gender you
                             were
                             assigned at birth?
                         </p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child identify with the
+                        <p v-show="labelToDisplay =='parent'" class="question-font m-0">Does your child identify with the
                             gender
                             you were assigned at birth?
                         </p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young
+                        <p v-show="labelToDisplay =='professional'" class="question-font m-0">Does the child / young
                             person
                             identify with the gender they were assigned at birth?
                         </p>
@@ -257,7 +257,7 @@
                 <!-- Gender Indentification Start -->
 
                 <!-- child sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div v-show="labelToDisplay =='child'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="sexual" class="question-font">Your sexual orientation - optional</label>
                         <input type="text" class="form-control" id="sexual"
@@ -267,7 +267,7 @@
                 </div>
                 <!-- child sexual orientation - optional End -->
                 <!-- parent sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div v-show="labelToDisplay =='parent'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="sexual" class="question-font">Your child's sexual orientation - optional</label>
                         <input type="text" class="form-control" id="sexual"
@@ -278,7 +278,7 @@
                 <!-- parent sexual orientation - optional End -->
 
                 <!-- professional sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='professional'"
+                <div v-show="labelToDisplay =='professional'"
                     class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="sexual" class="question-font">The child / young person’s sexual orientation -
@@ -291,7 +291,7 @@
                 <!-- professional sexual orientation - optional End -->
 
                 <!-- child ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div v-show="labelToDisplay =='child'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="ethnicity" class="question-font">Your ethnicity - optional</label>
                         <input type="text" class="form-control" id="ethnicity" placeholder="Enter your ethnicity"
@@ -301,7 +301,7 @@
                 <!-- child ethnicity - optional End -->
 
                 <!-- parent ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div v-show="labelToDisplay =='parent'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="ethnicity" class="question-font">Your child's ethnicity - optional</label>
                         <input type="text" class="form-control" id="ethnicity"
@@ -311,7 +311,7 @@
                 <!-- child ethnicity - optional End -->
 
                 <!-- professional ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='professional'"
+                <div v-show="labelToDisplay =='professional'"
                     class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
                         <label for="ethnicity" class="question-font">The child / young person’s ethnicity -
@@ -324,16 +324,16 @@
 
 
                 <!-- Your household Start -->
-                <h2 v-if="labelToDisplay =='child'"
+                <h2 v-show="labelToDisplay =='child'"
                     class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
                     household
                 </h2>
-                <h2 v-if="labelToDisplay =='parent'"
+                <h2 v-show="labelToDisplay =='parent'"
                     class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
                     child's
                     household
                 </h2>
-                <h2 v-if="labelToDisplay =='professional'"
+                <h2 v-show="labelToDisplay =='professional'"
                     class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">The
                     child
                     /young
@@ -454,9 +454,9 @@
                 </div>
                 <!----professional details start---->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you care for an adult?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child care for an adult?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person
+                    <p v-show="labelToDisplay =='child'" class="question-font m-0">Do you care for an adult?</p>
+                    <p v-show="labelToDisplay =='parent'" class="question-font m-0">Does your child care for an adult?</p>
+                    <p v-show="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person
                         care
                         for
                         an adult?</p>
@@ -502,25 +502,25 @@
                 <!-- Toaster container -->
 
                 <!-- Your parent / carer Start -->
-                <h2 v-if="labelToDisplay =='child'"
+                <h2 v-show="labelToDisplay =='child'"
                     class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
                     parent /
                     carer</h2>
-                <h2 v-if="labelToDisplay =='parent'"
+                <h2 v-show="labelToDisplay =='parent'"
                     class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
                     details
                 </h2>
-                <h2 v-if="labelToDisplay =='professional'"
+                <h2 v-show="labelToDisplay =='professional'"
                     class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Child /
                     young
                     person’s parent / carer’s details</h2>
                 <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group my-2">
-                        <label v-if="labelToDisplay =='child'" for="carer" class="question-font">What is your parent /
+                        <label v-show="labelToDisplay =='child'" for="carer" class="question-font">What is your parent /
                             carer’s name?</label>
-                        <label v-if="labelToDisplay =='parent'" for="carer" class="question-font">What is your
+                        <label v-show="labelToDisplay =='parent'" for="carer" class="question-font">What is your
                             name?</label>
-                        <label v-if="labelToDisplay =='professional'" for="carer" class="question-font">What is the
+                        <label v-show="labelToDisplay =='professional'" for="carer" class="question-font">What is the
                             parent /
                             carers name?</label>
                         <input type="text" class="form-control" id="carer" placeholder="Joe Bucket"
@@ -528,14 +528,14 @@
                     </div>
                 </div>
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person have parental
+                    <p v-show="labelToDisplay =='child'" class="question-font m-0">Does this person have parental
                         responsibility
                         for you?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do you have parental responsibility
+                    <p v-show="labelToDisplay =='parent'" class="question-font m-0">Do you have parental responsibility
                         for
                         your
                         child?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does this person have parental
+                    <p v-show="labelToDisplay =='professional'" class="question-font m-0">Does this person have parental
                         responsibility for the child / young person?</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
@@ -626,11 +626,11 @@
                 <!-- Your parent / carer End -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div v-show="aboutObj.parentialResponsibility == 'yes'" class="form-group py-2 mt-0 mb-2">
-                        <label v-if="labelToDisplay =='child'" for="relationshipYou" class="question-font">What is this
+                        <label v-show="labelToDisplay =='child'" for="relationshipYou" class="question-font">What is this
                             persons relationship to you?</label>
-                        <label v-if="labelToDisplay =='parent'" for="relationshipYou" class="question-font">What is your
+                        <label v-show="labelToDisplay =='parent'" for="relationshipYou" class="question-font">What is your
                             relationship to your child?</label>
-                        <label v-if="labelToDisplay =='professional'" for="relationshipYou" class="question-font">What
+                        <label v-show="labelToDisplay =='professional'" for="relationshipYou" class="question-font">What
                             is
                             their relationship to the child / young person?</label>
                         <input type="text" class="form-control" id="relationshipYou"
@@ -639,12 +639,12 @@
                     </div>
 
                     <div v-show="aboutObj.parentialResponsibility == 'no'" class="form-group py-2 mt-0 mb-2">
-                        <label v-if="labelToDisplay =='child'" for="relationshipYou" class="question-font">What is this
+                        <label v-show="labelToDisplay =='child'" for="relationshipYou" class="question-font">What is this
                             persons relationship to you?</label>
-                        <label v-if="labelToDisplay =='parent'" for="relationshipYou" class="question-font">What is
+                        <label v-show="labelToDisplay =='parent'" for="relationshipYou" class="question-font">What is
                             their
                             relationship to your child?</label>
-                        <label v-if="labelToDisplay =='professional'" for="relationshipYou" class="question-font">What
+                        <label v-show="labelToDisplay =='professional'" for="relationshipYou" class="question-font">What
                             is
                             their relationship to the child / young person?</label>
                         <input type="text" class="form-control" id="relationshipYou"
@@ -652,19 +652,19 @@
                             v-model="aboutObj.childParentRelationship">
                     </div>
                     <div v-show="aboutObj.parentialResponsibility == 'yes'">
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='child'" class="form-group py-2 my-2">
                             <label for="contactNumber" class="question-font">What is their contact number?</label>
                             <input type="text" class="form-control" id="contactNumber"
                                 placeholder="Enter your parent / carer’s phone number"
                                 v-model="aboutObj.parentContactNumber">
                         </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='parent'" class="form-group py-2 my-2">
                             <label for="contactNumber" class="question-font">What is your contact number?</label>
                             <input type="text" class="form-control" id="contactNumber"
                                 placeholder="Enter your phone number" v-model="aboutObj.parentContactNumber">
                         </div>
 
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='professional'" class="form-group py-2 my-2">
                             <label for="contactNumber" class="question-font">What is the their contact
                                 number?</label>
                             <input type="text" class="form-control" id="contactNumber"
@@ -672,19 +672,19 @@
                                 v-model="aboutObj.parentContactNumber">
                         </div>
 
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='child'" class="form-group py-2 my-2">
                             <label for="emailAddress" class="question-font">What is their email address? -
                                 optional</label>
                             <input type="email" class="form-control" id="emailAddress"
                                 placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
                         </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='parent'" class="form-group py-2 my-2">
                             <label for="emailAddress" class="question-font">What is your email address? -
                                 optional</label>
                             <input type="email" class="form-control" id="emailAddress"
                                 placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
                         </div>
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='professional'" class="form-group py-2 my-2">
                             <label for="emailAddress" class="question-font">What is the their email address? -
                                 optional</label>
                             <input type="email" class="form-control" id="emailAddress"
@@ -693,19 +693,19 @@
                     </div>
 
                     <div v-show="aboutObj.parentialResponsibility == 'no'">
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='child'" class="form-group py-2 my-2">
                             <label for="contactNumber" class="question-font">What is their contact number?</label>
                             <input type="text" class="form-control" id="contactNumber"
                                 placeholder="Enter your parent / carer’s phone number"
                                 v-model="aboutObj.parentContactNumber">
                         </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='parent'" class="form-group py-2 my-2">
                             <label for="contactNumber" class="question-font">What is their contact number?</label>
                             <input type="text" class="form-control" id="contactNumber"
                                 placeholder="Enter your phone number" v-model="aboutObj.parentContactNumber">
                         </div>
 
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='professional'" class="form-group py-2 my-2">
                             <label for="contactNumber" class="question-font">What is their contact
                                 number?</label>
                             <input type="text" class="form-control" id="contactNumber"
@@ -713,19 +713,19 @@
                                 v-model="aboutObj.parentContactNumber">
                         </div>
 
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='child'" class="form-group py-2 my-2">
                             <label for="emailAddress" class="question-font">What is their email address? -
                                 optional</label>
                             <input type="email" class="form-control" id="emailAddress"
                                 placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
                         </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='parent'" class="form-group py-2 my-2">
                             <label for="emailAddress" class="question-font">What is their email address? -
                                 optional</label>
                             <input type="email" class="form-control" id="emailAddress"
                                 placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
                         </div>
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
+                        <div v-show="labelToDisplay =='professional'" class="form-group py-2 my-2">
                             <label for="emailAddress" class="question-font">What is the their email address? -
                                 optional</label>
                             <input type="email" class="form-control" id="emailAddress"
@@ -736,14 +736,14 @@
 
                 <div v-show="aboutObj.parentialResponsibility == 'yes'"
                     class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person live in the same house
+                    <p v-show="labelToDisplay =='child'" class="question-font m-0">Does this person live in the same house
                         as
                         you?
                     </p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do you live in the same house as your
+                    <p v-show="labelToDisplay =='parent'" class="question-font m-0">Do you live in the same house as your
                         child?
                     </p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Do they live in same house as
+                    <p v-show="labelToDisplay =='professional'" class="question-font m-0">Do they live in same house as
                         the child/young person?</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="sameHouseNo" value="no"
@@ -763,14 +763,14 @@
 
                 <div v-show="aboutObj.parentialResponsibility == 'no'"
                     class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person live in the same house
+                    <p v-show="labelToDisplay =='child'" class="question-font m-0">Does this person live in the same house
                         as
                         you?
                     </p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do they live in the same house as your
+                    <p v-show="labelToDisplay =='parent'" class="question-font m-0">Do they live in the same house as your
                         child?
                     </p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Do they live in same house as
+                    <p v-show="labelToDisplay =='professional'" class="question-font m-0">Do they live in same house as
                         the child/young person?</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="sameHouseNo" value="no"
@@ -792,21 +792,21 @@
                 <div v-show="aboutObj.parentSameHouse=='no'"
                     class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 m-0">
-                        <label v-if="labelToDisplay =='child'" for="gpParentorCarerLocation" class="question-font">What
+                        <label v-show="labelToDisplay =='child'" for="gpParentorCarerLocation" class="question-font">What
                             is
                             your parents / carer’s address? -
                             optional</label>
-                        <label v-if="labelToDisplay =='parent' &&   aboutObj.parentialResponsibility == 'yes' "
+                        <label v-show="labelToDisplay =='parent' &&   aboutObj.parentialResponsibility == 'yes' "
                             for="gpParentorCarerLocation" class="question-font">What is
                             your address? -
                             optional</label>
 
-                        <label v-if="labelToDisplay =='parent' &&  aboutObj.parentialResponsibility == 'no'"
+                        <label v-show="labelToDisplay =='parent' &&  aboutObj.parentialResponsibility == 'no'"
                             for="gpParentorCarerLocation" class="question-font">What is
                             their address? -
                             optional</label>
 
-                        <label v-if="labelToDisplay =='professional'" for="gpParentorCarerLocation"
+                        <label v-show="labelToDisplay =='professional'" for="gpParentorCarerLocation"
                             class="question-font">What is the their address? - optional</label>
                         <div class="input-group">
                             <input type="text" class="form-control" placeholder="Start typing to search"
@@ -822,35 +822,35 @@
 
                 <div v-show="aboutObj.parentSameHouse=='yes'"
                     class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div v-if="aboutObj.parentialResponsibility == 'yes'" class="d-flex align-items-start">
-                        <p v-if="labelToDisplay =='child'" class="question-font">Your legal care status (“legal care
+                    <div v-show="aboutObj.parentialResponsibility == 'yes'" class="d-flex align-items-start">
+                        <p v-show="labelToDisplay =='child'" class="question-font">Your legal care status (“legal care
                             status”
                             means who has legal
                             guardianship over you)
                         </p>
-                        <!-- <p v-if="labelToDisplay =='parent'" class="question-font">Your child's legal care status (“legal
+                        <!-- <p v-show="labelToDisplay =='parent'" class="question-font">Your child's legal care status (“legal
                         care status” means who has legal
                         guardianship over the child/ young person)
                     </p> -->
-                        <p v-if="labelToDisplay =='parent'" class="question-font">The child/young person's legal care
+                        <p v-show="labelToDisplay =='parent'" class="question-font">The child/young person's legal care
                             status ("legal status" means who has legal guardianship over the them)
                         </p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font">The child / young person’s legal
+                        <p v-show="labelToDisplay =='professional'" class="question-font">The child / young person’s legal
                             care status (“legal status” means who has legal guardianship over the them)
                         </p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer" alt="">
                     </div>
 
-                    <div v-if="aboutObj.parentialResponsibility == 'no'" class="d-flex align-items-start">
-                        <p v-if="labelToDisplay =='child'" class="question-font">Your legal care status (“legal care
+                    <div v-show="aboutObj.parentialResponsibility == 'no'" class="d-flex align-items-start">
+                        <p v-show="labelToDisplay =='child'" class="question-font">Your legal care status (“legal care
                             status”
                             means who has legal
                             guardianship over you)
                         </p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font">The child's legal care status ("legal
+                        <p v-show="labelToDisplay =='parent'" class="question-font">The child's legal care status ("legal
                             status" means who has legal guardianship over the child/young person)
                         </p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font">The child's legal care status
+                        <p v-show="labelToDisplay =='professional'" class="question-font">The child's legal care status
                             ("legal status" means who has legal guardianship over the child/young person
                         </p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer" alt="">
