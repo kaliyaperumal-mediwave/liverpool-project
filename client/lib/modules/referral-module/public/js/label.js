@@ -47,10 +47,3 @@ else if (currentLocation === "professional") {
     allLabels.prevAccessedServiceLabel = "Has the child/young previously accessed any other services?";
     allLabels.listServiceLabel = "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service."
 }
-
-
-function getQueryStringValue(key) {
-    debugger
-    return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-}
-// });

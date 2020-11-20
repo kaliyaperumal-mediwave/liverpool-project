@@ -3,6 +3,7 @@
 {% block extraBody %}
 <script src="/modules/referral-module/js/label.js"></script>
 <script src="/modules/referral-module/js/referral.js"></script>
+
 {% endblock %}
 {% block main %}
 <div id="referral-form">
@@ -119,7 +120,8 @@
                 <form id="diagnosis-list-form" data-options="diagnosisList">
                     <div v-if="referralData.diagnosis == 'yes'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text
+                        <p class="question-font m-0">Please tick all that apply or add more information into the “Other”
+                            text
                             box
                             at the bottom of the list</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfDiagnosis"
@@ -174,7 +176,8 @@
                 <form id="problems-list-form" data-options="problemsList">
                     <div v-if="referralData.supportOrSymptoms == 'yes'"
                         class="px-4 pt-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text
+                        <p class="question-font m-0">Please tick all that apply or add more information into the “Other”
+                            text
                             box
                             at the bottom of the list</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfProblems"
@@ -308,7 +311,7 @@
 
 
                 <!-- List Available Start -->
-                <form v-if="referralData.accessService == 'yes'" data-options="accessList">
+                <form id="servicesAll-list-form" v-if="referralData.accessService == 'yes'" data-options="accessList">
                     <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.listServiceLabel}}</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfAvailableService"
@@ -318,12 +321,6 @@
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
                                 {{ item.value  }}</label>
                         </div>
-                        <!-- <div class="custom-form-group pt-3 pb-1 m-0">
-                        <input type="checkbox" id="serviceOthers" name="listServiceOthers" value="Others"
-                            v-model="serviceOthers" @change="onOptionChange($event)">
-                        <label for="serviceOthers" class="option-font d-flex align-items-center">
-                            Others</label>
-                    </div> -->
                     </div>
                 </form>
                 <!-- List Available Start -->
@@ -434,7 +431,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn px-md-4 w-50" id="closeModal"
-                                    @click="upsertService($event,'add')">
+                                    @click="upsertService('add')">
                                     <template v-if="serviceData.mode == 'update'">
                                         <span class="btn-modal-text">UPDATE
                                         </span>
@@ -470,7 +467,7 @@
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
                         referralData.triggerInfo && referralData.disabilityOrDifficulty">
-                                    <p class="question-font text-center m-0 py-2">Scenerio 1 Fab. Last but not least,
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
                                         contact
@@ -488,7 +485,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a>
-                            <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-secondary-text">SAVE &
                                     CONTINUE</span></button>
                         </a>
@@ -512,7 +509,7 @@
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
                             referralData.triggerInfo && referralData.disabilityOrDifficulty">
-                                    <p class="question-font text-center m-0 py-2">Scenerio 2 Fab. Last but not least,
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
                                         contact
@@ -530,7 +527,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a>
-                            <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-secondary-text">SAVE &
                                     CONTINUE</span></button>
                         </a>
@@ -554,7 +551,7 @@
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
                                 referralData.triggerInfo && referralData.disabilityOrDifficulty">
-                                    <p class="question-font text-center m-0 py-2">Scenerio 3 Fab. Last but not least,
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
                                         contact
@@ -572,7 +569,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a>
-                            <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-secondary-text">SAVE &
                                     CONTINUE</span></button>
                         </a>

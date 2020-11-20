@@ -1,5 +1,26 @@
 var API_URI = "/modules/review-module";
 $(document).ready(function () {
+
+    $("[data-cid]").prop({ tabindex: 1, contenteditable: true }).on({
+
+        focusin() {
+            this.__html = $(this).html(); // Store current HTML content
+        },
+
+        focusout() {
+
+            const data = {
+                cid: this.dataset.cid,
+                html: this.innerHTML,
+            };
+
+            if (this.__html === data.html) return;  // Nothing has changed.
+
+            console.log(data); // Something changed, send data to server.
+        }
+
+    });
+
     var app = new Vue({
         el: '#review-form',
         data: {

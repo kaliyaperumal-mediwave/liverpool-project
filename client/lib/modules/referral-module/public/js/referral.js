@@ -5,14 +5,13 @@ $(document).ready(function () {
         el: '#referral-form',
         mounted: function () {
             this.dynamicLabels = allLabels;
-            this.userMode = this.getQueryStringValue('mode');
-            this.userRole = this.getQueryStringValue('role');
-            this.userId = this.getQueryStringValue('userId');
-            console.log('role', this.userRole);
+            this.userMode = getQueryStringValue('mode');
+            this.userRole = getQueryStringValue('role');
+            this.userId = getQueryStringValue('userId');
             if (this.userMode === 'edit') {
                 this.patchValue();
             }
-            if (this.getUrlVars()['edt'] == 1) {
+            if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData()
             }
             else {
@@ -35,6 +34,7 @@ $(document).ready(function () {
                 //isAccessingService: '',
                 listService: '',
             },
+            currentSection: 'referral',
             dynamicLabels: {},
             requiredFields: {
                 hasInfoReqError: false,
@@ -141,36 +141,150 @@ $(document).ready(function () {
                 { id: '0dfsu8u', value: 'Other' },
             ],
             allAvailableService: [],
-            sendObj: {},
             referralId: ""
         },
         methods: {
-            fetchSavedData: function () {
-                console.log("if")
-                this.sendObj.userid = this.getUrlVars()['userid'];
-                this.sendObj.role = this.getUrlVars()['role'];
-                console.log(this.sendObj);
-                //     var roleType=new URL(location.href).searchParams.get('role')
-                $.ajax({
-                    url: API_URI + "/fetchReferral",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(this.sendObj),
-                    success: function (data) {
-                        //alert("section 1 saved.");
-                        //  console.log(data);
-                        app.patchValue(data);
 
-                    },
-                });
+            //Options changing logic
+            onOptionChange(event) {
+                var questionIdentifier = event.target.name;
+                var optionsName = this.referralData;
+                if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal' || questionIdentifier == 'mentalDiagnosis' ||
+                    questionIdentifier == 'accessedService' || questionIdentifier === 'anyService') {
+                    resetValues(event.target.form, this, this.currentSection);
+                }
+                else if (questionIdentifier === 'listDiagnosis') {
+                    if (!this.diagnosisList.length) {
+                        if (optionsName.diagnosisOther === '') {
+                            resetValues(event.target.form, this, this.currentSection);
+                        }
+                    }
+                }
+                else if (questionIdentifier === 'listProblems') {
+                    if (!this.problemsList.length) {
+                        if (optionsName.problemsOther === '') {
+                            resetValues(event.target.form, this, this.currentSection);
+                        }
+                    }
+                }
+                else if (questionIdentifier === 'listService') {
+                    if (event.target.checked) {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = true;
+                        }
+                    } else {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = false;
+                            this.allAvailableService = [];
+                        }
+                    }
+                    if (!this.accessList.length) {
+                        resetValues(event.target.form, this, this.currentSection);
+                    }
+                }
             },
+
+            //Getting values from Other Input box and logic
+            onValueEnter(e) {
+                var questionIdentifier = event.target.name;
+                if (questionIdentifier === 'listDiagnosis') {
+                    if (!this.diagnosisList.length) {
+                        if (!e.target.value) {
+                            resetValues(event.target.form, this, this.currentSection);
+                        }
+                    }
+
+                } else if (questionIdentifier === 'listProblems') {
+                    if (!e.target.value) {
+                        resetValues(event.target.form, this, this.currentSection);
+                    }
+                }
+            },
+
+            //Edit Api call
+            fetchSavedData: function () {
+                var payload = {};
+                payload.userid = this.userId;
+                payload.role = this.userRole;
+                var successData = apiCallPost('post', '/fetchReferral', payload);
+                this.patchValue(successData);
+            },
+
+
+            //Form Submittion of Section-4(Referral) with validation logic
+            saveAndContinue() {
+                this.isFormSubmitted = true;
+                var formData = this.referralData;
+                var reqFields = this.requiredFields;
+                if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
+                    this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
+                    this.payloadData.role = this.userRole;;
+                    this.payloadData.userid = this.userId;
+                    this.payloadData.diagnosisList = this.diagnosisList;
+                    this.payloadData.problemsList = this.problemsList;
+                    this.payloadData.accessList = this.accessList;
+                    this.payloadData.allAvailableService = this.allAvailableService;
+                    this.payloadData.editFlag = getUrlVars()['edt'];
+                    this.payloadData.id = this.referralId;
+                    if (this.userMode === 'edit') {
+                        this.payloadData.userMode = 'edit';
+                    } else {
+                        this.payloadData.userMode = 'add';
+                    }
+                    this.upsertReferralForm(this.payloadData);
+
+                } else {
+                    if (!formData.referralInfo) {
+                        reqFields.hasInfoReqError = true;
+
+                    } else {
+                        reqFields.hasInfoReqError = false;
+                    }
+                    if (!formData.hasAnythingInfo) {
+                        reqFields.hasAnythingReqError = true;
+
+                    } else {
+                        reqFields.hasAnythingReqError = false;
+                    }
+                    if (!formData.triggerInfo) {
+                        reqFields.hasTriggersReqError = true;
+
+                    } else {
+                        reqFields.hasTriggersReqError = false;
+                    }
+                    if (!formData.disabilityOrDifficulty) {
+                        reqFields.hasHistoryReqError = true;
+
+                    } else {
+                        reqFields.hasHistoryReqError = false;
+                    }
+                    scrollToInvalidInput();
+                    return false;
+                }
+
+            },
+
+            //Section 4(Referral) Save and Service call with navaigation Logic
+            upsertReferralForm(payload) {
+                var responseData = apiCallPost('post', '/saveReferral', payload);
+                if (Object.keys(responseData)) {
+                    if (getUrlVars()["edt"] == null) {
+                        location.href = "/review?userid=" + data.userid + "&role=" + role;
+                    }
+                    else {
+                        history.back();
+                    }
+                } else {
+                    console.log('empty response')
+                }
+            },
+
+            //Patching the value logic
             patchValue(data) {
-                console.log(data);
                 this.diagnosisList = data.diagnosis;
                 this.problemsList = data.diagnosis;
                 this.accessList = data.local_services;
-                this.referralId = data.id
+                this.referralId = data.id;
                 if (this.accessList.indexOf("Other") > -1) {
                     this.showAddOtherService = true;
                 } else {
@@ -188,107 +302,10 @@ $(document).ready(function () {
                 Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
                 Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                 Vue.set(this.referralData, "accessService", data.any_other_services);
-                // Vue.set(this.referralData, "accessService", 'yes');
-            },
-
-            onOptionChange(event) {
-                var questionIdentifier = event.target.name;
-                var optionsName = this.referralData;
-                if (questionIdentifier === 'support') {
-                    if (optionsName.support === 'mentalHealth' || optionsName.support === 'eatingDisorder' || optionsName.support === 'bothMental&Eating') {
-                        this.resetValues(event.target.form);
-                    }
-                } else if (questionIdentifier === 'covidReferal') {
-                    if (optionsName.covid === 'unsure' || optionsName.covid === 'yes' || optionsName.covid === 'no') {
-                        this.resetValues(event.target.form);
-                    }
-                }
-                else if (questionIdentifier === 'mentalDiagnosis') {
-                    if (optionsName.diagnosis === 'yes') {
-                        this.resetValues(event.target.form);
-                    } else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-                else if (questionIdentifier === 'listDiagnosis') {
-                    console.log(this.diagnosisList);
-                    if (!this.diagnosisList.length) {
-                        if (optionsName.diagnosisOther === '') {
-                            this.resetValues(event.target.form);
-                        }
-                    }
-
-                }
-                else if (questionIdentifier === 'symptomOrSupport') {
-                    if (optionsName.supportOrSymptoms === 'yes') {
-                        this.resetValues(event.target.form);
-                    }
-                    else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-
-                else if (questionIdentifier === 'listProblems') {
-                    if (!this.problemsList.length) {
-                        if (optionsName.problemsOther === '') {
-                            this.resetValues(event.target.form);
-                        }
-                    }
-                }
-
-                else if (questionIdentifier === 'accessedService') {
-                    if (optionsName.accessService === 'yes') {
-                        this.resetValues(event.target.form);
-
-                    } else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-
-                else if (questionIdentifier === 'listService') {
-                    if (event.target.checked) {
-                        if (event.target.value === 'Other') {
-                            this.showAddOtherService = true;
-                        }
-                    } else {
-                        if (event.target.value === 'Other') {
-                            this.showAddOtherService = false;
-                            this.allAvailableService = [];
-                        }
-                    }
-                    if (!this.accessList.length) {
-                        this.resetValues(event.target.form);
-                    }
-                }
-
-                else if (questionIdentifier === 'anyService') {
-                    if (optionsName.isAccessingService === 'yes') {
-                        this.resetValues(event.target.form);
-                    } else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-            },
-
-            //Getting values from Input
-            onValueEnter(e) {
-                var questionIdentifier = event.target.name;
-                if (questionIdentifier === 'listDiagnosis') {
-                    if (!this.diagnosisList.length) {
-                        if (!e.target.value) {
-                            this.resetValues(event.target.form);
-                        }
-                    }
-
-                } else if (questionIdentifier === 'listProblems') {
-                    if (!e.target.value) {
-                        this.resetValues(event.target.form);
-                    }
-                }
             },
 
             //Adding and Updating  a service logic
-            upsertService(event, type) {
+            upsertService(type) {
                 console.log('all service', this.allAvailableService);
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
@@ -312,7 +329,6 @@ $(document).ready(function () {
                                 return it;
                             }
                         });
-                        console.log('after added service', this.allAvailableService);
                         this.resetModalValues();
                         serviceForm.mode == ''
                         var modal = document.getElementById('closeModal');
@@ -332,7 +348,7 @@ $(document).ready(function () {
                     }
                 }
                 if (type === 'add') {
-                    serviceForm.id = this.uuidV4();
+                    serviceForm.id = uuidV4();
                     serviceForm.mode = 'add';
                 }
                 if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
@@ -362,6 +378,30 @@ $(document).ready(function () {
                 }
             },
 
+            //Patching the service logic
+            patchService(service) {
+                var serviceForm = this.serviceData;
+                serviceForm.name = service.name;
+                serviceForm.professional = service.professional;
+                serviceForm.contact = service.contact;
+                serviceForm.id = service.id;
+                serviceForm.mode = 'update';
+                this.allAvailableService.map(function (i) {
+                    if (i.id === service.id) {
+                        i.mode = "update";
+                    } else {
+                        delete i.mode;
+                    }
+
+                });
+            },
+
+            //Delete service logic
+            deleteService(service) {
+                deleteLogic(this.allAvailableService, service, this, this.currentSection)
+            },
+
+            //Resetting the modal values of service data
             resetModalValues() {
                 this.serviceData.name = '';
                 this.serviceData.professional = '';
@@ -396,29 +436,6 @@ $(document).ready(function () {
                         this.serviceData.hasContactReqError = false;
                     }
                 }
-
-
-            },
-
-            patchService(service) {
-                var serviceForm = this.serviceData;
-                serviceForm.name = service.name;
-                serviceForm.professional = service.professional;
-                serviceForm.contact = service.contact;
-                serviceForm.id = service.id;
-                serviceForm.mode = 'update';
-                this.allAvailableService.map(function (i) {
-                    if (i.id === service.id) {
-                        i.mode = "update";
-                    } else {
-                        delete i.mode;
-                    }
-
-                });
-            },
-
-            deleteService(service) {
-                this.findIndex(this.allAvailableService, service);
             },
 
             //VALIDATION LOGIC FOR SERVICE MODAL WHILE ENTERING VALUES ON INPUT FILEDS
@@ -453,10 +470,7 @@ $(document).ready(function () {
                             serviceForm.hasContactReqError = false;
                         }
                     }
-
-
                 }
-
             },
 
             //Validation logic for all required fields on entering values in input fields
@@ -497,23 +511,6 @@ $(document).ready(function () {
                 }
             },
 
-            //Reset Two-Way-Model Values
-            resetValues(currentForm) {
-                var allForms = Array.from(document.forms);
-                var formIndex = allForms.indexOf(currentForm);
-                for (let i = 0; i < allForms.length; i++) {
-                    var attributeValue = $(allForms[i]).data('options');
-                    if (formIndex < i) {
-                        this.referralData[attributeValue] = '';
-                    }
-                    if (formIndex <= i) {
-                        this.clearDependentValues(attributeValue);
-                    }
-                }
-                this.showAddOtherService = false;
-                this.allAvailableService = [];
-            },
-
             clearDependentValues(parentKey) {
                 var foundKeyPair = this.dependent.filter(function (ele) { return ele.parentKey === parentKey })[0];
                 if (foundKeyPair) {
@@ -521,140 +518,9 @@ $(document).ready(function () {
                 }
             },
 
-            //Random UUID Generator
-            uuidV4() {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
-            },
-
-            //Find Index Utility Function for IE 11
-            findIndex(arr, value) {
-                var index;
-                arr.some(function (e, i) {
-                    if (e.id == value.id) {
-                        index = i;
-                        return true;
-                    }
-                });
-                this.allAvailableService.splice(index, 1)
-            },
-
-            // Get Query Params value
-            getQueryStringValue(key) {
-                return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-            },
-
-
-            //Section 4 Save Logic
-            save() {
-                this.isFormSubmitted = true;
-                var formData = this.referralData;
-                var reqFields = this.requiredFields;
-                var roleType = this.getUrlVars()["role"];
-                var userid = this.getUrlVars()["userid"];
-                if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
-                    this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
-                    this.payloadData.role = roleType;
-                    this.payloadData.userid = userid;
-                    this.payloadData.diagnosisList = this.diagnosisList;
-                    this.payloadData.problemsList = this.problemsList;
-                    this.payloadData.accessList = this.accessList;
-                    this.payloadData.allAvailableService = this.allAvailableService;
-                    this.payloadData.editFlag = this.getUrlVars()['edt'];
-                    this.payloadData.id = this.referralId;
-                    if (this.userMode === 'edit') {
-                        this.payloadData.userMode = 'edit';
-                    } else {
-                        this.payloadData.userMode = 'add';
-                    }
-                    this.upsertReferralForm(this.payloadData);
-
-                } else {
-                    if (!formData.referralInfo) {
-                        reqFields.hasInfoReqError = true;
-
-                    } else {
-                        reqFields.hasInfoReqError = false;
-                    }
-                    if (!formData.hasAnythingInfo) {
-                        reqFields.hasAnythingReqError = true;
-
-                    } else {
-                        reqFields.hasAnythingReqError = false;
-                    }
-                    if (!formData.triggerInfo) {
-                        reqFields.hasTriggersReqError = true;
-
-                    } else {
-                        reqFields.hasTriggersReqError = false;
-                    }
-                    if (!formData.disabilityOrDifficulty) {
-                        reqFields.hasHistoryReqError = true;
-
-                    } else {
-                        reqFields.hasHistoryReqError = false;
-                    }
-                    this.scrollToInvalidInput();
-                    return false;
-                }
-
-            },
-
-            upsertReferralForm(payload) {
-                console.log(payload);
-                var _self = this;
-                $.ajax({
-                    url: API_URI + "/saveReferral",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(payload),
-                    success: function (data) {
-                    //    alert("section 4 saved.");
-                        console.log(data);
-                        location.href = "/review?userid=" + data.userid + "&role=" + data.role;
-                        if (_self.getUrlVars()["edt"] == null) {
-                            location.href = "/review?userid=" + data.userid + "&role=" + role;
-                        }
-                        else {
-                            history.back();
-                        }
-                        //  app.setValues(data);
-                    },
-                });
-            },
-
+            //Back to previous page
             backToEducation: function () {
-                var uid = this.getUrlVars()['userid'];
-                var role = this.getUrlVars()['role'];
-                location.href = "/education?userid=" + uid + "&role=" + role + "&edt=1";
-            },
-
-            //Scroll to top for an Invalid Inputs
-            scrollToInvalidInput() {
-                var errorElements = $('.invalid-fields');
-                window.scroll({
-                    top: this.getTopOffset(errorElements[0].parentElement.parentElement),
-                    left: 0,
-                    behavior: "smooth"
-                });
-            },
-
-            getTopOffset(controlEl) {
-                var labelOffset = 50;
-                return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
-            },
-            getUrlVars: function () {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-                    function (m, key, value) {
-                        vars[key] = value;
-                    });
-
-
-                return vars;
+                backToPreviousPage('/education')
             },
 
         },
