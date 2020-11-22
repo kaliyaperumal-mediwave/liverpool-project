@@ -391,7 +391,7 @@
                                     <div class="form-group">
                                         <label for="service-name" class="question-font">Name of service</label>
                                         <input type="text" class="form-control"
-                                            @keyup="validateServiceOnValueEnter($event,'name')"
+                                            @keyup="validateServiceOnValueEnter($event,'serviceName')"
                                             v-model="serviceData.name" id="service-name"
                                             placeholder="Enter the name of the service you have used">
                                         <div class="invalid-feedback d-none"
@@ -403,7 +403,7 @@
                                         <label for="profAtService" class="question-font">Name of professional at
                                             service</label>
                                         <input type="text" v-model="serviceData.professional"
-                                            @keyup="validateServiceOnValueEnter($event,'prof')" class="form-control"
+                                            @keyup="validateServiceOnValueEnter($event,'profName')" class="form-control"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
                                         <div class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': serviceData.hasProfReqError }">
@@ -415,7 +415,7 @@
                                             number for
                                             professional</label>
                                         <input type="text" class="form-control"
-                                            @keyup="validateServiceOnValueEnter($event,'contact')"
+                                            @keyup="validateServiceOnValueEnter($event,'profContact')"
                                             v-model="serviceData.contact" id="contactNumber"
                                             placeholder="Enter a phone number for the professional">
                                         <div class="invalid-feedback d-none"

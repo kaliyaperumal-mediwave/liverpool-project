@@ -438,76 +438,17 @@ $(document).ready(function () {
                 }
             },
 
-            //VALIDATION LOGIC FOR SERVICE MODAL WHILE ENTERING VALUES ON INPUT FILEDS
+            //Validation logic for all required fields on entering values in input fields inside service modal
             validateServiceOnValueEnter(e, type) {
-                console.log(e)
-                var serviceForm = this.serviceData;
-                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 if (this.hasSubmittedServiceForm) {
-                    if (type === 'name') {
-                        if (!e.target.value) {
-                            serviceForm.hasNameReqError = true;
-                        } else {
-                            serviceForm.hasNameReqError = false;
-                        }
-                    } else if (type === 'prof') {
-                        if (!e.target.value) {
-                            serviceForm.hasProfReqError = true;
-                        } else {
-                            serviceForm.hasProfReqError = false;
-                        }
-                    }
-                    else if (type === 'contact') {
-                        if (!e.target.value) {
-                            serviceForm.hasContactReqError = true;
-                            serviceForm.hasContactInvalidError = false;
-                        } else {
-                            if (!phoneRegex.test(e.target.value)) {
-                                serviceForm.hasContactInvalidError = true;
-                            } else {
-                                serviceForm.hasContactInvalidError = false;
-                            }
-                            serviceForm.hasContactReqError = false;
-                        }
-                    }
+                    commonValidationOnValueEnter(e, type, this);
                 }
             },
 
             //Validation logic for all required fields on entering values in input fields
             validationOnValueEnter(e, type) {
                 if (this.isFormSubmitted) {
-                    if (type === 'info') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasInfoReqError = true;
-                        } else {
-                            this.requiredFields.hasInfoReqError = false;
-                        }
-
-                    } else if (type === 'anything') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasAnythingReqError = true;
-                        } else {
-
-                            this.requiredFields.hasAnythingReqError = false;
-                        }
-
-                    } else if (type === 'triggers') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasTriggersReqError = true;
-                        } else {
-
-                            this.requiredFields.hasTriggersReqError = false;
-                        }
-
-                    } else if (type === 'disabilities') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasHistoryReqError = true;
-                        } else {
-
-                            this.requiredFields.hasHistoryReqError = false;
-                        }
-
-                    }
+                    commonValidationOnValueEnter(e, type, this);
                 }
             },
 
