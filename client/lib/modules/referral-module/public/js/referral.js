@@ -1,6 +1,5 @@
 var API_URI = "/modules/referral-module";
 $(document).ready(function () {
-    var _self = this;
     var app = new Vue({
         el: '#referral-form',
         mounted: function () {
@@ -35,6 +34,7 @@ $(document).ready(function () {
                 listService: '',
             },
             currentSection: 'referral',
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
             dynamicLabels: {},
             requiredFields: {
                 hasInfoReqError: false,
@@ -74,6 +74,7 @@ $(document).ready(function () {
             diagnosisList: [],
             problemsList: [],
             accessList: [],
+            contactRegex: null,
             hasSubmittedServiceForm: false,
             listOfDiagnosis: [
                 { id: '11E', value: 'ADD/ADHD' },
@@ -215,7 +216,6 @@ $(document).ready(function () {
             saveAndContinue() {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
-                var reqFields = this.requiredFields;
                 if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;;
@@ -440,11 +440,17 @@ $(document).ready(function () {
             },
 
             //Validation logic for all required fields on entering values in input fields inside service modal
-            validateServiceOnValueEnter(e, type) {
-                if (this.hasSubmittedServiceForm) {
-                    commonValidationOnValueEnter(e, type, this);
-                }
-            },
+            // validateServiceOnValueEnter(e, type) {
+            //     if (this.hasSubmittedServiceForm) {
+            //         if (e.target.value.length) {
+            //             this.valEntered = true;
+            //         } else {
+            //             this.valEntered = false;
+            //         }
+
+            //         // commonValidationOnValueEnter(e, type, this);
+            //     }
+            // },
 
             //Validation logic for all required fields on entering values in input fields
             validationOnValueEnter(e, type) {

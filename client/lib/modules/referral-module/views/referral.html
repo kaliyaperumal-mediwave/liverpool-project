@@ -395,23 +395,20 @@
                                 <form id="add-service-form">
                                     <div class="form-group">
                                         <label for="service-name" class="question-font">Name of service</label>
-                                        <input type="text" class="form-control"
-                                            @keyup="validateServiceOnValueEnter($event,'serviceName')"
-                                            v-model="serviceData.name" id="service-name"
-                                            placeholder="Enter the name of the service you have used">
+                                        <input type="text" class="form-control" v-model="serviceData.name"
+                                            id="service-name" placeholder="Enter the name of the service you have used">
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasNameReqError }">
+                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
                                             Please provide a service name.
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="profAtService" class="question-font">Name of professional at
                                             service</label>
-                                        <input type="text" v-model="serviceData.professional"
-                                            @keyup="validateServiceOnValueEnter($event,'profName')" class="form-control"
+                                        <input type="text" v-model="serviceData.professional" class="form-control"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasProfReqError }">
+                                            v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
                                             Please provide a professional name.
                                         </div>
                                     </div>
@@ -419,16 +416,14 @@
                                         <label for="contactNumber" class="question-font">Contact
                                             number for
                                             professional</label>
-                                        <input type="text" class="form-control"
-                                            @keyup="validateServiceOnValueEnter($event,'profContact')"
-                                            v-model="serviceData.contact" id="contactNumber"
-                                            placeholder="Enter a phone number for the professional">
+                                        <input type="text" class="form-control" v-model="serviceData.contact"
+                                            id="contactNumber" placeholder="Enter a phone number for the professional">
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasContactReqError }">
+                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
                                             Please provide a contact number.
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasContactInvalidError }">
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(this.serviceData.contact) )}">
                                             Please provide a valid contact number.
                                         </div>
                                     </div>
