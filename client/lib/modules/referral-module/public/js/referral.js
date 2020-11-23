@@ -36,12 +36,6 @@ $(document).ready(function () {
             currentSection: 'referral',
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             dynamicLabels: {},
-            requiredFields: {
-                hasInfoReqError: false,
-                hasAnythingReqError: false,
-                hasTriggersReqError: false,
-                hasHistoryReqError: false,
-            },
             dependent: [
                 {
                     parentKey: 'diagnosis',
@@ -60,10 +54,6 @@ $(document).ready(function () {
                 name: null,
                 professional: null,
                 contact: null,
-                hasNameReqError: false,
-                hasProfReqError: false,
-                hasContactReqError: false,
-                hasContactInvalidError: false
             },
             isFormSubmitted: false,
             serviceOthers: [],
@@ -218,7 +208,7 @@ $(document).ready(function () {
                 var formData = this.referralData;
                 if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
-                    this.payloadData.role = this.userRole;;
+                    this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.diagnosisList = this.diagnosisList;
                     this.payloadData.problemsList = this.problemsList;
@@ -234,31 +224,6 @@ $(document).ready(function () {
                     this.upsertReferralForm(this.payloadData);
 
                 } else {
-                    debugger;
-                    // if (!formData.referralInfo) {
-                    //     reqFields.hasInfoReqError = true;
-
-                    // } else {
-                    //     reqFields.hasInfoReqError = false;
-                    // }
-                    // if (!formData.hasAnythingInfo) {
-                    //     reqFields.hasAnythingReqError = true;
-
-                    // } else {
-                    //     reqFields.hasAnythingReqError = false;
-                    // }
-                    // if (!formData.triggerInfo) {
-                    //     reqFields.hasTriggersReqError = true;
-
-                    // } else {
-                    //     reqFields.hasTriggersReqError = false;
-                    // }
-                    // if (!formData.disabilityOrDifficulty) {
-                    //     reqFields.hasHistoryReqError = true;
-
-                    // } else {
-                    //     reqFields.hasHistoryReqError = false;
-                    // }
                     scrollToInvalidInput();
                     return false;
                 }
@@ -306,19 +271,12 @@ $(document).ready(function () {
             },
 
             //Adding and Updating  a service logic
-            upsertService(type) {
-                console.log('all service', this.allAvailableService);
+            upsertService() {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
-                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
-                if (serviceForm.mode === 'update') {
-                    if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
-                        if (!phoneRegex.test(serviceForm.contact)) {
-                            this.hasContactInvalidError = true;
-                            return false;
-                        } else {
-                            this.hasContactInvalidError = false;
-                        }
+                var modal = document.getElementById('closeModal');
+                if (serviceForm.name && serviceForm.professional && serviceForm.contact && this.phoneRegex.test(serviceForm.contact)) {
+                    if (serviceForm.mode === 'update') {
                         this.allAvailableService = this.allAvailableService.map(function (it) {
                             if (it.mode === 'update' && it.id === serviceForm.id) {
                                 it = JSON.parse(JSON.stringify(serviceForm));
@@ -330,53 +288,20 @@ $(document).ready(function () {
                                 return it;
                             }
                         });
-                        this.resetModalValues();
-                        serviceForm.mode == ''
-                        var modal = document.getElementById('closeModal');
-                        modal.setAttribute("data-dismiss", "modal");
-                        return false;
+
                     } else {
-                        if (!serviceForm.name) {
-                            serviceForm.hasNameReqError = true;
-                        }
-                        if (!serviceForm.professional) {
-                            serviceForm.hasProfReqError = true;
-                        }
-                        if (!serviceForm.contact) {
-                            serviceForm.hasContactReqError = true;
-                        }
-                        return false;
+                        serviceForm.id = uuidV4();
+                        serviceForm.mode = 'add';
+                        this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
                     }
-                }
-                if (type === 'add') {
-                    serviceForm.id = uuidV4();
-                    serviceForm.mode = 'add';
-                }
-                if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
-                    if (!phoneRegex.test(serviceForm.contact)) {
-                        serviceForm.hasContactInvalidError = true;
-                        return false;
-                    } else {
-                        this.hasContactInvalidError = false;
-                    }
-                    this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
-                    console.log('after added service', this.allAvailableService);
                     this.resetModalValues();
-                    var modal = document.getElementById('closeModal');
                     modal.setAttribute("data-dismiss", "modal");
-                    serviceForm.mode == ''
+
                 } else {
-                    if (!serviceForm.name) {
-                        serviceForm.hasNameReqError = true;
-                    }
-                    if (!serviceForm.professional) {
-                        serviceForm.hasProfReqError = true;
-                    }
-                    if (!serviceForm.contact) {
-                        serviceForm.hasContactReqError = true;
-                    }
-                    return false;
+                    modal.removeAttribute("data-dismiss", "modal");
+                    return;
                 }
+
             },
 
             //Patching the service logic
@@ -404,58 +329,23 @@ $(document).ready(function () {
 
             //Resetting the modal values of service data
             resetModalValues() {
+                this.hasSubmittedServiceForm = false;
                 this.serviceData.name = '';
                 this.serviceData.professional = '';
                 this.serviceData.contact = '';
-                this.serviceData.hasNameReqError = false;
-                this.serviceData.hasProfReqError = false;
-                this.serviceData.hasContactReqError = false;
+                this.serviceData.mode = '';
             },
 
-            resetModal(e, type) {
-                console.log(this.serviceData);
+            resetModal(type) {
                 if (type === 'add') {
-                    this.hasSubmittedServiceForm = false;
-                    this.serviceData.name = '';
-                    this.serviceData.mode = '';
-                    this.serviceData.professional = '';
-                    this.serviceData.contact = '';
-                    this.serviceData.hasNameReqError = false;
-                    this.serviceData.hasProfReqError = false;
-                    this.serviceData.hasContactReqError = false;
+                    this.resetModalValues();
                 } else {
                     if (this.serviceData.mode === 'update') {
                         return true;
 
                     } else {
-                        this.hasSubmittedServiceForm = false;
-                        this.serviceData.name = '';
-                        this.serviceData.professional = '';
-                        this.serviceData.contact = '';
-                        this.serviceData.hasNameReqError = false;
-                        this.serviceData.hasProfReqError = false;
-                        this.serviceData.hasContactReqError = false;
+                        this.resetModalValues();
                     }
-                }
-            },
-
-            //Validation logic for all required fields on entering values in input fields inside service modal
-            // validateServiceOnValueEnter(e, type) {
-            //     if (this.hasSubmittedServiceForm) {
-            //         if (e.target.value.length) {
-            //             this.valEntered = true;
-            //         } else {
-            //             this.valEntered = false;
-            //         }
-
-            //         // commonValidationOnValueEnter(e, type, this);
-            //     }
-            // },
-
-            //Validation logic for all required fields on entering values in input fields
-            validationOnValueEnter(e, type) {
-                if (this.isFormSubmitted) {
-                    commonValidationOnValueEnter(e, type, this);
                 }
             },
 
