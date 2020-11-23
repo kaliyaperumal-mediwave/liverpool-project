@@ -220,7 +220,7 @@
                                 v-model="referralData.referralInfo" @keyup="validationOnValueEnter($event,'info')"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="4"></textarea>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': requiredFields.hasInfoReqError,'invalid-fields':!referralData.referralInfo }">
+                                v-bind:class="{ 'd-block':(isFormSubmitted && !referralData.referralInfo),'invalid-fields':!referralData.referralInfo }">
                                 Please provide a information
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                                 v-model="referralData.hasAnythingInfo"
                                 @keyup="validationOnValueEnter($event,'anything')" rows="4"></textarea>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': requiredFields.hasAnythingReqError,'invalid-fields':!referralData.hasAnythingInfo }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
                                 Please provide a information
                             </div>
                         </div>
@@ -258,7 +258,7 @@
                                 v-model="referralData.triggerInfo" @keyup="validationOnValueEnter($event,'triggers')"
                                 rows="4"></textarea>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': requiredFields.hasTriggersReqError ,'invalid-fields':!referralData.triggerInfo}">
+                                v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
                                 Please provide a information
                             </div>
                         </div>
@@ -282,7 +282,7 @@
                                     v-model="referralData.disabilityOrDifficulty"
                                     @keyup="validationOnValueEnter($event,'disabilities')" rows="5"></textarea>
                                 <div class="invalid-feedback d-none"
-                                    v-bind:class="{ 'd-block': requiredFields.hasHistoryReqError, 'invalid-fields':!referralData.disabilityOrDifficulty}">
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.disabilityOrDifficulty), 'invalid-fields':!referralData.disabilityOrDifficulty}">
                                     Please provide a information
                                 </div>
                             </div>

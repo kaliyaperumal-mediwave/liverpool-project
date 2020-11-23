@@ -234,30 +234,31 @@ $(document).ready(function () {
                     this.upsertReferralForm(this.payloadData);
 
                 } else {
-                    if (!formData.referralInfo) {
-                        reqFields.hasInfoReqError = true;
+                    debugger;
+                    // if (!formData.referralInfo) {
+                    //     reqFields.hasInfoReqError = true;
 
-                    } else {
-                        reqFields.hasInfoReqError = false;
-                    }
-                    if (!formData.hasAnythingInfo) {
-                        reqFields.hasAnythingReqError = true;
+                    // } else {
+                    //     reqFields.hasInfoReqError = false;
+                    // }
+                    // if (!formData.hasAnythingInfo) {
+                    //     reqFields.hasAnythingReqError = true;
 
-                    } else {
-                        reqFields.hasAnythingReqError = false;
-                    }
-                    if (!formData.triggerInfo) {
-                        reqFields.hasTriggersReqError = true;
+                    // } else {
+                    //     reqFields.hasAnythingReqError = false;
+                    // }
+                    // if (!formData.triggerInfo) {
+                    //     reqFields.hasTriggersReqError = true;
 
-                    } else {
-                        reqFields.hasTriggersReqError = false;
-                    }
-                    if (!formData.disabilityOrDifficulty) {
-                        reqFields.hasHistoryReqError = true;
+                    // } else {
+                    //     reqFields.hasTriggersReqError = false;
+                    // }
+                    // if (!formData.disabilityOrDifficulty) {
+                    //     reqFields.hasHistoryReqError = true;
 
-                    } else {
-                        reqFields.hasHistoryReqError = false;
-                    }
+                    // } else {
+                    //     reqFields.hasHistoryReqError = false;
+                    // }
                     scrollToInvalidInput();
                     return false;
                 }
