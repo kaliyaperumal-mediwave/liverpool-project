@@ -33,9 +33,6 @@ $(document).ready(function () {
                 //isAccessingService: '',
                 listService: '',
             },
-            currentSection: 'referral',
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
-            dynamicLabels: {},
             dependent: [
                 {
                     parentKey: 'diagnosis',
@@ -55,6 +52,9 @@ $(document).ready(function () {
                 professional: null,
                 contact: null,
             },
+            currentSection: 'referral',
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            dynamicLabels: {},
             isFormSubmitted: false,
             serviceOthers: [],
             showAddOtherService: false,
@@ -64,7 +64,8 @@ $(document).ready(function () {
             diagnosisList: [],
             problemsList: [],
             accessList: [],
-            contactRegex: null,
+            allAvailableService: [],
+            referralId: "",
             hasSubmittedServiceForm: false,
             listOfDiagnosis: [
                 { id: '11E', value: 'ADD/ADHD' },
@@ -131,8 +132,7 @@ $(document).ready(function () {
                 { id: '85fhtsewre', value: 'YPAS' },
                 { id: '0dfsu8u', value: 'Other' },
             ],
-            allAvailableService: [],
-            referralId: ""
+
         },
         methods: {
 
