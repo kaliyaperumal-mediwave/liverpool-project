@@ -156,121 +156,121 @@ $(document).ready(function () {
                 })
             },
 
-            // onChange :function(event) {
+            onChange :function(event) {
 
-            //     var optionText = event.target.name;
-            //     console.log(this.elgibilityObj.role);
-            //     var today = this.restrictDate();
-            //     if(optionText=="interpreter" && this.elgibilityObj.role=="child")
-            //     {
-            //         document.getElementById("txtDateChild").setAttribute("max", today);
-            //     }
-            //     else if(optionText=="interpreter" && this.elgibilityObj.role=="parent")
-            //     {
+                var optionText = event.target.name;
+                console.log(this.elgibilityObj.role);
+                var today = this.restrictDate();
+                if(optionText=="interpreter" && this.elgibilityObj.role=="child")
+                {
+                    document.getElementById("txtDateChild").setAttribute("max", today);
+                }
+                else if(optionText=="interpreter" && this.elgibilityObj.role=="parent")
+                {
                    
-            //         document.getElementById("txtDateParent").setAttribute("max", today);
-            //     }
-            //     else if(this.elgibilityObj.role=="professional")
-            //     {
+                    document.getElementById("txtDateParent").setAttribute("max", today);
+                }
+                else if(this.elgibilityObj.role=="professional")
+                {
                    
-            //          document.getElementById("txtDateProf").setAttribute("max", today);
-            //     }
-            //     var fType = this.getUrlVars()["role"];
-            //     console.log(fType);
-            //     if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
-            //         console.log(optionText);
-            //         this.elgibilityObj.interpreter = "";
-            //         this.elgibilityObj.childDob = "";
-            //         this.belowAgeLimit = "";
-            //         this.aboveLimit = "";
-            //         this.elgibilityObj.camhs = "";
-            //         this.elgibilityObj.isInformation = "";
-            //         this.elgibilityObj.registerd_gp = "";
-            //         this.elgibilityObj.contactParent = "";
-            //         this.submitForm = "false";
-            //     }
+                     document.getElementById("txtDateProf").setAttribute("max", today);
+                }
+                var fType = this.getUrlVars()["role"];
+                console.log(fType);
+                if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
+                    console.log(optionText);
+                    this.elgibilityObj.interpreter = "";
+                    this.elgibilityObj.childDob = "";
+                    this.belowAgeLimit = "";
+                    this.aboveLimit = "";
+                    this.elgibilityObj.camhs = "";
+                    this.elgibilityObj.isInformation = "";
+                    this.elgibilityObj.registerd_gp = "";
+                    this.elgibilityObj.contactParent = "";
+                    this.submitForm = "false";
+                }
 
-            //     if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
-            //         this.elgibilityObj.childDob = "";
-            //         this.belowAgeLimit = "";
-            //         this.aboveLimit = "";
-            //         this.elgibilityObj.camhs = "";
-            //         this.elgibilityObj.camhsSelect = "";
-            //         this.elgibilityObj.isInformation = "";
-            //         this.elgibilityObj.registerd_gp = "";
-            //         this.elgibilityObj.contactParent = "";
-            //         this.submitForm = "false";
-            //     }
+                if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
+                    this.elgibilityObj.childDob = "";
+                    this.belowAgeLimit = "";
+                    this.aboveLimit = "";
+                    this.elgibilityObj.camhs = "";
+                    this.elgibilityObj.camhsSelect = "";
+                    this.elgibilityObj.isInformation = "";
+                    this.elgibilityObj.registerd_gp = "";
+                    this.elgibilityObj.contactParent = "";
+                    this.submitForm = "false";
+                }
 
-            //     if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
-            //         this.elgibilityObj.isInformation = "";
-            //         this.elgibilityObj.registerd_gp = "";
-            //         this.submitForm = "false";
-            //     }
+                if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
+                    this.elgibilityObj.isInformation = "";
+                    this.elgibilityObj.registerd_gp = "";
+                    this.submitForm = "false";
+                }
 
-            //     if (optionText == "camhsSelect") {
-            //         console.log(this.elgibilityObj.isInformation);
-            //         console.log(this.elgibilityObj.role);
-            //         this.getGP();
+                if (optionText == "camhsSelect") {
+                    console.log(this.elgibilityObj.isInformation);
+                    console.log(this.elgibilityObj.role);
+                    this.getGP();
                    
-            //     }
-            //     if (optionText == "camhsSelect" && this.submitForm != undefined) {
-            //         this.elgibilityObj.registerd_gp = "";
-            //         this.submitForm = "false";
-            //     }
+                }
+                if (optionText == "camhsSelect" && this.submitForm != undefined) {
+                    this.elgibilityObj.registerd_gp = "";
+                    this.submitForm = "false";
+                }
 
-            //     //reset fields for prof
-            //     if (optionText == "role" && this.elgibilityObj.parentConcernInformation != undefined) {
-            //         this.elgibilityObj.profName = "";
-            //         this.elgibilityObj.profEmail = "";
-            //         this.elgibilityObj.profContactNumber = "";
-            //         this.elgibilityObj.profChildDob = "";
-            //         this.elgibilityObj.parentConcern = "";
-            //         this.elgibilityObj.parentConcernInformation = "";
-            //         this.elgibilityObj.childConcernInformation = "";
-            //         this.elgibilityObj.profRegisterd_gp = "";
-            //         this.profBelowAgeLimit = "";
-            //         this.profaboveLimit = "";
-            //         this.elgibilityObj.contactProfParent = "";
-            //         this.submitProfForm = "false";
-            //     }
+                //reset fields for prof
+                if (optionText == "role" && this.elgibilityObj.parentConcernInformation != undefined) {
+                    this.elgibilityObj.profName = "";
+                    this.elgibilityObj.profEmail = "";
+                    this.elgibilityObj.profContactNumber = "";
+                    this.elgibilityObj.profChildDob = "";
+                    this.elgibilityObj.parentConcern = "";
+                    this.elgibilityObj.parentConcernInformation = "";
+                    this.elgibilityObj.childConcernInformation = "";
+                    this.elgibilityObj.profRegisterd_gp = "";
+                    this.profBelowAgeLimit = "";
+                    this.profaboveLimit = "";
+                    this.elgibilityObj.contactProfParent = "";
+                    this.submitProfForm = "false";
+                }
                 
-            //     if (optionText == "contactProfParent" && this.elgibilityObj.parentConcernInformation != undefined) {
-            //         this.elgibilityObj.profRegisterd_gp = "";
-            //         this.elgibilityObj.parentConcernInformation = "";
-            //         this.submitProfForm = "false";
-            //     }
+                if (optionText == "contactProfParent" && this.elgibilityObj.parentConcernInformation != undefined) {
+                    this.elgibilityObj.profRegisterd_gp = "";
+                    this.elgibilityObj.parentConcernInformation = "";
+                    this.submitProfForm = "false";
+                }
 
-            //     if (optionText == "parentConcernSelect") {
-            //         this.getProfGP();
-            //         var selectTxt = event.target.value
-            //         if (selectTxt == "no") {
-            //             console.log("--");
-            //           //  this.elgibilityObj.childConcernInformation = "";
-            //             this.elgibilityObj.profRegisterd_gp = "";
-            //        //     this.profBelowAgeLimit = "";
-            //             this.elgibilityObj.profaboveLimit = "";
-            //            // this.profBelowAgeLimit = "";
-            //           //  this.profaboveLimit = "";
-            //          // this.elgibilityObj.parentConcernInformation
-            //             this.submitProfForm = "false";
-            //         }
-            //     }
+                if (optionText == "parentConcernSelect") {
+                    this.getProfGP();
+                    var selectTxt = event.target.value
+                    if (selectTxt == "no") {
+                        console.log("--");
+                      //  this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.profRegisterd_gp = "";
+                   //     this.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                       // this.profBelowAgeLimit = "";
+                      //  this.profaboveLimit = "";
+                     // this.elgibilityObj.parentConcernInformation
+                        this.submitProfForm = "false";
+                    }
+                }
 
         
 
-            //     // if (optionText == "parentConcernSelect") {
-            //     //     this.getProfGP();
-            //     //     var selectTxt = event.target.value
-            //     //     if (selectTxt == "no") {
-            //     //         console.log("--");
-            //     //         this.elgibilityObj.registerd_gp = "";
-            //     //         this.profBelowAgeLimit = "";
-            //     //         this.profaboveLimit = "";
-            //     //         this.submitProfForm = "false";
-            //     //     }
-            //     // }
-            // },
+                if (optionText == "parentConcernSelect") {
+                    this.getProfGP();
+                    var selectTxt = event.target.value
+                    if (selectTxt == "no") {
+                        console.log("--");
+                        this.elgibilityObj.registerd_gp = "";
+                        this.profBelowAgeLimit = "";
+                        this.profaboveLimit = "";
+                        this.submitProfForm = "false";
+                    }
+                }
+            },
 
             getAddress:function(e) {
                 $("#gpLocation").on("autocompleteselect", function (event, ui) {

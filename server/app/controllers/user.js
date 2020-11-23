@@ -1385,9 +1385,6 @@ exports.fetchReview = ctx => {
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral
 
-  console.log(ctx.query.role)
-  console.log(ctx.query.user_id)
-
   if (ctx.query.role == "child") {
     return user.findOne({
       where: {
@@ -1401,13 +1398,13 @@ exports.fetchReview = ctx => {
           {
             model: ctx.orm().User,
             as: 'parent',
-            attributes: ['parent_name', 'parential_responsibility', 'responsibility_parent_name', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+            attributes: ['id','parent_name', 'parential_responsibility', 'responsibility_parent_name', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
           },
         ],
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_household_name', 'child_household_relationship', 'child_household_dob', 'child_household_profession', 'child_care_adult']
+        attributes: ['id','child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_household_name', 'child_household_relationship', 'child_household_dob', 'child_household_profession', 'child_care_adult']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1420,7 +1417,7 @@ exports.fetchReview = ctx => {
           where: {
             id: eligibilityObj.id,
           },
-          attributes: ['child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_name', 'child_socialworker_contact']
+          attributes: ['id','child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_name', 'child_socialworker_contact']
         }).then((educationObj) => {
           const responseData = {
             userid: ctx.query.user_id,
@@ -1434,22 +1431,23 @@ exports.fetchReview = ctx => {
           return ctx.body = responseData;
 
         }).catch((error) => {
-
-          console.log(error)
-
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
 
-    })
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
 
-  else if (ctx.request.body.role == "parent") {
+  else if (ctx.query.role == "parent") {
     return user.findOne({
       where: {
-        uuid: ctx.request.body.userid,
+        uuid: ctx.query.user_id,
       },
-      //  attributes: ['id', 'uuid']
-    }).then((result) => {
+    }).then((userObj) => {
 
       return user.findAll({
         include: [
@@ -1457,88 +1455,159 @@ exports.fetchReview = ctx => {
             model: ctx.orm().User,
             nested: true,
             as: 'parent',
+            attributes: ['id','child_dob','registerd_gp']
           },
         ],
         where: {
-          id: result.id,
+          id: userObj.id,
         },
-      }).then((userResult) => {
-        //   console.log(userResult[0].parent[0].ChildParents.parentId)
-        var childId = userResult[0].parent[0].ChildParents.parentId
-        return referral.findOne(
-          {
-            where: {
-              id: childId,
+        attributes: ['id', 'uuid', 'need_interpreter', 'contact_parent', 'consent_child']
+      }).then((elgibilityObj) => {
+
+
+        return user.findAll({
+          include: [
+            //childData
+            {
+              model: ctx.orm().User,
+              nested: true,
+              as: 'parent',
+              attributes: ['id','child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_household_name', 'child_household_relationship', 'child_household_dob', 'child_household_profession', 'child_care_adult']
             },
+          ],
+          where: {
+            id: eligibilityObj.id,
           },
-        ).then((fetchResult) => {
-          // result.setReferral(childId)
-          const responseData = {
-            userid: ctx.request.body.userid,
-            parentData: result,
-            childData: userResult[0].parent,
-            referralData: fetchResult,
-            status: "ok",
-            role: ctx.request.body.role
-          }
-          return ctx.body = responseData;
+          attributes: ['id','parent_name', 'parential_responsibility', 'responsibility_parent_name', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+        }).then((aboutObj) => {
+
+          return user.findAll({
+            include: [
+              //childData
+              {
+                model: ctx.orm().User,
+                nested: true,
+                as: 'parent',
+                attributes: ['id','child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact']
+              },
+            ],
+            where: {
+              id: eligibilityObj.id,
+            },
+            attributes: ['id']
+          }).then((edu_empObj) => {
+            return user.findOne({
+             
+              include: [
+                {
+                  model: ctx.orm().Referral,
+                  nested: true,
+                  as: 'referral',
+                },
+              ],
+              where: {
+                id: elgibilityObj[0].id,
+              },
+              attributes: ['id']
+            }).then((referralResult) => {
+            const responseData = {
+              userid: ctx.request.body.userid,
+              section1: elgibilityObj,
+              section2:aboutObj,
+              section3:edu_empObj,
+              section4: referralResult.referral,
+              status: "ok",
+              role: ctx.request.body.role
+            }
+            return ctx.body = responseData;
+            })
+          })
         })
 
       })
 
     })
   }
-  else if (ctx.request.body.role == "professional") {
+  else if (ctx.query.role  == "professional") {
+
+
     return user.findOne({
       where: {
-        uuid: ctx.request.body.userid,
+        uuid: ctx.query.user_id,
       },
-      //  attributes: ['id', 'uuid']
-    }).then((result) => {
+    }).then((userObj) => {
 
-      return user.findAll({
+      return user.findOne({
+             
         include: [
           {
             model: ctx.orm().User,
             nested: true,
             as: 'professional',
+            attributes: ['id','child_dob','registerd_gp']
           },
         ],
         where: {
-          id: result.id,
+          id: userObj.id,
         },
-      }).then((userResult) => {
-        var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) + 2
+        attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number','consent_child','consent_parent']
+      }).then((elgibilityObj) => {
+        var childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
+
+      //  var childId = elgibilityObj[0].professional[0].ChildProfessional.UserId
+      //  var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) + 2
+      return user.findAll({
+        include: [
+          //childData
+          {
+            model: ctx.orm().User,
+            nested: true,
+            as: 'parent',
+            attributes: ['id','child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_household_name', 'child_household_relationship', 'child_household_dob', 'child_household_profession', 'child_care_adult']
+          },
+        ],
+        where: {
+          id: childId,
+        },
+        attributes: ['id','parent_name', 'parential_responsibility', 'responsibility_parent_name', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+      }).then((aboutObj) => {
+
         return user.findAll({
           include: [
+            //childData
             {
               model: ctx.orm().User,
               nested: true,
-              as: 'parent',
+              as: 'professional',
+              attributes: ['id','child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact']
             },
           ],
           where: {
-            id: parentId,
+            id: elgibilityObj.id,
           },
-        }).then((parentResult) => {
+          attributes: ['id']
+        }).then((edu_empObj) => {
 
-          // return ctx.body = parentResult;
-          var childId = userResult[0].professional[0].ChildProfessional.professionalId
-          return referral.findOne(
-            {
-              where: {
-                id: childId,
+          return user.findOne({
+             
+            include: [
+              {
+                model: ctx.orm().Referral,
+                nested: true,
+                as: 'referral',
               },
+            ],
+            where: {
+              id: elgibilityObj.id,
             },
-          ).then((fetchResult) => {
-            // result.setReferral(childId)
-            console.log("33");
+            attributes: ['id']
+          }).then((referralResult) => {
             const responseData = {
               userid: ctx.request.body.userid,
-              profData: userResult,
-              childData: userResult[0].professional[0],
-              parentData: parentResult,
-              referralData: fetchResult,
+              section1: elgibilityObj,
+               section2:aboutObj,
+               section3:edu_empObj[0].professional,
+               section4: referralResult.referral,
               status: "ok",
               role: ctx.request.body.role
             }
@@ -1546,6 +1615,8 @@ exports.fetchReview = ctx => {
           })
 
         })
+      })
+
       })
 
     })

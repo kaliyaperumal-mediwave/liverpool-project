@@ -284,7 +284,7 @@ $(document).ready(function () {
                 this.aboutObj.editFlag=this.getUrlVars()['edt'];
                 this.aboutObj.userid = userid;
                 this.aboutObj.role = role;
-                this.aboutObj.childAddress = _self.selectedChildAddress;
+              //  this.aboutObj.childAddress = _self.selectedChildAddress;
                 this.aboutObj.parentAddress = _self.selectedParentAddress;
               //  console.log(this.aboutObj);
                
