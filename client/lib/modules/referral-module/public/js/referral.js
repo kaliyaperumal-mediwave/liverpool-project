@@ -142,19 +142,19 @@ $(document).ready(function () {
                 var optionsName = this.referralData;
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal' || questionIdentifier == 'mentalDiagnosis' ||
                     questionIdentifier == 'accessedService' || questionIdentifier === 'anyService') {
-                    resetValues(event.target.form, this, this.currentSection);
+                    resetValues(event.target.form, this, 'referralData');
                 }
                 else if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
                         if (optionsName.diagnosisOther === '') {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
                 }
                 else if (questionIdentifier === 'listProblems') {
                     if (!this.problemsList.length) {
                         if (optionsName.problemsOther === '') {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
                 }
@@ -170,7 +170,7 @@ $(document).ready(function () {
                         }
                     }
                     if (!this.accessList.length) {
-                        resetValues(event.target.form, this, this.currentSection);
+                        resetValues(event.target.form, this, 'referralData');
                     }
                 }
             },
@@ -181,13 +181,13 @@ $(document).ready(function () {
                 if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
                         if (!e.target.value) {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
 
                 } else if (questionIdentifier === 'listProblems') {
                     if (!e.target.value) {
-                        resetValues(event.target.form, this, this.currentSection);
+                        resetValues(event.target.form, this, 'referralData');
                     }
                 }
             },

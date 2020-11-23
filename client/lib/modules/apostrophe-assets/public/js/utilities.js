@@ -1,17 +1,20 @@
 //Reset Two-Way-Model Values 
-function resetValues(currentForm, context, section) {
+function resetValues(currentForm, context, formObj) {
+    debugger;
     var allForms = Array.from(document.forms);
     var formIndex = allForms.indexOf(currentForm);
     for (let i = 0; i < allForms.length; i++) {
         var attributeValue = $(allForms[i]).data('options');
         if (formIndex < i) {
-            context.referralData[attributeValue] = '';
+            context[formObj][attributeValue] = '';
         }
-        if (formIndex <= i) {
-            context.clearDependentValues(attributeValue);
+        if (context.currentSection == 'referral') {
+            if (formIndex <= i) {
+                context.clearDependentValues(attributeValue);
+            }
         }
     }
-    if (section == 'referral') {
+    if (context.currentSection == 'referral') {
         context.showAddOtherService = false;
         context.allAvailableService = [];
     }

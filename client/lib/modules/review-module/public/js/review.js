@@ -1,25 +1,25 @@
 var API_URI = "/modules/review-module";
 $(document).ready(function () {
 
-    $("[data-cid]").prop({ tabindex: 1, contenteditable: true }).on({
+    // $("[data-cid]").prop({ tabindex: 1, contenteditable: true }).on({
 
-        focusin() {
-            this.__html = $(this).html(); // Store current HTML content
-        },
+    //     focusin() {
+    //         this.__html = $(this).html(); // Store current HTML content
+    //     },
 
-        focusout() {
+    //     focusout() {
+    //         debugger
+    //         const data = {
+    //             cid: this.dataset.cid,
+    //             html: this.innerHTML,
+    //         };
 
-            const data = {
-                cid: this.dataset.cid,
-                html: this.innerHTML,
-            };
+    //         if (this.__html === data.html) return;  // Nothing has changed.
 
-            if (this.__html === data.html) return;  // Nothing has changed.
+    //         console.log(data); // Something changed, send data to server.
+    //     }
 
-            console.log(data); // Something changed, send data to server.
-        }
-
-    });
+    // });
 
     var app = new Vue({
         el: '#review-form',
@@ -74,7 +74,7 @@ $(document).ready(function () {
                         console.log(_self.parentLabelsValue, _self.childLabelsValue);
                     },
                     error: function (error) {
-                        console.log(data);
+                        console.log(error);
                     }
                 });
 

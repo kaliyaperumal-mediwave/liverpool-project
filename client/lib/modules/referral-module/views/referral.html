@@ -420,7 +420,7 @@
                                             Please provide a contact number.
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(this.serviceData.contact) )}">
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(serviceData.contact) )}">
                                             Please provide a valid contact number.
                                         </div>
                                     </div>
