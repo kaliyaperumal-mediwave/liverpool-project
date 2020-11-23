@@ -169,11 +169,6 @@ module.exports = function modelUser(sequelize, types) {
     through: 'UserReferral',
   });
 
-  User.belongsToMany(sequelize.models.Section, {
-    as: 'section',
-    through: 'UserSection',
-  });
-
   User.belongsToMany(sequelize.models.Services, {
     as: 'services',
     through: 'ReferralServices',

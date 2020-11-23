@@ -1410,45 +1410,47 @@ exports.fetchReview = ctx => {
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral
 
-  if(ctx.request.body.role=="child")
+  console.log(ctx.query.role)
+  console.log(ctx.query.user_id)
+
+  if(ctx.query.role=="child")
   {
 
     //console.log("//Section 5//Section 5//Section 5//Section 5//Section 5");
     return user.findOne({
       where: {
-        uuid: ctx.request.body.userid,
+        uuid: ctx.query.user_id,
       },
-    //  attributes: ['id', 'uuid']
-    }).then((result) => {
+      attributes: ['id', 'uuid','need_interpreter','child_dob','contact_parent','consent_child','registerd_gp']
+    }).then((eligibilityObj) => {
 
       return user.findOne({
         include: [
           {
             model: ctx.orm().User,
-            nested: true,
             as: 'parent',
           },
         ],
         
         where: {
-          id: result.id,
+          id: eligibilityObj.id,
         },
-      }).then((userResult) => {
+        attributes: ['child_NHS','child_name','child_email','child_contact_number','child_address','can_send_post','child_gender','child_gender_birth','child_sexual_orientation','child_ethnicity','child_household_name','child_household_relationship','child_household_dob','child_household_profession','child_care_adult','parential_responsibility','responsibility_parent_name','child_parent_relationship','parent.parent_contact_number','parent.parent_email','parent.parent_same_house','parent.parent_address','parent.legal_care_status']
+      }).then((aboutObj) => {
 
         return referral.findOne({
           where: {
-            id: userResult.id,
+            id: eligibilityObj.id,
           },
           
         }).then((referralResult) => {
 
           const responseData = {
-            userid: ctx.request.body.userid,
-            childData: result,
-            parentData:userResult.parent,
-            referralData:referralResult,
+            userid: ctx.query.user_id,
+            section1: eligibilityObj,
+            section2:aboutObj,
             status: "ok",
-            role: ctx.request.body.role
+            role: ctx.query.role
           }
           return ctx.body = responseData;
 
@@ -1600,4 +1602,43 @@ exports.saveReview = ctx => {
       });
     }
   })
+}
+
+function getrole(ctx)
+{
+
+  const user = ctx.orm().User;
+  return user.findOne({
+    where: {
+      uuid: ctx.query.user_id,
+    },
+    attributes: ['id', 'uuid']
+  }).then((result) => {
+
+    return user.findAll({
+      include: [
+        {
+          model: ctx.orm().type,
+          as: 'type',
+        },
+      ],
+      where: {
+        id: result.id,
+      },
+    }).then((userResult) => {
+
+      console.log(userResult)
+
+    //  return ctx.body = userResult;
+
+    }).catch((error) => {
+      console.log(error)
+        });
+
+  }).catch((error) => {
+    console.log(error)
+      });
+ 
+
+
 }

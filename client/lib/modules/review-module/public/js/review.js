@@ -39,18 +39,18 @@ $(document).ready(function () {
                 console.log(payloadData);
                 var _self = this;
                 $.ajax({
-                    url: API_URI + "/fetchReview",
-                    type: 'post',
+                    url: API_URI + "/fetchReview/"+payloadData.userid+"&role="+payloadData.role,
+                    type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
-                    data: JSON.stringify(payloadData),
+                   // data: JSON.stringify(payloadData),
                     success: function (data) {
                         console.log(data);
-                        _self.allLabelsValue = data;
-                        _self.parentLabelsValue = data.parentData;
-                        _self.childLabelsValue = data.childData[0];
-                        _self.section4LabelValues = data.referralData;
-                        console.log(_self.parentLabelsValue, _self.childLabelsValue);
+                        // _self.allLabelsValue = data;
+                        // _self.parentLabelsValue = data.parentData;
+                        // _self.childLabelsValue = data.childData[0];
+                        // _self.section4LabelValues = data.referralData;
+                        // console.log(_self.parentLabelsValue, _self.childLabelsValue);
                     },
                     error: function (error) {
                         console.log(data);
