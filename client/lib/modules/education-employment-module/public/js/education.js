@@ -25,7 +25,6 @@ $(document).ready(function () {
             google.maps.event.addDomListener(window, 'load', _self.initMaps);
         },
         methods: {
-
             initMaps: function () {
                 var _self = this;
                 var autoCompleteChild;
@@ -47,18 +46,12 @@ $(document).ready(function () {
 
             addressChange(e) {
                 debugger;
+                var questionIdentifier = event.target.name;
+                var optionsName = this.educAndEmpData;
                 console.log(e);
-                if (e.target.length) {
-                    if (this.educationAddress) {
-                        this.mapsEntered = true;
-                    } else {
-                        this.mapsEntered = false;
-                    }
-                } else {
-                    if (this.educationAddress) {
-                        this.mapsEntered = true;
-                    } else {
-                        this.mapsEntered = false;
+                if (questionIdentifier == 'educationLocation') {
+                    if (!e.target.length) {
+                        resetValues(event.target.form, this, 'educAndEmpData');
                     }
                 }
 
