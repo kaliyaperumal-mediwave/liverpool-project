@@ -1,0 +1,312 @@
+@import "config";
+@import "utilities";
+@import "radio";
+@import "checkbox";
+@import "button";
+@import "inputs";
+@import "modal";
+
+$primary-header-color: #8ecae6;
+$sub-header-color: #012f46;
+$primary-content-bg-img: url("/modules/my-apostrophe-assets/img/desktop.svg");
+$content-header-color: #023047;
+
+$header-text-color: #ffffff;
+$content-color: #fafafa;
+$footer-text-color: #feffff;
+
+$question-text-color: #023047;
+$header-font-size: 32px;
+
+@font-face {
+  font-family: "century-gothic";
+  font-style: normal;
+  font-weight: 400;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "century-gothic";
+  font-style: normal;
+  font-weight: bold;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "century-gothic";
+  font-style: normal;
+  font-weight: bold;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
+}
+@font-face {
+  font-family: "century-gothic";
+  font-style: italic;
+  font-weight: bold;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "century-gothic";
+  font-style: italic;
+  font-weight: normal;
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
+}
+
+body {
+  font-family: "century-gothic" !important;
+
+  .ui-widget.ui-widget-content {
+    border: none !important;
+  }
+  .dropdown-divider {
+    border-top: 1px solid $primary-color !important;
+  }
+
+  .h-112 {
+    height: 112px !important;
+  }
+
+  .ui-widget-content {
+    border-radius: 2px !important;
+    opacity: 1 !important;
+    border-color: white !important;
+    border: none !important;
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+  }
+
+  .ui-widget {
+    font-size: 18px !important;
+    font-weight: normal !important;
+    letter-spacing: 0px !important;
+    color: #023047 !important;
+    opacity: 1 !important;
+  }
+  a {
+    color: #023087 !important;
+  }
+}
+
+.header-title {
+  @include set-titleStyles($primary-font-size, bold, $header-text-color);
+}
+
+.back-text {
+  @include set-titleStyles($button-font-size, bold, $header-text-color);
+}
+
+.send-font {
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+}
+
+.sub-header-title {
+  @include set-titleStyles($primary-font-size, bold, $header-text-color);
+}
+
+.content-header-text {
+  @include set-titleStyles(22px, bold, $primary-color);
+}
+
+.content-secondary-header-text {
+  @include set-titleStyles($header-font-size, bold, $primary-color);
+}
+
+.content-text {
+  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+}
+
+.hint-text {
+  @include set-titleStyles($quinary-font-size, bold, $primary-color);
+}
+
+.support-modal-header-text {
+  @include set-titleStyles($support-header-font-size, bold, $modal-text-color);
+}
+
+.support-modal-content-text {
+  @include set-titleStyles($support-content-font-size, bold, $modal-text-color);
+}
+
+.link-text {
+  @include set-titleStyles($hint-font-size, bold, $primary-color);
+}
+
+.link-secondary {
+  @include set-titleStyles($mobile-quaternary-font-size, bold, $primary-color);
+}
+
+.btn-txt {
+  @include set-titleStyles($button-font-size, bold, $primary-color);
+}
+
+.btn-secondary-text {
+  @include set-titleStyles($button-font-size, bold, $primary-color);
+}
+
+.btn-modal-text {
+  @include set-titleStyles($modalbtn-font-size, bold, #0b181e);
+}
+
+.footer-text {
+  @include set-titleStyles($footer-font-size, bold, $footer-text-color);
+}
+
+.question-font {
+  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+}
+
+.option-font {
+  @include set-titleStyles($option-font-size, bold, $primary-color);
+}
+
+.question-header-font {
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
+}
+
+.add-more-hint {
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+}
+
+.header-bg {
+  @include set-background($header-color, 1);
+}
+
+.sub-header-bg {
+  @include set-background($sub-header-color, 1);
+}
+
+.toster-container {
+  @include set-background($tertiary-color, 1);
+  border-radius: 24px;
+}
+
+.modal-bg {
+  @include set-background($tertiary-color, 1);
+  border-radius: 24px !important;
+}
+
+.secondary-content-bg {
+  @include set-background($sub-header-color, 1);
+}
+
+.footer-bg {
+  @include set-background($primary-color, 1);
+}
+
+.main-content-bg {
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background-size: cover;
+}
+
+#ui-id-1 {
+  width: auto !important;
+}
+
+.main-content-area {
+  @include set-cardStyle($secondary-color, 22px, 22px, "", "top");
+}
+
+.secondary-content-area {
+  @include set-cardStyle($secondary-color, "", "", 24px, "no");
+}
+
+.last-content-area {
+  @include set-cardStyle($secondary-color, 22px, 22px, "", "bottom");
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.support-logo {
+  height: 35px;
+  width: auto;
+}
+
+.calendar-bg {
+  background: #e8edee 0% 0% no-repeat padding-box;
+  border-radius: 2px;
+  opacity: 1;
+}
+
+.ham-logo {
+  height: 55px;
+  width: auto;
+}
+.cal-icon-bg {
+  background: #ffb703 0% 0% no-repeat padding-box;
+}
+
+// .cal-header-text {
+//   font-size: 14px;
+//   font-weight: normal;
+//   letter-spacing: 0px;
+//   color: $question-text-color;
+//   opacity: 1;
+// }
+
+// .cal-text {
+//   font-size: 17x;
+//   font-weight: italic;
+//   letter-spacing: 0px;
+//   color: #023047;
+//   opacity: 1;
+// }
+
+.main-min-height {
+  min-height: 603px !important;
+}
+
+.img-class {
+  height: 35px;
+  width: auto;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
+    width: 86px;
+    height: 86px;
+  }
+  .img-class {
+    height: 25px;
+    width: auto;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
+    width: 86px;
+    height: 86px;
+  }
+  .img-class {
+    height: 25px;
+    width: auto;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    height: 100px;
+    width: 99px;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    height: 112px;
+    width: 111px;
+  }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+  .header-logo {
+    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    height: 112px;
+    width: 111px;
+  }
+}
