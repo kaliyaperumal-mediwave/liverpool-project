@@ -64,8 +64,8 @@
                                 you attend?</label>
                             <div class="input-group">
                                 <input type="search" class="form-control" placeholder="Start typing to search"
-                                    id="attendedLocation" @keyup="addressChange($event)" aria-label="location"
-                                    name="educationLocation" v-model="educAndEmpData.attendedInfo">
+                                    id="attendedLocation" aria-label="location" name="educationLocation"
+                                    v-model="educAndEmpData.attendedInfo">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -80,7 +80,7 @@
 
                 <!-- Education or HealthCare Plan Start-->
                 <form id="EHCP-form" data-options="haveEhcpPlan">
-                    <div v-if="(educAndEmpData.position =='employment' || educAndEmpData.position =='neither' || (educAndEmpData.attendedInfo && mapsEntered))"
+                    <div v-if="educAndEmpData.position =='employment' || educAndEmpData.position =='neither' || educAndEmpData.position =='education'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">Do you have an Education & Health
                             Care
@@ -164,15 +164,6 @@
                                 Yes
                             </label>
                         </div>
-                        <!-- <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" name="isSocialWorker" id="assessmentUnsure"
-                                value="unsure" v-model="educAndEmpData.haveSocialWorker"
-                                @change="onOptionChange($event)">
-                            <label class="form-check-label option-font d-flex align-items-center"
-                                for="assessmentUnsure">
-                                Unsure
-                            </label>
-                        </div> -->
                     </div>
                 </form>
                 <!-- Have a Social Worker Start-->
@@ -186,8 +177,7 @@
                                 name
                                 of
                                 your social worker?</label>
-                            <input type="text" class="form-control" id="socialWorker"
-                                @input="onVaueChange($event,'name')" placeholder="Jane Doe"
+                            <input type="text" class="form-control" id="socialWorker" placeholder="Jane Doe"
                                 v-model="educAndEmpData.socialWorkName">
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName) }">
@@ -199,14 +189,14 @@
                 <!-- Social Worker Name End -->
 
                 <form id="socialWorkerContact-info" data-options="socialWorkContact">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <div v-if="educAndEmpData.haveSocialWorker =='yes'" class="form-group">
+                    <div v-if="educAndEmpData.haveSocialWorker =='yes'"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group">
                             <label for="contactWorker" class="question-font">Contact
                                 number
                                 for
                                 your social worker</label>
-                            <input type="text" class="form-control" id="contactWorker"
-                                @input="onVaueChange($event,'contact')" placeholder="01548 659874"
+                            <input type="text" class="form-control" id="contactWorker" placeholder="01548 659874"
                                 v-model="educAndEmpData.socialWorkContact">
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkContact) }">
@@ -220,29 +210,56 @@
                     </div>
                 </form>
 
-
-
                 <!-- Dynamic Toaster start Scenerio 1-->
                 <template v-if="educAndEmpData.haveSocialWorker == 'yes'">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
-                                    <template v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact">
+                                    <template
+                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
-                                    <template v-else>
+                                    <template
+                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template
+                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </template>
+                                    <template
+                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo) && educAndEmpData.position == 'education'">
                                         <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                     </template>
                                 </p>
-                                <template v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact">
+                                <template
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
                                     <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
                                 </template>
-                                <template v-else>
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+
+                                <template
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                        reasons
+                                        for
+                                        your referral request.</p>
+                                </template>
+
+                                <template
+                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                        this
+                                        page
+                                    </p>
+                                </template>
+                                <template
+                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo) && educAndEmpData.position == 'education'">
+                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                        this
                                         page
                                     </p>
                                 </template>
@@ -259,26 +276,38 @@
                 </template>
                 <!-- Dynamic Toaster start Scenerio 1-->
 
-                <!-- Dynamic Toaster start Scenerio 1-->
+                <!-- Dynamic Toaster start Scenerio 2-->
                 <template v-if="educAndEmpData.haveSocialWorker == 'no'">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
-                                    <template v-if="educAndEmpData.attendedInfo">
+                                    <template
+                                        v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
-                                    <template v-else>
+                                    <template
+                                        v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template
+                                        v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
                                         <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                     </template>
                                 </p>
-                                <template v-if="educAndEmpData.attendedInfo">
+                                <template v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
                                     <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
                                 </template>
-                                <template v-else>
+                                <template v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                        reasons
+                                        for
+                                        your referral request.</p>
+                                </template>
+                                <template v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
                                     <p class="question-font text-center m-0 py-2">You have missed out a section on this
                                         page.</p>
                                 </template>
@@ -293,7 +322,8 @@
                         </a>
                     </div>
                 </template>
-                <!-- Dynamic Toaster start Scenerio 1-->
+                <!-- Dynamic Toaster start Scenerio 2-->
+
             </div>
         </div>
     </div>

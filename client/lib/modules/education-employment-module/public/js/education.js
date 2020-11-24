@@ -14,17 +14,31 @@ $(document).ready(function () {
                 socialWorkName: '',
                 socialWorkContact: ''
             },
+            currentSection: 'education',
+            userMode: '',
+            userRole: '',
+            userId: '',
+            payloadData: {},
             educationAddress: '',
             mapsEntered: false,
             isFormSubmitted: false,
-            currentSection: '',
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
         },
         mounted: function () {
             var _self = this;
             google.maps.event.addDomListener(window, 'load', _self.initMaps);
+            this.userMode = getQueryStringValue('mode');
+            this.userRole = getQueryStringValue('role');
+            this.userId = getQueryStringValue('userId');
+            if (this.userMode === 'edit') {
+                this.patchValue();
+            }
+            if (getUrlVars()['edt'] == 1) {
+                this.fetchSavedData();
+            }
         },
         methods: {
+
             initMaps: function () {
                 var _self = this;
                 var autoCompleteChild;
@@ -32,7 +46,6 @@ $(document).ready(function () {
                     types: ['geocode'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    debugger;
                     _self.educationAddress = autoCompleteChild.getPlace().formatted_address;
                     if (_self.educationAddress) {
                         _self.mapsEntered = true;
@@ -40,26 +53,20 @@ $(document).ready(function () {
                     } else {
                         _self.mapsEntered = false;
                     }
-
                 });
             },
 
-            addressChange(e) {
-                debugger;
-                var questionIdentifier = event.target.name;
-                var optionsName = this.educAndEmpData;
-                console.log(e);
-                if (questionIdentifier == 'educationLocation') {
-                    if (!e.target.length) {
-                        resetValues(event.target.form, this, 'educAndEmpData');
-                    }
-                }
-
+            //Edit Api call
+            fetchSavedData: function () {
+                var payload = {};
+                payload.userid = this.userId;
+                payload.role = this.userRole;
+                var successData = apiCallPost('post', '/fetchReferral', payload);
+                this.patchValue(successData);
             },
 
             onOptionChange(event) {
                 var questionIdentifier = event.target.name;
-                var optionsName = this.educAndEmpData;
                 if (questionIdentifier == 'currentPosition') {
                     resetValues(event.target.form, this, 'educAndEmpData');
                 } else if (questionIdentifier == 'EHCP') {
@@ -71,24 +78,6 @@ $(document).ready(function () {
                     resetValues(event.target.form, this, 'educAndEmpData');
                 }
             }
-
-            // fetchSavedData: function () {
-            //     console.log("if")
-            //     this.sendObj.uuid = this.getUrlVars()['userid'];
-            //     this.sendObj.role = this.getUrlVars()['role'];
-            //     console.log(this.sendObj);
-            //     $.ajax({
-            //         url: API_URI + "/fetchProfession",
-            //         type: 'post',
-            //         dataType: 'json',
-            //         contentType: 'application/json',
-            //         data: JSON.stringify(this.sendObj),
-            //         success: function (data) {
-            //             app.setValues(data);
-
-            //         },
-            //     });
-            // },
 
             // setValues: function (data) {
             //     var roleType = this.getUrlVars()["role"]
