@@ -69,35 +69,39 @@ $(document).ready(function () {
             saveAndContinue() {
                 this.isFormSubmitted = true;
                 var formData = this.educAndEmpData;
-                if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
-                    if (formData.position === 'education' && formData.attendedInfo) {
-                        this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
-                        this.payloadData.role = this.userRole;
-                        this.payloadData.userid = this.userId;
-                        if (this.userMode === 'edit') {
-                            this.payloadData.userMode = 'edit';
+                this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
+                this.payloadData.role = this.userRole;
+                this.payloadData.userid = this.userId;
+                if (this.userMode === 'edit') {
+                    this.payloadData.userMode = 'edit';
+                } else {
+                    this.payloadData.userMode = 'add';
+                }
+                if (formData.haveSocialWorker === 'yes') {
+                    if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
+                        if (formData.position === 'education' && formData.attendedInfo) {
+                            this.upsertEducationForm(this.payloadData);
                         } else {
-                            this.payloadData.userMode = 'add';
+                            scrollToInvalidInput();
+                            return false;
                         }
-                        this.upsertEducationForm(this.payloadData);
+
                     } else {
                         scrollToInvalidInput();
                         return false;
                     }
-
                 } else {
-                    scrollToInvalidInput();
-                    return false;
+                    this.upsertEducationForm(this.payloadData);
                 }
 
             },
 
             //Section 3(Education) Save and Service call with navaigation Logic
             upsertEducationForm(payload) {
-                var responseData = apiCallPost('post', '/saveEducation', payload);
+                var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
                     if (getUrlVars()["edt"] == null) {
-                        location.href = "/referral?userid=" + data.userid + "&role=" + role;
+                        location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
                         history.back();
@@ -110,9 +114,9 @@ $(document).ready(function () {
             //Edit Api call
             fetchSavedData: function () {
                 var payload = {};
-                payload.userid = this.userId;
+                payload.uuid = this.userId;
                 payload.role = this.userRole;
-                var successData = apiCallPost('post', '/education', payload);
+                var successData = apiCallPost('post', '/fetchProfession', payload);
                 this.patchValue(successData);
             },
 
@@ -131,7 +135,7 @@ $(document).ready(function () {
 
             //Back to previous page
             backToEducation: function () {
-                backToPreviousPage('/education')
+                backToPreviousPage('/about')
             },
         }
     })

@@ -85,6 +85,7 @@ function getUrlVars() {
 
 //Commom API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
+    debugger;
     var response;
     $.ajax({
         url: API_URI + endPoint,
@@ -94,6 +95,7 @@ function apiCallPost(reqType, endPoint, payload) {
         async: false,
         data: JSON.stringify(payload),
         success: function (res) {
+
             response = res;
         },
         error: function (error) {

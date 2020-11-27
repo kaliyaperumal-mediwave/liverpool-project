@@ -235,7 +235,7 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
                     if (getUrlVars()["edt"] == null) {
-                        location.href = "/review?userid=" + data.userid + "&role=" + role;
+                        location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
                         history.back();
