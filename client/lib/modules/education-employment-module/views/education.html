@@ -86,8 +86,12 @@
                 <form id="EHCP-form" data-options="haveEhcpPlan">
                     <div v-if="educAndEmpData.position =='employment' || educAndEmpData.position =='neither' || educAndEmpData.position =='education'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">
-                            {{dynamicLabels.ehcpPlanLabel}}</p>
+                        <div class="d-flex align-items-start">
+                            <p class="question-font m-0">
+                                {{dynamicLabels.ehcpPlanLabel}}</p>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer img-class"
+                                alt="">
+                        </div>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="planNo" value="no" name="EHCP"
                                 v-model="educAndEmpData.haveEhcpPlan" @change="onOptionChange($event)">
@@ -117,7 +121,11 @@
                 <form id="EHAT-form" data-options="haveEhat">
                     <div v-if="educAndEmpData.haveEhcpPlan =='no' || educAndEmpData.haveEhcpPlan =='yes' || educAndEmpData.haveEhcpPlan == 'unsure'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">{{dynamicLabels.ehatToolLabel}}</p>
+                        <div class="d-flex align-items-start">
+                            <p class="question-font m-0">{{dynamicLabels.ehatToolLabel}}</p>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer img-class"
+                                alt="">
+                        </div>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="EHAT"
                                 v-model="educAndEmpData.haveEhat" @change="onOptionChange($event)">
