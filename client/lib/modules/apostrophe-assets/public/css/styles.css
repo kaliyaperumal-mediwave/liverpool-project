@@ -247,6 +247,8 @@ body {
     border: none !important; }
   body .dropdown-divider {
     border-top: 1px solid #023047 !important; }
+  body .sec2 {
+    background: #d6d8d8 0% 0% no-repeat padding-box !important; }
   body .h-112 {
     height: 112px !important; }
   body .ui-widget-content {

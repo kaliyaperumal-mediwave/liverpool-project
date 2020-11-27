@@ -6,7 +6,6 @@
 {% endblock %}
 {% block main %}
 <div id="about-form">
-
     <div class="sub-header-bg">
         <h2 v-if="headerToDisplay =='child'"
             class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">
@@ -37,18 +36,10 @@
     <div class="main-content-bg py-4 main-min-height">
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-4">
-                <h2 v-if="labelToDisplay =='child'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
-                <h2 v-if="labelToDisplay =='parent'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your
-                    child
-                </h2>
-                <h2 v-if="labelToDisplay =='professional'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your
-                    child /
-                    young person</h2>
+                <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
+
                 <!-- childs NHS Number Start-->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
                         <label for="nhs" class="question-font">Your NHS number - optional</label>
                         <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
@@ -56,23 +47,44 @@
                     </div>
                     <div class="form-group py-2 my-2">
                         <label for="fullName" class="question-font">Your full name</label>
-                        <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
-                            placeholder="Enter your first and last name">
+                        <div class="input-group">
+                            <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
+                                placeholder="Enter your first and last name">
+                            <div class="input-group-append">
+                                <span class="input-group-text sec2">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group py-2 my-2">
                         <label for="emailAddressOpts" class="question-font">Your email address - optional</label>
-                        <input type="email" class="form-control" id="emailAddressOpts"
-                            placeholder="Enter your email address" v-model="aboutObj.childEmail">
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="emailAddressOpts"
+                                placeholder="Enter your email address" v-model="aboutObj.childEmail">
+                            <div class="input-group-append">
+                                <span class="input-group-text sec2">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group py-2 my-2">
                         <label for="contact" class="question-font">Enter your contact number</label>
-                        <input type="text" class="form-control" id="contact" placeholder="Enter your contact number"
-                            v-model="aboutObj.childContactNumber">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="contact" placeholder="Enter your contact number"
+                                v-model="aboutObj.childContactNumber">
+                            <div class="input-group-append">
+                                <span class="input-group-text sec2">
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group py-2 my-2">
-                        <label for="gpLocation" class="question-font">Your address</label>
+                        <label for="txtChildAddress" class="question-font">Your address</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
+                            <input type="search" class="form-control" placeholder="Start typing to search"
                                 id="txtChildAddress" aria-label="location" v-model="aboutObj.childAddress">
                             <div class="input-group-append">
                                 <span class="input-group-text">
@@ -84,95 +96,11 @@
                 </div>
                 <!--childs NHS Number End-->
 
-                <!-- parent NHS Number Start-->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 my-2">
-                        <label for="nhs" class="question-font">Your child's NHS number - optional</label>
-                        <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
-                            placeholder="Enter your child's  10 digit NHS number">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="fullName" class="question-font">Your child's full name</label>
-                        <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
-                            placeholder="Enter your child's  first and last name">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="emailAddressOpts" class="question-font">Your child's email address -
-                            optional</label>
-                        <input type="email" class="form-control" id="emailAddressOpts"
-                            placeholder="Enter your email address" v-model="aboutObj.childEmail">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="contact" class="question-font">Your child's contact number</label>
-                        <input type="text" class="form-control" id="contact"
-                            placeholder="Enter your child's contact number" v-model="aboutObj.childContactNumber">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="gpLocation" class="question-font">Your child's address</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
-                                id="txtChildAddress" aria-label="location" v-model="aboutObj.childAddress">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--parent NHS Number End-->
-
-                <!-- profession NHS Number Start-->
-                <div v-if="labelToDisplay =='professional'"
-                    class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 my-2">
-                        <label for="nhs" class="question-font">The child/young person's NHS number - optional</label>
-                        <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
-                            placeholder="Enter the child/young person's 10 digit NHS number">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="fullName" class="question-font">The child/young person's full name</label>
-                        <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
-                            placeholder="Enter the child/young person's first and last name">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="emailAddressOpts" class="question-font">The child/young person's email address -
-                            optional</label>
-                        <input type="email" class="form-control" id="emailAddressOpts"
-                            placeholder="Enter the child/young person's email address" v-model="aboutObj.childEmail">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="contact" class="question-font">The child/young person's contact number</label>
-                        <input type="text" class="form-control" id="contact"
-                            placeholder="Enter the child/young person's contact number"
-                            v-model="aboutObj.childContactNumber">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="gpLocation" class="question-font">The child/young person's address</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
-                                id="txtChildAddress" aria-label="location" v-model="aboutObj.childAddress">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--profession NHS Number End-->
-
                 <!-- Post Section Start-->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Are you happy for post to be sent to
+                    <p class="question-font m-0">Are you happy for post to be sent to
                         this
                         address?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Are you and your child happy for post
-                        to
-                        be
-                        sent to this address?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">is the the child / young person
-                        happy for post to be sent to this address?</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="no" value="no" name="sendPost"
                             v-model="aboutObj.sendPost" @change="onChange($event)">
@@ -193,15 +121,10 @@
                 <!-- Gender Section Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start justify-content-between">
-                        <p v-if="labelToDisplay =='child'" class="question-font my-2">Your gender?</p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font my-2">Your child's gender?</p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font my-2">The child / young person’s
-                            gender -
-                            optional</p>
+                        <p class="question-font my-2">Your gender?</p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                     </div>
                     <div class="form-group mt-0 mb-2">
-                        <!-- <input type="text" class="form-control" id="gender" placeholder="Enter your gender" v-model="aboutObj.childGender"> -->
                         <select @change="onChange($event)" class="custom-select form-control"
                             v-model="aboutObj.childGender">
                             <option value="" disabled>Choose a gender</option>
@@ -217,17 +140,9 @@
                 <!-- Gender Indentification Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you identify with the gender you
+                        <p class="question-font m-0">Do you identify with the gender you
                             were
                             assigned at birth?
-                        </p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child identify with the
-                            gender
-                            you were assigned at birth?
-                        </p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young
-                            person
-                            identify with the gender they were assigned at birth?
                         </p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
                     </div>
@@ -253,11 +168,10 @@
                         </label>
                     </div>
                 </div>
-
                 <!-- Gender Indentification Start -->
 
                 <!-- child sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="sexual" class="question-font">Your sexual orientation - optional</label>
                         <input type="text" class="form-control" id="sexual"
@@ -266,32 +180,9 @@
                     </div>
                 </div>
                 <!-- child sexual orientation - optional End -->
-                <!-- parent sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group m-0">
-                        <label for="sexual" class="question-font">Your child's sexual orientation - optional</label>
-                        <input type="text" class="form-control" id="sexual"
-                            placeholder="Enter your child's  sexual orientation (e.g. straight, pan, bi etc.)"
-                            v-model="aboutObj.childSexualOrientation">
-                    </div>
-                </div>
-                <!-- parent sexual orientation - optional End -->
-
-                <!-- professional sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='professional'"
-                    class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group m-0">
-                        <label for="sexual" class="question-font">The child / young person’s sexual orientation -
-                            optional</label>
-                        <input type="text" class="form-control" id="sexual"
-                            placeholder="Enter your child's  sexual orientation (e.g. straight, pan, bi etc.)"
-                            v-model="aboutObj.childSexualOrientation">
-                    </div>
-                </div>
-                <!-- professional sexual orientation - optional End -->
 
                 <!-- child ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="ethnicity" class="question-font">Your ethnicity - optional</label>
                         <input type="text" class="form-control" id="ethnicity" placeholder="Enter your ethnicity"
@@ -299,29 +190,6 @@
                     </div>
                 </div>
                 <!-- child ethnicity - optional End -->
-
-                <!-- parent ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group m-0">
-                        <label for="ethnicity" class="question-font">Your child's ethnicity - optional</label>
-                        <input type="text" class="form-control" id="ethnicity"
-                            placeholder="Enter your child's ethnicity" v-model="aboutObj.childEthnicity">
-                    </div>
-                </div>
-                <!-- child ethnicity - optional End -->
-
-                <!-- professional ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='professional'"
-                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group">
-                        <label for="ethnicity" class="question-font">The child / young person’s ethnicity -
-                            optional</label>
-                        <input type="text" class="form-control m-0" id="ethnicity"
-                            placeholder="Enter your child's ethnicity" v-model="aboutObj.childEthnicity">
-                    </div>
-                </div>
-                <!-- professional ethnicity - optional End -->
-
 
                 <!-- Your household Start -->
                 <h2 v-if="labelToDisplay =='child'"
