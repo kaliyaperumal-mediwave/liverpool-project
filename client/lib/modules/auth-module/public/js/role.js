@@ -112,21 +112,24 @@ $(document).ready(function () {
             },
             getGP :function() {
                 var _self = this;
-                console.log("Er");
-                gpList = [];
+                gpListName = [];
+                gpListPost = [];
                 $.ajax({
                     url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
                     type: 'get',
                     success: function (response) {
                         this.gpListShow = response.Organisations;
                         for (i = 0; i < this.gpListShow.length; i++) {
-                            gpList.push(this.gpListShow[i].Name)
+                            gpListName.push(this.gpListShow[i].Name);
+                            gpListPost.push(this.gpListShow[i].PostCode)
                         }
-                        gplist=["1","2","3"]
-                        $("#gpLocation").autocomplete({
-                            source: gpList
+                        $("#gpLocationName").autocomplete({
+                            source: gpListName
                         });
-                        return;
+                        $("#gpLocationPostCode").autocomplete({
+                            source: gpListPost
+                        });
+                        
                     },
                     error: function (err) {
                         console.log(err)
@@ -272,10 +275,23 @@ $(document).ready(function () {
                 }
             },
 
-            getAddress:function(e) {
-                $("#gpLocation").on("autocompleteselect", function (event, ui) {
+            gpSearchBy:function(e)
+            {
+                var selectTxt = event.target.value;
+                console.log(selectTxt);
+            },
 
-                    console.log(ui.item.label);
+            getAddress:function(e) {
+
+              
+                // $("#gpLocation").on("autocompleteclose", function (event, ui) {
+
+                  
+                   
+                // });
+
+                $(".gpLocation").on("autocompleteselect", function (event, ui) {
+                 //   console.log(ui.item.label);
                     if (e.target.value === '') {
                         app.submitForm = "false";
                     } else {

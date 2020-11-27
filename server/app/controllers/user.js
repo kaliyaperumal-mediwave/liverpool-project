@@ -1,5 +1,5 @@
 const P = require("pino");
-var uniqid = require('uniqid');
+//var uniqid = require('uniqid');
 const sequalizeErrorHandler = require('../middlewares/errorHandler');
 
 exports.eligibility = ctx => {
@@ -1384,7 +1384,7 @@ exports.fetchReview = ctx => {
 
   const user = ctx.orm().User;
   const referral = ctx.orm().Referral
-
+console.log(ctx.query.user_id);
   if (ctx.query.role == "child") {
     return user.findOne({
       where: {
@@ -1431,13 +1431,16 @@ exports.fetchReview = ctx => {
           return ctx.body = responseData;
 
         }).catch((error) => {
+          console.log("1")
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }).catch((error) => {
+        console.log("2")
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
     }).catch((error) => {
+      console.log(error)
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
@@ -1626,35 +1629,35 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   console.log(ctx.request.body);
-  const user = ctx.orm().User;
-  const uniqueNo = uniqid().toUpperCase();
-  return user.findOne({
-    where: {
-      reference_code: uniqueNo,
-    },
-  }).then((result) => {
-    if (result == null) {
-      return user.update({
-        reference_code: uniqueNo,
-        contact_preferences: ctx.request.body.contactPreference
-      },
-        {
-          where:
-            { uuid: ctx.request.body.userid }
-        }
-      ).then((childUserInfo) => {
-        const responseData = {
-          userid: ctx.request.body.userid,
-          status: "ok",
-          role: ctx.request.body.role,
-          refNo: uniqueNo
-        }
-        return ctx.body = responseData;
-      }).catch((error) => {
-        console.log(error)
-      });
-    }
-  })
+  // const user = ctx.orm().User;
+  // const uniqueNo = uniqid().toUpperCase();
+  // return user.findOne({
+  //   where: {
+  //     reference_code: uniqueNo,
+  //   },
+  // }).then((result) => {
+  //   if (result == null) {
+  //     return user.update({
+  //       reference_code: uniqueNo,
+  //       contact_preferences: ctx.request.body.contactPreference
+  //     },
+  //       {
+  //         where:
+  //           { uuid: ctx.request.body.userid }
+  //       }
+  //     ).then((childUserInfo) => {
+  //       const responseData = {
+  //         userid: ctx.request.body.userid,
+  //         status: "ok",
+  //         role: ctx.request.body.role,
+  //         refNo: uniqueNo
+  //       }
+  //       return ctx.body = responseData;
+  //     }).catch((error) => {
+  //       console.log(error)
+  //     });
+  //   }
+  // })
 }
 
 function getrole(ctx) {

@@ -239,17 +239,41 @@
             </div>
             <!-- toster-container start -->
 
+
+
             <!-- GP Location start -->
-            <div v-show=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'yes'"
+            <!-- <div v-show=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'yes'"
+                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto"> -->
+                <div 
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <div class="form-group">
                     <label v-if="elgibilityObj.role=='child'" for="gpLocation" class="question-font">Which GP are you
                         registered with?</label>
                     <label v-if="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is your
                         child registered with?</label>
+
+                        <div
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">Search by</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="searchBy" id="interpreterNo"
+                                v-model="elgibilityObj.searchBy" value="address" @change="gpSearchBy($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="interpreterNo">
+                                Address
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="searchBy" id="interpreterYes"
+                                v-model="elgibilityObj.searchBy" value="postCode" @change="gpSearchBy($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="interpreterYes">
+                                Postcode
+                            </label>
+                        </div>
+                    </div>
+
                     <div class="input-group">
-                        <input type="text" class="form-control" v-model="elgibilityObj.registerd_gp"
-                            @focus="getAddress($event)" id="gpLocation" aria-label="location">
+                        <input type="text" class="form-control gpLocation" 
+                            @change="getAddress($event)" id="gpLocationName" aria-label="location">
                         <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -258,6 +282,25 @@
                     </div>
                 </div>
             </div>
+
+            <div 
+            class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+            <div class="form-group">
+                <label v-if="elgibilityObj.role=='child'" for="gpLocation" class="question-font">Which GP are you
+                    registered with?</label>
+                <label v-if="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is your
+                    child registered with?</label>
+                <div class="input-group">
+                    <input type="text" class="form-control gpLocation" 
+                        @change="getAddress($event)" id="gpLocationPostCode" aria-label="location">
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
             <!--GP Location End -->
 
             <!-- toster-container start -->
