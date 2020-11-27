@@ -71,6 +71,10 @@
                                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                     </span>
                                 </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.attendedInfo),'invalid-fields': !educAndEmpData.attendedInfo }">
+                                    Please provide an address.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -180,7 +184,7 @@
                             <input type="text" class="form-control" id="socialWorker" placeholder="Jane Doe"
                                 v-model="educAndEmpData.socialWorkName">
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName) }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
                                 Please provide a name.
                             </div>
                         </div>
@@ -199,11 +203,11 @@
                             <input type="text" class="form-control" id="contactWorker" placeholder="01548 659874"
                                 v-model="educAndEmpData.socialWorkContact">
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkContact) }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkContact),'invalid-fields':!educAndEmpData.socialWorkContact }">
                                 Please provide a number.
                             </div>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !phoneRegex.test(educAndEmpData.socialWorkContact)) }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !phoneRegex.test(educAndEmpData.socialWorkContact)),'invalid-fields':!phoneRegex.test(educAndEmpData.socialWorkContact) }">
                                 Please provide a valid number.
                             </div>
                         </div>
