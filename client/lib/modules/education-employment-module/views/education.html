@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
+<script src="/modules/education-employment-module/js/labels.js"></script>
 <script src="/modules/education-employment-module/js/education.js"></script>
 {% endblock %}
 {% block main %}
@@ -21,6 +22,7 @@
                     class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">
                     back</p>
     </div>
+    {% raw %}
     <div class="main-content-bg py-4 main-min-height">
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-2">
@@ -28,7 +30,7 @@
                 <!-- About Your Self Start-->
                 <form id="position-form" data-options="position">
                     <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">I am a</p>
+                        <p class="question-font m-0">{{dynamicLabels.postionLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="currentPosition" id="education"
                                 value="education" @change="onOptionChange($event)" v-model="educAndEmpData.position">
@@ -59,9 +61,7 @@
                     <div v-show="educAndEmpData.position =='education'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group">
-                            <label for="attendedLocation" class="question-font">Which
-                                school / college / university / do
-                                you attend?</label>
+                            <label for="attendedLocation" class="question-font">{{dynamicLabels.locationLabel}}</label>
                             <div class="input-group">
                                 <input type="search" class="form-control" placeholder="Start typing to search"
                                     id="attendedLocation" aria-label="location" name="educationLocation"
@@ -86,10 +86,8 @@
                 <form id="EHCP-form" data-options="haveEhcpPlan">
                     <div v-if="educAndEmpData.position =='employment' || educAndEmpData.position =='neither' || educAndEmpData.position =='education'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Do you have an Education & Health
-                            Care
-                            Plan
-                            (EHCP)?</p>
+                        <p class="question-font m-0">
+                            {{dynamicLabels.ehcpPlanLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="planNo" value="no" name="EHCP"
                                 v-model="educAndEmpData.haveEhcpPlan" @change="onOptionChange($event)">
@@ -119,10 +117,7 @@
                 <form id="EHAT-form" data-options="haveEhat">
                     <div v-if="educAndEmpData.haveEhcpPlan =='no' || educAndEmpData.haveEhcpPlan =='yes' || educAndEmpData.haveEhcpPlan == 'unsure'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Do you have an open Early Help
-                            Assessment
-                            Tool
-                            (EHAT)?</p>
+                        <p class="question-font m-0">{{dynamicLabels.ehatToolLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="EHAT"
                                 v-model="educAndEmpData.haveEhat" @change="onOptionChange($event)">
@@ -153,7 +148,7 @@
                 <form id="isSocialWorker-form" data-options="haveSocialWorker">
                     <div v-if="educAndEmpData.haveEhat =='no' || educAndEmpData.haveEhat =='yes' || educAndEmpData.haveEhat =='unsure'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Do you have a social worker?</p>
+                        <p class="question-font m-0">{{dynamicLabels.isSocialWorkerLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="workerNo" value="no" name="SocialWorker"
                                 v-model="educAndEmpData.haveSocialWorker" @change="onOptionChange($event)">
@@ -177,12 +172,10 @@
                     <div v-if="educAndEmpData.haveSocialWorker =='yes'"
                         class="px-4 pt-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group m-0">
-                            <label for="socialWorker" class="question-font">What is the
-                                name
-                                of
-                                your social worker?</label>
-                            <input type="text" class="form-control" id="socialWorker" placeholder="Jane Doe"
-                                v-model="educAndEmpData.socialWorkName">
+                            <label for="socialWorker"
+                                class="question-font">{{dynamicLabels.socialWorkerNameLabel}}</label>
+                            <input type="text" class="form-control" id="socialWorker"
+                                placeholder="Enter social worker's name" v-model="educAndEmpData.socialWorkName">
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
                                 Please provide a name.
@@ -196,11 +189,10 @@
                     <div v-if="educAndEmpData.haveSocialWorker =='yes'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group">
-                            <label for="contactWorker" class="question-font">Contact
-                                number
-                                for
-                                your social worker</label>
-                            <input type="text" class="form-control" id="contactWorker" placeholder="01548 659874"
+                            <label for="contactWorker"
+                                class="question-font">{{dynamicLabels.socialWorkerContactLabel}}</label>
+                            <input type="text" class="form-control" id="contactWorker"
+                                placeholder="Enter social worker's phone number"
                                 v-model="educAndEmpData.socialWorkContact">
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkContact),'invalid-fields':!educAndEmpData.socialWorkContact }">
@@ -331,6 +323,7 @@
             </div>
         </div>
     </div>
+    {% endraw %}
 </div>
 </div>
 {% endblock %}

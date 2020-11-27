@@ -19,6 +19,7 @@ $(document).ready(function () {
             userRole: '',
             userId: '',
             payloadData: {},
+            dynamicLabels: {},
             educationAddress: '',
             mapsEntered: false,
             isFormSubmitted: false,
@@ -26,6 +27,7 @@ $(document).ready(function () {
         },
         mounted: function () {
             var _self = this;
+            this.dynamicLabels = section3Labels;
             google.maps.event.addDomListener(window, 'load', _self.initMaps);
             this.userMode = getQueryStringValue('mode');
             this.userRole = getQueryStringValue('role');
@@ -58,14 +60,7 @@ $(document).ready(function () {
 
             onOptionChange(event) {
                 var questionIdentifier = event.target.name;
-                if (questionIdentifier == 'currentPosition') {
-                    resetValues(event.target.form, this, 'educAndEmpData');
-                } else if (questionIdentifier == 'EHCP') {
-                    resetValues(event.target.form, this, 'educAndEmpData');
-                } else if (questionIdentifier == 'EHAT') {
-                    resetValues(event.target.form, this, 'educAndEmpData');
-
-                } else if (questionIdentifier == 'SocialWorker') {
+                if (questionIdentifier == 'currentPosition' || questionIdentifier == 'EHCP' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
                     resetValues(event.target.form, this, 'educAndEmpData');
                 }
             },
@@ -123,107 +118,21 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue(data) {
-                Vue.set(this.referralData, "support", data.referral_type);
-                Vue.set(this.referralData, "covid", data.is_covid);
-                Vue.set(this.referralData, "diagnosis", data.mental_health_diagnosis);
-                Vue.set(this.referralData, "diagnosisOther", data.diagnosis_other);
-                Vue.set(this.referralData, "supportOrSymptoms", data.symptoms_supportneeds);
-                Vue.set(this.referralData, "problemsOther", data.symptoms_other);
-                Vue.set(this.referralData, "referralInfo", data.referral_issues);
-                Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
-                Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
-                Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
-                Vue.set(this.referralData, "accessService", data.any_other_services);
+                if (data.attendedInfo) {
+                    Vue.set(this.educAndEmpData, "attendedInfo", data.attendedInfo);
+                }
+                Vue.set(this.educAndEmpData, "currentPosition", data.referral_type);
+                Vue.set(this.educAndEmpData, "haveEhcpPlan", data.is_covid);
+                Vue.set(this.educAndEmpData, "haveEhat", data.mental_health_diagnosis);
+                Vue.set(this.educAndEmpData, "haveSocialWorker", data.diagnosis_other);
+                Vue.set(this.educAndEmpData, "socialWorkName", data.symptoms_supportneeds);
+                Vue.set(this.educAndEmpData, "socialWorkContact", data.symptoms_other);
             },
 
             //Back to previous page
             backToEducation: function () {
                 backToPreviousPage('/education')
             },
-
-
-
-            // backToAbout: function () {
-            //     var uid = this.getUrlVars()['userid'];
-            //     var role = this.getUrlVars()['role'];
-            //     location.href = "/about?userid=" + uid + "&role=" + role + "&edt=1";
-            // },
-
-            // saveEducation: function () {
-            //     var _self = this;
-            //     var phoneRegex = /^[0-9,-]{10,15}$|^$/;
-            //     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
-            //     this.isSubmitted = true;
-            //     var userid = this.getUrlVars()['userid'];
-            //     var role = this.getUrlVars()['role'];
-            //     this.professionObj.userid = userid;
-            //     this.professionObj.role = role;
-            //     this.professionObj.childEducationPlace = _self.childEducation;
-            //     console.log(this.professionObj);
-            //     if (this.professionObj.isSocialWorker === 'yes') {
-            //         if (this.professionObj.socialWorkerName && this.professionObj.socialWorkerContactNumber) {
-            //             if (nameRegex.test(this.professionObj.socialWorkerName) && phoneRegex.test(this.professionObj.socialWorkerContactNumber)) {
-            //                 this.apiRequest(this.professionObj, this.professionObj.isSocialWorker);
-            //             } else {
-            //                 if (!nameRegex.test(this.professionObj.socialWorkerName)) {
-            //                     this.hasNameInvalidError = true;
-            //                 } else {
-            //                     this.hasNameInvalidError = false;
-            //                 }
-            //                 if (!phoneRegex.test(this.professionObj.socialWorkerContactNumber)) {
-            //                     this.hasContactInvalidError = true;
-            //                 } else {
-            //                     this.hasContactInvalidError = false;
-            //                 }
-            //             }
-            //         } else {
-            //             if (this.professionObj.socialWorkerName === undefined) {
-            //                 this.hasNameReqError = true;
-            //             } else {
-            //                 this.hasNameReqError = false;
-            //             }
-            //             if (this.professionObj.socialWorkerContactNumber === undefined) {
-            //                 this.hasContactReqError = true;
-            //             } else {
-            //                 this.hasContactReqError = false;
-            //             }
-            //         }
-            //     } else {
-            //         this.apiRequest(this.professionObj, this.professionObj.isSocialWorker);
-            //     }
-            // },
-
-            // apiRequest: function (payload, role) {
-            //     var _self = this;
-            //     $.ajax({
-            //         url: API_URI + "/education",
-            //         type: 'post',
-            //         dataType: 'json',
-            //         contentType: 'application/json',
-            //         data: JSON.stringify(payload),
-            //         success: function (data) {
-            //             //  alert("section 3 saved.");
-            //             this.isSubmitted = false;
-            //             console.log(data);
-            //             if (_self.getUrlVars()['edt'] == null) {
-            //                 location.href = "/referral?userid=" + data.userid + "&role=" + new URL(location.href).searchParams.get('role');
-            //             }
-            //             else {
-            //                 history.back();
-            //             }
-            //         },
-            //     });
-            // },
-            // getUrlVars: function () {
-            //     var vars = {};
-            //     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-            //         function (m, key, value) {
-            //             vars[key] = value;
-            //         });
-
-
-            //     return vars;
-            // }
         }
     })
 });
