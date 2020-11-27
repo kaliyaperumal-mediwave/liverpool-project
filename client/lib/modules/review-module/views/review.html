@@ -36,6 +36,12 @@
                 <div class="accordion" id="accordionExample">
                     {% raw %}
                     <!-- Section1-Start -->
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="updateEligibility(section1Obj)" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">ACCEPT & SEND</span></button>
+                        </a>
+                    </div>
                     <div class="py-2 px-3">
                         <div class="d-flex justify-content-between align-items-center" id="headingOne">
                             <div class="d-flex align-items-center">
@@ -130,6 +136,7 @@
                                         </template>
                                         <p class="m-0 px-2"><b><u>Yes</u></b></p>
                                     </div>
+                                
                                 </template>
                                 <!-- Professional -->
                                 <!-- Consent Given End -->

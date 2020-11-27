@@ -14,7 +14,8 @@ $(document).ready(function () {
             professionalLabelsValue: {},
             section4LabelValues: {},
             payloadData: {},
-            contactPref: []
+            contactPref: [],
+            section1Obj:{}
         },
         mounted: function () {
             this.userMode = this.getQueryStringValue('mode');
@@ -45,7 +46,8 @@ $(document).ready(function () {
                     contentType: 'application/json',
                    // data: JSON.stringify(payloadData),
                     success: function (data) {
-                        console.log(data);
+                        console.log(data.section1);
+                        _self.section1Obj = data.section1;
                         // _self.allLabelsValue = data;
                         // _self.parentLabelsValue = data.parentData;
                         // _self.childLabelsValue = data.childData[0];
@@ -53,7 +55,7 @@ $(document).ready(function () {
                         // console.log(_self.parentLabelsValue, _self.childLabelsValue);
                     },
                     error: function (error) {
-                        console.log(data);
+                        console.log(error);
                     }
                 });
 
@@ -121,6 +123,22 @@ $(document).ready(function () {
 
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
             },
+
+            updateEligibility :function(updateObj) {
+                $.ajax({
+                    url: API_URI + "/updateReview",
+                    type: 'put',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(updateObj),
+                    success: function (data) {
+                        alert("Your Reference Number" + data.refNo);
+                        console.log(data);
+                    },
+                });
+
+
+             }
 
         }
     })
