@@ -59,7 +59,7 @@ $(document).ready(function () {
                     data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         //alert("section 1 saved.");
-                  //   console.log(data);
+                  //   console.log(data); //check ssh
                      app.setValues(data);
                         
                     },
