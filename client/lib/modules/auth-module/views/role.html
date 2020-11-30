@@ -252,7 +252,7 @@
 
                         <div class="input-group">
                             <input type="text" class="form-control gpLocation" 
-                                @keydown="gpSearchBy($event)" id="gpLocation" aria-label="location">
+                                @keydown="getAddress($event)" id="gpLocation" aria-label="location" v-model="elgibilityObj.regGpTxt">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -525,8 +525,8 @@
                 <div class="form-group">
                     <label for="gpLocation" class="question-font">Which GP is the child / young person registered with?</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" v-model="elgibilityObj.profRegisterd_gp"
-                            @focus="getProfAddress($event)" id="gpProfLocation" aria-label="location">
+                        <input type="text" class="form-control" v-model="elgibilityObj.regProfGpTxt"
+                            @keydown="getProfAddress($event)" id="gpProfLocation" aria-label="location">
                         <div class="input-group-append">
                             <span class="input-group-text">
                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
