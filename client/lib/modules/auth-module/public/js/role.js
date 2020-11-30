@@ -8,7 +8,23 @@ $(document).ready(function () {
 
         data: {
             gpListShow: [],
-            elgibilityObj: { "childDob": "2020-09-29T00:00:00.000Z" },
+            elgibilityObj: { 
+                role:'',
+                interpreter:'',
+                tostInterYes:'',
+                childDob:'',
+                contactParent:'',
+                contactParentNo:'',
+                belowLimit:'',
+                aboveLimit:'',
+                isInformation:'',
+                isInformationNo:'',
+                regGpTxt:'',
+                submitFormTrue:'',
+                underLimit:'',
+                toastIsInformation:''
+              
+             },
             submitForm: "",
             submitProfForm: "",
             belowAgeLimit: "",
@@ -118,7 +134,7 @@ $(document).ready(function () {
                     success: function (response) {
                         _self.gpListShow = response.Organisations;
                         for (i = 0; i < _self.gpListShow.length; i++) {
-                            _self.gpListName.push(_self.gpListShow[i].Name +","+_self.gpListShow[i].PostCode);
+                            _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                             //_self.gpListPost.push(_self.gpListShow[i].PostCode)
                         }
                         displayNameList = _self.gpListName;
@@ -161,8 +177,8 @@ $(document).ready(function () {
                     success: function (response) {
                         this.gpListShow = response.Organisations;
                         for (i = 0; i < this.gpListShow.length; i++) {
-                            _self.gpProfListName.push(this.gpListShow[i].Name+','+this.gpListShow[i].PostCode);
-                        //    _self.gpProfListPost.push(this.gpListShow[i].PostCode)
+                            _self.gpProfListName.push(this.gpListShow[i].Name + ',' + this.gpListShow[i].PostCode);
+                            //    _self.gpProfListPost.push(this.gpListShow[i].PostCode)
                         }
                         displayNameList = _self.gpProfListName;
                         displayPostList = _self.gpProfListPost;
@@ -196,117 +212,152 @@ $(document).ready(function () {
                 })
             },
 
+            // onChange: function (event) {
+
+            //     var optionText = event.target.name;
+            //     console.log(this.elgibilityObj.role);
+            //     var today = this.restrictDate();
+            //     if (optionText == "interpreter" && this.elgibilityObj.role == "child") {
+            //         document.getElementById("txtDateChild").setAttribute("max", today);
+            //     }
+            //     else if (optionText == "interpreter" && this.elgibilityObj.role == "parent") {
+
+            //         document.getElementById("txtDateParent").setAttribute("max", today);
+            //     }
+            //     else if (this.elgibilityObj.role == "professional") {
+
+            //         document.getElementById("txtDateProf").setAttribute("max", today);
+            //     }
+            //     var fType = this.getUrlVars()["role"];
+            //     console.log(fType);
+            //     if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
+            //         console.log(optionText);
+            //         this.elgibilityObj.interpreter = "";
+            //         this.elgibilityObj.childDob = "";
+            //         this.belowAgeLimit = "";
+            //         this.aboveLimit = "";
+            //         this.elgibilityObj.camhs = "";
+            //         this.elgibilityObj.isInformation = "";
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.elgibilityObj.contactParent = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
+            //         this.elgibilityObj.childDob = "";
+            //         this.belowAgeLimit = "";
+            //         this.aboveLimit = "";
+            //         this.elgibilityObj.camhs = "";
+            //         this.elgibilityObj.camhsSelect = "";
+            //         this.elgibilityObj.isInformation = "";
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.elgibilityObj.contactParent = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
+            //         this.elgibilityObj.isInformation = "";
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     if (optionText == "camhsSelect") {
+            //         console.log(this.elgibilityObj.isInformation);
+            //         console.log(this.elgibilityObj.role);
+            //         //this.getGP();
+
+            //     }
+            //     if (optionText == "camhsSelect" && this.submitForm != undefined) {
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     //reset fields for prof
+            //     if (optionText == "role" && this.elgibilityObj.parentConcernInformation != undefined) {
+            //         this.elgibilityObj.profName = "";
+            //         this.elgibilityObj.profEmail = "";
+            //         this.elgibilityObj.profContactNumber = "";
+            //         this.elgibilityObj.profChildDob = "";
+            //         this.elgibilityObj.parentConcern = "";
+            //         this.elgibilityObj.parentConcernInformation = "";
+            //         this.elgibilityObj.childConcernInformation = "";
+            //         this.elgibilityObj.profRegisterd_gp = "";
+            //         this.profBelowAgeLimit = "";
+            //         this.profaboveLimit = "";
+            //         this.elgibilityObj.contactProfParent = "";
+            //         this.submitProfForm = "false";
+            //     }
+
+            //     if (optionText == "contactProfParent" && this.elgibilityObj.parentConcernInformation != undefined) {
+            //         this.elgibilityObj.profRegisterd_gp = "";
+            //         this.elgibilityObj.parentConcernInformation = "";
+            //         this.submitProfForm = "false";
+            //     }
+
+            //     if (optionText == "parentConcernSelect") {
+            //         //   this.getProfGP();
+            //         var selectTxt = event.target.value
+            //         if (selectTxt == "no") {
+            //             console.log("--");
+            //             //  this.elgibilityObj.childConcernInformation = "";
+            //             this.elgibilityObj.profRegisterd_gp = "";
+            //             //     this.profBelowAgeLimit = "";
+            //             this.elgibilityObj.profaboveLimit = "";
+            //             // this.profBelowAgeLimit = "";
+            //             //  this.profaboveLimit = "";
+            //             // this.elgibilityObj.parentConcernInformation
+            //             this.submitProfForm = "false";
+            //         }
+            //     }
+
+
+
+            //     if (optionText == "parentConcernSelect") {
+            //         // this.getProfGP();
+            //         var selectTxt = event.target.value
+            //         if (selectTxt == "no") {
+            //             console.log("--");
+            //             this.elgibilityObj.registerd_gp = "";
+            //             this.profBelowAgeLimit = "";
+            //             this.profaboveLimit = "";
+            //             this.submitProfForm = "false";
+            //         }
+            //     }
+            // },
+
             onChange: function (event) {
 
-                var optionText = event.target.name;
-                console.log(this.elgibilityObj.role);
-                var today = this.restrictDate();
-                if (optionText == "interpreter" && this.elgibilityObj.role == "child") {
-                    document.getElementById("txtDateChild").setAttribute("max", today);
-                }
-                else if (optionText == "interpreter" && this.elgibilityObj.role == "parent") {
+                this.resetValues(event.target.form);
 
-                    document.getElementById("txtDateParent").setAttribute("max", today);
-                }
-                else if (this.elgibilityObj.role == "professional") {
+                var questionIdentifier = event.target.name;
+                var optionsName = this.elgibilityObj;
 
-                    document.getElementById("txtDateProf").setAttribute("max", today);
-                }
-                var fType = this.getUrlVars()["role"];
-                console.log(fType);
-                if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
-                    console.log(optionText);
-                    this.elgibilityObj.interpreter = "";
-                    this.elgibilityObj.childDob = "";
-                    this.belowAgeLimit = "";
-                    this.aboveLimit = "";
-                    this.elgibilityObj.camhs = "";
-                    this.elgibilityObj.isInformation = "";
-                    this.elgibilityObj.registerd_gp = "";
-                    this.elgibilityObj.contactParent = "";
-                    this.submitForm = "false";
-                }
+                // if(questionIdentifier=="role")
+                // {
+                //     this.resetValues(event.target.form);
+                // }
 
-                if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
-                    this.elgibilityObj.childDob = "";
-                    this.belowAgeLimit = "";
-                    this.aboveLimit = "";
-                    this.elgibilityObj.camhs = "";
-                    this.elgibilityObj.camhsSelect = "";
-                    this.elgibilityObj.isInformation = "";
-                    this.elgibilityObj.registerd_gp = "";
-                    this.elgibilityObj.contactParent = "";
-                    this.submitForm = "false";
-                }
+            },
 
-                if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
-                    this.elgibilityObj.isInformation = "";
-                    this.elgibilityObj.registerd_gp = "";
-                    this.submitForm = "false";
-                }
-
-                if (optionText == "camhsSelect") {
-                    console.log(this.elgibilityObj.isInformation);
-                    console.log(this.elgibilityObj.role);
-                    //this.getGP();
-
-                }
-                if (optionText == "camhsSelect" && this.submitForm != undefined) {
-                    this.elgibilityObj.registerd_gp = "";
-                    this.submitForm = "false";
-                }
-
-                //reset fields for prof
-                if (optionText == "role" && this.elgibilityObj.parentConcernInformation != undefined) {
-                    this.elgibilityObj.profName = "";
-                    this.elgibilityObj.profEmail = "";
-                    this.elgibilityObj.profContactNumber = "";
-                    this.elgibilityObj.profChildDob = "";
-                    this.elgibilityObj.parentConcern = "";
-                    this.elgibilityObj.parentConcernInformation = "";
-                    this.elgibilityObj.childConcernInformation = "";
-                    this.elgibilityObj.profRegisterd_gp = "";
-                    this.profBelowAgeLimit = "";
-                    this.profaboveLimit = "";
-                    this.elgibilityObj.contactProfParent = "";
-                    this.submitProfForm = "false";
-                }
-
-                if (optionText == "contactProfParent" && this.elgibilityObj.parentConcernInformation != undefined) {
-                    this.elgibilityObj.profRegisterd_gp = "";
-                    this.elgibilityObj.parentConcernInformation = "";
-                    this.submitProfForm = "false";
-                }
-
-                if (optionText == "parentConcernSelect") {
-                    //   this.getProfGP();
-                    var selectTxt = event.target.value
-                    if (selectTxt == "no") {
-                        console.log("--");
-                        //  this.elgibilityObj.childConcernInformation = "";
-                        this.elgibilityObj.profRegisterd_gp = "";
-                        //     this.profBelowAgeLimit = "";
-                        this.elgibilityObj.profaboveLimit = "";
-                        // this.profBelowAgeLimit = "";
-                        //  this.profaboveLimit = "";
-                        // this.elgibilityObj.parentConcernInformation
-                        this.submitProfForm = "false";
+            resetValues(currentForm) {
+                var allForms = Array.from(document.forms);
+                var formIndex = allForms.indexOf(currentForm);
+                console.log(formIndex);
+            //    console.log($(allForms[0]).data('options'));
+                for (let i = 0; i < allForms.length; i++) {
+                  //  console.log($(allForms[i]).data('options'));
+                    var attributeValue = $(allForms[i]).data('options');
+                    if (formIndex < i) {
+                        console.log("value---->>>>>>>>>>",attributeValue)
+                      //  console.log(this.elgibilityObj[attributeValue])
+                        this.elgibilityObj[attributeValue] = '';
+                    }
+                    if (formIndex <= i) {
+                      //  this.clearDependentValues(attributeValue);
                     }
                 }
-
-
-
-                if (optionText == "parentConcernSelect") {
-                    // this.getProfGP();
-                    var selectTxt = event.target.value
-                    if (selectTxt == "no") {
-                        console.log("--");
-                        this.elgibilityObj.registerd_gp = "";
-                        this.profBelowAgeLimit = "";
-                        this.profaboveLimit = "";
-                        this.submitProfForm = "false";
-                    }
-                }
+                // this.showAddOtherService = false;
+                // this.allAvailableService = [];
             },
 
 
@@ -344,9 +395,9 @@ $(document).ready(function () {
             getProfAddress: function (e) {
                 var _self = this;
                 var selectFlag = false;
-              //  this.elgibilityObj.registerd_gp = {};
+                //  this.elgibilityObj.registerd_gp = {};
                 $("#gpProfLocation").on("autocompleteselect", function (event, ui) {
-                     //   console.log(ui.item.label);
+                    //   console.log(ui.item.label);
                     if (e.target.value === '') {
                         app.submitForm = "false";
                     } else {
@@ -363,7 +414,7 @@ $(document).ready(function () {
 
                         //     }
                         // }
-                       
+
                         selectFlag = true;
                         app.elgibilityObj.regProfGpTxt = ui.item.label;
                         console.log(app.elgibilityObj.regProfGpTxt);
@@ -495,9 +546,9 @@ $(document).ready(function () {
                 }
             },
 
-            save: function () {   
-               // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
-               // this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
+            save: function () {
+                // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
+                // this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
                 this.elgibilityObj.uuid = this.getUrlVars()["userid"];
                 this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
