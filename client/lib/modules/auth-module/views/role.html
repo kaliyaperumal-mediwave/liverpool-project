@@ -94,7 +94,7 @@
                 class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                 <p v-if="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of birth?</p>
                 <div class="input-group">
-                    <input id="txtDateParent" type="date"  class="form-control" name="parent"
+                    <input id="txtDateParent" type="text"  class="form-control" name="parent"
                         v-model="elgibilityObj.childDob" @change="changeDob($event)">
                     <div class="input-group-addon">
                     </div>

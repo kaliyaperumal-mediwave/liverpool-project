@@ -1,6 +1,8 @@
 //Reset Two-Way-Model Values 
 function resetValues(currentForm, context, formObj) {
     debugger;
+    console.log('this', this);
+    console.log('this', context);
     var allForms = Array.from(document.forms);
     var formIndex = allForms.indexOf(currentForm);
     for (let i = 0; i < allForms.length; i++) {
@@ -31,9 +33,10 @@ function deleteLogic(arr, value, context, section) {
             return true;
         }
     });
-    if (section == 'referral') {
-        context.allAvailableService.splice(index, 1)
-    }
+    context[section].splice(index, 1);
+    // if (section == 'referral') {
+    //     context.allAvailableService.splice(index, 1)
+    // }
 };
 
 //Back tp previous page navigation

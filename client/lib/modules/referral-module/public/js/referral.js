@@ -324,7 +324,7 @@ $(document).ready(function () {
 
             //Delete service logic
             deleteService(service) {
-                deleteLogic(this.allAvailableService, service, this, this.currentSection)
+                deleteLogic(this.allAvailableService, service, this, 'allAvailableService')
             },
 
             //Resetting the modal values of service data
