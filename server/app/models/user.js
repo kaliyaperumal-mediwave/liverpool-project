@@ -70,18 +70,18 @@ module.exports = function modelUser(sequelize, types) {
     child_ethnicity: {
       type: types.TEXT
     },
-    child_household_name: {
-      type: types.TEXT
-    },
-    child_household_relationship: {
-      type: types.TEXT
-    },
-    child_household_dob: {
-      type: types.DATE
-    },
-    child_household_profession: {
-      type: types.TEXT
-    },
+    // child_household_name: {
+    //   type: types.TEXT
+    // },
+    // child_household_relationship: {
+    //   type: types.TEXT
+    // },
+    // child_household_dob: {
+    //   type: types.DATE
+    // },
+    // child_household_profession: {
+    //   type: types.TEXT
+    // },
     child_care_adult: {
       type: types.TEXT
     },
@@ -153,6 +153,9 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     contact_preferences:{
+      type: types.JSONB
+    },
+    household_member:{
       type: types.JSONB
     },
   }, {

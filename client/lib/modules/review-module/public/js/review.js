@@ -46,7 +46,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                    // data: JSON.stringify(payloadData),
                     success: function (data) {
-                        console.log(data.section1);
+                        console.log(data);
                         _self.section1Obj = data.section1;
                         // _self.allLabelsValue = data;
                         // _self.parentLabelsValue = data.parentData;

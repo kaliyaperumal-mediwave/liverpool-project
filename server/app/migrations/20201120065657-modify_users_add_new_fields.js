@@ -1,27 +1,15 @@
 module.exports = {
   up(queryInterface, Sequelize) {
     return Promise.all([
+      queryInterface.removeColumn('users', 'child_household_name'),
+      queryInterface.removeColumn('users', 'child_household_relationship'),
+      queryInterface.removeColumn('users', 'child_household_dob'),
+      queryInterface.removeColumn('users', 'child_household_profession'),
       queryInterface.addColumn(
         'users', // table name
-        'twitter', // new field name
+        'household_member', // new field name
         {
-          type: Sequelize.STRING,
-          allowNull: true,
-        },
-      ),
-      queryInterface.addColumn(
-        'users',
-        'linkedin',
-        {
-          type: Sequelize.STRING,
-          allowNull: true,
-        },
-      ),
-      queryInterface.addColumn(
-        'users',
-        'bio',
-        {
-          type: Sequelize.TEXT,
+          type: Sequelize.JSONB,
           allowNull: true,
         },
       ),
@@ -31,9 +19,39 @@ module.exports = {
   down(queryInterface, Sequelize) {
     // logic for reverting the changes
     return Promise.all([
-      queryInterface.removeColumn('users', 'linkedin'),
-      queryInterface.removeColumn('users', 'twitter'),
-      queryInterface.removeColumn('users', 'bio'),
+      queryInterface.addColumn(
+        'users', // table name
+        'child_household_name', // new field name
+        {
+          type: Sequelize.TEXT,
+          allowNull: true,
+        },
+      ),
+      queryInterface.addColumn(
+        'users', // table name
+        'child_household_relationship', // new field name
+        {
+          type: Sequelize.TEXT,
+          allowNull: true,
+        },
+      ),
+      queryInterface.addColumn(
+        'users', // table name
+        'child_household_dob', // new field name
+        {
+          type: Sequelize.DATE,
+          allowNull: true,
+        },
+      ),
+      queryInterface.addColumn(
+        'users', // table name
+        'child_household_profession', // new field name
+        {
+          type: Sequelize.TEXT,
+          allowNull: true,
+        },
+      ),
+      queryInterface.removeColumn('users', 'household_data'),
     ]);
   },
 };

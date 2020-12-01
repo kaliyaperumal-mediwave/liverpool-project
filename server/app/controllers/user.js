@@ -327,19 +327,16 @@ exports.about = ctx => {
           return user.update(
             {
               child_name: ctx.request.body.childName,
-              child_NHS: ctx.request.body.childNHS,
+              child_NHS: ctx.request.body.nhsNumber,
               child_email: ctx.request.body.childEmail,
               child_contact_number: ctx.request.body.childContactNumber,
               child_address: ctx.request.body.childAddress,
               can_send_post: ctx.request.body.sendPost,
               child_gender: ctx.request.body.childGender,
-              child_gender_birth: ctx.request.body.childGenderBirth,
+              child_gender_birth: ctx.request.body.childIdentity,
               child_sexual_orientation: ctx.request.body.childSexualOrientation,
               child_ethnicity: ctx.request.body.childEthnicity,
               child_household_name: ctx.request.body.houseHoldName,
-              child_household_relationship: ctx.request.body.houseHoldRelationship,
-              child_household_dob: ctx.request.body.childHouseHoldDob,
-              child_household_profession: ctx.request.body.houseHoldProfession,
               child_care_adult: ctx.request.body.childCareAdult,
               user_section: 2
             },
@@ -386,18 +383,19 @@ exports.about = ctx => {
       return user.update(
         {
           child_name: ctx.request.body.childName,
-          child_NHS: ctx.request.body.childNHS,
+          child_NHS: ctx.request.body.nhsNumber,
           child_email: ctx.request.body.childEmail,
           child_contact_number: ctx.request.body.childContactNumber,
           child_address: ctx.request.body.childAddress,
           can_send_post: ctx.request.body.sendPost,
           child_gender: ctx.request.body.childGender,
-          child_gender_birth: ctx.request.body.childGenderBirth,
+          child_gender_birth: ctx.request.body.childIdentity,
           child_sexual_orientation: ctx.request.body.childSexualOrientation,
           child_ethnicity: ctx.request.body.childEthnicity,
-          child_household_name: ctx.request.body.houseHoldName,
-          child_household_relationship: ctx.request.body.houseHoldRelationship,
-          child_household_dob: ctx.request.body.childHouseHoldDob,
+          // child_household_name: ctx.request.body.houseHoldName,
+          // child_household_relationship: ctx.request.body.houseHoldRelationship,
+          // child_household_dob: ctx.request.body.childHouseHoldDob,
+          household_member:ctx.request.body.allHouseHoldMembers,
           child_household_profession: ctx.request.body.houseHoldProfession,
           child_care_adult: ctx.request.body.childCareAdult,
           user_section: 2
@@ -469,18 +467,19 @@ exports.about = ctx => {
         return user.update(
           {
             child_name: ctx.request.body.childName,
-            child_NHS: ctx.request.body.childNHS,
+            child_NHS: ctx.request.body.nhsNumber,
             child_email: ctx.request.body.childEmail,
             child_contact_number: ctx.request.body.childContactNumber,
             child_address: ctx.request.body.childAddress,
             can_send_post: ctx.request.body.sendPost,
             child_gender: ctx.request.body.childGender,
-            child_gender_birth: ctx.request.body.childGenderBirth,
+            child_gender_birth: ctx.request.body.childIdentity,
             child_sexual_orientation: ctx.request.body.childSexualOrientation,
             child_ethnicity: ctx.request.body.childEthnicity,
-            child_household_name: ctx.request.body.houseHoldName,
-            child_household_relationship: ctx.request.body.houseHoldRelationship,
-            child_household_dob: ctx.request.body.childHouseHoldDob,
+            // child_household_name: ctx.request.body.houseHoldName,
+            // child_household_relationship: ctx.request.body.houseHoldRelationship,
+            // child_household_dob: ctx.request.body.childHouseHoldDob,
+            household_member:ctx.request.body.allHouseHoldMembers,
             child_household_profession: ctx.request.body.houseHoldProfession,
             child_care_adult: ctx.request.body.childCareAdult,
           },
@@ -546,18 +545,19 @@ exports.about = ctx => {
           return user.update(
             {
               child_name: ctx.request.body.childName,
-              child_NHS: ctx.request.body.childNHS,
+              child_NHS: ctx.request.body.nhsNumber,
               child_email: ctx.request.body.childEmail,
               child_contact_number: ctx.request.body.childContactNumber,
               child_address: ctx.request.body.childAddress,
               can_send_post: ctx.request.body.sendPost,
               child_gender: ctx.request.body.childGender,
-              child_gender_birth: ctx.request.body.childGenderBirth,
+              child_gender_birth: ctx.request.body.childIdentity,
               child_sexual_orientation: ctx.request.body.childSexualOrientation,
               child_ethnicity: ctx.request.body.childEthnicity,
-              child_household_name: ctx.request.body.houseHoldName,
-              child_household_relationship: ctx.request.body.houseHoldRelationship,
-              child_household_dob: ctx.request.body.childHouseHoldDob,
+              // child_household_name: ctx.request.body.houseHoldName,
+              // child_household_relationship: ctx.request.body.houseHoldRelationship,
+              // child_household_dob: ctx.request.body.childHouseHoldDob,
+              household_member:ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.houseHoldProfession,
               child_care_adult: ctx.request.body.childCareAdult,
             },
@@ -631,18 +631,19 @@ exports.about = ctx => {
           return user.update(
             {
               child_name: ctx.request.body.childName,
-              child_NHS: ctx.request.body.childNHS,
+              child_NHS: ctx.request.body.nhsNumber,
               child_email: ctx.request.body.childEmail,
               child_contact_number: ctx.request.body.childContactNumber,
               child_address: ctx.request.body.childAddress,
               can_send_post: ctx.request.body.sendPost,
               child_gender: ctx.request.body.childGender,
-              child_gender_birth: ctx.request.body.childGenderBirth,
+              child_gender_birth: ctx.request.body.childIdentity,
               child_sexual_orientation: ctx.request.body.childSexualOrientation,
               child_ethnicity: ctx.request.body.childEthnicity,
-              child_household_name: ctx.request.body.houseHoldName,
-              child_household_relationship: ctx.request.body.houseHoldRelationship,
-              child_household_dob: ctx.request.body.childHouseHoldDob,
+              // child_household_name: ctx.request.body.houseHoldName,
+              // child_household_relationship: ctx.request.body.houseHoldRelationship,
+              // child_household_dob: ctx.request.body.childHouseHoldDob,
+              household_member:ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.houseHoldProfession,
               child_care_adult: ctx.request.body.childCareAdult,
             },
@@ -1404,7 +1405,7 @@ console.log(ctx.query.user_id);
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id','child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_household_name', 'child_household_relationship', 'child_household_dob', 'child_household_profession', 'child_care_adult']
+        attributes: ['id','child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1419,10 +1420,14 @@ console.log(ctx.query.user_id);
           },
           attributes: ['id','child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_name', 'child_socialworker_contact']
         }).then((educationObj) => {
+          const section2data = {};
+          section2data.child = aboutObj
+          section2data.parent = aboutObj.parent[0]
           const responseData = {
             userid: ctx.query.user_id,
             section1: eligibilityObj,
-            section2: aboutObj,
+            section2Old: aboutObj,
+            section2: section2data,
             section3: educationObj,
             section4: educationObj.referral[0],
             status: "ok",

@@ -284,6 +284,20 @@ $(document).ready(function () {
                 this.aboutObj.editFlag=this.getUrlVars()['edt'];
                 this.aboutObj.userid = userid;
                 this.aboutObj.role = role;
+                this.aboutObj.allHouseHoldMembers = [
+                    {
+                        name: 'Prasath',
+                        relationShip: 'brother',
+                        dob: '01/07/2018',
+                        profession: 'Student'
+                    },
+                    {
+                        name: 'Raj',
+                        relationShip: 'Bro',
+                        dob: '01/07/2010',
+                        profession: 'Student'
+                    },
+                ]
               //  this.aboutObj.childAddress = _self.selectedChildAddress;
                 this.aboutObj.parentAddress = _self.selectedParentAddress;
               //  console.log(this.aboutObj);
