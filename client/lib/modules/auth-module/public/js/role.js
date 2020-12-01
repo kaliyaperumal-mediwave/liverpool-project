@@ -23,10 +23,14 @@ $(document).ready(function () {
                 submitFormTrue: '',
                 underLimit: '',
                 toastIsInformation: '',
-                submitForm:'',
-                submitProfForm:'',
-                profBelowAgeLimit:'',
-                profaboveLimit:'',
+                submitForm: '',
+                submitProfForm: '',
+                profBelowAgeLimit: '',
+                profaboveLimit: '',
+                parentConcernInformation:'',
+                childConcernInformation:'',
+                contactProfParent:''
+                
 
             },
             hasNameReqError: false,
@@ -55,7 +59,7 @@ $(document).ready(function () {
                 this.fetchSavedData()
             }
             else {
-                console.log("if else")
+             //   console.log("if else")
             }
         },
 
@@ -80,7 +84,6 @@ $(document).ready(function () {
             },
 
             setValues: function (data) {
-                console.log(data);
                 var roleType = this.getUrlVars()["role"]
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
@@ -91,11 +94,10 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
                     $('input[name=role]').attr("disabled", true);
-                    this.getGP();
+                 //   this.getGP();
                 }
                 else if (roleType == "parent") {
-                    console.log(data);
-
+            
                     Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data[0].parent[0].child_dob));
@@ -104,10 +106,9 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, this.getUrlVars()["role"]));
                     $('input[name=role]').attr("disabled", true);
-                    this.getGP();
+                  //  this.getGP();
                 }
                 else if (roleType == "professional") {
-                    console.log(data);
                     Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
                     Vue.set(this.elgibilityObj, "profName", data[0].professional_name);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
@@ -118,7 +119,8 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, this.getUrlVars()["role"]));
                     $('input[name=role]').attr("disabled", true);
-                    this.getProfGP();
+                    this.elgibilityObj.submitProfForm="true";
+                  //  this.getProfGP();
                 }
 
             },
@@ -326,22 +328,17 @@ $(document).ready(function () {
             onChange: function (event) {
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value
-                console.log(questionIdentifier,optionValue)
-
-                if (questionIdentifier == "contactProfParent" && optionValue != "yes") {
+                console.log(questionIdentifier,optionValue);
+                if (questionIdentifier == "role") {
                     this.resetValues(event.target.form);
                 }
-
-               // this.resetValues(event.target.form);
-                return;
-
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
                 }
                 else if (questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
-                 //   this.elgibilityObj.camhs = "";
-                  
+                    //   this.elgibilityObj.camhs = "";
+
                 }
                 else if (questionIdentifier == "belowAgeParent" && optionValue == "no") {
                     this.resetValues(event.target.form);
@@ -351,9 +348,14 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.isInformation = optionValue;
                 }
-                else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
+                //for professional
+               else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
                     this.resetValues(event.target.form);
-                   // this.elgibilityObj.isInformation = optionValue;
+                    this.elgibilityObj.contactProfParent = optionValue;
+                }
+                else if (questionIdentifier == "parentConcernSelect" && optionValue == "no") {
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.parentConcernInformation = optionValue;
                 }
             },
 
@@ -362,14 +364,12 @@ $(document).ready(function () {
                 var formIndex = allForms.indexOf(currentForm);
                 for (let i = 0; i < allForms.length; i++) {
                     var attributeValue = $(allForms[i]).data('options');
-                   
                     if (formIndex < i) {
-                        //console.log(attributeValue)
                         this.elgibilityObj[attributeValue] = '';
-                      
                     }
                     if (formIndex <= i) {
-                        this.elgibilityObj.regGpTxt="";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.regProfGpTxt = "";
                     }
                 }
             },
@@ -403,13 +403,12 @@ $(document).ready(function () {
                         app.elgibilityObj.submitForm = "true";
                     }
                 });
-               // app.submitForm = "true";
-               console.log(e.target.value.length)
+                // app.submitForm = "true";
+                console.log(e.target.value.length)
                 if (e.target.value.length == 0) {
                     app.elgibilityObj.submitForm = "false";
                 }
-                else
-                {
+                else {
                     app.elgibilityObj.submitForm = "true";
                 }
             },
@@ -440,17 +439,16 @@ $(document).ready(function () {
                         selectFlag = true;
                         app.elgibilityObj.regProfGpTxt = ui.item.label;
                         console.log(app.elgibilityObj.regProfGpTxt);
-                        app.submitProfForm = "true";
+                        app.elgibilityObj.submitProfForm = "true";
                     }
                 });
                 if (e.target.value.length === 0) {
-                    app.submitProfForm = "false";
+                    app.elgibilityObj.submitProfForm = "false";
                 }
-                else
-                {
-                    app.submitProfForm = "true";
+                else {
+                    app.elgibilityObj.submitProfForm = "true";
                 }
-                
+
             },
 
             changeDob: function (event) {
