@@ -60,6 +60,7 @@ $(document).ready(function () {
             showAddOtherService: false,
             userRole: '',
             userMode: '',
+            userId: '',
             payloadData: {},
             diagnosisList: [],
             problemsList: [],

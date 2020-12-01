@@ -5,16 +5,29 @@ $(document).ready(function () {
         el: '#about-form',
         data: {
             labelToDisplay: "",
-            aboutObj: {},
-            childDob: "",
-            showBelowAge: "",
-            submitForm: "",
-            selectedChildAddress: "",
-            selectedParentAddress: "",
-            empClgSchool: "",
-            saveAndCont: "",
-            headerToDisplay: "",
-            edFlag: false,
+            aboutObj: {
+                nhsNumber: "",
+                childName: "",
+                childEmail: "",
+                childContactNumber: "",
+                childAddress: "",
+                sendPost: "",
+                childGender: "",
+                childIdentity: "",
+                childSexualOrientation: "",
+                childEthnicity: "",
+                childCareAdult: "",
+            },
+            aboutFormData: {
+                parentialResponsibility: "",
+                parentCarerName: "",
+                relationshipToYou: "",
+                contactNumber: "",
+                emailAddress: "",
+                sameHouse: "",
+                parentOrCarrerAddress: "",
+                legalCareStatus: ""
+            },
             sendObj: {},
             sec2dynamicLabel: {},
             houseHoldData: {
@@ -24,55 +37,154 @@ $(document).ready(function () {
                 profession: ''
             },
             allHouseHoldMembers: [],
-            isHouseHoldFormSubmitted: false
+            isFormSubmitted: false,
+            isHouseHoldFormSubmitted: false,
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
+            nhsRegex: /^\d+$/,
+            userRole: '',
+            userMode: '',
+            userId: '',
+            payloadData: {},
+
+            currentSection: 'about',
+            childDob: "",
+            showBelowAge: "",
+            submitForm: "",
+            selectedChildAddress: "",
+            selectedParentAddress: "",
+            empClgSchool: "",
+            saveAndCont: "",
+            headerToDisplay: "",
+            edFlag: false,
+
         },
         mounted: function () {
-            debugger;
             var _self = this;
-            $('#houseHoldDate').datepicker({
+            this.userMode = getQueryStringValue('mode');
+            this.userRole = getQueryStringValue('role');
+            this.userId = getQueryStringValue('userId');
 
+            this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            google.maps.event.addDomListener(window, 'load', _self.initMaps);
+
+            $('#houseHoldDate').datepicker({
                 dateFormat: 'yy-mm-dd',
                 duration: "fast",
                 changeMonth: true,
                 changeYear: true,
                 autoSize: true,
                 gotoCurrent: true,
-                // showOptions: {
-                //      direction: "down" 
-                //     },
-                // showOn: "both",
-                // showButtonPanel:true,
-                // showAnim: "slideDown",
                 setDate: new Date(),
                 minDate: new Date(1950, 10 - 1, 25),
                 maxDate: '+30Y',
                 yearRange: '1950:c',
                 onSelect: function (dateText) {
-                    debugger;
                     // $(this)[0].dispatchEvent(new Event('input', { 'bubbles': true }))
                     _self.houseHoldData.dob = dateText
                 },
-            },
-            );
-            this.sec2dynamicLabel = section2Labels;
-            var roleType = _self.getUrlVars()["role"]
-            _self.headerToDisplay = roleType;
-            _self.labelToDisplay = roleType;
+            });
 
-            google.maps.event.addDomListener(window, 'load', _self.initialize);
-
-            if (_self.getUrlVars()['edt'] == 1) {
-                _self.fetchSavedData()
+            if (this.userMode === 'edit') {
+                this.patchValue();
             }
-            else {
-
-
-                console.log("if else")
+            if (getUrlVars()['edt'] == 1) {
+                this.fetchSavedData();
             }
-
 
         },
         methods: {
+
+            //Initilaizing Google Maps Autocompleted
+            initMaps: function () {
+                var _self = this;
+                var childAddress;
+                var houseHoldAddress;
+                var parentAddress;
+                childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
+                    types: ['geocode'],
+                });
+                houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
+                    types: ['geocode'],
+                });
+                parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
+                    types: ['geocode'],
+                });
+                google.maps.event.addListener(childAddress, 'place_changed', function () {
+                    _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                });
+                google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
+                    _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
+                });
+
+                google.maps.event.addListener(parentAddress, 'place_changed', function () {
+                    _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
+                });
+            },
+
+            onOptionChange(event) {
+                var questionIdentifier = event.target.name;
+                var optionsName = this.aboutFormData;
+                // if (questionIdentifier == 'parentialResponsibility') {
+                this.sec2dynamicLabel = getDynamicLabels(this.userRole, optionsName.parentialResponsibility)
+                resetValues(event.target.form, this, 'aboutFormData');
+                // }
+            },
+
+            //Form Submittion of Section-4(Referral) with validation logic
+            saveAndContinue() {
+                this.isFormSubmitted = true;
+                var formData = Object.assign(this.aboutObj, this.aboutFormData);
+                console.log('dataaaaaaaaaaaaa', formData)
+                if (formData.contactNumber && formData.relationshipToYou &&
+                    formData.parentCarerName && formData.parentialResponsibility && formData.childGender &&
+                    formData.childIdentity && formData.sendPost && formData.childAddress && formData.childName && this.phoneRegex.test(formData.contactNumber)
+                ) {
+
+                    if ((formData.nhsNumber && !this.nhsRegex.test(aboutObj.nhsNumber)) || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) ||
+                        (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber)) ||
+                        (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) ||
+                        (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))
+                    ) {
+                        scrollToInvalidInput();
+                        return false;
+                    } else {
+                        this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
+                        this.payloadData.role = this.userRole;
+                        this.payloadData.userid = this.userId;
+                        this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
+                        this.payloadData.editFlag = getUrlVars()['edt'];
+                        this.payloadData.id = this.referralId;
+                        if (this.userMode === 'edit') {
+                            this.payloadData.userMode = 'edit';
+                        } else {
+                            this.payloadData.userMode = 'add';
+                        }
+                        this.upsertAboutYouForm(this.payloadData);
+                    }
+
+                } else {
+                    scrollToInvalidInput();
+                    return false;
+                }
+
+            },
+
+            //Section 2(About You) Save and Service call with navaigation Logic
+            upsertAboutYouForm(payload) {
+                var responseData = apiCallPost('post', '/saveReferral', payload);
+                if (Object.keys(responseData)) {
+                    if (getUrlVars()["edt"] == null) {
+                        location.href = "/education?userid=" + responseData.userid + "&role=" + responseData.role;
+                    }
+                    else {
+                        history.back();
+                    }
+                } else {
+                    console.log('empty response')
+                }
+            },
+
             clearDate: function (e) {
                 if (e.keyCode == 8 || e.keyCode == 46) {
                     $('#houseHoldDate').datepicker('setDate', null);
@@ -227,149 +339,104 @@ $(document).ready(function () {
                     document.getElementById("showAdBtn").style.display = "block";
                 }
             },
+
             backElgibility: function () {
                 var uid = this.getUrlVars()['userid'];
                 var role = this.getUrlVars()['role'];
                 location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
             },
-            initialize: function () {
-                var _self = this;
-                var autoCompleteChild;
-                var houseAddress;
-                autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
-                    types: ['geocode'],
-                });
-                houseAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
-                    types: ['geocode'],
-                });
-                google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    console.log('place chnaged ', autoCompleteChild.getPlace().formatted_address)
-                    _self.selectedChildAddress = autoCompleteChild.getPlace().formatted_address;
-                    _self.aboutObj.childAddress = _self.selectedChildAddress;
-                    console.log(_self.selectedChildAddress)
-                    console.log('========')
-                });
-                var autoCompleteParent;
-                autoCompleteParent = new google.maps.places.Autocomplete((document.getElementById('txtParentAddress')), {
-                    types: ['geocode'],
-                });
-                google.maps.event.addListener(autoCompleteParent, 'place_changed', function () {
-                    _self.selectedParentAddress = autoCompleteParent.getPlace().formatted_address;
-                    _self.aboutObj.selectedParentAddress = _self.selectedParentAddress;
-                    document.getElementById("showAdToast").style.display = "block";
-                    document.getElementById("showAdBtn").style.display = "block";
-                });
 
-                google.maps.event.addListener(houseAddress, 'place_changed', function () {
-                    debugger;
-                    _self.houseHoldData.profession = houseAddress.getPlace().formatted_address;
-                });
+            // onChange: function (event) {
+            //     var optionTxt = event.target.name;
 
+            //     console.log(optionTxt);
 
+            //     if (optionTxt == "sendPost") {
+            //         this.setMaxDate();
+            //     }
 
+            //     if (optionTxt == "parentialResponsibility") {
+            //         this.aboutObj.parentContactName = "";
+            //         this.aboutObj.childParentRelationship = "";
+            //         this.aboutObj.parentContactNumber = "";
+            //         this.aboutObj.parentEmail = "";
+            //     }
 
-                // this.setMaxDate();
-                // var autoCompleteSchClg;
-                // autoCompleteSchClg = new google.maps.places.Autocomplete((document.getElementById('txtEmpClg')), {
-                //     types: ['geocode'],
-                // });
-                // google.maps.event.addListener(autoCompleteSchClg, 'place_changed', function () {
-                //     _self.empClgSchool = autoCompleteSchClg.getPlace().formatted_address;
-                // });
-                _self.setMaxDate();
-            },
+            //     if (optionTxt == "parentialResponsibility" && this.aboutObj.parentSameHouse != undefined) {
+            //         this.aboutObj.parentSameHouse = "";
+            //         this.aboutObj.legalCareStatus = "";
+            //         this.saveAndCont = 'false';
+            //         document.getElementById("showAdToast").style.display = "none";
+            //         document.getElementById("showAdBtn").style.display = "none";
+            //         document.getElementById('txtParentAddress').value = "";
+            //     }
+            //     if (optionTxt == "parentSameHouseYes") {
+            //         document.getElementById("showAdToast").style.display = "none";
+            //         document.getElementById("showAdBtn").style.display = "none";
+            //         document.getElementById('txtParentAddress').value = "";
+            //     }
 
-            onChange: function (event) {
-                var optionTxt = event.target.name;
+            //     if (optionTxt == "legalCare") {
+            //         this.saveAndCont = 'true';
+            //     }
+            //     if (optionTxt == "parentSameHouseYes") {
+            //         this.aboutObj.legalCareStatus = "";
+            //         this.aboutObj.selectedParentAddress = "";
+            //         this.saveAndCont = 'false';
+            //     }
 
-                console.log(optionTxt);
+            //     this.submitForm = "yes";
 
-                if (optionTxt == "sendPost") {
-                    this.setMaxDate();
-                }
+            // },
+            // changeDob: function (event) {
+            //     var today = new Date();
+            //     var selectedDate = new Date(event.target.value);
+            //     var age = this.diff_years(today, selectedDate);
+            //     if (age < 18) {
+            //         this.showBelowAge = "yes";
+            //     }
+            //     else {
+            //         this.showBelowAge = "";
 
-                if (optionTxt == "parentialResponsibility") {
-                    this.aboutObj.parentContactName = "";
-                    this.aboutObj.childParentRelationship = "";
-                    this.aboutObj.parentContactNumber = "";
-                    this.aboutObj.parentEmail = "";
-                }
+            //     }
+            // },
+            // saveAbout: function () {
+            //     var _self = this;
+            //     var userid = this.getUrlVars()['userid'];
+            //     var role = this.getUrlVars()['role'];
+            //     this.aboutObj.editFlag = this.getUrlVars()['edt'];
+            //     this.aboutObj.userid = userid;
+            //     this.aboutObj.role = role;
+            //     this.aboutObj.childAddress = _self.selectedChildAddress;
+            //     this.aboutObj.parentAddress = _self.selectedParentAddress;
+            //     //  console.log(this.aboutObj);
 
-                if (optionTxt == "parentialResponsibility" && this.aboutObj.parentSameHouse != undefined) {
-                    this.aboutObj.parentSameHouse = "";
-                    this.aboutObj.legalCareStatus = "";
-                    this.saveAndCont = 'false';
-                    document.getElementById("showAdToast").style.display = "none";
-                    document.getElementById("showAdBtn").style.display = "none";
-                    document.getElementById('txtParentAddress').value = "";
-                }
-                if (optionTxt == "parentSameHouseYes") {
-                    document.getElementById("showAdToast").style.display = "none";
-                    document.getElementById("showAdBtn").style.display = "none";
-                    document.getElementById('txtParentAddress').value = "";
-                }
+            //     $.ajax({
+            //         url: API_URI + "/about",
+            //         type: 'post',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         data: JSON.stringify(this.aboutObj),
+            //         success: function (data) {
+            //             //  alert("section 2 saved.");                     
+            //             if (_self.getUrlVars()["edt"] == null) {
+            //                 location.href = "/education?userid=" + data.userid + "&role=" + role;
+            //             }
+            //             else {
+            //                 history.back();
+            //             }
 
-                if (optionTxt == "legalCare") {
-                    this.saveAndCont = 'true';
-                }
-                if (optionTxt == "parentSameHouseYes") {
-                    this.aboutObj.legalCareStatus = "";
-                    this.aboutObj.selectedParentAddress = "";
-                    this.saveAndCont = 'false';
-                }
+            //         },
 
-                this.submitForm = "yes";
-
-            },
-            changeDob: function (event) {
-                var today = new Date();
-                var selectedDate = new Date(event.target.value);
-                var age = this.diff_years(today, selectedDate);
-                if (age < 18) {
-                    this.showBelowAge = "yes";
-                }
-                else {
-                    this.showBelowAge = "";
-
-                }
-            },
-            saveAbout: function () {
-                var _self = this;
-                var userid = this.getUrlVars()['userid'];
-                var role = this.getUrlVars()['role'];
-                this.aboutObj.editFlag = this.getUrlVars()['edt'];
-                this.aboutObj.userid = userid;
-                this.aboutObj.role = role;
-                this.aboutObj.childAddress = _self.selectedChildAddress;
-                this.aboutObj.parentAddress = _self.selectedParentAddress;
-                //  console.log(this.aboutObj);
-
-                $.ajax({
-                    url: API_URI + "/about",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(this.aboutObj),
-                    success: function (data) {
-                        //  alert("section 2 saved.");                     
-                        if (_self.getUrlVars()["edt"] == null) {
-                            location.href = "/education?userid=" + data.userid + "&role=" + role;
-                        }
-                        else {
-                            history.back();
-                        }
-
-                    },
-
-                });
+            //     });
 
 
-            },
-            diff_years: function (dt2, dt1) {
-                var diff = (dt2.getTime() - dt1.getTime()) / 1000;
-                diff /= (60 * 60 * 24);
-                return Math.abs(Math.round(diff / 365.25));
-            },
+            // },
+            // diff_years: function (dt2, dt1) {
+            //     var diff = (dt2.getTime() - dt1.getTime()) / 1000;
+            //     diff /= (60 * 60 * 24);
+            //     return Math.abs(Math.round(diff / 365.25));
+            // },
 
             convertDate: function (dbDate) {
                 var date = new Date(dbDate)
