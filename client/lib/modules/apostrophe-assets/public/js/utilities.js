@@ -98,7 +98,6 @@ function apiCallPost(reqType, endPoint, payload) {
         async: false,
         data: JSON.stringify(payload),
         success: function (res) {
-
             response = res;
         },
         error: function (error) {
