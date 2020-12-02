@@ -298,7 +298,7 @@ exports.fetchEligibility = ctx => {
 
 exports.about = ctx => {
   const user = ctx.orm().User;
-  console.log(ctx.request.body.parentContactName);
+  console.log(ctx.request.body.aboutData.nhsNumber);
 
   if (ctx.request.body.role == "child") {
 
@@ -326,19 +326,23 @@ exports.about = ctx => {
           var parentid = userResult[0].parent[0].ChildParents.parentId
           return user.update(
             {
-              child_name: ctx.request.body.childName,
-              child_NHS: ctx.request.body.nhsNumber,
-              child_email: ctx.request.body.childEmail,
-              child_contact_number: ctx.request.body.childContactNumber,
-              child_address: ctx.request.body.childAddress,
-              can_send_post: ctx.request.body.sendPost,
-              child_gender: ctx.request.body.childGender,
-              child_gender_birth: ctx.request.body.childIdentity,
-              child_sexual_orientation: ctx.request.body.childSexualOrientation,
-              child_ethnicity: ctx.request.body.childEthnicity,
-              child_household_name: ctx.request.body.houseHoldName,
-              child_care_adult: ctx.request.body.childCareAdult,
-              user_section: 2
+              child_name: ctx.request.body.aboutData.childName,
+            child_NHS: ctx.request.body.aboutData.nhsNumber,
+            child_email: ctx.request.body.aboutData.childEmail,
+            child_contact_number: ctx.request.body.aboutData.childContactNumber,
+            child_address: ctx.request.body.aboutData.childAddress,
+            can_send_post: ctx.request.body.aboutData.sendPost,
+            child_gender: ctx.request.body.aboutData.childGender,
+            child_gender_birth: ctx.request.body.aboutData.childIdentity,
+            child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
+            child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+           // parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
+            // child_household_name: ctx.request.body.houseHoldName,
+            // child_household_relationship: ctx.request.body.houseHoldRelationship,
+            // child_household_dob: ctx.request.body.childHouseHoldDob,
+            household_member:ctx.request.body.allHouseHoldMembers,
+            child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
+            child_care_adult: ctx.request.body.aboutData.childCareAdult,
             },
             {
               where:
@@ -348,15 +352,17 @@ exports.about = ctx => {
 
             return user.update(
               {
-                parent_name: ctx.request.body.parentName,
-                parential_responsibility: ctx.request.body.parentialResponsibility,
-                responsibility_parent_name: ctx.request.body.parentContactName,
-                child_parent_relationship: ctx.request.body.childParentRelationship,
-                parent_contact_number: ctx.request.body.parentContactNumber,
-                parent_email: ctx.request.body.parentEmail,
-                parent_same_house: ctx.request.body.parentSameHouse,
-                parent_address: ctx.request.body.parentAddress,
-                legal_care_status: ctx.request.body.legalCareStatus,
+                parent_name: ctx.request.body.aboutData.parentName,
+                parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
+                responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+                child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
+                parent_contact_number: ctx.request.body.aboutData.contactNumber,
+                parent_email: ctx.request.body.aboutData.emailAddress,
+                parent_same_house: ctx.request.body.aboutData.sameHouse,
+                parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+                legal_care_status: ctx.request.body.aboutData.legalCareStatus,
+
+              
               },
               {
                 where:
@@ -382,23 +388,23 @@ exports.about = ctx => {
 
       return user.update(
         {
-          child_name: ctx.request.body.childName,
-          child_NHS: ctx.request.body.nhsNumber,
-          child_email: ctx.request.body.childEmail,
-          child_contact_number: ctx.request.body.childContactNumber,
-          child_address: ctx.request.body.childAddress,
-          can_send_post: ctx.request.body.sendPost,
-          child_gender: ctx.request.body.childGender,
-          child_gender_birth: ctx.request.body.childIdentity,
-          child_sexual_orientation: ctx.request.body.childSexualOrientation,
-          child_ethnicity: ctx.request.body.childEthnicity,
+          child_name: ctx.request.body.aboutData.childName,
+          child_NHS: ctx.request.body.aboutData.nhsNumber,
+          child_email: ctx.request.body.aboutData.childEmail,
+          child_contact_number: ctx.request.body.aboutData.childContactNumber,
+          child_address: ctx.request.body.aboutData.childAddress,
+          can_send_post: ctx.request.body.aboutData.sendPost,
+          child_gender: ctx.request.body.aboutData.childGender,
+          child_gender_birth: ctx.request.body.aboutData.childIdentity,
+          child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
+          child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+         // parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
           // child_household_name: ctx.request.body.houseHoldName,
           // child_household_relationship: ctx.request.body.houseHoldRelationship,
           // child_household_dob: ctx.request.body.childHouseHoldDob,
           household_member:ctx.request.body.allHouseHoldMembers,
-          child_household_profession: ctx.request.body.houseHoldProfession,
-          child_care_adult: ctx.request.body.childCareAdult,
-          user_section: 2
+          child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
+          child_care_adult: ctx.request.body.aboutData.childCareAdult,
         },
         {
           where:
@@ -415,15 +421,15 @@ exports.about = ctx => {
 
           console.log(userResult.id + "====>" + userResult.uuid);
           return user.create({
-            parent_name: ctx.request.body.parentName,
-            parential_responsibility: ctx.request.body.parentialResponsibility,
-            responsibility_parent_name: ctx.request.body.parentContactName,
-            child_parent_relationship: ctx.request.body.childParentRelationship,
-            parent_contact_number: ctx.request.body.parentContactNumber,
-            parent_email: ctx.request.body.parentEmail,
-            parent_same_house: ctx.request.body.parentSameHouse,
-            parent_address: ctx.request.body.parentAddress,
-            legal_care_status: ctx.request.body.legalCareStatus,
+            parent_name: ctx.request.body.aboutData.parentName,
+            parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
+            responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+            child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
+            parent_contact_number: ctx.request.body.aboutData.contactNumber,
+            parent_email: ctx.request.body.aboutData.emailAddress,
+            parent_same_house: ctx.request.body.aboutData.sameHouse,
+            parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+            legal_care_status: ctx.request.body.aboutData.legalCareStatus,
           }).then((parentUserInfo) => {
 
             parentUserInfo.setType("2")
@@ -444,6 +450,9 @@ exports.about = ctx => {
     }
   }
   else if (ctx.request.body.role == "parent") {
+    console.log(ctx.request.body)
+   
+
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -464,41 +473,65 @@ exports.about = ctx => {
         },
       }).then((userResult) => {
         var childId = userResult[0].parent[0].ChildParents.parentId
+        console.log(ctx.request.body.allHouseHoldMembers)
         return user.update(
           {
-            child_name: ctx.request.body.childName,
-            child_NHS: ctx.request.body.nhsNumber,
-            child_email: ctx.request.body.childEmail,
-            child_contact_number: ctx.request.body.childContactNumber,
-            child_address: ctx.request.body.childAddress,
-            can_send_post: ctx.request.body.sendPost,
-            child_gender: ctx.request.body.childGender,
-            child_gender_birth: ctx.request.body.childIdentity,
-            child_sexual_orientation: ctx.request.body.childSexualOrientation,
-            child_ethnicity: ctx.request.body.childEthnicity,
+            child_name: ctx.request.body.aboutData.childName,
+            child_NHS: ctx.request.body.aboutData.nhsNumber,
+            child_email: ctx.request.body.aboutData.childEmail,
+            child_contact_number: ctx.request.body.aboutData.childContactNumber,
+            child_address: ctx.request.body.aboutData.childAddress,
+            can_send_post: ctx.request.body.aboutData.sendPost,
+            child_gender: ctx.request.body.aboutData.childGender,
+            child_gender_birth: ctx.request.body.aboutData.childIdentity,
+            child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
+            child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+            parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
             // child_household_name: ctx.request.body.houseHoldName,
             // child_household_relationship: ctx.request.body.houseHoldRelationship,
             // child_household_dob: ctx.request.body.childHouseHoldDob,
             household_member:ctx.request.body.allHouseHoldMembers,
-            child_household_profession: ctx.request.body.houseHoldProfession,
-            child_care_adult: ctx.request.body.childCareAdult,
+            child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
+            child_care_adult: ctx.request.body.aboutData.childCareAdult,
           },
           {
             where:
               { id: childId }
           }
         ).then((updateResult) => {
-
+         
+          // var  parentName;
+          // var parentEmail;
+          // var parentSameHouse;
+          // var childParentRelationship;
+          // var parentContactNumber;
+          // var parentAddress;
+          // if(ctx.request.body.aboutData.parentialResponsibility=="no")
+          // {
+          //   parentName = ctx.request.body.aboutData.parentCarerName;
+          //   parentEmail = ctx.request.body.aboutData.emailAddress;
+          //   parentSameHouse = ctx.request.body.aboutData.sameHouse;
+          //   childParentRelationship = ctx.request.body.aboutData.relationshipToYou;
+          //   parentContactNumber = ctx.request.body.aboutData.contactNumber;
+          // }
+          // else 
+          // {
+          //   parentName = ctx.request.body.aboutData.parentCarerName;
+          //   parentEmail = ctx.request.body.aboutData.emailAddress;
+          //   parentSameHouse = ctx.request.body.aboutData.sameHouse;
+          //   childParentRelationship = ctx.request.body.aboutData.relationshipToYou;
+          //   parentContactNumber = ctx.request.body.aboutData.contactNumber;
+          // }
           return user.update({
-            parent_name: ctx.request.body.parentName,
-            parential_responsibility: ctx.request.body.parentialResponsibility,
-            responsibility_parent_name: ctx.request.body.parentContactName,
-            child_parent_relationship: ctx.request.body.childParentRelationship,
-            parent_contact_number: ctx.request.body.parentContactNumber,
-            parent_email: ctx.request.body.parentEmail,
-            parent_same_house: ctx.request.body.parentSameHouse,
-            parent_address: ctx.request.body.parentAddress,
-            legal_care_status: ctx.request.body.legalCareStatus,
+            parent_name: ctx.request.body.aboutData.parentName,
+            parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
+            responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+            child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
+            parent_contact_number: ctx.request.body.aboutData.contactNumber,
+            parent_email: ctx.request.body.aboutData.emailAddress,
+            parent_same_house: ctx.request.body.aboutData.sameHouse,
+            parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+            legal_care_status: ctx.request.body.aboutData.legalCareStatus,
             user_section: 2,
           },
             {
@@ -544,22 +577,23 @@ exports.about = ctx => {
           var childId = userResult[0].professional[0].ChildProfessional.professionalId
           return user.update(
             {
-              child_name: ctx.request.body.childName,
-              child_NHS: ctx.request.body.nhsNumber,
-              child_email: ctx.request.body.childEmail,
-              child_contact_number: ctx.request.body.childContactNumber,
-              child_address: ctx.request.body.childAddress,
-              can_send_post: ctx.request.body.sendPost,
-              child_gender: ctx.request.body.childGender,
-              child_gender_birth: ctx.request.body.childIdentity,
-              child_sexual_orientation: ctx.request.body.childSexualOrientation,
-              child_ethnicity: ctx.request.body.childEthnicity,
-              // child_household_name: ctx.request.body.houseHoldName,
-              // child_household_relationship: ctx.request.body.houseHoldRelationship,
-              // child_household_dob: ctx.request.body.childHouseHoldDob,
-              household_member:ctx.request.body.allHouseHoldMembers,
-              child_household_profession: ctx.request.body.houseHoldProfession,
-              child_care_adult: ctx.request.body.childCareAdult,
+              child_name: ctx.request.body.aboutData.childName,
+            child_NHS: ctx.request.body.aboutData.nhsNumber,
+            child_email: ctx.request.body.aboutData.childEmail,
+            child_contact_number: ctx.request.body.aboutData.childContactNumber,
+            child_address: ctx.request.body.aboutData.childAddress,
+            can_send_post: ctx.request.body.aboutData.sendPost,
+            child_gender: ctx.request.body.aboutData.childGender,
+            child_gender_birth: ctx.request.body.aboutData.childIdentity,
+            child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
+            child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+            parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
+            // child_household_name: ctx.request.body.houseHoldName,
+            // child_household_relationship: ctx.request.body.houseHoldRelationship,
+            // child_household_dob: ctx.request.body.childHouseHoldDob,
+            household_member:ctx.request.body.allHouseHoldMembers,
+            child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
+            child_care_adult: ctx.request.body.aboutData.childCareAdult,
             },
             {
               where:
@@ -576,15 +610,15 @@ exports.about = ctx => {
             }).then((result) => {
 
               return user.update({
-                parent_name: ctx.request.body.parentName,
-                parential_responsibility: ctx.request.body.parentialResponsibility,
-                responsibility_parent_name: ctx.request.body.parentContactName,
-                child_parent_relationship: ctx.request.body.childParentRelationship,
-                parent_contact_number: ctx.request.body.parentContactNumber,
-                parent_email: ctx.request.body.parentEmail,
-                parent_same_house: ctx.request.body.parentSameHouse,
-                parent_address: ctx.request.body.parentAddress,
-                legal_care_status: ctx.request.body.legalCareStatus,
+                parent_name: ctx.request.body.aboutData.parentName,
+                parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
+                responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+                child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
+                parent_contact_number: ctx.request.body.aboutData.contactNumber,
+                parent_email: ctx.request.body.aboutData.emailAddress,
+                parent_same_house: ctx.request.body.aboutData.sameHouse,
+                parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+                legal_care_status: ctx.request.body.aboutData.legalCareStatus,
               },
                 {
                   where:
@@ -630,22 +664,23 @@ exports.about = ctx => {
           var childId = userResult[0].professional[0].ChildProfessional.professionalId
           return user.update(
             {
-              child_name: ctx.request.body.childName,
-              child_NHS: ctx.request.body.nhsNumber,
-              child_email: ctx.request.body.childEmail,
-              child_contact_number: ctx.request.body.childContactNumber,
-              child_address: ctx.request.body.childAddress,
-              can_send_post: ctx.request.body.sendPost,
-              child_gender: ctx.request.body.childGender,
-              child_gender_birth: ctx.request.body.childIdentity,
-              child_sexual_orientation: ctx.request.body.childSexualOrientation,
-              child_ethnicity: ctx.request.body.childEthnicity,
+              child_name: ctx.request.body.aboutData.childName,
+              child_NHS: ctx.request.body.aboutData.nhsNumber,
+              child_email: ctx.request.body.aboutData.childEmail,
+              child_contact_number: ctx.request.body.aboutData.childContactNumber,
+              child_address: ctx.request.body.aboutData.childAddress,
+              can_send_post: ctx.request.body.aboutData.sendPost,
+              child_gender: ctx.request.body.aboutData.childGender,
+              child_gender_birth: ctx.request.body.aboutData.childIdentity,
+              child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
+              child_ethnicity: ctx.request.body.aboutData.childEthnicity,
+             // parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
               // child_household_name: ctx.request.body.houseHoldName,
               // child_household_relationship: ctx.request.body.houseHoldRelationship,
               // child_household_dob: ctx.request.body.childHouseHoldDob,
               household_member:ctx.request.body.allHouseHoldMembers,
-              child_household_profession: ctx.request.body.houseHoldProfession,
-              child_care_adult: ctx.request.body.childCareAdult,
+              child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
+              child_care_adult: ctx.request.body.aboutData.childCareAdult,
             },
             {
               where:
@@ -654,15 +689,15 @@ exports.about = ctx => {
           ).then((updateResult) => {
 
             return user.create({
-              parent_name: ctx.request.body.parentName,
-              parential_responsibility: ctx.request.body.parentialResponsibility,
-              child_parent_relationship: ctx.request.body.childParentRelationship,
-              responsibility_parent_name: ctx.request.body.parentContactName,
-              parent_contact_number: ctx.request.body.parentContactNumber,
-              parent_email: ctx.request.body.parentEmail,
-              parent_same_house: ctx.request.body.parentSameHouse,
-              parent_address: ctx.request.body.parentAddress,
-              legal_care_status: ctx.request.body.legalCareStatus,
+              parent_name: ctx.request.body.aboutData.parentName,
+              parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
+              responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+              child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
+              parent_contact_number: ctx.request.body.aboutData.contactNumber,
+              parent_email: ctx.request.body.aboutData.emailAddress,
+              parent_same_house: ctx.request.body.aboutData.sameHouse,
+              parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+              legal_care_status: ctx.request.body.aboutData.legalCareStatus,
             }
             ).then((parentResult) => {
 

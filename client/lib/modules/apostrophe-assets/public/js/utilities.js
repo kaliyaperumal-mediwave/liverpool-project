@@ -1,6 +1,5 @@
 //Reset Two-Way-Model Values 
 function resetValues(currentForm, context, formObj) {
-    debugger;
     console.log('this', this);
     console.log('this', context);
     var allForms = Array.from(document.forms);
@@ -40,10 +39,14 @@ function deleteLogic(arr, value, context, section) {
 };
 
 //Back tp previous page navigation
-function backToPreviousPage(section) {
-    var uuid = this.getQueryStringValue('userid');
-    var role = this.getQueryStringValue('role');
-    location.href = section + "?userid=" + uuid + "&role=" + role + "&edt=1";
+function backToPreviousPage(section,userId,userRole) {
+    // var uuid = this.getQueryStringValue('userid');
+    // var role = this.getQueryStringValue('role');
+    var parameter = userId +"&"+ userRole + "&" +"edit"
+   // console.log(parameter)
+    var enCodeParameter = btoa(parameter)
+//console.log(section + enCodeParameter)
+   location.href = section + enCodeParameter
 };
 
 
@@ -88,7 +91,6 @@ function getUrlVars() {
 
 //Commom API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
-    debugger;
     var response;
     $.ajax({
         url: API_URI + endPoint,
@@ -125,3 +127,12 @@ function apiCall(reqType, endPoint, params) {
     return response
 };
 
+//get URL parameter
+
+function getParameter(url)
+{
+    var allParameter = url.substring(url.indexOf("?")+1);
+    var deCodeParameter = atob(allParameter)
+    var decodeValues = deCodeParameter.split("&");
+    return decodeValues;
+}

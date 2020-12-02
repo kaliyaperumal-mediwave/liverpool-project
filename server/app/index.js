@@ -61,9 +61,11 @@ new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.PO
   .authenticate()
   .then(() => {
     logger.info('Database Connection has been established successfully');
+    console.log('Database Connection has been established successfully')
   })
   .catch((err) => {
     logger.info( err);
+    console.log(err)
   });
 
   

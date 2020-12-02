@@ -13,7 +13,7 @@ module.exports = {
     };
 
     require('../../middleware')(self, options);
-    self.route('post', 'about', function (req, res) {
+    self.route('post', 'saveReferral', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module')+ '/user/about';
       console.log("-------");
       console.log(url);

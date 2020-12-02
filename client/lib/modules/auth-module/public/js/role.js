@@ -48,13 +48,18 @@ $(document).ready(function () {
             gpProfListPost: [],
             loadGpName: true,
             loadGbPost: true,
-            selectedGpObj: {}
+            selectedGpObj: {},
+            paramValues:[]
         },
 
         mounted: function () {
+
+            this.paramValues= getParameter(location.href)
+            console.log( this.paramValues= getParameter(location.href))
+          
             this.getGP();
             this.getProfGP();
-            if (this.getUrlVars()["edt"] == 1) {
+            if (this.paramValues[2] !=undefined) {
                 this.fetchSavedData()
             }
             else {
@@ -64,8 +69,8 @@ $(document).ready(function () {
 
         methods: {
             fetchSavedData: function () {
-                this.sendObj.uuid = this.getUrlVars()["userid"];
-                this.sendObj.role = this.getUrlVars()["role"];
+                this.sendObj.uuid = this.paramValues[0];
+                this.sendObj.role = this.paramValues[1];
                 //var roleType=new URL(location.href).searchParams.get('role')
                 $.ajax({
                     url: API_URI + "/fetchEligibility",
@@ -75,7 +80,7 @@ $(document).ready(function () {
                     data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         //alert("section 1 saved.");
-                        //   console.log(data); //check ssh
+                           console.log(data); //check ssh
                         app.setValues(data);
 
                     },
@@ -83,12 +88,13 @@ $(document).ready(function () {
             },
 
             setValues: function (data) {
-                var roleType = this.getUrlVars()["role"]
+                var roleType = this.paramValues[1]
+                console.log(roleType)
                 if (roleType == "child") {
-                    Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj, "role",roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data.child_dob));
-                    this.fetchAgeLogic(data.child_dob, this.getUrlVars()["role"])
+                    this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data.contact_parent);
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
@@ -97,26 +103,26 @@ $(document).ready(function () {
                 }
                 else if (roleType == "parent") {
             
-                    Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data[0].parent[0].child_dob));
-                    this.fetchAgeLogic(data.child_dob, this.getUrlVars()["role"])
+                    this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data[0].contact_parent);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
-                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, this.getUrlVars()["role"]));
+                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                   //  this.getGP();
                 }
                 else if (roleType == "professional") {
-                    Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profName", data[0].professional_name);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
-                    this.fetchAgeLogic(data[0].professional[0].child_dob, this.getUrlVars()["role"])
+                    this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
-                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, this.getUrlVars()["role"]));
+                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm="true";
                   //  this.getProfGP();
@@ -668,9 +674,9 @@ $(document).ready(function () {
                          //   alert(btoa("category=textile&user=user1"));
                           //  alert(atob("Y2F0ZWdvcnk9dGV4dGlsZSZ1c2VyPXVzZXIx"));
                             
-                            var parameter = "userid=" + data.userid + "&role=" + role
+                            var parameter = data.userid +"&"+ role 
                             var enCodeParameter = btoa(parameter)
-                            alert(enCodeParameter)
+                          //  alert(enCodeParameter)
                             location.href = "/about?"+enCodeParameter;
                         }
                         else {

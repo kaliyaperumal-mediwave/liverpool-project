@@ -69,6 +69,7 @@ $(document).ready(function () {
                     success: function (data) {
                         console.log(data);
                         _self.section1Obj = data.section1;
+                        _self.sectionObj = data.section2;
                         // _self.allLabelsValue = data;
                         // _self.parentLabelsValue = data.parentData;
                         // _self.childLabelsValue = data.childData[0];
