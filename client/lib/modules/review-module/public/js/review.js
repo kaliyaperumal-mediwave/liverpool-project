@@ -1,26 +1,6 @@
 var API_URI = "/modules/review-module";
 $(document).ready(function () {
 
-    // $("[data-cid]").prop({ tabindex: 1, contenteditable: true }).on({
-
-    //     focusin() {
-    //         this.__html = $(this).html(); // Store current HTML content
-    //     },
-
-    //     focusout() {
-    //         debugger
-    //         const data = {
-    //             cid: this.dataset.cid,
-    //             html: this.innerHTML,
-    //         };
-
-    //         if (this.__html === data.html) return;  // Nothing has changed.
-
-    //         console.log(data); // Something changed, send data to server.
-    //     }
-
-    // });
-
     var app = new Vue({
         el: '#review-form',
         data: {
@@ -29,58 +9,84 @@ $(document).ready(function () {
             userMode: '',
             userRole: '',
             yourInfo: '',
-            allLabelsValue: {},
-            parentLabelsValue: {},
-            childLabelsValue: {},
-            professionalLabelsValue: {},
-            section4LabelValues: {},
+            allSectionData: {},
+            section5Labels: {
+                aboutLabel: "",
+                referralLabel: ""
+            },
+            section1Data: {},
+            section2Data: {},
+            section3Data: {},
+            section4Data: {},
             payloadData: {},
             contactPref: [],
-            section1Obj:{}
+            section1Obj: {}
         },
         mounted: function () {
-            this.userMode = this.getQueryStringValue('mode');
-            this.userRole = this.getQueryStringValue('role');
+            this.userMode = getQueryStringValue('mode');
+            this.section5Labels = section5Labels;
+            this.userRole = getQueryStringValue('role');
             if (this.userRole === 'child') {
                 this.yourInfo = 'Child / Young Person';
+                this.section5Labels.aboutLabel = "About You";
+                this.section5Labels.referralLabel = "Your reason for referral";
 
             } else if (this.userRole === 'parent') {
                 this.yourInfo = 'Parent / Carer';
+                this.section5Labels.aboutLabel = "About Your Child";
+                this.section5Labels.referralLabel = "Your child's reason for referral";
 
             } else if (this.userRole === 'professional') {
                 this.yourInfo = 'Professional';
+                this.section5Labels.aboutLabel = "About The Child";
+                this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
-            this.userId = this.getQueryStringValue('userId');
+            this.userId = getQueryStringValue('userId');
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
             this.getAllSectionData(this.payloadData);
         },
         methods: {
+
+            //Get Request to get all section's data
             getAllSectionData(payloadData) {
-                console.log(payloadData);
-                var _self = this;
-                $.ajax({
-                    url: API_URI + "/fetchReview/"+payloadData.userid+"&role="+payloadData.role,
-                    type: 'get',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                   // data: JSON.stringify(payloadData),
-                    success: function (data) {
-                        console.log(data);
-                        _self.section1Obj = data.section1;
-                        // _self.allLabelsValue = data;
-                        // _self.parentLabelsValue = data.parentData;
-                        // _self.childLabelsValue = data.childData[0];
-                        // _self.section4LabelValues = data.referralData;
-                        // console.log(_self.parentLabelsValue, _self.childLabelsValue);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
+                var params = payloadData.userid + "&role=" + payloadData.role;
+                var responseData = apiCallGet('get', '/fetchReview', params);
+                // if (Object.keys(responseData)) {
+                //     this.allSectionData = responseData;
+                //     this.section1Data = responseData.section1;
+                //     this.section2Data = responseData.section1;
+                //     this.section3Data = responseData.section1;
+                //     this.section4Data = responseData.section1;
+                // } else {
+                //     console.log('empty response')
+                // }
 
             },
+
+            save: function () {
+                this.payloadData.contactPreference = this.contactPref;
+                if (contactPref) {
+                    var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                    if (Object.keys(res)) {
+                        alert("Your Reference Number" + res.refNo);
+                        console.log(res);
+                    } else {
+                        console.log('empty response')
+                    }
+                } else {
+                    return false;
+                }
+
+            },
+
+            editAllSection: function () {
+                var uid = this.getUrlVars()['userid'];
+                var role = this.getUrlVars()['role'];
+                location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
+            },
+
             toggleArrow(e) {
                 console.log(e);
                 var ele = e.target;
@@ -90,32 +96,6 @@ $(document).ready(function () {
                 } else {
                     $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                 }
-            },
-
-            // Get Query Params value
-            getQueryStringValue(key) {
-                return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-            },
-
-            save: function () {
-                this.payloadData.contactPreference = this.contactPref;
-                $.ajax({
-                    url: API_URI + "/saveReview",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(this.payloadData),
-                    success: function (data) {
-                        alert("Your Reference Number" + data.refNo);
-                        console.log(data);
-                    },
-                });
-            },
-
-            editAllSection: function () {
-                var uid = this.getUrlVars()['userid'];
-                var role = this.getUrlVars()['role'];
-                location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
             },
 
             getUrlVars: function () {
@@ -145,7 +125,7 @@ $(document).ready(function () {
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
             },
 
-            updateEligibility :function(updateObj) {
+            updateEligibility: function (updateObj) {
                 $.ajax({
                     url: API_URI + "/updateReview",
                     type: 'put',
@@ -159,7 +139,7 @@ $(document).ready(function () {
                 });
 
 
-             }
+            }
 
         }
     })

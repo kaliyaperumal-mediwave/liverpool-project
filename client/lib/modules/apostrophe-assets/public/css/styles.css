@@ -243,6 +243,9 @@
 
 body {
   font-family: "century-gothic" !important; }
+  body [contentEditable="true"]:empty:not(:focus):before {
+    content: attr(place-text);
+    color: grey; }
   body .ui-widget.ui-widget-content {
     border: none !important; }
   body .dropdown-divider {
