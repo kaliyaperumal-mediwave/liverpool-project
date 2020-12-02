@@ -1,6 +1,6 @@
 var API_URI = "/modules/about-module";
 $(document).ready(function () {
-
+   
     var app = new Vue({
         el: '#about-form',
         data: {
@@ -22,21 +22,15 @@ $(document).ready(function () {
             var roleType = _self.getUrlVars()["role"]
             _self.headerToDisplay = roleType;
             _self.labelToDisplay =  roleType;
-           
-            google.maps.event.addDomListener(window, 'load', _self.initialize);
-          
+           _self.initialize();
             if(_self.getUrlVars()['edt']==1)
             {
                 _self.fetchSavedData()
             }
             else
             {
-
-                
                 console.log("if else")
             }
-
-           
         },
         methods: {
 
@@ -188,6 +182,7 @@ $(document).ready(function () {
                 location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
             },
             initialize:function() {
+               // console.log("google");
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
@@ -289,7 +284,21 @@ $(document).ready(function () {
                 this.aboutObj.editFlag=this.getUrlVars()['edt'];
                 this.aboutObj.userid = userid;
                 this.aboutObj.role = role;
-                this.aboutObj.childAddress = _self.selectedChildAddress;
+                this.aboutObj.allHouseHoldMembers = [
+                    {
+                        name: 'Prasath',
+                        relationShip: 'brother',
+                        dob: '01/07/2018',
+                        profession: 'Student'
+                    },
+                    {
+                        name: 'Raj',
+                        relationShip: 'Bro',
+                        dob: '01/07/2010',
+                        profession: 'Student'
+                    },
+                ]
+              //  this.aboutObj.childAddress = _self.selectedChildAddress;
                 this.aboutObj.parentAddress = _self.selectedParentAddress;
               //  console.log(this.aboutObj);
                
@@ -392,5 +401,5 @@ $(document).ready(function () {
     //         console.log(this.labelToDisplay)
     //     },
     // })
-
+  
 });
