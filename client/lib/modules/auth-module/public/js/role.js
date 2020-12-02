@@ -52,7 +52,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-
             this.getGP();
             this.getProfGP();
             if (this.getUrlVars()["edt"] == 1) {
@@ -359,7 +358,7 @@ $(document).ready(function () {
                 }
             },
 
-            resetValues(currentForm) {
+            resetValues: function(currentForm) {
                 var allForms = Array.from(document.forms);
                 var formIndex = allForms.indexOf(currentForm);
                 for (let i = 0; i < allForms.length; i++) {
@@ -666,7 +665,13 @@ $(document).ready(function () {
                         console.log("edt", _self.getUrlVars()["edt"]);
 
                         if (_self.getUrlVars()["edt"] == null) {
-                            location.href = "/about?userid=" + data.userid + "&role=" + role;
+                         //   alert(btoa("category=textile&user=user1"));
+                          //  alert(atob("Y2F0ZWdvcnk9dGV4dGlsZSZ1c2VyPXVzZXIx"));
+                            
+                            var parameter = "userid=" + data.userid + "&role=" + role
+                            var enCodeParameter = btoa(parameter)
+                            alert(enCodeParameter)
+                            location.href = "/about?"+enCodeParameter;
                         }
                         else {
                             history.back();
