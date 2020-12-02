@@ -269,10 +269,31 @@ body {
     color: #023087 !important; }
 
 .header-title {
-  font-size: 32px;
+  font-size: 30px;
   font-weight: bold;
   color: #ffffff;
   cursor: pointer; }
+
+  @media (max-width: 756px) {
+    .header-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #ffffff;
+      cursor: pointer; }
+  }
+  @media only screen and (max-width: 1024px) and (min-width: 757px){
+    .header-title {
+      font-size: 26px;
+      font-weight: bold;
+      color: #ffffff;
+      cursor: pointer; }
+  }
+  @media only screen and (min-width: 1200px) {
+    .back_center{
+      position: absolute;
+      top:70%
+    }
+  }
 
 .back-text {
   font-size: 26px;
@@ -391,7 +412,11 @@ body {
 .header-bg {
   background: #8ecae6 0% 0% no-repeat padding-box !important;
   opacity: 1; }
-
+  .headerTop {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+  }
 .sub-header-bg {
   background: #012f46 0% 0% no-repeat padding-box !important;
   opacity: 1; }
