@@ -60,6 +60,7 @@ $(document).ready(function () {
             showAddOtherService: false,
             userRole: '',
             userMode: '',
+            userId: '',
             payloadData: {},
             diagnosisList: [],
             problemsList: [],
@@ -142,19 +143,19 @@ $(document).ready(function () {
                 var optionsName = this.referralData;
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal' || questionIdentifier == 'mentalDiagnosis' ||
                     questionIdentifier == 'accessedService' || questionIdentifier === 'anyService') {
-                    resetValues(event.target.form, this, this.currentSection);
+                    resetValues(event.target.form, this, 'referralData');
                 }
                 else if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
                         if (optionsName.diagnosisOther === '') {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
                 }
                 else if (questionIdentifier === 'listProblems') {
                     if (!this.problemsList.length) {
                         if (optionsName.problemsOther === '') {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
                 }
@@ -170,7 +171,7 @@ $(document).ready(function () {
                         }
                     }
                     if (!this.accessList.length) {
-                        resetValues(event.target.form, this, this.currentSection);
+                        resetValues(event.target.form, this, 'referralData');
                     }
                 }
             },
@@ -181,13 +182,13 @@ $(document).ready(function () {
                 if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
                         if (!e.target.value) {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
 
                 } else if (questionIdentifier === 'listProblems') {
                     if (!e.target.value) {
-                        resetValues(event.target.form, this, this.currentSection);
+                        resetValues(event.target.form, this, 'referralData');
                     }
                 }
             },
@@ -235,7 +236,7 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
                     if (getUrlVars()["edt"] == null) {
-                        location.href = "/review?userid=" + data.userid + "&role=" + role;
+                        location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
                         history.back();
@@ -324,7 +325,7 @@ $(document).ready(function () {
 
             //Delete service logic
             deleteService(service) {
-                deleteLogic(this.allAvailableService, service, this, this.currentSection)
+                deleteLogic(this.allAvailableService, service, this, 'allAvailableService')
             },
 
             //Resetting the modal values of service data

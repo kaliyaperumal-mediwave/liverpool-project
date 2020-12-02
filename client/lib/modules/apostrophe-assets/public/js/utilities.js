@@ -1,20 +1,26 @@
 //Reset Two-Way-Model Values 
-function resetValues(currentForm, context, section) {
+function resetValues(currentForm, context, formObj) {
+    debugger;
+    console.log('this', this);
+    console.log('this', context);
     var allForms = Array.from(document.forms);
     var formIndex = allForms.indexOf(currentForm);
     for (let i = 0; i < allForms.length; i++) {
         var attributeValue = $(allForms[i]).data('options');
         if (formIndex < i) {
-            context.referralData[attributeValue] = '';
+            context[formObj][attributeValue] = '';
         }
-        if (formIndex <= i) {
-            context.clearDependentValues(attributeValue);
+        if (context.currentSection == 'referral') {
+            if (formIndex <= i) {
+                context.clearDependentValues(attributeValue);
+            }
         }
     }
-    if (section == 'referral') {
+    if (context.currentSection == 'referral') {
         context.showAddOtherService = false;
         context.allAvailableService = [];
     }
+    context.isFormSubmitted = false;
 };
 
 
@@ -27,9 +33,10 @@ function deleteLogic(arr, value, context, section) {
             return true;
         }
     });
-    if (section == 'referral') {
-        context.allAvailableService.splice(index, 1)
-    }
+    context[section].splice(index, 1);
+    // if (section == 'referral') {
+    //     context.allAvailableService.splice(index, 1)
+    // }
 };
 
 //Back tp previous page navigation
@@ -81,6 +88,7 @@ function getUrlVars() {
 
 //Commom API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
+    debugger;
     var response;
     $.ajax({
         url: API_URI + endPoint,
@@ -90,6 +98,7 @@ function apiCallPost(reqType, endPoint, payload) {
         async: false,
         data: JSON.stringify(payload),
         success: function (res) {
+
             response = res;
         },
         error: function (error) {

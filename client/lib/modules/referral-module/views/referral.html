@@ -420,7 +420,7 @@
                                             Please provide a contact number.
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(this.serviceData.contact) )}">
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(serviceData.contact) )}">
                                             Please provide a valid contact number.
                                         </div>
                                     </div>
@@ -446,6 +446,35 @@
                     </div>
                 </div>
                 <!-- Add Service Modal End -->
+
+                <!-- Delete Modal Start -->
+                <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete Service</h5>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <h5 class="support-modal-header-text" id="exampleModalLongTitle">Are you sure want to
+                                    delete this service?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn px-md-4 w-50" data-dismiss="modal" autofocus>
+                                    <span class="btn-modal-text">No
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn px-md-4 w-50" id="closeModal" @click="upsertService()">
+                                    <span class="btn-modal-text">Yes
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <!-- Delete Modal End -->
 
                 <!-- Dynamic Toaster start Scenerio 1-->
                 <template v-if="accessList.length && !showAddOtherService">
@@ -620,6 +649,9 @@
                     </div>
                 </div>
                 <!-- support content modal end -->
+
+
+
                 {% endraw %}
             </div>
         </div>

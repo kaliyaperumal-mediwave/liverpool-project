@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
+<script src="/modules/education-employment-module/js/labels.js"></script>
 <script src="/modules/education-employment-module/js/education.js"></script>
 {% endblock %}
 {% block main %}
@@ -14,258 +15,323 @@
             to refer into this service.
         </div>
 
-        <p @click="backToAbout()" class="text-center text-sm-left px-4 d-none d-sm-none d-xl-block d-lg-block d-md-block
+        <p @click="backToAbout()" id="lg_back" class="text-center text-sm-left px-4 d-none d-sm-none d-xl-block d-lg-block d-md-block
         m-0 back-text">
             < back</p>
                 <p @click="backToAbout()"
                     class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">
                     back</p>
     </div>
+    {% raw %}
     <div class="main-content-bg py-4 main-min-height">
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
-            <div class="py-4">
+            <div class="py-2">
+
                 <!-- About Your Self Start-->
-                <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">I am a</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Your child is in</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">The child / young person is in
-                    </p>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="childProfession" id="education"
-                            value="education" @change="onChange($event)" v-model="professionObj.childProfession">
-                        <label class="form-check-label option-font d-flex align-items-center" for="education">
-                            Education
-                        </label>
+                <form id="position-form" data-options="position">
+                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{dynamicLabels.postionLabel}}</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="currentPosition" id="education"
+                                value="education" @change="onOptionChange($event)" v-model="educAndEmpData.position">
+                            <label class="form-check-label option-font d-flex align-items-center" for="education">
+                                Education
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="currentPosition" id="employment"
+                                value="employment" @change="onOptionChange($event)" v-model="educAndEmpData.position">
+                            <label class="form-check-label option-font d-flex align-items-center" for="employment">
+                                Employment
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input @change="onOptionChange($event)" class="form-check-input" type="radio"
+                                name="currentPosition" id="neither" value="neither" v-model="educAndEmpData.position">
+                            <label class="form-check-label option-font d-flex align-items-center" for="neither">
+                                Neither
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childProfession" id="employment"
-                            value="employment" @change="onChange($event)" v-model="professionObj.childProfession">
-                        <label class="form-check-label option-font d-flex align-items-center" for="employment">
-                            Employment
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input @change="onChange($event)" class="form-check-input" type="radio" name="childProfession"
-                            id="neither" value="neither" v-model="professionObj.childProfession">
-                        <label class="form-check-label option-font d-flex align-items-center" for="neither">
-                            Neither
-                        </label>
-                    </div>
-                </div>
+                </form>
                 <!-- About Your Self End-->
 
                 <!-- Which school / college / university / do you attend? Start  -->
-                <div v-show="professionObj.childProfession =='education'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group">
-                        <label v-if="labelToDisplay =='child'" for="gpParentorCarerLocation" class="question-font">Which
-                            school / college / university / do
-                            you attend?</label>
-                        <label v-if="labelToDisplay =='parent'" for="gpParentorCarerLocation"
-                            class="question-font">Which
-                            school / college / university / does your child attend?</label>
-                        <label v-if="labelToDisplay =='professional'" for="gpParentorCarerLocation"
-                            class="question-font">Which school / college / university / does the child / young person
-                            attend?</label>
-
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
-                                id="childEducationPlace" aria-label="location"
-                                v-model="professionObj.childEducationPlace">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                                </span>
+                <form id="attended-form" data-options="attendedInfo">
+                    <div v-show="educAndEmpData.position =='education'"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group">
+                            <label for="attendedLocation" class="question-font">{{dynamicLabels.locationLabel}}</label>
+                            <div class="input-group">
+                                <input type="search" class="form-control" placeholder="Start typing to search"
+                                    id="attendedLocation" aria-label="location" name="educationLocation"
+                                    v-model="educAndEmpData.attendedInfo">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.attendedInfo),'invalid-fields': !educAndEmpData.attendedInfo }">
+                                    Please provide an address.
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
                 <!-- Which school / college / university / do you attend? End  -->
 
+
                 <!-- Education or HealthCare Plan Start-->
-                <div v-if="professionObj.childProfession =='education' || professionObj.childProfession =='employment'|| professionObj.childProfession =='neither'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you have an Education & Health Care
-                        Plan
-                        (EHCP)?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do you have an Education & Health Care
-                        Plan
-                        (EHCP)?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person
-                        have
-                        an
-                        Education & Health Care Plan (EHCP)?</p>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="planNo" value="no" name="childEHCP"
-                            v-model="professionObj.childEHCP" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="planNo">
-                            No
-                        </label>
+                <form id="EHCP-form" data-options="haveEhcpPlan">
+                    <div v-if="educAndEmpData.position =='employment' || educAndEmpData.position =='neither' || educAndEmpData.position =='education'"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="d-flex align-items-start">
+                            <p class="question-font m-0">
+                                {{dynamicLabels.ehcpPlanLabel}}</p>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer img-class"
+                                alt="">
+                        </div>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="planNo" value="no" name="EHCP"
+                                v-model="educAndEmpData.haveEhcpPlan" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="planNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="EHCP" id="planYes" value="yes"
+                                v-model="educAndEmpData.haveEhcpPlan" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="planYes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="EHCP" id="planUnsure" value="unsure"
+                                v-model="educAndEmpData.haveEhcpPlan" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="planUnsure">
+                                Unsure
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childEHCP" id="planYes" value="yes"
-                            v-model="professionObj.childEHCP" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="planYes">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childEHCP" id="planUnsure" value="unsure"
-                            v-model="professionObj.childEHCP" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="planUnsure">
-                            Unsure
-                        </label>
-                    </div>
-                </div>
+                </form>
                 <!-- Education or HealthCare Plan End-->
 
                 <!-- Early Help Assessment Tool Start-->
-                <div v-if="professionObj.childEHCP =='no' || professionObj.childEHCP =='yes'|| professionObj.childEHCP =='unsure'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you have an open Early Help
-                        Assessment
-                        Tool
-                        (EHAT)?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child have an open Early
-                        Help
-                        Assessment Tool (EHAT)?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person
-                        have
-                        an
-                        open Early Help Assessment Tool (EHAT)?</p>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="childEHAT"
-                            v-model="professionObj.childEHAT" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="assessmentNo">
-                            No
-                        </label>
+                <form id="EHAT-form" data-options="haveEhat">
+                    <div v-if="educAndEmpData.haveEhcpPlan =='no' || educAndEmpData.haveEhcpPlan =='yes' || educAndEmpData.haveEhcpPlan == 'unsure'"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="d-flex align-items-start">
+                            <p class="question-font m-0">{{dynamicLabels.ehatToolLabel}}</p>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer img-class"
+                                alt="">
+                        </div>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="EHAT"
+                                v-model="educAndEmpData.haveEhat" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="assessmentNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="EHAT" id="assessmentYes" value="yes"
+                                v-model="educAndEmpData.haveEhat" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="assessmentYes">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="EHAT" id="assessmentToolUnsure"
+                                value="unsure" v-model="educAndEmpData.haveEhat" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center"
+                                for="assessmentToolUnsure">
+                                Unsure
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childEHAT" id="assessmentYes" value="yes"
-                            v-model="professionObj.childEHAT" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="assessmentYes">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childEHAT" id="assessmentToolUnsure"
-                            value="unsure" v-model="professionObj.childEHAT" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center"
-                            for="assessmentToolUnsure">
-                            Unsure
-                        </label>
-                    </div>
-                </div>
+                </form>
                 <!-- Early Help Assessment Tool End-->
 
                 <!-- Have a Social Worker Start-->
-                <div v-if="professionObj.childEHAT =='no' || professionObj.childEHAT =='yes' || professionObj.childEHAT =='unsure'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you have a social worker?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child have a social worker?
-                    </p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person
-                        have a
-                        social worker?</p>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="workerNo" value="no" name="isSocialWorker"
-                            v-model="professionObj.isSocialWorker" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="workerNo">
-                            No
-                        </label>
+                <form id="isSocialWorker-form" data-options="haveSocialWorker">
+                    <div v-if="educAndEmpData.haveEhat =='no' || educAndEmpData.haveEhat =='yes' || educAndEmpData.haveEhat =='unsure'"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{dynamicLabels.isSocialWorkerLabel}}</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="workerNo" value="no" name="SocialWorker"
+                                v-model="educAndEmpData.haveSocialWorker" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="workerNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="isSocialWorker" id="workerYes"
+                                value="yes" v-model="educAndEmpData.haveSocialWorker" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="workerYes">
+                                Yes
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="isSocialWorker" id="workerYes" value="yes"
-                            v-model="professionObj.isSocialWorker" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="workerYes">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="isSocialWorker" id="assessmentUnsure"
-                            value="unsure" v-model="professionObj.isSocialWorker" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="assessmentUnsure">
-                            Unsure
-                        </label>
-                    </div>
-                </div>
+                </form>
                 <!-- Have a Social Worker Start-->
 
-                <!-- Social Worker Form Start -->
-                <div v-if="professionObj.isSocialWorker =='yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group">
-                        <label v-if="labelToDisplay =='child'" for="socialWorker" class="question-font">What is the name
-                            of
-                            your social worker?</label>
-                        <label v-if="labelToDisplay =='parent'" for="socialWorker" class="question-font">What is the
-                            name of
-                            your child’s social worker?</label>
-                        <label v-if="labelToDisplay =='professional'" for="socialWorker" class="question-font">What is
-                            the
-                            name of the child / young person’s social worker?</label>
-                        <input type="text" class="form-control" id="socialWorker" @input="onVaueChange($event,'name')"
-                            placeholder="Jane Doe" v-model="professionObj.socialWorkerName">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
-                            Please provide a name.
-                        </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-none': hasNameInvalidError }">
-                            Please provide a valid name.
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <label v-if="labelToDisplay =='child'" for="contactWorker" class="question-font">Contact number
-                            for
-                            your social worker</label>
-                        <label v-if="labelToDisplay =='parent'" for="contactWorker" class="question-font">What is the
-                            contact number for your child’s social worker?</label>
-                        <label v-if="labelToDisplay =='professional'" for="contactWorker" class="question-font">What is
-                            the
-                            contact number for the child / young person’s social worker?</label>
-                        <input type="text" class="form-control" id="contactWorker"
-                            @input="onVaueChange($event,'contact')" placeholder="01548 659874"
-                            v-model="professionObj.socialWorkerContactNumber">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactReqError }">
-                            Please provide a number.
-                        </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactInvalidError }">
-                            Please provide a valid number.
+                <!-- Social Worker Name Form Start -->
+                <form id="socialWorkerName-info" data-options="socialWorkName">
+                    <div v-if="educAndEmpData.haveSocialWorker =='yes'"
+                        class="px-4 pt-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group m-0">
+                            <label for="socialWorker"
+                                class="question-font">{{dynamicLabels.socialWorkerNameLabel}}</label>
+                            <input type="text" class="form-control" id="socialWorker"
+                                placeholder="Enter social worker's name" v-model="educAndEmpData.socialWorkName">
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
+                                Please provide a name.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Social Worker Form Start -->
+                </form>
+                <!-- Social Worker Name End -->
 
-                <!-- Section completed Toaster container -->
-                <div v-if="professionObj.isSocialWorker =='no' || professionObj.isSocialWorker =='yes'|| professionObj.isSocialWorker =='unsure'"
-                    class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 py-2">Over half way there! Next section: the reasons
-                                for
-                                your referral request.</p>
+                <form id="socialWorkerContact-info" data-options="socialWorkContact">
+                    <div v-if="educAndEmpData.haveSocialWorker =='yes'"
+                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group">
+                            <label for="contactWorker"
+                                class="question-font">{{dynamicLabels.socialWorkerContactLabel}}</label>
+                            <input type="text" class="form-control" id="contactWorker"
+                                placeholder="Enter social worker's phone number"
+                                v-model="educAndEmpData.socialWorkContact">
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkContact),'invalid-fields':!educAndEmpData.socialWorkContact }">
+                                Please provide a number.
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !phoneRegex.test(educAndEmpData.socialWorkContact)),'invalid-fields':!phoneRegex.test(educAndEmpData.socialWorkContact) }">
+                                Please provide a valid number.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- Section completed Toaster container -->
+                </form>
 
-                <!-- Button Section Start -->
-                <div v-if="professionObj.isSocialWorker =='no' || professionObj.isSocialWorker =='yes'|| professionObj.isSocialWorker =='unsure'"
-                    class="text-center py-4">
-                    <a>
-                        <button @click="saveEducation()" type="button" class="btn px-md-4 py-2 px-3"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE</span></button>
-                    </a>
-                </div>
-                <!-- Button Section End -->
+                <!-- Dynamic Toaster start Scenerio 1-->
+                <template v-if="educAndEmpData.haveSocialWorker == 'yes'">
+                    <div class="px-4 py-4">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <p class="text-center m-0 py-2">
+                                    <template
+                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template
+                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template
+                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </template>
+                                    <template
+                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo) && educAndEmpData.position == 'education'">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </template>
+                                </p>
+                                <template
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                        reasons
+                                        for
+                                        your referral request.</p>
+                                </template>
+
+                                <template
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                        reasons
+                                        for
+                                        your referral request.</p>
+                                </template>
+
+                                <template
+                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                        this
+                                        page
+                                    </p>
+                                </template>
+                                <template
+                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo) && educAndEmpData.position == 'education'">
+                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                        this
+                                        page
+                                    </p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </template>
+                <!-- Dynamic Toaster start Scenerio 1-->
+
+                <!-- Dynamic Toaster start Scenerio 2-->
+                <template v-if="educAndEmpData.haveSocialWorker == 'no'">
+                    <div class="px-4 py-4">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <p class="text-center m-0 py-2">
+                                    <template
+                                        v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template
+                                        v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+                                    <template
+                                        v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </template>
+                                </p>
+                                <template v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                        reasons
+                                        for
+                                        your referral request.</p>
+                                </template>
+                                <template v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                        reasons
+                                        for
+                                        your referral request.</p>
+                                </template>
+                                <template v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                        page.</p>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </template>
+                <!-- Dynamic Toaster start Scenerio 2-->
 
             </div>
         </div>
     </div>
+    {% endraw %}
 </div>
 </div>
 {% endblock %}
