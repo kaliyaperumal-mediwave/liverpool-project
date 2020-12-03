@@ -53,17 +53,19 @@ new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.PO
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,
   dialect: 'postgres',
-  ssl: process.env.SSL,
+  ssl: false,
   dialectOptions: {
-    ssl: process.env.SSL,
+    ssl: false,
   },
 })
   .authenticate()
   .then(() => {
     logger.info('Database Connection has been established successfully');
+    console.log('Database Connection has been established successfully')
   })
   .catch((err) => {
-    logger.info('Database Connection Error', err);
+    logger.info( err);
+    console.log(err)
   });
 
   

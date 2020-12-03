@@ -29,9 +29,11 @@ $(document).ready(function () {
             var _self = this;
             this.dynamicLabels = section3Labels;
             google.maps.event.addDomListener(window, 'load', _self.initMaps);
-            this.userMode = getQueryStringValue('mode');
-            this.userRole = getQueryStringValue('role');
-            this.userId = getQueryStringValue('userId');
+            this.paramValues= getParameter(location.href)
+            this.userId =  this.paramValues[0];
+            this.userRole = this.paramValues[1];
+            this.userMode = this.paramValues[2];
+        //    console.log( this.userId,this.userRole,this.userMode)
             if (this.userMode === 'edit') {
                 this.patchValue();
             }
@@ -134,8 +136,8 @@ $(document).ready(function () {
             },
 
             //Back to previous page
-            backToEducation: function () {
-                backToPreviousPage('/about')
+            backToAbout: function () {
+                backToPreviousPage('/about?',this.userId,this.userRole)
             },
         }
     })

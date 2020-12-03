@@ -16,10 +16,10 @@
             to refer into this service.
         </div>
         <div class="d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title"
-            @click="backElgibility()">
+            @click="backToRole()">
             back
         </div>
-        <p @click="backElgibility()"
+        <p @click="backToRole()"
             class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
     </div>
 
@@ -226,11 +226,11 @@
                                     <h5 class="card-title">{{item.name}}</h5>
                                     <div>
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
-                                            data-target="#houseHoldModal" @click="patchService(item)"><i
+                                            data-target="#houseHoldModal" @click="patchHouseHold(item)"><i
                                                 class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i
-                                                @click="deleteService(item,index)" class="fa fa-trash-o fa-2x"
+                                                @click="deleteHouseHold(item,index)" class="fa fa-trash-o fa-2x"
                                                 aria-hidden="true"></i>
                                         </span>
                                     </div>
@@ -567,21 +567,6 @@
                 </template>
                 <!-- Dynamic Toaster end -->
 
-
-                <!-- <div id="showAdToast" class="px-4 py-4" style="display: none;">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                move on to
-                                education / employment & support needs </p>
-                        </div>
-                    </div>
-                </div> -->
-                <!-- Section completed Toaster container -->
-
                 <!-- Add HouseHold Modal Start -->
                 <div class="modal fade" id="houseHoldModal" tabindex="-1" role="dialog" aria-labelledby="houseHoldLabel"
                     aria-hidden="true">
@@ -657,14 +642,6 @@
                     </div>
                 </div>
                 <!-- Add HouseHold Modal End -->
-
-                <div id="showAdBtn" class="text-center py-4" style="display: none;">
-                    <a>
-                        <button type="button" class="btn px-md-4 py-2 px-3" @click="saveAbout()"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE </span></button>
-                    </a>
-                </div>
 
             </div>
         </div>

@@ -14,5 +14,6 @@ db.sync({
 
   })
   .catch((error) => {
-    logger.info('error', error);
+    console.log(error)
+    logger.info(error);
   });

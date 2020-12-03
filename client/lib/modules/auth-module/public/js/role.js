@@ -8,13 +8,31 @@ $(document).ready(function () {
 
         data: {
             gpListShow: [],
-            elgibilityObj: { "childDob": "2020-09-29T00:00:00.000Z" },
-            submitForm: "",
-            submitProfForm: "",
-            belowAgeLimit: "",
-            aboveLimit: "",
-            profBelowAgeLimit: "",
-            profaboveLimit: "",
+            elgibilityObj: {
+                role: '',
+                interpreter: '',
+                tostInterYes: '',
+                childDob: '',
+                contactParent: '',
+                contactParentNo: '',
+                belowAgeLimit: '',
+                aboveLimit: '',
+                isInformation: '',
+                isInformationNo: '',
+                regGpTxt: '',
+                submitFormTrue: '',
+                underLimit: '',
+                toastIsInformation: '',
+                submitForm: '',
+                submitProfForm: '',
+                profBelowAgeLimit: '',
+                profaboveLimit: '',
+                parentConcernInformation:'',
+                childConcernInformation:'',
+                contactProfParent:''
+                
+
+            },
             hasNameReqError: false,
             hasContactReqError: false,
             hasNameInvalidError: false,
@@ -23,37 +41,36 @@ $(document).ready(function () {
             isSubmitted: false,
             edFlag: false,
             sendObj: {},
-            maxDate: ""
+            maxDate: "",
+            gpListName: [],
+            gpListPost: [],
+            gpProfListName: [],
+            gpProfListPost: [],
+            loadGpName: true,
+            loadGbPost: true,
+            selectedGpObj: {},
+            paramValues:[]
         },
 
         mounted: function () {
-            $('#txtDateParent').datepicker({
-                dateFormat: 'yy-mm-dd',
-                changeMonth: true,
-                changeYear: true,
-                setDate: new Date(),
-                minDate: new Date(1950, 10 - 1, 25),
-                maxDate: '+30Y',
-                yearRange: '1950:c',
-            });
+
+            this.paramValues= getParameter(location.href)
+            console.log( this.paramValues= getParameter(location.href))
+          
             this.getGP();
-            if (this.getUrlVars()["edt"] == 1) {
+            this.getProfGP();
+            if (this.paramValues[2] !=undefined) {
                 this.fetchSavedData()
             }
             else {
-                console.log("if else")
+             //   console.log("if else")
             }
         },
 
         methods: {
-
-
-
             fetchSavedData: function () {
-                console.log("if")
-                this.sendObj.uuid = this.getUrlVars()["userid"];
-                this.sendObj.role = this.getUrlVars()["role"];
-                console.log(this.sendObj);
+                this.sendObj.uuid = this.paramValues[0];
+                this.sendObj.role = this.paramValues[1];
                 //var roleType=new URL(location.href).searchParams.get('role')
                 $.ajax({
                     url: API_URI + "/fetchEligibility",
@@ -63,7 +80,7 @@ $(document).ready(function () {
                     data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         //alert("section 1 saved.");
-                        //   console.log(data);
+                           console.log(data); //check ssh
                         app.setValues(data);
 
                     },
@@ -71,65 +88,84 @@ $(document).ready(function () {
             },
 
             setValues: function (data) {
-                console.log(data);
-                var roleType = this.getUrlVars()["role"]
+                var roleType = this.paramValues[1]
+                console.log(roleType)
                 if (roleType == "child") {
-                    Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj, "role",roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data.child_dob));
-                    this.fetchAgeLogic(data.child_dob, this.getUrlVars()["role"])
+                    this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data.contact_parent);
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
-                    Vue.set(this.elgibilityObj, "registerd_gp", this.bindGpAddress(data.registerd_gp));
+                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
                     $('input[name=role]').attr("disabled", true);
-                    this.getGP();
+                 //   this.getGP();
                 }
                 else if (roleType == "parent") {
-                    console.log(data);
-
-                    Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
+            
+                    Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data[0].parent[0].child_dob));
-                    this.fetchAgeLogic(data.child_dob, this.getUrlVars()["role"])
+                    this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data[0].contact_parent);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
-                    Vue.set(this.elgibilityObj, "registerd_gp", this.bindGpAddress(data[0].parent[0].registerd_gp, this.getUrlVars()["role"]));
+                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
-                    this.getGP();
+                  //  this.getGP();
                 }
                 else if (roleType == "professional") {
-                    console.log(data);
-                    Vue.set(this.elgibilityObj, "role", this.getUrlVars()["role"]);
+                    Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profName", data[0].professional_name);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
-                    this.fetchAgeLogic(data[0].professional[0].child_dob, this.getUrlVars()["role"])
+                    this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
-                    Vue.set(this.elgibilityObj, "profRegisterd_gp", this.bindGpAddress(data[0].professional[0].registerd_gp, this.getUrlVars()["role"]));
+                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
-                    this.getProfGP();
+                    this.elgibilityObj.submitProfForm="true";
+                  //  this.getProfGP();
                 }
 
             },
             getGP: function () {
                 var _self = this;
-                console.log("Er");
                 gpList = [];
+
                 $.ajax({
                     url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
                     type: 'get',
                     success: function (response) {
-                        this.gpListShow = response.Organisations;
-                        for (i = 0; i < this.gpListShow.length; i++) {
-                            gpList.push(this.gpListShow[i].Name)
+                        _self.gpListShow = response.Organisations;
+                        for (i = 0; i < _self.gpListShow.length; i++) {
+                            _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                            //_self.gpListPost.push(_self.gpListShow[i].PostCode)
                         }
-                        gplist = ["1", "2", "3"]
+                        displayNameList = _self.gpListName;
+                        displayPostList = _self.gpListPost;
                         $("#gpLocation").autocomplete({
-                            source: gpList
+                            source: displayNameList,
+                            response: function (event, ui) {
+                                if (ui.content.length == 0) {
+                                    // if (_self.loadGpName) {
+                                    //     $(this).autocomplete('option', 'source', displayPostList);
+                                    //     _self.loadGbPost = true;
+                                    //     _self.loadGpName = false;
+                                    // }
+                                    // else if (_self.loadGbPost) {
+                                    //     $(this).autocomplete('option', 'source', displayNameList);
+                                    //     _self.loadGbPost = false;
+                                    //     _self.loadGpName = true;
+                                    // }
+                                    $(this).trigger('keydown');
+                                } else {
+
+                                    //console.log(ui.content.length);
+                                }
+                            }
                         });
-                        return;
+
                     },
                     error: function (err) {
                         console.log(err)
@@ -138,7 +174,7 @@ $(document).ready(function () {
             },
 
             getProfGP: function () {
-                console.log("Er");
+                var _self = this;
                 gpList = [];
                 $.ajax({
                     url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
@@ -146,10 +182,32 @@ $(document).ready(function () {
                     success: function (response) {
                         this.gpListShow = response.Organisations;
                         for (i = 0; i < this.gpListShow.length; i++) {
-                            gpList.push(this.gpListShow[i].Name)
+                            _self.gpProfListName.push(this.gpListShow[i].Name + ',' + this.gpListShow[i].PostCode);
+                            //    _self.gpProfListPost.push(this.gpListShow[i].PostCode)
                         }
+                        displayNameList = _self.gpProfListName;
+                        displayPostList = _self.gpProfListPost;
+
                         $("#gpProfLocation").autocomplete({
-                            source: gpList
+                            source: displayNameList,
+                            // response: function (event, ui) {
+                            //     if (ui.content.length == 0) {
+                            //         if (_self.loadGpName) {
+                            //             $(this).autocomplete('option', 'source', displayPostList);
+                            //             _self.loadGbPost = true;
+                            //             _self.loadGpName = false;
+                            //         }
+                            //         else if (_self.loadGbPost) {
+                            //             $(this).autocomplete('option', 'source', displayNameList);
+                            //             _self.loadGbPost = false;
+                            //             _self.loadGpName = true;
+                            //         }
+                            //         $(this).trigger('keydown');
+                            //     } else {
+
+                            //         //console.log(ui.content.length);
+                            //     }
+                            // }
                         });
                         return;
                     },
@@ -159,143 +217,243 @@ $(document).ready(function () {
                 })
             },
 
+            // onChange: function (event) {
+
+            //     var optionText = event.target.name;
+            //     console.log(this.elgibilityObj.role);
+            //     var today = this.restrictDate();
+            //     if (optionText == "interpreter" && this.elgibilityObj.role == "child") {
+            //         document.getElementById("txtDateChild").setAttribute("max", today);
+            //     }
+            //     else if (optionText == "interpreter" && this.elgibilityObj.role == "parent") {
+
+            //         document.getElementById("txtDateParent").setAttribute("max", today);
+            //     }
+            //     else if (this.elgibilityObj.role == "professional") {
+
+            //         document.getElementById("txtDateProf").setAttribute("max", today);
+            //     }
+            //     var fType = this.getUrlVars()["role"];
+            //     console.log(fType);
+            //     if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
+            //         console.log(optionText);
+            //         this.elgibilityObj.interpreter = "";
+            //         this.elgibilityObj.childDob = "";
+            //         this.belowAgeLimit = "";
+            //         this.aboveLimit = "";
+            //         this.elgibilityObj.camhs = "";
+            //         this.elgibilityObj.isInformation = "";
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.elgibilityObj.contactParent = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
+            //         this.elgibilityObj.childDob = "";
+            //         this.belowAgeLimit = "";
+            //         this.aboveLimit = "";
+            //         this.elgibilityObj.camhs = "";
+            //         this.elgibilityObj.camhsSelect = "";
+            //         this.elgibilityObj.isInformation = "";
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.elgibilityObj.contactParent = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
+            //         this.elgibilityObj.isInformation = "";
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     if (optionText == "camhsSelect") {
+            //         console.log(this.elgibilityObj.isInformation);
+            //         console.log(this.elgibilityObj.role);
+            //         //this.getGP();
+
+            //     }
+            //     if (optionText == "camhsSelect" && this.submitForm != undefined) {
+            //         this.elgibilityObj.registerd_gp = "";
+            //         this.submitForm = "false";
+            //     }
+
+            //     //reset fields for prof
+            //     if (optionText == "role" && this.elgibilityObj.parentConcernInformation != undefined) {
+            //         this.elgibilityObj.profName = "";
+            //         this.elgibilityObj.profEmail = "";
+            //         this.elgibilityObj.profContactNumber = "";
+            //         this.elgibilityObj.profChildDob = "";
+            //         this.elgibilityObj.parentConcern = "";
+            //         this.elgibilityObj.parentConcernInformation = "";
+            //         this.elgibilityObj.childConcernInformation = "";
+            //         this.elgibilityObj.profRegisterd_gp = "";
+            //         this.profBelowAgeLimit = "";
+            //         this.profaboveLimit = "";
+            //         this.elgibilityObj.contactProfParent = "";
+            //         this.submitProfForm = "false";
+            //     }
+
+            //     if (optionText == "contactProfParent" && this.elgibilityObj.parentConcernInformation != undefined) {
+            //         this.elgibilityObj.profRegisterd_gp = "";
+            //         this.elgibilityObj.parentConcernInformation = "";
+            //         this.submitProfForm = "false";
+            //     }
+
+            //     if (optionText == "parentConcernSelect") {
+            //         //   this.getProfGP();
+            //         var selectTxt = event.target.value
+            //         if (selectTxt == "no") {
+            //             console.log("--");
+            //             //  this.elgibilityObj.childConcernInformation = "";
+            //             this.elgibilityObj.profRegisterd_gp = "";
+            //             //     this.profBelowAgeLimit = "";
+            //             this.elgibilityObj.profaboveLimit = "";
+            //             // this.profBelowAgeLimit = "";
+            //             //  this.profaboveLimit = "";
+            //             // this.elgibilityObj.parentConcernInformation
+            //             this.submitProfForm = "false";
+            //         }
+            //     }
+
+
+
+            //     if (optionText == "parentConcernSelect") {
+            //         // this.getProfGP();
+            //         var selectTxt = event.target.value
+            //         if (selectTxt == "no") {
+            //             console.log("--");
+            //             this.elgibilityObj.registerd_gp = "";
+            //             this.profBelowAgeLimit = "";
+            //             this.profaboveLimit = "";
+            //             this.submitProfForm = "false";
+            //         }
+            //     }
+            // },
+
             onChange: function (event) {
-
-                var optionText = event.target.name;
-                console.log(this.elgibilityObj.role);
-                var today = this.restrictDate();
-                if (optionText == "interpreter" && this.elgibilityObj.role == "child") {
-                    document.getElementById("txtDateChild").setAttribute("max", today);
+                var questionIdentifier = event.target.name;
+                var optionValue = event.target.value
+                console.log(questionIdentifier,optionValue);
+                if (questionIdentifier == "role") {
+                    this.resetValues(event.target.form);
                 }
-                else if (optionText == "interpreter" && this.elgibilityObj.role == "parent") {
-
-                    document.getElementById("txtDateParent").setAttribute("max", today);
+                if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
+                    this.resetValues(event.target.form);
                 }
-                else if (this.elgibilityObj.role == "professional") {
-
-                    document.getElementById("txtDateProf").setAttribute("max", today);
-                }
-                var fType = this.getUrlVars()["role"];
-                console.log(fType);
-                if (optionText == "role" && this.elgibilityObj.interpreter != undefined) {
-                    console.log(optionText);
-                    this.elgibilityObj.interpreter = "";
-                    this.elgibilityObj.childDob = "";
-                    this.belowAgeLimit = "";
-                    this.aboveLimit = "";
-                    this.elgibilityObj.camhs = "";
-                    this.elgibilityObj.isInformation = "";
-                    this.elgibilityObj.registerd_gp = "";
-                    this.elgibilityObj.contactParent = "";
-                    this.submitForm = "false";
-                }
-
-                if (optionText == "interpreter" && this.elgibilityObj.camhs != undefined) {
-                    this.elgibilityObj.childDob = "";
-                    this.belowAgeLimit = "";
-                    this.aboveLimit = "";
-                    this.elgibilityObj.camhs = "";
-                    this.elgibilityObj.camhsSelect = "";
-                    this.elgibilityObj.isInformation = "";
-                    this.elgibilityObj.registerd_gp = "";
-                    this.elgibilityObj.contactParent = "";
-                    this.submitForm = "false";
-                }
-
-                if (optionText == "belowAgeParent" && this.elgibilityObj.isInformation != undefined) {
-                    this.elgibilityObj.isInformation = "";
-                    this.elgibilityObj.registerd_gp = "";
-                    this.submitForm = "false";
-                }
-
-                if (optionText == "camhsSelect") {
-                    console.log(this.elgibilityObj.isInformation);
-                    console.log(this.elgibilityObj.role);
-                    this.getGP();
+                else if (questionIdentifier == "interpreter" && optionValue == "yes") {
+                    this.resetValues(event.target.form);
+                    //   this.elgibilityObj.camhs = "";
 
                 }
-                if (optionText == "camhsSelect" && this.submitForm != undefined) {
-                    this.elgibilityObj.registerd_gp = "";
-                    this.submitForm = "false";
+                else if (questionIdentifier == "belowAgeParent" && optionValue == "no") {
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.contactParent = optionValue;
                 }
-
-                //reset fields for prof
-                if (optionText == "role" && this.elgibilityObj.parentConcernInformation != undefined) {
-                    this.elgibilityObj.profName = "";
-                    this.elgibilityObj.profEmail = "";
-                    this.elgibilityObj.profContactNumber = "";
-                    this.elgibilityObj.profChildDob = "";
-                    this.elgibilityObj.parentConcern = "";
-                    this.elgibilityObj.parentConcernInformation = "";
-                    this.elgibilityObj.childConcernInformation = "";
-                    this.elgibilityObj.profRegisterd_gp = "";
-                    this.profBelowAgeLimit = "";
-                    this.profaboveLimit = "";
-                    this.elgibilityObj.contactProfParent = "";
-                    this.submitProfForm = "false";
+                else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.isInformation = optionValue;
                 }
-
-                if (optionText == "contactProfParent" && this.elgibilityObj.parentConcernInformation != undefined) {
-                    this.elgibilityObj.profRegisterd_gp = "";
-                    this.elgibilityObj.parentConcernInformation = "";
-                    this.submitProfForm = "false";
+                //for professional
+               else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.contactProfParent = optionValue;
                 }
-
-                if (optionText == "parentConcernSelect") {
-                    this.getProfGP();
-                    var selectTxt = event.target.value
-                    if (selectTxt == "no") {
-                        console.log("--");
-                        //  this.elgibilityObj.childConcernInformation = "";
-                        this.elgibilityObj.profRegisterd_gp = "";
-                        //     this.profBelowAgeLimit = "";
-                        this.elgibilityObj.profaboveLimit = "";
-                        // this.profBelowAgeLimit = "";
-                        //  this.profaboveLimit = "";
-                        // this.elgibilityObj.parentConcernInformation
-                        this.submitProfForm = "false";
-                    }
+                else if (questionIdentifier == "parentConcernSelect" && optionValue == "no") {
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.parentConcernInformation = optionValue;
                 }
-
-
-
-                // if (optionText == "parentConcernSelect") {
-                //     this.getProfGP();
-                //     var selectTxt = event.target.value
-                //     if (selectTxt == "no") {
-                //         console.log("--");
-                //         this.elgibilityObj.registerd_gp = "";
-                //         this.profBelowAgeLimit = "";
-                //         this.profaboveLimit = "";
-                //         this.submitProfForm = "false";
-                //     }
-                // }
             },
 
-            getAddress: function (e) {
-                $("#gpLocation").on("autocompleteselect", function (event, ui) {
+            resetValues: function(currentForm) {
+                var allForms = Array.from(document.forms);
+                var formIndex = allForms.indexOf(currentForm);
+                for (let i = 0; i < allForms.length; i++) {
+                    var attributeValue = $(allForms[i]).data('options');
+                    if (formIndex < i) {
+                        this.elgibilityObj[attributeValue] = '';
+                    }
+                    if (formIndex <= i) {
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.regProfGpTxt = "";
+                    }
+                }
+            },
 
-                    console.log(ui.item.label);
+
+            getAddress: function (e) {
+                // console.log("selectTxt");
+                var _self = this;
+                var selectFlag = false;
+                this.elgibilityObj.registerd_gp = {};
+                $(".gpLocation").on("autocompleteselect", function (event, ui) {
+                    //    console.log(ui.item.label);
                     if (e.target.value === '') {
-                        app.submitForm = "false";
+                        app.elgibilityObj.submitForm = "false";
                     } else {
-                        console.log(e.target.value);
-                        app.elgibilityObj.registerd_gp = ui.item.label
-                        app.submitForm = "true";
+                        // for (i = 0; i < app.gpListShow.length; i++) {
+
+                        //     if (app.gpListShow[i].Name == ui.item.label) {
+                        //         app.selectedGpObj.name = app.gpListShow[i].Name;
+                        //         app.selectedGpObj.postCode = app.gpListShow[i].PostCode;
+
+                        //     }
+                        //     else if (app.gpListShow[i].PostCode == ui.item.label) {
+                        //         app.selectedGpObj.name = app.gpListShow[i].Name;
+                        //         app.selectedGpObj.postCode = app.gpListShow[i].PostCode;
+
+                        //     }
+                        // }
+                        selectFlag = true;
+                        app.elgibilityObj.regGpTxt = ui.item.label;
+                        app.elgibilityObj.submitForm = "true";
                     }
                 });
+                // app.submitForm = "true";
+                console.log(e.target.value.length)
+                if (e.target.value.length == 0) {
+                    app.elgibilityObj.submitForm = "false";
+                }
+                else {
+                    app.elgibilityObj.submitForm = "true";
+                }
             },
 
             getProfAddress: function (e) {
+                var _self = this;
+                var selectFlag = false;
+                //  this.elgibilityObj.registerd_gp = {};
                 $("#gpProfLocation").on("autocompleteselect", function (event, ui) {
-                    console.log('this', _self, app);
+                    //   console.log(ui.item.label);
                     if (e.target.value === '') {
-                        app.submitProfForm = "false";
+                        app.submitForm = "false";
                     } else {
-                        app.elgibilityObj.profRegisterd_gp = ui.item.label
-                        app.submitProfForm = "true";
+                        // for (i = 0; i < app.gpListShow.length; i++) {
+
+                        //     if (app.gpListShow[i].Name == ui.item.label) {
+                        //         app.selectedGpObj.name = app.gpListShow[i].Name;
+                        //         app.selectedGpObj.postCode = app.gpListShow[i].PostCode;
+
+                        //     }
+                        //     else if (app.gpListShow[i].PostCode == ui.item.label) {
+                        //         app.selectedGpObj.name = app.gpListShow[i].Name;
+                        //         app.selectedGpObj.postCode = app.gpListShow[i].PostCode;
+
+                        //     }
+                        // }
+
+                        selectFlag = true;
+                        app.elgibilityObj.regProfGpTxt = ui.item.label;
+                        console.log(app.elgibilityObj.regProfGpTxt);
+                        app.elgibilityObj.submitProfForm = "true";
                     }
                 });
+                if (e.target.value.length === 0) {
+                    app.elgibilityObj.submitProfForm = "false";
+                }
+                else {
+                    app.elgibilityObj.submitProfForm = "true";
+                }
+
             },
 
             changeDob: function (event) {
@@ -309,60 +467,61 @@ $(document).ready(function () {
                 console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
-                        this.belowAgeLimit = "yes";
-                        this.aboveLimit = "";
-                        this.elgibilityObj.camhs = "";
-                        this.submitForm = "false";
+                        this.elgibilityObj.belowAgeLimit = "yes";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "false";
                     }
                     else if (age > 25) {
-                        this.aboveLimit = "yes";
-                        this.belowAgeLimit = "";
-                        this.elgibilityObj.camhs = "";
-                        this.submitForm = "false";
+                        this.elgibilityObj.aboveLimit = "yes";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "false";
                         this.elgibilityObj.contactParent = "";
                     }
                     else {
-                        this.elgibilityObj.camhs = "show";
-                        this.belowAgeLimit = "";
-                        this.aboveLimit = "";
-                        this.submitForm = "false";
+                        console.log("343")
+                        this.elgibilityObj.contactParent = "yes";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.submitForm = "false";
                     }
                 }
                 else if (roleText == 'prof') {
                     if (age < 15) {
-                        this.profBelowAgeLimit = "yes";
-                        this.profaboveLimit = "";
+                        this.elgibilityObj.profBelowAgeLimit = "yes";
+                        this.elgibilityObj.profaboveLimit = "";
                         this.elgibilityObj.parentConcern = "";
-                        this.submitProfForm = "false";
+                        this.elgibilityObj.submitProfForm = "false";
                     }
                     else if (age > 25) {
-                        this.profaboveLimit = "yes";
-                        this.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "yes";
+                        this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.parentConcern = "";
                         this.elgibilityObj.contactProfParent = "";
                         this.elgibilityObj.parentConcernInformation = "";
                         this.elgibilityObj.childConcernInformation
-                        this.submitProfForm = "false";
+                        this.elgibilityObj.submitProfForm = "false";
                     }
                     else {
                         this.elgibilityObj.parentConcern = "show";
-                        this.profBelowAgeLimit = "";
-                        this.profaboveLimit = "";
-                        this.submitProfForm = "false";
+                        this.elgibilityObj.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.elgibilityObj.submitProfForm = "false";
                     }
                 }
 
                 else if (roleText == 'parent') {
                     if (age > 25) {
-                        this.aboveLimit = "yes";
-                        this.elgibilityObj.camhs = "";
-                        this.submitForm = "false";
+                        this.elgibilityObj.aboveLimit = "yes";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "false";
                     }
                     else {
-                        this.elgibilityObj.camhs = "show";
-                        this.belowAgeLimit = "";
-                        this.aboveLimit = "";
-                        this.submitForm = "false";
+                        this.elgibilityObj.contactParent = "yes";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.submitForm = "false";
                     }
 
                 }
@@ -421,12 +580,8 @@ $(document).ready(function () {
             },
 
             save: function () {
-                console.log("3334");
-                console.log(this.elgibilityObj);
-                ///this.elgibilityObj.editFlag=new URL(location.href).searchParams.get('edt');
-                // this.elgibilityObj.uuid=new URL(location.href).searchParams.get('userid');
-
-                this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
+                // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
+                // this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
                 this.elgibilityObj.uuid = this.getUrlVars()["userid"];
                 this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
@@ -436,6 +591,7 @@ $(document).ready(function () {
                 console.log(this.elgibilityObj.role);
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
+                    this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
                     if (this.elgibilityObj.profName && this.elgibilityObj.profContactNumber) {
                         if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
                             if (this.elgibilityObj.profEmail) {
@@ -487,9 +643,11 @@ $(document).ready(function () {
                         window.scrollTo(0, 0)
                     }
                 } else if (role === 'parent') {
+                    this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
                 else if (role === 'child') {
+                    this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
             },
@@ -513,7 +671,13 @@ $(document).ready(function () {
                         console.log("edt", _self.getUrlVars()["edt"]);
 
                         if (_self.getUrlVars()["edt"] == null) {
-                            location.href = "/about?userid=" + data.userid + "&role=" + role;
+                         //   alert(btoa("category=textile&user=user1"));
+                          //  alert(atob("Y2F0ZWdvcnk9dGV4dGlsZSZ1c2VyPXVzZXIx"));
+                            
+                            var parameter = data.userid +"&"+ role 
+                            var enCodeParameter = btoa(parameter)
+                          //  alert(enCodeParameter)
+                            location.href = "/about?"+enCodeParameter;
                         }
                         else {
                             history.back();
@@ -623,7 +787,7 @@ $(document).ready(function () {
                 }
                 else {
                     if (gpAddress != undefined || gpAddress != "") {
-                        this.submitForm = "true";
+                        this.elgibilityObj.submitForm = "true";
                         return gpAddress;
                     }
                 }

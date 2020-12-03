@@ -16,16 +16,15 @@ module.exports = {
     };
 
     require('../../middleware')(self, options);
-    // save eligibitiy
-    self.route('post', 'fetchReview', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module')+ '/user/fetchReview';
+    self.route('get', 'fetchReview/:userid', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module')+ '/user/fetchReview?user_id='+req.params.userid;
       console.log("-------");
       console.log(url);
       console.log("-------");
-      self.middleware.post(req, res, url, req.body).then((data) => {
+      self.middleware.get(req,url).then((data) => {
          return res.send(data);
       }).catch((error) => {
-         console.log("---- error -------", error)
+        //  console.log("---- error -------", error)
          return res.status(error.statusCode).send(error.error);
       });
    });
