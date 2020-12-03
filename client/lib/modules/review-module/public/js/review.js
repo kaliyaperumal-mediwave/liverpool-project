@@ -20,7 +20,8 @@ $(document).ready(function () {
             section4Data: {},
             payloadData: {},
             contactPref: [],
-            section1Obj: {}
+            section1Obj: {},
+            isFormSubmitted: false
         },
         mounted: function () {
             this.userMode = getQueryStringValue('mode');
@@ -66,16 +67,19 @@ $(document).ready(function () {
             },
 
             save: function () {
+                this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
-                if (contactPref) {
+                if (this.contactPref.length) {
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                    if (Object.keys(res)) {
+                    if (Object.keys(successData)) {
                         alert("Your Reference Number" + res.refNo);
                         console.log(res);
+                        this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
                     }
                 } else {
+                    //scrollToInvalidInput();
                     return false;
                 }
 

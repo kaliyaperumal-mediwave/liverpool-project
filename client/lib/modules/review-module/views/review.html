@@ -528,16 +528,16 @@
                             <label for="email" class="option-font d-flex align-items-center">
                                 Email</label>
                         </div>
-                        <div class="invalid-feedback d-none"
-                            v-bind:class="{ 'd-block': (isFormSubmittes && !contactPref), 'invalid-fields':!contactPref}">
-                            Please provide a valid contact number.
-                        </div>
+                    </div>
+                    <div class="invalid-feedback d-none m-0 px-3"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !contactPref.length), 'invalid-fields':!contactPref.length}">
+                        You must provide an answer to this question to continue.
                     </div>
                 </div>
                 <!-- Contact preferences Start -->
 
                 <!-- Send Start -->
-                <div id="send">
+                <div id="send" class="py-4">
                     <h2 class="py-2 px-3 m-0 question-header-font">
                         Send
                     </h2>
