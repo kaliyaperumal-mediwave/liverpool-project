@@ -27,15 +27,18 @@ $(document).ready(function () {
         },
         mounted: function () {
             var _self = this;
-            this.dynamicLabels = section3Labels;
+           
             google.maps.event.addDomListener(window, 'load', _self.initMaps);
+           
             this.paramValues= getParameter(location.href)
             this.userId =  this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
-        //    console.log( this.userId,this.userRole,this.userMode)
+            this.dynamicLabels=getDynamicLabels(this.userRole);
+           console.log( this.userId,this.userRole,this.userMode)
             if (this.userMode === 'edit') {
-                this.patchValue();
+               // this.patchValue();
+               this.fetchSavedData();
             }
             if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
@@ -100,10 +103,18 @@ $(document).ready(function () {
 
             //Section 3(Education) Save and Service call with navaigation Logic
             upsertEducationForm(payload) {
+                console.log(payload);
+               
                 var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
                     if (getUrlVars()["edt"] == null) {
-                        location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
+                        var parameter =  this.userId +"&"+ this.userRole 
+                        var enCodeParameter = btoa(parameter)
+                      //  alert(enCodeParameter)
+                     //   location.href = "/about?"+enCodeParameter;
+                     //   location.href = "/referral?"+enCodeParameter;
+
+                       // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
                         history.back();
@@ -119,20 +130,60 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchProfession', payload);
+                console.log(successData);
                 this.patchValue(successData);
             },
 
             //Patching the value logic
             patchValue(data) {
-                if (data.attendedInfo) {
-                    Vue.set(this.educAndEmpData, "attendedInfo", data.attendedInfo);
+                console.log(data);
+
+                if(this.userRole=="child")
+                {
+                    if (data.attendedInfo) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data.child_profession);
+                    }
+                    Vue.set(this.educAndEmpData, "currentPosition", data.child_education_place);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data.child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data.child_socialworker_name);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
                 }
-                Vue.set(this.educAndEmpData, "currentPosition", data.referral_type);
-                Vue.set(this.educAndEmpData, "haveEhcpPlan", data.is_covid);
-                Vue.set(this.educAndEmpData, "haveEhat", data.mental_health_diagnosis);
-                Vue.set(this.educAndEmpData, "haveSocialWorker", data.diagnosis_other);
-                Vue.set(this.educAndEmpData, "socialWorkName", data.symptoms_supportneeds);
-                Vue.set(this.educAndEmpData, "socialWorkContact", data.symptoms_other);
+                else if(this.userRole=="parent")
+                {
+                  //  console.log(data);
+
+                    Vue.set(this.professionObj,"childProfession",data[0].parent[0].child_profession);
+                    Vue.set(this.professionObj,"childEducationPlace",data[0].parent[0].child_education_place);
+                    Vue.set(this.professionObj,"childEHCP",data[0].parent[0].child_EHAT);
+                    Vue.set(this.professionObj,"childEHAT",data[0].parent[0].child_EHCP);
+                    Vue.set(this.professionObj,"isSocialWorker",data[0].parent[0].child_socialworker);
+                    Vue.set(this.professionObj,"socialWorkerName",data[0].parent[0].child_socialworker_name);
+                    Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].parent[0].child_socialworker_contact);
+                }
+                else if(this.userRole=="professional")
+                {
+                    if (data[0].professional[0].child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].professional[0].child_education_place);
+                    }
+                    Vue.set(this.educAndEmpData, "position", data[0].professional[0].child_profession);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].professional[0].child_EHAT);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_name);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
+
+
+                     
+                    //  Vue.set(this.professionObj,"childProfession",data[0].professional[0].child_profession);
+                    //    Vue.set(this.professionObj,"childEducationPlace",data[0].professional[0].child_education_place);
+                    //    Vue.set(this.professionObj,"childEHCP",data[0].professional[0].child_EHAT);
+                    //    Vue.set(this.professionObj,"childEHAT",data[0].professional[0].child_EHCP);
+                    //    Vue.set(this.professionObj,"isSocialWorker",data[0].professional[0].child_socialworker);
+                    //    Vue.set(this.professionObj,"socialWorkerName",data[0].professional[0].child_socialworker_name);
+                    //    Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].professional[0].child_socialworker_contact);
+                }
             },
 
             //Back to previous page

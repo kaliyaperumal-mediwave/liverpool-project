@@ -4,9 +4,14 @@ $(document).ready(function () {
         el: '#referral-form',
         mounted: function () {
             this.dynamicLabels = allLabels;
-            this.userMode = getQueryStringValue('mode');
-            this.userRole = getQueryStringValue('role');
-            this.userId = getQueryStringValue('userId');
+            this.paramValues= getParameter(location.href)
+            this.userId =  this.paramValues[0];
+            this.userRole = this.paramValues[1];
+            this.userMode = this.paramValues[2];
+            console.log( this.userId,this.userRole,this.userMode)
+            // this.userMode = getQueryStringValue('mode');
+            // this.userRole = getQueryStringValue('role');
+            // this.userId = getQueryStringValue('userId');
             if (this.userMode === 'edit') {
                 this.patchValue();
             }
@@ -133,7 +138,7 @@ $(document).ready(function () {
                 { id: '85fhtsewre', value: 'YPAS' },
                 { id: '0dfsu8u', value: 'Other' },
             ],
-
+            paramValues:[]
         },
         methods: {
 
@@ -359,7 +364,8 @@ $(document).ready(function () {
 
             //Back to previous page
             backToEducation: function () {
-                backToPreviousPage('/education')
+                backToPreviousPage('/education?',this.userId,this.userRole)
+               // backToPreviousPage('/education')
             },
 
         },

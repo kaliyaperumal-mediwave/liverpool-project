@@ -66,14 +66,14 @@ $(document).ready(function () {
            this.userId =  this.paramValues[0];
            this.userRole = this.paramValues[1];
 
-           console.log(this.paramValues)
+          // console.log(this.paramValues[2] )
 
             // this.userMode = getQueryStringValue('mode');
             // this.userRole = getQueryStringValue('role');
             // this.userId = getQueryStringValue('userId');
 
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            console.log(this.sec2dynamicLabel)
+       //     console.log(this.sec2dynamicLabel)
             google.maps.event.addDomListener(window, 'load', _self.initMaps);
 
             $('#houseHoldDate').datepicker({
@@ -97,6 +97,7 @@ $(document).ready(function () {
             //     this.patchValue();
             // }
             if (this.paramValues[2] == "edit") {
+              //  console.log("fetchsave")
                 this.fetchSavedData();
             }
 
@@ -148,7 +149,7 @@ $(document).ready(function () {
                 if (Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
-                    console.error('error')
+                  //  console.error('error')
                 }
 
             },
@@ -157,31 +158,38 @@ $(document).ready(function () {
             patchValue: function (data) {
                // this.allHouseHoldMembers = data.allHouseHoldMembers;
                 if (this.userRole == "child") {
+                 //   console.log(data)
+                   
+                    Vue.set(this.aboutObj,"nhsNumber",data.child_NHS);
                     Vue.set(this.aboutObj, "childName", data.child_name);
                     Vue.set(this.aboutObj, "childEmail", data.child_email);
                     Vue.set(this.aboutObj, "childContactNumber", data.child_contact_number);
                     Vue.set(this.aboutObj, "childAddress", data.child_address);
                     Vue.set(this.aboutObj, "sendPost", data.can_send_post);
                     Vue.set(this.aboutObj, "childGender", data.child_gender);
-                    Vue.set(this.aboutObj, "childIdentity", data.child_identity);
+                    Vue.set(this.aboutObj, "childIdentity", data.child_gender_birth);
                     Vue.set(this.aboutObj, "childSexualOrientation", data.child_sexual_orientation);
                     Vue.set(this.aboutObj, "childEthnicity", data.child_ethnicity);
                     Vue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
+                    this.allHouseHoldMembers = data.household_member;
+                    Vue.set(this.aboutObj,"parentName",data.parent[0].parent_name );
                     Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parential_responsibility);
-                    Vue.set(this.aboutFormData, "parentCarerName", data.parent_carer_name);
-                    Vue.set(this.aboutFormData, "relationshipToYou", this.convertDate(data.relationshipToYou));
-                    Vue.set(this.aboutFormData, "contactNumber", data.child_household_profession);
-                    Vue.set(this.aboutFormData, "emailAddress", data.child_household_name);
-                    Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_name);
-                    Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].responsibility_parent_name);
-                    Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].child_parent_relationship);
+                  //  ue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
+                  this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parential_responsibility)
+                    Vue.set(this.aboutFormData, "parentCarerName", data.parent[0].responsibility_parent_name);
+                    Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
+                    Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
+                    Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
+                    Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
+                    Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
+                    Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
 
                 }
                 else if (this.userRole == "parent") {
-                    console.log(data);
-                    console.log(data[0].parential_responsibility )
-
-                    Vue.set(this.aboutObj,"childNHS",data[0].parent[0].child_NHS);
+                 //   console.log(data);
+                 //   console.log(data[0].parential_responsibility )
+                //    console.log( data[0].child_parent_relationship)
+                    Vue.set(this.aboutObj,"nhsNumber",data[0].parent[0].child_NHS);
                     Vue.set(this.aboutObj,"childName",data[0].parent[0].child_name);
                     Vue.set(this.aboutObj,"childEmail",data[0].parent[0].child_email);
                     Vue.set(this.aboutObj,"childContactNumber",data[0].parent[0].child_contact_number);
@@ -195,18 +203,23 @@ $(document).ready(function () {
                     Vue.set(this.aboutObj,"houseHoldName",data[0].parent[0].child_household_name );
                     Vue.set(this.aboutObj,"parentName",data[0].parent_name );
                     Vue.set(this.aboutObj,"parentContactName",data[0].responsibility_parent_name );
+                    this.allHouseHoldMembers = data[0].household_member;
                     Vue.set(this.aboutFormData,"parentialResponsibility",data[0].parential_responsibility );
-                    Vue.set(this.aboutObj,"relationshipToYou",data[0].child_parent_relationship );
-                    Vue.set(this.aboutObj,"parentContactNumber",data[0].parent_contact_number );
-                    Vue.set(this.aboutObj,"parentEmail",data[0].parent_email );
-                    Vue.set(this.aboutObj,"parentSameHouse",data[0].parent_same_house );
-                    Vue.set(this.aboutObj,"selectedParentAddress",data[0].parent_address );
-                    Vue.set(this.aboutObj,"legalCareStatus",data[0].legal_care_status );
+                    this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
+                    Vue.set(this.aboutFormData, "parentCarerName", data[0].responsibility_parent_name);
+                    Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
+                    Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
+                    Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
+                    Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
+                    Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
+                    Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                     this.allHouseHoldMembers = data[0].parent[0].household_member;
                 }
 
                 else if (this.userRole == "professional") {
-                    Vue.set(this.aboutObj,"childNHS",data[0].parent[0].child_NHS);
+                 //   console.log(data);
+                //      console.log(data[0].responsibility_parent_name)
+                    Vue.set(this.aboutObj,"nhsNumber",data[0].parent[0].child_NHS);
                     Vue.set(this.aboutObj,"childName",data[0].parent[0].child_name);
                     Vue.set(this.aboutObj,"childEmail",data[0].parent[0].child_email);
                     Vue.set(this.aboutObj,"childContactNumber",data[0].parent[0].child_contact_number);
@@ -218,16 +231,18 @@ $(document).ready(function () {
                     Vue.set(this.aboutObj,"childEthnicity",data[0].parent[0].child_ethnicity);
                     Vue.set(this.aboutObj,"childCareAdult",data[0].parent[0].child_care_adult );
                     Vue.set(this.aboutObj,"houseHoldName",data[0].parent[0].child_household_name );
+                    this.allHouseHoldMembers = data[0].parent[0].household_member;
                     Vue.set(this.aboutObj,"parentName",data[0].parent_name );
-                    Vue.set(this.aboutObj,"parentContactName",data[0].responsibility_parent_name );
-                    Vue.set(this.aboutObj,"parentialResponsibility",data[0].parential_responsibility );
-                    Vue.set(this.aboutObj,"childParentRelationship",data[0].child_parent_relationship );
-                    Vue.set(this.aboutObj,"parentContactNumber",data[0].parent_contact_number );
-                    Vue.set(this.aboutObj,"parentEmail",data[0].parent_email );
-                    Vue.set(this.aboutObj,"parentSameHouse",data[0].parent_same_house );
-                    Vue.set(this.aboutObj,"selectedParentAddress",data[0].parent_address );
-                    Vue.set(this.aboutObj,"legalCareStatus",data[0].legal_care_status );
-                    Vue.set(this.aboutObj,"parentUUID",data[0].uuid );
+                    Vue.set(this.aboutFormData,"parentialResponsibility",data[0].parential_responsibility );
+                    this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
+                    Vue.set(this.aboutFormData,"parentCarerName",data[0].responsibility_parent_name );
+                    Vue.set(this.aboutFormData,"relationshipToYou",data[0].child_parent_relationship );
+                    Vue.set(this.aboutFormData,"contactNumber",data[0].parent_contact_number );
+                    Vue.set(this.aboutFormData,"emailAddress",data[0].parent_email );
+                    Vue.set(this.aboutFormData,"sameHouse",data[0].parent_same_house );
+                    Vue.set(this.aboutFormData,"parentOrCarrerAddress",data[0].parent_address );
+                    Vue.set(this.aboutFormData,"legalCareStatus",data[0].legal_care_status );
+                    Vue.set(this.aboutFormData,"parentUUID",data[0].uuid );
                     // document.getElementById("showAdToast").style.display = "block";
                     // document.getElementById("showAdBtn").style.display = "block";
                 }
@@ -236,21 +251,21 @@ $(document).ready(function () {
             //Form Submittion of Section-4(Referral) with validation logic
             saveAndContinue: function() {
                 
-                this.isFormSubmitted = true;
-                var formData = Object.assign(this.aboutObj, this.aboutFormData);
-                this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
-                this.payloadData.role = this.userRole;
-                this.payloadData.userid = this.userId;
-                this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                this.payloadData.editFlag =this.paramValues[2]
-             //   this.payloadData.id = this.referralId;
-                if (this.userMode === 'edit') {
-                    this.payloadData.userMode = 'edit';
-                } else {
-                    this.payloadData.userMode = 'add';
-                }
-                this.upsertAboutYouForm(this.payloadData);
-                return;
+            //     this.isFormSubmitted = true;
+            //     var formData = Object.assign(this.aboutObj, this.aboutFormData);
+            //     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
+            //     this.payloadData.role = this.userRole;
+            //     this.payloadData.userid = this.userId;
+            //     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
+            //     this.payloadData.editFlag =this.paramValues[2]
+            //  //   this.payloadData.id = this.referralId;
+            //     if (this.userMode === 'edit') {
+            //         this.payloadData.userMode = 'edit';
+            //     } else {
+            //         this.payloadData.userMode = 'add';
+            //     }
+            //     this.upsertAboutYouForm(this.payloadData);
+            //     return;
                 if (formData.contactNumber && formData.relationshipToYou &&
                     formData.parentCarerName && formData.parentialResponsibility && formData.childGender &&
                     formData.childIdentity && formData.sendPost && formData.childAddress && formData.childName && this.phoneRegex.test(formData.contactNumber)
@@ -287,18 +302,23 @@ $(document).ready(function () {
 
             //Section 2(About You) Save and Service call with navaigation Logic
             upsertAboutYouForm: function(payload) {
-                
+             //   console.log(payload);
                 var responseData = apiCallPost('post', '/saveReferral', payload);
-            //     if (Object.keys(responseData)) {
-            //         if (getUrlVars()["edt"] == null) {
-            //             location.href = "/education?userid=" + responseData.userid + "&role=" + responseData.role;
-            //         }
-            //         else {
-            //             history.back();
-            //         }
-            //     } else {
-            //         console.log('empty response')
-            //     }
+            //    console.log(responseData);
+                if (Object.keys(responseData)) {
+                    if (this.paramValues[2] == undefined) {
+                        var parameter =  this.userId +"&"+ this.userRole 
+                        var enCodeParameter = btoa(parameter)
+                      //  alert(enCodeParameter)
+                     //   location.href = "/about?"+enCodeParameter;
+                        location.href = "/education?"+enCodeParameter;
+                    }
+                    else {
+                        history.back();
+                    }
+                } else {
+               //     console.log('empty response')
+                }
              },
 
             //Adding and Updating a HouseHold logic
