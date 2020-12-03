@@ -1,3 +1,4 @@
+
 //Reset Two-Way-Model Values 
 function resetValues(currentForm, context, formObj) {
     var allForms = Array.from(document.forms);
@@ -131,14 +132,14 @@ function getParameter(url) {
     return decodeValues;
 }
 
-function getAllSectionData(userid,role) {
+function getAllSectionData(userid, role) {
     var response;
     $.ajax({
-        url: API_URI + "/fetchReview/"+userid+"&role="+role,
+        url: API_URI + "/fetchReview/" + userid + "&role=" + role,
         type: 'get',
         dataType: 'json',
         contentType: 'application/json',
-       // data: JSON.stringify(payloadData),
+        // data: JSON.stringify(payloadData),
         success: function (data) {
             console.log(data)
             response = data;
@@ -162,3 +163,11 @@ function convertDate(dbDate) {
 
     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
 }
+function setLoaderStyle() {
+    var element = document.getElementsByClassName('apos-refreshable');
+    element[0].classList.add('position-relative')
+}
+
+$(document).ready(function () {
+    setLoaderStyle();
+})

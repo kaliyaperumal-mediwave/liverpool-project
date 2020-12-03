@@ -7,8 +7,8 @@
 {% block main %}
 <div id="review-form">
     <div class="main-content-bg py-4 main-min-height">
-        <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
-            <div class="p-4">
+        <div class="secondary-content-area col-md-9 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto responsepy">
+            <div class="p-2 p-sm-3 p-md-3 p-lg-3 p-xl-4">
                 <h2 class="py-2 m-0 question-header-font col-xl-10 col-lg-6 col-sm-12 col-12">Review
                     infomation
                 </h2>
@@ -27,12 +27,12 @@
                                     Eligibility
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3" data-toggle="tooltip"
+                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3 res_fontz" data-toggle="tooltip"
                                         @click="editAllSection()" data-placement="top" title="Edit Section 1"></i>
                                 </span>
                             </div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-down fa-2x" data-toggle="collapse"
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz" data-toggle="collapse"
                                     data-target="#collapseOne" aria-expanded="true" @click="toggleArrow($event)"
                                     aria-controls="collapseOne"></i>
                             </span>
@@ -41,11 +41,11 @@
                             data-parent="#accordionExample">
                             <div>
                                 <div class="py-2 d-flex align-items-center">
-                                    <label class="question-font col-md-3 col-xl-2 col-lg-2 col-sm-3 col-4 m-0"
+                                    <label class="setPadding question-font col-md-3 col-xl-2 col-lg-2 col-sm-3 col-4 m-0"
                                         for="aboutYou">
                                         I am a:
                                     </label>
-                                    <p class="col-md-9 col-xl-10 col-lg-10 col-sm-9 col-8 m-0" contenteditable="true">
+                                    <p class="col-md-9 col-xl-10 col-lg-10 col-sm-9 col-8 m-0 content_ediz" contenteditable="true">
                                         <b><u>{{yourInfo}}</u></b></p>
                                 </div>
 
@@ -166,13 +166,13 @@
                                     {{ section5Labels.aboutLabel}}
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3" data-toggle="tooltip"
+                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
                                         data-placement="top" title="Edit Section 2"></i>
                                 </span>
                             </div>
 
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x" data-toggle="collapse"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz" data-toggle="collapse"
                                     data-target="#collapseTwo" @click="toggleArrow($event)" aria-expanded="true"
                                     aria-controls="collapseTwo"></i>
                             </span>
@@ -317,13 +317,13 @@
                                     Support Needs
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3" data-toggle="tooltip"
+                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
                                         data-placement="top" title="Edit Section 2"></i>
                                 </span>
                             </div>
 
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x" data-toggle="collapse"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz" data-toggle="collapse"
                                     data-target="#collapseThree" @click="toggleArrow($event)" aria-expanded="true"
                                     aria-controls="collapseThree"></i>
                             </span>
@@ -392,13 +392,13 @@
                                     {{section5Labels.referralLabel}}
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3" data-toggle="tooltip"
+                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
                                         data-placement="top" title="Edit Section 2"></i>
                                 </span>
                             </div>
 
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x" data-toggle="collapse"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz" data-toggle="collapse"
                                     data-target="#collapseFour" @click="toggleArrow($event)" aria-expanded="true"
                                     aria-controls="collapseFour"></i>
                             </span>
@@ -437,12 +437,19 @@
                                     <p class="m-0 px-2"><b><u>{{section4Data.referral_issue}}</u></b></p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
+                                    <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
                                     <label class="form-check-label question-font" for="aboutYou">
                                         Has anything helped?:
                                     </label>
+                                </div>
+                                <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
+                                    <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
+                                    placeholder="" rows="3">{{section4Data.child_socialworker_name}}</textarea>
+                                </div>
+                                   
                                     <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
                                         v-model="section4Data.child_socialworker_contact" v rows="4"></textarea> -->
-                                    <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_name}}</u></b></p>
+                                    <!-- <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_name}}</u></b></p> -->
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <label class="form-check-label question-font" for="aboutYou">
@@ -454,19 +461,31 @@
                                     </p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
+                                    <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
                                     <label class="form-check-label question-font" for="aboutYou">
                                         Disabilities / difficulties:
                                     </label>
+                                    </div>
+                                    <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
+                                        <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
+                                        placeholder="" rows="3">{{section4Data.child_socialworker_contact}}</textarea>
+                                    </div>
                                     <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
                                         v-model="section4Data.child_socialworker_contact" v rows="4"></textarea> -->
-                                    <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_contact}}</u></b>
+                                    <!-- <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_contact}}</u></b> -->
                                     </p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
+                                    <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
                                     <label class="form-check-label question-font" for="accessed-service">
                                         Accessed other services?:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_contact}}</u></b>
+                                    </div>
+                                    <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
+                                        <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
+                                        placeholder="" rows="3">{{section4Data.child_socialworker_contact}}</textarea>
+                                    </div>
+                                    <!-- <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_contact}}</u></b> -->
                                     </p>
                                 </div>
                             </div>
