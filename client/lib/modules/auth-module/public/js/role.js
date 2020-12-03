@@ -54,8 +54,8 @@ $(document).ready(function () {
 
         mounted: function () {
 
-            this.paramValues= getParameter(location.href)
-            console.log( this.paramValues= getParameter(location.href))
+           // this.paramValues= getParameter(location.href)
+         //   console.log( this.paramValues= getParameter(location.href))
           
             this.getGP();
             this.getProfGP();
@@ -144,6 +144,7 @@ $(document).ready(function () {
                         }
                         displayNameList = _self.gpListName;
                         displayPostList = _self.gpListPost;
+                        console.log(displayNameList);
                         $("#gpLocation").autocomplete({
                             source: displayNameList,
                             response: function (event, ui) {
