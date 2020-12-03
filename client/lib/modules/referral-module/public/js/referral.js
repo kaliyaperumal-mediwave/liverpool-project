@@ -3,11 +3,12 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#referral-form',
         mounted: function () {
-            this.dynamicLabels = allLabels;
+          
             this.paramValues= getParameter(location.href)
             this.userId =  this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
+            this.dynamicLabels = getDynamicLabels(this.userRole);
             console.log( this.userId,this.userRole,this.userMode)
             // this.userMode = getQueryStringValue('mode');
             // this.userRole = getQueryStringValue('role');
@@ -240,8 +241,11 @@ $(document).ready(function () {
             upsertReferralForm(payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
-                    if (getUrlVars()["edt"] == null) {
-                        location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
+                    if (this.paramValues[2] == undefined) {
+                        var parameter =  this.userId +"&"+ this.userRole 
+                        var enCodeParameter = btoa(parameter)
+                        location.href = "/review?"+enCodeParameter;
+                       // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
                         history.back();

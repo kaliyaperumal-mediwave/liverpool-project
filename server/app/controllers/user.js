@@ -1608,7 +1608,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().User,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_household_name', 'child_household_relationship', 'child_household_dob', 'child_household_profession', 'child_care_adult']
+              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity','child_care_adult']
             },
           ],
           where: {
@@ -1647,9 +1647,23 @@ exports.fetchReview = ctx => {
               },
               attributes: ['id']
             }).then((referralResult) => {
+
+             
+              
+              
+              const section1Obj ={
+                child_dob:elgibilityObj.professional[0].child_dob,
+                consent_child:elgibilityObj.consent_child,
+                consent_parent:elgibilityObj.consent_parent,
+                professional_name:elgibilityObj.professional_name,
+                professional_email:elgibilityObj.professional_email,
+                professional_contact_number:elgibilityObj.professional_contact_number,
+              }
+
+            //  return ctx.body = section1Obj;
               const responseData = {
                 userid: ctx.request.body.userid,
-                section1: elgibilityObj,
+                section1: section1Obj,
                 section2: aboutObj,
                 section3: edu_empObj[0].professional,
                 section4: referralResult.referral,
