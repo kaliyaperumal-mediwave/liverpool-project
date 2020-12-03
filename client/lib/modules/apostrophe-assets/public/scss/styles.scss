@@ -271,8 +271,36 @@ body {
   width: auto;
 }
 
+
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
+  .back-text {
+    font-size: 15px !important;
+  }
+  .header-title {
+    font-size: 19px !important;
+  }
+  .question-header-font {
+    font-size: 24px;
+  }
+  .question-font {
+    font-size: 16px;
+  }
+  .option-font {
+    font-size: 15px !important;
+  }
+  .footer-text {
+    font-size: 16px !important;
+  }
+  .footer-text {
+    font-size: 16px !important;
+  }
+  .link-text {
+    font-size: 15px !important;
+  }
+  .btn-secondary-text {
+    font-size: 20px !important;
+  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;
@@ -286,6 +314,30 @@ body {
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767.98px) {
+  .back-text {
+    font-size: 16px !important;
+  }
+  .header-title {
+    font-size: 20px !important;
+  }
+  .question-header-font {
+    font-size: 24px !important;
+  }
+  .question-font {
+    font-size: 16px !important;
+  }
+  .option-font {
+    font-size: 15px !important;
+  }
+  .footer-text {
+    font-size: 16px !important;
+  }
+  .link-text {
+    font-size: 15px !important;
+  }
+  .btn-secondary-text {
+    font-size: 22px !important;
+  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;
@@ -299,6 +351,9 @@ body {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991.98px) {
+  .header-title {
+    font-size: 24px !important;
+  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
     height: 100px;
