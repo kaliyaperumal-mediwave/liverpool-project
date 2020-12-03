@@ -14,17 +14,7 @@ $(document).ready(function () {
                 aboutLabel: "",
                 referralLabel: ""
             },
-            section1Data: {
-                need_interpreter:'',
-                contact_parent:'',
-                child_dob:'',
-                consent_child:'',
-                contact_parent:'',
-                professional_name:'',
-                professional_email:'',
-                professional_contact_number:'',
-                registerd_gp:''
-            },
+            section1Data: {},
             section2Data: {},
             section3Data: {},
             section4Data: {},
@@ -63,6 +53,7 @@ $(document).ready(function () {
 
             //Get Request to get all section's data
             getAllSectionData(payloadData) {
+                var _self = this;
             //    var params = payloadData.userid + "&role=" + payloadData.role;
              //   var responseData = getAllSectionData(payloadData.userid,payloadData.role);
                 $.ajax({
@@ -72,9 +63,10 @@ $(document).ready(function () {
                     contentType: 'application/json',
                    // data: JSON.stringify(payloadData),
                     success: function (data) {
-                     //  console.log(data)
-                       this.section1Data = data.section1;
-                        console.log(this.section1Data)
+                       console.log(data)
+                     _self.section1Data = data.section1;
+                     _self.section1Data.child_dob = convertDate( data.section1.child_dob);
+                        console.log(_self.section1Data)
                       //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {

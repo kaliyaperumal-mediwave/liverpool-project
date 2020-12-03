@@ -1658,6 +1658,7 @@ exports.fetchReview = ctx => {
                 professional_name:elgibilityObj.professional_name,
                 professional_email:elgibilityObj.professional_email,
                 professional_contact_number:elgibilityObj.professional_contact_number,
+                registerd_gp:elgibilityObj.professional[0].registerd_gp
               }
 
             //  return ctx.body = section1Obj;
