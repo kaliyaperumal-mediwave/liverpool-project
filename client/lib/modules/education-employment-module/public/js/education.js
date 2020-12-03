@@ -107,12 +107,10 @@ $(document).ready(function () {
                
                 var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
-                    if (getUrlVars()["edt"] == null) {
+                    if (this.paramValues[2] == undefined) {
                         var parameter =  this.userId +"&"+ this.userRole 
                         var enCodeParameter = btoa(parameter)
-                      //  alert(enCodeParameter)
-                     //   location.href = "/about?"+enCodeParameter;
-                     //   location.href = "/referral?"+enCodeParameter;
+                        location.href = "/referral?"+enCodeParameter;
 
                        // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
                     }

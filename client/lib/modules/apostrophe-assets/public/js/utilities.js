@@ -106,7 +106,6 @@ function apiCallPost(reqType, endPoint, payload) {
 
 //Commom API Call for post Function
 function apiCallGet(reqType, endPoint, params) {
-    debugger;
     var response;
     $.ajax({
         url: API_URI + endPoint,
@@ -130,4 +129,24 @@ function getParameter(url) {
     var deCodeParameter = atob(allParameter)
     var decodeValues = deCodeParameter.split("&");
     return decodeValues;
+}
+
+function getAllSectionData(userid,role) {
+    var response;
+    $.ajax({
+        url: API_URI + "/fetchReview/"+userid+"&role="+role,
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+       // data: JSON.stringify(payloadData),
+        success: function (data) {
+            console.log(data)
+            response = data;
+            //response = data;
+        },
+        error: function (error) {
+            console.log('Something went Wrong', error)
+        }
+    });
+    return response;
 }

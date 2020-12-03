@@ -14,7 +14,17 @@ $(document).ready(function () {
                 aboutLabel: "",
                 referralLabel: ""
             },
-            section1Data: {},
+            section1Data: {
+                need_interpreter:'',
+                contact_parent:'',
+                child_dob:'',
+                consent_child:'',
+                contact_parent:'',
+                professional_name:'',
+                professional_email:'',
+                professional_contact_number:'',
+                registerd_gp:''
+            },
             section2Data: {},
             section3Data: {},
             section4Data: {},
@@ -24,9 +34,10 @@ $(document).ready(function () {
             isFormSubmitted: false
         },
         mounted: function () {
-            this.userMode = getQueryStringValue('mode');
+            this.paramValues= getParameter(location.href)
+            //this.userMode = getQueryStringValue('mode');
             this.section5Labels = section5Labels;
-            this.userRole = getQueryStringValue('role');
+            this.userRole =this.paramValues[1];
             if (this.userRole === 'child') {
                 this.yourInfo = 'Child / Young Person';
                 this.section5Labels.aboutLabel = "About You";
@@ -43,7 +54,7 @@ $(document).ready(function () {
                 this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
-            this.userId = getQueryStringValue('userId');
+            this.userId =this.paramValues[0];
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
             this.getAllSectionData(this.payloadData);
@@ -52,8 +63,25 @@ $(document).ready(function () {
 
             //Get Request to get all section's data
             getAllSectionData(payloadData) {
-                var params = payloadData.userid + "&role=" + payloadData.role;
-                var responseData = apiCallGet('get', '/fetchReview', params);
+            //    var params = payloadData.userid + "&role=" + payloadData.role;
+             //   var responseData = getAllSectionData(payloadData.userid,payloadData.role);
+                $.ajax({
+                    url: API_URI + "/fetchReview/"+payloadData.userid+"&role="+payloadData.role,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                   // data: JSON.stringify(payloadData),
+                    success: function (data) {
+                     //  console.log(data)
+                       this.section1Data = data.section1;
+                        console.log(this.section1Data)
+                      //  Vue.set(this.section1Data,data);
+                    },
+                    error: function (error) {
+                        console.log('Something went Wrong', error)
+                    }
+                });
+              //  console.log(responseData)
                 // if (Object.keys(responseData)) {
                 //     this.allSectionData = responseData;
                 //     this.section1Data = responseData.section1;
