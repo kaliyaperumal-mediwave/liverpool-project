@@ -326,9 +326,10 @@
                                                 data-target="#serviceModal" @click="patchService(item)"><i
                                                     class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                                             </span>
-                                            <span class="badge badge-pill cursor-pointer"><i
-                                                    @click="deleteService(item,index)" class="fa fa-trash-o fa-2x"
-                                                    aria-hidden="true"></i>
+                                            <span class="badge badge-pill cursor-pointer"><i data-id="index"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                    @click="openDeleteModal(item)" data-item="item"
+                                                    class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -353,8 +354,8 @@
                 <!-- Add a Service End -->
 
                 <!-- Add Service Modal Start -->
-                <div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="serviceModal" data-id="index" data-item="item" tabindex="-1" role="dialog"
+                    aria-labelledby="addModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
@@ -431,7 +432,7 @@
                 <!-- Add Service Modal End -->
 
                 <!-- Delete Modal Start -->
-                <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
@@ -441,22 +442,24 @@
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>
                             </div>
                             <div class="modal-body py-1 px-4">
-                                <h5 class="support-modal-header-text" id="exampleModalLongTitle">Are you sure want to
+                                <h5 class="support-modal-header-text text-center" id="exampleModalLongTitle">Are you
+                                    sure want to
                                     delete this service?</h5>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn px-md-4 w-50" data-dismiss="modal" autofocus>
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal" autofocus>
                                     <span class="btn-modal-text">No
                                     </span>
                                 </button>
-                                <button type="submit" class="btn px-md-4 w-50" id="closeModal" @click="upsertService()">
+                                <button type="submit" class="btn px-md-4 w-25" id="closeModal"
+                                    @click="deleteService(deleteData)">
                                     <span class="btn-modal-text">Yes
                                     </span>
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <!-- Delete Modal End -->
 
                 <!-- Dynamic Toaster start Scenerio 1-->
