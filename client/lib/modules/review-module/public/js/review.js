@@ -21,13 +21,33 @@ $(document).ready(function () {
             payloadData: {},
             contactPref: [],
             section1Obj: {},
-            isFormSubmitted: false
+            isFormSubmitted: false,
+            showSec1: false,
+            prevVal: '',
+            curVal: ''
         },
         mounted: function () {
-            this.paramValues= getParameter(location.href)
+
+            var _self = this;
+            this.curVal = $("[contenteditable='true']").text();
+            $("[contenteditable='true']").on("blur", function (event) {
+                if (_self.prevVal != _self.curVal) {
+                    _self.showSec1 = true;
+                } else {
+                    _self.showSec1 = false;
+                }
+            });
+
+            $("[contenteditable='true']").on("input", function (e) {
+                _self.prevVal = e.target.textContent;
+
+            });
+
+
+            this.paramValues = getParameter(location.href)
             //this.userMode = getQueryStringValue('mode');
             this.section5Labels = section5Labels;
-            this.userRole =this.paramValues[1];
+            this.userRole = this.paramValues[1];
             if (this.userRole === 'child') {
                 this.yourInfo = 'Child / Young Person';
                 this.section5Labels.aboutLabel = "About You";
@@ -44,7 +64,7 @@ $(document).ready(function () {
                 this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
-            this.userId =this.paramValues[0];
+            this.userId = this.paramValues[0];
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
             this.getAllSectionData(this.payloadData);
@@ -54,14 +74,14 @@ $(document).ready(function () {
             //Get Request to get all section's data
             getAllSectionData(payloadData) {
                 var _self = this;
-            //    var params = payloadData.userid + "&role=" + payloadData.role;
-             //   var responseData = getAllSectionData(payloadData.userid,payloadData.role);
+                //    var params = payloadData.userid + "&role=" + payloadData.role;
+                //   var responseData = getAllSectionData(payloadData.userid,payloadData.role);
                 $.ajax({
-                    url: API_URI + "/fetchReview/"+payloadData.userid+"&role="+payloadData.role,
+                    url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
-                   // data: JSON.stringify(payloadData),
+                    // data: JSON.stringify(payloadData),
                     success: function (data) {
                        console.log(data)
                      _self.section1Data = data.section1;
@@ -71,13 +91,13 @@ $(document).ready(function () {
                      console.log(_self.section4Data)
                      _self.section1Data.child_dob = convertDate( data.section1.child_dob);
                         console.log(_self.section1Data)
-                      //  Vue.set(this.section1Data,data);
+                        //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {
                         console.log('Something went Wrong', error)
                     }
                 });
-              //  console.log(responseData)
+                //  console.log(responseData)
                 // if (Object.keys(responseData)) {
                 //     this.allSectionData = responseData;
                 //     this.section1Data = responseData.section1;

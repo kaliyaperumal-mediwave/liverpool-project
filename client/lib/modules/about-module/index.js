@@ -8,7 +8,6 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      debugger;
       self.dispatch('/', self.about);
     };
     self.about = function (req, callback) {
