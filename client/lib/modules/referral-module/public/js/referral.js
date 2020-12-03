@@ -2,14 +2,19 @@ var API_URI = "/modules/referral-module";
 $(document).ready(function () {
     var app = new Vue({
         el: '#referral-form',
+
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
-          
-            this.paramValues= getParameter(location.href)
-            this.userId =  this.paramValues[0];
+            $('#loader').hide();
+            this.paramValues = getParameter(location.href)
+            this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            console.log( this.userId,this.userRole,this.userMode)
+            console.log(this.userId, this.userRole, this.userMode)
             // this.userMode = getQueryStringValue('mode');
             // this.userRole = getQueryStringValue('role');
             // this.userId = getQueryStringValue('userId');
@@ -139,7 +144,7 @@ $(document).ready(function () {
                 { id: '85fhtsewre', value: 'YPAS' },
                 { id: '0dfsu8u', value: 'Other' },
             ],
-            paramValues:[]
+            paramValues: []
         },
         methods: {
 
@@ -242,10 +247,10 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
                     if (this.paramValues[2] == undefined) {
-                        var parameter =  this.userId +"&"+ this.userRole 
+                        var parameter = this.userId + "&" + this.userRole
                         var enCodeParameter = btoa(parameter)
-                        location.href = "/review?"+enCodeParameter;
-                       // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
+                        location.href = "/review?" + enCodeParameter;
+                        // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
                         history.back();
@@ -368,8 +373,8 @@ $(document).ready(function () {
 
             //Back to previous page
             backToEducation: function () {
-                backToPreviousPage('/education?',this.userId,this.userRole)
-               // backToPreviousPage('/education')
+                backToPreviousPage('/education?', this.userId, this.userRole)
+                // backToPreviousPage('/education')
             },
 
         },

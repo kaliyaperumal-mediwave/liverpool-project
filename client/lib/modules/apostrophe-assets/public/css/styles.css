@@ -451,6 +451,10 @@ body {
   height: 35px;
   width: auto; }
 
+.content_ediz {
+  max-height: 50px;
+  overflow: auto; }
+
 .calendar-bg {
   background: #e8edee 0% 0% no-repeat padding-box;
   border-radius: 2px;

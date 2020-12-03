@@ -232,6 +232,11 @@ body {
   width: auto;
 }
 
+.content_ediz {
+  max-height: 50px;
+  overflow: auto;
+}
+
 .calendar-bg {
   background: #e8edee 0% 0% no-repeat padding-box;
   border-radius: 2px;
@@ -270,7 +275,6 @@ body {
   height: 35px;
   width: auto;
 }
-
 
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
