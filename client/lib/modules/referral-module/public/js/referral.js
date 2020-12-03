@@ -79,6 +79,7 @@ $(document).ready(function () {
             allAvailableService: [],
             referralId: "",
             hasSubmittedServiceForm: false,
+            deleteData: null,
             listOfDiagnosis: [
                 { id: '11E', value: 'ADD/ADHD' },
                 { id: '1154', value: 'Anxiety' },
@@ -338,8 +339,18 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            deleteService(service) {
-                deleteLogic(this.allAvailableService, service, this, 'allAvailableService')
+            openDeleteModal(service) {
+                console.log(service);
+                this.deleteData = service;
+                // var elem = document.getElementById('deleteModal');
+                // elem.firstChild.setAttribute('data-items',service)
+                // deleteLogic(this.allAvailableService, service, this, 'allAvailableService');
+            },
+
+            deleteService(data) {
+                var modal = document.getElementById('deleteModal');
+                deleteLogic(this.allAvailableService, data, this, 'allAvailableService');
+                modal.setAttribute("data-dismiss", "modal");
             },
 
             //Resetting the modal values of service data
