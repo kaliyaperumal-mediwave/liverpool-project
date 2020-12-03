@@ -4,14 +4,6 @@
 <script src="/modules/auth-module/js/role.js"></script>
 {% endblock %}
 {% block main %}
-<div class="sub-header-bg">
-    <h2 class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 1 of 5: Eligibility</h2>
-    <div
-        class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
-        Before we get too far, let’s check that you or the child / young person is eligible
-        to refer into this service.
-    </div>
-</div>
 <div class="main-content-bg py-4 main-min-height">
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
         <div id="role-form" class="py-4">
@@ -381,7 +373,7 @@
                 </div>
             </form>
             <!-- Professional Info End -->
-           
+
             <!-- calender start-->
             <form id="profChildDob-form" data-options="profChildDobForm"></form>
             <div v-show="elgibilityObj.role == 'professional'"
