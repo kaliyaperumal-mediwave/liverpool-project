@@ -1,7 +1,5 @@
 //Reset Two-Way-Model Values 
 function resetValues(currentForm, context, formObj) {
-    console.log('this', this);
-    console.log('this', context);
     var allForms = Array.from(document.forms);
     var formIndex = allForms.indexOf(currentForm);
     for (let i = 0; i < allForms.length; i++) {
@@ -33,20 +31,17 @@ function deleteLogic(arr, value, context, section) {
         }
     });
     context[section].splice(index, 1);
-    // if (section == 'referral') {
-    //     context.allAvailableService.splice(index, 1)
-    // }
 };
 
 //Back tp previous page navigation
-function backToPreviousPage(section,userId,userRole) {
+function backToPreviousPage(section, userId, userRole) {
     // var uuid = this.getQueryStringValue('userid');
     // var role = this.getQueryStringValue('role');
-    var parameter = userId +"&"+ userRole + "&" +"edit"
-   // console.log(parameter)
+    var parameter = userId + "&" + userRole + "&" + "edit"
+    // console.log(parameter)
     var enCodeParameter = btoa(parameter)
-//console.log(section + enCodeParameter)
-   location.href = section + enCodeParameter
+    //console.log(section + enCodeParameter)
+    location.href = section + enCodeParameter
 };
 
 
@@ -110,7 +105,8 @@ function apiCallPost(reqType, endPoint, payload) {
 };
 
 //Commom API Call for post Function
-function apiCall(reqType, endPoint, params) {
+function apiCallGet(reqType, endPoint, params) {
+    debugger;
     var response;
     $.ajax({
         url: API_URI + endPoint,
@@ -129,9 +125,8 @@ function apiCall(reqType, endPoint, params) {
 
 //get URL parameter
 
-function getParameter(url)
-{
-    var allParameter = url.substring(url.indexOf("?")+1);
+function getParameter(url) {
+    var allParameter = url.substring(url.indexOf("?") + 1);
     var deCodeParameter = atob(allParameter)
     var decodeValues = deCodeParameter.split("&");
     return decodeValues;

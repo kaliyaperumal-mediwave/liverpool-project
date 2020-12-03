@@ -53,6 +53,11 @@ $header-font-size: 32px;
 body {
   font-family: "century-gothic" !important;
 
+  [contentEditable="true"]:empty:not(:focus):before {
+    content: attr(place-text);
+    color: grey;
+  }
+
   .ui-widget.ui-widget-content {
     border: none !important;
   }
