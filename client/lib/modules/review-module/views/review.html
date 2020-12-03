@@ -28,7 +28,7 @@
                                 </h2>
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3 res_fontz" data-toggle="tooltip"
-                                        @click="editAllSection()" data-placement="top" title="Edit Section 1"></i>
+                                        @click="editAllSection('role')" data-placement="top" title="Edit Section 1"></i>
                                 </span>
                             </div>
                             <span style="color: #D6D8D8;">
@@ -167,7 +167,7 @@
                                 </h2>
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
-                                        data-placement="top" title="Edit Section 2"></i>
+                                    @click="editAllSection('about')"  data-placement="top" title="Edit Section 2"></i>
                                 </span>
                             </div>
 
@@ -318,7 +318,7 @@
                                 </h2>
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
-                                        data-placement="top" title="Edit Section 2"></i>
+                                    @click="editAllSection('education')"  data-placement="top" title="Edit Section 2"></i>
                                 </span>
                             </div>
 
@@ -393,7 +393,7 @@
                                 </h2>
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
-                                        data-placement="top" title="Edit Section 2"></i>
+                                    @click="editAllSection('referral')"  data-placement="top" title="Edit Section 2"></i>
                                 </span>
                             </div>
 
@@ -410,7 +410,7 @@
                                     <label class="form-check-label question-font" for="aboutYou">
                                         Support needs:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.child_profession}}</u></b></p>
+                                    <p class="m-0 px-2"><b><u>{{section4Data.referral_type}}</u></b></p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <label class="form-check-label question-font" for="aboutYou">
@@ -434,7 +434,7 @@
                                     <label class="form-check-label question-font" for="aboutYou">
                                         Info about issue:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.referral_issue}}</u></b></p>
+                                    <p class="m-0 px-2"><b><u>{{section4Data.referral_issues}}</u></b></p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
@@ -444,7 +444,7 @@
                                 </div>
                                 <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                     <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
-                                    placeholder="" rows="3">{{section4Data.child_socialworker_name}}</textarea>
+                                    placeholder="" rows="3">{{section4Data.has_anything_helped}}</textarea>
                                 </div>
                                    
                                     <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
@@ -457,7 +457,7 @@
                                     </label>
                                     <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
                                         v-model="section4Data.child_socialworker_contact" v rows="4"></textarea> -->
-                                    <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_contact}}</u></b>
+                                    <p class="m-0 px-2"><b><u>{{section4Data.any_particular_trigger}}</u></b>
                                     </p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
@@ -468,7 +468,7 @@
                                     </div>
                                     <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
-                                        placeholder="" rows="3">{{section4Data.child_socialworker_contact}}</textarea>
+                                        placeholder="" rows="3">{{section4Data.disabilities}}</textarea>
                                     </div>
                                     <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
                                         v-model="section4Data.child_socialworker_contact" v rows="4"></textarea> -->
@@ -483,7 +483,7 @@
                                     </div>
                                     <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
-                                        placeholder="" rows="3">{{section4Data.child_socialworker_contact}}</textarea>
+                                        placeholder="" rows="3">{{section4Data.currently_accessing_services}}</textarea>
                                     </div>
                                     <!-- <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_contact}}</u></b> -->
                                     </p>

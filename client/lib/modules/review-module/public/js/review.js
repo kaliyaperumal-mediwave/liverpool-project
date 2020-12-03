@@ -65,6 +65,10 @@ $(document).ready(function () {
                     success: function (data) {
                        console.log(data)
                      _self.section1Data = data.section1;
+                     _self.section2Data = data.section2;
+                     _self.section3Data = data.section3;
+                     _self.section4Data = data.section4;
+                     console.log(_self.section4Data)
                      _self.section1Data.child_dob = convertDate( data.section1.child_dob);
                         console.log(_self.section1Data)
                       //  Vue.set(this.section1Data,data);
@@ -91,9 +95,10 @@ $(document).ready(function () {
                 this.payloadData.contactPreference = this.contactPref;
                 if (this.contactPref.length) {
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                    console.log(successData);
                     if (Object.keys(successData)) {
-                        alert("Your Reference Number" + res.refNo);
-                        console.log(res);
+                        alert("Your Reference Number :" + successData.refNo);
+                     //   console.log(res);
                         this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
@@ -105,10 +110,19 @@ $(document).ready(function () {
 
             },
 
-            editAllSection: function () {
-                var uid = this.getUrlVars()['userid'];
-                var role = this.getUrlVars()['role'];
-                location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
+            editAllSection: function (page) {
+
+                this.userId =this.paramValues[0];
+                this.userRole =this.paramValues[1];
+                console.log(page)
+                    var parameter = this.userId + "&" + this.userRole + "&" + "edit"
+                    // console.log(parameter)
+                    var enCodeParameter = btoa(parameter)
+                    //console.log(section + enCodeParameter)
+                    location.href = "/"+page+"?"+ enCodeParameter
+                // var uid = this.getUrlVars()['userid'];
+                // var role = this.getUrlVars()['role'];
+                // location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
             },
 
             toggleArrow(e) {

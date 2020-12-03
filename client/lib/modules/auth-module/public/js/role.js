@@ -27,10 +27,10 @@ $(document).ready(function () {
                 submitProfForm: '',
                 profBelowAgeLimit: '',
                 profaboveLimit: '',
-                parentConcernInformation:'',
-                childConcernInformation:'',
-                contactProfParent:''
-                
+                parentConcernInformation: '',
+                childConcernInformation: '',
+                contactProfParent: ''
+
 
             },
             hasNameReqError: false,
@@ -49,22 +49,30 @@ $(document).ready(function () {
             loadGpName: true,
             loadGbPost: true,
             selectedGpObj: {},
-            paramValues:[]
+            paramValues: []
         },
 
         mounted: function () {
 
-           // this.paramValues= getParameter(location.href)
-         //   console.log( this.paramValues= getParameter(location.href))
-          
+            this.paramValues = getParameter(location.href)
+            console.log(this.paramValues)
+
             this.getGP();
             this.getProfGP();
-            if (this.paramValues[2] !=undefined) {
-                this.fetchSavedData()
+            if (this.paramValues != undefined) {
+                if (this.paramValues[2] !=undefined) {
+                   this.elgibilityObj.uuid = this.paramValues[0];
+                   this.elgibilityObj.editFlag =this.paramValues[2]
+                   this.fetchSavedData()
+                }
             }
-            else {
-             //   console.log("if else")
-            }
+            // if (this.paramValues[2] !=undefined) {
+            //     console.log("----");
+            //     this.fetchSavedData()
+            // }
+            // else {
+            //  //   console.log("if else")
+            // }
         },
 
         methods: {
@@ -80,7 +88,7 @@ $(document).ready(function () {
                     data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         //alert("section 1 saved.");
-                           console.log(data); //check ssh
+                        console.log(data); //check ssh
                         app.setValues(data);
 
                     },
@@ -91,7 +99,7 @@ $(document).ready(function () {
                 var roleType = this.paramValues[1]
                 console.log(roleType)
                 if (roleType == "child") {
-                    Vue.set(this.elgibilityObj, "role",roleType);
+                    Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data.child_dob));
                     this.fetchAgeLogic(data.child_dob, roleType)
@@ -99,10 +107,10 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
                     $('input[name=role]').attr("disabled", true);
-                 //   this.getGP();
+                    //   this.getGP();
                 }
                 else if (roleType == "parent") {
-            
+
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data[0].parent[0].child_dob));
@@ -111,7 +119,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
-                  //  this.getGP();
+                    //  this.getGP();
                 }
                 else if (roleType == "professional") {
                     Vue.set(this.elgibilityObj, "role", roleType);
@@ -124,8 +132,8 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
-                    this.elgibilityObj.submitProfForm="true";
-                  //  this.getProfGP();
+                    this.elgibilityObj.submitProfForm = "true";
+                    //  this.getProfGP();
                 }
 
             },
@@ -334,7 +342,7 @@ $(document).ready(function () {
             onChange: function (event) {
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value
-                console.log(questionIdentifier,optionValue);
+                console.log(questionIdentifier, optionValue);
                 if (questionIdentifier == "role") {
                     this.resetValues(event.target.form);
                 }
@@ -355,7 +363,7 @@ $(document).ready(function () {
                     this.elgibilityObj.isInformation = optionValue;
                 }
                 //for professional
-               else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
+                else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactProfParent = optionValue;
                 }
@@ -365,7 +373,7 @@ $(document).ready(function () {
                 }
             },
 
-            resetValues: function(currentForm) {
+            resetValues: function (currentForm) {
                 var allForms = Array.from(document.forms);
                 var formIndex = allForms.indexOf(currentForm);
                 for (let i = 0; i < allForms.length; i++) {
@@ -582,9 +590,9 @@ $(document).ready(function () {
 
             save: function () {
                 // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
-                // this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
-                this.elgibilityObj.uuid = this.getUrlVars()["userid"];
-                this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
+             //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
+              //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
+              //  this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
@@ -669,19 +677,18 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        console.log("edt", _self.getUrlVars()["edt"]);
+                        if (_self.paramValues != undefined && _self.paramValues[2] == "edit") {
+                            //   alert(btoa("category=textile&user=user1"));
+                            //  alert(atob("Y2F0ZWdvcnk9dGV4dGlsZSZ1c2VyPXVzZXIx"));
 
-                        if (_self.getUrlVars()["edt"] == null) {
-                         //   alert(btoa("category=textile&user=user1"));
-                          //  alert(atob("Y2F0ZWdvcnk9dGV4dGlsZSZ1c2VyPXVzZXIx"));
-                            
-                            var parameter = data.userid +"&"+ role 
-                            var enCodeParameter = btoa(parameter)
-                          //  alert(enCodeParameter)
-                            location.href = "/about?"+enCodeParameter;
+                            history.back();
                         }
                         else {
-                            history.back();
+                            var parameter = data.userid + "&" + role
+                            var enCodeParameter = btoa(parameter)
+                            //  alert(enCodeParameter)
+                            location.href = "/about?" + enCodeParameter;
+                        //    history.back();
                         }
 
                     },

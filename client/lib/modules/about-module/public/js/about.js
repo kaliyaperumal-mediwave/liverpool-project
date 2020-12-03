@@ -251,21 +251,21 @@ $(document).ready(function () {
             //Form Submittion of Section-4(Referral) with validation logic
             saveAndContinue: function() {
                 
-            //     this.isFormSubmitted = true;
-            //     var formData = Object.assign(this.aboutObj, this.aboutFormData);
-            //     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
-            //     this.payloadData.role = this.userRole;
-            //     this.payloadData.userid = this.userId;
-            //     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-            //     this.payloadData.editFlag =this.paramValues[2]
-            //  //   this.payloadData.id = this.referralId;
-            //     if (this.userMode === 'edit') {
-            //         this.payloadData.userMode = 'edit';
-            //     } else {
-            //         this.payloadData.userMode = 'add';
-            //     }
-            //     this.upsertAboutYouForm(this.payloadData);
-            //     return;
+                this.isFormSubmitted = true;
+                var formData = Object.assign(this.aboutObj, this.aboutFormData);
+                this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
+                this.payloadData.role = this.userRole;
+                this.payloadData.userid = this.userId;
+                this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
+                this.payloadData.editFlag =this.paramValues[2]
+             //   this.payloadData.id = this.referralId;
+                if (this.userMode === 'edit') {
+                    this.payloadData.userMode = 'edit';
+                } else {
+                    this.payloadData.userMode = 'add';
+                }
+                this.upsertAboutYouForm(this.payloadData);
+                return;
                 if (formData.contactNumber && formData.relationshipToYou &&
                     formData.parentCarerName && formData.parentialResponsibility && formData.childGender &&
                     formData.childIdentity && formData.sendPost && formData.childAddress && formData.childName && this.phoneRegex.test(formData.contactNumber)
