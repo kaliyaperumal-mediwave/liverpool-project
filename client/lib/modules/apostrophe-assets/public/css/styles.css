@@ -603,3 +603,8 @@ body {
     font-weight: bold;
     color: #023047;
     cursor: pointer; } }
+
+.headerTop {
+  position: sticky;
+  top: 0px;
+  z-index: 1000; }
