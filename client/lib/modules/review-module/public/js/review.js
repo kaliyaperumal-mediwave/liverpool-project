@@ -97,7 +97,7 @@ $(document).ready(function () {
                      _self.section4Data.symptoms.push(_self.section4Data.symptoms_other) 
                      _self.section4Data.diagnosis =_self.section4Data.diagnosis.toString();
                      _self.section4Data.symptoms =  _self.section4Data.symptoms.toString();
-                        console.log(_self.section4Data.diagnosis)
+                       // console.log(_self.section4Data.diagnosis)
                         //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {
@@ -114,7 +114,6 @@ $(document).ready(function () {
                 // } else {
                 //     console.log('empty response')
                 // }
-
             },
 
             save: function () {
@@ -145,6 +144,7 @@ $(document).ready(function () {
                 // console.log(parameter)
                 var enCodeParameter = btoa(parameter)
                 //console.log(section + enCodeParameter)
+                sessionStorage.setItem("section5", "edit");
                 location.href = "/" + page + "?" + enCodeParameter
                 // var uid = this.getUrlVars()['userid'];
                 // var role = this.getUrlVars()['role'];
