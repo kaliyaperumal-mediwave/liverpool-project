@@ -493,6 +493,14 @@ body {
     font-size: 15px !important; }
   .btn-secondary-text {
     font-size: 20px !important; }
+  .content-header-text {
+    font-size: 18px !important; }
+  .content-text {
+    font-size: 16px !important; }
+  .content-secondary-header-text {
+    font-size: 24px !important; }
+  .btn-txt {
+    font-size: 22px !important; }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;
@@ -518,6 +526,14 @@ body {
     font-size: 15px !important; }
   .btn-secondary-text {
     font-size: 22px !important; }
+  .content-header-text {
+    font-size: 19px !important; }
+  .content-text {
+    font-size: 16px !important; }
+  .content-secondary-header-text {
+    font-size: 22px !important; }
+  .btn-txt {
+    font-size: 23px !important; }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;

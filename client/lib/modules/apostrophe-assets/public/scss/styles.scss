@@ -305,6 +305,18 @@ body {
   .btn-secondary-text {
     font-size: 20px !important;
   }
+  .content-header-text {
+    font-size: 18px !important;
+  }
+  .content-text {
+    font-size: 16px !important;
+  }
+  .content-secondary-header-text {
+    font-size: 24px !important;
+  }
+  .btn-txt {
+    font-size: 22px !important;
+  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;
@@ -341,6 +353,18 @@ body {
   }
   .btn-secondary-text {
     font-size: 22px !important;
+  }
+  .content-header-text {
+    font-size: 19px !important;
+  }
+  .content-text {
+    font-size: 16px !important;
+  }
+  .content-secondary-header-text {
+    font-size: 22px !important;
+  }
+  .btn-txt {
+    font-size: 23px !important;
   }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
@@ -383,19 +407,19 @@ body {
   }
 }
 @media (min-width: 1200px) and (max-width: 1472px) {
-  .back-text{
+  .back-text {
     position: relative;
     bottom: 120px;
     height: 0px;
   }
 }
 @media (min-width: 1474px) {
-  .back-text{
+  .back-text {
     position: relative;
     bottom: 99px;
     height: 0px;
   }
 }
-.no_padding{
+.no_padding {
   padding: 0px !important;
 }
