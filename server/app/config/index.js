@@ -21,9 +21,9 @@ const configs = {
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: process.env.POSTGRES_PORT,
-      ssl: false,
+      ssl: process.env.SSL,
       dialectOptions: {
-        ssl: false,
+        ssl: process.env.SSL,
       },
       pool: {
         maxConnections: 10,
@@ -42,9 +42,9 @@ const configs = {
       database: process.env.POSTGRES_DB,
       host: process.env.POSTGRES_HOST,
       dialect: 'postgres',
-      ssl: false,
+      ssl: process.env.SSL,
       dialectOptions: {
-        ssl:false,
+        ssl:process.env.SSL,
       },
     },
   },
