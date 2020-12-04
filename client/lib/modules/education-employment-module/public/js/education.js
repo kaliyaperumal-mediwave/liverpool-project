@@ -117,7 +117,7 @@ $(document).ready(function () {
                     }
                     else {
                         if (sessionStorage.getItem("section5") == "edit") {
-                            var parameter = this.userId + "&" + this.userRole
+                            var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
                             var enCodeParameter = btoa(parameter)
                             location.href = "/review?" + enCodeParameter;
                         }
