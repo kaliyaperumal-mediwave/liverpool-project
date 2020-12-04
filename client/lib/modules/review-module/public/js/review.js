@@ -1,5 +1,6 @@
 var API_URI = "/modules/review-module";
 $(document).ready(function () {
+
     var app = new Vue({
         el: '#review-form',
         data: {
@@ -8,56 +9,141 @@ $(document).ready(function () {
             userMode: '',
             userRole: '',
             yourInfo: '',
-            allLabelsValue: {},
-            parentLabelsValue: {},
-            childLabelsValue: {},
-            professionalLabelsValue: {},
-            section4LabelValues: {},
+            allSectionData: {},
+            section5Labels: {
+                aboutLabel: "",
+                referralLabel: ""
+            },
+            section1Data: {},
+            section2Data: {},
+            section3Data: {},
+            section4Data: {},
             payloadData: {},
-            contactPref: []
+            contactPref: [],
+            section1Obj: {},
+            isFormSubmitted: false,
+            showSec1: false,
+            prevVal: '',
+            curVal: ''
         },
         mounted: function () {
-            this.userMode = this.getQueryStringValue('mode');
-            this.userRole = this.getQueryStringValue('role');
+
+            var _self = this;
+            this.curVal = $("[contenteditable='true']").text();
+            $("[contenteditable='true']").on("blur", function (event) {
+                if (_self.prevVal != _self.curVal) {
+                    _self.showSec1 = true;
+                } else {
+                    _self.showSec1 = false;
+                }
+            });
+
+            $("[contenteditable='true']").on("input", function (e) {
+                _self.prevVal = e.target.textContent;
+
+            });
+
+
+            this.paramValues = getParameter(location.href)
+            //this.userMode = getQueryStringValue('mode');
+            this.section5Labels = section5Labels;
+            this.userRole = this.paramValues[1];
             if (this.userRole === 'child') {
                 this.yourInfo = 'Child / Young Person';
+                this.section5Labels.aboutLabel = "About You";
+                this.section5Labels.referralLabel = "Your reason for referral";
 
             } else if (this.userRole === 'parent') {
                 this.yourInfo = 'Parent / Carer';
+                this.section5Labels.aboutLabel = "About Your Child";
+                this.section5Labels.referralLabel = "Your child's reason for referral";
 
             } else if (this.userRole === 'professional') {
                 this.yourInfo = 'Professional';
+                this.section5Labels.aboutLabel = "About The Child";
+                this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
-            this.userId = this.getQueryStringValue('userId');
+            this.userId = this.paramValues[0];
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
             this.getAllSectionData(this.payloadData);
         },
         methods: {
+
+            //Get Request to get all section's data
             getAllSectionData(payloadData) {
-                console.log(payloadData);
                 var _self = this;
+                //    var params = payloadData.userid + "&role=" + payloadData.role;
+                //   var responseData = getAllSectionData(payloadData.userid,payloadData.role);
                 $.ajax({
-                    url: API_URI + "/fetchReview",
-                    type: 'post',
+                    url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
+                    type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
-                    data: JSON.stringify(payloadData),
+                    // data: JSON.stringify(payloadData),
                     success: function (data) {
-                        console.log(data);
-                        _self.allLabelsValue = data;
-                        _self.parentLabelsValue = data.parentData;
-                        _self.childLabelsValue = data.childData[0];
-                        _self.section4LabelValues = data.referralData;
-                        console.log(_self.parentLabelsValue, _self.childLabelsValue);
+                        console.log(data)
+                        _self.section1Data = data.section1;
+                        _self.section2Data = data.section2;
+                        _self.section3Data = data.section3;
+                        _self.section4Data = data.section4;
+                        console.log(_self.section4Data)
+                        _self.section1Data.child_dob = convertDate(data.section1.child_dob);
+                        console.log(_self.section1Data)
+                        //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {
-                        console.log(data);
+                        console.log('Something went Wrong', error)
                     }
                 });
+                //  console.log(responseData)
+                // if (Object.keys(responseData)) {
+                //     this.allSectionData = responseData;
+                //     this.section1Data = responseData.section1;
+                //     this.section2Data = responseData.section1;
+                //     this.section3Data = responseData.section1;
+                //     this.section4Data = responseData.section1;
+                // } else {
+                //     console.log('empty response')
+                // }
 
             },
+
+            save: function () {
+                this.isFormSubmitted = true;
+                this.payloadData.contactPreference = this.contactPref;
+                if (this.contactPref.length) {
+                    var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                    console.log(successData);
+                    if (Object.keys(successData)) {
+                        alert("Your Reference Number :" + successData.refNo);
+                        //   console.log(res);
+                        this.isFormSubmitted = false;
+                    } else {
+                        console.log('empty response')
+                    }
+                } else {
+                    //scrollToInvalidInput();
+                    return false;
+                }
+
+            },
+
+            editAllSection: function (page) {
+                this.userId = this.paramValues[0];
+                this.userRole = this.paramValues[1];
+                console.log(page)
+                var parameter = this.userId + "&" + this.userRole + "&" + "edit"
+                // console.log(parameter)
+                var enCodeParameter = btoa(parameter)
+                //console.log(section + enCodeParameter)
+                location.href = "/" + page + "?" + enCodeParameter
+                // var uid = this.getUrlVars()['userid'];
+                // var role = this.getUrlVars()['role'];
+                // location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
+            },
+
             toggleArrow(e) {
                 console.log(e);
                 var ele = e.target;
@@ -67,32 +153,6 @@ $(document).ready(function () {
                 } else {
                     $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                 }
-            },
-
-            // Get Query Params value
-            getQueryStringValue(key) {
-                return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-            },
-
-            save: function () {
-                this.payloadData.contactPreference = this.contactPref;
-                $.ajax({
-                    url: API_URI + "/saveReview",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(this.payloadData),
-                    success: function (data) {
-                        alert("Your Reference Number" + data.refNo);
-                        console.log(data);
-                    },
-                });
-            },
-
-            editAllSection: function () {
-                var uid = this.getUrlVars()['userid'];
-                var role = this.getUrlVars()['role'];
-                location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";
             },
 
             getUrlVars: function () {
@@ -121,6 +181,22 @@ $(document).ready(function () {
 
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
             },
+
+            updateEligibility: function (updateObj) {
+                $.ajax({
+                    url: API_URI + "/updateReview",
+                    type: 'put',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(updateObj),
+                    success: function (data) {
+                        alert("Your Reference Number" + data.refNo);
+                        console.log(data);
+                    },
+                });
+
+
+            }
 
         }
     })

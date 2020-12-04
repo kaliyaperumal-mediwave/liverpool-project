@@ -3,27 +3,16 @@
 {% block extraBody %}
 <script src="/modules/referral-module/js/label.js"></script>
 <script src="/modules/referral-module/js/referral.js"></script>
+
 {% endblock %}
 {% block main %}
 <div id="referral-form">
-    <div class="sub-header-bg">
-        <h2 class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 4 of 5: Your Reason For
-            Referral
-        </h2>
-        <div
-            class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
-            Before we get too far, let’s check that you or the child / young person is eligible
-            to refer into this service.
-        </div>
-        <a @click="backToEducation()">
-            <p class="text-center text-sm-left px-4 d-none d-sm-none d-xl-block d-lg-block d-md-block
-    m-0 back-text">
-                < back</p>
-        </a>
-        <p @click="backToEducation()"
-            class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
-    </div>
     <div class="main-content-bg py-4 main-min-height">
+        <div class="overlay" id="loader">
+            <div class="overlay__inner">
+                <div class="overlay__content"><span class="spinner"></span></div>
+            </div>
+        </div>
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-4">
                 <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
@@ -41,7 +30,7 @@
                             <label class="form-check-label option-font d-flex align-items-center" for="mental">
                                 Mental health
                             </label>
-                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-lg-3 px-2 pb-3 cursor-pointer"
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-lg-3 px-2 cursor-pointer"
                                 data-toggle="modal" data-target="#mentalConsentModal" alt="">
                         </div>
                         <div class="form-check py-2 pl-0">
@@ -119,7 +108,8 @@
                 <form id="diagnosis-list-form" data-options="diagnosisList">
                     <div v-if="referralData.diagnosis == 'yes'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text
+                        <p class="question-font m-0">Please tick all that apply or add more information into the “Other”
+                            text
                             box
                             at the bottom of the list</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfDiagnosis"
@@ -174,7 +164,8 @@
                 <form id="problems-list-form" data-options="problemsList">
                     <div v-if="referralData.supportOrSymptoms == 'yes'"
                         class="px-4 pt-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Please tick all that apply or add diagnosis into the “Other” text
+                        <p class="question-font m-0">Please tick all that apply or add more information into the “Other”
+                            text
                             box
                             at the bottom of the list</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfProblems"
@@ -209,10 +200,10 @@
                         <div class="form-group">
                             <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}</label>
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
-                                v-model="referralData.referralInfo" @keyup="validationOnValueEnter($event,'info')"
-                                v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="4"></textarea>
+                                v-model="referralData.referralInfo"
+                                v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': requiredFields.hasInfoReqError,'invalid-fields':!referralData.referralInfo }">
+                                v-bind:class="{ 'd-block':(isFormSubmitted && !referralData.referralInfo),'invalid-fields':!referralData.referralInfo }">
                                 Please provide a information
                             </div>
                         </div>
@@ -228,10 +219,9 @@
                             <label for="textInfo2" class="question-font">Has anything helped?</label>
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
-                                v-model="referralData.hasAnythingInfo"
-                                @keyup="validationOnValueEnter($event,'anything')" rows="4"></textarea>
+                                v-model="referralData.hasAnythingInfo" rows="7"></textarea>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': requiredFields.hasAnythingReqError,'invalid-fields':!referralData.hasAnythingInfo }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
                                 Please provide a information
                             </div>
                         </div>
@@ -247,10 +237,9 @@
                             <label for="textInfo3" class="question-font">{{dynamicLabels.triggersLabel}}</label>
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
-                                v-model="referralData.triggerInfo" @keyup="validationOnValueEnter($event,'triggers')"
-                                rows="4"></textarea>
+                                v-model="referralData.triggerInfo" rows="7"></textarea>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': requiredFields.hasTriggersReqError ,'invalid-fields':!referralData.triggerInfo}">
+                                v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
                                 Please provide a information
                             </div>
                         </div>
@@ -271,10 +260,9 @@
                                     class="question-font">{{dynamicLabels.disabilitiesLabel}}</label>
                                 <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
-                                    v-model="referralData.disabilityOrDifficulty"
-                                    @keyup="validationOnValueEnter($event,'disabilities')" rows="5"></textarea>
+                                    v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
                                 <div class="invalid-feedback d-none"
-                                    v-bind:class="{ 'd-block': requiredFields.hasHistoryReqError, 'invalid-fields':!referralData.disabilityOrDifficulty}">
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.disabilityOrDifficulty), 'invalid-fields':!referralData.disabilityOrDifficulty}">
                                     Please provide a information
                                 </div>
                             </div>
@@ -308,7 +296,7 @@
 
 
                 <!-- List Available Start -->
-                <form v-if="referralData.accessService == 'yes'" data-options="accessList">
+                <form id="servicesAll-list-form" v-if="referralData.accessService == 'yes'" data-options="accessList">
                     <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.listServiceLabel}}</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfAvailableService"
@@ -318,12 +306,6 @@
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
                                 {{ item.value  }}</label>
                         </div>
-                        <!-- <div class="custom-form-group pt-3 pb-1 m-0">
-                        <input type="checkbox" id="serviceOthers" name="listServiceOthers" value="Others"
-                            v-model="serviceOthers" @change="onOptionChange($event)">
-                        <label for="serviceOthers" class="option-font d-flex align-items-center">
-                            Others</label>
-                    </div> -->
                     </div>
                 </form>
                 <!-- List Available Start -->
@@ -344,9 +326,10 @@
                                                 data-target="#serviceModal" @click="patchService(item)"><i
                                                     class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                                             </span>
-                                            <span class="badge badge-pill cursor-pointer"><i
-                                                    @click="deleteService(item,index)" class="fa fa-trash-o fa-2x"
-                                                    aria-hidden="true"></i>
+                                            <span class="badge badge-pill cursor-pointer"><i data-id="index"
+                                                    data-toggle="modal" data-target="#deleteModal"
+                                                    @click="openDeleteModal(item)" data-item="item"
+                                                    class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -357,7 +340,7 @@
                         </template>
 
                         <p class="text-left mx-1 my-2 cursor-pointer" data-toggle="modal" data-target="#serviceModal"
-                            @click="resetModal($event,'add')"><span v-if="!allAvailableService.length">Currently,you
+                            @click="resetModal('add')"><span v-if="!allAvailableService.length">Currently,you
                                 don't
                                 have any
                                 service.</span> Please click
@@ -371,8 +354,8 @@
                 <!-- Add a Service End -->
 
                 <!-- Add Service Modal Start -->
-                <div class="modal fade" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="serviceModal" data-id="index" data-item="item" tabindex="-1" role="dialog"
+                    aria-labelledby="addModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
@@ -393,23 +376,20 @@
                                 <form id="add-service-form">
                                     <div class="form-group">
                                         <label for="service-name" class="question-font">Name of service</label>
-                                        <input type="text" class="form-control"
-                                            @keyup="validateServiceOnValueEnter($event,'name')"
-                                            v-model="serviceData.name" id="service-name"
-                                            placeholder="Enter the name of the service you have used">
+                                        <input type="text" class="form-control" v-model="serviceData.name"
+                                            id="service-name" placeholder="Enter the name of the service you have used">
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasNameReqError }">
+                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
                                             Please provide a service name.
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="profAtService" class="question-font">Name of professional at
                                             service</label>
-                                        <input type="text" v-model="serviceData.professional"
-                                            @keyup="validateServiceOnValueEnter($event,'prof')" class="form-control"
+                                        <input type="text" v-model="serviceData.professional" class="form-control"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasProfReqError }">
+                                            v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
                                             Please provide a professional name.
                                         </div>
                                     </div>
@@ -417,24 +397,21 @@
                                         <label for="contactNumber" class="question-font">Contact
                                             number for
                                             professional</label>
-                                        <input type="text" class="form-control"
-                                            @keyup="validateServiceOnValueEnter($event,'contact')"
-                                            v-model="serviceData.contact" id="contactNumber"
-                                            placeholder="Enter a phone number for the professional">
+                                        <input type="text" class="form-control" v-model="serviceData.contact"
+                                            id="contactNumber" placeholder="Enter a phone number for the professional">
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasContactReqError }">
+                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
                                             Please provide a contact number.
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': serviceData.hasContactInvalidError }">
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(serviceData.contact) )}">
                                             Please provide a valid contact number.
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn px-md-4 w-50" id="closeModal"
-                                    @click="upsertService($event,'add')">
+                                <button type="submit" class="btn px-md-4 w-50" id="closeModal" @click="upsertService()">
                                     <template v-if="serviceData.mode == 'update'">
                                         <span class="btn-modal-text">UPDATE
                                         </span>
@@ -454,6 +431,37 @@
                 </div>
                 <!-- Add Service Modal End -->
 
+                <!-- Delete Modal Start -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete Service</h5>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <h5 class="support-modal-header-text text-center" id="exampleModalLongTitle">Are you
+                                    sure want to
+                                    delete this service?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal" autofocus>
+                                    <span class="btn-modal-text">No
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn px-md-4 w-25" id="closeModalDelete"
+                                    @click="deleteService(deleteData)">
+                                    <span class="btn-modal-text">Yes
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete Modal End -->
+
                 <!-- Dynamic Toaster start Scenerio 1-->
                 <template v-if="accessList.length && !showAddOtherService">
                     <div class="px-4 py-4">
@@ -470,7 +478,7 @@
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
                         referralData.triggerInfo && referralData.disabilityOrDifficulty">
-                                    <p class="question-font text-center m-0 py-2">Scenerio 1 Fab. Last but not least,
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
                                         contact
@@ -488,7 +496,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a>
-                            <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-secondary-text">SAVE &
                                     CONTINUE</span></button>
                         </a>
@@ -512,7 +520,7 @@
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
                             referralData.triggerInfo && referralData.disabilityOrDifficulty">
-                                    <p class="question-font text-center m-0 py-2">Scenerio 2 Fab. Last but not least,
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
                                         contact
@@ -530,7 +538,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a>
-                            <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-secondary-text">SAVE &
                                     CONTINUE</span></button>
                         </a>
@@ -554,7 +562,7 @@
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
                                 referralData.triggerInfo && referralData.disabilityOrDifficulty">
-                                    <p class="question-font text-center m-0 py-2">Scenerio 3 Fab. Last but not least,
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
                                         contact
@@ -572,7 +580,7 @@
                     </div>
                     <div class="text-center py-4">
                         <a>
-                            <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-secondary-text">SAVE &
                                     CONTINUE</span></button>
                         </a>
@@ -627,6 +635,9 @@
                     </div>
                 </div>
                 <!-- support content modal end -->
+
+
+
                 {% endraw %}
             </div>
         </div>

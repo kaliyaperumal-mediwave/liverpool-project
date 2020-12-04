@@ -21,9 +21,9 @@ const configs = {
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: process.env.POSTGRES_PORT,
-      ssl: process.env.SSL,
+      ssl: false,
       dialectOptions: {
-        ssl: process.env.SSL,
+        ssl: false,
       },
       pool: {
         maxConnections: 10,
@@ -36,6 +36,17 @@ const configs = {
     port: process.env.APP_PORT || 7071
   },
   development: {
+    development: {
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      host: process.env.POSTGRES_HOST,
+      dialect: 'postgres',
+      ssl: false,
+      dialectOptions: {
+        ssl:false,
+      },
+    },
   },
   test: {
     port: 7072,
