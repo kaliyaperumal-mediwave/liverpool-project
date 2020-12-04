@@ -240,7 +240,7 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
                     if (this.paramValues[2] == undefined) {
-                        var parameter = this.userId + "&" + this.userRole
+                        var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
                         var enCodeParameter = btoa(parameter)
                         location.href = "/review?" + enCodeParameter;
                         // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;

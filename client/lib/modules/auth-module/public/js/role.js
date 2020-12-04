@@ -678,10 +678,10 @@ $(document).ready(function () {
                             _self.resetValidation();
                         }
                         if (_self.paramValues != undefined && _self.paramValues[2] == "edit") {
-                            //   alert(btoa("category=textile&user=user1"));
-                            //  alert(atob("Y2F0ZWdvcnk9dGV4dGlsZSZ1c2VyPXVzZXIx"));
                             if (sessionStorage.getItem("section5") == "edit") {
-                                var parameter = this.userId + "&" + this.userRole
+                                //console.log(parameter)
+                                var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
+                                console.log(parameter)
                                 var enCodeParameter = btoa(parameter)
                                 location.href = "/review?" + enCodeParameter;
                             }

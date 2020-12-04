@@ -68,6 +68,7 @@ $(document).ready(function () {
             this.userId = this.paramValues[0];
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
+            console.log(this.payloadData)
             this.getAllSectionData(this.payloadData);
         },
         methods: {
