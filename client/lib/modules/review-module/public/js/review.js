@@ -24,7 +24,8 @@ $(document).ready(function () {
             isFormSubmitted: false,
             showSec1: false,
             prevVal: '',
-            curVal: ''
+            curVal: '',
+            digArray:[]
         },
         mounted: function () {
 
@@ -88,9 +89,15 @@ $(document).ready(function () {
                      _self.section2Data = data.section2;
                      _self.section3Data = data.section3;
                      _self.section4Data = data.section4;
-                     console.log(_self.section4Data)
+                   //  console.log(_self.section4Data)
                      _self.section1Data.child_dob = convertDate( data.section1.child_dob);
-                        console.log(_self.section1Data)
+                    if(_self.section4Data.diagnosis_other!="")
+                     _self.section4Data.diagnosis.push(_self.section4Data.diagnosis_other) 
+                     if(_self.section4Data.symptoms_other!="")
+                     _self.section4Data.symptoms.push(_self.section4Data.symptoms_other) 
+                     _self.section4Data.diagnosis =_self.section4Data.diagnosis.toString();
+                     _self.section4Data.symptoms =  _self.section4Data.symptoms.toString();
+                        console.log(_self.section4Data.diagnosis)
                         //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {

@@ -3,13 +3,13 @@ const db = orm.database();
 const logger = require('./logger');
 
 const typeInsert = require('./fixtures/type');
-const sectionInsert = require('./fixtures/section');
+//const sectionInsert = require('./fixtures/section');
 db.sync({
     force: true,
   })
   .then((success)=>{
     db.Type.bulkCreate(typeInsert.types);
-    db.Section.bulkCreate(sectionInsert.sections);
+   // db.Section.bulkCreate(sectionInsert.sections);
     console.log("success")
 
   })

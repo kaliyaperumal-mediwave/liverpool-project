@@ -28,7 +28,7 @@ $(document).ready(function () {
         mounted: function () {
             var _self = this;
            
-            google.maps.event.addDomListener(window, 'load', _self.initMaps);
+            
            
             this.paramValues= getParameter(location.href)
             this.userId =  this.paramValues[0];
@@ -43,6 +43,7 @@ $(document).ready(function () {
             if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
             }
+            google.maps.event.addDomListener(window, 'load', _self.initMaps);
         },
         methods: {
 

@@ -27,8 +27,9 @@
                                     Eligibility
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3 res_fontz" data-toggle="tooltip"
-                                        @click="editAllSection('role')" data-placement="top" title="Edit Section 1"></i>
+                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3 res_fontz"
+                                        data-toggle="tooltip" @click="editAllSection('role')" data-placement="top"
+                                        title="Edit Section 1"></i>
                                 </span>
                             </div>
                             <span style="color: #D6D8D8;">
@@ -44,7 +45,8 @@
                                     <label class="question-font pr-2 m-0" for="aboutYou">
                                         I am a:
                                     </label>
-                                    <p class="col-md-9 col-xl-10 col-lg-10 col-sm-9 col-8 m-0 content_ediz" contenteditable="true">
+                                    <p class="col-md-9 col-xl-10 col-lg-10 col-sm-9 col-8 m-0 content_ediz"
+                                        contenteditable="true">
                                         <b><u>{{yourInfo}}</u></b></p>
                                     <!-- <p class="col-md-6 cursor-pointer pl-2 col-xl-6 col-lg-6 col-sm-9 col-8 m-0 content_ediz"
                                         contenteditable="true">
@@ -180,8 +182,9 @@
                                     {{ section5Labels.aboutLabel}}
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
-                                    @click="editAllSection('about')"  data-placement="top" title="Edit Section 2"></i>
+                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3"
+                                        data-toggle="tooltip" @click="editAllSection('about')" data-placement="top"
+                                        title="Edit Section 2"></i>
                                 </span>
                             </div>
 
@@ -258,7 +261,7 @@
                                     <label class="form-check-label question-font" for="aboutYou">
                                         Added household members:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.child_household_name}}</u></b></p>
+                                    <p class="m-0 px-2"><b><u>{{section2Data.household_member}}</u></b></p>
                                 </div>
 
                                 <div class="py-2 d-flex align-items-center">
@@ -331,8 +334,9 @@
                                     Support Needs
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
-                                    @click="editAllSection('education')"  data-placement="top" title="Edit Section 2"></i>
+                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3"
+                                        data-toggle="tooltip" @click="editAllSection('education')" data-placement="top"
+                                        title="Edit Section 2"></i>
                                 </span>
                             </div>
 
@@ -351,7 +355,7 @@
                                     </label>
                                     <p class="m-0 px-2"><b><u>{{section3Data.child_profession}}</u></b></p>
                                 </div>
-                                <div v-if="section3Data.child_education_place == 'education'"
+                                <div v-if="section3Data.child_profession == 'education'"
                                     class="py-2 d-flex align-items-center">
                                     <label class="form-check-label question-font" for="aboutYou">
                                         School/college:
@@ -406,8 +410,9 @@
                                     {{section5Labels.referralLabel}}
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3" data-toggle="tooltip"
-                                    @click="editAllSection('referral')"  data-placement="top" title="Edit Section 2"></i>
+                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3"
+                                        data-toggle="tooltip" @click="editAllSection('referral')" data-placement="top"
+                                        title="Edit Section 2"></i>
                                 </span>
                             </div>
 
@@ -434,45 +439,56 @@
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <label class="form-check-label question-font" for="aboutYou">
-                                        Diagnoses:
+                                        Have mental diagnoses:
                                     </label>
                                     <p class="m-0 px-2"><b><u>{{section4Data.mental_health_diagnosis}}</u></b></p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <label class="form-check-label question-font" for="aboutYou">
-                                        Symptoms:
+                                        Diagnoses:
                                     </label>
                                     <p class="m-0 px-2"><b><u>{{section4Data.diagnosis}}</u></b></p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <label class="form-check-label question-font" for="aboutYou">
-                                        Info about issue:
+                                        Symptoms:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.referral_issues}}</u></b></p>
+                                    <p class="m-0 px-2"><b><u>{{section4Data.symptoms}}</u></b></p>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
-                                    <label class="form-check-label question-font" for="aboutYou">
-                                        Has anything helped?:
-                                    </label>
-                                </div>
-                                <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
-                                    <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
-                                    placeholder="" rows="3">{{section4Data.has_anything_helped}}</textarea>
-                                </div>
-                                   
-                                    <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
-                                        v-model="section4Data.child_socialworker_contact" v rows="4"></textarea> -->
-                                    <!-- <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_name}}</u></b></p> -->
+                                        <label class="form-check-label question-font" for="aboutYou">
+                                            Info about issue:
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
+                                        <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
+                                            placeholder="" rows="3">{{section4Data.referral_issues}}</textarea>
+                                    </div>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
-                                    <label class="form-check-label question-font" for="aboutYou">
-                                        Triggers:
-                                    </label>
-                                    <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
-                                        v-model="section4Data.child_socialworker_contact" v rows="4"></textarea> -->
-                                    <p class="m-0 px-2"><b><u>{{section4Data.any_particular_trigger}}</u></b>
-                                    </p>
+                                    <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
+                                        <label class="form-check-label question-font" for="aboutYou">
+                                            Has anything helped?:
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
+                                        <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
+                                            placeholder="" rows="3">{{section4Data.has_anything_helped}}</textarea>
+                                    </div>
+
+                                </div>
+                                <div class="py-2 d-flex align-items-center">
+                                    <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
+                                        <label class="form-check-label question-font" for="aboutYou">
+                                            Triggers:
+                                        </label>
+                                    </div>
+                                    <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
+                                        <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
+                                            placeholder="" rows="3">{{section4Data.any_particular_trigger}}</textarea>
+                                    </div>
+
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
@@ -482,7 +498,7 @@
                                     </div>
                                     <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
-                                        placeholder="" rows="3">{{section4Data.disabilities}}</textarea>
+                                            placeholder="" rows="3">{{section4Data.disabilities}}</textarea>
                                     </div>
                                     <!-- <textarea class="h-112 form-control" name="listDiagnosis" id="accessed-service"
                                         v-model="section4Data.child_socialworker_contact" v rows="4"></textarea> -->
@@ -494,11 +510,12 @@
                                         <label class="form-check-label question-font" for="accessed-service">
                                             Accessed other services?:
                                         </label>
+                                        <p class="m-0 px-2"><b><u>{{section4Data.local_services}}</u></b></p>
                                     </div>
-                                    <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
+                                    <!-- <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-65 form-control" name="infoTextAreas" id="textInf0red"
                                         placeholder="" rows="3">{{section4Data.currently_accessing_services}}</textarea>
-                                    </div>
+                                    </div> -->
                                     <!-- <p class="m-0 px-2"><b><u>{{section4Data.child_socialworker_contact}}</u></b> -->
                                     </p>
                                 </div>
