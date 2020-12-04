@@ -1,5 +1,5 @@
 const { btoa } = require('../../utils')
-
+const { atob } = require('../../utils')
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'About Module',
@@ -13,7 +13,9 @@ module.exports = {
     self.about = function (req, callback) {
       var labels;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
-      const decryptedUrl = btoa(getParams);
+      const deCodeParameter = atob(getParams)
+      const getParamsRedirect = deCodeParameter+"&edit";
+      const decryptedUrl = btoa(getParamsRedirect);
       if (req.query.role == 'child') {
         labels = "Section 2 of 5: About you & your household";
       } else if (req.query.role == 'parent') {
@@ -25,7 +27,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('about', {
         headerContent: labels,
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
-        backContent: '/role/' + decryptedUrl,
+        backContent: '/role?' + decryptedUrl,
         home: false
       }));
     };

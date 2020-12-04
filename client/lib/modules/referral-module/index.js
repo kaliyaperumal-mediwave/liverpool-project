@@ -1,5 +1,5 @@
 const { btoa } = require('../../utils')
-
+const { atob } = require('../../utils')
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Referral Module',
@@ -13,7 +13,10 @@ module.exports = {
     self.referral = function (req, callback) {
       var labels;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
-      const decryptedUrl = btoa(getParams);
+      const deCodeParameter = atob(getParams)
+      const getParamsRedirect = deCodeParameter+"&edit";
+      const decryptedUrl = btoa(getParamsRedirect);
+    //  const decryptedUrl = btoa(getParams);
       if (req.query.role == 'child') {
         labels = "Section 4 of 5: Your Reason For Referral";
       } else if (req.query.role == 'parent') {

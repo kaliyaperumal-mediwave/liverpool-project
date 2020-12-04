@@ -1,5 +1,5 @@
 const { btoa } = require('../../utils')
-
+const { atob } = require('../../utils')
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Review Module',
@@ -12,6 +12,10 @@ module.exports = {
     };
     self.review = function (req, callback) {
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
+      const deCodeParameter = atob(getParams)
+      const getParamsRedirect = deCodeParameter+"&edit";
+      const decryptedUrl = btoa(getParamsRedirect);
+
       const decryptedUrl = btoa(getParams);
       return self.sendPage(req, self.renderer('review', {
         headerContent: "Section 5 of 5: Preferences and review",

@@ -139,9 +139,9 @@ $(document).ready(function () {
                 if(this.userRole=="child")
                 {
                     if (data.attendedInfo) {
-                        Vue.set(this.educAndEmpData, "attendedInfo", data.child_profession);
+                        Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
                     }
-                    Vue.set(this.educAndEmpData, "currentPosition", data.child_education_place);
+                    Vue.set(this.educAndEmpData, "currentPosition",  data.child_profession);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data.child_socialworker);
@@ -150,15 +150,18 @@ $(document).ready(function () {
                 }
                 else if(this.userRole=="parent")
                 {
-                  //  console.log(data);
+                    console.log(data[0].parent[0].child_profession);
 
-                    Vue.set(this.professionObj,"childProfession",data[0].parent[0].child_profession);
-                    Vue.set(this.professionObj,"childEducationPlace",data[0].parent[0].child_education_place);
-                    Vue.set(this.professionObj,"childEHCP",data[0].parent[0].child_EHAT);
-                    Vue.set(this.professionObj,"childEHAT",data[0].parent[0].child_EHCP);
-                    Vue.set(this.professionObj,"isSocialWorker",data[0].parent[0].child_socialworker);
-                    Vue.set(this.professionObj,"socialWorkerName",data[0].parent[0].child_socialworker_name);
-                    Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].parent[0].child_socialworker_contact);
+                    if (data.attendedInfo) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
+                    }
+                    Vue.set(this.educAndEmpData,"position",data[0].parent[0].child_profession);
+                 //   Vue.set(this.educAndEmpData,"childEducationPlace",data[0].parent[0].child_education_place);
+                    Vue.set(this.educAndEmpData,"haveEhcpPlan",data[0].parent[0].child_EHAT);
+                    Vue.set(this.educAndEmpData,"haveEhat",data[0].parent[0].child_EHCP);
+                    Vue.set(this.educAndEmpData,"haveSocialWorker",data[0].parent[0].child_socialworker);
+                    Vue.set(this.educAndEmpData,"socialWorkName",data[0].parent[0].child_socialworker_name);
+                    Vue.set(this.educAndEmpData,"socialWorkContact",data[0].parent[0].child_socialworker_contact);
                 }
                 else if(this.userRole=="professional")
                 {

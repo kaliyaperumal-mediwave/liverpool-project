@@ -19,14 +19,14 @@ $(document).ready(function () {
             // this.userRole = getQueryStringValue('role');
             // this.userId = getQueryStringValue('userId');
             if (this.userMode === 'edit') {
-                this.patchValue();
+                this.fetchSavedData();
             }
-            if (getUrlVars()['edt'] == 1) {
-                this.fetchSavedData()
-            }
-            else {
-                console.log("if else")
-            }
+            // if (getUrlVars()['edt'] == 1) {
+            //     this.fetchSavedData()
+            // }
+            // else {
+            //     console.log("if else")
+            // }
         },
         data: {
             referralData: {
@@ -262,6 +262,7 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue(data) {
+                console.log(data)
                 this.diagnosisList = data.diagnosis;
                 this.problemsList = data.diagnosis;
                 this.accessList = data.local_services;
