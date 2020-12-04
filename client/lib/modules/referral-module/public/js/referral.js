@@ -256,6 +256,7 @@ $(document).ready(function () {
                     else {
                         history.back();
                     }
+                    this.deleteData = null;
                 } else {
                     console.log('empty response')
                 }
@@ -349,7 +350,7 @@ $(document).ready(function () {
             },
 
             deleteService(data) {
-                var modal = document.getElementById('deleteModal');
+                var modal = document.getElementById('closeModalDelete');
                 deleteLogic(this.allAvailableService, data, this, 'allAvailableService');
                 modal.setAttribute("data-dismiss", "modal");
             },

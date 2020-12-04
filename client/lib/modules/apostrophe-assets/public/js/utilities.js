@@ -17,6 +17,7 @@ function resetValues(currentForm, context, formObj) {
     if (context.currentSection == 'referral') {
         context.showAddOtherService = false;
         context.allAvailableService = [];
+        context.deleteData = null;
     }
     context.isFormSubmitted = false;
 };
@@ -131,13 +132,13 @@ function getParameter(url) {
     console.log(allParameter)
     if (base64Matcher.test(allParameter)) {
         var deCodeParameter = atob(allParameter)
-         var decodeValues = deCodeParameter.split("&");
+        var decodeValues = deCodeParameter.split("&");
         return decodeValues;
     } else {
         // It's definitely not base64 encoded.
     }
-  //  console.log(decodeURIComponent(allParameter));
-   
+    //  console.log(decodeURIComponent(allParameter));
+
 }
 
 function getAllSectionData(userid, role) {
