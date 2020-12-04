@@ -3,7 +3,7 @@ const db = orm.database();
 const logger = require('./logger');
 
 const typeInsert = require('./fixtures/type');
-const sectionInsert = require('./fixtures/section');
+//const sectionInsert = require('./fixtures/section');
 db.sync({
   force: true,
 })
