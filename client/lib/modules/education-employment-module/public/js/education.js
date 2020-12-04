@@ -105,7 +105,7 @@ $(document).ready(function () {
             //Section 3(Education) Save and Service call with navaigation Logic
             upsertEducationForm(payload) {
                 console.log(payload);
-               
+                var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
                     if (this.paramValues[2] == undefined) {
