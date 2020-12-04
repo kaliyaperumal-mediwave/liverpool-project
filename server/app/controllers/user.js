@@ -1442,7 +1442,7 @@ exports.fetchReview = ctx => {
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult']
+        attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult','household_member']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1471,6 +1471,7 @@ exports.fetchReview = ctx => {
             child_sexual_orientation: aboutObj.child_gender_birth,
             child_ethnicity: aboutObj.child_ethnicity,
             child_care_adult: aboutObj.child_care_adult,
+            household_member: aboutObj.household_member,
             parent_name: aboutObj.parent[0].parent_name,
             parential_responsibility: aboutObj.parent[0].parential_responsibility,
             child_parent_relationship: aboutObj.parent[0].child_parent_relationship,
@@ -1538,7 +1539,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().User,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult']
+              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult','household_member']
             },
           ],
           where: {
@@ -1596,6 +1597,7 @@ exports.fetchReview = ctx => {
                 child_sexual_orientation: aboutObj[0].parent[0].child_gender_birth,
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
+                household_member: aboutObj[0].parent[0].household_member,
                 parent_name: aboutObj[0].parent_name,
                 parential_responsibility: aboutObj[0].parential_responsibility,
                 child_parent_relationship: aboutObj[0].child_parent_relationship,
@@ -1668,7 +1670,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().User,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult']
+              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult','household_member']
             },
           ],
           where: {
@@ -1728,6 +1730,7 @@ exports.fetchReview = ctx => {
                 child_sexual_orientation: aboutObj[0].parent[0].child_gender_birth,
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
+             //   household_member: aboutObj[0].parent[0].household_member,
                 parent_name: aboutObj[0].parent_name,
                 parential_responsibility: aboutObj[0].parential_responsibility,
                 child_parent_relationship: aboutObj[0].child_parent_relationship,

@@ -28,7 +28,7 @@ $(document).ready(function () {
         mounted: function () {
             var _self = this;
            
-            google.maps.event.addDomListener(window, 'load', _self.initMaps);
+            
            
             this.paramValues= getParameter(location.href)
             this.userId =  this.paramValues[0];
@@ -43,6 +43,7 @@ $(document).ready(function () {
             if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
             }
+            google.maps.event.addDomListener(window, 'load', _self.initMaps);
         },
         methods: {
 
@@ -115,7 +116,16 @@ $(document).ready(function () {
                        // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
-                        history.back();
+                        if (sessionStorage.getItem("section5") == "edit") {
+                            var parameter = this.userId + "&" + this.userRole
+                            var enCodeParameter = btoa(parameter)
+                            location.href = "/review?" + enCodeParameter;
+                        }
+                        else {
+                            history.back();
+                        }
+
+                       // history.back();
                     }
                 } else {
                     console.log('empty response')

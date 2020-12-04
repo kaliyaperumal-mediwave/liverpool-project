@@ -375,8 +375,9 @@
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerNameLabel}}</label>
                             <input type="text" class="form-control" id="contactNumber"
                                 placeholder="Enter your parent / carer’s name" v-model="aboutFormData.parentCarerName">
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerName),
-                                'invalid-fields':!aboutFormData.parentCarerName }">
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerName),
+                                'invalid-fields':(!aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no') }">
                                 You must provide an name.
                             </div>
                         </div>
@@ -532,28 +533,69 @@
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
                                     <template
-                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
-                                    aboutFormData.parentCarerName && aboutFormData.parentialResponsibility && aboutObj.childGender &&
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
                                     aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
-                                    <template v-else>
+
+                                    <template
+                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                                !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
+                                aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+
+                                    <template
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    aboutFormData.parentialResponsibility && aboutObj.childGender &&
+                                    aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+
+                                    <template
+                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                                !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
+                                !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
                                         <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                     </template>
                                 </p>
+
                                 <template
-                                    v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
-                                aboutFormData.parentCarerName && aboutFormData.parentialResponsibility && aboutObj.childGender &&
-                                aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                            aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
+                            aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
                                         move on to
                                         education / employment & support needs</p>
                                 </template>
-                                <template v-else>
+
+                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                        !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
+                        aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
+                                        move on to
+                                        education / employment & support needs</p>
+                                </template>
+
+                                <template
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                            aboutFormData.parentialResponsibility && aboutObj.childGender &&
+                            aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
+                                        move on to
+                                        education / employment & support needs</p>
+                                </template>
+
+                                <template
+                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                        !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
+                        !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">You have missed out a section on this
                                         page
                                     </p>
                                 </template>
+
                             </div>
                         </div>
                     </div>
