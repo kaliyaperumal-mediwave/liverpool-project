@@ -116,7 +116,6 @@ $(document).ready(function () {
                 // } else {
                 //     console.log('empty response')
                 // }
-
             },
 
             save: function () {

@@ -116,7 +116,16 @@ $(document).ready(function () {
                        // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
-                        history.back();
+                        if (sessionStorage.getItem("section5") == "edit") {
+                            var parameter = this.userId + "&" + this.userRole
+                            var enCodeParameter = btoa(parameter)
+                            location.href = "/review?" + enCodeParameter;
+                        }
+                        else {
+                            history.back();
+                        }
+
+                       // history.back();
                     }
                 } else {
                     console.log('empty response')

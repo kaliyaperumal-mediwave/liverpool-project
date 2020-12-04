@@ -293,7 +293,16 @@ $(document).ready(function () {
                         location.href = "/education?" + enCodeParameter;
                     }
                     else {
-                        history.back();
+
+                        if (sessionStorage.getItem("section5") == "edit") {
+                            var parameter = this.userId + "&" + this.userRole
+                            var enCodeParameter = btoa(parameter)
+                            location.href = "/review?" + enCodeParameter;
+                        }
+                        else {
+                            history.back();
+                        }
+                        //
                     }
                 } else {
                     //     console.log('empty response')
