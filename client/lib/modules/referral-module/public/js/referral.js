@@ -8,25 +8,16 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            $('#loader').hide();
             this.paramValues = getParameter(location.href)
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
             console.log(this.userId, this.userRole, this.userMode)
-            // this.userMode = getQueryStringValue('mode');
-            // this.userRole = getQueryStringValue('role');
-            // this.userId = getQueryStringValue('userId');
             if (this.userMode === 'edit') {
                 this.fetchSavedData();
             }
-            // if (getUrlVars()['edt'] == 1) {
-            //     this.fetchSavedData()
-            // }
-            // else {
-            //     console.log("if else")
-            // }
+            $('#loader').hide();
         },
         data: {
             referralData: {
@@ -212,6 +203,7 @@ $(document).ready(function () {
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
                 this.patchValue(successData);
+                $('#loader').hide();
             },
 
 
