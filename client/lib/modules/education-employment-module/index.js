@@ -12,14 +12,13 @@ module.exports = {
     };
     self.education = function (req, callback) {
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
-    // const decryptedUrl = btoa(getParams);
       const deCodeParameter = atob(getParams)
-      const getParamsRedirect = deCodeParameter+"&edit";
+      const getParamsRedirect = deCodeParameter + "&edit";
       const decryptedUrl = btoa(getParamsRedirect);
       return self.sendPage(req, self.renderer('education', {
         headerContent: "Section 3 of 5: Education / employment & support needs",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
-        backContent: '/about/' + decryptedUrl,
+        backContent: '/about?' + decryptedUrl,
         home: false
       }));
     };
