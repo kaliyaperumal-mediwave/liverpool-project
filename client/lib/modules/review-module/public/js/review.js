@@ -125,7 +125,7 @@ $(document).ready(function () {
                     console.log(successData);
                     if (Object.keys(successData)) {
                         alert("Your Reference Number :" + successData.refNo);
-                     //   console.log(res);
+                        //   console.log(res);
                         this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
@@ -138,15 +138,14 @@ $(document).ready(function () {
             },
 
             editAllSection: function (page) {
-
-                this.userId =this.paramValues[0];
-                this.userRole =this.paramValues[1];
+                this.userId = this.paramValues[0];
+                this.userRole = this.paramValues[1];
                 console.log(page)
-                    var parameter = this.userId + "&" + this.userRole + "&" + "edit"
-                    // console.log(parameter)
-                    var enCodeParameter = btoa(parameter)
-                    //console.log(section + enCodeParameter)
-                    location.href = "/"+page+"?"+ enCodeParameter
+                var parameter = this.userId + "&" + this.userRole + "&" + "edit"
+                // console.log(parameter)
+                var enCodeParameter = btoa(parameter)
+                //console.log(section + enCodeParameter)
+                location.href = "/" + page + "?" + enCodeParameter
                 // var uid = this.getUrlVars()['userid'];
                 // var role = this.getUrlVars()['role'];
                 // location.href = "/role?userid=" + uid + "&role=" + role + "&edt=1";

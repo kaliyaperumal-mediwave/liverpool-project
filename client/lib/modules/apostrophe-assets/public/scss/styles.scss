@@ -423,3 +423,38 @@ body {
 .no_padding {
   padding: 0px !important;
 }
+.content_ediz{
+  max-height: 50px;
+  overflow: auto;
+}
+.res_fontz{
+  font-size: 2rem !important;
+  align-items: center;
+  display: flex !important;
+}
+@media (max-width: 749px) {
+  .question-header-font {
+    font-size: 21px;
+    font-weight: bold;
+    color: #023047;
+    cursor: pointer;
+  }
+  .res_fontz{
+    font-size: 1.8rem !important;
+    align-items: center;
+    display: flex !important;
+  }
+}
+@media (min-width: 750px) and (max-width: 1200px) {
+  .question-header-font {
+    font-size: 24px;
+    font-weight: bold;
+    color: #023047;
+    cursor: pointer;
+  }
+}
+.headerTop {
+  position: sticky;
+  top: 0px;
+  z-index: 1000;
+}

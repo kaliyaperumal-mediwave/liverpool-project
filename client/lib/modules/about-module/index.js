@@ -11,17 +11,18 @@ module.exports = {
       self.dispatch('/', self.about);
     };
     self.about = function (req, callback) {
-      var labels;
+      let labels;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
-      const deCodeParameter = atob(getParams)
-      const getParamsRedirect = deCodeParameter+"&edit";
+      const deCodeParameter = atob(getParams);
+      const decodeValues = deCodeParameter.split("&");
+      const getParamsRedirect = deCodeParameter + "&edit";
       const decryptedUrl = btoa(getParamsRedirect);
-      if (req.query.role == 'child') {
+      if (decodeValues[1] == 'child') {
         labels = "Section 2 of 5: About you & your household";
-      } else if (req.query.role == 'parent') {
+      } else if (decodeValues[1] == 'parent') {
         labels = "Section 2 of 5: About the child & their household";
       }
-      else if (req.query.role == 'professional') {
+      else if (decodeValues[1] == 'professional') {
         labels = "Section 2 of 5: About the child /young person & their household";
       }
       return self.sendPage(req, self.renderer('about', {

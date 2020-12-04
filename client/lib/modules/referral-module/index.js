@@ -11,24 +11,24 @@ module.exports = {
       self.dispatch('/', self.referral);
     };
     self.referral = function (req, callback) {
-      var labels;
+      let labels;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeParameter = atob(getParams)
-      const getParamsRedirect = deCodeParameter+"&edit";
+      const getParamsRedirect = deCodeParameter + "&edit";
       const decryptedUrl = btoa(getParamsRedirect);
-    //  const decryptedUrl = btoa(getParams);
-      if (req.query.role == 'child') {
+      const decodeValues = deCodeParameter.split("&");
+      if (decodeValues[1] == 'child') {
         labels = "Section 4 of 5: Your Reason For Referral";
-      } else if (req.query.role == 'parent') {
+      } else if (decodeValues[1] == 'parent') {
         labels = "Section 4 of 5: Your Reason For Referring your child";
       }
-      else if (req.query.role == 'professional') {
+      else if (decodeValues[1] == 'professional') {
         labels = "Section 4 of 5: Your Reason For Referring the child/ young person";
       }
       return self.sendPage(req, self.renderer('referral', {
         headerContent: labels,
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
-        backContent: '/education/' + decryptedUrl,
+        backContent: '/education?' + decryptedUrl,
         home: false
       }));
     };
