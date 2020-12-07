@@ -47,13 +47,12 @@ if (!module.parent) {
     process.once(signal, () => terminate(signal));
   });
 }
-
-
+dotenv.config();
 new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
   host: process.env.POSTGRES_HOST,
-  port: process.env.SSL,
+  port: process.env.POSTGRES_HOST,
   dialect: 'postgres',
-  ssl: process.env.POSTGRES_HOST,
+  ssl: process.env.SSL,
   dialectOptions: {
     ssl: process.env.SSL,
   },

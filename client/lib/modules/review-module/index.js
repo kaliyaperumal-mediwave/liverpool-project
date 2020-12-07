@@ -11,10 +11,25 @@ module.exports = {
       self.dispatch('/', self.review);
     };
     self.review = function (req, callback) {
+      let decryptedUrl;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeParameter = atob(getParams);
-      const getParamsRedirect = deCodeParameter + "&edit";
-      const decryptedUrl = btoa(getParamsRedirect);
+      let decodeValues = deCodeParameter.split("&");
+      if(decodeValues[2]==undefined)
+      {
+       const getParamsRedirect = deCodeParameter + "&backbutton";
+       decryptedUrl = btoa(getParamsRedirect);
+      }
+      else if(decodeValues[2]=="backbutton") 
+      {
+       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
+       decryptedUrl = btoa(getParamsRedirect);
+      }
+      else if(decodeValues[2]=="sec5back") 
+      {
+       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
+       decryptedUrl = btoa(getParamsRedirect);
+      }
       return self.sendPage(req, self.renderer('review', {
         headerContent: "Section 5 of 5: Preferences and review",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",

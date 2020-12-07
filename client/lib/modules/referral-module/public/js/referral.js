@@ -14,7 +14,7 @@ $(document).ready(function () {
             this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
             console.log(this.userId, this.userRole, this.userMode)
-            if (this.userMode === 'edit') {
+            if (this.userMode !== undefined) {
                 this.fetchSavedData();
             }
             $('#loader').hide();
@@ -202,7 +202,10 @@ $(document).ready(function () {
                 payload.userid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
-                this.patchValue(successData);
+
+                if(successData!=undefined)
+                this.patchValue(successData)
+               // this.patchValue(successData);
                 $('#loader').hide();
             },
 
@@ -239,24 +242,25 @@ $(document).ready(function () {
             upsertReferralForm(payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
-                    if (this.paramValues[2] == undefined) {
-                        var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
-                        var enCodeParameter = btoa(parameter)
-                        location.href = "/review?" + enCodeParameter;
-                        // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
-                    }
-                    else {
-                        if (sessionStorage.getItem("section5") == "edit") {
-                            var parameter = this.userId + "&" + this.userRole
-                            var enCodeParameter = btoa(parameter)
-                            location.href = "/review?" + enCodeParameter;
-                        }
-                        else {
-                            history.back();
-                        }
+                    location.href =redirectUrl(location.href,"review");
+                    //if (this.paramValues[2] == undefined) {
+                    //     var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
+                    //     var enCodeParameter = btoa(parameter)
+                    //     location.href = "/review?" + enCodeParameter;
+                    //     // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
+                    // }
+                    // else {
+                    //     if (sessionStorage.getItem("section5") == "edit") {
+                    //         var parameter = this.userId + "&" + this.userRole
+                    //         var enCodeParameter = btoa(parameter)
+                    //         location.href = "/review?" + enCodeParameter;
+                    //     }
+                    //     else {
+                    //         history.back();
+                    //     }
 
-                      //  history.back();
-                    }
+                    //   //  history.back();
+                    // }
                     this.deleteData = null;
                 } else {
                     console.log('empty response')
