@@ -105,7 +105,7 @@ $(document).ready(function () {
             //Section 3(Education) Save and Service call with navaigation Logic
             upsertEducationForm(payload) {
                 console.log(payload);
-               
+                var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
                     if (this.paramValues[2] == undefined) {
@@ -116,7 +116,16 @@ $(document).ready(function () {
                        // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
                     }
                     else {
-                        history.back();
+                        if (sessionStorage.getItem("section5") == "edit") {
+                            var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
+                            var enCodeParameter = btoa(parameter)
+                            location.href = "/review?" + enCodeParameter;
+                        }
+                        else {
+                            history.back();
+                        }
+
+                       // history.back();
                     }
                 } else {
                     console.log('empty response')
