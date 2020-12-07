@@ -62,6 +62,7 @@ $(document).ready(function () {
         },
         mounted: function () {
             var _self = this;
+            //google.maps.event.addDomListener(window, 'load', _self.initMaps);
             this.paramValues = getParameter(location.href)
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
@@ -86,7 +87,9 @@ $(document).ready(function () {
             if (this.paramValues[2] !=undefined) {
                 this.fetchSavedData();
             }
-            google.maps.event.addDomListener(window, 'load', _self.initMaps);
+
+            this.initMaps()
+           
         },
         methods: {
 
@@ -96,6 +99,7 @@ $(document).ready(function () {
                 var childAddress;
                 var houseHoldAddress;
                 var parentAddress;
+                console.log("----------------------------")
                 childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                     types: ['geocode'],
                 });

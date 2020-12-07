@@ -141,7 +141,7 @@ $(document).ready(function () {
         methods: {
 
             //Options changing logic
-            onOptionChange(event) {
+            onOptionChange: function(event) {
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal' || questionIdentifier == 'mentalDiagnosis' ||
@@ -180,7 +180,7 @@ $(document).ready(function () {
             },
 
             //Getting values from Other Input box and logic
-            onValueEnter(e) {
+            onValueEnter: function(e) {
                 var questionIdentifier = event.target.name;
                 if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
@@ -211,7 +211,7 @@ $(document).ready(function () {
 
 
             //Form Submittion of Section-4(Referral) with validation logic
-            saveAndContinue() {
+            saveAndContinue: function() {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
                 if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
@@ -239,7 +239,7 @@ $(document).ready(function () {
             },
 
             //Section 4(Referral) Save and Service call with navaigation Logic
-            upsertReferralForm(payload) {
+            upsertReferralForm: function(payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
                     location.href =redirectUrl(location.href,"review");
@@ -268,7 +268,7 @@ $(document).ready(function () {
             },
 
             //Patching the value logic
-            patchValue(data) {
+            patchValue: function(data) {
                 console.log(data)
                 this.diagnosisList = data.diagnosis;
                 this.problemsList = data.diagnosis;
@@ -294,7 +294,7 @@ $(document).ready(function () {
             },
 
             //Adding and Updating  a service logic
-            upsertService() {
+            upsertService: function() {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
@@ -328,7 +328,7 @@ $(document).ready(function () {
             },
 
             //Patching the service logic
-            patchService(service) {
+            patchService: function(service) {
                 var serviceForm = this.serviceData;
                 serviceForm.name = service.name;
                 serviceForm.professional = service.professional;
@@ -346,7 +346,7 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            openDeleteModal(service) {
+            openDeleteModal: function(service) {
                 console.log(service);
                 this.deleteData = service;
                 // var elem = document.getElementById('deleteModal');
@@ -354,14 +354,14 @@ $(document).ready(function () {
                 // deleteLogic(this.allAvailableService, service, this, 'allAvailableService');
             },
 
-            deleteService(data) {
+            deleteService: function(data) {
                 var modal = document.getElementById('closeModalDelete');
                 deleteLogic(this.allAvailableService, data, this, 'allAvailableService');
                 modal.setAttribute("data-dismiss", "modal");
             },
 
             //Resetting the modal values of service data
-            resetModalValues() {
+            resetModalValues: function() {
                 this.hasSubmittedServiceForm = false;
                 this.serviceData.name = '';
                 this.serviceData.professional = '';
@@ -369,7 +369,7 @@ $(document).ready(function () {
                 this.serviceData.mode = '';
             },
 
-            resetModal(type) {
+            resetModal: function(type) {
                 if (type === 'add') {
                     this.resetModalValues();
                 } else {
@@ -382,7 +382,7 @@ $(document).ready(function () {
                 }
             },
 
-            clearDependentValues(parentKey) {
+            clearDependentValues: function(parentKey) {
                 var foundKeyPair = this.dependent.filter(function (ele) { return ele.parentKey === parentKey })[0];
                 if (foundKeyPair) {
                     this[foundKeyPair.childKey] = [];

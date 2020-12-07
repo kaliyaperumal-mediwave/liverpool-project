@@ -43,7 +43,8 @@ $(document).ready(function () {
             if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
             }
-            google.maps.event.addDomListener(window, 'load', _self.initMaps);
+            // google.maps.event.addDomListener(window, 'load', _self.initMaps);
+            this.initMaps()
         },
         methods: {
 
@@ -51,10 +52,11 @@ $(document).ready(function () {
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('attendedLocation')), {
-                    types: ['geocode'],
+                    types: ['establishment'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    _self.educationAddress = autoCompleteChild.getPlace().formatted_address;
+                    //   console.log(autoCompleteChild.getPlace())
+                    _self.educationAddress = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
                     if (_self.educationAddress) {
                         _self.mapsEntered = true;
                         _self.educAndEmpData.attendedInfo = _self.educationAddress;
@@ -64,7 +66,7 @@ $(document).ready(function () {
                 });
             },
 
-            onOptionChange(event) {
+            onOptionChange: function (event) {
                 var questionIdentifier = event.target.name;
                 if (questionIdentifier == 'currentPosition' || questionIdentifier == 'EHCP' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
                     resetValues(event.target.form, this, 'educAndEmpData');
@@ -72,7 +74,7 @@ $(document).ready(function () {
             },
 
             //Form Submittion of Section-4(Referral) with validation logic
-            saveAndContinue() {
+            saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.educAndEmpData;
                 this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
@@ -87,7 +89,12 @@ $(document).ready(function () {
                     if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
                         if (formData.position === 'education' && formData.attendedInfo) {
                             this.upsertEducationForm(this.payloadData);
-                        } else {
+                        }
+                        else if (formData.position != 'education') {
+                            this.upsertEducationForm(this.payloadData);
+                        }
+
+                        else {
                             scrollToInvalidInput();
                             return false;
                         }
@@ -103,8 +110,8 @@ $(document).ready(function () {
             },
 
             //Section 3(Education) Save and Service call with navaigation Logic
-            upsertEducationForm(payload) {
-                console.log(payload);
+            upsertEducationForm: function (payload) {
+                // console.log(payload);
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
@@ -144,7 +151,7 @@ $(document).ready(function () {
             },
 
             //Patching the value logic
-            patchValue(data) {
+            patchValue: function (data) {
                 if (this.userRole == "child") {
                     if (data.child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
@@ -157,7 +164,7 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
                 }
                 else if (this.userRole == "parent") {
-                
+
                     if (data[0].parent[0].child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
                     }
