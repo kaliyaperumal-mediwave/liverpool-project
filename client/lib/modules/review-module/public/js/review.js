@@ -74,7 +74,7 @@ $(document).ready(function () {
         methods: {
 
             //Get Request to get all section's data
-            getAllSectionData(payloadData) {
+            getAllSectionData: function(payloadData) {
                 var _self = this;
                 //    var params = payloadData.userid + "&role=" + payloadData.role;
                 //   var responseData = getAllSectionData(payloadData.userid,payloadData.role);
@@ -147,7 +147,7 @@ $(document).ready(function () {
                 location.href = "/" + page + "?" + enCodeParameter
             },
 
-            toggleArrow(e) {
+            toggleArrow: function(e) {
                 console.log(e);
                 var ele = e.target;
                 var classList = Array.from(e.target.classList)

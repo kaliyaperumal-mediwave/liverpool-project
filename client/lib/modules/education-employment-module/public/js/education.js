@@ -43,7 +43,8 @@ $(document).ready(function () {
             if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
             }
-            google.maps.event.addDomListener(window, 'load', _self.initMaps);
+           // google.maps.event.addDomListener(window, 'load', _self.initMaps);
+            this.initMaps()
         },
         methods: {
 
@@ -65,7 +66,7 @@ $(document).ready(function () {
                 });
             },
 
-            onOptionChange(event) {
+            onOptionChange: function(event) {
                 var questionIdentifier = event.target.name;
                 if (questionIdentifier == 'currentPosition' || questionIdentifier == 'EHCP' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
                     resetValues(event.target.form, this, 'educAndEmpData');
@@ -73,7 +74,7 @@ $(document).ready(function () {
             },
 
             //Form Submittion of Section-4(Referral) with validation logic
-            saveAndContinue() {
+            saveAndContinue: function() {
                 this.isFormSubmitted = true;
                 var formData = this.educAndEmpData;
                 this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
@@ -104,8 +105,8 @@ $(document).ready(function () {
             },
 
             //Section 3(Education) Save and Service call with navaigation Logic
-            upsertEducationForm(payload) {
-                console.log(payload);
+            upsertEducationForm: function(payload) {
+               // console.log(payload);
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
@@ -145,7 +146,7 @@ $(document).ready(function () {
             },
 
             //Patching the value logic
-            patchValue(data) {
+            patchValue: function(data) {
                 if (this.userRole == "child") {
                     if (data.child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
