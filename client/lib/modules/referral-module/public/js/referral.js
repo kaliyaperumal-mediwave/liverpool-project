@@ -202,7 +202,10 @@ $(document).ready(function () {
                 payload.userid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
-                this.patchValue(successData);
+
+                if(successData!=undefined)
+                this.patchValue(successData)
+               // this.patchValue(successData);
                 $('#loader').hide();
             },
 
