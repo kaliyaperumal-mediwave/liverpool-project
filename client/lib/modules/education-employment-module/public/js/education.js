@@ -51,10 +51,11 @@ $(document).ready(function () {
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('attendedLocation')), {
-                    types: ['geocode'],
+                    types: ['establishment'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    _self.educationAddress = autoCompleteChild.getPlace().formatted_address;
+                 //   console.log(autoCompleteChild.getPlace())
+                    _self.educationAddress = autoCompleteChild.getPlace().name +','+autoCompleteChild.getPlace().formatted_address;
                     if (_self.educationAddress) {
                         _self.mapsEntered = true;
                         _self.educAndEmpData.attendedInfo = _self.educationAddress;
