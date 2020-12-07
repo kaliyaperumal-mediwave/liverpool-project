@@ -20,7 +20,7 @@ const configs = {
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: process.env.POSTGRES_PORT,
-      ssl:ssl,
+      ssl: ssl,
       dialectOptions: {
         ssl: ssl,
       },

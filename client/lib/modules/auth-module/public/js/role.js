@@ -677,27 +677,29 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        if (_self.paramValues != undefined && _self.paramValues[2] == "edit") {
-                            if (sessionStorage.getItem("section5") == "edit") {
-                                //console.log(parameter)
-                                var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
-                                console.log(parameter)
-                                var enCodeParameter = btoa(parameter)
-                                location.href = "/review?" + enCodeParameter;
-                            }
-                            else {
-                                history.back();
-                            }
+                        location.href =redirectUrl(location.href,"about",data.userid,role);
+                       // location.href = redirectUrl("about");
+                        // if (_self.paramValues != undefined && _self.paramValues[2] == "edit") {
+                        //     if (sessionStorage.getItem("section5") == "edit") {
+                        //         //console.log(parameter)
+                        //         var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
+                        //         console.log(parameter)
+                        //         var enCodeParameter = btoa(parameter)
+                        //         location.href = "/review?" + enCodeParameter;
+                        //     }
+                        //     else {
+                        //         history.back();
+                        //     }
 
-                            //history.back();
-                        }
-                        else {
-                            var parameter = data.userid + "&" + role
-                            var enCodeParameter = btoa(parameter)
-                            //  alert(enCodeParameter)
-                            location.href = "/about?" + enCodeParameter;
-                        //    history.back();
-                        }
+                        //     //history.back();
+                        // }
+                        // else {
+                        //     var parameter = data.userid + "&" + role
+                        //     var enCodeParameter = btoa(parameter)
+                        //     //  alert(enCodeParameter)
+                        //     location.href = "/about?" + enCodeParameter;
+                        // //    history.back();
+                        // }
 
                     },
                 });

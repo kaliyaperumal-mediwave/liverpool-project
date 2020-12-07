@@ -27,18 +27,18 @@ $(document).ready(function () {
         },
         mounted: function () {
             var _self = this;
-           
-            
-           
-            this.paramValues= getParameter(location.href)
-            this.userId =  this.paramValues[0];
+
+
+
+            this.paramValues = getParameter(location.href)
+            this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
-            this.dynamicLabels=getDynamicLabels(this.userRole);
-           console.log( this.userId,this.userRole,this.userMode)
-            if (this.userMode === 'edit') {
-               // this.patchValue();
-               this.fetchSavedData();
+            this.dynamicLabels = getDynamicLabels(this.userRole);
+            console.log(this.userId, this.userRole, this.userMode)
+            if (this.userMode != undefined) {
+                // this.patchValue();
+                this.fetchSavedData();
             }
             if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
@@ -108,25 +108,26 @@ $(document).ready(function () {
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
-                    if (this.paramValues[2] == undefined) {
-                        var parameter =  this.userId +"&"+ this.userRole 
-                        var enCodeParameter = btoa(parameter)
-                        location.href = "/referral?"+enCodeParameter;
+                    location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
+                    // if (this.paramValues[2] == undefined) {
+                    //     var parameter =  this.userId +"&"+ this.userRole 
+                    //     var enCodeParameter = btoa(parameter)
+                    //     location.href = "/referral?"+enCodeParameter;
 
-                       // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
-                    }
-                    else {
-                        if (sessionStorage.getItem("section5") == "edit") {
-                            var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
-                            var enCodeParameter = btoa(parameter)
-                            location.href = "/review?" + enCodeParameter;
-                        }
-                        else {
-                            history.back();
-                        }
+                    //    // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
+                    // }
+                    // else {
+                    //     if (sessionStorage.getItem("section5") == "edit") {
+                    //         var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
+                    //         var enCodeParameter = btoa(parameter)
+                    //         location.href = "/review?" + enCodeParameter;
+                    //     }
+                    //     else {
+                    //         history.back();
+                    //     }
 
-                       // history.back();
-                    }
+                    //    // history.back();
+                    // }
                 } else {
                     console.log('empty response')
                 }
@@ -144,37 +145,31 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue(data) {
-                console.log(data);
-
-                if(this.userRole=="child")
-                {
-                    if (data.attendedInfo) {
+                if (this.userRole == "child") {
+                    if (data.child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
                     }
-                    Vue.set(this.educAndEmpData, "currentPosition",  data.child_profession);
+                    Vue.set(this.educAndEmpData, "position", data.child_profession);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data.child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data.child_socialworker_name);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
                 }
-                else if(this.userRole=="parent")
-                {
-                    console.log(data[0].parent[0].child_profession);
-
-                    if (data.attendedInfo) {
+                else if (this.userRole == "parent") {
+                
+                    if (data[0].parent[0].child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
                     }
-                    Vue.set(this.educAndEmpData,"position",data[0].parent[0].child_profession);
-                 //   Vue.set(this.educAndEmpData,"childEducationPlace",data[0].parent[0].child_education_place);
-                    Vue.set(this.educAndEmpData,"haveEhcpPlan",data[0].parent[0].child_EHAT);
-                    Vue.set(this.educAndEmpData,"haveEhat",data[0].parent[0].child_EHCP);
-                    Vue.set(this.educAndEmpData,"haveSocialWorker",data[0].parent[0].child_socialworker);
-                    Vue.set(this.educAndEmpData,"socialWorkName",data[0].parent[0].child_socialworker_name);
-                    Vue.set(this.educAndEmpData,"socialWorkContact",data[0].parent[0].child_socialworker_contact);
+                    Vue.set(this.educAndEmpData, "position", data[0].parent[0].child_profession);
+                    //   Vue.set(this.educAndEmpData,"childEducationPlace",data[0].parent[0].child_education_place);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHAT);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_name);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
                 }
-                else if(this.userRole=="professional")
-                {
+                else if (this.userRole == "professional") {
                     if (data[0].professional[0].child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data[0].professional[0].child_education_place);
                     }
@@ -186,7 +181,7 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
 
 
-                     
+
                     //  Vue.set(this.professionObj,"childProfession",data[0].professional[0].child_profession);
                     //    Vue.set(this.professionObj,"childEducationPlace",data[0].professional[0].child_education_place);
                     //    Vue.set(this.professionObj,"childEHCP",data[0].professional[0].child_EHAT);
@@ -199,7 +194,7 @@ $(document).ready(function () {
 
             //Back to previous page
             backToAbout: function () {
-                backToPreviousPage('/about?',this.userId,this.userRole)
+                backToPreviousPage('/about?', this.userId, this.userRole)
             },
         }
     })

@@ -12,11 +12,28 @@ module.exports = {
     };
     self.referral = function (req, callback) {
       let labels;
+      let decryptedUrl;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeParameter = atob(getParams)
-      const getParamsRedirect = deCodeParameter + "&edit";
-      const decryptedUrl = btoa(getParamsRedirect);
       const decodeValues = deCodeParameter.split("&");
+
+      if(decodeValues[2]==undefined)
+      {
+       const getParamsRedirect = deCodeParameter + "&backbutton";
+       decryptedUrl = btoa(getParamsRedirect);
+      }
+      else if(decodeValues[2]=="backbutton") 
+      {
+       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
+       decryptedUrl = btoa(getParamsRedirect);
+      }
+      else if(decodeValues[2]=="sec5back") 
+      {
+       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
+       decryptedUrl = btoa(getParamsRedirect);
+      }
+
+
       if (decodeValues[1] == 'child') {
         labels = "Section 4 of 5: Your Reason For Referral";
       } else if (decodeValues[1] == 'parent') {
