@@ -83,7 +83,7 @@ $(document).ready(function () {
                 },
             });
 
-            if (this.paramValues[2] == "edit") {
+            if (this.paramValues[2] !=undefined) {
                 this.fetchSavedData();
             }
             google.maps.event.addDomListener(window, 'load', _self.initMaps);
@@ -283,27 +283,28 @@ $(document).ready(function () {
             upsertAboutYouForm: function (payload) {
                 //   console.log(payload);
                 var responseData = apiCallPost('post', '/saveReferral', payload);
-                //    console.log(responseData);
+                   // console.log(responseData);
                 if (Object.keys(responseData)) {
-                    if (this.paramValues[2] == undefined) {
-                        var parameter = this.userId + "&" + this.userRole
-                        var enCodeParameter = btoa(parameter)
-                        //  alert(enCodeParameter)
-                        //   location.href = "/about?"+enCodeParameter;
-                        location.href = "/education?" + enCodeParameter;
-                    }
-                    else {
+                    location.href =redirectUrl(location.href,"education",this.userId,this.userRole);
+                    // if (this.paramValues[2] == undefined) {
+                    //     var parameter = this.userId + "&" + this.userRole
+                    //     var enCodeParameter = btoa(parameter)
+                    //     //  alert(enCodeParameter)
+                    //     //   location.href = "/about?"+enCodeParameter;
+                    //     location.href = "/education?" + enCodeParameter;
+                    // }
+                    // else {
 
-                        if (sessionStorage.getItem("section5") == "edit") {
-                            var parameter = this.userId + "&" + this.userRole
-                            var enCodeParameter = btoa(parameter)
-                            location.href = "/review?" + enCodeParameter;
-                        }
-                        else {
-                            history.back();
-                        }
-                        //
-                    }
+                    //     if (sessionStorage.getItem("section5") == "edit") {
+                    //         var parameter = this.userId + "&" + this.userRole
+                    //         var enCodeParameter = btoa(parameter)
+                    //         location.href = "/review?" + enCodeParameter;
+                    //     }
+                    //     else {
+                    //         history.back();
+                    //     }
+                    //     //
+                    // }
                 } else {
                     //     console.log('empty response')
                 }

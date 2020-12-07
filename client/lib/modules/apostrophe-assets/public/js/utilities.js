@@ -177,22 +177,31 @@ function setLoaderStyle() {
     element[0].classList.add('position-relative')
 }
 
-function redirectUrl(currentPge,nextPge) {
+function redirectUrl(currentPge,nextPge,usrId,roles) {
     let decryptedUrl;
-    var getParams = currentPge.substring(currentPge.indexOf("?") + 1);
-    const deCodeParameter = atob(getParams);
-    let decodeValues = deCodeParameter.split("&");
-    const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1];
-    decryptedUrl = btoa(getParamsRedirect);
     var gotopage;
-    if (decodeValues[2] == "sec5back") {
-        gotopage = "/review?" + decryptedUrl;
-    }
-    else {
+    var getParamsRedirect
+    var getParams = currentPge.substring(currentPge.indexOf("?") + 1);
+    var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
+    if (base64Matcher.test(getParams)) {
+        const deCodeParameter = atob(getParams);
+        let decodeValues = deCodeParameter.split("&");
+        if (decodeValues[2] == "sec5back") {
+            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1]+"&sec5back";
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/review?" + decryptedUrl;
+        }
+        else {
+            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1]+"&backbutton";
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/" + nextPge + "?" + decryptedUrl;
+    
+        }
+    } else {
+        getParamsRedirect = usrId + "&" +roles;
+        decryptedUrl = btoa(getParamsRedirect);
         gotopage = "/" + nextPge + "?" + decryptedUrl;
-
     }
-
     return gotopage;
 }
 

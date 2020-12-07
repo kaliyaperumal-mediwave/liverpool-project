@@ -677,7 +677,7 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        location.href =redirectUrl(location.href,"about");
+                        location.href =redirectUrl(location.href,"about",data.userid,role);
                        // location.href = redirectUrl("about");
                         // if (_self.paramValues != undefined && _self.paramValues[2] == "edit") {
                         //     if (sessionStorage.getItem("section5") == "edit") {
