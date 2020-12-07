@@ -177,6 +177,25 @@ function setLoaderStyle() {
     element[0].classList.add('position-relative')
 }
 
+function redirectUrl(currentPge,nextPge) {
+    let decryptedUrl;
+    var getParams = currentPge.substring(currentPge.indexOf("?") + 1);
+    const deCodeParameter = atob(getParams);
+    let decodeValues = deCodeParameter.split("&");
+    const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1];
+    decryptedUrl = btoa(getParamsRedirect);
+    var gotopage;
+    if (decodeValues[2] == "sec5back") {
+        gotopage = "/review?" + decryptedUrl;
+    }
+    else {
+        gotopage = "/" + nextPge + "?" + decryptedUrl;
+
+    }
+
+    return gotopage;
+}
+
 $(document).ready(function () {
     setLoaderStyle();
 })

@@ -6,6 +6,7 @@ const { join } = require('path');
 dotenv.config();
 
 const env = process.env.NODE_ENV || 'development';
+var ssl = (process.env.SSL == 'true');
 const configs = {
   base: {
     env,
@@ -21,9 +22,9 @@ const configs = {
       dialect: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: process.env.POSTGRES_PORT,
-      ssl: process.env.SSL,
+      ssl: ssl,
       dialectOptions: {
-        ssl: process.env.SSL,
+        ssl: ssl,
       },
       pool: {
         maxConnections: 10,

@@ -143,11 +143,11 @@ $(document).ready(function () {
                 this.userId = this.paramValues[0];
                 this.userRole = this.paramValues[1];
                 console.log(page)
-                var parameter = this.userId + "&" + this.userRole + "&" + "edit"
+                var parameter = this.userId + "&" + this.userRole + "&" + "sec5back"
                 // console.log(parameter)
                 var enCodeParameter = btoa(parameter)
                 //console.log(section + enCodeParameter)
-                sessionStorage.setItem("section5", "edit");
+              //  sessionStorage.setItem("section5", "edit");
                 location.href = "/" + page + "?" + enCodeParameter
                 // var uid = this.getUrlVars()['userid'];
                 // var role = this.getUrlVars()['role'];
