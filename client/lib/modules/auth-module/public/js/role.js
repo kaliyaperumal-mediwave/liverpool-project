@@ -32,22 +32,27 @@ $(document).ready(function () {
                 parentConcernInformation: '',
                 childConcernInformation: '',
                 contactProfParent: ''
-
-
             },
             date: null,
+            dateWrap:true,
             options: {
                 format: 'YYYY/MM/DD',
-                dayViewHeaderFormat:'MMMM YYYY',
-                toolbarPlacement:'bottom',
+                dayViewHeaderFormat: 'MMMM YYYY',
+                toolbarPlacement: 'bottom',
                 useCurrent: true,
                 showClear: true,
                 showClose: true,
-            //     keepOpen:true,
-            //    inline: true,
-               // minDate: new Date(1950, 10, 25),
-               // maxDate: new Date(),
-              },
+                allowInputToggle: true,
+                // widgetPositioning :{
+                //     horizontal: 'auto',
+                //     vertical: 'auto'
+                // }
+                // viewMode:'months'
+                //     keepOpen:true,
+                //    inline: true,
+                // minDate: new Date(1950, 10, 25),
+                // maxDate: new Date(),
+            },
             hasNameReqError: false,
             hasContactReqError: false,
             hasNameInvalidError: false,
