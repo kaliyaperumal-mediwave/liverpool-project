@@ -109,6 +109,14 @@ body {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }
 
+.completed-toast-text {
+  @include set-titleStyles($support-header-font-size, bold, $primary-color);
+}
+
+.completed-toast-header {
+  @include set-titleStyles($primary-font-size, bold, $primary-color);
+}
+
 .back-text {
   @include set-titleStyles($button-font-size, bold, $header-text-color);
 }
@@ -261,7 +269,7 @@ body {
 }
 
 .main-min-height {
-  min-height: 603px !important;
+  min-height: 650px !important;
 }
 
 .img-class {
