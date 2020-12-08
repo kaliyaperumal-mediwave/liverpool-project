@@ -2,20 +2,22 @@ var API_URI = "/modules/referral-module";
 $(document).ready(function () {
     var app = new Vue({
         el: '#referral-form',
+
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
-            this.dynamicLabels = allLabels;
-            this.userMode = getQueryStringValue('mode');
-            this.userRole = getQueryStringValue('role');
-            this.userId = getQueryStringValue('userId');
-            if (this.userMode === 'edit') {
-                this.patchValue();
+            this.paramValues = getParameter(location.href)
+            this.userId = this.paramValues[0];
+            this.userRole = this.paramValues[1];
+            this.userMode = this.paramValues[2];
+            this.dynamicLabels = getDynamicLabels(this.userRole);
+            console.log(this.userId, this.userRole, this.userMode)
+            if (this.userMode !== undefined) {
+                this.fetchSavedData();
             }
-            if (getUrlVars()['edt'] == 1) {
-                this.fetchSavedData()
-            }
-            else {
-                console.log("if else")
-            }
+            $('#loader').hide();
         },
         data: {
             referralData: {
@@ -60,6 +62,7 @@ $(document).ready(function () {
             showAddOtherService: false,
             userRole: '',
             userMode: '',
+            userId: '',
             payloadData: {},
             diagnosisList: [],
             problemsList: [],
@@ -67,6 +70,7 @@ $(document).ready(function () {
             allAvailableService: [],
             referralId: "",
             hasSubmittedServiceForm: false,
+            deleteData: null,
             listOfDiagnosis: [
                 { id: '11E', value: 'ADD/ADHD' },
                 { id: '1154', value: 'Anxiety' },
@@ -132,29 +136,29 @@ $(document).ready(function () {
                 { id: '85fhtsewre', value: 'YPAS' },
                 { id: '0dfsu8u', value: 'Other' },
             ],
-
+            paramValues: []
         },
         methods: {
 
             //Options changing logic
-            onOptionChange(event) {
+            onOptionChange: function(event) {
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal' || questionIdentifier == 'mentalDiagnosis' ||
                     questionIdentifier == 'accessedService' || questionIdentifier === 'anyService') {
-                    resetValues(event.target.form, this, this.currentSection);
+                    resetValues(event.target.form, this, 'referralData');
                 }
                 else if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
                         if (optionsName.diagnosisOther === '') {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
                 }
                 else if (questionIdentifier === 'listProblems') {
                     if (!this.problemsList.length) {
                         if (optionsName.problemsOther === '') {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
                 }
@@ -170,24 +174,24 @@ $(document).ready(function () {
                         }
                     }
                     if (!this.accessList.length) {
-                        resetValues(event.target.form, this, this.currentSection);
+                        resetValues(event.target.form, this, 'referralData');
                     }
                 }
             },
 
             //Getting values from Other Input box and logic
-            onValueEnter(e) {
+            onValueEnter: function(e) {
                 var questionIdentifier = event.target.name;
                 if (questionIdentifier === 'listDiagnosis') {
                     if (!this.diagnosisList.length) {
                         if (!e.target.value) {
-                            resetValues(event.target.form, this, this.currentSection);
+                            resetValues(event.target.form, this, 'referralData');
                         }
                     }
 
                 } else if (questionIdentifier === 'listProblems') {
                     if (!e.target.value) {
-                        resetValues(event.target.form, this, this.currentSection);
+                        resetValues(event.target.form, this, 'referralData');
                     }
                 }
             },
@@ -198,12 +202,16 @@ $(document).ready(function () {
                 payload.userid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
-                this.patchValue(successData);
+
+                if(successData!=undefined)
+                this.patchValue(successData)
+               // this.patchValue(successData);
+                $('#loader').hide();
             },
 
 
             //Form Submittion of Section-4(Referral) with validation logic
-            saveAndContinue() {
+            saveAndContinue: function() {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
                 if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
@@ -231,22 +239,37 @@ $(document).ready(function () {
             },
 
             //Section 4(Referral) Save and Service call with navaigation Logic
-            upsertReferralForm(payload) {
+            upsertReferralForm: function(payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
-                    if (getUrlVars()["edt"] == null) {
-                        location.href = "/review?userid=" + data.userid + "&role=" + role;
-                    }
-                    else {
-                        history.back();
-                    }
+                    location.href =redirectUrl(location.href,"review");
+                    //if (this.paramValues[2] == undefined) {
+                    //     var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
+                    //     var enCodeParameter = btoa(parameter)
+                    //     location.href = "/review?" + enCodeParameter;
+                    //     // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
+                    // }
+                    // else {
+                    //     if (sessionStorage.getItem("section5") == "edit") {
+                    //         var parameter = this.userId + "&" + this.userRole
+                    //         var enCodeParameter = btoa(parameter)
+                    //         location.href = "/review?" + enCodeParameter;
+                    //     }
+                    //     else {
+                    //         history.back();
+                    //     }
+
+                    //   //  history.back();
+                    // }
+                    this.deleteData = null;
                 } else {
                     console.log('empty response')
                 }
             },
 
             //Patching the value logic
-            patchValue(data) {
+            patchValue: function(data) {
+                console.log(data)
                 this.diagnosisList = data.diagnosis;
                 this.problemsList = data.diagnosis;
                 this.accessList = data.local_services;
@@ -271,7 +294,7 @@ $(document).ready(function () {
             },
 
             //Adding and Updating  a service logic
-            upsertService() {
+            upsertService: function() {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
@@ -305,7 +328,7 @@ $(document).ready(function () {
             },
 
             //Patching the service logic
-            patchService(service) {
+            patchService: function(service) {
                 var serviceForm = this.serviceData;
                 serviceForm.name = service.name;
                 serviceForm.professional = service.professional;
@@ -323,12 +346,22 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            deleteService(service) {
-                deleteLogic(this.allAvailableService, service, this, this.currentSection)
+            openDeleteModal: function(service) {
+                console.log(service);
+                this.deleteData = service;
+                // var elem = document.getElementById('deleteModal');
+                // elem.firstChild.setAttribute('data-items',service)
+                // deleteLogic(this.allAvailableService, service, this, 'allAvailableService');
+            },
+
+            deleteService: function(data) {
+                var modal = document.getElementById('closeModalDelete');
+                deleteLogic(this.allAvailableService, data, this, 'allAvailableService');
+                modal.setAttribute("data-dismiss", "modal");
             },
 
             //Resetting the modal values of service data
-            resetModalValues() {
+            resetModalValues: function() {
                 this.hasSubmittedServiceForm = false;
                 this.serviceData.name = '';
                 this.serviceData.professional = '';
@@ -336,7 +369,7 @@ $(document).ready(function () {
                 this.serviceData.mode = '';
             },
 
-            resetModal(type) {
+            resetModal: function(type) {
                 if (type === 'add') {
                     this.resetModalValues();
                 } else {
@@ -349,7 +382,7 @@ $(document).ready(function () {
                 }
             },
 
-            clearDependentValues(parentKey) {
+            clearDependentValues: function(parentKey) {
                 var foundKeyPair = this.dependent.filter(function (ele) { return ele.parentKey === parentKey })[0];
                 if (foundKeyPair) {
                     this[foundKeyPair.childKey] = [];
@@ -358,7 +391,8 @@ $(document).ready(function () {
 
             //Back to previous page
             backToEducation: function () {
-                backToPreviousPage('/education')
+                backToPreviousPage('/education?', this.userId, this.userRole)
+                // backToPreviousPage('/education')
             },
 
         },

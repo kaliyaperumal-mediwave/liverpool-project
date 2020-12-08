@@ -47,11 +47,10 @@ if (!module.parent) {
     process.once(signal, () => terminate(signal));
   });
 }
-
-
+dotenv.config();
 new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
   host: process.env.POSTGRES_HOST,
-  port: process.env.POSTGRES_PORT,
+  port: process.env.POSTGRES_HOST,
   dialect: 'postgres',
   ssl: process.env.SSL,
   dialectOptions: {
@@ -61,9 +60,11 @@ new Sequelize(process.env.POSTGRES_DB, process.env.POSTGRES_USER, process.env.PO
   .authenticate()
   .then(() => {
     logger.info('Database Connection has been established successfully');
+    console.log('Database Connection has been established successfully')
   })
   .catch((err) => {
-    logger.info('Database Connection Error', err);
+    logger.info( err);
+    console.log(err)
   });
 
   

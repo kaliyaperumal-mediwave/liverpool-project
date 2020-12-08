@@ -1,20 +1,25 @@
+
 //Reset Two-Way-Model Values 
-function resetValues(currentForm, context, section) {
+function resetValues(currentForm, context, formObj) {
     var allForms = Array.from(document.forms);
     var formIndex = allForms.indexOf(currentForm);
     for (let i = 0; i < allForms.length; i++) {
         var attributeValue = $(allForms[i]).data('options');
         if (formIndex < i) {
-            context.referralData[attributeValue] = '';
+            context[formObj][attributeValue] = '';
         }
-        if (formIndex <= i) {
-            context.clearDependentValues(attributeValue);
+        if (context.currentSection == 'referral') {
+            if (formIndex <= i) {
+                context.clearDependentValues(attributeValue);
+            }
         }
     }
-    if (section == 'referral') {
+    if (context.currentSection == 'referral') {
         context.showAddOtherService = false;
         context.allAvailableService = [];
+        context.deleteData = null;
     }
+    context.isFormSubmitted = false;
 };
 
 
@@ -27,16 +32,18 @@ function deleteLogic(arr, value, context, section) {
             return true;
         }
     });
-    if (section == 'referral') {
-        context.allAvailableService.splice(index, 1)
-    }
+    context[section].splice(index, 1);
 };
 
 //Back tp previous page navigation
-function backToPreviousPage(section) {
-    var uuid = this.getQueryStringValue('userid');
-    var role = this.getQueryStringValue('role');
-    location.href = section + "?userid=" + uuid + "&role=" + role + "&edt=1";
+function backToPreviousPage(section, userId, userRole) {
+    // var uuid = this.getQueryStringValue('userid');
+    // var role = this.getQueryStringValue('role');
+    var parameter = userId + "&" + userRole + "&" + "edit"
+    // console.log(parameter)
+    var enCodeParameter = btoa(parameter)
+    //console.log(section + enCodeParameter)
+    location.href = section + enCodeParameter
 };
 
 
@@ -100,7 +107,7 @@ function apiCallPost(reqType, endPoint, payload) {
 };
 
 //Commom API Call for post Function
-function apiCall(reqType, endPoint, params) {
+function apiCallGet(reqType, endPoint, params) {
     var response;
     $.ajax({
         url: API_URI + endPoint,
@@ -117,3 +124,87 @@ function apiCall(reqType, endPoint, params) {
     return response
 };
 
+//get URL parameter
+
+function getParameter(url) {
+    var allParameter = url.substring(url.indexOf("?") + 1);
+    var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
+    console.log(allParameter)
+    if (base64Matcher.test(allParameter)) {
+        var deCodeParameter = atob(allParameter)
+        var decodeValues = deCodeParameter.split("&");
+        return decodeValues;
+    } else {
+        // It's definitely not base64 encoded.
+    }
+    //  console.log(decodeURIComponent(allParameter));
+
+}
+
+function getAllSectionData(userid, role) {
+    var response;
+    $.ajax({
+        url: API_URI + "/fetchReview/" + userid + "&role=" + role,
+        type: 'get',
+        dataType: 'json',
+        contentType: 'application/json',
+        // data: JSON.stringify(payloadData),
+        success: function (data) {
+            console.log(data)
+            response = data;
+            //response = data;
+        },
+        error: function (error) {
+            console.log('Something went Wrong', error)
+        }
+    });
+    return response;
+}
+
+function convertDate(dbDate) {
+    var date = new Date(dbDate)
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth() + 1).toString();
+    var dd = date.getDate().toString();
+
+    var mmChars = mm.split('');
+    var ddChars = dd.split('');
+
+    return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+}
+function setLoaderStyle() {
+    var element = document.getElementsByClassName('apos-refreshable');
+    element[0].classList.add('position-relative')
+}
+
+function redirectUrl(currentPge,nextPge,usrId,roles) {
+    let decryptedUrl;
+    var gotopage;
+    var getParamsRedirect
+    var getParams = currentPge.substring(currentPge.indexOf("?") + 1);
+    var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
+    if (base64Matcher.test(getParams)) {
+        const deCodeParameter = atob(getParams);
+        let decodeValues = deCodeParameter.split("&");
+        if (decodeValues[2] == "sec5back") {
+            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1]+"&sec5back";
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/review?" + decryptedUrl;
+        }
+        else {
+            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1]+"&backbutton";
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/" + nextPge + "?" + decryptedUrl;
+    
+        }
+    } else {
+        getParamsRedirect = usrId + "&" +roles;
+        decryptedUrl = btoa(getParamsRedirect);
+        gotopage = "/" + nextPge + "?" + decryptedUrl;
+    }
+    return gotopage;
+}
+
+$(document).ready(function () {
+    setLoaderStyle();
+})

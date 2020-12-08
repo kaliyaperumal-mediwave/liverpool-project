@@ -53,11 +53,23 @@ $header-font-size: 32px;
 body {
   font-family: "century-gothic" !important;
 
+  [contentEditable="true"]:empty:not(:focus):before {
+    content: attr(place-text);
+    color: grey;
+  }
+
   .ui-widget.ui-widget-content {
     border: none !important;
   }
   .dropdown-divider {
     border-top: 1px solid $primary-color !important;
+  }
+
+  .sec2 {
+    background: #d6d8d8 0% 0% no-repeat padding-box !important;
+  }
+  .pac-container {
+    z-index: 10000 !important;
   }
 
   .h-112 {
@@ -220,6 +232,11 @@ body {
   width: auto;
 }
 
+.content_ediz {
+  max-height: 50px;
+  overflow: auto;
+}
+
 .calendar-bg {
   background: #e8edee 0% 0% no-repeat padding-box;
   border-radius: 2px;
@@ -261,6 +278,45 @@ body {
 
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
+  .back-text {
+    font-size: 15px !important;
+  }
+  .header-title {
+    font-size: 19px !important;
+  }
+  .question-header-font {
+    font-size: 24px;
+  }
+  .question-font {
+    font-size: 16px;
+  }
+  .option-font {
+    font-size: 15px !important;
+  }
+  .footer-text {
+    font-size: 16px !important;
+  }
+  .footer-text {
+    font-size: 16px !important;
+  }
+  .link-text {
+    font-size: 15px !important;
+  }
+  .btn-secondary-text {
+    font-size: 20px !important;
+  }
+  .content-header-text {
+    font-size: 18px !important;
+  }
+  .content-text {
+    font-size: 16px !important;
+  }
+  .content-secondary-header-text {
+    font-size: 24px !important;
+  }
+  .btn-txt {
+    font-size: 22px !important;
+  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;
@@ -274,6 +330,42 @@ body {
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767.98px) {
+  .back-text {
+    font-size: 16px !important;
+  }
+  .header-title {
+    font-size: 20px !important;
+  }
+  .question-header-font {
+    font-size: 24px !important;
+  }
+  .question-font {
+    font-size: 16px !important;
+  }
+  .option-font {
+    font-size: 15px !important;
+  }
+  .footer-text {
+    font-size: 16px !important;
+  }
+  .link-text {
+    font-size: 15px !important;
+  }
+  .btn-secondary-text {
+    font-size: 22px !important;
+  }
+  .content-header-text {
+    font-size: 19px !important;
+  }
+  .content-text {
+    font-size: 16px !important;
+  }
+  .content-secondary-header-text {
+    font-size: 22px !important;
+  }
+  .btn-txt {
+    font-size: 23px !important;
+  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
     width: 86px;
@@ -287,6 +379,9 @@ body {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991.98px) {
+  .header-title {
+    font-size: 24px !important;
+  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
     height: 100px;
@@ -310,4 +405,56 @@ body {
     height: 112px;
     width: 111px;
   }
+}
+@media (min-width: 1200px) and (max-width: 1472px) {
+  .back-text {
+    position: relative;
+    bottom: 120px;
+    height: 0px;
+  }
+}
+@media (min-width: 1474px) {
+  .back-text {
+    position: relative;
+    bottom: 99px;
+    height: 0px;
+  }
+}
+.no_padding {
+  padding: 0px !important;
+}
+.content_ediz{
+  max-height: 50px;
+  overflow: auto;
+}
+.res_fontz{
+  font-size: 2rem !important;
+  align-items: center;
+  display: flex !important;
+}
+@media (max-width: 749px) {
+  .question-header-font {
+    font-size: 21px;
+    font-weight: bold;
+    color: #023047;
+    cursor: pointer;
+  }
+  .res_fontz{
+    font-size: 1.8rem !important;
+    align-items: center;
+    display: flex !important;
+  }
+}
+@media (min-width: 750px) and (max-width: 1200px) {
+  .question-header-font {
+    font-size: 24px;
+    font-weight: bold;
+    color: #023047;
+    cursor: pointer;
+  }
+}
+.headerTop {
+  position: sticky;
+  top: 0px;
+  z-index: 1000;
 }

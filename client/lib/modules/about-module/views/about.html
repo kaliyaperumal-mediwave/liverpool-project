@@ -1,191 +1,118 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
+<script src="/modules/about-module/js/labels.js"></script>
 <script src="/modules/about-module/js/about.js"></script>
-
 {% endblock %}
 {% block main %}
 <div id="about-form">
-
-    <div class="sub-header-bg">
-        <h2 v-if="headerToDisplay =='child'"
-            class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">
-            Section 2 of 5: About you & your
-            household</h2>
-
-        <h2 v-if="headerToDisplay =='parent'"
-            class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">
-            Section 2 of 5: About the child & their household </h2>
-
-        <h2 v-if="headerToDisplay =='professional'"
-            class="header-title  text-sm-left px-4 pt-3 text-center text-md-center m-0">Section 2 of 5: About the child
-            /
-            young person & their household </h2>
-        <div
-            class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
-            Before we get too far, let’s check that you or the child / young person is eligible
-            to refer into this service.
-        </div>
-        <div class="d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title"
-            @click="backElgibility()">
-            back
-        </div>
-        <p @click="backElgibility()"
-            class="text-center text-sm-left  px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none header-title">back</p>
-    </div>
-
+    {% raw %}
     <div class="main-content-bg py-4 main-min-height">
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-4">
-                <h2 v-if="labelToDisplay =='child'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About You</h2>
-                <h2 v-if="labelToDisplay =='parent'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your
-                    child
-                </h2>
-                <h2 v-if="labelToDisplay =='professional'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About Your
-                    child /
-                    young person</h2>
+                <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{sec2dynamicLabel.aboutYouLabel}}</h2>
+
                 <!-- childs NHS Number Start-->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
-                        <label for="nhs" class="question-font">Your NHS number - optional</label>
-                        <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
-                            placeholder="Enter your 10 digit NHS number">
+                        <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}}</label>
+                        <input type="text" class="form-control" id="nhs" v-model="aboutObj.nhsNumber"
+                            v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)),
+                            'invalid-fields':(aboutFormData.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) }">
+                            You must provide a valid NHS Number.
+                        </div>
                     </div>
                     <div class="form-group py-2 my-2">
-                        <label for="fullName" class="question-font">Your full name</label>
-                        <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
-                            placeholder="Enter your first and last name">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="emailAddressOpts" class="question-font">Your email address - optional</label>
-                        <input type="email" class="form-control" id="emailAddressOpts"
-                            placeholder="Enter your email address" v-model="aboutObj.childEmail">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="contact" class="question-font">Enter your contact number</label>
-                        <input type="text" class="form-control" id="contact" placeholder="Enter your contact number"
-                            v-model="aboutObj.childContactNumber">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="gpLocation" class="question-font">Your address</label>
+                        <label for="fullName" class="question-font">{{sec2dynamicLabel.fullNameLabel}}</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
+                            <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
+                                v-bind:placeholder="sec2dynamicLabel.fullNamePlacLabel">
+                            <div class="input-group-append">
+                                <span class="input-group-text sec2">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childName),'invalid-fields':!aboutObj.childName }">
+                                You must provide a full name.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group py-2 my-2">
+                        <label for="emailAddressOpts" class="question-font">{{sec2dynamicLabel.emailLabel}}</label>
+                        <div class="input-group">
+                            <input type="email" class="form-control" id="emailAddressOpts"
+                                v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.childEmail">
+                            <div class="input-group-append">
+                                <span class="input-group-text sec2">
+                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)),'invalid-fields':(aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) }">
+                                You must provide a valid email.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group py-2 my-2">
+                        <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="contact"
+                                v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
+                                v-model="aboutObj.childContactNumber">
+                            <div class="input-group-append">
+                                <span class="input-group-text sec2">
+                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)),
+                                'invalid-fields':(aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)) }">
+                                You must provide a valid number.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group py-2 my-2">
+                        <label for="txtChildAddress" class="question-font">{{sec2dynamicLabel.addressLabel}}</label>
+                        <div class="input-group">
+                            <input type="search" class="form-control" placeholder="Start typing to search"
                                 id="txtChildAddress" aria-label="location" v-model="aboutObj.childAddress">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
+                            </div>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childAddress),
+                                'invalid-fields':!aboutObj.childAddress }">
+                                You must provide an address.
                             </div>
                         </div>
                     </div>
                 </div>
                 <!--childs NHS Number End-->
 
-                <!-- parent NHS Number Start-->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 my-2">
-                        <label for="nhs" class="question-font">Your child's NHS number - optional</label>
-                        <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
-                            placeholder="Enter your child's  10 digit NHS number">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="fullName" class="question-font">Your child's full name</label>
-                        <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
-                            placeholder="Enter your child's  first and last name">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="emailAddressOpts" class="question-font">Your child's email address -
-                            optional</label>
-                        <input type="email" class="form-control" id="emailAddressOpts"
-                            placeholder="Enter your email address" v-model="aboutObj.childEmail">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="contact" class="question-font">Your child's contact number</label>
-                        <input type="text" class="form-control" id="contact"
-                            placeholder="Enter your child's contact number" v-model="aboutObj.childContactNumber">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="gpLocation" class="question-font">Your child's address</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
-                                id="txtChildAddress" aria-label="location" v-model="aboutObj.childAddress">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--parent NHS Number End-->
-
-                <!-- profession NHS Number Start-->
-                <div v-if="labelToDisplay =='professional'"
-                    class="px-4 py-1 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 my-2">
-                        <label for="nhs" class="question-font">The child/young person's NHS number - optional</label>
-                        <input type="text" class="form-control" id="nhs" v-model="aboutObj.childNHS"
-                            placeholder="Enter the child/young person's 10 digit NHS number">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="fullName" class="question-font">The child/young person's full name</label>
-                        <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
-                            placeholder="Enter the child/young person's first and last name">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="emailAddressOpts" class="question-font">The child/young person's email address -
-                            optional</label>
-                        <input type="email" class="form-control" id="emailAddressOpts"
-                            placeholder="Enter the child/young person's email address" v-model="aboutObj.childEmail">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="contact" class="question-font">The child/young person's contact number</label>
-                        <input type="text" class="form-control" id="contact"
-                            placeholder="Enter the child/young person's contact number"
-                            v-model="aboutObj.childContactNumber">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="gpLocation" class="question-font">The child/young person's address</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
-                                id="txtChildAddress" aria-label="location" v-model="aboutObj.childAddress">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--profession NHS Number End-->
-
                 <!-- Post Section Start-->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Are you happy for post to be sent to
-                        this
-                        address?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Are you and your child happy for post
-                        to
-                        be
-                        sent to this address?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">is the the child / young person
-                        happy for post to be sent to this address?</p>
+                    <p class="question-font m-0">{{sec2dynamicLabel.postLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="no" value="no" name="sendPost"
-                            v-model="aboutObj.sendPost" @change="onChange($event)">
+                            v-model="aboutObj.sendPost">
                         <label class="form-check-label option-font d-flex align-items-center" for="no">
                             No
                         </label>
                     </div>
                     <div class="form-check  py-2 pl-0">
                         <input class="form-check-input" type="radio" name="sendPost" id="yes" value="yes"
-                            v-model="aboutObj.sendPost" @change="onChange($event)">
+                            v-model="aboutObj.sendPost">
                         <label class="form-check-label option-font d-flex align-items-center" for="yes">
                             Yes
                         </label>
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.sendPost),
+                        'invalid-fields':!aboutObj.sendPost }">
+                        You must provide an answer to this question to continue.
                     </div>
                 </div>
                 <!-- Post Section End-->
@@ -193,273 +120,119 @@
                 <!-- Gender Section Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start justify-content-between">
-                        <p v-if="labelToDisplay =='child'" class="question-font my-2">Your gender?</p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font my-2">Your child's gender?</p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font my-2">The child / young person’s
-                            gender -
-                            optional</p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                        <p class="question-font my-2">{{sec2dynamicLabel.genderLabel}}</p>
+                        <!-- <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt=""> -->
                     </div>
                     <div class="form-group mt-0 mb-2">
-                        <!-- <input type="text" class="form-control" id="gender" placeholder="Enter your gender" v-model="aboutObj.childGender"> -->
-                        <select @change="onChange($event)" class="custom-select form-control"
-                            v-model="aboutObj.childGender">
-                            <option value="" disabled>Choose a gender</option>
+                        <select class="custom-select form-control" v-model="aboutObj.childGender">
+                            <option value="" disabled selected>{{sec2dynamicLabel.genderPlacLabel}}</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
-
+                            <option value="Other">Other</option>
                         </select>
                     </div>
-
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childGender),
+                        'invalid-fields':!aboutObj.childGender }">
+                        You must provide an answer to this question to continue.
+                    </div>
                 </div>
                 <!-- Gender Section End -->
 
                 <!-- Gender Indentification Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you identify with the gender you
-                            were
-                            assigned at birth?
+                        <p class="question-font m-0">{{sec2dynamicLabel.identityLabel}}
                         </p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child identify with the
-                            gender
-                            you were assigned at birth?
-                        </p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young
-                            person
-                            identify with the gender they were assigned at birth?
-                        </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="" data-toggle="modal" data-target="#genderIdentity">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" value="no" id="genderNo" name="childGenderBirth"
-                            v-model="aboutObj.childGenderBirth">
+                            v-model="aboutObj.childIdentity">
                         <label class="form-check-label option-font d-flex align-items-center" for="genderNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="childGenderBirth" value="yes" id="genderYes"
-                            v-model="aboutObj.childGenderBirth">
+                            v-model="aboutObj.childIdentity">
                         <label class="form-check-label option-font d-flex align-items-center" for="genderYes">
                             Yes
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="childGenderBirth" value="Unsure"
-                            id="genderUnsure" v-model="aboutObj.childGenderBirth">
+                            id="genderUnsure" v-model="aboutObj.childIdentity">
                         <label class="form-check-label option-font d-flex align-items-center" for="genderUnsure">
                             Unsure
                         </label>
                     </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childIdentity),
+                        'invalid-fields':!aboutObj.childIdentity }">
+                        You must provide an answer to this question to continue.
+                    </div>
                 </div>
-
                 <!-- Gender Indentification Start -->
 
                 <!-- child sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
-                        <label for="sexual" class="question-font">Your sexual orientation - optional</label>
+                        <label for="sexual" class="question-font">{{sec2dynamicLabel.sexOrientLabel}}</label>
                         <input type="text" class="form-control" id="sexual"
-                            placeholder="Enter your sexual orientation (e.g. straight, pan, bi etc.)"
+                            v-bind:placeholder="sec2dynamicLabel.sexOrientPlacLabel"
                             v-model="aboutObj.childSexualOrientation">
                     </div>
                 </div>
                 <!-- child sexual orientation - optional End -->
-                <!-- parent sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group m-0">
-                        <label for="sexual" class="question-font">Your child's sexual orientation - optional</label>
-                        <input type="text" class="form-control" id="sexual"
-                            placeholder="Enter your child's  sexual orientation (e.g. straight, pan, bi etc.)"
-                            v-model="aboutObj.childSexualOrientation">
-                    </div>
-                </div>
-                <!-- parent sexual orientation - optional End -->
-
-                <!-- professional sexual orientation - optional Start -->
-                <div v-if="labelToDisplay =='professional'"
-                    class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group m-0">
-                        <label for="sexual" class="question-font">The child / young person’s sexual orientation -
-                            optional</label>
-                        <input type="text" class="form-control" id="sexual"
-                            placeholder="Enter your child's  sexual orientation (e.g. straight, pan, bi etc.)"
-                            v-model="aboutObj.childSexualOrientation">
-                    </div>
-                </div>
-                <!-- professional sexual orientation - optional End -->
 
                 <!-- child ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='child'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
-                        <label for="ethnicity" class="question-font">Your ethnicity - optional</label>
-                        <input type="text" class="form-control" id="ethnicity" placeholder="Enter your ethnicity"
-                            v-model="aboutObj.childEthnicity">
-                    </div>
-                </div>
-                <!-- child ethnicity - optional End -->
-
-                <!-- parent ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='parent'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group m-0">
-                        <label for="ethnicity" class="question-font">Your child's ethnicity - optional</label>
+                        <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}}</label>
                         <input type="text" class="form-control" id="ethnicity"
-                            placeholder="Enter your child's ethnicity" v-model="aboutObj.childEthnicity">
+                            v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.childEthnicity">
                     </div>
                 </div>
                 <!-- child ethnicity - optional End -->
-
-                <!-- professional ethnicity - optional Start -->
-                <div v-if="labelToDisplay =='professional'"
-                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group">
-                        <label for="ethnicity" class="question-font">The child / young person’s ethnicity -
-                            optional</label>
-                        <input type="text" class="form-control m-0" id="ethnicity"
-                            placeholder="Enter your child's ethnicity" v-model="aboutObj.childEthnicity">
-                    </div>
-                </div>
-                <!-- professional ethnicity - optional End -->
-
 
                 <!-- Your household Start -->
-                <h2 v-if="labelToDisplay =='child'"
-                    class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
-                    household
-                </h2>
-                <h2 v-if="labelToDisplay =='parent'"
-                    class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
-                    child's
-                    household
-                </h2>
-                <h2 v-if="labelToDisplay =='professional'"
-                    class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">The
-                    child
-                    /young
-                    person’s household
-                </h2>
-                <div v-show="labelToDisplay =='child'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 my-2">
-                        <label for="Name" class="question-font">Name of who you live with - optional</label>
-                        <input type="text" class="form-control" id="Name" placeholder="Joe Blogs"
-                            v-model="aboutObj.houseHoldName">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="relationship" class="question-font">Relationship - optional</label>
-                        <input type="text" class="form-control" id="relationship" placeholder="Brother"
-                            v-model="aboutObj.houseHoldRelationship">
-                    </div>
-                    <!-- <div class="form-group"> 
-                    <label for="dob" class="question-font">Date of birth - optional</label>
-                    <input type="text" class="form-control" id="dob" placeholder="10/10/2010" v-model="aboutObj.houseHoldDOB">
-                </div> -->
 
-                    <!-- calender start-->
-                    <div class="form-group">
-                        <p class="question-font m-0">What is your date of birth?</p>
-                        <div class="input-group py-2 my-2">
-                            <input type="date" id="txtHseDobChild" class="form-control" name="child"
-                                v-model="aboutObj.childHouseHoldDob" @change="changeDob($event)">
-                            <div class="input-group-addon">
+                <!-- Add HouseHold Members start -->
+                <h2 class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{sec2dynamicLabel.houseHoldLabel}}
+                </h2>
+
+                <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <label for="employment" class="question-font">Add your HouseHold</label>
+                    <template v-if="allHouseHoldMembers.length">
+                        <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between my-1">
+                                    <h5 class="card-title">{{item.name}}</h5>
+                                    <div>
+                                        <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#houseHoldModal" @click="patchHouseHold(item)"><i
+                                                class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                        <span class="badge badge-pill cursor-pointer"><i
+                                                @click="deleteHouseHold(item,index)" class="fa fa-trash-o fa-2x"
+                                                aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <h6 class="card-subtitle mb-2 text-muted">{{item.relationShip}}</h6>
+                                <p class="card-text">{{item.dob}}</p>
+                                <p class="card-text">{{item.profession}}</p>
                             </div>
                         </div>
-                    </div>
-                    <!-- calendar-end -->
-                    <!-- School / College / Employment - optional -start -->
-                    <div v-show="showBelowAge == 'yes'" class="form-group">
-                        <label for="employment" class="question-font">School / College / Employment - optional</label>
-                        <input type="text" class="form-control" id="txtEmpClg" v-model="aboutObj.houseHoldProfession">
-                    </div>
-                    <!-- School / College / Employment - optional -end -->
-                    <p class="text-right add-more-hint m-0">Add more +</p>
+                    </template>
+                    <p class="text-left add-more-hint m-0" data-toggle="modal" data-target="#houseHoldModal"
+                        @click="resetModal('add')">Please
+                        click here to add household +</p>
                 </div>
+                <!-- Add HouseHold Members end -->
 
-                <div v-show="labelToDisplay =='parent'" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 my-2">
-                        <label for="Name" class="question-font">Name of who your child lives with - optional</label>
-                        <input type="text" class="form-control" id="Name" placeholder="Joe Blogs"
-                            v-model="aboutObj.houseHoldName">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="relationship" class="question-font">Relationship with your child - optional</label>
-                        <input type="text" class="form-control" id="relationship" placeholder="Brother"
-                            v-model="aboutObj.houseHoldRelationship">
-                    </div>
-                    <!-- <div class="form-group"> 
-                    <label for="dob" class="question-font">Date of birth - optional</label>
-                    <input type="text" class="form-control" id="dob" placeholder="10/10/2010" v-model="aboutObj.houseHoldDOB">
-                </div> -->
-
-                    <!-- calender start-->
-                    <div class="form-group py-2 my-2">
-                        <p class="question-font m-0">Date of birth- optional</p>
-                        <div class="input-group">
-                            <input type="date" id="txtHseDobParent" class="form-control" name="child"
-                                v-model="aboutObj.childHouseHoldDob" @change="changeDob($event)">
-                            <div class="input-group-addon">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- calendar-end -->
-                    <!-- School / College / Employment - optional -start -->
-                    <div v-show="showBelowAge == 'yes'" class="form-group py-2 my-2">
-                        <label for="employment" class="question-font">School / College / Employment - optional</label>
-                        <input type="text" class="form-control" id="employment" placeholder="Joe Blogs"
-                            v-model="aboutObj.houseHoldProfession">
-                    </div>
-                    <!-- School / College / Employment - optional -end -->
-                    <p class="text-right add-more-hint m-0">Add more +</p>
-                </div>
-                <!----professional details start---->
-                <div v-show="labelToDisplay =='professional'"
-                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 my-2">
-                        <label for="Name" class="question-font">Name of who the child / young person lives with -
-                            optional</label>
-                        <input type="text" class="form-control" id="Name" placeholder="Joe Blogs"
-                            v-model="aboutObj.houseHoldName">
-                    </div>
-                    <div class="form-group py-2 my-2">
-                        <label for="relationship" class="question-font">Relationship with the child / young person -
-                            optional</label>
-                        <input type="text" class="form-control" id="relationship" placeholder="Brother"
-                            v-model="aboutObj.houseHoldRelationship">
-                    </div>
-                    <!-- <div class="form-group"> 
-                    <label for="dob" class="question-font">Date of birth - optional</label>
-                    <input type="text" class="form-control" id="dob" placeholder="10/10/2010" v-model="aboutObj.houseHoldDOB">
-                </div> -->
-
-                    <!-- calender start-->
-                    <div class="form-group py-2 my-2">
-                        <p class="question-font m-0">Date of birth of the person the child / young person lives with -
-                            optional</p>
-                        <div class="input-group">
-                            <input type="date" id="txtHseDobProf" class="form-control" name="child"
-                                v-model="aboutObj.childHouseHoldDob" @change="changeDob($event)">
-                            <div class="input-group-addon">
-                            </div>
-                        </div>
-                    </div>
-                    <!-- calendar-end -->
-                    <!-- School / College / Employment - optional -start -->
-                    <div v-show="showBelowAge == 'yes'" class="form-group">
-                        <label for="employment" class="question-font">School / College / Employment - optional</label>
-                        <input type="text" class="form-control" id="employment" placeholder="Joe Blogs"
-                            v-model="aboutObj.houseHoldProfession">
-                    </div>
-                    <!-- School / College / Employment - optional -end -->
-                    <p class="text-right add-more-hint m-0">Add more +</p>
-                </div>
-                <!----professional details start---->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Do you care for an adult?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Does your child care for an adult?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does the child / young person
-                        care
-                        for
-                        an adult?</p>
+                    <p class="question-font m-0">{{sec2dynamicLabel.careAdultLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="careNo" value="no" name="childCareAdult"
                             v-model="aboutObj.childCareAdult">
@@ -467,12 +240,14 @@
                             No
                         </label>
                     </div>
-                    <div class="form-check py-2 pl-0">
+                    <div class="d-flex form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="childCareAdult" id="careYes" value="yes"
                             v-model="aboutObj.childCareAdult">
                         <label class="form-check-label option-font d-flex align-items-center" for="careYes">
                             Yes
                         </label>
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-lg-3 px-2 pb-3 cursor-pointer"
+                            data-toggle="modal" data-target="#careForAdultModal" alt="">
                     </div>
 
                     <div class="form-check py-2 pl-0">
@@ -483,442 +258,451 @@
                         </label>
                     </div>
 
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childCareAdult),
+                        'invalid-fields':!aboutObj.childCareAdult }">
+                        You must provide an answer to this question to continue.
+                    </div>
+
                 </div>
                 <!-- Your household End -->
 
-                <!-- Toaster container -->
-                <div v-show="aboutObj.childCareAdult == 'yes'" class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 py-2">Help and support for children and young people
-                                who
-                                are carers</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Toaster container -->
-
-                <!-- Your parent / carer Start -->
-                <h2 v-if="labelToDisplay =='child'"
-                    class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
-                    parent /
-                    carer</h2>
-                <h2 v-if="labelToDisplay =='parent'"
-                    class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
-                    details
-                </h2>
-                <h2 v-if="labelToDisplay =='professional'"
-                    class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Child /
-                    young
-                    person’s parent / carer’s details</h2>
-                <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group my-2">
-                        <label v-if="labelToDisplay =='child'" for="carer" class="question-font">What is your parent /
-                            carer’s name?</label>
-                        <label v-if="labelToDisplay =='parent'" for="carer" class="question-font">What is your
-                            name?</label>
-                        <label v-if="labelToDisplay =='professional'" for="carer" class="question-font">What is the
-                            parent /
-                            carers name?</label>
-                        <input type="text" class="form-control" id="carer" placeholder="Joe Bucket"
-                            v-model="aboutObj.parentName">
-                    </div>
-                </div>
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person have parental
-                        responsibility
-                        for you?</p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do you have parental responsibility
-                        for
-                        your
-                        child?</p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Does this person have parental
-                        responsibility for the child / young person?</p>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
-                            name="parentialResponsibility" v-model="aboutObj.parentialResponsibility"
-                            @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="responsibilityNo">
-                            No
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="parentialResponsibility"
-                            id="responsibilityYes" value="yes" v-model="aboutObj.parentialResponsibility"
-                            @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="responsibilityYes">
-                            Yes
-                        </label>
-                    </div>
-                </div>
-
-                <!-- Toaster container child-->
-                <div v-show="labelToDisplay =='child' && aboutObj.parentialResponsibility == 'no'" class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 py-2">Please enter the details for the person who
-                                has parential responsibility for you.</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <div class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is your parent or carer name?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter your parent / carer’s name" v-model="aboutObj.parentContactName">
-                        </div>
-                    </div>
-                </div>
-                <!-- Toaster container -->
-
-                <!-- Toaster container -->
-                <div v-show="labelToDisplay =='parent' && aboutObj.parentialResponsibility == 'no'" class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 py-2">Please enter the details for the person who
-                                has parential responsibility for your child.</p>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <div class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is the parent or carer name?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter your parent / carer’s name" v-model="aboutObj.parentContactName">
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Toaster container -->
-
-
-                <!-- Toaster container -->
-                <div v-show="labelToDisplay =='professional' && aboutObj.parentialResponsibility == 'no'"
-                    class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 py-2">Please enter the details for the person who
-                                has parential responsibility for the child young/person.</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <div class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is the parent or carer name?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter your parent / carer’s name" v-model="aboutObj.parentContactName">
-                        </div>
-                    </div>
-                </div>
-                <!-- Toaster container -->
-
-
-                <!-- Your parent / carer End -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div v-show="aboutObj.parentialResponsibility == 'yes'" class="form-group py-2 mt-0 mb-2">
-                        <label v-if="labelToDisplay =='child'" for="relationshipYou" class="question-font">What is this
-                            persons relationship to you?</label>
-                        <label v-if="labelToDisplay =='parent'" for="relationshipYou" class="question-font">What is your
-                            relationship to your child?</label>
-                        <label v-if="labelToDisplay =='professional'" for="relationshipYou" class="question-font">What
-                            is
-                            their relationship to the child / young person?</label>
-                        <input type="text" class="form-control" id="relationshipYou"
-                            placeholder="eg mother, grandfather, foster parent etc"
-                            v-model="aboutObj.childParentRelationship">
-                    </div>
-
-                    <div v-show="aboutObj.parentialResponsibility == 'no'" class="form-group py-2 mt-0 mb-2">
-                        <label v-if="labelToDisplay =='child'" for="relationshipYou" class="question-font">What is this
-                            persons relationship to you?</label>
-                        <label v-if="labelToDisplay =='parent'" for="relationshipYou" class="question-font">What is
-                            their
-                            relationship to your child?</label>
-                        <label v-if="labelToDisplay =='professional'" for="relationshipYou" class="question-font">What
-                            is
-                            their relationship to the child / young person?</label>
-                        <input type="text" class="form-control" id="relationshipYou"
-                            placeholder="eg mother, grandfather, foster parent etc"
-                            v-model="aboutObj.childParentRelationship">
-                    </div>
-                    <div v-show="aboutObj.parentialResponsibility == 'yes'">
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is their contact number?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter your parent / carer’s phone number"
-                                v-model="aboutObj.parentContactNumber">
-                        </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is your contact number?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter your phone number" v-model="aboutObj.parentContactNumber">
-                        </div>
-
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is the their contact
-                                number?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter parent / carer’s phone number"
-                                v-model="aboutObj.parentContactNumber">
-                        </div>
-
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
-                            <label for="emailAddress" class="question-font">What is their email address? -
-                                optional</label>
-                            <input type="email" class="form-control" id="emailAddress"
-                                placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
-                        </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
-                            <label for="emailAddress" class="question-font">What is your email address? -
-                                optional</label>
-                            <input type="email" class="form-control" id="emailAddress"
-                                placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
-                        </div>
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
-                            <label for="emailAddress" class="question-font">What is the their email address? -
-                                optional</label>
-                            <input type="email" class="form-control" id="emailAddress"
-                                placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
-                        </div>
-                    </div>
-
-                    <div v-show="aboutObj.parentialResponsibility == 'no'">
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is their contact number?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter your parent / carer’s phone number"
-                                v-model="aboutObj.parentContactNumber">
-                        </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is their contact number?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter your phone number" v-model="aboutObj.parentContactNumber">
-                        </div>
-
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
-                            <label for="contactNumber" class="question-font">What is their contact
-                                number?</label>
-                            <input type="text" class="form-control" id="contactNumber"
-                                placeholder="Enter parent / carer’s phone number"
-                                v-model="aboutObj.parentContactNumber">
-                        </div>
-
-                        <div v-if="labelToDisplay =='child'" class="form-group py-2 my-2">
-                            <label for="emailAddress" class="question-font">What is their email address? -
-                                optional</label>
-                            <input type="email" class="form-control" id="emailAddress"
-                                placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
-                        </div>
-                        <div v-if="labelToDisplay =='parent'" class="form-group py-2 my-2">
-                            <label for="emailAddress" class="question-font">What is their email address? -
-                                optional</label>
-                            <input type="email" class="form-control" id="emailAddress"
-                                placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
-                        </div>
-                        <div v-if="labelToDisplay =='professional'" class="form-group py-2 my-2">
-                            <label for="emailAddress" class="question-font">What is the their email address? -
-                                optional</label>
-                            <input type="email" class="form-control" id="emailAddress"
-                                placeholder="Enter your parent / carer’s email address" v-model="aboutObj.parentEmail">
-                        </div>
-                    </div>
-                </div>
-
-                <div v-show="aboutObj.parentialResponsibility == 'yes'"
-                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person live in the same house
-                        as
-                        you?
-                    </p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do you live in the same house as your
-                        child?
-                    </p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Do they live in same house as
-                        the child/young person?</p>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="sameHouseNo" value="no"
-                            name="parentSameHouseYes" v-model="aboutObj.parentSameHouse" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="sameHouseNo">
-                            No
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="parentSameHouseYes" id="sameHouseYes"
-                            value="yes" v-model="aboutObj.parentSameHouse" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="sameHouseYes">
-                            Yes
-                        </label>
-                    </div>
-                </div>
-
-                <div v-show="aboutObj.parentialResponsibility == 'no'"
-                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <p v-if="labelToDisplay =='child'" class="question-font m-0">Does this person live in the same house
-                        as
-                        you?
-                    </p>
-                    <p v-if="labelToDisplay =='parent'" class="question-font m-0">Do they live in the same house as your
-                        child?
-                    </p>
-                    <p v-if="labelToDisplay =='professional'" class="question-font m-0">Do they live in same house as
-                        the child/young person?</p>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="sameHouseNo" value="no"
-                            name="parentSameHouseNo" v-model="aboutObj.parentSameHouse">
-                        <label class="form-check-label option-font d-flex align-items-center" for="sameHouseNo">
-                            No
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="parentSameHouseNo" id="sameHouseYes"
-                            value="yes" v-model="aboutObj.parentSameHouse">
-                        <label class="form-check-label option-font d-flex align-items-center" for="sameHouseYes">
-                            Yes
-                        </label>
-                    </div>
-                </div>
-
-
-                <div v-show="aboutObj.parentSameHouse=='no'"
-                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="form-group py-2 m-0">
-                        <label v-if="labelToDisplay =='child'" for="gpParentorCarerLocation" class="question-font">What
-                            is
-                            your parents / carer’s address? -
-                            optional</label>
-                        <label v-if="labelToDisplay =='parent' &&   aboutObj.parentialResponsibility == 'yes' "
-                            for="gpParentorCarerLocation" class="question-font">What is
-                            your address? -
-                            optional</label>
-
-                        <label v-if="labelToDisplay =='parent' &&  aboutObj.parentialResponsibility == 'no'"
-                            for="gpParentorCarerLocation" class="question-font">What is
-                            their address? -
-                            optional</label>
-
-                        <label v-if="labelToDisplay =='professional'" for="gpParentorCarerLocation"
-                            class="question-font">What is the their address? - optional</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Start typing to search"
-                                id="txtParentAddress" aria-label="location" v-model="aboutObj.selectedParentAddress">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
-                                </span>
+                <!-- support content modal start -->
+                <div class="modal fade" id="careForAdultModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="px-2 py-4">
+                                <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                    <span style="color:#023087 ;">
+                                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                        aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                </div>
+                                <h3 class="px-4 py-4 pb-2 support-modal-header-text text-center">
+                                    Help and support for children and
+                                    young people
+                                    who
+                                    are carers</h3>
+                                <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
+                                    <p class="support-modal-header-text cursor-pointer text-center m-0 py-2"> > Link to
+                                        support and advice</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!-- support content modal end -->
 
-                <div v-show="aboutObj.parentSameHouse=='yes'"
-                    class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div v-if="aboutObj.parentialResponsibility == 'yes'" class="d-flex align-items-start">
-                        <p v-if="labelToDisplay =='child'" class="question-font">Your legal care status (“legal care
-                            status”
-                            means who has legal
-                            guardianship over you)
-                        </p>
-                        <!-- <p v-if="labelToDisplay =='parent'" class="question-font">Your child's legal care status (“legal
-                        care status” means who has legal
-                        guardianship over the child/ young person)
-                    </p> -->
-                        <p v-if="labelToDisplay =='parent'" class="question-font">The child/young person's legal care
-                            status ("legal status" means who has legal guardianship over the them)
-                        </p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font">The child / young person’s legal
-                            care status (“legal status” means who has legal guardianship over the them)
-                        </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer" alt="">
-                    </div>
-
-                    <div v-if="aboutObj.parentialResponsibility == 'no'" class="d-flex align-items-start">
-                        <p v-if="labelToDisplay =='child'" class="question-font">Your legal care status (“legal care
-                            status”
-                            means who has legal
-                            guardianship over you)
-                        </p>
-                        <p v-if="labelToDisplay =='parent'" class="question-font">The child's legal care status ("legal
-                            status" means who has legal guardianship over the child/young person)
-                        </p>
-                        <p v-if="labelToDisplay =='professional'" class="question-font">The child's legal care status
-                            ("legal status" means who has legal guardianship over the child/young person
-                        </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer" alt="">
-                    </div>
-
-
-
-                    <div class="input-group">
-                        <select @change="onChange($event)" class="custom-select form-control"
-                            v-model="aboutObj.legalCareStatus" name="legalCare">
-                            <option value="parent">I am under the care of a parent</option>
-                            <option value="carer">I am under the care of a carer</option>
-                            <option value="professional">I am under the care of a professional</option>
-                            <option value="social worker">I am under the care of a social worker</option>
-                        </select>
-                        <div class="input-group-append">
-                            <span class="input-group-text">
-                                <i class="fa fa-chevron-down fa-1x" aria-hidden="true"></i>
-                            </span>
+                <!-- Your parent / carer Start -->
+                <h2 class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{sec2dynamicLabel.carerLabel}}</h2>
+                <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="form-group my-2">
+                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourNameLabel}}</label>
+                        <input type="text" class="form-control" id="carer"
+                            v-bind:placeholder="sec2dynamicLabel.yourNamePlacLabel" v-model="aboutObj.parentName">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentName),
+                            'invalid-fields':!aboutObj.parentName }">
+                            You must provide an name.
                         </div>
                     </div>
                 </div>
 
-                <!-- Section completed Toaster container -->
-                <div v-show="aboutObj.parentSameHouse=='yes' && saveAndCont == 'true'" class="px-4 py-4">
+                <!-- Reset Flow Start -->
+
+                <!-- Parental Responsibility start -->
+                <form id="parentResy-form" data-options="parentialResponsibility">
+                    <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{sec2dynamicLabel.parentalResLabel}}</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
+                                name="parentialResponsibility" v-model="aboutFormData.parentialResponsibility"
+                                @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center"
+                                for="responsibilityNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="parentialResponsibility"
+                                id="responsibilityYes" value="yes" v-model="aboutFormData.parentialResponsibility"
+                                @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center"
+                                for="responsibilityYes">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <!-- Parental Responsibility end -->
+
+                <!-- Parental Responsibility Toaster container start-->
+                <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">Another section finished. Lets move on to
-                                education / employment & support needs</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Section completed Toaster container -->
-
-                <div v-show=" aboutObj.parentSameHouse=='yes' &&  saveAndCont == 'true'" class="text-center py-4">
-                    <a>
-                        <button type="button" class="btn px-md-4 py-2 px-3" @click="saveAbout()"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE</span></button>
-                    </a>
-                </div>
-
-                <div id="showAdToast" class="px-4 py-4" style="display: none;">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            <p class="question-font text-center m-0 py-2">{{sec2dynamicLabel.responsibilityToastLabel}}
                             </p>
-                            <p class="question-font text-center m-0 py-2">Another section finished. Lets move on to
-                                education / employment & support needs </p>
                         </div>
                     </div>
                 </div>
-                <!-- Section completed Toaster container -->
+                <!-- Parental Responsibility Toaster container end -->
 
-                <div id="showAdBtn" class="text-center py-4" style="display: none;">
-                    <a>
-                        <button type="button" class="btn px-md-4 py-2 px-3" @click="saveAbout()"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE </span></button>
-                    </a>
+                <!-- Parent or Carer Name Start -->
+                <form id="parentOrCarer-form" data-options="parentCarerName">
+                    <div v-if="aboutFormData.parentialResponsibility == 'no'"
+                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-2 my-2">
+                            <label for="contactNumber"
+                                class="question-font">{{sec2dynamicLabel.parentOrCarerNameLabel}}</label>
+                            <input type="text" class="form-control" id="contactNumber"
+                                placeholder="Enter your parent / carer’s name" v-model="aboutFormData.parentCarerName">
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerName),
+                                'invalid-fields':(!aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no') }">
+                                You must provide an name.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Parent or Carer Name End -->
+
+                <template
+                    v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
+                    <!-- Parent or Carer Relationship Start -->
+                    <form id="parentOrCarerRelation-form" data-options="relationshipToYou">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            <div class="form-group py-2 mt-0 mb-2">
+                                <label for="relationshipYou"
+                                    class="question-font">{{sec2dynamicLabel.relationShipLabel}}</label>
+                                <input type="text" class="form-control" id="relationshipYou" name="relationShip"
+                                    placeholder="eg mother, grandfather, foster parent etc"
+                                    v-model="aboutFormData.relationshipToYou">
+                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.relationshipToYou),
+                                    'invalid-fields':!aboutFormData.relationshipToYou }">
+                                    You must provide an answer to this question to continue.
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                    <!-- Parent or Carer Relationship  End -->
+
+                    <!-- Parent or Carer Contact Start -->
+                    <form id="parentOrCarerContact-form" data-options="contactNumber">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            <div class="form-group py-2 mt-0 mb-2">
+                                <label for="contactNumber"
+                                    class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
+                                <input type="text" class="form-control" id="contactNumber"
+                                    v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
+                                    v-model="aboutFormData.contactNumber">
+                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.contactNumber),
+                                    'invalid-fields':!aboutFormData.contactNumber }">
+                                    You must provide a number.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)),
+                                    'invalid-fields':(aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) }">
+                                    You must provide a valid number.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Parent or Carer Contact End -->
+
+                    <!-- Parent or Carer Email Start -->
+                    <form id="parentOrCarerEmail-form" data-options="emailAddress">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            <div class="form-group py-2 mt-0 mb-2">
+                                <label for="emailAddress"
+                                    class="question-font">{{sec2dynamicLabel.guardEmailLabel}}</label>
+                                <input type="email" class="form-control" id="emailAddress"
+                                    v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
+                                    v-model="aboutFormData.emailAddress">
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)),
+                                    'invalid-fields':(aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)) }">
+                                    You must provide a valid email.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!-- Parent or Carer Email End -->
+                </template>
+
+                <!-- Live In Same House Start -->
+                <form id="sameHouse-form" data-options="sameHouse">
+                    <div v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{sec2dynamicLabel.sameHouseLabel}}
+                        </p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" id="sameHouseNo" value="no"
+                                name="liveInSameHouse" v-model="aboutFormData.sameHouse"
+                                @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sameHouseNo">
+                                No
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="liveInSameHouse" id="sameHouseYes"
+                                value="yes" v-model="aboutFormData.sameHouse" @change="onOptionChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="sameHouseYes">
+                                Yes
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <!-- Live In Same House End -->
+
+                <!-- Parent Or Carree's Address Start-->
+                <form id="guardAddress-form" data-options="parentOrCarrerAddress">
+                    <div v-show="aboutFormData.sameHouse=='no'"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-2 m-0">
+                            <label for="gpParentorCarerLocation"
+                                class="question-font">{{sec2dynamicLabel.guardAddress}}</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control"
+                                    v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
+                                    aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Parent Or Carree's Address End-->
+
+                <!-- Legal care Status Start -->
+                <form id="legalCare-form" data-options="legalCareStatus">
+                    <div v-if="aboutFormData.sameHouse =='yes' || aboutFormData.sameHouse =='no'"
+                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="d-flex align-items-start">
+                            <p class="question-font">{{sec2dynamicLabel.legalCareLabel}}
+                            </p>
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-2 cursor-pointer" alt="">
+                        </div>
+                        <div class="input-group">
+                            <select class="custom-select form-control" v-model="aboutFormData.legalCareStatus"
+                                name="legalCare">
+                                <option value="" disabled selected>{{sec2dynamicLabel.legalCarePlacLabel}}</option>
+                                <option value="I am under the care of a parent">I am under the care of a parent</option>
+                                <option value="I am under the care of a carer">I am under the care of a carer</option>
+                                <option value="I am under the care of a professional">I am under the care of a
+                                    professional</option>
+                                <option value="I am under the care of a social worker">I am under the care of a social
+                                    worker</option>
+                            </select>
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fa fa-chevron-down fa-1x" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Legal care Status Start -->
+
+                <!-- Dynamic Toaster start Scenerio 1-->
+                <template v-if="aboutFormData.legalCareStatus">
+                    <div class="px-4 py-4">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <p class="text-center m-0 py-2">
+                                    <template
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
+                                    aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+
+                                    <template
+                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                                !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
+                                aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+
+                                    <template
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    aboutFormData.parentialResponsibility && aboutObj.childGender &&
+                                    aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </template>
+
+                                    <template
+                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                                !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
+                                !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </template>
+                                </p>
+
+                                <template
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                            aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
+                            aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
+                                        move on to
+                                        education / employment & support needs</p>
+                                </template>
+
+                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                        !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
+                        aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
+                                        move on to
+                                        education / employment & support needs</p>
+                                </template>
+
+                                <template
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                            aboutFormData.parentialResponsibility && aboutObj.childGender &&
+                            aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
+                                        move on to
+                                        education / employment & support needs</p>
+                                </template>
+
+                                <template
+                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                        !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
+                        !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
+                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                        page
+                                    </p>
+                                </template>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </template>
+                <!-- Dynamic Toaster end -->
+
+                <!-- Add HouseHold Modal Start -->
+                <div class="modal fade" id="houseHoldModal" tabindex="-1" role="dialog" aria-labelledby="houseHoldLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <template v-if="houseHoldData.mode == 'update'">
+                                    <h5 class="question-header-font" id="houseHoldLabel">Edit HouseHold</h5>
+                                </template>
+                                <template v-else-if="houseHoldData.mode == ''">
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add HouseHold</h5>
+                                    </span>
+                                </template>
+                                <template v-else>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add HouseHold</h5>
+                                </template>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <div class="form-group">
+                                    <label for="houseHoldName" class="question-font">Name</label>
+                                    <input type="text" class="form-control" v-model="houseHoldData.name"
+                                        id="houseHoldName" placeholder="Enter name">
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && !houseHoldData.name) }">
+                                        Please provide a service name.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="relationship" class="question-font">RelationShip -
+                                        optional</label>
+                                    <input type="text" v-model="houseHoldData.relationShip" class="form-control"
+                                        id="relationship" placeholder="Enter relationship with CYP">
+                                </div>
+                                <div class="form-group">
+                                    <label for="dob" class="question-font">Date of birth optional</label>
+                                    <input id="houseHoldDate" type="text" class="form-control"
+                                        v-model="houseHoldData.dob" @keyup="clearDate($event)"
+                                        placeholder="Enter D.O.B">
+                                </div>
+                                <div class="form-group" v-show="getAge(houseHoldData.dob) >= 18 ">
+                                    <label for="educLocation" class="question-font">School/College/Employment</label>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control" placeholder="Start typing to search"
+                                            id="educLocation" v-model="houseHoldData.profession">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text sec2">
+                                                <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn px-md-4 w-50" id="closeModal"
+                                    @click="upsertHouseHold()">
+                                    <template v-if="houseHoldData.mode == 'update'">
+                                        <span class="btn-modal-text">UPDATE
+                                        </span>
+                                    </template>
+                                    <template v-else-if="houseHoldData.mode == ''">
+                                        <span class="btn-modal-text">ADD
+                                        </span>
+                                    </template>
+                                    <template v-else>
+                                        <span class="btn-modal-text">ADD
+                                        </span>
+                                    </template>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- Add HouseHold Modal End -->
+                 <!-- support content modal start -->
+    <div class="modal fade" id="genderIdentity" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="px-2 py-4">
+                    <div class="d-flex justify-content-center m-0 cursor-pointer">
+                        <!-- <img src="/modules/my-apostrophe-assets/img/support.svg" alt="logo"
+                        class="support-logo"> -->
+                        <span style="color:#023087 ;">
+                            <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                        </span>
+                        <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                            aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                    </div>
+                    
+                    <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
+                        <h3 class="support-modal-content-text text-left py-2"> If you feel confused about your gender identity, you're not alone.
+                        </h3>
+                        <p class="support-modal-header-text cursor-pointer text-left m-0 py-2"> <a href="https://www.nhs.uk/live-well/healthy-body/trans-teenager/">Learn more about Gender Identity - NHS
+                            </a>
+                        </p>
+                        <p class="support-modal-header-text cursor-pointer text-left m-0 py-2"> <a href="https://www.liverpoolcamhs.com/need-advice/gender-identity/">Learn More about Gender Identity - LIverpool CAMHS
+                        </a>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- support content modal end -->
+
 
             </div>
         </div>
     </div>
+    {% endraw %}
 </div>
 {% endblock %}

@@ -3,5 +3,5 @@ $(function() {
   // JQuery and lodash (_) are both included with Apostrophe, so no need to
   // worry about including them on your own.
   
-  console.log('Hello world.');
+ // console.log('Hello world.');
 });
