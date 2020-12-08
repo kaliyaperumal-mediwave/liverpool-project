@@ -2,6 +2,8 @@
 //const apiUrl = "/user/eligibility"
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
+
+    Vue.component('date-picker', VueBootstrapDatetimePicker);
     var _self = this;
     var app = new Vue({
         el: '#role-form',
@@ -33,6 +35,19 @@ $(document).ready(function () {
 
 
             },
+            date: null,
+            options: {
+                format: 'YYYY/MM/DD',
+                dayViewHeaderFormat:'MMMM YYYY',
+                toolbarPlacement:'bottom',
+                useCurrent: true,
+                showClear: true,
+                showClose: true,
+            //     keepOpen:true,
+            //    inline: true,
+               // minDate: new Date(1950, 10, 25),
+               // maxDate: new Date(),
+              },
             hasNameReqError: false,
             hasContactReqError: false,
             hasNameInvalidError: false,
@@ -53,17 +68,16 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-
             this.paramValues = getParameter(location.href)
             console.log(this.paramValues)
 
             this.getGP();
             this.getProfGP();
             if (this.paramValues != undefined) {
-                if (this.paramValues[2] !=undefined) {
-                   this.elgibilityObj.uuid = this.paramValues[0];
-                   this.elgibilityObj.editFlag =this.paramValues[2]
-                   this.fetchSavedData()
+                if (this.paramValues[2] != undefined) {
+                    this.elgibilityObj.uuid = this.paramValues[0];
+                    this.elgibilityObj.editFlag = this.paramValues[2]
+                    this.fetchSavedData()
                 }
             }
             // if (this.paramValues[2] !=undefined) {
@@ -341,8 +355,7 @@ $(document).ready(function () {
 
             onChange: function (event) {
                 var questionIdentifier = event.target.name;
-                var optionValue = event.target.value
-                console.log(questionIdentifier, optionValue);
+                var optionValue = event.target.value;
                 if (questionIdentifier == "role") {
                     this.resetValues(event.target.form);
                 }
@@ -351,8 +364,6 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
-                    //   this.elgibilityObj.camhs = "";
-
                 }
                 else if (questionIdentifier == "belowAgeParent" && optionValue == "no") {
                     this.resetValues(event.target.form);
@@ -590,9 +601,9 @@ $(document).ready(function () {
 
             save: function () {
                 // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
-             //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
-              //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
-              //  this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
+                //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
+                //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
+                //  this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
@@ -677,8 +688,8 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        location.href =redirectUrl(location.href,"about",data.userid,role);
-                       // location.href = redirectUrl("about");
+                        location.href = redirectUrl(location.href, "about", data.userid, role);
+                        // location.href = redirectUrl("about");
                         // if (_self.paramValues != undefined && _self.paramValues[2] == "edit") {
                         //     if (sessionStorage.getItem("section5") == "edit") {
                         //         //console.log(parameter)

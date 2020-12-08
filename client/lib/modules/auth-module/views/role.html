@@ -81,12 +81,7 @@
                     class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p>
-                    <div class="input-group">
-                        <input id="txtDateChild" type="date" class="form-control" name="child"
-                            v-model="elgibilityObj.childDob" @change="changeDob($event)">
-                        <div class="input-group-addon">
-                        </div>
-                    </div>
+                        <date-picker name="date" v-model="date" :config="options"></date-picker>
                 </div>
             </form>
             <!-- calendar-end  child-->
@@ -98,12 +93,7 @@
                     <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
                         birth?
                     </p>
-                    <div class="input-group">
-                        <input id="txtDateParent" type="date" class="form-control" name="parent"
-                            v-model="elgibilityObj.childDob" @change="changeDob($event)">
-                        <div class="input-group-addon">
-                        </div>
-                    </div>
+                    <date-picker name="date" v-model="date" :config="options"></date-picker>
                 </div>
             </form>
             <!-- calendar-end  parent-->

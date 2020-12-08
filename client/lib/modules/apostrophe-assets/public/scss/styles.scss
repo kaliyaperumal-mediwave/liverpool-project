@@ -58,6 +58,15 @@ body {
     color: grey;
   }
 
+  // .bootstrap-datetimepicker-widget thead:first-child tr:first-child {
+  //   background: #023047 0% 0% no-repeat padding-box !important;
+  //   border: 1px solid #00000000 !important;
+  //   opacity: 1 !important;
+  // }
+  // .bootstrap-datetimepicker-widget table thead tr:first-child th:hover {
+
+  // }
+
   .ui-widget.ui-widget-content {
     border: none !important;
   }
@@ -251,22 +260,6 @@ body {
   background: #ffb703 0% 0% no-repeat padding-box;
 }
 
-// .cal-header-text {
-//   font-size: 14px;
-//   font-weight: normal;
-//   letter-spacing: 0px;
-//   color: $question-text-color;
-//   opacity: 1;
-// }
-
-// .cal-text {
-//   font-size: 17x;
-//   font-weight: italic;
-//   letter-spacing: 0px;
-//   color: #023047;
-//   opacity: 1;
-// }
-
 .main-min-height {
   min-height: 603px !important;
 }
@@ -423,11 +416,11 @@ body {
 .no_padding {
   padding: 0px !important;
 }
-.content_ediz{
+.content_ediz {
   max-height: 50px;
   overflow: auto;
 }
-.res_fontz{
+.res_fontz {
   font-size: 2rem !important;
   align-items: center;
   display: flex !important;
@@ -439,7 +432,7 @@ body {
     color: #023047;
     cursor: pointer;
   }
-  .res_fontz{
+  .res_fontz {
     font-size: 1.8rem !important;
     align-items: center;
     display: flex !important;
