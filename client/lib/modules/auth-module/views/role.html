@@ -83,7 +83,7 @@
                         {{elgibilityObj.maxDate}}</p>
                         <div class="input-group">
                             <date-picker name="date" v-model="date" :config="options" :wrap="dateWrap"></date-picker>
-                            <div class="input-group-append">
+                            <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
                                 </span>
@@ -100,7 +100,14 @@
                     <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
                         birth?
                     </p>
-                    <date-picker name="date" v-model="date" :config="options"></date-picker>
+                    <div class="input-group">
+                        <date-picker name="date" v-model="date" :config="options" :wrap="dateWrap"></date-picker>
+                        <div class="input-group-append cursor-pointer">
+                            <span class="input-group-text">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </form>
             <!-- calendar-end  parent-->
