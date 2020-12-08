@@ -9,7 +9,13 @@ module.exports = {
       self.dispatch('/', self.completed);
     };
     self.completed = function (req, callback) {
-      return self.sendPage(req, self.renderer('completed', {}));
+      return self.sendPage(req, self.renderer('completed', {
+        headerContent: "The referral has been made to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",
+        headerDescription: '',
+        backContent: '',
+        home:false,
+        completed: true,
+      }));
     };
   }
 }
