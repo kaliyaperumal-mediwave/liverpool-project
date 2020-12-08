@@ -107,13 +107,13 @@ function apiCallPost(reqType, endPoint, payload) {
 };
 
 //Commom API Call for post Function
-function apiCallGet(reqType, endPoint, params) {
+function apiCallGet(reqType, endPoint) {
     var response;
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
-        async: false,
-        data: params,
+        dataType: 'json',
+        contentType: 'application/json',
         success: function (res) {
             response = res;
         },

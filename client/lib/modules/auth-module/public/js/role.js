@@ -55,7 +55,7 @@ $(document).ready(function () {
         mounted: function () {
 
             this.paramValues = getParameter(location.href)
-            console.log(this.paramValues)
+       //     console.log(this.paramValues)
 
             this.getGP();
             this.getProfGP();
@@ -81,23 +81,26 @@ $(document).ready(function () {
                 this.sendObj.role = this.paramValues[1];
                 //var roleType=new URL(location.href).searchParams.get('role')
                 $.ajax({
-                    url: API_URI + "/fetchEligibility",
-                    type: 'post',
+                  //  url: API_URI + "/fetchEligibility",
+                    url: API_URI + "/fetchEligibility/" +  this.sendObj.uuid + "&role=" + this.sendObj.role,
+                    type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
-                    data: JSON.stringify(this.sendObj),
+                   // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         //alert("section 1 saved.");
-                        console.log(data); //check ssh
+                        //console.log(data); //check ssh
                         app.setValues(data);
-
                     },
+                    error: function (error) {
+                        console.log(error.responseJSON.message)
+                    }
                 });
             },
 
             setValues: function (data) {
                 var roleType = this.paramValues[1]
-                console.log(roleType)
+             //   console.log(roleType)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -152,7 +155,7 @@ $(document).ready(function () {
                         }
                         displayNameList = _self.gpListName;
                         displayPostList = _self.gpListPost;
-                        console.log(displayNameList);
+                        //console.log(displayNameList);
                         $("#gpLocation").autocomplete({
                             source: displayNameList,
                             response: function (event, ui) {
@@ -733,11 +736,11 @@ $(document).ready(function () {
             },
 
             fetchAgeLogic: function (dbdob, roleText) {
-                console.log(dbdob);
+      //          console.log(dbdob);
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
-                console.log(age);
+      //          console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
                         this.belowAgeLimit = "yes";

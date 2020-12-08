@@ -634,7 +634,7 @@
                                         v-model="houseHoldData.dob" @keyup="clearDate($event)"
                                         placeholder="Enter D.O.B">
                                 </div>
-                                <div class="form-group" v-show="getAge(houseHoldData.dob) >= 18 ">
+                                <div class="form-group" v-show="getAge(houseHoldData.dob) <= 18 ">
                                     <label for="educLocation" class="question-font">School/College/Employment</label>
                                     <div class="input-group">
                                         <input type="search" class="form-control" placeholder="Start typing to search"

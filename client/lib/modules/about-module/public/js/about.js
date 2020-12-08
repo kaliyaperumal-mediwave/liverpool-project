@@ -104,7 +104,7 @@ $(document).ready(function () {
                     types: ['geocode'],
                 });
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
-                    types: ['geocode'],
+                    types: ['establishment'],
                 });
                 parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
                     types: ['geocode'],
@@ -135,7 +135,7 @@ $(document).ready(function () {
                 var payload = {};
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
-                var successData = apiCallPost('post', '/fetchAbout', payload);
+                var successData = apiCallGet('get', '/fetchAbout/' +   payload.uuid + "&role=" +  payload.role);
                 if (Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
