@@ -214,7 +214,6 @@ $(document).ready(function () {
                 else if (this.userRole == "professional") {
                     //   console.log(data);
                     //      console.log(data[0].responsibility_parent_name)
-                    console.log(data[0])
                     if(data[0]!=undefined &&  data[0].parent[0]!=undefined)
                     {
                         this.editPatchFlag = true;
@@ -301,7 +300,6 @@ $(document).ready(function () {
             upsertAboutYouForm: function (payload) {
                 //   console.log(payload);
                 var responseData = apiCallPost('post', '/saveReferral', payload);
-                    console.log(responseData);
                 if (Object.keys(responseData)) {
                     location.href =redirectUrl(location.href,"education",this.userId,this.userRole);
                     // if (this.paramValues[2] == undefined) {
