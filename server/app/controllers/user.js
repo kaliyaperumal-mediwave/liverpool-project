@@ -1950,3 +1950,55 @@ exports.saveReview = ctx => {
     }
   })
 }
+
+exports.getRefNo = ctx => {
+  console.log(ctx.request.body);
+  const user = ctx.orm().User;
+  const uniqueNo = uniqid().toUpperCase();
+  return user.findOne({
+    where: {
+      uuid: ctx.query.user_id,
+    },
+    attributes: ['id', 'uuid','reference_code']
+  }).then((result) => {
+    return ctx.body = result;
+  })
+}
+
+function getrole(ctx) {
+
+  const user = ctx.orm().User;
+  return user.findOne({
+    where: {
+      uuid: ctx.query.user_id,
+    },
+    attributes: ['id', 'uuid']
+  }).then((result) => {
+
+    return user.findAll({
+      include: [
+        {
+          model: ctx.orm().type,
+          as: 'type',
+        },
+      ],
+      where: {
+        id: result.id,
+      },
+    }).then((userResult) => {
+
+      console.log(userResult)
+
+      //  return ctx.body = userResult;
+
+    }).catch((error) => {
+      console.log(error)
+    });
+
+  }).catch((error) => {
+    console.log(error)
+  });
+
+
+
+}

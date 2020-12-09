@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.header-title, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -277,6 +277,18 @@ body {
   color: #ffffff;
   cursor: pointer; }
 
+.completed-toast-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #023047;
+  cursor: pointer; }
+
+.completed-toast-header {
+  font-size: 32px;
+  font-weight: bold;
+  color: #023047;
+  cursor: pointer; }
+
 .back-text {
   font-size: 26px;
   font-weight: bold;
@@ -468,7 +480,7 @@ body {
   background: #ffb703 0% 0% no-repeat padding-box; }
 
 .main-min-height {
-  min-height: 603px !important; }
+  min-height: 650px !important; }
 
 .img-class {
   height: 35px;

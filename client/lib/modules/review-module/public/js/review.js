@@ -107,27 +107,17 @@ $(document).ready(function () {
                         console.log('Something went Wrong', error)
                     }
                 });
-                //  console.log(responseData)
-                // if (Object.keys(responseData)) {
-                //     this.allSectionData = responseData;
-                //     this.section1Data = responseData.section1;
-                //     this.section2Data = responseData.section1;
-                //     this.section3Data = responseData.section1;
-                //     this.section4Data = responseData.section1;
-                // } else {
-                //     console.log('empty response')
-                // }
             },
 
             save: function () {
+                var _self = this;
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
                 if (this.contactPref.length) {
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
                     console.log(successData);
                     if (Object.keys(successData)) {
-                        alert("Your Reference Number :" + successData.refNo);
-                        //   console.log(res);
+                        location.href =redirectUrl(location.href,"acknowledge",this.paramValues[0],this.paramValues[1]);
                         this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
@@ -136,7 +126,6 @@ $(document).ready(function () {
                     //scrollToInvalidInput();
                     return false;
                 }
-
             },
 
             editAllSection: function (page) {
