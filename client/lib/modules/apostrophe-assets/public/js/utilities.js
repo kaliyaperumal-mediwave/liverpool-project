@@ -187,7 +187,7 @@ function redirectUrl(currentPge,nextPge,usrId,roles) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
         if (decodeValues[2] == "sec5back") {
-            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1]+"&sec5back";
+            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1];
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;
         }
