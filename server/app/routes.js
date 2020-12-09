@@ -23,6 +23,7 @@ router.post('/user/fetchReferral', userController.fetchReferral);
 router.get('/user/fetchReview/', userController.fetchReview);
 router.post('/user/saveReview', userController.saveReview);
 
+router.get('/user/getRefNo/', userController.getRefNo);
 
 
 

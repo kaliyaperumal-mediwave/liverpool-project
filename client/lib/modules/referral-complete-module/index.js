@@ -17,5 +17,18 @@ module.exports = {
         completed: true,
       }));
     };
+    require('../../middleware')(self, options);
+    self.route('get', 'getRefNo/:userid', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/getRefNo?user_id=' + req.params.userid;
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        //  console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   }
 }

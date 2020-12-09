@@ -1807,6 +1807,20 @@ exports.saveReview = ctx => {
   })
 }
 
+exports.getRefNo = ctx => {
+  console.log(ctx.request.body);
+  const user = ctx.orm().User;
+  const uniqueNo = uniqid().toUpperCase();
+  return user.findOne({
+    where: {
+      uuid: ctx.query.user_id,
+    },
+    attributes: ['id', 'uuid','reference_code']
+  }).then((result) => {
+    return ctx.body = result;
+  })
+}
+
 function getrole(ctx) {
 
   const user = ctx.orm().User;
