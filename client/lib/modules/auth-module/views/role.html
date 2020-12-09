@@ -82,7 +82,7 @@
                     <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p>
                         <div class="input-group">
-                            <date-picker name="date" v-model="elgibilityObj.childDob" @dp-change="changeDob(elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
+                            <date-picker name="date" v-model="elgibilityObj.childDob"  @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -101,7 +101,7 @@
                         birth?
                     </p>
                     <div class="input-group">
-                        <date-picker name="date" v-model="elgibilityObj.childDob"  @dp-show="setDateHeight($event)" @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
+                        <date-picker name="date" v-model="elgibilityObj.childDob"  @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -373,10 +373,13 @@
             <div v-show="elgibilityObj.role == 'professional'"
                 class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
+
                 <div class="input-group">
-                    <input id="txtDateProf" type="date" class="form-control" v-model="elgibilityObj.profChildDob"
-                        @change="changeDob($event)" name="prof">
-                    <div class="input-group-addon">
+                    <date-picker name="date" v-model="elgibilityObj.profChildDob"  @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options" :wrap="dateWrap"></date-picker>
+                    <div class="input-group-append cursor-pointer">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
                     </div>
                 </div>
             </div>
