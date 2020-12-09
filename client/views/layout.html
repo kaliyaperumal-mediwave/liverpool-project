@@ -1,33 +1,27 @@
-{# Automatically extends the right outer layout and also handles AJAX siutations #}
-{% extends data.outerLayout %}
-
-{% block title %}
-{# Create a useful, SEO-friendly title tag based on what we have #}
-{% if data.piece %}
-{{ data.piece.title }}
-{% elseif data.page %}
-{{ data.page.title }}
-{% else %}
-{{ apos.log('Looks like you forgot to override the title block in a template that does not have access to an Apostrophe page or piece.') }}
-{% endif %}
-{% endblock %}
-
-{% block extraHead %}
+{# Automatically extends the right outer layout and also handles AJAX siutations
+#} {% extends data.outerLayout %} {% block title %} {# Create a useful,
+SEO-friendly title tag based on what we have #} {% if data.piece %} {{
+data.piece.title }} {% elseif data.page %} {{ data.page.title }} {% else %} {{
+apos.log('Looks like you forgot to override the title block in a template that
+does not have access to an Apostrophe page or piece.') }} {% endif %} {%
+endblock %} {% block extraHead %}
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 <script src="https://use.fontawesome.com/901da64fb9.js"></script>
 
 <!-- jQuery library -->
-<script 
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFWyAfPPWB-dCngwhrDQ3iUq8OwhW7NcI&libraries=places">
-  </script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFWyAfPPWB-dCngwhrDQ3iUq8OwhW7NcI&libraries=places"></script>
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+<!-- Moment JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -38,20 +32,27 @@
 <script type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
 
+<!-- Date-picker itself -->
+<script
+  src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
+  rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
+
+
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
   #} -->
-{% endblock %}
-
-{% block beforeMain %}
+{% endblock %} {% block beforeMain %}
 <div class="headerTop">
   <!-- Header Ui Start-->
   <nav class="navbar header-bg p-xs-3 p-sm-3 p-lg-4">
     <div class="row mx-0 w-100 justify-content-between">
       <div alt="logo" class="header-logo"></div>
-      <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">It’s okay to
-        not be okay.</h2>
+      <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">
+        It’s okay to not be okay.
+      </h2>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
         aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fal fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
@@ -78,7 +79,8 @@
     {% endif %}
 
     {% if data.headerContent and data.headerDescription %}
-    <h2 class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-3 pb-md-0 pb-lg-0 pb-xl-0">
+    <h2
+      class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-3 pb-md-0 pb-lg-0 pb-xl-0">
       {{data.headerContent}}</h2>
     <div
       class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
@@ -106,17 +108,10 @@
     We recommend you use the beforeMain block for global page components
     like headers or navigation.
   #} -->
-{% endblock %}
-
-{% block main %}
-{#
-    Usually, your page templates in the apostrophe-pages module will override
-    this block. It is safe to assume this is where your page-specific content
-    should go.
-  #}
-{% endblock %}
-
-{% block afterMain %}
+{% endblock %} {% block main %} {# Usually, your page templates in the
+apostrophe-pages module will override this block. It is safe to assume this is
+where your page-specific content should go. #} {% endblock %} {% block afterMain
+%}
 <div class="footer-bg">
   <div class="row col-lg-9 col-md-9 col-xl-9 col-xs-2 col-sm-12 justify-content-around mx-auto">
     <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">About </span>
