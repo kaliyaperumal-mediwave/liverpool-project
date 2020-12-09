@@ -16,10 +16,10 @@
                 <!-- childs NHS Number Start-->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
-                        <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}}</label>
+                        <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
                         <input type="text" class="form-control" id="nhs" v-model="aboutObj.nhsNumber"
                             v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)),
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)),
                             'invalid-fields':(aboutFormData.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) }">
                             You must provide a valid NHS Number.
                         </div>
@@ -30,7 +30,7 @@
                             <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
                                 v-bind:placeholder="sec2dynamicLabel.fullNamePlacLabel">
                             <div class="input-group-append">
-                                <span class="input-group-text sec2">
+                                <span class="input-group-text font-23">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -41,12 +41,12 @@
                         </div>
                     </div>
                     <div class="form-group py-2 my-2">
-                        <label for="emailAddressOpts" class="question-font">{{sec2dynamicLabel.emailLabel}}</label>
+                        <label for="emailAddressOpts" class="question-font">{{sec2dynamicLabel.emailLabel}} - <b>optional</b></label>
                         <div class="input-group">
                             <input type="email" class="form-control" id="emailAddressOpts"
                                 v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.childEmail">
                             <div class="input-group-append">
-                                <span class="input-group-text sec2">
+                                <span class="input-group-text font-23">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -63,10 +63,14 @@
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
                                 v-model="aboutObj.childContactNumber">
                             <div class="input-group-append">
-                                <span class="input-group-text sec2">
+                                <span class="input-group-text font-25">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                 </span>
                             </div>
+                            <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childContactNumber),'invalid-fields':!aboutObj.childContactNumber }">
+                            You must provide a number.
+                        </div>
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)),
                                 'invalid-fields':(aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)) }">
@@ -119,21 +123,14 @@
 
                 <!-- Gender Section Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <div class="d-flex align-items-start justify-content-between">
-                        <p class="question-font my-2">{{sec2dynamicLabel.genderLabel}}</p>
-                        <!-- <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt=""> -->
-                    </div>
-                    <div class="form-group mt-0 mb-2">
-                        <select class="custom-select form-control" v-model="aboutObj.childGender">
-                            <option value="" disabled selected>{{sec2dynamicLabel.genderPlacLabel}}</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childGender),
-                        'invalid-fields':!aboutObj.childGender }">
-                        You must provide an answer to this question to continue.
+                    <div class="form-group py-2 my-2">
+                        <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}} - <b>optional</b></label>
+                        <input type="text" class="form-control" id="genderChoose" v-model="aboutObj.childGender"
+                            v-bind:placeholder="sec2dynamicLabel.genderPlacLabel">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childGender),
+                            'invalid-fields':!aboutObj.childGender }">
+                            You must provide an answer to this question to continue.
+                        </div>
                     </div>
                 </div>
                 <!-- Gender Section End -->
@@ -143,7 +140,8 @@
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">{{sec2dynamicLabel.identityLabel}}
                         </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="" data-toggle="modal" data-target="#genderIdentity">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt=""
+                            data-toggle="modal" data-target="#genderIdentity">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" value="no" id="genderNo" name="childGenderBirth"
@@ -176,7 +174,7 @@
                 <!-- child sexual orientation - optional Start -->
                 <div class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
-                        <label for="sexual" class="question-font">{{sec2dynamicLabel.sexOrientLabel}}</label>
+                        <label for="sexual" class="question-font">{{sec2dynamicLabel.sexOrientLabel}} - <b>optional</b></label>
                         <input type="text" class="form-control" id="sexual"
                             v-bind:placeholder="sec2dynamicLabel.sexOrientPlacLabel"
                             v-model="aboutObj.childSexualOrientation">
@@ -187,7 +185,7 @@
                 <!-- child ethnicity - optional Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group m-0">
-                        <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}}</label>
+                        <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}} - <b>optional</label>
                         <input type="text" class="form-control" id="ethnicity"
                             v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.childEthnicity">
                     </div>
@@ -226,10 +224,10 @@
                         </div>
                     </template>
 
-                    <button  data-toggle="modal" data-target="#houseHoldModal" type="button" 
-                    @click="resetModal('add')"  class="btn px-md-4 py-1 px-3"><span
-                        class="btn-terirary-text">Add Members <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                    </span></button>
+                    <button data-toggle="modal" data-target="#houseHoldModal" type="button" @click="resetModal('add')"
+                        class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add Members <i
+                                class="fa fa-plus-circle" aria-hidden="true"></i>
+                        </span></button>
                 </div>
                 <!-- Add HouseHold Members end -->
 
@@ -420,7 +418,7 @@
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="emailAddress"
-                                    class="question-font">{{sec2dynamicLabel.guardEmailLabel}}</label>
+                                    class="question-font">{{sec2dynamicLabel.guardEmailLabel}} - <b>optional</label>
                                 <input type="email" class="form-control" id="emailAddress"
                                     v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
                                     v-model="aboutFormData.emailAddress">
@@ -466,7 +464,7 @@
                         class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="gpParentorCarerLocation"
-                                class="question-font">{{sec2dynamicLabel.guardAddress}}</label>
+                                class="question-font">{{sec2dynamicLabel.guardAddress}} - <b>optional</b></label>
                             <div class="input-group">
                                 <input type="text" class="form-control"
                                     v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
@@ -642,7 +640,7 @@
                                         <input type="search" class="form-control" placeholder="Start typing to search"
                                             id="educLocation" v-model="houseHoldData.profession">
                                         <div class="input-group-append">
-                                            <span class="input-group-text sec2">
+                                            <span class="input-group-text font-23">
                                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                             </span>
                                         </div>
@@ -670,38 +668,41 @@
                     </div>
                 </div>
                 <!-- Add HouseHold Modal End -->
-                 <!-- support content modal start -->
-    <div class="modal fade" id="genderIdentity" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="px-2 py-4">
-                    <div class="d-flex justify-content-center m-0 cursor-pointer">
-                        <!-- <img src="/modules/my-apostrophe-assets/img/support.svg" alt="logo"
+                <!-- support content modal start -->
+                <div class="modal fade" id="genderIdentity" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="px-2 py-4">
+                                <div class="d-flex justify-content-center m-0 cursor-pointer">
+                                    <!-- <img src="/modules/my-apostrophe-assets/img/support.svg" alt="logo"
                         class="support-logo"> -->
-                        <span style="color:#023087 ;">
-                            <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
-                        </span>
-                        <span aria-hidden="true" class="modal-close" data-dismiss="modal"
-                            aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
-                    </div>
-                    
-                    <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
-                        <h3 class="support-modal-content-text text-left py-2"> If you feel confused about your gender identity, you're not alone.
-                        </h3>
-                        <p class="support-modal-header-text cursor-pointer text-left m-0 py-2"> <a href="https://www.nhs.uk/live-well/healthy-body/trans-teenager/">Learn more about Gender Identity - NHS
-                            </a>
-                        </p>
-                        <p class="support-modal-header-text cursor-pointer text-left m-0 py-2"> <a href="https://www.liverpoolcamhs.com/need-advice/gender-identity/">Learn More about Gender Identity - LIverpool CAMHS
-                        </a>
-                    </p>
+                                    <span style="color:#023087 ;">
+                                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <span aria-hidden="true" class="modal-close" data-dismiss="modal"
+                                        aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                </div>
+
+                                <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
+                                    <h3 class="support-modal-content-text text-left py-2"> If you feel confused about
+                                        your gender identity, you're not alone.
+                                    </h3>
+                                    <p class="support-modal-header-text cursor-pointer text-left m-0 py-2"> <a
+                                            href="https://www.nhs.uk/live-well/healthy-body/trans-teenager/">Learn more
+                                            about Gender Identity - NHS
+                                        </a>
+                                    </p>
+                                    <p class="support-modal-header-text cursor-pointer text-left m-0 py-2"> <a
+                                            href="https://www.liverpoolcamhs.com/need-advice/gender-identity/">Learn
+                                            More about Gender Identity - LIverpool CAMHS
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- support content modal end -->
-
-
+                <!-- support content modal end -->
             </div>
         </div>
     </div>
