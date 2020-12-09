@@ -100,6 +100,14 @@ body {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }
 
+.completed-toast-text {
+  @include set-titleStyles($support-header-font-size, bold, $primary-color);
+}
+
+.completed-toast-header {
+  @include set-titleStyles($primary-font-size, bold, $primary-color);
+}
+
 .back-text {
   @include set-titleStyles($button-font-size, bold, $header-text-color);
 }
@@ -268,7 +276,7 @@ body {
 // }
 
 .main-min-height {
-  min-height: 603px !important;
+  min-height: 650px !important;
 }
 
 .img-class {
@@ -423,11 +431,11 @@ body {
 .no_padding {
   padding: 0px !important;
 }
-.content_ediz{
+.content_ediz {
   max-height: 50px;
   overflow: auto;
 }
-.res_fontz{
+.res_fontz {
   font-size: 2rem !important;
   align-items: center;
   display: flex !important;
@@ -439,7 +447,7 @@ body {
     color: #023047;
     cursor: pointer;
   }
-  .res_fontz{
+  .res_fontz {
     font-size: 1.8rem !important;
     align-items: center;
     display: flex !important;

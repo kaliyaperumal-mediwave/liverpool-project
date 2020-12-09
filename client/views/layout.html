@@ -71,6 +71,11 @@
     </h2>
     {% endif %}
 
+    {% if data.headerContent and data.completed %}
+    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title">
+      {{data.headerContent}}
+    </h2>
+    {% endif %}
 
     {% if data.headerContent and data.headerDescription %}
     <h2 class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-3 pb-md-0 pb-lg-0 pb-xl-0">
