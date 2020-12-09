@@ -202,7 +202,7 @@
                 </h2>
 
                 <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <label for="employment" class="question-font">Add your HouseHold</label>
+                    <label for="employment" class="question-font">Add your HouseHold Members</label>
                     <template v-if="allHouseHoldMembers.length">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body">
@@ -225,9 +225,11 @@
                             </div>
                         </div>
                     </template>
-                    <p class="text-left add-more-hint m-0" data-toggle="modal" data-target="#houseHoldModal"
-                        @click="resetModal('add')">Please
-                        click here to add household +</p>
+
+                    <button  data-toggle="modal" data-target="#houseHoldModal" type="button" 
+                    @click="resetModal('add')"  class="btn px-md-4 py-1 px-3"><span
+                        class="btn-terirary-text">Add Members <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </span></button>
                 </div>
                 <!-- Add HouseHold Members end -->
 

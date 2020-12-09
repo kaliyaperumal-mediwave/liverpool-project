@@ -161,6 +161,10 @@ body {
   @include set-titleStyles($button-font-size, bold, $primary-color);
 }
 
+.btn-terirary-text {
+  @include set-titleStyles($mobile-tertiary-font-size, bold, $primary-color);
+}
+
 .btn-modal-text {
   @include set-titleStyles($modalbtn-font-size, bold, #0b181e);
 }
