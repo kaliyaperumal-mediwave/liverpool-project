@@ -17,7 +17,7 @@ function resetValues(currentForm, context, formObj) {
     if (context.currentSection == 'referral') {
         context.showAddOtherService = false;
         context.allAvailableService = [];
-        context.deleteData = null;
+        context.storeDeleteData = null;
     }
     context.isFormSubmitted = false;
 };
