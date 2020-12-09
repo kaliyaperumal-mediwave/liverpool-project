@@ -508,7 +508,7 @@ $(document).ready(function () {
                 var today = new Date();
                 var selectedDate = new Date(date);
                 var age = this.diff_years(today, selectedDate);
-                var roleText = e.target.name;
+                var roleText = this.elgibilityObj.role;
                 if (this.elgibilityObj.isInformation != undefined) {
                     this.elgibilityObj.isInformation = "";
                 }
@@ -779,6 +779,7 @@ $(document).ready(function () {
                 console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
+                        
                         this.belowAgeLimit = "yes";
                         this.aboveLimit = "";
                         this.elgibilityObj.camhs = "";
