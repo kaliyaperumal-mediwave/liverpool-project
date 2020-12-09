@@ -113,7 +113,7 @@ $(document).ready(function () {
             upsertEducationForm: function (payload) {
                 // console.log(payload);
                 var _self = this;
-                var responseData = apiCallPost('post', '/education', payload);
+                var responseData = apiCallGet('get', '/education', payload);
                 if (Object.keys(responseData)) {
                     location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
                     // if (this.paramValues[2] == undefined) {
@@ -145,6 +145,8 @@ $(document).ready(function () {
                 var payload = {};
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
+              //  url: API_URI + "/fetchEligibility/" +  this.sendObj.uuid + "&role=" + this.sendObj.role,
+              var endPoint =  this.sendObj.uuid + "&role=" + this.sendObj.role,
                 var successData = apiCallPost('post', '/fetchProfession', payload);
                 console.log(successData);
                 this.patchValue(successData);
