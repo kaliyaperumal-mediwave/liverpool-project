@@ -34,24 +34,20 @@ $(document).ready(function () {
                 contactProfParent: ''
             },
             date: null,
-            dateWrap:true,
+            dateWrap: true,
             options: {
                 format: 'YYYY/MM/DD',
                 dayViewHeaderFormat: 'MMMM YYYY',
-                toolbarPlacement: 'bottom',
                 useCurrent: true,
-                showClear: true,
-                showClose: true,
                 allowInputToggle: true,
                 // widgetPositioning :{
                 //     horizontal: 'auto',
                 //     vertical: 'auto'
                 // }
-                // viewMode:'months'
                 //     keepOpen:true,
                 //    inline: true,
-                // minDate: new Date(1950, 10, 25),
-                // maxDate: new Date(),
+                minDate: new Date(1950, 10, 25),
+                maxDate: new Date(),
             },
             hasNameReqError: false,
             hasContactReqError: false,
@@ -73,6 +69,10 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+
+            var dobElement = document.querySelectorAll('[name="date"]');
+            dobElement[0].value = '';
+            dobElement[1].value = '';
             this.paramValues = getParameter(location.href)
             console.log(this.paramValues)
 
@@ -404,6 +404,17 @@ $(document).ready(function () {
                 }
             },
 
+            getAge: function (dateString) {
+                var today = new Date();
+                var birthDate = new Date(dateString);
+                var age = today.getFullYear() - birthDate.getFullYear();
+                var m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                return age;
+            },
+
 
             getAddress: function (e) {
                 // console.log("selectTxt");
@@ -481,11 +492,11 @@ $(document).ready(function () {
 
             },
 
-            changeDob: function (event) {
+            changeDob: function (e,date) {
                 var today = new Date();
-                var selectedDate = new Date(event.target.value);
+                var selectedDate = new Date(date);
                 var age = this.diff_years(today, selectedDate);
-                var roleText = event.target.name;
+                var roleText = e.target.name;
                 if (this.elgibilityObj.isInformation != undefined) {
                     this.elgibilityObj.isInformation = "";
                 }

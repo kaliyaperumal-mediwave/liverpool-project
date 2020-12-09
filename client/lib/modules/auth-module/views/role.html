@@ -82,7 +82,7 @@
                     <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p>
                         <div class="input-group">
-                            <date-picker name="date" v-model="date" :config="options" :wrap="dateWrap"></date-picker>
+                            <date-picker name="date" v-model="elgibilityObj.childDob" @dp-change="changeDob(elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text">
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -101,7 +101,7 @@
                         birth?
                     </p>
                     <div class="input-group">
-                        <date-picker name="date" v-model="date" :config="options" :wrap="dateWrap"></date-picker>
+                        <date-picker name="date" v-model="elgibilityObj.childDob"  @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -118,8 +118,6 @@
                     class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Can we contact your parent or carer?</p>
-                        <!-- <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class"
-                        data-toggle="modal" data-target="#consentModal" alt=""> -->
                     </div>
                     <span class="hint-text">In order to continue, we will need to contact your parent, guardian or
                         caregiver
