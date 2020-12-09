@@ -492,7 +492,19 @@ $(document).ready(function () {
 
             },
 
-            changeDob: function (e,date) {
+            setDateHeight: function (e) {
+                var dynamicHeight;
+                var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
+                if (mainWidth <= 350) {
+                    dynamicHeight = e.currentTarget.clientWidth + 25;
+                } else {
+                    dynamicHeight = e.currentTarget.clientWidth - 10;
+                }
+                var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
+                dob[0].style.width = '' + dynamicHeight + 'px';
+            },
+
+            changeDob: function (e, date) {
                 var today = new Date();
                 var selectedDate = new Date(date);
                 var age = this.diff_years(today, selectedDate);

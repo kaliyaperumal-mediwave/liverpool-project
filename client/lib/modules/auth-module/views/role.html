@@ -5,10 +5,10 @@
 {% endblock %}
 {% block main %}
 <div class="main-content-bg py-4 main-min-height">
-    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
         <div id="role-form" class="py-4">
             <form id="type-form" data-options="role">
-                <div class="px-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font m-0">I am a</p>
                     {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0">
@@ -37,7 +37,7 @@
             </form>
             <form id="interpreter-form" data-options="interpreter">
                 <div v-show="elgibilityObj.role == 'child' || elgibilityObj.role=='parent'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font m-0">Do you need an interpreter?</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="interpreter" id="interpreterNo"
@@ -59,7 +59,7 @@
             <form id="tostInterYes-form" data-options="tostInterYes">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.interpreter == 'yes'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -78,7 +78,7 @@
             <!-- calender start child-->
             <form id="child-Dob-form" data-options="childDob">
                 <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p>
                         <div class="input-group">
@@ -96,12 +96,12 @@
             <!-- calender start parent-->
             <form id="parent-Dob-form" data-options="childDob">
                 <div v-show="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
                         birth?
                     </p>
                     <div class="input-group">
-                        <date-picker name="date" v-model="elgibilityObj.childDob"  @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
+                        <date-picker name="date" v-model="elgibilityObj.childDob"  @dp-show="setDateHeight($event)" @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -115,7 +115,7 @@
             <!-- Age under 14 start-->
             <form id="age-parentcontact-form" data-options="belowAgeLimit">
                 <div v-show="(elgibilityObj.role == 'child') &&  elgibilityObj.belowAgeLimit == 'yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Can we contact your parent or carer?</p>
                     </div>
@@ -149,7 +149,7 @@
             <form id="age-aboveLimit-form" data-options="aboveLimit">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.aboveLimit == 'yes'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -188,7 +188,7 @@
             <form id="contactParent-AgeLimit-form" data-options="contactParent">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.contactParent == 'no'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -210,7 +210,7 @@
             <!-- consent start-->
             <form id="isInformation-form" data-options="contactParent">
                 <div v-show="elgibilityObj.contactParent=='yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p v-show="elgibilityObj.role=='child'" class="question-font m-0">Do you give consent for us to
                             use
@@ -251,7 +251,7 @@
             <form id="isInformation-form" data-options="isInformation">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -275,7 +275,7 @@
             <!-- GP Location start -->
             <form id="child-gp-form" data-options="isInformation">
                 <div v-show=" (elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
                         <label v-show="elgibilityObj.role=='child'" for="gpLocation" class="question-font">Which GP are
                             you
@@ -302,7 +302,7 @@
             <form id="submitFormTrue-form" data-options="submitForm">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -332,7 +332,7 @@
             <!-- Professional Info start -->
             <form id="professionalInfo-form" data-options="professionalForm">
                 <div v-show="elgibilityObj.role === 'professional'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
                         <label for="fullName" class="question-font">Your full name</label>
                         <input type="text" v-model="elgibilityObj.profName" @input="onVaueChange($event,'fullName')"
@@ -371,7 +371,7 @@
             <!-- calender start-->
             <form id="profChildDob-form" data-options="profChildDobForm"></form>
             <div v-show="elgibilityObj.role == 'professional'"
-                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
                 <div class="input-group">
                     <input id="txtDateProf" type="date" class="form-control" v-model="elgibilityObj.profChildDob"
@@ -385,7 +385,7 @@
             <!-- Age under 14 start-->
             <form id="profBelowAgeLimit-form" data-options="profBelowAgeLimit">
                 <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you have concent from the child/young person's parent/carer for
                             us
@@ -417,7 +417,7 @@
             <!-- toster-container start -->
             <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profaboveLimit == 'yes'"
                 class="px-4 py-4">
-                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -445,7 +445,7 @@
             <!-- toster-container start -->
             <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.contactProfParent == 'no'"
                 class="px-4 py-4">
-                <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                     <div class="px-2 py-2">
                         <p class="text-center m-0 py-2">
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -462,7 +462,7 @@
             <!-- consent parent start-->
             <form id="contactProfParent-form" data-options="contactProfParent">
                 <div v-show="elgibilityObj.contactProfParent== 'yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you have consent from the child / young person for us to use the
                             information that you provide, and share it with other CAMHS partners so that we can help
@@ -495,7 +495,7 @@
             <form id="parentConcernInformation-form" data-options="parentConcernInformation">
                 <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -514,7 +514,7 @@
             <!-- consent child start-->
 
             <!-- <div v-show="elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes'"
-                class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <div class="d-flex align-items-start">
                     <p class="question-font m-0">Do you have consent from the child / young person for us to use the
                         information that you provide, and share it with other CAMHS partners so that we can help them?
@@ -544,7 +544,7 @@
             <!-- <form id="childConcernInformation-form" data-options="parentConcernInformation">
                 <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.parentConcernInformation == 'no'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -563,7 +563,7 @@
             <!-- GP Location start -->
             <form id="parentConcernInformation-form" data-options="parentConcernInformation">
                 <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
                         <label for="gpLocation" class="question-font">Which GP is the child / young person registered
                             with?</label>
@@ -585,7 +585,7 @@
             <form id="submitFormTrue-form" data-options="submitProfForm">
                 <div v-show="elgibilityObj.role === 'professional' &&  elgibilityObj.submitProfForm == 'true'"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
