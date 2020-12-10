@@ -514,9 +514,6 @@ exports.about = ctx => {
             child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
             child_ethnicity: ctx.request.body.aboutData.childEthnicity,
             parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-            // child_household_name: ctx.request.body.houseHoldName,
-            // child_household_relationship: ctx.request.body.houseHoldRelationship,
-            // child_household_dob: ctx.request.body.childHouseHoldDob,
             household_member: ctx.request.body.allHouseHoldMembers,
             child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
             child_care_adult: ctx.request.body.aboutData.childCareAdult,
@@ -526,29 +523,6 @@ exports.about = ctx => {
               { id: childId }
           }
         ).then((updateResult) => {
-
-          // var  parentName;
-          // var parentEmail;
-          // var parentSameHouse;
-          // var childParentRelationship;
-          // var parentContactNumber;
-          // var parentAddress;
-          // if(ctx.request.body.aboutData.parentialResponsibility=="no")
-          // {
-          //   parentName = ctx.request.body.aboutData.parentCarerName;
-          //   parentEmail = ctx.request.body.aboutData.emailAddress;
-          //   parentSameHouse = ctx.request.body.aboutData.sameHouse;
-          //   childParentRelationship = ctx.request.body.aboutData.relationshipToYou;
-          //   parentContactNumber = ctx.request.body.aboutData.contactNumber;
-          // }
-          // else 
-          // {
-          //   parentName = ctx.request.body.aboutData.parentCarerName;
-          //   parentEmail = ctx.request.body.aboutData.emailAddress;
-          //   parentSameHouse = ctx.request.body.aboutData.sameHouse;
-          //   childParentRelationship = ctx.request.body.aboutData.relationshipToYou;
-          //   parentContactNumber = ctx.request.body.aboutData.contactNumber;
-          // }
           return user.update({
             parent_name: ctx.request.body.aboutData.parentName,
             parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
@@ -627,9 +601,6 @@ exports.about = ctx => {
               child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
               child_ethnicity: ctx.request.body.aboutData.childEthnicity,
               parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-              // child_household_name: ctx.request.body.houseHoldName,
-              // child_household_relationship: ctx.request.body.houseHoldRelationship,
-              // child_household_dob: ctx.request.body.childHouseHoldDob,
               household_member: ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
               child_care_adult: ctx.request.body.aboutData.childCareAdult,
@@ -727,10 +698,6 @@ exports.about = ctx => {
               child_gender_birth: ctx.request.body.aboutData.childIdentity,
               child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
               child_ethnicity: ctx.request.body.aboutData.childEthnicity,
-              // parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-              // child_household_name: ctx.request.body.houseHoldName,
-              // child_household_relationship: ctx.request.body.houseHoldRelationship,
-              // child_household_dob: ctx.request.body.childHouseHoldDob,
               household_member: ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
               child_care_adult: ctx.request.body.aboutData.childCareAdult,

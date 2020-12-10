@@ -103,7 +103,7 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
-            console.log('Something went Wrong', error)
+            console.log(error.responseJSON.message)
         }
     });
     return response
@@ -121,7 +121,7 @@ function apiCallGet(reqType, endPoint) {
             response = res;
         },
         error: function (error) {
-            console.log('Something went Wrong', error)
+            console.log(error.responseJSON.message)
         }
     });
     return response

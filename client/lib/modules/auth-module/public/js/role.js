@@ -389,7 +389,7 @@ $(document).ready(function () {
 
             },
 
-            resetFlag(e) {
+            resetFlag: function(e) {
                 var dynamicHeight;
                 var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
                 if (mainWidth <= 350) {
@@ -538,13 +538,16 @@ $(document).ready(function () {
                     data: JSON.stringify(payload),
                     success: function (data) {
                         //alert("section 1 saved.");
-                        console.log(data);
+                       // console.log(data);
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
                         location.href = redirectUrl(location.href, "about", data.userid, role);
                     },
+                    error: function (error) {
+                        console.log(error.responseJSON.message)
+                    }
                 });
             },
 
