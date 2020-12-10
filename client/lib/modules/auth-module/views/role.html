@@ -101,7 +101,7 @@
                         birth?
                     </p>
                     <div class="input-group">
-                        <date-picker name="date" v-model="elgibilityObj.childDob"  @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
+                        <date-picker name="date"  v-model="elgibilityObj.childDob"  @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -155,7 +155,7 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
                             <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
-                                people over 25 years of age</p>
+                                people over 18 years of age</p>
                             <p class="link-text text-center py-2">Free mental health services for adults:</p>
                             <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
                                 your GP
@@ -426,7 +426,7 @@
                             <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                         </p>
                         <p class="question-font text-center py-2">Unfortunately we cannot accept referrals from
-                            people over 25 years of age</p>
+                            people over 18 years of age</p>
                         <p class="link-text text-center  py-2">Free mental health services for adults:</p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Liverpool:

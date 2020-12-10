@@ -38,16 +38,10 @@ $(document).ready(function () {
             options: {
                 format: 'YYYY/MM/DD',
                 dayViewHeaderFormat: 'MMMM YYYY',
-                useCurrent: true,
+                useCurrent: false,
                 allowInputToggle: true,
-                // widgetPositioning :{
-                //     horizontal: 'auto',
-                //     vertical: 'auto'
-                // }
-                //     keepOpen:true,
-                //    inline: true,
                 minDate: new Date(1950, 10, 25),
-                maxDate: new Date(),
+                maxDate: moment().endOf('day').add(1, 'sec'),
             },
             hasNameReqError: false,
             hasContactReqError: false,
@@ -66,14 +60,11 @@ $(document).ready(function () {
             loadGbPost: true,
             selectedGpObj: {},
             paramValues: [],
-            patchFlag:false
+            patchFlag: false,
+            date: ''
         },
 
         mounted: function () {
-
-            var dobElement = document.querySelectorAll('[name="date"]');
-            dobElement[0].value = '';
-            dobElement[1].value = '';
             this.paramValues = getParameter(location.href)
             this.getGP();
             this.getProfGP();
@@ -106,7 +97,7 @@ $(document).ready(function () {
 
             setValues: function (data) {
                 var roleType = this.paramValues[1];
-                this.patchFlag=true;
+                this.patchFlag = true;
                 console.log(roleType)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
@@ -246,7 +237,7 @@ $(document).ready(function () {
                 for (let i = 0; i < allForms.length; i++) {
                     var attributeValue = $(allForms[i]).data('options');
                     if (formIndex < i) {
-                        this.elgibilityObj[attributeValue] = '';
+                        this.elgibilityObj[attributeValue] = "";
                     }
                     if (formIndex <= i) {
                         this.elgibilityObj.regGpTxt = "";
@@ -316,9 +307,8 @@ $(document).ready(function () {
 
             },
 
-            changeDob: function (e,date) {
-                if(this.patchFlag!=true)
-                {
+            changeDob: function (e, date) {
+                if (this.patchFlag != true) {
                     var today = new Date();
                     var selectedDate = new Date(date);
                     var age = this.diff_years(today, selectedDate);
@@ -372,7 +362,7 @@ $(document).ready(function () {
                             this.elgibilityObj.submitProfForm = "false";
                         }
                     }
-    
+
                     else if (roleText == 'parent') {
                         if (age > 19) {
                             this.elgibilityObj.aboveLimit = "yes";
@@ -385,18 +375,16 @@ $(document).ready(function () {
                             this.elgibilityObj.aboveLimit = "";
                             this.elgibilityObj.submitForm = "false";
                         }
-    
+
                     }
                 }
-                else
-                {
-                    this.patchFlag=true;
+                else {
+                    this.patchFlag = true;
                 }
 
             },
 
-            resetFlag(e)
-            {
+            resetFlag(e) {
                 var dynamicHeight;
                 var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
                 if (mainWidth <= 350) {
@@ -407,7 +395,7 @@ $(document).ready(function () {
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
 
-                this.patchFlag=false;
+                this.patchFlag = false;
             },
 
             changeGP: function () {
@@ -590,7 +578,7 @@ $(document).ready(function () {
                 console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
-                        
+
                         this.belowAgeLimit = "yes";
                         this.aboveLimit = "";
                         this.elgibilityObj.camhs = "";
