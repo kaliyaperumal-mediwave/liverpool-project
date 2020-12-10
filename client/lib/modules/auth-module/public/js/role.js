@@ -334,7 +334,7 @@ $(document).ready(function () {
                             this.elgibilityObj.contactParent = "";
                             this.elgibilityObj.submitForm = "false";
                         }
-                        else if (age > 18) {
+                        else if (age > 19) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.belowAgeLimit = "";
                             this.elgibilityObj.contactParent = "";
@@ -356,7 +356,7 @@ $(document).ready(function () {
                             this.elgibilityObj.parentConcern = "";
                             this.elgibilityObj.submitProfForm = "false";
                         }
-                        else if (age > 18) {
+                        else if (age > 19) {
                             this.elgibilityObj.profaboveLimit = "yes";
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.parentConcern = "";
@@ -374,7 +374,7 @@ $(document).ready(function () {
                     }
     
                     else if (roleText == 'parent') {
-                        if (age > 18) {
+                        if (age > 19) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.contactParent = "";
                             this.elgibilityObj.submitForm = "false";
@@ -596,7 +596,7 @@ $(document).ready(function () {
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
                     }
-                    else if (age > 18) {
+                    else if (age > 19) {
                         this.aboveLimit = "yes";
                         this.belowAgeLimit = "";
                         this.elgibilityObj.camhs = "";
@@ -616,7 +616,7 @@ $(document).ready(function () {
                         this.elgibilityObj.parentConcern = "";
                         this.submitProfForm = "false";
                     }
-                    else if (age > 18) {
+                    else if (age > 19) {
                         this.profaboveLimit = "yes";
                         this.profBelowAgeLimit = "";
                         this.elgibilityObj.parentConcern = "";
@@ -631,7 +631,7 @@ $(document).ready(function () {
                 }
 
                 else if (roleText == 'parent') {
-                    if (age > 18) {
+                    if (age > 19) {
                         this.aboveLimit = "yes";
                         this.elgibilityObj.camhs = "";
                         this.submitForm = "false";
