@@ -105,7 +105,9 @@ $(document).ready(function () {
 
             //Section 3(Education) Save and Service call with navaigation Logic
             upsertEducationForm: function (payload) {
-                var responseData = apiCallGet('get', '/education', payload);
+                // console.log(payload);
+                var _self = this;
+                var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
                     location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
                 } else {

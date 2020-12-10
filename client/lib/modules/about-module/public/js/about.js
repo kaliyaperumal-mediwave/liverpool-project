@@ -128,7 +128,6 @@ $(document).ready(function () {
                 } else {
                     console.error('error')
                 }
-
             },
 
             //Setting values Logic for Edit and Update
@@ -269,7 +268,11 @@ $(document).ready(function () {
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                    this.payloadData.editFlag = this.paramValues[2]
+                    if(this.editPatchFlag)
+                    {
+                        this.payloadData.editFlag = this.paramValues[2]
+                    }
+                   
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
                     } else {
