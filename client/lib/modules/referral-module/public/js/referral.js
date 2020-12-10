@@ -243,25 +243,7 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (Object.keys(responseData)) {
                     location.href = redirectUrl(location.href, "review");
-                    //if (this.paramValues[2] == undefined) {
-                    //     var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
-                    //     var enCodeParameter = btoa(parameter)
-                    //     location.href = "/review?" + enCodeParameter;
-                    //     // location.href = "/review?userid=" + responseData.userid + "&role=" + responseData.role;
-                    // }
-                    // else {
-                    //     if (sessionStorage.getItem("section5") == "edit") {
-                    //         var parameter = this.userId + "&" + this.userRole
-                    //         var enCodeParameter = btoa(parameter)
-                    //         location.href = "/review?" + enCodeParameter;
-                    //     }
-                    //     else {
-                    //         history.back();
-                    //     }
-
-                    //   //  history.back();
-                    // }
-                    this.deleteData = null;
+                    this.storeDeleteData = null;
                 } else {
                     console.log('empty response')
                 }
@@ -347,7 +329,7 @@ $(document).ready(function () {
 
             //Delete service logic
             openDeleteModal: function (service) {
-                this.deleteData = service;
+                this.storeDeleteData = service;
             },
 
             deleteService: function (data) {

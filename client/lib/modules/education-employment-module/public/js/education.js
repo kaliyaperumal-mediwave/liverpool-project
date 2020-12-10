@@ -25,21 +25,22 @@ $(document).ready(function () {
             isFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
         },
+
         mounted: function () {
-            var _self = this;
             this.paramValues = getParameter(location.href)
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            console.log(this.userId, this.userRole, this.userMode)
             if (this.userMode != undefined) {
-                // this.patchValue();
                 this.fetchSavedData();
             }
-            // google.maps.event.addDomListener(window, 'load', _self.initMaps);
+            if (getUrlVars()['edt'] == 1) {
+                this.fetchSavedData();
+            }
             this.initMaps()
         },
+
         methods: {
 
             initMaps: function () {
@@ -49,7 +50,6 @@ $(document).ready(function () {
                     types: ['establishment'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    //   console.log(autoCompleteChild.getPlace())
                     _self.educationAddress = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
                     if (_self.educationAddress) {
                         _self.mapsEntered = true;
@@ -121,7 +121,12 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchProfession', payload);
-                this.patchValue(successData);
+                if (Object.keys(successData)) {
+                    this.patchValue(successData);
+                } else {
+                    console.log('empty response')
+                }
+
             },
 
             //Patching the value logic
@@ -160,16 +165,6 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_name);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
-
-
-
-                    //  Vue.set(this.professionObj,"childProfession",data[0].professional[0].child_profession);
-                    //    Vue.set(this.professionObj,"childEducationPlace",data[0].professional[0].child_education_place);
-                    //    Vue.set(this.professionObj,"childEHCP",data[0].professional[0].child_EHAT);
-                    //    Vue.set(this.professionObj,"childEHAT",data[0].professional[0].child_EHCP);
-                    //    Vue.set(this.professionObj,"isSocialWorker",data[0].professional[0].child_socialworker);
-                    //    Vue.set(this.professionObj,"socialWorkerName",data[0].professional[0].child_socialworker_name);
-                    //    Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].professional[0].child_socialworker_contact);
                 }
             },
 

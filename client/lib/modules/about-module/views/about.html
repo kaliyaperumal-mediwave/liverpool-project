@@ -249,9 +249,9 @@
                                             data-target="#houseHoldModal" @click="patchHouseHold(item)"><i
                                                 class="fa fa-pencil fa-2x" aria-hidden="true"></i>
                                         </span>
-                                        <span class="badge badge-pill cursor-pointer"><i
-                                                @click="deleteHouseHold(item,index)" class="fa fa-trash-o fa-2x"
-                                                aria-hidden="true"></i>
+                                        <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
+                                                data-target="#deleteModalAbout" @click="openDeleteModal(item)"
+                                                class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -268,6 +268,37 @@
                         </span></button>
                 </div>
                 <!-- Add HouseHold Members end -->
+
+                <!-- Delete Modal Start -->
+                <div class="modal fade" id="deleteModalAbout" tabindex="-1" role="dialog"
+                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete HouseHold Member</h5>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+                                <h5 class="support-modal-header-text text-center" id="exampleModalLongTitle">Are you
+                                    sure want to
+                                    delete this member?</h5>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal" autofocus>
+                                    <span class="btn-modal-text">No
+                                    </span>
+                                </button>
+                                <button type="submit" class="btn px-md-4 w-25" id="closeModalDeleteAbout"
+                                    @click="deleteHouseHold(storeDeleteData)">
+                                    <span class="btn-modal-text">Yes
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Delete Modal End -->
 
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <p class="question-font m-0">{{sec2dynamicLabel.careAdultLabel}}</p>
