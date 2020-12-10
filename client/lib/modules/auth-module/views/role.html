@@ -81,14 +81,13 @@
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p>
-                    <div class="input-group">
-                        <date-picker name="date" v-model="elgibilityObj.childDob" @dp-show="resetFlag($event)"
-                            @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
-                        </date-picker>
-                        <div class="input-group-append cursor-pointer">
-                            <span class="input-group-text">
-                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                            </span>
+                        <div class="input-group">
+                            <date-picker name="date" placeholder="Enter D.O.B" v-model="elgibilityObj.childDob"  @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap"></date-picker>
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

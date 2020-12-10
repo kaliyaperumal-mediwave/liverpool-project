@@ -124,7 +124,7 @@
                 <!-- Gender Section Start -->
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
-                        <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}} - <b>optional</b></label>
+                        <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}}</label>
                         <input type="text" class="form-control" id="genderChoose" v-model="aboutObj.childGender"
                             v-bind:placeholder="sec2dynamicLabel.genderPlacLabel">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childGender),
@@ -630,21 +630,29 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="dob" class="question-font">Date of birth optional</label>
-                                    <input id="houseHoldDate" type="text" class="form-control"
+                                    <!-- <input id="houseHoldDate" type="text" class="form-control"
                                         v-model="houseHoldData.dob" @keyup="clearDate($event)"
-                                        placeholder="Enter D.O.B">
+                                        placeholder="Enter D.O.B"> -->
+                                        <div class="input-group">
+                                            <date-picker name="date" placeholder="Enter D.O.B"
+                                            @dp-show="setCalendarHeight($event)" v-model="houseHoldData.dob" :config="options" :wrap="dateWrap"></date-picker>
+                                            <div class="input-group-append cursor-pointer">
+                                                <span class="input-group-text input-group-secondary-text">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
                                 </div>
-                                <div class="form-group" v-show="getAge(houseHoldData.dob) <= 18 ">
+                                <div class="form-group" v-show="getAge(houseHoldData.dob) < 19 ">
                                     <label for="educLocation" class="question-font">School/College/Employment</label>
                                     <div class="input-group">
                                         <input type="search" class="form-control" placeholder="Start typing to search"
                                             id="educLocation" v-model="houseHoldData.profession">
                                         <div class="input-group-append">
-                                            <span class="input-group-text font-23">
+                                            <span class="input-group-text input-group-secondary-text font-23">
                                                 <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                             </span>
                                         </div>
-                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
