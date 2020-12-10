@@ -35,7 +35,7 @@ $(document).ready(function () {
             date: null,
             dateWrap: true,
             options: {
-                format: 'DD/MM/YYYY',
+                format: 'YYYY/MM/DD',
                 dayViewHeaderFormat: 'MMMM YYYY',
                 useCurrent: false,
                 allowInputToggle: true,
@@ -534,7 +534,6 @@ $(document).ready(function () {
             },
 
             apiRequest: function (payload, role) {
-                console.log(payload)
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/eligibility",
@@ -581,11 +580,9 @@ $(document).ready(function () {
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
 
-                var showDate= (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])+ '-' +yyyy;
-
-                return showDate;
+                return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
             },
-
+          
             fetchAgeLogic: function (dbdob, roleText) {
       //          console.log(dbdob);
                 var today = new Date();
