@@ -67,9 +67,10 @@ $(document).ready(function () {
             headerToDisplay: "",
             edFlag: false,
             paramValues: [],
-            editPatchFlag: false
-
+            editPatchFlag: false,
+            storeDeleteData: null,
         },
+
         mounted: function () {
             var _self = this;
             this.paramValues = getParameter(location.href)
@@ -122,7 +123,7 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
-                if (Object.keys(successData)) {
+                if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
                     console.error('error')
@@ -286,7 +287,7 @@ $(document).ready(function () {
             //Section 2(About You) Save and Service call with navaigation Logic
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
-                if (Object.keys(responseData)) {
+                if (responseData && Object.keys(responseData)) {
                     location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
                 } else {
                     console.log('empty response')
@@ -347,8 +348,16 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            deleteHouseHold: function (service) {
-                deleteLogic(this.allHouseHoldMembers, service, this, 'allHouseHoldMembers')
+            openDeleteModal: function (service) {
+                this.storeDeleteData = service;
+            },
+
+
+            //Delete service logic
+            deleteHouseHold: function (member) {
+                var modal = document.getElementById('closeModalDeleteAbout');
+                deleteLogic(this.allHouseHoldMembers, member, this, 'allHouseHoldMembers')
+                modal.setAttribute("data-dismiss", "modal");
             },
 
             //Resetting the modal values of service data

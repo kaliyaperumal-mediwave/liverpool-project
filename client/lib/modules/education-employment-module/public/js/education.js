@@ -25,27 +25,22 @@ $(document).ready(function () {
             isFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
         },
+
         mounted: function () {
-            var _self = this;
-
-
-
             this.paramValues = getParameter(location.href)
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            console.log(this.userId, this.userRole, this.userMode)
             if (this.userMode != undefined) {
-                // this.patchValue();
                 this.fetchSavedData();
             }
             if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
             }
-            // google.maps.event.addDomListener(window, 'load', _self.initMaps);
             this.initMaps()
         },
+
         methods: {
 
             initMaps: function () {
@@ -55,7 +50,6 @@ $(document).ready(function () {
                     types: ['establishment'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    //   console.log(autoCompleteChild.getPlace())
                     _self.educationAddress = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
                     if (_self.educationAddress) {
                         _self.mapsEntered = true;
@@ -111,30 +105,9 @@ $(document).ready(function () {
 
             //Section 3(Education) Save and Service call with navaigation Logic
             upsertEducationForm: function (payload) {
-                // console.log(payload);
-                var _self = this;
                 var responseData = apiCallGet('get', '/education', payload);
                 if (Object.keys(responseData)) {
                     location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
-                    // if (this.paramValues[2] == undefined) {
-                    //     var parameter =  this.userId +"&"+ this.userRole 
-                    //     var enCodeParameter = btoa(parameter)
-                    //     location.href = "/referral?"+enCodeParameter;
-
-                    //    // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
-                    // }
-                    // else {
-                    //     if (sessionStorage.getItem("section5") == "edit") {
-                    //         var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
-                    //         var enCodeParameter = btoa(parameter)
-                    //         location.href = "/review?" + enCodeParameter;
-                    //     }
-                    //     else {
-                    //         history.back();
-                    //     }
-
-                    //    // history.back();
-                    // }
                 } else {
                     console.log('empty response')
                 }
@@ -145,11 +118,13 @@ $(document).ready(function () {
                 var payload = {};
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
-              //  url: API_URI + "/fetchEligibility/" +  this.sendObj.uuid + "&role=" + this.sendObj.role,
-              var endPoint =  this.sendObj.uuid + "&role=" + this.sendObj.role,
                 var successData = apiCallPost('post', '/fetchProfession', payload);
-                console.log(successData);
-                this.patchValue(successData);
+                if (Object.keys(successData)) {
+                    this.patchValue(successData);
+                } else {
+                    console.log('empty response')
+                }
+
             },
 
             //Patching the value logic
@@ -188,16 +163,6 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_name);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
-
-
-
-                    //  Vue.set(this.professionObj,"childProfession",data[0].professional[0].child_profession);
-                    //    Vue.set(this.professionObj,"childEducationPlace",data[0].professional[0].child_education_place);
-                    //    Vue.set(this.professionObj,"childEHCP",data[0].professional[0].child_EHAT);
-                    //    Vue.set(this.professionObj,"childEHAT",data[0].professional[0].child_EHCP);
-                    //    Vue.set(this.professionObj,"isSocialWorker",data[0].professional[0].child_socialworker);
-                    //    Vue.set(this.professionObj,"socialWorkerName",data[0].professional[0].child_socialworker_name);
-                    //    Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].professional[0].child_socialworker_contact);
                 }
             },
 
