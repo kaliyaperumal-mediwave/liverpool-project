@@ -1,8 +1,65 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
+
+.bootstrap-datetimepicker-widget tr {
+  border-radius: 0px !important; }
+
+.bootstrap-datetimepicker-widget.dropdown-menu {
+  padding: 0px !important; }
+
+.bootstrap-datetimepicker-widget th {
+  border-radius: 0px !important; }
+
+.bootstrap-datetimepicker-widget table thead tr:first-child th .fa-chevron-left:before {
+  color: #ffffff !important;
+  border-radius: 0px !important;
+  padding: 5px !important; }
+
+.bootstrap-datetimepicker-widget .table-condensed thead tr:nth-child(2) th {
+  border-radius: 0px !important;
+  font-weight: normal !important;
+  font-size: 13px !important;
+  letter-spacing: 0px;
+  color: #023047;
+  opacity: 1;
+  text-transform: uppercase !important; }
+
+.bootstrap-datetimepicker-widget .table-condensed tbody tr {
+  font-weight: bold !important;
+  font-size: 15px !important;
+  letter-spacing: 0px !important;
+  color: #023047 !important;
+  opacity: 1 !important; }
+
+.bootstrap-datetimepicker-widget table td.day.today {
+  border-radius: 14px !important;
+  background: #ffb703 0% 0% no-repeat padding-box !important;
+  opacity: 1 !important; }
+
+.bootstrap-datetimepicker-widget table td.today {
+  position: static !important; }
+
+.bootstrap-datetimepicker-widget table thead tr th .fa-chevron-right:before {
+  color: #ffffff !important;
+  border-radius: 0px !important; }
+
+.bootstrap-datetimepicker-widget .picker-switch {
+  color: #ffffff !important;
+  border-radius: 0px !important;
+  font-weight: bold !important;
+  letter-spacing: 1.3px;
+  opacity: 1;
+  font-size: 14px !important; }
+
+.bootstrap-datetimepicker-widget table thead tr:first-child th:hover {
+  background: none !important; }
+
+.bootstrap-datetimepicker-widget thead:first-child tr:first-child {
+  background: #023047 0% 0% no-repeat padding-box !important;
+  opacity: 1 !important; }
 
 /* Radio Button Global classes */
 [type="radio"]:checked + label:before,
@@ -250,12 +307,14 @@ body {
     border: none !important; }
   body .dropdown-divider {
     border-top: 1px solid #023047 !important; }
-  body .sec2 {
-    background: #d6d8d8 0% 0% no-repeat padding-box !important; }
   body .pac-container {
     z-index: 10000 !important; }
   body .h-112 {
     height: 112px !important; }
+  body .font-23 {
+    font-size: 20px !important; }
+  body .font-25 {
+    font-size: 25px !important; }
   body .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -363,6 +422,12 @@ body {
 
 .btn-secondary-text {
   font-size: 26px;
+  font-weight: bold;
+  color: #023047;
+  cursor: pointer; }
+
+.btn-terirary-text {
+  font-size: 22px;
   font-weight: bold;
   color: #023047;
   cursor: pointer; }

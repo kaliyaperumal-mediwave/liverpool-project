@@ -1,5 +1,6 @@
 @import "config";
 @import "utilities";
+@import "calendar";
 @import "radio";
 @import "checkbox";
 @import "button";
@@ -65,9 +66,6 @@ body {
     border-top: 1px solid $primary-color !important;
   }
 
-  .sec2 {
-    background: #d6d8d8 0% 0% no-repeat padding-box !important;
-  }
   .pac-container {
     z-index: 10000 !important;
   }
@@ -75,6 +73,15 @@ body {
   .h-112 {
     height: 112px !important;
   }
+
+  .font-23 {
+    font-size: 20px !important;
+  }
+
+  .font-25 {
+    font-size: 25px !important;
+  }
+
 
   .ui-widget-content {
     border-radius: 2px !important;
@@ -158,6 +165,10 @@ body {
 
 .btn-secondary-text {
   @include set-titleStyles($button-font-size, bold, $primary-color);
+}
+
+.btn-terirary-text {
+  @include set-titleStyles($mobile-tertiary-font-size, bold, $primary-color);
 }
 
 .btn-modal-text {
@@ -258,22 +269,6 @@ body {
 .cal-icon-bg {
   background: #ffb703 0% 0% no-repeat padding-box;
 }
-
-// .cal-header-text {
-//   font-size: 14px;
-//   font-weight: normal;
-//   letter-spacing: 0px;
-//   color: $question-text-color;
-//   opacity: 1;
-// }
-
-// .cal-text {
-//   font-size: 17x;
-//   font-weight: italic;
-//   letter-spacing: 0px;
-//   color: #023047;
-//   opacity: 1;
-// }
 
 .main-min-height {
   min-height: 650px !important;
@@ -414,6 +409,7 @@ body {
     width: 111px;
   }
 }
+
 @media (min-width: 1200px) and (max-width: 1472px) {
   .back-text {
     position: relative;
