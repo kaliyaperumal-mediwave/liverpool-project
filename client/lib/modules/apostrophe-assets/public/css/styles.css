@@ -354,6 +354,10 @@ body {
   color: #ffffff;
   cursor: pointer; }
 
+.input-group-secondary-text {
+  background: #D6D8D8 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
+
 .send-font {
   font-size: 18px;
   font-weight: bold;

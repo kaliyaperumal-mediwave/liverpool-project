@@ -1,6 +1,6 @@
 var API_URI = "/modules/about-module";
 $(document).ready(function () {
-
+    Vue.component('date-picker', VueBootstrapDatetimePicker);
     var app = new Vue({
         el: '#about-form',
         data: {
@@ -27,6 +27,15 @@ $(document).ready(function () {
                 sameHouse: "",
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
+            },
+            dateWrap: true,
+            options: {
+                format: 'YYYY/MM/DD',
+                dayViewHeaderFormat: 'MMMM YYYY',
+                useCurrent: false,
+                allowInputToggle: true,
+                minDate: new Date(1950, 10, 25),
+                maxDate: moment().endOf('day').add(1, 'sec'),
             },
             sendObj: {},
             sec2dynamicLabel: {},
@@ -427,6 +436,18 @@ $(document).ready(function () {
                     $('#houseHoldDate').datepicker('setDate', null);
                     this.houseHoldData.dob = "";
                 }
+            },
+
+            setCalendarHeight(e) {
+                var dynamicHeight;
+                var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
+                if (mainWidth <= 350) {
+                    dynamicHeight = e.currentTarget.clientWidth + 25;
+                } else {
+                    dynamicHeight = e.currentTarget.clientWidth - 10;
+                }
+                var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
+                dob[0].style.width = '' + dynamicHeight + 'px';
             },
 
             getAge: function (dateString) {
