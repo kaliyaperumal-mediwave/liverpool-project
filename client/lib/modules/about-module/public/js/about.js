@@ -122,12 +122,14 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
-                if (Object.keys(successData)) {
-                    this.patchValue(successData);
-                } else {
-                    console.error('error')
+                if(successData!=undefined)
+                {
+                    if (Object.keys(successData)) {
+                        this.patchValue(successData);
+                    } else {
+                        console.error('error')
+                    }
                 }
-
             },
 
             //Setting values Logic for Edit and Update
@@ -268,7 +270,11 @@ $(document).ready(function () {
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                    this.payloadData.editFlag = this.paramValues[2]
+                    if(this.editPatchFlag)
+                    {
+                        this.payloadData.editFlag = this.paramValues[2]
+                    }
+                   
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
                     } else {

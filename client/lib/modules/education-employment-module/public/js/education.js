@@ -27,9 +27,6 @@ $(document).ready(function () {
         },
         mounted: function () {
             var _self = this;
-
-
-
             this.paramValues = getParameter(location.href)
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
@@ -38,9 +35,6 @@ $(document).ready(function () {
             console.log(this.userId, this.userRole, this.userMode)
             if (this.userMode != undefined) {
                 // this.patchValue();
-                this.fetchSavedData();
-            }
-            if (getUrlVars()['edt'] == 1) {
                 this.fetchSavedData();
             }
             // google.maps.event.addDomListener(window, 'load', _self.initMaps);
@@ -113,28 +107,9 @@ $(document).ready(function () {
             upsertEducationForm: function (payload) {
                 // console.log(payload);
                 var _self = this;
-                var responseData = apiCallGet('get', '/education', payload);
+                var responseData = apiCallPost('post', '/education', payload);
                 if (Object.keys(responseData)) {
                     location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
-                    // if (this.paramValues[2] == undefined) {
-                    //     var parameter =  this.userId +"&"+ this.userRole 
-                    //     var enCodeParameter = btoa(parameter)
-                    //     location.href = "/referral?"+enCodeParameter;
-
-                    //    // location.href = "/referral?userid=" + responseData.userid + "&role=" + responseData.role;
-                    // }
-                    // else {
-                    //     if (sessionStorage.getItem("section5") == "edit") {
-                    //         var parameter = _self.paramValues[0] + "&" + _self.paramValues[1];
-                    //         var enCodeParameter = btoa(parameter)
-                    //         location.href = "/review?" + enCodeParameter;
-                    //     }
-                    //     else {
-                    //         history.back();
-                    //     }
-
-                    //    // history.back();
-                    // }
                 } else {
                     console.log('empty response')
                 }
@@ -145,10 +120,7 @@ $(document).ready(function () {
                 var payload = {};
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
-              //  url: API_URI + "/fetchEligibility/" +  this.sendObj.uuid + "&role=" + this.sendObj.role,
-              var endPoint =  this.sendObj.uuid + "&role=" + this.sendObj.role,
                 var successData = apiCallPost('post', '/fetchProfession', payload);
-                console.log(successData);
                 this.patchValue(successData);
             },
 
