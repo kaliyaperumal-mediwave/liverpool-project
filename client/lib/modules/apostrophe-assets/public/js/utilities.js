@@ -50,11 +50,14 @@ function backToPreviousPage(section, userId, userRole) {
 //Scroll to top for an Invalid Inputs
 function scrollToInvalidInput() {
     var errorElements = $('.invalid-fields');
-    window.scroll({
-        top: this.getTopOffset(errorElements[0].parentElement.parentElement),
-        left: 0,
-        behavior: "smooth"
-    });
+    setTimeout(function () {
+        window.scroll({
+            top: errorElements[0].parentElement.offsetTop,
+            left: 0,
+            behavior: "smooth"
+        });
+    }, 200)
+
 };
 
 function getTopOffset(controlEl) {
@@ -177,7 +180,7 @@ function setLoaderStyle() {
     element[0].classList.add('position-relative')
 }
 
-function redirectUrl(currentPge,nextPge,usrId,roles) {
+function redirectUrl(currentPge, nextPge, usrId, roles) {
     let decryptedUrl;
     var gotopage;
     var getParamsRedirect
@@ -187,18 +190,18 @@ function redirectUrl(currentPge,nextPge,usrId,roles) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
         if (decodeValues[2] == "sec5back") {
-            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1];
+            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&sec5back";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;
         }
         else {
-            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1]+"&backbutton";
+            getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/" + nextPge + "?" + decryptedUrl;
-    
+
         }
     } else {
-        getParamsRedirect = usrId + "&" +roles;
+        getParamsRedirect = usrId + "&" + roles;
         decryptedUrl = btoa(getParamsRedirect);
         gotopage = "/" + nextPge + "?" + decryptedUrl;
     }
