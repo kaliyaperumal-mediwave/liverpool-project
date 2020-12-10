@@ -82,7 +82,6 @@ body {
     font-size: 25px !important;
   }
 
-
   .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -117,6 +116,10 @@ body {
 
 .back-text {
   @include set-titleStyles($button-font-size, bold, $header-text-color);
+}
+
+.input-group-secondary-text {
+  @include set-background($input-group-sec, 1);
 }
 
 .send-font {
