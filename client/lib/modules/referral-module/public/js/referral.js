@@ -86,7 +86,7 @@ $(document).ready(function () {
                 { id: '43R4', value: 'Obsessive-compulsive disorder (OCD)' },
                 { id: '1F5G4', value: 'Panic attacks' },
                 { id: '47FBGH', value: 'Phobias' },
-                { id: '1187', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
+                { id: '118709877fg9543', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
                 { id: 'DF3V6S', value: 'Self-harm' },
                 { id: '1DS', value: 'Pulling hair out' },
                 { id: '4F7', value: 'Separation anxiety' },
@@ -97,29 +97,35 @@ $(document).ready(function () {
                 { id: 'TRYE', value: 'Wetting and soiling' }
             ],
             listOfProblems: [
-                { id: 'sdf', value: 'ADD/ADHD' },
-                { id: '564dfh', value: 'Anxiety', },
-                { id: '564j', value: 'Autism' },
-                { id: 'hj', value: 'Bullying related' },
-                { id: '02h', value: 'Conduct disorder' },
-                { id: '9897', value: 'Depression' },
-                { id: 'dfj7t8y', value: 'Dyslexia' },
-                { id: 'g4df56+', value: 'Drinking and drugs related' },
-                { id: 'fjuyt18', value: 'Eating Disorders' },
-                { id: 'rujr98yu', value: 'Family Difficulty' },
-                { id: 'fjyhj1', value: 'Gender dysphoria' },
-                { id: 'dfjj848', value: 'Obsessive-compulsive disorder (OCD)' },
-                { id: 'dfghjd89', value: 'Panic attacks' },
-                { id: 'dfg8', value: 'Phobias' },
-                { id: '1187', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
-                { id: 'df198oijd', value: 'Self-harm' },
-                { id: 'gdfh98', value: 'Pulling hair out' },
-                { id: '2432fg', value: 'Separation anxiety' },
-                { id: 'p989df', value: 'Stress' },
-                { id: 'mk89uj8', value: 'Suicidal thoughts' },
-                { id: '9ig89u', value: 'Social phobia' },
-                { id: '8mfg8', value: 'Tics and Tourette’s' },
-                { id: '88gfh', value: 'Wetting and soiling' }
+                { id: 'sdf', value: 'Trouble concentrating' },
+                { id: '564dfh', value: 'Feeling nervous or on edge', },
+                { id: '564j', value: 'Trouble socialising' },
+                { id: 'hj', value: 'Bullying' },
+                { id: '02h', value: 'Find it hard to control myself' },
+                { id: '9897', value: 'Feeling sad, unhappy or hopeless' },
+                { id: 'dfj7t8y', value: 'Trouble reading and writing' },
+                { id: 'g4df56+', value: 'Drinking and drugs' },
+                { id: 'fjuyt18', value: 'Feeling clumsy and uncoordinated' },
+                { id: 'rujr98yu', value: 'Issues with food, diet or eating' },
+                { id: 'fjyhj1', value: 'Problems with family' },
+                { id: 'dfjj848', value: 'Problems with self identity' },
+                { id: 'dfghjd89', value: 'Compulsive behaviour' },
+                { id: 'dfg8', value: 'Panic attacks' },
+                { id: '1187qw1243', value: 'Feeling scared or anxious' },
+                { id: 'df198oijd', value: 'Seeing or hearing things' },
+                { id: 'gdfh98', value: 'Had a traumatic experience' },
+                { id: '2432fg', value: 'Feeling that I want to hurt myself' },
+                { id: 'p989df', value: 'Self-harming' },
+                { id: 'mk89uj8', value: 'Pulling hair out' },
+                { id: '9ig89u', value: 'Trouble sleeping' },
+                { id: '8mfg8', value: 'Feeling stressed' },
+                { id: '88gfh', value: 'Feeling that I don’t want to live' },
+                { id: '0f8495a7-4bc7-4194-a20b-485667901a02', value: 'Uncontrolled movements' },
+                { id: 'ac435a42-7157-4529-a20c-16a5fbf3e226', value: 'Wetting or soiling myself' },
+                { id: 'ac663e81-88c6-4514-9771-520de3088b03', value: 'Low self esteem' },
+                { id: 'e8458f91-4e04-4487-8797-0dad7339b49c', value: 'Lacking confidence in myself' },
+
+
             ],
             listOfAvailableService: [
                 { id: 'oopdfh', value: 'Addvanced Solutions' },
@@ -202,11 +208,14 @@ $(document).ready(function () {
                 payload.userid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchReferral', payload);
+                if (successData && Object.keys(successData)) {
+                    this.patchValue(successData);
+                    $('#loader').hide();
+                } else {
+                    console.error('error');
+                    $('#loader').hide();
 
-                if (successData != undefined)
-                    this.patchValue(successData)
-                // this.patchValue(successData);
-                $('#loader').hide();
+                }
             },
 
 
