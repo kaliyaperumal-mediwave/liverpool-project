@@ -339,7 +339,7 @@
                             </div>
                         </template>
 
-                        <p class="text-left mx-1 my-2 cursor-pointer" data-toggle="modal" data-target="#serviceModal"
+                        <!-- <p class="text-left mx-1 my-2 cursor-pointer" data-toggle="modal" data-target="#serviceModal"
                             @click="resetModal('add')"><span v-if="!allAvailableService.length">Currently,you
                                 don't
                                 have any
@@ -347,7 +347,11 @@
                             here to add a service
                             <span class="px-2"> <i class="fa fa-plus-circle" color="#023047"
                                     aria-hidden="true"></i></span>
-                        </p>
+                        </p> -->
+                        <button data-toggle="modal" data-target="#serviceModal" type="button" @click="resetModal('add')"
+                            class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
+                                Service <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            </span></button>
                         <!-- </div> -->
                     </div>
                 </form>
@@ -625,7 +629,7 @@
                                         for example, fatigue, bed wetting or
                                         outbursts of anger.
                                     </h3>
-                                    <p class="support-modal-header-text cursor-pointer text-left m-0 py-2"> > Find out
+                                    <p class="support-modal-link-text cursor-pointer text-left m-0 py-2"> > Find out
                                         more
                                         about mental
                                         health</p>

@@ -28,7 +28,7 @@ $(document).ready(function () {
             digArray: []
         },
         mounted: function () {
-
+//test
             var _self = this;
             this.curVal = $("[contenteditable='true']").text();
             $("[contenteditable='true']").on("blur", function (event) {

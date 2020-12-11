@@ -7,7 +7,7 @@ exports.eligibility = ctx => {
   const user = ctx.orm().User;
   var userid;
 
-  console.log(ctx.request.body);
+  //  console.log(ctx.request.body);
 
   if (ctx.request.body.role == "child") {
     if (ctx.request.body.editFlag != null) {
@@ -30,7 +30,7 @@ exports.eligibility = ctx => {
         }
         return ctx.body = responseData;
       }).catch((error) => {
-        console.log(error)
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
     else {
@@ -49,7 +49,7 @@ exports.eligibility = ctx => {
         }
         return ctx.body = responseData;
       }).catch((error) => {
-
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
 
@@ -121,9 +121,10 @@ exports.eligibility = ctx => {
           }
           return ctx.body = responseData;
         }).catch((error) => {
-
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
     }
@@ -207,9 +208,10 @@ exports.eligibility = ctx => {
           }
           return ctx.body = responseData;
         }).catch((error) => {
-
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
   }
@@ -218,10 +220,10 @@ exports.eligibility = ctx => {
 
 exports.fetchEligibility = ctx => {
   const user = ctx.orm().User;
-  if (ctx.request.body.role == "child") {
+  if (ctx.query.role  == "child") {
     return user.findOne({
       where: {
-        uuid: ctx.request.body.uuid,
+        uuid:  ctx.query.user_id,
       },
       attributes: ['id', 'uuid']
     }).then((result) => {
@@ -235,13 +237,19 @@ exports.fetchEligibility = ctx => {
         return ctx.body = userResult;
 
       })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
     })
+      .catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
   }
-  else if (ctx.request.body.role == "parent") {
+  else if (ctx.query.role  == "parent") {
     return user.findOne({
       where: {
-        uuid: ctx.request.body.uuid,
+        uuid:  ctx.query.user_id,
       },
       attributes: ['id', 'uuid']
     }).then((result) => {
@@ -262,14 +270,17 @@ exports.fetchEligibility = ctx => {
         return ctx.body = userResult;
 
       })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
     })
   }
 
-  else if (ctx.request.body.role == "professional") {
+  else if (ctx.query.role  == "professional") {
     return user.findOne({
       where: {
-        uuid: ctx.request.body.uuid,
+        uuid:  ctx.query.user_id,
       },
       attributes: ['id', 'uuid']
     }).then((result) => {
@@ -290,6 +301,9 @@ exports.fetchEligibility = ctx => {
         return ctx.body = userResult;
 
       })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
     })
   }
@@ -377,11 +391,23 @@ exports.about = ctx => {
               }
               return ctx.body = responseData;
             })
+              .catch((error) => {
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+              });
 
           })
+            .catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
         })
+          .catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
 
       })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
     }
 
     else {
@@ -441,18 +467,19 @@ exports.about = ctx => {
             }
             return ctx.body = responseData;
           }).catch((error) => {
-
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
 
-        })
-      })
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
 
     }
   }
   else if (ctx.request.body.role == "parent") {
-    console.log(ctx.request.body)
-
-
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -487,9 +514,6 @@ exports.about = ctx => {
             child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
             child_ethnicity: ctx.request.body.aboutData.childEthnicity,
             parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-            // child_household_name: ctx.request.body.houseHoldName,
-            // child_household_relationship: ctx.request.body.houseHoldRelationship,
-            // child_household_dob: ctx.request.body.childHouseHoldDob,
             household_member: ctx.request.body.allHouseHoldMembers,
             child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
             child_care_adult: ctx.request.body.aboutData.childCareAdult,
@@ -499,29 +523,6 @@ exports.about = ctx => {
               { id: childId }
           }
         ).then((updateResult) => {
-
-          // var  parentName;
-          // var parentEmail;
-          // var parentSameHouse;
-          // var childParentRelationship;
-          // var parentContactNumber;
-          // var parentAddress;
-          // if(ctx.request.body.aboutData.parentialResponsibility=="no")
-          // {
-          //   parentName = ctx.request.body.aboutData.parentCarerName;
-          //   parentEmail = ctx.request.body.aboutData.emailAddress;
-          //   parentSameHouse = ctx.request.body.aboutData.sameHouse;
-          //   childParentRelationship = ctx.request.body.aboutData.relationshipToYou;
-          //   parentContactNumber = ctx.request.body.aboutData.contactNumber;
-          // }
-          // else 
-          // {
-          //   parentName = ctx.request.body.aboutData.parentCarerName;
-          //   parentEmail = ctx.request.body.aboutData.emailAddress;
-          //   parentSameHouse = ctx.request.body.aboutData.sameHouse;
-          //   childParentRelationship = ctx.request.body.aboutData.relationshipToYou;
-          //   parentContactNumber = ctx.request.body.aboutData.contactNumber;
-          // }
           return user.update({
             parent_name: ctx.request.body.aboutData.parentName,
             parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
@@ -546,10 +547,21 @@ exports.about = ctx => {
             }
             return ctx.body = responseData;
           })
-        })
-      })
+            .catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
 
     })
+      .catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
   }
 
   else if (ctx.request.body.role == "professional") {
@@ -589,9 +601,6 @@ exports.about = ctx => {
               child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
               child_ethnicity: ctx.request.body.aboutData.childEthnicity,
               parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-              // child_household_name: ctx.request.body.houseHoldName,
-              // child_household_relationship: ctx.request.body.houseHoldRelationship,
-              // child_household_dob: ctx.request.body.childHouseHoldDob,
               household_member: ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
               child_care_adult: ctx.request.body.aboutData.childCareAdult,
@@ -633,13 +642,27 @@ exports.about = ctx => {
                   role: ctx.request.body.role
                 }
                 return ctx.body = responseData;
-              })
+              }).catch((error) => {
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+              });
 
             })
+              .catch((error) => {
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+              });
 
           })
+            .catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
         })
+          .catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
       })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
     }
     else {
 
@@ -675,10 +698,6 @@ exports.about = ctx => {
               child_gender_birth: ctx.request.body.aboutData.childIdentity,
               child_sexual_orientation: ctx.request.body.aboutData.childSexualOrientation,
               child_ethnicity: ctx.request.body.aboutData.childEthnicity,
-              // parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-              // child_household_name: ctx.request.body.houseHoldName,
-              // child_household_relationship: ctx.request.body.houseHoldRelationship,
-              // child_household_dob: ctx.request.body.childHouseHoldDob,
               household_member: ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
               child_care_adult: ctx.request.body.aboutData.childCareAdult,
@@ -711,10 +730,18 @@ exports.about = ctx => {
                 role: ctx.request.body.role
               }
               return ctx.body = responseData;
-            })
-          })
-        })
-      })
+            }).catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
     }
   }
 };
@@ -730,8 +757,6 @@ exports.fetchAbout = ctx => {
       },
       attributes: ['id', 'uuid']
     }).then((result) => {
-
-
       return user.findOne({
         include: [
           {
@@ -740,17 +765,17 @@ exports.fetchAbout = ctx => {
             as: 'parent',
           },
         ],
-
         where: {
           id: result.id,
         },
       }).then((userResult) => {
-
         return ctx.body = userResult;
-
-      })
-
-    })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
   else if (ctx.request.body.role == "parent") {
     return user.findOne({
@@ -776,8 +801,14 @@ exports.fetchAbout = ctx => {
         return ctx.body = userResult;
 
       })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
     })
+      .catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
   }
 
   else if (ctx.request.body.role == "professional") {
@@ -826,12 +857,19 @@ exports.fetchAbout = ctx => {
 
           return ctx.body = parentResult;
 
-        })
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
 
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
 
     })
+      .catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
   }
 }
 
@@ -895,12 +933,18 @@ exports.profession = ctx => {
             }
             return ctx.body = responseData;
           }).catch((error) => {
-            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
-        })
-      })
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
 
-    })
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
   else if (ctx.request.body.role == "parent") {
     const user = ctx.orm().User;
@@ -956,12 +1000,18 @@ exports.profession = ctx => {
             }
             return ctx.body = responseData;
           }).catch((error) => {
-            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
-        })
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
       })
-
-    })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
 
   else if (ctx.request.body.role == "child") {
@@ -997,8 +1047,12 @@ exports.profession = ctx => {
           role: ctx.request.body.role
         }
         return ctx.body = responseData;
-      })
-    })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
 }
 
@@ -1015,7 +1069,9 @@ exports.fetchProfession = ctx => {
 
     }).then((result) => {
       return ctx.body = result;
-    })
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
   else if (ctx.request.body.role == "parent") {
     return user.findOne({
@@ -1041,8 +1097,12 @@ exports.fetchProfession = ctx => {
         return ctx.body = userResult;
         console.log(userResult[0].parent[0].ChildParents.parentId)
         var childId = userResult[0].parent[0].ChildParents.parentId
-      })
-    })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
 
   else if (ctx.request.body.role == "professional") {
@@ -1068,8 +1128,12 @@ exports.fetchProfession = ctx => {
         //  console.log(userResult);
         return ctx.body = userResult;
 
-      })
-    })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
 }
 
@@ -1113,7 +1177,9 @@ exports.saveReferal = ctx => {
           role: ctx.request.body.role
         }
         return ctx.body = responseData;
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
     }
     else {
       return user.findOne({
@@ -1176,11 +1242,19 @@ exports.saveReferal = ctx => {
                 role: ctx.request.body.role
               }
               return ctx.body = responseData;
-            })
-          })
-        })
+            }).catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
     }
   }
   else if (ctx.request.body.role == "parent") {
@@ -1215,10 +1289,11 @@ exports.saveReferal = ctx => {
           role: ctx.request.body.role
         }
         return ctx.body = responseData;
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
     }
     else {
-      console.log("333");
       return user.findOne({
         where: {
           uuid: ctx.request.body.userid,
@@ -1268,11 +1343,17 @@ exports.saveReferal = ctx => {
               role: ctx.request.body.role
             }
             return ctx.body = responseData;
-          })
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
 
-        })
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
     }
 
   }
@@ -1309,7 +1390,9 @@ exports.saveReferal = ctx => {
           role: ctx.request.body.role
         }
         return ctx.body = responseData;
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
     }
     else {
       return user.findOne({
@@ -1355,9 +1438,15 @@ exports.saveReferal = ctx => {
               role: ctx.request.body.role
             }
             return ctx.body = responseData;
-          })
-        })
-      })
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
     }
   }
 }
@@ -1399,14 +1488,16 @@ exports.fetchReferral = ctx => {
       }).then((referralResult) => {
         console.log(referralResult)
         return ctx.body = referralResult;
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
 
-      console.log(userResult)
-    })
-    console.log(fetchResult.id)
-
-
-  })
+  }).catch((error) => {
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
 
   // else if (ctx.request.body.role == "parent") {
   // }
@@ -1442,7 +1533,7 @@ exports.fetchReview = ctx => {
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult','household_member']
+        attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1468,7 +1559,7 @@ exports.fetchReview = ctx => {
             can_send_post: aboutObj.can_send_post,
             child_gender: aboutObj.child_gender,
             child_gender_birth: aboutObj.child_gender_birth,
-            child_sexual_orientation: aboutObj.child_gender_birth,
+            child_sexual_orientation: aboutObj.child_sexual_orientation,
             child_ethnicity: aboutObj.child_ethnicity,
             child_care_adult: aboutObj.child_care_adult,
             household_member: aboutObj.household_member,
@@ -1539,7 +1630,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().User,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult','household_member']
+              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
             },
           ],
           where: {
@@ -1594,7 +1685,7 @@ exports.fetchReview = ctx => {
                 can_send_post: aboutObj[0].parent[0].can_send_post,
                 child_gender: aboutObj[0].parent[0].child_gender,
                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
-                child_sexual_orientation: aboutObj[0].parent[0].child_gender_birth,
+                child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
                 household_member: aboutObj[0].parent[0].household_member,
@@ -1627,13 +1718,23 @@ exports.fetchReview = ctx => {
                 role: ctx.request.body.role
               }
               return ctx.body = responseData;
-            })
-          })
-        })
+            }).catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
 
-      })
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
 
-    })
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
   else if (ctx.query.role == "professional") {
 
@@ -1670,7 +1771,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().User,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult','household_member']
+              attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
             },
           ],
           where: {
@@ -1727,10 +1828,10 @@ exports.fetchReview = ctx => {
                 can_send_post: aboutObj[0].parent[0].can_send_post,
                 child_gender: aboutObj[0].parent[0].child_gender,
                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
-                child_sexual_orientation: aboutObj[0].parent[0].child_gender_birth,
+                child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
-             //   household_member: aboutObj[0].parent[0].household_member,
+                //   household_member: aboutObj[0].parent[0].household_member,
                 parent_name: aboutObj[0].parent_name,
                 parential_responsibility: aboutObj[0].parential_responsibility,
                 child_parent_relationship: aboutObj[0].child_parent_relationship,
@@ -1762,14 +1863,24 @@ exports.fetchReview = ctx => {
                 role: ctx.request.body.role
               }
               return ctx.body = responseData;
-            })
+            }).catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
 
-          })
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
         })
-
+          .catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
       })
-
-    })
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }
 
 }
@@ -1801,7 +1912,7 @@ exports.saveReview = ctx => {
         }
         return ctx.body = responseData;
       }).catch((error) => {
-        console.log(error)
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
   })

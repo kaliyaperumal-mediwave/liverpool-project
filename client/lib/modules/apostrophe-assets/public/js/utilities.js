@@ -103,25 +103,25 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
-            console.log('Something went Wrong', error)
+            console.log(error.responseJSON.message)
         }
     });
     return response
 };
 
 //Commom API Call for post Function
-function apiCallGet(reqType, endPoint, params) {
+function apiCallGet(reqType, endPoint) {
     var response;
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
-        async: false,
-        data: params,
+        dataType: 'json',
+        contentType: 'application/json',
         success: function (res) {
             response = res;
         },
         error: function (error) {
-            console.log('Something went Wrong', error)
+            console.log(error.responseJSON.message)
         }
     });
     return response
@@ -189,7 +189,7 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
     if (base64Matcher.test(getParams)) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
-        if (decodeValues[2] == "sec5back") {
+        if (decodeValues[2] == "sec5back" && nextPge!="acknowledge") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&sec5back";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;

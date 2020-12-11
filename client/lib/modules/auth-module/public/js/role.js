@@ -1,4 +1,3 @@
-
 //const apiUrl = "/user/eligibility"
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
@@ -83,15 +82,18 @@ $(document).ready(function () {
                 this.sendObj.uuid = this.paramValues[0];
                 this.sendObj.role = this.paramValues[1];
                 $.ajax({
-                    url: API_URI + "/fetchEligibility",
-                    type: 'post',
+                  //  url: API_URI + "/fetchEligibility",
+                    url: API_URI + "/fetchEligibility/" +  this.sendObj.uuid + "&role=" + this.sendObj.role,
+                    type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
-                    data: JSON.stringify(this.sendObj),
+                   // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         app.setValues(data);
-
                     },
+                    error: function (error) {
+                        console.log(error.responseJSON.message)
+                    }
                 });
             },
 
@@ -153,7 +155,7 @@ $(document).ready(function () {
                         }
                         displayNameList = _self.gpListName;
                         displayPostList = _self.gpListPost;
-                        console.log(displayNameList);
+                        //console.log(displayNameList);
                         $("#gpLocation").autocomplete({
                             source: displayNameList,
                             response: function (event, ui) {
@@ -318,6 +320,7 @@ $(document).ready(function () {
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
                     }
+                  
                     console.log(age);
                     if (roleText == 'child') {
                         if (age < 15) {
@@ -325,6 +328,7 @@ $(document).ready(function () {
                             this.elgibilityObj.aboveLimit = "";
                             this.elgibilityObj.contactParent = "";
                             this.elgibilityObj.submitForm = "false";
+                            this.elgibilityObj.regGpTxt = "";
                         }
                         else if (age > 19) {
                             this.elgibilityObj.aboveLimit = "yes";
@@ -332,6 +336,7 @@ $(document).ready(function () {
                             this.elgibilityObj.contactParent = "";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.regGpTxt = "";
                         }
                         else {
                             console.log("343")
@@ -339,6 +344,7 @@ $(document).ready(function () {
                             this.elgibilityObj.belowAgeLimit = "";
                             this.elgibilityObj.aboveLimit = "";
                             this.elgibilityObj.submitForm = "false";
+                            this.elgibilityObj.regGpTxt = "";
                         }
                     }
                     else if (roleText == 'professional') {
@@ -347,6 +353,7 @@ $(document).ready(function () {
                             this.elgibilityObj.profaboveLimit = "";
                             this.elgibilityObj.parentConcern = "";
                             this.elgibilityObj.submitProfForm = "false";
+                            this.elgibilityObj.regProfGpTxt = "";
                         }
                         else if (age > 19) {
                             this.elgibilityObj.profaboveLimit = "yes";
@@ -356,12 +363,14 @@ $(document).ready(function () {
                             this.elgibilityObj.parentConcernInformation = "";
                             this.elgibilityObj.childConcernInformation
                             this.elgibilityObj.submitProfForm = "false";
+                            this.elgibilityObj.regProfGpTxt = "";
                         }
                         else {
                             this.elgibilityObj.parentConcern = "show";
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.profaboveLimit = "";
                             this.elgibilityObj.submitProfForm = "false";
+                            this.elgibilityObj.regProfGpTxt = "";
                         }
                     }
 
@@ -386,7 +395,7 @@ $(document).ready(function () {
 
             },
 
-            resetFlag(e) {
+            resetFlag: function(e) {
                 var dynamicHeight;
                 var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
                 if (mainWidth <= 350) {
@@ -525,7 +534,6 @@ $(document).ready(function () {
             },
 
             apiRequest: function (payload, role) {
-                console.log(payload)
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/eligibility",
@@ -535,13 +543,16 @@ $(document).ready(function () {
                     data: JSON.stringify(payload),
                     success: function (data) {
                         //alert("section 1 saved.");
-                        console.log(data);
+                       // console.log(data);
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
                         location.href = redirectUrl(location.href, "about", data.userid, role);
                     },
+                    error: function (error) {
+                        console.log(error.responseJSON.message)
+                    }
                 });
             },
 
@@ -571,13 +582,13 @@ $(document).ready(function () {
 
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
             },
-
+          
             fetchAgeLogic: function (dbdob, roleText) {
-                console.log(dbdob);
+      //          console.log(dbdob);
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
-                console.log(age);
+      //          console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
 

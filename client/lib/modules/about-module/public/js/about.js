@@ -67,39 +67,20 @@ $(document).ready(function () {
             headerToDisplay: "",
             edFlag: false,
             paramValues: [],
-            editPatchFlag: false
-
+            editPatchFlag: false,
+            storeDeleteData: null,
         },
+
         mounted: function () {
             var _self = this;
-            //google.maps.event.addDomListener(window, 'load', _self.initMaps);
             this.paramValues = getParameter(location.href)
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            $('#houseHoldDate').datepicker({
-                dateFormat: 'yy-mm-dd',
-                duration: "fast",
-                changeMonth: true,
-                changeYear: true,
-                autoSize: true,
-                gotoCurrent: true,
-                setDate: new Date(),
-                minDate: new Date(1950, 10 - 1, 25),
-                maxDate: '+30Y',
-                yearRange: '1950:c',
-                onSelect: function (dateText) {
-                    // $(this)[0].dispatchEvent(new Event('input', { 'bubbles': true }))
-                    _self.houseHoldData.dob = dateText
-                },
-            });
-
             if (this.paramValues[2] != undefined) {
                 this.fetchSavedData();
             }
-
             this.initMaps()
-
         },
         methods: {
 
@@ -109,12 +90,11 @@ $(document).ready(function () {
                 var childAddress;
                 var houseHoldAddress;
                 var parentAddress;
-                console.log("----------------------------")
                 childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                     types: ['geocode'],
                 });
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
-                    types: ['geocode'],
+                    types: ['establishment'],
                 });
                 parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
                     types: ['geocode'],
@@ -132,12 +112,9 @@ $(document).ready(function () {
             },
 
             onOptionChange: function (event) {
-                var questionIdentifier = event.target.name;
                 var optionsName = this.aboutFormData;
-                // if (questionIdentifier == 'parentialResponsibility') {
                 this.sec2dynamicLabel = getDynamicLabels(this.userRole, optionsName.parentialResponsibility)
                 resetValues(event.target.form, this, 'aboutFormData');
-                // }
             },
 
             //Ftech Api service Logic
@@ -146,17 +123,15 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
-                if (Object.keys(successData)) {
+                if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
-                    //  console.error('error')
+                    console.error('error')
                 }
-
             },
 
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
-                // this.allHouseHoldMembers = data.allHouseHoldMembers;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
@@ -219,8 +194,6 @@ $(document).ready(function () {
                 }
 
                 else if (this.userRole == "professional") {
-                    //   console.log(data);
-                    //      console.log(data[0].responsibility_parent_name)
                     if (data[0] != undefined && data[0].parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
@@ -248,15 +221,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                         Vue.set(this.aboutFormData, "parentUUID", data[0].uuid);
                     }
-
-                    // document.getElementById("showAdToast").style.display = "block";
-                    // document.getElementById("showAdBtn").style.display = "block";
                 }
             },
 
             //Form Submittion of Section-4(Referral) with validation logic
             saveAndContinue: function () {
-
                 this.isFormSubmitted = true;
                 var formData = Object.assign(this.aboutObj, this.aboutFormData);
                 if (formData.contactNumber && formData.relationshipToYou &&
@@ -299,7 +268,11 @@ $(document).ready(function () {
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                    this.payloadData.editFlag = this.paramValues[2]
+                    if(this.editPatchFlag)
+                    {
+                        this.payloadData.editFlag = this.paramValues[2]
+                    }
+                   
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
                     } else {
@@ -316,31 +289,11 @@ $(document).ready(function () {
 
             //Section 2(About You) Save and Service call with navaigation Logic
             upsertAboutYouForm: function (payload) {
-                //   console.log(payload);
                 var responseData = apiCallPost('post', '/saveReferral', payload);
-                if (Object.keys(responseData)) {
+                if (responseData && Object.keys(responseData)) {
                     location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
-                    // if (this.paramValues[2] == undefined) {
-                    //     var parameter = this.userId + "&" + this.userRole
-                    //     var enCodeParameter = btoa(parameter)
-                    //     //  alert(enCodeParameter)
-                    //     //   location.href = "/about?"+enCodeParameter;
-                    //     location.href = "/education?" + enCodeParameter;
-                    // }
-                    // else {
-
-                    //     if (sessionStorage.getItem("section5") == "edit") {
-                    //         var parameter = this.userId + "&" + this.userRole
-                    //         var enCodeParameter = btoa(parameter)
-                    //         location.href = "/review?" + enCodeParameter;
-                    //     }
-                    //     else {
-                    //         history.back();
-                    //     }
-                    //     //
-                    // }
                 } else {
-                    //     console.log('empty response')
+                    console.log('empty response')
                 }
             },
 
@@ -398,8 +351,16 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            deleteHouseHold: function (service) {
-                deleteLogic(this.allHouseHoldMembers, service, this, 'allHouseHoldMembers')
+            openDeleteModal: function (service) {
+                this.storeDeleteData = service;
+            },
+
+
+            //Delete service logic
+            deleteHouseHold: function (member) {
+                var modal = document.getElementById('closeModalDeleteAbout');
+                deleteLogic(this.allHouseHoldMembers, member, this, 'allHouseHoldMembers')
+                modal.setAttribute("data-dismiss", "modal");
             },
 
             //Resetting the modal values of service data
