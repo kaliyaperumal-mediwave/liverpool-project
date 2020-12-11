@@ -268,11 +268,10 @@ $(document).ready(function () {
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                    if(this.editPatchFlag)
-                    {
+                    if (this.editPatchFlag) {
                         this.payloadData.editFlag = this.paramValues[2]
                     }
-                   
+
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
                     } else {
@@ -400,6 +399,7 @@ $(document).ready(function () {
             },
 
             setCalendarHeight(e) {
+                e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
                 var dynamicHeight;
                 var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
                 if (mainWidth <= 350) {
