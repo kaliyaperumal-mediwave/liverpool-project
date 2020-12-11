@@ -396,6 +396,7 @@ $(document).ready(function () {
             },
 
             resetFlag: function(e) {
+                e.currentTarget.firstElementChild.setAttribute('inputmode','none');
                 var dynamicHeight;
                 var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
                 if (mainWidth <= 350) {
@@ -405,7 +406,6 @@ $(document).ready(function () {
                 }
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
-
                 this.patchFlag = false;
             },
 

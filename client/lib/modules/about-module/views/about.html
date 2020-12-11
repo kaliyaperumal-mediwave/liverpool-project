@@ -275,7 +275,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
-                                <h5 class="question-header-font" id="deleteModalLabel">Delete HouseHold Member</h5>
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete HouseHold</h5>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>
                             </div>
@@ -702,7 +702,7 @@
                             </div>
                             <div class="modal-body py-1 px-4">
                                 <div class="form-group">
-                                    <label for="houseHoldName" class="question-font">Name</label>
+                                    <label for="houseHoldName" inputmode="text" class="question-font">Name</label>
                                     <input type="text" class="form-control" v-model="houseHoldData.name"
                                         id="houseHoldName" placeholder="Enter name">
                                     <div class="invalid-feedback d-none"
@@ -713,7 +713,7 @@
                                 <div class="form-group">
                                     <label for="relationship" class="question-font">RelationShip -
                                         optional</label>
-                                    <input type="text" v-model="houseHoldData.relationShip" class="form-control"
+                                    <input type="text" inputmode="text" v-model="houseHoldData.relationShip" class="form-control"
                                         id="relationship" placeholder="Enter relationship with CYP">
                                 </div>
                                 <div class="form-group">
@@ -730,7 +730,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group" v-show="getAge(houseHoldData.dob) < 19 ">
-                                    <label for="educLocation" class="question-font">School/College/Employment</label>
+                                    <label for="educLocation" inputmode="search" class="question-font">School/College/Employment</label>
                                     <div class="input-group">
                                         <input type="search" class="form-control" placeholder="Start typing to search"
                                             id="educLocation" v-model="houseHoldData.profession">
