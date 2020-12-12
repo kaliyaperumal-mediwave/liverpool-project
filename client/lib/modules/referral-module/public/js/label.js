@@ -25,8 +25,8 @@ function getDynamicLabels(currentLocation) {
         allLabels.diagnosisLabel = "Does your child have a mental health diagnosis?";
         allLabels.symptomsOrSupportLabel = "Does your child have any other symptoms or support needs you would like to discuss?";
         allLabels.referralLabel = "Please provide more information on the main referral issues. (Please include how long this has been an issue and how it is impacting your child's day-to-day life).";
-        allLabels.referralPlaceHolder = "Tell us more about the issues they are facing";
-        allLabels.anythingHelpedPlaceHolder = "Have they tried anything before that has helped them with this issue? Tell us more about it here"
+        allLabels.referralPlaceHolder = "Tell us more about the issues they are facing.";
+        allLabels.anythingHelpedPlaceHolder = "Have they tried anything before that has helped them with this issue? Tell us more about it here."
         allLabels.triggersLabel = "Do they have any particular triggers?";
         allLabels.triggersPlaceHolder = "Is there anything that you or your child have noticed that makes this issue worse for them? Tell us about it here."
         allLabels.disabilitiesLabel = "Does your child have any disabilities, difficulties or challenging behaviours (diagnosed or under investigation)?";
@@ -39,8 +39,8 @@ function getDynamicLabels(currentLocation) {
         allLabels.diagnosisLabel = "Does the child/young person have a mental health diagnosis?";
         allLabels.symptomsOrSupportLabel = "Does the child/young person have any other symptoms or support needs you would like to discuss?";
         allLabels.referralLabel = "Please provide more information on your main referral issues. (Please include how long this has been an issue and how it is impacting the child/young person's day-to-day life).";
-        allLabels.referralPlaceHolder = "Tell us more about the issues they are facing";
-        allLabels.anythingHelpedPlaceHolder = "Have they tried anything before that has helped them with this issue? Tell us more about it here";
+        allLabels.referralPlaceHolder = "Tell us more about the issues they are facing.";
+        allLabels.anythingHelpedPlaceHolder = "Have they tried anything before that has helped them with this issue? Tell us more about it here.";
         allLabels.triggersLabel = "Do they have any particular triggers?";
         allLabels.triggersPlaceHolder = "Is there anything that you or the child/young person have noticed that makes this issue worse for them? Tell us about it here."
         allLabels.disabilitiesLabel = "Does the child/young person have any disabilities, difficulties or challenging behaviours (diagnosed or under investigation)?";

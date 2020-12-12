@@ -7,6 +7,7 @@
 @import "inputs";
 @import "modal";
 @import "loader";
+@import "select";
 
 $primary-header-color: #8ecae6;
 $sub-header-color: #012f46;
@@ -82,6 +83,12 @@ body {
     font-size: 25px !important;
   }
 
+  .custom-select:focus {
+    border-color: none !important;
+    outline: 0;
+    box-shadow: none !important;
+  }
+
   .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -153,7 +160,6 @@ body {
 .support-modal-link-text {
   @include set-titleStyles($support-content-font-size, bold, $modal-text-color);
 }
-
 
 .support-modal-content-text {
   @include set-titleStyles($support-content-font-size, bold, $modal-text-color);

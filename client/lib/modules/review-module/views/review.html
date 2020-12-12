@@ -41,79 +41,57 @@
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                             data-parent="#accordionExample">
                             <div>
+                                <!-- Your Info Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-3 m-0 pl-0" for="iamA">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="iamA">
                                         I am a:
                                     </label>
-                                    <input class="form-control col-md-6 col-12" readonly type="text" v-model="yourInfo"
+                                    <input class="form-control col-md-4 col-12" readonly type="text" v-model="yourInfo"
                                         id="iamA" value="no">
-                                    <!-- <p class="col-md-9 col-xl-10 col-lg-10 col-sm-9 col-8 m-0 content_ediz"
-                                        contenteditable="true">
-                                        <b><u>{{yourInfo}}</u></b></p> -->
                                 </div>
+                                <!-- Your Info End -->
 
                                 <!-- Interpreter Needed Start -->
                                 <div v-if="userRole == 'child' || userRole == 'parent'"
                                     class="py-2 w-100 mx-0 row align-items-center">
-                                    <label class="question-font col-12 col-md-3 pl-0" for="aboutYou">
+                                    <label class="question-font col-12 col-md-3 pl-0" for="InterpreterNeed">
                                         Interpreter needed:
                                     </label>
-                                    <input class="form-control col-md-6 col-12" type="text" v-model="yourInfo" id="iamA"
-                                        value="no">
-                                    <!-- <select class="custom-select col-md-6 col-12">
-                                        <option selected>{{section1Data.need_interpreter}}</option>
-                                    </select> -->
-                                    <!-- <p class="mb-2 px-2"><b><u>{{section1Data.need_interpreter}}</u></b></p> -->
+                                    <input class="form-control col-md-4 col-12" readonly type="text"
+                                        v-model="section1Data.need_interpreter" id="iamA" value="no">
                                 </div>
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Contact Carer -->
-                                <div v-if="userRole == 'child'" class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
-                                        Contact parent or carer:
-                                    </label>
-                                    <p class="m-0 px-2"><b><u>{{section1Data.contact_parent}}</u></b></p>
-                                </div>
+                                <template v-if="userRole == 'child'">
+                                    <div class="py-2 d-flex align-items-center">
+                                        <label class=" question-font" for="aboutYou">
+                                            Contact parent or carer:
+                                        </label>
+                                        <p class="m-0 px-2"><b><u>{{section1Data.contact_parent}}</u></b></p>
+                                    </div>
+                                </template>
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Child's DOB Start -->
-                                <div class="py-2 row w-100 mx-0 align-items-center">
-                                    <div class="row px-0 w-100 mx-0 pl-0 col-md-6 col-12 align-items-center">
-                                        <label class="question-font pr-2 m-0" for="aboutYou">
-                                            Child's D.O.B:
-                                        </label>
-                                        <input class="form-control col-md-6 col-12" type="text" id="iamA" value="no">
-                                        <!-- <p class="m-0 px-2"><b><u>{{section1Data.child_dob}}</u></b></p> -->
-                                        <!-- <p class="col-md-6 cursor-pointer pl-2 col-xl-6 col-lg-6 col-sm-9 col-8 m-0 content_ediz"
-                                            contenteditable="true">
-                                            <b><u>{{section1Data.child_dob}}</u></b></p> -->
-                                    </div>
-
-                                    <div class="row w-100 px-0 mx-0 pt-2 pt-md-0 col-md-6 col-12 align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-3 m-0 pl-0" for="iamA">
-                                            I am a:
-                                        </label>
-                                        <select class="custom-select col-md-6 col-12">
-                                            <option selected>{{section1Data.need_interpreter}}</option>
-                                            <option value="no">Yes</option>
-                                            <option value="Unsure">Unsure</option>
-                                        </select>
-                                    </div>
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="dobChilds">
+                                        Child's D.O.B:
+                                    </label>
+                                    <input class="form-control col-md-4 col-12" readonly type="text"
+                                        v-model="section1Data.child_dob" id="dobChilds" value="no">
                                 </div>
                                 <!-- Child's DOB Start -->
 
                                 <!-- Consent Given Start -->
-
                                 <!-- Child and Parent -->
                                 <template v-if="userRole == 'child' || userRole == 'parent'">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-3 m-0 pl-0"  for="aboutYou">
+                                        <label class="question-font pr-2 col-12 col-md-3 pl-0" for="dobChilds">
                                             Consent given:
                                         </label>
-                                        <!-- <p class="m-0 px-2"><b><u>{{section1Data.consent_child}}</u></b>
-                                        </p> -->
-                                        <input class="form-control col-md-6 col-12" type="text"
-                                            id="iamA" value="no">
+                                        <input class="form-control col-md-4 col-12" readonly type="text"
+                                            v-model="section1Data.consent_child" id="dobChilds" value="no">
                                     </div>
                                 </template>
                                 <!-- Child and Parent -->
@@ -127,7 +105,6 @@
                                         <p class="m-0 px-2">
                                             <b><u>{{section1Data.consent_child}}</u></b>
                                         </p>
-                                        <!-- <p class="m-0 px-2"><b><u>Yes</u></b></p> -->
                                     </div>
                                     <div class="py-2 d-flex align-items-center">
                                         <label class=" question-font" for="aboutYou">
@@ -136,7 +113,6 @@
                                         <p class="m-0 px-2">
                                             <b><u>{{section1Data.consent_parent}}</u></b>
                                         </p>
-                                        <!-- <p class="m-0 px-2"><b><u>Yes</u></b></p> -->
                                     </div>
 
                                 </template>
@@ -170,17 +146,18 @@
                                 <!-- Professional Info End -->
 
                                 <!-- Gp Start -->
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class="question-font pr-2 m-0" for="aboutYou">
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="gpLoc">
                                         GP:
                                     </label>
-                                    <!-- <p class="m-0 px-2"><b><u>{{section1Data.registerd_gp}}</u></b></p> -->
-                                    <p class="col-md-6 cursor-pointer pl-2 col-xl-6 col-lg-6 col-sm-9 col-8 m-0 content_ediz"
-                                        contenteditable="true">
-                                        <b><u>{{section1Data.registerd_gp}}</u></b></p>
+                                    <textarea class="form-control col-md-5 col-12" readonly type="text"
+                                        v-model="section1Data.registerd_gp" id="iamA" value="no">
+                                        </textarea>
                                 </div>
                                 <!-- Gp End -->
+
                             </div>
+
                             <div v-if="showSec1" class="text-center py-4">
                                 <a>
                                     <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
@@ -217,48 +194,82 @@
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionExample">
                             <div>
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="nhsNumberSect5">
                                         NHS Number:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.child_NHS}}</u></b></p>
+                                    <input class="form-control col-md-4 col-12" type="text"
+                                        v-model="section2Data.child_NHS" id="nhsNumberSect5" value="no">
                                 </div>
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="nameSec5">
                                         Full name:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.child_name}}</u></b></p>
+                                    <input class="form-control col-md-4 col-12" type="text"
+                                        v-model="section2Data.child_name" id="nameSec5" value="no">
                                 </div>
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="emailSec5">
                                         Email:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.child_email}}</u></b></p>
+                                    <input class="form-control col-md-4 col-12" type="text"
+                                        v-model="section2Data.child_email" id="emailSec5" value="no">
                                 </div>
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="cont">
                                         Contact Number:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.child_contact_number}}</u></b></p>
+                                    <input class="form-control col-md-4 col-12" type="text"
+                                        v-model="section2Data.child_contact_number" id="cont" value="no">
                                 </div>
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="addressSect5">
                                         Address:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.child_address}}</u></b></p>
+                                    <textarea class="form-control col-md-5 col-12" type="text"
+                                        v-model="section2Data.child_address" id="addressSect5" value="no">
+                                </textarea>
                                 </div>
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="postSent5">
                                         Happy for post to be sent:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.can_send_post}}</u></b></p>
+                                    <select class="custom-select col-md-4 col-12" v-model="section2Data.can_send_post">
+                                        <option selected>
+                                            {{section2Data.can_send_post}}</option>
+                                        <option v-if="section2Data.can_send_post == 'no'" value="yes">Yes</option>
+                                        <option v-if="section2Data.can_send_post == 'yes'" value="no">no
+                                        </option>
+                                    </select>
                                 </div>
-                                <div class="py-2 d-flex align-items-center">
-                                    <label class=" question-font" for="aboutYou">
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="genderSect5">
                                         Gender:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section2Data.child_gender}}</u></b></p>
+                                    <input class="form-control col-md-4 col-12" type="text"
+                                        v-model="section2Data.child_gender" id="genderSect5">
                                 </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-3 pl-0" for="genderSect5">
+                                        Identifies with gender at birth:
+                                    </label>
+                                    <select class="custom-select col-md-4 col-12"
+                                        v-model="section2Data.child_gender_birth">
+                                        <option selected>
+                                            {{section2Data.child_gender_birth}}</option>
+                                        <option v-if="section2Data.child_gender_birth == 'No'" value="Yes">Yes</option>
+                                        <option v-if="section2Data.child_gender_birth == 'Yes'" value="No">No
+                                        </option>
+                                        <option v-if="section2Data.child_gender_birth == 'Unsure'" value="Unsure">Unsure
+                                        </option>
+                                    </select>
+                                </div>
+
+
                                 <div class="py-2 d-flex align-items-center">
                                     <label class=" question-font" for="aboutYou">
                                         Identifies with gender at birth:
