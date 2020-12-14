@@ -20,7 +20,7 @@
                         <input type="text" class="form-control" id="nhs" v-model="aboutObj.nhsNumber"
                             v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)),
-                            'invalid-fields':(aboutFormData.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) }">
+                            'invalid-fields':(aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) }">
                             You must provide a valid NHS Number.
                         </div>
                     </div>

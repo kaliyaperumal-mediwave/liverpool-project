@@ -51,7 +51,7 @@ $(document).ready(function () {
             isHouseHoldFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            nhsRegex: /^\d+$/,
+            nhsRegex: /^[0-9]{10}$/,
             userRole: '',
             userMode: '',
             userId: '',
