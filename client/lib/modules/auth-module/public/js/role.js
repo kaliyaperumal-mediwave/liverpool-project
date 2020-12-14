@@ -30,7 +30,8 @@ $(document).ready(function () {
                 profaboveLimit: '',
                 parentConcernInformation: '',
                 childConcernInformation: '',
-                contactProfParent: ''
+                contactProfParent: '',
+                regProfGpTxt:''
             },
             date: null,
             dateWrap: true,
@@ -193,6 +194,14 @@ $(document).ready(function () {
 
                         $("#gpProfLocation").autocomplete({
                             source: displayNameList,
+                            response: function (event, ui) {
+                                if (ui.content.length == 0) {
+                                    $(this).trigger('keydown');
+                                } else {
+
+                                    //console.log(ui.content.length);
+                                }
+                            }
                         });
                         return;
                     },
@@ -290,14 +299,13 @@ $(document).ready(function () {
                 var _self = this;
                 var selectFlag = false;
                 //  this.elgibilityObj.registerd_gp = {};
-                $("#gpProfLocation").on("autocompleteselect", function (event, ui) {
+                $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
                     //   console.log(ui.item.label);
                     if (e.target.value === '') {
-                        app.submitForm = "false";
+                        app.elgibilityObj.submitProfForm = "false";
                     } else {
                         selectFlag = true;
                         app.elgibilityObj.regProfGpTxt = ui.item.label;
-                        console.log(app.elgibilityObj.regProfGpTxt);
                         app.elgibilityObj.submitProfForm = "true";
                     }
                 });
