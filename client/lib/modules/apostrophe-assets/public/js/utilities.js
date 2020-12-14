@@ -134,6 +134,23 @@ function apiCallGet(reqType, endPoint) {
     return response
 };
 
+function apiCallPut(reqType, endPoint,payload) {
+    var response;
+    $.ajax({
+        url: API_URI + endPoint,
+        type: reqType,
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function (res) {
+            response = res;
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message)
+        }
+    });
+    return response
+};
 //get URL parameter
 
 function getParameter(url) {

@@ -64,5 +64,21 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
+
+    self.route('put', 'updateInfo', function(req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + req.body.endPoint;
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
+      self.middleware.put(req, res, url, req.body).then((data) => {
+        if (req.session.redirectto) {
+          data.redirectto = req.session.redirectto;
+        }
+        req.session.reload(function() {});
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   }
 }
