@@ -7,10 +7,10 @@
 <div class="main-content-bg py-4 main-min-height">
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
         <div id="role-form" class="py-4">
+            {% raw %}
             <form id="type-form" data-options="role">
                 <div class="px-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font m-0">I am a</p>
-                    {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
                             id="aboutYou" value="child" @change="onChange($event)">
@@ -610,15 +610,16 @@
             <!-- toster-container start -->
 
 
+
             <!-- GP Location start -->
             <form id="parentConcernInformation-form" data-options="parentConcernInformation">
                 <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="gpLocation" class="question-font">Which GP is the child / young person registered
+                        <label for="gpProfLocation" class="question-font">Which GP is the child / young person registered
                             with?</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" v-model="elgibilityObj.regProfGpTxt"
+                            <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
                                 @keydown="getProfAddress($event)" id="gpProfLocation" aria-label="location">
                             <div class="input-group-append">
                                 <span class="input-group-text">
@@ -675,6 +676,7 @@
                             CONTINUE</span></button>
                 </a>
             </div>
+            {% endraw %}
         </div>
     </div>
 
