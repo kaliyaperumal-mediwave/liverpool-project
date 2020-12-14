@@ -30,7 +30,8 @@ $(document).ready(function () {
             },
             dateWrap: true,
             options: {
-                format: 'YYYY/MM/DD',
+               // format: 'YYYY/MM/DD',
+                format: 'DD/MM/YYYY',
                 dayViewHeaderFormat: 'MMMM YYYY',
                 useCurrent: false,
                 allowInputToggle: true,
@@ -69,6 +70,7 @@ $(document).ready(function () {
             paramValues: [],
             editPatchFlag: false,
             storeDeleteData: null,
+            dateFmt:''
         },
 
         mounted: function () {
@@ -412,25 +414,38 @@ $(document).ready(function () {
             },
 
             getAge: function (dateString) {
-                var today = new Date();
-                var birthDate = new Date(dateString);
-                var age = today.getFullYear() - birthDate.getFullYear();
-                var m = today.getMonth() - birthDate.getMonth();
-                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                    age--;
+                if(dateString!="")
+                {
+                    var today = new Date();
+                    this.dateFmt = this.setDateFormat(dateString)
+                    var birthDate = new Date(this.dateFmt);
+                    var age = today.getFullYear() - birthDate.getFullYear();
+                    var m = today.getMonth() - birthDate.getMonth();
+                    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    return age;
                 }
-                return age;
             },
 
-            convertDate: function (dbDate) {
-                var date = new Date(dbDate)
-                var yyyy = date.getFullYear().toString();
-                var mm = (date.getMonth() + 1).toString();
-                var dd = date.getDate().toString();
-                var mmChars = mm.split('');
-                var ddChars = dd.split('');
-                this.fetchAgeLogic(dbDate);
-                return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+            setDateFormat: function (dbDate) {
+               
+                if(dbDate!=null)
+                {
+                    var dateArray = dbDate.split("/");
+                    var toOldFmt=dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+                    var date = new Date(toOldFmt)
+                    var yyyy = date.getFullYear().toString();
+                    var mm = (date.getMonth() + 1).toString();
+                    var dd = date.getDate().toString();
+    
+                    var mmChars = mm.split('');
+                    var ddChars = dd.split('');
+                    var showDate=(ddChars[1] ? dd : "0" + ddChars[0])+ '/' + (mmChars[1] ? mm : "0" + mmChars[0])+ '/' + yyyy
+                    return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+                }
+              
+               // 'DD/MM/YYYY'
             },
         }
 

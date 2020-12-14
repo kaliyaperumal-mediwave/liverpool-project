@@ -30,12 +30,14 @@ $(document).ready(function () {
                 profaboveLimit: '',
                 parentConcernInformation: '',
                 childConcernInformation: '',
-                contactProfParent: ''
+                contactProfParent: '',
+                regProfGpTxt:''
             },
             date: null,
             dateWrap: true,
             options: {
-                format: 'YYYY/MM/DD',
+                //format: 'YYYY/MM/DD',
+                format: 'DD/MM/YYYY',
                 dayViewHeaderFormat: 'MMMM YYYY',
                 useCurrent: false,
                 allowInputToggle: true,
@@ -60,7 +62,8 @@ $(document).ready(function () {
             selectedGpObj: {},
             paramValues: [],
             patchFlag: false,
-            date: ''
+            date: '',
+            dateFmt:''
         },
 
         mounted: function () {
@@ -191,6 +194,14 @@ $(document).ready(function () {
 
                         $("#gpProfLocation").autocomplete({
                             source: displayNameList,
+                            response: function (event, ui) {
+                                if (ui.content.length == 0) {
+                                    $(this).trigger('keydown');
+                                } else {
+
+                                    //console.log(ui.content.length);
+                                }
+                            }
                         });
                         return;
                     },
@@ -288,14 +299,13 @@ $(document).ready(function () {
                 var _self = this;
                 var selectFlag = false;
                 //  this.elgibilityObj.registerd_gp = {};
-                $("#gpProfLocation").on("autocompleteselect", function (event, ui) {
+                $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
                     //   console.log(ui.item.label);
                     if (e.target.value === '') {
-                        app.submitForm = "false";
+                        app.elgibilityObj.submitProfForm = "false";
                     } else {
                         selectFlag = true;
                         app.elgibilityObj.regProfGpTxt = ui.item.label;
-                        console.log(app.elgibilityObj.regProfGpTxt);
                         app.elgibilityObj.submitProfForm = "true";
                     }
                 });
@@ -314,7 +324,7 @@ $(document).ready(function () {
                     var today = new Date();
                     var selectedDate = new Date(date);
                     var age = this.diff_years(today, selectedDate);
-
+                    this.dateFmt = this.setDate(date)
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
@@ -541,6 +551,14 @@ $(document).ready(function () {
             },
 
             apiRequest: function (payload, role) {
+                if(role=="professional")
+                {
+                    payload.profChildDob=this.dateFmt;
+                }
+                else
+                {
+                    payload.childDob =  this.dateFmt;
+                }
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/eligibility",
@@ -586,8 +604,28 @@ $(document).ready(function () {
 
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
+                var showDate=(ddChars[1] ? dd : "0" + ddChars[0])+ '/' + (mmChars[1] ? mm : "0" + mmChars[0])+ '/' + yyyy
+                this.dateFmt=yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])
+               // 'DD/MM/YYYY'
+               // return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+               return showDate;
+            },
 
+            setDate: function (dbDate) {
+                console.log(dbDate.split("/"))
+                var dateArray = dbDate.split("/");
+                var toOldFmt=dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+                var date = new Date(toOldFmt)
+                var yyyy = date.getFullYear().toString();
+                var mm = (date.getMonth() + 1).toString();
+                var dd = date.getDate().toString();
+
+                var mmChars = mm.split('');
+                var ddChars = dd.split('');
+                var showDate=(ddChars[1] ? dd : "0" + ddChars[0])+ '/' + (mmChars[1] ? mm : "0" + mmChars[0])+ '/' + yyyy
+               // 'DD/MM/YYYY'
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+               //return showDate;
             },
           
             fetchAgeLogic: function (dbdob, roleText) {
