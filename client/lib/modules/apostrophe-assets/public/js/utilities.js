@@ -49,14 +49,21 @@ function backToPreviousPage(section, userId, userRole) {
 
 //Scroll to top for an Invalid Inputs
 function scrollToInvalidInput() {
+    var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
-    setTimeout(function () {
-        window.scroll({
-            top: errorElements[0].parentElement.offsetTop,
-            left: 0,
-            behavior: "smooth"
-        });
-    }, 200)
+    errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+    var scrolledY = window.scrollY;
+    if (scrolledY) {
+        window.scroll(0, scrolledY - headerHeight);
+    }
+    // errorElements[0].scrollIntoView(true, { behavior: 'smooth' })
+    // setTimeout(function () {
+    //     window.scroll({
+    //         top: errorElements[0].offsetTop - headerHeight,
+    //         left: 0,
+    //         behavior: "smooth"
+    //     });
+    // }, 200)
 
 };
 
@@ -127,6 +134,23 @@ function apiCallGet(reqType, endPoint) {
     return response
 };
 
+function apiCallPut(reqType, endPoint,payload) {
+    var response;
+    $.ajax({
+        url: API_URI + endPoint,
+        type: reqType,
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(payload),
+        success: function (res) {
+            response = res;
+        },
+        error: function (error) {
+            console.log(error.responseJSON.message)
+        }
+    });
+    return response
+};
 //get URL parameter
 
 function getParameter(url) {
@@ -189,7 +213,7 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
     if (base64Matcher.test(getParams)) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
-        if (decodeValues[2] == "sec5back" && nextPge!="acknowledge") {
+        if (decodeValues[2] == "sec5back" && nextPge != "acknowledge") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&sec5back";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;

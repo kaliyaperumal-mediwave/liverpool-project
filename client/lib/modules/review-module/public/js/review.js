@@ -20,7 +20,6 @@ $(document).ready(function () {
             section4Data: {},
             payloadData: {},
             contactPref: [],
-            section1Obj: {},
             isFormSubmitted: false,
             showSec1: false,
             prevVal: '',
@@ -28,7 +27,6 @@ $(document).ready(function () {
             digArray: []
         },
         mounted: function () {
-//test
             var _self = this;
             this.curVal = $("[contenteditable='true']").text();
             $("[contenteditable='true']").on("blur", function (event) {
@@ -43,10 +41,7 @@ $(document).ready(function () {
                 _self.prevVal = e.target.textContent;
 
             });
-
-
             this.paramValues = getParameter(location.href)
-            //this.userMode = getQueryStringValue('mode');
             this.section5Labels = section5Labels;
             this.userRole = this.paramValues[1];
             if (this.userRole === 'child') {
@@ -74,10 +69,8 @@ $(document).ready(function () {
         methods: {
 
             //Get Request to get all section's data
-            getAllSectionData: function(payloadData) {
+            getAllSectionData: function (payloadData) {
                 var _self = this;
-                //    var params = payloadData.userid + "&role=" + payloadData.role;
-                //   var responseData = getAllSectionData(payloadData.userid,payloadData.role);
                 $.ajax({
                     url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
                     type: 'get',
@@ -85,7 +78,6 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     // data: JSON.stringify(payloadData),
                     success: function (data) {
-                        console.log(data)
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
@@ -100,7 +92,6 @@ $(document).ready(function () {
                         _self.section4Data.symptoms = _self.section4Data.symptoms.toString();
                         _self.section4Data.local_services = _self.section4Data.local_services.toString();
                         //self.section4Data.local_services =  _self.section4Data.local_services
-                        console.log(_self.section4Data.diagnosis)
                         //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {
@@ -117,7 +108,7 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
                     console.log(successData);
                     if (Object.keys(successData)) {
-                        location.href =redirectUrl(location.href,"acknowledge",this.paramValues[0],this.paramValues[1]);
+                        location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
                         this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
@@ -136,7 +127,7 @@ $(document).ready(function () {
                 location.href = "/" + page + "?" + enCodeParameter
             },
 
-            toggleArrow: function(e) {
+            toggleArrow: function (e) {
                 console.log(e);
                 var ele = e.target;
                 var classList = Array.from(e.target.classList)
@@ -188,8 +179,25 @@ $(document).ready(function () {
                 });
 
 
-            }
+            },
 
+            updateInfo: function (toUpdateObj, endpoint) {
+                toUpdateObj.endPoint = endpoint
+                $.ajax({
+                    url: API_URI + "/updateInfo",
+                    type: 'put',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(toUpdateObj),
+                    success: function (data) {
+                        // data: [1]
+                        // message: "Updated successfully"
+                        // status: "success"
+                        // __proto__: Object
+                        console.log(data);
+                    },
+                });
+            },
         }
     })
 
