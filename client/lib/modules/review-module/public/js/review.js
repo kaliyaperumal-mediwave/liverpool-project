@@ -18,29 +18,26 @@ $(document).ready(function () {
             section2Data: {},
             section3Data: {},
             section4Data: {},
+            prevSection1Data: {},
+            prevSection2Data: {},
+            prevSection3Data: {},
+            prevSection4Data: {},
             payloadData: {},
             contactPref: [],
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
+            nhsRegex: /^[0-9]{10}$/,
             isFormSubmitted: false,
+            isSection1Submitted: false,
+            isSection2Submitted: false,
+            isSection3Submitted: false,
+            isSection4Submitted: false,
             showSec1: false,
-            prevVal: '',
-            curVal: '',
-            digArray: []
+            digArray: [],
+            disableSection1Button: false,
+            showLoader: false
         },
         mounted: function () {
-            var _self = this;
-            this.curVal = $("[contenteditable='true']").text();
-            $("[contenteditable='true']").on("blur", function (event) {
-                if (_self.prevVal != _self.curVal) {
-                    _self.showSec1 = true;
-                } else {
-                    _self.showSec1 = false;
-                }
-            });
-
-            $("[contenteditable='true']").on("input", function (e) {
-                _self.prevVal = e.target.textContent;
-
-            });
             this.paramValues = getParameter(location.href)
             this.section5Labels = section5Labels;
             this.userRole = this.paramValues[1];
@@ -63,7 +60,7 @@ $(document).ready(function () {
             this.userId = this.paramValues[0];
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
-            console.log(this.payloadData)
+            console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
         },
         methods: {
@@ -76,13 +73,18 @@ $(document).ready(function () {
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
-                    // data: JSON.stringify(payloadData),
                     success: function (data) {
+                        debugger;
+                        _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
+                        _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
+                        _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
+                        _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
+
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
-                        //  console.log(_self.section4Data)
+
                         _self.section1Data.child_dob = convertDate(data.section1.child_dob);
                         if (_self.section4Data.diagnosis_other != "")
                             _self.section4Data.diagnosis.push(_self.section4Data.diagnosis_other)
@@ -101,7 +103,6 @@ $(document).ready(function () {
             },
 
             save: function () {
-                var _self = this;
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
                 if (this.contactPref.length) {
@@ -114,7 +115,6 @@ $(document).ready(function () {
                         console.log('empty response')
                     }
                 } else {
-                    //scrollToInvalidInput();
                     return false;
                 }
             },
@@ -128,7 +128,6 @@ $(document).ready(function () {
             },
 
             toggleArrow: function (e) {
-                console.log(e);
                 var ele = e.target;
                 var classList = Array.from(e.target.classList)
                 if (classList.indexOf('fa-chevron-circle-up') > -1) {
@@ -181,23 +180,83 @@ $(document).ready(function () {
 
             },
 
-            updateInfo: function (toUpdateObj, endpoint) {
-                toUpdateObj.endPoint = endpoint
-                $.ajax({
-                    url: API_URI + "/updateInfo",
-                    type: 'put',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(toUpdateObj),
-                    success: function (data) {
-                        // data: [1]
-                        // message: "Updated successfully"
-                        // status: "success"
-                        // __proto__: Object
-                        console.log(data);
-                    },
-                });
+            onValueChange: function (e) {
+                console.log(e);
+                var buttonElem = document.querySelector('#sect1');
+                if (JSON.stringify(this.prevSection2Data) === JSON.stringify(this.section2Data)) {
+                    buttonElem.disabled = true;
+                } else {
+                    buttonElem.disabled = false;
+                }
+
             },
+
+            updateInfo: function (toUpdateObj, endpoint) {
+                this.isSection2Submitted = true;
+                this.showLoader = true;
+                var formData = toUpdateObj;
+                if (formData.child_name && formData.child_contact_number &&
+                    formData.child_gender && formData.parent_name && formData.child_parent_relationship && formData.parent_contact_number
+                    && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
+                ) {
+
+                    if ((formData.child_NHS && !this.nhsRegex.test(formData.child_NHS))) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if ((formData.child_email && !this.emailRegex.test(formData.child_email))) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if ((formData.parent_contact_number && !this.phoneRegex.test(formData.parent_contact_number))) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+
+                    if ((formData.parent_email && !this.emailRegex.test(formData.parent_email))) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    this.payloadData.section2Data = JSON.parse(JSON.stringify(formData));
+                    this.payloadData.role = this.userRole;
+                    this.payloadData.userid = this.userId;
+                    this.payloadData.endPoint = endpoint
+                    if (this.editPatchFlag) {
+                        this.payloadData.editFlag = this.paramValues[2]
+                    }
+
+                    if (this.userMode === 'edit') {
+                        this.payloadData.userMode = 'edit';
+                    } else {
+                        this.payloadData.userMode = 'add';
+                    }
+                    this.upsertInforForm(this.payloadData);
+
+                } else {
+                    scrollToInvalidInput();
+                    return false;
+                }
+
+            },
+
+            upsertInforForm: function (payload) {
+                debugger;
+                var successData = apiCallPut('put', '/updateInfo', payload);
+                if (successData.status === 'success') {
+                    debugger
+                    console.log('success');
+                    this.showLoader = false;
+                    this.isSection2Submitted = false;
+
+                } else {
+                    console.error('error')
+                }
+            }
+
         }
     })
 

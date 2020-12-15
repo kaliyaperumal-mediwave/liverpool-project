@@ -123,6 +123,7 @@ function apiCallGet(reqType, endPoint) {
         url: API_URI + endPoint,
         type: reqType,
         dataType: 'json',
+        async: false,
         contentType: 'application/json',
         success: function (res) {
             response = res;
@@ -134,12 +135,15 @@ function apiCallGet(reqType, endPoint) {
     return response
 };
 
-function apiCallPut(reqType, endPoint,payload) {
+//Commom API Call for put Function
+function apiCallPut(reqType, endPoint, payload) {
+    debugger;
     var response;
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
         dataType: 'json',
+        async: false,
         contentType: 'application/json',
         data: JSON.stringify(payload),
         success: function (res) {
