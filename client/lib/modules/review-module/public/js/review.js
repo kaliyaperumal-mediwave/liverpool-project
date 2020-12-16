@@ -192,8 +192,8 @@ $(document).ready(function () {
             },
 
             updateInfo: function (toUpdateObj, endpoint) {
+                this.showLoader = false;
                 this.isSection2Submitted = true;
-                this.showLoader = true;
                 var formData = toUpdateObj;
                 if (formData.child_name && formData.child_contact_number &&
                     formData.child_gender && formData.parent_name && formData.child_parent_relationship && formData.parent_contact_number
@@ -220,7 +220,6 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-
                     this.payloadData.section2Data = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
@@ -244,17 +243,34 @@ $(document).ready(function () {
             },
 
             upsertInforForm: function (payload) {
-                debugger;
-                var successData = apiCallPut('put', '/updateInfo', payload);
-                if (successData.status === 'success') {
-                    debugger
-                    console.log('success');
-                    this.showLoader = false;
-                    this.isSection2Submitted = false;
+                var endPoint = '/updateInfo';
+                var _self = this;
+                var buttonElem = document.querySelector('#sect1');
+                $.ajax({
+                    url: API_URI + endPoint,
+                    type: 'put',
+                    dataType: 'json',
+                    async: false,
+                    contentType: 'application/json',
+                    data: JSON.stringify(payload),
+                    success: function (res) {
+                        _self.showLoader = true;
+                        buttonElem.disabled = true;
+                        setTimeout(function () {
+                            _self.showLoader = false;
+                            buttonElem.disabled = false;
+                        }, 3000);
+                    },
+                    error: function (error) {
+                        _self.showLoader = true;
+                        buttonElem.disabled = true;
+                        setTimeout(function () {
+                            _self.showLoader = false;
+                            buttonElem.disabled = false;
+                        }, 3000);
+                    }
 
-                } else {
-                    console.error('error')
-                }
+                });
             }
 
         }
