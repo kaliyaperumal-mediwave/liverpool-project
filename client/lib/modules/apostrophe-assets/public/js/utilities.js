@@ -233,7 +233,7 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
 }
 
 $(document).ready(function () {
-    setLoaderStyle();
+    // setLoaderStyle();
 })
 
 //window resize function
