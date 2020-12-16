@@ -137,7 +137,6 @@ function apiCallGet(reqType, endPoint) {
 
 //Commom API Call for put Function
 function apiCallPut(reqType, endPoint, payload) {
-    debugger;
     var response;
     $.ajax({
         url: API_URI + endPoint,
@@ -243,7 +242,6 @@ $(document).ready(function () {
 //window resize function
 window.onresize = resize;
 
-function resize()
-{
-  document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+function resize() {
+    document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
 }

@@ -31,7 +31,8 @@ $(document).ready(function () {
                 parentConcernInformation: '',
                 childConcernInformation: '',
                 contactProfParent: '',
-                regProfGpTxt:''
+                regProfGpTxt: '',
+                profEmail: ''
             },
             date: null,
             dateWrap: true,
@@ -63,7 +64,7 @@ $(document).ready(function () {
             paramValues: [],
             patchFlag: false,
             date: '',
-            dateFmt:''
+            dateFmt: ''
         },
 
         mounted: function () {
@@ -84,12 +85,12 @@ $(document).ready(function () {
                 this.sendObj.uuid = this.paramValues[0];
                 this.sendObj.role = this.paramValues[1];
                 $.ajax({
-                  //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/fetchEligibility/" +  this.sendObj.uuid + "&role=" + this.sendObj.role,
+                    //  url: API_URI + "/fetchEligibility",
+                    url: API_URI + "/fetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
-                   // data: JSON.stringify(this.sendObj),
+                    // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         app.setValues(data);
                     },
@@ -319,8 +320,8 @@ $(document).ready(function () {
             },
 
             changeDob: function (e, date) {
-              //  console.log(date);
-                if (this.patchFlag != true && date!=null) {
+                //  console.log(date);
+                if (this.patchFlag != true && date != null) {
                     var today = new Date();
                     var selectedDate = new Date(date);
                     var age = this.diff_years(today, selectedDate);
@@ -329,7 +330,7 @@ $(document).ready(function () {
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
                     }
-                  
+
                     console.log(age);
                     if (roleText == 'child') {
                         if (age < 15) {
@@ -363,7 +364,7 @@ $(document).ready(function () {
                             this.elgibilityObj.parentConcern = "";
                             this.elgibilityObj.contactProfParent = "";
                             this.elgibilityObj.parentConcernInformation = "";
-                            this.elgibilityObj.childConcernInformation="";
+                            this.elgibilityObj.childConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
                         }
@@ -373,7 +374,7 @@ $(document).ready(function () {
                             this.elgibilityObj.parentConcern = "";
                             this.elgibilityObj.contactProfParent = "";
                             this.elgibilityObj.parentConcernInformation = "";
-                            this.elgibilityObj.childConcernInformation="";
+                            this.elgibilityObj.childConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
                         }
@@ -383,7 +384,7 @@ $(document).ready(function () {
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.profaboveLimit = "";
                             this.elgibilityObj.parentConcernInformation = "";
-                            this.elgibilityObj.childConcernInformation="";
+                            this.elgibilityObj.childConcernInformation = "";
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
                         }
@@ -412,8 +413,8 @@ $(document).ready(function () {
 
             },
 
-            resetFlag: function(e) {
-                e.currentTarget.firstElementChild.setAttribute('inputmode','none');
+            resetFlag: function (e) {
+                e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
                 var dynamicHeight;
                 var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
                 if (mainWidth <= 350) {
@@ -551,13 +552,11 @@ $(document).ready(function () {
             },
 
             apiRequest: function (payload, role) {
-                if(role=="professional")
-                {
-                    payload.profChildDob=this.dateFmt;
+                if (role == "professional") {
+                    payload.profChildDob = this.dateFmt;
                 }
-                else
-                {
-                    payload.childDob =  this.dateFmt;
+                else {
+                    payload.childDob = this.dateFmt;
                 }
                 var _self = this;
                 $.ajax({
@@ -568,7 +567,7 @@ $(document).ready(function () {
                     data: JSON.stringify(payload),
                     success: function (data) {
                         //alert("section 1 saved.");
-                       // console.log(data);
+                        // console.log(data);
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
@@ -604,17 +603,17 @@ $(document).ready(function () {
 
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
-                var showDate=(ddChars[1] ? dd : "0" + ddChars[0])+ '/' + (mmChars[1] ? mm : "0" + mmChars[0])+ '/' + yyyy
-                this.dateFmt=yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])
-               // 'DD/MM/YYYY'
-               // return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
-               return showDate;
+                var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+                this.dateFmt = yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])
+                // 'DD/MM/YYYY'
+                // return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+                return showDate;
             },
 
             setDate: function (dbDate) {
                 console.log(dbDate.split("/"))
                 var dateArray = dbDate.split("/");
-                var toOldFmt=dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+                var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
                 var date = new Date(toOldFmt)
                 var yyyy = date.getFullYear().toString();
                 var mm = (date.getMonth() + 1).toString();
@@ -622,18 +621,18 @@ $(document).ready(function () {
 
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
-                var showDate=(ddChars[1] ? dd : "0" + ddChars[0])+ '/' + (mmChars[1] ? mm : "0" + mmChars[0])+ '/' + yyyy
-               // 'DD/MM/YYYY'
+                var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+                // 'DD/MM/YYYY'
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
-               //return showDate;
+                //return showDate;
             },
-          
+
             fetchAgeLogic: function (dbdob, roleText) {
-      //          console.log(dbdob);
+                //          console.log(dbdob);
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
-      //          console.log(age);
+                //          console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
 

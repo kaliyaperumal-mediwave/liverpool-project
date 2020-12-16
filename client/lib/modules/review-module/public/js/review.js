@@ -74,10 +74,6 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
-                        _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
-                        _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
-                        _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
 
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -92,6 +88,12 @@ $(document).ready(function () {
                         _self.section4Data.diagnosis = _self.section4Data.diagnosis.toString();
                         _self.section4Data.symptoms = _self.section4Data.symptoms.toString();
                         _self.section4Data.local_services = _self.section4Data.local_services.toString();
+
+                        _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
+                        _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
+                        _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
+                        _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
+
                         //self.section4Data.local_services =  _self.section4Data.local_services
                         //  Vue.set(this.section1Data,data);
                     },
@@ -192,7 +194,21 @@ $(document).ready(function () {
 
             onDetectChange: function (e, toSection) {
                 var buttonElem = document.querySelector('#' + toSection);
-                if (toSection == "sect3") {
+                if (toSection == "sect1") {
+                    if (JSON.stringify(this.prevSection1Data) === JSON.stringify(this.section1Data)) {
+                        buttonElem.disabled = true;
+                    } else {
+                        buttonElem.disabled = false;
+                    }
+                }
+                else if (toSection == "sect2") {
+                    if (JSON.stringify(this.prevSection2Data) === JSON.stringify(this.section2Data)) {
+                        buttonElem.disabled = true;
+                    } else {
+                        buttonElem.disabled = false;
+                    }
+                }
+                else if (toSection == "sect3") {
                     if (JSON.stringify(this.prevSection3Data) === JSON.stringify(this.section3Data)) {
                         buttonElem.disabled = true;
                     } else {
@@ -208,7 +224,7 @@ $(document).ready(function () {
                 }
             },
 
-            updateInfo: function (toUpdateObj, endpoint) {
+            updateInfo: function (e, toUpdateObj, endpoint) {
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
@@ -251,7 +267,7 @@ $(document).ready(function () {
                         } else {
                             this.payloadData.userMode = 'add';
                         }
-                        this.upsertInforForm(this.payloadData);
+                        this.upsertInforForm(this.payloadData, 2, e.currentTarget.id);
 
                     } else {
                         scrollToInvalidInput();
@@ -259,7 +275,7 @@ $(document).ready(function () {
                     }
                 }
                 else if (endpoint == "/user/updateSec3Info") {
-                    this.showLoader = true;
+                    this.isSection3Submitted = true;
                     if (formData.child_socialworker == 'yes' && formData.child_socialworker_name == "") {
                         scrollToInvalidInput();
                         return false;
@@ -272,10 +288,10 @@ $(document).ready(function () {
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.endPoint = endpoint
-                    this.upsertInforForm(this.payloadData);
+                    this.upsertInforForm(this.payloadData, 3, e.currentTarget.id);
                 }
                 else if (endpoint == "/user/updateSec4Info") {
-                    this.showLoader = true;
+                    this.isSection4Submitted = true;
                     if (formData.referral_issues == "") {
                         scrollToInvalidInput();
                         return false;
@@ -297,23 +313,34 @@ $(document).ready(function () {
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.endPoint = endpoint
-                    this.upsertInforForm(this.payloadData);
+                    this.upsertInforForm(this.payloadData, 4, e.currentTarget.id);
                 }
-                else if(endpoint=="/user/updateEligibilityInfo")
-                {
-                    this.payloadData.section1Data = JSON.parse(JSON.stringify(formData));
-                    this.payloadData.role = this.userRole;
-                    this.payloadData.userid = this.userId;
-                    this.payloadData.endPoint = endpoint
-                    this.upsertInforForm(this.payloadData);
+                else if (endpoint == "/user/updateEligibilityInfo") {
+                    this.isSection1Submitted = true;
+                    if (formData.professional_name && formData.professional_contact_number &&
+                        this.phoneRegex.test(formData.professional_contact_number)) {
+                        if (formData.professional_email && !this.emailRegex.test(formData.professional_email)) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+                        this.payloadData.section1Data = JSON.parse(JSON.stringify(formData));
+                        this.payloadData.role = this.userRole;
+                        this.payloadData.userid = this.userId;
+                        this.payloadData.endPoint = endpoint
+                        this.upsertInforForm(this.payloadData, 1, e.currentTarget.id);
+
+                    } else {
+                        scrollToInvalidInput();
+                        return false;
+                    }
                 }
 
             },
 
-            upsertInforForm: function (payload) {
+            upsertInforForm: function (payload, section, id) {
                 var endPoint = '/updateInfo';
                 var _self = this;
-                var buttonElem = document.querySelector('#sect2');
+                var buttonElem = document.getElementById(id);
                 $.ajax({
                     url: API_URI + endPoint,
                     type: 'put',
@@ -327,19 +354,34 @@ $(document).ready(function () {
                         buttonElem.disabled = true;
                         setTimeout(function () {
                             _self.showLoader = false;
-                            buttonElem.disabled = false;
+                            _self.resetFormSubmitted(section);
                         }, 3000);
+
                     },
                     error: function (error) {
                         _self.showLoader = true;
                         buttonElem.disabled = true;
                         setTimeout(function () {
                             _self.showLoader = false;
-                            buttonElem.disabled = false;
                         }, 3000);
                     }
-
                 });
+            },
+
+            resetFormSubmitted: function (section) {
+                if (section == 1) {
+                    this.isSection1Submitted = false;
+                }
+                else if (section == 2) {
+                    this.isSection2Submitted = false;
+                }
+                else if (section == 3) {
+                    this.isSection3Submitted = false;
+                }
+                else if (section == 4) {
+                    this.isSection4Submitted = false;
+                }
+
             }
 
         }
