@@ -237,5 +237,13 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
 }
 
 $(document).ready(function () {
-    setLoaderStyle();
+    // setLoaderStyle();
 })
+
+//window resize function
+window.onresize = resize;
+
+function resize()
+{
+  document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+}
