@@ -181,7 +181,7 @@ $(document).ready(function () {
 
             onValueChange: function (e) {
                 console.log(e);
-                var buttonElem = document.querySelector('#sect1');
+                var buttonElem = document.querySelector('#sect2');
                 if (JSON.stringify(this.prevSection2Data) === JSON.stringify(this.section2Data)) {
                     buttonElem.disabled = true;
                 } else {
@@ -209,12 +209,9 @@ $(document).ready(function () {
             },
 
             updateInfo: function (toUpdateObj, endpoint) {
-                this.showLoader = false;
-                this.isSection2Submitted = true;
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
-                    this.showLoader = true;
                     if (formData.child_name && formData.child_contact_number &&
                         formData.child_gender && formData.parent_name && formData.child_parent_relationship && formData.parent_contact_number
                         && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
@@ -289,7 +286,7 @@ $(document).ready(function () {
             upsertInforForm: function (payload) {
                 var endPoint = '/updateInfo';
                 var _self = this;
-                var buttonElem = document.querySelector('#sect1');
+                var buttonElem = document.querySelector('#sect2');
                 $.ajax({
                     url: API_URI + endPoint,
                     type: 'put',
