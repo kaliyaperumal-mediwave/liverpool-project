@@ -262,6 +262,7 @@ $(document).ready(function () {
                     }
                 }
                 else if (endpoint == "/user/updateSec3Info") {
+                    this.showLoader = true;
                     if (formData.child_socialworker == 'yes' && formData.child_socialworker_name == "") {
                         scrollToInvalidInput();
                         return false;
@@ -277,7 +278,33 @@ $(document).ready(function () {
                     this.upsertInforForm(this.payloadData);
                 }
                 else if (endpoint == "/user/updateSec4Info") {
+                    this.showLoader = true;
+                    if (formData.referral_issues == "") {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if (formData.has_anything_helped == '') {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if (formData.any_particular_trigger == '') {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if (formData.disabilities == '') {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                     this.payloadData.section4Data = JSON.parse(JSON.stringify(formData));
+                    this.payloadData.role = this.userRole;
+                    this.payloadData.userid = this.userId;
+                    this.payloadData.endPoint = endpoint
+                    this.upsertInforForm(this.payloadData);
+                }
+                else if(endpoint=="/user/updateEligibilityInfo")
+                {
+                    this.payloadData.section1Data = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.endPoint = endpoint
@@ -298,6 +325,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (res) {
+                        console.log(res)
                         _self.showLoader = true;
                         buttonElem.disabled = true;
                         setTimeout(function () {

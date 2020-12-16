@@ -126,6 +126,8 @@
                                         <label class=" question-font" for="aboutYou">
                                             FullName:
                                         </label>
+                                        <input class="form-control col-md-4 col-12"  type="text"
+                                        v-model="section1Data.professional_name" id="consentGivenPar" value="no">
                                         <p class="m-0 px-2"><b><u>{{section1Data.professional_name}}</u></b>
                                         </p>
                                     </div>
@@ -133,6 +135,8 @@
                                         <label class=" question-font" for="aboutYou">
                                             Email:
                                         </label>
+                                        <input class="form-control col-md-4 col-12"  type="text"
+                                        v-model="section1Data.professional_email" id="consentGivenPar" value="no">
                                         <p class="m-0 px-2"><b><u>{{section1Data.professional_email}}</u></b>
                                         </p>
                                     </div>
@@ -140,6 +144,8 @@
                                         <label class=" question-font" for="aboutYou">
                                             Contact:
                                         </label>
+                                        <input class="form-control col-md-4 col-12"  type="text"
+                                        v-model="section1Data.professional_contact_number" id="consentGivenPar" value="no">
                                         <p class="m-0 px-2"><b><u>{{section1Data.professional_contact_number}}</u></b>
                                         </p>
                                     </div>
@@ -159,9 +165,9 @@
 
                             </div>
 
-                            <div v-if="showSec1" class="text-center py-4">
+                            <div class="text-center py-4">
                                 <a>
-                                    <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    <button @click="updateInfo(section1Data,'/user/updateEligibilityInfo')" type="button" class="btn px-md-4 py-1 px-3"><span
                                             class="btn-secondary-text">Save</span></button>
                                 </a>
                             </div>
@@ -579,9 +585,9 @@
                                         v-model="section3Data.child_profession" @change="onDetectChange($event,'sect3')">
                                         <option selected>
                                             {{section3Data.child_profession}}</option>
-                                        <!-- <option value="education">Education</option>
-                                        <option value="employment">Employment</option>
-                                        <option value="neither">Neither</option> -->
+                                        <option  v-if="section3Data.child_profession != 'education'"  value="education">Education</option>
+                                        <option  v-if="section3Data.child_profession != 'employment'" value="employment">Employment</option>
+                                        <option  v-if="section3Data.child_profession != 'neither'" value="neither">Neither</option>
                                     </select>
                                 </div>
                                 <div v-if="section3Data.child_profession == 'education'"
@@ -591,7 +597,7 @@
                                     </label>
                                     <textarea class="form-control col-md-5 col-12" type="text"
                                         v-model="section3Data.child_education_place" id="childEducationPlace"
-                                        value="no" @keyup="onDetectChange($event,'sect3')">
+                                        value="no" readonly  @keyup="onDetectChange($event,'sect3')">
                                 </textarea>
                                 </div>
 
@@ -599,11 +605,11 @@
                                     <label class="question-font pr-2 col-12 col-md-3 pl-0" for="ehcpSent5">
                                         EHCP Plan?
                                     </label>
-                                    <select class="custom-select col-md-4 col-12" v-model="section3Data.child_EHCP">
-                                        <option selected @change="onDetectChange($event,'sect3')">
+                                    <select class="custom-select col-md-4 col-12" v-model="section3Data.child_EHCP"  @change="onDetectChange($event,'sect3')">
+                                        <option selected>
                                             {{section3Data.child_EHCP}}</option>
-                                        <option v-if="section3Data.child_EHCP == 'no'" value="yes">Yes</option>
-                                        <option v-if="section3Data.child_EHCP == 'yes'" value="no">no
+                                        <option v-if="section3Data.child_EHCP != 'yes'" value="yes">Yes</option>
+                                        <option v-if="section3Data.child_EHCP != 'no'" value="no">no
                                         </option>
                                     </select>
                                 </div>
@@ -611,11 +617,11 @@
                                     <label class="question-font pr-2 col-12 col-md-3 pl-0" for="ehatSent5">
                                         Open to EHAT
                                     </label>
-                                    <select class="custom-select col-md-4 col-12" v-model="section3Data.child_EHAT">
-                                        <option selected @change="onDetectChange($event,'sect3')">
+                                    <select class="custom-select col-md-4 col-12" v-model="section3Data.child_EHAT"  @change="onDetectChange($event,'sect3')">
+                                        <option selected>
                                             {{section3Data.child_EHAT}}</option>
-                                        <option v-if="section3Data.child_EHAT == 'no'" value="yes">Yes</option>
-                                        <option v-if="section3Data.child_EHAT == 'yes'" value="no">no
+                                        <option v-if="section3Data.child_EHAT != 'yes'" value="yes">Yes</option>
+                                        <option v-if="section3Data.child_EHAT != 'no'" value="no">no
                                         </option>
                                     </select>
                                 </div>
@@ -628,8 +634,8 @@
                                         v-model="section3Data.child_socialworker">
                                         <option selected>
                                             {{section3Data.child_socialworker}}</option>
-                                        <option v-if="section3Data.child_socialworker == 'no'" value="yes">Yes</option>
-                                        <option v-if="section3Data.child_socialworker == 'yes'" value="no">no
+                                        <option v-if="section3Data.child_socialworker != 'yes'" value="yes">Yes</option>
+                                        <option v-if="section3Data.child_socialworker != 'no'" value="no">no
                                         </option>
                                     </select>
                                 </div>
@@ -653,11 +659,15 @@
                                     </div>
                                 </template>
                                 <div class="text-center py-4">
-                                    <a>
-                                        <button @click="updateInfo(section3Data,'/user/updateSec3Info')" type="button"
-                                            class="btn px-md-4 py-1 px-3" disabled id="sect3"><span
-                                                class="btn-secondary-text">Save</span></button>
-                                    </a>
+                                    <button @click="updateInfo(section3Data,'/user/updateSec3Info')" disabled
+                                        id="sect3" type="button" class="btn px-md-4 py-1 px-3">
+                                        <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            <span class="link-text px-2">Saving Section 3...</span>
+                                        </div>
+                                        <span v-if="!showLoader" class="btn-secondary-text">Save</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -693,31 +703,68 @@
                                     <label class=" question-font" for="aboutYou">
                                         Support needs:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.referral_type}}</u></b></p>
+                                    <select  class="custom-select col-md-4 col-12"
+                                    v-model="section4Data.referral_type">
+                                    <option selected>
+                                        {{section4Data.referral_type}}</option>
+                                    <option v-if="section4Data.referral_type != 'mentalHealth'" value="mentalHealth">Mental health</option>
+                                    <option v-if="section4Data.referral_type != 'eatingDisorder'" value="eatingDisorder">Eating disorder</option>
+                                    <option v-if="section4Data.referral_type != 'bothMental&Eating'" value="bothMental&Eating">Mental health & eating disorder</option>
+                                </select>
+                                    <!-- <p class="m-0 px-2"><b><u>{{section4Data.referral_type}}</u></b></p> -->
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <label class=" question-font" for="aboutYou">
                                         Covid related?
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.is_covid}}</u></b></p>
+                                    <select class="custom-select col-md-4 col-12" v-model="section4Data.is_covid"  @change="onDetectChange($event,'sect4')">
+                                        <option selected>
+                                            {{section4Data.is_covid}}</option>
+                                        <option v-if="section4Data.is_covid == 'no'" value="yes">Yes</option>
+                                        <option v-if="section4Data.is_covid == 'yes'" value="no">no
+                                        </option>
+                                    </select>
+
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
                                     <label class=" question-font" for="aboutYou">
                                         Have mental diagnoses:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.mental_health_diagnosis}}</u></b></p>
+                                    <select  disabled class="custom-select col-md-4 col-12" v-model="section4Data.mental_health_diagnosis"  @change="onDetectChange($event,'sect4')">
+                                        <option selected>
+                                            {{section4Data.mental_health_diagnosis}}</option>
+                                        <option v-if="section4Data.mental_health_diagnosis == 'no'" value="yes">Yes</option>
+                                        <option v-if="section4Data.mental_health_diagnosis == 'yes'" value="no">no
+                                        </option>
+                                    </select>
                                 </div>
-                                <div class="py-2 d-flex align-items-center">
+                                <div v-if="section4Data.mental_health_diagnosis =='yes'" class="py-2 d-flex align-items-center">
                                     <label class=" question-font" for="aboutYou">
                                         Diagnoses:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.diagnosis}}</u></b></p>
+                                    <textarea  class="h-50 form-control" name="infoTextAreas" id="textInf0red"
+                                    placeholder="" rows="3"
+                                    v-model="section4Data.diagnosis" readonly>{{section4Data.diagnosis}}</textarea>
                                 </div>
                                 <div class="py-2 d-flex align-items-center">
+                                    <label class=" question-font" for="aboutYou">
+                                        Have Symptoms:
+                                    </label>
+                                    <select disabled class="custom-select col-md-4 col-12" v-model="section4Data.symptoms_supportneeds"  @change="onDetectChange($event,'sect4')">
+                                        <option selected>
+                                            {{section4Data.symptoms_supportneeds}}</option>
+                                        <option v-if="section4Data.symptoms_supportneeds == 'no'" value="yes">Yes</option>
+                                        <option v-if="section4Data.symptoms_supportneeds == 'yes'" value="no">no
+                                        </option>
+                                    </select>
+                                </div>
+                                <div v-if="section4Data.symptoms_supportneeds == 'yes'"  class="py-2 d-flex align-items-center">
                                     <label class="question-font" for="aboutYou">
                                         Symptoms:
                                     </label>
-                                    <p class="m-0 px-2"><b><u>{{section4Data.symptoms}}</u></b></p>
+                                    <textarea  class="h-50 form-control" name="infoTextAreas" id="textInf0red"
+                                    placeholder="" rows="3"
+                                    v-model="section4Data.symptoms" readonly>{{section4Data.symptoms}}</textarea>
                                 </div>
                                 <div class="py-3 row align-items-center">
                                     <div class="col-6 col-sm-5 col-md-5 col-lg-5 col-xl-4 no_padding">
@@ -728,7 +775,7 @@
                                     <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-50 form-control" name="infoTextAreas" id="textInf0red"
                                             placeholder="" rows="3"
-                                            v-model="section4Data.referral_issues">{{section4Data.referral_issues}}</textarea>
+                                            v-model="section4Data.referral_issues" @keyup="onDetectChange($event,'sect4')">{{section4Data.referral_issues}}</textarea>
                                     </div>
                                 </div>
                                 <div class="py-3 row align-items-center">
@@ -740,7 +787,7 @@
                                     <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-50 form-control" name="infoTextAreas" id="textInf0red"
                                             placeholder="" rows="3"
-                                            v-model="section4Data.has_anything_helped">{{section4Data.has_anything_helped}}</textarea>
+                                            v-model="section4Data.has_anything_helped" @keyup="onDetectChange($event,'sect4')" >{{section4Data.has_anything_helped}}</textarea>
                                     </div>
 
                                 </div>
@@ -753,7 +800,7 @@
                                     <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-50 form-control" name="infoTextAreas" id="textInf0red"
                                             placeholder="" rows="3"
-                                            v-model="section4Data.any_particular_trigger">{{section4Data.any_particular_trigger}}</textarea>
+                                            v-model="section4Data.any_particular_trigger" @keyup="onDetectChange($event,'sect4')">{{section4Data.any_particular_trigger}}</textarea>
                                     </div>
 
                                 </div>
@@ -766,7 +813,7 @@
                                     <div class="col-6 col-sm-7 col-md-7 col-lg-7 col-xl-8  no_padding">
                                         <textarea class="h-50 form-control" name="infoTextAreas" id="textInf0red"
                                             placeholder="" rows="3"
-                                            v-model="section4Data.disabilities">{{section4Data.disabilities}}</textarea>
+                                            v-model="section4Data.disabilities" @keyup="onDetectChange($event,'sect4')">{{section4Data.disabilities}}</textarea>
                                     </div>
                                     </p>
                                 </div>
@@ -790,11 +837,15 @@
                                     </p>
                                 </div>
                                 <div class="text-center py-4">
-                                    <a>
-                                        <button @click="updateInfo(section4Data,'/user/updateSec4Info')" type="button"
-                                            class="btn px-md-4 py-1 px-3"><span
-                                                class="btn-secondary-text">Save</span></button>
-                                    </a>
+                                    <button @click="updateInfo(section4Data,'/user/updateSec4Info')" disabled
+                                        id="sect4" type="button" class="btn px-md-4 py-1 px-3">
+                                        <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                            <span class="spinner-border spinner-border-sm" role="status"
+                                                aria-hidden="true"></span>
+                                            <span class="link-text px-2">Saving Section 4...</span>
+                                        </div>
+                                        <span v-if="!showLoader" class="btn-secondary-text">Save</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
