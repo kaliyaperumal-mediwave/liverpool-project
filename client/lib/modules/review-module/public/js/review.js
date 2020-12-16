@@ -74,7 +74,6 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        debugger;
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
@@ -190,65 +189,113 @@ $(document).ready(function () {
                 }
 
             },
+            onDetectChange: function (e,toSection) {
+                var buttonElem = document.querySelector('#'+toSection);
+                if(toSection=="sect3")
+                {
+                    if (JSON.stringify(this.prevSection3Data) === JSON.stringify(this.section3Data)) {
+                        buttonElem.disabled = true;
+                    } else {
+                        buttonElem.disabled = false;
+                    }
+                }
+                else if(toSection=="sect4")
+                {
+                    if (JSON.stringify(this.prevSection4Data) === JSON.stringify(this.section4Data)) {
+                        buttonElem.disabled = true;
+                    } else {
+                        buttonElem.disabled = false;
+                    }
+                }
+            },
 
             updateInfo: function (toUpdateObj, endpoint) {
-                this.isSection2Submitted = true;
-                this.showLoader = true;
                 var formData = toUpdateObj;
-                if (formData.child_name && formData.child_contact_number &&
-                    formData.child_gender && formData.parent_name && formData.child_parent_relationship && formData.parent_contact_number
-                    && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
-                ) {
-
-                    if ((formData.child_NHS && !this.nhsRegex.test(formData.child_NHS))) {
+                if(endpoint=="/user/updateAboutInfo")
+                {
+                    this.isSection2Submitted = true;
+                    this.showLoader = true;
+                    if (formData.child_name && formData.child_contact_number &&
+                        formData.child_gender && formData.parent_name && formData.child_parent_relationship && formData.parent_contact_number
+                        && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
+                    ) {
+    
+                        if ((formData.child_NHS && !this.nhsRegex.test(formData.child_NHS))) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+    
+                        if ((formData.child_email && !this.emailRegex.test(formData.child_email))) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+    
+                        if ((formData.parent_contact_number && !this.phoneRegex.test(formData.parent_contact_number))) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+    
+    
+                        if ((formData.parent_email && !this.emailRegex.test(formData.parent_email))) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+    
+                        this.payloadData.section2Data = JSON.parse(JSON.stringify(formData));
+                        this.payloadData.role = this.userRole;
+                        this.payloadData.userid = this.userId;
+                        this.payloadData.endPoint = endpoint
+                        if (this.editPatchFlag) {
+                            this.payloadData.editFlag = this.paramValues[2]
+                        }
+    
+                        if (this.userMode === 'edit') {
+                            this.payloadData.userMode = 'edit';
+                        } else {
+                            this.payloadData.userMode = 'add';
+                        }
+                        this.upsertInforForm(this.payloadData);
+    
+                    } else {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                }
+                else if(endpoint=="/user/updateSec3Info")
+                {
+                    if(formData.child_socialworker=='yes' && formData.child_socialworker_name=="")
+                    {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if(formData.child_socialworker=='yes' && (formData.child_socialworker_contact && !this.phoneRegex.test(formData.child_socialworker_contact)))
+                    {
                         scrollToInvalidInput();
                         return false;
                     }
 
-                    if ((formData.child_email && !this.emailRegex.test(formData.child_email))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.parent_contact_number && !this.phoneRegex.test(formData.parent_contact_number))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-
-                    if ((formData.parent_email && !this.emailRegex.test(formData.parent_email))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    this.payloadData.section2Data = JSON.parse(JSON.stringify(formData));
+                    this.payloadData.section3Data = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.endPoint = endpoint
-                    if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.paramValues[2]
-                    }
-
-                    if (this.userMode === 'edit') {
-                        this.payloadData.userMode = 'edit';
-                    } else {
-                        this.payloadData.userMode = 'add';
-                    }
                     this.upsertInforForm(this.payloadData);
-
-                } else {
-                    scrollToInvalidInput();
-                    return false;
                 }
+                else if(endpoint=="/user/updateSec4Info")
+                {
 
+                    this.payloadData.section4Data = JSON.parse(JSON.stringify(formData));
+                    this.payloadData.role = this.userRole;
+                    this.payloadData.userid = this.userId;
+                    this.payloadData.endPoint = endpoint
+                    this.upsertInforForm(this.payloadData);
+                }
+                
             },
 
             upsertInforForm: function (payload) {
-                debugger;
                 var successData = apiCallPut('put', '/updateInfo', payload);
                 if (successData.status === 'success') {
-                    debugger
-                    console.log('success');
+                    console.log(successData);
                     this.showLoader = false;
                     this.isSection2Submitted = false;
 
