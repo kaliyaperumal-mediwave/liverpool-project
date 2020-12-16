@@ -10,6 +10,7 @@ const router = new Router();
 
 router.post('/user/eligibility', userController.eligibility);
 router.get('/user/fetchEligibility', userController.fetchEligibility);
+router.put('/user/updateEligibilityInfo', userController.updateEligibilityInfo);
 
 
 router.post('/user/about', userController.about);
