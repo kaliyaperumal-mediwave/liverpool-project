@@ -575,13 +575,13 @@
                                     <label class="question-font pr-2 col-12 col-md-3 pl-0" for="eduSect5">
                                         Education / employment:
                                     </label>
-                                    <select class="custom-select col-md-4 col-12"
-                                        v-model="section3Data.child_profession">
+                                    <select readonly class="custom-select col-md-4 col-12"
+                                        v-model="section3Data.child_profession" @change="onDetectChange($event,'sect3')">
                                         <option selected>
                                             {{section3Data.child_profession}}</option>
-                                        <option value="education">Education</option>
+                                        <!-- <option value="education">Education</option>
                                         <option value="employment">Employment</option>
-                                        <option value="neither">Neither</option>
+                                        <option value="neither">Neither</option> -->
                                     </select>
                                 </div>
                                 <div v-if="section3Data.child_profession == 'education'"
@@ -591,7 +591,7 @@
                                     </label>
                                     <textarea class="form-control col-md-5 col-12" type="text"
                                         v-model="section3Data.child_education_place" id="childEducationPlace"
-                                        value="no">
+                                        value="no" @keyup="onDetectChange($event,'sect3')">
                                 </textarea>
                                 </div>
 
@@ -600,7 +600,7 @@
                                         EHCP Plan?
                                     </label>
                                     <select class="custom-select col-md-4 col-12" v-model="section3Data.child_EHCP">
-                                        <option selected>
+                                        <option selected @change="onDetectChange($event,'sect3')">
                                             {{section3Data.child_EHCP}}</option>
                                         <option v-if="section3Data.child_EHCP == 'no'" value="yes">Yes</option>
                                         <option v-if="section3Data.child_EHCP == 'yes'" value="no">no
@@ -612,7 +612,7 @@
                                         Open to EHAT
                                     </label>
                                     <select class="custom-select col-md-4 col-12" v-model="section3Data.child_EHAT">
-                                        <option selected>
+                                        <option selected @change="onDetectChange($event,'sect3')">
                                             {{section3Data.child_EHAT}}</option>
                                         <option v-if="section3Data.child_EHAT == 'no'" value="yes">Yes</option>
                                         <option v-if="section3Data.child_EHAT == 'yes'" value="no">no
@@ -624,7 +624,7 @@
                                     <label class="question-font pr-2 col-12 col-md-3 pl-0" for="isSocialSent5">
                                         Social Worker:
                                     </label>
-                                    <select class="custom-select col-md-4 col-12"
+                                    <select disabled class="custom-select col-md-4 col-12"
                                         v-model="section3Data.child_socialworker">
                                         <option selected>
                                             {{section3Data.child_socialworker}}</option>
@@ -641,7 +641,7 @@
                                             Social Worker name:
                                         </label>
                                         <input class="form-control col-md-4 col-12" type="text"
-                                            v-model="section3Data.child_socialworker_name" id="socialworkerNameSec5">
+                                            v-model="section3Data.child_socialworker_name" id="socialworkerNameSec5" @keyup="onDetectChange($event,'sect3')">
                                     </div>
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-3 pl-0"
@@ -649,13 +649,13 @@
                                             Social Worker number:
                                         </label>
                                         <input class="form-control col-md-4 col-12" type="text"
-                                            v-model="section3Data.child_socialworker_contact" id="socialworkerNumSec5">
+                                            v-model="section3Data.child_socialworker_contact" id="socialworkerNumSec5" @keyup="onDetectChange($event,'sect3')">
                                     </div>
                                 </template>
                                 <div class="text-center py-4">
                                     <a>
                                         <button @click="updateInfo(section3Data,'/user/updateSec3Info')" type="button"
-                                            class="btn px-md-4 py-1 px-3"><span
+                                            class="btn px-md-4 py-1 px-3" disabled id="sect3"><span
                                                 class="btn-secondary-text">Save</span></button>
                                     </a>
                                 </div>
