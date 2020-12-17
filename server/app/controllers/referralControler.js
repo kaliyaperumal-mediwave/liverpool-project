@@ -4,12 +4,8 @@ const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
 
 exports.eligibility = ctx => {
-
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   var userid;
-
-  //  console.log(ctx.request.body);
-
   if (ctx.request.body.role == "child") {
     if (ctx.request.body.editFlag != null) {
       return user.update({
@@ -50,6 +46,7 @@ exports.eligibility = ctx => {
         }
         return ctx.body = responseData;
       }).catch((error) => {
+        console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
@@ -66,7 +63,7 @@ exports.eligibility = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
             },
@@ -145,7 +142,7 @@ exports.eligibility = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'professional',
             },
@@ -182,8 +179,6 @@ exports.eligibility = ctx => {
                   return ctx.body = responseData;
                 })
             })
-
-
         })
       })
     }
@@ -220,7 +215,7 @@ exports.eligibility = ctx => {
 
 
 exports.fetchEligibility = ctx => {
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   if (ctx.query.role == "child") {
     return user.findOne({
       where: {
@@ -258,7 +253,7 @@ exports.fetchEligibility = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
           },
@@ -289,7 +284,7 @@ exports.fetchEligibility = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'professional',
           },
@@ -312,7 +307,7 @@ exports.fetchEligibility = ctx => {
 
 
 exports.about = ctx => {
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   console.log(ctx.request.body.aboutData.nhsNumber);
 
   if (ctx.request.body.role == "child") {
@@ -328,7 +323,7 @@ exports.about = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
             },
@@ -491,7 +486,7 @@ exports.about = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
           },
@@ -579,7 +574,7 @@ exports.about = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'professional',
             },
@@ -677,7 +672,7 @@ exports.about = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'professional',
             },
@@ -750,7 +745,7 @@ exports.about = ctx => {
 
 exports.fetchAbout = ctx => {
   console.log("fetchAbout")
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
     return user.findOne({
       where: {
@@ -761,7 +756,7 @@ exports.fetchAbout = ctx => {
       return user.findOne({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
           },
@@ -789,7 +784,7 @@ exports.fetchAbout = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
           },
@@ -823,12 +818,12 @@ exports.fetchAbout = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'professional',
           },
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
           },
@@ -846,7 +841,7 @@ exports.fetchAbout = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
             },
@@ -879,7 +874,7 @@ exports.fetchAbout = ctx => {
 exports.profession = ctx => {
 
   if (ctx.request.body.role == "professional") {
-    const user = ctx.orm().User;
+    const user = ctx.orm().Referral;
     console.log(ctx.request.body)
     return user.findOne({
       where: {
@@ -891,7 +886,7 @@ exports.profession = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'professional',
           },
@@ -948,7 +943,7 @@ exports.profession = ctx => {
     });
   }
   else if (ctx.request.body.role == "parent") {
-    const user = ctx.orm().User;
+    const user = ctx.orm().Referral;
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -959,7 +954,7 @@ exports.profession = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
           },
@@ -1016,7 +1011,7 @@ exports.profession = ctx => {
   }
 
   else if (ctx.request.body.role == "child") {
-    const user = ctx.orm().User;
+    const user = ctx.orm().Referral;
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1060,7 +1055,7 @@ exports.profession = ctx => {
 
 exports.fetchProfession = ctx => {
 
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
 
     return user.findOne({
@@ -1085,7 +1080,7 @@ exports.fetchProfession = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
           },
@@ -1117,7 +1112,7 @@ exports.fetchProfession = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'professional',
           },
@@ -1142,9 +1137,8 @@ exports.fetchProfession = ctx => {
 
 exports.saveReferal = ctx => {
 
-  const user = ctx.orm().User;
-  const referral = ctx.orm().Referral
-
+  const user = ctx.orm().Referral;
+  const referral = ctx.orm().Reason
   if (ctx.request.body.role == "professional") {
 
     if (ctx.request.body.editFlag != null) {
@@ -1193,7 +1187,7 @@ exports.saveReferal = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'professional',
             },
@@ -1227,7 +1221,7 @@ exports.saveReferal = ctx => {
               services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
             },
           ).then((fetchResult) => {
-            result.setReferral(fetchResult.id)
+            result.setReferral_reason(fetchResult.id)
             return referral.findOne({
               where: {
                 id: fetchResult.id,
@@ -1305,7 +1299,7 @@ exports.saveReferal = ctx => {
         return user.findAll({
           include: [
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
             },
@@ -1315,7 +1309,7 @@ exports.saveReferal = ctx => {
           },
         }).then((userResult) => {
           //  console.log(userResult);
-          console.log(userResult[0].parent[0].ChildParents.parentId)
+          //console.log("---------?"+userResult[0].parent[0].ChildParents.parentId)
           var childId = userResult[0].parent[0].ChildParents.parentId
           return referral.create(
             {
@@ -1337,7 +1331,7 @@ exports.saveReferal = ctx => {
               services: ctx.request.body.allAvailableService//------------->dynamic add service for only child
             },
           ).then((fetchResult) => {
-            result.setReferral(fetchResult.id)
+            result.setReferral_reason(fetchResult.id)
             const responseData = {
               userid: ctx.request.body.userid,
               status: "ok",
@@ -1345,6 +1339,7 @@ exports.saveReferal = ctx => {
             }
             return ctx.body = responseData;
           }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
 
@@ -1425,7 +1420,7 @@ exports.saveReferal = ctx => {
         ).then((fetchResult) => {
 
 
-          result.setReferral(fetchResult.id)
+          result.setReferral_reason(fetchResult.id)
 
           return referral.findOne({
             where: {
@@ -1453,10 +1448,8 @@ exports.saveReferal = ctx => {
 }
 
 exports.fetchReferral = ctx => {
-
-  console.log("-------------------------------------------------------------------------------------------");
-  const user = ctx.orm().User;
-  const referral = ctx.orm().Referral
+  const user = ctx.orm().Referral;
+  const referral = ctx.orm().Reason
 
 
   return user.findOne({
@@ -1468,18 +1461,18 @@ exports.fetchReferral = ctx => {
     return user.findAll({
       include: [
         {
-          model: ctx.orm().Referral,
+          model: ctx.orm().Reason,
           nested: true,
-          as: 'referral',
+          as: 'Reason',
         },
       ],
       where: {
         id: fetchResult.id,
       },
     }).then((userResult) => {
-      //   console.log(userResult);
-      console.log(userResult[0].referral[0].id)
-      var refId = userResult[0].referral[0].id;
+         console.log(userResult);
+      console.log(userResult[0].Reason[0].id)
+      var refId = userResult[0].Reason[0].id;
 
       return referral.findOne({
         where: {
@@ -1493,6 +1486,7 @@ exports.fetchReferral = ctx => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }).catch((error) => {
+      console.log(error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
 
@@ -1512,8 +1506,8 @@ exports.fetchReferral = ctx => {
 
 exports.fetchReview = ctx => {
 
-  const user = ctx.orm().User;
-  const referral = ctx.orm().Referral
+  const user = ctx.orm().Referral;
+  const referral = ctx.orm().Reason
   console.log(ctx.query.user_id);
   if (ctx.query.role == "child") {
     return user.findOne({
@@ -1526,7 +1520,7 @@ exports.fetchReview = ctx => {
       return user.findOne({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             as: 'parent',
             attributes: ['id', 'parent_name', 'parential_responsibility', 'responsibility_parent_name', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
           },
@@ -1539,9 +1533,9 @@ exports.fetchReview = ctx => {
         return user.findOne({
           include: [
             {
-              model: ctx.orm().Referral,
+              model: ctx.orm().Reason,
               nested: true,
-              as: 'referral',
+              as: 'referral_reason',
             },
           ],
           where: {
@@ -1580,7 +1574,7 @@ exports.fetchReview = ctx => {
             section1: eligibilityObj,
             section2: section2Obj,
             section3: educationObj,
-            section4: educationObj.referral[0],
+            section4: educationObj.referral_reason[0],
             status: "ok",
             role: ctx.query.role
           }
@@ -1588,6 +1582,7 @@ exports.fetchReview = ctx => {
 
         }).catch((error) => {
           console.log("1")
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }).catch((error) => {
@@ -1611,7 +1606,7 @@ exports.fetchReview = ctx => {
       return user.findAll({
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
             attributes: ['id', 'child_dob', 'registerd_gp']
@@ -1628,7 +1623,7 @@ exports.fetchReview = ctx => {
           include: [
             //childData
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
               attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
@@ -1643,7 +1638,7 @@ exports.fetchReview = ctx => {
             include: [
               //childData
               {
-                model: ctx.orm().User,
+                model: ctx.orm().Referral,
                 nested: true,
                 as: 'parent',
                 attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact']
@@ -1659,9 +1654,9 @@ exports.fetchReview = ctx => {
 
               include: [
                 {
-                  model: ctx.orm().Referral,
+                  model: ctx.orm().Reason,
                   nested: true,
-                  as: 'referral',
+                  as: 'referral_reason',
                 },
               ],
               where: {
@@ -1719,7 +1714,7 @@ exports.fetchReview = ctx => {
                 section1: section1Obj,
                 section2: section2Obj,
                 section3: section3Obj,
-                section4: referralResult.referral[0],
+                section4: referralResult.referral_reason[0],
                 status: "ok",
                 role: ctx.request.body.role
               }
@@ -1755,7 +1750,7 @@ exports.fetchReview = ctx => {
 
         include: [
           {
-            model: ctx.orm().User,
+            model: ctx.orm().Referral,
             nested: true,
             as: 'professional',
             attributes: ['id', 'child_dob', 'registerd_gp']
@@ -1774,7 +1769,7 @@ exports.fetchReview = ctx => {
           include: [
             //childData
             {
-              model: ctx.orm().User,
+              model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
               attributes: ['id', 'child_NHS', 'child_name', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
@@ -1790,7 +1785,7 @@ exports.fetchReview = ctx => {
             include: [
               //childData
               {
-                model: ctx.orm().User,
+                model: ctx.orm().Referral,
                 nested: true,
                 as: 'professional',
                 attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_name', 'child_socialworker_contact']
@@ -1806,9 +1801,9 @@ exports.fetchReview = ctx => {
 
               include: [
                 {
-                  model: ctx.orm().Referral,
+                  model: ctx.orm().Reason,
                   nested: true,
-                  as: 'referral',
+                  as: 'referral_reason',
                 },
               ],
               where: {
@@ -1870,7 +1865,7 @@ exports.fetchReview = ctx => {
                 section1: section1Obj,
                 section2: section2Obj,
                 section3: edu_empObj[0].professional[0],
-                section4: referralResult.referral[0],
+                section4: referralResult.referral_reason[0],
                 status: "ok",
                 role: ctx.request.body.role
               }
@@ -1898,7 +1893,7 @@ exports.fetchReview = ctx => {
 }
 
 exports.saveReview = ctx => {
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   const uniqueNo = uniqid().toUpperCase();
   return user.findOne({
     where: {
@@ -1930,7 +1925,7 @@ exports.saveReview = ctx => {
 }
 
 exports.getRefNo = ctx => {
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   const uniqueNo = uniqid().toUpperCase();
   return user.findOne({
     where: {
@@ -1942,7 +1937,7 @@ exports.getRefNo = ctx => {
   })
 }
 exports.updateAboutInfo = ctx => {
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   return user.update({
     can_send_post: ctx.request.body.section2Data.can_send_post,
     child_NHS: ctx.request.body.section2Data.child_NHS,
@@ -2032,7 +2027,7 @@ exports.updateAboutInfo = ctx => {
     })
 }
 exports.updateSec3Info = ctx => {
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   return user.update({
     child_EHAT: ctx.request.body.section3Data.child_EHAT,
     child_EHCP: ctx.request.body.section3Data.child_EHCP,
@@ -2063,8 +2058,8 @@ exports.updateSec3Info = ctx => {
 }
 
 exports.updateSec4Info = ctx => {
-  const referral = ctx.orm().Referral
-  return referral.update({
+  const reason = ctx.orm().Reason
+  return reason.update({
     any_other_services: ctx.request.body.section4Data.any_other_services,
     any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
     currently_accessing_services: ctx.request.body.section4Data.currently_accessing_services,
@@ -2087,7 +2082,7 @@ exports.updateSec4Info = ctx => {
         id: ctx.request.body.section4Data.id,
       }
     }).then((referralUpdate) => {
-      return referral.findOne({
+      return reason.findOne({
         where: {
           id: ctx.request.body.section4Data.id,
         },
@@ -2097,12 +2092,17 @@ exports.updateSec4Info = ctx => {
           data: referralResult,
           message: reponseMessages[1001]
         });
-      })
-    })
+      }).catch((error) => {
+        console.log(error)
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
 }
 
 exports.updateEligibilityInfo = ctx => {
-  const user = ctx.orm().User;
+  const user = ctx.orm().Referral;
   return user.update({
     professional_name: ctx.request.body.section1Data.professional_name,
     professional_email: ctx.request.body.section1Data.professional_email,

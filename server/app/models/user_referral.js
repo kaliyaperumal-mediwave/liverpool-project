@@ -1,5 +1,5 @@
 module.exports = function modelUser(sequelize, types) {
-  const User = sequelize.define('User', {
+  const Referral = sequelize.define('Referral', {
 
     uuid: {
       type: types.UUID,
@@ -159,35 +159,30 @@ module.exports = function modelUser(sequelize, types) {
       type: types.JSONB
     },
   }, {
-    tableName: 'users',
+    tableName: 'referrals',
   });
 
-  User.belongsToMany(sequelize.models.Type, {
+  Referral.belongsToMany(sequelize.models.Type, {
     as: 'type',
     through: 'UserType',
   });
 
-  User.belongsToMany(sequelize.models.Referral, {
-    as: 'referral',
-    through: 'UserReferral',
+  Referral.belongsToMany(sequelize.models.Reason, {
+    as: 'referral_reason',
+    through: 'UserReferralReason',
   });
 
-  User.belongsToMany(sequelize.models.Services, {
-    as: 'services',
-    through: 'ReferralServices',
-  });
-
-  User.belongsToMany(User, {
+  Referral.belongsToMany(Referral, {
     as: 'parent',
     through: 'ChildParents',
   });
 
-  User.belongsToMany(User, {
+  Referral.belongsToMany(Referral, {
     as: 'professional',
     through: 'ChildProfessional',
   });
 
 
 
-  return User;
+  return Referral;
 };
