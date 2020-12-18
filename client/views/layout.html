@@ -38,7 +38,12 @@ endblock %} {% block extraHead %}
 <link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
   rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
+<!-- 
+<link rel="stylesheet" href="/path/to/cdn/bootstrap.min.css" />
+<script src="/path/to/cdn/jquery.slim.min.js"></script>
+<script src="/path/to/cdn/bootstrap.min.js"></script> -->
 
+<!-- <script  src="../../Jquery/prettify.js"></script> -->
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
@@ -47,19 +52,75 @@ endblock %} {% block extraHead %}
 {% endblock %} {% block beforeMain %}
 <div id="heightTopSet" class="headerTop">
   <!-- Header Ui Start-->
-  <nav class="navbar header-bg p-xs-3 p-sm-3 p-lg-4">
-    <div class="row mx-0 w-100 justify-content-between">
-      <div alt="logo" class="header-logo"></div>
+  <div class="redHeader">
+    Get urgent help
+  </div>
+  <nav class="header-bg header-set-height">
+    <div class="row mx-0 w-100 justify-content-between align-center">
+      <!-- <div alt="logo" class="header-logo"></div>
       <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">
         It’s okay to not be okay.
-      </h2>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-        aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fal fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
-        <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
-        <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+      </h2> -->
+      <div class="butLogo-cont">
+        <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
+          data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fal fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+        </button>
+        <div class="logo">
+          LOGO
+        </div>
+      </div>
+
+      <button class="button-referral">
+        Make a referral
       </button>
     </div>
+    <!-- left drawer -->
+    <div id="side-drawer" class="position-fixed">
+      <div class="h-100 padding-set">
+        <!-- Side Drawer Title -->
+        <div class="header-slider d-flex align-items-center ">
+          <div class="slider-header">LOGO</div>
+          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white" aria-hidden="true"></i>
+        </div>
+        <!-- Side Drawer content -->
+        <div class="slider-container">
+          <div class="inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            Log in / sign up
+          </div>
+          <div class="collapse" id="collapseExample">
+            <div class="collapse-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,
+              pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. </div>
+          </div>
+          <div class="inside-cont-slider">
+            Get a referral
+          </div>
+          <div class="inside-cont-slider">
+            Appointments
+          </div>
+          <div class="inside-cont-slider">
+            Saved referrals
+          </div>
+          <div class="double-inside-cont-slider">
+            Urgent help
+          </div>
+          <div class="double-inside-cont-slider">
+            Discover more
+          </div>
+          <div class="last-inside-cont-slider">
+            Log out
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div id="side-drawer-void" class="position-fixed d-none" onclick="closeSideDrawer()"></div>
+
   </nav>
   <!-- Header Ui End-->
 
@@ -108,6 +169,17 @@ endblock %} {% block extraHead %}
 <div id='middleCont'>
   <script>
     document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+    function openSideDrawer() {
+      document.getElementById("side-drawer").style.left = "0";
+      document.getElementById("side-drawer-void").classList.add("d-block");
+      document.getElementById("side-drawer-void").classList.remove("d-none");
+    }
+
+    function closeSideDrawer() {
+      document.getElementById("side-drawer").style.left = "-336px";
+      document.getElementById("side-drawer-void").classList.add("d-none");
+      document.getElementById("side-drawer-void").classList.remove("d-block");
+    }
   </script>
   <!-- {#
     We recommend you use the beforeMain block for global page components
@@ -119,11 +191,11 @@ endblock %} {% block extraHead %}
   %}
 </div>
 <div class="footer-bg">
-  <div class="row col-lg-9 col-md-9 col-xl-9 col-xs-2 col-sm-12 justify-content-around mx-auto">
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">About </span>
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">Privacy</span>
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">Contact</span>
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">T & Cs</span>
+  <div class="footer-container">
+    <span class="footer-text cursor-pointer">About </span>
+    <span class="footer-text cursor-pointer">Privacy</span>
+    <span class="footer-text cursor-pointer">Contact</span>
+    <span class="footer-text cursor-pointer">T & Cs</span>
   </div>
 </div>
 
