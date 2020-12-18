@@ -30,6 +30,7 @@ router.get('/user/fetchReview/', referralControler.fetchReview);
 router.post('/user/saveReview', referralControler.saveReview);
 
 router.post('/user/signup/', authController.signup);
+router.post('/user/login/', authController.login);
 
 
 
