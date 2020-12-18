@@ -45,6 +45,8 @@ endblock %} {% block extraHead %}
     It is a good place to put extra <script> <link> and <meta> tags.
   #} -->
 {% endblock %} {% block beforeMain %}
+
+{% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
   <!-- Header Ui Start-->
   <nav class="navbar header-bg p-xs-3 p-sm-3 p-lg-4">
@@ -104,6 +106,7 @@ endblock %} {% block extraHead %}
   </div>
   <!-- Subheader UI End -->
 </div>
+{% endif %}
 
 <div id='middleCont'>
   <script>

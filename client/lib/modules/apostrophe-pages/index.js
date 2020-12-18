@@ -16,6 +16,10 @@ module.exports = {
       label: 'Auth Module'
     },
     {
+      name: 'role-module',
+      label: 'Role Module'
+    },
+    {
       name: 'about-module',
       label: 'About Module'
     },
