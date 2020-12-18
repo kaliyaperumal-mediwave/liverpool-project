@@ -8,6 +8,10 @@ module.exports = {
       label: 'Home'
     },
     {
+      name: 'home-module',
+      label: 'Home Module'
+    },
+    {
       name: 'auth-module',
       label: 'Auth Module'
     },
@@ -16,8 +20,8 @@ module.exports = {
       label: 'About Module'
     },
     {
-      name: 'home-module',
-      label: 'Home Module'
+      name: 'referral-home-module',
+      label: 'Referral Home Module'
     },
     {
       name: 'education-employment-module',
