@@ -483,7 +483,7 @@ body {
 .headerTop {
   position: fixed;
   top: 0px;
-  z-index: 1000;
+  z-index: 449;
   width: 100%;
 }
 .lds-spinner {
@@ -570,5 +570,21 @@ body {
   background: #e8edee url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat right 0.75rem center/34px 31px !important;
   border: none !important;
 }
-
-
+.redHeader{
+  background-color: #E55F5F;
+  height: 33px;
+  color: #023047;
+  font-size: 14px;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+}
+@media (min-width: 1024px) {
+  .redHeader{
+    height: 48px;
+    padding-left: 22px;
+    font-size: 20px;
+  }
+}
