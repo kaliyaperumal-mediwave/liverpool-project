@@ -25,31 +25,36 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
+    format("truetype");
 }
 
 body {
@@ -65,18 +70,6 @@ body {
   }
   .dropdown-divider {
     border-top: 1px solid $primary-color !important;
-  }
-
-  .accordion .card-header:after {
-    font-family: "FontAwesome";
-    content: "\f068";
-    float: right;
-    cursor: pointer;
-  }
-  .accordion .card-header.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\f067";
-    cursor: pointer;
   }
 
   .pac-container {
@@ -257,7 +250,8 @@ body {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -567,7 +561,6 @@ body {
     opacity: 0;
   }
 }
-
 .color-white {
   color: #fff;
 }
@@ -581,7 +574,6 @@ body {
     no-repeat right 0.75rem center/34px 31px !important;
   border: none !important;
 }
-
 .redHeader {
   background-color: #e55f5f;
   height: 33px;

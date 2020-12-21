@@ -310,15 +310,6 @@ body {
     border: none !important; }
   body .dropdown-divider {
     border-top: 1px solid #023047 !important; }
-  body .accordion .card-header:after {
-    font-family: "FontAwesome";
-    content: "\f068";
-    float: right;
-    cursor: pointer; }
-  body .accordion .card-header.collapsed:after {
-    /* symbol for "collapsed" panels */
-    content: "\f067";
-    cursor: pointer; }
   body .pac-container {
     z-index: 10000 !important; }
   body .h-112 {
@@ -502,7 +493,7 @@ body {
   cursor: pointer; }
 
 .header-bg {
-  background: #8ecae6 0% 0% no-repeat padding-box !important;
+  background: #54B7E6 0% 0% no-repeat padding-box !important;
   opacity: 1; }
 
 .sub-header-bg {

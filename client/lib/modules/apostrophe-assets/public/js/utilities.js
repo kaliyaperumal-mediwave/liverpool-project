@@ -245,3 +245,19 @@ window.onresize = resize;
 function resize() {
     document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
 }
+function openSideDrawer() {
+    document.getElementById("side-drawer").style.left = "0";
+    document.getElementById("side-drawer-void").classList.add("d-block");
+    document.getElementById("side-drawer-void").classList.remove("d-none");
+}
+
+function closeSideDrawer() {
+    document.getElementById("side-drawer").style.left = "-336px";
+    document.getElementById("side-drawer-void").classList.add("d-none");
+    document.getElementById("side-drawer-void").classList.remove("d-block");
+}
+window.onload = (event) => {
+    if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
+        document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+    }
+}
