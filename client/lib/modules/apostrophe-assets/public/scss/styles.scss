@@ -25,36 +25,31 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
 body {
@@ -116,6 +111,14 @@ body {
 
 .header-title {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
+}
+
+.home-header-title {
+  @include set-titleStyles($primary-lgfont-size, bold, $primary-color);
+}
+
+.home-headerlink {
+  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
 }
 
 .completed-toast-text {
@@ -227,6 +230,11 @@ body {
   @include set-background($header-color, 1);
 }
 
+.body-bg {
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
+  background-size: cover !important;
+}
+
 .sub-header-bg {
   @include set-background($sub-header-color, 1);
 }
@@ -250,8 +258,7 @@ body {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -751,33 +758,33 @@ body {
   font-weight: bold;
   padding-bottom: 10px;
 }
-.button-login{
+.button-login {
   min-width: 310px;
   margin: auto;
   height: 50px;
   border: none;
   font-size: 26px;
   color: #023047;
-  background-color: #FFB703;
+  background-color: #ffb703;
   border-radius: 10px;
   font-weight: bold;
   margin-top: 22px;
   box-shadow: 0px 3px 6px #00000029;
 }
-.button-create-login{
+.button-create-login {
   min-width: 310px;
   margin: auto;
   height: 50px;
   border: none;
   font-size: 26px;
   color: #023047;
-  background-color: #219EBC;
+  background-color: #219ebc;
   border-radius: 10px;
   font-weight: bold;
   margin-top: 22px;
   box-shadow: 0px 3px 6px #00000029;
 }
-.baseBottom{
+.baseBottom {
   margin-bottom: 16px !important;
 }
 .border-radius-10 {
@@ -790,14 +797,14 @@ body {
 .textfieldHeight::placeholder {
   font-size: 14px;
   color: #02304796;
-  padding:12px 10px
+  padding: 12px 10px;
 }
 @media (min-width: 769px) {
   .footer-container {
     max-width: 750px;
     margin: auto;
   }
-  .login-container{
+  .login-container {
     padding: 40px 38px !important;
   }
 }
@@ -811,15 +818,18 @@ body {
     width: 110px;
     font-size: 12px;
   }
-  .button-login{
+  .button-login {
     min-width: 240px;
     height: 40px;
     font-size: 24px;
   }
-  .button-create-login{
+  .button-create-login {
     min-width: 240px;
     height: 40px;
     font-size: 24px;
+  }
+  .login-container {
+    width: 300px;
   }
 }
 //destop design
@@ -838,7 +848,7 @@ body {
     padding-left: 72px;
     padding-right: 72px;
   }
-  .login-container{
+  .login-container {
     height: 700px;
   }
   .button-referral {
@@ -886,7 +896,7 @@ body {
     padding-top: 50px;
     padding-bottom: 120px;
   }
-  .login-container{
+  .login-container {
     height: 900px;
   }
 }
@@ -905,17 +915,17 @@ body {
     padding-top: 78px;
     padding-bottom: 215px;
   }
-  .login-container{
+  .login-container {
     height: 1053px;
-    padding:80px 31px !important;
+    padding: 80px 31px !important;
     max-width: 943px !important;
   }
-  .button-login{
+  .button-login {
     width: 363px;
     height: 56px;
     font-size: 31px;
   }
-  .button-create-login{
+  .button-create-login {
     width: 363px;
     height: 56px;
     font-size: 31px;

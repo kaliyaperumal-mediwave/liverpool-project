@@ -203,8 +203,8 @@ function convertDate(dbDate) {
     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
 }
 function setLoaderStyle() {
-    var element = document.getElementsByClassName('apos-refreshable');
-    element[0].classList.add('position-relative')
+    var element = document.body;
+    element.classList.add('body-bg');
 }
 
 function redirectUrl(currentPge, nextPge, usrId, roles) {
@@ -236,7 +236,7 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
 }
 
 $(document).ready(function () {
-    // setLoaderStyle();
+    setLoaderStyle();
 })
 
 //window resize function

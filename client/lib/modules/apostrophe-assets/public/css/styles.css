@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.header-title, .home-header-title, .home-headerlink, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -340,108 +340,101 @@ body {
 .header-title {
   font-size: 32px;
   font-weight: bold;
-  color: #ffffff;
-  cursor: pointer; }
+  color: #ffffff; }
+
+.home-header-title {
+  font-size: 40px;
+  font-weight: bold;
+  color: #023047; }
+
+.home-headerlink {
+  font-size: 20px;
+  font-weight: bold;
+  color: #023047; }
 
 .completed-toast-text {
   font-size: 18px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .completed-toast-header {
   font-size: 32px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .back-text {
   font-size: 26px;
   font-weight: bold;
-  color: #ffffff;
-  cursor: pointer; }
+  color: #ffffff; }
 
 .input-group-secondary-text {
-  background: #D6D8D8 0% 0% no-repeat padding-box !important;
+  background: #d6d8d8 0% 0% no-repeat padding-box !important;
   opacity: 1; }
 
 .send-font {
   font-size: 18px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .sub-header-title {
   font-size: 32px;
   font-weight: bold;
-  color: #ffffff;
-  cursor: pointer; }
+  color: #ffffff; }
 
 .content-header-text {
   font-size: 22px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .content-secondary-header-text {
   font-size: 32px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .content-text {
   font-size: 18px;
   font-weight: normal;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .hint-text {
   font-size: 14px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .support-modal-header-text {
   font-size: 18px;
   font-weight: bold;
-  color: #023087;
-  cursor: pointer; }
+  color: #023087; }
 
 .support-modal-link-text {
   font-size: 15px;
   font-weight: bold;
-  color: #023087;
-  cursor: pointer; }
+  color: #023087; }
 
 .support-modal-content-text {
   font-size: 15px;
   font-weight: bold;
-  color: #023087;
-  cursor: pointer; }
+  color: #023087; }
 
 .link-text {
   font-size: 17px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .link-secondary {
   font-size: 16px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .btn-txt {
   font-size: 26px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .btn-secondary-text {
   font-size: 26px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .btn-sec5 {
   background: #219ebc 0% 0% no-repeat padding-box !important;
@@ -453,48 +446,45 @@ body {
 .btn-terirary-text {
   font-size: 22px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .btn-modal-text {
   font-size: 20px;
   font-weight: bold;
-  color: #0b181e;
-  cursor: pointer; }
+  color: #0b181e; }
 
 .footer-text {
   font-size: 19px;
   font-weight: bold;
-  color: #feffff;
-  cursor: pointer; }
+  color: #feffff; }
 
 .question-font {
   font-size: 18px;
   font-weight: normal;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .option-font {
   font-size: 17px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .question-header-font {
   font-size: 28px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .add-more-hint {
   font-size: 18px;
   font-weight: bold;
-  color: #023047;
-  cursor: pointer; }
+  color: #023047; }
 
 .header-bg {
-  background: #54B7E6 0% 0% no-repeat padding-box !important;
+  background: #54b7e6 0% 0% no-repeat padding-box !important;
   opacity: 1; }
+
+.body-bg {
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
+  background-size: cover !important; }
 
 .sub-header-bg {
   background: #012f46 0% 0% no-repeat padding-box !important;
@@ -974,7 +964,7 @@ body {
   border: none;
   font-size: 26px;
   color: #023047;
-  background-color: #FFB703;
+  background-color: #ffb703;
   border-radius: 10px;
   font-weight: bold;
   margin-top: 22px;
@@ -987,7 +977,7 @@ body {
   border: none;
   font-size: 26px;
   color: #023047;
-  background-color: #219EBC;
+  background-color: #219ebc;
   border-radius: 10px;
   font-weight: bold;
   margin-top: 22px;
@@ -1029,7 +1019,9 @@ body {
   .button-create-login {
     min-width: 240px;
     height: 40px;
-    font-size: 24px; } }
+    font-size: 24px; }
+  .login-container {
+    width: 300px; } }
 
 @media (min-width: 1024px) {
   .redHeader {

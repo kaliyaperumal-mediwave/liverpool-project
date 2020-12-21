@@ -1,41 +1,11 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-<script src="/modules/auth-module/js/role.js"></script>
+<!-- <script src="/modules/auth-module/js/role.js"></script> -->
 {% endblock %}
 {% block main %}
-<div class="main-content-bg py-4 main-min-height">
-    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
-        <div id="landing-page" class="py-4">
-            <div class="global-container">
-                <div class="card login-form">
-                    <div class="card-body">
-                        <h3 class="card-title text-center">Log in to Codepen</h3>
-                        <div class="card-text">
-
-                            <form>
-                                <!-- to error: add class "has-danger" -->
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control form-control-sm" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp">
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Password</label>
-                                    <a href="#" style="float:right;font-size:12px;">Forgot password?</a>
-                                    <input type="password" class="form-control form-control-sm"
-                                        id="exampleInputPassword1">
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-
-                                <div class="sign-up">
-                                    Don't have an account? <a href="#">Create One</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        {% endblock %}
+<div id="landing-page" class="">
+    <h2 class="home-header-title text-center">CAMHS Services</h2>
+    <span class="home-headerlink text-center d-block">Getting help is hard but we make it easy</span>
+</div>
+{% endblock %}
