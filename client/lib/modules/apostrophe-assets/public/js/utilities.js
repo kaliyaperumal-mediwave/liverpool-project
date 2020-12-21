@@ -243,7 +243,10 @@ $(document).ready(function () {
 window.onresize = resize;
 
 function resize() {
-    document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+    var middleContent = document.getElementById("middleCont");
+    if (middleContent) {
+        middleContent.style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+    }
 }
 function openSideDrawer() {
     document.getElementById("side-drawer").style.left = "0";
