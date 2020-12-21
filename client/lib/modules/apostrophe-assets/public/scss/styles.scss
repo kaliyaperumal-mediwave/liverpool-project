@@ -650,6 +650,9 @@ body {
 .fa-times-thin:before {
   content: "\00d7";
 }
+.set-bottom-padding{
+  margin-top: 50px;
+}
 .close-slider {
   font-size: 38px !important;
   font-weight: 500;
@@ -701,6 +704,49 @@ body {
   padding: 8px 16px;
   border-bottom: 1px solid #112f45;
 }
+#side-drawer {
+  height: 100vh;
+  width: 336px;
+  top: 0;
+  left: -336px;
+  z-index: 1032;
+  transition: left 0.25s ease;
+  background-color: #023047;
+}
+
+#side-drawer-void {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 1031;
+  // background: rgba(0,0,0,.6);
+}
+.titleBig{
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+.fontHeader{
+  font-size: 30px;
+  font-weight: bold;
+}
+.subtitle{
+  font-size: 16px;
+  font-weight: bold;
+}
+.fullWidth{
+  width: 100%;
+}
+.login-container{
+  width: 400px;
+  background-color: #FAFAFA;
+  border-radius: 10px;
+  padding: 24px 31px !important;
+  height:573px;
+}
+.mid-log-container{
+  max-width: 420px;
+  margin:auto
+}
 @media (min-width: 769px) {
   .footer-container {
     max-width: 750px;
@@ -716,6 +762,9 @@ body {
   .button-referral {
     width: 110px;
     font-size: 12px;
+  }
+  .login-container{
+    width: 300px;
   }
 }
 //destop design
@@ -752,24 +801,47 @@ body {
     padding-top: 60px;
     padding-bottom: 60px;
   }
+  .fontHeader{
+    font-size: 40px;
+    font-weight: bold;
+  }
+  .subtitle{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .titleBig{
+    padding-top: 40px;
+    padding-bottom: 70px;
+  }
 }
 //large screen
 @media (min-width: 1400px) {
+  .fontHeader{
+    font-size: 58px;
+    font-weight: bold;
+  }
+  .subtitle{
+    font-size: 22px;
+    font-weight: bold;
+  }
+  .titleBig{
+    padding-top: 50px;
+    padding-bottom: 120px;
+  }
 }
-#side-drawer {
-  height: 100vh;
-  width: 336px;
-  top: 0;
-  left: -336px;
-  z-index: 1032;
-  transition: left 0.25s ease;
-  background-color: #023047;
-}
+//x-large sceen
 
-#side-drawer-void {
-  height: 100%;
-  width: 100%;
-  top: 0;
-  z-index: 1031;
-  // background: rgba(0,0,0,.6);
+@media (min-width: 1900px) {
+  .fontHeader{
+    font-size: 68px;
+    font-weight: bold;
+  }
+  .subtitle{
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .titleBig{
+    padding-top: 78px;
+    padding-bottom: 215px;
+  }
 }
