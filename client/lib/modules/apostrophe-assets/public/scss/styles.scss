@@ -121,6 +121,12 @@ body {
   @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
 }
 
+.home-content-text {
+  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
+  font-style: normal !important;
+  font-variant: normal !important;
+}
+
 .completed-toast-text {
   @include set-titleStyles($support-header-font-size, bold, $primary-color);
 }
@@ -274,6 +280,9 @@ body {
   @include set-cardStyle($secondary-color, "", "", 24px, "no");
 }
 
+.home-primary-content-area {
+  @include set-cardStyle($secondary-color, "", "", 14px, "no");
+}
 .last-content-area {
   @include set-cardStyle($secondary-color, 22px, 22px, "", "bottom");
 }
