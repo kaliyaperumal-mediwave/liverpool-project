@@ -245,7 +245,7 @@ window.onresize = resize;
 function resize() {
     var middleContent = document.getElementById("middleCont");
     if (middleContent) {
-        middleContent.style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+       // middleContent.style.paddingTop = `${middleContent.offsetHeight}px`;
         // middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
 
     }
