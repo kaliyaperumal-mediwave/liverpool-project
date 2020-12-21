@@ -30,7 +30,10 @@ exports.signup = async (ctx) => {
             email: ctx.request.body.email,
             password: hashedPassword
         }).then((result) => {
-            return ctx.body = result;
+            return ctx.res.ok({
+                status: "success",
+                message: reponseMessages[1005],
+              });
         }).catch((error) => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
@@ -44,11 +47,10 @@ exports.login = async (ctx) => {
     } else {
         const user = ctx.orm().User;
         return user.findOne({
-
             where: {
                 email: ctx.request.body.email,
             },
-
+            attributes: ['uuid', 'first_name', 'last_name','password','email']
         }).then( async (userResult) => {
          if(userResult)
          {
@@ -56,7 +58,26 @@ exports.login = async (ctx) => {
             console.log("checkPassword",checkPassword)
             if(checkPassword)
             {
-               return ctx.body = userResult;
+                const sendUserResult={
+                    loginId:userResult.uuid,
+                    first_name:userResult.first_name,
+                    last_name:userResult.last_name,
+                    email:userResult.email
+                }
+                const sendReferralResult={
+                    loginId:userResult.uuid,
+                    first_name:userResult.first_name,
+                    last_name:userResult.last_name,
+                    email:userResult.email
+                }
+                const sendResponseData={
+                    sendUserResult:sendUserResult,
+                    sendReferralResult:sendReferralResult
+                }
+                return ctx.res.ok({
+                    status: "success",
+                    data:sendResponseData,
+                  });
             }
             else
             {

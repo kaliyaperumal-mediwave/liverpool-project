@@ -7,7 +7,7 @@ const router = new Router();
 
 
 
-//User
+//referral
 
 router.post('/user/eligibility', referralControler.eligibility);
 router.get('/user/fetchEligibility', referralControler.fetchEligibility);
@@ -28,9 +28,12 @@ router.put('/user/updateSec4Info', referralControler.updateSec4Info);
 
 router.get('/user/fetchReview/', referralControler.fetchReview);
 router.post('/user/saveReview', referralControler.saveReview);
+router.get('/user/getRefNo', referralControler.getRefNo);
 
 router.post('/user/signup/', authController.signup);
 router.post('/user/login/', authController.login);
+
+router.get('/referral/getIncompleteReferral/', referralControler.getIncompleteReferral);
 
 
 

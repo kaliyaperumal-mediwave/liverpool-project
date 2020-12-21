@@ -7,10 +7,18 @@ module.exports = function modelUser(sequelize, types) {
       primarykey: true,
       unique: true,
     },
-
+    login_id: {
+      type: types.TEXT,
+    },
+    referral_progress: {
+      type: types.INTEGER
+    },
     reference_code: {
       type: types.TEXT,
       unique: true,
+    },
+    user_role: {
+      type: types.TEXT
     },
 
     child_name: {
@@ -143,9 +151,6 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     //-----------
-    user_section: {
-      type: types.INTEGER
-    },
     professional_email: {
       type: types.TEXT
     },
@@ -158,6 +163,9 @@ module.exports = function modelUser(sequelize, types) {
     household_member:{
       type: types.JSONB
     },
+    referral_complete_status:{
+      type: types.TEXT
+    }
   }, {
     tableName: 'referrals',
   });

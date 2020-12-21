@@ -32,7 +32,8 @@ $(document).ready(function () {
                 childConcernInformation: '',
                 contactProfParent: '',
                 regProfGpTxt: '',
-                profEmail: ''
+                profEmail: '',
+                loginId:''
             },
             date: null,
             dateWrap: true,
@@ -69,6 +70,7 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
+            this.elgibilityObj.loginId="4218d0fb-59df-4454-9908-33c564802059"
             this.getGP();
             this.getProfGP();
             if (this.paramValues != undefined) {
@@ -487,7 +489,6 @@ $(document).ready(function () {
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
-                console.log(this.elgibilityObj.role);
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
