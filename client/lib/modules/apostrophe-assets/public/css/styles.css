@@ -595,10 +595,6 @@ body {
     font-size: 16px; }
   .option-font {
     font-size: 15px !important; }
-  .footer-text {
-    font-size: 16px !important; }
-  .footer-text {
-    font-size: 16px !important; }
   .link-text {
     font-size: 15px !important; }
   .btn-secondary-text {
@@ -630,8 +626,6 @@ body {
     font-size: 16px !important; }
   .option-font {
     font-size: 15px !important; }
-  .footer-text {
-    font-size: 16px !important; }
   .link-text {
     font-size: 15px !important; }
   .btn-secondary-text {
@@ -796,13 +790,19 @@ body {
   100% {
     opacity: 0; } }
 
+.color-white {
+  color: #fff; }
+
+.align-center {
+  align-items: center; }
+
 .custom-select {
   position: relative;
   background: #e8edee url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat right 0.75rem center/34px 31px !important;
   border: none !important; }
 
 .redHeader {
-  background-color: #E55F5F;
+  background-color: #e55f5f;
   height: 33px;
   color: #023047;
   font-size: 14px;
@@ -812,8 +812,174 @@ body {
   align-items: center;
   padding-left: 14px; }
 
+.button-toggle {
+  padding: 0px;
+  display: contents;
+  align-items: center;
+  width: 28px;
+  height: 18px;
+  border: none; }
+
+.header-set-height {
+  height: 68px;
+  padding-left: 24px;
+  padding-right: 24px;
+  display: flex;
+  align-items: center; }
+
+.button-referral {
+  background-color: #ffb703;
+  height: 35px;
+  width: 145px;
+  float: right;
+  border: none;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold; }
+
+.logo {
+  width: 100px;
+  height: 35px;
+  background: var(--unnamed-color-023047) 0% 0% no-repeat padding-box;
+  background: #023047 0% 0% no-repeat padding-box;
+  border-radius: 18px;
+  opacity: 1;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-left: 38px; }
+
+.butLogo-cont {
+  display: flex;
+  align-items: center; }
+
+.footer-container {
+  display: flex;
+  height: 49px;
+  justify-content: space-around;
+  padding-left: 24px;
+  padding-right: 24px;
+  align-items: center; }
+
+.footer-text {
+  font-size: 16px !important;
+  padding: 20px 0px;
+  display: flex; }
+
+.slider-header {
+  color: #fff;
+  font-size: 14px;
+  flex-grow: 1;
+  font-weight: bold; }
+
+.fa-times-thin:before {
+  content: "\00d7"; }
+
+.close-slider {
+  font-size: 38px !important;
+  font-weight: 500; }
+
+.header-slider {
+  height: 70px;
+  padding: 0px 15px; }
+
+.padding-set {
+  padding: 0px 25px; }
+
+.slider-container {
+  background-color: #fafafa;
+  border-radius: 10px;
+  width: 100%; }
+
+.inside-cont-slider {
+  padding: 17px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #002f47;
+  display: flex;
+  align-items: center;
+  height: 54px;
+  border-bottom: 1px solid #112f45; }
+
+.double-inside-cont-slider {
+  padding: 17px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #002f47;
+  display: flex;
+  align-items: center;
+  height: 54px;
+  border-bottom: 2px solid #112f45; }
+
+.last-inside-cont-slider {
+  padding: 17px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #002f47;
+  display: flex;
+  align-items: center;
+  height: 54px; }
+
+.collapse-body {
+  color: #033047;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #112f45; }
+
+@media (min-width: 769px) {
+  .footer-container {
+    max-width: 750px;
+    margin: auto; } }
+
+@media (min-width: 320px) and (max-width: 375px) {
+  .logo {
+    width: 100px;
+    margin-left: 16px; }
+  .button-referral {
+    width: 110px;
+    font-size: 12px; } }
+
 @media (min-width: 1024px) {
   .redHeader {
     height: 48px;
     padding-left: 22px;
-    font-size: 20px; } }
+    font-size: 20px; }
+  .button-toggle {
+    width: 40px;
+    height: 28px; }
+  .header-set-height {
+    height: 100px;
+    padding-left: 72px;
+    padding-right: 72px; }
+  .button-referral {
+    width: 213px;
+    height: 51px;
+    font-size: 20px; }
+  .logo {
+    width: 212px;
+    height: 51px; }
+  .footer-container {
+    display: table-caption;
+    height: fit-content;
+    justify-content: flex-start;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-top: 60px;
+    padding-bottom: 60px; } }
+
+#side-drawer {
+  height: 100vh;
+  width: 336px;
+  top: 0;
+  left: -336px;
+  z-index: 1032;
+  transition: left 0.25s ease;
+  background-color: #023047; }
+
+#side-drawer-void {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 1031; }
