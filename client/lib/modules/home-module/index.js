@@ -1,4 +1,12 @@
 module.exports = {
+  extend: 'apostrophe-module',
+  label: 'Home Module',
+  construct: function (self, options, callback) {
+
+  }
+};
+
+module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Home Module',
   afterConstruct: function (self) {
@@ -10,10 +18,7 @@ module.exports = {
     };
     self.home = function (req, callback) {
       return self.sendPage(req, self.renderer('home', {
-        headerContent: "Make a referral to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",
-        headerDescription: '',
-        backContent: '',
-        home: true
+        showHeader: false
       }));
     };
   }

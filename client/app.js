@@ -34,9 +34,11 @@ var apos = require('apostrophe')({
     'auth-module': {},
     'about-module': {},
     'home-module': {},
+    'referral-home-module': {},
     'referral-module': {},
     'education-employment-module': {},
     'review-module': {},
+    'role-module': {},
     'referral-complete-module': {},
     'apostrophe-templates': { viewsFolderFallback: path.join(__dirname, 'views') }
 

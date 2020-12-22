@@ -81,5 +81,16 @@
 	"Completed": "Completed",
 	"Successful": "Successful",
 	"Errors": "Errors",
-	"Referral Completed Module": "Referral Completed Module"
+	"Referral Completed Module": "Referral Completed Module",
+	"Referral Home Module": "Referral Home Module",
+	"Role Module": "Role Module",
+	"Manage %s": "Manage %s",
+	"Here you can add new %s or click on existing ones to edit them.": "Here you can add new %s or click on existing ones to edit them.",
+	"Add User": "Add User",
+	"Batch Rescue": "Batch Rescue",
+	"—": "—",
+	"Search Users...": "Search Users...",
+	"Showing %s - %s of %s results": "Showing %s - %s of %s results",
+	"Last Updated": "Last Updated",
+	"MM/DD/YY[ at ]h:mma": "MM/DD/YY[ at ]h:mma"
 }
