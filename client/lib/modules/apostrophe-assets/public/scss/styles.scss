@@ -660,14 +660,8 @@ body {
 .logo {
   width: 100px;
   height: 35px;
-  background: var(--unnamed-color-023047) 0% 0% no-repeat padding-box;
-  background: #023047 0% 0% no-repeat padding-box;
-  border-radius: 18px;
-  opacity: 1;
-  color: #fff;
   align-items: center;
-  justify-content: center;
-  display: flex;
+  display: grid;
   margin-left: 38px;
 }
 .butLogo-cont {
@@ -887,7 +881,7 @@ body {
     padding-right: 72px;
   }
   .login-container {
-    height: 700px;
+    min-height: 700px;
   }
   .button-referral {
     width: 213px;

@@ -60,6 +60,10 @@
                             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.password),'invalid-fields':!signUpObject.password }">
                             You must provide a password.
                         </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.password && !passwordRegex.test(signUpObject.password)),
+                        'invalid-fields':(signUpObject.password && !passwordRegex.test(signUpObject.password)) }">
+                            You must provide a real valid password.
+                        </div>
                     </div>
                     <div class="form-group baseBottom">
                         <label for="exampleInputPassword1" class="login-email">Confirm Password</label>
@@ -70,8 +74,12 @@
                             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.confirm_password),'invalid-fields':!signUpObject.confirm_password }">
                             You must provide a confirm password.
                         </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)),
+                        'invalid-fields':(signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)) }">
+                            You must provide a real valid password.
+                        </div>
                         <div class="invalid-feedback d-none"
-                        v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password&&(signUpObject.password !=signUpObject.confirm_password)),'invalid-fields':!signUpObject.confirm_password }">
+                        v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password&&passwordRegex.test(signUpObject.confirm_password)&&(signUpObject.password !=signUpObject.confirm_password)),'invalid-fields':!signUpObject.confirm_password }">
                         You must provide a password and confirm password are equal.
                     </div>
                     </div>
