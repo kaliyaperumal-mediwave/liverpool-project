@@ -25,7 +25,7 @@ $(document).ready(function () {
                 this.isFormSubmitted = true
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email))) {
                     console.log('payload', formData);
-                    var successData = apiCallPost('post', '/fetchProfession', formData);
+                    var successData = apiCallPost('post', '/doLogin', formData);
                     if (Object.keys(successData)) {
                         console.log(successData);
                     } else {

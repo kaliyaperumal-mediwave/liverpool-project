@@ -31,7 +31,7 @@ $(document).ready(function () {
                 
                 if ((formData.first_name && formData.last_name && formData.password&&formData.confirm_password&&formData.email&&this.emailRegex.test(formData.email)&&(formData.password===formData.confirm_password))) {
                     console.log('payload', formData);
-                        var successData = apiCallPost('post', '/fetchProfession', formData);
+                        var successData = apiCallPost('post', '/doCreateAcc', formData);
                         if (Object.keys(successData)) {
                             console.log(successData);
                         } else {

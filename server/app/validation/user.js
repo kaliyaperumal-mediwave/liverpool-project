@@ -13,7 +13,7 @@ const registerValidation = data => {
     first_name: Joi.string().max(255).required(),
     last_name: Joi.string().max(255).required(),
     password: Joi.string().min(6).required(),
-    confirmPassword: Joi.string().min(6).valid(Joi.ref('password')).required(),
+    confirm_password: Joi.string().min(6).valid(Joi.ref('password')).required(),
     email: Joi.string().email().required(),
   })
   return schema.validate(data, options)
