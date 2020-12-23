@@ -981,7 +981,7 @@ body {
   background-color: #fafafa;
   border-radius: 10px;
   padding: 24px 31px !important;
-  height: 573px; }
+  min-height: 573px; }
 
 .mid-log-container {
   max-width: 420px;
@@ -1109,7 +1109,7 @@ body {
     padding-top: 50px;
     padding-bottom: 120px; }
   .login-container {
-    height: 900px; } }
+    min-height: 900px; } }
 
 @media (min-width: 1900px) {
   .fontHeader {
@@ -1122,7 +1122,7 @@ body {
     padding-top: 78px;
     padding-bottom: 215px; }
   .login-container {
-    height: 1053px;
+    min-height: 1053px;
     padding: 80px 31px !important;
     max-width: 943px !important; }
   .button-login {
