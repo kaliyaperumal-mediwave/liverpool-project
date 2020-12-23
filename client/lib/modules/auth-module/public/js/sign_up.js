@@ -26,7 +26,7 @@ $(document).ready(function () {
                 this.isFormSubmitted = true
                 if ((formData.first_name && formData.last_name && formData.password)) {
                     console.log('payload', formData);
-                    var successData = apiCallPost('post', '/fetchProfession', formData);
+                    var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (Object.keys(successData)) {
                         console.log(successData);
                     } else {

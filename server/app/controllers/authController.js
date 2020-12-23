@@ -10,7 +10,9 @@ exports.signup = async (ctx) => {
     var responseData = {}
     const { error } = registerValidation(ctx.request.body);
     if (error) {
-        return ctx.body = error;
+        return ctx.res.badRequest({
+            message: error.details[0].message,
+          });
     } else {
         const user = ctx.orm().User;
         const email = await user.findOne({
