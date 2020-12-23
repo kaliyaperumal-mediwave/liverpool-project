@@ -1026,6 +1026,16 @@ body {
   font-size: 14px;
   color: #02304796; }
 
+.havingAccount {
+  padding: 30px 0px;
+  color: #023047 !important;
+  font-size: 18px;
+  text-decoration: underline !important;
+  font-weight: bold; }
+
+select.selectIcon {
+  padding: 10px; }
+
 @media (min-width: 769px) {
   .footer-container {
     max-width: 750px;
@@ -1049,7 +1059,9 @@ body {
     height: 40px;
     font-size: 24px; }
   .login-container {
-    width: 300px; } }
+    width: 300px; }
+  .havingAccount {
+    font-size: 16px; } }
 
 @media (min-width: 1024px) {
   .redHeader {

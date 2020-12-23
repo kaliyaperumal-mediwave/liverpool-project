@@ -831,6 +831,16 @@ body {
   color: #02304796;
   // padding: 12px 10px;
 }
+.havingAccount{
+  padding:30px 0px;
+  color: #023047 !important;
+  font-size: 18px;
+  text-decoration: underline !important;
+  font-weight: bold;
+}
+select.selectIcon{
+   padding:10px
+}
 @media (min-width: 769px) {
   .footer-container {
     max-width: 750px;
@@ -862,6 +872,9 @@ body {
   }
   .login-container {
     width: 300px;
+  }
+  .havingAccount{
+    font-size: 16px;
   }
 }
 //destop design
@@ -917,6 +930,7 @@ body {
     padding: 20px 0px;
   }
 }
+
 //large screen
 @media (min-width: 1400px) {
   .fontHeader {

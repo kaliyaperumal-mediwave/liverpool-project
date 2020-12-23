@@ -22,7 +22,7 @@
                         <input type="text" placeholder="Enter your first address"
                             class="form-control form-control-sm border-radius-10 textfieldHeight"
                             id="exampleInputFirstName" aria-describedby="emailHelp" v-model="signUpObject.first_name">
-                            <div class="invalid-feedback d-none"
+                        <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.first_name),'invalid-fields':!signUpObject.first_name }">
                             You must provide a first name.
                         </div>
@@ -32,7 +32,7 @@
                         <input type="text" placeholder="Enter your last address"
                             class="form-control form-control-sm border-radius-10 textfieldHeight"
                             id="exampleInputLastname" aria-describedby="emailHelp" v-model="signUpObject.last_name">
-                            <div class="invalid-feedback d-none"
+                        <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.last_name),'invalid-fields':!signUpObject.last_name }">
                             You must provide a first name.
                         </div>
@@ -52,11 +52,26 @@
                         </div>
                     </div>
                     <div class="form-group baseBottom">
+                        <label for="exampleInputEmail1" class="login-email">Select role</label>
+                        <select class="custom-select form-control border-radius-10 textfieldHeight" v-model="signUpObject.role" name="legalCare">
+                            <option value="Child">Child
+                            </option>
+                            <option value="parent">parent
+                            </option>
+                            <option value="professional">professional
+                            </option>
+                        </select>
+                        <div class="invalid-feedback d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.role),'invalid-fields':!signUpObject.role }">
+                        You must provide a role.
+                    </div>
+                    </div>
+                    <div class="form-group baseBottom">
                         <label for="exampleInputPassword1" class="login-email">Password</label>
                         <input type="password" placeholder="Enter your password"
                             class="form-control form-control-sm border-radius-10 textfieldHeight"
                             id="exampleInputPassword2" v-model="signUpObject.password">
-                            <div class="invalid-feedback d-none"
+                        <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.password),'invalid-fields':!signUpObject.password }">
                             You must provide a password.
                         </div>
@@ -70,21 +85,25 @@
                         <input type="password" placeholder="Enter your password"
                             class="form-control form-control-sm border-radius-10 textfieldHeight"
                             id="exampleInputPassword3" v-model="signUpObject.confirm_password">
-                            <div class="invalid-feedback d-none"
+                        <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.confirm_password),'invalid-fields':!signUpObject.confirm_password }">
                             You must provide a confirm password.
                         </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)),
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)),
                         'invalid-fields':(signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)) }">
                             You must provide a real valid password.
                         </div>
                         <div class="invalid-feedback d-none"
-                        v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password&&passwordRegex.test(signUpObject.confirm_password)&&(signUpObject.password !=signUpObject.confirm_password)),'invalid-fields':!signUpObject.confirm_password }">
-                        You must provide a password and confirm password are equal.
-                    </div>
+                            v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password&&passwordRegex.test(signUpObject.confirm_password)&&(signUpObject.password !=signUpObject.confirm_password)),'invalid-fields':!signUpObject.confirm_password }">
+                            You must provide a password and confirm password are equal.
+                        </div>
                     </div>
                     <div class="fullWidth d-flex align-items-center justify-content-center">
                         <button type="button" @click="submitSignIn()" class="button-login">SIGN UP</button>
+                    </div>
+                    <div class="fullWidth d-flex align-items-center justify-content-center">
+                        <a href="/users/login" class="havingAccount">Already have an account?</button>
                     </div>
                 </fo>
             </div>
