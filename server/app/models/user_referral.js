@@ -1,5 +1,5 @@
 module.exports = function modelUser(sequelize, types) {
-  const User = sequelize.define('User', {
+  const Referral = sequelize.define('Referral', {
 
     uuid: {
       type: types.UUID,
@@ -7,10 +7,18 @@ module.exports = function modelUser(sequelize, types) {
       primarykey: true,
       unique: true,
     },
-
+    login_id: {
+      type: types.TEXT,
+    },
+    referral_progress: {
+      type: types.INTEGER
+    },
     reference_code: {
       type: types.TEXT,
       unique: true,
+    },
+    user_role: {
+      type: types.TEXT
     },
 
     child_name: {
@@ -143,9 +151,6 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     //-----------
-    user_section: {
-      type: types.INTEGER
-    },
     professional_email: {
       type: types.TEXT
     },
@@ -158,36 +163,34 @@ module.exports = function modelUser(sequelize, types) {
     household_member:{
       type: types.JSONB
     },
+    referral_complete_status:{
+      type: types.TEXT
+    }
   }, {
-    tableName: 'users',
+    tableName: 'referrals',
   });
 
-  User.belongsToMany(sequelize.models.Type, {
+  Referral.belongsToMany(sequelize.models.Type, {
     as: 'type',
     through: 'UserType',
   });
 
-  User.belongsToMany(sequelize.models.Referral, {
-    as: 'referral',
-    through: 'UserReferral',
+  Referral.belongsToMany(sequelize.models.Reason, {
+    as: 'referral_reason',
+    through: 'UserReferralReason',
   });
 
-  User.belongsToMany(sequelize.models.Services, {
-    as: 'services',
-    through: 'ReferralServices',
-  });
-
-  User.belongsToMany(User, {
+  Referral.belongsToMany(Referral, {
     as: 'parent',
     through: 'ChildParents',
   });
 
-  User.belongsToMany(User, {
+  Referral.belongsToMany(Referral, {
     as: 'professional',
     through: 'ChildProfessional',
   });
 
 
 
-  return User;
+  return Referral;
 };

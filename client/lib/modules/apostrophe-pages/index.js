@@ -42,6 +42,10 @@ module.exports = {
     {
       name: 'referral-complete-module',
       label: 'Referral Completed Module'
+    },
+    {
+      name: 'resources-module',
+      label: 'Resources Module'
     }
 
     // Add more page types here, but make sure you create a corresponding

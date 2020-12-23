@@ -92,5 +92,6 @@
 	"Search Users...": "Search Users...",
 	"Showing %s - %s of %s results": "Showing %s - %s of %s results",
 	"Last Updated": "Last Updated",
-	"MM/DD/YY[ at ]h:mma": "MM/DD/YY[ at ]h:mma"
+	"MM/DD/YY[ at ]h:mma": "MM/DD/YY[ at ]h:mma",
+	"Resources Module": "Resources Module"
 }
