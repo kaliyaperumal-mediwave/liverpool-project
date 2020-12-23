@@ -55,11 +55,6 @@ $header-font-size: 32px;
 body {
   font-family: "century-gothic" !important;
 
-  [contentEditable="true"]:empty:not(:focus):before {
-    content: attr(place-text);
-    color: grey;
-  }
-
   .ui-widget.ui-widget-content {
     border: none !important;
   }
@@ -109,26 +104,81 @@ body {
   }
 }
 
-.header-title {
-  @include set-titleStyles($primary-font-size, bold, $header-text-color);
+/* Landing Page style start */
+
+.home-primarySearch-bg {
+  @include set-bgOnly($secondary-color);
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
 }
 
-.search {
+.secondary {
+  .input-group {
+    .form-control {
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+    }
+  }
+}
+
+.input-group {
+  .form-control {
+    @include set-borderRadius(0px, "topParallel");
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+  }
+}
+
+.home-secondarySearch-bg {
+  @include set-bgOnly($search-bar-color);
+  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+.home-header-primary {
+  @include set-titleStyles($primary-lgFont-size, bold, $primary-color);
+}
+
+.home-header-secondary {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+}
+
+.home-primary-content-bg {
+  @include set-cardStyle($secondary-color, "", "", 14px, "no");
+}
+
+.home-primary-content {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+}
+
+.home-search-area {
   @include set-bgOnly($secondary-color);
 }
 
-.home-header-title {
-  @include set-titleStyles($primary-lgfont-size, bold, $primary-color);
+.primary-search-radius {
+  @include set-borderRadius(10px, "all");
 }
 
-.home-headerlink {
-  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
+.home-card-radius {
+  @include set-borderRadius(14px, "bottom");
 }
 
-.home-content-text {
-  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
-  font-style: normal !important;
-  font-variant: normal !important;
+.home-referral-primary {
+  @include set-titleStyles($primary-mdFont-size, bold, $secondary-color);
+}
+
+.home-referral-secondary {
+  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
+}
+
+/* Landing Page style end */
+
+.header-title {
+  @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }
 
 .completed-toast-text {
@@ -282,23 +332,6 @@ body {
 
 .secondary-content-area {
   @include set-cardStyle($secondary-color, "", "", 24px, "no");
-}
-
-.home-primary-content-area {
-  @include set-cardStyle($secondary-color, "", "", 14px, "no");
-}
-
-.home-search-area {
-  @include set-bgOnly($secondary-color);
-}
-
-.serach-radius {
-  @include set-borderRaduis(10px);
-}
-
-.home-card-radius {
-  border-bottom-left-radius: 14px !important;
-  border-bottom-right-radius: 14px !important;
 }
 
 .text-color-secondary {
