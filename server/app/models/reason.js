@@ -1,5 +1,5 @@
 module.exports = function modelReferral(sequelize, types) {
-    const Referral = sequelize.define('Referral', {
+    const Reason = sequelize.define('Reason', {
       referral_type: {
         type: types.TEXT
       },
@@ -60,10 +60,10 @@ module.exports = function modelReferral(sequelize, types) {
       },
 
     }, {
-      tableName: 'referrals',
+      tableName: 'reasons',
     });
 
 
-    return Referral;
+    return Reason;
   };
   
