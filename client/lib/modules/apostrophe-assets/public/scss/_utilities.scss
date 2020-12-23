@@ -33,6 +33,14 @@
   }
 }
 
+@mixin set-bgOnly($color) {
+  background: $color 0% 0% no-repeat padding-box !important;
+}
+
+@mixin set-borderRaduis($radius) {
+  border-radius: $radius !important;
+}
+
 @mixin transform($property) {
   -webkit-transform: $property;
   -ms-transform: $property;

@@ -342,6 +342,9 @@ body {
   font-weight: bold;
   color: #ffffff; }
 
+.search {
+  background: #fafafa 0% 0% no-repeat padding-box !important; }
+
 .home-header-title {
   font-size: 40px;
   font-weight: bold;
@@ -541,6 +544,26 @@ body {
   opacity: 1;
   border-radius: 14px; }
 
+.home-search-area {
+  background: #fafafa 0% 0% no-repeat padding-box !important; }
+
+.serach-radius {
+  border-radius: 10px !important; }
+
+.home-card-radius {
+  border-bottom-left-radius: 14px !important;
+  border-bottom-right-radius: 14px !important; }
+
+.text-color-secondary {
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 0px;
+  color: #fafafa;
+  opacity: 1; }
+
+.image-height {
+  height: 90px !important; }
+
 .last-content-area {
   background: #fafafa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -602,7 +625,7 @@ body {
   .btn-txt {
     font-size: 22px !important; }
   .header-logo {
-    background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
+    background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
     width: 86px;
     height: 86px; }
   .img-class {
@@ -633,7 +656,7 @@ body {
   .btn-txt {
     font-size: 23px !important; }
   .header-logo {
-    background: url("/modules/my-apostrophe-assets/img/logo.png") no-repeat;
+    background: url("/modules/my-apostrophe-assets/img/liverpool.png") no-repeat;
     width: 86px;
     height: 86px; }
   .img-class {
@@ -644,19 +667,19 @@ body {
   .header-title {
     font-size: 24px !important; }
   .header-logo {
-    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
     height: 100px;
     width: 99px; } }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .header-logo {
-    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
     height: 112px;
     width: 111px; } }
 
 @media (min-width: 1200px) {
   .header-logo {
-    background: url("/modules/my-apostrophe-assets/img/des-logo.svg") no-repeat;
+    background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
     height: 112px;
     width: 111px; } }
 

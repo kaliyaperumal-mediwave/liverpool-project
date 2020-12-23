@@ -40,6 +40,7 @@ var apos = require('apostrophe')({
     'review-module': {},
     'role-module': {},
     'referral-complete-module': {},
+    'resources-module': {},
     'apostrophe-templates': { viewsFolderFallback: path.join(__dirname, 'views') }
 
   }
