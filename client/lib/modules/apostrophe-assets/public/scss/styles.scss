@@ -175,6 +175,10 @@ body {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
 }
 
+.height-50 {
+  height: 50px !important;
+}
+
 /* Landing Page style end */
 
 .header-title {

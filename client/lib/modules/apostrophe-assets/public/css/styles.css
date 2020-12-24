@@ -398,6 +398,9 @@ body {
   font-weight: bold;
   color: #fafafa; }
 
+.height-50 {
+  height: 50px !important; }
+
 /* Landing Page style end */
 .header-title {
   font-size: 32px;
