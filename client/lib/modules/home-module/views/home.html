@@ -4,11 +4,12 @@
 <script src="/modules/home-module/js/home.js"></script>
 {% endblock %}
 {% block main %}
-<div id="landing-page" class="">
-    <h2 class="home-header-primary text-center">CAMHS Services</h2>
-    <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
-
-    <div class="my-md-5 my-3">
+<div id="landing-page">
+    <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2">
+        <h2 class="home-header-primary text-center">CAMHS Services</h2>
+        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+    </div>
+    <div class="my-md-3 my-lg-5 my-xl-5 my-4">
         <div class="d-flex text-center py-2 my-2 py-md-4 my-md-3">
             <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto">
                 <div class="input-group">
@@ -26,7 +27,7 @@
         </div>
         <div class="d-flex text-center py-2">
             <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-                <h3 class="home-primary-content py-3 px-2 text-left">
+                <h3 class="home-primary-content m-0 py-3 px-2 text-left">
                     Liverpool CAMHS and Sefton services aims to promote the mental health and wellbeing of all children,
                     young
                     people, families and their carers.
@@ -36,7 +37,7 @@
     </div>
 
     <div class="d-flex py-2 mt-md-5 mt-3">
-        <div class="col-md-8 col-lg-6 col-xl-6 py-2 mx-auto">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 py-2 mx-auto">
             <div class="d-flex justify-content-center">
                 <div class="col-md-6 col-lg-6 p-0 mr-3 cursor-pointer home-primary-content-bg"
                     @click="navigatePage('/users/login')">
@@ -44,7 +45,7 @@
                         <img src="/modules/my-apostrophe-assets/img/MakeAReferral.svg" class="px-3 image-height" alt="">
                     </div>
                     <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="text-color-secondary px-1 px-md-3">Make a referral</span>
+                        <span class="home-secondary-content px-1 px-md-3">Make a referral</span>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 p-0 cursor-pointer home-primary-content-bg"
@@ -53,7 +54,7 @@
                         <img src="/modules/my-apostrophe-assets/img/UrgentHelp.svg" class="px-3 image-height " alt="">
                     </div>
                     <div class="text-center text-md-right py-1 py-1 sub-header-bg home-card-radius">
-                        <span class="text-color-secondary px-1 px-md-3">Urgent help</span>
+                        <span class="home-secondary-content px-1 px-md-3">Urgent help</span>
                     </div>
                 </div>
             </div>
@@ -61,7 +62,7 @@
     </div>
 
     <div class="d-flex py-2">
-        <div class="col-md-8 col-lg-6 col-12 py-2 mx-auto">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 py-2 mx-auto">
             <div class="d-flex justify-content-center">
                 <div class="col-md-6 col-lg-6 mr-3 p-0 cursor-pointer home-primary-content-bg"
                     @click="navigatePage('/users/login')">
@@ -69,7 +70,7 @@
                         <img src="/modules/my-apostrophe-assets/img/Login.svg" class="px-3 image-height" alt="">
                     </div>
                     <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="text-color-secondary px-1 px-md-3">Log in / Sign up</span>
+                        <span class="home-secondary-content px-1 px-md-3">Log in / Sign up</span>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6 cursor-pointer p-0 home-primary-content-bg"
@@ -78,7 +79,7 @@
                         <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height " alt="">
                     </div>
                     <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="text-color-secondary px-1 px-md-3">Resources</span>
+                        <span class="home-secondary-content px-1 px-md-3">Resources</span>
                     </div>
                 </div>
             </div>
@@ -86,14 +87,14 @@
     </div>
 
     <div class="d-flex py-2">
-        <div class="col-md-8 col-lg-6 col-12 py-2 cursor-pointer col-xl-6 py-2 mx-auto">
+        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
             <div class="d-flex justify-content-center">
                 <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/users/login')">
                     <div class="text-center py-5">
                         <img src="/modules/my-apostrophe-assets/img/MentalHealth.svg" class="px-3 image-height" alt="">
                     </div>
                     <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="text-color-secondary px-1 px-md-3">About mental health services</span>
+                        <span class="home-secondary-content px-1 px-md-3">About mental health services</span>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 @import "config";
 @import "utilities";
+@import "mediaQueries";
 @import "calendar";
 @import "radio";
 @import "checkbox";
@@ -104,7 +105,86 @@ body {
   }
 }
 
+/*Logo Height style Start */
+
+.height-50 {
+  height: 50px !important;
+  @include xs-screen {
+    height: 45px !important;
+  }
+  @include sm-screen {
+    height: 45px !important;
+  }
+  @include md-screen {
+    height: 45px !important;
+  }
+}
+
+.image-height {
+  height: 100px !important;
+  @include xs-screen {
+    height: 65px !important;
+  }
+  @include sm-screen {
+    height: 75px !important;
+  }
+}
+
+/*Logo Height style End */
+
 /* Landing Page style start */
+
+.home-header-primary {
+  @include set-titleStyles($primary-lgFont-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $primary-mdFont-size !important;
+    letter-spacing: 1.5px !important;
+  }
+  @include sm-screen {
+    font-size: $tertiary-lgFont-size !important;
+    letter-spacing: 1.5px !important;
+  }
+}
+
+.home-header-secondary {
+  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $quaternary-mdFont-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-font-size !important;
+    letter-spacing: 0.64px !important;
+  }
+}
+
+.home-primary-content {
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $quaternary-mdFont-size !important;
+    letter-spacing: 0.64px !important;
+  }
+   @include sm-screen {
+    font-size: $quaternary-font-size !important;
+    letter-spacing: 0.64px !important;
+  }
+}
+
+.home-secondary-content {
+  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
+  @include xs-screen {
+    font-size: $senary-font-size !important;
+  }
+  @include sm-screen {
+    text-align: right !important;
+  }
+}
+
+.home-secondarySearch-bg {
+  @include set-bgOnly($search-bar-color);
+  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
 
 .home-primarySearch-bg {
   @include set-bgOnly($secondary-color);
@@ -133,26 +213,8 @@ body {
   }
 }
 
-.home-secondarySearch-bg {
-  @include set-bgOnly($search-bar-color);
-  border-bottom-right-radius: 10px !important;
-  border-top-right-radius: 10px !important;
-}
-
-.home-header-primary {
-  @include set-titleStyles($primary-lgFont-size, bold, $primary-color);
-}
-
-.home-header-secondary {
-  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
-}
-
 .home-primary-content-bg {
   @include set-cardStyle($secondary-color, "", "", 14px, "no");
-}
-
-.home-primary-content {
-  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
 }
 
 .home-search-area {
@@ -173,10 +235,6 @@ body {
 
 .home-referral-secondary {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
-}
-
-.height-50 {
-  height: 50px !important;
 }
 
 /* Landing Page style end */
@@ -344,10 +402,6 @@ body {
   letter-spacing: 0px;
   color: #fafafa;
   opacity: 1;
-}
-
-.image-height {
-  height: 90px !important;
 }
 
 .last-content-area {
