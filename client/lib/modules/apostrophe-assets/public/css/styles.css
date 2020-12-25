@@ -368,6 +368,10 @@ body {
       letter-spacing: 1.5px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .home-header-primary {
+      font-size: 32px !important;
+      letter-spacing: 1.5px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-header-primary {
       font-size: 36px !important;
       letter-spacing: 1.5px !important; } }
 
@@ -383,6 +387,10 @@ body {
     .home-header-secondary {
       font-size: 18px !important;
       letter-spacing: 0.64px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-header-secondary {
+      font-size: 22px !important;
+      letter-spacing: 1.5px !important; } }
 
 .home-primary-content {
   font-size: 22px;
@@ -396,6 +404,10 @@ body {
     .home-primary-content {
       font-size: 18px !important;
       letter-spacing: 0.64px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-primary-content {
+      font-size: 20px !important;
+      letter-spacing: 0.64px !important; } }
 
 .home-secondary-content {
   font-size: 18px;
@@ -407,6 +419,34 @@ body {
   @media (min-width: 576px) and (max-width: 767.98px) {
     .home-secondary-content {
       text-align: right !important; } }
+
+.home-referral-primary {
+  font-size: 30px;
+  font-weight: bold;
+  color: #fafafa; }
+  @media (max-width: 575.98px) {
+    .home-referral-primary {
+      font-size: 26px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .home-referral-primary {
+      font-size: 26px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-referral-primary {
+      font-size: 28px !important; } }
+
+.home-referral-secondary {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fafafa; }
+  @media (max-width: 575.98px) {
+    .home-referral-secondary {
+      font-size: 14px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .home-referral-secondary {
+      font-size: 16px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-referral-secondary {
+      font-size: 16px !important; } }
 
 .home-secondarySearch-bg {
   background: #b0bec5 0% 0% no-repeat padding-box !important;
@@ -445,16 +485,6 @@ body {
 .home-card-radius {
   border-bottom-left-radius: 14px !important;
   border-bottom-right-radius: 14px !important; }
-
-.home-referral-primary {
-  font-size: 30px;
-  font-weight: bold;
-  color: #fafafa; }
-
-.home-referral-secondary {
-  font-size: 18px;
-  font-weight: bold;
-  color: #fafafa; }
 
 /* Landing Page style end */
 .header-title {

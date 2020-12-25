@@ -141,7 +141,11 @@ body {
     letter-spacing: 1.5px !important;
   }
   @include sm-screen {
-    font-size: $tertiary-lgFont-size !important;
+    @include set-dynamicFont($primary-lgFont-size, 8);
+    letter-spacing: 1.5px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($primary-lgFont-size, 4);
     letter-spacing: 1.5px !important;
   }
 }
@@ -156,6 +160,10 @@ body {
     font-size: $quaternary-font-size !important;
     letter-spacing: 0.64px !important;
   }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-font-size, 2);
+    letter-spacing: 1.5px !important;
+  }
 }
 
 .home-primary-content {
@@ -164,8 +172,12 @@ body {
     font-size: $quaternary-mdFont-size !important;
     letter-spacing: 0.64px !important;
   }
-   @include sm-screen {
+  @include sm-screen {
     font-size: $quaternary-font-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-mdFont-size, 2);
     letter-spacing: 0.64px !important;
   }
 }
@@ -177,6 +189,35 @@ body {
   }
   @include sm-screen {
     text-align: right !important;
+  }
+  // @include md-screen {
+  //   @include set-dynamicFont($quaternary-font-size, 2);
+  // }
+}
+
+.home-referral-primary {
+  @include set-titleStyles($primary-mdFont-size, bold, $secondary-color);
+  @include xs-screen {
+    font-size: $secondary-mdFont-size !important;
+  }
+  @include sm-screen {
+    font-size: $secondary-mdFont-size !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($primary-mdFont-size, 2);
+  }
+}
+
+.home-referral-secondary {
+  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
+  @include xs-screen {
+    font-size: $quinary-font-size !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-mdFont-size !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($quaternary-font-size, 2);
   }
 }
 
@@ -227,14 +268,6 @@ body {
 
 .home-card-radius {
   @include set-borderRadius(14px, "bottom");
-}
-
-.home-referral-primary {
-  @include set-titleStyles($primary-mdFont-size, bold, $secondary-color);
-}
-
-.home-referral-secondary {
-  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
 }
 
 /* Landing Page style end */

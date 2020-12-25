@@ -37,6 +37,11 @@
   background: $color 0% 0% no-repeat padding-box !important;
 }
 
+//set dynamic font size font size
+@mixin set-dynamicFont($size, $subValue) {
+  font-size: $size - $subValue !important;
+}
+
 //set dynamic border radius
 @mixin set-borderRadius($radius, $position) {
   @if ($position == "top") {
