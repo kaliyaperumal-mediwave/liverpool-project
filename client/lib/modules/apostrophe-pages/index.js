@@ -46,6 +46,10 @@ module.exports = {
     {
       name: 'resources-module',
       label: 'Resources Module'
+    },
+    {
+      name: 'dashboard-module',
+      label: 'Dashboard Module'
     }
 
     // Add more page types here, but make sure you create a corresponding

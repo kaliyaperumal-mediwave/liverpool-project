@@ -272,6 +272,19 @@ body {
 
 /* Landing Page style end */
 
+.progress {
+  @include set-bgOnly(#494833);
+
+}
+
+.progress-radius {
+  @include set-borderRadius($senary-font-size, all);
+}
+
+.progress-bg {
+  @include set-bgOnly($quaternary-color);
+}
+
 .header-title {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }

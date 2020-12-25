@@ -33,6 +33,7 @@ var apos = require('apostrophe')({
     },
     'auth-module': {},
     'about-module': {},
+    'dashboard-module': {},
     'home-module': {},
     'referral-home-module': {},
     'referral-module': {},

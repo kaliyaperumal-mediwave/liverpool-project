@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+<script src="/modules/dashboard-module/js/dashboard.js"></script>
+{% endblock %}
+{% block main %}
+<div id="dashboard-page">
+    <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2">
+        <h2 class="home-header-primary text-center">CAMHS Services</h2>
+        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+    </div>
+    <div class="my-md-3 my-lg-5 my-xl-5 my-4">
+        <div class="d-flex text-center py-2 my-2 py-md-4 my-md-3">
+            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto">
+                <div class="input-group">
+                    <span class="input-group-prepend">
+                        <div class="home-primarySearch-bg input-group-text  border-right-0">
+                            <span style="color: #023047 !important;">
+                                <i class="fa fa-search font-23"></i>
+                            </span>
+                        </div>
+                    </span>
+                    <input class="home-primarySearch-bg border-0 form-control py-2" type="search"
+                        placeholder="Search your platform" id="example-search-input">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex text-center py-2">
+            <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+                <h3 class="home-primary-content m-0 py-3 px-2 text-left">
+                    Liverpool CAMHS and Sefton services aims to promote the mental health and wellbeing of all children,
+                    young
+                    people, families and their carers.
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex py-2">
+        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/resources')">
+                    <div class="text-center py-5">
+                        <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height " alt="">
+                    </div>
+                    <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
+                        <span class="home-secondary-content px-1 px-md-3">Resources</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex py-2">
+        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mentalHealth')">
+                    <div class="text-center py-5">
+                        <img src="/modules/my-apostrophe-assets/img/MentalHealth.svg" class="px-3 image-height" alt="">
+                    </div>
+                    <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
+                        <span class="home-secondary-content px-1 px-md-3">About mental health services</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sub-header-bg my-5">
+        <div class="col-md-9 col-lg-7 col-xl-7 py-3 col-12 mx-auto">
+            <div class="py-3 py-md-4">
+                <div class="row w-100 mx-auto">
+                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
+                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
+                        <p class="home-referral-secondary my-2 my-md-3">Check and view the status of your referrals</p>
+                    </div>
+                </div>
+                <div class="row py-3 w-100 mx-auto">
+                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto secondary">
+                        <div class="input-group">
+                            <span class="input-group-prepend">
+                                <div class="home-primarySearch-bg input-group-text  border-right-0">
+                                    <span style="color: #023047 !important;">
+                                        <i class="fa fa-search font-23"></i>
+                                    </span>
+                                </div>
+                            </span>
+                            <input class="home-primarySearch-bg form-control py-2" type="search"
+                                placeholder="Search referrals" id="searchAllreferrals">
+                            <span class="input-group-append">
+                                <div class="home-secondarySearch-bg input-group-text">
+                                    <span class="px-2 font-weight-bold">Search</span>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9 col-lg-7 col-xl-7 col-12 mx-auto">
+            <div class="py-3 py-md-4 py-lg-3 py-xl-3">
+                <div class="row w-100 mx-auto">
+                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
+                        <h2 class="home-referral-primary my-2 my-md-3">Progress of referral</h2>
+                        <p class="home-referral-secondary my-2 my-md-3">You have completed 60% of your referral</p>
+                    </div>
+                </div>
+                <div class="row py-3 w-100 mx-auto">
+                    <div class="col-md-9 col-lg-7 text-center col-xl-6 col-11 mx-auto secondary">
+                        <div class="progress-radius progress">
+                            <div class="progress-bg progress-bar" role="progressbar" style="width: 75%"
+                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span
+                                    class="link-text"></span></div>
+                        </div>
+                        <div class="py-4 text-left">
+                            <button type="button" @click="resetModal('add')" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-quaternary-text">CONTINUE REFERRAL
+                                </span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
