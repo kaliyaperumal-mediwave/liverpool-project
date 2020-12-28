@@ -1,0 +1,45 @@
+fieldset,
+label {
+    margin: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 20px !important;
+}
+
+.rating [type="radio"] {
+    border: none !important;
+    float: left !important;
+}
+
+.rating > input {
+    display: none !important;
+}
+
+.rating > label:before {
+    margin: 5px !important;
+    font-size: 1.25em !important;
+    font-family: FontAwesome !important;
+    display: inline-block !important;
+    content: "\f005" !important;
+}
+
+.rating > .half:before {
+    content: "\f089" !important;
+    position: absolute !important;
+}
+
+.rating > label {
+    color: #ddd !important;
+    float: right !important;
+}
+
+.rating>input:checked~label,
+  
+  /* show gold star when clicked */
+  
+  .rating:not(:checked)>label:hover,
+  
+  /* hover current star */
+  
+  .rating:not(:checked)>label:hover~label {
+    color: #ffd700 !important;
+}

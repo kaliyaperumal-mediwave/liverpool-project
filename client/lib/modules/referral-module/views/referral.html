@@ -10,7 +10,22 @@
     <div class="main-content-bg py-4 main-min-height">
         <div class="overlay" id="loader">
             <div class="overlay__inner">
-                <div class="overlay__content"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
@@ -117,7 +132,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listDiagnosis" v-model="diagnosisList"
                                 v-bind:value="item.value" @change="onOptionChange($event,item)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -173,7 +188,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listProblems" v-bind:value="item.value"
                                 v-model="problemsList" v-bind:checked="item.isActive" @change="onOptionChange($event)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -304,7 +319,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listService" v-bind:value="item.value"
                                 v-model="accessList" @change="onOptionChange($event)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>

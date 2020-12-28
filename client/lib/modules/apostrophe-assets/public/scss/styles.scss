@@ -1,6 +1,7 @@
 @import "config";
 @import "utilities";
 @import "mediaQueries";
+@import "starRating";
 @import "calendar";
 @import "radio";
 @import "checkbox";
@@ -74,6 +75,10 @@ body {
 
   .h-112 {
     height: 112px !important;
+  }
+
+  .h-300 {
+    height: 300px !important;
   }
 
   .font-23 {

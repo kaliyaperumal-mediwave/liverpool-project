@@ -4,6 +4,39 @@
   letter-spacing: 0px;
   opacity: 1; }
 
+fieldset,
+label {
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 20px !important; }
+
+.rating [type="radio"] {
+  border: none !important;
+  float: left !important; }
+
+.rating > input {
+  display: none !important; }
+
+.rating > label:before {
+  margin: 5px !important;
+  font-size: 1.25em !important;
+  font-family: FontAwesome !important;
+  display: inline-block !important;
+  content: "\f005" !important; }
+
+.rating > .half:before {
+  content: "\f089" !important;
+  position: absolute !important; }
+
+.rating > label {
+  color: #ddd !important;
+  float: right !important; }
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #ffd700 !important; }
+
 .bootstrap-datetimepicker-widget tr {
   border-radius: 0px !important; }
 
@@ -62,27 +95,27 @@
   opacity: 1 !important; }
 
 /* Radio Button Global classes */
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before, [type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {
+.form-check [type="radio"]:checked + label:before,
+.form-check [type="radio"]:not(:checked) + label:before, .form-check [type="radio"]:checked + label:after, .form-check [type="radio"]:not(:checked) + label:after {
   content: "";
   position: absolute;
   border-radius: 102px;
   opacity: 1; }
 
-[type="radio"]:checked, [type="radio"]:not(:checked) {
+.form-check [type="radio"]:checked, .form-check [type="radio"]:not(:checked) {
   position: absolute;
   left: -9999px; }
 
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label {
+.form-check [type="radio"]:checked + label,
+.form-check [type="radio"]:not(:checked) + label {
   position: relative;
   padding-left: 56px;
   cursor: pointer;
   height: 40px;
   display: inline-block; }
 
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
+.form-check [type="radio"]:checked + label:before,
+.form-check [type="radio"]:not(:checked) + label:before {
   width: 40px;
   height: 40px;
   top: 0;
@@ -90,7 +123,7 @@
   background: #e8edee 0% 0% no-repeat padding-box;
   border: 1px solid #023047; }
 
-[type="radio"]:checked + label:after {
+.form-check [type="radio"]:checked + label:after {
   width: 22px;
   height: 22px;
   top: 9px;
@@ -103,7 +136,7 @@
   transition: all 0.2s ease;
   padding: 2px; }
 
-[type="radio"]:not(:checked) + label:after {
+.form-check [type="radio"]:not(:checked) + label:after {
   width: 22px;
   height: 22px;
   top: 9px;
@@ -121,7 +154,7 @@
   -o-transform: scale(0);
   transform: scale(0); }
 
-[type="radio"]:checked + label:after {
+.form-check [type="radio"]:checked + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
@@ -325,6 +358,8 @@ body {
     z-index: 10000 !important; }
   body .h-112 {
     height: 112px !important; }
+  body .h-300 {
+    height: 300px !important; }
   body .font-23 {
     font-size: 20px !important; }
   body .font-25 {
