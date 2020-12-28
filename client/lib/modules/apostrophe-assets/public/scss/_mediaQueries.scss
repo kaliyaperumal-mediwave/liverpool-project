@@ -32,3 +32,8 @@
         @content;
     }
 }
+@mixin xxl-screen {
+    @media (min-width: 1900px) {
+        @content;
+    }
+}

@@ -472,6 +472,13 @@ body {
   border-top-left-radius: 10px !important;
   border-bottom-left-radius: 10px !important; }
 
+.home-primarySearch-bg::placeholder {
+  font-size: 16px;
+  color: #023047 !important; }
+  @media (min-width: 1200px) {
+    .home-primarySearch-bg::placeholder {
+      color: #707070 !important; } }
+
 .secondary .input-group .form-control {
   border-top-left-radius: 0px !important;
   border-bottom-left-radius: 0px !important;
@@ -1170,18 +1177,80 @@ body {
 select.selectIcon {
   padding: 10px; }
 
-.top-arrow {
-  padding: 40px 0px 0px 0px; }
+.top-arrow-container {
+  padding: 40px 24px 24px 24px;
+  max-width: 375px;
+  margin: auto; }
 
 .leftArrow {
-  font-size: 40px; }
+  font-size: 36px;
+  padding-bottom: 6px; }
+
+.resource_text {
+  color: #023047;
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 26px; }
+  @media (min-width: 1200px) {
+    .resource_text {
+      font-size: 36px; } }
+  @media (min-width: 1900px) {
+    .resource_text {
+      font-size: 45px; } }
+
+.height-44 {
+  height: 44px !important; }
+
+.text_inside_cont {
+  margin-top: 30px;
+  margin-bottom: 60px;
+  padding: 30px;
+  background-color: #fafafa;
+  color: #023047;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold; }
+  @media (min-width: 1900px) {
+    .text_inside_cont {
+      font-size: 22px; } }
+
+.selectSource {
+  font-size: 25px;
+  font-weight: bold;
+  padding-bottom: 20px; }
+
+.resource-cont {
+  background-color: #023047;
+  width: 100%; }
+
+.pieceCont {
+  padding: 6px; }
+
+.insidePieceCont {
+  font-size: 14px;
+  font-weight: bold;
+  color: #023047;
+  padding: 10px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  min-width: 130px;
+  min-height: 130px; }
+
+@media (min-width: 550px) and (max-width: 768px) {
+  .top-arrow-container {
+    padding: 40px 24px 24px 24px;
+    max-width: 500px;
+    margin: auto; } }
 
 @media (min-width: 769px) {
   .footer-container {
     max-width: 750px;
     margin: auto; }
   .login-container {
-    padding: 40px 38px !important; } }
+    padding: 40px 38px !important; }
+  .top-arrow-container {
+    padding: 80px 24px 24px 24px;
+    max-width: 700px; } }
 
 @media (min-width: 320px) and (max-width: 375px) {
   .logo {
@@ -1242,7 +1311,10 @@ select.selectIcon {
     padding-top: 40px;
     padding-bottom: 70px; }
   .footer-text {
-    padding: 20px 0px; } }
+    padding: 20px 0px; }
+  .top-arrow-container {
+    padding: 104px 24px 24px 24px;
+    max-width: 943px; } }
 
 @media (min-width: 1400px) {
   .fontHeader {
