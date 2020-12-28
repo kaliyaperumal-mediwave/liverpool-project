@@ -28,6 +28,7 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (Object.keys(successData)) {
                         console.log(successData);
+                        location.href = redirectUrl(location.href, "dashboard", successData.data.sendReferralResult.loginId, "child");
                     } else {
                         console.log('empty response')
                     }

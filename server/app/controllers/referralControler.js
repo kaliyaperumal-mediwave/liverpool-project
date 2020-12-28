@@ -2,7 +2,7 @@ const P = require("pino");
 var uniqid = require('uniqid');
 const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
-
+const Op = require('sequelize').Op;
 exports.eligibility = ctx => {
   const user = ctx.orm().Referral;
   var userid;
@@ -2244,14 +2244,16 @@ exports.updateEligibilityInfo = ctx => {
 //for login user
 
 exports.getIncompleteReferral = ctx => {
+  console.log("=====================")
   const userReferral = ctx.orm().Referral;
   const refId = [];
   const childDataId = [];
   const parentDataId = [];
   const professionalDataId = [];
+  console.log(ctx.query)
   return userReferral.findAll({
     where: {
-      login_id: ctx.query.login_id,
+      login_id: ctx.query.loginId,
       user_role: ctx.query.userRole
     },
     attributes: ['id', 'user_role']
@@ -2259,9 +2261,9 @@ exports.getIncompleteReferral = ctx => {
     //
     userData.forEach(
       (user) => {
-
         refId.push(user.dataValues.id)
       })
+      console.log(refId)
     if (ctx.query.userRole == "child") {
       return userReferral.findAll({
         where: {
@@ -2383,6 +2385,7 @@ exports.getIncompleteReferral = ctx => {
   })
 }
 exports.getUserReferral = ctx => {
+  console.log("=====================")
   const ref = ctx.orm().Referral;
   return ref.findAll({
       where: {
@@ -2407,4 +2410,15 @@ exports.getUserReferral = ctx => {
       })
       return ctx.body = finalObj
     })
+}
+function convertDate(date) {
+  var yyyy = date.getFullYear().toString();
+  var mm = (date.getMonth()+1).toString();
+  var dd  = date.getDate().toString();
+
+  var mmChars = mm.split('');
+  var ddChars = dd.split('');
+  return (ddChars[1]?dd:"0"+ddChars[0]) + '-' + (mmChars[1]?mm:"0"+mmChars[0])+ '-' +  yyyy   ;
+
+  return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
 }
