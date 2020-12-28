@@ -2382,3 +2382,29 @@ exports.getIncompleteReferral = ctx => {
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   })
 }
+exports.getUserReferral = ctx => {
+  const ref = ctx.orm().Referral;
+  return ref.findAll({
+      where: {
+          referral_progress: {
+            [Op.ne]: null
+          }
+        },
+        order: [
+          ['createdAt', 'DESC'],
+      ],
+    }).then((result) => {
+
+      let finalObj = {}
+      result.forEach((games) => {
+          const date = convertDate(games.createdAt)
+        console.log(date)
+        if (finalObj[date]) {
+          finalObj[date].push(games);
+        } else {
+          finalObj[date] = [games];
+        }
+      })
+      return ctx.body = finalObj
+    })
+}

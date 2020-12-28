@@ -5,7 +5,7 @@ const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
+const Op = require('sequelize').Op;
 exports.signup = async (ctx) => {
     var responseData = {}
     const { error } = registerValidation(ctx.request.body);
@@ -101,4 +101,14 @@ exports.login = async (ctx) => {
     }
 
 }
-
+function convertDate(date) {
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth()+1).toString();
+    var dd  = date.getDate().toString();
+  
+    var mmChars = mm.split('');
+    var ddChars = dd.split('');
+    return (ddChars[1]?dd:"0"+ddChars[0]) + '-' + (mmChars[1]?mm:"0"+mmChars[0])+ '-' +  yyyy   ;
+  
+    return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
+  }
