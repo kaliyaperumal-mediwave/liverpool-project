@@ -5,7 +5,7 @@
 {% endblock %}
 {% block main %}
 <div id="feedback-page">
-    <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2">
+    <div class="mt-xl-4 mt-lg-4 mt-md-5 mt-3">
         <h2 class="home-header-primary text-center">Feedback</h2>
     </div>
     <div class="my-md-3 my-lg-5 my-xl-5 my-4">
@@ -38,7 +38,7 @@
             <h3 class="home-primary-content m-0 py-3 px-2 text-left">
                 How satisfied are you with the platform?
             </h3>
-            <fieldset class="rating">
+            <fieldset class="rating m-0">
                 <input type="radio" id="5star" name="rating" value="5" />
                 <label class="full" for="5star" title="Excellent"></label>
 
@@ -82,7 +82,7 @@
                     rows="4"></textarea>
             </div>
             <div class="py-4 text-center">
-                <button type="button" @click="resetModal('add')" class="btn px-md-4 py-1 px-3"><span
+                <button type="button" @click="sendFeedback()" class="btn px-md-4 py-1 px-3"><span
                         class="btn-quaternary-text">SUMBIT
                     </span></button>
             </div>
