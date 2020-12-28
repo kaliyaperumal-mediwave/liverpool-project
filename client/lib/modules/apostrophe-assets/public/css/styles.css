@@ -1036,6 +1036,12 @@ body {
 select.selectIcon {
   padding: 10px; }
 
+.top-arrow {
+  padding: 40px 0px 0px 0px; }
+
+.leftArrow {
+  font-size: 40px; }
+
 @media (min-width: 769px) {
   .footer-container {
     max-width: 750px;
