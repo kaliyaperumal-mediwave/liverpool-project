@@ -1,5 +1,6 @@
 @import "config";
 @import "utilities";
+@import "mediaQueries";
 @import "calendar";
 @import "radio";
 @import "checkbox";
@@ -55,11 +56,6 @@ $header-font-size: 32px;
 body {
   font-family: "century-gothic" !important;
 
-  [contentEditable="true"]:empty:not(:focus):before {
-    content: attr(place-text);
-    color: grey;
-  }
-
   .ui-widget.ui-widget-content {
     border: none !important;
   }
@@ -109,26 +105,188 @@ body {
   }
 }
 
-.header-title {
-  @include set-titleStyles($primary-font-size, bold, $header-text-color);
+/*Logo Height style Start */
+
+.height-50 {
+  height: 50px !important;
+  @include xs-screen {
+    height: 45px !important;
+  }
+  @include sm-screen {
+    height: 45px !important;
+  }
+  @include md-screen {
+    height: 45px !important;
+  }
 }
 
-.search {
+.image-height {
+  height: 100px !important;
+  @include xs-screen {
+    height: 65px !important;
+  }
+  @include sm-screen {
+    height: 75px !important;
+  }
+}
+
+/*Logo Height style End */
+
+/* Landing Page style start */
+
+.home-header-primary {
+  @include set-titleStyles($primary-lgFont-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $primary-mdFont-size !important;
+    letter-spacing: 1.5px !important;
+  }
+  @include sm-screen {
+    @include set-dynamicFont($primary-lgFont-size, 8);
+    letter-spacing: 1.5px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($primary-lgFont-size, 4);
+    letter-spacing: 1.5px !important;
+  }
+}
+
+.home-header-secondary {
+  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $quaternary-mdFont-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-font-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-font-size, 2);
+    letter-spacing: 1.5px !important;
+  }
+}
+
+.home-primary-content {
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $quaternary-mdFont-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-font-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-mdFont-size, 2);
+    letter-spacing: 0.64px !important;
+  }
+}
+
+.home-secondary-content {
+  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
+  @include xs-screen {
+    font-size: $senary-font-size !important;
+  }
+  @include sm-screen {
+    text-align: right !important;
+  }
+  // @include md-screen {
+  //   @include set-dynamicFont($quaternary-font-size, 2);
+  // }
+}
+
+.home-referral-primary {
+  @include set-titleStyles($primary-mdFont-size, bold, $secondary-color);
+  @include xs-screen {
+    font-size: $secondary-mdFont-size !important;
+  }
+  @include sm-screen {
+    font-size: $secondary-mdFont-size !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($primary-mdFont-size, 2);
+  }
+}
+
+.home-referral-secondary {
+  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
+  @include xs-screen {
+    font-size: $quinary-font-size !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-mdFont-size !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($quaternary-font-size, 2);
+  }
+}
+
+.home-secondarySearch-bg {
+  @include set-bgOnly($search-bar-color);
+  border-bottom-right-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+}
+
+.home-primarySearch-bg {
+  @include set-bgOnly($secondary-color);
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+}
+
+.secondary {
+  .input-group {
+    .form-control {
+      border-top-left-radius: 0px !important;
+      border-bottom-left-radius: 0px !important;
+      border-top-right-radius: 0px !important;
+      border-bottom-right-radius: 0px !important;
+    }
+  }
+}
+
+.input-group {
+  .form-control {
+    @include set-borderRadius(0px, "topParallel");
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+  }
+}
+
+.home-primary-content-bg {
+  @include set-cardStyle($secondary-color, "", "", 14px, "no");
+}
+
+.home-search-area {
   @include set-bgOnly($secondary-color);
 }
 
-.home-header-title {
-  @include set-titleStyles($primary-lgfont-size, bold, $primary-color);
+.primary-search-radius {
+  @include set-borderRadius(10px, "all");
 }
 
-.home-headerlink {
-  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
+.home-card-radius {
+  @include set-borderRadius(14px, "bottom");
 }
 
-.home-content-text {
-  @include set-titleStyles($modalbtn-font-size, bold, $primary-color);
-  font-style: normal !important;
-  font-variant: normal !important;
+/* Landing Page style end */
+
+.progress {
+  @include set-bgOnly(#494833);
+
+}
+
+.progress-radius {
+  @include set-borderRadius($senary-font-size, all);
+}
+
+.progress-bg {
+  @include set-bgOnly($quaternary-color);
+}
+
+.header-title {
+  @include set-titleStyles($primary-font-size, bold, $header-text-color);
 }
 
 .completed-toast-text {
@@ -284,33 +442,12 @@ body {
   @include set-cardStyle($secondary-color, "", "", 24px, "no");
 }
 
-.home-primary-content-area {
-  @include set-cardStyle($secondary-color, "", "", 14px, "no");
-}
-
-.home-search-area {
-  @include set-bgOnly($secondary-color);
-}
-
-.serach-radius {
-  @include set-borderRaduis(10px);
-}
-
-.home-card-radius {
-  border-bottom-left-radius: 14px !important;
-  border-bottom-right-radius: 14px !important;
-}
-
 .text-color-secondary {
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 0px;
   color: #fafafa;
   opacity: 1;
-}
-
-.image-height {
-  height: 90px !important;
 }
 
 .last-content-area {
@@ -436,7 +573,7 @@ body {
     font-size: 23px !important;
   }
   .header-logo {
-    background: url("/modules/my-apostrophe-assets/img/liverpool.png") no-repeat;
+    background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
     width: 86px;
     height: 86px;
   }
