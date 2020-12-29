@@ -5,7 +5,8 @@
 
 //   }
 // };
-
+const { btoa } = require('../../utils')
+const { atob } = require('../../utils')
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Dashboard Module',
@@ -17,15 +18,20 @@ module.exports = {
       self.dispatch('/', self.landing);
     };
     self.landing = function (req, callback) {
+      const getParams = req.url.substring(req.url.indexOf("?") + 1);
+      const deCodeParameter = atob(getParams);
+      let decodeValues = deCodeParameter.split("&");
+      console.log("getParams: "+"/role?"+deCodeParameter)
       return self.sendPage(req, self.renderer('dashboard', {
         showHeader: true,
+        navigateMkeRfrl:"/role?"+btoa(deCodeParameter),
         home: true
       }));
     };
     require('../../middleware')(self, options);
     self.route('get', 'getIncompleteReferral/:loginId/:userRole', function (req, res) {
-      console.log(req.params.loginId); 
-      console.log(req.params.userRole); 
+     // console.log(req.params.loginId); 
+     // console.log(req.params.userRole); 
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral?loginId=' +  req.params.loginId +"&userRole=" +req.params.userRole;
       console.log("-------");
       console.log(url);

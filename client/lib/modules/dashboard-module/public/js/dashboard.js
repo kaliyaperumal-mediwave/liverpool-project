@@ -48,6 +48,9 @@ $(document).ready(function () {
             navigatePage: function (route) {
                 this.location.href = this.location.origin + route;
             },
+            newReferral: function () {
+
+            }
         }
 
     })
