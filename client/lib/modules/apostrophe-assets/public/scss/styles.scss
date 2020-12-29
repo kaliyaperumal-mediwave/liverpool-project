@@ -225,6 +225,14 @@ body {
     @include set-dynamicFont($quaternary-font-size, 2);
   }
 }
+.referral-inside-text{
+  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
+    font-size:17px !important;
+    font-weight: 400 !important;
+  @include xl-screen {
+    font-weight: bold !important;
+  }
+}
 
 .home-secondarySearch-bg {
   @include set-bgOnly($search-bar-color);
@@ -996,9 +1004,20 @@ select.selectIcon {
   max-width: 375px;
   margin: auto;
 }
+.bottom-arrow-container{
+  padding: 50px 42px;
+  margin: auto;
+  width: inherit;
+  max-width: 425px;
+  margin: auto !important;
+}
 .leftArrow {
   font-size: 36px;
-  padding-bottom: 6px;
+  padding-bottom: 16px;
+  width: 30px;
+  @include xl-screen {
+    width: 36px;
+  }
 }
 .resource_text {
   color: #023047;
@@ -1031,27 +1050,52 @@ select.selectIcon {
 .selectSource {
   font-size: 25px;
   font-weight: bold;
-  padding-bottom: 20px;
 }
 .resource-cont {
   background-color: #023047;
   width: 100%;
 }
 .pieceCont {
-  padding: 6px;
+  padding: 6px !important;
+  @include xl-screen {
+    padding: 10px;
+  }
+  @include xxl-screen {
+    padding: 12px;
+  }
+  @include xxs-screen-between {
+    padding: 4px !important;
+  }
 }
 .insidePieceCont {
   font-size: 14px;
   font-weight: bold;
   color: #023047;
-  padding: 10px;
   background-color: #fafafa;
   border-radius: 10px;
-  min-width: 130px;
-  min-height: 130px;
+  @include xxs-screen-between {
+    font-size: 12px;
+  }
+  @include xl-screen {
+    border-radius: 14px;
+  }
+}
+.midTextRange {
+  position: absolute;
+  padding: 10px 0px 0px 10px;
+  width: 116px;
+  @include xxs-screen-between {
+    width: 90px;
+    padding: 7px 0px 0px 7px;
+  }
 }
 @media (min-width: 550px) and (max-width: 768px) {
   .top-arrow-container {
+    padding: 40px 24px 24px 24px;
+    max-width: 500px;
+    margin: auto;
+  }
+  .bottom-arrow-container{
     padding: 40px 24px 24px 24px;
     max-width: 500px;
     margin: auto;
@@ -1067,6 +1111,10 @@ select.selectIcon {
   }
   .top-arrow-container {
     padding: 80px 24px 24px 24px;
+    max-width: 700px;
+  }
+  .bottom-arrow-container {
+    padding: 50px 40px;
     max-width: 700px;
   }
 }
@@ -1095,6 +1143,10 @@ select.selectIcon {
   }
   .havingAccount {
     font-size: 16px;
+  }
+  .bottom-arrow-container {
+    padding:24px 16px;
+    max-width: 700px;
   }
 }
 //desktop design
@@ -1151,7 +1203,12 @@ select.selectIcon {
   }
   .top-arrow-container {
     padding: 104px 24px 24px 24px;
-    max-width: 943px;
+    max-width: 800px;
+  }
+  .bottom-arrow-container {
+    padding: 104px 0px;
+    max-width: 800px;
+    
   }
 }
 
@@ -1202,5 +1259,13 @@ select.selectIcon {
     width: 363px;
     height: 56px;
     font-size: 31px;
+  }
+  .top-arrow-container {
+    padding: 104px 24px 24px 24px;
+    max-width: 943px;
+  }
+  .bottom-arrow-container {
+    padding: 108px 0px;
+    max-width: 943px;
   }
 }

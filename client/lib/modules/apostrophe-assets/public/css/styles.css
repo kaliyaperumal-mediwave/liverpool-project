@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -461,6 +461,16 @@ body {
   @media (min-width: 768px) and (max-width: 991.98px) {
     .home-referral-secondary {
       font-size: 16px !important; } }
+
+.referral-inside-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fafafa;
+  font-size: 17px !important;
+  font-weight: 400 !important; }
+  @media (min-width: 1200px) {
+    .referral-inside-text {
+      font-weight: bold !important; } }
 
 .home-secondarySearch-bg {
   background: #b0bec5 0% 0% no-repeat padding-box !important;
@@ -1182,9 +1192,20 @@ select.selectIcon {
   max-width: 375px;
   margin: auto; }
 
+.bottom-arrow-container {
+  padding: 50px 42px;
+  margin: auto;
+  width: inherit;
+  max-width: 425px;
+  margin: auto !important; }
+
 .leftArrow {
   font-size: 36px;
-  padding-bottom: 6px; }
+  padding-bottom: 16px;
+  width: 30px; }
+  @media (min-width: 1200px) {
+    .leftArrow {
+      width: 36px; } }
 
 .resource_text {
   color: #023047;
@@ -1216,28 +1237,52 @@ select.selectIcon {
 
 .selectSource {
   font-size: 25px;
-  font-weight: bold;
-  padding-bottom: 20px; }
+  font-weight: bold; }
 
 .resource-cont {
   background-color: #023047;
   width: 100%; }
 
 .pieceCont {
-  padding: 6px; }
+  padding: 6px !important; }
+  @media (min-width: 1200px) {
+    .pieceCont {
+      padding: 10px; } }
+  @media (min-width: 1900px) {
+    .pieceCont {
+      padding: 12px; } }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .pieceCont {
+      padding: 4px !important; } }
 
 .insidePieceCont {
   font-size: 14px;
   font-weight: bold;
   color: #023047;
-  padding: 10px;
   background-color: #fafafa;
-  border-radius: 10px;
-  min-width: 130px;
-  min-height: 130px; }
+  border-radius: 10px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .insidePieceCont {
+      font-size: 12px; } }
+  @media (min-width: 1200px) {
+    .insidePieceCont {
+      border-radius: 14px; } }
+
+.midTextRange {
+  position: absolute;
+  padding: 10px 0px 0px 10px;
+  width: 116px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .midTextRange {
+      width: 90px;
+      padding: 7px 0px 0px 7px; } }
 
 @media (min-width: 550px) and (max-width: 768px) {
   .top-arrow-container {
+    padding: 40px 24px 24px 24px;
+    max-width: 500px;
+    margin: auto; }
+  .bottom-arrow-container {
     padding: 40px 24px 24px 24px;
     max-width: 500px;
     margin: auto; } }
@@ -1250,6 +1295,9 @@ select.selectIcon {
     padding: 40px 38px !important; }
   .top-arrow-container {
     padding: 80px 24px 24px 24px;
+    max-width: 700px; }
+  .bottom-arrow-container {
+    padding: 50px 40px;
     max-width: 700px; } }
 
 @media (min-width: 320px) and (max-width: 375px) {
@@ -1270,7 +1318,10 @@ select.selectIcon {
   .login-container {
     width: 300px; }
   .havingAccount {
-    font-size: 16px; } }
+    font-size: 16px; }
+  .bottom-arrow-container {
+    padding: 24px 16px;
+    max-width: 700px; } }
 
 @media (min-width: 1024px) {
   .redHeader {
@@ -1314,7 +1365,10 @@ select.selectIcon {
     padding: 20px 0px; }
   .top-arrow-container {
     padding: 104px 24px 24px 24px;
-    max-width: 943px; } }
+    max-width: 800px; }
+  .bottom-arrow-container {
+    padding: 104px 0px;
+    max-width: 800px; } }
 
 @media (min-width: 1400px) {
   .fontHeader {
@@ -1350,4 +1404,10 @@ select.selectIcon {
   .button-create-login {
     width: 363px;
     height: 56px;
-    font-size: 31px; } }
+    font-size: 31px; }
+  .top-arrow-container {
+    padding: 104px 24px 24px 24px;
+    max-width: 943px; }
+  .bottom-arrow-container {
+    padding: 108px 0px;
+    max-width: 943px; } }
