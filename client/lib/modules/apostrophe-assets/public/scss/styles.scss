@@ -225,6 +225,7 @@ body {
     @include set-dynamicFont($quaternary-font-size, 2);
   }
 }
+
 .referral-inside-text {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
   font-size: 17px !important;
@@ -245,6 +246,7 @@ body {
   border-top-left-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
 }
+
 .home-primarySearch-bg::placeholder {
   font-size: 16px;
   color: #023047 !important;

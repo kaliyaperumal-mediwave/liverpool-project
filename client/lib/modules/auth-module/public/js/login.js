@@ -45,7 +45,11 @@ $(document).ready(function () {
                 } else if ($('#loginPassword').attr("type") == "password") {
                     $('#loginPassword').attr('type', 'text');
                 }
-            }
+            },
+
+            navigatePage: function (route) {
+                window.location.href = window.location.origin + route;
+            },
 
         }
     })

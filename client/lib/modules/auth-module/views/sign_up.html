@@ -5,18 +5,130 @@
 {% endblock %}
 {% block main %}
 <div id="user_sign_up" class="main-min-height">
-    <div class="titleBig">
+    <div class="my-xl-5 my-lg-5 my-md-4 my-4">
+        <h2 class="home-header-primary text-center">CAMHS Services</h2>
+        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+    </div>
+
+    <!-- <div class="titleBig">
         <h1 class="fontHeader d-flex align-items-center justify-content-center">
             CAMHS Services
         </h1>
         <h3 class="subtitle d-flex align-items-center justify-content-center">
             Getting help is hard but we make it easy
         </h3>
+    </div> -->
+
+    <div class="home-primary-content-bg col-md-6 col-sm-11 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
+        <div class="col-md-7 col-12 py-4 mx-auto">
+            <form class="px-3 py-2 mb-1">
+
+                <div class="form-group py-2 m-0">
+                    <label for="firstName" class="auth-font my-2">First name</label>
+                    <input type="text" placeholder="Enter your first name" class="form-control auth-border"
+                        id="firstName" v-model="signUpObject.first_name">
+                    <div class="invalid-feedback d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.first_name),'invalid-fields':!signUpObject.first_name }">
+                        You must provide a first name.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                    <label for="lastName" class="auth-font my-2">Last name</label>
+                    <input type="text" placeholder="Enter your last name" class="form-control auth-border" id="lastName"
+                        v-model="signUpObject.last_name">
+                    <div class="invalid-feedback d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.last_name),'invalid-fields':!signUpObject.last_name }">
+                        You must provide a last name.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                    <label for="emailAddressAuth" class="auth-font my-2">My email address</label>
+                    <input type="email" placeholder="Enter your email address" class="form-control auth-border"
+                        id="emailAddressAuth" v-model="signUpObject.email">
+                    <div class="invalid-feedback d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.email),'invalid-fields':!signUpObject.email }">
+                        You must provide a email.
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.email && !emailRegex.test(signUpObject.email)),
+                    'invalid-fields':(signUpObject.email && !emailRegex.test(signUpObject.email)) }">
+                        You must provide a real valid email.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                    <label for="authRoles" class="auth-font my-2">Select role</label>
+                    <select class="custom-select form-control auth-border" v-model="signUpObject.role" name="legalCare">
+                        <option value="" selected disabled>Select role
+                        </option>
+                        <option value="Child">Child
+                        </option>
+                        <option value="parent">Parent
+                        </option>
+                        <option value="professional">Professional
+                        </option>
+                    </select>
+                    <div class="invalid-feedback d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.role),'invalid-fields':!signUpObject.role }">
+                        You must provide a role.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                    <label for="signUpPassword" class="auth-font my-2">Password</label>
+                    <div id="authForm">
+                        <div class="input-group">
+                            <input type="password" class="form-control auth-border py-2" id="signUpPassword"
+                                v-model="signUpObject.password" placeholder="Enter your password">
+                            <span class="input-group-append">
+                                <div class="input-group-text px-3">
+                                    <span style="color: #023047 !important;" class="cursor-pointer font-23"
+                                        @click="toggleVisibility()">
+                                        <template v-if="!showVisibility">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </template>
+                                        <template v-if="showVisibility">
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        </template>
+                                    </span>
+                                </div>
+                            </span>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.password),'invalid-fields':!signUpObject.password }">
+                                You must provide a password.
+                            </div>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.password && !passwordRegex.test(signUpObject.password)),
+                        'invalid-fields':(signUpObject.password && !passwordRegex.test(signUpObject.password)) }">
+                                You must provide a real valid password.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="py-4 text-center">
+                <div class="py-2">
+                    <button type="button" @click="submitLogin()" id="secondary"
+                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10">
+                        <span class="btn-quaternary-text">SIGN UP
+                        </span>
+                    </button>
+                </div>
+                <div class="py-2 text-center">
+                    <a class="auth-link cursor-pointer">Forgot Password?</a>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div class="login-container col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
+
+
+    <!-- <div class="login-container col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
         <div class="mid-log-container">
             <div class="card-text">
-                <fo rm>
+                <form>
                     <div class="form-group baseBottom">
                         <label for="exampleInputFirstName" class="login-email">First name</label>
                         <input type="text" placeholder="Enter your first address"
@@ -53,7 +165,8 @@
                     </div>
                     <div class="form-group baseBottom">
                         <label for="exampleInputEmail1" class="login-email">Select role</label>
-                        <select class="custom-select form-control border-radius-10 textfieldHeight" v-model="signUpObject.role" name="legalCare">
+                        <select class="custom-select form-control border-radius-10 textfieldHeight"
+                            v-model="signUpObject.role" name="legalCare">
                             <option value="Child">Child
                             </option>
                             <option value="parent">parent
@@ -62,9 +175,9 @@
                             </option>
                         </select>
                         <div class="invalid-feedback d-none"
-                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.role),'invalid-fields':!signUpObject.role }">
-                        You must provide a role.
-                    </div>
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.role),'invalid-fields':!signUpObject.role }">
+                            You must provide a role.
+                        </div>
                     </div>
                     <div class="form-group baseBottom">
                         <label for="exampleInputPassword1" class="login-email">Password</label>
@@ -105,10 +218,11 @@
                     <div class="fullWidth d-flex align-items-center justify-content-center">
                         <a href="/users/login" class="havingAccount">Already have an account?</button>
                     </div>
-                </fo>
+                    </fo>
             </div>
         </div>
-    </div>
+    </div> -->
+
 </div>
 
 {% endblock %}

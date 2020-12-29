@@ -39,7 +39,7 @@
                     <div id="authForm">
                         <div class="input-group">
                             <input type="password" class="form-control auth-border py-2" id="loginPassword"
-                                placeholder="Enter your password">
+                                v-model="loginObject.password" placeholder="Enter your password">
                             <span class="input-group-append">
                                 <div class="input-group-text px-3">
                                     <span style="color: #023047 !important;" class="cursor-pointer font-23"
@@ -53,6 +53,14 @@
                                     </span>
                                 </div>
                             </span>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
+                                You must provide a password.
+                            </div>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
+                        'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
+                                You must provide a real valid password.
+                            </div>
                         </div>
                         <!-- <a class="auth-link py-2 float-right cursor-pointer">Forgot Password?</a> -->
                     </div>
@@ -61,19 +69,18 @@
 
             <div class="py-4 text-center">
                 <div class="py-2">
-                    <button type="button" @click="sendFeedback()" id="secondary"
+                    <button type="button" @click="submitLogin()" id="secondary"
                         class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span class="btn-quaternary-text">LOG IN
                         </span></button>
                 </div>
                 <div class="py-2">
-                    <button type="button" @click="sendFeedback()"
+                    <button type="button" @click="navigatePage('/users/sign_up')"
                         class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span class="btn-quaternary-text">CREATE
                             ACCOUNT
                         </span></button>
                 </div>
                 <div class="py-2 text-center">
                     <a class="auth-link cursor-pointer">Forgot Password?</a>
-
                 </div>
             </div>
 
