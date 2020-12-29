@@ -320,12 +320,12 @@ $(document).ready(function () {
             },
 
             changeDob: function (e, date) {
-                //  console.log(date);
+                  console.log(date);
                 if (this.patchFlag != true && date != null) {
                     var today = new Date();
-                    var selectedDate = new Date(date);
-                    var age = this.diff_years(today, selectedDate);
                     this.dateFmt = this.setDate(date)
+                    var selectedDate = new Date( this.dateFmt);
+                    var age = this.diff_years(today, selectedDate);
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
