@@ -13,7 +13,8 @@ module.exports = {
     self.login = function (req, callback) {
       return self.sendPage(req, self.renderer('login', {
         showHeader: true,
-        home: true
+        home: true,
+        navigateMkeRfrl: "/role?",
       }));
     };
 

@@ -6,6 +6,9 @@ const reponseMessages = require('../middlewares/responseMessage');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const Op = require('sequelize').Op;
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 exports.signup = async (ctx) => {
     var responseData = {}
     const { error } = registerValidation(ctx.request.body);
@@ -30,7 +33,8 @@ exports.signup = async (ctx) => {
             first_name: ctx.request.body.first_name,
             last_name: ctx.request.body.last_name,
             email: ctx.request.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            user_role:ctx.request.body.role,
         }).then((result) => {
             return ctx.res.ok({
                 status: "success",
@@ -52,7 +56,7 @@ exports.login = async (ctx) => {
             where: {
                 email: ctx.request.body.email,
             },
-            attributes: ['uuid', 'first_name', 'last_name','password','email']
+            attributes: ['uuid', 'first_name', 'last_name','password','email','user_role']
         }).then( async (userResult) => {
          if(userResult)
          {
@@ -60,21 +64,24 @@ exports.login = async (ctx) => {
             console.log("checkPassword",checkPassword)
             if(checkPassword)
             {
+               // console.log(userResult)
+               const payload = { email: userResult.email };
+                const options = { expiresIn: '2d', issuer: 'https://scotch.io' };
+                const secret = process.env.JWT_SECRET;
+               const token = jwt.sign(payload, secret, options);
+             ///   console.log(token)
                 const sendUserResult={
                     loginId:userResult.uuid,
                     first_name:userResult.first_name,
                     last_name:userResult.last_name,
-                    email:userResult.email
+                    email:userResult.email,
+                    role:userResult.user_role,
+                    token:token
+            
                 }
-                const sendReferralResult={
-                    loginId:userResult.uuid,
-                    first_name:userResult.first_name,
-                    last_name:userResult.last_name,
-                    email:userResult.email
-                }
+
                 const sendResponseData={
                     sendUserResult:sendUserResult,
-                    sendReferralResult:sendReferralResult
                 }
                 return ctx.res.ok({
                     status: "success",

@@ -329,9 +329,9 @@ $(document).ready(function () {
                 //  console.log(date);
                 if (this.patchFlag != true && date != null) {
                     var today = new Date();
-                    var selectedDate = new Date(date);
-                    var age = this.diff_years(today, selectedDate);
                     this.dateFmt = this.setDate(date)
+                    var selectedDate = new Date( this.dateFmt);
+                    var age = this.diff_years(today, selectedDate);
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
@@ -578,7 +578,17 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        location.href = redirectUrl(location.href, "about", data.userid, role);
+                        if (_self.paramValues[0] == "loginFlag") {
+                            alert("343");
+                            var url = window.location.href.split('?')[0];
+                            console.log(url)
+                            location.href = redirectUrl(url, "about", data.userid, role);
+                        }
+                        else
+                        {
+                            location.href = redirectUrl(location.href, "about", data.userid, role);
+                        }
+                       
                     },
                     error: function (error) {
                         console.log(error.responseJSON.message)

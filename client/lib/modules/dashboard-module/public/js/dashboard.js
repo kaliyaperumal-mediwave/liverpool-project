@@ -28,7 +28,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
-                        app.setValues(data);
+                        console.log(data)
                     },
                     error: function (error) {
                         console.log(error.responseJSON.message)

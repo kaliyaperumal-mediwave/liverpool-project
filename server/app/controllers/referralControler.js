@@ -2244,17 +2244,17 @@ exports.updateEligibilityInfo = ctx => {
 //for login user
 
 exports.getIncompleteReferral = ctx => {
-  console.log("=====================")
+  console.log("===>",ctx.request.decryptedUser)
   const userReferral = ctx.orm().Referral;
   const refId = [];
   const childDataId = [];
   const parentDataId = [];
   const professionalDataId = [];
-  console.log(ctx.query)
   return userReferral.findAll({
     where: {
       login_id: ctx.query.loginId,
-      user_role: ctx.query.userRole
+      user_role: ctx.query.userRole,
+      referral_complete_status:"incomplete"
     },
     attributes: ['id', 'user_role']
   }).then((userData) => {
@@ -2263,7 +2263,7 @@ exports.getIncompleteReferral = ctx => {
       (user) => {
         refId.push(user.dataValues.id)
       })
-      console.log(refId)
+     // console.log(refId)
     if (ctx.query.userRole == "child") {
       return userReferral.findAll({
         where: {
@@ -2381,6 +2381,7 @@ exports.getIncompleteReferral = ctx => {
       });
     }
   }).catch((error) => {
+    console.log(error)
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   })
 }

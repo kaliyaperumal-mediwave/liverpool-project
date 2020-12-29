@@ -19,9 +19,7 @@ module.exports = {
     };
     self.landing = function (req, callback) {
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
-      console.log("getParams",getParams)
       const deCodeParameter = "loginFlag&"+atob(getParams);
-      console.log("deCodeParameter",deCodeParameter)
       let decodeValues = deCodeParameter.split("&");
       //console.log("getParams: "+"/role?l"+deCodeParameter)
       return self.sendPage(req, self.renderer('dashboard', {
