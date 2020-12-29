@@ -81,5 +81,6 @@
 	"Completed": "Completed",
 	"Successful": "Successful",
 	"Errors": "Errors",
-	"Referral Completed Module": "Referral Completed Module"
+	"Referral Completed Module": "Referral Completed Module",
+	"role-module": "role-module"
 }
