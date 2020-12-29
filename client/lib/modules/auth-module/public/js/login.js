@@ -10,6 +10,7 @@ $(document).ready(function () {
                 password: ""
             },
             isFormSubmitted: false,
+            showVisibility: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
         },
@@ -18,6 +19,7 @@ $(document).ready(function () {
         },
 
         methods: {
+
             submitLogin: function () {
                 let formData = this.loginObject;
                 this.isFormSubmitted = true
@@ -35,6 +37,15 @@ $(document).ready(function () {
                     return false;
                 }
             },
+
+            toggleVisibility: function () {
+                this.showVisibility = !this.showVisibility;
+                if ($('#loginPassword').attr("type") == "text") {
+                    $('#loginPassword').attr('type', 'password');
+                } else if ($('#loginPassword').attr("type") == "password") {
+                    $('#loginPassword').attr('type', 'text');
+                }
+            }
 
         }
     })

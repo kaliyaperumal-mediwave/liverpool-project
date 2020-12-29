@@ -18,8 +18,8 @@
         </h3>
     </div> -->
     <div class="home-primary-content-bg col-md-6 col-sm-11 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
-        <div class="col-md-6 col-12 py-4 mx-auto">
-            <form class="px-3 py-2">
+        <div class="col-md-7 col-12 py-4 mx-auto">
+            <form class="px-3 py-2 mb-1">
                 <div class="form-group py-2 m-0">
                     <label for="loginEmail" class="auth-font my-2">My email address</label>
                     <input type="email" placeholder="Enter your email address" class="form-control auth-border"
@@ -35,34 +35,47 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="loginEmail" class="auth-font my-2">My email address</label>
-                    <div>
+                    <label for="loginPassword" class="auth-font my-2">Password</label>
+                    <div id="authForm">
                         <div class="input-group">
-                            <input class="form-control auth-border py-2 " type="password" value="search"
-                                id="example-search-input">
+                            <input type="password" class="form-control auth-border py-2" id="loginPassword"
+                                placeholder="Enter your password">
                             <span class="input-group-append">
-                                <div class="input-group-text"><i class="fa fa-search"></i></div>
+                                <div class="input-group-text px-3">
+                                    <span style="color: #023047 !important;" class="cursor-pointer font-23"
+                                        @click="toggleVisibility()">
+                                        <template v-if="!showVisibility">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </template>
+                                        <template v-if="showVisibility">
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        </template>
+                                    </span>
+                                </div>
                             </span>
                         </div>
+                        <!-- <a class="auth-link py-2 float-right cursor-pointer">Forgot Password?</a> -->
                     </div>
                 </div>
-
-
-                <div class="form-group py-2 m-0">
-                    <label for="loginPassword" class="auth-font my-2">Password</label>
-                    <input type="password" placeholder="Enter your password" class="form-control auth-border"
-                        id="loginPassword" aria-describedby="authEmail" v-model="loginObject.password">
-                    <div class="invalid-feedback d-none"
-                        v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
-                        You must provide a password.
-                    </div>
-                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
-                    'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
-                        You must provide a real valid password.
-                    </div>
-                </div>
-
             </form>
+
+            <div class="py-4 text-center">
+                <div class="py-2">
+                    <button type="button" @click="sendFeedback()" id="secondary"
+                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span class="btn-quaternary-text">LOG IN
+                        </span></button>
+                </div>
+                <div class="py-2">
+                    <button type="button" @click="sendFeedback()"
+                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span class="btn-quaternary-text">CREATE
+                            ACCOUNT
+                        </span></button>
+                </div>
+                <div class="py-2 text-center">
+                    <a class="auth-link cursor-pointer">Forgot Password?</a>
+
+                </div>
+            </div>
 
         </div>
     </div>

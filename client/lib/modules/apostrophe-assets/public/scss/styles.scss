@@ -315,12 +315,33 @@ body {
 
 /* Auth Pages style end */
 
+#authForm {
+  .input-group .form-control {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+  }
+  .input-group > .input-group-append > .input-group-text {
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+  }
+  .input-group-text {
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+  }
+}
+
 .auth-font {
   @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+  letter-spacing: 0.9px !important;
 }
 
 .auth-border {
   @include set-borderRadius(10px, "all");
+}
+
+.auth-link {
+  @include set-titleStyles($senary-font-size, bold, $primary-color);
 }
 
 /* Auth Pages  style end */
@@ -1177,7 +1198,7 @@ select.selectIcon {
 .shape_and_center {
   width: 14%;
   height: 44px;
-  margin-left: 0px !important
+  margin-left: 0px !important;
 }
 .shape_and_center {
   .home-secondarySearch-bg {
@@ -1187,7 +1208,7 @@ select.selectIcon {
     border-radius: 10px;
   }
 }
-.bg-fafa{
+.bg-fafa {
   background-color: #fafafa;
 }
 //desktop design
