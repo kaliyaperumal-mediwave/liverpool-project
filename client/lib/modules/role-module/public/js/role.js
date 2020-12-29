@@ -32,7 +32,8 @@ $(document).ready(function () {
                 childConcernInformation: '',
                 contactProfParent: '',
                 regProfGpTxt: '',
-                profEmail: ''
+                profEmail: '',
+                disableRole:false
             },
             date: null,
             dateWrap: true,
@@ -72,7 +73,12 @@ $(document).ready(function () {
             this.getGP();
             this.getProfGP();
             if (this.paramValues != undefined) {
-                if (this.paramValues[2] != undefined) {
+                if (this.paramValues[0] == "loginFlag") {
+                    this.elgibilityObj.loginId = this.paramValues[1];
+                    this.elgibilityObj.role = this.paramValues[2];
+                    $('input[name=role]').attr("disabled", true);
+                }
+              else if (this.paramValues[2] != undefined) {
                     this.elgibilityObj.uuid = this.paramValues[0];
                     this.elgibilityObj.editFlag = this.paramValues[2]
                     this.fetchSavedData()
@@ -482,7 +488,7 @@ $(document).ready(function () {
                 // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
                 //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
                 //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
-                  this.elgibilityObj.login_id ="4218d0fb-59df-4454-9908-33c564802059";
+                this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
