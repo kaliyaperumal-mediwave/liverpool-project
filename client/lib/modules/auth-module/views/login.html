@@ -40,6 +40,10 @@
                             v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
                             You must provide a password.
                         </div>
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
+                        'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
+                            You must provide a real valid password.
+                        </div>
                     </div>
                     <div class="fullWidth d-flex align-items-center justify-content-center">
                         <button type="button" @click="submitLogin()" class="button-login">LOG IN</button>

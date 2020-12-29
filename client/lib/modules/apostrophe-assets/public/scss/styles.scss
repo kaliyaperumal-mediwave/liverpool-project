@@ -26,31 +26,36 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
+    format("truetype");
 }
 
 body {
@@ -232,6 +237,13 @@ body {
   border-top-left-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
 }
+.home-primarySearch-bg::placeholder {
+  font-size: 16px;
+  color: #023047 !important;
+  @include xl-screen {
+    color: #707070 !important;
+  }
+}
 
 .secondary {
   .input-group {
@@ -274,7 +286,6 @@ body {
 
 .progress {
   @include set-bgOnly(#494833);
-
 }
 
 .progress-radius {
@@ -399,7 +410,8 @@ body {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -426,7 +438,8 @@ body {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -797,14 +810,8 @@ body {
 .logo {
   width: 100px;
   height: 35px;
-  background: var(--unnamed-color-023047) 0% 0% no-repeat padding-box;
-  background: #023047 0% 0% no-repeat padding-box;
-  border-radius: 18px;
-  opacity: 1;
-  color: #fff;
   align-items: center;
-  justify-content: center;
-  display: flex;
+  display: grid;
   margin-left: 38px;
 }
 .butLogo-cont {
@@ -922,7 +929,7 @@ body {
   background-color: #fafafa;
   border-radius: 10px;
   padding: 24px 31px !important;
-  height: 573px;
+  min-height: 573px;
 }
 .mid-log-container {
   max-width: 420px;
@@ -974,6 +981,82 @@ body {
   color: #02304796;
   // padding: 12px 10px;
 }
+.havingAccount {
+  padding: 30px 0px;
+  color: #023047 !important;
+  font-size: 18px;
+  text-decoration: underline !important;
+  font-weight: bold;
+}
+select.selectIcon {
+  padding: 10px;
+}
+.top-arrow-container {
+  padding: 40px 24px 24px 24px;
+  max-width: 375px;
+  margin: auto;
+}
+.leftArrow {
+  font-size: 36px;
+  padding-bottom: 6px;
+}
+.resource_text {
+  color: #023047;
+  font-size: 30px;
+  font-weight: bold;
+  padding-bottom: 26px;
+  @include xl-screen {
+    font-size: 36px;
+  }
+  @include xxl-screen {
+    font-size: 45px;
+  }
+}
+.height-44 {
+  height: 44px !important;
+}
+.text_inside_cont {
+  margin-top: 30px;
+  margin-bottom: 60px;
+  padding: 30px;
+  background-color: #fafafa;
+  color: #023047;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  @include xxl-screen {
+    font-size: 22px;
+  }
+}
+.selectSource {
+  font-size: 25px;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+.resource-cont {
+  background-color: #023047;
+  width: 100%;
+}
+.pieceCont {
+  padding: 6px;
+}
+.insidePieceCont {
+  font-size: 14px;
+  font-weight: bold;
+  color: #023047;
+  padding: 10px;
+  background-color: #fafafa;
+  border-radius: 10px;
+  min-width: 130px;
+  min-height: 130px;
+}
+@media (min-width: 550px) and (max-width: 768px) {
+  .top-arrow-container {
+    padding: 40px 24px 24px 24px;
+    max-width: 500px;
+    margin: auto;
+  }
+}
 @media (min-width: 769px) {
   .footer-container {
     max-width: 750px;
@@ -981,6 +1064,10 @@ body {
   }
   .login-container {
     padding: 40px 38px !important;
+  }
+  .top-arrow-container {
+    padding: 80px 24px 24px 24px;
+    max-width: 700px;
   }
 }
 //small screen
@@ -1006,8 +1093,11 @@ body {
   .login-container {
     width: 300px;
   }
+  .havingAccount {
+    font-size: 16px;
+  }
 }
-//destop design
+//desktop design
 @media (min-width: 1024px) {
   .redHeader {
     height: 48px;
@@ -1024,7 +1114,7 @@ body {
     padding-right: 72px;
   }
   .login-container {
-    height: 700px;
+    min-height: 700px;
   }
   .button-referral {
     width: 213px;
@@ -1059,7 +1149,12 @@ body {
   .footer-text {
     padding: 20px 0px;
   }
+  .top-arrow-container {
+    padding: 104px 24px 24px 24px;
+    max-width: 943px;
+  }
 }
+
 //large screen
 @media (min-width: 1400px) {
   .fontHeader {
@@ -1075,7 +1170,7 @@ body {
     padding-bottom: 120px;
   }
   .login-container {
-    height: 900px;
+    min-height: 900px;
   }
 }
 //x-large sceen
@@ -1094,7 +1189,7 @@ body {
     padding-bottom: 215px;
   }
   .login-container {
-    height: 1053px;
+    min-height: 1053px;
     padding: 80px 31px !important;
     max-width: 943px !important;
   }
