@@ -1,19 +1,34 @@
 $(document).ready(function () {
-    new Vue({
-        el: '#feedback-page',
+    var app = new Vue({
+        el: '#feedbackPage',
         data: {
-            comments: '',
-            ratings: ''
+            feedbackData: {
+                comments: '',
+                ratings: '',
+            },
+            isFormSubmitted: false,
         },
         mounted: function () {
-            console.log('mounted');
         },
 
         methods: {
 
-            sendFeedback: function () {
+            getFeedback: function () {
                 console.log('clicked')
             },
+
+            sendFeedback: function () {
+                this.isFormSubmitted = true;
+                if (this.feedbackData.ratings) {
+                    console.log(this.feedbackData);
+
+                } else {
+                    scrollToInvalidInput();
+                    return false;
+                }
+                console.log('clicked')
+            },
+
         }
 
     })

@@ -18,8 +18,8 @@ label {
   display: none !important; }
 
 .rating > label:before {
-  margin: 5px !important;
-  font-size: 1.25em !important;
+  margin: 0px 6px !important;
+  font-size: 2.5em !important;
   font-family: FontAwesome !important;
   display: inline-block !important;
   content: "\f005" !important; }
@@ -32,9 +32,7 @@ label {
   color: #ddd !important;
   float: right !important; }
 
-.rating > input:checked ~ label,
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
+.rating > input:checked ~ label {
   color: #ffd700 !important; }
 
 .bootstrap-datetimepicker-widget tr {
@@ -205,11 +203,14 @@ label {
 
 /* Button Global classes */
 .btn {
-  background: #219ebc 0% 0% no-repeat padding-box !important;
   box-shadow: 0px 3px 6px #00000029 !important;
   border-radius: 10px !important; }
 
+#secondary {
+  background: #ffb703 0% 0% no-repeat padding-box !important; }
+
 .btn {
+  background: #219ebc 0% 0% no-repeat padding-box !important;
   opacity: "yes"; }
   .btn:focus {
     box-shadow: none !important; }
