@@ -501,6 +501,14 @@ body {
   border-top-left-radius: 0px !important;
   border-bottom-left-radius: 0px !important; }
 
+.input-group .suffix-form-control {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+  padding: 10px;
+  width: 86%; }
+
 .home-primary-content-bg {
   background: #fafafa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
@@ -1328,6 +1336,20 @@ select.selectIcon {
   .bottom-arrow-container {
     padding: 24px 16px;
     max-width: 700px; } }
+
+.shape_and_center {
+  width: 14%;
+  height: 44px;
+  margin-left: 0px !important; }
+
+.shape_and_center .home-secondarySearch-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px; }
+
+.bg-fafa {
+  background-color: #fafafa; }
 
 @media (min-width: 1024px) {
   .redHeader {

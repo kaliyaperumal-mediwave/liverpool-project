@@ -225,10 +225,10 @@ body {
     @include set-dynamicFont($quaternary-font-size, 2);
   }
 }
-.referral-inside-text{
+.referral-inside-text {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
-    font-size:17px !important;
-    font-weight: 400 !important;
+  font-size: 17px !important;
+  font-weight: 400 !important;
   @include xl-screen {
     font-weight: bold !important;
   }
@@ -271,6 +271,15 @@ body {
     border-bottom-right-radius: 10px !important;
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
+  }
+  .suffix-form-control {
+    @include set-borderRadius(0px, "topParallel");
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    padding: 10px;
+    width: 86%;
   }
 }
 
@@ -1004,7 +1013,7 @@ select.selectIcon {
   max-width: 375px;
   margin: auto;
 }
-.bottom-arrow-container{
+.bottom-arrow-container {
   padding: 50px 42px;
   margin: auto;
   width: inherit;
@@ -1089,11 +1098,11 @@ select.selectIcon {
     padding: 7px 0px 0px 7px;
   }
 }
-.container-referal{
+.container-referal {
   max-width: 374px;
 }
-.setHadPad{
-  padding:30px 20px;
+.setHadPad {
+  padding: 30px 20px;
 }
 @media (min-width: 550px) and (max-width: 768px) {
   .top-arrow-container {
@@ -1101,7 +1110,7 @@ select.selectIcon {
     max-width: 500px;
     margin: auto;
   }
-  .bottom-arrow-container{
+  .bottom-arrow-container {
     padding: 40px 24px 24px 24px;
     max-width: 500px;
     margin: auto;
@@ -1151,9 +1160,25 @@ select.selectIcon {
     font-size: 16px;
   }
   .bottom-arrow-container {
-    padding:24px 16px;
+    padding: 24px 16px;
     max-width: 700px;
   }
+}
+.shape_and_center {
+  width: 14%;
+  height: 44px;
+  margin-left: 0px !important
+}
+.shape_and_center {
+  .home-secondarySearch-bg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+}
+.bg-fafa{
+  background-color: #fafafa;
 }
 //desktop design
 @media (min-width: 1024px) {
@@ -1214,7 +1239,6 @@ select.selectIcon {
   .bottom-arrow-container {
     padding: 104px 0px;
     max-width: 800px;
-    
   }
 }
 
