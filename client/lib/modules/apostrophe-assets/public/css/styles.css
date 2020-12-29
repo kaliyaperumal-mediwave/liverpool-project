@@ -1277,6 +1277,12 @@ select.selectIcon {
       width: 90px;
       padding: 7px 0px 0px 7px; } }
 
+.container-referal {
+  max-width: 374px; }
+
+.setHadPad {
+  padding: 30px 20px; }
+
 @media (min-width: 550px) and (max-width: 768px) {
   .top-arrow-container {
     padding: 40px 24px 24px 24px;
