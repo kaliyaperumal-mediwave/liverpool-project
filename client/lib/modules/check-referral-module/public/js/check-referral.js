@@ -5,51 +5,36 @@ $(document).ready(function () {
         el: '#check-referral',
 
         data: {
-            loginObject: {
-                email: "",
-                password: ""
+            viewReferralObj: {
+                loginId: "",
+                referralType: "completed"
             },
-            isFormSubmitted: false,
-            showVisibility: false,
-            emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
         },
 
         mounted: function () {
+            this.paramValues = getParameter(location.href)
+            this.viewReferralObj.loginId = this.paramValues[0];
+            this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)
         },
 
         methods: {
 
-            submitLogin: function () {
-                let formData = this.loginObject;
-                this.isFormSubmitted = true
-                if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
-                    console.log('payload', formData);
-                    var successData = apiCallPost('post', '/doLogin', formData);
-                    if (Object.keys(successData)) {
-                        console.log(successData);
-                    } else {
-                        console.log('empty response')
+            getUserReferral: function (loginId, referralType) {
+                $.ajax({
+                    url: API_URI + "/getUserReferral/" + loginId + "/" + referralType,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        console.log(data)
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON.message)
                     }
+                });
+            }
 
-                } else {
-                    scrollToInvalidInput();
-                    return false;
-                }
-            },
 
-            toggleVisibility: function () {
-                this.showVisibility = !this.showVisibility;
-                if ($('#loginPassword').attr("type") == "text") {
-                    $('#loginPassword').attr('type', 'password');
-                } else if ($('#loginPassword').attr("type") == "password") {
-                    $('#loginPassword').attr('type', 'text');
-                }
-            },
-
-            navigatePage: function (route) {
-                window.location.href = window.location.origin + route;
-            },
 
         }
     })

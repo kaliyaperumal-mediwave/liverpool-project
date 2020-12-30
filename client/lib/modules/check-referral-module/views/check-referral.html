@@ -2,6 +2,7 @@
 
 {% block extraBody %}
 <!-- <script src="/modules/check-referral-module/js/resources.js"></script> -->
+<script src="/modules/check-referral-module/js/check-referral.js"></script>
 
 {% endblock %}
 {% block main %}
@@ -9,6 +10,17 @@
 
 
 
- vghb
+<div class="py-4 text-left">
+    <button  type="button" @click="getUserReferral(viewReferralObj.loginId,'completed')" class="btn px-md-4 py-1 px-3"><span
+            class="btn-quaternary-text">Completed
+        </span></button>
+</div>
+
+<div class="py-4 text-left">
+    <button  type="button" @click="getUserReferral(viewReferralObj.loginId,'incomplete')" class="btn px-md-4 py-1 px-3"><span
+            class="btn-quaternary-text">Incomplete
+        </span></button>
+</div>
+
 
 {% endblock %}

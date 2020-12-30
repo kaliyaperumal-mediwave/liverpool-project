@@ -2389,11 +2389,14 @@ exports.getIncompleteReferral = ctx => {
 }
 exports.getUserReferral = ctx => {
   const ref = ctx.orm().Referral;
+  console.log(ctx.query)
   return ref.findAll({
       where: {
+        login_id: ctx.query.loginId,
           referral_progress: {
             [Op.ne]: null
-          }
+          },
+          referral_complete_status:ctx.query.referralType
         },
         order: [
           ['createdAt', 'DESC'],
@@ -2402,8 +2405,7 @@ exports.getUserReferral = ctx => {
 
       let finalObj = {}
       result.forEach((games) => {
-          const date = convertDate(games.createdAt)
-        console.log(date)
+        const date = convertDate(games.createdAt)
         if (finalObj[date]) {
           finalObj[date].push(games);
         } else {

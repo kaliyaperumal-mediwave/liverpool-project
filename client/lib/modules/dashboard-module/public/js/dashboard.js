@@ -41,20 +41,7 @@ $(document).ready(function () {
 
             },
             checkReferral: function () {
-                $.ajax({
-                    //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/getUserReferral/" + this.loginId,
-                    type: 'get',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    // data: JSON.stringify(this.sendObj),
-                    success: function (data) {
-                        console.log(data)
-                    },
-                    error: function (error) {
-                        console.log(error.responseJSON.message)
-                    }
-                });
+                location.href = redirectUrl(location.href, "viewreferral", this.loginId, this.userRole);
             },
         }
 
