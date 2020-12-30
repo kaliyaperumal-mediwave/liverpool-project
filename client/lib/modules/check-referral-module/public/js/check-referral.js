@@ -36,7 +36,7 @@ $(document).ready(function () {
                         console.log(_self.displayReferrals)
 
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
-                            //setObj.date=_self.displayReferrals
+                            setObj.date=_self.displayReferrals[0]
                         }
                     },
                     error: function (error) {
