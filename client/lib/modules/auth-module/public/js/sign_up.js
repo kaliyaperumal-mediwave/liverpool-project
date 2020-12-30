@@ -11,11 +11,13 @@ $(document).ready(function () {
                 password: "",
                 confirm_password: "",
                 email: "",
-                role:""
+                role: ""
             },
             isFormSubmitted: false,
+            showVisibility: false,
+            showVisibility1: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            passwordRegex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
+            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
             samePass: true
         },
 
@@ -28,7 +30,7 @@ $(document).ready(function () {
                 let formData = this.signUpObject;
                 this.isFormSubmitted = true
 
-                if ((formData.first_name && formData.last_name && formData.password&&this.passwordRegex.test(formData.password) && formData.confirm_password&&this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password)&&formData.role)) {
+                if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     console.log('payload', formData);
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (Object.keys(successData)) {
@@ -39,6 +41,15 @@ $(document).ready(function () {
                 } else {
                     scrollToInvalidInput();
                     return false;
+                }
+            },
+
+            toggleVisibility: function (elem, toggleFlag) {
+                toggleFlag = !toggleFlag;
+                if ($(elem).attr("type") == "text") {
+                    $(elem).attr('type', 'password');
+                } else if ($(elem).attr("type") == "password") {
+                    $(elem).attr('type', 'text');
                 }
             },
 
