@@ -1274,7 +1274,8 @@ select.selectIcon {
       font-size: 12px; } }
   @media (min-width: 1200px) {
     .insidePieceCont {
-      border-radius: 14px; } }
+      border-radius: 14px;
+      font-size: 20px; } }
 
 .midTextRange {
   position: absolute;
@@ -1284,6 +1285,9 @@ select.selectIcon {
     .midTextRange {
       width: 90px;
       padding: 7px 0px 0px 7px; } }
+  @media (min-width: 1200px) {
+    .midTextRange {
+      width: 180px; } }
 
 .container-referal {
   max-width: 374px; }

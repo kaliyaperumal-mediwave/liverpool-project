@@ -1087,6 +1087,7 @@ select.selectIcon {
   }
   @include xl-screen {
     border-radius: 14px;
+    font-size: 20px;
   }
 }
 .midTextRange {
@@ -1096,6 +1097,9 @@ select.selectIcon {
   @include xxs-screen-between {
     width: 90px;
     padding: 7px 0px 0px 7px;
+  }
+  @include xl-screen {
+    width: 180px;
   }
 }
 .container-referal {
