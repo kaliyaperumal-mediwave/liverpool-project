@@ -50,7 +50,6 @@ module.exports = function (self, options) {
         try {
           request(options)
             .then(function (response) {
-              console.log("response")
               resolve(response.body);
             })
             .catch(function (err) {

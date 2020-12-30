@@ -5,7 +5,7 @@ $(document).ready(function () {
         data: {
             location: window.location,
             paramValues:'',
-            loginId:''
+            loginId:'7'
         },
         mounted: function () {
             

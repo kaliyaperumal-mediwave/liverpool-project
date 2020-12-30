@@ -8,19 +8,43 @@
 {% block main %}
 
 
+<div id="viewReferral-page">
 
+    <input class="form-control" type="text"v-model="name">
+    <div>{{ name }}</div>
+    <span>Message: {{name}}</span>
+    <p class="question-font m-0">{{name}}</p>
 
-<div class="py-4 text-left">
-    <button  type="button" @click="getUserReferral(viewReferralObj.loginId,'completed')" class="btn px-md-4 py-1 px-3"><span
-            class="btn-quaternary-text">Completed
-        </span></button>
+    <div class="py-4 text-left">
+        <button type="button" @click="getUserReferral(viewReferralObj.loginId,'completed')"
+            class="btn px-md-4 py-1 px-3"><span class="btn-quaternary-text">Completed
+            </span></button>
+    </div>
+
+    <div class="py-4 text-left">
+        <button type="button" @click="getUserReferral(viewReferralObj.loginId,'incomplete')"
+            class="btn px-md-4 py-1 px-3"><span class="btn-quaternary-text">Incomplete
+            </span></button>
+    </div>
+
+<div  v-for="(item, index) in displayReferrals" :key="index">
+    <p>{{displayReferrals}}</p>
+    <div class="card-body">   
+         <input class="form-control" type="text"v-model="item[index]">
+
+</div>
 </div>
 
-<div class="py-4 text-left">
-    <button  type="button" @click="getUserReferral(viewReferralObj.loginId,'incomplete')" class="btn px-md-4 py-1 px-3"><span
-            class="btn-quaternary-text">Incomplete
-        </span></button>
+    <!-- <div class="card" v-for="(item, index) in displayReferrals" :key="index">
+        <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{item.professional}}</h6>
+            <p class="card-text">{{item.name}}</p>
+        </div>
+    </div> -->
+
 </div>
+
 
 
 {% endblock %}

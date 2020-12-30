@@ -58,7 +58,7 @@ exports.eligibility = ctx => {
 
   }
   else if (ctx.request.body.role == "parent") {
-     //checking update operation or not
+    //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
         where: {
@@ -138,7 +138,7 @@ exports.eligibility = ctx => {
   }
 
   else if (ctx.request.body.role == "professional") {
-     //checking update operation or not
+    //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
         where: {
@@ -320,7 +320,7 @@ exports.fetchEligibility = ctx => {
 exports.about = ctx => {
   const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
- //checking update operation or not
+    //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
         where: {
@@ -730,7 +730,7 @@ exports.about = ctx => {
                   { id: childId }
               }
             ).then((updateResult) => {
-  
+
               return user.create({
                 parent_name: ctx.request.body.aboutData.parentName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
@@ -743,10 +743,10 @@ exports.about = ctx => {
                 legal_care_status: ctx.request.body.aboutData.legalCareStatus,
               }
               ).then((parentResult) => {
-  
+
                 parentResult.setType("2")
                 parentResult.setParent(childId)
-  
+
                 const responseData = {
                   userid: ctx.request.body.userid,
                   status: "ok",
@@ -763,10 +763,10 @@ exports.about = ctx => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         })
-        .catch((error) => {
-          sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
-        
+          .catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
@@ -935,18 +935,18 @@ exports.profession = ctx => {
             id: result.id,
           },
         }).then((userResult) => {
-  
+
           console.log(userResult[0].professional[0].ChildProfessional.professionalId)
-  
+
           var childId = userResult[0].professional[0].ChildProfessional.professionalId
-  
+
           return user.update(
             {
               child_profession: ctx.request.body.educAndEmpData.position,
               child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
               child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
               child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
-  
+
               child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
               child_socialworker_name: ctx.request.body.educAndEmpData.socialWorkName,
               child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
@@ -957,7 +957,7 @@ exports.profession = ctx => {
                 { id: childId }
             }
           ).then((updateResult) => {
-  
+
             return user.update(
               { user_section: 3 },
               { where: { id: result.id } }
@@ -980,7 +980,7 @@ exports.profession = ctx => {
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
-      
+
     }).catch((error) => {
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
@@ -1077,7 +1077,7 @@ exports.profession = ctx => {
             child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
             child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
             child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
-  
+
             child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
             child_socialworker_name: ctx.request.body.educAndEmpData.socialWorkName,
             child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
@@ -1088,7 +1088,7 @@ exports.profession = ctx => {
               { id: result.id }
           }
         ).then((result) => {
-  
+
           const responseData = {
             userid: ctx.request.body.userid,
             status: "ok",
@@ -1099,10 +1099,10 @@ exports.profession = ctx => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       })
-      .catch((error) => {
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
-     
+        .catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+
     }).catch((error) => {
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
@@ -1262,11 +1262,11 @@ exports.saveReferal = ctx => {
               id: result.id,
             },
           }).then((userResult) => {
-  
+
             //  console.log(userResult[0].professional[0].ChildProfessional.professionalId)
-  
+
             var childId = userResult[0].professional[0].ChildProfessional.professionalId
-  
+
             return referral.create(
               {
                 referral_type: ctx.request.body.referralData.support,
@@ -1294,7 +1294,7 @@ exports.saveReferal = ctx => {
                 },
                 //attributes: ['id', 'uuid']
               }).then((sendResult) => {
-  
+
                 //  return ctx.body = sendResult;
                 const responseData = {
                   userid: ctx.request.body.userid,
@@ -1313,9 +1313,9 @@ exports.saveReferal = ctx => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         })
-        .catch((error) => {
-          sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
+          .catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
@@ -2247,7 +2247,7 @@ exports.updateEligibilityInfo = ctx => {
 //for login user
 
 exports.getIncompleteReferral = ctx => {
-  console.log("===>",ctx.request.decryptedUser)
+  console.log("===>", ctx.request.decryptedUser)
   const userReferral = ctx.orm().Referral;
   const refId = [];
   const childDataId = [];
@@ -2257,7 +2257,7 @@ exports.getIncompleteReferral = ctx => {
     where: {
       login_id: ctx.query.loginId,
       user_role: ctx.query.userRole,
-      referral_complete_status:"incomplete"
+      referral_complete_status: "incomplete"
     },
     attributes: ['id', 'user_role']
   }).then((userData) => {
@@ -2266,7 +2266,7 @@ exports.getIncompleteReferral = ctx => {
       (user) => {
         refId.push(user.dataValues.id)
       })
-     // console.log(refId)
+    // console.log(refId)
     if (ctx.query.userRole == "child") {
       return userReferral.findAll({
         where: {
@@ -2363,13 +2363,13 @@ exports.getIncompleteReferral = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'professional',
-              attributes: ['id','child_name', 'child_email', 'child_contact_number']
+              attributes: ['id', 'child_name', 'child_email', 'child_contact_number']
             },
           ],
           where: {
-            id:professionalDataId,
+            id: professionalDataId,
           },
-          attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number','referral_progress']
+          attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number', 'referral_progress']
         }).then((elgibilityObj) => {
           return ctx.res.ok({
             data: elgibilityObj,
@@ -2391,35 +2391,39 @@ exports.getUserReferral = ctx => {
   const ref = ctx.orm().Referral;
   console.log(ctx.query)
   return ref.findAll({
-      where: {
-        login_id: ctx.query.loginId,
-          referral_progress: {
-            [Op.ne]: null
-          },
-          referral_complete_status:ctx.query.referralType
-        },
-        order: [
-          ['createdAt', 'DESC'],
-      ],
-    }).then((result) => {
+    where: {
+      login_id: ctx.query.loginId,
+      referral_progress: {
+        [Op.ne]: null
+      },
+      referral_complete_status: ctx.query.referralType
+    },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
+  }).then((result) => {
 
-      let finalObj = {}
-      result.forEach((games) => {
-        const date = convertDate(games.createdAt)
-        if (finalObj[date]) {
-          finalObj[date].push(games);
-        } else {
-          finalObj[date] = [games];
-        }
-      })
-      return ctx.body = finalObj
+    let finalObj = {}
+    let sendObj = {};
+    let sendReferral = [];
+    result.forEach((games, index) => {
+      const date = convertDate(games.createdAt)
+      result[index].date = date;
+      // if (finalObj[date]) {
+      //   finalObj[date].push(games);
+      // } else {
+      //   finalObj[date] = [games];
+      // }
     })
+
+    return ctx.body = result
+  })
 }
 function convertDate(date) {
   var yyyy = date.getFullYear().toString();
-  var mm = (date.getMonth()+1).toString();
-  var dd  = date.getDate().toString();
+  var mm = (date.getMonth() + 1).toString();
+  var dd = date.getDate().toString();
   var mmChars = mm.split('');
   var ddChars = dd.split('');
-  return (ddChars[1]?dd:"0"+ddChars[0]) + '-' + (mmChars[1]?mm:"0"+mmChars[0])+ '-' +  yyyy   ;
+  return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
 }
