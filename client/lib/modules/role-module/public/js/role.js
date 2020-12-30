@@ -578,7 +578,7 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        if (_self.paramValues[0] == "loginFlag") {
+                        if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
                             alert("343");
                             var url = window.location.href.split('?')[0];
                             console.log(url)

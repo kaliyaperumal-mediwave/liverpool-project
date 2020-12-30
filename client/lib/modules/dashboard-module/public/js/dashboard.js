@@ -18,7 +18,6 @@ $(document).ready(function () {
         methods: {
             //Ftech Api service Logic
             fetchSavedData: function () {
-
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
                     url: API_URI + "/getIncompleteReferral/" + this.loginId + "/" + this.userRole,
@@ -33,15 +32,6 @@ $(document).ready(function () {
                         console.log(error.responseJSON.message)
                     }
                 });
-
-                var payload = {};
-              //  var successData = apiCallGet('get', '/getIncompleteReferral/login_id='+this.loginId+"&userRole="+ this.userRole,API_URI);
-            //   var successData = apiCallGet('get', '/getIncompleteReferral/login_id='+this.loginId,API_URI);
-            //     if (successData && Object.keys(successData)) {
-            //         this.patchValue(successData);
-            //     } else {
-            //         console.error('error')
-            //     }
             },
 
             navigatePage: function (route) {
@@ -49,7 +39,23 @@ $(document).ready(function () {
             },
             newReferral: function () {
 
-            }
+            },
+            checkReferral: function () {
+                $.ajax({
+                    //  url: API_URI + "/fetchEligibility",
+                    url: API_URI + "/getUserReferral/" + this.loginId,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    // data: JSON.stringify(this.sendObj),
+                    success: function (data) {
+                        console.log(data)
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON.message)
+                    }
+                });
+            },
         }
 
     })

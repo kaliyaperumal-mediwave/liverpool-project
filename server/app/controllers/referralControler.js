@@ -2371,7 +2371,6 @@ exports.getIncompleteReferral = ctx => {
           },
           attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number','referral_progress']
         }).then((elgibilityObj) => {
-          //var childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
           return ctx.res.ok({
             data: elgibilityObj,
           });
@@ -2389,7 +2388,6 @@ exports.getIncompleteReferral = ctx => {
   })
 }
 exports.getUserReferral = ctx => {
-  console.log("=====================")
   const ref = ctx.orm().Referral;
   return ref.findAll({
       where: {
