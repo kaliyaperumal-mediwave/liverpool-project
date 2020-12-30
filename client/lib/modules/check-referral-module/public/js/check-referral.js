@@ -1,8 +1,8 @@
-var API_URI = "/modules/auth-module";
+var API_URI = "/modules/check-referral-module";
 $(document).ready(function () {
 
     new Vue({
-        el: '#user-login',
+        el: '#check-referral',
 
         data: {
             loginObject: {
@@ -27,7 +27,7 @@ $(document).ready(function () {
                     console.log('payload', formData);
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (Object.keys(successData)) {
-                        location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                        console.log(successData);
                     } else {
                         console.log('empty response')
                     }

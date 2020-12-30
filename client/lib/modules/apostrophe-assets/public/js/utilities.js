@@ -244,11 +244,13 @@ $(document).ready(function () {
 window.onresize = resize;
 
 function resize() {
+    var header = document.getElementById("heightTopSet");
     var middleContent = document.getElementById("middleCont");
     if (middleContent) {
-       // middleContent.style.paddingTop = `${middleContent.offsetHeight}px`;
-        // middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
-
+        if (header) {
+            middleContent.style.paddingTop = `${header.offsetHeight}px`;
+            //middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
+        }
     }
 }
 function openSideDrawer() {

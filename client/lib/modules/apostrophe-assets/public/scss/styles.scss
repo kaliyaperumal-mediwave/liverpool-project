@@ -1,6 +1,7 @@
 @import "config";
 @import "utilities";
 @import "mediaQueries";
+@import "starRating";
 @import "calendar";
 @import "radio";
 @import "checkbox";
@@ -26,36 +27,31 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
 body {
@@ -74,6 +70,10 @@ body {
 
   .h-112 {
     height: 112px !important;
+  }
+
+  .h-300 {
+    height: 300px !important;
   }
 
   .font-23 {
@@ -226,6 +226,15 @@ body {
   }
 }
 
+.referral-inside-text {
+  @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
+  font-size: 17px !important;
+  font-weight: 400 !important;
+  @include xl-screen {
+    font-weight: bold !important;
+  }
+}
+
 .home-secondarySearch-bg {
   @include set-bgOnly($search-bar-color);
   border-bottom-right-radius: 10px !important;
@@ -237,6 +246,7 @@ body {
   border-top-left-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
 }
+
 .home-primarySearch-bg::placeholder {
   font-size: 16px;
   color: #023047 !important;
@@ -263,6 +273,15 @@ body {
     border-bottom-right-radius: 10px !important;
     border-top-left-radius: 0px !important;
     border-bottom-left-radius: 0px !important;
+  }
+  .suffix-form-control {
+    @include set-borderRadius(0px, "topParallel");
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+    padding: 10px;
+    width: 86%;
   }
 }
 
@@ -295,6 +314,39 @@ body {
 .progress-bg {
   @include set-bgOnly($quaternary-color);
 }
+
+/* Auth Pages style end */
+
+#authForm {
+  .input-group .form-control {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+  }
+  .input-group > .input-group-append > .input-group-text {
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+  }
+  .input-group-text {
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+  }
+}
+
+.auth-font {
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+  letter-spacing: 0.9px !important;
+}
+
+.auth-border {
+  @include set-borderRadius(10px, "all");
+}
+
+.auth-link {
+  @include set-titleStyles($senary-font-size, bold, $primary-color);
+}
+
+/* Auth Pages  style end */
 
 .header-title {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
@@ -410,8 +462,7 @@ body {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -438,8 +489,7 @@ body {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -996,9 +1046,20 @@ select.selectIcon {
   max-width: 375px;
   margin: auto;
 }
+.bottom-arrow-container {
+  padding: 50px 42px;
+  margin: auto;
+  width: inherit;
+  max-width: 425px;
+  margin: auto !important;
+}
 .leftArrow {
   font-size: 36px;
-  padding-bottom: 6px;
+  padding-bottom: 16px;
+  width: 30px;
+  @include xl-screen {
+    width: 36px;
+  }
 }
 .resource_text {
   color: #023047;
@@ -1031,27 +1092,62 @@ select.selectIcon {
 .selectSource {
   font-size: 25px;
   font-weight: bold;
-  padding-bottom: 20px;
 }
 .resource-cont {
   background-color: #023047;
   width: 100%;
 }
 .pieceCont {
-  padding: 6px;
+  padding: 6px !important;
+  @include xl-screen {
+    padding: 10px;
+  }
+  @include xxl-screen {
+    padding: 12px;
+  }
+  @include xxs-screen-between {
+    padding: 4px !important;
+  }
 }
 .insidePieceCont {
   font-size: 14px;
   font-weight: bold;
   color: #023047;
-  padding: 10px;
   background-color: #fafafa;
   border-radius: 10px;
-  min-width: 130px;
-  min-height: 130px;
+  @include xxs-screen-between {
+    font-size: 12px;
+  }
+  @include xl-screen {
+    border-radius: 14px;
+    font-size: 20px;
+  }
+}
+.midTextRange {
+  position: absolute;
+  padding: 10px 0px 0px 10px;
+  width: 116px;
+  @include xxs-screen-between {
+    width: 90px;
+    padding: 7px 0px 0px 7px;
+  }
+  @include xl-screen {
+    width: 180px;
+  }
+}
+.container-referal {
+  max-width: 374px;
+}
+.setHadPad {
+  padding: 30px 20px;
 }
 @media (min-width: 550px) and (max-width: 768px) {
   .top-arrow-container {
+    padding: 40px 24px 24px 24px;
+    max-width: 500px;
+    margin: auto;
+  }
+  .bottom-arrow-container {
     padding: 40px 24px 24px 24px;
     max-width: 500px;
     margin: auto;
@@ -1067,6 +1163,10 @@ select.selectIcon {
   }
   .top-arrow-container {
     padding: 80px 24px 24px 24px;
+    max-width: 700px;
+  }
+  .bottom-arrow-container {
+    padding: 50px 40px;
     max-width: 700px;
   }
 }
@@ -1096,6 +1196,26 @@ select.selectIcon {
   .havingAccount {
     font-size: 16px;
   }
+  .bottom-arrow-container {
+    padding: 24px 16px;
+    max-width: 700px;
+  }
+}
+.shape_and_center {
+  width: 14%;
+  height: 44px;
+  margin-left: 0px !important;
+}
+.shape_and_center {
+  .home-secondarySearch-bg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+  }
+}
+.bg-fafa {
+  background-color: #fafafa;
 }
 //desktop design
 @media (min-width: 1024px) {
@@ -1151,7 +1271,11 @@ select.selectIcon {
   }
   .top-arrow-container {
     padding: 104px 24px 24px 24px;
-    max-width: 943px;
+    max-width: 800px;
+  }
+  .bottom-arrow-container {
+    padding: 104px 0px;
+    max-width: 800px;
   }
 }
 
@@ -1202,5 +1326,13 @@ select.selectIcon {
     width: 363px;
     height: 56px;
     font-size: 31px;
+  }
+  .top-arrow-container {
+    padding: 104px 24px 24px 24px;
+    max-width: 943px;
+  }
+  .bottom-arrow-container {
+    padding: 108px 0px;
+    max-width: 943px;
   }
 }
