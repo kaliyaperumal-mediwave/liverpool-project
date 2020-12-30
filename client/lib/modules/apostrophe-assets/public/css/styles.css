@@ -1,8 +1,39 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
+
+fieldset,
+label {
+  margin: 0 !important;
+  padding: 0 !important;
+  margin-bottom: 20px !important; }
+
+.rating [type="radio"] {
+  border: none !important;
+  float: left !important; }
+
+.rating > input {
+  display: none !important; }
+
+.rating > label:before {
+  margin: 0px 6px !important;
+  font-size: 2.5em !important;
+  font-family: FontAwesome !important;
+  display: inline-block !important;
+  content: "\f005" !important; }
+
+.rating > .half:before {
+  content: "\f089" !important;
+  position: absolute !important; }
+
+.rating > label {
+  color: #ddd !important;
+  float: right !important; }
+
+.rating > input:checked ~ label {
+  color: #ffd700 !important; }
 
 .bootstrap-datetimepicker-widget tr {
   border-radius: 0px !important; }
@@ -62,27 +93,27 @@
   opacity: 1 !important; }
 
 /* Radio Button Global classes */
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before, [type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {
+.form-check [type="radio"]:checked + label:before,
+.form-check [type="radio"]:not(:checked) + label:before, .form-check [type="radio"]:checked + label:after, .form-check [type="radio"]:not(:checked) + label:after {
   content: "";
   position: absolute;
   border-radius: 102px;
   opacity: 1; }
 
-[type="radio"]:checked, [type="radio"]:not(:checked) {
+.form-check [type="radio"]:checked, .form-check [type="radio"]:not(:checked) {
   position: absolute;
   left: -9999px; }
 
-[type="radio"]:checked + label,
-[type="radio"]:not(:checked) + label {
+.form-check [type="radio"]:checked + label,
+.form-check [type="radio"]:not(:checked) + label {
   position: relative;
   padding-left: 56px;
   cursor: pointer;
   height: 40px;
   display: inline-block; }
 
-[type="radio"]:checked + label:before,
-[type="radio"]:not(:checked) + label:before {
+.form-check [type="radio"]:checked + label:before,
+.form-check [type="radio"]:not(:checked) + label:before {
   width: 40px;
   height: 40px;
   top: 0;
@@ -90,7 +121,7 @@
   background: #e8edee 0% 0% no-repeat padding-box;
   border: 1px solid #023047; }
 
-[type="radio"]:checked + label:after {
+.form-check [type="radio"]:checked + label:after {
   width: 22px;
   height: 22px;
   top: 9px;
@@ -103,7 +134,7 @@
   transition: all 0.2s ease;
   padding: 2px; }
 
-[type="radio"]:not(:checked) + label:after {
+.form-check [type="radio"]:not(:checked) + label:after {
   width: 22px;
   height: 22px;
   top: 9px;
@@ -121,7 +152,7 @@
   -o-transform: scale(0);
   transform: scale(0); }
 
-[type="radio"]:checked + label:after {
+.form-check [type="radio"]:checked + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
@@ -172,11 +203,14 @@
 
 /* Button Global classes */
 .btn {
-  background: #219ebc 0% 0% no-repeat padding-box !important;
   box-shadow: 0px 3px 6px #00000029 !important;
   border-radius: 10px !important; }
 
+#secondary {
+  background: #ffb703 0% 0% no-repeat padding-box !important; }
+
 .btn {
+  background: #219ebc 0% 0% no-repeat padding-box !important;
   opacity: "yes"; }
   .btn:focus {
     box-shadow: none !important; }
@@ -325,6 +359,8 @@ body {
     z-index: 10000 !important; }
   body .h-112 {
     height: 112px !important; }
+  body .h-300 {
+    height: 300px !important; }
   body .font-23 {
     font-size: 20px !important; }
   body .font-25 {
@@ -535,6 +571,35 @@ body {
 .progress-bg {
   background: #fb8500 0% 0% no-repeat padding-box !important; }
 
+/* Auth Pages style end */
+#authForm .input-group .form-control {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-top-left-radius: 10px !important;
+  border-bottom-left-radius: 10px !important; }
+
+#authForm .input-group > .input-group-append > .input-group-text {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important; }
+
+#authForm .input-group-text {
+  background: #e8edee 0% 0% no-repeat padding-box !important; }
+
+.auth-font {
+  font-size: 18px;
+  font-weight: bold;
+  color: #023047;
+  letter-spacing: 0.9px !important; }
+
+.auth-border {
+  border-radius: 10px !important; }
+
+.auth-link {
+  font-size: 15px;
+  font-weight: bold;
+  color: #023047; }
+
+/* Auth Pages  style end */
 .header-title {
   font-size: 32px;
   font-weight: bold;

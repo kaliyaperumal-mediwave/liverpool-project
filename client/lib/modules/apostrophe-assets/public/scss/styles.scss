@@ -1,6 +1,7 @@
 @import "config";
 @import "utilities";
 @import "mediaQueries";
+@import "starRating";
 @import "calendar";
 @import "radio";
 @import "checkbox";
@@ -26,36 +27,31 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
 body {
@@ -74,6 +70,10 @@ body {
 
   .h-112 {
     height: 112px !important;
+  }
+
+  .h-300 {
+    height: 300px !important;
   }
 
   .font-23 {
@@ -225,6 +225,7 @@ body {
     @include set-dynamicFont($quaternary-font-size, 2);
   }
 }
+
 .referral-inside-text {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
   font-size: 17px !important;
@@ -245,6 +246,7 @@ body {
   border-top-left-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
 }
+
 .home-primarySearch-bg::placeholder {
   font-size: 16px;
   color: #023047 !important;
@@ -312,6 +314,39 @@ body {
 .progress-bg {
   @include set-bgOnly($quaternary-color);
 }
+
+/* Auth Pages style end */
+
+#authForm {
+  .input-group .form-control {
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+    border-top-left-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+  }
+  .input-group > .input-group-append > .input-group-text {
+    border-top-right-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+  }
+  .input-group-text {
+    background: #e8edee 0% 0% no-repeat padding-box !important;
+  }
+}
+
+.auth-font {
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+  letter-spacing: 0.9px !important;
+}
+
+.auth-border {
+  @include set-borderRadius(10px, "all");
+}
+
+.auth-link {
+  @include set-titleStyles($senary-font-size, bold, $primary-color);
+}
+
+/* Auth Pages  style end */
 
 .header-title {
   @include set-titleStyles($primary-font-size, bold, $header-text-color);
@@ -427,8 +462,7 @@ body {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -455,8 +489,7 @@ body {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -1171,7 +1204,7 @@ select.selectIcon {
 .shape_and_center {
   width: 14%;
   height: 44px;
-  margin-left: 0px !important
+  margin-left: 0px !important;
 }
 .shape_and_center {
   .home-secondarySearch-bg {
@@ -1181,7 +1214,7 @@ select.selectIcon {
     border-radius: 10px;
   }
 }
-.bg-fafa{
+.bg-fafa {
   background-color: #fafafa;
 }
 //desktop design

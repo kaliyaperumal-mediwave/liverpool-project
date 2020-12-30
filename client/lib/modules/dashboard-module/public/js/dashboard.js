@@ -1,6 +1,6 @@
 $(document).ready(function () {
     new Vue({
-        el: '#dashboard-page',
+        el: '#dashboardPage',
         data: {
             location: window.location
         },
