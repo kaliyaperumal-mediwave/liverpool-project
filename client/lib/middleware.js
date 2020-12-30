@@ -50,17 +50,10 @@ module.exports = function (self, options) {
         try {
           request(options)
             .then(function (response) {
+              console.log("response")
               resolve(response.body);
             })
             .catch(function (err) {
-              if (err.statusCode === 401 && !req.session.aposBlessings) {
-                req.session.auth_token = null;
-                req.session.redirectto = req.url;
-                req.session.reload(function () { });
-                return req.res.redirect('/users/login');
-              } else {
-                err.statusCode = 500;
-              }
               reject(err);
             });
         } catch (error) {

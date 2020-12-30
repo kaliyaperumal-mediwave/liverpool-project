@@ -10,7 +10,6 @@ $(document).ready(function () {
         mounted: function () {
             
             this.paramValues = getParameter(location.href)
-            console.log( this.paramValues);
             this.loginId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.fetchSavedData();

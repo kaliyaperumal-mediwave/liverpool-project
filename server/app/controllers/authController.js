@@ -66,9 +66,8 @@ exports.login = async (ctx) => {
             {
                // console.log(userResult)
                const payload = { email: userResult.email };
-                const options = { expiresIn: '2d', issuer: 'https://scotch.io' };
-                const secret = process.env.JWT_SECRET;
-               const token = jwt.sign(payload, secret, options);
+               const secret = process.env.JWT_SECRET;
+               const token = jwt.sign(payload, secret);
              ///   console.log(token)
                 const sendUserResult={
                     loginId:userResult.uuid,
@@ -108,14 +107,4 @@ exports.login = async (ctx) => {
     }
 
 }
-function convertDate(date) {
-    var yyyy = date.getFullYear().toString();
-    var mm = (date.getMonth()+1).toString();
-    var dd  = date.getDate().toString();
-  
-    var mmChars = mm.split('');
-    var ddChars = dd.split('');
-    return (ddChars[1]?dd:"0"+ddChars[0]) + '-' + (mmChars[1]?mm:"0"+mmChars[0])+ '-' +  yyyy   ;
-  
-    return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
-  }
+

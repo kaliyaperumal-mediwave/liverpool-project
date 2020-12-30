@@ -22,11 +22,9 @@ $(document).ready(function () {
                 let formData = this.loginObject;
                 this.isFormSubmitted = true
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email)&& this.passwordRegex.test(formData.password))) {
-                    console.log('payload', formData);
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (Object.keys(successData)) {
-                        console.log(successData);
-                       // location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                        location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                     } else {
                         console.log('empty response')
                     }

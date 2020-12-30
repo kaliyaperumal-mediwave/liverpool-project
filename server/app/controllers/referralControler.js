@@ -7,6 +7,7 @@ exports.eligibility = ctx => {
   const user = ctx.orm().Referral;
   var userid;
   if (ctx.request.body.role == "child") {
+    //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.update({
         need_interpreter: ctx.request.body.interpreter,
@@ -57,6 +58,7 @@ exports.eligibility = ctx => {
 
   }
   else if (ctx.request.body.role == "parent") {
+     //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
         where: {
@@ -136,6 +138,7 @@ exports.eligibility = ctx => {
   }
 
   else if (ctx.request.body.role == "professional") {
+     //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
         where: {
@@ -317,7 +320,7 @@ exports.fetchEligibility = ctx => {
 exports.about = ctx => {
   const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
-
+ //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
         where: {
@@ -2416,10 +2419,7 @@ function convertDate(date) {
   var yyyy = date.getFullYear().toString();
   var mm = (date.getMonth()+1).toString();
   var dd  = date.getDate().toString();
-
   var mmChars = mm.split('');
   var ddChars = dd.split('');
   return (ddChars[1]?dd:"0"+ddChars[0]) + '-' + (mmChars[1]?mm:"0"+mmChars[0])+ '-' +  yyyy   ;
-
-  return yyyy + '-' + (mmChars[1]?mm:"0"+mmChars[0]) + '-' + (ddChars[1]?dd:"0"+ddChars[0]);
 }
