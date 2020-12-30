@@ -51,7 +51,11 @@ function backToPreviousPage(section, userId, userRole) {
 function scrollToInvalidInput() {
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
-    errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+    if (errorElements[0].parentElement) {
+        errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+    } else {
+        errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+    }
     var scrolledY = window.scrollY;
     if (scrolledY) {
         window.scroll(0, scrolledY - headerHeight);

@@ -105,9 +105,9 @@ body {
     color: #023047 !important;
     opacity: 1 !important;
   }
-  a {
-    color: #023087 !important;
-  }
+  // a {
+  //   color: #023087 !important;
+  // }
 }
 
 /*Logo Height style Start */
@@ -343,7 +343,8 @@ body {
 }
 
 .auth-link {
-  @include set-titleStyles($senary-font-size, bold, $primary-color);
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+  letter-spacing: 0.9px !important;
 }
 
 /* Auth Pages  style end */

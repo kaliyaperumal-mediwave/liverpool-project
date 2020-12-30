@@ -4,6 +4,9 @@
   letter-spacing: 0px;
   opacity: 1; }
 
+.text-underline {
+  text-decoration: underline !important; }
+
 fieldset,
 label {
   margin: 0 !important;
@@ -381,8 +384,6 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important; }
-  body a {
-    color: #023087 !important; }
 
 /*Logo Height style Start */
 .height-50 {
@@ -595,9 +596,10 @@ body {
   border-radius: 10px !important; }
 
 .auth-link {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  letter-spacing: 0.9px !important; }
 
 /* Auth Pages  style end */
 .header-title {

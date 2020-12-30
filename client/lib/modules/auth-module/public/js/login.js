@@ -15,7 +15,14 @@ $(document).ready(function () {
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
         },
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
+            setTimeout(function () {
+                $('#loader').hide();
+            }, 2000);
         },
 
         methods: {
