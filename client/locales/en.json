@@ -73,5 +73,14 @@
 	"Education Employment Module": "Education Employment Module",
 	"Incorrect login or password or account disabled": "Incorrect login or password or account disabled",
 	"Referral Module": "Referral Module",
-	"Review Module": "Review Module"
+	"Review Module": "Review Module",
+	"Trash": "Trash",
+	"Stop": "Stop",
+	"Done": "Done",
+	"In Progress...": "In Progress...",
+	"Completed": "Completed",
+	"Successful": "Successful",
+	"Errors": "Errors",
+	"Referral Completed Module": "Referral Completed Module",
+	"role-module": "role-module"
 }

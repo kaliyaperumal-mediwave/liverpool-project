@@ -8,7 +8,8 @@ const requestId = require('@kasa/koa-request-id');
 const apmMiddleware = require('./middlewares/apm');
 const bodyParser = require('./middlewares/body-parser');
 const cors = require('./middlewares/cors');
-const errorHandler = require('./middlewares/error-handler');
+const errorHandler = require('./middlewares/errorHandler');
+const responseHandler = require('./middlewares/responseHandler');
 const corsConfig = require('./config/cors');
 const logger = require('./logger');
 const router = require('./routes');
@@ -31,7 +32,8 @@ class App extends Koa {
   }
 
   _configureMiddlewares() {
-    this.use(errorHandler());
+    this.use(responseHandler());
+    this.use(errorHandler.errorHandler());
     this.use(apmMiddleware());
     this.use(requestId());
     this.use(logging({

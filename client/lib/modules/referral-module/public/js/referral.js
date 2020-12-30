@@ -1,23 +1,23 @@
 var API_URI = "/modules/referral-module";
 $(document).ready(function () {
-    var _self = this;
     var app = new Vue({
         el: '#referral-form',
+
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
-            this.dynamicLabels = allLabels;
-            this.userMode = this.getQueryStringValue('mode');
-            this.userRole = this.getQueryStringValue('role');
-            this.userId = this.getQueryStringValue('userId');
-            console.log('role', this.userRole);
-            if (this.userMode === 'edit') {
-                this.patchValue();
+            this.paramValues = getParameter(location.href)
+            this.userId = this.paramValues[0];
+            this.userRole = this.paramValues[1];
+            this.userMode = this.paramValues[2];
+            this.dynamicLabels = getDynamicLabels(this.userRole);
+            console.log(this.userId, this.userRole, this.userMode)
+            if (this.userMode !== undefined) {
+                this.fetchSavedData();
             }
-            if (this.getUrlVars()['edt'] == 1) {
-                this.fetchSavedData()
-            }
-            else {
-                console.log("if else")
-            }
+            $('#loader').hide();
         },
         data: {
             referralData: {
@@ -34,13 +34,6 @@ $(document).ready(function () {
                 accessService: '',
                 //isAccessingService: '',
                 listService: '',
-            },
-            dynamicLabels: {},
-            requiredFields: {
-                hasInfoReqError: false,
-                hasAnythingReqError: false,
-                hasTriggersReqError: false,
-                hasHistoryReqError: false,
             },
             dependent: [
                 {
@@ -60,21 +53,24 @@ $(document).ready(function () {
                 name: null,
                 professional: null,
                 contact: null,
-                hasNameReqError: false,
-                hasProfReqError: false,
-                hasContactReqError: false,
-                hasContactInvalidError: false
             },
+            currentSection: 'referral',
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            dynamicLabels: {},
             isFormSubmitted: false,
             serviceOthers: [],
             showAddOtherService: false,
             userRole: '',
             userMode: '',
+            userId: '',
             payloadData: {},
             diagnosisList: [],
             problemsList: [],
             accessList: [],
+            allAvailableService: [],
+            referralId: "",
             hasSubmittedServiceForm: false,
+            storeDeleteData: null,
             listOfDiagnosis: [
                 { id: '11E', value: 'ADD/ADHD' },
                 { id: '1154', value: 'Anxiety' },
@@ -90,7 +86,7 @@ $(document).ready(function () {
                 { id: '43R4', value: 'Obsessive-compulsive disorder (OCD)' },
                 { id: '1F5G4', value: 'Panic attacks' },
                 { id: '47FBGH', value: 'Phobias' },
-                { id: '1187', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
+                { id: '118709877fg9543', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
                 { id: 'DF3V6S', value: 'Self-harm' },
                 { id: '1DS', value: 'Pulling hair out' },
                 { id: '4F7', value: 'Separation anxiety' },
@@ -101,29 +97,35 @@ $(document).ready(function () {
                 { id: 'TRYE', value: 'Wetting and soiling' }
             ],
             listOfProblems: [
-                { id: 'sdf', value: 'ADD/ADHD' },
-                { id: '564dfh', value: 'Anxiety', },
-                { id: '564j', value: 'Autism' },
-                { id: 'hj', value: 'Bullying related' },
-                { id: '02h', value: 'Conduct disorder' },
-                { id: '9897', value: 'Depression' },
-                { id: 'dfj7t8y', value: 'Dyslexia' },
-                { id: 'g4df56+', value: 'Drinking and drugs related' },
-                { id: 'fjuyt18', value: 'Eating Disorders' },
-                { id: 'rujr98yu', value: 'Family Difficulty' },
-                { id: 'fjyhj1', value: 'Gender dysphoria' },
-                { id: 'dfjj848', value: 'Obsessive-compulsive disorder (OCD)' },
-                { id: 'dfghjd89', value: 'Panic attacks' },
-                { id: 'dfg8', value: 'Phobias' },
-                { id: '1187', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
-                { id: 'df198oijd', value: 'Self-harm' },
-                { id: 'gdfh98', value: 'Pulling hair out' },
-                { id: '2432fg', value: 'Separation anxiety' },
-                { id: 'p989df', value: 'Stress' },
-                { id: 'mk89uj8', value: 'Suicidal thoughts' },
-                { id: '9ig89u', value: 'Social phobia' },
-                { id: '8mfg8', value: 'Tics and Tourette’s' },
-                { id: '88gfh', value: 'Wetting and soiling' }
+                { id: 'sdf', value: 'Trouble concentrating' },
+                { id: '564dfh', value: 'Feeling nervous or on edge', },
+                { id: '564j', value: 'Trouble socialising' },
+                { id: 'hj', value: 'Bullying' },
+                { id: '02h', value: 'Find it hard to control myself' },
+                { id: '9897', value: 'Feeling sad, unhappy or hopeless' },
+                { id: 'dfj7t8y', value: 'Trouble reading and writing' },
+                { id: 'g4df56+', value: 'Drinking and drugs' },
+                { id: 'fjuyt18', value: 'Feeling clumsy and uncoordinated' },
+                { id: 'rujr98yu', value: 'Issues with food, diet or eating' },
+                { id: 'fjyhj1', value: 'Problems with family' },
+                { id: 'dfjj848', value: 'Problems with self identity' },
+                { id: 'dfghjd89', value: 'Compulsive behaviour' },
+                { id: 'dfg8', value: 'Panic attacks' },
+                { id: '1187qw1243', value: 'Feeling scared or anxious' },
+                { id: 'df198oijd', value: 'Seeing or hearing things' },
+                { id: 'gdfh98', value: 'Had a traumatic experience' },
+                { id: '2432fg', value: 'Feeling that I want to hurt myself' },
+                { id: 'p989df', value: 'Self-harming' },
+                { id: 'mk89uj8', value: 'Pulling hair out' },
+                { id: '9ig89u', value: 'Trouble sleeping' },
+                { id: '8mfg8', value: 'Feeling stressed' },
+                { id: '88gfh', value: 'Feeling that I don’t want to live' },
+                { id: '0f8495a7-4bc7-4194-a20b-485667901a02', value: 'Uncontrolled movements' },
+                { id: 'ac435a42-7157-4529-a20c-16a5fbf3e226', value: 'Wetting or soiling myself' },
+                { id: 'ac663e81-88c6-4514-9771-520de3088b03', value: 'Low self esteem' },
+                { id: 'e8458f91-4e04-4487-8797-0dad7339b49c', value: 'Lacking confidence in myself' },
+
+
             ],
             listOfAvailableService: [
                 { id: 'oopdfh', value: 'Addvanced Solutions' },
@@ -140,37 +142,129 @@ $(document).ready(function () {
                 { id: '85fhtsewre', value: 'YPAS' },
                 { id: '0dfsu8u', value: 'Other' },
             ],
-            allAvailableService: [],
-            sendObj: {},
-            referralId: ""
+            paramValues: []
         },
         methods: {
-            fetchSavedData: function () {
-                console.log("if")
-                this.sendObj.userid = this.getUrlVars()['userid'];
-                this.sendObj.role = this.getUrlVars()['role'];
-                console.log(this.sendObj);
-                //     var roleType=new URL(location.href).searchParams.get('role')
-                $.ajax({
-                    url: API_URI + "/fetchReferral",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(this.sendObj),
-                    success: function (data) {
-                        //alert("section 1 saved.");
-                        //  console.log(data);
-                        app.patchValue(data);
 
-                    },
-                });
+            //Options changing logic
+            onOptionChange: function (event) {
+                var questionIdentifier = event.target.name;
+                var optionsName = this.referralData;
+                if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal' || questionIdentifier == 'mentalDiagnosis' ||
+                    questionIdentifier == 'accessedService' || questionIdentifier === 'anyService') {
+                    resetValues(event.target.form, this, 'referralData');
+                }
+                else if (questionIdentifier === 'listDiagnosis') {
+                    if (!this.diagnosisList.length) {
+                        if (optionsName.diagnosisOther === '') {
+                            resetValues(event.target.form, this, 'referralData');
+                        }
+                    }
+                }
+                else if (questionIdentifier === 'listProblems') {
+                    if (!this.problemsList.length) {
+                        if (optionsName.problemsOther === '') {
+                            resetValues(event.target.form, this, 'referralData');
+                        }
+                    }
+                }
+                else if (questionIdentifier === 'listService') {
+                    if (event.target.checked) {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = true;
+                        }
+                    } else {
+                        if (event.target.value === 'Other') {
+                            this.showAddOtherService = false;
+                            this.allAvailableService = [];
+                        }
+                    }
+                    if (!this.accessList.length) {
+                        resetValues(event.target.form, this, 'referralData');
+                    }
+                }
             },
-            patchValue(data) {
-                console.log(data);
+
+            //Getting values from Other Input box and logic
+            onValueEnter: function (e) {
+                var questionIdentifier = event.target.name;
+                if (questionIdentifier === 'listDiagnosis') {
+                    if (!this.diagnosisList.length) {
+                        if (!e.target.value) {
+                            resetValues(event.target.form, this, 'referralData');
+                        }
+                    }
+
+                } else if (questionIdentifier === 'listProblems') {
+                    if (!e.target.value) {
+                        resetValues(event.target.form, this, 'referralData');
+                    }
+                }
+            },
+
+            //Edit Api call
+            fetchSavedData: function () {
+                var payload = {};
+                payload.userid = this.userId;
+                payload.role = this.userRole;
+                var successData = apiCallPost('post', '/fetchReferral', payload);
+                if (successData && Object.keys(successData)) {
+                    this.patchValue(successData);
+                    $('#loader').hide();
+                } else {
+                    console.error('error');
+                    $('#loader').hide();
+
+                }
+            },
+
+
+            //Form Submittion of Section-4(Referral) with validation logic
+            saveAndContinue: function () {
+                this.isFormSubmitted = true;
+                var formData = this.referralData;
+                if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
+                    this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
+                    this.payloadData.role = this.userRole;
+                    this.payloadData.userid = this.userId;
+                    this.payloadData.diagnosisList = this.diagnosisList;
+                    this.payloadData.problemsList = this.problemsList;
+                    this.payloadData.accessList = this.accessList;
+                    this.payloadData.allAvailableService = this.allAvailableService;
+                    this.payloadData.editFlag = getUrlVars()['edt'];
+                    this.payloadData.id = this.referralId;
+                    if (this.userMode === 'edit') {
+                        this.payloadData.userMode = 'edit';
+                    } else {
+                        this.payloadData.userMode = 'add';
+                    }
+                    this.upsertReferralForm(this.payloadData);
+
+                } else {
+                    scrollToInvalidInput();
+                    return false;
+                }
+
+            },
+
+            //Section 4(Referral) Save and Service call with navaigation Logic
+            upsertReferralForm: function (payload) {
+                var responseData = apiCallPost('post', '/saveReferral', payload);
+                if (Object.keys(responseData)) {
+                    location.href = redirectUrl(location.href, "review");
+                    this.storeDeleteData = null;
+                } else {
+                    console.log('empty response')
+                }
+            },
+
+            //Patching the value logic
+            patchValue: function (data) {
+                console.log(data)
                 this.diagnosisList = data.diagnosis;
                 this.problemsList = data.diagnosis;
                 this.accessList = data.local_services;
-                this.referralId = data.id
+                this.referralId = data.id;
                 if (this.accessList.indexOf("Other") > -1) {
                     this.showAddOtherService = true;
                 } else {
@@ -188,119 +282,15 @@ $(document).ready(function () {
                 Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
                 Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                 Vue.set(this.referralData, "accessService", data.any_other_services);
-                // Vue.set(this.referralData, "accessService", 'yes');
-            },
-
-            onOptionChange(event) {
-                var questionIdentifier = event.target.name;
-                var optionsName = this.referralData;
-                if (questionIdentifier === 'support') {
-                    if (optionsName.support === 'mentalHealth' || optionsName.support === 'eatingDisorder' || optionsName.support === 'bothMental&Eating') {
-                        this.resetValues(event.target.form);
-                    }
-                } else if (questionIdentifier === 'covidReferal') {
-                    if (optionsName.covid === 'unsure' || optionsName.covid === 'yes' || optionsName.covid === 'no') {
-                        this.resetValues(event.target.form);
-                    }
-                }
-                else if (questionIdentifier === 'mentalDiagnosis') {
-                    if (optionsName.diagnosis === 'yes') {
-                        this.resetValues(event.target.form);
-                    } else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-                else if (questionIdentifier === 'listDiagnosis') {
-                    console.log(this.diagnosisList);
-                    if (!this.diagnosisList.length) {
-                        if (optionsName.diagnosisOther === '') {
-                            this.resetValues(event.target.form);
-                        }
-                    }
-
-                }
-                else if (questionIdentifier === 'symptomOrSupport') {
-                    if (optionsName.supportOrSymptoms === 'yes') {
-                        this.resetValues(event.target.form);
-                    }
-                    else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-
-                else if (questionIdentifier === 'listProblems') {
-                    if (!this.problemsList.length) {
-                        if (optionsName.problemsOther === '') {
-                            this.resetValues(event.target.form);
-                        }
-                    }
-                }
-
-                else if (questionIdentifier === 'accessedService') {
-                    if (optionsName.accessService === 'yes') {
-                        this.resetValues(event.target.form);
-
-                    } else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-
-                else if (questionIdentifier === 'listService') {
-                    if (event.target.checked) {
-                        if (event.target.value === 'Other') {
-                            this.showAddOtherService = true;
-                        }
-                    } else {
-                        if (event.target.value === 'Other') {
-                            this.showAddOtherService = false;
-                            this.allAvailableService = [];
-                        }
-                    }
-                    if (!this.accessList.length) {
-                        this.resetValues(event.target.form);
-                    }
-                }
-
-                else if (questionIdentifier === 'anyService') {
-                    if (optionsName.isAccessingService === 'yes') {
-                        this.resetValues(event.target.form);
-                    } else {
-                        this.resetValues(event.target.form);
-                    }
-                }
-            },
-
-            //Getting values from Input
-            onValueEnter(e) {
-                var questionIdentifier = event.target.name;
-                if (questionIdentifier === 'listDiagnosis') {
-                    if (!this.diagnosisList.length) {
-                        if (!e.target.value) {
-                            this.resetValues(event.target.form);
-                        }
-                    }
-
-                } else if (questionIdentifier === 'listProblems') {
-                    if (!e.target.value) {
-                        this.resetValues(event.target.form);
-                    }
-                }
             },
 
             //Adding and Updating  a service logic
-            upsertService(event, type) {
-                console.log('all service', this.allAvailableService);
+            upsertService: function () {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
-                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
-                if (serviceForm.mode === 'update') {
-                    if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
-                        if (!phoneRegex.test(serviceForm.contact)) {
-                            this.hasContactInvalidError = true;
-                            return false;
-                        } else {
-                            this.hasContactInvalidError = false;
-                        }
+                var modal = document.getElementById('closeModal');
+                if (serviceForm.name && serviceForm.professional && serviceForm.contact && this.phoneRegex.test(serviceForm.contact)) {
+                    if (serviceForm.mode === 'update') {
                         this.allAvailableService = this.allAvailableService.map(function (it) {
                             if (it.mode === 'update' && it.id === serviceForm.id) {
                                 it = JSON.parse(JSON.stringify(serviceForm));
@@ -312,95 +302,24 @@ $(document).ready(function () {
                                 return it;
                             }
                         });
-                        console.log('after added service', this.allAvailableService);
-                        this.resetModalValues();
-                        serviceForm.mode == ''
-                        var modal = document.getElementById('closeModal');
-                        modal.setAttribute("data-dismiss", "modal");
-                        return false;
+
                     } else {
-                        if (!serviceForm.name) {
-                            serviceForm.hasNameReqError = true;
-                        }
-                        if (!serviceForm.professional) {
-                            serviceForm.hasProfReqError = true;
-                        }
-                        if (!serviceForm.contact) {
-                            serviceForm.hasContactReqError = true;
-                        }
-                        return false;
+                        serviceForm.id = uuidV4();
+                        serviceForm.mode = 'add';
+                        this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
                     }
-                }
-                if (type === 'add') {
-                    serviceForm.id = this.uuidV4();
-                    serviceForm.mode = 'add';
-                }
-                if (serviceForm.name && serviceForm.professional && serviceForm.contact) {
-                    if (!phoneRegex.test(serviceForm.contact)) {
-                        serviceForm.hasContactInvalidError = true;
-                        return false;
-                    } else {
-                        this.hasContactInvalidError = false;
-                    }
-                    this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
-                    console.log('after added service', this.allAvailableService);
                     this.resetModalValues();
-                    var modal = document.getElementById('closeModal');
                     modal.setAttribute("data-dismiss", "modal");
-                    serviceForm.mode == ''
+
                 } else {
-                    if (!serviceForm.name) {
-                        serviceForm.hasNameReqError = true;
-                    }
-                    if (!serviceForm.professional) {
-                        serviceForm.hasProfReqError = true;
-                    }
-                    if (!serviceForm.contact) {
-                        serviceForm.hasContactReqError = true;
-                    }
-                    return false;
-                }
-            },
-
-            resetModalValues() {
-                this.serviceData.name = '';
-                this.serviceData.professional = '';
-                this.serviceData.contact = '';
-                this.serviceData.hasNameReqError = false;
-                this.serviceData.hasProfReqError = false;
-                this.serviceData.hasContactReqError = false;
-            },
-
-            resetModal(e, type) {
-                console.log(this.serviceData);
-                if (type === 'add') {
-                    this.hasSubmittedServiceForm = false;
-                    this.serviceData.name = '';
-                    this.serviceData.mode = '';
-                    this.serviceData.professional = '';
-                    this.serviceData.contact = '';
-                    this.serviceData.hasNameReqError = false;
-                    this.serviceData.hasProfReqError = false;
-                    this.serviceData.hasContactReqError = false;
-                } else {
-                    if (this.serviceData.mode === 'update') {
-                        return true;
-
-                    } else {
-                        this.hasSubmittedServiceForm = false;
-                        this.serviceData.name = '';
-                        this.serviceData.professional = '';
-                        this.serviceData.contact = '';
-                        this.serviceData.hasNameReqError = false;
-                        this.serviceData.hasProfReqError = false;
-                        this.serviceData.hasContactReqError = false;
-                    }
+                    modal.removeAttribute("data-dismiss", "modal");
+                    return;
                 }
 
-
             },
 
-            patchService(service) {
+            //Patching the service logic
+            patchService: function (service) {
                 var serviceForm = this.serviceData;
                 serviceForm.name = service.name;
                 serviceForm.professional = service.professional;
@@ -417,244 +336,50 @@ $(document).ready(function () {
                 });
             },
 
-            deleteService(service) {
-                this.findIndex(this.allAvailableService, service);
+            //Delete service logic
+            openDeleteModal: function (service) {
+                this.storeDeleteData = service;
             },
 
-            //VALIDATION LOGIC FOR SERVICE MODAL WHILE ENTERING VALUES ON INPUT FILEDS
-            validateServiceOnValueEnter(e, type) {
-                console.log(e)
-                var serviceForm = this.serviceData;
-                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
-                if (this.hasSubmittedServiceForm) {
-                    if (type === 'name') {
-                        if (!e.target.value) {
-                            serviceForm.hasNameReqError = true;
-                        } else {
-                            serviceForm.hasNameReqError = false;
-                        }
-                    } else if (type === 'prof') {
-                        if (!e.target.value) {
-                            serviceForm.hasProfReqError = true;
-                        } else {
-                            serviceForm.hasProfReqError = false;
-                        }
-                    }
-                    else if (type === 'contact') {
-                        if (!e.target.value) {
-                            serviceForm.hasContactReqError = true;
-                            serviceForm.hasContactInvalidError = false;
-                        } else {
-                            if (!phoneRegex.test(e.target.value)) {
-                                serviceForm.hasContactInvalidError = true;
-                            } else {
-                                serviceForm.hasContactInvalidError = false;
-                            }
-                            serviceForm.hasContactReqError = false;
-                        }
-                    }
-
-
-                }
-
+            deleteService: function (data) {
+                var modal = document.getElementById('closeModalDelete');
+                deleteLogic(this.allAvailableService, data, this, 'allAvailableService');
+                modal.setAttribute("data-dismiss", "modal");
             },
 
-            //Validation logic for all required fields on entering values in input fields
-            validationOnValueEnter(e, type) {
-                if (this.isFormSubmitted) {
-                    if (type === 'info') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasInfoReqError = true;
-                        } else {
-                            this.requiredFields.hasInfoReqError = false;
-                        }
+            //Resetting the modal values of service data
+            resetModalValues: function () {
+                this.hasSubmittedServiceForm = false;
+                this.serviceData.name = '';
+                this.serviceData.professional = '';
+                this.serviceData.contact = '';
+                this.serviceData.mode = '';
+            },
 
-                    } else if (type === 'anything') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasAnythingReqError = true;
-                        } else {
+            resetModal: function (type) {
+                if (type === 'add') {
+                    this.resetModalValues();
+                } else {
+                    if (this.serviceData.mode === 'update') {
+                        return true;
 
-                            this.requiredFields.hasAnythingReqError = false;
-                        }
-
-                    } else if (type === 'triggers') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasTriggersReqError = true;
-                        } else {
-
-                            this.requiredFields.hasTriggersReqError = false;
-                        }
-
-                    } else if (type === 'disabilities') {
-                        if (e.target.value.length === 0) {
-                            this.requiredFields.hasHistoryReqError = true;
-                        } else {
-
-                            this.requiredFields.hasHistoryReqError = false;
-                        }
-
+                    } else {
+                        this.resetModalValues();
                     }
                 }
             },
 
-            //Reset Two-Way-Model Values
-            resetValues(currentForm) {
-                var allForms = Array.from(document.forms);
-                var formIndex = allForms.indexOf(currentForm);
-                for (let i = 0; i < allForms.length; i++) {
-                    var attributeValue = $(allForms[i]).data('options');
-                    if (formIndex < i) {
-                        this.referralData[attributeValue] = '';
-                    }
-                    if (formIndex <= i) {
-                        this.clearDependentValues(attributeValue);
-                    }
-                }
-                this.showAddOtherService = false;
-                this.allAvailableService = [];
-            },
-
-            clearDependentValues(parentKey) {
+            clearDependentValues: function (parentKey) {
                 var foundKeyPair = this.dependent.filter(function (ele) { return ele.parentKey === parentKey })[0];
                 if (foundKeyPair) {
                     this[foundKeyPair.childKey] = [];
                 }
             },
 
-            //Random UUID Generator
-            uuidV4() {
-                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-                    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                    return v.toString(16);
-                });
-            },
-
-            //Find Index Utility Function for IE 11
-            findIndex(arr, value) {
-                var index;
-                arr.some(function (e, i) {
-                    if (e.id == value.id) {
-                        index = i;
-                        return true;
-                    }
-                });
-                this.allAvailableService.splice(index, 1)
-            },
-
-            // Get Query Params value
-            getQueryStringValue(key) {
-                return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-            },
-
-
-            //Section 4 Save Logic
-            save() {
-                this.isFormSubmitted = true;
-                var formData = this.referralData;
-                var reqFields = this.requiredFields;
-                var roleType = this.getUrlVars()["role"];
-                var userid = this.getUrlVars()["userid"];
-                if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
-                    this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
-                    this.payloadData.role = roleType;
-                    this.payloadData.userid = userid;
-                    this.payloadData.diagnosisList = this.diagnosisList;
-                    this.payloadData.problemsList = this.problemsList;
-                    this.payloadData.accessList = this.accessList;
-                    this.payloadData.allAvailableService = this.allAvailableService;
-                    this.payloadData.editFlag = this.getUrlVars()['edt'];
-                    this.payloadData.id = this.referralId;
-                    if (this.userMode === 'edit') {
-                        this.payloadData.userMode = 'edit';
-                    } else {
-                        this.payloadData.userMode = 'add';
-                    }
-                    this.upsertReferralForm(this.payloadData);
-
-                } else {
-                    if (!formData.referralInfo) {
-                        reqFields.hasInfoReqError = true;
-
-                    } else {
-                        reqFields.hasInfoReqError = false;
-                    }
-                    if (!formData.hasAnythingInfo) {
-                        reqFields.hasAnythingReqError = true;
-
-                    } else {
-                        reqFields.hasAnythingReqError = false;
-                    }
-                    if (!formData.triggerInfo) {
-                        reqFields.hasTriggersReqError = true;
-
-                    } else {
-                        reqFields.hasTriggersReqError = false;
-                    }
-                    if (!formData.disabilityOrDifficulty) {
-                        reqFields.hasHistoryReqError = true;
-
-                    } else {
-                        reqFields.hasHistoryReqError = false;
-                    }
-                    this.scrollToInvalidInput();
-                    return false;
-                }
-
-            },
-
-            upsertReferralForm(payload) {
-                console.log(payload);
-                var _self = this;
-                $.ajax({
-                    url: API_URI + "/saveReferral",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(payload),
-                    success: function (data) {
-                    //    alert("section 4 saved.");
-                        console.log(data);
-                        location.href = "/review?userid=" + data.userid + "&role=" + data.role;
-                        if (_self.getUrlVars()["edt"] == null) {
-                            location.href = "/review?userid=" + data.userid + "&role=" + role;
-                        }
-                        else {
-                            history.back();
-                        }
-                        //  app.setValues(data);
-                    },
-                });
-            },
-
+            //Back to previous page
             backToEducation: function () {
-                var uid = this.getUrlVars()['userid'];
-                var role = this.getUrlVars()['role'];
-                location.href = "/education?userid=" + uid + "&role=" + role + "&edt=1";
-            },
-
-            //Scroll to top for an Invalid Inputs
-            scrollToInvalidInput() {
-                var errorElements = $('.invalid-fields');
-                window.scroll({
-                    top: this.getTopOffset(errorElements[0].parentElement.parentElement),
-                    left: 0,
-                    behavior: "smooth"
-                });
-            },
-
-            getTopOffset(controlEl) {
-                var labelOffset = 50;
-                return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
-            },
-            getUrlVars: function () {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-                    function (m, key, value) {
-                        vars[key] = value;
-                    });
-
-
-                return vars;
+                backToPreviousPage('/education?', this.userId, this.userRole)
+                // backToPreviousPage('/education')
             },
 
         },

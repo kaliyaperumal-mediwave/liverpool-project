@@ -5,258 +5,173 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#education-form',
         data: {
-            labelToDisplay: "",
-            professionObj: {},
-            childEducation: "",
-            hasNameReqError: false,
-            hasContactReqError: false,
-            hasNameInvalidError: false,
-            hasContactInvalidError: false,
-            isSubmitted: false,
-            sendObj:{}
+            educAndEmpData: {
+                position: '',
+                haveEhcpPlan: '',
+                haveEhat: '',
+                attendedInfo: '',
+                haveSocialWorker: '',
+                socialWorkName: '',
+                socialWorkContact: ''
+            },
+            currentSection: 'education',
+            userMode: '',
+            userRole: '',
+            userId: '',
+            payloadData: {},
+            dynamicLabels: {},
+            educationAddress: '',
+            mapsEntered: false,
+            isFormSubmitted: false,
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
         },
+
         mounted: function () {
-            var _self = this;
-            var roleType = this.getUrlVars()["role"]
-
-            _self.labelToDisplay = roleType;
-            console.log(_self.labelToDisplay);
-            google.maps.event.addDomListener(window, 'load', _self.initialize);
-
-            if(this.getUrlVars()['edt']==1)
-            {
-                this.fetchSavedData()
+            this.paramValues = getParameter(location.href)
+            this.userId = this.paramValues[0];
+            this.userRole = this.paramValues[1];
+            this.userMode = this.paramValues[2];
+            this.dynamicLabels = getDynamicLabels(this.userRole);
+            if (this.userMode != undefined) {
+                this.fetchSavedData();
             }
-            else
-            {
-                console.log("if else")
+            if (getUrlVars()['edt'] == 1) {
+                this.fetchSavedData();
             }
-
+            this.initMaps()
         },
+
         methods: {
-            fetchSavedData: function(){
-                console.log("if")
-                this.sendObj.uuid=this.getUrlVars()['userid'];
-                this.sendObj.role=this.getUrlVars()['role'];
-                console.log(this.sendObj);
-          //     var roleType=new URL(location.href).searchParams.get('role')
-                $.ajax({
-                    url: API_URI + "/fetchProfession",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(this.sendObj),
-                    success: function (data) {
-                        //alert("section 1 saved.");
-                   //  console.log(data);
-                     app.setValues(data);
-                        
-                    },
-                });
-            },
 
-            setValues: function(data) {
-              //  console.log(data);
-                var roleType = this.getUrlVars()["role"]
-                if(roleType=="child")
-                {
-                
-                    Vue.set(this.professionObj,"childProfession",data.child_profession);
-                    Vue.set(this.professionObj,"childEducationPlace",data.child_education_place);
-                    Vue.set(this.professionObj,"childEHCP",data.child_EHAT);
-                    Vue.set(this.professionObj,"childEHAT",data.child_EHCP);
-                    Vue.set(this.professionObj,"isSocialWorker",data.child_socialworker);
-                    Vue.set(this.professionObj,"socialWorkerName",data.child_socialworker_name);
-                    Vue.set(this.professionObj,"socialWorkerContactNumber",data.child_socialworker_contact);
-                }
-                else if(roleType=="parent")
-                {
-                  //  console.log(data);
-
-                    Vue.set(this.professionObj,"childProfession",data[0].parent[0].child_profession);
-                    Vue.set(this.professionObj,"childEducationPlace",data[0].parent[0].child_education_place);
-                    Vue.set(this.professionObj,"childEHCP",data[0].parent[0].child_EHAT);
-                    Vue.set(this.professionObj,"childEHAT",data[0].parent[0].child_EHCP);
-                    Vue.set(this.professionObj,"isSocialWorker",data[0].parent[0].child_socialworker);
-                    Vue.set(this.professionObj,"socialWorkerName",data[0].parent[0].child_socialworker_name);
-                    Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].parent[0].child_socialworker_contact);
-                }
-                else if(roleType=="professional")
-                {
-                     
-                     Vue.set(this.professionObj,"childProfession",data[0].professional[0].child_profession);
-                       Vue.set(this.professionObj,"childEducationPlace",data[0].professional[0].child_education_place);
-                       Vue.set(this.professionObj,"childEHCP",data[0].professional[0].child_EHAT);
-                       Vue.set(this.professionObj,"childEHAT",data[0].professional[0].child_EHCP);
-                       Vue.set(this.professionObj,"isSocialWorker",data[0].professional[0].child_socialworker);
-                       Vue.set(this.professionObj,"socialWorkerName",data[0].professional[0].child_socialworker_name);
-                       Vue.set(this.professionObj,"socialWorkerContactNumber",data[0].professional[0].child_socialworker_contact);
-                }
-                
-            },
-
-            backToAbout: function(){
-                var uid= this.getUrlVars()['userid'];
-                var role =  this.getUrlVars()['role'];
-                location.href = "/about?userid=" + uid + "&role=" + role + "&edt=1";
-            },
-            initialize: function() {
+            initMaps: function () {
                 var _self = this;
                 var autoCompleteChild;
-                autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('childEducationPlace')), {
-                    types: ['geocode'],
+                autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('attendedLocation')), {
+                    types: ['establishment'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    _self.childEducation = autoCompleteChild.getPlace().formatted_address;
+                    _self.educationAddress = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
+                    if (_self.educationAddress) {
+                        _self.mapsEntered = true;
+                        _self.educAndEmpData.attendedInfo = _self.educationAddress;
+                    } else {
+                        _self.mapsEntered = false;
+                    }
                 });
             },
 
-            onChange: function(event) {
-                var optionText = event.target.name;
-                if ((optionText == "childProfession" && this.professionObj.childEducationPlace != undefined) || (optionText == "childProfession" && this.professionObj.childEHCP != undefined)) {
-                    this.professionObj.childEducationPlace = "";
-                    this.professionObj.childEHCP = "";
-                    this.professionObj.childEHAT = "";
-                    this.professionObj.isSocialWorker = "";
-                    this.professionObj.socialWorkerName = "";
-                    this.professionObj.socialWorkerContactNumber = "";
-                }
-
-                if (optionText == "childEHCP" && this.professionObj.childEHAT != undefined) {
-                    this.professionObj.childEHAT = "";
-                    this.professionObj.isSocialWorker = "";
-                    this.professionObj.socialWorkerName = "";
-                    this.professionObj.socialWorkerContactNumber = "";
-                }
-
-                if (optionText == "childEHAT" && this.professionObj.isSocialWorker != undefined) {
-                    this.professionObj.isSocialWorker = "";
-                    this.professionObj.socialWorkerName = "";
-                    this.professionObj.socialWorkerContactNumber = "";
+            onOptionChange: function (event) {
+                var questionIdentifier = event.target.name;
+                if (questionIdentifier == 'currentPosition' || questionIdentifier == 'EHCP' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
+                    resetValues(event.target.form, this, 'educAndEmpData');
                 }
             },
 
-            onVaueChange: function(e, type) {
-                if (this.isSubmitted) {
-                    var phoneRegex = /^[0-9,-]{10,15}$|^$/;
-                    var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
-                    if (type === 'name') {
-                        if (e.target.value.length === 0) {
-                            this.hasNameReqError = true;
-                        } else {
-                            if (!nameRegex.test(e.target.value)) {
-                                this.hasNameInvalidError = true;
-                            } else {
-                                this.hasNameInvalidError = false;
-                            }
-                            this.hasNameReqError = false;
-                        }
-
-                    } else if (type === 'contact') {
-                        if (e.target.value.length === 0) {
-                            this.hasContactReqError = true;
-                            this.hasContactInvalidError = false;
-                        } else {
-                            if (!phoneRegex.test(e.target.value)) {
-                                this.hasContactInvalidError = true;
-                            } else {
-                                this.hasContactInvalidError = false;
-                            }
-                            this.hasContactReqError = false;
-                        }
-
-                    }
+            //Form Submittion of Section-4(Referral) with validation logic
+            saveAndContinue: function () {
+                this.isFormSubmitted = true;
+                var formData = this.educAndEmpData;
+                this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
+                this.payloadData.role = this.userRole;
+                this.payloadData.userid = this.userId;
+                if (this.userMode === 'edit') {
+                    this.payloadData.userMode = 'edit';
+                } else {
+                    this.payloadData.userMode = 'add';
                 }
-            },
-
-            saveEducation: function() {
-                var _self = this;
-                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
-                var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
-                this.isSubmitted = true;
-                var userid = this.getUrlVars()['userid'];
-                var role = this.getUrlVars()['role'];
-                this.professionObj.userid = userid;
-                this.professionObj.role = role;
-                this.professionObj.childEducationPlace = _self.childEducation;
-                console.log(this.professionObj);
-                if (this.professionObj.isSocialWorker === 'yes') {
-                    if (this.professionObj.socialWorkerName && this.professionObj.socialWorkerContactNumber) {
-                        if (nameRegex.test(this.professionObj.socialWorkerName) && phoneRegex.test(this.professionObj.socialWorkerContactNumber)) {
-                            this.apiRequest(this.professionObj, this.professionObj.isSocialWorker);
-                        } else {
-                            if (!nameRegex.test(this.professionObj.socialWorkerName)) {
-                                this.hasNameInvalidError = true;
-                            } else {
-                                this.hasNameInvalidError = false;
-                            }
-                            if (!phoneRegex.test(this.professionObj.socialWorkerContactNumber)) {
-                                this.hasContactInvalidError = true;
-                            } else {
-                                this.hasContactInvalidError = false;
-                            }
+                if (formData.haveSocialWorker === 'yes') {
+                    if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
+                        if (formData.position === 'education' && formData.attendedInfo) {
+                            this.upsertEducationForm(this.payloadData);
                         }
+                        else if (formData.position != 'education') {
+                            this.upsertEducationForm(this.payloadData);
+                        }
+
+                        else {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+
                     } else {
-                        if (this.professionObj.socialWorkerName === undefined) {
-                            this.hasNameReqError = true;
-                        } else {
-                            this.hasNameReqError = false;
-                        }
-                        if (this.professionObj.socialWorkerContactNumber === undefined) {
-                            this.hasContactReqError = true;
-                        } else {
-                            this.hasContactReqError = false;
-                        }
+                        scrollToInvalidInput();
+                        return false;
                     }
                 } else {
-                    this.apiRequest(this.professionObj, this.professionObj.isSocialWorker);
+                    this.upsertEducationForm(this.payloadData);
                 }
-            //    this.apiRequest(this.professionObj, role);
+
             },
 
-            apiRequest: function(payload, role) {
+            //Section 3(Education) Save and Service call with navaigation Logic
+            upsertEducationForm: function (payload) {
+                // console.log(payload);
                 var _self = this;
-                $.ajax({
-                    url: API_URI + "/education",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(payload),
-                    success: function (data) {
-                      //  alert("section 3 saved.");
-                        this.isSubmitted = false;
-                        console.log(data);
-                        // if (role === 'yes') {
-                        //     this.resetValidation();
-                        // }
-                        if(_self.getUrlVars()['edt']==null)
-                        {
-                            location.href = "/referral?userid=" + data.userid + "&role=" + new URL(location.href).searchParams.get('role');
-                        }
-                        else
-                        {
-                           history.back();
-                        }
-                    },
-                });
-            },
-            resetValidation: function() {
-                this.hasNameInvalidError = false;
-                this.hasNameReqError = false;
-                this.hasContactInvalidError = flase;
-                this.hasContactReqError = false;
+                var responseData = apiCallPost('post', '/education', payload);
+                if (Object.keys(responseData)) {
+                    location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
+                } else {
+                    console.log('empty response')
+                }
             },
 
-            getUrlVars:function () {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
-                function(m,key,value) {
-                  vars[key] = value;
-                });
-    
-              
-                return vars;
-              }
+            //Edit Api call
+            fetchSavedData: function () {
+                var payload = {};
+                payload.uuid = this.userId;
+                payload.role = this.userRole;
+                var successData = apiCallPost('post', '/fetchProfession', payload);
+                if (Object.keys(successData)) {
+                    this.patchValue(successData);
+                } else {
+                    console.log('empty response')
+                }
+
+            },
+
+            //Patching the value logic
+            patchValue: function (data) {
+                if (this.userRole == "child") {
+                    if (data.child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
+                    }
+                    Vue.set(this.educAndEmpData, "position", data.child_profession);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data.child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data.child_socialworker_name);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
+                }
+                else if (this.userRole == "parent") {
+
+                    if (data[0].parent[0].child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
+                    }
+                    Vue.set(this.educAndEmpData, "position", data[0].parent[0].child_profession);
+                    //   Vue.set(this.educAndEmpData,"childEducationPlace",data[0].parent[0].child_education_place);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHAT);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_name);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
+                }
+                else if (this.userRole == "professional") {
+                    if (data[0].professional[0].child_education_place) {
+                        Vue.set(this.educAndEmpData, "attendedInfo", data[0].professional[0].child_education_place);
+                    }
+                    Vue.set(this.educAndEmpData, "position", data[0].professional[0].child_profession);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].professional[0].child_EHAT);
+                    Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].child_socialworker);
+                    Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_name);
+                    Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
+                }
+            },
+
+            //Back to previous page
+            backToAbout: function () {
+                backToPreviousPage('/about?', this.userId, this.userRole)
+            },
         }
     })
 });
