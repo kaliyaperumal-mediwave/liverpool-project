@@ -19,7 +19,7 @@
         </h3>
     </div> -->
 
-    <div class="home-primary-content-bg col-md-6 col-sm-11 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
+    <div class="home-primary-content-bg col-md-9 col-sm-10 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
 
         <!-- Loader start -->
         <div class="overlay" id="loader">
@@ -44,9 +44,8 @@
         </div>
         <!-- Loader end -->
 
-        <div class="col-md-7 col-12 py-4 mx-auto">
+        <div class="col-md-9 col-lg-7 col-xl-7 col-12 py-4 mx-auto">
             <form class="px-3 py-2 mb-1">
-
                 <div class="form-group py-2 m-0">
                     <label for="firstName" class="auth-font my-2">First name</label>
                     <input type="text" placeholder="Enter your first name" class="form-control auth-border"
@@ -68,7 +67,7 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="emailAddressAuth" class="auth-font my-2">My email address</label>
+                    <label for="emailAddressAuth" class="auth-font my-2">Email address</label>
                     <input type="email" inputmode="email" placeholder="Enter your email address"
                         class="form-control auth-border" id="emailAddressAuth" v-model="signUpObject.email">
                     <div class="invalid-feedback px-1 d-none"
@@ -108,6 +107,7 @@
                             <span class="input-group-append">
                                 <div class="input-group-text px-3">
                                     <span style="color: #023047 !important;" class="cursor-pointer font-23"
+                                        data-toggle="tooltip" data-container="body" data-placement="top" title="show"
                                         @click="toggleVisibility('#signUpPassword','showVisibilityPassword')">
                                         <template v-if="!showVisibilityPassword">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="confirmPassword" class="auth-font my-2">Confirm Password</label>
+                    <label for="confirmPassword" class="auth-font my-2">Confirm password</label>
                     <div id="authForm">
                         <div class="input-group">
                             <input type="password" class="form-control auth-border py-2" id="confirmPassword"
@@ -168,10 +168,10 @@
 
             </form>
 
-            <div class="py-4 text-center">
-                <div class="py-2 mb-3">
+            <div class="py-md-4 py-2 text-center">
+                <div class="py-2 mb-2 mb-md-3">
                     <button type="button" @click="submitSignIn()" id="secondary"
-                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10">
+                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-8 col-lg-10 col-xl-10 col-sm-9 col-9">
                         <span class="btn-quaternary-text">SIGN UP
                         </span>
                     </button>

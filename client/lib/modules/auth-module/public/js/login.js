@@ -22,7 +22,7 @@ $(document).ready(function () {
         mounted: function () {
             setTimeout(function () {
                 $('#loader').hide();
-            }, 2000);
+            }, 1000);
         },
 
         methods: {
@@ -32,10 +32,12 @@ $(document).ready(function () {
                 this.isFormSubmitted = true
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
                     console.log('payload', formData);
+                    $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (Object.keys(successData)) {
                         console.log(successData);
                     } else {
+                        $('#loader').hide();
                         console.log('empty response')
                     }
 

@@ -1,6 +1,7 @@
 @import "config";
 @import "utilities";
 @import "mediaQueries";
+@import "tooltip";
 @import "starRating";
 @import "calendar";
 @import "radio";
@@ -336,6 +337,15 @@ body {
 .auth-font {
   @include set-titleStyles($quaternary-font-size, bold, $primary-color);
   letter-spacing: 0.9px !important;
+  @include xs-screen {
+    font-size: $quinary-font-size !important;
+  }
+  @include sm-screen {
+    font-size: $senary-font-size !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($quaternary-font-size, 2);
+  }
 }
 
 .auth-border {
@@ -345,6 +355,12 @@ body {
 .auth-link {
   @include set-titleStyles($quaternary-font-size, bold, $primary-color);
   letter-spacing: 0.9px !important;
+  @include xs-screen {
+    font-size: $quinary-font-size !important;
+  }
+  @include sm-screen {
+    font-size: $senary-font-size !important;
+  }
 }
 
 /* Auth Pages  style end */

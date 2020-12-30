@@ -7,6 +7,38 @@
 .text-underline {
   text-decoration: underline !important; }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; }
+
+.tooltip .tooltipText {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px; }
+
+.tooltip .tooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent; }
+
+.tooltip:hover .tooltipText {
+  visibility: visible; }
+
 fieldset,
 label {
   margin: 0 !important;
@@ -224,13 +256,13 @@ label {
   color: #023047; }
   @media (max-width: 575.98px) {
     .btn-quaternary-text {
-      font-size: 20px !important; } }
+      font-size: 19px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .btn-quaternary-text {
-      font-size: 23px !important; } }
+      font-size: 20px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .btn-quaternary-text {
-      font-size: 24px !important; } }
+      font-size: 22px !important; } }
 
 /* Input Fields Global classes */
 .form-control, .input-group-text {
@@ -591,6 +623,15 @@ body {
   font-weight: bold;
   color: #023047;
   letter-spacing: 0.9px !important; }
+  @media (max-width: 575.98px) {
+    .auth-font {
+      font-size: 14px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .auth-font {
+      font-size: 15px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .auth-font {
+      font-size: 16px !important; } }
 
 .auth-border {
   border-radius: 10px !important; }
@@ -600,6 +641,12 @@ body {
   font-weight: bold;
   color: #023047;
   letter-spacing: 0.9px !important; }
+  @media (max-width: 575.98px) {
+    .auth-link {
+      font-size: 14px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .auth-link {
+      font-size: 15px !important; } }
 
 /* Auth Pages  style end */
 .header-title {

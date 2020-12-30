@@ -28,7 +28,7 @@ $(document).ready(function () {
         mounted: function () {
             setTimeout(function () {
                 $('#loader').hide();
-            }, 2000);
+            }, 1000);
         },
 
         methods: {
@@ -38,10 +38,12 @@ $(document).ready(function () {
                 this.isFormSubmitted = true
                 if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     console.log('payload', formData);
+                    $('#loader').show();
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (Object.keys(successData)) {
                         console.log(successData);
                     } else {
+                        $('#loader').hide();
                         console.log('empty response')
                     }
                 } else {

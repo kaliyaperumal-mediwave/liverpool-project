@@ -47,11 +47,11 @@
                     <input type="email" inputmode="email" placeholder="Enter your email address"
                         class="form-control auth-border" id="loginEmail" aria-describedby="authEmail"
                         v-model="loginObject.email">
-                    <div class="invalid-feedback d-none"
+                    <div class="invalid-feedback px-1 d-none"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.email),'invalid-fields':!loginObject.email }">
                         You must provide a email.
                     </div>
-                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
+                    <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
                     'invalid-fields':(loginObject.email && !emailRegex.test(loginObject.email)) }">
                         You must provide a real valid email.
                     </div>
@@ -76,16 +76,15 @@
                                     </span>
                                 </div>
                             </span>
-                            <div class="invalid-feedback d-none"
+                            <div class="invalid-feedback px-1 d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
                                 You must provide a password.
                             </div>
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
+                            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
                         'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
                                 You must provide a real valid password.
                             </div>
                         </div>
-                        <!-- <a class="auth-link py-2 float-right cursor-pointer">Forgot Password?</a> -->
                     </div>
                 </div>
             </form>
@@ -103,7 +102,7 @@
                         </span></button>
                 </div>
                 <div class="py-2 text-center">
-                    <a class="auth-link cursor-pointer">Forgot Password?</a>
+                    <a class="auth-link cursor-pointer text-underline">Forgot Password?</a>
                 </div>
             </div>
 
@@ -118,11 +117,11 @@
             <input type="email" placeholder="Enter your email address"
                 class="form-control form-control-sm border-radius-10 textfieldHeight" id="exampleInputEmail1"
                 aria-describedby="emailHelp" v-model="loginObject.email">
-            <div class="invalid-feedback d-none"
+            <div class="invalid-feedback px-1 d-none"
                 v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.email),'invalid-fields':!loginObject.email }">
                 You must provide a email.
             </div>
-            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
+            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
             'invalid-fields':(loginObject.email && !emailRegex.test(loginObject.email)) }">
                 You must provide a real valid email.
             </div>
@@ -131,11 +130,11 @@
             <label for="exampleInputPassword1" class="login-email">Password</label>
             <input type="password" placeholder="Enter your password" v-model="loginObject.password"
                 class="form-control form-control-sm border-radius-10 textfieldHeight" id="exampleInputPassword1">
-            <div class="invalid-feedback d-none"
+            <div class="invalid-feedback px-1 d-none"
                 v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
                 You must provide a password.
             </div>
-            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
+            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
             'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
                 You must provide a real valid password.
             </div>

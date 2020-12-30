@@ -114,6 +114,7 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
+            $('#loader').hide();
             console.log(error.responseJSON.message)
         }
     });
@@ -133,6 +134,7 @@ function apiCallGet(reqType, endPoint) {
             response = res;
         },
         error: function (error) {
+            $('#loader').hide();
             console.log(error.responseJSON.message)
         }
     });
