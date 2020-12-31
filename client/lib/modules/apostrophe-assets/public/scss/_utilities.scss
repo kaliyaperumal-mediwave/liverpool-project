@@ -15,6 +15,7 @@
   font-size: $size;
   font-weight: $weight;
   color: $color;
+  //cursor: pointer;
 }
 
 @mixin set-cardStyle($color, $bl, $br, $border, $bordertbOnly) {

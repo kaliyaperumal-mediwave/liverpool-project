@@ -11,7 +11,7 @@ exports.eligibility = ctx => {
     if (ctx.request.body.editFlag != null) {
       return user.update({
         need_interpreter: ctx.request.body.interpreter,
-        child_dob: ctx.request.body.childDob,
+        child_dob: ctx.request.body.child_Dob,
         contact_parent: ctx.request.body.contactParent,
         consent_child: ctx.request.body.isInformation,
         registerd_gp: ctx.request.body.registerd_gp,
@@ -35,7 +35,7 @@ exports.eligibility = ctx => {
       console.log(ctx.request.body)
       return user.create({
         need_interpreter: ctx.request.body.interpreter,
-        child_dob: ctx.request.body.childDob,
+        child_dob: ctx.request.body.child_Dob,
         contact_parent: ctx.request.body.contactParent,
         consent_child: ctx.request.body.isInformation,
         registerd_gp: ctx.request.body.registerd_gp,
@@ -81,7 +81,7 @@ exports.eligibility = ctx => {
 
           var childId = userResult[0].parent[0].ChildParents.parentId;
           return user.update({
-            child_dob: ctx.request.body.childDob,
+            child_dob: ctx.request.body.child_Dob,
             registerd_gp: ctx.request.body.registerd_gp,
           },
             {
@@ -108,7 +108,7 @@ exports.eligibility = ctx => {
     }
     else {
       return user.create({
-        child_dob: ctx.request.body.childDob,
+        child_dob: ctx.request.body.child_Dob,
         registerd_gp: ctx.request.body.registerd_gp,
       }).then((childUserInfo) => {
         childUserInfo.setType("1")
@@ -162,7 +162,7 @@ exports.eligibility = ctx => {
 
           var childId = userResult[0].professional[0].ChildProfessional.professionalId;
           return user.update({
-            child_dob: ctx.request.body.profChildDob,
+            child_dob: ctx.request.body.prof_ChildDob,
             registerd_gp: ctx.request.body.profRegisterd_gp,
           },
             {
@@ -192,7 +192,7 @@ exports.eligibility = ctx => {
     }
     else {
       return user.create({
-        child_dob: ctx.request.body.profChildDob,
+        child_dob: ctx.request.body.prof_ChildDob,
         registerd_gp: ctx.request.body.profRegisterd_gp,
       }).then((childUserInfo) => {
         childUserInfo.setType("1")
