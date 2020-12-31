@@ -4,11 +4,11 @@ $(document).ready(function () {
         el: '#dashboardPage',
         data: {
             location: window.location,
-            paramValues:'',
-            loginId:'7'
+            paramValues: '',
+            loginId: '7'
         },
         mounted: function () {
-            
+
             this.paramValues = getParameter(location.href)
             this.loginId = this.paramValues[0];
             this.userRole = this.paramValues[1];
@@ -16,7 +16,8 @@ $(document).ready(function () {
         },
 
         methods: {
-            //Ftech Api service Logic
+
+            //Fetch Api service Logic
             fetchSavedData: function () {
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",

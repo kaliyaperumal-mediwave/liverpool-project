@@ -41,6 +41,7 @@ exports.signup = async (ctx) => {
                 message: reponseMessages[1005],
               });
         }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
@@ -68,7 +69,7 @@ exports.login = async (ctx) => {
                const payload = { email: userResult.email };
                const secret = process.env.JWT_SECRET;
                const token = jwt.sign(payload, secret);
-             ///   console.log(token)
+            //  ///   console.log(token)
                 const sendUserResult={
                     loginId:userResult.uuid,
                     first_name:userResult.first_name,

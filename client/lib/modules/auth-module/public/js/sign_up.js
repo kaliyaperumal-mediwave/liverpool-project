@@ -1,6 +1,6 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    // Vue.use(VueToast);
+    Vue.use(VueToast);
     new Vue({
         el: '#user_sign_up',
 
@@ -18,7 +18,8 @@ $(document).ready(function () {
             showVisibilityConfirmPassword: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
-            samePass: true
+            samePass: true,
+            loginPath: '/users/login'
         },
 
         beforeMount: function () {
@@ -30,12 +31,7 @@ $(document).ready(function () {
                 $('#loader').hide();
             }, 1000);
 
-            // Vue.$toast.open({
-            //     message: 'Something went wrong!',
-            //     type: 'success',
-            //     position: 'top-right'
-            //     // all of other options may go here
-            // });
+
 
         },
 
@@ -50,6 +46,13 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (Object.keys(successData)) {
                         console.log(successData);
+                        $('#loader').hide();
+                        // Vue.$toast.open({
+                        //     message: 'Login successful',
+                        //     type: 'success',
+                        //     position: 'top'
+                        // });
+                        window.location.href = window.location.origin + '/users/login';
                     } else {
                         $('#loader').hide();
                         console.log('empty response')
