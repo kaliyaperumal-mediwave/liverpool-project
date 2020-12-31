@@ -6,7 +6,8 @@
 
 {% endblock %}
 {% block main %}
-<div id="check-referral" class="main-min-height">
+<div id="viewReferral-page" class="main-min-height">
+    {% raw %}
     <div class="top-arrow-container">
         <div class="input-group">
             <span class="input-group-prepend">
@@ -20,10 +21,12 @@
                 placeholder="Search your resource" id="example-search-input">
         </div>
         <div class="dropdown d-flex justify-content-end align-items-center ">
+            
             <button class=" custom-select-icon" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 Sort by
             </button>
+            <p>{{viewReferralObj.loginId }}</p>
             <div class="dropdown-menu no-padding" aria-labelledby="dropdownMenu2">
                 <ul class="list-group">
                     <li class="list-group-item list-set-form text-right">Date</li>
@@ -92,7 +95,7 @@
         </div>
         </a>
     </div>
-
+    {% endraw %}
 </div>
 
 {% endblock %}

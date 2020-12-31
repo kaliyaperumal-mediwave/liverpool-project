@@ -4,16 +4,16 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#viewReferral-page',
         data: {
-            checkReferral: {
+            viewReferralObj: {
                 email: "",
-                password: ""
+                loginId: "",
             },
             isFormSubmitted: false,
             showVisibility: false,
+            displayReferrals:[]
         },
 
         mounted: function () {
-            this.name = "thiru"
             this.paramValues = getParameter(location.href)
             this.viewReferralObj.loginId = this.paramValues[0];
             this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)
@@ -29,6 +29,23 @@ $(document).ready(function () {
                     $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                 }
             },
+            getUserReferral: function (loginId, referralType) {
+                var _self = this;
+                $.ajax({
+                    url: API_URI + "/getUserReferral/" + loginId + "/" + referralType,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        let setObj={};
+                        _self.displayReferrals = data;
+                        console.log(_self.displayReferrals)
+                    },
+                    error: function (error) {
+                        console.log(error.responseJSON.message)
+                    }
+                });
+            }
         }
     })
 
