@@ -1319,7 +1319,7 @@ select.selectIcon {
 .text_blog {
   margin-top: 20px;
   margin-bottom: 20px;
-  padding: 10px 20px;
+  padding: 14px 20px 26px 20px;
   background-color: #fafafa;
   color: #023047;
   border-radius: 10px;
@@ -1350,7 +1350,7 @@ select.selectIcon {
       font-size: 18px; } }
 
 .divider_border {
-  border: 1px solid #112F45; }
+  border: 1px solid #112f45; }
 
 .collapse_title {
   color: #023047;
@@ -1403,6 +1403,22 @@ select.selectIcon {
     .midTextRange {
       width: 180px; } }
 
+.collapse-title {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 0px; }
+
+.collapse-para {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0px 0px 10px 0px; }
+
+.collapse-container {
+  padding: 20px 20px;
+  background: aliceblue;
+  margin: 10px;
+  border-radius: 10px; }
+
 .container-referal {
   max-width: 374px; }
 
@@ -1433,11 +1449,11 @@ select.selectIcon {
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   margin-top: 30px; }
 
 .text-complete {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   font-size: 16px;
   font-weight: bold;
   border-right: 1px solid #707070;
@@ -1454,8 +1470,26 @@ select.selectIcon {
 .text-complete:hover {
   background-color: #dedede; }
 
+.float-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #112f45;
+  border: none;
+  position: relative;
+  bottom: 40px; }
+
+.float-btn-cont {
+  float: right;
+  display: flex;
+  justify-content: flex-end; }
+
+.plus-fa-fa {
+  color: #fafafa;
+  font-size: 24px; }
+
 .text-not-complete {
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   font-size: 16px;
   font-weight: bold;
   height: 67px;
