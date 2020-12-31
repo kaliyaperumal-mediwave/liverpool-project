@@ -13,7 +13,8 @@ module.exports = {
     self.login = function (req, callback) {
       return self.sendPage(req, self.renderer('login', {
         showHeader: true,
-        home: true
+        home: true,
+        navigateMkeRfrl: "/role?",
       }));
     };
 
@@ -26,11 +27,7 @@ module.exports = {
 
     require('../../middleware')(self, options);
     self.route('post', 'doCreateAcc', function (req, res) {
-      console.log(url);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/signup';
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -41,10 +38,12 @@ module.exports = {
 
     self.route('post', 'doLogin', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/login';
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
+        if(data)
+        {
+          req.session.auth_token = data.data.sendUserResult.token;
+          req.session.reload(function () { });
+        }
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

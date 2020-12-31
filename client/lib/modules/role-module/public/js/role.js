@@ -1,5 +1,5 @@
 //const apiUrl = "/user/eligibility"
-var API_URI = "/modules/auth-module";
+var API_URI = "/modules/role-module";
 $(document).ready(function () {
 
     Vue.component('date-picker', VueBootstrapDatetimePicker);
@@ -32,7 +32,8 @@ $(document).ready(function () {
                 childConcernInformation: '',
                 contactProfParent: '',
                 regProfGpTxt: '',
-                profEmail: ''
+                profEmail: '',
+                disableRole:false
             },
             date: null,
             dateWrap: true,
@@ -72,7 +73,12 @@ $(document).ready(function () {
             this.getGP();
             this.getProfGP();
             if (this.paramValues != undefined) {
-                if (this.paramValues[2] != undefined) {
+                if (this.paramValues[0] == "loginFlag") {
+                    this.elgibilityObj.loginId = this.paramValues[1];
+                    this.elgibilityObj.role = this.paramValues[2];
+                    $('input[name=role]').attr("disabled", true);
+                }
+              else if (this.paramValues[2] != undefined) {
                     this.elgibilityObj.uuid = this.paramValues[0];
                     this.elgibilityObj.editFlag = this.paramValues[2]
                     this.fetchSavedData()
@@ -323,9 +329,9 @@ $(document).ready(function () {
                 //  console.log(date);
                 if (this.patchFlag != true && date != null) {
                     var today = new Date();
-                    var selectedDate = new Date(date);
-                    var age = this.diff_years(today, selectedDate);
                     this.dateFmt = this.setDate(date)
+                    var selectedDate = new Date( this.dateFmt);
+                    var age = this.diff_years(today, selectedDate);
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
@@ -482,7 +488,7 @@ $(document).ready(function () {
                 // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
                 //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
                 //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
-                //  this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
+                this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
@@ -572,7 +578,17 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        location.href = redirectUrl(location.href, "about", data.userid, role);
+                        if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
+                            alert("343");
+                            var url = window.location.href.split('?')[0];
+                            console.log(url)
+                            location.href = redirectUrl(url, "about", data.userid, role);
+                        }
+                        else
+                        {
+                            location.href = redirectUrl(location.href, "about", data.userid, role);
+                        }
+                       
                     },
                     error: function (error) {
                         console.log(error.responseJSON.message)

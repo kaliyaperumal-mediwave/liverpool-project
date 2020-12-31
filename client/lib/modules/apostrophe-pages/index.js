@@ -52,6 +52,10 @@ module.exports = {
       label: 'Dashboard Module'
     },
     {
+      name: 'check-referral-module',
+      label: 'Check Referral Module'
+    },
+    {
       name: 'feedback-module',
       label: 'Feedback Module'
     }
