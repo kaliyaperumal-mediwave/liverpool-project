@@ -1,6 +1,6 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-
+    // Vue.use(VueToast);
     new Vue({
         el: '#user_sign_up',
 
@@ -29,6 +29,14 @@ $(document).ready(function () {
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);
+
+            // Vue.$toast.open({
+            //     message: 'Something went wrong!',
+            //     type: 'success',
+            //     position: 'top-right'
+            //     // all of other options may go here
+            // });
+
         },
 
         methods: {
