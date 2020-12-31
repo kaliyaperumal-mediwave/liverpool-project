@@ -6,6 +6,28 @@
 %}
 
 <div id="dashboardPage">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
     <div class="my-xl-5 my-lg-5 my-md-4 my-4">
         <h2 class="home-header-primary text-center">CAMHS Services</h2>
         <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
@@ -115,7 +137,7 @@
                             </div>
                         </div>
                         <div class="py-4 text-left">
-                            <button  type="button" @click="checkReferral()" class="btn px-md-4 py-1 px-3"><span
+                            <button type="button" @click="checkReferral()" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-quaternary-text">CONTINUE REFERRAL
                                 </span></button>
                         </div>

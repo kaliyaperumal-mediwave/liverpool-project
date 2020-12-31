@@ -7,8 +7,12 @@ $(document).ready(function () {
             paramValues: '',
             loginId: '7'
         },
-        mounted: function () {
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
+        mounted: function () {
             this.paramValues = getParameter(location.href)
             this.loginId = this.paramValues[0];
             this.userRole = this.paramValues[1];
@@ -27,9 +31,11 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
-                        console.log(data)
+                        console.log(data);
+                        $('#loader').hide();
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log(error.responseJSON.message)
                     }
                 });

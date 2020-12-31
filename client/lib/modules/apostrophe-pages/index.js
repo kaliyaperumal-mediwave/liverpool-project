@@ -58,6 +58,10 @@ module.exports = {
     {
       name: 'feedback-module',
       label: 'Feedback Module'
+    },
+    {
+      name: 'footer-pages-module',
+      label: 'Footer Pages Module'
     }
 
     // Add more page types here, but make sure you create a corresponding

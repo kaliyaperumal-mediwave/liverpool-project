@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -649,10 +649,37 @@ body {
       font-size: 15px !important; } }
 
 /* Auth Pages  style end */
-.header-title {
-  font-size: 32px;
+/* Urgent Help style start */
+.urgent-help-bg {
+  background: #e55f5f 0% 0% no-repeat padding-box !important; }
+
+.urgent-help-text {
+  font-size: 20px;
   font-weight: bold;
-  color: #ffffff; }
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .urgent-help-text {
+      font-size: 14px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .urgent-help-text {
+      font-size: 13px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .urgent-help-text {
+      font-size: 16px !important; } }
+
+/* Urgent Help style end */
+/* Footer fonts style start */
+.footer-content {
+  font-size: 20px;
+  font-weight: normal;
+  color: #023047;
+  line-height: 30px !important; }
+
+/* Footer fonts style end */
+.header-title {
+  font-size: 22px;
+  font-weight: normal;
+  color: #023047; }
 
 .completed-toast-text {
   font-size: 18px;

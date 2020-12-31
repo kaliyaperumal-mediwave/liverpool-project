@@ -64,15 +64,18 @@ endblock %} {% block extraHead %}
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
   <!-- Header Ui Start-->
-  <div class="redHeader">
-    Get urgent help
+
+  <div class="urgent-help-bg d-flex align-items-center justify-content-between">
+    <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
+
+    {% if data.showLogout %}
+    <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Logout</h3>
+    {% endif %}
+
   </div>
+
   <nav class="header-bg header-set-height">
     <div class="row mx-0 w-100 justify-content-between align-center">
-      <!-- <div alt="logo" class="header-logo"></div>
-      <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">
-        It’s okay to not be okay.
-      </h2> -->
       <div class="butLogo-cont">
         <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
           data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
@@ -87,12 +90,12 @@ endblock %} {% block extraHead %}
         </div>
       </div>
 
-      <a href="{{ data.navigateMkeRfrl }}" >
+      <a href="{{ data.navigateMkeRfrl }}">
         <button class="button-referral">
           Make a referral
         </button>
       </a>
-     
+
     </div>
     <!-- left drawer -->
     <div id="side-drawer" class="position-fixed">

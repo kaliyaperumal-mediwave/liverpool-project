@@ -21,7 +21,8 @@ module.exports = {
     self.sign_up = function (req, callback) {
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
-        home: true
+        home: true,
+        showLogout: false
       }));
     };
 
@@ -39,8 +40,7 @@ module.exports = {
     self.route('post', 'doLogin', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/login';
       self.middleware.post(req, res, url, req.body).then((data) => {
-        if(data)
-        {
+        if (data) {
           req.session.auth_token = data.data.sendUserResult.token;
           req.session.reload(function () { });
         }
