@@ -319,6 +319,26 @@ label {
   100% {
     transform: rotate(360deg); } }
 
+.v-toast__item .v-toast__text::before {
+  font-family: FontAwesome !important;
+  content: "\f057" !important;
+  color: #fff;
+  float: right;
+  left: 18px;
+  font-size: 19px;
+  font-weight: bold;
+  position: relative;
+  bottom: 16px;
+  cursor: pointer; }
+
+.v-toast__item .v-toast__text {
+  padding: 6px 30px 0px 10px !important;
+  font-size: 16px;
+  font-weight: bold; }
+
+.v-toast.v-toast--top {
+  justify-content: center; }
+
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
