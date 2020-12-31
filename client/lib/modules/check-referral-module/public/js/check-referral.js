@@ -7,10 +7,13 @@ $(document).ready(function () {
             viewReferralObj: {
                 email: "",
                 loginId: "",
+                referralType: "completed"
             },
             isFormSubmitted: false,
             showVisibility: false,
-            displayReferrals:[]
+            displayReferrals: [],
+            referralDateArray: [],
+            viewReferralArray: []
         },
 
         mounted: function () {
@@ -37,15 +40,55 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        let setObj={};
+                        let setObj = {};
                         _self.displayReferrals = data;
-                        console.log(_self.displayReferrals)
+                        for (var i = 0; i < _self.displayReferrals.length; i++) {
+                            var date = _self.convertDate(_self.displayReferrals[i].createdAt);
+                            obj = {
+                                date: "",
+                                data: []
+                            };
+                            if (_self.referralDateArray.length == 0) {
+                                obj.date = date;
+                                obj.data.push(_self.displayReferrals[i])
+                                _self.referralDateArray.push(date)
+                                _self.viewReferralArray.push(obj)
+                            }
+                            else if (_self.referralDateArray.indexOf(date) === -1) {
+                                obj.date = date;
+                                obj.data.push(_self.displayReferrals[i])
+                                _self.referralDateArray.push(date)
+                                _self.viewReferralArray.push(obj)
+                            }
+                            else {
+                                for (var j = 0; j < _self.viewReferralArray.length; j++) {
+
+                                    if (_self.viewReferralArray[j].date == date) {
+                                        _self.viewReferralArray[j].data.push(_self.displayReferrals[i])
+                                    }
+
+                                }
+                            }
+                        }
+                        console.log(_self.referralDateArray)
+                        console.log(_self.viewReferralArray)
                     },
                     error: function (error) {
                         console.log(error.responseJSON.message)
                     }
                 });
-            }
+            },
+
+            convertDate: function (dbDate) {
+                var date = new Date(dbDate)
+                var yyyy = date.getFullYear().toString();
+                var mm = (date.getMonth() + 1).toString();
+                var dd = date.getDate().toString();
+
+                var mmChars = mm.split('');
+                var ddChars = dd.split('');
+                return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
+            },
         }
     })
 

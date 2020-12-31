@@ -54,19 +54,43 @@
             <hr class="dropdown-divider" />
             <!-- <div class="collapse_title"> -->
             <!-- Monday 14th September 2020 -->
-            <div class="d-flex justify-content-between align-items-center" id="headingOne">
+            <div  v-for="(item, index) in viewReferralArray"   class="d-flex justify-content-between align-items-center" id="headingOne">
                 <div class="d-flex align-items-center">
                     <div class="collapse_title">
-                        Monday 14th September 2020
+                        {{item.date}}
                     </div>
                 </div>
                 <span style="color: #D6D8D8;">
                     <i class="fas fa-chevron-circle-down fa-2x res_fontz" data-toggle="collapse" href="#collapseExample"
                         role="button" aria-expanded="false" aria-controls="collapseExample"></i>
                 </span>
-                <!-- </div> -->
+                <div class="collapse show collapse-container" id="collapseExample">
+                    <div class="collapse-title">
+                        Hospital
+                    </div>
+                    <div class="collapse-para">
+                        Alder Hey NHS
+                    </div>
+                    <div class="collapse-title">
+                        Treatment
+                    </div>
+                    <div class="collapse-para">
+                        N/A
+                    </div>
+                    <div class="collapse-title">
+                        Code
+                    </div>
+                    <div class="collapse-para">
+                        HDJ2134F
+                    </div>
+                    <div class="container float-btn-cont">
+                        <button class="float-btn" type="button">
+                            <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
+                           </button>
+                    </div>
+                </div>
             </div>
-            <div class="collapse show collapse-container" id="collapseExample">
+            <!-- <div class="collapse show collapse-container" id="collapseExample">
                 <div class="collapse-title">
                     Hospital
                 </div>
@@ -90,8 +114,7 @@
                         <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                        </button>
                 </div>
-              
-            </div>
+            </div> -->
         </div>
         </a>
     </div>

@@ -2409,11 +2409,11 @@ exports.getUserReferral = ctx => {
     result.forEach((games, index) => {
       const date = convertDate(games.createdAt)
       result[index].date = date;
-      // if (finalObj[date]) {
-      //   finalObj[date].push(games);
-      // } else {
-      //   finalObj[date] = [games];
-      // }
+      if (finalObj[date]) {
+        finalObj[date].push(games);
+      } else {
+        finalObj[date] = [games];
+      }
     })
 
     return ctx.body = result
