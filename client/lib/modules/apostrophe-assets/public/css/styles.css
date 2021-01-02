@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -436,6 +436,20 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important; }
+  body #myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px; }
 
 /*Logo Height style Start */
 .height-50 {
@@ -727,6 +741,20 @@ body {
   @media (min-width: 768px) and (max-width: 991.98px) {
     .footer-content {
       font-size: 18px !important; } }
+
+.footer-content-secondary {
+  font-size: 28px;
+  font-weight: bold;
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .footer-content-secondary {
+      font-size: 22px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .footer-content-secondary {
+      font-size: 23px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .footer-content-secondary {
+      font-size: 25px !important; } }
 
 /* Footer fonts style end */
 .header-title {

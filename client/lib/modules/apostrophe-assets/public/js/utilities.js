@@ -122,7 +122,7 @@ function apiCallPost(reqType, endPoint, payload) {
 };
 
 //Commom API Call for post Function
-function apiCallGet(reqType, endPoint,API_URI) {
+function apiCallGet(reqType, endPoint, API_URI) {
     var response;
     console.log(API_URI + endPoint)
     $.ajax({
@@ -274,4 +274,26 @@ window.onload = (event) => {
     if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
         document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
     }
+}
+
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () { scrollFunction() };
+
+function scrollFunction() {
+    //Get the button:
+    var gotoTopButton = document.getElementById("myBtn");
+    if (gotoTopButton) {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            gotoTopButton.style.display = "block";
+        } else {
+            gotoTopButton.style.display = "none";
+        }
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }

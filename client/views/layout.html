@@ -60,7 +60,9 @@ endblock %} {% block extraHead %}
   <!-- Header Ui Start-->
 
   <div class="urgent-help-bg d-flex align-items-center justify-content-between">
-    <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
+    <a href="/pages/urgent-help" class="text-decoration-none">
+      <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
+    </a>
 
     {% if data.showLogout %}
     <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Logout</h3>
@@ -200,10 +202,16 @@ endblock %} {% block extraHead %}
 
 <div class="footer-bg set-bottom-padding">
   <div class="footer-container">
-    <span class="footer-text cursor-pointer">About </span>
-    <span class="footer-text cursor-pointer">Privacy</span>
-    <span class="footer-text cursor-pointer">Contact</span>
-    <span class="footer-text cursor-pointer">T & Cs</span>
+    <a href="/pages/about" class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
+    </a>
+    <a href="/pages/terms" class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
+    </a>
+    <a href="/pages/privacy" class="text-decoration-none"> <span class="footer-text cursor-pointer">Privacy</span>
+    </a>
+    <a href="/feedback" class="text-decoration-none"> <span class="footer-text cursor-pointer">Feedback</span>
+    </a>
+    <a href="/pages/contact" class="text-decoration-none"> <span class="footer-text cursor-pointer">Contact</span>
+    </a>
   </div>
 </div>
 

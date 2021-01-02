@@ -8,6 +8,8 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/about', self.aboutUs);
       self.dispatch('/terms', self.termsCondition);
+      self.dispatch('/privacy', self.privacyPolicy);
+      self.dispatch('/urgent-help', self.urgentHelp);
     };
 
     self.aboutUs = function (req, callback) {
@@ -18,6 +20,18 @@ module.exports = {
 
     self.termsCondition = function (req, callback) {
       return self.sendPage(req, self.renderer('terms', {
+        showHeader: true
+      }));
+    };
+
+    self.privacyPolicy = function (req, callback) {
+      return self.sendPage(req, self.renderer('privacy', {
+        showHeader: true
+      }));
+    };
+
+    self.urgentHelp = function (req, callback) {
+      return self.sendPage(req, self.renderer('urgent', {
         showHeader: true
       }));
     };
