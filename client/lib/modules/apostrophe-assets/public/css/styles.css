@@ -459,6 +459,30 @@ body {
     .image-height {
       height: 75px !important; } }
 
+.company-image {
+  height: 80px !important; }
+  @media (min-width: 1900px) {
+    .company-image {
+      height: 71px !important; } }
+  @media (max-width: 575.98px) {
+    .company-image {
+      height: 80px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .company-image {
+      height: 85px !important; } }
+  @media (min-width: 1200px) {
+    .company-image {
+      height: 130px !important; } }
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .company-image {
+      height: 100px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .company-image {
+      height: 100px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .company-image {
+      height: 92px !important; } }
+
 /*Logo Height style End */
 /* Landing Page style start */
 .home-header-primary {
@@ -694,6 +718,15 @@ body {
   font-weight: normal;
   color: #023047;
   line-height: 30px !important; }
+  @media (max-width: 575.98px) {
+    .footer-content {
+      font-size: 16px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .footer-content {
+      font-size: 15px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .footer-content {
+      font-size: 18px !important; } }
 
 /* Footer fonts style end */
 .header-title {

@@ -29,36 +29,31 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
 body {
@@ -139,6 +134,31 @@ body {
   }
   @include sm-screen {
     height: 75px !important;
+  }
+}
+
+.company-image {
+  height: 80px !important;
+  @include xxl-screen {
+    height: 71px !important;
+  }
+  @include xs-screen {
+    height: 80px !important;
+  }
+  @include sm-screen {
+    height: 85px !important;
+  }
+  @include xl-screen {
+    height: 130px !important;
+  }
+  @include lg-screen {
+    height: 100px !important;
+  }
+  @include md-screen {
+    height: 100px !important;
+  }
+  @include sm-screen {
+    height: 92px !important;
   }
 }
 
@@ -395,6 +415,15 @@ body {
 .footer-content {
   @include set-titleStyles($tertiary-smFont-size, normal, $primary-color);
   @include set-dynamicLineHeight($tertiary-smFont-size);
+  @include xs-screen {
+    @include set-dynamicFont($tertiary-smFont-size, 4);
+  }
+  @include sm-screen {
+    @include set-dynamicFont($tertiary-smFont-size, 5);
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-smFont-size, 2);
+  }
 }
 
 /* Footer fonts style end */
@@ -513,8 +542,7 @@ body {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -541,8 +569,7 @@ body {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
