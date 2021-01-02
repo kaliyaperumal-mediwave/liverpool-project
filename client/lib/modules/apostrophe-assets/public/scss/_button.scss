@@ -29,12 +29,12 @@
 .btn-quaternary-text {
   @include set-titleStyles($secondary-mdFont-size, bold, $primary-color);
   @include xs-screen {
-    @include set-dynamicFont($secondary-mdFont-size, 6);
+    @include set-dynamicFont($secondary-mdFont-size, 7);
   }
   @include sm-screen {
-    @include set-dynamicFont($secondary-mdFont-size, 3);
+    @include set-dynamicFont($secondary-mdFont-size, 6);
   }
   @include md-screen {
-    @include set-dynamicFont($secondary-mdFont-size, 2);
+    @include set-dynamicFont($secondary-mdFont-size, 4);
   }
 }

@@ -10,6 +10,9 @@ endblock %} {% block extraHead %}
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
+
+
 <script src="https://use.fontawesome.com/901da64fb9.js"></script>
 
 <!-- jQuery library -->
@@ -17,8 +20,8 @@ endblock %} {% block extraHead %}
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFWyAfPPWB-dCngwhrDQ3iUq8OwhW7NcI&libraries=places"></script>
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
 
 <!-- Moment JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -33,8 +36,8 @@ endblock %} {% block extraHead %}
   src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
 
 <!-- Date-picker itself -->
-<script
-  src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
+</script>
 <link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
   rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
@@ -55,15 +58,18 @@ endblock %} {% block extraHead %}
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
   <!-- Header Ui Start-->
-  <div class="redHeader">
-    Get urgent help
+
+  <div class="urgent-help-bg d-flex align-items-center justify-content-between">
+    <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
+
+    {% if data.showLogout %}
+    <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Logout</h3>
+    {% endif %}
+
   </div>
+
   <nav class="header-bg header-set-height">
     <div class="row mx-0 w-100 justify-content-between align-center">
-      <!-- <div alt="logo" class="header-logo"></div>
-      <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">
-        It’s okay to not be okay.
-      </h2> -->
       <div class="butLogo-cont">
         <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
           data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
@@ -78,9 +84,12 @@ endblock %} {% block extraHead %}
         </div>
       </div>
 
-      <button class="button-referral">
-        Make a referral
-      </button>
+      <a href="{{ data.navigateMkeRfrl }}">
+        <button class="button-referral">
+          Make a referral
+        </button>
+      </a>
+
     </div>
     <!-- left drawer -->
     <div id="side-drawer" class="position-fixed">

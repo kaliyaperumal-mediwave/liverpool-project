@@ -12,6 +12,9 @@ module.exports = function modelType(sequelize, types) {
     last_name: {
       type: types.TEXT
     },
+    user_role: {
+      type: types.TEXT
+    },
     email: {
       type: types.TEXT
     },

@@ -51,7 +51,11 @@ function backToPreviousPage(section, userId, userRole) {
 function scrollToInvalidInput() {
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
-    errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+    if (errorElements[0].parentElement) {
+        errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+    } else {
+        errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+    }
     var scrolledY = window.scrollY;
     if (scrolledY) {
         window.scroll(0, scrolledY - headerHeight);
@@ -110,6 +114,7 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
+            $('#loader').hide();
             console.log(error.responseJSON.message)
         }
     });
@@ -117,8 +122,9 @@ function apiCallPost(reqType, endPoint, payload) {
 };
 
 //Commom API Call for post Function
-function apiCallGet(reqType, endPoint) {
+function apiCallGet(reqType, endPoint,API_URI) {
     var response;
+    console.log(API_URI + endPoint)
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
@@ -129,6 +135,7 @@ function apiCallGet(reqType, endPoint) {
             response = res;
         },
         error: function (error) {
+            $('#loader').hide();
             console.log(error.responseJSON.message)
         }
     });

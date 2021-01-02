@@ -141,6 +141,7 @@ function responseHandler() {
     };
 
     ctx.res.unauthorizedError = (params = {}) => {
+      console.log("unauthorizedError",statusCodes.UNAUTHORIZED)
       ctx.res.fail({
         ...params,
         statusCode: statusCodes.UNAUTHORIZED,

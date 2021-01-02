@@ -1,8 +1,43 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
+
+.text-underline {
+  text-decoration: underline !important; }
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; }
+
+.tooltip .tooltipText {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -60px; }
+
+.tooltip .tooltipText::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent; }
+
+.tooltip:hover .tooltipText {
+  visibility: visible; }
 
 fieldset,
 label {
@@ -221,13 +256,13 @@ label {
   color: #023047; }
   @media (max-width: 575.98px) {
     .btn-quaternary-text {
-      font-size: 20px !important; } }
+      font-size: 19px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .btn-quaternary-text {
-      font-size: 23px !important; } }
+      font-size: 20px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .btn-quaternary-text {
-      font-size: 24px !important; } }
+      font-size: 22px !important; } }
 
 /* Input Fields Global classes */
 .form-control, .input-group-text {
@@ -401,8 +436,6 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important; }
-  body a {
-    color: #023087 !important; }
 
 /*Logo Height style Start */
 .height-50 {
@@ -610,20 +643,63 @@ body {
   font-weight: bold;
   color: #023047;
   letter-spacing: 0.9px !important; }
+  @media (max-width: 575.98px) {
+    .auth-font {
+      font-size: 14px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .auth-font {
+      font-size: 15px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .auth-font {
+      font-size: 16px !important; } }
 
 .auth-border {
   border-radius: 10px !important; }
 
 .auth-link {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  letter-spacing: 0.9px !important; }
+  @media (max-width: 575.98px) {
+    .auth-link {
+      font-size: 14px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .auth-link {
+      font-size: 15px !important; } }
 
 /* Auth Pages  style end */
-.header-title {
-  font-size: 32px;
+/* Urgent Help style start */
+.urgent-help-bg {
+  background: #e55f5f 0% 0% no-repeat padding-box !important; }
+
+.urgent-help-text {
+  font-size: 20px;
   font-weight: bold;
-  color: #ffffff; }
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .urgent-help-text {
+      font-size: 14px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .urgent-help-text {
+      font-size: 13px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .urgent-help-text {
+      font-size: 16px !important; } }
+
+/* Urgent Help style end */
+/* Footer fonts style start */
+.footer-content {
+  font-size: 20px;
+  font-weight: normal;
+  color: #023047;
+  line-height: 30px !important; }
+
+/* Footer fonts style end */
+.header-title {
+  font-size: 22px;
+  font-weight: normal;
+  color: #023047; }
 
 .completed-toast-text {
   font-size: 18px;

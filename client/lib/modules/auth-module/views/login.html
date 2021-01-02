@@ -18,17 +18,40 @@
         </h3>
     </div> -->
     <div class="home-primary-content-bg col-md-6 col-sm-11 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
+        <!-- Loader start -->
+        <div class="overlay" id="loader">
+            <div class="overlay__inner">
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loader end -->
         <div class="col-md-7 col-12 py-4 mx-auto">
             <form class="px-3 py-2 mb-1">
                 <div class="form-group py-2 m-0">
                     <label for="loginEmail" class="auth-font my-2">My email address</label>
-                    <input type="email" placeholder="Enter your email address" class="form-control auth-border"
-                        id="loginEmail" aria-describedby="authEmail" v-model="loginObject.email">
-                    <div class="invalid-feedback d-none"
+                    <input type="email" inputmode="email" placeholder="Enter your email address"
+                        class="form-control auth-border" id="loginEmail" aria-describedby="authEmail"
+                        v-model="loginObject.email">
+                    <div class="invalid-feedback px-1 d-none"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.email),'invalid-fields':!loginObject.email }">
                         You must provide a email.
                     </div>
-                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
+                    <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
                     'invalid-fields':(loginObject.email && !emailRegex.test(loginObject.email)) }">
                         You must provide a real valid email.
                     </div>
@@ -45,24 +68,23 @@
                                     <span style="color: #023047 !important;" class="cursor-pointer font-23"
                                         @click="toggleVisibility()">
                                         <template v-if="!showVisibility">
-                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                         </template>
                                         <template v-if="showVisibility">
-                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
                                         </template>
                                     </span>
                                 </div>
                             </span>
-                            <div class="invalid-feedback d-none"
+                            <div class="invalid-feedback px-1 d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
                                 You must provide a password.
                             </div>
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
+                            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
                         'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
                                 You must provide a real valid password.
                             </div>
                         </div>
-                        <!-- <a class="auth-link py-2 float-right cursor-pointer">Forgot Password?</a> -->
                     </div>
                 </div>
             </form>
@@ -73,19 +95,35 @@
                         class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span class="btn-quaternary-text">LOG IN
                         </span></button>
                 </div>
-                <div class="py-2">
+                <div class="py-2 mb-3">
                     <button type="button" @click="navigatePage('/users/sign_up')"
                         class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span class="btn-quaternary-text">CREATE
                             ACCOUNT
                         </span></button>
                 </div>
                 <div class="py-2 text-center">
-                    <a class="auth-link cursor-pointer">Forgot Password?</a>
+                    <a class="auth-link cursor-pointer text-underline">Forgot Password?</a>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <!-- Toaster Start -->
+    <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+        <div class="toast" style="position: absolute; top: 0; right: 0;">
+            <div class="toast-header">
+                <i class="fa fa-times" aria-hidden="true"></i>
+                <strong class="mr-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Toaster End -->
+
 </div>
 
 <!-- <div class="card-text">
@@ -95,11 +133,11 @@
             <input type="email" placeholder="Enter your email address"
                 class="form-control form-control-sm border-radius-10 textfieldHeight" id="exampleInputEmail1"
                 aria-describedby="emailHelp" v-model="loginObject.email">
-            <div class="invalid-feedback d-none"
+            <div class="invalid-feedback px-1 d-none"
                 v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.email),'invalid-fields':!loginObject.email }">
                 You must provide a email.
             </div>
-            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
+            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
             'invalid-fields':(loginObject.email && !emailRegex.test(loginObject.email)) }">
                 You must provide a real valid email.
             </div>
@@ -108,11 +146,11 @@
             <label for="exampleInputPassword1" class="login-email">Password</label>
             <input type="password" placeholder="Enter your password" v-model="loginObject.password"
                 class="form-control form-control-sm border-radius-10 textfieldHeight" id="exampleInputPassword1">
-            <div class="invalid-feedback d-none"
+            <div class="invalid-feedback px-1 d-none"
                 v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
                 You must provide a password.
             </div>
-            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
+            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
             'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
                 You must provide a real valid password.
             </div>

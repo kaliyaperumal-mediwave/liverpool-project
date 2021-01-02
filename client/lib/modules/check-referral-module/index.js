@@ -15,6 +15,14 @@ module.exports = {
         home: true
       }));
     };
-
+    require('../../middleware')(self, options);
+    self.route('get', 'getUserReferral/:loginId/:referralType', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?loginId=' +  req.params.loginId +"&referralType=" +req.params.referralType;
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   }
 }

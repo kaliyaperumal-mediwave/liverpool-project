@@ -15,7 +15,14 @@ $(document).ready(function () {
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
         },
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
+            setTimeout(function () {
+                $('#loader').hide();
+            }, 1000);
         },
 
         methods: {
@@ -25,10 +32,13 @@ $(document).ready(function () {
                 this.isFormSubmitted = true
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
                     console.log('payload', formData);
+                    $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (Object.keys(successData)) {
-                        console.log(successData);
+                        $('#loader').hide();
+                        location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                     } else {
+                        $('#loader').hide();
                         console.log('empty response')
                     }
 

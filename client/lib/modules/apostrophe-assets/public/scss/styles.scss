@@ -1,6 +1,7 @@
 @import "config";
 @import "utilities";
 @import "mediaQueries";
+@import "tooltip";
 @import "starRating";
 @import "calendar";
 @import "radio";
@@ -111,9 +112,9 @@ body {
     color: #023047 !important;
     opacity: 1 !important;
   }
-  a {
-    color: #023087 !important;
-  }
+  // a {
+  //   color: #023087 !important;
+  // }
 }
 
 /*Logo Height style Start */
@@ -342,6 +343,15 @@ body {
 .auth-font {
   @include set-titleStyles($quaternary-font-size, bold, $primary-color);
   letter-spacing: 0.9px !important;
+  @include xs-screen {
+    font-size: $quinary-font-size !important;
+  }
+  @include sm-screen {
+    font-size: $senary-font-size !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($quaternary-font-size, 2);
+  }
 }
 
 .auth-border {
@@ -349,13 +359,48 @@ body {
 }
 
 .auth-link {
-  @include set-titleStyles($senary-font-size, bold, $primary-color);
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+  letter-spacing: 0.9px !important;
+  @include xs-screen {
+    font-size: $quinary-font-size !important;
+  }
+  @include sm-screen {
+    font-size: $senary-font-size !important;
+  }
 }
 
 /* Auth Pages  style end */
 
+/* Urgent Help style start */
+
+.urgent-help-bg {
+  @include set-bgOnly($urgent-help-color);
+}
+
+.urgent-help-text {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+  @include xs-screen {
+    @include set-dynamicFont($quaternary-font-size, 4);
+  }
+  @include sm-screen {
+    @include set-dynamicFont($quaternary-font-size, 5);
+  }
+  @include md-screen {
+    @include set-dynamicFont($quaternary-font-size, 2);
+  }
+}
+/* Urgent Help style end */
+
+/* Footer fonts style start */
+.footer-content {
+  @include set-titleStyles($tertiary-smFont-size, normal, $primary-color);
+  @include set-dynamicLineHeight($tertiary-smFont-size);
+}
+
+/* Footer fonts style end */
+
 .header-title {
-  @include set-titleStyles($primary-font-size, bold, $header-text-color);
+  @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
 }
 
 .completed-toast-text {
