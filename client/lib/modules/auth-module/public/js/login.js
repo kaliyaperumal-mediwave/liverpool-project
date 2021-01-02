@@ -34,7 +34,7 @@ $(document).ready(function () {
                     console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
-                    if (Object.keys(successData)) {
+                    if (successData && Object.keys(successData)) {
                         $('#loader').hide();
                         location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                     } else {
