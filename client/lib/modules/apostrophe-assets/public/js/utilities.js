@@ -270,6 +270,11 @@ function closeSideDrawer() {
     document.getElementById("side-drawer-void").classList.add("d-none");
     document.getElementById("side-drawer-void").classList.remove("d-block");
 }
+
+function logOut() {
+    window.location.href = window.location.origin + '/users/login';
+}
+
 window.onload = (event) => {
     if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
         document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;

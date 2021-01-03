@@ -3,7 +3,7 @@ $(document).ready(function () {
     Vue.use(VueToast);
 
     var app = new Vue({
-        el: '#viewReferral-page',
+        el: '#check-referral',
         data: {
             checkReferral: {
                 email: "",
