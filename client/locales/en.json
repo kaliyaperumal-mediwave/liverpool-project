@@ -82,5 +82,11 @@
 	"Successful": "Successful",
 	"Errors": "Errors",
 	"Referral Completed Module": "Referral Completed Module",
-	"role-module": "role-module"
+	"role-module": "role-module",
+	"Role Module": "Role Module",
+	"Referral Home Module": "Referral Home Module",
+	"Resources Module": "Resources Module",
+	"Dashboard Module": "Dashboard Module",
+	"Check Referral Module": "Check Referral Module",
+	"Feedback Module": "Feedback Module"
 }

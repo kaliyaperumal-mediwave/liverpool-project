@@ -13,12 +13,15 @@ $(document).ready(function () {
             showVisibility: false,
             displayReferrals: [],
             referralDateArray: [],
-            viewReferralArray: []
+            viewReferralArray: [],
+            iterateReferralArray: []
         },
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
+            console.log(this.paramValues)
             this.viewReferralObj.loginId = this.paramValues[0];
+            this.viewReferralObj.userRole = this.paramValues[1]
             this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)
         },
 
@@ -42,6 +45,8 @@ $(document).ready(function () {
                     success: function (data) {
                         let setObj = {};
                         _self.displayReferrals = data;
+                        _self.viewReferralArray = [];
+                        _self.referralDateArray = [];
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
                             var date = _self.convertDate(_self.displayReferrals[i].createdAt);
                             obj = {
@@ -89,6 +94,28 @@ $(document).ready(function () {
                 var ddChars = dd.split('');
                 return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
             },
+            contineReferral: function (refObj) {
+              // console.log(refObj.referral_progress)
+               if(refObj.referral_progress=="20")
+               {
+                location.href = redirectUrl(location.href, "about", this.loginId, this.userRole);
+               }
+               else if(refObj.referral_progress=="40")
+               {
+                location.href = redirectUrl(location.href, "education", this.loginId, this.userRole);
+               }
+               else if(refObj.referral_progress=="60")
+               {  
+                   location.href = redirectUrl(location.href, "referral", this.loginId, this.userRole);
+               }
+               else if(refObj.referral_progress=="80")
+               {
+                location.href = redirectUrl(location.href, "review", this.loginId, this.userRole);
+               }
+            },
+            fetchReferrals: function (referralType) {
+                this.getUserReferral(this.viewReferralObj.loginId, referralType)
+            }
         }
     })
 
