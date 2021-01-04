@@ -100,7 +100,7 @@ function getUrlVars() {
     return vars;
 };
 
-//Commom API Call for post Function
+//Common API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
     var response;
     $.ajax({
@@ -115,7 +115,14 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').hide();
-            console.log(error.responseJSON.message)
+            Vue.$toast.error(error.responseJSON.message, {
+                position: 'top',
+                duration: 1000,
+                onDismiss: function () {
+                    window.location.reload();
+                }
+            });
+            return false;
         }
     });
     return response
@@ -213,7 +220,7 @@ function setLoaderStyle() {
     var element = document.body;
     element.classList.add('body-bg');
 }
-
+//for make referral 1 to 5 section
 function redirectUrl(currentPge, nextPge, usrId, roles) {
     let decryptedUrl;
     var gotopage;
@@ -239,6 +246,15 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
         decryptedUrl = btoa(getParamsRedirect);
         gotopage = "/" + nextPge + "?" + decryptedUrl;
     }
+    return gotopage;
+}
+//for dashboard,check referral and all static pages
+function decryptUrl(nextPge, loginId, roles) {
+    let decryptedUrl;
+    var gotopage;
+    var getParamsRedirect =loginId + "&" + roles;
+    decryptedUrl = btoa(getParamsRedirect);
+    gotopage = "/" + nextPge +"?"+ decryptedUrl;
     return gotopage;
 }
 
