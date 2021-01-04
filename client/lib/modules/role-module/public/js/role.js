@@ -559,10 +559,10 @@ $(document).ready(function () {
 
             apiRequest: function (payload, role) {
                 if (role == "professional") {
-                    payload.profChildDob = this.dateFmt;
+                    payload.prof_ChildDob = this.dateFmt;
                 }
                 else {
-                    payload.childDob = this.dateFmt;
+                    payload.child_Dob = this.dateFmt;
                 }
                 var _self = this;
                 $.ajax({
@@ -579,9 +579,8 @@ $(document).ready(function () {
                             _self.resetValidation();
                         }
                         if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
-                            alert("343");
                             var url = window.location.href.split('?')[0];
-                            console.log(url)
+                          //  console.log(url)
                             location.href = redirectUrl(url, "about", data.userid, role);
                         }
                         else

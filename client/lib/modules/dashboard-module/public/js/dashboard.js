@@ -42,7 +42,8 @@ $(document).ready(function () {
 
             },
             checkReferral: function () {
-                location.href = redirectUrl(location.href, "viewreferral", this.loginId, this.userRole);
+
+                location.href = decryptUrl("viewreferral", this.loginId, this.userRole);
             },
         }
 

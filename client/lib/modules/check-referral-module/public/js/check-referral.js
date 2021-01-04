@@ -95,21 +95,26 @@ $(document).ready(function () {
                 return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
             },
             contineReferral: function (refObj) {
+
                if(refObj.referral_progress=="20")
                {
-                location.href = redirectUrl(location.href, "about", this.loginId, this.userRole);
+              //  location.href = redirectUrl(location.href, "about", data.userid, role);
+            //  console.log(decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole))
+
+                location.href = decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole);
+                
                }
                else if(refObj.referral_progress=="40")
                {
-                location.href = redirectUrl(location.href, "education", this.loginId, this.userRole);
+                location.href = decryptUrl("education", refObj.uuid,this.viewReferralObj.userRole);
                }
                else if(refObj.referral_progress=="60")
                {  
-                   location.href = redirectUrl(location.href, "referral", this.loginId, this.userRole);
+                   location.href = decryptUrl("referral", refObj.uuid, this.viewReferralObj.userRole);
                }
                else if(refObj.referral_progress=="80")
                {
-                location.href = redirectUrl(location.href, "review", this.loginId, this.userRole);
+                location.href = decryptUrl("review", refObj.uuid, this.viewReferralObj.userRole);
                }
             },
             fetchReferrals: function (referralType) {
