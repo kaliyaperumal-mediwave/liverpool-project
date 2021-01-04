@@ -1,6 +1,5 @@
 var API_URI = "/modules/review-module";
 $(document).ready(function () {
-
     var app = new Vue({
         el: '#review-form',
         data: {
@@ -37,6 +36,10 @@ $(document).ready(function () {
             disableSection1Button: false,
             showLoader: false
         },
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
             this.paramValues = getParameter(location.href)
             this.section5Labels = section5Labels;
@@ -62,6 +65,7 @@ $(document).ready(function () {
             this.payloadData.role = this.userRole;
             console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
+
         },
         methods: {
 
@@ -93,14 +97,21 @@ $(document).ready(function () {
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
                         _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
-
+                        $('#loader').hide();
                         //self.section4Data.local_services =  _self.section4Data.local_services
                         //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log('Something went Wrong', error)
                     }
                 });
+            },
+
+
+            popOver: function () {
+                debugger
+                console.log('loged');
             },
 
             save: function () {

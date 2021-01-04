@@ -508,6 +508,7 @@ $(document).ready(function () {
                         if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
+                                    $('#loader').show();
                                     this.apiRequest(this.elgibilityObj, role);
 
                                 } else {
@@ -515,6 +516,7 @@ $(document).ready(function () {
                                 }
 
                             } else {
+                                $('#loader').show();
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -596,6 +598,7 @@ $(document).ready(function () {
 
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log(error.responseJSON.message)
                     }
                 });

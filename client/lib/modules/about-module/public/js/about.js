@@ -83,12 +83,11 @@ $(document).ready(function () {
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            $('#loader').hide();
             if (this.paramValues[2] != undefined) {
                 this.fetchSavedData();
             }
             this.initMaps();
-
+            $('#loader').hide();
         },
         methods: {
 

@@ -74,7 +74,8 @@ label {
   border-radius: 0px !important; }
 
 .bootstrap-datetimepicker-widget.dropdown-menu {
-  padding: 0px !important; }
+  padding: 0px !important;
+  z-index: 448 !important; }
 
 .bootstrap-datetimepicker-widget th {
   border-radius: 0px !important; }
@@ -452,6 +453,9 @@ body {
     border-radius: 4px; }
 
 /*Logo Height style Start */
+a {
+  color: #023047 !important; }
+
 .height-50 {
   height: 50px !important; }
   @media (max-width: 575.98px) {

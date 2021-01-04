@@ -15,26 +15,25 @@ module.exports = {
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeParameter = atob(getParams);
       let decodeValues = deCodeParameter.split("&");
-      if(decodeValues[2]==undefined)
-      {
-       const getParamsRedirect = deCodeParameter + "&backbutton";
-       decryptedUrl = btoa(getParamsRedirect);
+      if (decodeValues[2] == undefined) {
+        const getParamsRedirect = deCodeParameter + "&backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
       }
-      else if(decodeValues[2]=="backbutton") 
-      {
-       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
-       decryptedUrl = btoa(getParamsRedirect);
+      else if (decodeValues[2] == "backbutton") {
+        const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
       }
-      else if(decodeValues[2]=="sec5back") 
-      {
-       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
-       decryptedUrl = btoa(getParamsRedirect);
+      else if (decodeValues[2] == "sec5back") {
+        const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
       }
       return self.sendPage(req, self.renderer('review', {
         headerContent: "Section 5 of 5: Preferences and review",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
         backContent: '/referral?' + decryptedUrl,
-        home: false
+        home: false,
+        showHeader: true,
+        showLogout: true
       }));
     };
 
@@ -65,7 +64,7 @@ module.exports = {
       });
     });
 
-    self.route('put', 'updateInfo', function(req, res) {
+    self.route('put', 'updateInfo', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + req.body.endPoint;
       console.log("-------");
       console.log(url);
@@ -74,7 +73,7 @@ module.exports = {
         if (req.session.redirectto) {
           data.redirectto = req.session.redirectto;
         }
-        req.session.reload(function() {});
+        req.session.reload(function () { });
         return res.send(data);
       }).catch((error) => {
         return res.status(error.statusCode).send(error.error);
