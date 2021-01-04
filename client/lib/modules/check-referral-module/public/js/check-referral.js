@@ -95,7 +95,6 @@ $(document).ready(function () {
                 return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
             },
             contineReferral: function (refObj) {
-              // console.log(refObj.referral_progress)
                if(refObj.referral_progress=="20")
                {
                 location.href = redirectUrl(location.href, "about", this.loginId, this.userRole);
@@ -114,6 +113,7 @@ $(document).ready(function () {
                }
             },
             fetchReferrals: function (referralType) {
+                this.viewReferralObj.referralType = referralType;
                 this.getUserReferral(this.viewReferralObj.loginId, referralType)
             }
         }

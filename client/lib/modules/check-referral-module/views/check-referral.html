@@ -80,13 +80,13 @@
                                 <div class="collapse-para">
                                     N/A
                                 </div>
-                                <div class="collapse-title">
+                                <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                     Code
                                 </div>
-                                <div class="collapse-para">
+                                <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-para">
                                     {{refObj.reference_code}}
                                 </div>
-                                <div class="container float-btn-cont">
+                                <div v-show="viewReferralObj.referralType == 'incomplete'" class="container float-btn-cont">
                                     <button class="float-btn" type="button" @click="contineReferral(refObj)">
                                         <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                                        </button>
