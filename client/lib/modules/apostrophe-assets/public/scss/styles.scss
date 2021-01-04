@@ -131,6 +131,26 @@ a {
   color: #023047 !important;
 }
 
+.logout-font {
+  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: 18px !important;
+  }
+  @include sm-screen {
+    font-size: 19px !important;
+  }
+  @include md-screen {
+    font-size: 22px !important;
+  }
+}
+
+.modal-content #logYesBtn {
+  @include set-background($primary-button-color, "");
+}
+.modal-content #logNoBtn {
+  @include set-background($urgent-help-color, "");
+}
+
 .height-50 {
   height: 50px !important;
   @include xs-screen {
