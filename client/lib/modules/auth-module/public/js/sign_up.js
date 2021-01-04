@@ -27,12 +27,11 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var _self = this;
             setTimeout(function () {
+                _self.resetForm();
                 $('#loader').hide();
-            }, 1000);
-
-
-
+            }, 700);
         },
 
         methods: {
@@ -47,12 +46,14 @@ $(document).ready(function () {
                     if (Object.keys(successData)) {
                         console.log(successData);
                         $('#loader').hide();
-                        // Vue.$toast.open({
-                        //     message: 'Login successful',
-                        //     type: 'success',
-                        //     position: 'top'
-                        // });
-                        window.location.href = window.location.origin + '/users/login';
+                        Vue.$toast.success('Account created.', {
+                            position: 'top',
+                            duration: 1000,
+                            onDismiss: function () {
+                                window.location.href = window.location.origin + '/users/login';
+                            }
+                        });
+
                     } else {
                         $('#loader').hide();
                         console.log('empty response')
@@ -71,6 +72,16 @@ $(document).ready(function () {
                     $(elem).attr('type', 'text');
                 }
             },
+
+            resetForm: function () {
+                this.isFormSubmitted = false;
+                this.signUpObject.first_name = '';
+                this.signUpObject.last_name = '';
+                this.signUpObject.password = '';
+                this.signUpObject.confirm_password = '';
+                this.signUpObject.role = '';
+            }
+
 
         }
     })

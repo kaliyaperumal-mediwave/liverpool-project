@@ -216,6 +216,7 @@ body {
 
 .home-primary-content {
   @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+  @include set-dynamicLineHeight($tertiary-mdFont-size);
   @include xs-screen {
     font-size: $quaternary-mdFont-size !important;
     letter-spacing: 0.64px !important;

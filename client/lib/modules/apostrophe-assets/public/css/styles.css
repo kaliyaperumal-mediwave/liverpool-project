@@ -536,7 +536,8 @@ body {
 .home-primary-content {
   font-size: 22px;
   font-weight: bold;
-  color: #023047; }
+  color: #023047;
+  line-height: 32px !important; }
   @media (max-width: 575.98px) {
     .home-primary-content {
       font-size: 16px !important;
