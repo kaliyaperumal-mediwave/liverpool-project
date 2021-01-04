@@ -3,7 +3,7 @@ $(document).ready(function () {
     Vue.use(VueToast);
 
     var app = new Vue({
-        el: '#viewReferral-page',
+        el: '#check-referral',
         data: {
             viewReferralObj: {
                 email: "",
@@ -103,25 +103,21 @@ $(document).ready(function () {
                 return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
             },
             contineReferral: function (refObj) {
-              // console.log(refObj.referral_progress)
-               if(refObj.referral_progress=="20")
-               {
-                location.href = redirectUrl(location.href, "about", this.loginId, this.userRole);
-               }
-               else if(refObj.referral_progress=="40")
-               {
-                location.href = redirectUrl(location.href, "education", this.loginId, this.userRole);
-               }
-               else if(refObj.referral_progress=="60")
-               {  
-                   location.href = redirectUrl(location.href, "referral", this.loginId, this.userRole);
-               }
-               else if(refObj.referral_progress=="80")
-               {
-                location.href = redirectUrl(location.href, "review", this.loginId, this.userRole);
-               }
+                if (refObj.referral_progress == "20") {
+                    location.href = redirectUrl(location.href, "about", this.loginId, this.userRole);
+                }
+                else if (refObj.referral_progress == "40") {
+                    location.href = redirectUrl(location.href, "education", this.loginId, this.userRole);
+                }
+                else if (refObj.referral_progress == "60") {
+                    location.href = redirectUrl(location.href, "referral", this.loginId, this.userRole);
+                }
+                else if (refObj.referral_progress == "80") {
+                    location.href = redirectUrl(location.href, "review", this.loginId, this.userRole);
+                }
             },
             fetchReferrals: function (referralType) {
+                this.viewReferralObj.referralType = referralType;
                 this.getUserReferral(this.viewReferralObj.loginId, referralType)
             }
         }

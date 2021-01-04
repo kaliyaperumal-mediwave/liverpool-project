@@ -203,22 +203,21 @@ endblock %} {% block extraHead %}
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content modal-bg">
         <div class="modal-header justify-content-center">
-          <h5 class="question-header-font">Are you sure want to logout?</h5>
-          <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
-              class="fal fa-times fa-2x cursor-pointer"></i></i>
+          <h5 class="question-header-font mt-3">Are you sure want to logout?</h5>
+          <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+          </span>
         </div>
         <div class="modal-body py-1 px-4">
           <div class="modal-footer">
-            <div class="text-center">
-              <button type="submit" class="btn px-md-4 w-50" id="closeModal" @click="upsertHouseHold()">
-                <span class="btn-modal-text">No
-                </span>
-              </button>
-              <button type="submit" class="btn px-md-4 w-50" id="closeModal" @click="upsertHouseHold()">
-                <span class="btn-modal-text">Yes
-                </span>
-              </button>
-            </div>
+            <button type="submit" class="btn px-md-4 w-50" class="modal-close" data-dismiss="modal">
+              <span class="btn-modal-text">No
+              </span>
+            </button>
+            <button type="submit" class="btn px-md-4 w-50" id="closeModal" onclick="logOut()">
+              <span class="btn-modal-text">Yes
+              </span>
+            </button>
           </div>
         </div>
       </div>
