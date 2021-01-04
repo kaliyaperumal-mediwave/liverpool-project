@@ -56,6 +56,10 @@ module.exports = {
       label: 'Check Referral Module'
     },
     {
+      name: 'mental-health-module',
+      label: 'Mental Health Module',
+    },
+    {
       name: 'feedback-module',
       label: 'Feedback Module'
     },

@@ -486,7 +486,7 @@ body {
       height: 85px !important; } }
   @media (min-width: 1200px) {
     .company-image {
-      height: 130px !important; } }
+      height: 120px !important; } }
   @media (min-width: 992px) and (max-width: 1199.98px) {
     .company-image {
       height: 100px !important; } }
