@@ -14,7 +14,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('login', {
         showHeader: true,
         home: true,
-        navigateMkeRfrl: "/role?",
+        navigateMkeRfrl: "/make-referral",
       }));
     };
 

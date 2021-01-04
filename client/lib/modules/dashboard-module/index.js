@@ -24,7 +24,7 @@ module.exports = {
       //console.log("getParams: "+"/role?l"+deCodeParameter)
       return self.sendPage(req, self.renderer('dashboard', {
         showHeader: true,
-        navigateMkeRfrl: "/role?" + btoa(deCodeParameter),
+        navigateMkeRfrl: "/make-referral?" + btoa(deCodeParameter),
         home: true,
         showLogout: true
       }));
