@@ -10,11 +10,8 @@ module.exports = {
     };
     self.home = function (req, callback) {
       return self.sendPage(req, self.renderer('home', {
-        headerContent: "Make a referral to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",
-        headerDescription: '',
-        backContent: '',
-        home: true
+        showHeader: false
       }));
     };
   }
-}
+};

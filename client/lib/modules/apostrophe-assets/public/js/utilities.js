@@ -51,7 +51,11 @@ function backToPreviousPage(section, userId, userRole) {
 function scrollToInvalidInput() {
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
-    errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+    if (errorElements[0].parentElement) {
+        errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+    } else {
+        errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+    }
     var scrolledY = window.scrollY;
     if (scrolledY) {
         window.scroll(0, scrolledY - headerHeight);
@@ -96,7 +100,7 @@ function getUrlVars() {
     return vars;
 };
 
-//Commom API Call for post Function
+//Common API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
     var response;
     $.ajax({
@@ -110,15 +114,24 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
-            console.log(error.responseJSON.message)
+            $('#loader').hide();
+            Vue.$toast.error(error.responseJSON.message, {
+                position: 'top',
+                duration: 1000,
+                onDismiss: function () {
+                    window.location.reload();
+                }
+            });
+            return false;
         }
     });
     return response
 };
 
 //Commom API Call for post Function
-function apiCallGet(reqType, endPoint) {
+function apiCallGet(reqType, endPoint, API_URI) {
     var response;
+    console.log(API_URI + endPoint)
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
@@ -129,6 +142,7 @@ function apiCallGet(reqType, endPoint) {
             response = res;
         },
         error: function (error) {
+            $('#loader').hide();
             console.log(error.responseJSON.message)
         }
     });
@@ -203,10 +217,10 @@ function convertDate(dbDate) {
     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
 }
 function setLoaderStyle() {
-    var element = document.getElementsByClassName('apos-refreshable');
-    element[0].classList.add('position-relative')
+    var element = document.body;
+    element.classList.add('body-bg');
 }
-
+//for make referral 1 to 5 section
 function redirectUrl(currentPge, nextPge, usrId, roles) {
     let decryptedUrl;
     var gotopage;
@@ -234,14 +248,73 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
     }
     return gotopage;
 }
+//for dashboard,check referral and all static pages
+function decryptUrl(nextPge, loginId, roles) {
+    let decryptedUrl;
+    var gotopage;
+    var getParamsRedirect =loginId + "&" + roles;
+    decryptedUrl = btoa(getParamsRedirect);
+    gotopage = "/" + nextPge +"?"+ decryptedUrl;
+    return gotopage;
+}
 
 $(document).ready(function () {
-    // setLoaderStyle();
+    setLoaderStyle();
 })
 
 //window resize function
 window.onresize = resize;
 
 function resize() {
-    document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+    var header = document.getElementById("heightTopSet");
+    var middleContent = document.getElementById("middleCont");
+    if (middleContent) {
+        if (header) {
+            middleContent.style.paddingTop = `${header.offsetHeight}px`;
+            //middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
+        }
+    }
+}
+function openSideDrawer() {
+    document.getElementById("side-drawer").style.left = "0";
+    document.getElementById("side-drawer-void").classList.add("d-block");
+    document.getElementById("side-drawer-void").classList.remove("d-none");
+}
+
+function closeSideDrawer() {
+    document.getElementById("side-drawer").style.left = "-336px";
+    document.getElementById("side-drawer-void").classList.add("d-none");
+    document.getElementById("side-drawer-void").classList.remove("d-block");
+}
+
+function logOut() {
+    window.location.href = window.location.origin + '/users/login';
+}
+
+window.onload = (event) => {
+    if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
+        document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+    }
+}
+
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () { scrollFunction() };
+
+function scrollFunction() {
+    //Get the button:
+    var gotoTopButton = document.getElementById("myBtn");
+    if (gotoTopButton) {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            gotoTopButton.style.display = "block";
+        } else {
+            gotoTopButton.style.display = "none";
+        }
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }

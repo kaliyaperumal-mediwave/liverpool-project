@@ -63,10 +63,10 @@
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Contact Carer -->
-                                <template v-if="userRole == 'child'">
-                                    <div v-if="userRole == 'child' || userRole == 'parent'"
+                                <template v-if="(userRole == 'child') && section1Data.contact_parent!=''">
+                                    <div v-if="userRole == 'child'"
                                         class="py-2 w-100 mx-0 row align-items-center">
-                                        <label class="question-font col-12 col-md-3 pl-0" for="parentOrCarerSec5">
+                                        <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
                                             Contact parent or carer:
                                         </label>
                                         <input class="form-control col-md-4 col-12" readonly type="text"

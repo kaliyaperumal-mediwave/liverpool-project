@@ -10,6 +10,9 @@ endblock %} {% block extraHead %}
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
+
+
 <script src="https://use.fontawesome.com/901da64fb9.js"></script>
 
 <!-- jQuery library -->
@@ -17,8 +20,8 @@ endblock %} {% block extraHead %}
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFWyAfPPWB-dCngwhrDQ3iUq8OwhW7NcI&libraries=places"></script>
 
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
 
 <!-- Moment JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
@@ -33,33 +36,107 @@ endblock %} {% block extraHead %}
   src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
 
 <!-- Date-picker itself -->
-<script
-  src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
+</script>
 <link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
   rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
+<!-- Vue.js -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+<!-- Lastly add this package -->
+<script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
+<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+<!-- Init the plugin -->
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
   #} -->
 {% endblock %} {% block beforeMain %}
+
+{% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
   <!-- Header Ui Start-->
-  <nav class="navbar header-bg p-xs-3 p-sm-3 p-lg-4">
-    <div class="row mx-0 w-100 justify-content-between">
-      <div alt="logo" class="header-logo"></div>
-      <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">
-        It’s okay to not be okay.
-      </h2>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent"
-        aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fal fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
-        <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
-        <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
-      </button>
+
+  <div class="urgent-help-bg d-flex align-items-center justify-content-between">
+    <a href="/pages/urgent-help" class="text-decoration-none">
+      <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
+    </a>
+
+    {% if data.showLogout %}
+    <h3 data-toggle="modal" data-target="#logoutModal" class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer">
+      Logout</h3>
+    {% endif %}
+
+  </div>
+
+  <nav class="header-bg header-set-height">
+    <div class="row mx-0 w-100 justify-content-between align-center">
+      <div class="butLogo-cont">
+        <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
+          data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <i class="fal fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+        </button>
+        <div class="logo">
+          <!-- LOGO -->
+          <img src="/modules/my-apostrophe-assets/img/liverpool.svg" />
+        </div>
+      </div>
+
+      <a href="{{ data.navigateMkeRfrl }}">
+        <button class="button-referral">
+          Make a referral
+        </button>
+      </a>
+
     </div>
+    <!-- left drawer -->
+    <div id="side-drawer" class="position-fixed">
+      <div class="h-100 padding-set">
+        <!-- Side Drawer Title -->
+        <div class="header-slider d-flex align-items-center ">
+          <div class="slider-header">LOGO</div>
+          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white" aria-hidden="true"></i>
+        </div>
+        <!-- Side Drawer content -->
+        <div class="slider-container">
+          <div class="inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            Log in / sign up
+          </div>
+          <div class="collapse" id="collapseExample">
+            <div class="collapse-body">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl ,
+              pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. </div>
+          </div>
+          <div class="inside-cont-slider">
+            Get a referral
+          </div>
+          <div class="inside-cont-slider">
+            Appointments
+          </div>
+          <div class="inside-cont-slider">
+            Saved referrals
+          </div>
+          <div class="double-inside-cont-slider">
+            Urgent help
+          </div>
+          <div class="double-inside-cont-slider">
+            Discover more
+          </div>
+          <div class="last-inside-cont-slider">
+            Log out
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div id="side-drawer-void" class="position-fixed d-none" onclick="closeSideDrawer()"></div>
+
   </nav>
   <!-- Header Ui End-->
 
@@ -101,29 +178,72 @@ endblock %} {% block extraHead %}
           class="fas fa-arrow-left"></i> back</p>
     </a>
     {% endif %}
+
   </div>
   <!-- Subheader UI End -->
+
 </div>
 
+{% else %}
+<a href="/">
+  <img src="/modules/my-apostrophe-assets/img/liverpool.svg"
+    class="px-4 mb-5 mb-md-0 px-md-5 mt-5 mb-0 mb-lg-2 mb-xl-2 height-50 cursor-pointer">
+</a>
+
+{% endif %}
+
 <div id='middleCont'>
-  <script>
-    document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
-  </script>
   <!-- {#
     We recommend you use the beforeMain block for global page components
     like headers or navigation.
   #} -->
+
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content modal-bg">
+        <div class="modal-header justify-content-center">
+          <h5 class="question-header-font mt-3">Are you sure want to logout?</h5>
+          <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="modal-body py-1 px-4">
+          <div class="modal-footer">
+            <button type="submit" class="btn px-md-4 w-50" class="modal-close" data-dismiss="modal">
+              <span class="btn-modal-text">No
+              </span>
+            </button>
+            <button type="submit" class="btn px-md-4 w-50" id="closeModal" onclick="logOut()">
+              <span class="btn-modal-text">Yes
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add HouseHold Modal End -->
+  </div>
+
+
   {% endblock %} {% block main %} {# Usually, your page templates in the
   apostrophe-pages module will override this block. It is safe to assume this is
   where your page-specific content should go. #} {% endblock %} {% block afterMain
   %}
 </div>
-<div class="footer-bg">
-  <div class="row col-lg-9 col-md-9 col-xl-9 col-xs-2 col-sm-12 justify-content-around mx-auto">
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">About </span>
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">Privacy</span>
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">Contact</span>
-    <span class="footer-text px-sm-3 py-3 m-0 cursor-pointer">T & Cs</span>
+
+<div class="footer-bg set-bottom-padding">
+  <div class="footer-container">
+    <a href="/pages/about" class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
+    </a>
+    <a href="/pages/terms" class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
+    </a>
+    <a href="/pages/privacy" class="text-decoration-none"> <span class="footer-text cursor-pointer">Privacy</span>
+    </a>
+    <a href="/feedback" class="text-decoration-none"> <span class="footer-text cursor-pointer">Feedback</span>
+    </a>
+    <a href="/pages/contact" class="text-decoration-none"> <span class="footer-text cursor-pointer">Contact</span>
+    </a>
   </div>
 </div>
 

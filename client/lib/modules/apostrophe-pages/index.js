@@ -8,16 +8,24 @@ module.exports = {
       label: 'Home'
     },
     {
+      name: 'home-module',
+      label: 'Home Module'
+    },
+    {
       name: 'auth-module',
       label: 'Auth Module'
+    },
+    {
+      name: 'role-module',
+      label: 'Role Module'
     },
     {
       name: 'about-module',
       label: 'About Module'
     },
     {
-      name: 'home-module',
-      label: 'Home Module'
+      name: 'referral-home-module',
+      label: 'Referral Home Module'
     },
     {
       name: 'education-employment-module',
@@ -34,6 +42,30 @@ module.exports = {
     {
       name: 'referral-complete-module',
       label: 'Referral Completed Module'
+    },
+    {
+      name: 'resources-module',
+      label: 'Resources Module'
+    },
+    {
+      name: 'dashboard-module',
+      label: 'Dashboard Module'
+    },
+    {
+      name: 'check-referral-module',
+      label: 'Check Referral Module'
+    },
+    {
+      name: 'mental-health-module',
+      label: 'Mental Health Module',
+    },
+    {
+      name: 'feedback-module',
+      label: 'Feedback Module'
+    },
+    {
+      name: 'footer-pages-module',
+      label: 'Footer Pages Module'
     }
 
     // Add more page types here, but make sure you create a corresponding
