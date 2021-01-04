@@ -100,7 +100,7 @@ function getUrlVars() {
     return vars;
 };
 
-//Commom API Call for post Function
+//Common API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
     var response;
     $.ajax({
@@ -115,7 +115,14 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').hide();
-            console.log(error.responseJSON.message)
+            Vue.$toast.error(error.responseJSON.message, {
+                position: 'top',
+                duration: 1000,
+                onDismiss: function () {
+                    window.location.reload();
+                }
+            });
+            return false;
         }
     });
     return response

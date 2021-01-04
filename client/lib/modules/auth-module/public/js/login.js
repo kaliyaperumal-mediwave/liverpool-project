@@ -47,7 +47,6 @@ $(document).ready(function () {
                         });
                     } else {
                         $('#loader').hide();
-                        console.log('empty response')
                     }
 
                 } else {
