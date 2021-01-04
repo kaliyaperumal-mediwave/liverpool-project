@@ -5,9 +5,10 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#check-referral',
         data: {
-            checkReferral: {
+            viewReferralObj: {
                 email: "",
-                password: ""
+                loginId: "",
+                referralType: "completed"
             },
             viewReferralObj: {
                 loginId: "123",
@@ -18,12 +19,17 @@ $(document).ready(function () {
             savedReferrals: [],
             isFormSubmitted: false,
             showVisibility: false,
+            displayReferrals: [],
+            referralDateArray: [],
+            viewReferralArray: [],
+            iterateReferralArray: []
         },
 
         mounted: function () {
-            this.name = "thiru"
             this.paramValues = getParameter(location.href)
+            console.log(this.paramValues)
             this.viewReferralObj.loginId = this.paramValues[0];
+            this.viewReferralObj.userRole = this.paramValues[1]
             this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)
         },
 
@@ -37,7 +43,6 @@ $(document).ready(function () {
                     $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                 }
             },
-
             getUserReferral: function (loginId, referralType) {
                 var _self = this;
                 $.ajax({
@@ -48,21 +53,74 @@ $(document).ready(function () {
                     success: function (data) {
                         let setObj = {};
                         _self.displayReferrals = data;
-                        console.log(_self.displayReferrals)
-
+                        _self.viewReferralArray = [];
+                        _self.referralDateArray = [];
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
-                            setObj.date = _self.displayReferrals[0]
+                            var date = _self.convertDate(_self.displayReferrals[i].createdAt);
+                            obj = {
+                                date: "",
+                                data: []
+                            };
+                            if (_self.referralDateArray.length == 0) {
+                                obj.date = date;
+                                obj.data.push(_self.displayReferrals[i])
+                                _self.referralDateArray.push(date)
+                                _self.viewReferralArray.push(obj)
+                            }
+                            else if (_self.referralDateArray.indexOf(date) === -1) {
+                                obj.date = date;
+                                obj.data.push(_self.displayReferrals[i])
+                                _self.referralDateArray.push(date)
+                                _self.viewReferralArray.push(obj)
+                            }
+                            else {
+                                for (var j = 0; j < _self.viewReferralArray.length; j++) {
+
+                                    if (_self.viewReferralArray[j].date == date) {
+                                        _self.viewReferralArray[j].data.push(_self.displayReferrals[i])
+                                    }
+
+                                }
+                            }
                         }
+                        console.log(_self.referralDateArray)
+                        console.log(_self.viewReferralArray)
                     },
                     error: function (error) {
                         console.log(error.responseJSON.message)
                     }
                 });
+            },
+
+            convertDate: function (dbDate) {
+                var date = new Date(dbDate)
+                var yyyy = date.getFullYear().toString();
+                var mm = (date.getMonth() + 1).toString();
+                var dd = date.getDate().toString();
+
+                var mmChars = mm.split('');
+                var ddChars = dd.split('');
+                return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
+            },
+            contineReferral: function (refObj) {
+                if (refObj.referral_progress == "20") {
+                    location.href = redirectUrl(location.href, "about", this.loginId, this.userRole);
+                }
+                else if (refObj.referral_progress == "40") {
+                    location.href = redirectUrl(location.href, "education", this.loginId, this.userRole);
+                }
+                else if (refObj.referral_progress == "60") {
+                    location.href = redirectUrl(location.href, "referral", this.loginId, this.userRole);
+                }
+                else if (refObj.referral_progress == "80") {
+                    location.href = redirectUrl(location.href, "review", this.loginId, this.userRole);
+                }
+            },
+            fetchReferrals: function (referralType) {
+                this.viewReferralObj.referralType = referralType;
+                this.getUserReferral(this.viewReferralObj.loginId, referralType)
             }
-
-
-        },
-
+        }
     })
 
 });

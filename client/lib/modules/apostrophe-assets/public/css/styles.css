@@ -41,9 +41,9 @@
 
 fieldset,
 label {
-  margin: 0 !important;
-  padding: 0 !important;
-  margin-bottom: 20px !important; }
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px; }
 
 .rating [type="radio"] {
   border: none !important;
@@ -128,27 +128,27 @@ label {
   opacity: 1 !important; }
 
 /* Radio Button Global classes */
-.form-check [type="radio"]:checked + label:before,
-.form-check [type="radio"]:not(:checked) + label:before, .form-check [type="radio"]:checked + label:after, .form-check [type="radio"]:not(:checked) + label:after {
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before, [type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {
   content: "";
   position: absolute;
   border-radius: 102px;
   opacity: 1; }
 
-.form-check [type="radio"]:checked, .form-check [type="radio"]:not(:checked) {
+[type="radio"]:checked, [type="radio"]:not(:checked) {
   position: absolute;
   left: -9999px; }
 
-.form-check [type="radio"]:checked + label,
-.form-check [type="radio"]:not(:checked) + label {
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label {
   position: relative;
   padding-left: 56px;
   cursor: pointer;
   height: 40px;
   display: inline-block; }
 
-.form-check [type="radio"]:checked + label:before,
-.form-check [type="radio"]:not(:checked) + label:before {
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
   width: 40px;
   height: 40px;
   top: 0;
@@ -156,7 +156,7 @@ label {
   background: #e8edee 0% 0% no-repeat padding-box;
   border: 1px solid #023047; }
 
-.form-check [type="radio"]:checked + label:after {
+[type="radio"]:checked + label:after {
   width: 22px;
   height: 22px;
   top: 9px;
@@ -169,7 +169,7 @@ label {
   transition: all 0.2s ease;
   padding: 2px; }
 
-.form-check [type="radio"]:not(:checked) + label:after {
+[type="radio"]:not(:checked) + label:after {
   width: 22px;
   height: 22px;
   top: 9px;
@@ -187,7 +187,7 @@ label {
   -o-transform: scale(0);
   transform: scale(0); }
 
-.form-check [type="radio"]:checked + label:after {
+[type="radio"]:checked + label:after {
   opacity: 1;
   -webkit-transform: scale(1);
   -ms-transform: scale(1);
