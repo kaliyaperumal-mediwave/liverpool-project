@@ -16,5 +16,9 @@
     font-weight: bold;
   }
   .v-toast.v-toast--top{
-    justify-content: center;
+    // justify-content: center;
+  }
+  .v-toast__item{
+    position: absolute;
+    top: 38%;
   }
