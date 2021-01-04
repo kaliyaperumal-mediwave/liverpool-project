@@ -19,20 +19,21 @@ module.exports = {
     };
     self.landing = function (req, callback) {
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
-      const deCodeParameter = "loginFlag&"+atob(getParams);
+      const deCodeParameter = "loginFlag&" + atob(getParams);
       let decodeValues = deCodeParameter.split("&");
       //console.log("getParams: "+"/role?l"+deCodeParameter)
       return self.sendPage(req, self.renderer('dashboard', {
         showHeader: true,
-        navigateMkeRfrl:"/role?"+btoa(deCodeParameter),
-        home: true
+        navigateMkeRfrl: "/role?" + btoa(deCodeParameter),
+        home: true,
+        showLogout: true
       }));
     };
     require('../../middleware')(self, options);
     self.route('get', 'getIncompleteReferral/:loginId/:userRole', function (req, res) {
-      console.log(req.params.loginId); 
-     // console.log(req.params.userRole); 
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral?loginId=' +  req.params.loginId +"&userRole=" +req.params.userRole;
+      console.log(req.params.loginId);
+      // console.log(req.params.userRole); 
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral?loginId=' + req.params.loginId + "&userRole=" + req.params.userRole;
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -41,9 +42,9 @@ module.exports = {
     });
 
     self.route('get', 'getUserReferral/:loginId', function (req, res) {
-      console.log(req.params.loginId); 
-     // console.log(req.params.userRole); 
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?loginId=' +  req.params.loginId
+      console.log(req.params.loginId);
+      // console.log(req.params.userRole); 
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?loginId=' + req.params.loginId
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

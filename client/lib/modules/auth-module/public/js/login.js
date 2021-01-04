@@ -1,6 +1,6 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-
+    Vue.use(VueToast);
     new Vue({
         el: '#user-login',
 
@@ -20,9 +20,11 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var _self = this;
             setTimeout(function () {
+                _self.resetForm();
                 $('#loader').hide();
-            }, 1000);
+            }, 700);
         },
 
         methods: {
@@ -34,16 +36,22 @@ $(document).ready(function () {
                     console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
-                    if (Object.keys(successData)) {
+                    if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                        Vue.$toast.success('Login successful.', {
+                            position: 'top',
+                            duration: 1000,
+                            onDismiss: function () {
+                                location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                            }
+                        });
                     } else {
                         $('#loader').hide();
                         console.log('empty response')
                     }
 
                 } else {
-                    scrollToInvalidInput();
+                    // scrollToInvalidInput();
                     return false;
                 }
             },
@@ -60,6 +68,12 @@ $(document).ready(function () {
             navigatePage: function (route) {
                 window.location.href = window.location.origin + route;
             },
+
+            resetForm: function () {
+                this.isFormSubmitted = false;
+                this.loginObject.email = '';
+                this.loginObject.password = '';
+            }
 
         }
     })

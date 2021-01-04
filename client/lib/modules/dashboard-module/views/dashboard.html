@@ -6,12 +6,34 @@
 %}
 
 <div id="dashboardPage">
-    <div class="my-xl-5 my-lg-5 my-md-4 my-4">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div class="mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0">
         <h2 class="home-header-primary text-center">CAMHS Services</h2>
         <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
     </div>
-    <div class="my-md-3 my-lg-5 my-xl-5 my-4">
-        <div class="d-flex text-center py-2 my-2 py-md-4 my-md-3">
+    <div class="my-md-3 my-lg-4 my-xl-4 my-4">
+        <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
             <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto">
                 <div class="input-group">
                     <span class="input-group-prepend">
@@ -37,11 +59,11 @@
         </div>
     </div>
 
-    <div class="d-flex py-2">
-        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
+    <div class="d-flex py-0 mt-md-2 pb-1 mt-2">
+        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 py-md-0 mx-auto cursor-pointer">
             <div class="d-flex justify-content-center">
                 <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/resources')">
-                    <div class="text-center py-5">
+                    <div class="text-center py-4">
                         <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height " alt="">
                     </div>
                     <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
@@ -52,11 +74,11 @@
         </div>
     </div>
 
-    <div class="d-flex py-2">
+    <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
         <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
             <div class="d-flex justify-content-center">
-                <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mentalHealth')">
-                    <div class="text-center py-5">
+                <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mental-health')">
+                    <div class="text-center py-4">
                         <img src="/modules/my-apostrophe-assets/img/MentalHealth.svg" class="px-3 image-height" alt="">
                     </div>
                     <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
@@ -115,7 +137,7 @@
                             </div>
                         </div>
                         <div class="py-4 text-left">
-                            <button  type="button" @click="checkReferral()" class="btn px-md-4 py-1 px-3"><span
+                            <button type="button" @click="checkReferral()" class="btn px-md-4 py-1 px-3"><span
                                     class="btn-quaternary-text">CONTINUE REFERRAL
                                 </span></button>
                         </div>

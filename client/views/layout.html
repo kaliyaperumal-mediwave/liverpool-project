@@ -40,8 +40,7 @@ endblock %} {% block extraHead %}
 </script>
 <link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
   rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
 <!-- Vue.js -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
@@ -49,11 +48,6 @@ endblock %} {% block extraHead %}
 <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
 <link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
 <!-- Init the plugin -->
-
-<!-- Toaster -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js">
-</script> -->
-
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
@@ -64,15 +58,21 @@ endblock %} {% block extraHead %}
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
   <!-- Header Ui Start-->
-  <div class="redHeader">
-    Get urgent help
+
+  <div class="urgent-help-bg d-flex align-items-center justify-content-between">
+    <a href="/pages/urgent-help" class="text-decoration-none">
+      <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
+    </a>
+
+    {% if data.showLogout %}
+    <h3 data-toggle="modal" data-target="#logoutModal" class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer">
+      Logout</h3>
+    {% endif %}
+
   </div>
+
   <nav class="header-bg header-set-height">
     <div class="row mx-0 w-100 justify-content-between align-center">
-      <!-- <div alt="logo" class="header-logo"></div>
-      <h2 class="align-self-center header-title d-sm-none d-md-block d-none d-sm-none header-text">
-        It’s okay to not be okay.
-      </h2> -->
       <div class="butLogo-cont">
         <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
           data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
@@ -87,12 +87,12 @@ endblock %} {% block extraHead %}
         </div>
       </div>
 
-      <a href="{{ data.navigateMkeRfrl }}" >
+      <a href="{{ data.navigateMkeRfrl }}">
         <button class="button-referral">
           Make a referral
         </button>
       </a>
-     
+
     </div>
     <!-- left drawer -->
     <div id="side-drawer" class="position-fixed">
@@ -178,8 +178,10 @@ endblock %} {% block extraHead %}
           class="fas fa-arrow-left"></i> back</p>
     </a>
     {% endif %}
+
   </div>
   <!-- Subheader UI End -->
+
 </div>
 
 {% else %}
@@ -195,6 +197,35 @@ endblock %} {% block extraHead %}
     We recommend you use the beforeMain block for global page components
     like headers or navigation.
   #} -->
+
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content modal-bg">
+        <div class="modal-header justify-content-center">
+          <h5 class="question-header-font mt-3">Are you sure want to logout?</h5>
+          <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="modal-body py-1 px-4">
+          <div class="modal-footer">
+            <button type="submit" class="btn px-md-4 w-50" class="modal-close" data-dismiss="modal">
+              <span class="btn-modal-text">No
+              </span>
+            </button>
+            <button type="submit" class="btn px-md-4 w-50" id="closeModal" onclick="logOut()">
+              <span class="btn-modal-text">Yes
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add HouseHold Modal End -->
+  </div>
+
+
   {% endblock %} {% block main %} {# Usually, your page templates in the
   apostrophe-pages module will override this block. It is safe to assume this is
   where your page-specific content should go. #} {% endblock %} {% block afterMain
@@ -203,10 +234,16 @@ endblock %} {% block extraHead %}
 
 <div class="footer-bg set-bottom-padding">
   <div class="footer-container">
-    <span class="footer-text cursor-pointer">About </span>
-    <span class="footer-text cursor-pointer">Privacy</span>
-    <span class="footer-text cursor-pointer">Contact</span>
-    <span class="footer-text cursor-pointer">T & Cs</span>
+    <a href="/pages/about" class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
+    </a>
+    <a href="/pages/terms" class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
+    </a>
+    <a href="/pages/privacy" class="text-decoration-none"> <span class="footer-text cursor-pointer">Privacy</span>
+    </a>
+    <a href="/feedback" class="text-decoration-none"> <span class="footer-text cursor-pointer">Feedback</span>
+    </a>
+    <a href="/pages/contact" class="text-decoration-none"> <span class="footer-text cursor-pointer">Contact</span>
+    </a>
   </div>
 </div>
 

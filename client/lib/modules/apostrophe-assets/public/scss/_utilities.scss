@@ -43,6 +43,11 @@
   font-size: $size - $subValue !important;
 }
 
+//set dynamic line height
+@mixin set-dynamicLineHeight($size) {
+  line-height: $size + 10 !important;
+}
+
 //set dynamic border radius
 @mixin set-borderRadius($radius, $position) {
   @if ($position == "top") {

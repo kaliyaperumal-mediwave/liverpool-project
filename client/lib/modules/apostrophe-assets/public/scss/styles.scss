@@ -11,6 +11,7 @@
 @import "modal";
 @import "loader";
 @import "select";
+@import "toast";
 
 $primary-header-color: #8ecae6;
 $sub-header-color: #012f46;
@@ -28,36 +29,31 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
 body {
@@ -111,6 +107,22 @@ body {
     color: #023047 !important;
     opacity: 1 !important;
   }
+
+  #myBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 4px;
+  }
   // a {
   //   color: #023087 !important;
   // }
@@ -138,6 +150,31 @@ body {
   }
   @include sm-screen {
     height: 75px !important;
+  }
+}
+
+.company-image {
+  height: 80px !important;
+  @include xxl-screen {
+    height: 71px !important;
+  }
+  @include xs-screen {
+    height: 80px !important;
+  }
+  @include sm-screen {
+    height: 85px !important;
+  }
+  @include xl-screen {
+    height: 120px !important;
+  }
+  @include lg-screen {
+    height: 100px !important;
+  }
+  @include md-screen {
+    height: 100px !important;
+  }
+  @include sm-screen {
+    height: 92px !important;
   }
 }
 
@@ -179,6 +216,7 @@ body {
 
 .home-primary-content {
   @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+  @include set-dynamicLineHeight($tertiary-mdFont-size);
   @include xs-screen {
     font-size: $quaternary-mdFont-size !important;
     letter-spacing: 0.64px !important;
@@ -370,8 +408,58 @@ body {
 
 /* Auth Pages  style end */
 
+/* Urgent Help style start */
+
+.urgent-help-bg {
+  @include set-bgOnly($urgent-help-color);
+}
+
+.urgent-help-text {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+  @include xs-screen {
+    @include set-dynamicFont($quaternary-font-size, 4);
+  }
+  @include sm-screen {
+    @include set-dynamicFont($quaternary-font-size, 5);
+  }
+  @include md-screen {
+    @include set-dynamicFont($quaternary-font-size, 2);
+  }
+}
+/* Urgent Help style end */
+
+/* Footer fonts style start */
+.footer-content {
+  @include set-titleStyles($tertiary-smFont-size, normal, $primary-color);
+  @include set-dynamicLineHeight($tertiary-smFont-size);
+  @include xs-screen {
+    @include set-dynamicFont($tertiary-smFont-size, 4);
+  }
+  @include sm-screen {
+    @include set-dynamicFont($tertiary-smFont-size, 5);
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-smFont-size, 2);
+  }
+}
+
+.footer-content-secondary {
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
+  @include xs-screen {
+    @include set-dynamicFont($secondary-font-size, 6);
+  }
+  @include sm-screen {
+    @include set-dynamicFont($secondary-font-size, 5);
+  }
+  @include md-screen {
+    @include set-dynamicFont($secondary-font-size, 3);
+  }
+}
+
+/* Footer fonts style end */
+
 .header-title {
-  @include set-titleStyles($primary-font-size, bold, $header-text-color);
+  @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
 }
 
 .completed-toast-text {
@@ -484,8 +572,7 @@ body {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -512,8 +599,7 @@ body {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 

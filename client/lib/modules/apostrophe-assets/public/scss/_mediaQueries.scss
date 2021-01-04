@@ -1,4 +1,10 @@
 // Extra small devices (portrait phones, less than 576px)
+@mixin xxs-screen-between {
+    @media (min-width: 320px) and (max-width: 424px) {
+        @content;
+    }
+}
+
 @mixin xs-screen {
     @media (max-width: 575.98px) {
         @content;
@@ -32,13 +38,9 @@
         @content;
     }
 }
+
 @mixin xxl-screen {
     @media (min-width: 1900px) {
-        @content;
-    }
-}
-@mixin xxs-screen-between {
-    @media (min-width: 320px) and (max-width: 424px) {
         @content;
     }
 }

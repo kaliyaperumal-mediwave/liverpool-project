@@ -1,14 +1,22 @@
 var API_URI = "/modules/check-referral-module";
 $(document).ready(function () {
+    Vue.use(VueToast);
 
     var app = new Vue({
-        el: '#viewReferral-page',
+        el: '#check-referral',
         data: {
             viewReferralObj: {
                 email: "",
                 loginId: "",
                 referralType: "completed"
             },
+            viewReferralObj: {
+                loginId: "123",
+                referralType: "completed"
+            },
+            name: "prasath",
+            displayReferrals: [],
+            savedReferrals: [],
             isFormSubmitted: false,
             showVisibility: false,
             displayReferrals: [],
@@ -98,9 +106,7 @@ $(document).ready(function () {
 
                if(refObj.referral_progress=="20")
                {
-              //  location.href = redirectUrl(location.href, "about", data.userid, role);
-            //  console.log(decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole))
-
+            
                 location.href = decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole);
                 
                }
