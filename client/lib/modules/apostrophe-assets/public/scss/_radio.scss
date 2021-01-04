@@ -16,7 +16,7 @@
   @extend %radio-shared;
 }
 
-.form-check  [type="radio"] {
+[type="radio"] {
   &:checked,
   &:not(:checked) {
     position: absolute;

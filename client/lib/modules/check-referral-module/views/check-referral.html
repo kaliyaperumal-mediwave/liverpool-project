@@ -6,7 +6,8 @@
 
 {% endblock %}
 {% block main %}
-<div id="check-referral" class="main-min-height">
+<div id="viewReferral-page" class="main-min-height">
+    {% raw %}
     <div class="top-arrow-container">
         <div class="input-group">
             <span class="input-group-prepend">
@@ -20,6 +21,7 @@
                 placeholder="Search your resource" id="example-search-input">
         </div>
         <div class="dropdown d-flex justify-content-end align-items-center ">
+            
             <button class=" custom-select-icon" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 Sort by
@@ -33,10 +35,10 @@
             </div>
         </div>
         <div class='d-flex progress-container'>
-            <div class="col-6 text-center text-complete cursor-pointer">
+            <div  @click="fetchReferrals('completed')" class="col-6 text-center text-complete cursor-pointer">
                 Completed
             </div>
-            <div class="col-6 text-center text-not-complete cursor-pointer">
+            <div  @click="fetchReferrals('incomplete')" class="col-6 text-center text-not-complete cursor-pointer">
                 Not completed
             </div>
         </div>
@@ -51,19 +53,51 @@
             <hr class="dropdown-divider" />
             <!-- <div class="collapse_title"> -->
             <!-- Monday 14th September 2020 -->
-            <div class="d-flex justify-content-between align-items-center" id="headingOne">
-                <div class="d-flex align-items-center">
-                    <div class="collapse_title">
-                        Monday 14th September 2020
-                    </div>
-                </div>
+            <div  v-for="(referrals, index) in viewReferralArray"   class="d-flex justify-content-between align-items-center" id="headingOne">
+                {{referrals.date}}
                 <span style="color: #D6D8D8;">
-                    <i class="fas fa-chevron-circle-down fa-2x res_fontz" data-toggle="collapse" href="#collapseExample"
+                    <i class="fas fa-chevron-circle-down fa-2x res_fontz" data-toggle="collapse" :href="'#collapseExample' + index"
                         role="button" aria-expanded="false" aria-controls="collapseExample"></i>
                 </span>
-                <!-- </div> -->
+                <div  v-for="(refObj, index1) in referrals.data"   class="d-flex justify-content-between align-items-center" id="headingTwo">
+                    <div class="d-flex align-items-center">
+                        <div class="collapse_title">
+                           
+                            {{refObj.id}}
+
+                        <div>
+                            <div class="collapse show collapse-container" :id="'collapseExample' + index">
+                                <div class="collapse-title">
+                                    Hospital
+                                </div>
+                                <div class="collapse-para">
+                                    Alder Hey NHS
+                                </div>
+                                <div class="collapse-title">
+                                    Treatment
+                                </div>
+                                <div class="collapse-para">
+                                    N/A
+                                </div>
+                                <div class="collapse-title">
+                                    Code
+                                </div>
+                                <div class="collapse-para">
+                                    {{refObj.reference_code}}
+                                </div>
+                                <div class="container float-btn-cont">
+                                    <button class="float-btn" type="button" @click="contineReferral(refObj)">
+                                        <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
+                                       </button>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                  
             </div>
-            <div class="collapse show collapse-container" id="collapseExample">
+            <!-- <div class="collapse show collapse-container" id="collapseExample">
                 <div class="collapse-title">
                     Hospital
                 </div>
@@ -87,51 +121,11 @@
                         <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                     </button>
                 </div>
-
-            </div>
+            </div> -->
         </div>
         </a>
     </div>
-
+    {% endraw %}
 </div>
-
-<!-- <div id="viewReferral-page"> -->
-
-<!-- <input class="form-control" type="text" v-model="name">
-    <div>{{ name }}</div>
-    <span>Message: {{name}}</span>
-    <p class="question-font m-0">{{name}}</p>
-
-    <div class="py-4 text-left">
-        <button type="button" @click="getUserReferral(viewReferralObj.loginId,'completed')"
-            class="btn px-md-4 py-1 px-3"><span class="btn-quaternary-text">Completed
-            </span></button>
-    </div>
-
-    <div class="py-4 text-left">
-        <button type="button" @click="getUserReferral(viewReferralObj.loginId,'incomplete')"
-            class="btn px-md-4 py-1 px-3"><span class="btn-quaternary-text">Incomplete
-            </span></button>
-    </div>
-
-    <div v-for="(item, index) in displayReferrals" :key="index">
-        <p>{{displayReferrals}}</p>
-        <div class="card-body">
-            <input class="form-control" type="text" v-model="item[index]">
-
-        </div>
-    </div> -->
-
-<!-- <div class="card" v-for="(item, index) in displayReferrals" :key="index">
-        <div class="card-body">
-            <h5 class="card-title">{{item.name}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{item.professional}}</h6>
-            <p class="card-text">{{item.name}}</p>
-        </div>
-    </div> -->
-
-<!-- </div> -->
-
-
 
 {% endblock %}
