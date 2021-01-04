@@ -33,7 +33,8 @@ module.exports = {
         backContent: '/referral?' + decryptedUrl,
         home: false,
         showHeader: true,
-        showLogout: true
+        showLogout: true,
+        hideRefButton: false
       }));
     };
 

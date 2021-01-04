@@ -27,7 +27,6 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            debugger
             $('#loader').show();
         },
 

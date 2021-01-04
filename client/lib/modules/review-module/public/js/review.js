@@ -108,12 +108,6 @@ $(document).ready(function () {
                 });
             },
 
-
-            popOver: function () {
-                debugger
-                console.log('loged');
-            },
-
             save: function () {
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
@@ -127,6 +121,7 @@ $(document).ready(function () {
                         console.log('empty response')
                     }
                 } else {
+                    scrollToInvalidInput();
                     return false;
                 }
             },
@@ -140,10 +135,12 @@ $(document).ready(function () {
             },
 
             toggleArrow: function (e) {
+                debugger
                 var ele = e.target;
                 var classList = Array.from(e.target.classList)
                 if (classList.indexOf('fa-chevron-circle-up') > -1) {
                     $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                    // $('.arrowClass').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                 } else {
                     $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                 }

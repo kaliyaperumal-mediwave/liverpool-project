@@ -50,7 +50,8 @@ module.exports = {
           backContent: '/role?' + decryptedUrl,
           home: false,
           showHeader: true,
-          showLogout: true
+          showLogout: true,
+          hideRefButton: false
         }));
       }
     };

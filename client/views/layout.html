@@ -85,15 +85,18 @@ endblock %} {% block extraHead %}
         </button>
         <div class="logo">
           <!-- LOGO -->
-          <img src="/modules/my-apostrophe-assets/img/liverpool.svg" />
+          <a href="/" class="text-decoration-none"><img src="/modules/my-apostrophe-assets/img/liverpool.svg" /></a>
         </div>
       </div>
 
+
+      {% if data.hideRefButton %}
       <a href="{{ data.navigateMkeRfrl }}">
         <button class="button-referral">
           Make a referral
         </button>
       </a>
+      {% endif %}
 
     </div>
     <!-- left drawer -->
@@ -102,42 +105,80 @@ endblock %} {% block extraHead %}
         <!-- Side Drawer Title -->
         <div class="header-slider d-flex align-items-center ">
           <div class="slider-header">LOGO</div>
-          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white" aria-hidden="true"></i>
+          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
+            aria-hidden="true"></i>
         </div>
         <!-- Side Drawer content -->
         <div class="slider-container">
-          <div class="inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="/" class="text-decoration-none">Home</a>
+          </div>
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
-            Log in / sign up
+            Referrals
           </div>
           <div class="collapse" id="collapseExample">
             <div class="collapse-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl ,
-              pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Make a referral
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Saved referral
+              </div>
+            </div>
           </div>
-          <div class="inside-cont-slider">
-            Get a referral
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="/pages/urgent-help" class="text-decoration-none">Urgent help</a>
           </div>
-          <div class="inside-cont-slider">
-            Appointments
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="/resources" class="text-decoration-none"> Resources</a>
           </div>
-          <div class="inside-cont-slider">
-            Saved referrals
+
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider2" role="button"
+            aria-expanded="false" aria-controls="collapseSlider2">
+            Accessibility
           </div>
-          <div class="double-inside-cont-slider">
-            Urgent help
+          <div class="collapse" id="collapseSlider2">
+            <div class="collapse-body">
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Dark mode
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Text size
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Voice over
+              </div>
+            </div>
           </div>
-          <div class="double-inside-cont-slider">
-            Discover more
+
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="/mental-health" class="text-decoration-none"> About mental health services</a>
           </div>
-          <div class="last-inside-cont-slider">
+
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider3" role="button"
+            aria-expanded="false" aria-controls="collapseSlider3">
+            Account settings
+          </div>
+          <div class="collapse" id="collapseSlider3">
+            <div class="collapse-body">
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Change e-mail
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Change password
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="last-inside-cont-slider cursor-pointer">
             Log out
-          </div>
+          </div> -->
         </div>
 
       </div>
     </div>
-    <div id="side-drawer-void" class="position-fixed d-none" onclick="closeSideDrawer()"></div>
+    <div id="side-drawer-void" class="position-fixed d-none cursor-pointer" onclick="closeSideDrawer()"></div>
 
   </nav>
   <!-- Header Ui End-->

@@ -15,7 +15,8 @@ module.exports = {
         backContent: '',
         home: false,
         showHeader: true,
-        showLogout: true
+        showLogout: true,
+        hideRefButton: false
       }));
     };
     require('../../middleware')(self, options);

@@ -286,7 +286,6 @@ $(document).ready(function () {
 
             //Adding and Updating  a service logic
             upsertService: function () {
-                debugger
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');

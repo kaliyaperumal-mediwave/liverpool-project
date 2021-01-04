@@ -22,7 +22,9 @@ module.exports = {
 
     self.aboutMentalHealth = function (req, callback) {
       return self.sendPage(req, self.renderer('mentalHealth', {
-        showHeader: true
+        showHeader: true,
+        hideRefButton: true
+
       }));
     };
 

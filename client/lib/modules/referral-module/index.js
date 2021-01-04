@@ -45,7 +45,8 @@ module.exports = {
         backContent: '/education?' + decryptedUrl,
         home: false,
         showHeader: true,
-        showLogout: true
+        showLogout: true,
+        hideRefButton: false
       }));
     };
     require('../../middleware')(self, options);

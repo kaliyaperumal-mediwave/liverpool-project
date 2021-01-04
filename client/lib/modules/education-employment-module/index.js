@@ -34,7 +34,8 @@ module.exports = {
         backContent: '/about?' + decryptedUrl,
         home: false,
         showHeader: true,
-        showLogout: true
+        showLogout: true,
+        hideRefButton: false
       }));
     };
 
