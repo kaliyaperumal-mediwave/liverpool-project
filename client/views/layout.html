@@ -144,7 +144,7 @@ endblock %} {% block extraHead %}
   <div class="sub-header-bg">
 
     {% if data.headerContent and data.home %}
-    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title">
+    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-3 py-md-4 header-title">
       {{data.headerContent}}
     </h2>
     {% endif %}
@@ -157,7 +157,7 @@ endblock %} {% block extraHead %}
 
     {% if data.headerContent and data.headerDescription %}
     <h2
-      class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-3 pb-md-0 pb-lg-0 pb-xl-0">
+      class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-2 pb-md-0 pb-lg-0 pb-xl-0">
       {{data.headerContent}}</h2>
     <div
       class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
@@ -167,13 +167,13 @@ endblock %} {% block extraHead %}
 
     {% if data.backContent %}
     <div class="back_center">
-      <a href="{{ data.backContent }} ">
+      <a href="{{ data.backContent }} " class="text-decoration-none">
         <p class="text-center text-sm-left px-4 d-none d-sm-none d-xl-block d-lg-block d-md-block m-0 back-text">
           <i class="fas fa-arrow-left"></i> back
         </p>
       </a>
     </div>
-    <a href="{{ data.backContent }}">
+    <a href="{{ data.backContent }}" class="text-decoration-none">
       <p class="text-sm-left text-xs-left py-1 px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none back-text"> <i
           class="fas fa-arrow-left"></i> back</p>
     </a>

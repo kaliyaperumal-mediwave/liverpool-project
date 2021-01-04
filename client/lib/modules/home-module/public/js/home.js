@@ -4,12 +4,18 @@ $(document).ready(function () {
         data: {
             location: window.location
         },
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
-            console.log('mounted');
+            setTimeout(function () {
+                $('#loader').hide();
+            }, 1000);
         },
 
         methods: {
- 
+
             navigatePage: function (route) {
                 this.location.href = this.location.origin + route;
             },

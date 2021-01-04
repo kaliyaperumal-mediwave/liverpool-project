@@ -415,12 +415,12 @@ body {
 }
 
 .urgent-help-text {
-  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
   @include xs-screen {
-    @include set-dynamicFont($quaternary-font-size, 4);
+    @include set-dynamicFont($quaternary-font-size, 3);
   }
   @include sm-screen {
-    @include set-dynamicFont($quaternary-font-size, 5);
+    @include set-dynamicFont($quaternary-font-size, 2);
   }
   @include md-screen {
     @include set-dynamicFont($quaternary-font-size, 2);
@@ -458,8 +458,60 @@ body {
 
 /* Footer fonts style end */
 
+/* Referral Home page style end */
+
 .header-title {
-  @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
+  @include set-titleStyles($tertiary-mdFont-size, bold, $header-text-color);
+  @include xs-screen {
+    font-size: 18px !important;
+  }
+  @include sm-screen {
+    font-size: 19px !important;
+  }
+  @include md-screen {
+    font-size: 20px !important;
+  }
+}
+
+.content-secondary-header-text {
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
+  @include xs-screen {
+    @include set-dynamicFont($tertiary-mdFont-size, 6);
+  }
+  @include sm-screen {
+    @include set-dynamicFont($secondary-font-size, 5);
+  }
+  @include md-screen {
+    @include set-dynamicFont($secondary-font-size, 3);
+  }
+}
+
+.content-text {
+  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+  @include xs-screen {
+    @include set-dynamicFont($tertiary-mdFont-size, 3);
+  }
+  @include sm-screen {
+    @include set-dynamicFont($secondary-font-size, 2);
+    @include set-dynamicLineHeight($tertiary-mdFont-size);
+  }
+  @include md-screen {
+    @include set-dynamicFont($secondary-font-size, 1);
+  }
+  @include set-dynamicLineHeight($quaternary-font-size);
+}
+
+.back-text {
+  @include set-titleStyles($quaternary-font-size, bold, $header-text-color);
+  @include xs-screen {
+    font-size: 15px !important;
+  }
+  @include sm-screen {
+    font-size: 16px !important;
+  }
+  @include md-screen {
+    font-size: 17px !important;
+  }
 }
 
 .completed-toast-text {
@@ -468,10 +520,6 @@ body {
 
 .completed-toast-header {
   @include set-titleStyles($primary-font-size, bold, $primary-color);
-}
-
-.back-text {
-  @include set-titleStyles($button-font-size, bold, $header-text-color);
 }
 
 .input-group-secondary-text {
@@ -488,14 +536,6 @@ body {
 
 .content-header-text {
   @include set-titleStyles(22px, bold, $primary-color);
-}
-
-.content-secondary-header-text {
-  @include set-titleStyles($header-font-size, bold, $primary-color);
-}
-
-.content-text {
-  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
 }
 
 .hint-text {
@@ -666,12 +706,6 @@ body {
 
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
-  .back-text {
-    font-size: 15px !important;
-  }
-  .header-title {
-    font-size: 19px !important;
-  }
   .question-header-font {
     font-size: 24px;
   }
@@ -690,12 +724,6 @@ body {
   .content-header-text {
     font-size: 18px !important;
   }
-  .content-text {
-    font-size: 16px !important;
-  }
-  .content-secondary-header-text {
-    font-size: 24px !important;
-  }
   .btn-txt {
     font-size: 22px !important;
   }
@@ -712,12 +740,6 @@ body {
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .back-text {
-    font-size: 16px !important;
-  }
-  .header-title {
-    font-size: 20px !important;
-  }
   .question-header-font {
     font-size: 24px !important;
   }
@@ -736,12 +758,6 @@ body {
   .content-header-text {
     font-size: 19px !important;
   }
-  .content-text {
-    font-size: 16px !important;
-  }
-  .content-secondary-header-text {
-    font-size: 22px !important;
-  }
   .btn-txt {
     font-size: 23px !important;
   }
@@ -758,9 +774,6 @@ body {
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .header-title {
-    font-size: 24px !important;
-  }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
     height: 100px;

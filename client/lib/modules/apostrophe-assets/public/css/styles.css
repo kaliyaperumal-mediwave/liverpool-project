@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .completed-toast-text, .completed-toast-header, .back-text, .send-font, .sub-header-title, .content-header-text, .content-secondary-header-text, .content-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.btn-quaternary-text, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .content-secondary-header-text, .content-text, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -713,15 +713,15 @@ body {
   background: #e55f5f 0% 0% no-repeat padding-box !important; }
 
 .urgent-help-text {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: bold;
   color: #023047; }
   @media (max-width: 575.98px) {
     .urgent-help-text {
-      font-size: 14px !important; } }
+      font-size: 15px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .urgent-help-text {
-      font-size: 13px !important; } }
+      font-size: 16px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .urgent-help-text {
       font-size: 16px !important; } }
@@ -758,10 +758,64 @@ body {
       font-size: 25px !important; } }
 
 /* Footer fonts style end */
+/* Referral Home page style end */
 .header-title {
   font-size: 22px;
-  font-weight: normal;
+  font-weight: bold;
+  color: #ffffff; }
+  @media (max-width: 575.98px) {
+    .header-title {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .header-title {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .header-title {
+      font-size: 20px !important; } }
+
+.content-secondary-header-text {
+  font-size: 28px;
+  font-weight: bold;
   color: #023047; }
+  @media (max-width: 575.98px) {
+    .content-secondary-header-text {
+      font-size: 16px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .content-secondary-header-text {
+      font-size: 23px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .content-secondary-header-text {
+      font-size: 25px !important; } }
+
+.content-text {
+  font-size: 18px;
+  font-weight: normal;
+  color: #023047;
+  line-height: 28px !important; }
+  @media (max-width: 575.98px) {
+    .content-text {
+      font-size: 19px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .content-text {
+      font-size: 26px !important;
+      line-height: 32px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .content-text {
+      font-size: 27px !important; } }
+
+.back-text {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff; }
+  @media (max-width: 575.98px) {
+    .back-text {
+      font-size: 15px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .back-text {
+      font-size: 16px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .back-text {
+      font-size: 17px !important; } }
 
 .completed-toast-text {
   font-size: 18px;
@@ -772,11 +826,6 @@ body {
   font-size: 32px;
   font-weight: bold;
   color: #023047; }
-
-.back-text {
-  font-size: 26px;
-  font-weight: bold;
-  color: #ffffff; }
 
 .input-group-secondary-text {
   background: #d6d8d8 0% 0% no-repeat padding-box !important;
@@ -795,16 +844,6 @@ body {
 .content-header-text {
   font-size: 22px;
   font-weight: bold;
-  color: #023047; }
-
-.content-secondary-header-text {
-  font-size: 32px;
-  font-weight: bold;
-  color: #023047; }
-
-.content-text {
-  font-size: 18px;
-  font-weight: normal;
   color: #023047; }
 
 .hint-text {
@@ -984,10 +1023,6 @@ body {
   width: auto; }
 
 @media (max-width: 575.98px) {
-  .back-text {
-    font-size: 15px !important; }
-  .header-title {
-    font-size: 19px !important; }
   .question-header-font {
     font-size: 24px; }
   .question-font {
@@ -1000,10 +1035,6 @@ body {
     font-size: 20px !important; }
   .content-header-text {
     font-size: 18px !important; }
-  .content-text {
-    font-size: 16px !important; }
-  .content-secondary-header-text {
-    font-size: 24px !important; }
   .btn-txt {
     font-size: 22px !important; }
   .header-logo {
@@ -1015,10 +1046,6 @@ body {
     width: auto; } }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .back-text {
-    font-size: 16px !important; }
-  .header-title {
-    font-size: 20px !important; }
   .question-header-font {
     font-size: 24px !important; }
   .question-font {
@@ -1031,10 +1058,6 @@ body {
     font-size: 22px !important; }
   .content-header-text {
     font-size: 19px !important; }
-  .content-text {
-    font-size: 16px !important; }
-  .content-secondary-header-text {
-    font-size: 22px !important; }
   .btn-txt {
     font-size: 23px !important; }
   .header-logo {
@@ -1046,8 +1069,6 @@ body {
     width: auto; } }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
-  .header-title {
-    font-size: 24px !important; }
   .header-logo {
     background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
     height: 100px;

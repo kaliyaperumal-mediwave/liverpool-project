@@ -30,7 +30,7 @@ $(document).ready(function () {
             },
             dateWrap: true,
             options: {
-               // format: 'YYYY/MM/DD',
+                // format: 'YYYY/MM/DD',
                 format: 'DD/MM/YYYY',
                 dayViewHeaderFormat: 'MMMM YYYY',
                 useCurrent: false,
@@ -70,7 +70,11 @@ $(document).ready(function () {
             paramValues: [],
             editPatchFlag: false,
             storeDeleteData: null,
-            dateFmt:''
+            dateFmt: ''
+        },
+
+        beforeMount: function () {
+            $('#loader').show();
         },
 
         mounted: function () {
@@ -79,10 +83,12 @@ $(document).ready(function () {
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            $('#loader').hide();
             if (this.paramValues[2] != undefined) {
                 this.fetchSavedData();
             }
-            this.initMaps()
+            this.initMaps();
+
         },
         methods: {
 
@@ -127,8 +133,10 @@ $(document).ready(function () {
                 var successData = apiCallPost('post', '/fetchAbout', payload);
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
+                    $('#loader').hide();
                 } else {
                     console.error('error')
+                    $('#loader').hide();
                 }
             },
 
@@ -302,7 +310,7 @@ $(document).ready(function () {
             upsertHouseHold: function () {
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
-                var modal = document.getElementById('closeModal');
+                var modal = document.getElementById('closeModalDeleteAbout');
                 if (houseHoldForm.name) {
                     if (houseHoldForm.mode === 'update') {
                         this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
@@ -403,7 +411,7 @@ $(document).ready(function () {
             setCalendarHeight(e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
                 var dynamicHeight;
-                var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
+                var mainWidth = document.getElementById('dobAboutCal').clientWidth;
                 if (mainWidth <= 350) {
                     dynamicHeight = e.currentTarget.clientWidth + 25;
                 } else {
@@ -414,8 +422,7 @@ $(document).ready(function () {
             },
 
             getAge: function (dateString) {
-                if(dateString!="")
-                {
+                if (dateString != "") {
                     var today = new Date();
                     this.dateFmt = this.setDateFormat(dateString)
                     var birthDate = new Date(this.dateFmt);
@@ -429,23 +436,22 @@ $(document).ready(function () {
             },
 
             setDateFormat: function (dbDate) {
-               
-                if(dbDate!=null)
-                {
+
+                if (dbDate != null) {
                     var dateArray = dbDate.split("/");
-                    var toOldFmt=dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+                    var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
                     var date = new Date(toOldFmt)
                     var yyyy = date.getFullYear().toString();
                     var mm = (date.getMonth() + 1).toString();
                     var dd = date.getDate().toString();
-    
+
                     var mmChars = mm.split('');
                     var ddChars = dd.split('');
-                    var showDate=(ddChars[1] ? dd : "0" + ddChars[0])+ '/' + (mmChars[1] ? mm : "0" + mmChars[0])+ '/' + yyyy
+                    var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
                     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 }
-              
-               // 'DD/MM/YYYY'
+
+                // 'DD/MM/YYYY'
             },
         }
 

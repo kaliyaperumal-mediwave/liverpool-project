@@ -13,7 +13,9 @@ module.exports = {
         headerContent: "Section 1 of 5: Eligibility",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
         backContent: '',
-        home: false
+        home: false,
+        showHeader: true,
+        showLogout: true
       }));
     };
     require('../../middleware')(self, options);
