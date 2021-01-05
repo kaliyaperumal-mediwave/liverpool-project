@@ -26,7 +26,8 @@ module.exports = {
         showHeader: true,
         navigateMkeRfrl: "/make-referral?" + btoa(deCodeParameter),
         home: true,
-        showLogout: true
+        showLogout: true,
+        hideRefButton: true
       }));
     };
     require('../../middleware')(self, options);

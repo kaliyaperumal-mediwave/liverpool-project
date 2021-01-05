@@ -14,25 +14,32 @@ module.exports = {
 
     self.aboutUs = function (req, callback) {
       return self.sendPage(req, self.renderer('about', {
-        showHeader: true
+        showHeader: true,
+        hideRefButton: true
+
       }));
     };
 
     self.termsCondition = function (req, callback) {
       return self.sendPage(req, self.renderer('terms', {
-        showHeader: true
+        showHeader: true,
+        hideRefButton: true
+
       }));
     };
 
     self.privacyPolicy = function (req, callback) {
       return self.sendPage(req, self.renderer('privacy', {
-        showHeader: true
+        showHeader: true,
+        hideRefButton: true
+
       }));
     };
 
     self.urgentHelp = function (req, callback) {
       return self.sendPage(req, self.renderer('urgent', {
-        showHeader: true
+        showHeader: true,
+        hideRefButton: true
       }));
     };
   }

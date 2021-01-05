@@ -10,11 +10,14 @@ module.exports = {
     };
     self.completed = function (req, callback) {
       return self.sendPage(req, self.renderer('completed', {
+        showHeader: true,
         headerContent: "The referral has been made to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",
         headerDescription: '',
         backContent: '',
-        home:false,
+        home: false,
         completed: true,
+        showLogout: true,
+        hideRefButton: false
       }));
     };
     require('../../middleware')(self, options);

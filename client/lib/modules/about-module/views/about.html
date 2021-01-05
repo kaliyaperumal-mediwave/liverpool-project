@@ -7,7 +7,7 @@
 {% block main %}
 <div id="about-form">
     {% raw %}
-    <div class="main-content-bg py-4 main-min-height">
+    <div class="py-4 main-min-height">
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-4">
                 <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
@@ -193,13 +193,15 @@
                                             target="_blank">
                                             Learn more
                                             about Gender Identity - NHS
-                                        </a></p>
+                                        </a>
+                                    </p>
                                     <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                                         <a href="https://www.liverpoolcamhs.com/need-advice/gender-identity/"
                                             target="_blank">
                                             Learn
                                             More about Gender Identity - LIverpool CAMHS
-                                        </a></p>
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -586,11 +588,11 @@
                                     <option value="Child Protection Plan">Child Protection Plan</option>
                                     <option value="Other Carer">Other Carer</option>
                                 </select>
-                                <div class="input-group-append">
+                                <!-- <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="fa fa-chevron-down fa-1x" aria-hidden="true"></i>
                                     </span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -713,12 +715,13 @@
                                 <div class="form-group">
                                     <label for="relationship" class="question-font">RelationShip -
                                         optional</label>
-                                    <input type="text" inputmode="text" v-model="houseHoldData.relationShip" class="form-control"
-                                        id="relationship" placeholder="Enter relationship with CYP">
+                                    <input type="text" inputmode="text" v-model="houseHoldData.relationShip"
+                                        class="form-control" id="relationship"
+                                        placeholder="Enter relationship with CYP">
                                 </div>
                                 <div class="form-group">
                                     <label for="dob" class="question-font">Date of birth optional</label>
-                                    <div class="input-group">
+                                    <div class="input-group" id="dobAboutCal">
                                         <date-picker name="date" placeholder="Enter D.O.B"
                                             @dp-show="setCalendarHeight($event)" v-model="houseHoldData.dob"
                                             :config="options" :wrap="dateWrap"></date-picker>
@@ -730,7 +733,8 @@
                                     </div>
                                 </div>
                                 <div class="form-group" v-show="getAge(houseHoldData.dob) < 19 ">
-                                    <label for="educLocation" inputmode="search" class="question-font">School/College/Employment</label>
+                                    <label for="educLocation" inputmode="search"
+                                        class="question-font">School/College/Employment</label>
                                     <div class="input-group">
                                         <input type="search" class="form-control" placeholder="Start typing to search"
                                             id="educLocation" v-model="houseHoldData.profession">
@@ -742,7 +746,7 @@
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn px-md-4 w-50" id="closeModal"
+                                    <button type="submit" class="btn px-md-4 w-50" id="closeModalDeleteAbout"
                                         @click="upsertHouseHold()">
                                         <template v-if="houseHoldData.mode == 'update'">
                                             <span class="btn-modal-text">UPDATE
@@ -765,6 +769,29 @@
                 </div>
             </div>
         </div>
+        <!-- Loader start -->
+        <div class="overlay" id="loader">
+            <div class="overlay__inner">
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loader end -->
+
         {% endraw %}
     </div>
 </div>

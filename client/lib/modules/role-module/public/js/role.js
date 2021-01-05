@@ -33,7 +33,7 @@ $(document).ready(function () {
                 contactProfParent: '',
                 regProfGpTxt: '',
                 profEmail: '',
-                disableRole:false
+                disableRole: false
             },
             date: null,
             dateWrap: true,
@@ -68,8 +68,12 @@ $(document).ready(function () {
             dateFmt: ''
         },
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
-            this.paramValues = getParameter(location.href)
+            this.paramValues = getParameter(location.href);
             this.getGP();
             this.getProfGP();
             if (this.paramValues != undefined) {
@@ -77,13 +81,15 @@ $(document).ready(function () {
                     this.elgibilityObj.loginId = this.paramValues[1];
                     this.elgibilityObj.role = this.paramValues[2];
                     $('input[name=role]').attr("disabled", true);
+                    $('#loader').hide();
                 }
-              else if (this.paramValues[2] != undefined) {
+                else if (this.paramValues[2] != undefined) {
                     this.elgibilityObj.uuid = this.paramValues[0];
                     this.elgibilityObj.editFlag = this.paramValues[2]
-                    this.fetchSavedData()
+                    this.fetchSavedData();
                 }
             }
+            $('#loader').hide();
         },
 
         methods: {
@@ -99,8 +105,10 @@ $(document).ready(function () {
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         app.setValues(data);
+                        $('#loader').hide();
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log(error.responseJSON.message)
                     }
                 });
@@ -169,7 +177,8 @@ $(document).ready(function () {
                             source: displayNameList,
                             response: function (event, ui) {
                                 if (ui.content.length == 0) {
-                                    $(this).trigger('keydown');
+                                    //alert("gp n")
+                                    // $(this).trigger('keydown');
                                 } else {
 
                                     //console.log(ui.content.length);
@@ -205,8 +214,6 @@ $(document).ready(function () {
                                 if (ui.content.length == 0) {
                                     $(this).trigger('keydown');
                                 } else {
-
-                                    //console.log(ui.content.length);
                                 }
                             }
                         });
@@ -330,7 +337,7 @@ $(document).ready(function () {
                 if (this.patchFlag != true && date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
-                    var selectedDate = new Date( this.dateFmt);
+                    var selectedDate = new Date(this.dateFmt);
                     var age = this.diff_years(today, selectedDate);
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
@@ -422,7 +429,7 @@ $(document).ready(function () {
             resetFlag: function (e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
                 var dynamicHeight;
-                var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
+                var mainWidth = document.getElementById('dobRoleCal').clientWidth;
                 if (mainWidth <= 350) {
                     dynamicHeight = e.currentTarget.clientWidth + 25;
                 } else {
@@ -501,6 +508,7 @@ $(document).ready(function () {
                         if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
+                                    $('#loader').show();
                                     this.apiRequest(this.elgibilityObj, role);
 
                                 } else {
@@ -508,6 +516,7 @@ $(document).ready(function () {
                                 }
 
                             } else {
+                                $('#loader').show();
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -580,16 +589,16 @@ $(document).ready(function () {
                         }
                         if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
                             var url = window.location.href.split('?')[0];
-                          //  console.log(url)
+                            //  console.log(url)
                             location.href = redirectUrl(url, "about", data.userid, role);
                         }
-                        else
-                        {
+                        else {
                             location.href = redirectUrl(location.href, "about", data.userid, role);
                         }
-                       
+
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log(error.responseJSON.message)
                     }
                 });

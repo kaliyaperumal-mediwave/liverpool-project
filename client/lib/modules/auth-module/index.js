@@ -15,6 +15,7 @@ module.exports = {
         showHeader: true,
         home: true,
         navigateMkeRfrl: "/make-referral",
+        hideRefButton: true
       }));
     };
 
@@ -22,7 +23,8 @@ module.exports = {
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
         home: true,
-        showLogout: false
+        showLogout: false,
+        hideRefButton: true
       }));
     };
 

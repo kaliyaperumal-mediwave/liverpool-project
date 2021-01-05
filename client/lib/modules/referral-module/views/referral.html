@@ -7,7 +7,7 @@
 {% endblock %}
 {% block main %}
 <div id="referral-form">
-    <div class="main-content-bg py-4 main-min-height">
+    <div class="py-4 main-min-height">
         <div class="overlay" id="loader">
             <div class="overlay__inner">
                 <div class="overlay__content">
@@ -41,7 +41,7 @@
                         <p class="question-font m-0">{{dynamicLabels.supportNeedsLabel}}</p>
                         <div class="d-flex form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental" @change="onOptionChange($event)" value="mentalHealth">
+                                id="mental" @change="onOptionChange($event)" value="Mental health">
                             <label class="form-check-label option-font d-flex align-items-center" for="mental">
                                 Mental health
                             </label>
@@ -50,14 +50,15 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="disorder" @change="onOptionChange($event)" value="eatingDisorder">
+                                id="disorder" @change="onOptionChange($event)" value="Eating disorder">
                             <label class="form-check-label option-font d-flex align-items-center" for="disorder">
                                 Eating disorder
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental&disorder" @change="onOptionChange($event)" value="bothMental&Eating">
+                                id="mental&disorder" @change="onOptionChange($event)"
+                                value="Mental health & eating disorder&Eating">
                             <label class="form-check-label option-font d-flex align-items-center" for="mental&disorder">
                                 Mental health & eating disorder
                             </label>
@@ -68,7 +69,7 @@
 
                 <!--  Covid-Referrral-Start-->
                 <form id="covid-form" data-options="covid">
-                    <div v-if="(referralData.support == 'mentalHealth' || referralData.support == 'eatingDisorder' || referralData.support == 'bothMental&Eating')"
+                    <div v-if="(referralData.support == 'Mental health' || referralData.support == 'Eating disorder' || referralData.support == 'Mental health & eating disorder&Eating')"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">Is this referral related to Covid-19?</p>
                         <div class="form-check pt-3 pb-1 pl-0">

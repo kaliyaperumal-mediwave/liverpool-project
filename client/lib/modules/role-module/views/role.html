@@ -4,7 +4,29 @@
 <script src="/modules/role-module/js/role.js"></script>
 {% endblock %}
 {% block main %}
-<div class="main-content-bg py-4 main-min-height">
+<div class="py-4 main-min-height">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
         <div id="role-form" class="py-4">
             {% raw %}
@@ -83,7 +105,7 @@
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p>
-                    <div class="input-group">
+                    <div class="input-group" id="dobRoleCal">
                         <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.childDob"
                             @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)"
                             :config="options" :wrap="dateWrap">
@@ -193,7 +215,8 @@
                                         class="cursor-pointer"><u>Samaritans</u></b></a>
                                 is
                                 available via
-                                phone for anyone </p>
+                                phone for anyone
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -465,7 +488,8 @@
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Liverpool:
                             <a href="https://www.talkliverpool.nhs.uk/ 
-                            " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
+                            " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a>
+                        </p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Sefton:
                             <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
@@ -702,7 +726,8 @@
                         <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                             <a href="https://www.nhs.uk/conditions/consent-to-treatment/ " target="_blank">
                                 > Learn more about consent
-                            </a></p>
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>
