@@ -240,7 +240,7 @@
                 </h2>
 
                 <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <label for="employment" class="question-font">Add your HouseHold Members</label>
+                    <label for="employment" class="question-font">Add your houseHold members</label>
                     <template v-if="allHouseHoldMembers.length">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body">
@@ -266,7 +266,7 @@
 
                     <button data-toggle="modal" data-target="#houseHoldModal" type="button" @click="resetModal('add')"
                         class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
-                            Members <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            members <i class="fa fa-plus-circle" aria-hidden="true"></i>
                         </span></button>
                 </div>
                 <!-- Add HouseHold Members end -->
@@ -277,7 +277,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
-                                <h5 class="question-header-font" id="deleteModalLabel">Delete HouseHold</h5>
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete houseHold</h5>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>
                             </div>
@@ -690,14 +690,14 @@
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
                                 <template v-if="houseHoldData.mode == 'update'">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Edit HouseHold</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Edit houseHold</h5>
                                 </template>
                                 <template v-else-if="houseHoldData.mode == ''">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add HouseHold</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add houseHold</h5>
                                     </span>
                                 </template>
                                 <template v-else>
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add HouseHold</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add houseHold</h5>
                                 </template>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>
@@ -713,7 +713,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="relationship" class="question-font">RelationShip -
+                                    <label for="relationship" class="question-font">Relationship -
                                         optional</label>
                                     <input type="text" inputmode="text" v-model="houseHoldData.relationShip"
                                         class="form-control" id="relationship"

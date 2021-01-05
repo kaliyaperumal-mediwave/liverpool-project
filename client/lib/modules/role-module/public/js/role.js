@@ -431,7 +431,7 @@ $(document).ready(function () {
                 var dynamicHeight;
                 var mainWidth = document.getElementById('dobRoleCal').clientWidth;
                 if (mainWidth <= 350) {
-                    dynamicHeight = e.currentTarget.clientWidth + 25;
+                    dynamicHeight = e.currentTarget.clientWidth + 10;
                 } else {
                     dynamicHeight = e.currentTarget.clientWidth - 10;
                 }

@@ -357,11 +357,11 @@ $(document).ready(function () {
 
 
             //Delete service logic
-            deleteHouseHold: function (member) {
-                var modal = document.getElementById('closeModalDeleteAbout');
-                deleteLogic(this.allHouseHoldMembers, member, this, 'allHouseHoldMembers')
-                modal.setAttribute("data-dismiss", "modal");
-            },
+            // deleteHouseHold: function (member) {
+            //     var modal = document.getElementById('closeModalDeleteAbout');
+            //     deleteLogic(this.allHouseHoldMembers, member, this, 'allHouseHoldMembers')
+            //     modal.setAttribute("data-dismiss", "modal");
+            // },
 
             //Resetting the modal values of service data
             resetModalValues: function () {
