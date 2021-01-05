@@ -262,7 +262,7 @@ $(document).ready(function () {
             patchValue: function (data) {
                 console.log(data)
                 this.diagnosisList = data.diagnosis;
-                this.problemsList = data.diagnosis;
+                this.problemsList = data.symptoms;
                 this.accessList = data.local_services;
                 this.referralId = data.id;
                 if (this.accessList.indexOf("Other") > -1) {

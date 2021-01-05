@@ -78,6 +78,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                     //   console.log(data)
 
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -135,7 +136,6 @@ $(document).ready(function () {
             },
 
             toggleArrow: function (e) {
-                debugger
                 var ele = e.target;
                 var classList = Array.from(e.target.classList)
                 if (classList.indexOf('fa-chevron-circle-up') > -1) {
