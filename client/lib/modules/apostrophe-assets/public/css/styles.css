@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .content-secondary-header-text, .content-text, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .question-header-font, .add-more-hint {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -830,6 +830,20 @@ a {
     .content-text {
       font-size: 27px !important; } }
 
+.question-header-font {
+  font-size: 22px;
+  font-weight: bold;
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .question-header-font {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .question-header-font {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .question-header-font {
+      font-size: 20px !important; } }
+
 .back-text {
   font-size: 18px;
   font-weight: bold;
@@ -942,11 +956,6 @@ a {
 
 .option-font {
   font-size: 17px;
-  font-weight: bold;
-  color: #023047; }
-
-.question-header-font {
-  font-size: 28px;
   font-weight: bold;
   color: #023047; }
 
@@ -1073,8 +1082,6 @@ a {
     width: auto; } }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .question-header-font {
-    font-size: 24px !important; }
   .question-font {
     font-size: 16px !important; }
   .option-font {
@@ -1138,22 +1145,10 @@ a {
   display: flex !important; }
 
 @media (max-width: 749px) {
-  .question-header-font {
-    font-size: 21px;
-    font-weight: bold;
-    color: #023047;
-    cursor: pointer; }
   .res_fontz {
     font-size: 1.8rem !important;
     align-items: center;
     display: flex !important; } }
-
-@media (min-width: 750px) and (max-width: 1200px) {
-  .question-header-font {
-    font-size: 24px;
-    font-weight: bold;
-    color: #023047;
-    cursor: pointer; } }
 
 .headerTop {
   position: fixed;
