@@ -17,20 +17,17 @@ module.exports = {
       const deCodeParameter = atob(getParams)
       const decodeValues = deCodeParameter.split("&");
 
-      if(decodeValues[2]==undefined)
-      {
-       const getParamsRedirect = deCodeParameter + "&backbutton";
-       decryptedUrl = btoa(getParamsRedirect);
+      if (decodeValues[2] == undefined) {
+        const getParamsRedirect = deCodeParameter + "&backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
       }
-      else if(decodeValues[2]=="backbutton") 
-      {
-       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
-       decryptedUrl = btoa(getParamsRedirect);
+      else if (decodeValues[2] == "backbutton") {
+        const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
       }
-      else if(decodeValues[2]=="sec5back") 
-      {
-       const getParamsRedirect = decodeValues[0] +"&"+ decodeValues[1]+ "&backbutton";
-       decryptedUrl = btoa(getParamsRedirect);
+      else if (decodeValues[2] == "sec5back") {
+        const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
       }
 
 
@@ -46,7 +43,10 @@ module.exports = {
         headerContent: labels,
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
         backContent: '/education?' + decryptedUrl,
-        home: false
+        home: false,
+        showHeader: true,
+        showLogout: true,
+        hideRefButton: false
       }));
     };
     require('../../middleware')(self, options);

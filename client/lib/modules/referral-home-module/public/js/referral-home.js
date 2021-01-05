@@ -10,7 +10,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            debugger
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);

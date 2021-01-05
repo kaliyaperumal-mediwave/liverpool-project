@@ -49,7 +49,7 @@ $(document).ready(function () {
             },
             checkReferral: function () {
 
-                location.href = decryptUrl("viewreferral", this.loginId, this.userRole);
+                location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
             },
         }
 
