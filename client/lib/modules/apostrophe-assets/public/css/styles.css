@@ -410,6 +410,8 @@
 
 body {
   font-family: "century-gothic" !important; }
+  body .text-validation {
+    color: #DD3939 !important; }
   body .ui-widget.ui-widget-content {
     border: none !important; }
   body .dropdown-divider {
@@ -527,7 +529,7 @@ a {
 /*Logo Height style End */
 /* Landing Page style start */
 .home-header-primary {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: bold;
   color: #023047; }
   @media (max-width: 575.98px) {
@@ -650,11 +652,12 @@ a {
   border-top-right-radius: 0px !important;
   border-bottom-right-radius: 0px !important; }
 
-.input-group .form-control {
+#searchBar .input-group .form-control {
   border-top-right-radius: 10px !important;
-  border-bottom-right-radius: 10px !important;
-  border-top-left-radius: 0px !important;
-  border-bottom-left-radius: 0px !important; }
+  border-bottom-right-radius: 10px !important; }
+
+.input-group .form-control {
+  border-radius: 0px !important; }
 
 .input-group .suffix-form-control {
   border-top-right-radius: 0px !important;
@@ -801,7 +804,7 @@ a {
       font-size: 20px !important; } }
 
 .content-secondary-header-text {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   color: #023047; }
   @media (max-width: 575.98px) {
@@ -809,10 +812,10 @@ a {
       font-size: 16px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .content-secondary-header-text {
-      font-size: 23px !important; } }
+      font-size: 19px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .content-secondary-header-text {
-      font-size: 25px !important; } }
+      font-size: 22px !important; } }
 
 .content-text {
   font-size: 18px;
@@ -821,14 +824,14 @@ a {
   line-height: 28px !important; }
   @media (max-width: 575.98px) {
     .content-text {
-      font-size: 19px !important; } }
+      font-size: 15px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .content-text {
-      font-size: 26px !important;
+      font-size: 16px !important;
       line-height: 32px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .content-text {
-      font-size: 27px !important; } }
+      font-size: 17px !important; } }
 
 .question-header-font {
   font-size: 22px;
@@ -1989,7 +1992,7 @@ body .ui-widget .ui-menu-item {
   padding: 0px 0px 20px 20px !important; }
 
 .carousel-area {
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 10px;
   height: 18px;
   margin: 8px 14px !important;
@@ -2010,7 +2013,7 @@ body .ui-widget .ui-menu-item {
   border-top: 0px solid transparent !important;
   border-bottom: 0px solid transparent !important;
   opacity: 0 !important;
-  transition: opacity .6s ease;
+  transition: opacity 0.6s ease;
   border-radius: 10px; }
 
 .carousel-area .active {
