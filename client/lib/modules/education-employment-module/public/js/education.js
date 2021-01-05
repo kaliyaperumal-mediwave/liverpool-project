@@ -87,9 +87,11 @@ $(document).ready(function () {
                 if (formData.haveSocialWorker === 'yes') {
                     if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
                         if (formData.position === 'education' && formData.attendedInfo) {
+                            $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
                         else if (formData.position != 'education') {
+                            $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
 
@@ -103,6 +105,7 @@ $(document).ready(function () {
                         return false;
                     }
                 } else {
+                    $('#loader').show();
                     this.upsertEducationForm(this.payloadData);
                 }
 
@@ -113,9 +116,11 @@ $(document).ready(function () {
                 // console.log(payload);
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
-                if (Object.keys(responseData)) {
+                if (responseData && Object.keys(responseData)) {
+                    $('#loader').hide();
                     location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
                 } else {
+                    $('#loader').hide();
                     console.log('empty response')
                 }
             },

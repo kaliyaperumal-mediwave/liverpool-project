@@ -1,6 +1,6 @@
 $(document).ready(function () {
     new Vue({
-        el: '#privacyPage',
+        el: '#urgentHelp-page',
         data: {
             location: window.location
         },
@@ -9,12 +9,17 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);
         },
 
         methods: {
+
+            navigatePage: function (route) {
+                this.location.href = this.location.origin + route;
+            },
         }
 
     })

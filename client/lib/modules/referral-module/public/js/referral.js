@@ -238,6 +238,7 @@ $(document).ready(function () {
                     } else {
                         this.payloadData.userMode = 'add';
                     }
+                    $('#loader').show();
                     this.upsertReferralForm(this.payloadData);
 
                 } else {
@@ -250,10 +251,12 @@ $(document).ready(function () {
             //Section 4(Referral) Save and Service call with navaigation Logic
             upsertReferralForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
-                if (Object.keys(responseData)) {
+                if (responseData && Object.keys(responseData)) {
+                    $('#loader').hide();
                     location.href = redirectUrl(location.href, "review");
                     this.storeDeleteData = null;
                 } else {
+                    $('#loader').hide();
                     console.log('empty response')
                 }
             },
