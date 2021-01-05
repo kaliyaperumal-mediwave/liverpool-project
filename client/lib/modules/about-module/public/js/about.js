@@ -309,7 +309,7 @@ $(document).ready(function () {
             upsertHouseHold: function () {
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
-                var modal = document.getElementById('closeModalDeleteAbout');
+                var modal = document.getElementById('closeModalRaj');
                 if (houseHoldForm.name) {
                     if (houseHoldForm.mode === 'update') {
                         this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
