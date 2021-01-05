@@ -11,7 +11,8 @@ module.exports = {
     self.feedback = function (req, callback) {
       return self.sendPage(req, self.renderer('feedback', {
         showHeader: true,
-        home: true
+        home: true,
+        hideRefButton: true
       }));
     };
   }

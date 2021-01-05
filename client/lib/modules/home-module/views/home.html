@@ -5,6 +5,29 @@
 {% endblock %}
 {% block main %}
 <div id="landing-page">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+
     <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2">
         <h2 class="home-header-primary text-center">CAMHS Services</h2>
         <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
@@ -40,7 +63,7 @@
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 pb-2 mx-auto">
             <div class="d-flex justify-content-center">
                 <div class="col-md-6 col-lg-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg"
-                    @click="navigatePage('/users/login')">
+                    @click="navigatePage('/make-referral')">
                     <div class="text-center py-5">
                         <img src="/modules/my-apostrophe-assets/img/MakeAReferral.svg" class="px-3 image-height" alt="">
                     </div>

@@ -118,9 +118,9 @@ function apiCallPost(reqType, endPoint, payload) {
             Vue.$toast.error(error.responseJSON.message, {
                 position: 'top',
                 duration: 1000,
-                onDismiss: function () {
-                    window.location.reload();
-                }
+                // onDismiss: function () {
+                //     window.location.reload();
+                // }
             });
             return false;
         }
@@ -252,9 +252,9 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
 function decryptUrl(nextPge, loginId, roles) {
     let decryptedUrl;
     var gotopage;
-    var getParamsRedirect =loginId + "&" + roles;
+    var getParamsRedirect = loginId + "&" + roles;
     decryptedUrl = btoa(getParamsRedirect);
-    gotopage = "/" + nextPge +"?"+ decryptedUrl;
+    gotopage = "/" + nextPge + "?" + decryptedUrl;
     return gotopage;
 }
 
@@ -299,7 +299,7 @@ window.onload = (event) => {
 
 
 // When the user scrolls down 20px from the top of the document, show the button
-window.onscroll = function () { scrollFunction() };
+//window.onscroll = function () { scrollFunction() };
 
 function scrollFunction() {
     //Get the button:

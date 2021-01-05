@@ -12,7 +12,9 @@ module.exports = {
     self.resources = function (req, callback) {
       return self.sendPage(req, self.renderer('resources', {
         showHeader: true,
-        home: true
+        home: true,
+        hideRefButton: true
+
       }));
     };
 
