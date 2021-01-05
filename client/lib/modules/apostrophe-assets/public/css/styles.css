@@ -1475,7 +1475,7 @@ select.selectIcon {
   padding: 6px !important; }
 
 .top-arrow-container {
-  padding: 40px 24px 24px 24px;
+  padding: 34px 22px 18px 22px;
   max-width: 375px;
   margin: auto; }
 
@@ -1488,31 +1488,31 @@ select.selectIcon {
 
 .leftArrow {
   font-size: 36px;
-  padding-bottom: 16px;
-  width: 30px; }
+  padding-bottom: 10px;
+  width: 26px; }
   @media (min-width: 1200px) {
     .leftArrow {
-      width: 36px; } }
+      width: 30px; } }
 
 .resource_text {
   color: #023047;
-  font-size: 30px;
+  font-size: 26px;
   font-weight: bold;
-  padding-bottom: 26px; }
+  padding-bottom: 10px; }
   @media (min-width: 1200px) {
     .resource_text {
-      font-size: 36px; } }
+      font-size: 30px; } }
   @media (min-width: 1900px) {
     .resource_text {
-      font-size: 45px; } }
+      font-size: 34px; } }
 
 .height-44 {
   height: 44px !important; }
 
 .text_inside_cont {
-  margin-top: 30px;
-  margin-bottom: 60px;
-  padding: 30px;
+  margin-top: 22px;
+  margin-bottom: 28px;
+  padding: 22px;
   background-color: #fafafa;
   color: #023047;
   border-radius: 10px;
@@ -1564,7 +1564,7 @@ select.selectIcon {
   font-weight: bold; }
 
 .selectSource {
-  font-size: 25px;
+  font-size: 24px;
   font-weight: bold; }
 
 .resource-cont {
@@ -1572,7 +1572,7 @@ select.selectIcon {
   width: 100%; }
 
 .pieceCont {
-  padding: 6px !important; }
+  padding: 10px !important; }
   @media (min-width: 1200px) {
     .pieceCont {
       padding: 10px; } }
@@ -1581,17 +1581,17 @@ select.selectIcon {
       padding: 12px; } }
   @media (min-width: 320px) and (max-width: 424px) {
     .pieceCont {
-      padding: 4px !important; } }
+      padding: 10px !important; } }
 
 .insidePieceCont {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: bold;
   color: #023047;
   background-color: #fafafa;
   border-radius: 10px; }
   @media (min-width: 320px) and (max-width: 424px) {
     .insidePieceCont {
-      font-size: 12px; } }
+      font-size: 16px; } }
   @media (min-width: 1200px) {
     .insidePieceCont {
       border-radius: 14px;
@@ -1713,7 +1713,7 @@ select.selectIcon {
 
 @media (min-width: 550px) and (max-width: 768px) {
   .top-arrow-container {
-    padding: 40px 24px 24px 24px;
+    padding: 34px 22px 22px 22px;
     max-width: 500px;
     margin: auto; }
   .bottom-arrow-container {
@@ -1728,7 +1728,7 @@ select.selectIcon {
   .login-container {
     padding: 40px 38px !important; }
   .top-arrow-container {
-    padding: 80px 24px 24px 24px;
+    padding: 40px 24px 24px 24px;
     max-width: 700px; }
   .bottom-arrow-container {
     padding: 50px 40px;
@@ -1754,7 +1754,7 @@ select.selectIcon {
   .havingAccount {
     font-size: 16px; }
   .bottom-arrow-container {
-    padding: 24px 16px;
+    padding: 22px 12px;
     max-width: 700px; } }
 
 .shape_and_center {
@@ -1812,7 +1812,7 @@ select.selectIcon {
   .footer-text {
     padding: 20px 0px; }
   .top-arrow-container {
-    padding: 104px 24px 24px 24px;
+    padding: 48px 24px 24px 24px;
     max-width: 800px; }
   .bottom-arrow-container {
     padding: 104px 0px;
@@ -1854,8 +1854,32 @@ select.selectIcon {
     height: 56px;
     font-size: 31px; }
   .top-arrow-container {
-    padding: 104px 24px 24px 24px;
+    padding: 48px 24px 24px 24px;
     max-width: 943px; }
   .bottom-arrow-container {
     padding: 108px 0px;
     max-width: 943px; } }
+
+body .ui-widget {
+  max-height: 180px !important;
+  overflow: auto;
+  max-width: 330px;
+  padding: 6px;
+  z-index: 440 !important; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    body .ui-widget {
+      max-width: 230px;
+      max-height: 180px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    body .ui-widget {
+      max-width: 410px; } }
+  @media (min-width: 1200px) {
+    body .ui-widget {
+      max-width: 410px;
+      max-height: 240px !important; } }
+
+body .ui-widget .ui-menu-item {
+  font-size: 16px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    body .ui-widget .ui-menu-item {
+      font-size: 14px; } }
