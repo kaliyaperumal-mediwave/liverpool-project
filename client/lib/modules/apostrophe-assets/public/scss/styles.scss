@@ -527,6 +527,19 @@ a {
   @include set-dynamicLineHeight($quaternary-font-size);
 }
 
+.question-header-font {
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: 18px !important;
+  }
+  @include sm-screen {
+    font-size: 19px !important;
+  }
+  @include md-screen {
+    font-size: 20px !important;
+  }
+}
+
 .back-text {
   @include set-titleStyles($quaternary-font-size, bold, $header-text-color);
   @include xs-screen {
@@ -623,10 +636,6 @@ a {
 
 .option-font {
   @include set-titleStyles($option-font-size, bold, $primary-color);
-}
-
-.question-header-font {
-  @include set-titleStyles($secondary-font-size, bold, $primary-color);
 }
 
 .add-more-hint {
@@ -768,9 +777,6 @@ a {
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .question-header-font {
-    font-size: 24px !important;
-  }
   .question-font {
     font-size: 16px !important;
   }
@@ -854,12 +860,6 @@ a {
   display: flex !important;
 }
 @media (max-width: 749px) {
-  .question-header-font {
-    font-size: 21px;
-    font-weight: bold;
-    color: #023047;
-    cursor: pointer;
-  }
   .res_fontz {
     font-size: 1.8rem !important;
     align-items: center;
@@ -867,12 +867,6 @@ a {
   }
 }
 @media (min-width: 750px) and (max-width: 1200px) {
-  .question-header-font {
-    font-size: 24px;
-    font-weight: bold;
-    color: #023047;
-    cursor: pointer;
-  }
 }
 .headerTop {
   position: fixed;

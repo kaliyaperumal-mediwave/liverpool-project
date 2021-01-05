@@ -33,7 +33,6 @@ $(document).ready(function () {
                 let formData = this.loginObject;
                 this.isFormSubmitted = true
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
-                    console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {

@@ -83,7 +83,7 @@ endblock %} {% block extraHead %}
         </button>
         <div class="logo">
           <!-- LOGO -->
-          <a href="/" class="text-decoration-none"><img src="/modules/my-apostrophe-assets/img/liverpool.svg" /></a>
+          <a href="{{ data.logoPath }}" class="text-decoration-none"><img src="/modules/my-apostrophe-assets/img/liverpool.svg" /></a>
         </div>
       </div>
 
@@ -109,20 +109,24 @@ endblock %} {% block extraHead %}
         <!-- Side Drawer content -->
         <div class="slider-container">
           <div class="inside-cont-slider cursor-pointer">
-            <a href="/" class="text-decoration-none">Home</a>
+            <a href="{{ data.logoPath }}"  class="text-decoration-none">Home</a>
           </div>
           <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
             Referrals
           </div>
           <div class="collapse" id="collapseExample">
-            <div class="collapse-body">
-              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                Make a referral
-              </div>
-              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                Saved referral
-              </div>
+            <div class="collapse-body text-decoration-none">
+              <a href="{{ data.navigateMkeRfrl }}">
+                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                  Make a referral
+                </div>
+              </a>
+              <a href="{{ data.navigateViewRfrl }}">
+                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                  Saved referral
+                </div>
+              </a>
             </div>
           </div>
           <div class="inside-cont-slider cursor-pointer">
@@ -275,18 +279,46 @@ endblock %} {% block extraHead %}
 
 <div class="footer-bg set-bottom-padding">
   <div class="footer-container">
-    <a href="/pages/about" class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
+    <a href="{{ data.aboutPage }}"  class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
     </a>
-    <a href="/pages/terms" class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
+    <a href="{{ data.termPage }}"  class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
     </a>
-    <a href="/pages/privacy" class="text-decoration-none"> <span class="footer-text cursor-pointer">Privacy</span>
+    <a href="{{ data.privacyPage }}" class="text-decoration-none"> <span class="footer-text cursor-pointer">Privacy</span>
     </a>
-    <a href="/feedback" class="text-decoration-none"> <span class="footer-text cursor-pointer">Feedback</span>
+    <a href="{{ data.feedbackPage }}" class="text-decoration-none"> <span class="footer-text cursor-pointer">Feedback</span>
     </a>
-    <a href="/pages/contact" class="text-decoration-none"> <span class="footer-text cursor-pointer">Contact</span>
+    <a href="{ data.contactPage }}" class="text-decoration-none"> <span class="footer-text cursor-pointer">Contact</span>
     </a>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!-- Moment JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Date-picker itself -->
+<script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
+</script>
+<link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
+  rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
+
+<!-- Vue.js -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+<!-- Lastly add this package -->
+<script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
+<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+<!-- Init the plugin -->
+
 
 <!-- {#
     This would be a great place to put a global footer.

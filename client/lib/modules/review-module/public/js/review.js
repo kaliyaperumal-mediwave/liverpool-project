@@ -78,6 +78,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                        //   console.log(data)
 
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -91,12 +92,25 @@ $(document).ready(function () {
                             _self.section4Data.symptoms.push(_self.section4Data.symptoms_other)
                         _self.section4Data.diagnosis = _self.section4Data.diagnosis.toString();
                         _self.section4Data.symptoms = _self.section4Data.symptoms.toString();
-                        _self.section4Data.local_services = _self.section4Data.local_services.toString();
 
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
                         _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
+
+                        if (_self.section4Data.local_services) {
+                            if (_self.section4Data.local_services.indexOf('Other') == -1) {
+                                _self.section4Data.local_services = _self.section4Data.local_services;
+                            } else {
+                                var index = _self.section4Data.local_services.indexOf('Other');
+                                _self.section4Data.local_services.splice(index, 1);
+                                var services = _self.section4Data.services.map(function (it) {
+                                    return it.name
+                                });
+                                _self.section4Data.local_services = _self.section4Data.local_services.concat(services);
+                            }
+                        }
+
                         $('#loader').hide();
                         //self.section4Data.local_services =  _self.section4Data.local_services
                         //  Vue.set(this.section1Data,data);
@@ -134,8 +148,15 @@ $(document).ready(function () {
                 location.href = "/" + page + "?" + enCodeParameter
             },
 
+            checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
             toggleArrow: function (e) {
-                debugger
                 var ele = e.target;
                 var classList = Array.from(e.target.classList)
                 if (classList.indexOf('fa-chevron-circle-up') > -1) {

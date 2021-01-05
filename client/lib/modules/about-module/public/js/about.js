@@ -272,7 +272,7 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-
+                    $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
@@ -299,8 +299,10 @@ $(document).ready(function () {
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
+                    $('#loader').hide();
                     location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
                 } else {
+                    $('#loader').hide();
                     console.log('empty response')
                 }
             },
@@ -309,7 +311,7 @@ $(document).ready(function () {
             upsertHouseHold: function () {
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
-                var modal = document.getElementById('closeModalDeleteAbout');
+                var modal = document.getElementById('closeModalRaj');
                 if (houseHoldForm.name) {
                     if (houseHoldForm.mode === 'update') {
                         this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {

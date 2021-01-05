@@ -11,20 +11,56 @@ module.exports = {
     };
 
     self.login = function (req, callback) {
+      req.session.auth_token = "";
+      req.session.loginFlag = "false";
+      req.session.loginIdUrl ="";
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl;
+      logoPath = "/";
+      aboutPage = "/pages/about";
+      termPage = "/pages/terms";
+      privacyPage = "/pages/privacy";
+      feedbackPage = "/pages/feedback";
+      contactPage = "/pages/contact";
+      navigateMkeRfrl = "/make-referral";
+      showLogout = false;
       return self.sendPage(req, self.renderer('login', {
         showHeader: true,
         home: true,
-        navigateMkeRfrl: "/make-referral",
-        hideRefButton: true
+        hideRefButton: true,
+        logoPath:logoPath,
+        aboutPage:aboutPage,
+        termPage:termPage,
+        privacyPage:privacyPage,
+        feedbackPage:feedbackPage,
+        contactPage:contactPage,
+        navigateViewRfrl:navigateViewRfrl,
+        navigateMkeRfrl:navigateMkeRfrl
       }));
     };
 
     self.sign_up = function (req, callback) {
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl;
+      logoPath = "/";
+      aboutPage = "/pages/about";
+      termPage = "/pages/terms";
+      privacyPage = "/pages/privacy";
+      feedbackPage = "/pages/feedback";
+      contactPage = "/pages/contact";
+      navigateMkeRfrl = "/make-referral";
+      showLogout = false;
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
         home: true,
         showLogout: false,
-        hideRefButton: true
+        logoPath:logoPath,
+        hideRefButton: true,
+        aboutPage:aboutPage,
+        termPage:termPage,
+        privacyPage:privacyPage,
+        feedbackPage:feedbackPage,
+        contactPage:contactPage,
+        navigateViewRfrl:navigateViewRfrl,
+        navigateMkeRfrl:navigateMkeRfrl
       }));
     };
 
@@ -44,6 +80,7 @@ module.exports = {
       self.middleware.post(req, res, url, req.body).then((data) => {
         if (data) {
           req.session.auth_token = data.data.sendUserResult.token;
+          req.session.loginFlag = "true";
           req.session.reload(function () { });
         }
         return res.send(data);

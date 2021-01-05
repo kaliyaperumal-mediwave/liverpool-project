@@ -366,7 +366,7 @@
                         </p> -->
                         <button data-toggle="modal" data-target="#serviceModal" type="button" @click="resetModal('add')"
                             class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
-                                Service <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                service <i class="fa fa-plus-circle" aria-hidden="true"></i>
                             </span></button>
                         <!-- </div> -->
                     </div>
@@ -380,14 +380,14 @@
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
                                 <template v-if="serviceData.mode == 'update'">
-                                    <h5 class="question-header-font" id="addModalLabel">Edit Service</h5>
+                                    <h5 class="question-header-font" id="addModalLabel">Edit service</h5>
                                 </template>
                                 <template v-else-if="serviceData.mode == ''">
-                                    <h5 class="question-header-font" id="addModalLabel">Add Service</h5>
+                                    <h5 class="question-header-font" id="addModalLabel">Add service</h5>
                                     </span>
                                 </template>
                                 <template v-else>
-                                    <h5 class="question-header-font" id="addModalLabel">Add Service</h5>
+                                    <h5 class="question-header-font" id="addModalLabel">Add service</h5>
                                 </template>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fa fa-times-circle fa-2x cursor-pointer"></i></i>
