@@ -18,6 +18,32 @@ module.exports = {
       if (!base64Matcher.test(getParamsData)) {
         req.res.redirect("/users/login")
       } else {
+        var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl;
+        if(req.session.loginFlag=="true")
+        {
+          logoPath="/dashboard?"+req.session.loginIdUrl;
+          aboutPage="/pages/about?"+req.session.loginIdUrl;
+          termPage = "/pages/terms?"+req.session.loginIdUrl;
+          privacyPage = "/pages/privacy?"+req.session.loginIdUrl;
+          feedbackPage = "/pages/feedback?"+req.session.loginIdUrl;
+          contactPage = "/pages/contact?"+req.session.loginIdUrl;
+          navigateViewRfrl = "/viewreferals?"+req.session.loginIdUrl;
+          showLogout=true;
+          navigateMkeRfrl =  "/make-referral?" + req.session.loginIdUrl;
+        }
+        else
+        {
+          logoPath = "/";
+          aboutPage="/pages/about";
+          termPage = "/pages/terms";
+          privacyPage = "/pages/privacy";
+          feedbackPage = "/pages/feedback";
+          contactPage = "/pages/contact";
+          navigateMkeRfrl = "/make-referral";
+          showLogout=false;
+        }
+
+
         let labels;
         let decryptedUrl;
         const getParams = req.url.substring(req.url.indexOf("?") + 1);
@@ -50,8 +76,16 @@ module.exports = {
           backContent: '/role?' + decryptedUrl,
           home: false,
           showHeader: true,
-          showLogout: true,
-          hideRefButton: false
+          hideRefButton: false,
+          showLogout: showLogout,
+          logoPath:logoPath,
+          aboutPage:aboutPage,
+          termPage:termPage,
+          privacyPage:privacyPage,
+          feedbackPage:feedbackPage,
+          contactPage:contactPage,
+          navigateViewRfrl:navigateViewRfrl,
+          navigateMkeRfrl:navigateMkeRfrl
         }));
       }
     };

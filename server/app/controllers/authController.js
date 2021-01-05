@@ -98,7 +98,7 @@ exports.login = async (ctx) => {
          else
          {
             return ctx.res.badRequest({
-                message: reponseMessages[1004],
+                message: reponseMessages[1006],
             });
          }  
 

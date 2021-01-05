@@ -178,7 +178,7 @@ $(document).ready(function () {
                             response: function (event, ui) {
                                 if (ui.content.length == 0) {
                                     //alert("gp n")
-                                    // $(this).trigger('keydown');
+                                    $(this).trigger('keydown');
                                 } else {
 
                                     //console.log(ui.content.length);

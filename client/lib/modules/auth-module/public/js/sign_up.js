@@ -40,11 +40,9 @@ $(document).ready(function () {
                 let formData = this.signUpObject;
                 this.isFormSubmitted = true
                 if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
-                    console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
-                    if (Object.keys(successData)) {
-                        console.log(successData);
+                    if (successData && Object.keys(successData)) {
                         $('#loader').hide();
                         Vue.$toast.success('Account created.', {
                             position: 'top',
@@ -56,7 +54,6 @@ $(document).ready(function () {
 
                     } else {
                         $('#loader').hide();
-                        console.log('empty response')
                     }
                 } else {
                     scrollToInvalidInput();

@@ -340,7 +340,8 @@
 
                         <div class="input-group">
                             <input type="text" class="form-control gpLocation" @keydown="getAddress($event)"
-                                id="gpLocation" aria-label="location" v-model="elgibilityObj.regGpTxt">
+                                placeholder="Start typing to search" id="gpLocation" aria-label="location"
+                                v-model="elgibilityObj.regGpTxt">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -644,7 +645,8 @@
                             with?</label>
                         <div class="input-group">
                             <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
-                                @keydown="getProfAddress($event)" id="gpProfLocation" aria-label="location">
+                                placeholder="Start typing to search" @keydown="getProfAddress($event)"
+                                id="gpProfLocation" aria-label="location">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>

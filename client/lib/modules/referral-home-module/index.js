@@ -9,6 +9,29 @@ module.exports = {
       self.dispatch('/', self.refHome);
     };
     self.refHome = function (req, callback) {
+      
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl;
+      if(req.session.loginFlag=="true")
+      {
+        logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
+        aboutPage="/pages/about?"+req.url.substring(req.url.indexOf("?") + 1);
+        termPage = "/pages/terms?"+req.url.substring(req.url.indexOf("?") + 1);
+        privacyPage = "/pages/privacy?"+req.url.substring(req.url.indexOf("?") + 1);
+        feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
+        contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
+        navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1)
+        showLogout=true;
+      }
+      else
+      {
+        logoPath = "/";
+        aboutPage="/pages/about";
+        termPage = "/pages/terms";
+        privacyPage = "/pages/privacy";
+        feedbackPage = "/pages/feedback";
+        contactPage = "/pages/contact"
+        showLogout=false;
+      }
       var path;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
@@ -25,7 +48,14 @@ module.exports = {
         home: true,
         path: path,
         showHeader: true,
-        showLogout: true
+        showLogout: showLogout,
+        logoPath:logoPath,
+        aboutPage:aboutPage,
+        termPage:termPage,
+        privacyPage:privacyPage,
+        feedbackPage:feedbackPage,
+        contactPage:contactPage,
+        navigateViewRfrl:navigateViewRfrl
       }));
     };
   }

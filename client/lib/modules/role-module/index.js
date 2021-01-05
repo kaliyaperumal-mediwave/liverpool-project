@@ -9,14 +9,48 @@ module.exports = {
       self.dispatch('/', self.role);
     };
     self.role = function (req, callback) {
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl;
+      if(req.session.loginFlag=="true")
+      {
+        req.session.loginIdUrl = req.url.substring(req.url.indexOf("?") + 1);
+        logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
+        aboutPage="/pages/about?"+req.url.substring(req.url.indexOf("?") + 1);
+        termPage = "/pages/terms?"+req.url.substring(req.url.indexOf("?") + 1);
+        privacyPage = "/pages/privacy?"+req.url.substring(req.url.indexOf("?") + 1);
+        feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
+        contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
+        navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1)
+        navigateMkeRfrl =  "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1)
+        showLogout=true;
+      }
+      else
+      {
+        logoPath = "/";
+        aboutPage="/pages/about";
+        termPage = "/pages/terms";
+        privacyPage = "/pages/privacy";
+        feedbackPage = "/pages/feedback";
+        contactPage = "/pages/contact"
+        showLogout=false;
+        navigateMkeRfrl="/make-referral"
+      }
+      
       return self.sendPage(req, self.renderer('role', {
         headerContent: "Section 1 of 5: Eligibility",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
         backContent: '',
         home: false,
         showHeader: true,
-        showLogout: true,
-        hideRefButton: false
+        hideRefButton: false,
+        showLogout: showLogout,
+        logoPath:logoPath,
+        aboutPage:aboutPage,
+        termPage:termPage,
+        privacyPage:privacyPage,
+        feedbackPage:feedbackPage,
+        contactPage:contactPage,
+        navigateViewRfrl:navigateViewRfrl,
+        navigateMkeRfrl:navigateMkeRfrl
       }));
     };
     require('../../middleware')(self, options);
