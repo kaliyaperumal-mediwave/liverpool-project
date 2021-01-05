@@ -1859,3 +1859,27 @@ select.selectIcon {
   .bottom-arrow-container {
     padding: 108px 0px;
     max-width: 943px; } }
+
+body .ui-widget {
+  max-height: 180px !important;
+  overflow: auto;
+  max-width: 330px;
+  padding: 6px;
+  z-index: 440 !important; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    body .ui-widget {
+      max-width: 230px;
+      max-height: 180px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    body .ui-widget {
+      max-width: 410px; } }
+  @media (min-width: 1200px) {
+    body .ui-widget {
+      max-width: 410px;
+      max-height: 240px !important; } }
+
+body .ui-widget .ui-menu-item {
+  font-size: 16px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    body .ui-widget .ui-menu-item {
+      font-size: 14px; } }
