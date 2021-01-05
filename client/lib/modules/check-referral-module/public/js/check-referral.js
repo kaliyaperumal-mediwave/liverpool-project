@@ -27,7 +27,6 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            console.log(this.paramValues)
             this.viewReferralObj.loginId = this.paramValues[0];
             this.viewReferralObj.userRole = this.paramValues[1]
             this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)

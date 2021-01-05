@@ -18,16 +18,44 @@ module.exports = {
       self.dispatch('/', self.landing);
     };
     self.landing = function (req, callback) {
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl;
+      logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
+      aboutPage="/pages/about?"+req.url.substring(req.url.indexOf("?") + 1);
+      termPage = "/pages/terms?"+req.url.substring(req.url.indexOf("?") + 1);
+      privacyPage = "/pages/privacy?"+req.url.substring(req.url.indexOf("?") + 1);
+      feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
+      contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
+      navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1);
+      navigateMkeRfrl =  "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1);
+      showLogout=true;
+      var deCodeParameter;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
-      const deCodeParameter = "loginFlag&" + atob(getParams);
+      const deCodeGetParams = atob(getParams);
+      let decodeValuesGetParams = deCodeGetParams.split("&");
+      if(decodeValuesGetParams[0]!="loginFlag")
+      {
+        deCodeParameter = "loginFlag&" + atob(getParams);
+      }
+      else
+      {
+        deCodeParameter = atob(getParams);
+      }
       let decodeValues = deCodeParameter.split("&");
-      //console.log("getParams: "+"/role?l"+deCodeParameter)
       return self.sendPage(req, self.renderer('dashboard', {
         showHeader: true,
         navigateMkeRfrl: "/make-referral?" + btoa(deCodeParameter),
         home: true,
-        showLogout: true,
-        hideRefButton: true
+        showLogout: showLogout,
+        hideRefButton: true,
+        showLogout: showLogout,
+        logoPath:logoPath,
+        aboutPage:aboutPage,
+        termPage:termPage,
+        privacyPage:privacyPage,
+        feedbackPage:feedbackPage,
+        contactPage:contactPage,
+        navigateViewRfrl:navigateViewRfrl,
+        navigateMkeRfrl:navigateMkeRfrl
       }));
     };
     require('../../middleware')(self, options);
