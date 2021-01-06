@@ -29,10 +29,12 @@ exports.signup = async (ctx) => {
             });
         }
         const hashedPassword = await bcrypt.hash(ctx.request.body.password, saltRounds)
+        const userEmail = (ctx.request.body.email).toLowerCase();
+        console.log(userEmail)
         return user.create({
             first_name: ctx.request.body.first_name,
             last_name: ctx.request.body.last_name,
-            email: ctx.request.body.email,
+            email:userEmail,
             password: hashedPassword,
             user_role:ctx.request.body.role,
         }).then((result) => {
@@ -53,9 +55,10 @@ exports.login = async (ctx) => {
         return ctx.body = error;
     } else {
         const user = ctx.orm().User;
+        const userEmail = (ctx.request.body.email).toLowerCase();
         return user.findOne({
             where: {
-                email: ctx.request.body.email,
+                email: userEmail,
             },
             attributes: ['uuid', 'first_name', 'last_name','password','email','user_role']
         }).then( async (userResult) => {
@@ -65,11 +68,9 @@ exports.login = async (ctx) => {
             console.log("checkPassword",checkPassword)
             if(checkPassword)
             {
-               // console.log(userResult)
                const payload = { email: userResult.email };
                const secret = process.env.JWT_SECRET;
                const token = jwt.sign(payload, secret);
-            //  ///   console.log(token)
                 const sendUserResult={
                     loginId:userResult.uuid,
                     first_name:userResult.first_name,

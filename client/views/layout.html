@@ -122,19 +122,19 @@ endblock %} {% block extraHead %}
                   Make a referral
                 </div>
               </a>
-              <a href="{{ data.navigateViewRfrl }}">
+              <!-- <a href="{{ data.navigateViewRfrl }}">
                 <div class="border-bottom-0 cursor-pointer inside-cont-slider">
                   Saved referral
                 </div>
-              </a>
+              </a> -->
             </div>
           </div>
           <div class="inside-cont-slider cursor-pointer">
-            <a href="/pages/urgent-help" class="text-decoration-none">Urgent help</a>
+            <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Urgent help</a>
           </div>
-          <div class="inside-cont-slider cursor-pointer">
+          <!-- <div class="inside-cont-slider cursor-pointer">
             <a href="/resources" class="text-decoration-none"> Resources</a>
-          </div>
+          </div> -->
 
           <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider2" role="button"
             aria-expanded="false" aria-controls="collapseSlider2">
@@ -155,7 +155,7 @@ endblock %} {% block extraHead %}
           </div>
 
           <div class="inside-cont-slider cursor-pointer">
-            <a href="/mental-health" class="text-decoration-none"> About mental health services</a>
+            <a href="{{ data.mentalHeathPage }}" class="text-decoration-none"> About mental health services</a>
           </div>
 
           <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider3" role="button"

@@ -9,7 +9,7 @@ module.exports = {
       self.dispatch('/', self.role);
     };
     self.role = function (req, callback) {
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage;
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage;
       if(req.session.loginFlag=="true")
       {
         req.session.loginIdUrl = req.url.substring(req.url.indexOf("?") + 1);
@@ -22,6 +22,7 @@ module.exports = {
         navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1)
         navigateMkeRfrl =  "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
+        mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
         showLogout=true;
       }
       else
@@ -35,6 +36,7 @@ module.exports = {
         showLogout=false;
         navigateMkeRfrl="/make-referral",
         urgentHelpPage = "/pages/urgent-help";
+        mentalHeathPage="/mental-health";
       }
       
       return self.sendPage(req, self.renderer('role', {
@@ -53,7 +55,8 @@ module.exports = {
         contactPage:contactPage,
         navigateViewRfrl:navigateViewRfrl,
         navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage
       }));
     };
     require('../../middleware')(self, options);

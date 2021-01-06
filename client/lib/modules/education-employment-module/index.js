@@ -12,7 +12,7 @@ module.exports = {
     };
     self.education = function (req, callback) {
 
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage;
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage;
       if(req.session.loginFlag=="true")
       {
         logoPath="/dashboard?"+req.session.loginIdUrl
@@ -24,7 +24,8 @@ module.exports = {
         navigateViewRfrl = "/viewreferals?"+req.session.loginIdUrl
         showLogout=true;
         navigateMkeRfrl =  "/make-referral?" + req.session.loginIdUrl;
-        urgentHelpPage = "/pages/urgent-help?"+req.session.loginIdUrl
+        urgentHelpPage = "/pages/urgent-help?"+req.session.loginIdUrl;
+        mentalHeathPage="/mental-health?"+req.session.loginIdUrl;
       }
       else
       {
@@ -73,7 +74,8 @@ module.exports = {
         contactPage:contactPage,
         navigateViewRfrl:navigateViewRfrl,
         navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage
       }));
     };
 

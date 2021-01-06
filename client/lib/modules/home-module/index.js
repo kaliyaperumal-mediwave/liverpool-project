@@ -12,7 +12,7 @@ module.exports = {
       req.session.auth_token = "";
       req.session.loginFlag = "false";
       req.session.loginIdUrl = "";
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage;
       logoPath = "/";
       aboutPage = "/pages/about";
       termPage = "/pages/terms";
@@ -22,6 +22,7 @@ module.exports = {
       navigateMkeRfrl = "/make-referral";
       showLogout = false;
       urgentHelpPage = "/pages/urgent-help";
+      mentalHeathPage="/mental-health"
       return self.sendPage(req, self.renderer('home', {
         showHeader: false,
         logoPath:logoPath,
@@ -32,7 +33,8 @@ module.exports = {
         contactPage:contactPage,
         navigateViewRfrl:navigateViewRfrl,
         navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage
       }));
     };
   }
