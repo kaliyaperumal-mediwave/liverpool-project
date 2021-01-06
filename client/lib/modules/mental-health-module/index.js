@@ -18,7 +18,7 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.aboutMentalHealth);
       self.dispatch('/people', self.aboutPeople);
-      self.dispatch('/service', self.aboutService);
+      self.dispatch('/types', self.typesOfPeople);
 
     };
 
