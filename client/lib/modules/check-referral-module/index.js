@@ -1,3 +1,5 @@
+const { btoa } = require('../../utils')
+const { atob } = require('../../utils')
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Check Referral Module',
@@ -18,8 +20,25 @@ module.exports = {
       feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
       contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
       navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1);
-      navigateMkeRfrl =  "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1);
+      //navigateMkeRfrl =  "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1);
       showLogout=true;
+      var deCodeParameter;
+      const getParams = req.url.substring(req.url.indexOf("?") + 1);
+      const deCodeGetParams = atob(getParams);
+      let decodeValuesGetParams = deCodeGetParams.split("&");
+      console.log("---->"+decodeValuesGetParams[0]);
+      if(decodeValuesGetParams[0]!="loginFlag")
+      {
+        console.log("--if-->"+decodeValuesGetParams[0]);
+        deCodeParameter = "loginFlag&" + atob(getParams);
+      }
+      else
+      {
+        console.log("--else-->"+decodeValuesGetParams[0]);
+        deCodeParameter = atob(getParams);
+      }
+     // let decodeValues = deCodeParameter.split("&");
+     navigateMkeRfrl =  "/make-referral?" + btoa(deCodeParameter);
       return self.sendPage(req, self.renderer('check-referral', {
         showHeader: true,
         home: true,

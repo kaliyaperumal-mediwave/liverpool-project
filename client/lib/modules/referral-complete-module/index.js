@@ -9,7 +9,7 @@ module.exports = {
       self.dispatch('/', self.completed);
     };
     self.completed = function (req, callback) {
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl;
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage;
       if(req.session.loginFlag=="true")
       {
         logoPath="/dashboard?"+req.session.loginIdUrl
@@ -21,6 +21,7 @@ module.exports = {
         navigateViewRfrl = "/viewreferals?"+req.session.loginIdUrl
         showLogout=true;
         navigateMkeRfrl =  "/make-referral?" + req.session.loginIdUrl;
+        urgentHelpPage = "/pages/urgent-help?"+req.session.loginIdUrl
       }
       else
       {
@@ -32,6 +33,7 @@ module.exports = {
         contactPage = "/pages/contact"
         showLogout=false;
         navigateMkeRfrl = "/make-referral";
+        urgentHelpPage = "/pages/urgent-help";
       }
 
       return self.sendPage(req, self.renderer('completed', {
@@ -50,7 +52,8 @@ module.exports = {
         feedbackPage:feedbackPage,
         contactPage:contactPage,
         navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl
+        navigateMkeRfrl:navigateMkeRfrl,
+        urgentHelpPage:urgentHelpPage
       }));
     };
     require('../../middleware')(self, options);

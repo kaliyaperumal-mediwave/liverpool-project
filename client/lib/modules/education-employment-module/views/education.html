@@ -214,11 +214,15 @@
                                     </template>
                                     <template
                                         v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                     <template
                                         v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position == 'education'">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template
@@ -239,14 +243,16 @@
 
                                 <template
                                     v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
                                         this
                                         page
                                     </p>
                                 </template>
                                 <template
                                     v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position == 'education'">
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
                                         this
                                         page
                                     </p>
@@ -280,7 +286,9 @@
                                     </template>
                                     <template
                                         v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
@@ -296,7 +304,8 @@
                                         your referral request.</p>
                                 </template>
                                 <template v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on this
                                         page.</p>
                                 </template>
                             </div>

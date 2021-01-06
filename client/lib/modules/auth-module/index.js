@@ -14,7 +14,7 @@ module.exports = {
       req.session.auth_token = "";
       req.session.loginFlag = "false";
       req.session.loginIdUrl ="";
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
       logoPath = "/";
       aboutPage = "/pages/about";
       termPage = "/pages/terms";
@@ -23,6 +23,7 @@ module.exports = {
       contactPage = "/pages/contact";
       navigateMkeRfrl = "/make-referral";
       showLogout = false;
+      urgentHelpPage = "/pages/urgent-help";
       return self.sendPage(req, self.renderer('login', {
         showHeader: true,
         home: true,
@@ -34,12 +35,13 @@ module.exports = {
         feedbackPage:feedbackPage,
         contactPage:contactPage,
         navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl
+        navigateMkeRfrl:navigateMkeRfrl,
+        urgentHelpPage:urgentHelpPage
       }));
     };
 
     self.sign_up = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
       logoPath = "/";
       aboutPage = "/pages/about";
       termPage = "/pages/terms";
@@ -48,6 +50,7 @@ module.exports = {
       contactPage = "/pages/contact";
       navigateMkeRfrl = "/make-referral";
       showLogout = false;
+      urgentHelpPage = "/pages/urgent-help"
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
         home: true,
@@ -60,7 +63,8 @@ module.exports = {
         feedbackPage:feedbackPage,
         contactPage:contactPage,
         navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl
+        navigateMkeRfrl:navigateMkeRfrl,
+        urgentHelpPage:urgentHelpPage
       }));
     };
 
