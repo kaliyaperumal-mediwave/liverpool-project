@@ -104,7 +104,22 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                } else {
+                } else if (formData.haveSocialWorker === 'no') {
+                    if (formData.position === 'education' && formData.attendedInfo) {
+                        $('#loader').show();
+                        this.upsertEducationForm(this.payloadData);
+                    }
+                    else if (formData.position != 'education') {
+                        $('#loader').show();
+                        this.upsertEducationForm(this.payloadData);
+                    }
+                    else {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                }
+
+                else {
                     $('#loader').show();
                     this.upsertEducationForm(this.payloadData);
                 }
