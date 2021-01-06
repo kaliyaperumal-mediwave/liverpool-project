@@ -15,7 +15,9 @@ $(document).ready(function () {
         },
 
         methods: {
-
+            navigatePage: function (route) {
+                this.location.href = route;
+            },
         }
 
     })

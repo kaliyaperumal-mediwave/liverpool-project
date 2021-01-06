@@ -15,7 +15,7 @@ module.exports = {
     };
 
     self.aboutUs = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -25,6 +25,7 @@ module.exports = {
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
+        mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -53,6 +54,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         showLogout = false;
+        mentalHeathPage="/mental-health"
       }
       return self.sendPage(req, self.renderer('about', {
         showHeader: true,
@@ -66,12 +68,13 @@ module.exports = {
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage
       }));
     };
 
     self.termsCondition = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -81,6 +84,7 @@ module.exports = {
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
+        mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
         showLogout = true;
         //navigateMkeRfrl = "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -109,6 +113,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         showLogout = false;
+        mentalHeathPage="/mental-health"
       }
       return self.sendPage(req, self.renderer('terms', {
         showHeader: true,
@@ -122,13 +127,14 @@ module.exports = {
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage
 
       }));
     };
 
     self.privacyPolicy = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -138,6 +144,7 @@ module.exports = {
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
+        mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -166,6 +173,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         showLogout = false;
+        mentalHeathPage="/mental-health"
       }
       return self.sendPage(req, self.renderer('privacy', {
         showHeader: true,
@@ -179,13 +187,14 @@ module.exports = {
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage
 
       }));
     };
 
     self.urgentHelp = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -197,6 +206,7 @@ module.exports = {
         showLogout = true;
         navigateMkeRfrl = "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
+        mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
       }
       else {
         logoPath = "/";
@@ -208,6 +218,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         showLogout = false;
+        mentalHeathPage="/mental-health";
       }
       return self.sendPage(req, self.renderer('urgent', {
         showHeader: true,
@@ -221,7 +232,8 @@ module.exports = {
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage
       }));
     };
   }

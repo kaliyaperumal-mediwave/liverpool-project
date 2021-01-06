@@ -6,6 +6,29 @@
 %}
 
 <div id="feedbackPage">
+
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
     <div class="d-flex text-left my-xl-5 my-lg-5 my-md-5 my-3">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
             <!-- <span style="color: #023047 !important;" class="px-1 cursor-pointer">
@@ -15,8 +38,10 @@
                     </span>
                 </i>
             </span> -->
-            <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
-                title="Back" class="cursor-pointer py-1" alt="">
+            <a href="{{ data.logoPath }}">
+                <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
+                    title="Back" class="cursor-pointer py-1" alt="">
+            </a>
             <h2 class="home-header-primary m-0 py-2">Feedback</h2>
             <!-- <div class="d-flex align-items-center">
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" class="cursor-pointer" alt="">
