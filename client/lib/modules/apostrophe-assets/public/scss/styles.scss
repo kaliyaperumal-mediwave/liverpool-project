@@ -2065,3 +2065,6 @@ body .ui-widget .ui-menu-item {
   font-weight: bold;
   color: #a0b0b8;
 }
+:focus {
+  outline: none !important;
+}
