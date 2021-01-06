@@ -10,7 +10,7 @@ module.exports = {
     };
     self.refHome = function (req, callback) {
       
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl;
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage;
       if(req.session.loginFlag=="true")
       {
         logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
@@ -20,6 +20,7 @@ module.exports = {
         feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
         contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
         navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1)
+        urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
         showLogout=true;
       }
       else
@@ -31,6 +32,7 @@ module.exports = {
         feedbackPage = "/pages/feedback";
         contactPage = "/pages/contact"
         showLogout=false;
+        urgentHelpPage = "/pages/urgent-help";
       }
       var path;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
@@ -55,7 +57,8 @@ module.exports = {
         privacyPage:privacyPage,
         feedbackPage:feedbackPage,
         contactPage:contactPage,
-        navigateViewRfrl:navigateViewRfrl
+        navigateViewRfrl:navigateViewRfrl,
+        urgentHelpPage:urgentHelpPage
       }));
     };
   }

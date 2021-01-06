@@ -13,7 +13,7 @@ module.exports = {
     };
 
     self.resources = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -22,6 +22,7 @@ module.exports = {
         feedbackPage = "/pages/feedback?" + req.url.substring(req.url.indexOf("?") + 1)
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
+        urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -48,6 +49,7 @@ module.exports = {
         feedbackPage = "/pages/feedback";
         contactPage = "/pages/contact";
         navigateMkeRfrl = "/make-referral";
+        urgentHelpPage = "/pages/urgent-help";
         showLogout = false;
       }
 
@@ -63,12 +65,13 @@ module.exports = {
         feedbackPage: feedbackPage,
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
-        navigateMkeRfrl: navigateMkeRfrl
+        navigateMkeRfrl: navigateMkeRfrl,
+        urgentHelpPage:urgentHelpPage
 
       }));
     };
     self.thingsToWatch = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -77,6 +80,7 @@ module.exports = {
         feedbackPage = "/pages/feedback?" + req.url.substring(req.url.indexOf("?") + 1)
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
+        urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -103,6 +107,7 @@ module.exports = {
         feedbackPage = "/pages/feedback";
         contactPage = "/pages/contact";
         navigateMkeRfrl = "/make-referral";
+        urgentHelpPage = "/pages/urgent-help";
         showLogout = false;
       }
       return self.sendPage(req, self.renderer('things-to-watch', {
@@ -117,7 +122,8 @@ module.exports = {
         feedbackPage: feedbackPage,
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
-        navigateMkeRfrl: navigateMkeRfrl
+        navigateMkeRfrl: navigateMkeRfrl,
+        urgentHelpPage:urgentHelpPage
       }));
     };
 
