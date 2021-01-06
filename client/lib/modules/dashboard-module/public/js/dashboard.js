@@ -42,15 +42,11 @@ $(document).ready(function () {
             },
 
             navigatePage: function (route) {
-
                 var url = location.href
-                this.location.href = this.location.origin + route + "?"+  url.substring(url.indexOf("?") + 1);
+                this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
             },
-            newReferral: function () {
 
-            },
             checkReferral: function () {
-
                 location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
             },
         }
