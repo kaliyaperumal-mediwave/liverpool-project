@@ -17,8 +17,8 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.aboutMentalHealth);
-      // self.dispatch('/people', self.aboutPeople);
-      // self.dispatch('/service', self.aboutService);
+      self.dispatch('/people', self.aboutPeople);
+      self.dispatch('/service', self.aboutService);
 
     };
 
@@ -80,10 +80,11 @@ module.exports = {
       }));
     };
 
-    // self.termsCondition = function (req, callback) {
-    //   return self.sendPage(req, self.renderer('terms', {
-    //     showHeader: true
-    //   }));
-    // };
+    self.aboutPeople = function (req, callback) {
+      return self.sendPage(req, self.renderer('people', {
+        showHeader: true,
+        showLogout: true,
+      }));
+    };
   }
 }

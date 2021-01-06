@@ -1,11 +1,11 @@
 {% extends "layout.html" %}
 {% block extraBody %}
-<script src="/modules/mental-health-module/js/mentalHealth.js"></script>
+<script src="/modules/mental-health-module/js/people.js"></script>
 {% endblock %}
 {% block main
 %}
 
-<div id="mentalHealthPage">
+<div id="aboutPeoplePage">
     <!-- Loader start -->
     <div class="overlay" id="loader">
         <div class="overlay__inner">
@@ -35,11 +35,11 @@
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
             </a>
-            <h2 class="home-header-primary m-0 py-2">About mental health Services</h2>
+            <h2 class="home-header-primary m-0 py-2">About the people</h2>
         </div>
     </div>
 
-    <div class="my-md-3 my-lg-4 my-xl-4 my-4">
+    <div class="mt-md-3 mt-lg-3 mt-xl-3 mb-md-4 mb-4">
         <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
             <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
                 <div class="input-group">
@@ -51,7 +51,7 @@
                         </div>
                     </span>
                     <input class="home-primarySearch-bg border-0 form-control py-2" type="search"
-                        placeholder="Search your service" id="example-search-input">
+                        placeholder="Search your person" id="example-search-input">
                 </div>
             </div>
         </div>
@@ -64,31 +64,124 @@
         </div>
     </div>
 
-    <div class="d-flex py-0 mt-md-2 pb-1 mt-2">
-        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 py-md-0 mx-auto cursor-pointer">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/resources')">
-                    <div class="text-center py-4">
-                        <img src="/modules/my-apostrophe-assets/img/people.svg" class="px-3 image-height" alt="">
-                    </div>
-                    <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content px-1 px-md-3">About the people</span>
-                    </div>
-                </div>
-            </div>
+    <div class="d-flex text-left mt-xl-3 mt-lg-3 mt-md-3 mt-4 my-md-0 mb-4">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
+            <h2 class="footer-content-secondary m-0 py-md-4 px-3">Types of people to meet</h2>
         </div>
     </div>
 
-    <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
-        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mental-health')">
-                    <div class="text-center py-4">
-                        <img src="/modules/my-apostrophe-assets/img/services.svg" class="px-3 image-height" alt="">
+    <div class="resource-cont">
+        <div class="bottom-arrow-container row" id="selva">
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Applied behaviour therapist
                     </div>
-                    <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content px-1 px-md-3">About the services</span>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/ADHD-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Art therapist
                     </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Anxiety-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Art therapist
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Autism-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Cognitive behavioural therapist
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Bullying-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Cognitive behavioural therapist
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Conduct_Disorder-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Mental health nurse
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Depression-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Learning disability nurse
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Drinking_And_Drugs-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Key workers
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Dyslexia-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Occupational therapist
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Dyspraxia-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Other types of psychotherapy
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Eating_Disorders-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Play therapist
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Family_difficulties-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Psychiatrist
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Gender_Identity-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Psycho- dynamic psycho- therapists
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/OCD-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Social worker
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Panic-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Youth worker
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Phobias-01.svg' />
+                </div>
+            </div>
+            <div class="pieceCont col-6 col-sm-4 col-md-3">
+                <div class="insidePieceCont">
+                    <div class="midTextRange">Psychosis
+                    </div>
+                    <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Psychosis-01.svg' />
                 </div>
             </div>
         </div>
@@ -125,65 +218,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- <div class="sub-header-bg my-5">
-        <div class="col-md-9 col-lg-7 col-xl-7 py-3 col-12 mx-auto">
-            <div class="py-3 py-md-4">
-                <div class="row w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
-                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
-                        <p class="home-referral-secondary my-2 my-md-3">Check and view the status of your referrals</p>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto secondary">
-                        <div class="input-group">
-                            <span class="input-group-prepend">
-                                <div class="home-primarySearch-bg input-group-text  border-right-0">
-                                    <span style="color: #023047 !important;">
-                                        <i class="fa fa-search font-23"></i>
-                                    </span>
-                                </div>
-                            </span>
-                            <input class="home-primarySearch-bg form-control py-2" type="search"
-                                placeholder="Search referrals" id="searchAllreferrals">
-                            <span class="input-group-append">
-                                <div class="home-secondarySearch-bg input-group-text">
-                                    <span class="px-2 font-weight-bold">Search</span>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9 col-lg-7 col-xl-7 col-12 mx-auto">
-            <div class="py-3 py-md-4 py-lg-3 py-xl-3">
-                <div class="row w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
-                        <h2 class="home-referral-primary my-2 my-md-3">Progress of referral</h2>
-                        <p class="home-referral-secondary my-2 my-md-3">You have completed 60% of your referral</p>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 text-center col-xl-6 col-11 mx-auto secondary">
-                        <div class="progress-radius progress">
-                            <div class="progress-bg progress-bar" role="progressbar" style="width: 75%"
-                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="link-text"></span>
-                            </div>
-                        </div>
-                        <div class="py-4 text-left">
-                            <button type="button" @click="checkReferral()" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-quaternary-text">CONTINUE REFERRAL
-                                </span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
 
     <div class="d-flex py-2 mt-3 mt-md-5">
         <div class="col-md-6 col-lg-4 col-xl-4 col-10 px-md-1 px-0 py-2 mt-2 mt-md-3  mx-auto">

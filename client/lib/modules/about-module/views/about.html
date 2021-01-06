@@ -630,7 +630,9 @@
                                         v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
                                 !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
                                 !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
 
@@ -664,7 +666,8 @@
                                     v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
                         !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
                         !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
                                         this
                                         page
                                     </p>
