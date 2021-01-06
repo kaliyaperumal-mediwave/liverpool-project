@@ -295,6 +295,14 @@ $(document).ready(function () {
 
             },
 
+            checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
             //Section 2(About You) Save and Service call with navaigation Logic
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
