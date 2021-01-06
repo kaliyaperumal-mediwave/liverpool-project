@@ -18,7 +18,7 @@ module.exports = {
       self.dispatch('/', self.landing);
     };
     self.landing = function (req, callback) {
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage;
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
       logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
       aboutPage="/pages/about?"+req.url.substring(req.url.indexOf("?") + 1);
       termPage = "/pages/terms?"+req.url.substring(req.url.indexOf("?") + 1);
@@ -28,6 +28,7 @@ module.exports = {
       navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1);
       urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1);
       mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
+      resourcesPage ="/resources?"+req.url.substring(req.url.indexOf("?") + 1);
       showLogout=true;
       var deCodeParameter;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
@@ -62,7 +63,8 @@ module.exports = {
         navigateViewRfrl:navigateViewRfrl,
         navigateMkeRfrl:navigateMkeRfrl,
         urgentHelpPage:urgentHelpPage,
-        mentalHeathPage:mentalHeathPage
+        mentalHeathPage:mentalHeathPage,
+        resourcesPage:resourcesPage
       }));
     };
     require('../../middleware')(self, options);

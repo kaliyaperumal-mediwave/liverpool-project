@@ -12,7 +12,7 @@ module.exports = {
     };
     self.referral = function (req, callback) {
 
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage,resourcesPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.session.loginIdUrl
         aboutPage = "/pages/about?" + req.session.loginIdUrl
@@ -25,6 +25,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral?" + req.session.loginIdUrl;
         urgentHelpPage = "/pages/urgent-help?" + req.session.loginIdUrl;
         mentalHeathPage = "/mental-health?" + req.session.loginIdUrl;
+        resourcesPage ="/resources?"+req.session.loginIdUrl;
       }
       else {
         logoPath = "/";
@@ -37,6 +38,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         mentalHeathPage = "/mental-health";
+        resourcesPage = "/resources";
       }
 
       let labels;
@@ -84,7 +86,8 @@ module.exports = {
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
         urgentHelpPage: urgentHelpPage,
-        mentalHeathPage: mentalHeathPage
+        mentalHeathPage: mentalHeathPage,
+        resourcesPage:resourcesPage
       }));
     };
     require('../../middleware')(self, options);

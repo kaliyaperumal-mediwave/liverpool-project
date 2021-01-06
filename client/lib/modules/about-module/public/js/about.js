@@ -130,6 +130,7 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
+                console.log(successData)
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();

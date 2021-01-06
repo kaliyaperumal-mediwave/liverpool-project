@@ -209,6 +209,19 @@ exports.eligibility = ctx => {
         }).then((professionalUserInfo) => {
           professionalUserInfo.setType("3")
           professionalUserInfo.setProfessional(childUserInfo.id)
+          return user.create({
+
+          }).then((parenetUserInfo) => {
+            parenetUserInfo.setType("2")
+            parenetUserInfo.setParent(childUserInfo.id)
+            const responseData = {
+              userid: professionalUserInfo.uuid,
+              status: "ok"
+            }
+            return ctx.body = responseData;
+          })
+          professionalUserInfo.setType("3")
+          professionalUserInfo.setProfessional(childUserInfo.id)
           const responseData = {
             userid: professionalUserInfo.uuid,
             status: "ok"
@@ -703,12 +716,19 @@ exports.about = ctx => {
                 nested: true,
                 as: 'professional',
               },
+              {
+                model: ctx.orm().Referral,
+                nested: true,
+                as: 'parent',
+              },
             ],
             where: {
               id: result.id,
             },
           }).then((userResult) => {
+            console.log(userResult)
             var childId = userResult[0].professional[0].ChildProfessional.professionalId
+            var parentID = Number(result.id) +1
             return user.update(
               {
                 child_name: ctx.request.body.aboutData.childName,
@@ -731,7 +751,7 @@ exports.about = ctx => {
               }
             ).then((updateResult) => {
 
-              return user.create({
+              return user.update({
                 parent_name: ctx.request.body.aboutData.parentName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
@@ -741,11 +761,13 @@ exports.about = ctx => {
                 parent_same_house: ctx.request.body.aboutData.sameHouse,
                 parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
                 legal_care_status: ctx.request.body.aboutData.legalCareStatus,
+              },
+              {
+                where:
+                  { id: parentID }
               }
               ).then((parentResult) => {
-
-                parentResult.setType("2")
-                parentResult.setParent(childId)
+               // parentResult.setParent(childId)
 
                 const responseData = {
                   userid: ctx.request.body.userid,
@@ -867,23 +889,36 @@ exports.fetchAbout = ctx => {
       }).then((childResult) => {
 
         //  return ctx.body = childResult;
-        var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
+       var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
+        //var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId)
         // return ctx.body = childResult;
         console.log(parentId)
         return user.findAll({
-          include: [
-            {
-              model: ctx.orm().Referral,
-              nested: true,
-              as: 'parent',
-            },
-          ],
           where: {
             id: parentId,
           },
         }).then((parentResult) => {
+          return user.findAll({
+            include: [
+              {
+                model: ctx.orm().Referral,
+                nested: true,
+                as: 'professional',
+              },
+              {
+                model: ctx.orm().Referral,
+                nested: true,
+                as: 'parent',
+              },
+            ],
+            where: {
+              id: parentId,
+            },
+          }).then((parentResult) => {
+            return ctx.body = parentResult;
+          })
 
-          return ctx.body = parentResult;
+         
 
         }).catch((error) => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
