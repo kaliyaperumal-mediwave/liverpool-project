@@ -1046,7 +1046,7 @@ a {
   content: "\00d7";
 }
 .set-bottom-padding {
-  margin-top: 50px;
+  margin-top: 32px;
 }
 .close-slider {
   font-size: 38px !important;
@@ -1850,7 +1850,7 @@ body .ui-widget .ui-menu-item {
 }
 .set-space-padding {
   padding: 0px 0px !important;
-  margin-top:0px !important ;
+  margin-top: 0px !important ;
 }
 .custom-pagination {
   border-radius: 10px;
@@ -2028,43 +2028,103 @@ body .ui-widget .ui-menu-item {
 .text_inside_video {
   margin-top: 22px;
   margin-bottom: 28px;
-  padding: 0px ;
+  padding: 0px;
   border-radius: 10px;
 }
-.body-cont-set{
-  padding:22px;
+.body-cont-set {
+  padding: 22px;
   background-color: #fafafa;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-.img-placeholder{
+.img-placeholder {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
-.read-cont-h1{
+.read-cont-h1 {
   font-size: 18px;
   font-weight: bold;
 }
-.read-cont-p{
+.read-cont-p {
   font-size: 16px;
   font-weight: bold;
   padding: 4px 0px 24px 0px;
 }
-.video-title-top{
-  padding:14px 18px;
+.video-title-top {
+  padding: 14px 18px;
   font-size: 16px;
   font-weight: bold;
+  @include lg-screen {
+    padding: 24px 30px
+  }
+  @include xl-screen {
+    padding: 24px 30px
+  }
 }
-.video-para-bottom{
-  padding:14px 18px;
+.video-para-bottom {
+  padding: 14px 18px 8px 18px;
   font-size: 16px;
+  @include lg-screen {
+    padding: 22px 30px 8px 30px;
+  }
+  @include xl-screen {
+    padding: 22px 30px 8px 30px;
+  }
 }
-.video-placed-ago{
-  padding:14px 18px;
-  font-size: 16px; 
+.video-placed-ago {
+  padding: 2px 18px 14px 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #a0b0b8;
+  @include lg-screen {
+    padding: 2px 18px 20px 30px
+  }
+  @include xl-screen {
+    padding: 2px 18px 20px 30px
+  }
 }
 :focus {
   outline: none !important;
+}
+.event-setOf-padding {
+  padding: 10px 8px !important;
+}
+.sponsor-image-tag {
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 11px;
+  background-color: #fff;
+  width: 100%;
+}
+.flexibility-screen {
+  max-width: 1300px;
+  padding: 10px;
+  margin: auto;
+  @include xxs-screen-between {
+    padding: 0px 14px;
+  }
+  @include xs-screen {
+    padding: 0px 20px;
+  }
+  @include md-screen {
+    padding: 0px 20px;
+  }
+  @include lg-screen {
+    padding: 0px 30px;
+  }
+  @include xl-screen {
+    padding: 0px 30px;
+  }
+}
+.timer-set-rounded{
+  color: #023047;
+  background-color: #FAFAFA;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  width: fit-content;
+  position: relative;
+  float: right;
+  right: 14px;
+  bottom: 46px;
 }

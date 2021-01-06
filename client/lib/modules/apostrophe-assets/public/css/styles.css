@@ -1324,7 +1324,7 @@ a {
   content: "\00d7"; }
 
 .set-bottom-padding {
-  margin-top: 50px; }
+  margin-top: 32px; }
 
 .close-slider {
   font-size: 38px !important;
@@ -2279,16 +2279,76 @@ body .ui-widget .ui-menu-item {
   padding: 14px 18px;
   font-size: 16px;
   font-weight: bold; }
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .video-title-top {
+      padding: 24px 30px; } }
+  @media (min-width: 1200px) {
+    .video-title-top {
+      padding: 24px 30px; } }
 
 .video-para-bottom {
-  padding: 14px 18px;
+  padding: 14px 18px 8px 18px;
   font-size: 16px; }
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .video-para-bottom {
+      padding: 22px 30px 8px 30px; } }
+  @media (min-width: 1200px) {
+    .video-para-bottom {
+      padding: 22px 30px 8px 30px; } }
 
 .video-placed-ago {
-  padding: 14px 18px;
+  padding: 2px 18px 14px 18px;
   font-size: 16px;
   font-weight: bold;
   color: #a0b0b8; }
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .video-placed-ago {
+      padding: 2px 18px 20px 30px; } }
+  @media (min-width: 1200px) {
+    .video-placed-ago {
+      padding: 2px 18px 20px 30px; } }
 
 :focus {
   outline: none !important; }
+
+.event-setOf-padding {
+  padding: 10px 8px !important; }
+
+.sponsor-image-tag {
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 11px;
+  background-color: #fff;
+  width: 100%; }
+
+.flexibility-screen {
+  max-width: 1300px;
+  padding: 10px;
+  margin: auto; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .flexibility-screen {
+      padding: 0px 14px; } }
+  @media (max-width: 575.98px) {
+    .flexibility-screen {
+      padding: 0px 20px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .flexibility-screen {
+      padding: 0px 20px; } }
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .flexibility-screen {
+      padding: 0px 30px; } }
+  @media (min-width: 1200px) {
+    .flexibility-screen {
+      padding: 0px 30px; } }
+
+.timer-set-rounded {
+  color: #023047;
+  background-color: #FAFAFA;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: bold;
+  width: fit-content;
+  position: relative;
+  float: right;
+  right: 14px;
+  bottom: 46px; }
