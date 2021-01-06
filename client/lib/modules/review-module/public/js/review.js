@@ -45,18 +45,18 @@ $(document).ready(function () {
             this.section5Labels = section5Labels;
             this.userRole = this.paramValues[1];
             if (this.userRole === 'child') {
-                this.yourInfo = 'Child / Young Person';
-                this.section5Labels.aboutLabel = "About You";
+                this.yourInfo = 'Child/Young person';
+                this.section5Labels.aboutLabel = "About you";
                 this.section5Labels.referralLabel = "Your reason for referral";
 
             } else if (this.userRole === 'parent') {
                 this.yourInfo = 'Parent / Carer';
-                this.section5Labels.aboutLabel = "About Your Child";
+                this.section5Labels.aboutLabel = "About your child";
                 this.section5Labels.referralLabel = "Your child's reason for referral";
 
             } else if (this.userRole === 'professional') {
                 this.yourInfo = 'Professional';
-                this.section5Labels.aboutLabel = "About The Child";
+                this.section5Labels.aboutLabel = "About the child";
                 this.section5Labels.referralLabel = "The child's reason for referral";
 
             }

@@ -69,14 +69,15 @@
                                         </span>
                                     </div>
                                 </span>
-                                <div class="invalid-feedback px-1 d-none"
-                                    v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
-                                    You must provide a password.
-                                </div>
-                                <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
-                            'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
-                                    You must provide a real valid password.
-                                </div>
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
+                                You must provide a password.
+                            </div>
+                            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
+                    'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
+                                Your password must include at least 8
+                                characters with one uppercase, one lowercase, one special character.
                             </div>
                         </div>
                     </div>

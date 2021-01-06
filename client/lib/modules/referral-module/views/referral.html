@@ -218,7 +218,7 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
                                 v-model="referralData.referralInfo"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
-                            <div class="invalid-feedback d-none"
+                            <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block':(isFormSubmitted && !referralData.referralInfo),'invalid-fields':!referralData.referralInfo }">
                                 You must provide some information on your main referral issue.
                             </div>
@@ -236,7 +236,7 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
-                            <div class="invalid-feedback d-none"
+                            <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
                                 You must provide answer to this question.
                             </div>
@@ -254,7 +254,7 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
-                            <div class="invalid-feedback d-none"
+                            <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
                                 You must provide answer to this question.
                             </div>
@@ -277,7 +277,7 @@
                                 <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
-                                <div class="invalid-feedback d-none"
+                                <div class="text-validation invalid-feedback  d-none"
                                     v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.disabilityOrDifficulty), 'invalid-fields':!referralData.disabilityOrDifficulty}">
                                     You must provide answer to this question.
                                 </div>
@@ -398,7 +398,7 @@
                                         <label for="service-name" class="question-font">Name of service</label>
                                         <input type="text" class="form-control" v-model="serviceData.name"
                                             id="service-name" placeholder="Enter the name of the service you have used">
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
                                             You must provide the name of the service.
                                         </div>
@@ -408,7 +408,7 @@
                                             service</label>
                                         <input type="text" v-model="serviceData.professional" class="form-control"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
                                             You must provide the name of a professional at the service.
                                         </div>
@@ -419,11 +419,11 @@
                                             professional</label>
                                         <input type="text" class="form-control" v-model="serviceData.contact"
                                             id="contactNumber" placeholder="Enter a phone number for the professional">
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
                                             You must provide the 11 digit contact number.
                                         </div>
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(serviceData.contact) )}">
                                             You must provide a real 11 digit contact numebr.
                                         </div>
@@ -493,7 +493,9 @@
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
@@ -507,7 +509,8 @@
 
                                 </template>
                                 <template v-else>
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text danger m-0 py-2">You have missed out a
+                                        section on this
                                         page
                                     </p>
                                 </template>
@@ -535,7 +538,9 @@
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
@@ -549,7 +554,8 @@
 
                                 </template>
                                 <template v-else>
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on this
                                         page
                                     </p>
                                 </template>
@@ -591,7 +597,8 @@
 
                                 </template>
                                 <template v-else>
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on this
                                         page
                                     </p>
                                 </template>
