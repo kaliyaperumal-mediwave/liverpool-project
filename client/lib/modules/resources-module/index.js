@@ -10,6 +10,8 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.resources);
       self.dispatch('/things-to-watch', self.thingsToWatch);
+      self.dispatch('/apps', self.apps);
+      self.dispatch('/things-to-read', self.thingsToRead);
     };
 
     self.resources = function (req, callback) {
@@ -126,6 +128,17 @@ module.exports = {
         urgentHelpPage:urgentHelpPage
       }));
     };
-
+    self.apps = function (req, callback) {
+      return self.sendPage(req, self.renderer('apps', {
+        showHeader: true,
+        showLogout: true,
+      }));
+    };
+    self.thingsToRead = function (req, callback) {
+      return self.sendPage(req, self.renderer('things-to-read', {
+        showHeader: true,
+        showLogout: true,
+      }));
+    };
   }
 }

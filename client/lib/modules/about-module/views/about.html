@@ -241,7 +241,7 @@
 
                 <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <label for="employment" class="question-font">Add your houseHold members</label>
-                    <template v-if="allHouseHoldMembers.length">
+                    <template v-if="checkArrayLength(allHouseHoldMembers)">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body">
                                 <div class="d-flex align-items-center justify-content-between my-1">

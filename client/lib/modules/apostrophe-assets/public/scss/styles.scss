@@ -29,31 +29,36 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
+    format("truetype");
 }
 
 body {
@@ -653,7 +658,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -680,7 +686,8 @@ a {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -1199,9 +1206,13 @@ select.selectIcon {
   padding: 6px !important;
 }
 .top-arrow-container {
-  padding: 34px 22px 18px 22px;
   max-width: 375px;
   margin: auto;
+  margin-top: 30px;
+  margin-bottom: 18px;
+  @include xxs-screen-between {
+    padding: 12px 18px 18px 12px;
+  }
 }
 .bottom-arrow-container {
   padding: 50px 42px;
@@ -1438,7 +1449,7 @@ select.selectIcon {
 }
 @media (min-width: 550px) and (max-width: 768px) {
   .top-arrow-container {
-    padding: 34px 22px 22px 22px;
+    padding: 14px 22px 22px 14px;
     max-width: 500px;
     margin: auto;
   }
@@ -1457,7 +1468,7 @@ select.selectIcon {
     padding: 40px 38px !important;
   }
   .top-arrow-container {
-    padding: 40px 24px 24px 24px;
+    padding: 16px 24px 24px 16px;
     max-width: 700px;
   }
   .bottom-arrow-container {
@@ -1565,7 +1576,7 @@ select.selectIcon {
     padding: 20px 0px;
   }
   .top-arrow-container {
-    padding: 48px 24px 24px 24px;
+    padding: 16px 24px 24px 16px;
     max-width: 800px;
   }
   .bottom-arrow-container {
@@ -1659,25 +1670,35 @@ body .ui-widget .ui-menu-item {
   background: #fafafa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 10px;
-  width: 50px !important;
-  height: 76px !important;
+  width: 40px !important;
+  height: 56px !important;
   color: #023047 !important;
   left: 0px !important;
+  display: none !important;
   @include xxs-screen-between {
     width: 34px !important;
     height: 44px !important;
+    display: none !important;
   }
   @include sm-screen {
     width: 50px !important;
     height: 76px !important;
+    display: flex !important;
+  }
+  @include md-screen {
+    width: 50px !important;
+    height: 76px !important;
+    display: flex !important;
   }
   @include lg-screen {
     width: 50px !important;
     height: 76px !important;
+    display: flex !important;
   }
   @include xl-screen {
     width: 50px !important;
     height: 76px !important;
+    display: flex !important;
   }
 }
 .custom-control-next {
@@ -1688,21 +1709,31 @@ body .ui-widget .ui-menu-item {
   height: 56px !important;
   color: #023047 !important;
   right: 0px !important;
+  display: none !important;
   @include xxs-screen-between {
     width: 34px !important;
     height: 44px !important;
+    display: none !important;
   }
   @include sm-screen {
     width: 50px !important;
     height: 76px !important;
+    display: flex !important;
+  }
+  @include md-screen {
+    width: 50px !important;
+    height: 76px !important;
+    display: flex !important;
   }
   @include lg-screen {
     width: 50px !important;
     height: 76px !important;
+    display: flex !important;
   }
   @include xl-screen {
     width: 50px !important;
     height: 76px !important;
+    display: flex !important;
   }
 }
 .custom-control-next::after {
@@ -1737,7 +1768,7 @@ body .ui-widget .ui-menu-item {
   padding: 18px;
 }
 .imageSet {
-  width: 194px;
+  width: 100%;
   border-radius: 10px;
 }
 .container-bottom-set {
@@ -1818,15 +1849,31 @@ body .ui-widget .ui-menu-item {
   background: none !important;
 }
 .set-space-padding {
-  padding: 30px 0px !important;
+  padding: 0px 0px !important;
+  margin-top:0px !important ;
 }
 .custom-pagination {
-  display: flex !important;
   border-radius: 10px;
   background: #ffffff;
   height: 16px;
   padding-top: 4px;
   bottom: 0px !important;
+  display: none !important;
+  @include xxs-screen-between {
+    display: none !important;
+  }
+  @include sm-screen {
+    display: flex !important;
+  }
+  @include md-screen {
+    display: flex !important;
+  }
+  @include lg-screen {
+    display: flex !important;
+  }
+  @include xl-screen {
+    display: flex !important;
+  }
 }
 .custom-pagination .swiper-pagination-bullet {
   width: 100% !important;
@@ -1843,4 +1890,181 @@ body .ui-widget .ui-menu-item {
 }
 .custom-pagination .swiper-pagination-bullet-active {
   opacity: 1 !important;
+}
+.image-cont-top {
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 10px;
+  width: 90px;
+  height: 90px;
+  margin-bottom: 10px;
+}
+.hearder-cont-h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.title-cont-top {
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+.para-cont-p {
+  font-size: 14px;
+  font-weight: bold;
+}
+.google-icon {
+  width: 166px;
+  margin-bottom: 10px;
+}
+.text_inside_play-store {
+  margin-top: 22px;
+  margin-bottom: 28px;
+  padding: 22px;
+  background-color: #fafafa;
+  color: #023047;
+  border-radius: 10px;
+  font-size: 16px;
+  @include xxl-screen {
+    font-size: 22px;
+  }
+}
+.btn-download {
+  box-shadow: 0px 3px 6px #00000029;
+  border: 1px solid #023047;
+  background-color: #ffb703;
+  border-radius: 10px;
+  height: 46px;
+  max-width: 335px;
+}
+
+.text-cont-app {
+  color: #023047;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  @include xxs-screen-between {
+    font-size: 12px;
+  }
+  @include lg-screen {
+    font-size: 16px;
+  }
+  @include xl-screen {
+    font-size: 16px;
+  }
+}
+.panda-img {
+  width: 100%;
+  border-radius: 11px;
+}
+.padding-set-equal {
+  padding: 6px !important;
+  @include xxs-screen-between {
+    padding: 4px;
+  }
+  @include sm-screen {
+    padding: 8px !important;
+  }
+  @include md-screen {
+    padding: 8px !important;
+  }
+  @include lg-screen {
+    padding: 10px !important;
+  }
+  @include xl-screen {
+    padding: 12px !important;
+  }
+}
+.large-toggle-cont {
+  margin-top: 22px;
+  margin-bottom: 28px;
+  padding: 12px;
+  background-color: #fafafa;
+  color: #023047;
+  border-radius: 10px;
+  @include xxs-screen-between {
+    padding: 10px;
+  }
+}
+.top-slider-cont-max {
+  margin: auto;
+  margin-top: 30px;
+  margin-bottom: 18px;
+  @include xxs-screen-between {
+    padding: 24px 18px 18px 18px;
+  }
+  @include xs-screen {
+    padding: 34px 22px 22px 22px;
+    max-width: 500px;
+    margin: auto;
+  }
+  @include md-screen {
+    padding: 40px 24px 24px 24px;
+    max-width: 700px;
+  }
+  @include lg-screen {
+    padding: 48px 24px 24px 24px;
+    max-width: 800px;
+  }
+  @include xl-screen {
+    padding: 48px 24px 24px 24px;
+    max-width: 800px;
+  }
+}
+.title-thing-to-watch {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px 0px 30px 30px;
+}
+.text_inside_return {
+  margin-top: 22px;
+  padding: 22px;
+  background-color: #fafafa;
+  color: #023047;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  @include xxl-screen {
+    font-size: 22px;
+  }
+}
+.text_inside_video {
+  margin-top: 22px;
+  margin-bottom: 28px;
+  padding: 0px ;
+  border-radius: 10px;
+}
+.body-cont-set{
+  padding:22px;
+  background-color: #fafafa;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.img-placeholder{
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.read-cont-h1{
+  font-size: 18px;
+  font-weight: bold;
+}
+.read-cont-p{
+  font-size: 16px;
+  font-weight: bold;
+  padding: 4px 0px 24px 0px;
+}
+.video-title-top{
+  padding:14px 18px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.video-para-bottom{
+  padding:14px 18px;
+  font-size: 16px;
+}
+.video-placed-ago{
+  padding:14px 18px;
+  font-size: 16px; 
+  font-weight: bold;
+  color: #a0b0b8;
+}
+:focus {
+  outline: none !important;
 }

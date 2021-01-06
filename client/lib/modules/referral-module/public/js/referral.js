@@ -128,7 +128,7 @@ $(document).ready(function () {
 
             ],
             listOfAvailableService: [
-                { id: 'oopdfh', value: 'Addvanced Solutions' },
+                { id: 'oopdfh', value: 'Advanced Solutions' },
                 { id: '8789dfgji', value: 'ADHD Foundation' },
                 { id: '89df8fg', value: 'Alder Hey CAHMS' },
                 { id: 'pdf9', value: 'Barnado’s Young Carers' },
