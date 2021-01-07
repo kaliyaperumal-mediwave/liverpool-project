@@ -175,8 +175,8 @@ $(document).ready(function () {
                     }
                     Vue.set(this.educAndEmpData, "position", data[0].parent[0].child_profession);
                     //   Vue.set(this.educAndEmpData,"childEducationPlace",data[0].parent[0].child_education_place);
-                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHAT);
-                    Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHCP);
+                    Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_name);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);

@@ -193,7 +193,8 @@
                                         class="cursor-pointer"><u>Samaritans</u></b></a>
                                 is
                                 available via
-                                phone for anyone </p>
+                                phone for anyone
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -230,7 +231,7 @@
 
 
             <!-- consent start-->
-            <form id="isInformation-form" data-options="contactParent">
+            <form id="isInformation-form1" data-options="contactParent">
                 <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
@@ -270,7 +271,7 @@
             <!-- consent-ent -->
 
             <!-- toster-container start -->
-            <form id="isInformation-form" data-options="isInformation">
+            <form id="isInformation-form2" data-options="isInformation">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no' && elgibilityObj.childDob!=null"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -316,7 +317,7 @@
                             child registered with?</label>
 
                         <div class="input-group">
-                            <input type="text" class="form-control gpLocation" @keydown="getAddress($event)"
+                            <input type="text" class="form-control gpLocation" @input="getAddress($event)"
                                 id="gpLocation" aria-label="location" v-model="elgibilityObj.regGpTxt">
                             <div class="input-group-append">
                                 <span class="input-group-text">
@@ -405,10 +406,10 @@
             <div v-show="elgibilityObj.role == 'professional'"
                 class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
-
                 <div class="input-group">
-                    <date-picker name="date" v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
-                        @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options" :wrap="dateWrap">
+                    <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.profChildDob"
+                        @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.profChildDob)"
+                        :config="options" :wrap="dateWrap">
                     </date-picker>
                     <div class="input-group-append cursor-pointer">
                         <span class="input-group-text">
@@ -465,7 +466,8 @@
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Liverpool:
                             <a href="https://www.talkliverpool.nhs.uk/ 
-                            " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
+                            " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a>
+                        </p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Sefton:
                             <a href="https://www.insighthealthcare.org/our-services/talking-therapies/find-a-service/access-sefton/ "
@@ -536,7 +538,7 @@
             <!-- consent- parent end -->
 
             <!-- toster-container start -->
-            <form id="parentConcernInformation-form" data-options="parentConcernInformation">
+            <form id="parentConcernInformation-form1" data-options="parentConcernInformation">
                 <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no' && elgibilityObj.profChildDob!=null "
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -611,7 +613,7 @@
 
 
             <!-- GP Location start -->
-            <form id="parentConcernInformation-form" data-options="parentConcernInformation">
+            <form id="parentConcernInformation-form2" data-options="parentConcernInformation">
                 <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
@@ -620,7 +622,7 @@
                             with?</label>
                         <div class="input-group">
                             <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
-                                @keydown="getProfAddress($event)" id="gpProfLocation" aria-label="location">
+                                @input="getProfAddress($event)" id="gpProfLocation" aria-label="location">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -702,7 +704,8 @@
                         <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                             <a href="https://www.nhs.uk/conditions/consent-to-treatment/ " target="_blank">
                                 > Learn more about consent
-                            </a></p>
+                            </a>
+                        </p>
                     </div>
                 </div>
             </div>

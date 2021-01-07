@@ -157,6 +157,7 @@ $(document).ready(function () {
             },
 
             toggleArrow: function (e) {
+                debugger
                 var ele = e.target;
                 var classList = Array.from(e.target.classList)
                 if (classList.indexOf('fa-chevron-circle-up') > -1) {

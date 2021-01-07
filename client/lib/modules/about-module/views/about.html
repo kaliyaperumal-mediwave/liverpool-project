@@ -240,10 +240,10 @@
                 </h2>
 
                 <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <label for="employment" class="question-font">Add your houseHold members</label>
+                    <label for="employment" class="question-font">Add your household members</label>
                     <template v-if="checkArrayLength(allHouseHoldMembers)">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
-                            <div class="card-body">
+                            <div class="card-body text-capitalize">
                                 <div class="d-flex align-items-center justify-content-between my-1">
                                     <h5 class="card-title">{{item.name}}</h5>
                                     <div>
@@ -323,7 +323,7 @@
 
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="childCareAdult" id="careUnsure"
-                            value="Unsure" v-model="aboutObj.childCareAdult ">
+                            value="unsure" v-model="aboutObj.childCareAdult ">
                         <label class="form-check-label option-font d-flex align-items-center" for="careUnsure">
                             Unsure
                         </label>
@@ -693,14 +693,14 @@
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
                                 <template v-if="houseHoldData.mode == 'update'">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Edit houseHold</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Edit household</h5>
                                 </template>
                                 <template v-else-if="houseHoldData.mode == ''">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add houseHold</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household</h5>
                                     </span>
                                 </template>
                                 <template v-else>
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add houseHold</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household</h5>
                                 </template>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>

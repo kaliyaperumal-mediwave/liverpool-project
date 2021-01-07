@@ -10,7 +10,7 @@ module.exports = {
     };
     self.refHome = function (req, callback) {
       
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage;
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
       if(req.session.loginFlag=="true")
       {
         logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
@@ -22,6 +22,7 @@ module.exports = {
         navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
         mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
+        resourcesPage ="/resources?"+req.url.substring(req.url.indexOf("?") + 1);
         showLogout=true;
       }
       else
@@ -35,6 +36,7 @@ module.exports = {
         showLogout=false;
         urgentHelpPage = "/pages/urgent-help";
         mentalHeathPage="/mental-health";
+        resourcesPage = "/resources";
       }
       var path;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
@@ -61,7 +63,8 @@ module.exports = {
         contactPage:contactPage,
         navigateViewRfrl:navigateViewRfrl,
         urgentHelpPage:urgentHelpPage,
-        mentalHeathPage:mentalHeathPage
+        mentalHeathPage:mentalHeathPage,
+        resourcesPage:resourcesPage
       }));
     };
   }
