@@ -12,6 +12,7 @@ module.exports = {
       self.dispatch('/things-to-watch', self.thingsToWatch);
       self.dispatch('/apps', self.apps);
       self.dispatch('/things-to-read', self.thingsToRead);
+      self.dispatch('/video', self.video);
     };
 
     self.resources = function (req, callback) {
@@ -136,6 +137,12 @@ module.exports = {
     };
     self.thingsToRead = function (req, callback) {
       return self.sendPage(req, self.renderer('things-to-read', {
+        showHeader: true,
+        showLogout: true,
+      }));
+    };
+    self.video = function (req, callback) {
+      return self.sendPage(req, self.renderer('video', {
         showHeader: true,
         showLogout: true,
       }));
