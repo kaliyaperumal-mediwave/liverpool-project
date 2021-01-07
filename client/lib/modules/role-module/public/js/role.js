@@ -327,7 +327,6 @@ $(document).ready(function () {
                                         $("#gpLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
-                                                debugger;
                                                 _self.gpFlag = true;
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.submitForm = "true";
@@ -354,7 +353,6 @@ $(document).ready(function () {
                                 $("#gpLocation").autocomplete({
                                     source: nameData,
                                     select: function (event, ui) {
-                                        debugger;
                                         _self.elgibilityObj.regGpTxt = ui.item.value;
                                         app.elgibilityObj.submitForm = "true";
                                         app.elgibilityObj.gpErrMsg = "";
@@ -386,7 +384,6 @@ $(document).ready(function () {
                         //console.log(ui);
                     },
                     response: function (event, ui) {
-                        debugger
                         if (ui.content.length == 0) {
                             _self.gpSearchArea(postCode);
 
@@ -405,7 +402,6 @@ $(document).ready(function () {
                     type: 'get',
                     async: false,
                     success: function (response) {
-                        debugger;
                         _self.gpListShow = response.Organisations;
                         for (i = 0; i < _self.gpListShow.length; i++) {
                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
