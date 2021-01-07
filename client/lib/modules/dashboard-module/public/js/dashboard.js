@@ -13,10 +13,12 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.paramValues = getParameter(location.href)
-            this.loginId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.fetchSavedData();
+           // this.paramValues = getParameter(location.href)
+               this.loginId = document.getElementById('logId').innerHTML;
+          //  this.userRole = this.paramValues[1];
+          //  this.fetchSavedData();
+         console.log(document.getElementById('logId').innerHTML);
+          $('#loader').hide();
         },
 
         methods: {

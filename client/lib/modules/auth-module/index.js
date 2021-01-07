@@ -14,6 +14,7 @@ module.exports = {
       req.session.auth_token = "";
       req.session.loginFlag = "false";
       req.session.loginIdUrl ="";
+      req.session.user_role = "";
       var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
       logoPath = "/";
       aboutPage = "/pages/about";
@@ -90,9 +91,12 @@ module.exports = {
     self.route('post', 'doLogin', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/login';
       self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
         if (data) {
           req.session.auth_token = data.data.sendUserResult.token;
+          req.session.user_role=data.data.sendUserResult.role
           req.session.loginFlag = "true";
+          req.session.loginIdUrl =  data.data.sendUserResult.loginId
           req.session.reload(function () { });
         }
         return res.send(data);

@@ -41,7 +41,8 @@ $(document).ready(function () {
                             position: 'top',
                             duration: 505888000,
                             onDismiss: function () {
-                                location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                              //  location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                              location.href = "/dashboard";
                             }
                         });
                     } else {

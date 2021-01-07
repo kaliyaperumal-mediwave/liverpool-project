@@ -2,6 +2,60 @@ const request = require('request-promise');
 
 module.exports = function (self, options) {
   self.middleware = {
+
+    checkAuth:function (req,res,next){
+      console.log("middleware auth toker : "+ req.session.auth_token );
+      if (req.session.auth_token) {
+       req.data.loginId = req.session.loginIdUrl;
+       req.data.userRole = req.session.user_role;
+       req.data.logoPath = "/dashboard"
+       req.data.aboutPage = "/pages/about"
+       req.data.termPage = "/pages/terms"
+       req.data.privacyPage = "/pages/privacy"
+       req.data.feedbackPage = "/pages/feedback"
+       req.data.contactPage = "/pages/contact" 
+       req.data.navigateViewRfrl = "/viewreferals" 
+       req.data. urgentHelpPage = "/pages/urgent-help"
+       req.data.mentalHeathPage = "/mental-health"
+       req.data.resourcesPage = "/resources"
+       req.data.navigateMkeRfrl = "/make-referral"
+       req.data.showLogout = true;
+        return next();
+      }
+      else {
+        return req.res.redirect("/")
+      }
+    },
+
+    setValues:function (req,res,next){
+      console.log("setValues : "+ req.session.auth_token );
+      req.data.aboutPage = "/pages/about"
+      req.data.termPage = "/pages/terms"
+      req.data.privacyPage = "/pages/privacy"
+      req.data.feedbackPage = "/pages/feedback"
+      req.data.contactPage = "/pages/contact" 
+      req.data.navigateViewRfrl = "/viewreferals" 
+      req.data.urgentHelpPage = "/pages/urgent-help"
+      req.data.mentalHeathPage = "/mental-health"
+      req.data.resourcesPage = "/resources"
+      req.data.navigateMkeRfrl = "/make-referral"
+      if (req.session.auth_token) {
+        console.log("setValues if: "+ req.session.auth_token );
+      //  req.data.loginId = req.session.loginIdUrl;
+      //req.data.userRole = req.session.user_role;
+       req.data.logoPath = "/dashboard"
+       req.data.showLogout = true;
+        return next();
+      }
+      else {
+        console.log("setValues else: "+ req.session.auth_token );
+        req.data.logoPath = "/";
+        req.data.showLogout=false;
+        req.data.loginId = "";
+        req.data.userRole = "";
+        return next();
+      }
+    },
     post: function (req, res, url, body) {
       return new Promise((resolve, reject) => {
         let options = {

@@ -9,36 +9,22 @@ module.exports = {
       self.dispatch('/', self.role);
     };
     self.role = function (req, callback) {
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
-      if(req.session.loginFlag=="true")
+      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage,loginId,userRole;
+      loginId = req.session.loginIdUrl;
+      userRole = req.session.user_role;
+      if(req.session.auth_token)
       {
-        req.session.loginIdUrl = req.url.substring(req.url.indexOf("?") + 1);
-        logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
-        aboutPage="/pages/about?"+req.url.substring(req.url.indexOf("?") + 1);
-        termPage = "/pages/terms?"+req.url.substring(req.url.indexOf("?") + 1);
-        privacyPage = "/pages/privacy?"+req.url.substring(req.url.indexOf("?") + 1);
-        feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
-        contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
-        navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1)
-        navigateMkeRfrl =  "/make-referral?" + req.url.substring(req.url.indexOf("?") + 1)
-        urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
-        mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
-        resourcesPage ="/resources?"+req.url.substring(req.url.indexOf("?") + 1);
+        logoPath="/dashboard"
         showLogout=true;
+        loginId = req.session.loginIdUrl;
+        userRole = req.session.user_role;
       }
       else
       {
         logoPath = "/";
-        aboutPage="/pages/about";
-        termPage = "/pages/terms";
-        privacyPage = "/pages/privacy";
-        feedbackPage = "/pages/feedback";
-        contactPage = "/pages/contact"
         showLogout=false;
-        navigateMkeRfrl="/make-referral",
-        urgentHelpPage = "/pages/urgent-help";
-        mentalHeathPage="/mental-health";
-        resourcesPage = "/resources";
+        loginId = "";
+        userRole = "";
       }
       
       return self.sendPage(req, self.renderer('role', {
@@ -59,7 +45,9 @@ module.exports = {
         navigateMkeRfrl:navigateMkeRfrl,
         urgentHelpPage:urgentHelpPage,
         mentalHeathPage:mentalHeathPage,
-        resourcesPage:resourcesPage
+        resourcesPage:resourcesPage,
+        loginId:loginId,
+        userRole:userRole
       }));
     };
     require('../../middleware')(self, options);
