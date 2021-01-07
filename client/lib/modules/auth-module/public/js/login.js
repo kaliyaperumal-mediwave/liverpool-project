@@ -39,7 +39,7 @@ $(document).ready(function () {
                         $('#loader').hide();
                         Vue.$toast.success('Login successful.', {
                             position: 'top',
-                            duration: 1000,
+                            duration: 505888000,
                             onDismiss: function () {
                                 location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                             }

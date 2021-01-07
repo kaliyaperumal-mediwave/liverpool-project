@@ -50,7 +50,7 @@
                                     Eligibility
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x cursor-pointer px-3 res_fontz"
+                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3"
                                         data-toggle="tooltip" @click="editAllSection('role')" data-placement="top"
                                         title="Edit Section 1"></i>
                                 </span>
@@ -65,7 +65,7 @@
                             data-parent="#accordionExample">
                             <div>
                                 <!-- Your Info Start -->
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="iamA">
                                         I am a:
                                     </label>
@@ -76,7 +76,7 @@
 
                                 <!-- Interpreter Needed Start -->
                                 <div v-if="userRole == 'child' || userRole == 'parent'"
-                                    class="py-2 w-100 mx-0 row align-items-center">
+                                    class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                     <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
                                         Interpreter needed:
                                     </label>
@@ -89,7 +89,8 @@
 
                                 <!-- Contact Carer -->
                                 <template v-if="(userRole == 'child') && section1Data.contact_parent!=''">
-                                    <div v-if="userRole == 'child'" class="py-2 w-100 mx-0 row align-items-center">
+                                    <div v-if="userRole == 'child'"
+                                        class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                         <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
                                             Contact parent or carer:
                                         </label>
@@ -100,7 +101,7 @@
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Child's DOB Start -->
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobChilds">
                                         Child's D.O.B:
                                     </label>
@@ -112,7 +113,7 @@
                                 <!-- Consent Given Start -->
                                 <!-- Child and Parent -->
                                 <template v-if="userRole == 'child' || userRole == 'parent'">
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
                                             Consent given:
                                         </label>
@@ -124,7 +125,7 @@
 
                                 <!-- Professional -->
                                 <template v-if="userRole == 'professional'">
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenChild">
                                             Consent given by child:
                                         </label>
@@ -132,7 +133,7 @@
                                             v-model="section1Data.consent_child" id="consentGivenChild">
                                     </div>
 
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
                                             Consent given by parent:
                                         </label>
@@ -226,7 +227,7 @@
                                 <!-- Professional Info End -->
 
                                 <!-- Gp Start -->
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         GP:
                                     </label>
@@ -265,7 +266,7 @@
                                     {{ section5Labels.aboutLabel}}
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3"
+                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3"
                                         data-toggle="tooltip" @click="editAllSection('about')" data-placement="top"
                                         title="Edit Section 2"></i>
                                 </span>
@@ -371,7 +372,7 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
                                         Address:
                                     </label>
@@ -523,7 +524,7 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parResp">
                                         Have parental responsibility:
                                     </label>
@@ -598,7 +599,7 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
                                         Lives in same house:
                                     </label>
@@ -693,7 +694,7 @@
                                     Support Needs
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3"
+                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3"
                                         data-toggle="tooltip" @click="editAllSection('education')" data-placement="top"
                                         title="Edit Section 2"></i>
                                 </span>
@@ -708,7 +709,7 @@
                         <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
                             data-parent="#accordionExample">
                             <div>
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="eduSect5">
                                         Education / employment:
                                     </label>
@@ -733,7 +734,7 @@
                                 </div>
 
                                 <div v-if="section3Data.child_profession == 'education' && section3Data.child_education_place"
-                                    class="py-3 w-100 mx-0 row align-items-center">
+                                    class="py-3 readOnly-class w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="childEducationPlace">
                                         School/college:
                                     </label>
@@ -777,7 +778,7 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="isSocialSent5">
                                         Social Worker:
                                     </label>
@@ -850,7 +851,7 @@
                                     {{section5Labels.referralLabel}}
                                 </h2>
                                 <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3"
+                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3"
                                         data-toggle="tooltip" @click="editAllSection('referral')" data-placement="top"
                                         title="Edit Section 2"></i>
                                 </span>
@@ -903,7 +904,7 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="md5">
                                         Have mental diagnoses:
                                     </label>
@@ -924,7 +925,7 @@
                                 </div>
 
                                 <div v-if="section4Data.mental_health_diagnosis =='yes'"
-                                    class="py-3 w-100 mx-0 row align-items-center">
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red">
                                         Diagnoses:
                                     </label>
@@ -935,7 +936,7 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="symp5">
                                         Have Symptoms:
                                     </label>
@@ -956,7 +957,7 @@
                                 </div>
 
                                 <div v-if="section4Data.symptoms_supportneeds == 'yes'"
-                                    class="py-3 w-100 mx-0 row align-items-center">
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red24">
                                         Symptoms:
                                     </label>
@@ -1014,7 +1015,7 @@
                                 </div>
 
                                 <div v-if="checkArrayLength(section4Data.local_services)"
-                                    class="py-3 row align-items-center">
+                                    class="readOnly-class py-3 row align-items-center">
                                     <label class="question-font col-12 col-md-4">
                                         Accessed Services
                                     </label>

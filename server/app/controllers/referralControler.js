@@ -209,19 +209,6 @@ exports.eligibility = ctx => {
         }).then((professionalUserInfo) => {
           professionalUserInfo.setType("3")
           professionalUserInfo.setProfessional(childUserInfo.id)
-          return user.create({
-
-          }).then((parenetUserInfo) => {
-            parenetUserInfo.setType("2")
-            parenetUserInfo.setParent(childUserInfo.id)
-            const responseData = {
-              userid: professionalUserInfo.uuid,
-              status: "ok"
-            }
-            return ctx.body = responseData;
-          })
-          professionalUserInfo.setType("3")
-          professionalUserInfo.setProfessional(childUserInfo.id)
           const responseData = {
             userid: professionalUserInfo.uuid,
             status: "ok"
@@ -716,19 +703,12 @@ exports.about = ctx => {
                 nested: true,
                 as: 'professional',
               },
-              {
-                model: ctx.orm().Referral,
-                nested: true,
-                as: 'parent',
-              },
             ],
             where: {
               id: result.id,
             },
           }).then((userResult) => {
-            console.log(userResult)
             var childId = userResult[0].professional[0].ChildProfessional.professionalId
-            var parentID = Number(result.id) +1
             return user.update(
               {
                 child_name: ctx.request.body.aboutData.childName,
@@ -751,7 +731,7 @@ exports.about = ctx => {
               }
             ).then((updateResult) => {
 
-              return user.update({
+              return user.create({
                 parent_name: ctx.request.body.aboutData.parentName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
@@ -761,13 +741,11 @@ exports.about = ctx => {
                 parent_same_house: ctx.request.body.aboutData.sameHouse,
                 parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
                 legal_care_status: ctx.request.body.aboutData.legalCareStatus,
-              },
-              {
-                where:
-                  { id: parentID }
               }
               ).then((parentResult) => {
-               // parentResult.setParent(childId)
+
+                parentResult.setType("2")
+                parentResult.setParent(childId)
 
                 const responseData = {
                   userid: ctx.request.body.userid,
@@ -889,36 +867,23 @@ exports.fetchAbout = ctx => {
       }).then((childResult) => {
 
         //  return ctx.body = childResult;
-       var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
-        //var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId)
+        var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
         // return ctx.body = childResult;
         console.log(parentId)
         return user.findAll({
+          include: [
+            {
+              model: ctx.orm().Referral,
+              nested: true,
+              as: 'parent',
+            },
+          ],
           where: {
             id: parentId,
           },
         }).then((parentResult) => {
-          return user.findAll({
-            include: [
-              {
-                model: ctx.orm().Referral,
-                nested: true,
-                as: 'professional',
-              },
-              {
-                model: ctx.orm().Referral,
-                nested: true,
-                as: 'parent',
-              },
-            ],
-            where: {
-              id: parentId,
-            },
-          }).then((parentResult) => {
-            return ctx.body = parentResult;
-          })
 
-         
+          return ctx.body = parentResult;
 
         }).catch((error) => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1773,7 +1738,7 @@ exports.fetchReview = ctx => {
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'parent',
-                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact','child_socialworker_name']
+                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_name']
               },
             ],
             where: {
@@ -2198,22 +2163,22 @@ exports.updateSec4Info = ctx => {
     any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
     disabilities: ctx.request.body.section4Data.disabilities,
 
-  //   any_other_services: ctx.request.body.section4Data.any_other_services,
-  //   any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
-  //   currently_accessing_services: ctx.request.body.section4Data.currently_accessing_services,
-  //   diagnosis: ctx.request.body.section4Data.diagnosis,
-  //  diagnosis_other: ctx.request.body.section4Data.diagnosis_other,
-  //   disabilities: ctx.request.body.section4Data.disabilities,
-  //   has_anything_helped: ctx.request.body.section4Data.has_anything_helped,
-  //   is_covid: ctx.request.body.section4Data.is_covid,
-  //   local_services: ctx.request.body.section4Data.local_services,
-  //   mental_health_diagnosis: ctx.request.body.section4Data.mental_health_diagnosis,
-  //   referral_issues: ctx.request.body.section4Data.referral_issues,
-  //   referral_type: ctx.request.body.section4Data.referral_type,
-  //   services: ctx.request.body.section4Data.services,
-  //  symptoms: ctx.request.body.section4Data.symptoms,
-  //  symptoms_other: ctx.request.body.section4Data.symptoms_other,
-  //   symptoms_supportneeds: ctx.request.body.section4Data.symptoms_supportneeds,
+    //   any_other_services: ctx.request.body.section4Data.any_other_services,
+    //   any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
+    //   currently_accessing_services: ctx.request.body.section4Data.currently_accessing_services,
+    //   diagnosis: ctx.request.body.section4Data.diagnosis,
+    //  diagnosis_other: ctx.request.body.section4Data.diagnosis_other,
+    //   disabilities: ctx.request.body.section4Data.disabilities,
+    //   has_anything_helped: ctx.request.body.section4Data.has_anything_helped,
+    //   is_covid: ctx.request.body.section4Data.is_covid,
+    //   local_services: ctx.request.body.section4Data.local_services,
+    //   mental_health_diagnosis: ctx.request.body.section4Data.mental_health_diagnosis,
+    //   referral_issues: ctx.request.body.section4Data.referral_issues,
+    //   referral_type: ctx.request.body.section4Data.referral_type,
+    //   services: ctx.request.body.section4Data.services,
+    //  symptoms: ctx.request.body.section4Data.symptoms,
+    //  symptoms_other: ctx.request.body.section4Data.symptoms_other,
+    //   symptoms_supportneeds: ctx.request.body.section4Data.symptoms_supportneeds,
   },
     {
       where: {

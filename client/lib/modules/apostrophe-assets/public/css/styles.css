@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -418,8 +418,106 @@
 
 body {
   font-family: "century-gothic" !important; }
+  body .readOnly-class .form-control {
+    background: #eef2f3 0% 0% no-repeat padding-box !important;
+    color: #8f979e !important; }
+  body .readOnly-class .custom-select {
+    background: #eef2f3 0% 0% no-repeat padding-box !important;
+    color: #8f979e !important; }
+  body .readOnly-class textarea {
+    color: #8f979e !important; }
+  body .readOnly-class input[type="text"],
+  body .readOnly-class input[type="password"],
+  body .readOnly-class input[type="email"],
+  body .readOnly-class textarea,
+  body .readOnly-class .custom-select ::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #8f979e !important; }
+  body .readOnly-class input[type="text"],
+  body .readOnly-class input[type="password"],
+  body .readOnly-class input[type="email"],
+  body .readOnly-class textarea,
+  body .readOnly-class .custom-select :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #8f979e !important;
+    opacity: 1; }
+  body .readOnly-class input[type="text"],
+  body .readOnly-class input[type="password"],
+  body .readOnly-class input[type="email"],
+  body .readOnly-class textarea,
+  body .readOnly-class .custom-select ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #8f979e !important;
+    opacity: 1; }
+  body .readOnly-class input[type="text"],
+  body .readOnly-class input[type="password"],
+  body .readOnly-class input[type="email"],
+  body .readOnly-class textarea,
+  body .readOnly-class .custom-select :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #8f979e !important; }
+  body .readOnly-class input[type="text"],
+  body .readOnly-class input[type="password"],
+  body .readOnly-class input[type="email"],
+  body .readOnly-class textarea,
+  body .readOnly-class .custom-select ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #8f979e !important; }
+  body .readOnly-class input[type="text"],
+  body .readOnly-class input[type="password"],
+  body .readOnly-class input[type="email"],
+  body .readOnly-class textarea,
+  body .readOnly-class .custom-select ::placeholder {
+    /* Most modern browsers support this now. */
+    color: #8f979e !important; }
+  body .custom-select {
+    color: #112f45 !important; }
+  body input[type="text"],
+  body input[type="password"],
+  body input[type="email"],
+  body textarea,
+  body .custom-select ::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: #112f45 !important; }
+  body input[type="text"],
+  body input[type="password"],
+  body input[type="email"],
+  body textarea,
+  body .custom-select :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: #112f45 !important;
+    opacity: 1; }
+  body input[type="text"],
+  body input[type="password"],
+  body input[type="email"],
+  body textarea,
+  body .custom-select ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: #112f45 !important;
+    opacity: 1; }
+  body input[type="text"],
+  body input[type="password"],
+  body input[type="email"],
+  body textarea,
+  body .custom-select :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #112f45 !important; }
+  body input[type="text"],
+  body input[type="password"],
+  body input[type="email"],
+  body textarea,
+  body .custom-select ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #112f45 !important; }
+  body input[type="text"],
+  body input[type="password"],
+  body input[type="email"],
+  body textarea,
+  body .custom-select ::placeholder {
+    /* Most modern browsers support this now. */
+    color: #112f45 !important; }
   body .text-validation {
-    color: #DD3939 !important; }
+    color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
     border: none !important; }
   body .dropdown-divider {
@@ -811,6 +909,20 @@ a {
     .header-title {
       font-size: 20px !important; } }
 
+.secondary-header-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff; }
+  @media (max-width: 575.98px) {
+    .secondary-header-title {
+      font-size: 15px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .secondary-header-title {
+      font-size: 16px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .secondary-header-title {
+      font-size: 17px !important; } }
+
 .content-secondary-header-text {
   font-size: 24px;
   font-weight: bold;
@@ -856,7 +968,7 @@ a {
       font-size: 20px !important; } }
 
 .back-text {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #ffffff; }
   @media (max-width: 575.98px) {
@@ -867,7 +979,7 @@ a {
       font-size: 16px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .back-text {
-      font-size: 17px !important; } }
+      font-size: 16px !important; } }
 
 .completed-toast-text {
   font-size: 18px;
@@ -1134,13 +1246,13 @@ a {
 @media (min-width: 1200px) and (max-width: 1472px) {
   .back-text {
     position: relative;
-    bottom: 120px;
+    bottom: 65px;
     height: 0px; } }
 
 @media (min-width: 1474px) {
   .back-text {
     position: relative;
-    bottom: 99px;
+    bottom: 50px;
     height: 0px; } }
 
 .no_padding {

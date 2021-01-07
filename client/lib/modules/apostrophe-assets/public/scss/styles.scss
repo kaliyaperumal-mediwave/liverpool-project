@@ -29,40 +29,56 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
 body {
   font-family: "century-gothic" !important;
+
+  .readOnly-class {
+    .form-control {
+      background: #eef2f3 0% 0% no-repeat padding-box !important;
+      color: #8f979e !important;
+    }
+    .custom-select {
+      background: #eef2f3 0% 0% no-repeat padding-box !important;
+      color: #8f979e !important;
+    }
+    textarea {
+      color: #8f979e !important;
+    }
+    @include placeholder(#8f979e);
+  }
+
+  .custom-select {
+    color: #112f45 !important;
+  }
+
+  @include placeholder($placeholder-color);
 
   .text-validation {
     color: $validation-color !important;
@@ -510,6 +526,19 @@ a {
   }
 }
 
+.secondary-header-title {
+  @include set-titleStyles($quaternary-font-size, bold, $header-text-color);
+  @include xs-screen {
+    font-size: 15px !important;
+  }
+  @include sm-screen {
+    font-size: 16px !important;
+  }
+  @include md-screen {
+    font-size: 17px !important;
+  }
+}
+
 .content-secondary-header-text {
   @include set-titleStyles($tertiary-font-size, bold, $primary-color);
   @include xs-screen {
@@ -552,7 +581,7 @@ a {
 }
 
 .back-text {
-  @include set-titleStyles($quaternary-font-size, bold, $header-text-color);
+  @include set-titleStyles(16px, bold, $header-text-color);
   @include xs-screen {
     font-size: 15px !important;
   }
@@ -560,7 +589,7 @@ a {
     font-size: 16px !important;
   }
   @include md-screen {
-    font-size: 17px !important;
+    font-size: 16px !important;
   }
 }
 
@@ -658,8 +687,7 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -686,8 +714,7 @@ a {
 }
 
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -847,14 +874,14 @@ a {
 @media (min-width: 1200px) and (max-width: 1472px) {
   .back-text {
     position: relative;
-    bottom: 120px;
+    bottom: 65px;
     height: 0px;
   }
 }
 @media (min-width: 1474px) {
   .back-text {
     position: relative;
-    bottom: 99px;
+    bottom: 50px;
     height: 0px;
   }
 }
@@ -1850,7 +1877,7 @@ body .ui-widget .ui-menu-item {
 }
 .set-space-padding {
   padding: 0px 0px !important;
-  margin-top:0px !important ;
+  margin-top: 0px !important ;
 }
 .custom-pagination {
   border-radius: 10px;
@@ -2028,40 +2055,40 @@ body .ui-widget .ui-menu-item {
 .text_inside_video {
   margin-top: 22px;
   margin-bottom: 28px;
-  padding: 0px ;
+  padding: 0px;
   border-radius: 10px;
 }
-.body-cont-set{
-  padding:22px;
+.body-cont-set {
+  padding: 22px;
   background-color: #fafafa;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 }
-.img-placeholder{
+.img-placeholder {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
 }
-.read-cont-h1{
+.read-cont-h1 {
   font-size: 18px;
   font-weight: bold;
 }
-.read-cont-p{
+.read-cont-p {
   font-size: 16px;
   font-weight: bold;
   padding: 4px 0px 24px 0px;
 }
-.video-title-top{
-  padding:14px 18px;
+.video-title-top {
+  padding: 14px 18px;
   font-size: 16px;
   font-weight: bold;
 }
-.video-para-bottom{
-  padding:14px 18px;
+.video-para-bottom {
+  padding: 14px 18px;
   font-size: 16px;
 }
-.video-placed-ago{
-  padding:14px 18px;
-  font-size: 16px; 
+.video-placed-ago {
+  padding: 14px 18px;
+  font-size: 16px;
   font-weight: bold;
   color: #a0b0b8;
 }
