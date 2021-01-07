@@ -209,11 +209,19 @@ exports.eligibility = ctx => {
         }).then((professionalUserInfo) => {
           professionalUserInfo.setType("3")
           professionalUserInfo.setProfessional(childUserInfo.id)
-          const responseData = {
-            userid: professionalUserInfo.uuid,
-            status: "ok"
-          }
-          return ctx.body = responseData;
+          return user.create({
+          }).then((parenetUserInfo) => {
+            parenetUserInfo.setType("2")
+            parenetUserInfo.setParent(childUserInfo.id)
+            const responseData = {
+              userid: professionalUserInfo.uuid,
+              status: "ok"
+            }
+            return ctx.body = responseData;
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+
         }).catch((error) => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
@@ -709,6 +717,7 @@ exports.about = ctx => {
             },
           }).then((userResult) => {
             var childId = userResult[0].professional[0].ChildProfessional.professionalId
+            var parentId = Number(userResult[0].professional[0].ChildProfessional.ReferralId)+1 
             return user.update(
               {
                 child_name: ctx.request.body.aboutData.childName,
@@ -730,8 +739,7 @@ exports.about = ctx => {
                   { id: childId }
               }
             ).then((updateResult) => {
-
-              return user.create({
+              return user.update({
                 parent_name: ctx.request.body.aboutData.parentName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
                 responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
@@ -741,11 +749,15 @@ exports.about = ctx => {
                 parent_same_house: ctx.request.body.aboutData.sameHouse,
                 parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
                 legal_care_status: ctx.request.body.aboutData.legalCareStatus,
+              },
+              {
+                where:
+                  { id: parentId }
               }
               ).then((parentResult) => {
 
-                parentResult.setType("2")
-                parentResult.setParent(childId)
+                // parentResult.setType("2")
+                // parentResult.setParent(childId)
 
                 const responseData = {
                   userid: ctx.request.body.userid,
