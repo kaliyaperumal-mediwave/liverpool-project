@@ -10,8 +10,6 @@ endblock %} {% block extraHead %}
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" /> -->
-
 
 <script src="https://use.fontawesome.com/901da64fb9.js"></script>
 
@@ -19,21 +17,24 @@ endblock %} {% block extraHead %}
 <script
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFWyAfPPWB-dCngwhrDQ3iUq8OwhW7NcI&libraries=places"></script>
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script> -->
 
 <!-- Moment JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<!-- Latest compiled Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script>
+<!-- <script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script> -->
 
 <!-- Date-picker itself -->
 <script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
@@ -49,6 +50,7 @@ endblock %} {% block extraHead %}
 <link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
 <!-- Init the plugin -->
 
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
@@ -60,7 +62,7 @@ endblock %} {% block extraHead %}
   <!-- Header Ui Start-->
 
   <div class="urgent-help-bg d-flex align-items-center justify-content-between">
-    <a href="/pages/urgent-help" class="text-decoration-none">
+    <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">
       <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
     </a>
 
@@ -77,21 +79,25 @@ endblock %} {% block extraHead %}
         <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
           data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
           aria-label="Toggle navigation">
-          <i class="fal fa-bars fa-3x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
           <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
           <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
         </button>
         <div class="logo">
           <!-- LOGO -->
-          <img src="/modules/my-apostrophe-assets/img/liverpool.svg" />
+          <a href="{{ data.logoPath }}" class="text-decoration-none"><img
+              src="/modules/my-apostrophe-assets/img/liverpool.svg" /></a>
         </div>
       </div>
 
+
+      {% if data.hideRefButton %}
       <a href="{{ data.navigateMkeRfrl }}">
         <button class="button-referral">
           Make a referral
         </button>
       </a>
+      {% endif %}
 
     </div>
     <!-- left drawer -->
@@ -100,42 +106,84 @@ endblock %} {% block extraHead %}
         <!-- Side Drawer Title -->
         <div class="header-slider d-flex align-items-center ">
           <div class="slider-header">LOGO</div>
-          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white" aria-hidden="true"></i>
+          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
+            aria-hidden="true"></i>
         </div>
         <!-- Side Drawer content -->
         <div class="slider-container">
-          <div class="inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="{{ data.logoPath }}" class="text-decoration-none">Home</a>
+          </div>
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
-            Log in / sign up
+            Referrals
           </div>
           <div class="collapse" id="collapseExample">
+            <div class="collapse-body text-decoration-none">
+              <a href="{{ data.navigateMkeRfrl }}">
+                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                  Make a referral
+                </div>
+              </a>
+              <!-- <a href="{{ data.navigateViewRfrl }}">
+                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                  Saved referral
+                </div>
+              </a> -->
+            </div>
+          </div>
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Urgent help</a>
+          </div>
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Resources</a>
+          </div>
+
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider2" role="button"
+            aria-expanded="false" aria-controls="collapseSlider2">
+            Accessibility
+          </div>
+          <div class="collapse" id="collapseSlider2">
             <div class="collapse-body">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl ,
-              pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Dark mode
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Text size
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Voice over
+              </div>
+            </div>
           </div>
-          <div class="inside-cont-slider">
-            Get a referral
+
+          <div class="inside-cont-slider cursor-pointer">
+            <a href="{{ data.mentalHeathPage }}" class="text-decoration-none"> About mental health services</a>
           </div>
-          <div class="inside-cont-slider">
-            Appointments
+
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider3" role="button"
+            aria-expanded="false" aria-controls="collapseSlider3">
+            Account settings
           </div>
-          <div class="inside-cont-slider">
-            Saved referrals
+          <div class="collapse" id="collapseSlider3">
+            <div class="collapse-body">
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Change e-mail
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                Change password
+              </div>
+            </div>
           </div>
-          <div class="double-inside-cont-slider">
-            Urgent help
-          </div>
-          <div class="double-inside-cont-slider">
-            Discover more
-          </div>
-          <div class="last-inside-cont-slider">
+
+          <!-- <div class="last-inside-cont-slider cursor-pointer">
             Log out
-          </div>
+          </div> -->
         </div>
 
       </div>
     </div>
-    <div id="side-drawer-void" class="position-fixed d-none" onclick="closeSideDrawer()"></div>
+    <div id="side-drawer-void" class="position-fixed d-none cursor-pointer" onclick="closeSideDrawer()"></div>
 
   </nav>
   <!-- Header Ui End-->
@@ -144,7 +192,7 @@ endblock %} {% block extraHead %}
   <div class="sub-header-bg">
 
     {% if data.headerContent and data.home %}
-    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title">
+    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-3 py-md-4 header-title">
       {{data.headerContent}}
     </h2>
     {% endif %}
@@ -157,23 +205,23 @@ endblock %} {% block extraHead %}
 
     {% if data.headerContent and data.headerDescription %}
     <h2
-      class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-3 pb-md-0 pb-lg-0 pb-xl-0">
+      class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-2 pb-md-0 pb-lg-0 pb-xl-0">
       {{data.headerContent}}</h2>
     <div
-      class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 header-title">
+      class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 secondary-header-title">
       {{data.headerDescription}}
     </div>
     {% endif %}
 
     {% if data.backContent %}
     <div class="back_center">
-      <a href="{{ data.backContent }} ">
+      <a href="{{ data.backContent }} " class="text-decoration-none">
         <p class="text-center text-sm-left px-4 d-none d-sm-none d-xl-block d-lg-block d-md-block m-0 back-text">
           <i class="fas fa-arrow-left"></i> back
         </p>
       </a>
     </div>
-    <a href="{{ data.backContent }}">
+    <a href="{{ data.backContent }}" class="text-decoration-none">
       <p class="text-sm-left text-xs-left py-1 px-4 d-sm-block d-md-none m-0 d-lg-none d-xl-none back-text"> <i
           class="fas fa-arrow-left"></i> back</p>
     </a>
@@ -203,18 +251,18 @@ endblock %} {% block extraHead %}
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content modal-bg">
         <div class="modal-header justify-content-center">
-          <h5 class="question-header-font mt-3">Are you sure want to logout?</h5>
+          <h5 class="logout-font mt-3">Are you sure want to logout?</h5>
           <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
-            <i class="fa fa-times-circle" aria-hidden="true"></i>
+            <i class="fa fa-times cursor-pointer font-25" aria-hidden="true"></i>
           </span>
         </div>
         <div class="modal-body py-1 px-4">
           <div class="modal-footer">
-            <button type="submit" class="btn px-md-4 w-50" class="modal-close" data-dismiss="modal">
+            <button type="submit" class="btn px-md-4 w-50" id="logNoBtn" class="modal-close" data-dismiss="modal">
               <span class="btn-modal-text">No
               </span>
             </button>
-            <button type="submit" class="btn px-md-4 w-50" id="closeModal" onclick="logOut()">
+            <button type="submit" class="btn px-md-4 w-50" id="logYesBtn" onclick="logOut()">
               <span class="btn-modal-text">Yes
               </span>
             </button>
@@ -234,18 +282,42 @@ endblock %} {% block extraHead %}
 
 <div class="footer-bg set-bottom-padding">
   <div class="footer-container">
-    <a href="/pages/about" class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
+    <a href="{{ data.aboutPage }}" class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
     </a>
-    <a href="/pages/terms" class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
+    <a href="{{ data.termPage }}" class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
     </a>
-    <a href="/pages/privacy" class="text-decoration-none"> <span class="footer-text cursor-pointer">Privacy</span>
+    <a href="{{ data.privacyPage }}" class="text-decoration-none"> <span
+        class="footer-text cursor-pointer">Privacy</span>
     </a>
-    <a href="/feedback" class="text-decoration-none"> <span class="footer-text cursor-pointer">Feedback</span>
+    <a href="{{ data.feedbackPage }}" class="text-decoration-none"> <span
+        class="footer-text cursor-pointer">Feedback</span>
     </a>
-    <a href="/pages/contact" class="text-decoration-none"> <span class="footer-text cursor-pointer">Contact</span>
+    <a href="{ data.contactPage }}" class="text-decoration-none"> <span
+        class="footer-text cursor-pointer">Contact</span>
     </a>
   </div>
 </div>
+
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+
+
+
+<!-- Popper JS -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
+
+<!-- Latest compiled JavaScript -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+<!-- Date-picker itself -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
+</script>
+<link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
+  rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script> -->
+
+
 
 <!-- {#
     This would be a great place to put a global footer.

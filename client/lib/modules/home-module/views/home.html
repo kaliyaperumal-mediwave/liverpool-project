@@ -5,13 +5,36 @@
 {% endblock %}
 {% block main %}
 <div id="landing-page">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+
     <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2">
         <h2 class="home-header-primary text-center">CAMHS Services</h2>
         <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
     </div>
     <div class="my-md-3 my-lg-4 my-xl-4 my-4">
         <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto">
+            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
                 <div class="input-group">
                     <span class="input-group-prepend">
                         <div class="home-primarySearch-bg input-group-text  border-right-0">
@@ -40,7 +63,7 @@
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 pb-2 mx-auto">
             <div class="d-flex justify-content-center">
                 <div class="col-md-6 col-lg-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg"
-                    @click="navigatePage('/users/login')">
+                    @click="navigatePage('/make-referral')">
                     <div class="text-center py-5">
                         <img src="/modules/my-apostrophe-assets/img/MakeAReferral.svg" class="px-3 image-height" alt="">
                     </div>
@@ -101,7 +124,39 @@
         </div>
     </div>
 
-    <div class="sub-header-bg my-5">
+    <div class="sub-header-bg my-5 setHadPad">
+        <div class=" mx-auto container-referal ">
+            <div>
+                <div class="row w-100 mx-auto">
+                    <div class="">
+                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
+                        <p class="referral-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
+                    </div>
+                </div>
+                <div class="row py-3 w-100 mx-auto">
+                    <div class="input-group w-100 bg-fafa border-radius-10">
+                        <input class="height-44 home-primarySearch-bg border-0 suffix-form-control py-2" type="search"
+                            placeholder="Search referrals" id="example-search-input">
+                        <span class="input-group-append shape_and_center cursor-pointer">
+                            <div class="home-secondarySearch-bg w-100">
+                                <span style="color: #023047 !important;">
+                                    <i class="fal fa-search font-23"></i>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="py-4 text-left d-flex">
+                    <button type="button" @click="resetModal('add')" class="btn px-md-4 py-1 px-3 mx-auto w-100"><span
+                            class="btn-quaternary-text">CHECK A
+                            REFERRAL
+                        </span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="sub-header-bg my-5">
         <div class="col-md-9 col-lg-7 col-xl-7 col-12 cursor-pointer mx-auto">
             <div class="py-3 py-md-4">
                 <div class="row w-100 mx-auto">
@@ -132,7 +187,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 </div>
 {% endblock %}

@@ -42,14 +42,12 @@ $(document).ready(function () {
             },
 
             navigatePage: function (route) {
-                this.location.href = this.location.origin + route;
+                var url = location.href
+                this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
             },
-            newReferral: function () {
 
-            },
             checkReferral: function () {
-
-                location.href = decryptUrl("viewreferral", this.loginId, this.userRole);
+                location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
             },
         }
 

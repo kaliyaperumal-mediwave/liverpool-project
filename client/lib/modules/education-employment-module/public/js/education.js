@@ -26,12 +26,17 @@ $(document).ready(function () {
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
         },
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
             this.paramValues = getParameter(location.href)
             this.userId = this.paramValues[0];
             this.userRole = this.paramValues[1];
             this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
+            $('#loader').hide();
             if (this.userMode != undefined) {
                 this.fetchSavedData();
             }
@@ -82,9 +87,11 @@ $(document).ready(function () {
                 if (formData.haveSocialWorker === 'yes') {
                     if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
                         if (formData.position === 'education' && formData.attendedInfo) {
+                            $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
                         else if (formData.position != 'education') {
+                            $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
 
@@ -97,7 +104,23 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                } else {
+                } else if (formData.haveSocialWorker === 'no') {
+                    if (formData.position === 'education' && formData.attendedInfo) {
+                        $('#loader').show();
+                        this.upsertEducationForm(this.payloadData);
+                    }
+                    else if (formData.position != 'education') {
+                        $('#loader').show();
+                        this.upsertEducationForm(this.payloadData);
+                    }
+                    else {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                }
+
+                else {
+                    $('#loader').show();
                     this.upsertEducationForm(this.payloadData);
                 }
 
@@ -108,9 +131,11 @@ $(document).ready(function () {
                 // console.log(payload);
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
-                if (Object.keys(responseData)) {
+                if (responseData && Object.keys(responseData)) {
+                    $('#loader').hide();
                     location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
                 } else {
+                    $('#loader').hide();
                     console.log('empty response')
                 }
             },
@@ -124,6 +149,7 @@ $(document).ready(function () {
                 if (Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
+                    $('#loader').hide();
                     console.log('empty response')
                 }
 
@@ -166,6 +192,7 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_name);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
                 }
+                $('#loader').hide();
             },
 
             //Back to previous page

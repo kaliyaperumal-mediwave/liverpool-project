@@ -86,3 +86,61 @@
 .text-underline {
   text-decoration: underline !important;
 }
+
+.h-50px {
+  height: 50px !important;
+}
+
+@mixin placeholder($color) {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  .custom-select ::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    color: $color !important;
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  .custom-select :-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    color: $color !important;
+    opacity: 1;
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  .custom-select ::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    color: $color !important;
+    opacity: 1;
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  .custom-select :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: $color !important;
+  }
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  .custom-select ::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $color !important;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  textarea,
+  .custom-select ::placeholder {
+    /* Most modern browsers support this now. */
+    color: $color !important;
+  }
+}

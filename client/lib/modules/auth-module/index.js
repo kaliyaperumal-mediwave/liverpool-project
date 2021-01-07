@@ -11,18 +11,68 @@ module.exports = {
     };
 
     self.login = function (req, callback) {
+      req.session.auth_token = "";
+      req.session.loginFlag = "false";
+      req.session.loginIdUrl ="";
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
+      logoPath = "/";
+      aboutPage = "/pages/about";
+      termPage = "/pages/terms";
+      privacyPage = "/pages/privacy";
+      feedbackPage = "/pages/feedback";
+      contactPage = "/pages/contact";
+      navigateMkeRfrl = "/make-referral";
+      showLogout = false;
+      urgentHelpPage = "/pages/urgent-help";
+      mentalHeathPage="/mental-health";
+      resourcesPage = "/resources";
       return self.sendPage(req, self.renderer('login', {
         showHeader: true,
         home: true,
-        navigateMkeRfrl: "/make-referral",
+        hideRefButton: true,
+        logoPath:logoPath,
+        aboutPage:aboutPage,
+        termPage:termPage,
+        privacyPage:privacyPage,
+        feedbackPage:feedbackPage,
+        contactPage:contactPage,
+        navigateViewRfrl:navigateViewRfrl,
+        navigateMkeRfrl:navigateMkeRfrl,
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage,
+        resourcesPage:resourcesPage
       }));
     };
 
     self.sign_up = function (req, callback) {
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
+      logoPath = "/";
+      aboutPage = "/pages/about";
+      termPage = "/pages/terms";
+      privacyPage = "/pages/privacy";
+      feedbackPage = "/pages/feedback";
+      contactPage = "/pages/contact";
+      navigateMkeRfrl = "/make-referral";
+      showLogout = false;
+      urgentHelpPage = "/pages/urgent-help"
+      mentalHeathPage="/mental-health";
+      resourcesPage = "/resources";
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
         home: true,
-        showLogout: false
+        showLogout: false,
+        logoPath:logoPath,
+        hideRefButton: true,
+        aboutPage:aboutPage,
+        termPage:termPage,
+        privacyPage:privacyPage,
+        feedbackPage:feedbackPage,
+        contactPage:contactPage,
+        navigateViewRfrl:navigateViewRfrl,
+        navigateMkeRfrl:navigateMkeRfrl,
+        urgentHelpPage:urgentHelpPage,
+        mentalHeathPage:mentalHeathPage,
+        resourcesPage:resourcesPage
       }));
     };
 
@@ -42,6 +92,7 @@ module.exports = {
       self.middleware.post(req, res, url, req.body).then((data) => {
         if (data) {
           req.session.auth_token = data.data.sendUserResult.token;
+          req.session.loginFlag = "true";
           req.session.reload(function () { });
         }
         return res.send(data);

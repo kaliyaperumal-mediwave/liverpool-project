@@ -1,8 +1,9 @@
-fieldset,
-label {
-    margin: 0;
-    padding: 0 ;
-    margin-bottom: 20px ;
+#feedBackStars {
+    label {
+        margin: 0;
+        padding: 0;
+        margin-bottom: 20px !important;
+    }
 }
 
 .rating [type="radio"] {

@@ -33,7 +33,7 @@ $(document).ready(function () {
                 contactProfParent: '',
                 regProfGpTxt: '',
                 profEmail: '',
-                disableRole:false
+                disableRole: false
             },
             date: null,
             dateWrap: true,
@@ -64,26 +64,33 @@ $(document).ready(function () {
             selectedGpObj: {},
             paramValues: [],
             patchFlag: false,
+            gpFlag: false,
             date: '',
             dateFmt: ''
         },
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
-            this.paramValues = getParameter(location.href)
-            this.getGP();
-            this.getProfGP();
+            this.paramValues = getParameter(location.href);
+            //  this.getGP();
+            //  this.getProfGP();
             if (this.paramValues != undefined) {
                 if (this.paramValues[0] == "loginFlag") {
                     this.elgibilityObj.loginId = this.paramValues[1];
                     this.elgibilityObj.role = this.paramValues[2];
                     $('input[name=role]').attr("disabled", true);
+                    $('#loader').hide();
                 }
-              else if (this.paramValues[2] != undefined) {
+                else if (this.paramValues[2] != undefined) {
                     this.elgibilityObj.uuid = this.paramValues[0];
                     this.elgibilityObj.editFlag = this.paramValues[2]
-                    this.fetchSavedData()
+                    this.fetchSavedData();
                 }
             }
+            $('#loader').hide();
         },
 
         methods: {
@@ -99,8 +106,10 @@ $(document).ready(function () {
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         app.setValues(data);
+                        $('#loader').hide();
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log(error.responseJSON.message)
                     }
                 });
@@ -149,74 +158,73 @@ $(document).ready(function () {
                 }
 
             },
-            getGP: function () {
-                var _self = this;
-                gpList = [];
+            // getGP: function () {
+            //     var _self = this;
+            //     gpList = [];
+            //  //  var gpLink= "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?name"+ txtValue
+            //     $.ajax({
+            //         url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
+            //         type: 'get',
+            //         success: function (response) {
+            //             _self.gpListShow = response.Organisations;
+            //             for (i = 0; i < _self.gpListShow.length; i++) {
+            //                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+            //                 //_self.gpListPost.push(_self.gpListShow[i].PostCode)
+            //             }
+            //             displayNameList = _self.gpListName;
+            //             displayPostList = _self.gpListPost;
+            //             //console.log(displayNameList);
+            //             $("#gpLocation").autocomplete({
+            //                 source: displayNameList,
+            //                 response: function (event, ui) {
+            //                     if (ui.content.length == 0) {
+            //                         //alert("gp n")
+            //                         $(this).trigger('keydown');
+            //                     } else {
 
-                $.ajax({
-                    url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
-                    type: 'get',
-                    success: function (response) {
-                        _self.gpListShow = response.Organisations;
-                        for (i = 0; i < _self.gpListShow.length; i++) {
-                            _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
-                            //_self.gpListPost.push(_self.gpListShow[i].PostCode)
-                        }
-                        displayNameList = _self.gpListName;
-                        displayPostList = _self.gpListPost;
-                        //console.log(displayNameList);
-                        $("#gpLocation").autocomplete({
-                            source: displayNameList,
-                            response: function (event, ui) {
-                                if (ui.content.length == 0) {
-                                    $(this).trigger('keydown');
-                                } else {
+            //                         //console.log(ui.content.length);
+            //                     }
+            //                 }
+            //             });
 
-                                    //console.log(ui.content.length);
-                                }
-                            }
-                        });
+            //         },
+            //         error: function (err) {
+            //             console.log(err)
+            //         },
+            //     })
+            // },
 
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    },
-                })
-            },
+            // getProfGP: function () {
+            //     var _self = this;
+            //     gpList = [];
+            //     $.ajax({
+            //         url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
+            //         type: 'get',
+            //         success: function (response) {
+            //             this.gpListShow = response.Organisations;
+            //             for (i = 0; i < this.gpListShow.length; i++) {
+            //                 _self.gpProfListName.push(this.gpListShow[i].Name + ',' + this.gpListShow[i].PostCode);
+            //                 //    _self.gpProfListPost.push(this.gpListShow[i].PostCode)
+            //             }
+            //             displayNameList = _self.gpProfListName;
+            //             displayPostList = _self.gpProfListPost;
 
-            getProfGP: function () {
-                var _self = this;
-                gpList = [];
-                $.ajax({
-                    url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
-                    type: 'get',
-                    success: function (response) {
-                        this.gpListShow = response.Organisations;
-                        for (i = 0; i < this.gpListShow.length; i++) {
-                            _self.gpProfListName.push(this.gpListShow[i].Name + ',' + this.gpListShow[i].PostCode);
-                            //    _self.gpProfListPost.push(this.gpListShow[i].PostCode)
-                        }
-                        displayNameList = _self.gpProfListName;
-                        displayPostList = _self.gpProfListPost;
-
-                        $("#gpProfLocation").autocomplete({
-                            source: displayNameList,
-                            response: function (event, ui) {
-                                if (ui.content.length == 0) {
-                                    $(this).trigger('keydown');
-                                } else {
-
-                                    //console.log(ui.content.length);
-                                }
-                            }
-                        });
-                        return;
-                    },
-                    error: function (err) {
-                        console.log(err)
-                    },
-                })
-            },
+            //             $("#gpProfLocation").autocomplete({
+            //                 source: displayNameList,
+            //                 response: function (event, ui) {
+            //                     if (ui.content.length == 0) {
+            //                         $(this).trigger('keydown');
+            //                     } else {
+            //                     }
+            //                 }
+            //             });
+            //             return;
+            //         },
+            //         error: function (err) {
+            //             console.log(err)
+            //         },
+            //     })
+            // },
 
 
             onChange: function (event) {
@@ -278,51 +286,255 @@ $(document).ready(function () {
 
 
             getAddress: function (e) {
-                // console.log("selectTxt");
+                var nameData;
                 var _self = this;
-                var selectFlag = false;
-                this.elgibilityObj.registerd_gp = {};
-                $(".gpLocation").on("autocompleteselect", function (event, ui) {
-                    //    console.log(ui.item.label);
-                    if (e.target.value === '') {
-                        app.elgibilityObj.submitForm = "false";
-                    } else {
-                        selectFlag = true;
-                        app.elgibilityObj.regGpTxt = ui.item.label;
-                        app.elgibilityObj.submitForm = "true";
-                    }
-                });
-                // app.submitForm = "true";
-                //console.log(e.target.value.length)
-                if (e.target.value.length == 0) {
-                    app.elgibilityObj.submitForm = "false";
+                var searchTxt = e.target.value;
+                if (searchTxt.length > 2) {
+                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt
+                    $.ajax({
+                        url: gpLink,
+                        type: 'get',
+                        async: false,
+                        success: function (response) {
+                            _self.gpListName = [];
+                            _self.gpListName = [];
+                            app.elgibilityObj.gpErrMsg ="";
+                            _self.gpListShow = response.Organisations;
+                            // console.log(response.Organisations.length<=0)
+                            if (response.Organisations.length <= 0) {
+                                // console.log(searchTxt.trim())
+                                var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
+                                $.ajax({
+                                    url: gpLink,
+                                    type: 'get',
+                                    async: false,
+                                    success: function (response) {
+                                        _self.gpListName = [];
+                                        _self.gpListName = [];
+                                        app.elgibilityObj.gpErrMsg ="";
+                                        _self.gpListShow = response.Organisations;
+                                        for (i = 0; i < _self.gpListShow.length; i++) {
+                                            _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                        }
+                                        payload = _self.gpListName;
+                                        //console.log(payload);
+                                        $("#gpLocation").autocomplete({
+                                            source: payload,
+                                            select: function (event, ui) {
+                                                debugger;
+                                                _self.gpFlag = true;
+                                                _self.elgibilityObj.regGpTxt = ui.item.value;
+                                                app.elgibilityObj.submitForm = "true";
+                                                // console.log(ui);
+                                            },
+                                            close: function () {
+                                                _self.gpFlag = true;
+                                            }
+                                        });
+                                    },
+                                    error: function (err) {
+                                        console.log(err.responseJSON.errorText)
+                                        app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                                    },
+                                })
+
+                            }
+                            else {
+                                _self.gpListShow = response.Organisations;
+                                for (i = 0; i < _self.gpListShow.length; i++) {
+                                    _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                }
+                                nameData = _self.gpListName;
+                                $("#gpLocation").autocomplete({
+                                    source: nameData,
+                                    select: function (event, ui) {
+                                        debugger;
+                                        _self.elgibilityObj.regGpTxt = ui.item.value;
+                                        app.elgibilityObj.submitForm = "true";
+                                        app.elgibilityObj.gpErrMsg ="";
+                                        console.log(ui);
+                                    },
+                                    close: function () {
+                                        _self.gpFlag = true;
+                                    }
+                                });
+                            }
+
+                        },
+                        error: function (err) {
+                            console.log(err.responseJSON.errorText)
+                            app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                        },
+                    })
+
+
                 }
-                else {
-                    app.elgibilityObj.submitForm = "true";
-                }
+
             },
 
-            getProfAddress: function (e) {
+            setAutocompletePostCode: function (data, postCode) {
                 var _self = this;
-                var selectFlag = false;
-                //  this.elgibilityObj.registerd_gp = {};
-                $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
-                    //   console.log(ui.item.label);
-                    if (e.target.value === '') {
-                        app.elgibilityObj.submitProfForm = "false";
-                    } else {
-                        selectFlag = true;
-                        app.elgibilityObj.regProfGpTxt = ui.item.label;
-                        app.elgibilityObj.submitProfForm = "true";
+                $("#gpLocation").autocomplete({
+                    source: data,
+                    select: function (event, ui) {
+                        console.log(ui);
+                    },
+                    response: function (event, ui) {
+                        debugger
+                        if (ui.content.length == 0) {
+                            _self.gpSearchArea(postCode);
+
+                        } else {
+                        }
                     }
                 });
-                if (e.target.value.length === 0) {
-                    app.elgibilityObj.submitProfForm = "false";
-                }
-                else {
-                    app.elgibilityObj.submitProfForm = "true";
+            },
+
+            gpSearchArea: function (data) {
+
+                var payload;
+                var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + postCode;
+                $.ajax({
+                    url: gpLink,
+                    type: 'get',
+                    async: false,
+                    success: function (response) {
+                        debugger;
+                        _self.gpListShow = response.Organisations;
+                        for (i = 0; i < _self.gpListShow.length; i++) {
+                            _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                        }
+                        payload = _self.gpListName;
+                        console.log(payload);
+                        $("#gpLocation").autocomplete({
+                            source: payload,
+                            select: function (event, ui) {
+                                console.log(ui);
+                            },
+                        });
+
+
+                    },
+                    error: function (err) {
+                        // console.log(err)
+                    },
+                })
+
+
+
+            },
+
+
+
+
+            getProfAddress: function (e) {
+                var nameData;
+                var _self = this;
+                var searchTxt = e.target.value;
+                if (searchTxt.length > 2) {
+                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt
+                    $.ajax({
+                        url: gpLink,
+                        type: 'get',
+                        async: false,
+                        success: function (response) {
+                            _self.gpListShow = [];
+                            _self.gpProfListName = [];
+                            app.elgibilityObj.gpErrMsg ="";
+                            _self.gpListShow = response.Organisations;
+                            // console.log(response.Organisations.length<=0)
+                            if (response.Organisations.length <= 0) {
+                                // console.log(searchTxt.trim())
+                                var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
+                                $.ajax({
+                                    url: gpLink,
+                                    type: 'get',
+                                    async: false,
+                                    success: function (response) {
+                                        _self.gpListShow = [];
+                                        _self.gpProfListName = [];
+                                        app.elgibilityObj.gpErrMsg ="";
+                                        _self.gpListShow = response.Organisations;
+                                        for (i = 0; i < _self.gpListShow.length; i++) {
+                                            _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                        }
+                                        payload = _self.gpProfListName;
+                                        console.log(payload);
+                                        $("#gpProfLocation").autocomplete({
+                                            source: payload,
+                                            select: function (event, ui) {
+                                                // console.log(ui);
+                                                app.elgibilityObj.regProfGpTxt = ui.item.label;
+                                                app.elgibilityObj.submitProfForm = "true";
+                                                app.elgibilityObj.gpErrMsg ="";
+                                            },
+                                        });
+                                    },
+                                    error: function (err) {
+                                        console.log(err.responseJSON.errorText)
+                                        app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                                    },
+                                })
+
+                            }
+                            else {
+                                _self.gpListShow = response.Organisations;
+                                if(_self.gpListShow.length>0)
+                                {
+                                    for (i = 0; i < _self.gpListShow.length; i++) {
+                                        _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                    }
+                                    nameData = _self.gpProfListName;
+                                    console.log(nameData)
+                                    $("#gpProfLocation").autocomplete({
+                                        source: nameData,
+                                        select: function (event, ui) {
+                                            console.log(ui);
+                                            app.elgibilityObj.regProfGpTxt = ui.item.label;
+                                            app.elgibilityObj.submitProfForm = "true";
+                                            app.elgibilityObj.gpErrMsg ="";
+                                        },
+                                    });
+                                }
+
+                            }
+
+                        },
+                        error: function (err) {
+                            console.log(err.responseJSON.errorText)
+                            app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                        },
+                    })
+
                 }
 
+
+
+
+                // var _self = this;
+                // var selectFlag = false;
+                // //  this.elgibilityObj.registerd_gp = {};
+                // $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
+                //     //   console.log(ui.item.label);
+                //     if (e.target.value === '') {
+                //         app.elgibilityObj.submitProfForm = "false";
+                //     } else {
+                //         selectFlag = true;
+                //         app.elgibilityObj.regProfGpTxt = ui.item.label;
+                //         app.elgibilityObj.submitProfForm = "true";
+                //     }
+                // });
+                // if (e.target.value.length === 0) {
+                //     app.elgibilityObj.submitProfForm = "false";
+                // }
+                // else {
+                //     app.elgibilityObj.submitProfForm = "true";
+                // }
+
+            },
+
+            selectGp: function () {
+                console.log("erer")
             },
 
             changeDob: function (e, date) {
@@ -330,7 +542,7 @@ $(document).ready(function () {
                 if (this.patchFlag != true && date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
-                    var selectedDate = new Date( this.dateFmt);
+                    var selectedDate = new Date(this.dateFmt);
                     var age = this.diff_years(today, selectedDate);
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
@@ -422,9 +634,9 @@ $(document).ready(function () {
             resetFlag: function (e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
                 var dynamicHeight;
-                var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
+                var mainWidth = document.getElementById('dobRoleCal').clientWidth;
                 if (mainWidth <= 350) {
-                    dynamicHeight = e.currentTarget.clientWidth + 25;
+                    dynamicHeight = e.currentTarget.clientWidth + 10;
                 } else {
                     dynamicHeight = e.currentTarget.clientWidth - 10;
                 }
@@ -501,6 +713,7 @@ $(document).ready(function () {
                         if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
+                                    $('#loader').show();
                                     this.apiRequest(this.elgibilityObj, role);
 
                                 } else {
@@ -508,6 +721,7 @@ $(document).ready(function () {
                                 }
 
                             } else {
+                                $('#loader').show();
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -580,16 +794,16 @@ $(document).ready(function () {
                         }
                         if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
                             var url = window.location.href.split('?')[0];
-                          //  console.log(url)
+                            //  console.log(url)
                             location.href = redirectUrl(url, "about", data.userid, role);
                         }
-                        else
-                        {
+                        else {
                             location.href = redirectUrl(location.href, "about", data.userid, role);
                         }
-                       
+
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log(error.responseJSON.message)
                     }
                 });

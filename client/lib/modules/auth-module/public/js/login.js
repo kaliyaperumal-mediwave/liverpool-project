@@ -33,14 +33,13 @@ $(document).ready(function () {
                 let formData = this.loginObject;
                 this.isFormSubmitted = true
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
-                    console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
                         Vue.$toast.success('Login successful.', {
                             position: 'top',
-                            duration: 1000,
+                            duration: 505888000,
                             onDismiss: function () {
                                 location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                             }

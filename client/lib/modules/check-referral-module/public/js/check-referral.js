@@ -10,11 +10,6 @@ $(document).ready(function () {
                 loginId: "",
                 referralType: "completed"
             },
-            viewReferralObj: {
-                loginId: "123",
-                referralType: "completed"
-            },
-            name: "prasath",
             displayReferrals: [],
             savedReferrals: [],
             isFormSubmitted: false,
@@ -27,7 +22,6 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            console.log(this.paramValues)
             this.viewReferralObj.loginId = this.paramValues[0];
             this.viewReferralObj.userRole = this.paramValues[1]
             this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)
@@ -104,24 +98,20 @@ $(document).ready(function () {
             },
             contineReferral: function (refObj) {
 
-               if(refObj.referral_progress=="20")
-               {
-            
-                location.href = decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole);
-                
-               }
-               else if(refObj.referral_progress=="40")
-               {
-                location.href = decryptUrl("education", refObj.uuid,this.viewReferralObj.userRole);
-               }
-               else if(refObj.referral_progress=="60")
-               {  
-                   location.href = decryptUrl("referral", refObj.uuid, this.viewReferralObj.userRole);
-               }
-               else if(refObj.referral_progress=="80")
-               {
-                location.href = decryptUrl("review", refObj.uuid, this.viewReferralObj.userRole);
-               }
+                if (refObj.referral_progress == "20") {
+
+                    location.href = decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole);
+
+                }
+                else if (refObj.referral_progress == "40") {
+                    location.href = decryptUrl("education", refObj.uuid, this.viewReferralObj.userRole);
+                }
+                else if (refObj.referral_progress == "60") {
+                    location.href = decryptUrl("referral", refObj.uuid, this.viewReferralObj.userRole);
+                }
+                else if (refObj.referral_progress == "80") {
+                    location.href = decryptUrl("review", refObj.uuid, this.viewReferralObj.userRole);
+                }
             },
             fetchReferrals: function (referralType) {
                 this.viewReferralObj.referralType = referralType;

@@ -1566,12 +1566,13 @@ exports.fetchReferral = ctx => {
     },
     attributes: ['id', 'uuid']
   }).then((fetchResult) => {
+    console.log(fetchResult)
     return user.findAll({
       include: [
         {
           model: ctx.orm().Reason,
           nested: true,
-          as: 'Reason',
+          as: 'referral_reason',
         },
       ],
       where: {
@@ -1579,8 +1580,8 @@ exports.fetchReferral = ctx => {
       },
     }).then((userResult) => {
       console.log(userResult);
-      console.log(userResult[0].Reason[0].id)
-      var refId = userResult[0].Reason[0].id;
+      console.log(userResult[0].referral_reason[0].id)
+      var refId = userResult[0].referral_reason[0].id;
 
       return referral.findOne({
         where: {
@@ -1749,7 +1750,7 @@ exports.fetchReview = ctx => {
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'parent',
-                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact']
+                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_name']
               },
             ],
             where: {
@@ -2167,22 +2168,29 @@ exports.updateSec3Info = ctx => {
 exports.updateSec4Info = ctx => {
   const reason = ctx.orm().Reason
   return reason.update({
-    any_other_services: ctx.request.body.section4Data.any_other_services,
-    any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
-    currently_accessing_services: ctx.request.body.section4Data.currently_accessing_services,
-    diagnosis: ctx.request.body.section4Data.diagnosis,
-    diagnosis_other: ctx.request.body.section4Data.diagnosis_other,
-    disabilities: ctx.request.body.section4Data.disabilities,
-    has_anything_helped: ctx.request.body.section4Data.has_anything_helped,
-    is_covid: ctx.request.body.section4Data.is_covid,
-    local_services: ctx.request.body.section4Data.local_services,
-    mental_health_diagnosis: ctx.request.body.section4Data.mental_health_diagnosis,
-    referral_issues: ctx.request.body.section4Data.referral_issues,
     referral_type: ctx.request.body.section4Data.referral_type,
-    services: ctx.request.body.section4Data.services,
-    symptoms: ctx.request.body.section4Data.symptoms,
-    symptoms_other: ctx.request.body.section4Data.symptoms_other,
-    symptoms_supportneeds: ctx.request.body.section4Data.symptoms_supportneeds,
+    is_covid: ctx.request.body.section4Data.is_covid,
+    referral_issues: ctx.request.body.section4Data.referral_issues,
+    has_anything_helped: ctx.request.body.section4Data.has_anything_helped,
+    any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
+    disabilities: ctx.request.body.section4Data.disabilities,
+
+    //   any_other_services: ctx.request.body.section4Data.any_other_services,
+    //   any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
+    //   currently_accessing_services: ctx.request.body.section4Data.currently_accessing_services,
+    //   diagnosis: ctx.request.body.section4Data.diagnosis,
+    //  diagnosis_other: ctx.request.body.section4Data.diagnosis_other,
+    //   disabilities: ctx.request.body.section4Data.disabilities,
+    //   has_anything_helped: ctx.request.body.section4Data.has_anything_helped,
+    //   is_covid: ctx.request.body.section4Data.is_covid,
+    //   local_services: ctx.request.body.section4Data.local_services,
+    //   mental_health_diagnosis: ctx.request.body.section4Data.mental_health_diagnosis,
+    //   referral_issues: ctx.request.body.section4Data.referral_issues,
+    //   referral_type: ctx.request.body.section4Data.referral_type,
+    //   services: ctx.request.body.section4Data.services,
+    //  symptoms: ctx.request.body.section4Data.symptoms,
+    //  symptoms_other: ctx.request.body.section4Data.symptoms_other,
+    //   symptoms_supportneeds: ctx.request.body.section4Data.symptoms_supportneeds,
   },
     {
       where: {
