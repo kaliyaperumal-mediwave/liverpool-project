@@ -9,7 +9,11 @@ endblock %} {% block extraHead %}
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
+<link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
+  rel="stylesheet" />
 
 <script src="https://use.fontawesome.com/901da64fb9.js"></script>
 
@@ -39,18 +43,14 @@ endblock %} {% block extraHead %}
 <!-- Date-picker itself -->
 <script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
 </script>
-<link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
-  rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
 <!-- Vue.js -->
-<script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script> -->
 <!-- Lastly add this package -->
 <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
-<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
 <!-- Init the plugin -->
 
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
@@ -292,9 +292,10 @@ endblock %} {% block extraHead %}
     <a href="{{ data.feedbackPage }}" class="text-decoration-none"> <span
         class="footer-text cursor-pointer">Feedback</span>
     </a>
-    <a href="{ data.contactPage }}" class="text-decoration-none"> <span
+    <span class="footer-text cursor-pointer">Contact</span>
+    <!-- <a href="{ data.contactPage }}" class="text-decoration-none"> <span
         class="footer-text cursor-pointer">Contact</span>
-    </a>
+    </a> -->
   </div>
 </div>
 

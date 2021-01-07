@@ -115,6 +115,12 @@ $(document).ready(function () {
                 });
             },
 
+            // resetCalendar: function (e) {
+            //     debugger
+            //     console.log(e);
+            //     Vue.use('date-picker', VueBootstrapDatetimePicker);
+            // },
+
             setValues: function (data) {
                 var roleType = this.paramValues[1];
                 this.patchFlag = true;
@@ -298,7 +304,7 @@ $(document).ready(function () {
                         success: function (response) {
                             _self.gpListName = [];
                             _self.gpListName = [];
-                            app.elgibilityObj.gpErrMsg ="";
+                            app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
                             // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
@@ -311,7 +317,7 @@ $(document).ready(function () {
                                     success: function (response) {
                                         _self.gpListName = [];
                                         _self.gpListName = [];
-                                        app.elgibilityObj.gpErrMsg ="";
+                                        app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
@@ -351,7 +357,7 @@ $(document).ready(function () {
                                         debugger;
                                         _self.elgibilityObj.regGpTxt = ui.item.value;
                                         app.elgibilityObj.submitForm = "true";
-                                        app.elgibilityObj.gpErrMsg ="";
+                                        app.elgibilityObj.gpErrMsg = "";
                                         //console.log(ui);
                                     },
                                     close: function () {
@@ -440,7 +446,7 @@ $(document).ready(function () {
                         success: function (response) {
                             _self.gpListShow = [];
                             _self.gpProfListName = [];
-                            app.elgibilityObj.gpErrMsg ="";
+                            app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
                             // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
@@ -453,25 +459,25 @@ $(document).ready(function () {
                                     success: function (response) {
                                         _self.gpListShow = [];
                                         _self.gpProfListName = [];
-                                        app.elgibilityObj.gpErrMsg ="";
+                                        app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
                                         payload = _self.gpProfListName;
-                                     //   //console.log(payload);
+                                        //   //console.log(payload);
                                         $("#gpProfLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
                                                 // //console.log(ui);
                                                 app.elgibilityObj.regProfGpTxt = ui.item.label;
                                                 app.elgibilityObj.submitProfForm = "true";
-                                                app.elgibilityObj.gpErrMsg ="";
+                                                app.elgibilityObj.gpErrMsg = "";
                                             },
                                         });
                                     },
                                     error: function (err) {
-                                      //  //console.log(err.responseJSON.errorText)
+                                        //  //console.log(err.responseJSON.errorText)
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                                     },
                                 })
@@ -479,20 +485,19 @@ $(document).ready(function () {
                             }
                             else {
                                 _self.gpListShow = response.Organisations;
-                                if(_self.gpListShow.length>0)
-                                {
+                                if (_self.gpListShow.length > 0) {
                                     for (i = 0; i < _self.gpListShow.length; i++) {
                                         _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
                                     nameData = _self.gpProfListName;
-                               //     //console.log(nameData)
+                                    //     //console.log(nameData)
                                     $("#gpProfLocation").autocomplete({
                                         source: nameData,
                                         select: function (event, ui) {
-                                           // //console.log(ui);
+                                            // //console.log(ui);
                                             app.elgibilityObj.regProfGpTxt = ui.item.label;
                                             app.elgibilityObj.submitProfForm = "true";
-                                            app.elgibilityObj.gpErrMsg ="";
+                                            app.elgibilityObj.gpErrMsg = "";
                                         },
                                     });
                                 }
@@ -501,7 +506,7 @@ $(document).ready(function () {
 
                         },
                         error: function (err) {
-                          //  //console.log(err.responseJSON.errorText)
+                            //  //console.log(err.responseJSON.errorText)
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                         },
                     })
@@ -549,7 +554,7 @@ $(document).ready(function () {
                         this.elgibilityObj.isInformation = "";
                     }
 
-                 //   //console.log(age);
+                    //   //console.log(age);
                     if (roleText == 'child') {
                         if (age < 15) {
                             this.elgibilityObj.belowAgeLimit = "yes";
@@ -633,6 +638,7 @@ $(document).ready(function () {
 
             resetFlag: function (e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
+                e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
                 var mainWidth = document.getElementById('dobRoleCal').clientWidth;
                 if (mainWidth <= 350) {

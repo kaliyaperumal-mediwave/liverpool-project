@@ -420,6 +420,7 @@ $(document).ready(function () {
 
             setCalendarHeight(e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
+                e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
                 var mainWidth = document.getElementById('dobAboutCal').clientWidth;
                 if (mainWidth <= 350) {

@@ -9,14 +9,14 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.resources);
-      self.dispatch('/things-to-watch', self.thingsToWatch);
+      self.dispatch('/lists', self.lists);
       self.dispatch('/apps', self.apps);
       self.dispatch('/things-to-read', self.thingsToRead);
       self.dispatch('/video', self.video);
     };
 
     self.resources = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage,backToResources;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -25,7 +25,8 @@ module.exports = {
         feedbackPage = "/pages/feedback?" + req.url.substring(req.url.indexOf("?") + 1)
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
-        urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
+        urgentHelpPage = "/pages/urgent-help?" + req.url.substring(req.url.indexOf("?") + 1)
+       
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -53,6 +54,7 @@ module.exports = {
         contactPage = "/pages/contact";
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
+        backToResources =  "/resources?";
         showLogout = false;
       }
 
@@ -69,12 +71,13 @@ module.exports = {
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage: urgentHelpPage,
+        backToResources:backToResources
 
       }));
     };
-    self.thingsToWatch = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage;
+    self.lists = function (req, callback) {
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage,backToResources;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -83,7 +86,8 @@ module.exports = {
         feedbackPage = "/pages/feedback?" + req.url.substring(req.url.indexOf("?") + 1)
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
-        urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1)
+        urgentHelpPage = "/pages/urgent-help?" + req.url.substring(req.url.indexOf("?") + 1)
+        backToResources =  "/resources?" + req.url.substring(req.url.indexOf("?") + 1)
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -111,6 +115,7 @@ module.exports = {
         contactPage = "/pages/contact";
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
+        backToResources =  "/resources";
         showLogout = false;
       }
       return self.sendPage(req, self.renderer('things-to-watch', {
@@ -126,7 +131,8 @@ module.exports = {
         contactPage: contactPage,
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage
+        urgentHelpPage: urgentHelpPage,
+        backToResources:backToResources
       }));
     };
     self.apps = function (req, callback) {
