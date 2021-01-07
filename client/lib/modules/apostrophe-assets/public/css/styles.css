@@ -374,17 +374,10 @@
   font-weight: bold; }
 
 .v-toast__item {
-  position: absolute;
-  top: 30%;
   min-height: 44px !important; }
-  @media (min-width: 992px) and (max-width: 1199.98px) {
-    .v-toast__item {
-      right: 4%;
-      top: 28%; } }
-  @media (min-width: 1200px) {
-    .v-toast__item {
-      right: 4%;
-      top: 28%; } }
+
+.v-toast.v-toast--top {
+  justify-content: center; }
 
 @font-face {
   font-family: "century-gothic";
