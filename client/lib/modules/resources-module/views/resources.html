@@ -7,7 +7,9 @@
 {% block main %}
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
+        <a href="{{ data.logoPath }}" class="text-decoration-none">
+            <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
+        </a>
         <div class="resource_text"> Resources</div>
         <div class="input-group">
             <span class="input-group-prepend">
@@ -31,7 +33,7 @@
     </div>
     <div class="resource-cont">
         <div class="bottom-arrow-container row" id="selva">
-            <div class="pieceCont col-6 col-sm-4 col-md-3">
+            <div class="pieceCont col-6 col-sm-4 col-md-3" @click="navigatePage('{{ data.gotoList }}')">
                 <div class="insidePieceCont">
                     <div class="midTextRange">ADHD
                     </div>
