@@ -1,6 +1,6 @@
 var API_URI = "/modules/check-referral-module";
 $(document).ready(function () {
-    Vue.use(VueToast);
+    // Vue.use(VueToast);
 
     var app = new Vue({
         el: '#check-referral',

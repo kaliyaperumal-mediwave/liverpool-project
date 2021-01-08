@@ -419,7 +419,7 @@ $(document).ready(function () {
                 }
             },
 
-            setCalendarHeight(e) {
+            setCalendarHeight: function (e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
                 e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
