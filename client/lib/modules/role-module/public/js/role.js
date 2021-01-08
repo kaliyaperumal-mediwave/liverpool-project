@@ -316,7 +316,7 @@ $(document).ready(function () {
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.gpListName;
+                                        payload = _self.remove_duplicates(_self.gpListName);
                                         //console.log(payload);
                                         $("#gpLocation").autocomplete({
                                             source: payload,
@@ -344,7 +344,7 @@ $(document).ready(function () {
                                 for (i = 0; i < _self.gpListShow.length; i++) {
                                     _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                 }
-                                nameData = _self.gpListName;
+                                nameData = _self.remove_duplicates(_self.gpListName);
                                 $("#gpLocation").autocomplete({
                                     source: nameData,
                                     select: function (event, ui) {
@@ -458,7 +458,7 @@ $(document).ready(function () {
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.gpProfListName;
+                                        payload = _self.remove_duplicates (_self.gpProfListName);
                                         console.log(payload);
                                         $("#gpProfLocation").autocomplete({
                                             source: payload,
@@ -965,6 +965,18 @@ $(document).ready(function () {
                 return currentDate;
 
             },
+
+             remove_duplicates :function(arr) {
+                var obj = {};
+                var ret_arr = [];
+                for (var i = 0; i < arr.length; i++) {
+                    obj[arr[i]] = true;
+                }
+                for (var key in obj) {
+                    ret_arr.push(key);
+                }
+                return ret_arr;
+            }
         }
     })
 
