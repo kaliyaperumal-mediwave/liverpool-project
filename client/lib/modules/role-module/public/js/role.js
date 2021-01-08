@@ -110,15 +110,21 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         $('#loader').hide();
-                        console.log(error.responseJSON.message)
+                        //console.log(error.responseJSON.message)
                     }
                 });
             },
 
+            // resetCalendar: function (e) {
+            //     debugger
+            //     console.log(e);
+            //     Vue.use('date-picker', VueBootstrapDatetimePicker);
+            // },
+
             setValues: function (data) {
                 var roleType = this.paramValues[1];
                 this.patchFlag = true;
-                console.log(roleType)
+                //console.log(roleType)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -173,7 +179,7 @@ $(document).ready(function () {
             //             }
             //             displayNameList = _self.gpListName;
             //             displayPostList = _self.gpListPost;
-            //             //console.log(displayNameList);
+            //             ////console.log(displayNameList);
             //             $("#gpLocation").autocomplete({
             //                 source: displayNameList,
             //                 response: function (event, ui) {
@@ -182,14 +188,14 @@ $(document).ready(function () {
             //                         $(this).trigger('keydown');
             //                     } else {
 
-            //                         //console.log(ui.content.length);
+            //                         ////console.log(ui.content.length);
             //                     }
             //                 }
             //             });
 
             //         },
             //         error: function (err) {
-            //             console.log(err)
+            //             //console.log(err)
             //         },
             //     })
             // },
@@ -221,7 +227,7 @@ $(document).ready(function () {
             //             return;
             //         },
             //         error: function (err) {
-            //             console.log(err)
+            //             //console.log(err)
             //         },
             //     })
             // },
@@ -298,11 +304,11 @@ $(document).ready(function () {
                         success: function (response) {
                             _self.gpListName = [];
                             _self.gpListName = [];
-                            app.elgibilityObj.gpErrMsg ="";
+                            app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
-                            // console.log(response.Organisations.length<=0)
+                            // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
-                                // console.log(searchTxt.trim())
+                                // //console.log(searchTxt.trim())
                                 var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
                                 $.ajax({
                                     url: gpLink,
@@ -311,7 +317,7 @@ $(document).ready(function () {
                                     success: function (response) {
                                         _self.gpListName = [];
                                         _self.gpListName = [];
-                                        app.elgibilityObj.gpErrMsg ="";
+                                        app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
@@ -321,11 +327,10 @@ $(document).ready(function () {
                                         $("#gpLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
-                                                debugger;
                                                 _self.gpFlag = true;
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.submitForm = "true";
-                                                // console.log(ui);
+                                                // //console.log(ui);
                                             },
                                             close: function () {
                                                 _self.gpFlag = true;
@@ -333,7 +338,7 @@ $(document).ready(function () {
                                         });
                                     },
                                     error: function (err) {
-                                        console.log(err.responseJSON.errorText)
+                                        //console.log(err.responseJSON.errorText)
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                                     },
                                 })
@@ -348,11 +353,10 @@ $(document).ready(function () {
                                 $("#gpLocation").autocomplete({
                                     source: nameData,
                                     select: function (event, ui) {
-                                        debugger;
                                         _self.elgibilityObj.regGpTxt = ui.item.value;
                                         app.elgibilityObj.submitForm = "true";
-                                        app.elgibilityObj.gpErrMsg ="";
-                                        console.log(ui);
+                                        app.elgibilityObj.gpErrMsg = "";
+                                        //console.log(ui);
                                     },
                                     close: function () {
                                         _self.gpFlag = true;
@@ -362,7 +366,7 @@ $(document).ready(function () {
 
                         },
                         error: function (err) {
-                            console.log(err.responseJSON.errorText)
+                            //console.log(err.responseJSON.errorText)
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                         },
                     })
@@ -377,10 +381,9 @@ $(document).ready(function () {
                 $("#gpLocation").autocomplete({
                     source: data,
                     select: function (event, ui) {
-                        console.log(ui);
+                        //console.log(ui);
                     },
                     response: function (event, ui) {
-                        debugger
                         if (ui.content.length == 0) {
                             _self.gpSearchArea(postCode);
 
@@ -399,24 +402,23 @@ $(document).ready(function () {
                     type: 'get',
                     async: false,
                     success: function (response) {
-                        debugger;
                         _self.gpListShow = response.Organisations;
                         for (i = 0; i < _self.gpListShow.length; i++) {
                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                         }
                         payload = _self.gpListName;
-                        console.log(payload);
+                        //console.log(payload);
                         $("#gpLocation").autocomplete({
                             source: payload,
                             select: function (event, ui) {
-                                console.log(ui);
+                                //console.log(ui);
                             },
                         });
 
 
                     },
                     error: function (err) {
-                        // console.log(err)
+                        // //console.log(err)
                     },
                 })
 
@@ -440,11 +442,11 @@ $(document).ready(function () {
                         success: function (response) {
                             _self.gpListShow = [];
                             _self.gpProfListName = [];
-                            app.elgibilityObj.gpErrMsg ="";
+                            app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
-                            // console.log(response.Organisations.length<=0)
+                            // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
-                                // console.log(searchTxt.trim())
+                                // //console.log(searchTxt.trim())
                                 var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
                                 $.ajax({
                                     url: gpLink,
@@ -453,7 +455,7 @@ $(document).ready(function () {
                                     success: function (response) {
                                         _self.gpListShow = [];
                                         _self.gpProfListName = [];
-                                        app.elgibilityObj.gpErrMsg ="";
+                                        app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
@@ -463,15 +465,15 @@ $(document).ready(function () {
                                         $("#gpProfLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
-                                                // console.log(ui);
+                                                // //console.log(ui);
                                                 app.elgibilityObj.regProfGpTxt = ui.item.label;
                                                 app.elgibilityObj.submitProfForm = "true";
-                                                app.elgibilityObj.gpErrMsg ="";
+                                                app.elgibilityObj.gpErrMsg = "";
                                             },
                                         });
                                     },
                                     error: function (err) {
-                                        console.log(err.responseJSON.errorText)
+                                        //  //console.log(err.responseJSON.errorText)
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                                     },
                                 })
@@ -479,20 +481,19 @@ $(document).ready(function () {
                             }
                             else {
                                 _self.gpListShow = response.Organisations;
-                                if(_self.gpListShow.length>0)
-                                {
+                                if (_self.gpListShow.length > 0) {
                                     for (i = 0; i < _self.gpListShow.length; i++) {
                                         _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
-                                    nameData = _self.gpProfListName;
-                                    console.log(nameData)
+                                    nameData = _self.remove_duplicates (_self.gpProfListName);;
+                                    //     //console.log(nameData)
                                     $("#gpProfLocation").autocomplete({
                                         source: nameData,
                                         select: function (event, ui) {
-                                            console.log(ui);
+                                            // //console.log(ui);
                                             app.elgibilityObj.regProfGpTxt = ui.item.label;
                                             app.elgibilityObj.submitProfForm = "true";
-                                            app.elgibilityObj.gpErrMsg ="";
+                                            app.elgibilityObj.gpErrMsg = "";
                                         },
                                     });
                                 }
@@ -501,7 +502,7 @@ $(document).ready(function () {
 
                         },
                         error: function (err) {
-                            console.log(err.responseJSON.errorText)
+                            //  //console.log(err.responseJSON.errorText)
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                         },
                     })
@@ -515,7 +516,7 @@ $(document).ready(function () {
                 // var selectFlag = false;
                 // //  this.elgibilityObj.registerd_gp = {};
                 // $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
-                //     //   console.log(ui.item.label);
+                //     //   //console.log(ui.item.label);
                 //     if (e.target.value === '') {
                 //         app.elgibilityObj.submitProfForm = "false";
                 //     } else {
@@ -534,11 +535,11 @@ $(document).ready(function () {
             },
 
             selectGp: function () {
-                console.log("erer")
+                //console.log("erer")
             },
 
             changeDob: function (e, date) {
-                //  console.log(date);
+                //  //console.log(date);
                 if (this.patchFlag != true && date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
@@ -549,7 +550,7 @@ $(document).ready(function () {
                         this.elgibilityObj.isInformation = "";
                     }
 
-                    console.log(age);
+                    //   //console.log(age);
                     if (roleText == 'child') {
                         if (age < 15) {
                             this.elgibilityObj.belowAgeLimit = "yes";
@@ -567,7 +568,7 @@ $(document).ready(function () {
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else {
-                            console.log("343")
+                            //console.log("343")
                             this.elgibilityObj.contactParent = "yes";
                             this.elgibilityObj.belowAgeLimit = "";
                             this.elgibilityObj.aboveLimit = "";
@@ -633,6 +634,7 @@ $(document).ready(function () {
 
             resetFlag: function (e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
+                e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
                 var mainWidth = document.getElementById('dobRoleCal').clientWidth;
                 if (mainWidth <= 350) {
@@ -705,7 +707,7 @@ $(document).ready(function () {
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
-                console.log(this.elgibilityObj.role);
+                //console.log(this.elgibilityObj.role);
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
@@ -787,14 +789,14 @@ $(document).ready(function () {
                     data: JSON.stringify(payload),
                     success: function (data) {
                         //alert("section 1 saved.");
-                        // console.log(data);
+                        // //console.log(data);
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
                         if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
                             var url = window.location.href.split('?')[0];
-                            //  console.log(url)
+                            //  //console.log(url)
                             location.href = redirectUrl(url, "about", data.userid, role);
                         }
                         else {
@@ -804,7 +806,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         $('#loader').hide();
-                        console.log(error.responseJSON.message)
+                        //console.log(error.responseJSON.message)
                     }
                 });
             },
@@ -840,7 +842,7 @@ $(document).ready(function () {
             },
 
             setDate: function (dbDate) {
-                console.log(dbDate.split("/"))
+                //console.log(dbDate.split("/"))
                 var dateArray = dbDate.split("/");
                 var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
                 var date = new Date(toOldFmt)
@@ -857,11 +859,11 @@ $(document).ready(function () {
             },
 
             fetchAgeLogic: function (dbdob, roleText) {
-                //          console.log(dbdob);
+                //          //console.log(dbdob);
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
-                //          console.log(age);
+                //          //console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
 
