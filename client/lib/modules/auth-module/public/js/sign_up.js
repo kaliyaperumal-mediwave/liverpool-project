@@ -1,6 +1,12 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    Vue.use(VueToast);
+    if (false || !!document.documentMode) {
+      
+    }
+    else{
+        Vue.use(VueToast);
+    }
+  
     new Vue({
         el: '#user_sign_up',
 
@@ -44,13 +50,18 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        Vue.$toast.success('Account created.', {
-                            position: 'top',
-                            duration: 1000,
-                            onDismiss: function () {
-                                window.location.href = window.location.origin + '/users/login';
-                            }
-                        });
+                        if (false || !!document.documentMode) {
+                            alert("Account created")
+                            window.location.href = window.location.origin + '/users/login';
+                        } else {
+                            Vue.$toast.success('Account created', {
+                                position: 'top',
+                                duration: 1000,
+                                onDismiss: function () {
+                                    window.location.href = window.location.origin + '/users/login';
+                                }
+                            });
+                        }
 
                     } else {
                         $('#loader').hide();

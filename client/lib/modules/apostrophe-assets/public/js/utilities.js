@@ -115,13 +115,14 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').hide();
-            Vue.$toast.error(error.responseJSON.message, {
-                position: 'top',
-                duration: 1000,
-                // onDismiss: function () {
-                //     window.location.reload();
-                // }
-            });
+            if (false || !!document.documentMode) {
+                alert("Something went wrong!")
+            } else {
+                Vue.$toast.error(error.responseJSON.message, {
+                    position: 'top',
+                    duration: 1000,
+                });
+            }
             return false;
         }
     });
@@ -270,7 +271,7 @@ function resize() {
     var middleContent = document.getElementById("middleCont");
     if (middleContent) {
         if (header) {
-            middleContent.style.paddingTop = header.offsetHeight+'px';
+            middleContent.style.paddingTop = header.offsetHeight + 'px';
             //middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
         }
     }
@@ -291,9 +292,9 @@ function logOut() {
     window.location.href = window.location.origin + '/users/login';
 }
 
-window.onload = function(e) {
+window.onload = function (e) {
     if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
-        document.getElementById("middleCont").style.paddingTop = document.querySelector('#heightTopSet').offsetHeight+'px';
+        document.getElementById("middleCont").style.paddingTop = document.querySelector('#heightTopSet').offsetHeight + 'px';
     }
 }
 
