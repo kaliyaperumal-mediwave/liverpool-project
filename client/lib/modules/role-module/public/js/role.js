@@ -303,7 +303,6 @@ $(document).ready(function () {
                         async: false,
                         success: function (response) {
                             _self.gpListName = [];
-                            _self.gpListName = [];
                             app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
                             // //console.log(response.Organisations.length<=0)
@@ -315,7 +314,6 @@ $(document).ready(function () {
                                     type: 'get',
                                     async: false,
                                     success: function (response) {
-                                        _self.gpListName = [];
                                         _self.gpListName = [];
                                         app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
@@ -372,6 +370,18 @@ $(document).ready(function () {
                     })
 
 
+                }
+                else
+                {
+                    $("#gpLocation").autocomplete({
+                        source: [],
+                        select: function (event, ui) {
+                           
+                        },
+                        close: function () {
+                          //
+                        }
+                    });
                 }
 
             },
@@ -508,6 +518,15 @@ $(document).ready(function () {
                     })
 
                 }
+                $("#gpProfLocation").autocomplete({
+                    source: [],
+                    select: function (event, ui) {
+                       
+                    },
+                    close: function () {
+                      //
+                    }
+                });
 
 
 
