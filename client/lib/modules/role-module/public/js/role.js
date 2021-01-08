@@ -37,6 +37,7 @@ $(document).ready(function () {
             },
             date: null,
             dateWrap: true,
+            showInputLoader: false,
             options: {
                 //format: 'YYYY/MM/DD',
                 format: 'DD/MM/YYYY',
@@ -371,19 +372,23 @@ $(document).ready(function () {
 
 
                 }
-                else
-                {
+                else {
+                    app.elgibilityObj.gpErrMsg = '';
                     $("#gpLocation").autocomplete({
                         source: [],
                         select: function (event, ui) {
-                           
+
                         },
                         close: function () {
-                          //
+                            //
                         }
                     });
                 }
 
+            },
+
+            getStringLength: function (str) {
+                return str.length;
             },
 
             setAutocompletePostCode: function (data, postCode) {
@@ -444,7 +449,8 @@ $(document).ready(function () {
                 var _self = this;
                 var searchTxt = e.target.value;
                 if (searchTxt.length > 2) {
-                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt
+                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
+                    // app.showInputLoader = true;
                     $.ajax({
                         url: gpLink,
                         type: 'get',
@@ -454,9 +460,7 @@ $(document).ready(function () {
                             _self.gpProfListName = [];
                             app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
-                            // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
-                                // //console.log(searchTxt.trim())
                                 var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
                                 $.ajax({
                                     url: gpLink,
@@ -470,20 +474,20 @@ $(document).ready(function () {
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.remove_duplicates (_self.gpProfListName);
-                                        console.log(payload);
+                                        payload = _self.remove_duplicates(_self.gpProfListName);
+                                        // app.showInputLoader = false;
                                         $("#gpProfLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
-                                                // //console.log(ui);
                                                 app.elgibilityObj.regProfGpTxt = ui.item.label;
                                                 app.elgibilityObj.submitProfForm = "true";
                                                 app.elgibilityObj.gpErrMsg = "";
                                             },
                                         });
+
                                     },
                                     error: function (err) {
-                                        //  //console.log(err.responseJSON.errorText)
+                                        // app.showInputLoader = false;
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                                     },
                                 })
@@ -495,12 +499,11 @@ $(document).ready(function () {
                                     for (i = 0; i < _self.gpListShow.length; i++) {
                                         _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
-                                    nameData = _self.remove_duplicates (_self.gpProfListName);;
-                                    //     //console.log(nameData)
+                                    nameData = _self.remove_duplicates(_self.gpProfListName);
+                                //     app.showInputLoader = false;
                                     $("#gpProfLocation").autocomplete({
                                         source: nameData,
                                         select: function (event, ui) {
-                                            // //console.log(ui);
                                             app.elgibilityObj.regProfGpTxt = ui.item.label;
                                             app.elgibilityObj.submitProfForm = "true";
                                             app.elgibilityObj.gpErrMsg = "";
@@ -512,21 +515,24 @@ $(document).ready(function () {
 
                         },
                         error: function (err) {
-                            //  //console.log(err.responseJSON.errorText)
+                            // app.showInputLoader = false;
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                         },
                     })
 
+                } else {
+                    app.elgibilityObj.gpErrMsg = '';
+                    $("#gpProfLocation").autocomplete({
+                        source: [],
+                        select: function (event, ui) {
+
+                        },
+                        close: function () {
+                            //
+                        }
+                    });
                 }
-                $("#gpProfLocation").autocomplete({
-                    source: [],
-                    select: function (event, ui) {
-                       
-                    },
-                    close: function () {
-                      //
-                    }
-                });
+
 
 
 
@@ -987,7 +993,7 @@ $(document).ready(function () {
 
             },
 
-             remove_duplicates :function(arr) {
+            remove_duplicates: function (arr) {
                 var obj = {};
                 var ret_arr = [];
                 for (var i = 0; i < arr.length; i++) {

@@ -649,13 +649,21 @@
                             <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
                                 placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
                                 aria-label="location" autocomplete="off">
+                            <!-- <div v-if="showInputLoader" class="icon-container">
+                                <i class="inputLoader"></i>
+                            </div> -->
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
-                        <small id="emailHelp" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="gpInfoMessage"
+                            v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3 && !elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">You must
+                            enter 3 characters to start
+                            search</small>
+                        <small id="gpErrorMessage" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                     </div>
                 </div>
             </form>
