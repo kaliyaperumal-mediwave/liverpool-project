@@ -270,7 +270,7 @@ function resize() {
     var middleContent = document.getElementById("middleCont");
     if (middleContent) {
         if (header) {
-            middleContent.style.paddingTop = `${header.offsetHeight}px`;
+            middleContent.style.paddingTop = header.offsetHeight+'px';
             //middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
         }
     }
@@ -291,9 +291,9 @@ function logOut() {
     window.location.href = window.location.origin + '/users/login';
 }
 
-window.onload = (event) => {
+window.onload = function(e) {
     if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
-        document.getElementById("middleCont").style.paddingTop = `${document.querySelector('#heightTopSet').offsetHeight}px`;
+        document.getElementById("middleCont").style.paddingTop = document.querySelector('#heightTopSet').offsetHeight+'px';
     }
 }
 
