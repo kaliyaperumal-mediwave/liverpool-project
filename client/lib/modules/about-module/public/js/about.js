@@ -309,8 +309,9 @@ $(document).ready(function () {
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
+                    console.log(responseData)
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
+                 //   location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
                 } else {
                     $('#loader').hide();
                     console.log('empty response')
@@ -421,6 +422,7 @@ $(document).ready(function () {
 
             setCalendarHeight(e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
+                e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
                 var mainWidth = document.getElementById('dobAboutCal').clientWidth;
                 if (mainWidth <= 350) {

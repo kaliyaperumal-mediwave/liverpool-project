@@ -107,8 +107,8 @@
                         {{elgibilityObj.maxDate}}</p>
                     <div class="input-group" id="dobRoleCal">
                         <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.childDob"
-                            @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)"
-                            :config="options" :wrap="dateWrap">
+                            autocomplete="off" @dp-show="resetFlag($event)"
+                            @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text">
@@ -253,7 +253,7 @@
 
 
             <!-- consent start-->
-            <form id="isInformation-form" data-options="contactParent">
+            <form id="isInformation-form3" data-options="contactParent">
                 <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
@@ -293,7 +293,7 @@
             <!-- consent-ent -->
 
             <!-- toster-container start -->
-            <form id="isInformation-form" data-options="isInformation">
+            <form id="isInformation-form4" data-options="isInformation">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.isInformation == 'no' && elgibilityObj.childDob!=null"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -341,7 +341,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control gpLocation" @keydown="getAddress($event)"
                                 placeholder="Start typing to search" id="gpLocation" aria-label="location"
-                                v-model="elgibilityObj.regGpTxt">
+                                v-model="elgibilityObj.regGpTxt" autocomplete="off">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -355,7 +355,7 @@
             <!--GP Location End -->
 
             <!-- toster-container start -->
-            <form id="submitFormTrue-form" data-options="submitForm">
+            <form id="submitFormTrue-form2" data-options="submitForm">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -432,8 +432,9 @@
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
 
                 <div class="input-group">
-                    <date-picker name="date" v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
-                        @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options" :wrap="dateWrap">
+                    <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.profChildDob"
+                        @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.profChildDob)"
+                        :config="options" :wrap="dateWrap">
                     </date-picker>
                     <div class="input-group-append cursor-pointer">
                         <span class="input-group-text">
@@ -562,7 +563,7 @@
             <!-- consent- parent end -->
 
             <!-- toster-container start -->
-            <form id="parentConcernInformation-form" data-options="parentConcernInformation">
+            <form id="parentConcernInformation-form3" data-options="parentConcernInformation">
                 <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no' && elgibilityObj.profChildDob!=null "
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -637,7 +638,7 @@
 
 
             <!-- GP Location start -->
-            <form id="parentConcernInformation-form" data-options="parentConcernInformation">
+            <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
                 <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
@@ -646,8 +647,8 @@
                             with?</label>
                         <div class="input-group">
                             <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
-                                placeholder="Start typing to search" @input="getProfAddress($event)"
-                                id="gpProfLocation" aria-label="location">
+                                placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
+                                aria-label="location" autocomplete="off">
                             <div class="input-group-append">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
@@ -661,7 +662,7 @@
             <!--GP Location End -->
 
             <!-- toster-container start -->
-            <form id="submitFormTrue-form" data-options="submitProfForm">
+            <form id="submitFormTrue-form1" data-options="submitProfForm">
                 <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profName && elgibilityObj.profContactNumber) && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">

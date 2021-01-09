@@ -125,6 +125,12 @@ $(document).ready(function () {
                 });
             },
 
+            // resetCalendar: function (e) {
+            //     debugger
+            //     console.log(e);
+            //     Vue.use('date-picker', VueBootstrapDatetimePicker);
+            // },
+
             setValues: function (data) {
                 var roleType = this.paramValues[1];
                 this.patchFlag = true;
@@ -307,7 +313,6 @@ $(document).ready(function () {
                         async: false,
                         success: function (response) {
                             _self.gpListName = [];
-                            _self.gpListName = [];
                             app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
                             // //console.log(response.Organisations.length<=0)
@@ -320,18 +325,16 @@ $(document).ready(function () {
                                     async: false,
                                     success: function (response) {
                                         _self.gpListName = [];
-                                        _self.gpListName = [];
                                         app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.gpListName;
-                                        ////console.log(payload);
+                                        payload = _self.remove_duplicates(_self.gpListName);
+                                        //console.log(payload);
                                         $("#gpLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
-                                                debugger;
                                                 _self.gpFlag = true;
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.submitForm = "true";
@@ -354,11 +357,10 @@ $(document).ready(function () {
                                 for (i = 0; i < _self.gpListShow.length; i++) {
                                     _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                 }
-                                nameData = _self.gpListName;
+                                nameData = _self.remove_duplicates(_self.gpListName);
                                 $("#gpLocation").autocomplete({
                                     source: nameData,
                                     select: function (event, ui) {
-                                        debugger;
                                         _self.elgibilityObj.regGpTxt = ui.item.value;
                                         app.elgibilityObj.submitForm = "true";
                                         app.elgibilityObj.gpErrMsg = "";
@@ -379,6 +381,18 @@ $(document).ready(function () {
 
 
                 }
+                else
+                {
+                    $("#gpLocation").autocomplete({
+                        source: [],
+                        select: function (event, ui) {
+                           
+                        },
+                        close: function () {
+                          //
+                        }
+                    });
+                }
 
             },
 
@@ -390,7 +404,6 @@ $(document).ready(function () {
                         //console.log(ui);
                     },
                     response: function (event, ui) {
-                        debugger
                         if (ui.content.length == 0) {
                             _self.gpSearchArea(postCode);
 
@@ -409,7 +422,6 @@ $(document).ready(function () {
                     type: 'get',
                     async: false,
                     success: function (response) {
-                        debugger;
                         _self.gpListShow = response.Organisations;
                         for (i = 0; i < _self.gpListShow.length; i++) {
                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
@@ -468,8 +480,8 @@ $(document).ready(function () {
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.gpProfListName;
-                                        //   //console.log(payload);
+                                        payload = _self.remove_duplicates (_self.gpProfListName);
+                                        console.log(payload);
                                         $("#gpProfLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
@@ -493,7 +505,7 @@ $(document).ready(function () {
                                     for (i = 0; i < _self.gpListShow.length; i++) {
                                         _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
-                                    nameData = _self.gpProfListName;
+                                    nameData = _self.remove_duplicates (_self.gpProfListName);;
                                     //     //console.log(nameData)
                                     $("#gpProfLocation").autocomplete({
                                         source: nameData,
@@ -516,6 +528,15 @@ $(document).ready(function () {
                     })
 
                 }
+                $("#gpProfLocation").autocomplete({
+                    source: [],
+                    select: function (event, ui) {
+                       
+                    },
+                    close: function () {
+                      //
+                    }
+                });
 
 
 
@@ -642,6 +663,7 @@ $(document).ready(function () {
 
             resetFlag: function (e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
+                e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
                 var mainWidth = document.getElementById('dobRoleCal').clientWidth;
                 if (mainWidth <= 350) {
@@ -974,6 +996,18 @@ $(document).ready(function () {
                 return currentDate;
 
             },
+
+             remove_duplicates :function(arr) {
+                var obj = {};
+                var ret_arr = [];
+                for (var i = 0; i < arr.length; i++) {
+                    obj[arr[i]] = true;
+                }
+                for (var key in obj) {
+                    ret_arr.push(key);
+                }
+                return ret_arr;
+            }
         }
     })
 
