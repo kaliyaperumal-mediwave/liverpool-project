@@ -60,6 +60,12 @@ $header-font-size: 32px;
 body {
   font-family: "century-gothic" !important;
 
+  .col-xl-6 {
+    @include lg-secondary {
+      max-width: 60% !important;
+    }
+  }
+
   input {
     white-space: nowrap !important;
     overflow: hidden !important;

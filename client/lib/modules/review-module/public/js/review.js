@@ -8,7 +8,7 @@ $(document).ready(function () {
             userMode: '',
             userRole: '',
             yourInfo: '',
-            allSectionData: {},
+            allSectionData: [],
             section5Labels: {
                 aboutLabel: "",
                 referralLabel: ""
@@ -26,6 +26,7 @@ $(document).ready(function () {
                 'Child Protection Plan',
                 'Other Carer'
             ],
+            allSectionData: [],
             section1Data: {},
             section2Data: {},
             section3Data: {},
@@ -91,8 +92,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        //   console.log(data)
-
+                        _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
@@ -169,15 +169,23 @@ $(document).ready(function () {
                 }
             },
 
-            toggleArrow: function (e) {
+            toggleArrow: function (e, section, allData) {
                 var ele = e.target;
-                var classList = Array.from(e.target.classList)
-                if (classList.indexOf('fa-chevron-circle-up') > -1) {
-                    $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
-                    // $('.arrowClass').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
-                } else {
-                    $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
-                }
+                var elemId = e.target.id;
+                var allToggleIcons = Array.from(document.getElementsByClassName('arrowClass'));
+                allToggleIcons.filter(function (i) {
+                    if (i.id == elemId) {
+                        if (Array.from(ele.classList).indexOf('fa-chevron-circle-up') > -1) {
+                            $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                        } else {
+                            $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                        }
+                    } else {
+                        $(i).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    }
+                });
+                this.resetValidation(section, allData);
+
             },
 
             getUrlVars: function () {
@@ -394,9 +402,12 @@ $(document).ready(function () {
                         console.log(res)
                         _self.showLoader = true;
                         buttonElem.disabled = true;
+                        $(document.body).css('pointer-events', 'none');
+
                         setTimeout(function () {
                             _self.showLoader = false;
-                            _self.resetFormSubmitted(section);
+                            _self.resetFormSubmitted(section, res.data);
+                            $(document.body).css('pointer-events', 'all');
                         }, 3000);
 
                     },
@@ -410,7 +421,14 @@ $(document).ready(function () {
                 });
             },
 
-            resetFormSubmitted: function (section) {
+            // /Prevention of entering white spaces
+            preventWhiteSpaces: function (e) {
+                if (e.which === 32 && e.target.selectionStart === 0) {
+                    e.preventDefault();
+                }
+            },
+
+            resetValidation: function (section, allData) {
                 if (section == 1) {
                     this.isSection1Submitted = false;
                 }
@@ -422,6 +440,32 @@ $(document).ready(function () {
                 }
                 else if (section == 4) {
                     this.isSection4Submitted = false;
+                }
+                //this.allSectionData = allData;
+
+            },
+
+            resetFormSubmitted: function (section, data) {
+                if (section == 1) {
+                    this.isSection1Submitted = false;
+                    this.section1Data = data;
+                    this.allSectionData.section1 = data;
+                }
+                else if (section == 2) {
+                    this.isSection2Submitted = false;
+                    this.section2Data = data;
+                    this.allSectionData.section2 = data;
+                }
+                else if (section == 3) {
+                    this.isSection3Submitted = false;
+                    this.section3Data = data;
+                    this.allSectionData.section3 = data;
+                }
+                else if (section == 4) {
+                    this.isSection4Submitted = false;
+                    this.section4Data = data;
+                    this.allSectionData.section4 = data;
+
                 }
 
             }

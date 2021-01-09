@@ -56,8 +56,8 @@
                             </div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    data-target="#collapseOne" aria-expanded="true" @click="toggleArrow($event)"
-                                    aria-controls="collapseOne"></i>
+                                    id="toggle1" data-target="#collapseOne" aria-expanded="true"
+                                    @click="toggleArrow($event,1,allSectionData)" aria-controls="collapseOne"></i>
                             </span>
                         </div>
                         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
@@ -153,7 +153,7 @@
                                         <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
                                                 <input class="form-control" type="text" placeholder="Enter full name"
-                                                    @keyup="onDetectChange($event,'sect1')"
+                                                   @keypress="preventWhiteSpaces($event)" @keyup="onDetectChange($event,'sect1')"
                                                     v-model="section1Data.professional_name" id="profNameSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
@@ -273,7 +273,8 @@
                             </div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    data-target="#collapseTwo" @click="toggleArrow($event)" aria-expanded="true"
+                                    id="toggle2" data-target="#collapseTwo"
+                                    @click="toggleArrow($event,2,allSectionData)" aria-expanded="true"
                                     aria-controls="collapseTwo"></i>
                             </span>
                         </div>
@@ -710,7 +711,8 @@
 
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    data-target="#collapseThree" @click="toggleArrow($event)" aria-expanded="true"
+                                    id="toggle3" data-target="#collapseThree"
+                                    @click="toggleArrow($event,3,allSectionData)" aria-expanded="true"
                                     aria-controls="collapseThree"></i>
                             </span>
                         </div>
@@ -869,7 +871,8 @@
 
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    data-target="#collapseFour" @click="toggleArrow($event)" aria-expanded="true"
+                                    id="toggle4" data-target="#collapseFour"
+                                    @click="toggleArrow($event,4,allSectionData)" aria-expanded="true"
                                     aria-controls="collapseFour"></i>
                             </span>
                         </div>

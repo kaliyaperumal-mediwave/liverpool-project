@@ -3,7 +3,7 @@ $(document).ready(function () {
     if (false || !!document.documentMode) {
         // 
     }
-    else{
+    else {
         Vue.use(VueToast);
     }
     new Vue({
@@ -60,7 +60,6 @@ $(document).ready(function () {
                     }
 
                 } else {
-                    // scrollToInvalidInput();
                     return false;
                 }
             },

@@ -651,10 +651,10 @@
                             <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
                                 placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
                                 aria-label="location" autocomplete="off">
-                            <!-- <div v-if="showInputLoader" class="icon-container">
+                            <div id="showInputLoader" class="icon-container d-none">
                                 <i class="inputLoader"></i>
-                            </div> -->
-                            <div class="input-group-append">
+                            </div>
+                            <div class="input-group-append" id="addOpacity">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>

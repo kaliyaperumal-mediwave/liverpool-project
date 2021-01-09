@@ -306,9 +306,7 @@ $(document).ready(function () {
                             _self.gpListName = [];
                             app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
-                            // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
-                                // //console.log(searchTxt.trim())
                                 var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
                                 $.ajax({
                                     url: gpLink,
@@ -450,7 +448,8 @@ $(document).ready(function () {
                 var searchTxt = e.target.value;
                 if (searchTxt.length > 2) {
                     var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
-                    // app.showInputLoader = true;
+                    $('#showInputLoader').removeClass("d-none").addClass("d-block");
+                    $('#addOpacity').css('opacity', '0.2');
                     $.ajax({
                         url: gpLink,
                         type: 'get',
@@ -475,7 +474,8 @@ $(document).ready(function () {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
                                         payload = _self.remove_duplicates(_self.gpProfListName);
-                                        // app.showInputLoader = false;
+                                        $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacity').css('opacity', '1');
                                         $("#gpProfLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
@@ -487,7 +487,8 @@ $(document).ready(function () {
 
                                     },
                                     error: function (err) {
-                                        // app.showInputLoader = false;
+                                        $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacity').css('opacity', '1');
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                                     },
                                 })
@@ -500,7 +501,8 @@ $(document).ready(function () {
                                         _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
                                     nameData = _self.remove_duplicates(_self.gpProfListName);
-                                //     app.showInputLoader = false;
+                                    $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                    $('#addOpacity').css('opacity', '1');
                                     $("#gpProfLocation").autocomplete({
                                         source: nameData,
                                         select: function (event, ui) {
@@ -515,7 +517,8 @@ $(document).ready(function () {
 
                         },
                         error: function (err) {
-                            // app.showInputLoader = false;
+                            $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                            $('#addOpacity').css('opacity', '1');
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                         },
                     })

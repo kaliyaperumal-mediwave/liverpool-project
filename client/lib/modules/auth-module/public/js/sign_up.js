@@ -1,12 +1,12 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
     if (false || !!document.documentMode) {
-      
+
     }
-    else{
+    else {
         Vue.use(VueToast);
     }
-  
+
     new Vue({
         el: '#user_sign_up',
 
@@ -44,8 +44,8 @@ $(document).ready(function () {
 
             submitSignIn: function () {
                 let formData = this.signUpObject;
-                this.isFormSubmitted = true
-                if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
+                this.isFormSubmitted = true;
+                if ((formData.first_name.trim() && formData.last_name.trim() && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (successData && Object.keys(successData)) {

@@ -486,6 +486,9 @@
 
 body {
   font-family: "century-gothic" !important; }
+  @media (min-width: 1200px) and (max-width: 1499.98px) {
+    body .col-xl-6 {
+      max-width: 60% !important; } }
   body input {
     white-space: nowrap !important;
     overflow: hidden !important;
