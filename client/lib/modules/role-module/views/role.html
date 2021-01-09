@@ -450,12 +450,13 @@
                 <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you have concent from the child/young person's parent/carer for
+                        <p class="question-font m-0">Do you have consent from the child/young person's parent/carer for
                             us
                             to
                             use information that you provide, and share it with other CAMHS partners so that we can help
                             them?</p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                            data-target="#consentModal" class="px-3 cursor-pointer img-class" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="contactProfParent"
@@ -539,7 +540,8 @@
                             information that you provide, and share it with other CAMHS partners so that we can help
                             them?
                         </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                            data-target="#consentModal" class="px-3 cursor-pointer" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="aboutYouParentConcern"

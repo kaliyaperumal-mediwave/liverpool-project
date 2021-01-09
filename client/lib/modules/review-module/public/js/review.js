@@ -13,6 +13,19 @@ $(document).ready(function () {
                 aboutLabel: "",
                 referralLabel: ""
             },
+            legalStatusArray: [
+                'Care of Parent',
+                'Care of Local Authority(Liverpool)',
+                'Care of Local Authority(Sefton)',
+                'Care of Local Authority(Other)',
+                'Section 20 Voluntary',
+                'Accommodated',
+                'Full Care Order',
+                'Interim Care Order',
+                'Care Order places at home',
+                'Child Protection Plan',
+                'Other Carer'
+            ],
             section1Data: {},
             section2Data: {},
             section3Data: {},

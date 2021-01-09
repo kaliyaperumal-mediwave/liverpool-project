@@ -2086,10 +2086,10 @@ body .ui-widget .ui-menu-item {
   font-size: 16px;
   font-weight: bold;
   @include lg-screen {
-    padding: 24px 30px
+    padding: 24px 30px;
   }
   @include xl-screen {
-    padding: 24px 30px
+    padding: 24px 30px;
   }
 }
 .video-para-bottom {
@@ -2108,10 +2108,10 @@ body .ui-widget .ui-menu-item {
   font-weight: bold;
   color: #a0b0b8;
   @include lg-screen {
-    padding: 2px 18px 20px 30px
+    padding: 2px 18px 20px 30px;
   }
   @include xl-screen {
-    padding: 2px 18px 20px 30px
+    padding: 2px 18px 20px 30px;
   }
 }
 :focus {
@@ -2146,9 +2146,9 @@ body .ui-widget .ui-menu-item {
     padding: 0px 30px;
   }
 }
-.timer-set-rounded{
+.timer-set-rounded {
   color: #023047;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 10px;
   padding: 6px 14px;
   font-size: 14px;

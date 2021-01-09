@@ -245,7 +245,7 @@
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body text-capitalize">
                                 <div class="d-flex align-items-center justify-content-between my-1">
-                                    <h5 class="card-title">{{item.name}}</h5>
+                                    <h3 class="link-text">{{item.name}}</h3>
                                     <div>
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#houseHoldModal" @click="patchHouseHold(item)"><i
@@ -257,9 +257,9 @@
                                         </span>
                                     </div>
                                 </div>
-                                <h6 class="card-subtitle mb-2 text-muted">{{item.relationShip}}</h6>
-                                <p class="card-text">{{item.dob}}</p>
-                                <p class="card-text">{{item.profession}}</p>
+                                <h3 class="link-text">{{item.relationShip}}</h3>
+                                <h3 class="link-text">{{item.dob}}</h3>
+                                <h3 class="link-text">{{item.profession}}</h3>
                             </div>
                         </div>
                     </template>

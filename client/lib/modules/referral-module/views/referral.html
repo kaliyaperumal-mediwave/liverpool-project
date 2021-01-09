@@ -57,7 +57,8 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental&disorder" @change="onOptionChange($event)" value="Mental health & eating disorder">
+                                id="mental&disorder" @change="onOptionChange($event)"
+                                value="Mental health & eating disorder">
                             <label class="form-check-label option-font d-flex align-items-center" for="mental&disorder">
                                 Mental health & eating disorder
                             </label>
@@ -335,7 +336,7 @@
                             <div class="card text-left mb-2" v-for="(item, index) in allAvailableService" :key="index">
                                 <div class="card-body text-capitalize">
                                     <div class="d-flex align-items-center justify-content-between my-1">
-                                        <h5 class="card-title">{{item.name}}</h5>
+                                        <h3 class="link-text">{{item.name}}</h3>
                                         <div>
                                             <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                                 data-target="#serviceModal" @click="patchService(item)"><i
@@ -348,8 +349,8 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{item.professional}}</h6>
-                                    <p class="card-text">{{item.contact}}</p>
+                                    <h3 class="link-text">{{item.professional}}</h3>
+                                    <h3 class="link-text">{{item.contact}}</h3>
                                 </div>
                             </div>
                         </template>
