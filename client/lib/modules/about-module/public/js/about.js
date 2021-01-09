@@ -93,6 +93,7 @@ $(document).ready(function () {
 
             //Initilaizing Google Maps Autocompleted
             initMaps: function () {
+                $('#loader').hide();
                 var _self = this;
                 var childAddress;
                 var houseHoldAddress;

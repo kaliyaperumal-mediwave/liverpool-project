@@ -10,13 +10,12 @@ module.exports = {
       self.dispatch('/', self.middleware.setValues,self.refHome);
     };
     self.refHome = function (req, callback) {
-      console.log(req.data)
       return self.sendPage(req, self.renderer('referral-home', {
         headerContent: "Make a referral to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",
         headerDescription: '',
         backContent: '',
         home: true,
-        logoPath:req.data.logoPath
+        showHeader: true,
       }));
     };
   }

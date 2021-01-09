@@ -49,6 +49,7 @@ $(document).ready(function () {
         methods: {
 
             initMaps: function () {
+                $('#loader').hide();
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('attendedLocation')), {

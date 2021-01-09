@@ -6,27 +6,10 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.role);
+      self.dispatch('/',self.middleware.setValues,self.role);
     };
+    require('../../middleware')(self, options);
     self.role = function (req, callback) {
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage,loginId,userRole;
-      loginId = req.session.loginIdUrl;
-      userRole = req.session.user_role;
-      if(req.session.auth_token)
-      {
-        logoPath="/dashboard"
-        showLogout=true;
-        loginId = req.session.loginIdUrl;
-        userRole = req.session.user_role;
-      }
-      else
-      {
-        logoPath = "/";
-        showLogout=false;
-        loginId = "";
-        userRole = "";
-      }
-      
       return self.sendPage(req, self.renderer('role', {
         headerContent: "Section 1 of 5: Eligibility",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
@@ -34,23 +17,8 @@ module.exports = {
         home: false,
         showHeader: true,
         hideRefButton: false,
-        showLogout: showLogout,
-        logoPath:logoPath,
-        aboutPage:aboutPage,
-        termPage:termPage,
-        privacyPage:privacyPage,
-        feedbackPage:feedbackPage,
-        contactPage:contactPage,
-        navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage,
-        mentalHeathPage:mentalHeathPage,
-        resourcesPage:resourcesPage,
-        loginId:loginId,
-        userRole:userRole
       }));
     };
-    require('../../middleware')(self, options);
     // save eligibitiy
     self.route('post', 'eligibility', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/eligibility';

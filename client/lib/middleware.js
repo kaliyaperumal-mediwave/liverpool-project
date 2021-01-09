@@ -29,20 +29,21 @@ module.exports = function (self, options) {
 
     setValues:function (req,res,next){
       console.log("setValues : "+ req.session.auth_token );
-      req.data.aboutPage = "/pages/about"
-      req.data.termPage = "/pages/terms"
-      req.data.privacyPage = "/pages/privacy"
-      req.data.feedbackPage = "/pages/feedback"
-      req.data.contactPage = "/pages/contact" 
-      req.data.navigateViewRfrl = "/viewreferals" 
-      req.data.urgentHelpPage = "/pages/urgent-help"
-      req.data.mentalHeathPage = "/mental-health"
-      req.data.resourcesPage = "/resources"
-      req.data.navigateMkeRfrl = "/make-referral"
+      req.data.aboutPage = "/pages/about";
+      req.data.termPage = "/pages/terms";
+      req.data.privacyPage = "/pages/privacy";
+      req.data.feedbackPage = "/pages/feedback";
+      req.data.contactPage = "/pages/contact" ;
+      req.data.navigateViewRfrl = "/viewreferals" ;
+      req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.mentalHeathPage = "/mental-health";
+      req.data.resourcesPage = "/resources";
+      req.data.navigateMkeRfrl = "/make-referral";
+      req.data. path = "/role";
       if (req.session.auth_token) {
         console.log("setValues if: "+ req.session.auth_token );
-      //  req.data.loginId = req.session.loginIdUrl;
-      //req.data.userRole = req.session.user_role;
+       req.data.loginId = req.session.loginIdUrl;
+       req.data.userRole = req.session.user_role;
        req.data.logoPath = "/dashboard"
        req.data.showLogout = true;
         return next();
