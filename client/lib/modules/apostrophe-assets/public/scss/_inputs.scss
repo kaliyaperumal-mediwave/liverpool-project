@@ -10,6 +10,7 @@
 
 .form-control {
   @include set-background($primary-input-color, "");
+  // @extend %placeHolder-Wrap;
   @extend %input-shared;
 
   &:focus {
@@ -17,6 +18,8 @@
     outline: none !important;
     box-shadow: none !important;
   }
+
+
 }
 
 .input-group-text {
