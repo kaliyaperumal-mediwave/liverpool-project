@@ -71,7 +71,7 @@ module.exports = {
         if (decodeValues[1] == 'child') {
           labels = "Section 2 of 5: About you & your household";
         } else if (decodeValues[1] == 'parent') {
-          labels = "Section 2 of 5: About the child & their household";
+          labels = "Section 2 of 5: About your child & their household";
         }
         else if (decodeValues[1] == 'professional') {
           labels = "Section 2 of 5: About the child /young person & their household";

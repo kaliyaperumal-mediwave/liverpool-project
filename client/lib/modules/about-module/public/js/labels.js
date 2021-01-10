@@ -54,7 +54,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
     } else if (currentLocation === "parent") {
 
-        section2Labels.headerLabel = "Section 2 of 5: About the child & their household";
+        section2Labels.headerLabel = "Section 2 of 5: About your child & their household";
         section2Labels.aboutYouLabel = "About Your Child";
         section2Labels.houseHoldLabel = "Your child's household";
         section2Labels.carerLabel = "Your Details";

@@ -20,7 +20,6 @@
 
                 <div class="accordion" id="accordionExample">
                     {% raw %}
-
                     <!-- Loader start -->
                     <div class="overlay" id="loader">
                         <div class="overlay__inner">
@@ -55,8 +54,8 @@
                                 </span>
                             </div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    id="toggle1" data-target="#collapseOne" aria-expanded="true"
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer"
+                                    data-toggle="collapse" id="toggle1" data-target="#collapseOne" aria-expanded="true"
                                     @click="toggleArrow($event,1,allSectionData)" aria-controls="collapseOne"></i>
                             </span>
                         </div>
@@ -153,7 +152,8 @@
                                         <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
                                                 <input class="form-control" type="text" placeholder="Enter full name"
-                                                   @keypress="preventWhiteSpaces($event)" @keyup="onDetectChange($event,'sect1')"
+                                                    @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1')"
                                                     v-model="section1Data.professional_name" id="profNameSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
@@ -201,7 +201,7 @@
                                             <div class="input-group">
                                                 <input class="form-control" type="text"
                                                     placeholder="Enter contact number"
-                                                    @keyup="onDetectChange($event,'sect1')" inputmode="tel"
+                                                    @input="onDetectChange($event,'sect1')" inputmode="tel"
                                                     v-model="section1Data.professional_contact_number"
                                                     id="profContactSec5">
                                                 <div class="input-group-append">
@@ -272,8 +272,8 @@
                                 </span>
                             </div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    id="toggle2" data-target="#collapseTwo"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
+                                    data-toggle="collapse" id="toggle2" data-target="#collapseTwo"
                                     @click="toggleArrow($event,2,allSectionData)" aria-expanded="true"
                                     aria-controls="collapseTwo"></i>
                             </span>
@@ -287,7 +287,7 @@
                                         NHS Number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" @keyup="onDetectChange($event,'sect2')" type="text"
+                                        <input class="form-control" @input="onDetectChange($event,'sect2')" type="text"
                                             inputmode="numeric" placeholder="Enter NHS number"
                                             v-model="section2Data.child_NHS" id="nhsNumberSect5">
                                         <small class="invalid-feedback d-none"
@@ -306,7 +306,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" @keyup="onDetectChange($event,'sect2')"
+                                            <input class="form-control" @input="onDetectChange($event,'sect2')"
                                                 placeholder="Enter full name" type="text"
                                                 v-model="section2Data.child_name" id="nameSec5">
                                             <div class="input-group-append">
@@ -330,7 +330,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" @keyup="onDetectChange($event,'sect2')"
+                                            <input class="form-control" @input="onDetectChange($event,'sect2')"
                                                 placeholder="Enter email" inputmode="email" type="text"
                                                 v-model="section2Data.child_email" id="emailSec5">
                                             <div class="input-group-append">
@@ -355,7 +355,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" @keyup="onDetectChange($event,'sect2')"
+                                            <input class="form-control" @input="onDetectChange($event,'sect2')"
                                                 placeholder="Enter contact number" inputmode="tel" type="text"
                                                 v-model="section2Data.child_contact_number" id="cont">
                                             <div class="input-group-append">
@@ -410,7 +410,7 @@
                                         Gender:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
                                             placeholder="Enter gender" v-model="section2Data.child_gender"
                                             id="genderSect5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_gender),
@@ -454,7 +454,7 @@
                                         Sexual orientation:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
                                             placeholder="Enter sexual orientation"
                                             v-model="section2Data.child_sexual_orientation" id="orientSect5">
                                     </div>
@@ -465,7 +465,7 @@
                                         Ethnicity:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
                                             placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity"
                                             id="ethincitySect5">
                                     </div>
@@ -524,7 +524,7 @@
                                         Parent / Carer's Name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
                                             placeholder="Enter name" v-model="section2Data.parent_name" id="parCarName">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_name),
                                     'invalid-fields':!section2Data.parent_name}">
@@ -539,7 +539,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control" readonly type="text"
-                                            @keyup="onDetectChange($event,'sect2')"
+                                            @input="onDetectChange($event,'sect2')"
                                             v-model="section2Data.parential_responsibility" id="parResp">
                                     </div>
                                 </div>
@@ -549,7 +549,7 @@
                                         Relationship:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
                                             placeholder="Enter relationship"
                                             v-model="section2Data.child_parent_relationship" id="relSec5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_parent_relationship),
@@ -567,7 +567,7 @@
                                         <div class="input-group">
                                             <input class="form-control" type="text" inputmode="tel"
                                                 placeholder="Enter contact number"
-                                                @keyup="onDetectChange($event,'sect2')"
+                                                @input="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_contact_number" id="contSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
@@ -594,7 +594,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control" type="text" inputmode="email"
-                                                placeholder="Enter email" @keyup="onDetectChange($event,'sect2')"
+                                                placeholder="Enter email" @input="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_email" id="emailparentSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
@@ -637,7 +637,7 @@
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <textarea readonly class="form-control" type="text"
-                                                @keyup="onDetectChange($event,'sect2')"
+                                                @input="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_address" id="parCarrerAdd5">
                                             </textarea>
                                         </div>
@@ -710,8 +710,8 @@
                             </div>
 
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    id="toggle3" data-target="#collapseThree"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
+                                    data-toggle="collapse" id="toggle3" data-target="#collapseThree"
                                     @click="toggleArrow($event,3,allSectionData)" aria-expanded="true"
                                     aria-controls="collapseThree"></i>
                             </span>
@@ -751,7 +751,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea class="form-control" type="text"
                                             v-model="section3Data.child_education_place" id="childEducationPlace"
-                                            @keyup="onDetectChange($event,'sect3')">
+                                            @input="onDetectChange($event,'sect3')">
                                 </textarea>
                                     </div>
                                 </div>
@@ -817,7 +817,7 @@
                                             <input class="form-control" type="text"
                                                 placeholder="Enter social worker name"
                                                 v-model="section3Data.child_socialworker_name" id="socialworkerNameSec5"
-                                                @keyup="onDetectChange($event,'sect3')">
+                                                @input="onDetectChange($event,'sect3')">
                                         </div>
                                     </div>
 
@@ -830,7 +830,7 @@
                                             <input class="form-control" type="text" inputmode="tel"
                                                 placeholder="Enter social worker number"
                                                 v-model="section3Data.child_socialworker_contact"
-                                                id="socialworkerNumSec5" @keyup="onDetectChange($event,'sect3')">
+                                                id="socialworkerNumSec5" @input="onDetectChange($event,'sect3')">
                                         </div>
                                     </div>
 
@@ -870,8 +870,8 @@
                             </div>
 
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                    id="toggle4" data-target="#collapseFour"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
+                                    data-toggle="collapse" id="toggle4" data-target="#collapseFour"
                                     @click="toggleArrow($event,4,allSectionData)" aria-expanded="true"
                                     aria-controls="collapseFour"></i>
                             </span>
@@ -1018,7 +1018,7 @@
                                     <textarea class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control"
                                         name="infoTextAreas" id="infoAb5" placeholder="" rows="3"
                                         v-model="section4Data.referral_issues"
-                                        @keyup="onDetectChange($event,'sect4')">{{section4Data.referral_issues}}</textarea>
+                                        @input="onDetectChange($event,'sect4')">{{section4Data.referral_issues}}</textarea>
                                 </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
@@ -1028,7 +1028,7 @@
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="hasHelp5" placeholder="" rows="3"
                                         v-model="section4Data.has_anything_helped"
-                                        @keyup="onDetectChange($event,'sect4')">{{section4Data.has_anything_helped}}</textarea>
+                                        @input="onDetectChange($event,'sect4')">{{section4Data.has_anything_helped}}</textarea>
                                 </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
@@ -1038,7 +1038,7 @@
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="trig5" placeholder="" rows="3"
                                         v-model="section4Data.any_particular_trigger"
-                                        @keyup="onDetectChange($event,'sect4')">{{section4Data.any_particular_trigger}}</textarea>
+                                        @input="onDetectChange($event,'sect4')">{{section4Data.any_particular_trigger}}</textarea>
                                 </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
@@ -1048,7 +1048,7 @@
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="textInf0red" placeholder="" rows="3"
                                         v-model="section4Data.disabilities"
-                                        @keyup="onDetectChange($event,'sect4')">{{section4Data.disabilities}}</textarea>
+                                        @input="onDetectChange($event,'sect4')">{{section4Data.disabilities}}</textarea>
                                 </div>
 
                                 <div v-if="checkArrayLength(section4Data.local_services)"

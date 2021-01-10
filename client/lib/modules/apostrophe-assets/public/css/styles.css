@@ -365,6 +365,7 @@
   opacity: 0.3; }
 
 .overlay {
+  display: none;
   left: 0;
   top: 0;
   width: 100%;
@@ -373,7 +374,7 @@
   position: fixed;
   background: #222;
   opacity: 0.5;
-  z-index: 1501; }
+  z-index: 1111111; }
 
 .overlay__inner {
   left: 0;
@@ -403,6 +404,12 @@
 @keyframes spin {
   100% {
     transform: rotate(360deg); } }
+
+.overlay.blurred {
+  display: block; }
+
+.blurred ~ * {
+  filter: blur(4px); }
 
 .custom-select {
   position: relative;

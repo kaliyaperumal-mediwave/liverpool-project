@@ -50,7 +50,19 @@ $(document).ready(function () {
             disableSection1Button: false,
             showLoader: false
         },
+
+        // beforeCreate: function () {
+        //     debugger
+        //     let spinner = document.querySelector("#loader")
+        //     if (spinner.classList.contains("blurred")) {
+        //         spinner.classList.remove("blurred");
+        //     } else {
+        //         spinner.classList.add("blurred")
+        //     }
+        //     $('#loader').show();
+        // },
         beforeMount: function () {
+            // this.blurMe();
             $('#loader').show();
         },
 
@@ -124,15 +136,22 @@ $(document).ready(function () {
                             }
                         }
 
-                        $('#loader').hide();
-                        //self.section4Data.local_services =  _self.section4Data.local_services
-                        //  Vue.set(this.section1Data,data);
+                        // $('#loader').hide();
                     },
                     error: function (error) {
                         $('#loader').hide();
                         console.log('Something went Wrong', error)
                     }
                 });
+            },
+
+            blurMe: function () {
+                let spinner = document.querySelector("#loader")
+                if (spinner.classList.contains("blurred")) {
+                    spinner.classList.remove("blurred");
+                } else {
+                    spinner.classList.add("blurred")
+                }
             },
 
             save: function () {
@@ -376,7 +395,7 @@ $(document).ready(function () {
                         this.payloadData.section1Data = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
-                        this.payloadData.endPoint = endpoint
+                        this.payloadData.endPoint = endpoint;
                         this.upsertInforForm(this.payloadData, 1, e.currentTarget.id);
 
                     } else {
@@ -399,11 +418,9 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (res) {
-                        console.log(res)
                         _self.showLoader = true;
                         buttonElem.disabled = true;
                         $(document.body).css('pointer-events', 'none');
-
                         setTimeout(function () {
                             _self.showLoader = false;
                             _self.resetFormSubmitted(section, res.data);
