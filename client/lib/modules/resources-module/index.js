@@ -12,7 +12,7 @@ module.exports = {
       self.dispatch('/',self.middleware.setValues, self.resources);
       self.dispatch('/lists',self.middleware.setValues, self.lists);
       self.dispatch('/apps',self.middleware.setValues, self.apps);
-      self.dispatch('/things-to-read', self.self.middleware.setValues,thingsToRead);
+      self.dispatch('/things-to-read', self.middleware.setValues,self.thingsToRead);
       self.dispatch('/video',self.middleware.setValues, self.video);
     };
 
