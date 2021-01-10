@@ -81,6 +81,14 @@ $(document).ready(function () {
                 }
             },
 
+            // /Prevention of entering white spaces
+            preventWhiteSpaces: function (e) {
+                debugger
+                if (e.which === 32 && e.target.selectionStart === 0) {
+                    e.preventDefault();
+                }
+            },
+
             resetForm: function () {
                 this.isFormSubmitted = false;
                 this.signUpObject.first_name = '';

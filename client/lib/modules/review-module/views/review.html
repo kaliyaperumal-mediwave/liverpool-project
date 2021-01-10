@@ -177,7 +177,8 @@
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
                                                 <input class="form-control" type="text" inputmode="email"
-                                                    placeholder="Enter email" @input="onDetectChange($event,'sect1')"
+                                                    @keypress="preventWhiteSpaces($event)" placeholder="Enter email"
+                                                    @input="onDetectChange($event,'sect1')"
                                                     v-model="section1Data.professional_email" id="profEmailSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
@@ -201,6 +202,7 @@
                                             <div class="input-group">
                                                 <input class="form-control" type="text"
                                                     placeholder="Enter contact number"
+                                                    @keypress="preventWhiteSpaces($event)"
                                                     @input="onDetectChange($event,'sect1')" inputmode="tel"
                                                     v-model="section1Data.professional_contact_number"
                                                     id="profContactSec5">
@@ -289,7 +291,8 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control" @input="onDetectChange($event,'sect2')" type="text"
                                             inputmode="numeric" placeholder="Enter NHS number"
-                                            v-model="section2Data.child_NHS" id="nhsNumberSect5">
+                                            @keypress="preventWhiteSpaces($event)" v-model="section2Data.child_NHS"
+                                            id="nhsNumberSect5">
                                         <small class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)),
                                         'invalid-fields':(section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)) }">
@@ -307,8 +310,8 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control" @input="onDetectChange($event,'sect2')"
-                                                placeholder="Enter full name" type="text"
-                                                v-model="section2Data.child_name" id="nameSec5">
+                                                @keypress="preventWhiteSpaces($event)" placeholder="Enter full name"
+                                                type="text" v-model="section2Data.child_name" id="nameSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -331,8 +334,9 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control" @input="onDetectChange($event,'sect2')"
-                                                placeholder="Enter email" inputmode="email" type="text"
-                                                v-model="section2Data.child_email" id="emailSec5">
+                                                @keypress="preventWhiteSpaces($event)" placeholder="Enter email"
+                                                inputmode="email" type="text" v-model="section2Data.child_email"
+                                                id="emailSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -356,6 +360,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control" @input="onDetectChange($event,'sect2')"
+                                                @keypress="preventWhiteSpaces($event)"
                                                 placeholder="Enter contact number" inputmode="tel" type="text"
                                                 v-model="section2Data.child_contact_number" id="cont">
                                             <div class="input-group-append">
@@ -411,8 +416,8 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
-                                            placeholder="Enter gender" v-model="section2Data.child_gender"
-                                            id="genderSect5">
+                                            @keypress="preventWhiteSpaces($event)" placeholder="Enter gender"
+                                            v-model="section2Data.child_gender" id="genderSect5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_gender),
                                         'invalid-fields':!section2Data.child_gender }">
                                             You must provide an answer.
@@ -455,6 +460,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
+                                            @keypress="preventWhiteSpaces($event)"
                                             placeholder="Enter sexual orientation"
                                             v-model="section2Data.child_sexual_orientation" id="orientSect5">
                                     </div>
@@ -466,8 +472,8 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
-                                            placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity"
-                                            id="ethincitySect5">
+                                            @keypress="preventWhiteSpaces($event)" placeholder="Enter ethnicity"
+                                            v-model="section2Data.child_ethnicity" id="ethincitySect5">
                                     </div>
                                 </div>
 
@@ -488,6 +494,57 @@
                                     </div>
                                 </div>
 
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
+                                        Household members
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+
+                                        <div class="panel-group" id="accordianHouseHold" role="tablist"
+                                            aria-multiselectable="true">
+                                            <div class="panel panel-default">
+                                                <div class="card text-left mb-2" v-for="(item, index) in mockData"
+                                                    :key="index">
+                                                    <div class="panel-heading" role="tab" id="headingHouse">
+                                                        <h4 class="panel-title">
+                                                            <a role="button" data-toggle="collapse"
+                                                                data-parent="#accordianHouseHold"
+                                                                :href="'#' + item.randomName" aria-expanded="true"
+                                                                :aria-controls="item.randomName">
+                                                                {{item.name}}
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div :id="item.randomName" class="panel-collapse collapse in"
+                                                        role="tabpanel" aria-labelledby="headingHouse">
+                                                        <div class="panel-body">
+                                                            <h3 class="link-text">{{item.relationShip}}</h3>
+                                                            <h3 class="link-text">{{item.dob}}</h3>
+                                                            <h3 class="link-text">{{item.profession}}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div v-if="checkArrayLength(section2Data.household_member)"
+                                    class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
+                                        Household members
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="card text-left mb-2"
+                                            v-for="(item, index) in section2Data.household_member" :key="index">
+                                            <div class="card-body py-2 px-3">
+                                                <div class="d-flex align-items-center justify-content-between my-1">
+                                                    <h5 class="question-font">{{item.name}}</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0 text-capitalize"
@@ -525,7 +582,8 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
-                                            placeholder="Enter name" v-model="section2Data.parent_name" id="parCarName">
+                                            @keypress="preventWhiteSpaces($event)" placeholder="Enter name"
+                                            v-model="section2Data.parent_name" id="parCarName">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_name),
                                     'invalid-fields':!section2Data.parent_name}">
                                             You must provide an name.
@@ -550,7 +608,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control" type="text" @input="onDetectChange($event,'sect2')"
-                                            placeholder="Enter relationship"
+                                            @keypress="preventWhiteSpaces($event)" placeholder="Enter relationship"
                                             v-model="section2Data.child_parent_relationship" id="relSec5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_parent_relationship),
                                     'invalid-fields':!section2Data.child_parent_relationship }">
@@ -566,6 +624,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control" type="text" inputmode="tel"
+                                                @keypress="preventWhiteSpaces($event)"
                                                 placeholder="Enter contact number"
                                                 @input="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_contact_number" id="contSec5">
@@ -594,7 +653,8 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
                                             <input class="form-control" type="text" inputmode="email"
-                                                placeholder="Enter email" @input="onDetectChange($event,'sect2')"
+                                                @keypress="preventWhiteSpaces($event)" placeholder="Enter email"
+                                                @input="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_email" id="emailparentSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
@@ -815,6 +875,7 @@
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <input class="form-control" type="text"
+                                                @keypress="preventWhiteSpaces($event)"
                                                 placeholder="Enter social worker name"
                                                 v-model="section3Data.child_socialworker_name" id="socialworkerNameSec5"
                                                 @input="onDetectChange($event,'sect3')">
@@ -828,6 +889,7 @@
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <input class="form-control" type="text" inputmode="tel"
+                                                @keypress="preventWhiteSpaces($event)"
                                                 placeholder="Enter social worker number"
                                                 v-model="section3Data.child_socialworker_contact"
                                                 id="socialworkerNumSec5" @input="onDetectChange($event,'sect3')">
@@ -1017,7 +1079,7 @@
                                     </label>
                                     <textarea class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control"
                                         name="infoTextAreas" id="infoAb5" placeholder="" rows="3"
-                                        v-model="section4Data.referral_issues"
+                                        @keypress="preventWhiteSpaces($event)" v-model="section4Data.referral_issues"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.referral_issues}}</textarea>
                                 </div>
 
@@ -1028,6 +1090,7 @@
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="hasHelp5" placeholder="" rows="3"
                                         v-model="section4Data.has_anything_helped"
+                                        @keypress="preventWhiteSpaces($event)"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.has_anything_helped}}</textarea>
                                 </div>
 
@@ -1038,6 +1101,7 @@
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="trig5" placeholder="" rows="3"
                                         v-model="section4Data.any_particular_trigger"
+                                        @keypress="preventWhiteSpaces($event)"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.any_particular_trigger}}</textarea>
                                 </div>
 
@@ -1047,7 +1111,7 @@
                                     </label>
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="textInf0red" placeholder="" rows="3"
-                                        v-model="section4Data.disabilities"
+                                        v-model="section4Data.disabilities" @keypress="preventWhiteSpaces($event)"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.disabilities}}</textarea>
                                 </div>
 

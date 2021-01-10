@@ -365,7 +365,6 @@
   opacity: 0.3; }
 
 .overlay {
-  display: none;
   left: 0;
   top: 0;
   width: 100%;
@@ -374,7 +373,7 @@
   position: fixed;
   background: #222;
   opacity: 0.5;
-  z-index: 1111111; }
+  z-index: 1501; }
 
 .overlay__inner {
   left: 0;
@@ -1232,7 +1231,7 @@ a {
   border-bottom-right-radius: 22px; }
 
 .cursor-pointer {
-  cursor: pointer; }
+  cursor: pointer !important; }
 
 .support-logo {
   height: 35px;

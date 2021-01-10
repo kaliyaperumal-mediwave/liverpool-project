@@ -26,6 +26,26 @@ $(document).ready(function () {
                 'Child Protection Plan',
                 'Other Carer'
             ],
+            mockData: [
+                {
+                    "id": "191afd2b-7d38-4486-b8e3-292d10961ad0",
+                    "dob": "10/01/2021",
+                    "mode": "add",
+                    "name": "Rajkumar",
+                    "randomName": "asdasgdg",
+                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
+                    "relationShip": "Parent"
+                },
+                {
+                    "id": "191afd2b-7d38-4486-b8e3-489897897hj",
+                    "dob": "15/01/2021",
+                    "mode": "add",
+                    "name": "RaMkumar",
+                    "randomName": "87cudfjk",
+                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
+                    "relationShip": "Parent"
+                }
+            ],
             allSectionData: [],
             section1Data: {},
             section2Data: {},
@@ -136,7 +156,7 @@ $(document).ready(function () {
                             }
                         }
 
-                        // $('#loader').hide();
+                        $('#loader').hide();
                     },
                     error: function (error) {
                         $('#loader').hide();
@@ -181,6 +201,7 @@ $(document).ready(function () {
             },
 
             checkArrayLength: function (arr) {
+                debugger
                 if (arr && Array.from(arr).length) {
                     return true;
                 } else {

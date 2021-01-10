@@ -339,15 +339,22 @@
                             child registered with?</label>
 
                         <div class="input-group">
-                            <input type="text" class="form-control gpLocation" @keydown="getAddress($event)"
+                            <input type="text" class="form-control gpLocation" @input="getAddress($event)"
                                 placeholder="Start typing to search" id="gpLocation" aria-label="location"
                                 v-model="elgibilityObj.regGpTxt" autocomplete="off">
-                            <div class="input-group-append">
+                            <div id="showInputLoaderProf" class="icon-container d-none">
+                                <i class="inputLoader"></i>
+                            </div>
+                            <div class="input-group-append" id="addOpacityProf">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
+                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3 && !elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">You must
+                            enter 3 characters to start
+                            search</small>
                         <small id="emailHelp" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                     </div>
                 </div>
