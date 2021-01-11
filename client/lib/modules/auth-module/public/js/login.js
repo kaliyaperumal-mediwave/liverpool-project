@@ -1,6 +1,11 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    Vue.use(VueToast);
+    if (false || !!document.documentMode) {
+        // 
+    }
+    else {
+        Vue.use(VueToast);
+    }
     new Vue({
         el: '#user-login',
 
@@ -37,19 +42,24 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        Vue.$toast.success('Login successful.', {
-                            position: 'top',
-                            duration: 1000,
-                            onDismiss: function () {
-                                location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
-                            }
-                        });
+                        if (false || !!document.documentMode) {
+                            alert("Login successful.")
+                            location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                        } else {
+                            Vue.$toast.success('Login successful.', {
+                                position: 'top',
+                                duration: 1000,
+                                onDismiss: function () {
+                                    location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                                }
+                            });
+                        }
+
                     } else {
                         $('#loader').hide();
                     }
 
                 } else {
-                    // scrollToInvalidInput();
                     return false;
                 }
             },

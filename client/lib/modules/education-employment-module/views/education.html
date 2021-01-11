@@ -227,7 +227,8 @@
                                 </p>
                                 <template
                                     v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
@@ -235,7 +236,8 @@
 
                                 <template
                                     v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
@@ -292,13 +294,15 @@
                                     </template>
                                 </p>
                                 <template v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
                                 </template>
                                 <template v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>

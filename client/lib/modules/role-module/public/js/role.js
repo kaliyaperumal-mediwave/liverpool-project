@@ -37,6 +37,8 @@ $(document).ready(function () {
             },
             date: null,
             dateWrap: true,
+            showInputLoader: false,
+            showInputLoaderProf: false,
             options: {
                 //format: 'YYYY/MM/DD',
                 format: 'DD/MM/YYYY',
@@ -296,19 +298,18 @@ $(document).ready(function () {
                 var _self = this;
                 var searchTxt = e.target.value;
                 if (searchTxt.length > 2) {
-                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt
+                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
+                    $('#showInputLoaderProf').removeClass("d-none").addClass("d-block");
+                    $('#addOpacityProf').css('opacity', '0.2');
                     $.ajax({
                         url: gpLink,
                         type: 'get',
                         async: false,
                         success: function (response) {
                             _self.gpListName = [];
-                            _self.gpListName = [];
                             app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
-                            // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
-                                // //console.log(searchTxt.trim())
                                 var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
                                 $.ajax({
                                     url: gpLink,
@@ -316,14 +317,14 @@ $(document).ready(function () {
                                     async: false,
                                     success: function (response) {
                                         _self.gpListName = [];
-                                        _self.gpListName = [];
                                         app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.gpListName;
-                                        ////console.log(payload);
+                                        payload = _self.remove_duplicates(_self.gpListName);
+                                        $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacityProf').css('opacity', '1');
                                         $("#gpLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
@@ -338,7 +339,8 @@ $(document).ready(function () {
                                         });
                                     },
                                     error: function (err) {
-                                        //console.log(err.responseJSON.errorText)
+                                        $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacityProf').css('opacity', '1');
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                                     },
                                 })
@@ -349,14 +351,15 @@ $(document).ready(function () {
                                 for (i = 0; i < _self.gpListShow.length; i++) {
                                     _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                 }
-                                nameData = _self.gpListName;
+                                nameData = _self.remove_duplicates(_self.gpListName);
+                                $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                                $('#addOpacityProf').css('opacity', '1');
                                 $("#gpLocation").autocomplete({
                                     source: nameData,
                                     select: function (event, ui) {
                                         _self.elgibilityObj.regGpTxt = ui.item.value;
                                         app.elgibilityObj.submitForm = "true";
                                         app.elgibilityObj.gpErrMsg = "";
-                                        //console.log(ui);
                                     },
                                     close: function () {
                                         _self.gpFlag = true;
@@ -366,14 +369,31 @@ $(document).ready(function () {
 
                         },
                         error: function (err) {
-                            //console.log(err.responseJSON.errorText)
+                            $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                            $('#addOpacityProf').css('opacity', '1');
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                         },
                     })
 
 
                 }
+                else {
+                    app.elgibilityObj.gpErrMsg = '';
+                    $("#gpLocation").autocomplete({
+                        source: [],
+                        select: function (event, ui) {
 
+                        },
+                        close: function () {
+                            //
+                        }
+                    });
+                }
+
+            },
+
+            getStringLength: function (str) {
+                return str.length;
             },
 
             setAutocompletePostCode: function (data, postCode) {
@@ -434,7 +454,9 @@ $(document).ready(function () {
                 var _self = this;
                 var searchTxt = e.target.value;
                 if (searchTxt.length > 2) {
-                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt
+                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
+                    $('#showInputLoader').removeClass("d-none").addClass("d-block");
+                    $('#addOpacity').css('opacity', '0.2');
                     $.ajax({
                         url: gpLink,
                         type: 'get',
@@ -444,9 +466,7 @@ $(document).ready(function () {
                             _self.gpProfListName = [];
                             app.elgibilityObj.gpErrMsg = "";
                             _self.gpListShow = response.Organisations;
-                            // //console.log(response.Organisations.length<=0)
                             if (response.Organisations.length <= 0) {
-                                // //console.log(searchTxt.trim())
                                 var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
                                 $.ajax({
                                     url: gpLink,
@@ -460,20 +480,22 @@ $(document).ready(function () {
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.gpProfListName;
-                                        //   //console.log(payload);
+                                        payload = _self.remove_duplicates(_self.gpProfListName);
+                                        $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacity').css('opacity', '1');
                                         $("#gpProfLocation").autocomplete({
                                             source: payload,
                                             select: function (event, ui) {
-                                                // //console.log(ui);
                                                 app.elgibilityObj.regProfGpTxt = ui.item.label;
                                                 app.elgibilityObj.submitProfForm = "true";
                                                 app.elgibilityObj.gpErrMsg = "";
                                             },
                                         });
+
                                     },
                                     error: function (err) {
-                                        //  //console.log(err.responseJSON.errorText)
+                                        $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacity').css('opacity', '1');
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                                     },
                                 })
@@ -485,12 +507,12 @@ $(document).ready(function () {
                                     for (i = 0; i < _self.gpListShow.length; i++) {
                                         _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
-                                    nameData = _self.gpProfListName;
-                                    //     //console.log(nameData)
+                                    nameData = _self.remove_duplicates(_self.gpProfListName);
+                                    $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                    $('#addOpacity').css('opacity', '1');
                                     $("#gpProfLocation").autocomplete({
                                         source: nameData,
                                         select: function (event, ui) {
-                                            // //console.log(ui);
                                             app.elgibilityObj.regProfGpTxt = ui.item.label;
                                             app.elgibilityObj.submitProfForm = "true";
                                             app.elgibilityObj.gpErrMsg = "";
@@ -502,12 +524,25 @@ $(document).ready(function () {
 
                         },
                         error: function (err) {
-                            //  //console.log(err.responseJSON.errorText)
+                            $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                            $('#addOpacity').css('opacity', '1');
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
                         },
                     })
 
+                } else {
+                    app.elgibilityObj.gpErrMsg = '';
+                    $("#gpProfLocation").autocomplete({
+                        source: [],
+                        select: function (event, ui) {
+
+                        },
+                        close: function () {
+                            //
+                        }
+                    });
                 }
+
 
 
 
@@ -967,6 +1002,18 @@ $(document).ready(function () {
                 return currentDate;
 
             },
+
+            remove_duplicates: function (arr) {
+                var obj = {};
+                var ret_arr = [];
+                for (var i = 0; i < arr.length; i++) {
+                    obj[arr[i]] = true;
+                }
+                for (var key in obj) {
+                    ret_arr.push(key);
+                }
+                return ret_arr;
+            }
         }
     })
 

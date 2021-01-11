@@ -339,15 +339,22 @@
                             child registered with?</label>
 
                         <div class="input-group">
-                            <input type="text" class="form-control gpLocation" @keydown="getAddress($event)"
+                            <input type="text" class="form-control gpLocation" @input="getAddress($event)"
                                 placeholder="Start typing to search" id="gpLocation" aria-label="location"
                                 v-model="elgibilityObj.regGpTxt" autocomplete="off">
-                            <div class="input-group-append">
+                            <div id="showInputLoaderProf" class="icon-container d-none">
+                                <i class="inputLoader"></i>
+                            </div>
+                            <div class="input-group-append" id="addOpacityProf">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
+                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3 && !elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">You must
+                            enter 3 characters to start
+                            search</small>
                         <small id="emailHelp" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                     </div>
                 </div>
@@ -363,7 +370,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">Great! That’s section 1 finished: You are
+                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: </p>
+                            <p class="question-font text-center m-0 pb-2">You are
                                 eligible
                                 to
                                 continue
@@ -450,12 +458,13 @@
                 <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you have concent from the child/young person's parent/carer for
+                        <p class="question-font m-0">Do you have consent from the child/young person's parent/carer for
                             us
                             to
                             use information that you provide, and share it with other CAMHS partners so that we can help
                             them?</p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                            data-target="#consentModal" class="px-3 cursor-pointer img-class" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="contactProfParent"
@@ -539,7 +548,8 @@
                             information that you provide, and share it with other CAMHS partners so that we can help
                             them?
                         </p>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt="">
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
+                            data-target="#consentModal" class="px-3 cursor-pointer" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="aboutYouParentConcern"
@@ -649,13 +659,21 @@
                             <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
                                 placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
                                 aria-label="location" autocomplete="off">
-                            <div class="input-group-append">
+                            <div id="showInputLoader" class="icon-container d-none">
+                                <i class="inputLoader"></i>
+                            </div>
+                            <div class="input-group-append" id="addOpacity">
                                 <span class="input-group-text">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
-                        <small id="emailHelp" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="gpInfoMessage"
+                            v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3 && !elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">You must
+                            enter 3 characters to start
+                            search</small>
+                        <small id="gpErrorMessage" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                     </div>
                 </div>
             </form>
@@ -670,7 +688,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">Great! That’s section 1 finished: You are
+                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: </p>
+                            <p class="question-font text-center m-0 pb-2">You are
                                 eligible
                                 to
                                 continue

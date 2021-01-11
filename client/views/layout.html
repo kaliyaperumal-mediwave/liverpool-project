@@ -246,6 +246,30 @@ endblock %} {% block extraHead %}
     like headers or navigation.
   #} -->
 
+  <!-- Loader start -->
+  <!-- <div class="overlay" id="loader">
+    <div class="overlay__inner">
+      <div class="overlay__content">
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <!-- Loader end -->
+
+  <!-- Delete Modal Start -->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -253,25 +277,23 @@ endblock %} {% block extraHead %}
         <div class="modal-header justify-content-center">
           <h5 class="logout-font mt-3">Are you sure want to logout?</h5>
           <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
-            <i class="fa fa-times cursor-pointer font-25" aria-hidden="true"></i>
+            <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
           </span>
         </div>
-        <div class="modal-body py-1 px-4">
-          <div class="modal-footer">
-            <button type="submit" class="btn px-md-4 w-50" id="logNoBtn" class="modal-close" data-dismiss="modal">
-              <span class="btn-modal-text">No
-              </span>
-            </button>
-            <button type="submit" class="btn px-md-4 w-50" id="logYesBtn" onclick="logOut()">
-              <span class="btn-modal-text">Yes
-              </span>
-            </button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn px-md-4 w-25" id="logNoBtn" data-dismiss="modal" autofocus>
+            <span class="btn-modal-text">No
+            </span>
+          </button>
+          <button type="submit" class="btn px-md-4 w-25" id="logYesBtn" onclick="logOut()">
+            <span class="btn-modal-text">Yes
+            </span>
+          </button>
         </div>
       </div>
     </div>
-    <!-- Add HouseHold Modal End -->
   </div>
+  <!-- Delete Modal End -->
 
 
   {% endblock %} {% block main %} {# Usually, your page templates in the

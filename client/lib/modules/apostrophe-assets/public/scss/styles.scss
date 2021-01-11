@@ -1,5 +1,6 @@
 @import "config";
 @import "utilities";
+@import "inputLoader";
 @import "mediaQueries";
 @import "tooltip";
 @import "starRating";
@@ -59,10 +60,23 @@ $header-font-size: 32px;
 body {
   font-family: "century-gothic" !important;
 
+  .col-xl-6 {
+    @include lg-secondary {
+      max-width: 60% !important;
+    }
+  }
+
+  input {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
   .readOnly-class {
     .form-control {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
+      @extend %input-shared;
     }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
@@ -72,10 +86,6 @@ body {
       color: #8f979e !important;
     }
     @include placeholder(#8f979e);
-  }
-
-  .custom-select {
-    color: #112f45 !important;
   }
 
   @include placeholder($placeholder-color);
@@ -743,7 +753,7 @@ a {
 }
 
 .cursor-pointer {
-  cursor: pointer;
+  cursor: pointer !important;
 }
 
 .support-logo {
@@ -996,13 +1006,7 @@ a {
 .align-center {
   align-items: center;
 }
-.custom-select {
-  position: relative;
-  background: #e8edee
-    url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
-    no-repeat right 0.75rem center/34px 31px !important;
-  border: none !important;
-}
+
 .redHeader {
   background-color: #e55f5f;
   height: 33px;
@@ -1393,26 +1397,7 @@ select.selectIcon {
 .setHadPad {
   padding: 30px 20px;
 }
-.custom-select-icon {
-  position: relative;
-  background: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
-    no-repeat right 0.75rem center/34px 31px !important;
-  border: none !important;
-  width: 146px;
-  color: #023047;
-  font-weight: bold;
-  font-size: 14px;
-  margin-top: 10px;
-  left: 16px;
-  @include lg-screen {
-    font-size: 16px;
-    width: 158px;
-  }
-  @include xl-screen {
-    font-size: 18px;
-    width: 170px;
-  }
-}
+
 .progress-container {
   height: 67px;
   border-radius: 10px;
@@ -2082,10 +2067,10 @@ body .ui-widget .ui-menu-item {
   font-size: 16px;
   font-weight: bold;
   @include lg-screen {
-    padding: 24px 30px
+    padding: 24px 30px;
   }
   @include xl-screen {
-    padding: 24px 30px
+    padding: 24px 30px;
   }
 }
 .video-para-bottom {
@@ -2104,10 +2089,10 @@ body .ui-widget .ui-menu-item {
   font-weight: bold;
   color: #a0b0b8;
   @include lg-screen {
-    padding: 2px 18px 20px 30px
+    padding: 2px 18px 20px 30px;
   }
   @include xl-screen {
-    padding: 2px 18px 20px 30px
+    padding: 2px 18px 20px 30px;
   }
 }
 :focus {
@@ -2142,9 +2127,9 @@ body .ui-widget .ui-menu-item {
     padding: 0px 30px;
   }
 }
-.timer-set-rounded{
+.timer-set-rounded {
   color: #023047;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 10px;
   padding: 6px 14px;
   font-size: 14px;
