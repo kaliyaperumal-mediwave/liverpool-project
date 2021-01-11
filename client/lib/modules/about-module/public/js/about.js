@@ -312,7 +312,8 @@ $(document).ready(function () {
                 if (responseData && Object.keys(responseData)) {
                     console.log(responseData)
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
+                    //console.log(redirectUrl(location.href, "education", this.userId, this.userRole));
+                   location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
                 } else {
                     $('#loader').hide();
                     console.log('empty response')

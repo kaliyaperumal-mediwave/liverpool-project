@@ -86,9 +86,17 @@ $(document).ready(function () {
                 $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
             }
-            //this.paramValues = getParameter(location.href);
-            //  this.getGP();
-            //  this.getProfGP();
+            this.paramValues = getParameter(location.href);
+             //this.getGP();
+             //this.getProfGP();
+             if (this.paramValues != undefined) {
+                if (this.paramValues[2] != undefined) {
+                    this.elgibilityObj.uuid = this.paramValues[0];
+                    this.elgibilityObj.editFlag = this.paramValues[2]
+                    this.fetchSavedData();
+             }
+
+            }
             // if (this.paramValues != undefined) {
             //     if (this.paramValues[0] == "loginFlag") {
             //         this.elgibilityObj.loginId = this.paramValues[1];

@@ -201,7 +201,6 @@ $(document).ready(function () {
             },
 
             checkArrayLength: function (arr) {
-                debugger
                 if (arr && Array.from(arr).length) {
                     return true;
                 } else {
