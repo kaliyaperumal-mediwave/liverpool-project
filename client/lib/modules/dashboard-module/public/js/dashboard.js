@@ -6,7 +6,7 @@ $(document).ready(function () {
             location: window.location,
             paramValues: '',
             loginId: '',
-            incompleteReferral:[]
+            incompleteReferral: []
         },
 
 
@@ -15,18 +15,19 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-           // this.paramValues = getParameter(location.href)
-               this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
-               this.userRole =document.getElementById('uRole').innerHTML; // hide in layout.html
+            // this.paramValues = getParameter(location.href)
+            this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+            this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.fetchSavedData();
-         console.log(document.getElementById('logId').innerHTML);
-          $('#loader').hide();
+            console.log(document.getElementById('logId').innerHTML);
+            $('#loader').hide();
         },
 
         methods: {
 
             //Fetch Api service Logic
             fetchSavedData: function () {
+                var _self = this;
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
                     url: API_URI + "/getIncompleteReferral/" + this.loginId + "/" + this.userRole,
@@ -35,7 +36,8 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
-                        console.log(data.data[0].referral_progress);
+                        _self.incompleteReferral = data.data
+                        console.log( _self.incompleteReferral);
                         $('#loader').hide();
                     },
                     error: function (error) {
