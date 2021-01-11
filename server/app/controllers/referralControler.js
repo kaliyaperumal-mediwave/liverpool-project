@@ -2061,7 +2061,6 @@ exports.updateAboutInfo = ctx => {
 
     child_gender_birth: ctx.request.body.section2Data.child_gender_birth,
     child_name: ctx.request.body.section2Data.child_name,
-    child_parent_relationship: ctx.request.body.section2Data.child_parent_relationship,
     child_sexual_orientation: ctx.request.body.section2Data.child_sexual_orientation,
   },
     {
@@ -2079,6 +2078,7 @@ exports.updateAboutInfo = ctx => {
           parent_name: ctx.request.body.section2Data.parent_name,
           parent_same_house: ctx.request.body.section2Data.parent_same_house,
           parential_responsibility: ctx.request.body.section2Data.parential_responsibility,
+          child_parent_relationship: ctx.request.body.section2Data.child_parent_relationship,
         },
         {
           where: {
@@ -2098,7 +2098,7 @@ exports.updateAboutInfo = ctx => {
             where: {
               id: ctx.request.body.section2Data.parent_id,
             },
-            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_name', 'parent_same_house', 'parential_responsibility']
+            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_name', 'parent_same_house', 'parential_responsibility','child_parent_relationship']
           }).then((parentResult) => {
 
             const section2Obj = {
