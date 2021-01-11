@@ -12,10 +12,11 @@ module.exports = {
 
     self.login = function (req, callback) {
       req.session.auth_token = "";
+      // changes needed
       req.session.loginFlag = "false";
-      req.session.loginIdUrl ="";
+      req.session.loginIdUrl = "";
       req.session.user_role = "";
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage, resourcesPage;
       logoPath = "/";
       aboutPage = "/pages/about";
       termPage = "/pages/terms";
@@ -25,28 +26,28 @@ module.exports = {
       navigateMkeRfrl = "/make-referral";
       showLogout = false;
       urgentHelpPage = "/pages/urgent-help";
-      mentalHeathPage="/mental-health";
+      mentalHeathPage = "/mental-health";
       resourcesPage = "/resources";
       return self.sendPage(req, self.renderer('login', {
         showHeader: true,
         home: true,
         hideRefButton: true,
-        logoPath:logoPath,
-        aboutPage:aboutPage,
-        termPage:termPage,
-        privacyPage:privacyPage,
-        feedbackPage:feedbackPage,
-        contactPage:contactPage,
-        navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage,
-        mentalHeathPage:mentalHeathPage,
-        resourcesPage:resourcesPage
+        logoPath: logoPath,
+        aboutPage: aboutPage,
+        termPage: termPage,
+        privacyPage: privacyPage,
+        feedbackPage: feedbackPage,
+        contactPage: contactPage,
+        navigateViewRfrl: navigateViewRfrl,
+        navigateMkeRfrl: navigateMkeRfrl,
+        urgentHelpPage: urgentHelpPage,
+        mentalHeathPage: mentalHeathPage,
+        resourcesPage: resourcesPage
       }));
     };
 
     self.sign_up = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage, resourcesPage;
       logoPath = "/";
       aboutPage = "/pages/about";
       termPage = "/pages/terms";
@@ -56,24 +57,24 @@ module.exports = {
       navigateMkeRfrl = "/make-referral";
       showLogout = false;
       urgentHelpPage = "/pages/urgent-help"
-      mentalHeathPage="/mental-health";
+      mentalHeathPage = "/mental-health";
       resourcesPage = "/resources";
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
         home: true,
         showLogout: false,
-        logoPath:logoPath,
+        logoPath: logoPath,
         hideRefButton: true,
-        aboutPage:aboutPage,
-        termPage:termPage,
-        privacyPage:privacyPage,
-        feedbackPage:feedbackPage,
-        contactPage:contactPage,
-        navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage,
-        mentalHeathPage:mentalHeathPage,
-        resourcesPage:resourcesPage
+        aboutPage: aboutPage,
+        termPage: termPage,
+        privacyPage: privacyPage,
+        feedbackPage: feedbackPage,
+        contactPage: contactPage,
+        navigateViewRfrl: navigateViewRfrl,
+        navigateMkeRfrl: navigateMkeRfrl,
+        urgentHelpPage: urgentHelpPage,
+        mentalHeathPage: mentalHeathPage,
+        resourcesPage: resourcesPage
       }));
     };
 
@@ -81,6 +82,7 @@ module.exports = {
     self.route('post', 'doCreateAcc', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/signup';
       self.middleware.post(req, res, url, req.body).then((data) => {
+        // set auth token in session , signup must allow the user to land on dashboard
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
@@ -94,9 +96,10 @@ module.exports = {
         console.log(data)
         if (data) {
           req.session.auth_token = data.data.sendUserResult.token;
-          req.session.user_role=data.data.sendUserResult.role
+          req.session.user_role = data.data.sendUserResult.role
           req.session.loginFlag = "true";
-          req.session.loginIdUrl =  data.data.sendUserResult.loginId
+          // need a change - decrypt
+          req.session.loginIdUrl = data.data.sendUserResult.loginId
           req.session.reload(function () { });
         }
         return res.send(data);
