@@ -118,6 +118,7 @@ function apiCallPost(reqType, endPoint, payload) {
             if (false || !!document.documentMode) {
                 alert("Something went wrong!")
             } else {
+                console.log(error.responseJSON.message)
                 Vue.$toast.error(error.responseJSON.message, {
                     position: 'top',
                     duration: 1000,
@@ -231,16 +232,23 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
     if (base64Matcher.test(getParams)) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
+        console.log(decodeValues[2])
+
         if (decodeValues[2] == "sec5back" && nextPge != "acknowledge") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&sec5back";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;
         }
-        else {
+        else if (decodeValues[2] == "backbutton") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/" + nextPge + "?" + decryptedUrl;
 
+        }
+        else if (decodeValues[2] == undefined) {
+            getParamsRedirect = usrId + "&" + roles;
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/" + nextPge + "?" + decryptedUrl;
         }
     } else {
         getParamsRedirect = usrId + "&" + roles;
@@ -289,7 +297,7 @@ function closeSideDrawer() {
 }
 
 function logOut() {
-    window.location.href = window.location.origin + '/users/login';
+    window.location.href = "/logout";
 }
 
 window.onload = function (e) {

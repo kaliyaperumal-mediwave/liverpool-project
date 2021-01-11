@@ -253,7 +253,8 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "review");
+                   // location.href = redirectUrl(location.href, "review");
+                    location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
                     this.storeDeleteData = null;
                 } else {
                     $('#loader').hide();
