@@ -1,0 +1,33 @@
+.custom-select {
+    @extend %placeHolder-Wrap;
+    position: relative;
+    color: $placeholder-color !important;
+    background: #e8edee
+        url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
+        no-repeat right 0.15rem center/34px 31px !important;
+    border: none !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-select-icon {
+    position: relative;
+    background: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
+        no-repeat right 0.75rem center/34px 31px !important;
+    border: none !important;
+    width: 146px;
+    color: #023047;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    left: 16px;
+    @include lg-screen {
+        font-size: 16px;
+        width: 158px;
+    }
+    @include xl-screen {
+        font-size: 18px;
+        width: 170px;
+    }
+}

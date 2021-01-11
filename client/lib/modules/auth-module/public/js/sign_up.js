@@ -1,6 +1,12 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    Vue.use(VueToast);
+    if (false || !!document.documentMode) {
+
+    }
+    else {
+        Vue.use(VueToast);
+    }
+
     new Vue({
         el: '#user_sign_up',
 
@@ -38,19 +44,24 @@ $(document).ready(function () {
 
             submitSignIn: function () {
                 let formData = this.signUpObject;
-                this.isFormSubmitted = true
-                if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
+                this.isFormSubmitted = true;
+                if ((formData.first_name.trim() && formData.last_name.trim() && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        Vue.$toast.success('Account created.', {
-                            position: 'top',
-                            duration: 1000,
-                            onDismiss: function () {
-                                window.location.href = window.location.origin + '/users/login';
-                            }
-                        });
+                        if (false || !!document.documentMode) {
+                            alert("Account created")
+                            window.location.href = window.location.origin + '/users/login';
+                        } else {
+                            Vue.$toast.success('Account created', {
+                                position: 'top',
+                                duration: 1000,
+                                onDismiss: function () {
+                                    window.location.href = window.location.origin + '/users/login';
+                                }
+                            });
+                        }
 
                     } else {
                         $('#loader').hide();
@@ -67,6 +78,14 @@ $(document).ready(function () {
                     $(elem).attr('type', 'password');
                 } else if ($(elem).attr("type") == "password") {
                     $(elem).attr('type', 'text');
+                }
+            },
+
+            // /Prevention of entering white spaces
+            preventWhiteSpaces: function (e) {
+                debugger
+                if (e.which === 32 && e.target.selectionStart === 0) {
+                    e.preventDefault();
                 }
             },
 

@@ -39,7 +39,7 @@
                 <div class="form-group py-2 m-0">
                     <label for="firstName" class="auth-font my-2">First name</label>
                     <input type="text" placeholder="Enter your first name" class="form-control auth-border"
-                        id="firstName" v-model="signUpObject.first_name">
+                        @keypress="preventWhiteSpaces($event)" id="firstName" v-model="signUpObject.first_name">
                     <div class="invalid-feedback px-1 d-none"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.first_name),'invalid-fields':!signUpObject.first_name }">
                         You must provide a first name.
@@ -49,7 +49,7 @@
                 <div class="form-group py-2 m-0">
                     <label for="lastName" class="auth-font my-2">Last name</label>
                     <input type="text" placeholder="Enter your last name" class="form-control auth-border" id="lastName"
-                        v-model="signUpObject.last_name">
+                        @keypress="preventWhiteSpaces($event)" v-model="signUpObject.last_name">
                     <div class="invalid-feedback px-1 d-none"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.last_name),'invalid-fields':!signUpObject.last_name }">
                         You must provide a last name.

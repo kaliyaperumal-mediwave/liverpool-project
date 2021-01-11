@@ -8,11 +8,45 @@ $(document).ready(function () {
             userMode: '',
             userRole: '',
             yourInfo: '',
-            allSectionData: {},
+            allSectionData: [],
             section5Labels: {
                 aboutLabel: "",
                 referralLabel: ""
             },
+            legalStatusArray: [
+                'Care of Parent',
+                'Care of Local Authority(Liverpool)',
+                'Care of Local Authority(Sefton)',
+                'Care of Local Authority(Other)',
+                'Section 20 Voluntary',
+                'Accommodated',
+                'Full Care Order',
+                'Interim Care Order',
+                'Care Order places at home',
+                'Child Protection Plan',
+                'Other Carer'
+            ],
+            mockData: [
+                {
+                    "id": "191afd2b-7d38-4486-b8e3-292d10961ad0",
+                    "dob": "10/01/2021",
+                    "mode": "add",
+                    "name": "Rajkumar",
+                    "randomName": "asdasgdg",
+                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
+                    "relationShip": "Parent"
+                },
+                {
+                    "id": "191afd2b-7d38-4486-b8e3-489897897hj",
+                    "dob": "15/01/2021",
+                    "mode": "add",
+                    "name": "RaMkumar",
+                    "randomName": "87cudfjk",
+                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
+                    "relationShip": "Parent"
+                }
+            ],
+            allSectionData: [],
             section1Data: {},
             section2Data: {},
             section3Data: {},
@@ -36,7 +70,19 @@ $(document).ready(function () {
             disableSection1Button: false,
             showLoader: false
         },
+
+        // beforeCreate: function () {
+        //     debugger
+        //     let spinner = document.querySelector("#loader")
+        //     if (spinner.classList.contains("blurred")) {
+        //         spinner.classList.remove("blurred");
+        //     } else {
+        //         spinner.classList.add("blurred")
+        //     }
+        //     $('#loader').show();
+        // },
         beforeMount: function () {
+            // this.blurMe();
             $('#loader').show();
         },
 
@@ -78,8 +124,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        //   console.log(data)
-
+                        _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
@@ -112,14 +157,21 @@ $(document).ready(function () {
                         }
 
                         $('#loader').hide();
-                        //self.section4Data.local_services =  _self.section4Data.local_services
-                        //  Vue.set(this.section1Data,data);
                     },
                     error: function (error) {
                         $('#loader').hide();
                         console.log('Something went Wrong', error)
                     }
                 });
+            },
+
+            blurMe: function () {
+                let spinner = document.querySelector("#loader")
+                if (spinner.classList.contains("blurred")) {
+                    spinner.classList.remove("blurred");
+                } else {
+                    spinner.classList.add("blurred")
+                }
             },
 
             save: function () {
@@ -149,6 +201,7 @@ $(document).ready(function () {
             },
 
             checkArrayLength: function (arr) {
+                debugger
                 if (arr && Array.from(arr).length) {
                     return true;
                 } else {
@@ -156,15 +209,23 @@ $(document).ready(function () {
                 }
             },
 
-            toggleArrow: function (e) {
+            toggleArrow: function (e, section, allData) {
                 var ele = e.target;
-                var classList = Array.from(e.target.classList)
-                if (classList.indexOf('fa-chevron-circle-up') > -1) {
-                    $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
-                    // $('.arrowClass').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
-                } else {
-                    $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
-                }
+                var elemId = e.target.id;
+                var allToggleIcons = Array.from(document.getElementsByClassName('arrowClass'));
+                allToggleIcons.filter(function (i) {
+                    if (i.id == elemId) {
+                        if (Array.from(ele.classList).indexOf('fa-chevron-circle-up') > -1) {
+                            $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                        } else {
+                            $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                        }
+                    } else {
+                        $(i).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    }
+                });
+                this.resetValidation(section, allData);
+
             },
 
             getUrlVars: function () {
@@ -355,7 +416,7 @@ $(document).ready(function () {
                         this.payloadData.section1Data = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
-                        this.payloadData.endPoint = endpoint
+                        this.payloadData.endPoint = endpoint;
                         this.upsertInforForm(this.payloadData, 1, e.currentTarget.id);
 
                     } else {
@@ -378,12 +439,13 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (res) {
-                        console.log(res)
                         _self.showLoader = true;
                         buttonElem.disabled = true;
+                        $(document.body).css('pointer-events', 'none');
                         setTimeout(function () {
                             _self.showLoader = false;
-                            _self.resetFormSubmitted(section);
+                            _self.resetFormSubmitted(section, res.data);
+                            $(document.body).css('pointer-events', 'all');
                         }, 3000);
 
                     },
@@ -397,7 +459,14 @@ $(document).ready(function () {
                 });
             },
 
-            resetFormSubmitted: function (section) {
+            // /Prevention of entering white spaces
+            preventWhiteSpaces: function (e) {
+                if (e.which === 32 && e.target.selectionStart === 0) {
+                    e.preventDefault();
+                }
+            },
+
+            resetValidation: function (section, allData) {
                 if (section == 1) {
                     this.isSection1Submitted = false;
                 }
@@ -409,6 +478,32 @@ $(document).ready(function () {
                 }
                 else if (section == 4) {
                     this.isSection4Submitted = false;
+                }
+                //this.allSectionData = allData;
+
+            },
+
+            resetFormSubmitted: function (section, data) {
+                if (section == 1) {
+                    this.isSection1Submitted = false;
+                    this.section1Data = data;
+                    this.allSectionData.section1 = data;
+                }
+                else if (section == 2) {
+                    this.isSection2Submitted = false;
+                    this.section2Data = data;
+                    this.allSectionData.section2 = data;
+                }
+                else if (section == 3) {
+                    this.isSection3Submitted = false;
+                    this.section3Data = data;
+                    this.allSectionData.section3 = data;
+                }
+                else if (section == 4) {
+                    this.isSection4Submitted = false;
+                    this.section4Data = data;
+                    this.allSectionData.section4 = data;
+
                 }
 
             }

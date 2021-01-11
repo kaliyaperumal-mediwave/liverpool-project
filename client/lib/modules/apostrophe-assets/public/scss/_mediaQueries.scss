@@ -44,3 +44,9 @@
         @content;
     }
 }
+
+@mixin lg-secondary {
+    @media (min-width: 1200px) and (max-width: 1499.98px) {
+        @content;
+    }
+}

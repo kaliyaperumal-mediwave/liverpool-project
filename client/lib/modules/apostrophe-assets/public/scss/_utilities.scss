@@ -3,6 +3,12 @@
   opacity: 1;
 }
 
+%placeHolder-Wrap {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 @mixin set-background($color, $opacity) {
   background: $color 0% 0% no-repeat padding-box !important;
   @if ($opacity != "") {
