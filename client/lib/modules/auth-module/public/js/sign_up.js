@@ -45,7 +45,9 @@ $(document).ready(function () {
             submitSignIn: function () {
                 let formData = this.signUpObject;
                 this.isFormSubmitted = true;
-                if ((formData.first_name.trim() && formData.last_name.trim() && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
+                formData.first_name = formData.first_name.trim();
+                formData.last_name = formData.last_name.trim();
+                if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (successData && Object.keys(successData)) {
@@ -68,6 +70,14 @@ $(document).ready(function () {
                     }
                 } else {
                     scrollToInvalidInput();
+                    return false;
+                }
+            },
+
+            trimSpace: function (str) {
+                if (str.replace(/ /g, "").length) {
+                    return true;
+                } else {
                     return false;
                 }
             },
