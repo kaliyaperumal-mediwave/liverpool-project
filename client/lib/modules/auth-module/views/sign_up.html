@@ -39,9 +39,9 @@
                 <div class="form-group py-2 m-0">
                     <label for="firstName" class="auth-font my-2">First name</label>
                     <input type="text" placeholder="Enter your first name" class="form-control auth-border"
-                        @keypress="preventWhiteSpaces($event)" id="firstName" v-model="signUpObject.first_name">
+                        id="firstName" v-model="signUpObject.first_name">
                     <div class="invalid-feedback px-1 d-none"
-                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.first_name),'invalid-fields':!signUpObject.first_name }">
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(signUpObject.first_name)),'invalid-fields':!trimSpace(signUpObject.first_name) }">
                         You must provide a first name.
                     </div>
                 </div>
@@ -49,9 +49,9 @@
                 <div class="form-group py-2 m-0">
                     <label for="lastName" class="auth-font my-2">Last name</label>
                     <input type="text" placeholder="Enter your last name" class="form-control auth-border" id="lastName"
-                        @keypress="preventWhiteSpaces($event)" v-model="signUpObject.last_name">
+                        v-model="signUpObject.last_name">
                     <div class="invalid-feedback px-1 d-none"
-                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.last_name),'invalid-fields':!signUpObject.last_name }">
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(signUpObject.last_name)),'invalid-fields':!trimSpace(signUpObject.last_name) }">
                         You must provide a last name.
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                         <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.password && !passwordRegex.test(signUpObject.password)),
                     'invalid-fields':(signUpObject.password && !passwordRegex.test(signUpObject.password)) }">
                             Your password must include at least 8
-                            characters with one uppercase, one lowercase, one special character.
+                            characters with one uppercase, one lowercase, one number, one special character.
                         </div>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                                 v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)),
                         'invalid-fields':(signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)) }">
                                 Your password must include at least 8
-                                characters with one uppercase, one lowercase, one special character.
+                                characters with one uppercase, one lowercase, one number, one special character.
                             </div>
                             <div class="invalid-feedback px-1 d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password&&passwordRegex.test(signUpObject.confirm_password)&&(signUpObject.password !=signUpObject.confirm_password)),'invalid-fields':!signUpObject.confirm_password }">
