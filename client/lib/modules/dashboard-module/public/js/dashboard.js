@@ -5,8 +5,10 @@ $(document).ready(function () {
         data: {
             location: window.location,
             paramValues: '',
-            loginId: '7'
+            loginId: '',
+            incompleteReferral:[]
         },
+
 
         beforeMount: function () {
             $('#loader').show();
@@ -14,9 +16,9 @@ $(document).ready(function () {
 
         mounted: function () {
            // this.paramValues = getParameter(location.href)
-               this.loginId = document.getElementById('logId').innerHTML;
-          //  this.userRole = this.paramValues[1];
-          //  this.fetchSavedData();
+               this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+               this.userRole =document.getElementById('uRole').innerHTML; // hide in layout.html
+            this.fetchSavedData();
          console.log(document.getElementById('logId').innerHTML);
           $('#loader').hide();
         },
@@ -33,7 +35,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
-                        console.log(data);
+                        console.log(data.data[0].referral_progress);
                         $('#loader').hide();
                     },
                     error: function (error) {

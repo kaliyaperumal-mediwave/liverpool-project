@@ -21,9 +21,8 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.paramValues = getParameter(location.href)
-            this.viewReferralObj.loginId = this.paramValues[0];
-            this.viewReferralObj.userRole = this.paramValues[1]
+            this.viewReferralObj.loginId =  document.getElementById('logId').innerHTML; // hide in layout.html
+            this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
             this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)
         },
 

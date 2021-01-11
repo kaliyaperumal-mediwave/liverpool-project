@@ -125,11 +125,13 @@ endblock %} {% block extraHead %}
                   Make a referral
                 </div>
               </a>
-              <!-- <a href="{{ data.navigateViewRfrl }}">
+              {% if data.showLogout %}
+              <a href="{{ data.navigateViewRfrl }}">
                 <div class="border-bottom-0 cursor-pointer inside-cont-slider">
                   Saved referral
                 </div>
-              </a> -->
+              </a>
+              {% endif %}
             </div>
           </div>
           <div class="inside-cont-slider cursor-pointer">
