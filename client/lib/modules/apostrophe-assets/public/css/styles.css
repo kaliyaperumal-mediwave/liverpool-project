@@ -57,6 +57,27 @@
   animation: around 0.7s ease-in-out 0.1s infinite;
   background: transparent; }
 
+.middleContainer:after {
+  content: "";
+  display: block; }
+
+.footer-bg, .middleContainer:after {
+  min-height: 100%; }
+
+.middleContainer {
+  min-height: 100vh;
+  margin-bottom: -96px; }
+
+.set-mid-padding {
+  padding-bottom: 96px; }
+
+@media (max-width: 1200px) {
+  .middleContainer {
+    min-height: 100vh;
+    margin-bottom: -81px; }
+  .set-mid-padding {
+    padding-bottom: 80px; } }
+
 .tooltip {
   position: relative;
   display: inline-block;
@@ -1172,7 +1193,8 @@ a {
 
 .body-bg {
   background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
-  background-size: cover !important; }
+  background-size: cover !important;
+  height: 100%; }
 
 .sub-header-bg {
   background: #012f46 0% 0% no-repeat padding-box !important;
@@ -1194,7 +1216,8 @@ a {
 
 .footer-bg {
   background: #023047 0% 0% no-repeat padding-box !important;
-  opacity: 1; }
+  opacity: 1;
+  width: 100%; }
 
 .main-content-bg {
   background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
@@ -1495,10 +1518,17 @@ a {
   padding-left: 24px;
   padding-right: 24px;
   align-items: center; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .footer-container {
+      padding-left: 10px;
+      padding-right: 10px; } }
 
 .footer-text {
   font-size: 16px !important;
   display: flex; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .footer-text {
+      font-size: 14px !important; } }
 
 .slider-header {
   color: #fff;
@@ -1970,13 +2000,7 @@ select.selectIcon {
     width: 140px;
     height: 50px; }
   .footer-container {
-    display: table-caption;
-    height: fit-content;
-    justify-content: flex-start;
-    padding-left: 70px;
-    padding-right: 70px;
-    padding-top: 60px;
-    padding-bottom: 60px; }
+    height: fit-content; }
   .fontHeader {
     font-size: 40px;
     font-weight: bold; }
@@ -2519,3 +2543,6 @@ body .ui-widget .ui-menu-item {
   float: right;
   right: 14px;
   bottom: 46px; }
+
+.even-width {
+  width: 200px; }

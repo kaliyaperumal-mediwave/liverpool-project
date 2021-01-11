@@ -2,6 +2,7 @@
 @import "utilities";
 @import "inputLoader";
 @import "mediaQueries";
+@import "footer";
 @import "tooltip";
 @import "starRating";
 @import "calendar";
@@ -13,6 +14,7 @@
 @import "loader";
 @import "select";
 @import "toast";
+
 
 $primary-header-color: #8ecae6;
 $sub-header-color: #012f46;
@@ -699,6 +701,7 @@ a {
 .body-bg {
   background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
   background-size: cover !important;
+  height: 100%;
 }
 
 .sub-header-bg {
@@ -721,8 +724,8 @@ a {
 
 .footer-bg {
   @include set-background($primary-color, 1);
+  width: 100%;
 }
-
 .main-content-bg {
   background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
@@ -1062,10 +1065,17 @@ a {
   padding-left: 24px;
   padding-right: 24px;
   align-items: center;
+  @include xxs-screen-between{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 .footer-text {
   font-size: 16px !important;
   display: flex;
+  @include xxs-screen-between{
+    font-size: 14px !important;
+  }
 }
 .slider-header {
   color: #fff;
@@ -1564,13 +1574,7 @@ select.selectIcon {
     height: 50px;
   }
   .footer-container {
-    display: table-caption;
     height: fit-content;
-    justify-content: flex-start;
-    padding-left: 70px;
-    padding-right: 70px;
-    padding-top: 60px;
-    padding-bottom: 60px;
   }
   .fontHeader {
     font-size: 40px;
@@ -2139,4 +2143,7 @@ body .ui-widget .ui-menu-item {
   float: right;
   right: 14px;
   bottom: 46px;
+}
+.even-width{
+  width: 200px;
 }
