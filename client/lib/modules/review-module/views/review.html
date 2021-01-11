@@ -529,23 +529,6 @@
                                     </div>
                                 </div> -->
 
-                                <div v-if="checkArrayLength(section2Data.household_member)"
-                                    class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
-                                        Household members
-                                    </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <div class="card text-left my-2"
-                                            v-for="(item, index) in section2Data.household_member" :key="index">
-                                            <div class="card-body py-2 px-3">
-                                                <div class="d-flex align-items-center justify-content-between my-1">
-                                                    <h5 class="question-font">{{item.name}}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0 text-capitalize"
                                         for="caresAdultSect5">
