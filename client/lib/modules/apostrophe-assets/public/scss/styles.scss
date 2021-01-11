@@ -15,7 +15,6 @@
 @import "select";
 @import "toast";
 
-
 $primary-header-color: #8ecae6;
 $sub-header-color: #012f46;
 $primary-content-bg-img: url("/modules/my-apostrophe-assets/img/desktop.svg");
@@ -32,31 +31,36 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
+    format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
+    format("truetype");
 }
 
 body {
@@ -120,12 +124,6 @@ body {
 
   .font-25 {
     font-size: 25px !important;
-  }
-
-  .custom-select:focus {
-    border-color: none !important;
-    outline: 0;
-    box-shadow: none !important;
   }
 
   .ui-widget-content {
@@ -699,7 +697,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed !important;
   background-size: cover !important;
   height: 100%;
 }
@@ -727,7 +726,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -1065,7 +1065,7 @@ a {
   padding-left: 24px;
   padding-right: 24px;
   align-items: center;
-  @include xxs-screen-between{
+  @include xxs-screen-between {
     padding-left: 10px;
     padding-right: 10px;
   }
@@ -1073,7 +1073,7 @@ a {
 .footer-text {
   font-size: 16px !important;
   display: flex;
-  @include xxs-screen-between{
+  @include xxs-screen-between {
     font-size: 14px !important;
   }
 }
@@ -2144,6 +2144,55 @@ body .ui-widget .ui-menu-item {
   right: 14px;
   bottom: 46px;
 }
-.even-width{
+.even-width {
   width: 200px;
+}
+.home-header-primaryh2para h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: #023047;
+}
+@media (max-width: 575.98px) {
+  .home-header-primaryh2para h2 {
+    font-size: 30px !important;
+    letter-spacing: 1.5px !important;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .home-header-primaryh2para h2 {
+    font-size: 32px !important;
+    letter-spacing: 1.5px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .home-header-primaryh2para h2 {
+    font-size: 36px !important;
+    letter-spacing: 1.5px !important;
+  }
+}
+
+.home-header-primaryh2para p {
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+  color: #023047;
+}
+@media (max-width: 575.98px) {
+  .home-header-primaryh2para p {
+    font-size: 16px !important;
+    letter-spacing: 0.64px !important;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .home-header-primaryh2para p {
+    font-size: 18px !important;
+    letter-spacing: 0.64px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .home-header-primaryh2para p {
+    font-size: 22px !important;
+    letter-spacing: 1.5px !important;
+  }
 }

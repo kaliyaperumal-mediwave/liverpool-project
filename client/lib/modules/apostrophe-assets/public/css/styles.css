@@ -440,6 +440,11 @@
   overflow: hidden;
   text-overflow: ellipsis; }
 
+.custom-select:focus {
+  border-color: none !important;
+  outline: 0;
+  box-shadow: none !important; }
+
 .custom-select-icon {
   position: relative;
   background: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat right 0.75rem center/34px 31px !important;
@@ -632,10 +637,6 @@ body {
     font-size: 20px !important; }
   body .font-25 {
     font-size: 25px !important; }
-  body .custom-select:focus {
-    border-color: none !important;
-    outline: 0;
-    box-shadow: none !important; }
   body .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -2546,3 +2547,45 @@ body .ui-widget .ui-menu-item {
 
 .even-width {
   width: 200px; }
+
+.home-header-primaryh2para h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: #023047; }
+
+@media (max-width: 575.98px) {
+  .home-header-primaryh2para h2 {
+    font-size: 30px !important;
+    letter-spacing: 1.5px !important; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .home-header-primaryh2para h2 {
+    font-size: 32px !important;
+    letter-spacing: 1.5px !important; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .home-header-primaryh2para h2 {
+    font-size: 36px !important;
+    letter-spacing: 1.5px !important; } }
+
+.home-header-primaryh2para p {
+  font-size: 24px;
+  text-align: center;
+  font-weight: bold;
+  color: #023047; }
+
+@media (max-width: 575.98px) {
+  .home-header-primaryh2para p {
+    font-size: 16px !important;
+    letter-spacing: 0.64px !important; } }
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .home-header-primaryh2para p {
+    font-size: 18px !important;
+    letter-spacing: 0.64px !important; } }
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .home-header-primaryh2para p {
+    font-size: 22px !important;
+    letter-spacing: 1.5px !important; } }
