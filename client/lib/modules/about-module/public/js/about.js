@@ -110,7 +110,8 @@ $(document).ready(function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
                 });
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
+                   // _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
+                   _self.houseHoldData.profession = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
                 });
 
                 google.maps.event.addListener(parentAddress, 'place_changed', function () {
