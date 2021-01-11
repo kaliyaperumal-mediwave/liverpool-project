@@ -33,7 +33,8 @@ $(document).ready(function () {
                 contactProfParent: '',
                 regProfGpTxt: '',
                 profEmail: '',
-                disableRole: false
+                disableRole: false,
+                reasonContactParent:''
             },
             date: null,
             dateWrap: true,
@@ -251,6 +252,11 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactParent = optionValue;
                 }
+                else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
+                    console.log(event.target.form)
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.reasonContactParent = optionValue;
+                }
                 else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.isInformation = optionValue;
@@ -291,7 +297,6 @@ $(document).ready(function () {
                 }
                 return age;
             },
-
 
             getAddress: function (e) {
                 var nameData;
@@ -379,6 +384,7 @@ $(document).ready(function () {
                 }
                 else {
                     app.elgibilityObj.gpErrMsg = '';
+                    app.elgibilityObj.submitForm = "false";
                     $("#gpLocation").autocomplete({
                         source: [],
                         select: function (event, ui) {
@@ -532,6 +538,7 @@ $(document).ready(function () {
 
                 } else {
                     app.elgibilityObj.gpErrMsg = '';
+                    app.elgibilityObj.submitProfForm = "false";
                     $("#gpProfLocation").autocomplete({
                         source: [],
                         select: function (event, ui) {

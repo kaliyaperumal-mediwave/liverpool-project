@@ -172,6 +172,33 @@
                     </div>
                 </div>
             </form>
+
+            <form id="reason-parentcontact-form" data-options="contact_Parent">
+                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes' && elgibilityObj.contactParent=='yes'"
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">Is there any reason why your
+                            parent/carer cannot be contacted by a
+                            member of the CAMHS partnership
+                            during this referral process?</p>
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" name="reasonParentContact"
+                            v-model="elgibilityObj.reasonContactParent" id="reasonContactNo" value="no" @change="onChange($event)">
+                        <label class="form-check-label option-font d-flex align-items-center" for="reasonContactNo">
+                            No
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="reasonParentContact"
+                            v-model="elgibilityObj.reasonContactParent" id="reasonContactYes" value="yes"
+                            @change="onChange($event)">
+                        <label class="form-check-label option-font d-flex align-items-center" for="reasonContactYes">
+                            Yes
+                        </label>
+                    </div>
+                </div>
+            </form>
             <!-- Age under 14 end-->
 
 
@@ -224,7 +251,7 @@
             <!-- toster-container start -->
 
             <!-- toster-container start -->
-            <form id="contactParent-AgeLimit-form" data-options="contactParent">
+            <form id="contactParent-AgeLimit-form" data-options="contact_Parent">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.contactParent == 'no' && elgibilityObj.childDob!=null"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -253,7 +280,7 @@
 
 
             <!-- consent start-->
-            <form id="isInformation-form3" data-options="contactParent">
+            <form id="isInformation-form3" data-options="reasonContactParent">
                 <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
