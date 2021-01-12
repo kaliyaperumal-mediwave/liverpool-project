@@ -16,7 +16,7 @@ $(document).ready(function () {
 
         mounted: function () {
             // this.paramValues = getParameter(location.href)
-            this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+        //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.fetchSavedData();
             console.log(document.getElementById('logId').innerHTML);

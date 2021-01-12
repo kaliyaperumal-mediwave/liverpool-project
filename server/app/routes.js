@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const referralControler = require('./controllers/referralControler');
 const authController = require('./controllers/authController');
 const validateToken = require('./utils/utils').validateToken;
+const commonAuth = require('./utils/utils').commonAuth;
 const router = new Router();
 
 
@@ -10,7 +11,7 @@ const router = new Router();
 
 //referral
 
-router.post('/user/eligibility', referralControler.eligibility);
+router.post('/user/eligibility',commonAuth, referralControler.eligibility);
 router.get('/user/fetchEligibility', referralControler.fetchEligibility);
 router.put('/user/updateEligibilityInfo', referralControler.updateEligibilityInfo);
 

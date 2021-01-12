@@ -77,39 +77,21 @@ $(document).ready(function () {
 
         mounted: function () {
 
-            var logId = document.getElementById('logId').innerHTML;
-            console.log(!logId);
-            console.log(document.getElementById('uRole').innerHTML)
-            if (logId) {
-                this.elgibilityObj.loginId = logId;
-                this.elgibilityObj.role = document.getElementById('uRole').innerHTML;
+            var userRole = document.getElementById('uRole').innerHTML;
+            if (userRole) {
+                this.elgibilityObj.role = userRole;
                 $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
             }
             this.paramValues = getParameter(location.href);
-             //this.getGP();
-             //this.getProfGP();
-             if (this.paramValues != undefined) {
+            if (this.paramValues != undefined) {
                 if (this.paramValues[2] != undefined) {
                     this.elgibilityObj.uuid = this.paramValues[0];
                     this.elgibilityObj.editFlag = this.paramValues[2]
                     this.fetchSavedData();
-             }
+                }
 
             }
-            // if (this.paramValues != undefined) {
-            //     if (this.paramValues[0] == "loginFlag") {
-            //         this.elgibilityObj.loginId = this.paramValues[1];
-            //         this.elgibilityObj.role = this.paramValues[2];
-            //         $('input[name=role]').attr("disabled", true);
-            //         $('#loader').hide();
-            //     }
-            //     else if (this.paramValues[2] != undefined) {
-            //         this.elgibilityObj.uuid = this.paramValues[0];
-            //         this.elgibilityObj.editFlag = this.paramValues[2]
-            //         this.fetchSavedData();
-            //     }
-            // }
             $('#loader').hide();
         },
 
@@ -154,7 +136,6 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
                     $('input[name=role]').attr("disabled", true);
-                    //   this.getGP();
                 }
                 else if (roleType == "parent") {
 
@@ -166,7 +147,6 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
-                    //  this.getGP();
                 }
                 else if (roleType == "professional") {
                     Vue.set(this.elgibilityObj, "role", roleType);
@@ -180,78 +160,9 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
-                    //  this.getProfGP();
                 }
 
             },
-            // getGP: function () {
-            //     var _self = this;
-            //     gpList = [];
-            //  //  var gpLink= "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?name"+ txtValue
-            //     $.ajax({
-            //         url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
-            //         type: 'get',
-            //         success: function (response) {
-            //             _self.gpListShow = response.Organisations;
-            //             for (i = 0; i < _self.gpListShow.length; i++) {
-            //                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
-            //                 //_self.gpListPost.push(_self.gpListShow[i].PostCode)
-            //             }
-            //             displayNameList = _self.gpListName;
-            //             displayPostList = _self.gpListPost;
-            //             ////console.log(displayNameList);
-            //             $("#gpLocation").autocomplete({
-            //                 source: displayNameList,
-            //                 response: function (event, ui) {
-            //                     if (ui.content.length == 0) {
-            //                         //alert("gp n")
-            //                         $(this).trigger('keydown');
-            //                     } else {
-
-            //                         ////console.log(ui.content.length);
-            //                     }
-            //                 }
-            //             });
-
-            //         },
-            //         error: function (err) {
-            //             //console.log(err)
-            //         },
-            //     })
-            // },
-
-            // getProfGP: function () {
-            //     var _self = this;
-            //     gpList = [];
-            //     $.ajax({
-            //         url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
-            //         type: 'get',
-            //         success: function (response) {
-            //             this.gpListShow = response.Organisations;
-            //             for (i = 0; i < this.gpListShow.length; i++) {
-            //                 _self.gpProfListName.push(this.gpListShow[i].Name + ',' + this.gpListShow[i].PostCode);
-            //                 //    _self.gpProfListPost.push(this.gpListShow[i].PostCode)
-            //             }
-            //             displayNameList = _self.gpProfListName;
-            //             displayPostList = _self.gpProfListPost;
-
-            //             $("#gpProfLocation").autocomplete({
-            //                 source: displayNameList,
-            //                 response: function (event, ui) {
-            //                     if (ui.content.length == 0) {
-            //                         $(this).trigger('keydown');
-            //                     } else {
-            //                     }
-            //                 }
-            //             });
-            //             return;
-            //         },
-            //         error: function (err) {
-            //             //console.log(err)
-            //         },
-            //     })
-            // },
-
 
             onChange: function (event) {
                 var questionIdentifier = event.target.name;
@@ -349,7 +260,6 @@ $(document).ready(function () {
                                                 _self.gpFlag = true;
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.submitForm = "true";
-                                                // //console.log(ui);
                                             },
                                             close: function () {
                                                 _self.gpFlag = true;
@@ -458,15 +368,8 @@ $(document).ready(function () {
                     error: function (err) {
                         // //console.log(err)
                     },
-                })
-
-
-
+                })  
             },
-
-
-
-
             getProfAddress: function (e) {
                 var nameData;
                 var _self = this;
@@ -560,31 +463,6 @@ $(document).ready(function () {
                         }
                     });
                 }
-
-
-
-
-
-                // var _self = this;
-                // var selectFlag = false;
-                // //  this.elgibilityObj.registerd_gp = {};
-                // $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
-                //     //   //console.log(ui.item.label);
-                //     if (e.target.value === '') {
-                //         app.elgibilityObj.submitProfForm = "false";
-                //     } else {
-                //         selectFlag = true;
-                //         app.elgibilityObj.regProfGpTxt = ui.item.label;
-                //         app.elgibilityObj.submitProfForm = "true";
-                //     }
-                // });
-                // if (e.target.value.length === 0) {
-                //     app.elgibilityObj.submitProfForm = "false";
-                // }
-                // else {
-                //     app.elgibilityObj.submitProfForm = "true";
-                // }
-
             },
 
             selectGp: function () {
@@ -752,15 +630,11 @@ $(document).ready(function () {
             },
 
             save: function () {
-                // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
-                //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
-                //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
                 this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
-                //console.log(this.elgibilityObj.role);
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
@@ -841,15 +715,12 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                        //alert("section 1 saved.");
-                        // //console.log(data);
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
                         if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
                             var url = window.location.href.split('?')[0];
-                            //  //console.log(url)
                             location.href = redirectUrl(url, "about", data.userid, role);
                         }
                         else {
@@ -859,7 +730,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         $('#loader').hide();
-                        //console.log(error.responseJSON.message)
+                        console.log(error.responseJSON.message)
                     }
                 });
             },
@@ -889,13 +760,10 @@ $(document).ready(function () {
                 var ddChars = dd.split('');
                 var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
                 this.dateFmt = yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])
-                // 'DD/MM/YYYY'
-                // return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 return showDate;
             },
 
             setDate: function (dbDate) {
-                //console.log(dbDate.split("/"))
                 var dateArray = dbDate.split("/");
                 var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
                 var date = new Date(toOldFmt)
@@ -906,17 +774,13 @@ $(document).ready(function () {
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
                 var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
-                // 'DD/MM/YYYY'
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
-                //return showDate;
             },
 
             fetchAgeLogic: function (dbdob, roleText) {
-                //          //console.log(dbdob);
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
-                //          //console.log(age);
                 if (roleText == 'child') {
                     if (age < 15) {
 
