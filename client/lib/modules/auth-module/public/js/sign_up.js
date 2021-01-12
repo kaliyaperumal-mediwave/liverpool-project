@@ -44,17 +44,20 @@ $(document).ready(function () {
 
             submitSignIn: function () {
                 let formData = this.signUpObject;
+                var hidePointer = document.body;
                 this.isFormSubmitted = true;
                 formData.first_name = formData.first_name.trim();
                 formData.last_name = formData.last_name.trim();
                 formData.password = formData.password.trim();
                 if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     $('#loader').show();
+                    hidePointer.style.pointerEvents = "none";
                     var successData = apiCallPost('post', '/doCreateAcc', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
                         if (false || !!document.documentMode) {
-                            alert("Account created")
+                            alert("Account created");
+                            hidePointer.style.pointerEvents = "none";
                             // window.location.href = window.location.origin + '/users/login';
                             location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
                         } else {
@@ -66,6 +69,7 @@ $(document).ready(function () {
                                     location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
                                 }
                             });
+                            hidePointer.style.pointerEvents = "none";
                         }
 
                     } else {

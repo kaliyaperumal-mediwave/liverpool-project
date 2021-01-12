@@ -36,15 +36,18 @@ $(document).ready(function () {
 
             submitLogin: function () {
                 var formData = this.loginObject;
+                var hidePointer = document.body;
                 this.isFormSubmitted = true;
                 formData.password = formData.password.trim();
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
+                    hidePointer.style.pointerEvents = "none";
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
                         if (false || !!document.documentMode) {
-                            alert("Login successful.")
+                            alert("Login successful.");
+                            hidePointer.style.pointerEvents = "none";
                             location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                         } else {
                             Vue.$toast.success('Login successful.', {
@@ -54,6 +57,7 @@ $(document).ready(function () {
                                     location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                                 }
                             });
+                            hidePointer.style.pointerEvents = "none";
                         }
 
                     } else {
