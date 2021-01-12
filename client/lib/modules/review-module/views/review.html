@@ -543,7 +543,7 @@
                                             <template v-if="section2Data.child_care_adult == 'no'">
                                                 <option value="yes">yes
                                                 </option>
-                                                <option value="unsure">nsure
+                                                <option value="unsure">unsure
                                             </template>
                                             <template v-if="section2Data.child_care_adult == 'yes'">
                                                 <option value="no">no
@@ -1017,11 +1017,9 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red">
                                         Diagnoses:
                                     </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="form-control h-50" name="infoTextAreas" id="textInf0red"
-                                            placeholder="" rows="3" v-model="section4Data.diagnosis"
-                                            readonly>{{section4Data.diagnosis}}</textarea>
-                                    </div>
+                                    <textarea class="form-control col-md-6 col-lg-6 col-xl-5 col-11 px-0 h-50"
+                                        name="infoTextAreas" id="textInf0red" placeholder="" rows="3"
+                                        v-model="section4Data.diagnosis" readonly>{{section4Data.diagnosis}}</textarea>
                                 </div>
 
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
@@ -1049,7 +1047,7 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red24">
                                         Symptoms:
                                     </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11">
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea class="h-50 form-control" name="infoTextAreas" id="textInf0red24"
                                             placeholder="" rows="3" v-model="section4Data.symptoms"
                                             readonly>{{section4Data.symptoms}}</textarea>
@@ -1098,14 +1096,17 @@
                                         @input="onDetectChange($event,'sect4')">{{section4Data.disabilities}}</textarea>
                                 </div>
 
+
                                 <div v-if="checkArrayLength(section4Data.local_services)"
-                                    class="readOnly-class py-3 row align-items-center">
-                                    <label class="question-font col-12 col-md-4">
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                         Accessed Services
                                     </label>
-                                    <textarea class="h-50 col-md-6 col-lg-6 col-xl-5 col-11 form-control"
-                                        name="infoTextAreas" placeholder="" rows="3" readonly
-                                        v-model="section4Data.local_services">{{section4Data.local_services}}</textarea>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea class="h-50 form-control" name="infoTextAreas" placeholder="" rows="3"
+                                            readonly
+                                            v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
+                                    </div>
                                 </div>
 
                                 <div class="text-center py-4">
