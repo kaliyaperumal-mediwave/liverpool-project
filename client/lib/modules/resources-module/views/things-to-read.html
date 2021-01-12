@@ -1,0 +1,197 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+<script src="/modules/resources-module/js/resources.js"></script>
+
+{% endblock %}
+{% block main %}
+<div id="resources_user" class="main-min-height">
+    <div class="top-arrow-container" id="searchBar">
+        <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
+        <div class="resource_text">Real life experiences</div>
+        <div class="input-group">
+            <span class="input-group-prepend">
+                <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
+                    <span style="color: #023047 !important;">
+                        <i class="fal fa-search font-23"></i>
+                    </span>
+                </div>
+            </span>
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                placeholder="Search your story" id="example-search-input">
+        </div>
+        <div class="text_inside_cont">
+            Here are different real life experiences of users currently using the platform
+        </div>
+        </a>
+        <div class="text_inside_video">
+            <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="img-placeholder" />
+            <div class="body-cont-set">
+                <div class="read-cont-h1">
+                    Depression
+                </div>
+                <div class="read-cont-p">
+                    Inside the life of Hannah
+                </div>
+
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+                nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et
+                accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
+                ipsum
+                dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+                invidunt ut labore et dolore magna aliquyam erat, sed diam
+            </div>
+        </div>
+        <div class="selectSource">
+            More to read
+        </div>
+        <div class="large-toggle-cont no-padding">
+            <div class="video-title-top">
+                The life of Thomas in the city
+            </div>
+            <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
+            <div class="video-para-bottom">
+                Learn how Thomas used this platform to get back on track
+            </div>
+            <div class="video-placed-ago">
+                4 hours ago
+            </div>
+        </div>
+        <div class="large-toggle-cont no-padding">
+            <div class="video-title-top">
+                Hannah delves into her love life
+            </div>
+            <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
+            <div class="video-para-bottom">
+                Hannah’s story is both inspiring and inspiration to her generation
+            </div>
+            <div class="video-placed-ago">
+                4 hours ago
+            </div>
+        </div>
+        <div class="large-toggle-cont no-padding">
+            <div class="video-title-top">
+                Harry speaks on his story
+            </div>
+            <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
+            <div class="video-para-bottom">
+                Read on Harry’s latest transformation and how he changed his life
+            </div>
+            <div class="video-placed-ago">
+                5 hours ago
+            </div>
+        </div>
+    </div>
+    <div class="sub-header-bg my-4 setHadPad">
+        <div class=" mx-auto container-referal ">
+            <div>
+                <div class="row w-100 mx-auto">
+                    <div class="">
+                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
+                        <p class="referral-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
+                    </div>
+                </div>
+                <div class="row py-3 w-100 mx-auto">
+                    <div class="input-group w-100 bg-fafa border-radius-10">
+                        <input class="height-44 home-primarySearch-bg border-0 suffix-form-control py-2" type="search"
+                            placeholder="Search referrals" id="example-search-input">
+                        <span class="input-group-append shape_and_center cursor-pointer">
+                            <div class="home-secondarySearch-bg w-100">
+                                <span style="color: #023047 !important;">
+                                    <i class="fal fa-search font-23"></i>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+                <div class="py-4 text-left d-flex">
+                    <button type="button" @click="resetModal('add')" class="btn px-md-4 py-1 px-3 mx-auto w-100"><span
+                            class="btn-quaternary-text">CHECK A REFERRAL
+                        </span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flexibility-screen">
+        <div class="row mr-0 ml-0">
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Ypas.png" class="sponsor-image-tag" alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="sponsor-image-tag " alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Bully_buster.jpg" class="sponsor-image-tag" alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/ADHD_logo.jpg" class="sponsor-image-tag " alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Kooth_logo.jpg" class="sponsor-image-tag" alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Mersey_care.jpg" class="sponsor-image-tag " alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Raise.jpg" class="sponsor-image-tag" alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Edys_logo.png" class="sponsor-image-tag " alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Addvanced_solutions.jpg" class="sponsor-image-tag"
+                        alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Liverpool_camhs_logo.png" class="sponsor-image-tag "
+                        alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Believe_in_barbardos.jpg" class="sponsor-image-tag"
+                        alt="">
+                </div>
+            </div>
+            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
+                @click="navigatePage('/users/login')">
+                <div class="text-center ">
+                    <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="sponsor-image-tag " alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

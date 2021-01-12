@@ -21,10 +21,7 @@ module.exports = {
       name: 'utilities'
     },
     {
-      name: 'validation'
-    },
-    {
       name: process.env.ENV === 'development' ? 'vue' : 'vue.min'
-    },
+    }
   ]
 };

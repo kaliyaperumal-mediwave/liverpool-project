@@ -30,7 +30,7 @@ $(document).ready(function () {
             },
             dateWrap: true,
             options: {
-               // format: 'YYYY/MM/DD',
+                // format: 'YYYY/MM/DD',
                 format: 'DD/MM/YYYY',
                 dayViewHeaderFormat: 'MMMM YYYY',
                 useCurrent: false,
@@ -70,7 +70,11 @@ $(document).ready(function () {
             paramValues: [],
             editPatchFlag: false,
             storeDeleteData: null,
-            dateFmt:''
+            dateFmt: ''
+        },
+
+        beforeMount: function () {
+            $('#loader').show();
         },
 
         mounted: function () {
@@ -82,7 +86,8 @@ $(document).ready(function () {
             if (this.paramValues[2] != undefined) {
                 this.fetchSavedData();
             }
-            this.initMaps()
+            this.initMaps();
+            $('#loader').hide();
         },
         methods: {
 
@@ -105,7 +110,8 @@ $(document).ready(function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
                 });
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
+                    // _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
+                    _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
 
                 google.maps.event.addListener(parentAddress, 'place_changed', function () {
@@ -125,10 +131,13 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
+                console.log(successData)
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
+                    $('#loader').hide();
                 } else {
                     console.error('error')
+                    $('#loader').hide();
                 }
             },
 
@@ -229,7 +238,8 @@ $(document).ready(function () {
             //Form Submittion of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
-                var formData = Object.assign(this.aboutObj, this.aboutFormData);
+                // var formData = Object.assign(this.aboutObj, this.aboutFormData);
+                var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.contactNumber && formData.relationshipToYou &&
                     formData.parentialResponsibility && formData.childGender && formData.parentName &&
                     formData.childIdentity && formData.sendPost && formData.childAddress && formData.childName && formData.childContactNumber
@@ -265,7 +275,7 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-
+                    $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
@@ -288,12 +298,23 @@ $(document).ready(function () {
 
             },
 
+            checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
             //Section 2(About You) Save and Service call with navaigation Logic
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
+                    console.log(responseData)
+                    $('#loader').hide();
                     location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
                 } else {
+                    $('#loader').hide();
                     console.log('empty response')
                 }
             },
@@ -302,7 +323,7 @@ $(document).ready(function () {
             upsertHouseHold: function () {
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
-                var modal = document.getElementById('closeModal');
+                var modal = document.getElementById('closeModalRaj');
                 if (houseHoldForm.name) {
                     if (houseHoldForm.mode === 'update') {
                         this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
@@ -400,10 +421,11 @@ $(document).ready(function () {
                 }
             },
 
-            setCalendarHeight(e) {
+            setCalendarHeight: function (e) {
                 e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
+                e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
-                var mainWidth = document.getElementsByClassName('main-content-bg')[0].clientWidth
+                var mainWidth = document.getElementById('dobAboutCal').clientWidth;
                 if (mainWidth <= 350) {
                     dynamicHeight = e.currentTarget.clientWidth + 25;
                 } else {
@@ -414,8 +436,7 @@ $(document).ready(function () {
             },
 
             getAge: function (dateString) {
-                if(dateString!="")
-                {
+                if (dateString != "") {
                     var today = new Date();
                     this.dateFmt = this.setDateFormat(dateString)
                     var birthDate = new Date(this.dateFmt);
@@ -429,23 +450,22 @@ $(document).ready(function () {
             },
 
             setDateFormat: function (dbDate) {
-               
-                if(dbDate!=null)
-                {
+
+                if (dbDate != null) {
                     var dateArray = dbDate.split("/");
-                    var toOldFmt=dateArray[2]+"/"+dateArray[1]+"/"+dateArray[0];
+                    var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
                     var date = new Date(toOldFmt)
                     var yyyy = date.getFullYear().toString();
                     var mm = (date.getMonth() + 1).toString();
                     var dd = date.getDate().toString();
-    
+
                     var mmChars = mm.split('');
                     var ddChars = dd.split('');
-                    var showDate=(ddChars[1] ? dd : "0" + ddChars[0])+ '/' + (mmChars[1] ? mm : "0" + mmChars[0])+ '/' + yyyy
+                    var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
                     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 }
-              
-               // 'DD/MM/YYYY'
+
+                // 'DD/MM/YYYY'
             },
         }
 

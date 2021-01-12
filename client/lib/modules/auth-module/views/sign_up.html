@@ -1,0 +1,264 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/auth-module/js/sign_up.js"></script>
+{% endblock %}
+{% block main %}
+
+<div id="user_sign_up" class="main-min-height">
+    <!-- <div class="my-xl-5 my-lg-5 my-md-4 my-4">
+        <h2 class="home-header-primary text-center">CAMHS Services</h2>
+        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+    </div> -->
+    <div class="my-xl-5 my-lg-5 my-md-4 my-4 home-header-primaryh2para">
+        <!-- <h2 class="home-header-primary text-center">CAMHS Services</h2>
+        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span> -->
+        {{ apos.area(data.page, 'signup', {
+            widgets: {
+              'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                  { name: 'Heading', element: 'h2' },
+                  { name: 'Paragraph', element: 'p' }
+                ]
+              }
+            }
+          }) }}
+    </div>
+    <div class="home-primary-content-bg col-md-9 col-sm-10 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
+
+        <!-- Loader start -->
+        <div class="overlay" id="loader">
+            <div class="overlay__inner">
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Loader end -->
+
+        <div class="col-md-9 col-lg-7 col-xl-7 col-12 py-4 mx-auto">
+            <form class="px-3 py-2 mb-1">
+                <div class="form-group py-2 m-0">
+                <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_firstname', {
+                      widgets: {
+                        'apostrophe-rich-text': {
+                          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                          styles: [
+                            { name: 'Paragraph', element: 'p' }
+                          ]
+                        }
+                      }
+                    }) }}
+                    </div>
+                    <!-- <label for="firstName" class="auth-font my-2">First name</label> -->
+                    <input type="text" placeholder="Enter your first name" class="form-control auth-border"
+                        id="firstName" v-model="signUpObject.first_name">
+                    <div class="invalid-feedback px-1 d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(signUpObject.first_name)),'invalid-fields':!trimSpace(signUpObject.first_name) }">
+                        You must provide a first name.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_lastname', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="lastName" class="auth-font my-2">Last name</label> -->
+                    <input type="text" placeholder="Enter your last name" class="form-control auth-border" id="lastName"
+                        v-model="signUpObject.last_name">
+                    <div class="invalid-feedback px-1 d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(signUpObject.last_name)),'invalid-fields':!trimSpace(signUpObject.last_name) }">
+                        You must provide a last name.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_email', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="emailAddressAuth" class="auth-font my-2">Email address</label> -->
+                    <input type="email" inputmode="email" placeholder="Enter your email address"
+                        class="form-control auth-border" id="emailAddressAuth" v-model="signUpObject.email">
+                    <div class="invalid-feedback px-1 d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.email),'invalid-fields':!signUpObject.email }">
+                        You must provide a email.
+                    </div>
+                    <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.email && !emailRegex.test(signUpObject.email)),
+                    'invalid-fields':(signUpObject.email && !emailRegex.test(signUpObject.email)) }">
+                        You must provide a real valid email.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_roles', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="authRoles" class="auth-font my-2">Select role</label> -->
+                    <select class="custom-select form-control auth-border" v-model="signUpObject.role" name="legalCare">
+                        <option value="" selected disabled>Select role
+                        </option>
+                        <option value="child">Child
+                        </option>
+                        <option value="parent">Parent
+                        </option>
+                        <option value="professional">Professional
+                        </option>
+                    </select>
+                    <div class="invalid-feedback px-1 d-none"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.role),'invalid-fields':!signUpObject.role }">
+                        You must provide a role.
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_password', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="signUpPassword" class="auth-font my-2">Password</label> -->
+                    <div id="authForm">
+                        <div class="input-group">
+                            <input type="password" class="form-control auth-border py-2" id="signUpPassword"
+                                v-model="signUpObject.password" placeholder="Enter your password">
+                            <span class="input-group-append">
+                                <div class="input-group-text px-3">
+                                    <span style="color: #023047 !important;" class="cursor-pointer font-23"
+                                        data-toggle="tooltip" data-container="body" data-placement="top" title="show"
+                                        @click="toggleVisibility('#signUpPassword','showVisibilityPassword')">
+                                        <template v-if="!showVisibilityPassword">
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        </template>
+                                        <template v-if="showVisibilityPassword">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </template>
+                                    </span>
+                                </div>
+                            </span>
+                        </div>
+                        <!-- <small id="emailHelp" class="form-text text-muted">Password must include atleast minimun 8
+                            characters with one uppercase ,lowercase,special character</small> -->
+
+                        <div class="invalid-feedback px-1 d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.password),'invalid-fields':!signUpObject.password }">
+                            You must provide a password.
+                        </div>
+                        <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.password && !passwordRegex.test(signUpObject.password)),
+                    'invalid-fields':(signUpObject.password && !passwordRegex.test(signUpObject.password)) }">
+                            Your password must include at least 8
+                            characters with one uppercase, one lowercase, one number, one special character.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group py-2 m-0">
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_confirm_password', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="confirmPassword" class="auth-font my-2">Confirm password</label> -->
+                    <div id="authForm">
+                        <div class="input-group">
+                            <input type="password" class="form-control auth-border py-2" id="confirmPassword"
+                                v-model="signUpObject.confirm_password" placeholder="Enter your password">
+                            <span class="input-group-append">
+                                <div class="input-group-text px-3">
+                                    <span style="color: #023047 !important;" class="cursor-pointer font-23"
+                                        @click="toggleVisibility('#confirmPassword','showVisibilityConfirmPassword')">
+                                        <template v-if="!showVisibilityConfirmPassword">
+                                            <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                        </template>
+                                        <template v-if="showVisibilityConfirmPassword">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </template>
+                                    </span>
+                                </div>
+                            </span>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.confirm_password),'invalid-fields':!signUpObject.confirm_password }">
+                                You must provide a confirm password.
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)),
+                        'invalid-fields':(signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)) }">
+                                Your password must include at least 8
+                                characters with no space, one uppercase, one lowercase, one number, one special
+                                character.
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password&&passwordRegex.test(signUpObject.confirm_password)&&(signUpObject.password !=signUpObject.confirm_password)),'invalid-fields':!signUpObject.confirm_password }">
+                                Your password and confirm password are not equal.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <div class="py-md-4 py-2 text-center">
+                <div class="py-2 mb-2 mb-md-3">
+                    <button type="button" @click="submitSignIn()" id="secondary"
+                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-8 col-lg-10 col-xl-10 col-sm-9 col-9">
+                        <span class="btn-quaternary-text">SIGN UP
+                        </span>
+                    </button>
+                </div>
+                <div class="py-2 text-center">
+                    <a href="/users/login" class="auth-link cursor-pointer text-underline">Already have an account?</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

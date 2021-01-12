@@ -33,11 +33,19 @@ var apos = require('apostrophe')({
     },
     'auth-module': {},
     'about-module': {},
+    'dashboard-module': {},
     'home-module': {},
+    'referral-home-module': {},
     'referral-module': {},
     'education-employment-module': {},
     'review-module': {},
+    'role-module': {},
     'referral-complete-module': {},
+    'resources-module': {},
+    'feedback-module': {},
+    'check-referral-module': {},
+    'mental-health-module': {},
+    'footer-pages-module': {},
     'apostrophe-templates': { viewsFolderFallback: path.join(__dirname, 'views') }
 
   }

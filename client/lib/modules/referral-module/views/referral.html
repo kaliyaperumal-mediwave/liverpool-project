@@ -7,10 +7,25 @@
 {% endblock %}
 {% block main %}
 <div id="referral-form">
-    <div class="main-content-bg py-4 main-min-height">
+    <div class="py-4 main-min-height">
         <div class="overlay" id="loader">
             <div class="overlay__inner">
-                <div class="overlay__content"><div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>
+                <div class="overlay__content">
+                    <div class="lds-spinner">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
@@ -26,7 +41,7 @@
                         <p class="question-font m-0">{{dynamicLabels.supportNeedsLabel}}</p>
                         <div class="d-flex form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental" @change="onOptionChange($event)" value="mentalHealth">
+                                id="mental" @change="onOptionChange($event)" value="Mental health">
                             <label class="form-check-label option-font d-flex align-items-center" for="mental">
                                 Mental health
                             </label>
@@ -35,14 +50,15 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="disorder" @change="onOptionChange($event)" value="eatingDisorder">
+                                id="disorder" @change="onOptionChange($event)" value="Eating disorder">
                             <label class="form-check-label option-font d-flex align-items-center" for="disorder">
                                 Eating disorder
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
-                                id="mental&disorder" @change="onOptionChange($event)" value="bothMental&Eating">
+                                id="mental&disorder" @change="onOptionChange($event)"
+                                value="Mental health & eating disorder">
                             <label class="form-check-label option-font d-flex align-items-center" for="mental&disorder">
                                 Mental health & eating disorder
                             </label>
@@ -53,7 +69,7 @@
 
                 <!--  Covid-Referrral-Start-->
                 <form id="covid-form" data-options="covid">
-                    <div v-if="(referralData.support == 'mentalHealth' || referralData.support == 'eatingDisorder' || referralData.support == 'bothMental&Eating')"
+                    <div v-if="(referralData.support == 'Mental health' || referralData.support == 'Eating disorder' || referralData.support == 'Mental health & eating disorder')"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">Is this referral related to Covid-19?</p>
                         <div class="form-check pt-3 pb-1 pl-0">
@@ -117,7 +133,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listDiagnosis" v-model="diagnosisList"
                                 v-bind:value="item.value" @change="onOptionChange($event,item)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -173,7 +189,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listProblems" v-bind:value="item.value"
                                 v-model="problemsList" v-bind:checked="item.isActive" @change="onOptionChange($event)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -202,7 +218,7 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
                                 v-model="referralData.referralInfo"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
-                            <div class="invalid-feedback d-none"
+                            <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block':(isFormSubmitted && !referralData.referralInfo),'invalid-fields':!referralData.referralInfo }">
                                 You must provide some information on your main referral issue.
                             </div>
@@ -220,7 +236,7 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
-                            <div class="invalid-feedback d-none"
+                            <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
                                 You must provide answer to this question.
                             </div>
@@ -238,7 +254,7 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
-                            <div class="invalid-feedback d-none"
+                            <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
                                 You must provide answer to this question.
                             </div>
@@ -261,7 +277,7 @@
                                 <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
-                                <div class="invalid-feedback d-none"
+                                <div class="text-validation invalid-feedback  d-none"
                                     v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.disabilityOrDifficulty), 'invalid-fields':!referralData.disabilityOrDifficulty}">
                                     You must provide answer to this question.
                                 </div>
@@ -304,7 +320,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listService" v-bind:value="item.value"
                                 v-model="accessList" @change="onOptionChange($event)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -318,9 +334,9 @@
                         <!-- <div class="text-center"> -->
                         <template v-if="allAvailableService.length">
                             <div class="card text-left mb-2" v-for="(item, index) in allAvailableService" :key="index">
-                                <div class="card-body">
+                                <div class="card-body text-capitalize">
                                     <div class="d-flex align-items-center justify-content-between my-1">
-                                        <h5 class="card-title">{{item.name}}</h5>
+                                        <h3 class="link-text">{{item.name}}</h3>
                                         <div>
                                             <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                                 data-target="#serviceModal" @click="patchService(item)"><i
@@ -333,8 +349,8 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{item.professional}}</h6>
-                                    <p class="card-text">{{item.contact}}</p>
+                                    <h3 class="link-text">{{item.professional}}</h3>
+                                    <h3 class="link-text">{{item.contact}}</h3>
                                 </div>
                             </div>
                         </template>
@@ -350,7 +366,7 @@
                         </p> -->
                         <button data-toggle="modal" data-target="#serviceModal" type="button" @click="resetModal('add')"
                             class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
-                                Service <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                service <i class="fa fa-plus-circle" aria-hidden="true"></i>
                             </span></button>
                         <!-- </div> -->
                     </div>
@@ -364,17 +380,17 @@
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
                                 <template v-if="serviceData.mode == 'update'">
-                                    <h5 class="question-header-font" id="addModalLabel">Edit Service</h5>
+                                    <h5 class="question-header-font" id="addModalLabel">Edit service</h5>
                                 </template>
                                 <template v-else-if="serviceData.mode == ''">
-                                    <h5 class="question-header-font" id="addModalLabel">Add Service</h5>
-                                    </span>
+                                    <h5 class="question-header-font" id="addModalLabel">Add service</h5>
                                 </template>
                                 <template v-else>
-                                    <h5 class="question-header-font" id="addModalLabel">Add Service</h5>
+                                    <h5 class="question-header-font" id="addModalLabel">Add service</h5>
                                 </template>
-                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
-                                        class="fa fa-times-circle fa-2x cursor-pointer"></i></i>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                                    <i class="fal fa-times fa-2x cursor-pointer"></i>
+                                </span>
                             </div>
                             <div class="modal-body py-1 px-4">
                                 <form id="add-service-form">
@@ -382,7 +398,7 @@
                                         <label for="service-name" class="question-font">Name of service</label>
                                         <input type="text" class="form-control" v-model="serviceData.name"
                                             id="service-name" placeholder="Enter the name of the service you have used">
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
                                             You must provide the name of the service.
                                         </div>
@@ -392,7 +408,7 @@
                                             service</label>
                                         <input type="text" v-model="serviceData.professional" class="form-control"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
                                             You must provide the name of a professional at the service.
                                         </div>
@@ -403,13 +419,13 @@
                                             professional</label>
                                         <input type="text" class="form-control" v-model="serviceData.contact"
                                             id="contactNumber" placeholder="Enter a phone number for the professional">
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
                                             You must provide the 11 digit contact number.
                                         </div>
-                                        <div class="invalid-feedback d-none"
+                                        <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': (hasSubmittedServiceForm && !phoneRegex.test(serviceData.contact) )}">
-                                            You must provide a real 11 digit contact numebr.
+                                            You must provide a real 11 digit contact number.
                                         </div>
                                     </div>
                                 </form>
@@ -477,7 +493,9 @@
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
@@ -491,7 +509,8 @@
 
                                 </template>
                                 <template v-else>
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text danger m-0 py-2">You have missed out a
+                                        section on this
                                         page
                                     </p>
                                 </template>
@@ -519,7 +538,9 @@
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
@@ -533,7 +554,8 @@
 
                                 </template>
                                 <template v-else>
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on this
                                         page
                                     </p>
                                 </template>
@@ -561,7 +583,9 @@
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
@@ -575,7 +599,8 @@
 
                                 </template>
                                 <template v-else>
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on this
                                         page
                                     </p>
                                 </template>

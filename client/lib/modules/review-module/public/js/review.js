@@ -1,6 +1,5 @@
 var API_URI = "/modules/review-module";
 $(document).ready(function () {
-
     var app = new Vue({
         el: '#review-form',
         data: {
@@ -9,11 +8,45 @@ $(document).ready(function () {
             userMode: '',
             userRole: '',
             yourInfo: '',
-            allSectionData: {},
+            allSectionData: [],
             section5Labels: {
                 aboutLabel: "",
                 referralLabel: ""
             },
+            legalStatusArray: [
+                'Care of Parent',
+                'Care of Local Authority(Liverpool)',
+                'Care of Local Authority(Sefton)',
+                'Care of Local Authority(Other)',
+                'Section 20 Voluntary',
+                'Accommodated',
+                'Full Care Order',
+                'Interim Care Order',
+                'Care Order places at home',
+                'Child Protection Plan',
+                'Other Carer'
+            ],
+            mockData: [
+                {
+                    "id": "191afd2b-7d38-4486-b8e3-292d10961ad0",
+                    "dob": "10/01/2021",
+                    "mode": "add",
+                    "name": "Rajkumar",
+                    "randomName": "asdasgdg",
+                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
+                    "relationShip": "Parent"
+                },
+                {
+                    "id": "191afd2b-7d38-4486-b8e3-489897897hj",
+                    "dob": "15/01/2021",
+                    "mode": "add",
+                    "name": "RaMkumar",
+                    "randomName": "87cudfjk",
+                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
+                    "relationShip": "Parent"
+                }
+            ],
+            allSectionData: [],
             section1Data: {},
             section2Data: {},
             section3Data: {},
@@ -37,23 +70,39 @@ $(document).ready(function () {
             disableSection1Button: false,
             showLoader: false
         },
+
+        // beforeCreate: function () {
+        //     debugger
+        //     let spinner = document.querySelector("#loader")
+        //     if (spinner.classList.contains("blurred")) {
+        //         spinner.classList.remove("blurred");
+        //     } else {
+        //         spinner.classList.add("blurred")
+        //     }
+        //     $('#loader').show();
+        // },
+        beforeMount: function () {
+            // this.blurMe();
+            $('#loader').show();
+        },
+
         mounted: function () {
             this.paramValues = getParameter(location.href)
             this.section5Labels = section5Labels;
             this.userRole = this.paramValues[1];
             if (this.userRole === 'child') {
-                this.yourInfo = 'Child / Young Person';
-                this.section5Labels.aboutLabel = "About You";
+                this.yourInfo = 'Child/Young person';
+                this.section5Labels.aboutLabel = "About you";
                 this.section5Labels.referralLabel = "Your reason for referral";
 
             } else if (this.userRole === 'parent') {
                 this.yourInfo = 'Parent / Carer';
-                this.section5Labels.aboutLabel = "About Your Child";
+                this.section5Labels.aboutLabel = "About your child";
                 this.section5Labels.referralLabel = "Your child's reason for referral";
 
             } else if (this.userRole === 'professional') {
                 this.yourInfo = 'Professional';
-                this.section5Labels.aboutLabel = "About The Child";
+                this.section5Labels.aboutLabel = "About the child";
                 this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
@@ -62,6 +111,7 @@ $(document).ready(function () {
             this.payloadData.role = this.userRole;
             console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
+
         },
         methods: {
 
@@ -74,7 +124,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-
+                        _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
@@ -87,20 +137,41 @@ $(document).ready(function () {
                             _self.section4Data.symptoms.push(_self.section4Data.symptoms_other)
                         _self.section4Data.diagnosis = _self.section4Data.diagnosis.toString();
                         _self.section4Data.symptoms = _self.section4Data.symptoms.toString();
-                        _self.section4Data.local_services = _self.section4Data.local_services.toString();
 
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
                         _self.prevSection4Data = JSON.parse(JSON.stringify(data.section4));
 
-                        //self.section4Data.local_services =  _self.section4Data.local_services
-                        //  Vue.set(this.section1Data,data);
+                        if (_self.section4Data.local_services) {
+                            if (_self.section4Data.local_services.indexOf('Other') == -1) {
+                                _self.section4Data.local_services = _self.section4Data.local_services;
+                            } else {
+                                var index = _self.section4Data.local_services.indexOf('Other');
+                                _self.section4Data.local_services.splice(index, 1);
+                                var services = _self.section4Data.services.map(function (it) {
+                                    return it.name
+                                });
+                                _self.section4Data.local_services = _self.section4Data.local_services.concat(services);
+                            }
+                        }
+
+                        $('#loader').hide();
                     },
                     error: function (error) {
+                        $('#loader').hide();
                         console.log('Something went Wrong', error)
                     }
                 });
+            },
+
+            blurMe: function () {
+                let spinner = document.querySelector("#loader")
+                if (spinner.classList.contains("blurred")) {
+                    spinner.classList.remove("blurred");
+                } else {
+                    spinner.classList.add("blurred")
+                }
             },
 
             save: function () {
@@ -116,6 +187,7 @@ $(document).ready(function () {
                         console.log('empty response')
                     }
                 } else {
+                    scrollToInvalidInput();
                     return false;
                 }
             },
@@ -128,14 +200,31 @@ $(document).ready(function () {
                 location.href = "/" + page + "?" + enCodeParameter
             },
 
-            toggleArrow: function (e) {
-                var ele = e.target;
-                var classList = Array.from(e.target.classList)
-                if (classList.indexOf('fa-chevron-circle-up') > -1) {
-                    $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+            checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
                 } else {
-                    $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    return false;
                 }
+            },
+
+            toggleArrow: function (e, section, allData) {
+                var ele = e.target;
+                var elemId = e.target.id;
+                var allToggleIcons = Array.from(document.getElementsByClassName('arrowClass'));
+                allToggleIcons.filter(function (i) {
+                    if (i.id == elemId) {
+                        if (Array.from(ele.classList).indexOf('fa-chevron-circle-up') > -1) {
+                            $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                        } else {
+                            $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                        }
+                    } else {
+                        $(i).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    }
+                });
+                this.resetValidation(section, allData);
+
             },
 
             getUrlVars: function () {
@@ -326,7 +415,7 @@ $(document).ready(function () {
                         this.payloadData.section1Data = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
-                        this.payloadData.endPoint = endpoint
+                        this.payloadData.endPoint = endpoint;
                         this.upsertInforForm(this.payloadData, 1, e.currentTarget.id);
 
                     } else {
@@ -349,12 +438,13 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (res) {
-                        console.log(res)
                         _self.showLoader = true;
                         buttonElem.disabled = true;
+                        $(document.body).css('pointer-events', 'none');
                         setTimeout(function () {
                             _self.showLoader = false;
-                            _self.resetFormSubmitted(section);
+                            _self.resetFormSubmitted(section, res.data);
+                            $(document.body).css('pointer-events', 'all');
                         }, 3000);
 
                     },
@@ -368,7 +458,14 @@ $(document).ready(function () {
                 });
             },
 
-            resetFormSubmitted: function (section) {
+            // /Prevention of entering white spaces
+            preventWhiteSpaces: function (e) {
+                if (e.which === 32 && e.target.selectionStart === 0) {
+                    e.preventDefault();
+                }
+            },
+
+            resetValidation: function (section, allData) {
                 if (section == 1) {
                     this.isSection1Submitted = false;
                 }
@@ -380,6 +477,32 @@ $(document).ready(function () {
                 }
                 else if (section == 4) {
                     this.isSection4Submitted = false;
+                }
+                //this.allSectionData = allData;
+
+            },
+
+            resetFormSubmitted: function (section, data) {
+                if (section == 1) {
+                    this.isSection1Submitted = false;
+                    this.section1Data = data;
+                    this.allSectionData.section1 = data;
+                }
+                else if (section == 2) {
+                    this.isSection2Submitted = false;
+                    this.section2Data = data;
+                    this.allSectionData.section2 = data;
+                }
+                else if (section == 3) {
+                    this.isSection3Submitted = false;
+                    this.section3Data = data;
+                    this.allSectionData.section3 = data;
+                }
+                else if (section == 4) {
+                    this.isSection4Submitted = false;
+                    this.section4Data = data;
+                    this.allSectionData.section4 = data;
+
                 }
 
             }

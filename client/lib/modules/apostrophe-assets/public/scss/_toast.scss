@@ -1,0 +1,33 @@
+.v-toast__item .v-toast__text::before {
+    font-family: FontAwesome !important;
+    // content: "\f057" !important;
+    color: #fff;
+    float: right;
+    left: 18px;
+    font-size: 19px;
+    font-weight: bold;
+    position: relative;
+    bottom: 16px;
+    cursor: pointer;
+  }
+  .v-toast__item .v-toast__text{
+    padding: 0px 30px 0px 10px !important;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .v-toast__item{
+    // position: absolute;
+    // top: 30%;
+    min-height: 44px !important;
+    // @include lg-screen{
+    //   right: 4%;
+    //   top: 28%;
+    // }
+    // @include xl-screen{
+    //   right: 4%;
+    //   top: 28%;
+    // }
+  }
+  .v-toast.v-toast--top{
+    justify-content: center;
+  }

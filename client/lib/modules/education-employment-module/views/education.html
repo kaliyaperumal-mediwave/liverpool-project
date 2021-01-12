@@ -7,7 +7,7 @@
 {% block main %}
 <div id="education-form">
     {% raw %}
-    <div class="main-content-bg py-4 main-min-height">
+    <div class="py-4 main-min-height">
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-2">
 
@@ -214,16 +214,21 @@
                                     </template>
                                     <template
                                         v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                     <template
                                         v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position == 'education'">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template
                                     v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
@@ -231,7 +236,8 @@
 
                                 <template
                                     v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
@@ -239,14 +245,16 @@
 
                                 <template
                                     v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
                                         this
                                         page
                                     </p>
                                 </template>
                                 <template
                                     v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position == 'education'">
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
                                         this
                                         page
                                     </p>
@@ -280,23 +288,28 @@
                                     </template>
                                     <template
                                         v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
                                     </template>
                                 </p>
                                 <template v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
                                 </template>
                                 <template v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">Over half way there! Next section: the
+                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                    <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
                                 </template>
                                 <template v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 py-2">You have missed out a section on this
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on this
                                         page.</p>
                                 </template>
                             </div>
@@ -338,12 +351,14 @@
                                         <a href="http://search3.openobjects.com/kb5/liverpool/fsd/service.page?id=aR_ebr58DtU"
                                             target="_blank">
                                             > Learn more about the Liverpool EHCP Process
-                                        </a></p>
+                                        </a>
+                                    </p>
                                     <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                                         <a href="https://www.seftondirectory.com/kb5/sefton/directory/site.page?id=C-UTVI8iX94&localofferchannel=0"
                                             target="_blank">
                                             > Learn more about the Sefton EHCP Process
-                                        </a></p>
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -378,7 +393,8 @@
                                         <a href="https://ehd.liverpool.gov.uk/kb5/liverpool/fsd/service.page?id=BgW2Z1nz7Bc"
                                             target="_blank">
                                             > Learn more about EHATs
-                                        </a></p>
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -389,6 +405,29 @@
             </div>
         </div>
     </div>
+
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
     {% endraw %}
 </div>
 </div>

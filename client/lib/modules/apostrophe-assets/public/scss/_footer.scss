@@ -1,0 +1,24 @@
+
+.middleContainer:after {
+    content: "";
+    display: block;
+  }
+  .footer-bg, .middleContainer:after {
+    min-height: 100%;
+  }
+  .middleContainer{
+      min-height: 100vh;
+      margin-bottom: -96px;
+  }
+  .set-mid-padding{
+    padding-bottom: 96px;
+  }
+  @media (max-width: 1200px) {
+    .middleContainer{
+      min-height: 100vh;
+      margin-bottom: -81px;
+  }
+  .set-mid-padding{
+    padding-bottom:80px;
+  }
+  }
