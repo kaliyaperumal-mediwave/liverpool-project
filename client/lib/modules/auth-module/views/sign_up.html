@@ -232,7 +232,8 @@
                                 v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)),
                         'invalid-fields':(signUpObject.confirm_password && !passwordRegex.test(signUpObject.confirm_password)) }">
                                 Your password must include at least 8
-                                characters with one uppercase, one lowercase, one number, one special character.
+                                characters with no space, one uppercase, one lowercase, one number, one special
+                                character.
                             </div>
                             <div class="invalid-feedback px-1 d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && signUpObject.confirm_password&&passwordRegex.test(signUpObject.confirm_password)&&(signUpObject.password !=signUpObject.confirm_password)),'invalid-fields':!signUpObject.confirm_password }">
