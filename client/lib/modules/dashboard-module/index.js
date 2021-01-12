@@ -27,8 +27,9 @@ module.exports = {
       }));
     };
     // need a change loginId/:userRole
-    self.route('get', 'getIncompleteReferral/:loginId/:userRole', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral?loginId=' + req.params.loginId + "&userRole=" + req.params.userRole;
+    self.route('get', 'getIncompleteReferral', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral';
+      console.log(url)
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

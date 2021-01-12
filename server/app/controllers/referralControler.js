@@ -2276,8 +2276,8 @@ exports.getIncompleteReferral = ctx => {
   const professionalDataId = [];
   return userReferral.findAll({
     where: {
-      login_id: ctx.query.loginId,
-      user_role: ctx.query.userRole,
+      login_id: ctx.request.decryptedUser.id,
+      user_role: ctx.request.decryptedUser.role,
       referral_complete_status: "incomplete"
     },
     attributes: ['id', 'user_role']
@@ -2288,7 +2288,7 @@ exports.getIncompleteReferral = ctx => {
         refId.push(user.dataValues.id)
       })
     // console.log(refId)
-    if (ctx.query.userRole == "child") {
+    if (ctx.request.decryptedUser.role == "child") {
       return userReferral.findAll({
         where: {
           id: refId,
@@ -2327,7 +2327,7 @@ exports.getIncompleteReferral = ctx => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
-    else if (ctx.query.userRole == "parent") {
+    else if (ctx.request.decryptedUser.role == "parent") {
       return userReferral.findAll({
         where: {
           id: refId,
@@ -2364,7 +2364,7 @@ exports.getIncompleteReferral = ctx => {
       });
 
     }
-    else if (ctx.query.userRole == "professional") {
+    else if (ctx.request.decryptedUser.role == "professional") {
 
       return userReferral.findAll({
         where: {

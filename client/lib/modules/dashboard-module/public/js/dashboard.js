@@ -30,7 +30,7 @@ $(document).ready(function () {
                 var _self = this;
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/getIncompleteReferral/" + this.loginId + "/" + this.userRole,
+                    url: API_URI + "/getIncompleteReferral/",
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',

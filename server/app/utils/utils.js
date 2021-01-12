@@ -12,6 +12,7 @@ module.exports = {
         result = jwt.verify(token, process.env.JWT_SECRET);
         // Let's pass back the decoded token to the request object
         ctx.request.decryptedUser = result;
+        console.log("checkatuh")
         // We call next to pass execution to the subsequent middleware
         return next();
       } catch (err) {

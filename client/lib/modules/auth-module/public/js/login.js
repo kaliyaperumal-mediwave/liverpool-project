@@ -41,7 +41,7 @@ $(document).ready(function () {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
-                       // $('#loader').hide();
+                        $('#loader').hide();
                         if (false || !!document.documentMode) {
                             alert("Login successful.")
                          //   location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);

@@ -38,15 +38,13 @@ exports.signup = async (ctx) => {
             password: hashedPassword,
             user_role: ctx.request.body.role,
         }).then((result) => {
-            const payload = { email: result.email, id: result.UUID };
+            const payload = { email: result.email, id: result.uuid,role:result.role };
             const secret = process.env.JWT_SECRET;
             const token = jwt.sign(payload, secret);
             const sendSignupResult = {
                 data: result,
                 token: token
             }
-
-
             return ctx.res.ok({
                 status: "success",
                 message: reponseMessages[1005],
@@ -76,7 +74,8 @@ exports.login = async (ctx) => {
                 const checkPassword = await bcrypt.compare(ctx.request.body.password, userResult.password)
                 console.log("checkPassword", checkPassword)
                 if (checkPassword) {
-                    const payload = { email: userResult.email, id: result.UUID };
+                    console.log(userResult)
+                    const payload = { email: userResult.email, id: userResult.uuid , role:userResult.user_role };
                     const secret = process.env.JWT_SECRET;
                     const token = jwt.sign(payload, secret);
                     const sendUserResult = {
