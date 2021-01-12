@@ -252,6 +252,21 @@ a {
     letter-spacing: 1.5px !important;
   }
 }
+.home-header-primary h2 {
+  @include set-titleStyles($primary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $primary-mdFont-size !important;
+    letter-spacing: 1.5px !important;
+  }
+  @include sm-screen {
+    @include set-dynamicFont($primary-lgFont-size, 8);
+    letter-spacing: 1.5px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($primary-lgFont-size, 4);
+    letter-spacing: 1.5px !important;
+  }
+}
 
 .home-header-secondary {
   @include set-titleStyles($tertiary-font-size, bold, $primary-color);
@@ -285,6 +300,23 @@ a {
     letter-spacing: 0.64px !important;
   }
 }
+.home-primary-content  h3{
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+  @include set-dynamicLineHeight($tertiary-mdFont-size);
+  @include xs-screen {
+    font-size: $quaternary-mdFont-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-font-size !important;
+    letter-spacing: 0.64px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-mdFont-size, 2);
+    letter-spacing: 0.64px !important;
+  }
+}
+
 
 .home-secondary-content {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
@@ -2195,4 +2227,7 @@ body .ui-widget .ui-menu-item {
     font-size: 22px !important;
     letter-spacing: 1.5px !important;
   }
+}
+.overflow-auto{
+  overflow: auto;
 }

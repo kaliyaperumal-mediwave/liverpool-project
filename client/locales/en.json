@@ -92,5 +92,9 @@
 	"Move to Trash": "Move to Trash",
 	"Reorganize": "Reorganize",
 	"Manage Tags": "Manage Tags",
-	"Find or add a tag...": "Find or add a tag..."
+	"Find or add a tag...": "Find or add a tag...",
+	"Use the Add Content button to get started.": "Use the Add Content button to get started.",
+	"Rich Text": "Rich Text",
+	"An error occurred saving the document.": "An error occurred saving the document.",
+	"You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?": "You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?"
 }

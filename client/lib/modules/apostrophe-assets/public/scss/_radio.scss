@@ -2,8 +2,8 @@
 
 %radio-shared {
   content: "";
-  position: absolute;
-  border-radius: 102px;
+  position: relative;
+  border-radius: 100%;
   opacity: 1;
 }
 
@@ -12,7 +12,7 @@
   height: $height;
   top: $top;
   left: $left;
-  background: $background 0% 0% no-repeat padding-box;
+  // background: $background 0% 0% no-repeat padding-box;
   @extend %radio-shared;
 }
 
@@ -35,19 +35,19 @@
   &:checked + label:before,
   &:not(:checked) + label:before {
     @include dynamicRadioClass(40px, 40px, 0, 0, $primary-input-color);
-    border: 1px solid $primary-color;
+    // border: 1px solid $primary-color;
   }
 
   &:checked + label:after {
     @include dynamicRadioClass(22px, 22px, 9px, 9px, $primary-color);
     @include transition(all 0.2s ease);
-    padding: 2px;
+    padding: 4px;
   }
 
   &:not(:checked) + label:after {
     @include dynamicRadioClass(22px, 22px, 9px, 9px, $primary-color);
     @include transition(all 0.2s ease);
-    padding: 2px;
+    padding: 4px;
     @include transform(scale(0));
   }
 
