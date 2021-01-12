@@ -5,9 +5,24 @@
 {% block main %}
 
 <div id="user_sign_up" class="main-min-height">
-    <div class="my-xl-5 my-lg-5 my-md-4 my-4">
+    <!-- <div class="my-xl-5 my-lg-5 my-md-4 my-4">
         <h2 class="home-header-primary text-center">CAMHS Services</h2>
         <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+    </div> -->
+    <div class="my-xl-5 my-lg-5 my-md-4 my-4 home-header-primaryh2para">
+        <!-- <h2 class="home-header-primary text-center">CAMHS Services</h2>
+        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span> -->
+        {{ apos.area(data.page, 'signup', {
+            widgets: {
+              'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                  { name: 'Heading', element: 'h2' },
+                  { name: 'Paragraph', element: 'p' }
+                ]
+              }
+            }
+          }) }}
     </div>
     <div class="home-primary-content-bg col-md-9 col-sm-10 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
 
@@ -37,7 +52,18 @@
         <div class="col-md-9 col-lg-7 col-xl-7 col-12 py-4 mx-auto">
             <form class="px-3 py-2 mb-1">
                 <div class="form-group py-2 m-0">
-                    <label for="firstName" class="auth-font my-2">First name</label>
+                <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_firstname', {
+                      widgets: {
+                        'apostrophe-rich-text': {
+                          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                          styles: [
+                            { name: 'Paragraph', element: 'p' }
+                          ]
+                        }
+                      }
+                    }) }}
+                    </div>
+                    <!-- <label for="firstName" class="auth-font my-2">First name</label> -->
                     <input type="text" placeholder="Enter your first name" class="form-control auth-border"
                         id="firstName" v-model="signUpObject.first_name">
                     <div class="invalid-feedback px-1 d-none"
@@ -47,7 +73,18 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="lastName" class="auth-font my-2">Last name</label>
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_lastname', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="lastName" class="auth-font my-2">Last name</label> -->
                     <input type="text" placeholder="Enter your last name" class="form-control auth-border" id="lastName"
                         v-model="signUpObject.last_name">
                     <div class="invalid-feedback px-1 d-none"
@@ -57,7 +94,18 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="emailAddressAuth" class="auth-font my-2">Email address</label>
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_email', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="emailAddressAuth" class="auth-font my-2">Email address</label> -->
                     <input type="email" inputmode="email" placeholder="Enter your email address"
                         class="form-control auth-border" id="emailAddressAuth" v-model="signUpObject.email">
                     <div class="invalid-feedback px-1 d-none"
@@ -71,7 +119,18 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="authRoles" class="auth-font my-2">Select role</label>
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_roles', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="authRoles" class="auth-font my-2">Select role</label> -->
                     <select class="custom-select form-control auth-border" v-model="signUpObject.role" name="legalCare">
                         <option value="" selected disabled>Select role
                         </option>
@@ -89,7 +148,18 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="signUpPassword" class="auth-font my-2">Password</label>
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_password', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="signUpPassword" class="auth-font my-2">Password</label> -->
                     <div id="authForm">
                         <div class="input-group">
                             <input type="password" class="form-control auth-border py-2" id="signUpPassword"
@@ -125,7 +195,18 @@
                 </div>
 
                 <div class="form-group py-2 m-0">
-                    <label for="confirmPassword" class="auth-font my-2">Confirm password</label>
+                  <div class="auth-font my-2">  {{ apos.area(data.page, 'signup_confirm_password', {
+                        widgets: {
+                          'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                              { name: 'Paragraph', element: 'p' }
+                            ]
+                          }
+                        }
+                      }) }}
+                      </div>
+                    <!-- <label for="confirmPassword" class="auth-font my-2">Confirm password</label> -->
                     <div id="authForm">
                         <div class="input-group">
                             <input type="password" class="form-control auth-border py-2" id="confirmPassword"

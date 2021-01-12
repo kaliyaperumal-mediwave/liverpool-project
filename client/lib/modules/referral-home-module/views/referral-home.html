@@ -31,11 +31,24 @@
     <div class="col-md-8 col-lg-8 col-xl-6 col-sm-10 col-12 col-12 mx-auto py-4">
         <div class="main-content-area mx-auto">
             <div class="px-2 py-3 py-md-4">
-                <h3 class="py-2 py-md-4 px-2 px-md-4 content-header-text text-center">Discover how we can support you -
+                <!-- <h3 class="py-2 py-md-4 px-2 px-md-4 content-header-text text-center">Discover how we can support you -
                     Receive a
                     service referral -
                     Receive
-                    advice</h3>
+                    advice</h3> -->
+                    <div class="py-2 py-md-4 px-2 px-md-4 content-header-text text-center">
+                      {{ apos.area(data.page, 'title_referral', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Heading', element: 'h2' },
+                                { name: 'Paragraph', element: 'p' }
+                              ]
+                            }
+                          }
+                        }) }}
+                      </div>
                 <div class="col-md-10 col-lg-8 px-3 col-sm-10 col-12 col-xl-8 mx-auto">
                     <h4 class="content-text py-2 py-md-3 text-left m-0">- This referral form is for people aged under 18
                     </h4>
