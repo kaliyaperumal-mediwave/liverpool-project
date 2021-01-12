@@ -342,6 +342,7 @@ $(document).ready(function () {
                                         $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
                                         $('#addOpacityProf').css('opacity', '1');
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                                        app.elgibilityObj.submitForm = "false";
                                     },
                                 })
 
@@ -372,6 +373,7 @@ $(document).ready(function () {
                             $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
                             $('#addOpacityProf').css('opacity', '1');
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                            app.elgibilityObj.submitForm = "false";
                         },
                     })
 
@@ -379,6 +381,7 @@ $(document).ready(function () {
                 }
                 else {
                     app.elgibilityObj.gpErrMsg = '';
+                    app.elgibilityObj.submitForm = "false";
                     $("#gpLocation").autocomplete({
                         source: [],
                         select: function (event, ui) {
@@ -497,6 +500,7 @@ $(document).ready(function () {
                                         $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                         $('#addOpacity').css('opacity', '1');
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                                        app.elgibilityObj.submitProfForm = "false";
                                     },
                                 })
 
@@ -527,11 +531,13 @@ $(document).ready(function () {
                             $('#showInputLoader').removeClass("d-block").addClass("d-none");
                             $('#addOpacity').css('opacity', '1');
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                            app.elgibilityObj.submitProfForm = "false";
                         },
                     })
 
                 } else {
                     app.elgibilityObj.gpErrMsg = '';
+                    app.elgibilityObj.submitProfForm = "false";
                     $("#gpProfLocation").autocomplete({
                         source: [],
                         select: function (event, ui) {
