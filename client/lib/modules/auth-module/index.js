@@ -82,7 +82,12 @@ module.exports = {
     self.route('post', 'doCreateAcc', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/signup';
       self.middleware.post(req, res, url, req.body).then((data) => {
-        // set auth token in session , signup must allow the user to land on dashboard
+        console.log(data)
+        if (data) {
+          ///req.session.auth_token = data.data.token;
+          req.session.loginFlag = "true";
+          req.session.reload(function () { });
+        }
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
