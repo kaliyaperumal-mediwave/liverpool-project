@@ -54,13 +54,15 @@ $(document).ready(function () {
                         $('#loader').hide();
                         if (false || !!document.documentMode) {
                             alert("Account created")
-                            window.location.href = window.location.origin + '/users/login';
+                           // window.location.href = window.location.origin + '/users/login';
+                           location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
                         } else {
                             Vue.$toast.success('Account created', {
                                 position: 'top',
                                 duration: 1000,
                                 onDismiss: function () {
-                                    window.location.href = window.location.origin + '/users/login';
+                                  //  window.location.href = window.location.origin + '/users/login';
+                                  location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
                                 }
                             });
                         }
