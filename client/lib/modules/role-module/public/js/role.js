@@ -252,14 +252,13 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactParent = optionValue;
                 }
-                else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
-                    console.log(event.target.form)
+                else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.reasonContactParent = optionValue;
                 }
-                else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
+                else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
                     this.resetValues(event.target.form);
-                    this.elgibilityObj.isInformation = optionValue;
+                    //this.elgibilityObj.reasonContactParent = optionValue;
                 }
                 //for professional
                 else if (questionIdentifier == "contactProfParent" && optionValue == "no") {
