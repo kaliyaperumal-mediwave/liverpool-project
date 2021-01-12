@@ -82,9 +82,10 @@ module.exports = {
     self.route('post', 'doCreateAcc', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/signup';
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data)
+
         if (data) {
-          ///req.session.auth_token = data.data.token;
+          req.session.auth_token = data.data.token;
+          req.session.user_role = data.data.data.user_role;
           req.session.loginFlag = "true";
           req.session.reload(function () { });
         }
@@ -104,7 +105,6 @@ module.exports = {
           req.session.user_role = data.data.sendUserResult.role
           req.session.loginFlag = "true";
           // need a change - decrypt
-          req.session.loginIdUrl = data.data.sendUserResult.loginId
           req.session.reload(function () { });
         }
         return res.send(data);
