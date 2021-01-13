@@ -224,7 +224,8 @@
   height: 40px;
   top: 0;
   left: 0;
-  background: #e8edee 0% 0% no-repeat padding-box; }
+  background: #e8edee 0% 0% no-repeat padding-box;
+  border: 1px solid #023047; }
 
 [type="radio"]:checked + label:after {
   width: 22px;
