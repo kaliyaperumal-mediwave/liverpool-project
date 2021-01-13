@@ -102,7 +102,7 @@
                 <form id="mainEatingOrderForm" data-options="eatingDifficulties">
                     <div v-if="(referralData.covid && (referralData.support == 'Eating disorder' || referralData.support == 'Mental health & eating disorder'))"
                         class="px-4 pt-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Main eating disorder difficulties(Please tick all that apply)</p>
+                        <p class="question-font m-0">Main eating disorder difficulties (Please tick all that apply)</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfEatingDifficulties"
                             :key="index">
                             <input type="checkbox" v-bind:id="item.id" name="eatingDisorder" v-bind:value="item.value"
@@ -166,7 +166,7 @@
                 <form id="reasonFormakingForm" data-options="reasonForReferral">
                     <div v-if="(referralData.covid && (referralData.support == 'Mental health' || referralData.dailyIntakes))"
                         class="px-4 pt-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Main reason for making referral(please tick all that apply)</p>
+                        <p class="question-font m-0">Main reason for making referral (please tick all that apply)</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
                             :key="index">
                             <input type="checkbox" v-bind:id="item.id" name="listReasonsForReferral"
