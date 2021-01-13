@@ -86,7 +86,7 @@
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Contact Carer -->
-                                <template v-if="(userRole == 'child') && section1Data.contact_parent!=''">
+                                <template v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
                                     <div v-if="userRole == 'child'"
                                         class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                         <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
@@ -125,7 +125,7 @@
                                 <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
-                                            contact_parent_camhs
+                                            Contact parent or carer:
                                         </label>
                                         <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly
                                             type="text" v-model="section1Data.contact_parent_camhs" id="canReasonCamhs">
@@ -137,7 +137,7 @@
                                 <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
-                                            reason_contact_parent_camhs
+                                            Reason for no contact:
                                         </label>
                                         <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly
                                             type="text" v-model="section1Data.reason_contact_parent_camhs"
