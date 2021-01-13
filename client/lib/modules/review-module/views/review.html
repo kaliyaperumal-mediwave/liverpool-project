@@ -122,7 +122,7 @@
                                 <!-- Child and Parent -->
 
                                   <!-- Child -->
-                                  <template v-if="userRole == 'child'">
+                                  <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
                                             contact_parent_camhs
@@ -134,7 +134,7 @@
                                 <!-- Child and Parent -->
 
                                  <!-- Child -->
-                                 <template v-if="userRole == 'child'">
+                                 <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
                                             reason_contact_parent_camhs

@@ -16,8 +16,8 @@ $(document).ready(function () {
                 childDob: '',
                 contactParent: '',
                 contactParentNo: '',
-                belowAgeLimit: '',
-                aboveLimit: '',
+                belowAgeLimit: 'no',
+                aboveLimit: 'no',
                 isInformation: '',
                 isInformationNo: '',
                 regGpTxt: '',
@@ -258,6 +258,9 @@ $(document).ready(function () {
                 else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contact_parent_camhs = optionValue;
+                }
+                else if (questionIdentifier == "reasonParentContact" && optionValue == "yes") {
+                    this.elgibilityObj.regGpTxt = "";
                 }
                 else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
                     this.resetValues(event.target.form);
@@ -598,26 +601,32 @@ $(document).ready(function () {
                     if (roleText == 'child') {
                         if (age < 15) {
                             this.elgibilityObj.belowAgeLimit = "yes";
-                            this.elgibilityObj.aboveLimit = "";
+                            this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.contact_parent_camhs="";
+                            this.elgibilityObj.reason_contact_parent_camhs=""
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else if (age > 19) {
                             this.elgibilityObj.aboveLimit = "yes";
-                            this.elgibilityObj.belowAgeLimit = "";
+                            this.elgibilityObj.belowAgeLimit = "no";
                             this.elgibilityObj.contactParent = "";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.contact_parent_camhs="";
+                            this.elgibilityObj.reason_contact_parent_camhs=""
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else {
                             //console.log("343")
                             this.elgibilityObj.contactParent = "yes";
-                            this.elgibilityObj.belowAgeLimit = "";
-                            this.elgibilityObj.aboveLimit = "";
+                            this.elgibilityObj.belowAgeLimit = "no";
+                            this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
+                            this.elgibilityObj.contact_parent_camhs="";
+                            this.elgibilityObj.reason_contact_parent_camhs=""
                         }
                     }
                     else if (roleText == 'professional') {
@@ -912,20 +921,20 @@ $(document).ready(function () {
                     if (age < 15) {
 
                         this.elgibilityObj.belowAgeLimit = "yes";
-                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.aboveLimit = "no";
                         this.elgibilityObj.camhs = "";
                         this.elgibilityObj.submitForm = "false";
                     }
                     else if (age > 19) {
                         this.elgibilityObj.boveLimit = "yes";
-                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.belowAgeLimit = "no";
                         this.elgibilityObj.camhs = "";
                         this.elgibilityObj.submitForm = "false";
                     }
                     else {
                         this.elgibilityObj.camhs = "show";
-                        this.elgibilityObj.belowAgeLimit = "";
-                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.belowAgeLimit = "no";
+                        this.elgibilityObj.aboveLimit = "no";
                         this.elgibilityObj.submitForm = "false";
                     }
                 }
