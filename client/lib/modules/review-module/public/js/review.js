@@ -288,7 +288,6 @@ $(document).ready(function () {
             },
 
             onDetectChange: function (e, toSection) {
-                debugger
                 var buttonElem = document.querySelector('#' + toSection);
                 if (toSection == "sect1") {
                     if (JSON.stringify(this.prevSection1Data) === JSON.stringify(this.section1Data)) {
@@ -321,7 +320,6 @@ $(document).ready(function () {
             },
 
             updateInfo: function (e, toUpdateObj, endpoint) {
-                debugger
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
@@ -446,7 +444,6 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (res) {
-                        debugger
                         _self.showLoader = true;
                         buttonElem.disabled = true;
                        // $(document.body).css('pointer-events', 'none');
@@ -508,7 +505,6 @@ $(document).ready(function () {
                     this.allSectionData.section3 = data;
                 }
                 else if (section == 4) {
-                    debugger;
                     if (data.other_reasons_referral != null) {
                         data.reason_for_referral.push(data.other_reasons_referral);
                     }
