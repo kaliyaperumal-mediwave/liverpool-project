@@ -223,10 +223,10 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
-                            <div class="text-validation invalid-feedback  d-none"
+                            <!-- <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
                                 You must provide answer to this question.
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </form>
@@ -242,10 +242,10 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
-                            <div class="text-validation invalid-feedback  d-none"
+                            <!-- <div class="text-validation invalid-feedback  d-none"
                                 v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
                                 You must provide answer to this question.
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </form>
@@ -264,10 +264,10 @@
                                 <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
-                                <div class="text-validation invalid-feedback  d-none"
+                                <!-- <div class="text-validation invalid-feedback  d-none"
                                     v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.disabilityOrDifficulty), 'invalid-fields':!referralData.disabilityOrDifficulty}">
                                     You must provide answer to this question.
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -342,15 +342,6 @@
                             </div>
                         </template>
 
-                        <!-- <p class="text-left mx-1 my-2 cursor-pointer" data-toggle="modal" data-target="#serviceModal"
-                            @click="resetModal('add')"><span v-if="!allAvailableService.length">Currently,you
-                                don't
-                                have any
-                                service.</span> Please click
-                            here to add a service
-                            <span class="px-2"> <i class="fa fa-plus-circle" color="#023047"
-                                    aria-hidden="true"></i></span>
-                        </p> -->
                         <button data-toggle="modal" data-target="#serviceModal" type="button" @click="resetModal('add')"
                             class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
                                 service <i class="fa fa-plus-circle" aria-hidden="true"></i>
@@ -475,8 +466,7 @@
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
-                                    <template v-if="referralData.referralInfo  && referralData.hasAnythingInfo && 
-                            referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                    <template v-if="referralData.referralInfo && referralData.dailyIntakes">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
@@ -485,8 +475,7 @@
                                         </span>
                                     </template>
                                 </p>
-                                <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
-                        referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                <template v-if="referralData.referralInfo && referralData.dailyIntakes">
                                     <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
@@ -520,8 +509,7 @@
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
-                                    <template v-if="referralData.referralInfo  && referralData.hasAnythingInfo && 
-                                referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                    <template v-if="referralData.referralInfo  && referralData.dailyIntakes">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
@@ -530,8 +518,7 @@
                                         </span>
                                     </template>
                                 </p>
-                                <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
-                            referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                <template v-if="referralData.referralInfo && referralData.dailyIntakes">
                                     <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
@@ -565,8 +552,7 @@
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
-                                    <template v-if="referralData.referralInfo  && referralData.hasAnythingInfo && 
-                                    referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                    <template v-if="referralData.referralInfo  && referralData.dailyIntakes">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template v-else>
@@ -575,8 +561,7 @@
                                         </span>
                                     </template>
                                 </p>
-                                <template v-if="referralData.referralInfo && referralData.hasAnythingInfo && 
-                                referralData.triggerInfo && referralData.disabilityOrDifficulty">
+                                <template v-if="referralData.referralInfo && referralData.dailyIntakes">
                                     <p class="question-font text-center m-0 py-2">Fab. Last but not least,
                                         lets
                                         get your
