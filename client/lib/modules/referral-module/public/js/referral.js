@@ -23,12 +23,9 @@ $(document).ready(function () {
             referralData: {
                 support: '',
                 covid: '',
-                diagnosis: '',
                 dailyIntakes: '',
                 height: '',
                 weight: '',
-                diagnosisOther: '',
-                supportOrSymptoms: '',
                 otherReasonsReferral: '',
                 referralInfo: '',
                 hasAnythingInfo: '',
@@ -44,7 +41,7 @@ $(document).ready(function () {
                 // },
                 {
                     parentKey: 'covid',
-                    childKey: 'mainDifficulties'
+                    childKey: 'eatingDifficulties'
                 },
                 // {
                 //     parentKey: 'supportOrSymptoms',
@@ -72,14 +69,14 @@ $(document).ready(function () {
             payloadData: {},
             diagnosisList: [],
             problemsList: [],
-            mainDifficulties: [],
+            eatingDifficulties: [],
             reasonForReferral: [],
             accessList: [],
             allAvailableService: [],
             referralId: "",
             hasSubmittedServiceForm: false,
             storeDeleteData: null,
-            listOfDifficulties: [
+            listOfEatingDifficulties: [
                 { id: '4937fd43-79ae-4974-90d9-601966a9d3fb', value: 'Restricting Food Intake' },
                 { id: 'bd8efbb4-6491-4520-aea7-8ab35f38a261', value: 'Restricting Fluid Intake' },
                 { id: '6d31681e-a9b9-4cbe-a7e1-26bcbd17d9c3', value: 'Fear of being fat' },
@@ -155,7 +152,7 @@ $(document).ready(function () {
                     resetValues(event.target.form, this, 'referralData');
                 }
                 else if (questionIdentifier === 'eatingDisorder') {
-                    if (!this.mainDifficulties.length) {
+                    if (!this.eatingDifficulties.length) {
                         resetValues(event.target.form, this, 'referralData');
                         this.reasonForReferral = [];
                     }
@@ -219,7 +216,7 @@ $(document).ready(function () {
             },
 
 
-            //Form Submittion of Section-4(Referral) with validation logic
+            //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
@@ -227,8 +224,10 @@ $(document).ready(function () {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
-                    this.payloadData.diagnosisList = this.diagnosisList;
-                    this.payloadData.problemsList = this.problemsList;
+                    this.payloadData.reasonForReferral = this.reasonForReferral;
+                    this.payloadData.eatingDifficulties = this.eatingDifficulties;
+                    // this.payloadData.diagnosisList = this.diagnosisList;
+                    // this.payloadData.problemsList = this.problemsList;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
                     this.payloadData.editFlag = getUrlVars()['edt'];
