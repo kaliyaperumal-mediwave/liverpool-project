@@ -1219,12 +1219,12 @@ exports.saveReferal = ctx => {
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
-          mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-          diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
-          diagnosis_other: ctx.request.body.referralData.diagnosisOther,
-          symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
-          symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
-          symptoms_other: ctx.request.body.referralData.problemsOther,
+       //   mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+        //  diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+        // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+        //  symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
+        //  symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+       //   symptoms_other: ctx.request.body.referralData.problemsOther,
           referral_issues: ctx.request.body.referralData.referralInfo,
           has_anything_helped: ctx.request.body.referralData.hasAnythingInfo,
           any_particular_trigger: ctx.request.body.referralData.triggerInfo,
@@ -1287,12 +1287,12 @@ exports.saveReferal = ctx => {
               {
                 referral_type: ctx.request.body.referralData.support,
                 is_covid: ctx.request.body.referralData.covid,
-                mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-                diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
-                diagnosis_other: ctx.request.body.referralData.diagnosisOther,
-                symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
-                symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
-                symptoms_other: ctx.request.body.referralData.problemsOther,
+                // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+                // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+                // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+                // symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
+                // symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+                // symptoms_other: ctx.request.body.referralData.problemsOther,
                 referral_issues: ctx.request.body.referralData.referralInfo,
                 has_anything_helped: ctx.request.body.referralData.hasAnythingInfo,
                 any_particular_trigger: ctx.request.body.referralData.triggerInfo,
@@ -1343,12 +1343,12 @@ exports.saveReferal = ctx => {
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
-          mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-          diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
-          diagnosis_other: ctx.request.body.referralData.diagnosisOther,
-          symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
-          symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
-          symptoms_other: ctx.request.body.referralData.problemsOther,
+          // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+          // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+          // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+          // symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
+          // symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+          // symptoms_other: ctx.request.body.referralData.problemsOther,
           referral_issues: ctx.request.body.referralData.referralInfo,
           has_anything_helped: ctx.request.body.referralData.hasAnythingInfo,
           any_particular_trigger: ctx.request.body.referralData.triggerInfo,
@@ -1409,12 +1409,12 @@ exports.saveReferal = ctx => {
               {
                 referral_type: ctx.request.body.referralData.support,
                 is_covid: ctx.request.body.referralData.covid,
-                mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-                diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
-                diagnosis_other: ctx.request.body.referralData.diagnosisOther,
-                symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
-                symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
-                symptoms_other: ctx.request.body.referralData.problemsOther,
+                // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+                // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+                // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+                // symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
+                // symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+                // symptoms_other: ctx.request.body.referralData.problemsOther,
                 referral_issues: ctx.request.body.referralData.referralInfo,
                 has_anything_helped: ctx.request.body.referralData.hasAnythingInfo,
                 any_particular_trigger: ctx.request.body.referralData.triggerInfo,
@@ -1458,12 +1458,12 @@ exports.saveReferal = ctx => {
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
-          mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-          diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
-          diagnosis_other: ctx.request.body.referralData.diagnosisOther,
-          symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
-          symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
-          symptoms_other: ctx.request.body.referralData.problemsOther,
+          // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+          // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+          // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+          // symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
+          // symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+          // symptoms_other: ctx.request.body.referralData.problemsOther,
           referral_issues: ctx.request.body.referralData.referralInfo,
           has_anything_helped: ctx.request.body.referralData.hasAnythingInfo,
           any_particular_trigger: ctx.request.body.referralData.triggerInfo,
@@ -1510,12 +1510,12 @@ exports.saveReferal = ctx => {
             {
               referral_type: ctx.request.body.referralData.support,
               is_covid: ctx.request.body.referralData.covid,
-              mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
-              diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
-              diagnosis_other: ctx.request.body.referralData.diagnosisOther,
-              symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
-              symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
-              symptoms_other: ctx.request.body.referralData.problemsOther,
+              // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+              // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+              // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+              // symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
+              // symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+              // symptoms_other: ctx.request.body.referralData.problemsOther,
               referral_issues: ctx.request.body.referralData.referralInfo,
               has_anything_helped: ctx.request.body.referralData.hasAnythingInfo,
               any_particular_trigger: ctx.request.body.referralData.triggerInfo,
