@@ -2222,6 +2222,7 @@ exports.updateSec3Info = ctx => {
 }
 
 exports.updateSec4Info = ctx => {
+
   const reason = ctx.orm().Reason
   return reason.update({
     referral_type: ctx.request.body.section4Data.referral_type,
@@ -2253,11 +2254,12 @@ exports.updateSec4Info = ctx => {
         id: ctx.request.body.section4Data.id,
       }
     }).then((referralUpdate) => {
+      
       return reason.findOne({
         where: {
           id: ctx.request.body.section4Data.id,
         },
-        attributes: ['id', 'any_other_services', 'any_particular_trigger', 'currently_accessing_services', 'diagnosis', 'diagnosis_other', 'disabilities', 'has_anything_helped', 'is_covid', 'local_services', 'mental_health_diagnosis', 'referral_issues', 'referral_type', 'services', 'symptoms', 'symptoms_other', 'symptoms_supportneeds']
+       
       }).then((referralResult) => {
         return ctx.res.ok({
           data: referralResult,
