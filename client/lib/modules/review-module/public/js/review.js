@@ -133,14 +133,17 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.section1Data.child_dob = convertDate(data.section1.child_dob);
 
-                        if (_self.section4Data.other_reasons_referral != "" &&  _self.section4Data.other_reasons_referral !=null ) {
-                            _self.section4Data.reason_for_referral.push(_self.section4Data.other_reasons_referral);
-                           
+                        if (!_self.section4Data.other_reasons_referral) {
+                            if (Array.isArray(_self.section4Data.reason_for_referral)) {
+                                _self.section4Data.reason_for_referral.push(_self.section4Data.other_reasons_referral);
+                            } else {
+                                _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral + _self.section4Data.other_reasons_referral;
+                            }
                         }
-                       
+
                         _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
                         _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties.toString();
-                        
+
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
@@ -285,6 +288,7 @@ $(document).ready(function () {
             },
 
             onDetectChange: function (e, toSection) {
+                debugger
                 var buttonElem = document.querySelector('#' + toSection);
                 if (toSection == "sect1") {
                     if (JSON.stringify(this.prevSection1Data) === JSON.stringify(this.section1Data)) {
@@ -317,6 +321,7 @@ $(document).ready(function () {
             },
 
             updateInfo: function (e, toUpdateObj, endpoint) {
+                debugger
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
@@ -441,13 +446,14 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (res) {
+                        debugger
                         _self.showLoader = true;
                         buttonElem.disabled = true;
-                        $(document.body).css('pointer-events', 'none');
+                       // $(document.body).css('pointer-events', 'none');
                         setTimeout(function () {
                             _self.showLoader = false;
                             _self.resetFormSubmitted(section, res.data);
-                            $(document.body).css('pointer-events', 'all');
+                          //  $(document.body).css('pointer-events', 'all');
                         }, 3000);
 
                     },
@@ -502,12 +508,14 @@ $(document).ready(function () {
                     this.allSectionData.section3 = data;
                 }
                 else if (section == 4) {
-                    if (data.diagnosis_other != "") {
-                        data.diagnosis.push(data.diagnosis_other);
+                    debugger;
+                    if (data.other_reasons_referral != null) {
+                        data.reason_for_referral.push(data.other_reasons_referral);
                     }
-                    if (data.symptoms_other != "") {
-                        data.symptoms.push(data.symptoms_other);
-                    }
+
+                    data.reason_for_referral = data.reason_for_referral.toString();
+                    data.eating_disorder_difficulties = data.eating_disorder_difficulties.toString();
+
                     if (data.local_services) {
                         if (data.local_services.indexOf('Other') == -1) {
                             data.local_services = data.local_services;
@@ -520,8 +528,6 @@ $(document).ready(function () {
                             data.local_services = data.local_services.concat(services);
                         }
                     }
-                    data.diagnosis = data.diagnosis.toString();
-                    data.symptoms = data.symptoms.toString();
                     this.isSection4Submitted = false;
                     this.section4Data = data;
                     this.allSectionData.section4 = data;
