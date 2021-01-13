@@ -220,7 +220,7 @@ $(document).ready(function () {
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
-                if (formData.referralInfo && formData.dailyIntakes) {
+                if (formData.referralInfo) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
