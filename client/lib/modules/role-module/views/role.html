@@ -388,7 +388,7 @@
                             should not contact your parent/carer:</label>
                         <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
                           placeholder="Tell us why you do not want us to contact your parents or carer"
-                            v-model="elgibilityObj.reason_contact_parent_camhs" rows="7"></textarea>
+                            v-model="elgibilityObj.reason_contact_parent_camhs" rows="7" @input="clearGP($event)"></textarea>
                         <!-- <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !elgibilityObj.hasAnythingInfo),'invalid-fields':!elgibilityObj.hasAnythingInfo }">
                             You must provide answer to this question.

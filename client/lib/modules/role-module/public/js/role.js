@@ -1022,7 +1022,15 @@ $(document).ready(function () {
                     ret_arr.push(key);
                 }
                 return ret_arr;
+            },
+            clearGP: function (e) {
+                var reasonCamhs = e.target.value;
+                if (reasonCamhs.length==0) {
+                    this.elgibilityObj.regGpTxt = "";
+
+                }
             }
+
         }
     })
 
