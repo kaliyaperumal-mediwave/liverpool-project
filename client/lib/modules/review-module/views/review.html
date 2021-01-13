@@ -86,7 +86,8 @@
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Contact Carer -->
-                                <template v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
+                                <template
+                                    v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
                                     <div v-if="userRole == 'child'"
                                         class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                         <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
@@ -1023,15 +1024,18 @@
                                         readonly>{{section4Data.reason_for_referral}}</textarea>
                                 </div>
 
-                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
-                                        Main eating disorder difficulties
-                                    </label>
-                                    <textarea readonly class="form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
-                                        name="infoTextAreas" id="textInf0red" rows="3"
-                                        v-model="section4Data.eating_disorder_difficulties"
-                                        readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
-                                </div>
+                                <template v-if="section4Data.eating_disorder_difficulties">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                            Main eating disorder difficulties
+                                        </label>
+                                        <textarea readonly class="form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                            name="infoTextAreas" id="textInf0red" rows="3"
+                                            v-model="section4Data.eating_disorder_difficulties"
+                                            readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
+                                    </div>
+
+                                </template>
 
                                 <div class=" py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
