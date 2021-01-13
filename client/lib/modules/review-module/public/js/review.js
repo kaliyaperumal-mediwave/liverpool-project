@@ -449,11 +449,11 @@ $(document).ready(function () {
                         debugger
                         _self.showLoader = true;
                         buttonElem.disabled = true;
-                        $(document.body).css('pointer-events', 'none');
+                       // $(document.body).css('pointer-events', 'none');
                         setTimeout(function () {
                             _self.showLoader = false;
                             _self.resetFormSubmitted(section, res.data);
-                            $(document.body).css('pointer-events', 'all');
+                          //  $(document.body).css('pointer-events', 'all');
                         }, 3000);
 
                     },
