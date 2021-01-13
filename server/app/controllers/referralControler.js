@@ -1212,6 +1212,8 @@ exports.saveReferal = ctx => {
 
   const user = ctx.orm().Referral;
   const referral = ctx.orm().Reason
+
+  console.log(ctx.request.body)
   if (ctx.request.body.role == "professional") {
 
     if (ctx.request.body.editFlag != null) {
