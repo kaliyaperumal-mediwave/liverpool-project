@@ -44,6 +44,7 @@ $(document).ready(function () {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
+                        debugger
                         $('#loader').hide();
                         if (false || !!document.documentMode) {
                             alert("Login successful.");
@@ -62,9 +63,11 @@ $(document).ready(function () {
 
                     } else {
                         $('#loader').hide();
+                        hidePointer.style.pointerEvents = "auto";
                     }
 
                 } else {
+                    hidePointer.style.pointerEvents = "auto";
                     return false;
                 }
             },

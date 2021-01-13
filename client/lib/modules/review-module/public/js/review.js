@@ -133,7 +133,7 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.section1Data.child_dob = convertDate(data.section1.child_dob);
 
-                        if (!_self.section4Data.other_reasons_referral) {
+                        if (_self.section4Data.other_reasons_referral) {
                             if (Array.isArray(_self.section4Data.reason_for_referral)) {
                                 _self.section4Data.reason_for_referral.push(_self.section4Data.other_reasons_referral);
                             } else {
