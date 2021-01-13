@@ -130,15 +130,18 @@ $(document).ready(function () {
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
-
                         _self.section1Data.child_dob = convertDate(data.section1.child_dob);
-                        if (_self.section4Data.diagnosis_other != "")
-                            _self.section4Data.diagnosis.push(_self.section4Data.diagnosis_other)
-                        if (_self.section4Data.symptoms_other != "")
-                            _self.section4Data.symptoms.push(_self.section4Data.symptoms_other)
+
+                        if (_self.section4Data.diagnosis_other != "") {
+                            _self.section4Data.diagnosis.push(_self.section4Data.diagnosis_other);
+                        }
+                        if (_self.section4Data.symptoms_other != "") {
+                            _self.section4Data.symptoms.push(_self.section4Data.symptoms_other);
+
+                        }
+
                         _self.section4Data.diagnosis = _self.section4Data.diagnosis.toString();
                         _self.section4Data.symptoms = _self.section4Data.symptoms.toString();
-
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
@@ -500,6 +503,26 @@ $(document).ready(function () {
                     this.allSectionData.section3 = data;
                 }
                 else if (section == 4) {
+                    if (data.diagnosis_other != "") {
+                        data.diagnosis.push(data.diagnosis_other);
+                    }
+                    if (data.symptoms_other != "") {
+                        data.symptoms.push(data.symptoms_other);
+                    }
+                    if (data.local_services) {
+                        if (data.local_services.indexOf('Other') == -1) {
+                            data.local_services = data.local_services;
+                        } else {
+                            var index = data.local_services.indexOf('Other');
+                            data.local_services.splice(index, 1);
+                            var services = data.services.map(function (it) {
+                                return it.name
+                            });
+                            data.local_services = data.local_services.concat(services);
+                        }
+                    }
+                    data.diagnosis = data.diagnosis.toString();
+                    data.symptoms = data.symptoms.toString();
                     this.isSection4Submitted = false;
                     this.section4Data = data;
                     this.allSectionData.section4 = data;

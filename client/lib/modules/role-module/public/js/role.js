@@ -352,6 +352,7 @@ $(document).ready(function () {
                                         $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
                                         $('#addOpacityProf').css('opacity', '1');
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                                        app.elgibilityObj.submitForm = "false";
                                     },
                                 })
 
@@ -382,6 +383,7 @@ $(document).ready(function () {
                             $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
                             $('#addOpacityProf').css('opacity', '1');
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                            app.elgibilityObj.submitForm = "false";
                         },
                     })
 
@@ -508,6 +510,7 @@ $(document).ready(function () {
                                         $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                         $('#addOpacity').css('opacity', '1');
                                         app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                                        app.elgibilityObj.submitProfForm = "false";
                                     },
                                 })
 
@@ -538,6 +541,7 @@ $(document).ready(function () {
                             $('#showInputLoader').removeClass("d-block").addClass("d-none");
                             $('#addOpacity').css('opacity', '1');
                             app.elgibilityObj.gpErrMsg = err.responseJSON.errorText;
+                            app.elgibilityObj.submitProfForm = "false";
                         },
                     })
 

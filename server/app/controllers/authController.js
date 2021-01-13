@@ -41,6 +41,7 @@ exports.signup = async (ctx) => {
             return ctx.res.ok({
                 status: "success",
                 message: reponseMessages[1005],
+                data: result
               });
         }).catch((error) => {
             console.log(error)

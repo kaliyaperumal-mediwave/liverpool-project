@@ -101,8 +101,8 @@ endblock %} {% block extraHead %}
 
     </div>
     <!-- left drawer -->
-    <div id="side-drawer" class="position-fixed">
-      <div class="h-100 padding-set">
+    <div id="side-drawer" class="position-fixed overflow-auto">
+      <div class="mb-3 padding-set">
         <!-- Side Drawer Title -->
         <div class="header-slider d-flex align-items-center ">
           <div class="slider-header">LOGO</div>
@@ -240,14 +240,15 @@ endblock %} {% block extraHead %}
 
 {% endif %}
 
-<div id='middleCont'>
-  <!-- {#
+<div id='middleCont' class="middleContainer">
+  <div class="set-mid-padding">
+    <!-- {#
     We recommend you use the beforeMain block for global page components
     like headers or navigation.
   #} -->
 
-  <!-- Loader start -->
-  <!-- <div class="overlay" id="loader">
+    <!-- Loader start -->
+    <!-- <div class="overlay" id="loader">
     <div class="overlay__inner">
       <div class="overlay__content">
         <div class="lds-spinner">
@@ -267,54 +268,68 @@ endblock %} {% block extraHead %}
       </div>
     </div>
   </div> -->
-  <!-- Loader end -->
+    <!-- Loader end -->
 
-  <!-- Delete Modal Start -->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content modal-bg">
-        <div class="modal-header justify-content-center">
-          <h5 class="logout-font mt-3">Are you sure want to logout?</h5>
-          <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
-            <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
-          </span>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn px-md-4 w-25" id="logNoBtn" data-dismiss="modal" autofocus>
-            <span class="btn-modal-text">No
+    <!-- Delete Modal Start -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bg">
+          <div class="modal-header justify-content-center">
+            <h5 class="logout-font mt-3">Are you sure want to logout?</h5>
+            <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+              <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
             </span>
-          </button>
-          <button type="submit" class="btn px-md-4 w-25" id="logYesBtn" onclick="logOut()">
-            <span class="btn-modal-text">Yes
-            </span>
-          </button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn px-md-4 w-25" id="logNoBtn" data-dismiss="modal" autofocus>
+              <span class="btn-modal-text">No
+              </span>
+            </button>
+            <button type="submit" class="btn px-md-4 w-25" id="logYesBtn" onclick="logOut()">
+              <span class="btn-modal-text">Yes
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
+    <!-- Delete Modal End -->
+
+
+    {% endblock %} {% block main %} {# Usually, your page templates in the
+    apostrophe-pages module will override this block. It is safe to assume this is
+    where your page-specific content should go. #} {% endblock %} {% block afterMain
+    %}
   </div>
-  <!-- Delete Modal End -->
-
-
-  {% endblock %} {% block main %} {# Usually, your page templates in the
-  apostrophe-pages module will override this block. It is safe to assume this is
-  where your page-specific content should go. #} {% endblock %} {% block afterMain
-  %}
 </div>
 
-<div class="footer-bg set-bottom-padding">
+<div id="footer-placement" class="footer-bg footer set-bottom-padding">
   <div class="footer-container">
-    <a href="{{ data.aboutPage }}" class="text-decoration-none"> <span class="footer-text cursor-pointer">About </span>
-    </a>
-    <a href="{{ data.termPage }}" class="text-decoration-none"> <span class="footer-text cursor-pointer">T & Cs</span>
-    </a>
-    <a href="{{ data.privacyPage }}" class="text-decoration-none"> <span
-        class="footer-text cursor-pointer">Privacy</span>
-    </a>
-    <a href="{{ data.feedbackPage }}" class="text-decoration-none"> <span
-        class="footer-text cursor-pointer">Feedback</span>
-    </a>
-    <span class="footer-text cursor-pointer">Contact</span>
+    <div>
+      <a href="{{ data.aboutPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">About
+        </span>
+      </a>
+    </div>
+    <div>
+      <a href="{{ data.termPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">T &
+          Cs</span>
+      </a>
+    </div>
+    <div>
+      <a href="{{ data.privacyPage }}" class="text-decoration-none w-100 "> <span
+          class="footer-text cursor-pointer">Privacy</span>
+      </a>
+    </div>
+    <div>
+      <a href="{{ data.feedbackPage }}" class="text-decoration-none w-100 "> <span
+          class="footer-text cursor-pointer">Feedback</span>
+      </a>
+    </div>
+    <div>
+      <a class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">Contact</span>
+      </a>
+    </div>
     <!-- <a href="{ data.contactPage }}" class="text-decoration-none"> <span
         class="footer-text cursor-pointer">Contact</span>
     </a> -->
