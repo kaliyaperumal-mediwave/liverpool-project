@@ -24,12 +24,21 @@ module.exports = {
     ),
     queryInterface.addColumn(
       'reasons', // table name
-      'eating_disorder_difficulties', // new field name
+      'reason_for_referral', // new field name
       {
         type: Sequelize.JSONB,
         allowNull: true,
       },
     ),
+    queryInterface.addColumn(
+      'reasons', // table name
+      'other_reasons_referral', // new field name
+      {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+    ),
+
     queryInterface.addColumn(
       'reasons', // table name
       'food_fluid_intake', // new field name
@@ -112,8 +121,12 @@ module.exports = {
         allowNull: true,
       },
     ),
+    
+    queryInterface.removeColumn('reasons', 'eating_disorder_difficulties'),
+    queryInterface.removeColumn('reasons', 'reason_for_referral')
+    queryInterface.removeColumn('reasons', 'other_reasons_referral'),
     queryInterface.removeColumn('reasons', 'food_fluid_intake'),
     queryInterface.removeColumn('reasons', 'height'),
-    queryInterface.removeColumn('reasons', 'weight')
+    queryInterface.removeColumn('reasons', 'weight') 
   }
 };
