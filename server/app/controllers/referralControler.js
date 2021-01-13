@@ -2231,6 +2231,14 @@ exports.updateSec4Info = ctx => {
     any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
     disabilities: ctx.request.body.section4Data.disabilities,
 
+    eating_disorder_difficulties: ctx.request.body.section4Data.eating_disorder_difficulties,
+    reason_for_referral: ctx.request.body.section4Data.reason_for_referral,
+    other_reasons_referral:ctx.request.body.section4Data.other_reasons_referral,
+    food_fluid_intake: ctx.request.body.section4Data.food_fluid_intake,
+    height: ctx.request.body.section4Data.height,
+    weight: ctx.request.body.section4Data.weight,
+
+
     //   any_other_services: ctx.request.body.section4Data.any_other_services,
     //   any_particular_trigger: ctx.request.body.section4Data.any_particular_trigger,
     //   currently_accessing_services: ctx.request.body.section4Data.currently_accessing_services,
@@ -2257,7 +2265,6 @@ exports.updateSec4Info = ctx => {
         where: {
           id: ctx.request.body.section4Data.id,
         },
-        attributes: ['id', 'any_other_services', 'any_particular_trigger', 'currently_accessing_services', 'diagnosis', 'diagnosis_other', 'disabilities', 'has_anything_helped', 'is_covid', 'local_services', 'mental_health_diagnosis', 'referral_issues', 'referral_type', 'services', 'symptoms', 'symptoms_other', 'symptoms_supportneeds']
       }).then((referralResult) => {
         return ctx.res.ok({
           data: referralResult,
