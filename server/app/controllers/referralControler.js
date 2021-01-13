@@ -1219,6 +1219,14 @@ exports.saveReferal = ctx => {
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
+
+          eating_disorder_difficulties:ctx.request.body.eatingDifficulties,
+          reason_for_referral:ctx.request.body.reasonForReferral,
+          other_reasons_referral:ctx.request.body.referralData.otherReasonsReferral,
+          food_fluid_intake:ctx.request.body.referralData.dailyIntakes,
+          height:ctx.request.body.referralData.height,
+          weight:ctx.request.body.referralData.weight,
+
        //   mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
         //  diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
         // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1287,6 +1295,14 @@ exports.saveReferal = ctx => {
               {
                 referral_type: ctx.request.body.referralData.support,
                 is_covid: ctx.request.body.referralData.covid,
+
+                eating_disorder_difficulties:ctx.request.body.eatingDifficulties,
+                reason_for_referral:ctx.request.body.reasonForReferral,
+                other_reasons_referral:ctx.request.body.referralData.otherReasonsReferral,
+                food_fluid_intake:ctx.request.body.referralData.dailyIntakes,
+                height:ctx.request.body.referralData.height,
+                weight:ctx.request.body.referralData.weight,
+
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1343,6 +1359,14 @@ exports.saveReferal = ctx => {
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
+
+          eating_disorder_difficulties:ctx.request.body.eatingDifficulties,
+          reason_for_referral:ctx.request.body.reasonForReferral,
+          other_reasons_referral:ctx.request.body.referralData.otherReasonsReferral,
+          food_fluid_intake:ctx.request.body.referralData.dailyIntakes,
+          height:ctx.request.body.referralData.height,
+          weight:ctx.request.body.referralData.weight,
+
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1409,6 +1433,14 @@ exports.saveReferal = ctx => {
               {
                 referral_type: ctx.request.body.referralData.support,
                 is_covid: ctx.request.body.referralData.covid,
+
+                eating_disorder_difficulties:ctx.request.body.eatingDifficulties,
+                reason_for_referral:ctx.request.body.reasonForReferral,
+                other_reasons_referral:ctx.request.body.referralData.otherReasonsReferral,
+                food_fluid_intake:ctx.request.body.referralData.dailyIntakes,
+                height:ctx.request.body.referralData.height,
+                weight:ctx.request.body.referralData.weight,
+
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1458,6 +1490,14 @@ exports.saveReferal = ctx => {
         {
           referral_type: ctx.request.body.referralData.support,
           is_covid: ctx.request.body.referralData.covid,
+
+          eating_disorder_difficulties:ctx.request.body.eatingDifficulties,
+          reason_for_referral:ctx.request.body.reasonForReferral,
+          other_reasons_referral:ctx.request.body.referralData.otherReasonsReferral,
+          food_fluid_intake:ctx.request.body.referralData.dailyIntakes,
+          height:ctx.request.body.referralData.height,
+          weight:ctx.request.body.referralData.weight,
+
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1510,6 +1550,15 @@ exports.saveReferal = ctx => {
             {
               referral_type: ctx.request.body.referralData.support,
               is_covid: ctx.request.body.referralData.covid,
+
+              eating_disorder_difficulties:ctx.request.body.eatingDifficulties,
+              reason_for_referral:ctx.request.body.reasonForReferral,
+              other_reasons_referral:ctx.request.body.referralData.otherReasonsReferral,
+              food_fluid_intake:ctx.request.body.referralData.dailyIntakes,
+              height:ctx.request.body.referralData.height,
+              weight:ctx.request.body.referralData.weight,
+
+              
               // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
               // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
               // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
