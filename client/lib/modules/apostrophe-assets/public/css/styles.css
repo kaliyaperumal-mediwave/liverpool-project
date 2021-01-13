@@ -202,8 +202,8 @@
 [type="radio"]:checked + label:before,
 [type="radio"]:not(:checked) + label:before, [type="radio"]:checked + label:after, [type="radio"]:not(:checked) + label:after {
   content: "";
-  position: relative;
-  border-radius: 100%;
+  position: absolute;
+  border-radius: 102px;
   opacity: 1; }
 
 [type="radio"]:checked, [type="radio"]:not(:checked) {
@@ -223,13 +223,15 @@
   width: 40px;
   height: 40px;
   top: 0;
-  left: 0; }
+  left: 0;
+  background: #e8edee 0% 0% no-repeat padding-box; }
 
 [type="radio"]:checked + label:after {
   width: 22px;
   height: 22px;
   top: 9px;
   left: 9px;
+  background: #023047 0% 0% no-repeat padding-box;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -ms-transition: all 0.2s ease;
@@ -242,6 +244,7 @@
   height: 22px;
   top: 9px;
   left: 9px;
+  background: #023047 0% 0% no-repeat padding-box;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -ms-transition: all 0.2s ease;
@@ -429,7 +432,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important ;
+  color: #0f1010 !important !important;
   background: #e8edee url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat right 0.15rem center/34px 31px !important;
   border: none !important;
   white-space: nowrap;
@@ -579,14 +582,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important ; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important ;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -594,7 +597,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important ;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -602,21 +605,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important ; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important ; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important ; }
+    color: #0f1010 !important !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {

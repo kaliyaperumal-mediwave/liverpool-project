@@ -2,8 +2,8 @@
 
 %radio-shared {
   content: "";
-  position: relative;
-  border-radius: 100%;
+  position: absolute;
+  border-radius: 102px;
   opacity: 1;
 }
 
@@ -12,7 +12,7 @@
   height: $height;
   top: $top;
   left: $left;
-  // background: $background 0% 0% no-repeat padding-box;
+  background: $background 0% 0% no-repeat padding-box;
   @extend %radio-shared;
 }
 
