@@ -15,6 +15,8 @@ exports.eligibility = ctx => {
         contact_parent: ctx.request.body.contactParent,
         consent_child: ctx.request.body.isInformation,
         registerd_gp: ctx.request.body.registerd_gp,
+        contact_parent_camhs:ctx.request.body.contact_parent_camhs,
+        reason_contact_parent_camhs:ctx.request.body.reason_contact_parent_camhs
       },
         {
           where:
@@ -41,6 +43,8 @@ exports.eligibility = ctx => {
         registerd_gp: ctx.request.body.registerd_gp,
         user_role: ctx.request.body.role,
         login_id: ctx.request.body.loginId,
+        contact_parent_camhs:ctx.request.body.contact_parent_camhs,
+        reason_contact_parent_camhs:ctx.request.body.reason_contact_parent_camhs,
         referral_progress: 20,
         referral_complete_status: 'incomplete'
       }).then((childUserInfo) => {
@@ -1623,7 +1627,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.query.user_id,
       },
-      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registerd_gp']
+      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registerd_gp','contact_parent_camhs','reason_contact_parent_camhs']
     }).then((eligibilityObj) => {
 
       return user.findOne({

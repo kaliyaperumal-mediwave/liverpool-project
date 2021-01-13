@@ -121,6 +121,30 @@
                                 </template>
                                 <!-- Child and Parent -->
 
+                                  <!-- Child -->
+                                  <template v-if="userRole == 'child'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
+                                            contact_parent_camhs
+                                        </label>
+                                        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly
+                                            type="text" v-model="section1Data.contact_parent_camhs" id="canReasonCamhs">
+                                    </div>
+                                </template>
+                                <!-- Child and Parent -->
+
+                                 <!-- Child -->
+                                 <template v-if="userRole == 'child'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
+                                            reason_contact_parent_camhs
+                                        </label>
+                                        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly
+                                            type="text" v-model="section1Data.reason_contact_parent_camhs" id="reasonCamhs">
+                                    </div>
+                                </template>
+                                <!-- Child and Parent -->
+
                                 <!-- Professional -->
                                 <template v-if="userRole == 'professional'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">

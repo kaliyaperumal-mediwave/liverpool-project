@@ -34,7 +34,8 @@ $(document).ready(function () {
                 regProfGpTxt: '',
                 profEmail: '',
                 disableRole: false,
-                reasonContactParent:''
+                contact_parent_camhs:'',
+                reason_contact_parent_camhs:''
             },
             date: null,
             dateWrap: true,
@@ -127,7 +128,7 @@ $(document).ready(function () {
             setValues: function (data) {
                 var roleType = this.paramValues[1];
                 this.patchFlag = true;
-                //console.log(roleType)
+                console.log(data)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -135,6 +136,8 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data.contact_parent);
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
+                    Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
+                    Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
                     $('input[name=role]').attr("disabled", true);
                     //   this.getGP();
@@ -252,13 +255,13 @@ $(document).ready(function () {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contactParent = optionValue;
                 }
-                else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
-                    this.resetValues(event.target.form);
-                    this.elgibilityObj.reasonContactParent = optionValue;
-                }
                 else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
                     this.resetValues(event.target.form);
-                    //this.elgibilityObj.reasonContactParent = optionValue;
+                    this.elgibilityObj.contact_parent_camhs = optionValue;
+                }
+                else if (questionIdentifier == "camhsSelect" && optionValue == "no") {
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.isInformation = optionValue;
                 }
                 //for professional
                 else if (questionIdentifier == "contactProfParent" && optionValue == "no") {

@@ -165,7 +165,13 @@ module.exports = function modelUser(sequelize, types) {
     },
     referral_complete_status:{
       type: types.TEXT
-    }
+    },
+    contact_parent_camhs:{
+      type: types.TEXT
+    },
+    reason_contact_parent_camhs:{
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });
