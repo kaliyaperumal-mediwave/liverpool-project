@@ -2222,6 +2222,7 @@ exports.updateSec3Info = ctx => {
 }
 
 exports.updateSec4Info = ctx => {
+
   const reason = ctx.orm().Reason
   return reason.update({
     referral_type: ctx.request.body.section4Data.referral_type,
@@ -2261,6 +2262,7 @@ exports.updateSec4Info = ctx => {
         id: ctx.request.body.section4Data.id,
       }
     }).then((referralUpdate) => {
+      
       return reason.findOne({
         where: {
           id: ctx.request.body.section4Data.id,
