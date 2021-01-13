@@ -86,7 +86,8 @@
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Contact Carer -->
-                                <template v-if="(userRole == 'child') && section1Data.contact_parent!=''">
+                                <template
+                                    v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
                                     <div v-if="userRole == 'child'"
                                         class="readOnly-class py-2 w-100 mx-0 row align-items-center">
                                         <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
@@ -117,6 +118,31 @@
                                         </label>
                                         <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly
                                             type="text" v-model="section1Data.consent_child" id="consentGivenSec5">
+                                    </div>
+                                </template>
+                                <!-- Child and Parent -->
+
+                                <!-- Child -->
+                                <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
+                                            Contact parent or carer:
+                                        </label>
+                                        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly
+                                            type="text" v-model="section1Data.contact_parent_camhs" id="canReasonCamhs">
+                                    </div>
+                                </template>
+                                <!-- Child and Parent -->
+
+                                <!-- Child -->
+                                <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
+                                            Reason for no contact:
+                                        </label>
+                                        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly
+                                            type="text" v-model="section1Data.reason_contact_parent_camhs"
+                                            id="reasonCamhs">
                                     </div>
                                 </template>
                                 <!-- Child and Parent -->
@@ -928,7 +954,9 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="supportNeedsSect5">
                                         Support needs:
                                     </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
+                                        v-model="section4Data.referral_type" id="supportNeedsSect5">
+                                    <!-- <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <select class="custom-select h-50px text-capitalize"
                                             v-model="section4Data.referral_type"
                                             @change="onDetectChange($event,'sect4')">
@@ -954,14 +982,8 @@
                                                 <option value="Eating disorder">Eating disorder
                                                 </option>
                                             </template>
-
-                                            <!-- <option
-                                                v-if="section4Data.referral_type != 'Mental health & eating disorder'"
-                                                value="Mental health & eating disorder">Mental health & eating
-                                                disorder
-                                            </option> -->
                                         </select>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
@@ -993,26 +1015,61 @@
                                 </div>
 
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        Main reason for making referral
+                                    </label>
+                                    <textarea readonly class="form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                        name="infoTextAreas" id="textInf0red" rows="3"
+                                        v-model="section4Data.reason_for_referral"
+                                        readonly>{{section4Data.reason_for_referral}}</textarea>
+                                </div>
+
+                                <template v-if="section4Data.eating_disorder_difficulties">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                            Main eating disorder difficulties
+                                        </label>
+                                        <textarea readonly class="form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                            name="infoTextAreas" id="textInf0red" rows="3"
+                                            v-model="section4Data.eating_disorder_difficulties"
+                                            readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
+                                    </div>
+
+                                </template>
+
+                                <div class=" py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
+                                        Height
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control" type="text" placeholder="Enter height"
+                                            v-model="section4Data.height" id="heightSect5"
+                                            @input="onDetectChange($event,'sect4')">
+                                    </div>
+
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="weightSect5">
+                                        Weight
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control" type="text" placeholder="Enter weight"
+                                            v-model="section4Data.weight" id="weightSect5"
+                                            @input="onDetectChange($event,'sect4')">
+                                    </div>
+
+                                </div>
+
+                                <!-- <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="md5">
                                         Have mental diagnoses:
                                     </label>
                                     <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" v-model="section4Data.mental_health_diagnosis">
-                                    <!-- <div class="col-md-4 col-12 px-0">
-                                        <select disabled class="custom-select h-50px text-capitalize"
-                                            v-model="section4Data.mental_health_diagnosis"
-                                            @change="onDetectChange($event,'sect4')">
-                                            <option selected>
-                                                {{section4Data.mental_health_diagnosis}}</option>
-                                            <option v-if="section4Data.mental_health_diagnosis == 'no'" value="yes">Yes
-                                            </option>
-                                            <option v-if="section4Data.mental_health_diagnosis == 'yes'" value="no">no
-                                            </option>
-                                        </select>
-                                    </div> -->
-                                </div>
+                                </div> -->
 
-                                <div v-if="section4Data.mental_health_diagnosis =='yes'"
+                                <!-- <div v-if="section4Data.mental_health_diagnosis =='yes'"
                                     class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red">
                                         Diagnoses:
@@ -1020,29 +1077,17 @@
                                     <textarea class="form-control col-md-6 col-lg-6 col-xl-5 col-11 px-0 h-50"
                                         name="infoTextAreas" id="textInf0red" placeholder="" rows="3"
                                         v-model="section4Data.diagnosis" readonly>{{section4Data.diagnosis}}</textarea>
-                                </div>
+                                </div> -->
 
-                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="symp5">
                                         Have Symptoms:
                                     </label>
                                     <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" v-model="section4Data.symptoms_supportneeds">
-                                    <!-- <div class="col-md-4 col-12 px-0">
-                                        <select disabled class="custom-select h-50px text-capitalize"
-                                            v-model="section4Data.symptoms_supportneeds"
-                                            @change="onDetectChange($event,'sect4')">
-                                            <option selected>
-                                                {{section4Data.symptoms_supportneeds}}</option>
-                                            <option v-if="section4Data.symptoms_supportneeds == 'no'" value="yes">Yes
-                                            </option>
-                                            <option v-if="section4Data.symptoms_supportneeds == 'yes'" value="no">no
-                                            </option>
-                                        </select>
-                                    </div> -->
-                                </div>
+                                </div> -->
 
-                                <div v-if="section4Data.symptoms_supportneeds == 'yes'"
+                                <!-- <div v-if="section4Data.symptoms_supportneeds == 'yes'"
                                     class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red24">
                                         Symptoms:
@@ -1052,14 +1097,14 @@
                                             placeholder="" rows="3" v-model="section4Data.symptoms"
                                             readonly>{{section4Data.symptoms}}</textarea>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font px-0 col-12 col-md-4" for="infoAb5">
                                         Info about issue:
                                     </label>
                                     <textarea class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control"
-                                        name="infoTextAreas" id="infoAb5" placeholder="" rows="3"
+                                        name="infoTextAreas" id="infoAb5" rows="3"
                                         @keypress="preventWhiteSpaces($event)" v-model="section4Data.referral_issues"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.referral_issues}}</textarea>
                                 </div>
@@ -1069,7 +1114,7 @@
                                         Has anything helped?:
                                     </label>
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        name="infoTextAreas" id="hasHelp5" placeholder="" rows="3"
+                                        name="infoTextAreas" id="hasHelp5" rows="3"
                                         v-model="section4Data.has_anything_helped"
                                         @keypress="preventWhiteSpaces($event)"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.has_anything_helped}}</textarea>
@@ -1080,7 +1125,7 @@
                                         Triggers:
                                     </label>
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        name="infoTextAreas" id="trig5" placeholder="" rows="3"
+                                        name="infoTextAreas" id="trig5" rows="3"
                                         v-model="section4Data.any_particular_trigger"
                                         @keypress="preventWhiteSpaces($event)"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.any_particular_trigger}}</textarea>
@@ -1091,7 +1136,7 @@
                                         Disabilities / difficulties:
                                     </label>
                                     <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        name="infoTextAreas" id="textInf0red" placeholder="" rows="3"
+                                        name="infoTextAreas" id="textInf0red" rows="3"
                                         v-model="section4Data.disabilities" @keypress="preventWhiteSpaces($event)"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.disabilities}}</textarea>
                                 </div>

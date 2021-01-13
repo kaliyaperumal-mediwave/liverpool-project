@@ -1,4 +1,12 @@
 module.exports = function modelReferral(sequelize, types) {
+
+  //   mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
+        //  diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
+        // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
+        //  symptoms_supportneeds: ctx.request.body.referralData.supportOrSymptoms,
+        //  symptoms: ctx.request.body.problemsList,//--------------------symptoms list for both mental and eating 
+       //   symptoms_other: ctx.request.body.referralData.problemsOther,
+
     const Reason = sequelize.define('Reason', {
       referral_type: {
         type: types.TEXT
@@ -7,29 +15,28 @@ module.exports = function modelReferral(sequelize, types) {
         type: types.TEXT
       },
 
-      
-      mental_health_diagnosis: {
-        type: types.TEXT
-      },
+      // mental_health_diagnosis: {
+      //   type: types.TEXT
+      // },
 
-      diagnosis: {
-        type: types.JSONB
-      },
+      // diagnosis: {
+      //   type: types.JSONB
+      // },
 
-      diagnosis_other: {
-        type: types.TEXT
-      },
-      symptoms_supportneeds: {
-        type: types.TEXT
-      },
+      // diagnosis_other: {
+      //   type: types.TEXT
+      // },
+      // symptoms_supportneeds: {
+      //   type: types.TEXT
+      // },
 
-      symptoms: {
-        type: types.JSONB
-      },
+      // symptoms: {
+      //   type: types.JSONB
+      // },
 
-      symptoms_other: {
-        type: types.TEXT
-      },
+      // symptoms_other: {
+      //   type: types.TEXT
+      // },
 
       referral_issues:{
         type: types.TEXT
@@ -58,7 +65,24 @@ module.exports = function modelReferral(sequelize, types) {
      services:{
         type: types.JSONB
       },
-
+      eating_disorder_difficulties:{
+        type: types.JSONB
+      },
+      reason_for_referral:{
+        type: types.JSONB
+      },
+      other_reasons_referral:{
+        type: types.TEXT
+      },
+      food_fluid_intake:{
+        type: types.TEXT
+      },
+      height:{
+        type: types.TEXT
+      },
+      weight:{
+        type: types.TEXT
+      },
     }, {
       tableName: 'reasons',
     });
