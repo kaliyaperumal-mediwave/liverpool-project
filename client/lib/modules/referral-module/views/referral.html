@@ -201,7 +201,8 @@
                     <div v-if="reasonForReferral.length || referralData.otherReasonsReferral"
                         class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group">
-                            <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}</label>
+                            <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}
+                                <b>{{dynamicLabels.referralSubLabel}}</b></label>
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
                                 v-model="referralData.referralInfo"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
