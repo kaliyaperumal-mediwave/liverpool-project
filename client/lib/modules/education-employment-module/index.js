@@ -9,7 +9,7 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.setValues, self.education);
+      self.dispatch('/',self.middleware.checkCommonPageAuth, self.education);
     };
     self.education = function (req, callback) {
       let decryptedUrl;
