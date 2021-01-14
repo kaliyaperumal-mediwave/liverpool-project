@@ -239,7 +239,7 @@ $(document).ready(function () {
             //Form Submittion of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
-                //  var formData = Object.assign(this.aboutObj, this.aboutFormData);
+                // var formData = Object.assign(this.aboutObj, this.aboutFormData);
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.contactNumber && formData.relationshipToYou &&
                     formData.parentialResponsibility && formData.childGender && formData.parentName &&
