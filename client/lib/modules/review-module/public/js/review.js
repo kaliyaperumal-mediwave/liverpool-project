@@ -392,10 +392,10 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                    delete formData.reason_for_referral;
-                    delete formData.eating_disorder_difficulties;
 
                     this.payloadData.section4Data = JSON.parse(JSON.stringify(formData));
+                    delete this.payloadData.section4Data.reason_for_referral;
+                    delete this.payloadData.section4Data.eating_disorder_difficulties;
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.endPoint = endpoint;
