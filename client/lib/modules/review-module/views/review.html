@@ -963,7 +963,7 @@
                         <div id="collapseFour" class="collapse" aria-labelledby="headingFour"
                             data-parent="#accordionExample">
                             <div class="py-1 py-md-2">
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="supportNeedsSect5">
                                         Support needs:
                                     </label>
@@ -1003,10 +1003,10 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="covid5">
                                         Covid related?
                                     </label>
-                                    <input readonly
+                                    <!-- <input readonly
                                         class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
-                                        type="text" v-model="section4Data.is_covid">
-                                    <!-- <div class="readOnly-class col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        type="text" v-model="section4Data.is_covid"> -->
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <select class="custom-select h-50px text-capitalize"
                                             v-model="section4Data.is_covid" @change="onDetectChange($event,'sect4')">
                                             <option selected>
@@ -1027,14 +1027,14 @@
                                                 <option value="yes">yes
                                             </template>
                                         </select>
-                                    </div> -->
+                                    </div>
                                 </div>
 
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                         Main reason for making referral
                                     </label>
-                                    <textarea readonly
+                                    <textarea
                                         class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11 h-50"
                                         name="infoTextAreas" id="textInf0red" rows="3"
                                         v-model="section4Data.reason_for_referral"
@@ -1046,7 +1046,8 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                             Main eating disorder difficulties
                                         </label>
-                                        <textarea readonly class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                        <textarea
+                                            class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11 h-50"
                                             name="infoTextAreas" id="textInf0red" rows="3"
                                             v-model="section4Data.eating_disorder_difficulties"
                                             readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
@@ -1059,8 +1060,8 @@
                                         Height
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input readonly class="form-control text-capitalize" type="text" placeholder="Enter height"
-                                            v-model="section4Data.height" id="heightSect5"
+                                        <input class="form-control text-capitalize" type="text"
+                                            placeholder="Enter height" v-model="section4Data.height" id="heightSect5"
                                             @input="onDetectChange($event,'sect4')">
                                     </div>
 
@@ -1071,56 +1072,19 @@
                                         Weight
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input readonly class="form-control text-capitalize" type="text" placeholder="Enter weight"
-                                            v-model="section4Data.weight" id="weightSect5"
+                                        <input class="form-control text-capitalize" type="text"
+                                            placeholder="Enter weight" v-model="section4Data.weight" id="weightSect5"
                                             @input="onDetectChange($event,'sect4')">
                                     </div>
 
                                 </div>
 
-                                <!-- <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="md5">
-                                        Have mental diagnoses:
-                                    </label>
-                                    <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section4Data.mental_health_diagnosis">
-                                </div> -->
-
-                                <!-- <div v-if="section4Data.mental_health_diagnosis =='yes'"
-                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red">
-                                        Diagnoses:
-                                    </label>
-                                    <textarea class="form-control col-md-6 col-lg-6 col-xl-5 col-11 px-0 h-50"
-                                        name="infoTextAreas" id="textInf0red" placeholder="" rows="3"
-                                        v-model="section4Data.diagnosis" readonly>{{section4Data.diagnosis}}</textarea>
-                                </div> -->
-
-                                <!-- <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="symp5">
-                                        Have Symptoms:
-                                    </label>
-                                    <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section4Data.symptoms_supportneeds">
-                                </div> -->
-
-                                <!-- <div v-if="section4Data.symptoms_supportneeds == 'yes'"
-                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="textInf0red24">
-                                        Symptoms:
-                                    </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control" name="infoTextAreas" id="textInf0red24"
-                                            placeholder="" rows="3" v-model="section4Data.symptoms"
-                                            readonly>{{section4Data.symptoms}}</textarea>
-                                    </div>
-                                </div> -->
-
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font px-0 col-12 col-md-4" for="infoAb5">
                                         Info about issue:
                                     </label>
-                                    <textarea readonly class="col-md-6 col-lg-6  text-capitalize col-xl-5 col-11 h-50 form-control"
+                                    <textarea
+                                        class="col-md-6 col-lg-6  text-capitalize col-xl-5 col-11 h-50 form-control"
                                         name="infoTextAreas" id="infoAb5" rows="3"
                                         @keypress="preventWhiteSpaces($event)" v-model="section4Data.referral_issues"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.referral_issues}}</textarea>
@@ -1130,7 +1094,8 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="hasHelp5">
                                         Has anything helped?:
                                     </label>
-                                    <textarea readonly class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea
+                                        class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="hasHelp5" rows="3"
                                         v-model="section4Data.has_anything_helped"
                                         @keypress="preventWhiteSpaces($event)"
@@ -1141,7 +1106,8 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="trig5">
                                         Triggers:
                                     </label>
-                                    <textarea readonly class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea
+                                        class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="trig5" rows="3"
                                         v-model="section4Data.any_particular_trigger"
                                         @keypress="preventWhiteSpaces($event)"
@@ -1152,7 +1118,8 @@
                                     <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
                                         Disabilities / difficulties:
                                     </label>
-                                    <textarea readonly class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea
+                                        class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="textInf0red" rows="3"
                                         v-model="section4Data.disabilities" @keypress="preventWhiteSpaces($event)"
                                         @input="onDetectChange($event,'sect4')">{{section4Data.disabilities}}</textarea>
@@ -1165,8 +1132,8 @@
                                         Accessed Services
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control text-capitalize" name="infoTextAreas" placeholder="" rows="3"
-                                            readonly
+                                        <textarea class="h-50 form-control text-capitalize" name="infoTextAreas"
+                                            placeholder="" rows="3"
                                             v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
                                     </div>
                                 </div>
