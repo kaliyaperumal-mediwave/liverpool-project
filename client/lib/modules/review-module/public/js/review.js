@@ -117,6 +117,7 @@ $(document).ready(function () {
 
             //Get Request to get all section's data
             getAllSectionData: function (payloadData) {
+                console.log()
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
@@ -124,19 +125,24 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                        console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
-
                         _self.section1Data.child_dob = convertDate(data.section1.child_dob);
-                        if (_self.section4Data.diagnosis_other != "")
-                            _self.section4Data.diagnosis.push(_self.section4Data.diagnosis_other)
-                        if (_self.section4Data.symptoms_other != "")
-                            _self.section4Data.symptoms.push(_self.section4Data.symptoms_other)
-                        _self.section4Data.diagnosis = _self.section4Data.diagnosis.toString();
-                        _self.section4Data.symptoms = _self.section4Data.symptoms.toString();
+
+                        if (_self.section4Data.other_reasons_referral) {
+                            if (Array.isArray(_self.section4Data.reason_for_referral)) {
+                                _self.section4Data.reason_for_referral.push(_self.section4Data.other_reasons_referral);
+                            } else {
+                                _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral + _self.section4Data.other_reasons_referral;
+                            }
+                        }
+
+                        _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
+                        _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties.toString();
 
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
@@ -314,6 +320,7 @@ $(document).ready(function () {
             },
 
             updateInfo: function (e, toUpdateObj, endpoint) {
+                debugger
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
@@ -385,23 +392,13 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                    if (formData.has_anything_helped == '') {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                    if (formData.any_particular_trigger == '') {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                    if (formData.disabilities == '') {
-                        scrollToInvalidInput();
-                        return false;
-                    }
 
                     this.payloadData.section4Data = JSON.parse(JSON.stringify(formData));
+                    delete this.payloadData.section4Data.reason_for_referral;
+                    delete this.payloadData.section4Data.eating_disorder_difficulties;
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
-                    this.payloadData.endPoint = endpoint
+                    this.payloadData.endPoint = endpoint;
                     this.upsertInforForm(this.payloadData, 4, e.currentTarget.id);
                 }
                 else if (endpoint == "/user/updateEligibilityInfo") {
@@ -440,11 +437,11 @@ $(document).ready(function () {
                     success: function (res) {
                         _self.showLoader = true;
                         buttonElem.disabled = true;
-                        $(document.body).css('pointer-events', 'none');
+                        // $(document.body).css('pointer-events', 'none');
                         setTimeout(function () {
                             _self.showLoader = false;
                             _self.resetFormSubmitted(section, res.data);
-                            $(document.body).css('pointer-events', 'all');
+                            //  $(document.body).css('pointer-events', 'all');
                         }, 3000);
 
                     },
@@ -499,6 +496,25 @@ $(document).ready(function () {
                     this.allSectionData.section3 = data;
                 }
                 else if (section == 4) {
+                    if (data.other_reasons_referral != null) {
+                        data.reason_for_referral.push(data.other_reasons_referral);
+                    }
+
+                    data.reason_for_referral = data.reason_for_referral.toString();
+                    data.eating_disorder_difficulties = data.eating_disorder_difficulties.toString();
+
+                    if (data.local_services) {
+                        if (data.local_services.indexOf('Other') == -1) {
+                            data.local_services = data.local_services;
+                        } else {
+                            var index = data.local_services.indexOf('Other');
+                            data.local_services.splice(index, 1);
+                            var services = data.services.map(function (it) {
+                                return it.name
+                            });
+                            data.local_services = data.local_services.concat(services);
+                        }
+                    }
                     this.isSection4Submitted = false;
                     this.section4Data = data;
                     this.allSectionData.section4 = data;

@@ -17,7 +17,7 @@ $(document).ready(function () {
             isFormSubmitted: false,
             showVisibility: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
+            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{8,}.$/
         },
 
         beforeMount: function () {
@@ -35,17 +35,27 @@ $(document).ready(function () {
         methods: {
 
             submitLogin: function () {
-                let formData = this.loginObject;
-                this.isFormSubmitted = true
+                var formData = this.loginObject;
+                var hidePointer = document.body;
+                this.isFormSubmitted = true;
+                formData.password = formData.password.trim();
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
+                    hidePointer.style.pointerEvents = "none";
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
+                        debugger
                         $('#loader').hide();
                         if (false || !!document.documentMode) {
+<<<<<<< HEAD
                             alert("Login successful.")
                          //   location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
                             location.href = "/dashboard";
+=======
+                            alert("Login successful.");
+                            hidePointer.style.pointerEvents = "none";
+                            location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+>>>>>>> dev
                         } else {
                             Vue.$toast.success('Login successful.', {
                                 position: 'top',
@@ -55,13 +65,16 @@ $(document).ready(function () {
                                   location.href = "/dashboard";
                                 }
                             });
+                            hidePointer.style.pointerEvents = "none";
                         }
 
                     } else {
                         $('#loader').hide();
+                        hidePointer.style.pointerEvents = "auto";
                     }
 
                 } else {
+                    hidePointer.style.pointerEvents = "auto";
                     return false;
                 }
             },
