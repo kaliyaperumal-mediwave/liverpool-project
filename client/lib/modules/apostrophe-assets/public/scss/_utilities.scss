@@ -16,6 +16,10 @@
   }
 }
 
+@mixin set-dynamicHeight($height) {
+  height: $height !important;
+}
+
 @mixin set-titleStyles($size, $weight, $color) {
   @extend %font-shared;
   font-size: $size;

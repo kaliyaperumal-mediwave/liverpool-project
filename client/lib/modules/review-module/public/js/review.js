@@ -133,7 +133,7 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.section1Data.child_dob = convertDate(data.section1.child_dob);
 
-                        if (!_self.section4Data.other_reasons_referral) {
+                        if (_self.section4Data.other_reasons_referral) {
                             if (Array.isArray(_self.section4Data.reason_for_referral)) {
                                 _self.section4Data.reason_for_referral.push(_self.section4Data.other_reasons_referral);
                             } else {
@@ -320,6 +320,7 @@ $(document).ready(function () {
             },
 
             updateInfo: function (e, toUpdateObj, endpoint) {
+                debugger
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
@@ -391,23 +392,13 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                    if (formData.has_anything_helped == '') {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                    if (formData.any_particular_trigger == '') {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                    if (formData.disabilities == '') {
-                        scrollToInvalidInput();
-                        return false;
-                    }
 
                     this.payloadData.section4Data = JSON.parse(JSON.stringify(formData));
+                    delete this.payloadData.section4Data.reason_for_referral;
+                    delete this.payloadData.section4Data.eating_disorder_difficulties;
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
-                    this.payloadData.endPoint = endpoint
+                    this.payloadData.endPoint = endpoint;
                     this.upsertInforForm(this.payloadData, 4, e.currentTarget.id);
                 }
                 else if (endpoint == "/user/updateEligibilityInfo") {
@@ -446,11 +437,11 @@ $(document).ready(function () {
                     success: function (res) {
                         _self.showLoader = true;
                         buttonElem.disabled = true;
-                       // $(document.body).css('pointer-events', 'none');
+                        // $(document.body).css('pointer-events', 'none');
                         setTimeout(function () {
                             _self.showLoader = false;
                             _self.resetFormSubmitted(section, res.data);
-                          //  $(document.body).css('pointer-events', 'all');
+                            //  $(document.body).css('pointer-events', 'all');
                         }, 3000);
 
                     },

@@ -73,9 +73,11 @@ $(document).ready(function () {
                         }
 
                     } else {
+                        hidePointer.style.pointerEvents = "auto";
                         $('#loader').hide();
                     }
                 } else {
+                    hidePointer.style.pointerEvents = "auto";
                     scrollToInvalidInput();
                     return false;
                 }

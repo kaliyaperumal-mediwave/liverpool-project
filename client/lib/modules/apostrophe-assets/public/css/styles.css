@@ -343,6 +343,9 @@
   border: none !important;
   height: 50px !important; }
 
+textarea .form-control {
+  height: 75px !important; }
+
 .form-control {
   background: #e8edee 0% 0% no-repeat padding-box !important; }
   .form-control:focus {
@@ -521,6 +524,8 @@ body {
   @media (min-width: 1200px) and (max-width: 1499.98px) {
     body .col-xl-6 {
       max-width: 60% !important; } }
+  body .h-75px {
+    height: 75px !important; }
   body input {
     white-space: nowrap !important;
     overflow: hidden !important;
