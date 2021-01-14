@@ -4,7 +4,7 @@ module.exports = function (self, options) {
   self.middleware = {
 
     checkAuth:function (req,res,next){
-      console.log("middleware auth toker : "+ req.session.auth_token );
+      console.log("middleware auth toker : "+ req.session.user_role );
       if (req.session.auth_token) {
        req.data.loginId = req.session.loginIdUrl;
        req.data.userRole = req.session.user_role;

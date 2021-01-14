@@ -82,8 +82,9 @@ module.exports = {
     self.route('post', 'doCreateAcc', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/signup';
       self.middleware.post(req, res, url, req.body).then((data) => {
-
+        console.log(data.data.data.user_role)
         if (data) {
+         
           req.session.auth_token = data.data.token;
           req.session.user_role = data.data.data.user_role;
           req.session.loginFlag = "true";

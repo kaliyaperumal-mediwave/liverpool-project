@@ -30,7 +30,7 @@ exports.signup = async (ctx) => {
         }
         const hashedPassword = await bcrypt.hash(ctx.request.body.password, saltRounds)
         const userEmail = (ctx.request.body.email).toLowerCase();
-        console.log(userEmail)
+        console.log(userEmail);
         return user.create({
             first_name: ctx.request.body.first_name,
             last_name: ctx.request.body.last_name,
@@ -38,7 +38,7 @@ exports.signup = async (ctx) => {
             password: hashedPassword,
             user_role: ctx.request.body.role,
         }).then((result) => {
-            const payload = { email: result.email, id: result.uuid,role:result.role };
+            const payload = { email: result.email, id: result.uuid,role:result.user_role };
             const secret = process.env.JWT_SECRET;
             const token = jwt.sign(payload, secret);
             const sendSignupResult = {

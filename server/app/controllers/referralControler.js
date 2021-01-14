@@ -34,7 +34,6 @@ exports.eligibility = ctx => {
       });
     }
     else {
-<<<<<<< HEAD
       //for logined user
       if(ctx.request.decryptedUser!=undefined)
       {
@@ -85,32 +84,6 @@ exports.eligibility = ctx => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }
-=======
-      console.log(ctx.request.body)
-      return user.create({
-        need_interpreter: ctx.request.body.interpreter,
-        child_dob: ctx.request.body.child_Dob,
-        contact_parent: ctx.request.body.contactParent,
-        consent_child: ctx.request.body.isInformation,
-        registerd_gp: ctx.request.body.registerd_gp,
-        user_role: ctx.request.body.role,
-        login_id: ctx.request.body.loginId,
-        contact_parent_camhs: ctx.request.body.contact_parent_camhs,
-        reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
-        referral_progress: 20,
-        referral_complete_status: 'incomplete'
-      }).then((childUserInfo) => {
-        childUserInfo.setType("1")
-        const responseData = {
-          userid: childUserInfo.uuid,
-          status: "ok",
-        }
-        return ctx.body = responseData;
-      }).catch((error) => {
-        console.log(error)
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
->>>>>>> dev
     }
 
   }
@@ -1760,21 +1733,30 @@ exports.fetchReferral = ctx => {
         id: fetchResult.id,
       },
     }).then((userResult) => {
-      console.log(userResult);
-      console.log(userResult[0].referral_reason[0].id)
-      var refId = userResult[0].referral_reason[0].id;
+      if(userResult[0].referral_reason[0]!=undefined){
+        var refId = userResult[0].referral_reason[0].id;
 
-      return referral.findOne({
-        where: {
-          id: refId,
-        },
-
-      }).then((referralResult) => {
-        console.log(referralResult)
-        return ctx.body = referralResult;
-      }).catch((error) => {
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
+        return referral.findOne({
+          where: {
+            id: refId,
+          },
+  
+        }).then((referralResult) => {
+          console.log(referralResult)
+          return ctx.body = referralResult;
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }
+      else
+      {
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "fail",
+        }
+        return ctx.body = responseData;
+      }
+    //  console.log(userResult[0].referral_reason[0].id)
     }).catch((error) => {
       console.log(error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)

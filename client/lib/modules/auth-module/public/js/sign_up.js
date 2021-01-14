@@ -58,15 +58,13 @@ $(document).ready(function () {
                         if (false || !!document.documentMode) {
                             alert("Account created");
                             hidePointer.style.pointerEvents = "none";
-                            // window.location.href = window.location.origin + '/users/login';
-                            location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
+                            location.href = "/dashboard";
                         } else {
                             Vue.$toast.success('Account created', {
                                 position: 'top',
                                 duration: 1000,
                                 onDismiss: function () {
-                                    //  window.location.href = window.location.origin + '/users/login';
-                                    location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
+                                   location.href = "/dashboard";
                                 }
                             });
                             hidePointer.style.pointerEvents = "none";
