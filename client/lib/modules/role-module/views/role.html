@@ -143,7 +143,29 @@
             <!-- calendar-end  parent-->
 
             <!-- Age under 14 start-->
-            <form id="age-parentcontact-form" data-options="belowAgeLimit">
+
+             <!-- toster-container start -->
+             <form id="tostInterYes-form" data-options="belowAgeLimit">
+                <div  v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
+                    class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center m-0 py-2">If you are under 14 you will need your
+                                parent/carer to complete this referral.
+                               </p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Please ask them to start this form from
+                                the beginning on your behalf</p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- toster-container start -->
+
+            <!-- <form id="age-parentcontact-form" data-options="belowAgeLimit">
                 <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
@@ -166,33 +188,6 @@
                             v-model="elgibilityObj.contactParent" id="contactYes" value="yes"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="contactYes">
-                            Yes
-                        </label>
-                    </div>
-                </div>
-            </form>
-
-            <!-- <form id="reason-parentcontact-form" data-options="contact_Parent">
-                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes' && elgibilityObj.contactParent=='yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Is there any reason why your
-                            parent/carer cannot be contacted by a
-                            member of the CAMHS partnership
-                            during this referral process?</p>
-                    </div>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="reasonParentContact"
-                            v-model="elgibilityObj.reasonContactParent" id="reasonContactNo" value="no" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="reasonContactNo">
-                            No
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="reasonParentContact"
-                            v-model="elgibilityObj.reasonContactParent" id="reasonContactYes" value="yes"
-                            @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="reasonContactYes">
                             Yes
                         </label>
                     </div>
