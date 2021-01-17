@@ -170,75 +170,7 @@ $(document).ready(function () {
                 }
 
             },
-            // getGP: function () {
-            //     var _self = this;
-            //     gpList = [];
-            //  //  var gpLink= "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?name"+ txtValue
-            //     $.ajax({
-            //         url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
-            //         type: 'get',
-            //         success: function (response) {
-            //             _self.gpListShow = response.Organisations;
-            //             for (i = 0; i < _self.gpListShow.length; i++) {
-            //                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
-            //                 //_self.gpListPost.push(_self.gpListShow[i].PostCode)
-            //             }
-            //             displayNameList = _self.gpListName;
-            //             displayPostList = _self.gpListPost;
-            //             ////console.log(displayNameList);
-            //             $("#gpLocation").autocomplete({
-            //                 source: displayNameList,
-            //                 response: function (event, ui) {
-            //                     if (ui.content.length == 0) {
-            //                         //alert("gp n")
-            //                         $(this).trigger('keydown');
-            //                     } else {
-
-            //                         ////console.log(ui.content.length);
-            //                     }
-            //                 }
-            //             });
-
-            //         },
-            //         error: function (err) {
-            //             //console.log(err)
-            //         },
-            //     })
-            // },
-
-            // getProfGP: function () {
-            //     var _self = this;
-            //     gpList = [];
-            //     $.ajax({
-            //         url: "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PrimaryRoleId=RO177",
-            //         type: 'get',
-            //         success: function (response) {
-            //             this.gpListShow = response.Organisations;
-            //             for (i = 0; i < this.gpListShow.length; i++) {
-            //                 _self.gpProfListName.push(this.gpListShow[i].Name + ',' + this.gpListShow[i].PostCode);
-            //                 //    _self.gpProfListPost.push(this.gpListShow[i].PostCode)
-            //             }
-            //             displayNameList = _self.gpProfListName;
-            //             displayPostList = _self.gpProfListPost;
-
-            //             $("#gpProfLocation").autocomplete({
-            //                 source: displayNameList,
-            //                 response: function (event, ui) {
-            //                     if (ui.content.length == 0) {
-            //                         $(this).trigger('keydown');
-            //                     } else {
-            //                     }
-            //                 }
-            //             });
-            //             return;
-            //         },
-            //         error: function (err) {
-            //             //console.log(err)
-            //         },
-            //     })
-            // },
-
-
+          
             onChange: function (event) {
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value;
@@ -330,6 +262,7 @@ $(document).ready(function () {
                                         app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
+                                            console.log(_self.gpListShow[i].PostCode)
                                             if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                         }
@@ -493,6 +426,7 @@ $(document).ready(function () {
                                         app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
+                                            if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
                                         payload = _self.remove_duplicates(_self.gpProfListName);
@@ -521,6 +455,7 @@ $(document).ready(function () {
                                 _self.gpListShow = response.Organisations;
                                 if (_self.gpListShow.length > 0) {
                                     for (i = 0; i < _self.gpListShow.length; i++) {
+                                        if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                         _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
                                     nameData = _self.remove_duplicates(_self.gpProfListName);
@@ -560,31 +495,6 @@ $(document).ready(function () {
                         }
                     });
                 }
-
-
-
-
-
-                // var _self = this;
-                // var selectFlag = false;
-                // //  this.elgibilityObj.registerd_gp = {};
-                // $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
-                //     //   //console.log(ui.item.label);
-                //     if (e.target.value === '') {
-                //         app.elgibilityObj.submitProfForm = "false";
-                //     } else {
-                //         selectFlag = true;
-                //         app.elgibilityObj.regProfGpTxt = ui.item.label;
-                //         app.elgibilityObj.submitProfForm = "true";
-                //     }
-                // });
-                // if (e.target.value.length === 0) {
-                //     app.elgibilityObj.submitProfForm = "false";
-                // }
-                // else {
-                //     app.elgibilityObj.submitProfForm = "true";
-                // }
-
             },
 
             selectGp: function () {
@@ -1051,16 +961,18 @@ $(document).ready(function () {
             validatePostCode:function(postCode)
             {
                 var isRange=false;
-                var index = ((postCode).substring(0,postCode.indexOf(' '))).replace(/\D/g,'') ;
-                if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
-                   // console.log("getPostCodeDigits L " + postCode);
-                    isRange = true
-                }
-                else if(postCode.substring(0, 2) == "PR" && (index == 8 || index == 9))
+                if(postCode)
                 {
-                    isRange = true
+                    var index = ((postCode).substring(0,postCode.indexOf(' '))).replace(/\D/g,'') ;
+                    if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
+                        // console.log("getPostCodeDigits L " + postCode);
+                         isRange = true
+                     }
+                     else if(postCode.substring(0, 2) == "PR" && (index == 8 || index == 9))
+                     {
+                         isRange = true
+                     }
                 }
-
                return isRange;
             }
 
