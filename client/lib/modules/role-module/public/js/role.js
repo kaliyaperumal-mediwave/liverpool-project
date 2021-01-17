@@ -34,8 +34,8 @@ $(document).ready(function () {
                 regProfGpTxt: '',
                 profEmail: '',
                 disableRole: false,
-                contact_parent_camhs:'',
-                reason_contact_parent_camhs:''
+                contact_parent_camhs: '',
+                reason_contact_parent_camhs: ''
             },
             date: null,
             dateWrap: true,
@@ -170,7 +170,7 @@ $(document).ready(function () {
                 }
 
             },
-          
+
             onChange: function (event) {
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value;
@@ -263,24 +263,31 @@ $(document).ready(function () {
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             console.log(_self.gpListShow[i].PostCode)
-                                            if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                            _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                            if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
+                                                _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.remove_duplicates(_self.gpListName);
-                                        $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
-                                        $('#addOpacityProf').css('opacity', '1');
-                                        $("#gpLocation").autocomplete({
-                                            source: payload,
-                                            select: function (event, ui) {
-                                                _self.gpFlag = true;
-                                                _self.elgibilityObj.regGpTxt = ui.item.value;
-                                                app.elgibilityObj.submitForm = "true";
-                                                // //console.log(ui);
-                                            },
-                                            close: function () {
-                                                _self.gpFlag = true;
-                                            }
-                                        });
+                                        if (_self.gpListName.length == 0) {
+                                            app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                            $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                                            $('#addOpacityProf').css('opacity', '1');
+                                        }
+                                        else {
+                                            payload = _self.remove_duplicates(_self.gpListName);
+                                            $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                                            $('#addOpacityProf').css('opacity', '1');
+                                            $("#gpLocation").autocomplete({
+                                                source: payload,
+                                                select: function (event, ui) {
+                                                    _self.gpFlag = true;
+                                                    _self.elgibilityObj.regGpTxt = ui.item.value;
+                                                    app.elgibilityObj.submitForm = "true";
+                                                    // //console.log(ui);
+                                                },
+                                                close: function () {
+                                                    _self.gpFlag = true;
+                                                }
+                                            });
+                                        }
                                     },
                                     error: function (err) {
                                         $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
@@ -294,23 +301,30 @@ $(document).ready(function () {
                             else {
                                 _self.gpListShow = response.Organisations;
                                 for (i = 0; i < _self.gpListShow.length; i++) {
-                                    if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                    _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                    if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
+                                        _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                 }
-                                nameData = _self.remove_duplicates(_self.gpListName);
-                                $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
-                                $('#addOpacityProf').css('opacity', '1');
-                                $("#gpLocation").autocomplete({
-                                    source: nameData,
-                                    select: function (event, ui) {
-                                        _self.elgibilityObj.regGpTxt = ui.item.value;
-                                        app.elgibilityObj.submitForm = "true";
-                                        app.elgibilityObj.gpErrMsg = "";
-                                    },
-                                    close: function () {
-                                        _self.gpFlag = true;
-                                    }
-                                });
+                                if (_self.gpListName.length == 0) {
+                                    app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                    $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                                    $('#addOpacityProf').css('opacity', '1');
+                                }
+                                else {
+                                    nameData = _self.remove_duplicates(_self.gpListName);
+                                    $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
+                                    $('#addOpacityProf').css('opacity', '1');
+                                    $("#gpLocation").autocomplete({
+                                        source: nameData,
+                                        select: function (event, ui) {
+                                            _self.elgibilityObj.regGpTxt = ui.item.value;
+                                            app.elgibilityObj.submitForm = "true";
+                                            app.elgibilityObj.gpErrMsg = "";
+                                        },
+                                        close: function () {
+                                            _self.gpFlag = true;
+                                        }
+                                    });
+                                }
                             }
 
                         },
@@ -426,21 +440,28 @@ $(document).ready(function () {
                                         app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
-                                            if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                            _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                            if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
+                                                _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
-                                        payload = _self.remove_duplicates(_self.gpProfListName);
-                                        $('#showInputLoader').removeClass("d-block").addClass("d-none");
-                                        $('#addOpacity').css('opacity', '1');
-                                        $("#gpProfLocation").autocomplete({
-                                            source: payload,
-                                            select: function (event, ui) {
-                                                app.elgibilityObj.regProfGpTxt = ui.item.label;
-                                                app.elgibilityObj.submitProfForm = "true";
-                                                app.elgibilityObj.gpErrMsg = "";
-                                            },
-                                        });
-
+                                        if (_self.gpProfListName.length == 0) {
+                                            app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                            $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                            $('#addOpacity').css('opacity', '1');
+                                        }
+                                        else
+                                        {
+                                            payload = _self.remove_duplicates(_self.gpProfListName);
+                                            $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                            $('#addOpacity').css('opacity', '1');
+                                            $("#gpProfLocation").autocomplete({
+                                                source: payload,
+                                                select: function (event, ui) {
+                                                    app.elgibilityObj.regProfGpTxt = ui.item.label;
+                                                    app.elgibilityObj.submitProfForm = "true";
+                                                    app.elgibilityObj.gpErrMsg = "";
+                                                },
+                                            });
+                                        }
                                     },
                                     error: function (err) {
                                         $('#showInputLoader').removeClass("d-block").addClass("d-none");
@@ -455,20 +476,28 @@ $(document).ready(function () {
                                 _self.gpListShow = response.Organisations;
                                 if (_self.gpListShow.length > 0) {
                                     for (i = 0; i < _self.gpListShow.length; i++) {
-                                        if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                        _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                        if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
+                                            _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
-                                    nameData = _self.remove_duplicates(_self.gpProfListName);
-                                    $('#showInputLoader').removeClass("d-block").addClass("d-none");
-                                    $('#addOpacity').css('opacity', '1');
-                                    $("#gpProfLocation").autocomplete({
-                                        source: nameData,
-                                        select: function (event, ui) {
-                                            app.elgibilityObj.regProfGpTxt = ui.item.label;
-                                            app.elgibilityObj.submitProfForm = "true";
-                                            app.elgibilityObj.gpErrMsg = "";
-                                        },
-                                    });
+                                    if (_self.gpProfListName.length == 0) {
+                                        app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                        $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacity').css('opacity', '1');
+                                    }
+                                    else
+                                    {
+                                        nameData = _self.remove_duplicates(_self.gpProfListName);
+                                        $('#showInputLoader').removeClass("d-block").addClass("d-none");
+                                        $('#addOpacity').css('opacity', '1');
+                                        $("#gpProfLocation").autocomplete({
+                                            source: nameData,
+                                            select: function (event, ui) {
+                                                app.elgibilityObj.regProfGpTxt = ui.item.label;
+                                                app.elgibilityObj.submitProfForm = "true";
+                                                app.elgibilityObj.gpErrMsg = "";
+                                            },
+                                        });
+                                    }
                                 }
 
                             }
@@ -521,8 +550,8 @@ $(document).ready(function () {
                             this.elgibilityObj.belowAgeLimit = "yes";
                             this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.contactParent = "";
-                            this.elgibilityObj.contact_parent_camhs="";
-                            this.elgibilityObj.reason_contact_parent_camhs=""
+                            this.elgibilityObj.contact_parent_camhs = "";
+                            this.elgibilityObj.reason_contact_parent_camhs = ""
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
                         }
@@ -532,8 +561,8 @@ $(document).ready(function () {
                             this.elgibilityObj.contactParent = "";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.contactParent = "";
-                            this.elgibilityObj.contact_parent_camhs="";
-                            this.elgibilityObj.reason_contact_parent_camhs=""
+                            this.elgibilityObj.contact_parent_camhs = "";
+                            this.elgibilityObj.reason_contact_parent_camhs = ""
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else {
@@ -543,8 +572,8 @@ $(document).ready(function () {
                             this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.submitForm = "false";
                             this.elgibilityObj.regGpTxt = "";
-                            this.elgibilityObj.contact_parent_camhs="";
-                            this.elgibilityObj.reason_contact_parent_camhs=""
+                            this.elgibilityObj.contact_parent_camhs = "";
+                            this.elgibilityObj.reason_contact_parent_camhs = ""
                         }
                     }
                     else if (roleText == 'professional') {
@@ -953,27 +982,24 @@ $(document).ready(function () {
             },
             clearGP: function (e) {
                 var reasonCamhs = e.target.value;
-                if (reasonCamhs.length==0) {
+                if (reasonCamhs.length == 0) {
                     this.elgibilityObj.regGpTxt = "";
 
                 }
             },
-            validatePostCode:function(postCode)
-            {
-                var isRange=false;
-                if(postCode)
-                {
-                    var index = ((postCode).substring(0,postCode.indexOf(' '))).replace(/\D/g,'') ;
+            validatePostCode: function (postCode) {
+                var isRange = false;
+                if (postCode) {
+                    var index = ((postCode).substring(0, postCode.indexOf(' '))).replace(/\D/g, '');
                     if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
                         // console.log("getPostCodeDigits L " + postCode);
-                         isRange = true
-                     }
-                     else if(postCode.substring(0, 2) == "PR" && (index == 8 || index == 9))
-                     {
-                         isRange = true
-                     }
+                        isRange = true
+                    }
+                    else if (postCode.substring(0, 2) == "PR" && (index == 8 || index == 9)) {
+                        isRange = true
+                    }
                 }
-               return isRange;
+                return isRange;
             }
 
         }
