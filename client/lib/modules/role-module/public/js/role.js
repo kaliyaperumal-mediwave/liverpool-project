@@ -330,6 +330,7 @@ $(document).ready(function () {
                                         app.elgibilityObj.gpErrMsg = "";
                                         _self.gpListShow = response.Organisations;
                                         for (i = 0; i < _self.gpListShow.length; i++) {
+                                            if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                         }
                                         payload = _self.remove_duplicates(_self.gpListName);
@@ -360,6 +361,7 @@ $(document).ready(function () {
                             else {
                                 _self.gpListShow = response.Organisations;
                                 for (i = 0; i < _self.gpListShow.length; i++) {
+                                    if(_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                     _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                 }
                                 nameData = _self.remove_duplicates(_self.gpListName);
@@ -1045,6 +1047,21 @@ $(document).ready(function () {
                     this.elgibilityObj.regGpTxt = "";
 
                 }
+            },
+            validatePostCode:function(postCode)
+            {
+                var isRange=false;
+                var index = ((postCode).substring(0,postCode.indexOf(' '))).replace(/\D/g,'') ;
+                if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
+                   // console.log("getPostCodeDigits L " + postCode);
+                    isRange = true
+                }
+                else if(postCode.substring(0, 2) == "PR" && (index == 8 || index == 9))
+                {
+                    isRange = true
+                }
+
+               return isRange;
             }
 
         }
