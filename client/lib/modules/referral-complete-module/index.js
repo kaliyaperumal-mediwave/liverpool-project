@@ -23,6 +23,7 @@ module.exports = {
         navigateMkeRfrl =  "/make-referral?" + req.session.loginIdUrl;
         urgentHelpPage = "/pages/urgent-help?"+req.session.loginIdUrl;
         resourcesPage ="/resources?"+req.session.loginIdUrl;
+        mentalHeathPage="/mental-health?"+req.session.loginIdUrl;
       }
       else
       {
@@ -36,6 +37,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         resourcesPage = "/resources";
+        mentalHeathPage="/mental-health";
       }
 
       return self.sendPage(req, self.renderer('completed', {
@@ -56,7 +58,8 @@ module.exports = {
         navigateViewRfrl:navigateViewRfrl,
         navigateMkeRfrl:navigateMkeRfrl,
         urgentHelpPage:urgentHelpPage,
-        resourcesPage:resourcesPage
+        resourcesPage:resourcesPage,
+        mentalHeathPage:mentalHeathPage
       }));
     };
     require('../../middleware')(self, options);

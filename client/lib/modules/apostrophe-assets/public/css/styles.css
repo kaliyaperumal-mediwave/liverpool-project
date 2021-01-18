@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -21,7 +21,7 @@
 .icon-container {
   position: absolute;
   right: 10px;
-  top: calc(50% - 10px); }
+  top: 15px; }
 
 .inputLoader {
   position: relative;
@@ -238,7 +238,7 @@
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
-  padding: 2px; }
+  padding: 4px; }
 
 [type="radio"]:not(:checked) + label:after {
   width: 22px;
@@ -251,7 +251,7 @@
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
-  padding: 2px;
+  padding: 4px;
   -webkit-transform: scale(0);
   -ms-transform: scale(0);
   -ms-transform: scale(0);
@@ -521,6 +521,8 @@ body {
   @media (min-width: 1200px) and (max-width: 1499.98px) {
     body .col-xl-6 {
       max-width: 60% !important; } }
+  body .h-75px {
+    height: 75px !important; }
   body input {
     white-space: nowrap !important;
     overflow: hidden !important;
@@ -752,6 +754,23 @@ a {
       font-size: 36px !important;
       letter-spacing: 1.5px !important; } }
 
+.home-header-primary h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .home-header-primary h2 {
+      font-size: 30px !important;
+      letter-spacing: 1.5px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .home-header-primary h2 {
+      font-size: 32px !important;
+      letter-spacing: 1.5px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-header-primary h2 {
+      font-size: 36px !important;
+      letter-spacing: 1.5px !important; } }
+
 .home-header-secondary {
   font-size: 24px;
   font-weight: bold;
@@ -784,6 +803,24 @@ a {
       letter-spacing: 0.64px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .home-primary-content {
+      font-size: 20px !important;
+      letter-spacing: 0.64px !important; } }
+
+.home-primary-content h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #023047;
+  line-height: 32px !important; }
+  @media (max-width: 575.98px) {
+    .home-primary-content h3 {
+      font-size: 16px !important;
+      letter-spacing: 0.64px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .home-primary-content h3 {
+      font-size: 18px !important;
+      letter-spacing: 0.64px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-primary-content h3 {
       font-size: 20px !important;
       letter-spacing: 0.64px !important; } }
 
@@ -2589,6 +2626,9 @@ body .ui-widget .ui-menu-item {
   .home-header-primaryh2para p {
     font-size: 22px !important;
     letter-spacing: 1.5px !important; } }
+
+.overflow-auto {
+  overflow: auto; }
 
 .h-2-182 {
   height: 182px;
