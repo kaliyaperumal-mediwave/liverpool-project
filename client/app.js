@@ -36,9 +36,9 @@ var apos = require("apostrophe")({
     "dashboard-module": {},
       'Resources': {},
     'Resources-pages': { perPage: 999 },
-  'Resources-widgets': {
-    extend: 'apostrophe-pieces-widgets'
-  },
+  // 'Resources-widgets': {
+  //   extend: 'apostrophe-pieces-widgets'
+  // },
   'Resources-content-widgets': {},
    'liverpool-towatch-widgets': {},
     // 'liverpool-watch-pages': {},

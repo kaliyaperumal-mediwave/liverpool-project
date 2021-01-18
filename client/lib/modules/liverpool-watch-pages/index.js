@@ -12,7 +12,7 @@ module.exports = {
   construct: function(self, options) {
     var superBefore = self.beforeShow;
     self.beforeShow = function(req, callback) {
-      require('../middleware')(self, options);
+      require('../../middleware')(self, options);
       // console.log("-----");
       // return;
       self.checkCommonPageAuth(req).then((req) => {
@@ -22,7 +22,7 @@ module.exports = {
     };
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function(req, callback) {
-      require('../middleware')(self, options);
+      require('../../middleware')(self, options);
       console.log("1-----");
       // return;
       self.checkCommonPageAuth(req).then((req) => {
