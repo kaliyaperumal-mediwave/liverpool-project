@@ -40,6 +40,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         resourcesPage = "/resources";
+        mentalHeathPage="/mental-health";
       }
 
 
