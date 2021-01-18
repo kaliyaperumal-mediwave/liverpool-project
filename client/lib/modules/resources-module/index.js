@@ -7,15 +7,18 @@ module.exports = {
     self.addDispatchRoutes();
   },
   construct: function (self, options) {
+      require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.resources);
+      self.dispatch('/', self.resources1);
       self.dispatch('/lists', self.lists);
       self.dispatch('/apps', self.apps);
       self.dispatch('/things-to-read', self.thingsToRead);
       self.dispatch('/video', self.video);
+      self.dispatch('/resources', self.Resources);
+      self.dispatch('/resources/view', self.Resources_view);
     };
 
-    self.resources = function (req, callback) {
+    self.resources1 = function (req, callback) {
       var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage,backToResources;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -26,7 +29,7 @@ module.exports = {
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?" + req.url.substring(req.url.indexOf("?") + 1)
-       
+
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;

@@ -66,7 +66,11 @@ module.exports = {
     {
       name: 'footer-pages-module',
       label: 'Footer Pages Module'
-    }
+    },
+    {
+  name: 'Resources-pages',
+  label: 'Resources index'
+}
 
     // Add more page types here, but make sure you create a corresponding
     // template in lib/modules/apostrophe-pages/views/pages!
