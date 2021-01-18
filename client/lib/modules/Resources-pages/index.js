@@ -7,13 +7,10 @@ module.exports = {
   piecesFilters: [
     { name: 'tags' }
   ],
-
-
-  extend: 'apostrophe-pieces-pages',
   construct: function(self, options) {
     var superBefore = self.beforeShow;
     self.beforeShow = function(req, callback) {
-      require('../../middleware')(self, options);      
+      require('../../middleware')(self, options);
       self.checkCommonPageAuth(req).then((req) => {
         return superBefore(req, callback);
       }).catch(() => {
