@@ -448,8 +448,7 @@ $(document).ready(function () {
                                             $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                             $('#addOpacity').css('opacity', '1');
                                         }
-                                        else
-                                        {
+                                        else {
                                             payload = _self.remove_duplicates(_self.gpProfListName);
                                             $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                             $('#addOpacity').css('opacity', '1');
@@ -484,8 +483,7 @@ $(document).ready(function () {
                                         $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                         $('#addOpacity').css('opacity', '1');
                                     }
-                                    else
-                                    {
+                                    else {
                                         nameData = _self.remove_duplicates(_self.gpProfListName);
                                         $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                         $('#addOpacity').css('opacity', '1');

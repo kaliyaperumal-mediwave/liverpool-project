@@ -366,9 +366,9 @@
                 <div v-show="elgibilityObj.role === 'professional'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="fullName" class="question-font">Your full name</label>
+                        <label for="professionalFullName2" class="question-font">Your full name</label>
                         <input type="text" v-model="elgibilityObj.profName" @input="onVaueChange($event,'fullName')"
-                            placeholder="Enter your first and last name" class="form-control" id="fullName">
+                            placeholder="Enter your first and last name" class="form-control" id="professionalFullName2">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
                             Please provide a name.
                         </div>

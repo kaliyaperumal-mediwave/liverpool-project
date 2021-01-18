@@ -21,7 +21,7 @@
 .icon-container {
   position: absolute;
   right: 10px;
-  top: calc(50% - 10px); }
+  top: 15px; }
 
 .inputLoader {
   position: relative;
@@ -342,9 +342,6 @@
   border-color: white !important;
   border: none !important;
   height: 50px !important; }
-
-textarea .form-control {
-  height: 75px !important; }
 
 .form-control {
   background: #e8edee 0% 0% no-repeat padding-box !important; }
