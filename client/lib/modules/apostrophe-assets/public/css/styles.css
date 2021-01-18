@@ -527,6 +527,8 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important; }
+  body .border-bottom-primary {
+    border-bottom: 1px solid #112f45 !important; }
   body .readOnly-class .form-control {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
     color: #8f979e !important; }
@@ -651,6 +653,9 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important; }
+  body .search-wrap {
+    max-height: 220px !important;
+    overflow: auto; }
   body #myBtn {
     display: none;
     position: fixed;
@@ -1325,7 +1330,7 @@ a {
   .question-header-font {
     font-size: 24px; }
   .question-font {
-    font-size: 16px; }
+    font-size: 14px; }
   .option-font {
     font-size: 15px !important; }
   .link-text {
@@ -1769,6 +1774,24 @@ select.selectIcon {
   @media (min-width: 1900px) {
     .resource_text {
       font-size: 34px; } }
+
+.resource_search_text {
+  color: #023047;
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px; }
+  @media (max-width: 575.98px) {
+    .resource_search_text {
+      font-size: 14px; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .resource_search_text {
+      font-size: 15px; } }
+  @media (min-width: 1200px) {
+    .resource_search_text {
+      font-size: 22px; } }
+  @media (min-width: 1900px) {
+    .resource_search_text {
+      font-size: 23px; } }
 
 .height-44 {
   height: 44px !important; }
