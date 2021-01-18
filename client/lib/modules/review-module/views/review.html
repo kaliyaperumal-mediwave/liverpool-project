@@ -787,7 +787,7 @@
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
                                         @click="editAllSection('education')" data-placement="top"
-                                        title="Edit Section 2"></i>
+                                        title="Edit Section 3"></i>
                                 </span>
                             </div>
 
@@ -949,7 +949,7 @@
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
                                         @click="editAllSection('referral')" data-placement="top"
-                                        title="Edit Section 2"></i>
+                                        title="Edit Section 4"></i>
                                 </span>
                             </div>
 
@@ -1030,17 +1030,6 @@
                                     </div>
                                 </div>
 
-                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
-                                        Main reason for making referral
-                                    </label>
-                                    <textarea
-                                        class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11 h-50"
-                                        name="infoTextAreas" id="textInf0red" rows="3"
-                                        v-model="section4Data.reason_for_referral"
-                                        readonly>{{section4Data.reason_for_referral}}</textarea>
-                                </div>
-
                                 <template v-if="section4Data.eating_disorder_difficulties">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
@@ -1052,32 +1041,45 @@
                                             v-model="section4Data.eating_disorder_difficulties"
                                             readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
                                     </div>
-
                                 </template>
 
-                                <div class=" py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
-                                        Height
-                                    </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control text-capitalize" type="text"
-                                            placeholder="Enter height" v-model="section4Data.height" id="heightSect5"
-                                            @input="onDetectChange($event,'sect4')">
+                                <template v-if="section4Data.eating_disorder_difficulties">
+                                    <div class=" py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
+                                            Height
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <input class="form-control text-capitalize" type="text"
+                                                placeholder="Enter height" v-model="section4Data.height"
+                                                id="heightSect5" @input="onDetectChange($event,'sect4')">
+                                        </div>
                                     </div>
+                                </template>
 
+                                <template v-if="section4Data.eating_disorder_difficulties">
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="weightSect5">
+                                            Weight
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <input class="form-control text-capitalize" type="text"
+                                                placeholder="Enter weight" v-model="section4Data.weight"
+                                                id="weightSect5" @input="onDetectChange($event,'sect4')">
+                                        </div>
+                                    </div>
+                                </template>
+
+                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        Main reason for making referral
+                                    </label>
+                                    <textarea
+                                        class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                        name="infoTextAreas" id="textInf0red" rows="3"
+                                        v-model="section4Data.reason_for_referral"
+                                        readonly>{{section4Data.reason_for_referral}}</textarea>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="weightSect5">
-                                        Weight
-                                    </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control text-capitalize" type="text"
-                                            placeholder="Enter weight" v-model="section4Data.weight" id="weightSect5"
-                                            @input="onDetectChange($event,'sect4')">
-                                    </div>
-
-                                </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font px-0 col-12 col-md-4" for="infoAb5">
