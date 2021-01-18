@@ -1945,7 +1945,7 @@ exports.fetchReview = ctx => {
                 child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
-                //   household_member: aboutObj[0].parent[0].household_member,
+                household_member: aboutObj[0].parent[0].household_member,
                 parent_id: aboutObj[0].id,
                 parent_name: aboutObj[0].parent_name,
                 parential_responsibility: aboutObj[0].parential_responsibility,
@@ -2061,7 +2061,6 @@ exports.updateAboutInfo = ctx => {
 
     child_gender_birth: ctx.request.body.section2Data.child_gender_birth,
     child_name: ctx.request.body.section2Data.child_name,
-    child_parent_relationship: ctx.request.body.section2Data.child_parent_relationship,
     child_sexual_orientation: ctx.request.body.section2Data.child_sexual_orientation,
   },
     {
@@ -2079,6 +2078,7 @@ exports.updateAboutInfo = ctx => {
           parent_name: ctx.request.body.section2Data.parent_name,
           parent_same_house: ctx.request.body.section2Data.parent_same_house,
           parential_responsibility: ctx.request.body.section2Data.parential_responsibility,
+          child_parent_relationship: ctx.request.body.section2Data.child_parent_relationship,
         },
         {
           where: {
@@ -2091,14 +2091,14 @@ exports.updateAboutInfo = ctx => {
           where: {
             id: ctx.request.body.section2Data.child_id,
           },
-          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_name', 'child_parent_relationship', 'child_sexual_orientation',]
+          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_name', 'child_parent_relationship', 'child_sexual_orientation','household_member']
         }).then((childResult) => {
 
           return user.findOne({
             where: {
               id: ctx.request.body.section2Data.parent_id,
             },
-            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_name', 'parent_same_house', 'parential_responsibility']
+            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_name', 'parent_same_house', 'parential_responsibility','child_parent_relationship']
           }).then((parentResult) => {
 
             const section2Obj = {
@@ -2114,6 +2114,7 @@ exports.updateAboutInfo = ctx => {
               child_sexual_orientation: childResult.child_sexual_orientation,
               child_ethnicity: childResult.child_ethnicity,
               child_care_adult: childResult.child_care_adult,
+              household_member: childResult.household_member,
               parent_id: parentResult.id,
               parent_name: parentResult.parent_name,
               parential_responsibility: parentResult.parential_responsibility,
