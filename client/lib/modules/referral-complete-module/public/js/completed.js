@@ -6,7 +6,8 @@ $(document).ready(function () {
         data: {
             ackObj: { refCode: '123' },
             paramValues: [],
-            reference_code: ''
+            reference_code: '',
+            loginFlag:''
         },
         beforeMount: function () {
             $('#loader').show();
@@ -14,6 +15,7 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
+            this.loginFlag = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.getRefNo();
         },
         methods: {
