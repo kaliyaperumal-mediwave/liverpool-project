@@ -69,9 +69,16 @@ module.exports = {
     },
     {
   name: 'Resources-pages',
-  label: 'Resources index'
+  label: 'Resources pages'
+},
+{
+name: 'liverpool-watch-pages',
+label: 'liverpool-watch'
+},
+{
+name: 'liverpool-read-pages',
+label: 'liverpool Read'
 }
-
     // Add more page types here, but make sure you create a corresponding
     // template in lib/modules/apostrophe-pages/views/pages!
   ]

@@ -3,49 +3,43 @@ module.exports = {
   name: 'Watch',
   label: 'Watch',
   pluralLabel: 'Things to Watch',
-  addFields: [{
+  addFields: [
+    {
       name: 'title',
       label: 'Title',
       type: 'string',
       required: true,
     },
     {
-      name: 'topic',
+      name: 'SubTitle',
       label: 'what do you want to watch?',
-      type: 'area',
+      type: 'string',
       required: true,
-      options: {
-        widgets: {
-          'apostrophe-rich-text': {
-            toolbar: [ 'Bold', 'Italic', 'Link', 'Unlink' ]
-          }
-        }
-      }
-    },
-    {
-      name: 'text',
-      label: 'Text',
-      type: 'area',
-      required: true,
-      options: {
-        widgets: {
-          'apostrophe-rich-text': {
-            toolbar: [ 'Bold', 'Italic', 'Link', 'Unlink' ]
-          }
-        }
-      }
-    }
+      textarea: true
+        },
+        {
+          name: 'text',
+          label: 'Text',
+          type: 'string',
+          required: true,
+          textarea: true
+        },
+      {
+      name: 'video',
+      label: 'video',
+      type: 'url'
 
+    }
   ],
   arrangeFields: [{
       name: 'watch',
       label: 'watch',
-      fields: ['topic','text']
+      fields: ['title','SubTitle','text','video','tags']
     },
     {
-      name: 'admins',
-      label: 'Administratives',
-      fields: ['slug', 'tags','published']
+      name: 'admin',
+      label: 'Administrative',
+      fields: ['slug','published']
     }
   ]
 };

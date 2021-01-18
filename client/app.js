@@ -39,14 +39,13 @@ var apos = require("apostrophe")({
   // 'Resources-widgets': {
   //   extend: 'apostrophe-pieces-widgets'
   // },
-  'Resources-content-widgets': {},
-   'liverpool-towatch-widgets': {},
+    'Resources-content-widgets': {},
+    'liverpool-towatch-widgets': {},
     // 'liverpool-watch-pages': {},
-  'liverpool-watch':{},
-  'liverpool-watch-pages':{
-    extend: 'apostrophe-pieces-pages'
-  },
+    'liverpool-watch':{},
+    'liverpool-watch-pages':{ perPage: 999 },
     'liverpool-read':{},
+    'liverpool-read-pages':{ perPage: 999 },
     "home-module": {},
     "referral-home-module": {},
     "referral-module": {},
