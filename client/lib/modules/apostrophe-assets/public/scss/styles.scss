@@ -77,6 +77,10 @@ body {
     text-overflow: ellipsis !important;
   }
 
+  .border-bottom-primary {
+    border-bottom: 1px solid #112f45 !important;
+  }
+
   .readOnly-class {
     .form-control {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
@@ -139,6 +143,11 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important;
+  }
+
+  .search-wrap {
+    max-height: 220px !important;
+    overflow: auto;
   }
 
   #myBtn {
@@ -826,7 +835,7 @@ a {
     font-size: 24px;
   }
   .question-font {
-    font-size: 16px;
+    font-size: 14px;
   }
   .option-font {
     font-size: 15px !important;
@@ -1310,6 +1319,25 @@ select.selectIcon {
     font-size: 34px;
   }
 }
+.resource_search_text {
+  color: #023047;
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  @include xs-screen {
+    font-size: 14px;
+  }
+  @include sm-screen {
+    font-size: 15px;
+  }
+  @include xl-screen {
+    font-size: 22px;
+  }
+  @include xxl-screen {
+    font-size: 23px;
+  }
+}
+
 .height-44 {
   height: 44px !important;
 }
