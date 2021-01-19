@@ -113,7 +113,7 @@
 #feedBackStars label {
   margin: 0;
   padding: 0;
-  margin-bottom: 20px !important; }
+  margin-bottom: 16px !important; }
 
 .rating [type="radio"] {
   border: none !important;
@@ -123,11 +123,19 @@
   display: none !important; }
 
 .rating > label:before {
-  margin: 0px 6px !important;
+  width: 34px !important;
   font-size: 2.5em !important;
   font-family: FontAwesome !important;
   display: inline-block !important;
-  content: "\f005" !important; }
+  content: "\f005" !important;
+  position: relative !important;
+  background: none !important;
+  border: none !important; }
+
+.rating > label::after {
+  padding: 3px !important;
+  position: relative !important;
+  background: none !important; }
 
 .rating > .half:before {
   content: "\f089" !important;
@@ -433,7 +441,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat right 0.15rem center/34px 31px !important;
   border: none !important;
   white-space: nowrap;
@@ -587,14 +595,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -602,7 +610,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -610,21 +618,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -1531,6 +1539,10 @@ a {
   padding-right: 24px;
   display: flex;
   align-items: center; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .header-set-height {
+      padding-left: 16px;
+      padding-right: 16px; } }
 
 .button-referral {
   background-color: #ffb703;
@@ -1556,7 +1568,7 @@ a {
 
 .footer-container {
   display: flex;
-  height: 49px;
+  height: 64px;
   justify-content: space-around;
   padding-left: 24px;
   padding-right: 24px;
@@ -2007,8 +2019,8 @@ select.selectIcon {
     width: 100px;
     margin-left: 16px; }
   .button-referral {
-    width: 110px;
-    font-size: 12px; }
+    width: 120px;
+    font-size: 13px; }
   .button-login {
     min-width: 240px;
     height: 40px;
