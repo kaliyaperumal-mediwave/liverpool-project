@@ -8,12 +8,14 @@ const mailService = nodemailer.createTransport(
 );
 
 exports.sendReferralConfirmation = ctx => {
+
+    console.log(ctx.request.body)
     const data = {
         from: 'info@mindwaveventures.com',
         //to: req.body.email,
-        to: ctx.query.email,
+        to: ctx.request.body.email,
         subject: 'Referral Confirmation',
-        html: '<p> Your referral code is <strong>' + ctx.query.refCode + '</strong><p>',
+        html: '<p> Your referral code is <strong>' + ctx.request.body.ref_code + '</strong><p>',
     };
     mailService.sendMail(data, (err, emailres,ctx) => {
         if (err) {

@@ -38,7 +38,7 @@ router.post('/user/login/', authController.login);
 router.get('/referral/getIncompleteReferral', referralControler.getIncompleteReferral);
 router.get('/referral/getUserReferral/', referralControler.getUserReferral);
 
-router.get('/referral/sendConfirmationMail/', emailController.sendReferralConfirmation);
+router.post('/referral/sendConfirmationMail/', emailController.sendReferralConfirmation);
 
 
 module.exports = router;

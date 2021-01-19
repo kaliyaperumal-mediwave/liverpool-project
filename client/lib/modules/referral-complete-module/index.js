@@ -76,13 +76,13 @@ module.exports = {
       });
     });
 
-    self.route('get', 'sendConfirmationMail/:refCode', function (req, res) {
-      //console.log(req.params)
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail?email=' + req.session.email + "&refCode=" + req.params.refCode ;
+    self.route('post', 'sendConfirmationMail', function (req, res) {
+      req.body.email = req.session.email
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail'
       console.log("-------");
       console.log(url);
       console.log("-------");
-      self.middleware.get(req, url).then((data) => {
+      self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
         //  console.log("---- error -------", error)
