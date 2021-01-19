@@ -565,28 +565,32 @@
                             <label class="question-font">{{sec2dynamicLabel.legalCareLabel}}
                             </label>
                             <div class="input-group">
-                                <select class="custom-select form-control" v-model="aboutFormData.legalCareStatus"
-                                    name="legalCare">
-                                    <option value="" disabled selected>{{sec2dynamicLabel.legalCarePlacLabel}}</option>
-                                    <option value="Care of Parent">Care of Parent
-                                    </option>
-                                    <option value="Care of Local Authority (Liverpool)">Care of Local Authority
-                                        (Liverpool)
-                                    </option>
-                                    <option value="Care of Local Authority (Sefton)">Care of Local Authority (Sefton)
-                                    </option>
-                                    <option value="Care of Local Authority (Other)">Care of Local Authority (Other)
-                                    </option>
-                                    <option value="Section 20 Voluntary">Section 20 Voluntary
-                                    </option>
-                                    <option value="Accommodated">Accommodated
-                                    </option>
-                                    <option value="Full Care Order">Full Care Order</option>
-                                    <option value="Interim Care Order">Interim Care Order</option>
-                                    <option value="Care Order places at home">Care Order places at home</option>
-                                    <option value="Child Protection Plan">Child Protection Plan</option>
-                                    <option value="Other Carer">Other Carer</option>
-                                </select>
+                                <span class="plain-select">
+                                    <select class="custom-select form-control" v-model="aboutFormData.legalCareStatus"
+                                        name="legalCare">
+                                        <option value="" disabled selected>{{sec2dynamicLabel.legalCarePlacLabel}}
+                                        </option>
+                                        <option value="Care of Parent">Care of Parent
+                                        </option>
+                                        <option value="Care of Local Authority (Liverpool)">Care of Local Authority
+                                            (Liverpool)
+                                        </option>
+                                        <option value="Care of Local Authority (Sefton)">Care of Local Authority
+                                            (Sefton)
+                                        </option>
+                                        <option value="Care of Local Authority (Other)">Care of Local Authority (Other)
+                                        </option>
+                                        <option value="Section 20 Voluntary">Section 20 Voluntary
+                                        </option>
+                                        <option value="Accommodated">Accommodated
+                                        </option>
+                                        <option value="Full Care Order">Full Care Order</option>
+                                        <option value="Interim Care Order">Interim Care Order</option>
+                                        <option value="Care Order places at home">Care Order places at home</option>
+                                        <option value="Child Protection Plan">Child Protection Plan</option>
+                                        <option value="Other Carer">Other Carer</option>
+                                    </select>
+                                </span>
                                 <!-- <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="fa fa-chevron-down fa-1x" aria-hidden="true"></i>
