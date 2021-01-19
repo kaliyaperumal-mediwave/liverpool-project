@@ -165,37 +165,6 @@
             </form>
             <!-- toster-container start -->
 
-            <!-- <form id="age-parentcontact-form" data-options="belowAgeLimit">
-                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
-                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Can we contact your parent, caregiver,
-                            guardian?</p>
-                    </div>
-                    <span class="hint-text">If you are under 14 you will need your
-                        parent/carer to complete this referral.
-                        Please ask them to start this form from
-                        the beginning on your behalf..</span>
-                    <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" name="belowAgeParent"
-                            v-model="elgibilityObj.contactParent" id="contactNo" value="no" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="contactNo">
-                            No
-                        </label>
-                    </div>
-                    <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="belowAgeParent"
-                            v-model="elgibilityObj.contactParent" id="contactYes" value="yes"
-                            @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="contactYes">
-                            Yes
-                        </label>
-                    </div>
-                </div>
-            </form> -->
-            <!-- Age under 14 end-->
-
-
             <!-- toster-container start -->
             <form id="age-aboveLimit-form" data-options="aboveLimit">
                 <div v-show="((elgibilityObj.role == 'child' || elgibilityObj.role=='parent')) &&  elgibilityObj.aboveLimit == 'yes' && elgibilityObj.childDob!=null"
@@ -434,6 +403,29 @@
                 </div>
             </form>
             <!--GP Location End -->
+
+             <!-- toster-container start -->
+             <!-- <form id="isInformation-form4" data-options="isInformation">
+                <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.gpNotCovered) || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.childDob!=null && elgibilityObj.regGpTxt)" class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <span style="color:#023087 ;">
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <p  class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our service.</p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                                href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157" target="_blank">
+                                > Find a service local to me
+                            </a></p>                    
+                        </div>
+                    </div>
+                </div>
+            </form> -->
+            <!-- toster-container start -->
 
             <!-- toster-container start -->
             <form id="submitFormTrue-form2" data-options="submitForm">

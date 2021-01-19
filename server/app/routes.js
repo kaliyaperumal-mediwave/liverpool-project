@@ -2,6 +2,7 @@
 const Router = require('koa-router');
 const referralControler = require('./controllers/referralControler');
 const authController = require('./controllers/authController');
+const emailController = require('./controllers/emailController');
 const validateToken = require('./utils/utils').validateToken;
 const router = new Router();
 
@@ -36,6 +37,8 @@ router.post('/user/login/', authController.login);
 
 router.get('/referral/getIncompleteReferral', referralControler.getIncompleteReferral);
 router.get('/referral/getUserReferral/', referralControler.getUserReferral);
+
+router.post('/referral/sendConfirmationMail/', emailController.sendReferralConfirmation);
 
 
 module.exports = router;
