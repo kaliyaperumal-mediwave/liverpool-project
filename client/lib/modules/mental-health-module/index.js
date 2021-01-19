@@ -23,7 +23,7 @@ module.exports = {
     };
 
     self.aboutMentalHealth = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage, backMentalHealth, gotoPeople;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage, backMentalHealth, gotoPeople,resourcesPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -36,7 +36,7 @@ module.exports = {
         backMentalHealth = "/mental-health?" + req.url.substring(req.url.indexOf("?") + 1)
         mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
         gotoPeople = "/mental-health/people?" + req.url.substring(req.url.indexOf("?") + 1)
-
+        resourcesPage ="/resources?"+req.url.substring(req.url.indexOf("?") + 1)
         showLogout = true;
         mentalHeathPage = "/mental-health?" + req.url.substring(req.url.indexOf("?") + 1);
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
@@ -68,7 +68,7 @@ module.exports = {
         backMentalHealth = "/mental-health";
         mentalHeathPage="/mental-health"
         gotoPeople = "/mental-health/people";
-
+        resourcesPage = "/resources";
         showLogout = false;
         mentalHeathPage = "/mental-health"
       }
@@ -89,7 +89,8 @@ module.exports = {
         urgentHelpPage: urgentHelpPage,
         backMentalHealth: backMentalHealth,
         mentalHeathPage: mentalHeathPage,
-        gotoPeople: gotoPeople
+        gotoPeople: gotoPeople,
+        resourcesPage:resourcesPage
 
       }));
     };

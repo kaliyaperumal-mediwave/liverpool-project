@@ -23,6 +23,7 @@ module.exports = {
         navigateMkeRfrl =  "/make-referral?" + req.session.loginIdUrl;
         urgentHelpPage = "/pages/urgent-help?"+req.session.loginIdUrl;
         resourcesPage ="/resources?"+req.session.loginIdUrl;
+        mentalHeathPage="/mental-health?"+req.session.loginIdUrl;
       }
       else
       {
@@ -36,6 +37,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         resourcesPage = "/resources";
+        mentalHeathPage="/mental-health";
       }
 
       return self.sendPage(req, self.renderer('completed', {
@@ -56,7 +58,8 @@ module.exports = {
         navigateViewRfrl:navigateViewRfrl,
         navigateMkeRfrl:navigateMkeRfrl,
         urgentHelpPage:urgentHelpPage,
-        resourcesPage:resourcesPage
+        resourcesPage:resourcesPage,
+        mentalHeathPage:mentalHeathPage
       }));
     };
     require('../../middleware')(self, options);
@@ -66,6 +69,20 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        //  console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
+    self.route('post', 'sendConfirmationMail', function (req, res) {
+      req.body.email = req.session.email
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail'
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
+      self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
         //  console.log("---- error -------", error)

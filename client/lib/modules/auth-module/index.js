@@ -83,6 +83,7 @@ module.exports = {
         console.log(data)
         if (data) {
           ///req.session.auth_token = data.data.token;
+          req.session.email = data.data.email
           req.session.loginFlag = "true";
           req.session.reload(function () { });
         }
@@ -96,8 +97,10 @@ module.exports = {
     self.route('post', 'doLogin', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/login';
       self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
         if (data) {
           req.session.auth_token = data.data.sendUserResult.token;
+          req.session.email = data.data.sendUserResult.email
           req.session.loginFlag = "true";
           req.session.reload(function () { });
         }
