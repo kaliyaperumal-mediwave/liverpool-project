@@ -35,7 +35,8 @@ $(document).ready(function () {
                 profEmail: '',
                 disableRole: false,
                 contact_parent_camhs: '',
-                reason_contact_parent_camhs: ''
+                reason_contact_parent_camhs: '',
+                gpNotCovered:''
             },
             date: null,
             dateWrap: true,
