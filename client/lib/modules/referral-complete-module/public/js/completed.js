@@ -8,7 +8,8 @@ $(document).ready(function () {
             paramValues: [],
             reference_code: '',
             loginFlag:'',
-            mailId:''
+            mailId:'',
+            sendObj:{}
         },
         beforeMount: function () {
             $('#loader').show();
@@ -29,10 +30,11 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     success: function (data) {
                         _self.reference_code = data.reference_code;
+                        _self.sendObj.ref_code = data.reference_code;
                         console.log("logi flag ",_self.loginFlag)
                         if(_self.loginFlag=="true")
                         {
-                            _self.sendMail(data.reference_code);
+                            _self.sendMail(_self.sendObj);
                         }
                         $('#loader').hide();
                     },
@@ -42,14 +44,15 @@ $(document).ready(function () {
                     }
                 });
             },
-            sendMail: function (ref_code) {
-                console.log(this.reference_code)
+            sendMail: function (payLoadObj) {
+              
                 var _self = this;
                 $.ajax({
-                    url: API_URI + "/sendConfirmationMail/" + this.mailId + "/" + ref_code,
-                    type: 'get',
+                    url: API_URI + "/sendConfirmationMail",
+                    type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
+                    data: JSON.stringify(payLoadObj),
                     success: function (data) {
                         console.log("EmailSent")
                         //_self.reference_code = data.reference_code;
