@@ -131,16 +131,18 @@
             }) }}
           </div>
           <!-- <label for="authRoles" class="auth-font my-2">Select role</label> -->
-          <select class="custom-select form-control auth-border" v-model="signUpObject.role" name="legalCare">
-            <option value="" selected disabled>Select role
-            </option>
-            <option value="child">Child
-            </option>
-            <option value="parent">Parent
-            </option>
-            <option value="professional">Professional
-            </option>
-          </select>
+          <span class="plain-select">
+            <select class="custom-select form-control auth-border" v-model="signUpObject.role" name="legalCare">
+              <option value="" selected disabled>Select role
+              </option>
+              <option value="child">Child
+              </option>
+              <option value="parent">Parent
+              </option>
+              <option value="professional">Professional
+              </option>
+            </select>
+          </span>
           <div class="invalid-feedback px-1 d-none"
             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.role),'invalid-fields':!signUpObject.role }">
             You must provide a role.
