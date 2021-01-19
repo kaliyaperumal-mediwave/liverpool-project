@@ -433,15 +433,18 @@
                                         Happy for post to be sent:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px text-capitalize"
-                                            @change="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.can_send_post">
-                                            <option selected>
-                                                {{section2Data.can_send_post}}</option>
-                                            <option v-if="section2Data.can_send_post == 'No'" value="Yes">Yes</option>
-                                            <option v-if="section2Data.can_send_post == 'Yes'" value="No">No
-                                            </option>
-                                        </select>
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px text-capitalize"
+                                                @change="onDetectChange($event,'sect2')"
+                                                v-model="section2Data.can_send_post">
+                                                <option selected>
+                                                    {{section2Data.can_send_post}}</option>
+                                                <option v-if="section2Data.can_send_post == 'No'" value="Yes">Yes
+                                                </option>
+                                                <option v-if="section2Data.can_send_post == 'Yes'" value="No">No
+                                                </option>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -466,27 +469,29 @@
                                         Identifies with gender at birth:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px text-capitalize"
-                                            v-model="section2Data.child_gender_birth"
-                                            @change="onDetectChange($event,'sect2')">
-                                            <option selected>
-                                                {{section2Data.child_gender_birth}}</option>
-                                            <template v-if="section2Data.child_gender_birth == 'No'">
-                                                <option value="Yes">Yes
-                                                </option>
-                                                <option value="Unsure">Unsure
-                                            </template>
-                                            <template v-if="section2Data.child_gender_birth == 'Yes'">
-                                                <option value="No">No
-                                                </option>
-                                                <option value="Unsure">Unsure
-                                            </template>
-                                            <template v-if="section2Data.child_gender_birth == 'Unsure'">
-                                                <option value="No">No
-                                                </option>
-                                                <option value="Yes">Yes
-                                            </template>
-                                        </select>
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px text-capitalize"
+                                                v-model="section2Data.child_gender_birth"
+                                                @change="onDetectChange($event,'sect2')">
+                                                <option selected>
+                                                    {{section2Data.child_gender_birth}}</option>
+                                                <template v-if="section2Data.child_gender_birth == 'No'">
+                                                    <option value="Yes">Yes
+                                                    </option>
+                                                    <option value="Unsure">Unsure
+                                                </template>
+                                                <template v-if="section2Data.child_gender_birth == 'Yes'">
+                                                    <option value="No">No
+                                                    </option>
+                                                    <option value="Unsure">Unsure
+                                                </template>
+                                                <template v-if="section2Data.child_gender_birth == 'Unsure'">
+                                                    <option value="No">No
+                                                    </option>
+                                                    <option value="Yes">Yes
+                                                </template>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -573,27 +578,29 @@
                                         Cares for an Adult:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px text-capitalize"
-                                            @change="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.child_care_adult">
-                                            <option selected>
-                                                {{section2Data.child_care_adult}}</option>
-                                            <template v-if="section2Data.child_care_adult == 'No'">
-                                                <option value="Yes">Yes
-                                                </option>
-                                                <option value="Unsure">Unsure
-                                            </template>
-                                            <template v-if="section2Data.child_care_adult == 'Yes'">
-                                                <option value="No">No
-                                                </option>
-                                                <option value="Unsure">Unsure
-                                            </template>
-                                            <template v-if="section2Data.child_care_adult == 'Unsure'">
-                                                <option value="No">No
-                                                </option>
-                                                <option value="Yes">Yes
-                                            </template>
-                                        </select>
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px text-capitalize"
+                                                @change="onDetectChange($event,'sect2')"
+                                                v-model="section2Data.child_care_adult">
+                                                <option selected>
+                                                    {{section2Data.child_care_adult}}</option>
+                                                <template v-if="section2Data.child_care_adult == 'No'">
+                                                    <option value="Yes">Yes
+                                                    </option>
+                                                    <option value="Unsure">Unsure
+                                                </template>
+                                                <template v-if="section2Data.child_care_adult == 'Yes'">
+                                                    <option value="No">No
+                                                    </option>
+                                                    <option value="Unsure">Unsure
+                                                </template>
+                                                <template v-if="section2Data.child_care_adult == 'Unsure'">
+                                                    <option value="No">No
+                                                    </option>
+                                                    <option value="Yes">Yes
+                                                </template>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -731,29 +738,34 @@
                                         The child's legal care status:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px" @change="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.legal_care_status">
-                                            <option value="Care of Parent">Care of Parent
-                                            </option>
-                                            <option value="Care of Local Authority (Liverpool)">Care of Local Authority
-                                                (Liverpool)
-                                            </option>
-                                            <option value="Care of Local Authority (Sefton)">Care of Local Authority
-                                                (Sefton)
-                                            </option>
-                                            <option value="Care of Local Authority (Other)">Care of Local Authority
-                                                (Other)
-                                            </option>
-                                            <option value="Section 20 Voluntary">Section 20 Voluntary
-                                            </option>
-                                            <option value="Accommodated">Accommodated
-                                            </option>
-                                            <option value="Full Care Order">Full Care Order</option>
-                                            <option value="Interim Care Order">Interim Care Order</option>
-                                            <option value="Care Order places at home">Care Order places at home</option>
-                                            <option value="Child Protection Plan">Child Protection Plan</option>
-                                            <option value="Other Carer">Other Carer</option>
-                                        </select>
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px"
+                                                @change="onDetectChange($event,'sect2')"
+                                                v-model="section2Data.legal_care_status">
+                                                <option value="Care of Parent">Care of Parent
+                                                </option>
+                                                <option value="Care of Local Authority (Liverpool)">Care of Local
+                                                    Authority
+                                                    (Liverpool)
+                                                </option>
+                                                <option value="Care of Local Authority (Sefton)">Care of Local Authority
+                                                    (Sefton)
+                                                </option>
+                                                <option value="Care of Local Authority (Other)">Care of Local Authority
+                                                    (Other)
+                                                </option>
+                                                <option value="Section 20 Voluntary">Section 20 Voluntary
+                                                </option>
+                                                <option value="Accommodated">Accommodated
+                                                </option>
+                                                <option value="Full Care Order">Full Care Order</option>
+                                                <option value="Interim Care Order">Interim Care Order</option>
+                                                <option value="Care Order places at home">Care Order places at home
+                                                </option>
+                                                <option value="Child Protection Plan">Child Protection Plan</option>
+                                                <option value="Other Carer">Other Carer</option>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -843,17 +855,20 @@
                                         EHCP Plan:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px text-capitalize"
-                                            v-model="section3Data.child_EHCP" @change="onDetectChange($event,'sect3')">
-                                            <option selected>
-                                                {{section3Data.child_EHCP}}</option>
-                                            <template v-if="section3Data.child_EHCP == 'Yes'">
-                                                <option value="No">No </option>
-                                            </template>
-                                            <template v-if="section3Data.child_EHCP == 'No'">
-                                                <option value="Yes">Yes</option>
-                                            </template>
-                                        </select>
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px text-capitalize"
+                                                v-model="section3Data.child_EHCP"
+                                                @change="onDetectChange($event,'sect3')">
+                                                <option selected>
+                                                    {{section3Data.child_EHCP}}</option>
+                                                <template v-if="section3Data.child_EHCP == 'Yes'">
+                                                    <option value="No">No </option>
+                                                </template>
+                                                <template v-if="section3Data.child_EHCP == 'No'">
+                                                    <option value="Yes">Yes</option>
+                                                </template>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -862,14 +877,17 @@
                                         Open to EHAT
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px text-capitalize"
-                                            v-model="section3Data.child_EHAT" @change="onDetectChange($event,'sect3')">
-                                            <option selected>
-                                                {{section3Data.child_EHAT}}</option>
-                                            <option v-if="section3Data.child_EHAT != 'Yes'" value="Yes">Yes</option>
-                                            <option v-if="section3Data.child_EHAT != 'No'" value="No">No
-                                            </option>
-                                        </select>
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px text-capitalize"
+                                                v-model="section3Data.child_EHAT"
+                                                @change="onDetectChange($event,'sect3')">
+                                                <option selected>
+                                                    {{section3Data.child_EHAT}}</option>
+                                                <option v-if="section3Data.child_EHAT != 'Yes'" value="Yes">Yes</option>
+                                                <option v-if="section3Data.child_EHAT != 'No'" value="No">No
+                                                </option>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -1010,26 +1028,29 @@
                                         class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
                                         type="text" v-model="section4Data.is_covid"> -->
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px text-capitalize"
-                                            v-model="section4Data.is_covid" @change="onDetectChange($event,'sect4')">
-                                            <option selected>
-                                                {{section4Data.is_covid}}</option>
-                                            <template v-if="section4Data.is_covid == 'No'">
-                                                <option value="Yes">Yes
-                                                </option>
-                                                <option value="Unsure">Unsure
-                                            </template>
-                                            <template v-if="section4Data.is_covid == 'Yes'">
-                                                <option value="No">No
-                                                </option>
-                                                <option value="Unsure">Unsure
-                                            </template>
-                                            <template v-if="section4Data.is_covid == 'Unsure'">
-                                                <option value="No">No
-                                                </option>
-                                                <option value="Yes">Yes
-                                            </template>
-                                        </select>
+                                        <span class="plain-select">
+                                            <select class="custom-select h-50px text-capitalize"
+                                                v-model="section4Data.is_covid"
+                                                @change="onDetectChange($event,'sect4')">
+                                                <option selected>
+                                                    {{section4Data.is_covid}}</option>
+                                                <template v-if="section4Data.is_covid == 'No'">
+                                                    <option value="Yes">Yes
+                                                    </option>
+                                                    <option value="Unsure">Unsure
+                                                </template>
+                                                <template v-if="section4Data.is_covid == 'Yes'">
+                                                    <option value="No">No
+                                                    </option>
+                                                    <option value="Unsure">Unsure
+                                                </template>
+                                                <template v-if="section4Data.is_covid == 'Unsure'">
+                                                    <option value="No">No
+                                                    </option>
+                                                    <option value="Yes">Yes
+                                                </template>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
