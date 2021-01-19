@@ -268,7 +268,7 @@ $(document).ready(function () {
                                                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                         }
                                         if (_self.gpListName.length == 0) {
-                                            app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                            app.elgibilityObj.gpErrMsg = "";
                                             app.elgibilityObj.gpErrLink = "https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157";
                                             $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
                                             $('#addOpacityProf').css('opacity', '1');
@@ -307,7 +307,7 @@ $(document).ready(function () {
                                         _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                 }
                                 if (_self.gpListName.length == 0) {
-                                    app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                    app.elgibilityObj.gpErrMsg = "";
                                     app.elgibilityObj.gpErrLink = "https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157";
                                     $('#showInputLoaderProf').removeClass("d-block").addClass("d-none");
                                     $('#addOpacityProf').css('opacity', '1');
@@ -448,7 +448,7 @@ $(document).ready(function () {
                                                 _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                         }
                                         if (_self.gpProfListName.length == 0) {
-                                            app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                            app.elgibilityObj.gpErrMsg = "";
                                             app.elgibilityObj.gpErrLinkProf = "https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157";
                                             $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                             $('#addOpacity').css('opacity', '1');
@@ -485,7 +485,7 @@ $(document).ready(function () {
                                             _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                     }
                                     if (_self.gpProfListName.length == 0) {
-                                        app.elgibilityObj.gpErrMsg = "You are not eligible to continue with this location";
+                                        app.elgibilityObj.gpErrMsg = "";
                                         app.elgibilityObj.gpErrLinkProf = "https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157";
                                         $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                         $('#addOpacity').css('opacity', '1');
