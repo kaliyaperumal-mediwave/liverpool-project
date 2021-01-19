@@ -1537,7 +1537,8 @@ a {
   align-items: center;
   width: 28px;
   height: 18px;
-  border: none; }
+  border: none;
+  background-color: #54b7e6; }
 
 .header-set-height {
   height: 68px;
