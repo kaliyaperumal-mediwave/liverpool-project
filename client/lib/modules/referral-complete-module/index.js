@@ -75,5 +75,19 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
+
+    self.route('get', 'sendConfirmationMail/:email/:refCode', function (req, res) {
+      console.log(req.params)
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail?email=' + req.params.email + "&refCode=" + req.params.refCode ;
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        //  console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   }
 }

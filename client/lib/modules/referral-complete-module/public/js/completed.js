@@ -7,7 +7,8 @@ $(document).ready(function () {
             ackObj: { refCode: '123' },
             paramValues: [],
             reference_code: '',
-            loginFlag:''
+            loginFlag:'',
+            mailId:''
         },
         beforeMount: function () {
             $('#loader').show();
@@ -28,6 +29,11 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     success: function (data) {
                         _self.reference_code = data.reference_code;
+                        console.log("logi flag ",_self.loginFlag)
+                        if(_self.loginFlag=="true")
+                        {
+                            _self.sendMail(data.reference_code);
+                        }
                         $('#loader').hide();
                     },
                     error: function (error) {
@@ -36,7 +42,25 @@ $(document).ready(function () {
                     }
                 });
             },
-
+            sendMail: function (ref_code) {
+                console.log(this.reference_code)
+                var _self = this;
+                $.ajax({
+                    url: API_URI + "/sendConfirmationMail/" + this.mailId + "/" + ref_code,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        console.log("EmailSent")
+                        //_self.reference_code = data.reference_code;
+                        //$('#loader').hide();
+                    },
+                    error: function (error) {
+                        console.log('Something went Wrong', error);
+                        //$('#loader').hide();
+                    }
+                });
+            },
         }
     })
 });
