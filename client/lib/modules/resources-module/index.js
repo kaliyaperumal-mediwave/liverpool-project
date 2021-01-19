@@ -7,7 +7,7 @@ module.exports = {
     self.addDispatchRoutes();
   },
   construct: function (self, options) {
-      require('../../middleware')(self, options);
+    require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.resources1);
       self.dispatch('/lists', self.lists);
@@ -18,8 +18,13 @@ module.exports = {
       self.dispatch('/resources/view', self.Resources_view);
     };
 
-    self.resources1 = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage,backToResources;
+    self.resources1 = async function (req, callback) {
+
+      let piecesArray = [];
+      var Resources = await self.apos.modules['Resources-pages'].pieces.find(req, {}).toArray();
+      var ThingsToWatch = await self.apos.modules['liverpool-watch-pages'].pieces.find(req, {}).toArray();
+      piecesArray = Resources.concat(ThingsToWatch)
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, backToResources;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -57,10 +62,10 @@ module.exports = {
         contactPage = "/pages/contact";
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
-        backToResources =  "/resources?";
+        backToResources = "/resources?";
         showLogout = false;
       }
-
+      console.log(piecesArray, "piecesArray=======");
       return self.sendPage(req, self.renderer('resources', {
         showHeader: true,
         home: true,
@@ -75,12 +80,13 @@ module.exports = {
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
         urgentHelpPage: urgentHelpPage,
-        backToResources:backToResources
+        backToResources: backToResources,
+        piecesArray: piecesArray
 
       }));
     };
     self.lists = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage,backToResources;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, backToResources;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -90,7 +96,7 @@ module.exports = {
         contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1)
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?" + req.url.substring(req.url.indexOf("?") + 1)
-        backToResources =  "/resources?" + req.url.substring(req.url.indexOf("?") + 1)
+        backToResources = "/resources?" + req.url.substring(req.url.indexOf("?") + 1)
         showLogout = true;
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
         var deCodeParameter;
@@ -118,7 +124,7 @@ module.exports = {
         contactPage = "/pages/contact";
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
-        backToResources =  "/resources";
+        backToResources = "/resources";
         showLogout = false;
       }
       return self.sendPage(req, self.renderer('things-to-watch', {
@@ -135,7 +141,7 @@ module.exports = {
         navigateViewRfrl: navigateViewRfrl,
         navigateMkeRfrl: navigateMkeRfrl,
         urgentHelpPage: urgentHelpPage,
-        backToResources:backToResources
+        backToResources: backToResources
       }));
     };
     self.apps = function (req, callback) {
