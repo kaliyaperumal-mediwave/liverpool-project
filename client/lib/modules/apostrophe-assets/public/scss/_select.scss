@@ -2,9 +2,9 @@
   @extend %placeHolder-Wrap;
   position: relative;
   color: $placeholder-color !important;
-  background: #e8edee
-    url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
-    no-repeat right 0.15rem center/34px 31px !important;
+  // background: #e8edee
+  //   url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>")
+  //   no-repeat right 0.15rem center/34px 31px !important;
   border: none !important;
   white-space: nowrap;
   overflow: hidden;
@@ -14,6 +14,10 @@
   border-color: none !important;
   outline: 0;
   box-shadow: none !important;
+  background: #e8edee !important;
+}
+.custom-select option:focus{
+  background: #e8edee !important;
 }
 
 .custom-select-icon {
@@ -35,4 +39,24 @@
     font-size: 18px;
     width: 170px;
   }
+}
+.plain-select::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  right: 8px;
+  top: 50%;
+  margin-top: -3px;
+  height: 0;
+  width: 0;
+  border-top: 6px solid #000000 !important;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  pointer-events: none;
+}
+.plain-select {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  width: 100%;
 }
