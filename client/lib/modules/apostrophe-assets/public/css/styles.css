@@ -1537,7 +1537,8 @@ a {
   align-items: center;
   width: 28px;
   height: 18px;
-  border: none; }
+  border: none;
+  background-color: #54b7e6; }
 
 .header-set-height {
   height: 68px;
@@ -2025,8 +2026,8 @@ select.selectIcon {
     width: 100px;
     margin-left: 16px; }
   .button-referral {
-    width: 120px;
-    font-size: 13px; }
+    width: 125px;
+    font-size: 12px; }
   .button-login {
     min-width: 240px;
     height: 40px;
