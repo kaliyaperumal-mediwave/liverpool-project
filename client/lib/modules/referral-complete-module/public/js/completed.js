@@ -46,7 +46,7 @@ $(document).ready(function () {
                 console.log(this.reference_code)
                 var _self = this;
                 $.ajax({
-                    url: API_URI + "/sendConfirmationMail/" + this.mailId + "/" + ref_code,
+                    url: API_URI + "/sendConfirmationMail/" + ref_code,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',

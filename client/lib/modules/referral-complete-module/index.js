@@ -76,9 +76,9 @@ module.exports = {
       });
     });
 
-    self.route('get', 'sendConfirmationMail/:email/:refCode', function (req, res) {
-      console.log(req.params)
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail?email=' + req.params.email + "&refCode=" + req.params.refCode ;
+    self.route('get', 'sendConfirmationMail/:refCode', function (req, res) {
+      //console.log(req.params)
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail?email=' + req.session.email + "&refCode=" + req.params.refCode ;
       console.log("-------");
       console.log(url);
       console.log("-------");

@@ -83,7 +83,7 @@ module.exports = {
         console.log(data)
         if (data) {
           ///req.session.auth_token = data.data.token;
-          req.session.email = data.data.sendUserResult.email
+          req.session.email = data.data.email
           req.session.loginFlag = "true";
           req.session.reload(function () { });
         }
