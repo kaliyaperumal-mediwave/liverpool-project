@@ -67,6 +67,10 @@ body {
     }
   }
 
+  select option {
+    text-transform: capitalize !important;
+  }
+
   .h-75px {
     @include set-dynamicHeight(75px);
   }
