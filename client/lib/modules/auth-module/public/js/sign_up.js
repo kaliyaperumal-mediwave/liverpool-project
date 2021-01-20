@@ -23,7 +23,7 @@ $(document).ready(function () {
             showVisibilityPassword: false,
             showVisibilityConfirmPassword: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{8,}.$/,
+            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
             samePass: true,
             loginPath: '/users/login'
         },
