@@ -198,6 +198,15 @@ $(document).ready(function () {
                 }
             },
 
+            preventWhiteSpaces: function (e) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+
+
             editAllSection: function (page) {
                 this.userId = this.paramValues[0];
                 this.userRole = this.paramValues[1];
@@ -287,7 +296,11 @@ $(document).ready(function () {
 
             },
 
-            onDetectChange: function (e, toSection) {
+            onDetectChange: function (e, toSection,section,key) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    this[section][key] = e.target.value.trim();
+                    return false;
+                }
                 var buttonElem = document.querySelector('#' + toSection);
                 if (toSection == "sect1") {
                     if (JSON.stringify(this.prevSection1Data) === JSON.stringify(this.section1Data)) {

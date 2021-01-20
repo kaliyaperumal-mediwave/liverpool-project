@@ -17,6 +17,7 @@ $(document).ready(function () {
                 childSexualOrientation: "",
                 childEthnicity: "",
                 childCareAdult: "",
+                parentName: ""
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -91,26 +92,30 @@ $(document).ready(function () {
         },
         methods: {
 
-            //Initilaizing Google Maps Autocompleted
+            //Initializing Google Maps Autocompleted
             initMaps: function () {
                 var _self = this;
                 var childAddress;
                 var houseHoldAddress;
                 var parentAddress;
+
                 childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                     types: ['geocode'],
                 });
+
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
                     types: ['establishment'],
                 });
+
                 parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
                     types: ['geocode'],
                 });
+
                 google.maps.event.addListener(childAddress, 'place_changed', function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
                 });
+
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    // _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
 
@@ -125,7 +130,7 @@ $(document).ready(function () {
                 resetValues(event.target.form, this, 'aboutFormData');
             },
 
-            //Ftech Api service Logic
+            //Fetch Api service Logic
             fetchSavedData: function () {
                 var payload = {};
                 payload.uuid = this.userId;
@@ -138,6 +143,21 @@ $(document).ready(function () {
                 } else {
                     console.error('error')
                     $('#loader').hide();
+                }
+            },
+
+            //Function to Identify space
+            trimSpace: function (str, reqField) {
+                if (str == "" && reqField) {
+                    return false;
+                } else if (str == "" && !reqField) {
+                    return true;
+                } else {
+                    if (str.replace(/ /g, "").length) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             },
 
@@ -235,7 +255,7 @@ $(document).ready(function () {
                 }
             },
 
-            //Form Submittion of Section-4(Referral) with validation logic
+            //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 // var formData = Object.assign(this.aboutObj, this.aboutFormData);
@@ -275,6 +295,22 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
+
+                    if (formData.childSexualOrientation && !formData.childSexualOrientation.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if (formData.childEthnicity && !formData.childEthnicity.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if (formData.parentOrCarrerAddress && !formData.parentOrCarrerAddress.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
@@ -306,7 +342,7 @@ $(document).ready(function () {
                 }
             },
 
-            //Section 2(About You) Save and Service call with navaigation Logic
+            //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
@@ -325,6 +361,15 @@ $(document).ready(function () {
                 var houseHoldForm = this.houseHoldData;
                 var modal = document.getElementById('closeModalRaj');
                 if (houseHoldForm.name) {
+                    if (houseHoldForm.relationShip && !houseHoldForm.relationShip.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if (houseHoldForm.profession && !houseHoldForm.profession.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                     if (houseHoldForm.mode === 'update') {
                         this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                             if (it.mode === 'update' && it.id === houseHoldForm.id) {

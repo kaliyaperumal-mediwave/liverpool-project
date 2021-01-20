@@ -56,7 +56,7 @@
                                     </span>
                                 </div>
                                 <div class="invalid-feedback d-none"
-                                    v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.attendedInfo),'invalid-fields': !educAndEmpData.attendedInfo }">
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(educAndEmpData.attendedInfo,true)),'invalid-fields': !trimSpace(educAndEmpData.attendedInfo,true) }">
                                     You must provide a address.
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                             <input type="text" class="form-control" id="socialWorker"
                                 placeholder="Enter social worker's name" v-model="educAndEmpData.socialWorkName">
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(educAndEmpData.socialWorkName,true)),'invalid-fields':!trimSpace(educAndEmpData.socialWorkName,true) }">
                                 You must provide a name.
                             </div>
                         </div>
