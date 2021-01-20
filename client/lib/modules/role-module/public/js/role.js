@@ -608,7 +608,7 @@ $(document).ready(function () {
 
                     //   //console.log(age);
                     if (roleText == 'child') {
-                        if (age < 15) {
+                        if (age < 14) {
                             this.elgibilityObj.belowAgeLimit = "yes";
                             this.elgibilityObj.aboveLimit = "no";
                             this.elgibilityObj.contactParent = "";
@@ -886,7 +886,8 @@ $(document).ready(function () {
             diff_years: function (dt2, dt1) {
                 var diff = (dt2.getTime() - dt1.getTime()) / 1000;
                 diff /= (60 * 60 * 24);
-                return Math.abs(Math.round(diff / 365.25));
+                // return Math.abs(Math.round(diff / 365.25));
+                return Math.abs(diff / 365.25);
             },
 
             convertDate: function (dbDate) {
