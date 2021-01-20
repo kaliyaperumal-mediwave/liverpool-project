@@ -1,18 +1,18 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-
     new Vue({
         el: '#resources_user',
-
         data: {
             loginObject: {
                 email: "",
                 password: ""
             },
+
             isFormSubmitted: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
-            resourceContainer :[{
+            showSearchResults: false,
+            resourceContainer: [{
                 text: "ADHD",
                 image: '/modules/my-apostrophe-assets/img/ADHD-01.svg'
             },
@@ -136,22 +136,15 @@ $(document).ready(function () {
                 }
             },
 
+            searchData: function (e) {
+                if (e.target.value) {
+                    this.showSearchResults = true;
+                } else {
+                    this.showSearchResults = false;
+                }
+            }
+
         },
-         swiper = new Swiper('.swiper-container', {
-            slidesPerView: 3,
-            spaceBetween: 30,
-            slidesPerGroup: 3,
-            loop: true,
-            loopFillGroupWithBlank: true,
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-            },
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            },
-          }),
     })
 
 });

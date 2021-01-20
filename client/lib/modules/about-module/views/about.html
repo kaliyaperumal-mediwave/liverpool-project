@@ -25,9 +25,9 @@
                         </div>
                     </div>
                     <div class="form-group py-2 my-2">
-                        <label for="fullName" class="question-font">{{sec2dynamicLabel.fullNameLabel}}</label>
+                        <label for="childFullName" class="question-font">{{sec2dynamicLabel.fullNameLabel}}</label>
                         <div class="input-group">
-                            <input type="email" class="form-control" v-model="aboutObj.childName" id="fullName"
+                            <input type="text" class="form-control" v-model="aboutObj.childName" id="childFullName"
                                 v-bind:placeholder="sec2dynamicLabel.fullNamePlacLabel">
                             <div class="input-group-append">
                                 <span class="input-group-text font-23">
@@ -102,14 +102,14 @@
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <p class="question-font m-0">{{sec2dynamicLabel.postLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="no" value="no" name="sendPost"
+                        <input class="form-check-input" type="radio" id="no" value="No" name="sendPost"
                             v-model="aboutObj.sendPost">
                         <label class="form-check-label option-font d-flex align-items-center" for="no">
                             No
                         </label>
                     </div>
                     <div class="form-check  py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="sendPost" id="yes" value="yes"
+                        <input class="form-check-input" type="radio" name="sendPost" id="yes" value="Yes"
                             v-model="aboutObj.sendPost">
                         <label class="form-check-label option-font d-flex align-items-center" for="yes">
                             Yes
@@ -145,21 +145,21 @@
                             data-toggle="modal" data-target="#genderIdentity">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" value="no" id="genderNo" name="childGenderBirth"
+                        <input class="form-check-input" type="radio" value="No" id="genderNo" name="childGenderBirth"
                             v-model="aboutObj.childIdentity">
                         <label class="form-check-label option-font d-flex align-items-center" for="genderNo">
                             No
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childGenderBirth" value="yes" id="genderYes"
+                        <input class="form-check-input" type="radio" name="childGenderBirth" value="Yes" id="genderYes"
                             v-model="aboutObj.childIdentity">
                         <label class="form-check-label option-font d-flex align-items-center" for="genderYes">
                             Yes
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childGenderBirth" value="unsure"
+                        <input class="form-check-input" type="radio" name="childGenderBirth" value="Unsure"
                             id="genderUnsure" v-model="aboutObj.childIdentity">
                         <label class="form-check-label option-font d-flex align-items-center" for="genderUnsure">
                             Unsure
@@ -277,7 +277,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
-                                <h5 class="question-header-font" id="deleteModalLabel">Delete houseHold</h5>
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete household</h5>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>
                             </div>
@@ -305,14 +305,14 @@
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <p class="question-font m-0">{{sec2dynamicLabel.careAdultLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
-                        <input class="form-check-input" type="radio" id="careNo" value="no" name="childCareAdult"
+                        <input class="form-check-input" type="radio" id="careNo" value="No" name="childCareAdult"
                             v-model="aboutObj.childCareAdult">
                         <label class="form-check-label option-font d-flex align-items-center" for="careNo">
                             No
                         </label>
                     </div>
                     <div class="d-flex form-check py-2 pl-0">
-                        <input class="form-check-input" type="radio" name="childCareAdult" id="careYes" value="yes"
+                        <input class="form-check-input" type="radio" name="childCareAdult" id="careYes" value="Yes"
                             v-model="aboutObj.childCareAdult">
                         <label class="form-check-label option-font d-flex align-items-center" for="careYes">
                             Yes
@@ -323,7 +323,7 @@
 
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="childCareAdult" id="careUnsure"
-                            value="unsure" v-model="aboutObj.childCareAdult ">
+                            value="Unsure" v-model="aboutObj.childCareAdult ">
                         <label class="form-check-label option-font d-flex align-items-center" for="careUnsure">
                             Unsure
                         </label>
@@ -355,14 +355,13 @@
                                     who
                                     are carers</h3>
                                 <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
-                                    <p class="support-modal-link-text cursor-pointer text-center m-0 py-2"> > Link
-                                        to
-                                        support and advice</p>
-                                    <!-- <a href="https://www.nhs.uk/live-well/healthy-body/trans-teenager/" target="_blank">
+                                    <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
+                                        <a href="https://www.liverpoolcamhs.com/support/" target="_blank">
                                             > Link
                                             to
                                             support and advice
-                                        </a> -->
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -566,28 +565,32 @@
                             <label class="question-font">{{sec2dynamicLabel.legalCareLabel}}
                             </label>
                             <div class="input-group">
-                                <select class="custom-select form-control" v-model="aboutFormData.legalCareStatus"
-                                    name="legalCare">
-                                    <option value="" disabled selected>{{sec2dynamicLabel.legalCarePlacLabel}}</option>
-                                    <option value="Care of Parent">Care of Parent
-                                    </option>
-                                    <option value="Care of Local Authority (Liverpool)">Care of Local Authority
-                                        (Liverpool)
-                                    </option>
-                                    <option value="Care of Local Authority (Sefton)">Care of Local Authority (Sefton)
-                                    </option>
-                                    <option value="Care of Local Authority (Other)">Care of Local Authority (Other)
-                                    </option>
-                                    <option value="Section 20 Voluntary">Section 20 Voluntary
-                                    </option>
-                                    <option value="Accommodated">Accommodated
-                                    </option>
-                                    <option value="Full Care Order">Full Care Order</option>
-                                    <option value="Interim Care Order">Interim Care Order</option>
-                                    <option value="Care Order places at home">Care Order places at home</option>
-                                    <option value="Child Protection Plan">Child Protection Plan</option>
-                                    <option value="Other Carer">Other Carer</option>
-                                </select>
+                                <span class="plain-select">
+                                    <select class="custom-select form-control" v-model="aboutFormData.legalCareStatus"
+                                        name="legalCare">
+                                        <option value="" disabled selected>{{sec2dynamicLabel.legalCarePlacLabel}}
+                                        </option>
+                                        <option value="Care of Parent">Care of Parent
+                                        </option>
+                                        <option value="Care of Local Authority (Liverpool)">Care of Local Authority
+                                            (Liverpool)
+                                        </option>
+                                        <option value="Care of Local Authority (Sefton)">Care of Local Authority
+                                            (Sefton)
+                                        </option>
+                                        <option value="Care of Local Authority (Other)">Care of Local Authority (Other)
+                                        </option>
+                                        <option value="Section 20 Voluntary">Section 20 Voluntary
+                                        </option>
+                                        <option value="Accommodated">Accommodated
+                                        </option>
+                                        <option value="Full Care Order">Full Care Order</option>
+                                        <option value="Interim Care Order">Interim Care Order</option>
+                                        <option value="Care Order places at home">Care Order places at home</option>
+                                        <option value="Child Protection Plan">Child Protection Plan</option>
+                                        <option value="Other Carer">Other Carer</option>
+                                    </select>
+                                </span>
                                 <!-- <div class="input-group-append">
                                     <span class="input-group-text">
                                         <i class="fa fa-chevron-down fa-1x" aria-hidden="true"></i>
@@ -600,7 +603,7 @@
                 <!-- Legal care Status Start -->
 
                 <!-- Dynamic Toaster start Scenerio 1-->
-                <template v-show="aboutFormData.legalCareStatus">
+                <template v-if="aboutFormData.legalCareStatus">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">

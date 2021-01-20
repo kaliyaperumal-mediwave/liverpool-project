@@ -41,13 +41,13 @@
   &:checked + label:after {
     @include dynamicRadioClass(22px, 22px, 9px, 9px, $primary-color);
     @include transition(all 0.2s ease);
-    padding: 2px;
+    padding: 4px;
   }
 
   &:not(:checked) + label:after {
     @include dynamicRadioClass(22px, 22px, 9px, 9px, $primary-color);
     @include transition(all 0.2s ease);
-    padding: 2px;
+    padding: 4px;
     @include transform(scale(0));
   }
 

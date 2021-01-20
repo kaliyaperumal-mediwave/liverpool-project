@@ -16,6 +16,10 @@
   }
 }
 
+@mixin set-dynamicHeight($height) {
+  height: $height !important;
+}
+
 @mixin set-titleStyles($size, $weight, $color) {
   @extend %font-shared;
   font-size: $size;
@@ -95,6 +99,14 @@
 
 .h-50px {
   height: 50px !important;
+}
+
+//Hiding Box shadow for Input type email only for Firefox
+
+@-moz-document url-prefix() {
+  input[type="email"] {
+    box-shadow: none !important;
+  }
 }
 
 @mixin placeholder($color) {

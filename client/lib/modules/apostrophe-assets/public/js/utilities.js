@@ -297,7 +297,8 @@ function closeSideDrawer() {
 }
 
 function logOut() {
-    window.location.href = "/logout";
+   // window.location.href = window.location.origin + '/users/login';
+   window.location.href = "/logout";
 }
 
 window.onload = function (e) {

@@ -23,27 +23,30 @@ $(document).ready(function () {
             referralData: {
                 support: '',
                 covid: '',
-                diagnosis: '',
-                diagnosisOther: '',
-                supportOrSymptoms: '',
-                problemsOther: '',
+                dailyIntakes: '',
+                height: '',
+                weight: '',
+                otherReasonsReferral: '',
                 referralInfo: '',
                 hasAnythingInfo: '',
                 triggerInfo: '',
                 disabilityOrDifficulty: '',
                 accessService: '',
-                //isAccessingService: '',
                 listService: '',
             },
             dependent: [
+                // {
+                //     parentKey: 'diagnosis',
+                //     childKey: 'diagnosisList'
+                // },
                 {
-                    parentKey: 'diagnosis',
-                    childKey: 'diagnosisList'
+                    parentKey: 'covid',
+                    childKey: 'eatingDifficulties'
                 },
-                {
-                    parentKey: 'supportOrSymptoms',
-                    childKey: 'problemsList'
-                },
+                // {
+                //     parentKey: 'supportOrSymptoms',
+                //     childKey: 'problemsList'
+                // },
                 {
                     parentKey: 'accessService',
                     childKey: 'accessList'
@@ -66,81 +69,73 @@ $(document).ready(function () {
             payloadData: {},
             diagnosisList: [],
             problemsList: [],
+            eatingDifficulties: [],
+            reasonForReferral: [],
             accessList: [],
             allAvailableService: [],
             referralId: "",
             hasSubmittedServiceForm: false,
             storeDeleteData: null,
-            listOfDiagnosis: [
-                { id: '11E', value: 'ADD/ADHD' },
-                { id: '1154', value: 'Anxiety' },
-                { id: '11243', value: 'Autism' },
-                { id: '1187C43', value: 'Bullying related' },
-                { id: '118754', value: 'Conduct disorder' },
-                { id: '198HT', value: 'Depression' },
-                { id: '987GH', value: 'Dyslexia' },
-                { id: '9HS8G+', value: 'Drinking and drugs related' },
-                { id: 'SDF87H', value: 'Eating Disorders' },
-                { id: '78TH', value: 'Family Difficulty' },
-                { id: '2VDF20', value: 'Gender dysphoria' },
-                { id: '43R4', value: 'Obsessive-compulsive disorder (OCD)' },
-                { id: '1F5G4', value: 'Panic attacks' },
-                { id: '47FBGH', value: 'Phobias' },
-                { id: '118709877fg9543', value: 'Psychosis (hearing or seeing things that other’s can’t)' },
-                { id: 'DF3V6S', value: 'Self-harm' },
-                { id: '1DS', value: 'Pulling hair out' },
-                { id: '4F7', value: 'Separation anxiety' },
-                { id: '1154FVGD', value: 'Stress' },
-                { id: 'OI9P8', value: 'Suicidal thoughts' },
-                { id: '7TR', value: 'Social phobia' },
-                { id: '1NFH', value: "Tics and Tourette’s" },
-                { id: 'TRYE', value: 'Wetting and soiling' }
+            listOfEatingDifficulties: [
+                { id: '4937fd43-79ae-4974-90d9-601966a9d3fb', value: 'Restricting Food Intake' },
+                { id: 'bd8efbb4-6491-4520-aea7-8ab35f38a261', value: 'Restricting Fluid Intake' },
+                { id: '6d31681e-a9b9-4cbe-a7e1-26bcbd17d9c3', value: 'Fear of being fat' },
+                { id: '14568ba7-78b0-4bca-aed3-560bdba83060', value: 'Increased preoccupation with weight and shape' },
+                { id: '73257df0-9c00-4125-8238-fe096bac4253', value: 'Excessive exercising' },
+                { id: '4714dbea-340d-42c5-a183-d54e9522aadb', value: 'Bingeing/ Purging' },
+                { id: '48443ca2-47a0-4a8f-be63-59324c509558', value: 'Recent excessive loss of weight' },
+                { id: 'fb8c41e3-922e-4332-867a-d67e2bb292fc', value: 'Blackouts' },
+                { id: '4ca2d04b-b507-4ef9-ba82-323f4ff665ac', value: 'Dizziness' },
+                { id: 'c652572a-2610-434c-9e2a-96cdfefe292d', value: 'Feeling weak and cold' },
+                { id: '68066f83-1aca-45f4-97ee-84da1485d02b', value: 'Low mood' },
+                { id: '3b568128-10a1-4e5a-a2e5-9fa4a0163de5', value: 'Anxiety' },
+                { id: '33cd1600-037f-45d6-a226-1d093d821cb5', value: 'Obsessive behaviour or thoughts' },
+                { id: 'ad07ea21-e0c4-488b-b6b0-2e39046fbb92', value: 'Amenorrhoea' },
             ],
-            listOfProblems: [
-                { id: 'sdf', value: 'Trouble concentrating' },
-                { id: '564dfh', value: 'Feeling nervous or on edge', },
-                { id: '564j', value: 'Trouble socialising' },
-                { id: 'hj', value: 'Bullying' },
-                { id: '02h', value: 'Find it hard to control myself' },
-                { id: '9897', value: 'Feeling sad, unhappy or hopeless' },
-                { id: 'dfj7t8y', value: 'Trouble reading and writing' },
-                { id: 'g4df56+', value: 'Drinking and drugs' },
-                { id: 'fjuyt18', value: 'Feeling clumsy and uncoordinated' },
-                { id: 'rujr98yu', value: 'Issues with food, diet or eating' },
-                { id: 'fjyhj1', value: 'Problems with family' },
-                { id: 'dfjj848', value: 'Problems with self identity' },
-                { id: 'dfghjd89', value: 'Compulsive behaviour' },
-                { id: 'dfg8', value: 'Panic attacks' },
-                { id: '1187qw1243', value: 'Feeling scared or anxious' },
-                { id: 'df198oijd', value: 'Seeing or hearing things' },
-                { id: 'gdfh98', value: 'Had a traumatic experience' },
-                { id: '2432fg', value: 'Feeling that I want to hurt myself' },
-                { id: 'p989df', value: 'Self-harming' },
-                { id: 'mk89uj8', value: 'Pulling hair out' },
-                { id: '9ig89u', value: 'Trouble sleeping' },
-                { id: '8mfg8', value: 'Feeling stressed' },
-                { id: '88gfh', value: 'Feeling that I don’t want to live' },
-                { id: '0f8495a7-4bc7-4194-a20b-485667901a02', value: 'Uncontrolled movements' },
-                { id: 'ac435a42-7157-4529-a20c-16a5fbf3e226', value: 'Wetting or soiling myself' },
-                { id: 'ac663e81-88c6-4514-9771-520de3088b03', value: 'Low self esteem' },
-                { id: 'e8458f91-4e04-4487-8797-0dad7339b49c', value: 'Lacking confidence in myself' },
-
+            reasonForReferralList: [
+                { id: '4bc26bf2-d79b-4b83-912f-e83300efb10e', value: 'Trouble concentrating' },
+                { id: 'ac1d34e8-5443-4286-8be2-c964430356c0', value: 'Feeling nervous or on edge', },
+                { id: 'e22e6ab1-9b56-490d-8afd-6fcce1969989', value: 'Trouble socialising' },
+                { id: '01386494-4f30-4bc5-907d-1d77b5b59540', value: 'Bullying' },
+                { id: '864dc606-6954-4855-ad30-a923c1214b01', value: 'Find it hard to control myself' },
+                { id: 'e2e9e23c-7802-4e5b-959e-438a612516ec', value: 'Feeling sad, unhappy or hopeless' },
+                { id: 'e647a2a8-3240-46cb-8c89-6376e73db296', value: 'Trouble reading and writing' },
+                { id: '22b1ac46-71c2-460f-93e3-f672ca73116c', value: 'Drinking and drugs' },
+                { id: 'ac03479d-ac0f-4977-a431-d8a350b4d254', value: 'Feeling clumsy and uncoordinated' },
+                { id: '2a51c85a-8bc6-4107-bc5a-e76d68fb6be6', value: 'Issues with food, diet or eating' },
+                { id: '64740f8f-70c1-4cc6-9222-3f56880a426b', value: 'Problems with family' },
+                { id: 'ea72e4b5-f325-41c6-9958-116aa8780a4d', value: 'Problems with self identity' },
+                { id: 'cb57d9e4-43a4-469f-9bb7-5949e7b686da', value: 'Compulsive behaviour' },
+                { id: 'bb60f501-a346-44fd-860c-3a815ce4ca73', value: 'Panic attacks' },
+                { id: '6b4eb776-4287-4296-ab2c-7599939e1c5b', value: 'Feeling scared or anxious' },
+                { id: '7a95930e-db58-4bbd-99c8-842dd965c1be', value: 'Seeing or hearing things' },
+                { id: '12837896-732c-4a98-be65-f8213728ab73', value: 'Had a traumatic experience' },
+                { id: '21eaed08-af51-4115-b6c0-e376eedd9a92', value: 'Feeling that I want to hurt myself' },
+                { id: '42496c57-6c92-45f1-97d9-ed763843b53b', value: 'Self-harming' },
+                { id: 'f3834f7c-b227-4069-af8a-ee6703bbf393', value: 'Pulling hair out' },
+                { id: 'f053d058-678f-4182-aaf7-0b95fedbf1db', value: 'Trouble sleeping' },
+                { id: '9c4fa623-f374-49d6-b774-dfda8a1a9f33', value: 'Feeling stressed' },
+                { id: '5bea946d-5632-40ef-8d15-523aeb5b747e', value: 'Feeling that I don’t want to live' },
+                { id: 'a1373df9-a335-46f5-a530-53b157b64d58', value: 'Uncontrolled movements' },
+                { id: 'ba1df932-b6af-4971-b61f-a57895506548', value: 'Wetting or soiling myself' },
+                { id: '97caac9e-057f-4df2-8a94-a972e6cae5b3', value: 'Low self esteem' },
+                { id: '8676c899-f721-4ebe-9276-7294a64adabd', value: 'Lacking confidence in myself' },
 
             ],
             listOfAvailableService: [
-                { id: 'oopdfh', value: 'Advanced Solutions' },
-                { id: '8789dfgji', value: 'ADHD Foundation' },
-                { id: '89df8fg', value: 'Alder Hey CAHMS' },
-                { id: 'pdf9', value: 'Barnado’s Young Carers' },
-                { id: 'mknib', value: 'Bully Busters' },
-                { id: 'cdsfg', value: 'EDYS' },
-                { id: '7856zf', value: 'Kooth' },
-                { id: '34545ds', value: 'Merseycare 16-18' },
-                { id: 'po89767', value: 'Merseyside Youth Association' },
-                { id: '908978xczx', value: 'PSS Spinning World' },
-                { id: 'lijbxc', value: 'Venus' },
-                { id: '85fhtsewre', value: 'YPAS' },
-                { id: '0dfsu8u', value: 'Other' },
+                { id: '3346efa5-661f-4112-9caf-1fa12c98504e', value: 'Advanced Solutions' },
+                { id: '45d6204e-c1e1-46c1-8168-60ea04c70390', value: 'ADHD Foundation' },
+                { id: 'f44a383f-1952-4db4-b2e2-11b6cf11ba9a', value: 'Alder Hey CAHMS' },
+                { id: 'bda7d546-1452-4ae7-9e01-1e96c8a7991d', value: 'Barnado’s Young Carers' },
+                { id: 'd7f13aaa-64c7-4225-9dec-c669dd4a2d4e', value: 'Bully Busters' },
+                { id: 'bf1b464e-dcc5-48e0-811b-53855a5435c7', value: 'EDYS' },
+                { id: '9b39fa57-98da-41fa-93a7-4c2c4b191c89', value: 'Kooth' },
+                { id: '652b84d6-3ff4-42ca-8e35-deaf80e2115e', value: 'Merseycare 16-18' },
+                { id: '3d6c3a7e-1948-4eb9-86c8-8177dd132bc0', value: 'Merseyside Youth Association' },
+                { id: '016b2e91-6872-4a5d-a49e-5e3a75cc7521', value: 'PSS Spinning World' },
+                { id: 'e293c060-2cc4-4288-a941-b6bb56ac8ad4', value: 'Venus' },
+                { id: 'e116e2a3-4623-4c01-af34-bbe9ccb8a829', value: 'YPAS' },
+                { id: 'fefa3e54-a2ad-43a7-88cc-3fe4abe06533', value: 'Other' },
             ],
             paramValues: []
         },
@@ -150,21 +145,23 @@ $(document).ready(function () {
             onOptionChange: function (event) {
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
-                if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal' || questionIdentifier == 'mentalDiagnosis' ||
-                    questionIdentifier == 'accessedService' || questionIdentifier === 'anyService') {
+                if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
+                    resetValues(event.target.form, this, 'referralData');
+                    this.reasonForReferral = [];
+                } else if (questionIdentifier == 'accessedService') {
                     resetValues(event.target.form, this, 'referralData');
                 }
-                else if (questionIdentifier === 'listDiagnosis') {
-                    if (!this.diagnosisList.length) {
-                        if (optionsName.diagnosisOther === '') {
-                            resetValues(event.target.form, this, 'referralData');
-                        }
+                else if (questionIdentifier === 'eatingDisorder') {
+                    if (!this.eatingDifficulties.length) {
+                        resetValues(event.target.form, this, 'referralData');
+                        this.reasonForReferral = [];
                     }
                 }
-                else if (questionIdentifier === 'listProblems') {
-                    if (!this.problemsList.length) {
-                        if (optionsName.problemsOther === '') {
+                else if (questionIdentifier === 'listReasonsForReferral') {
+                    if (!this.reasonForReferral.length) {
+                        if (optionsName.otherReasonsReferral === '') {
                             resetValues(event.target.form, this, 'referralData');
+                            this.reasonForReferral = [];
                         }
                     }
                 }
@@ -186,18 +183,18 @@ $(document).ready(function () {
             },
 
             //Getting values from Other Input box and logic
-            onValueEnter: function (e) {
+            onValueEnter: function (event) {
                 var questionIdentifier = event.target.name;
-                if (questionIdentifier === 'listDiagnosis') {
-                    if (!this.diagnosisList.length) {
-                        if (!e.target.value) {
+                if (questionIdentifier === 'listReasonsForReferral') {
+                    if (!event.target.value) {
+                        if (!this.reasonForReferral.length) {
                             resetValues(event.target.form, this, 'referralData');
                         }
                     }
-
-                } else if (questionIdentifier === 'listProblems') {
-                    if (!e.target.value) {
+                } else if (questionIdentifier === 'briefOutlineInfo') {
+                    if (!event.target.value) {
                         resetValues(event.target.form, this, 'referralData');
+                        this.reasonForReferral = [];
                     }
                 }
             },
@@ -219,16 +216,18 @@ $(document).ready(function () {
             },
 
 
-            //Form Submittion of Section-4(Referral) with validation logic
+            //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
-                if (formData.referralInfo && formData.hasAnythingInfo && formData.triggerInfo && formData.disabilityOrDifficulty) {
+                if (formData.referralInfo) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
-                    this.payloadData.diagnosisList = this.diagnosisList;
-                    this.payloadData.problemsList = this.problemsList;
+                    this.payloadData.reasonForReferral = this.reasonForReferral;
+                    this.payloadData.eatingDifficulties = this.eatingDifficulties;
+                    // this.payloadData.diagnosisList = this.diagnosisList;
+                    // this.payloadData.problemsList = this.problemsList;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
                     this.payloadData.editFlag = getUrlVars()['edt'];
@@ -265,8 +264,8 @@ $(document).ready(function () {
             //Patching the value logic
             patchValue: function (data) {
                 console.log(data)
-                this.diagnosisList = data.diagnosis;
-                this.problemsList = data.symptoms;
+                this.eatingDifficulties = data.eating_disorder_difficulties;
+                this.reasonForReferral = data.reason_for_referral;
                 this.accessList = data.local_services;
                 this.referralId = data.id;
                 if (this.accessList.indexOf("Other") > -1) {
@@ -277,10 +276,15 @@ $(document).ready(function () {
                 this.allAvailableService = data.services;
                 Vue.set(this.referralData, "support", data.referral_type);
                 Vue.set(this.referralData, "covid", data.is_covid);
-                Vue.set(this.referralData, "diagnosis", data.mental_health_diagnosis);
-                Vue.set(this.referralData, "diagnosisOther", data.diagnosis_other);
-                Vue.set(this.referralData, "supportOrSymptoms", data.symptoms_supportneeds);
-                Vue.set(this.referralData, "problemsOther", data.symptoms_other);
+
+                //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
+                Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
+                Vue.set(this.referralData, "height", data.height);
+                Vue.set(this.referralData, "weight", data.weight);
+               // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
+                Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
+
+
                 Vue.set(this.referralData, "referralInfo", data.referral_issues);
                 Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
                 Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
