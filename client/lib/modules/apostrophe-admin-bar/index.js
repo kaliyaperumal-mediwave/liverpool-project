@@ -2,7 +2,7 @@ module.exports = {
   addGroups: [{
       label: 'Resources content',
       items: [
-        'liverpool-watch','liverpool-read'
+        'liverpool-watch','liverpool-read','liverpool-events','liverpool-games','liverpool-Partner-agencies'
       ]
     },
     {

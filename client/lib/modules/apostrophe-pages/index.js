@@ -70,15 +70,28 @@ module.exports = {
     {
   name: 'Resources-pages',
   label: 'Resources pages'
+  },
+  {
+    name: 'liverpool-watch-pages',
+    label: 'Resources watch'
+  },
+  {
+    name: 'liverpool-read-pages',
+    label: 'Resources Read'
+  },
+  {
+  name: 'liverpool-events-pages',
+  label: 'Resources Events'
 },
 {
-name: 'liverpool-watch-pages',
-label: 'liverpool-watch'
+name: 'liverpool-games-pages',
+label: 'Resources Games'
 },
 {
-name: 'liverpool-read-pages',
-label: 'liverpool Read'
+name: 'liverpool-Partner-agencies-pages',
+label: 'Partner-agencies'
 }
+
     // Add more page types here, but make sure you create a corresponding
     // template in lib/modules/apostrophe-pages/views/pages!
   ]

@@ -10,7 +10,7 @@ module.exports = {
       name: '_content',
       label: 'Content to Link',
       type: 'joinByArray',
-      withType: ['liverpool-watch','liverpool-read'],
+      withType: ['liverpool-watch','liverpool-read','liverpool-events','liverpool-games','liverpool-Partner-agencies'],
       filters: {
         projection: {
           _url: 1,
