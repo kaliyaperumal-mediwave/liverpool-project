@@ -26,7 +26,7 @@
       background: #e8edee 0% 0% no-repeat padding-box;
       border: 1px solid #023047;
       padding: 10px;
-      display: inline-block;
+      display: inline-table;
       position: relative;
       vertical-align: middle;
       cursor: pointer;
@@ -38,7 +38,6 @@
     content: "";
     display: block;
     position: absolute;
-    top: 8px;
     left: 16px;
     width: 6px;
     height: 21px;

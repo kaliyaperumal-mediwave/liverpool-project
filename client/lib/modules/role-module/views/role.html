@@ -385,7 +385,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control gpLocation" @input="getAddress($event)"
                                 placeholder="Start typing to search" id="gpLocation" aria-label="location"
-                                v-model="elgibilityObj.regGpTxt" autocomplete="off">
+                                v-model="elgibilityObj.regGpTxt" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoaderProf" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
@@ -411,8 +411,9 @@
             <!--GP Location End -->
 
             <!-- toster-container start -->
-            <!-- <form id="isInformation-form4" data-options="isInformation">
-                <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.gpNotCovered) || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.childDob!=null && elgibilityObj.regGpTxt)" class="px-4 py-4">
+            <form id="gpNotCovered" data-options="gpNotCovered">
+                <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
+                    class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
@@ -421,16 +422,22 @@
                                         data-target="#consentModal" aria-hidden="true"></i>
                                 </span>
                             </p>
-                            <p  class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our service.</p>
+                            <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
+                                service.</p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a
-                                href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157" target="_blank">
-                                > Find a service local to me
-                            </a></p>                    
+                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
+                                    target="_blank">
+                                    > Find a service local to me
+                                </a></p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"
+                                v-on:click="changePrevAns('regGpTxt','gpLocation')"> > Change my previous
+                                answer </p>
                         </div>
                     </div>
                 </div>
-            </form> -->
+            </form>
             <!-- toster-container start -->
 
             <!-- toster-container start -->
@@ -732,7 +739,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control gpProfLocation" v-model="elgibilityObj.regProfGpTxt"
                                 placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
-                                aria-label="location" autocomplete="off">
+                                aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoader" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
@@ -749,7 +756,8 @@
                             search</small>
                         <small id="gpErrorMessage" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                         <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
-                            id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered by
+                            id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
+                            by
                             our service.
                             <a :href="elgibilityObj.gpErrLinkProf" target="_blank">Find a service local to me</a>
                         </small>
@@ -757,6 +765,35 @@
                 </div>
             </form>
             <!--GP Location End -->
+
+            <!-- toster-container start -->
+            <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
+                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && (elgibilityObj.profName && elgibilityObj.profContactNumber) &&  getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
+                    class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <span style="color:#023087 ;">
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
+                                service.</p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
+                                    target="_blank">
+                                    > Find a service local to me
+                                </a></p>
+                            <p class="link-text cursor-pointer text-center m-0 py-2"
+                                v-on:click="changePrevAns('regProfGpTxt','gpProfLocation')"> > Change my previous
+                                answer </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- toster-container start -->
 
             <!-- toster-container start -->
             <form id="submitFormTrue-form1" data-options="submitProfForm">
