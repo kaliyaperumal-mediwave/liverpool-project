@@ -67,6 +67,10 @@ body {
     }
   }
 
+  select option {
+    text-transform: capitalize !important;
+  }
+
   .h-75px {
     @include set-dynamicHeight(75px);
   }
@@ -1065,6 +1069,7 @@ a {
   width: 28px;
   height: 18px;
   border: none;
+  background-color: #54b7e6;
 }
 .header-set-height {
   height: 68px;
@@ -1072,6 +1077,10 @@ a {
   padding-right: 24px;
   display: flex;
   align-items: center;
+  @include xxs-screen-between {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 .button-referral {
   background-color: #ffb703;
@@ -1097,7 +1106,7 @@ a {
 }
 .footer-container {
   display: flex;
-  height: 49px;
+  height: 64px;
   justify-content: space-around;
   padding-left: 24px;
   padding-right: 24px;
@@ -1561,7 +1570,7 @@ select.selectIcon {
     margin-left: 16px;
   }
   .button-referral {
-    width: 110px;
+    width: 125px;
     font-size: 12px;
   }
   .button-login {
@@ -1729,7 +1738,7 @@ body .ui-widget {
   }
   @include xl-screen {
     max-width: 410px;
-    max-height: 240px !important;
+    max-height: 180px !important;
   }
 }
 body .ui-widget .ui-menu-item {

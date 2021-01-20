@@ -102,39 +102,39 @@ module.exports = {
       );
     };
 
-    require("../../middleware")(self, options);
-    self.route("post", "doCreateAcc", function (req, res) {
-      var url =
-        self.apos.LIVERPOOLMODULE.getOption(req, "phr-module") + "/user/signup";
-      console.log("----  -------", url);
-      self.middleware
-        .post(req, res, url, req.body)
-        .then((data) => {
-          return res.send(data);
-        })
-        .catch((error) => {
-          console.log("---- error -------", error);
-          return res.status(error.statusCode).send(error.error);
-        });
+    require('../../middleware')(self, options);
+    self.route('post', 'doCreateAcc', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/signup';
+      self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
+        if (data) {
+          ///req.session.auth_token = data.data.token;
+          req.session.email = data.data.email
+          req.session.loginFlag = "true";
+          req.session.reload(function () { });
+        }
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
     });
 
-    self.route("post", "doLogin", function (req, res) {
-      var url =
-        self.apos.LIVERPOOLMODULE.getOption(req, "phr-module") + "/user/login";
-      self.middleware
-        .post(req, res, url, req.body)
-        .then((data) => {
-          if (data) {
-            req.session.auth_token = data.data.sendUserResult.token;
-            req.session.loginFlag = "true";
-            req.session.reload(function () {});
-          }
-          return res.send(data);
-        })
-        .catch((error) => {
-          console.log("---- error -------", error);
-          return res.status(error.statusCode).send(error.error);
-        });
+    self.route('post', 'doLogin', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/login';
+      self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
+        if (data) {
+          req.session.auth_token = data.data.sendUserResult.token;
+          req.session.email = data.data.sendUserResult.email
+          req.session.loginFlag = "true";
+          req.session.reload(function () { });
+        }
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
     });
   },
 };

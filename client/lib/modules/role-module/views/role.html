@@ -144,9 +144,9 @@
 
             <!-- Age under 14 start-->
 
-             <!-- toster-container start -->
-             <form id="tostInterYes-form" data-options="belowAgeLimit">
-                <div  v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
+            <!-- toster-container start -->
+            <form id="tostInterYes-form" data-options="belowAgeLimit">
+                <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -155,9 +155,10 @@
                             </p>
                             <p class="question-font text-center m-0 py-2">If you are under 14 you will need your
                                 parent/carer to complete this referral.
-                               </p>
+                            </p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Please ask them to start this form from
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Please ask them to start this
+                                form from
                                 the beginning on your behalf</p>
                         </div>
                     </div>
@@ -399,10 +400,38 @@
                             enter 3 characters to start
                             search</small>
                         <small id="emailHelp" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrLink"
+                            id="gpErrLink" class="form-text text-muted">Unfortunately, this location is not covered by
+                            our service.
+                            <a :href="elgibilityObj.gpErrLink" target="_blank">Find a service local to me</a>
+                        </small>
                     </div>
                 </div>
             </form>
             <!--GP Location End -->
+
+            <!-- toster-container start -->
+            <!-- <form id="isInformation-form4" data-options="isInformation">
+                <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.gpNotCovered) || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.childDob!=null && elgibilityObj.regGpTxt)" class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <span style="color:#023087 ;">
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <p  class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our service.</p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                                href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157" target="_blank">
+                                > Find a service local to me
+                            </a></p>                    
+                        </div>
+                    </div>
+                </div>
+            </form> -->
+            <!-- toster-container start -->
 
             <!-- toster-container start -->
             <form id="submitFormTrue-form2" data-options="submitForm">
@@ -719,6 +748,11 @@
                             enter 3 characters to start
                             search</small>
                         <small id="gpErrorMessage" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
+                            id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered by
+                            our service.
+                            <a :href="elgibilityObj.gpErrLinkProf" target="_blank">Find a service local to me</a>
+                        </small>
                     </div>
                 </div>
             </form>

@@ -101,6 +101,14 @@
   height: 50px !important;
 }
 
+//Hiding Box shadow for Input type email only for Firefox
+
+@-moz-document url-prefix() {
+  input[type="email"] {
+    box-shadow: none !important;
+  }
+}
+
 @mixin placeholder($color) {
   input[type="text"],
   input[type="password"],
