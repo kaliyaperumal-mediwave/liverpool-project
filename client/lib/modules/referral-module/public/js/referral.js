@@ -9,13 +9,16 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.userMode = this.paramValues[2];
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.userRole = document.getElementById('uRole').innerHTML;
+
+            this.userMode = this.paramValues;
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            console.log(this.userId, this.userRole, this.userMode)
-            if (this.userMode !== undefined) {
-                this.fetchSavedData();
+            //console.log(this.userId, this.userRole, this.userMode)
+            if (this.paramValues !== undefined) {
+                if (this.paramValues[0] != undefined) {
+                    this.fetchSavedData();
+                }
             }
             $('#loader').hide();
         },
@@ -230,7 +233,10 @@ $(document).ready(function () {
                     // this.payloadData.problemsList = this.problemsList;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
-                    this.payloadData.editFlag = getUrlVars()['edt'];
+                   // if (this.paramValues!= undefined) {
+                        // this.elgibilityObj.uuid =  document.getElementById('uUid').innerHTML;
+                        //this.payloadData.editFlag = getUrlVars()['edt'];
+                   // }
                     this.payloadData.id = this.referralId;
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
@@ -252,8 +258,24 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                   // location.href = redirectUrl(location.href, "review");
+                    // location.href = redirectUrl(location.href, "review");
                     location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
+                   // location.href = "/review";
+                   if(this.paramValues!= undefined)
+                   {
+                       if(this.paramValues[0]=="sec5back")
+                       {
+                           location.href = "/review";
+                       }
+                       else
+                       {
+                        location.href = "/review";
+                       }
+                   }
+                   else
+                   {
+                    location.href = "/review";
+                   }
                     this.storeDeleteData = null;
                 } else {
                     $('#loader').hide();
@@ -263,8 +285,7 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue: function (data) {
-                if(data.status!="fail")
-                {
+                if (data.status != "fail") {
                     this.eatingDifficulties = data.eating_disorder_difficulties;
                     this.reasonForReferral = data.reason_for_referral;
                     this.accessList = data.local_services;
@@ -277,15 +298,15 @@ $(document).ready(function () {
                     this.allAvailableService = data.services;
                     Vue.set(this.referralData, "support", data.referral_type);
                     Vue.set(this.referralData, "covid", data.is_covid);
-    
+
                     //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
                     Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
                     Vue.set(this.referralData, "height", data.height);
                     Vue.set(this.referralData, "weight", data.weight);
-                   // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
+                    // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
                     Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
-    
-    
+
+
                     Vue.set(this.referralData, "referralInfo", data.referral_issues);
                     Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
                     Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);

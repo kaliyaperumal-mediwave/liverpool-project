@@ -34,7 +34,7 @@ $(document).ready(function () {
                         console.log("logi flag ",_self.loginFlag)
                         if(_self.loginFlag=="true")
                         {
-                            _self.sendMail(_self.sendObj);
+                           // _self.sendMail(_self.sendObj);
                         }
                         $('#loader').hide();
                     },

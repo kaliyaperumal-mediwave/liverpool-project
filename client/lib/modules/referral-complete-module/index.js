@@ -7,7 +7,7 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       require('../../middleware')(self, options);
-      self.dispatch('/',self.middleware.checkCommonPageAuth, self.completed);
+      self.dispatch('/',self.middleware.clearSessionReferral, self.completed);
     };
     self.completed = function (req, callback) {
       return self.sendPage(req, self.renderer('completed', {
@@ -35,7 +35,7 @@ module.exports = {
     });
 
     self.route('post', 'sendConfirmationMail', function (req, res) {
-      req.body.email = req.session.email
+      //req.body.email = req.session.email
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail'
       console.log("-------");
       console.log(url);

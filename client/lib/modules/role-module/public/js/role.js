@@ -89,9 +89,9 @@ $(document).ready(function () {
             }
             this.paramValues = getParameter(location.href);
             if (this.paramValues != undefined) {
-                if (this.paramValues[2] != undefined) {
-                    this.elgibilityObj.uuid = this.paramValues[0];
-                    this.elgibilityObj.editFlag = this.paramValues[2]
+                if (this.paramValues[0] != undefined) {
+                     this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
+                     this.elgibilityObj.editFlag = this.paramValues[0]
                     this.fetchSavedData();
                 }
 
@@ -101,8 +101,8 @@ $(document).ready(function () {
 
         methods: {
             fetchSavedData: function () {
-                this.sendObj.uuid = this.paramValues[0];
-                this.sendObj.role = this.paramValues[1];
+                this.sendObj.uuid = document.getElementById('uUid').innerHTML;
+                this.sendObj.role = document.getElementById('uRole').innerHTML;
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
                     url: API_URI + "/fetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
@@ -128,9 +128,10 @@ $(document).ready(function () {
             // },
 
             setValues: function (data) {
-                var roleType = this.paramValues[1];
+                //console.log(data)
+                var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-                console.log(data)
+               // console.log(data)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -838,7 +839,22 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        location.href = "/about";
+                        if(_self.paramValues!= undefined)
+                        {
+                            if(_self.paramValues[0]=="sec5back")
+                            {
+                                location.href = "/review";
+                            }
+                            else
+                            {
+                                location.href = "/about";
+                            }
+                        }
+                        else
+                        {
+                            location.href = "/about";
+                        }
+                        
                         //location.href = redirectUrl(url, "about", data.userid, role);
                         // if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
                         //     var url = window.location.href.split('?')[0];

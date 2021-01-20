@@ -26,15 +26,18 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        if(req.session.auth_token)
-      {
-        req.session.uuid = data.userid;
-      }
-      else
-      {
-        req.session.user_role = data.user_role;
-        req.session.uuid = data.userid;
-      }
+        if(!req.body.editFlag)
+        {
+          if(req.session.auth_token)
+          {
+            req.session.uuid = data.userid;
+          }
+          else
+          {
+            req.session.user_role = data.user_role;
+            req.session.uuid = data.userid;
+          }
+        }
        return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
@@ -43,9 +46,10 @@ module.exports = {
     });
 
     self.route('get', 'fetchEligibility/:userid', function (req, res) {
+      console.log("faf"+req.params.userid);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchEligibility?user_id=' + req.params.userid;
       console.log("-------");
-      console.log(req.params.userid);
+      //console.log(req.params.userid);
       console.log(url);
       console.log("-------");
       self.middleware.get(req, url).then((data) => {

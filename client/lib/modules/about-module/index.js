@@ -20,6 +20,9 @@ module.exports = {
         const getParams = req.url.substring(req.url.indexOf("?") + 1);
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
+        const getParamsRedirect = "backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
+        //   decryptedUrl = btoa(getParamsRedirect);
         // if (decodeValues[2] == undefined) {
         //   const getParamsRedirect = deCodeParameter + "&backbutton";
         //   decryptedUrl = btoa(getParamsRedirect);
@@ -44,7 +47,7 @@ module.exports = {
         return self.sendPage(req, self.renderer('about', {
           headerContent: labels,
           headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
-          backContent: '/role',
+          backContent: '/role?' + decryptedUrl,
           home: false,
           showHeader: true,
           hideRefButton: false,
@@ -59,6 +62,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
@@ -86,6 +90,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

@@ -4,6 +4,7 @@ const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
 const Op = require('sequelize').Op;
 exports.eligibility = ctx => {
+  console.log(ctx.request.body)
   const user = ctx.orm().Referral;
  console.log(ctx.request.decryptedUser)
   if (ctx.request.body.role == "child") {
@@ -343,6 +344,8 @@ exports.eligibility = ctx => {
 
 
 exports.fetchEligibility = ctx => {
+
+  console.log(ctx.query)
   const user = ctx.orm().Referral;
   if (ctx.query.role == "child") {
     return user.findOne({
@@ -1786,7 +1789,6 @@ exports.fetchReview = ctx => {
 
   const user = ctx.orm().Referral;
   const referral = ctx.orm().Reason
-  console.log(ctx.query.user_id);
   if (ctx.query.role == "child") {
     return user.findOne({
       where: {
@@ -1823,6 +1825,7 @@ exports.fetchReview = ctx => {
         }).then((educationObj) => {
 
 
+          console.log(aboutObj)
           const section2Obj = {
             child_id: aboutObj.id,
             child_NHS: aboutObj.child_NHS,
@@ -1942,6 +1945,8 @@ exports.fetchReview = ctx => {
               },
               attributes: ['id']
             }).then((referralResult) => {
+
+              console.log(aboutObj)
 
               const section1Obj = {
                 child_id: elgibilityObj[0].parent[0].id,
