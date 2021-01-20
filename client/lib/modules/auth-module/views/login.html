@@ -13,16 +13,16 @@
         <!-- <h2 class="home-header-primary text-center">CAMHS Services</h2>
         <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span> -->
         {{ apos.area(data.page, 'login', {
-            widgets: {
-              'apostrophe-rich-text': {
-                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                styles: [
-                  { name: 'Heading', element: 'h2' },
-                  { name: 'Paragraph', element: 'p' }
-                ]
-              }
-            }
-          }) }}
+        widgets: {
+        'apostrophe-rich-text': {
+        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+        styles: [
+        { name: 'Heading', element: 'h2' },
+        { name: 'Paragraph', element: 'p' }
+        ]
+        }
+        }
+        }) }}
     </div>
     <div class="home-primary-content-bg  col-md-6 col-sm-11 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
         <!-- Loader start -->
@@ -51,17 +51,17 @@
             <div class="my-md-5 my-4">
                 <form class="px-3 py-2 mb-1">
                     <div class="form-group py-2 m-0">
-                      <div class="auth-font my-2">  {{ apos.area(data.page, 'login_email', {
+                        <div class="auth-font my-2"> {{ apos.area(data.page, 'login_email', {
                             widgets: {
-                              'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                  { name: 'Paragraph', element: 'p' }
-                                ]
-                              }
+                            'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                            { name: 'Paragraph', element: 'p' }
+                            ]
                             }
-                          }) }}
-                          </div>
+                            }
+                            }) }}
+                        </div>
                         <!-- <label for="loginEmail" class="auth-font my-2">My email address</label> -->
                         <input type="email" inputmode="email" placeholder="Enter your email address"
                             class="form-control auth-border" id="loginEmail" aria-describedby="authEmail"
@@ -77,17 +77,17 @@
                     </div>
 
                     <div class="form-group py-2 m-0">
-                      <div class="auth-font my-2">  {{ apos.area(data.page, 'login_password', {
+                        <div class="auth-font my-2"> {{ apos.area(data.page, 'login_password', {
                             widgets: {
-                              'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                  { name: 'Paragraph', element: 'p' }
-                                ]
-                              }
+                            'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                            { name: 'Paragraph', element: 'p' }
+                            ]
                             }
-                          }) }}
-                          </div>
+                            }
+                            }) }}
+                        </div>
                         <!-- <label for="loginPassword" class="auth-font my-2">Password</label> -->
                         <div id="authForm">
                             <div class="input-group">

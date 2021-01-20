@@ -183,7 +183,15 @@ $(document).ready(function () {
             },
 
             //Getting values from Other Input box and logic
-            onValueEnter: function (event) {
+            onValueEnter: function (event, condition) {
+                if (event.target.value && !event.target.value.replace(/ /g, "").length) {
+                    if (condition == "intake") {
+                        this.referralData.dailyIntakes = event.target.value.trim()
+                    } else if (condition == "other") {
+                        this.referralData.otherReasonsReferral = event.target.value.trim()
+                    }
+                    return false;
+                }
                 var questionIdentifier = event.target.name;
                 if (questionIdentifier === 'listReasonsForReferral') {
                     if (!event.target.value) {
@@ -220,14 +228,35 @@ $(document).ready(function () {
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
-                if (formData.referralInfo) {
+                if (formData.referralInfo && formData.referralInfo.replace(/ /g, "").length) {
+                    if ((formData.hasAnythingInfo && !formData.hasAnythingInfo.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if ((formData.triggerInfo && !formData.triggerInfo.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if ((formData.disabilityOrDifficulty && !formData.disabilityOrDifficulty.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if ((formData.weight && !formData.weight.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if ((formData.height && !formData.height.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.reasonForReferral = this.reasonForReferral;
                     this.payloadData.eatingDifficulties = this.eatingDifficulties;
-                    // this.payloadData.diagnosisList = this.diagnosisList;
-                    // this.payloadData.problemsList = this.problemsList;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
                     this.payloadData.editFlag = getUrlVars()['edt'];
@@ -245,6 +274,21 @@ $(document).ready(function () {
                     return false;
                 }
 
+            },
+
+            //Function to Identify space
+            trimSpace: function (str, reqField) {
+                if (str == "" && reqField) {
+                    return false;
+                } else if (str == "" && !reqField) {
+                    return true;
+                } else {
+                    if (str.replace(/ /g, "").length) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             },
 
             //Section 4(Referral) Save and Service call with navaigation Logic
@@ -280,7 +324,7 @@ $(document).ready(function () {
                 Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
                 Vue.set(this.referralData, "height", data.height);
                 Vue.set(this.referralData, "weight", data.weight);
-               // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
+                // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
                 Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
 
 
@@ -296,7 +340,8 @@ $(document).ready(function () {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
-                if (serviceForm.name && serviceForm.professional && serviceForm.contact && this.phoneRegex.test(serviceForm.contact)) {
+                if ((serviceForm.name && serviceForm.name.replace(/ /g, "").length) && (serviceForm.professional && serviceForm.professional.replace(/ /g, "").length)
+                    && (serviceForm.contact && serviceForm.contact.replace(/ /g, "").length) && this.phoneRegex.test(serviceForm.contact)) {
                     if (serviceForm.mode === 'update') {
                         this.allAvailableService = this.allAvailableService.map(function (it) {
                             if (it.mode === 'update' && it.id === serviceForm.id) {

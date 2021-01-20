@@ -244,7 +244,11 @@ $(document).ready(function () {
             },
 
             getAddress: function (e) {
-                if(e && e.isTrusted) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    this.elgibilityObj.regGpTxt = e.target.value.trim();
+                    return false;
+                }
+                if (e && e.isTrusted) {
                     var nameData;
                     var _self = this;
                     var searchTxt = e.target.value;
@@ -386,7 +390,7 @@ $(document).ready(function () {
             },
 
             gpSubmit: function (e) {
-                if(e) {
+                if (e) {
                     e.preventDefault();
                 }
             },
@@ -449,7 +453,11 @@ $(document).ready(function () {
 
 
             getProfAddress: function (e) {
-                if(e && e.isTrusted) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    this.elgibilityObj.regProfGpTxt = e.target.value.trim();
+                    return false;
+                }
+                if (e && e.isTrusted) {
                     var nameData;
                     var _self = this;
                     var searchTxt = e.target.value;
@@ -713,7 +721,11 @@ $(document).ready(function () {
                 this.submitForm = "true";
             },
 
-            onVaueChange: function (e, type) {
+            onVaueChange: function (e, type, section, key) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    this[section][key] = e.target.value.trim();
+                    return false;
+                }
                 if (this.isSubmitted) {
                     var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
@@ -1044,6 +1056,10 @@ $(document).ready(function () {
                 return ret_arr;
             },
             clearGP: function (e) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    this.elgibilityObj.reason_contact_parent_camhs = e.target.value.trim();
+                    return false;
+                }
                 var reasonCamhs = e.target.value;
                 if (reasonCamhs.length == 0) {
                     this.elgibilityObj.regGpTxt = "";
@@ -1065,8 +1081,8 @@ $(document).ready(function () {
                 return isRange;
             },
 
-            changePrevAns: function (attributeValue,inputId) {
-               
+            changePrevAns: function (attributeValue, inputId) {
+
                 this.elgibilityObj[attributeValue] = "";
                 document.getElementById(inputId).focus();
             }

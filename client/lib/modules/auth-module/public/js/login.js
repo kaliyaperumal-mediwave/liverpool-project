@@ -38,7 +38,6 @@ $(document).ready(function () {
                 var formData = this.loginObject;
                 var hidePointer = document.body;
                 this.isFormSubmitted = true;
-                formData.password = formData.password.trim();
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
                     hidePointer.style.pointerEvents = "none";
                     $('#loader').show();
