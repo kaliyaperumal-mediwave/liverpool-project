@@ -22,6 +22,7 @@ module.exports = function (self, options) {
         return next();
       }
       else {
+        req.data.userRole =  req.session.user_role;
         return req.res.redirect("/")
       }
     },
@@ -41,6 +42,7 @@ module.exports = function (self, options) {
       if (req.session.auth_token) {
        req.data.loginId = req.session.loginIdUrl;
        req.data.userRole = req.session.user_role;
+       req.data.uuid = req.session.uuid;
        req.data.logoPath = "/dashboard"
        req.data.showLogout = true;
         return next();
@@ -49,7 +51,8 @@ module.exports = function (self, options) {
         req.data.logoPath = "/";
         req.data.showLogout=false;
         req.data.loginId = "";
-        req.data.userRole = "";
+        req.data.uuid = req.session.uuid;
+        req.data.userRole =  req.session.user_role;
         return next();
       }
     },

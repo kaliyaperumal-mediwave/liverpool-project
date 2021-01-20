@@ -838,13 +838,15 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
-                            var url = window.location.href.split('?')[0];
-                            location.href = redirectUrl(url, "about", data.userid, role);
-                        }
-                        else {
-                            location.href = redirectUrl(location.href, "about", data.userid, role);
-                        }
+                        location.href = "/about";
+                        //location.href = redirectUrl(url, "about", data.userid, role);
+                        // if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
+                        //     var url = window.location.href.split('?')[0];
+                        //     location.href = redirectUrl(url, "about", data.userid, role);
+                        // }
+                        // else {
+                        //     location.href = redirectUrl(location.href, "about", data.userid, role);
+                        // }
 
                     },
                     error: function (error) {

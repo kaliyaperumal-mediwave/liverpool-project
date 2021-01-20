@@ -46,12 +46,15 @@ exports.eligibility = ctx => {
           registerd_gp: ctx.request.body.registerd_gp,
           user_role: ctx.request.body.role,
           login_id: ctx.request.decryptedUser.id,
+          contact_parent_camhs: ctx.request.body.contact_parent_camhs,
+          reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
             userid: childUserInfo.uuid,
+            user_role:childUserInfo.user_role,
             status: "ok",
           }
           return ctx.body = responseData;
@@ -70,12 +73,15 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registerd_gp: ctx.request.body.registerd_gp,
           user_role: ctx.request.body.role,
+          contact_parent_camhs: ctx.request.body.contact_parent_camhs,
+          reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
             userid: childUserInfo.uuid,
+            user_role:childUserInfo.user_role,
             status: "ok",
           }
           return ctx.body = responseData;

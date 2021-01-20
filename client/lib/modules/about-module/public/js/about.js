@@ -79,13 +79,17 @@ $(document).ready(function () {
 
         mounted: function () {
             var _self = this;
-            this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
+            // this.paramValues = getParameter(location.href)
+            // this.userId = this.paramValues[0];
+            // this.userRole = this.paramValues[1];
+            // this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            // if (this.paramValues[2] != undefined) {
+            //     this.fetchSavedData();
+            // }
+
+            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userId = document.getElementById('uUid').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            if (this.paramValues[2] != undefined) {
-                this.fetchSavedData();
-            }
             this.initMaps();
             $('#loader').hide();
         },

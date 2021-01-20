@@ -26,7 +26,16 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        return res.send(data);
+        if(req.session.auth_token)
+      {
+        req.session.uuid = data.userid;
+      }
+      else
+      {
+        req.session.user_role = data.user_role;
+        req.session.uuid = data.userid;
+      }
+       return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);

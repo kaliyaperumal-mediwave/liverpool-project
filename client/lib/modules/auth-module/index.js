@@ -48,7 +48,6 @@ module.exports = {
         if (data) {
           ///req.session.auth_token = data.data.token;
           req.session.email = data.data.email
-         
           req.session.auth_token = data.data.token;
           req.session.user_role = data.data.data.user_role;
           req.session.loginFlag = "true";
