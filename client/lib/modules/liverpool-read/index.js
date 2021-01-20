@@ -10,37 +10,33 @@ module.exports = {
       required: true,
     },
     {
-      name: 'topic',
+    name: 'thumbnail',
+    label: 'Thumbnail',
+    type: 'singleton',
+    widgetType: 'apostrophe-images',
+    options: {
+      limit: [ 1 ]
+    }
+  },
+    {
+      name: 'read_topic',
       label: 'Read_Topic',
-      type: 'area',
-      required: true,
-      options: {
-        widgets: {
-          'apostrophe-rich-text': {
-            toolbar: [ 'Bold', 'Italic', 'Link', 'Unlink' ]
-          }
-        }
-      }
+      type: 'string',
+      textarea: true
     },
     {
-      name: 'text',
-      label: 'Text',
-      type: 'area',
-      required: true,
-      options: {
-        widgets: {
-          'apostrophe-rich-text': {
-            toolbar: [ 'Bold', 'Italic', 'Link', 'Unlink' ]
-          }
-        }
-      }
-    }
+    name: 'text',
+    label: 'Text',
+    type: 'string',
+    required: true,
+    textarea: true
+  }
 
   ],
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['title','topic','text','tags']
+      fields: ['title','thumbnail','read_topic','text','tags']
     },
     {
       name: 'admins',
