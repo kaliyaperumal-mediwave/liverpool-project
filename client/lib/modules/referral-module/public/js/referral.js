@@ -263,33 +263,35 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue: function (data) {
-                console.log(data)
-                this.eatingDifficulties = data.eating_disorder_difficulties;
-                this.reasonForReferral = data.reason_for_referral;
-                this.accessList = data.local_services;
-                this.referralId = data.id;
-                if (this.accessList.indexOf("Other") > -1) {
-                    this.showAddOtherService = true;
-                } else {
-                    this.showAddOtherService = false;
+                if(data.status!="fail")
+                {
+                    this.eatingDifficulties = data.eating_disorder_difficulties;
+                    this.reasonForReferral = data.reason_for_referral;
+                    this.accessList = data.local_services;
+                    this.referralId = data.id;
+                    if (this.accessList.indexOf("Other") > -1) {
+                        this.showAddOtherService = true;
+                    } else {
+                        this.showAddOtherService = false;
+                    }
+                    this.allAvailableService = data.services;
+                    Vue.set(this.referralData, "support", data.referral_type);
+                    Vue.set(this.referralData, "covid", data.is_covid);
+    
+                    //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
+                    Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
+                    Vue.set(this.referralData, "height", data.height);
+                    Vue.set(this.referralData, "weight", data.weight);
+                   // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
+                    Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
+    
+    
+                    Vue.set(this.referralData, "referralInfo", data.referral_issues);
+                    Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
+                    Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
+                    Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
+                    Vue.set(this.referralData, "accessService", data.any_other_services);
                 }
-                this.allAvailableService = data.services;
-                Vue.set(this.referralData, "support", data.referral_type);
-                Vue.set(this.referralData, "covid", data.is_covid);
-
-                //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
-                Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
-                Vue.set(this.referralData, "height", data.height);
-                Vue.set(this.referralData, "weight", data.weight);
-               // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
-                Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
-
-
-                Vue.set(this.referralData, "referralInfo", data.referral_issues);
-                Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
-                Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
-                Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
-                Vue.set(this.referralData, "accessService", data.any_other_services);
             },
 
             //Adding and Updating  a service logic

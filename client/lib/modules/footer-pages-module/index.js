@@ -9,10 +9,10 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/about',self.middleware.setValues, self.aboutUs);
-      self.dispatch('/terms',self.middleware.setValues, self.termsCondition);
-      self.dispatch('/privacy',self.middleware.setValues, self.privacyPolicy);
-      self.dispatch('/urgent-help',self.middleware.setValues, self.urgentHelp);
+      self.dispatch('/about',self.middleware.checkCommonPageAuth, self.aboutUs);
+      self.dispatch('/terms',self.middleware.checkCommonPageAuth, self.termsCondition);
+      self.dispatch('/privacy',self.middleware.checkCommonPageAuth, self.privacyPolicy);
+      self.dispatch('/urgent-help',self.middleware.checkCommonPageAuth, self.urgentHelp);
     };
 
     self.aboutUs = function (req, callback) {

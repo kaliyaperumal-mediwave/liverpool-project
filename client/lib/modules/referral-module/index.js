@@ -9,7 +9,7 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.setValues,self.referral);
+      self.dispatch('/',self.middleware.checkCommonPageAuth,self.referral);
     };
     self.referral = function (req, callback) {
       let labels;

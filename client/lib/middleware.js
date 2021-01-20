@@ -4,7 +4,6 @@ module.exports = function (self, options) {
   self.middleware = {
 
     checkAuth:function (req,res,next){
-      console.log("middleware auth toker : "+ req.session.auth_token );
       if (req.session.auth_token) {
        req.data.loginId = req.session.loginIdUrl;
        req.data.userRole = req.session.user_role;
@@ -27,8 +26,7 @@ module.exports = function (self, options) {
       }
     },
 
-    setValues:function (req,res,next){
-      console.log("setValues : "+ req.session.auth_token );
+    checkCommonPageAuth:function (req,res,next){
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";
@@ -41,7 +39,6 @@ module.exports = function (self, options) {
       req.data.navigateMkeRfrl = "/make-referral";
       req.data. path = "/role";
       if (req.session.auth_token) {
-        console.log("setValues if: "+ req.session.auth_token );
        req.data.loginId = req.session.loginIdUrl;
        req.data.userRole = req.session.user_role;
        req.data.logoPath = "/dashboard"
@@ -49,7 +46,6 @@ module.exports = function (self, options) {
         return next();
       }
       else {
-        console.log("setValues else: "+ req.session.auth_token );
         req.data.logoPath = "/";
         req.data.showLogout=false;
         req.data.loginId = "";

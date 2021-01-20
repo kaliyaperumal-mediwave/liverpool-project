@@ -9,11 +9,11 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.setValues, self.resources);
-      self.dispatch('/lists',self.middleware.setValues, self.lists);
-      self.dispatch('/apps',self.middleware.setValues, self.apps);
-      self.dispatch('/things-to-read', self.middleware.setValues,self.thingsToRead);
-      self.dispatch('/video',self.middleware.setValues, self.video);
+      self.dispatch('/',self.middleware.checkCommonPageAuth, self.resources);
+      self.dispatch('/lists',self.middleware.checkCommonPageAuth, self.lists);
+      self.dispatch('/apps',self.middleware.checkCommonPageAuth, self.apps);
+      self.dispatch('/things-to-read', self.middleware.checkCommonPageAuth,self.thingsToRead);
+      self.dispatch('/video',self.middleware.checkCommonPageAuth, self.video);
     };
 
     self.resources = function (req, callback) {

@@ -5,6 +5,7 @@
 
 //   }
 // };
+// remove unused var
 const { btoa } = require('../../utils')
 const { atob } = require('../../utils')
 module.exports = {
@@ -16,23 +17,26 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.checkAuth, self.landing);
+      self.dispatch('/', self.middleware.checkAuth, self.landing);
     };
     self.landing = function (req, callback) {
-        return self.sendPage(req, self.renderer('dashboard', {
-          showHeader: true,
-          home: true,
-          hideRefButton: true,
-        }));
+      return self.sendPage(req, self.renderer('dashboard', {
+        showHeader: true,
+        home: true,
+        hideRefButton: true,
+      }));
     };
-    self.route('get', 'getIncompleteReferral/:loginId/:userRole', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral?loginId=' + req.params.loginId + "&userRole=" + req.params.userRole;
+    // need a change loginId/:userRole
+    self.route('get', 'getIncompleteReferral', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral';
+      console.log(url)
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
         return res.status(error.statusCode).send(error.error);
       });
     });
+    // need a change loginId/:userRole
 
     self.route('get', 'getUserReferral/:loginId', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?loginId=' + req.params.loginId

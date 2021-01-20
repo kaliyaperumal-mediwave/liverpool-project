@@ -16,10 +16,9 @@ $(document).ready(function () {
 
         mounted: function () {
             // this.paramValues = getParameter(location.href)
-            this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+        //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.fetchSavedData();
-            console.log(document.getElementById('logId').innerHTML);
             $('#loader').hide();
         },
 
@@ -30,7 +29,7 @@ $(document).ready(function () {
                 var _self = this;
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/getIncompleteReferral/" + this.loginId + "/" + this.userRole,
+                    url: API_URI + "/getIncompleteReferral/",
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',

@@ -4,6 +4,7 @@ const referralControler = require('./controllers/referralControler');
 const authController = require('./controllers/authController');
 const emailController = require('./controllers/emailController');
 const validateToken = require('./utils/utils').validateToken;
+const commonAuth = require('./utils/utils').commonAuth;
 const router = new Router();
 
 
@@ -11,7 +12,7 @@ const router = new Router();
 
 //referral
 
-router.post('/user/eligibility', referralControler.eligibility);
+router.post('/user/eligibility',commonAuth, referralControler.eligibility);
 router.get('/user/fetchEligibility', referralControler.fetchEligibility);
 router.put('/user/updateEligibilityInfo', referralControler.updateEligibilityInfo);
 
@@ -35,8 +36,8 @@ router.get('/user/getRefNo', referralControler.getRefNo);
 router.post('/user/signup/', authController.signup);
 router.post('/user/login/', authController.login);
 
-router.get('/referral/getIncompleteReferral', referralControler.getIncompleteReferral);
-router.get('/referral/getUserReferral/', referralControler.getUserReferral);
+router.get('/referral/getIncompleteReferral',validateToken, referralControler.getIncompleteReferral);
+router.get('/referral/getUserReferral/',validateToken, referralControler.getUserReferral);
 
 router.post('/referral/sendConfirmationMail/', emailController.sendReferralConfirmation);
 

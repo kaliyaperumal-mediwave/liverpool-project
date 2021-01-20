@@ -5,7 +5,7 @@ const reponseMessages = require('../middlewares/responseMessage');
 const Op = require('sequelize').Op;
 exports.eligibility = ctx => {
   const user = ctx.orm().Referral;
-  var userid;
+ console.log(ctx.request.decryptedUser)
   if (ctx.request.body.role == "child") {
     //checking update operation or not
     if (ctx.request.body.editFlag != null) {
@@ -34,30 +34,56 @@ exports.eligibility = ctx => {
       });
     }
     else {
-      console.log(ctx.request.body)
-      return user.create({
-        need_interpreter: ctx.request.body.interpreter,
-        child_dob: ctx.request.body.child_Dob,
-        contact_parent: ctx.request.body.contactParent,
-        consent_child: ctx.request.body.isInformation,
-        registerd_gp: ctx.request.body.registerd_gp,
-        user_role: ctx.request.body.role,
-        login_id: ctx.request.body.loginId,
-        contact_parent_camhs: ctx.request.body.contact_parent_camhs,
-        reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
-        referral_progress: 20,
-        referral_complete_status: 'incomplete'
-      }).then((childUserInfo) => {
-        childUserInfo.setType("1")
-        const responseData = {
-          userid: childUserInfo.uuid,
-          status: "ok",
-        }
-        return ctx.body = responseData;
-      }).catch((error) => {
-        console.log(error)
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
+      //for logined user
+      if(ctx.request.decryptedUser!=undefined)
+      {
+        //console.log(ctx.request.body)
+        return user.create({
+          need_interpreter: ctx.request.body.interpreter,
+          child_dob: ctx.request.body.child_Dob,
+          contact_parent: ctx.request.body.contactParent,
+          consent_child: ctx.request.body.isInformation,
+          registerd_gp: ctx.request.body.registerd_gp,
+          user_role: ctx.request.body.role,
+          login_id: ctx.request.decryptedUser.id,
+          referral_progress: 20,
+          referral_complete_status: 'incomplete'
+        }).then((childUserInfo) => {
+          childUserInfo.setType("1")
+          const responseData = {
+            userid: childUserInfo.uuid,
+            status: "ok",
+          }
+          return ctx.body = responseData;
+        }).catch((error) => {
+          console.log(error)
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }
+       //for normal user
+      else
+      {
+        return user.create({
+          need_interpreter: ctx.request.body.interpreter,
+          child_dob: ctx.request.body.child_Dob,
+          contact_parent: ctx.request.body.contactParent,
+          consent_child: ctx.request.body.isInformation,
+          registerd_gp: ctx.request.body.registerd_gp,
+          user_role: ctx.request.body.role,
+          referral_progress: 20,
+          referral_complete_status: 'incomplete'
+        }).then((childUserInfo) => {
+          childUserInfo.setType("1")
+          const responseData = {
+            userid: childUserInfo.uuid,
+            status: "ok",
+          }
+          return ctx.body = responseData;
+        }).catch((error) => {
+          console.log(error)
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }
     }
 
   }
@@ -111,33 +137,63 @@ exports.eligibility = ctx => {
       })
     }
     else {
-      return user.create({
-        child_dob: ctx.request.body.child_Dob,
-        registerd_gp: ctx.request.body.registerd_gp,
-      }).then((childUserInfo) => {
-        childUserInfo.setType("1")
+      if(ctx.request.decryptedUser!=undefined)
+      {
         return user.create({
-          need_interpreter: ctx.request.body.interpreter,
-          consent_child: ctx.request.body.isInformation,
-          user_role: ctx.request.body.role,
-          referral_complete_status: 'incomplete',
-          login_id: ctx.request.body.loginId,
-          referral_progress: 20
-        }).then((parentUserInfo) => {
-          parentUserInfo.setType("2")
-          parentUserInfo.setParent(childUserInfo.id)
-          const responseData = {
-            userid: parentUserInfo.uuid,
-            status: "ok"
-          }
-          return ctx.body = responseData;
+          child_dob: ctx.request.body.child_Dob,
+          registerd_gp: ctx.request.body.registerd_gp,
+        }).then((childUserInfo) => {
+          childUserInfo.setType("1")
+          return user.create({
+            need_interpreter: ctx.request.body.interpreter,
+            consent_child: ctx.request.body.isInformation,
+            user_role: ctx.request.body.role,
+            referral_complete_status: 'incomplete',
+            login_id: ctx.request.decryptedUser.id,
+            referral_progress: 20
+          }).then((parentUserInfo) => {
+            parentUserInfo.setType("2")
+            parentUserInfo.setParent(childUserInfo.id)
+            const responseData = {
+              userid: parentUserInfo.uuid,
+              status: "ok"
+            }
+            return ctx.body = responseData;
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
         }).catch((error) => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
-      }).catch((error) => {
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
-
+      }
+      else
+      {
+        return user.create({
+          child_dob: ctx.request.body.child_Dob,
+          registerd_gp: ctx.request.body.registerd_gp,
+        }).then((childUserInfo) => {
+          childUserInfo.setType("1")
+          return user.create({
+            need_interpreter: ctx.request.body.interpreter,
+            consent_child: ctx.request.body.isInformation,
+            user_role: ctx.request.body.role,
+            referral_complete_status: 'incomplete',
+            referral_progress: 20
+          }).then((parentUserInfo) => {
+            parentUserInfo.setType("2")
+            parentUserInfo.setParent(childUserInfo.id)
+            const responseData = {
+              userid: parentUserInfo.uuid,
+              status: "ok"
+            }
+            return ctx.body = responseData;
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }
     }
   }
 
@@ -195,43 +251,86 @@ exports.eligibility = ctx => {
       })
     }
     else {
-      return user.create({
-        child_dob: ctx.request.body.prof_ChildDob,
-        registerd_gp: ctx.request.body.profRegisterd_gp,
-      }).then((childUserInfo) => {
-        childUserInfo.setType("1")
+      if(ctx.request.decryptedUser!=undefined)
+      {
+
         return user.create({
-          professional_name: ctx.request.body.profName,
-          professional_email: ctx.request.body.profEmail,
-          professional_contact_number: ctx.request.body.profContactNumber,
-          consent_parent: ctx.request.body.contactProfParent,
-          consent_child: ctx.request.body.parentConcernInformation,
-          login_id: ctx.request.body.loginId,
-          user_role: ctx.request.body.role,
-          referral_progress: 20,
-          referral_complete_status: 'incomplete'
-        }).then((professionalUserInfo) => {
-          professionalUserInfo.setType("3")
-          professionalUserInfo.setProfessional(childUserInfo.id)
+          child_dob: ctx.request.body.prof_ChildDob,
+          registerd_gp: ctx.request.body.profRegisterd_gp,
+        }).then((childUserInfo) => {
+          childUserInfo.setType("1")
           return user.create({
-          }).then((parenetUserInfo) => {
-            parenetUserInfo.setType("2")
-            parenetUserInfo.setParent(childUserInfo.id)
-            const responseData = {
-              userid: professionalUserInfo.uuid,
-              status: "ok"
-            }
-            return ctx.body = responseData;
+            professional_name: ctx.request.body.profName,
+            professional_email: ctx.request.body.profEmail,
+            professional_contact_number: ctx.request.body.profContactNumber,
+            consent_parent: ctx.request.body.contactProfParent,
+            consent_child: ctx.request.body.parentConcernInformation,
+            login_id: ctx.request.decryptedUser.id,
+            user_role: ctx.request.body.role,
+            referral_progress: 20,
+            referral_complete_status: 'incomplete'
+          }).then((professionalUserInfo) => {
+            professionalUserInfo.setType("3")
+            professionalUserInfo.setProfessional(childUserInfo.id)
+            return user.create({
+            }).then((parenetUserInfo) => {
+              parenetUserInfo.setType("2")
+              parenetUserInfo.setParent(childUserInfo.id)
+              const responseData = {
+                userid: professionalUserInfo.uuid,
+                status: "ok"
+              }
+              return ctx.body = responseData;
+            }).catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+  
           }).catch((error) => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
-
         }).catch((error) => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
-      }).catch((error) => {
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
+      }
+      else
+      {
+        return user.create({
+          child_dob: ctx.request.body.prof_ChildDob,
+          registerd_gp: ctx.request.body.profRegisterd_gp,
+        }).then((childUserInfo) => {
+          childUserInfo.setType("1")
+          return user.create({
+            professional_name: ctx.request.body.profName,
+            professional_email: ctx.request.body.profEmail,
+            professional_contact_number: ctx.request.body.profContactNumber,
+            consent_parent: ctx.request.body.contactProfParent,
+            consent_child: ctx.request.body.parentConcernInformation,
+            user_role: ctx.request.body.role,
+            referral_progress: 20,
+            referral_complete_status: 'incomplete'
+          }).then((professionalUserInfo) => {
+            professionalUserInfo.setType("3")
+            professionalUserInfo.setProfessional(childUserInfo.id)
+            return user.create({
+            }).then((parenetUserInfo) => {
+              parenetUserInfo.setType("2")
+              parenetUserInfo.setParent(childUserInfo.id)
+              const responseData = {
+                userid: professionalUserInfo.uuid,
+                status: "ok"
+              }
+              return ctx.body = responseData;
+            }).catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+  
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }
     }
   }
 };
@@ -1634,21 +1733,30 @@ exports.fetchReferral = ctx => {
         id: fetchResult.id,
       },
     }).then((userResult) => {
-      console.log(userResult);
-      console.log(userResult[0].referral_reason[0].id)
-      var refId = userResult[0].referral_reason[0].id;
+      if(userResult[0].referral_reason[0]!=undefined){
+        var refId = userResult[0].referral_reason[0].id;
 
-      return referral.findOne({
-        where: {
-          id: refId,
-        },
-
-      }).then((referralResult) => {
-        console.log(referralResult)
-        return ctx.body = referralResult;
-      }).catch((error) => {
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
+        return referral.findOne({
+          where: {
+            id: refId,
+          },
+  
+        }).then((referralResult) => {
+          console.log(referralResult)
+          return ctx.body = referralResult;
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }
+      else
+      {
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "fail",
+        }
+        return ctx.body = responseData;
+      }
+    //  console.log(userResult[0].referral_reason[0].id)
     }).catch((error) => {
       console.log(error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -2340,8 +2448,8 @@ exports.getIncompleteReferral = ctx => {
   const professionalDataId = [];
   return userReferral.findAll({
     where: {
-      login_id: ctx.query.loginId,
-      user_role: ctx.query.userRole,
+      login_id: ctx.request.decryptedUser.id,
+      user_role: ctx.request.decryptedUser.role,
       referral_complete_status: "incomplete"
     },
     attributes: ['id', 'user_role']
@@ -2352,7 +2460,7 @@ exports.getIncompleteReferral = ctx => {
         refId.push(user.dataValues.id)
       })
     // console.log(refId)
-    if (ctx.query.userRole == "child") {
+    if (ctx.request.decryptedUser.role == "child") {
       return userReferral.findAll({
         where: {
           id: refId,
@@ -2391,7 +2499,7 @@ exports.getIncompleteReferral = ctx => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
-    else if (ctx.query.userRole == "parent") {
+    else if (ctx.request.decryptedUser.role == "parent") {
       return userReferral.findAll({
         where: {
           id: refId,
@@ -2428,7 +2536,7 @@ exports.getIncompleteReferral = ctx => {
       });
 
     }
-    else if (ctx.query.userRole == "professional") {
+    else if (ctx.request.decryptedUser.role == "professional") {
 
       return userReferral.findAll({
         where: {
