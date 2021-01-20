@@ -358,6 +358,12 @@ $(document).ready(function () {
 
             },
 
+            gpSubmit: function (e) {
+                if(e) {
+                    e.preventDefault();
+                }
+            },
+
             getStringLength: function (str) {
                 return str.length;
             },
