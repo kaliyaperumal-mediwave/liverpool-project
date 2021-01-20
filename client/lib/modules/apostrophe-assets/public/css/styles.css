@@ -301,7 +301,7 @@
       background: #e8edee 0% 0% no-repeat padding-box;
       border: 1px solid #023047;
       padding: 10px;
-      display: inline-block;
+      display: inline-table;
       position: relative;
       vertical-align: middle;
       cursor: pointer;
@@ -310,7 +310,6 @@
     content: "";
     display: block;
     position: absolute;
-    top: 8px;
     left: 16px;
     width: 6px;
     height: 21px;
@@ -446,6 +445,7 @@
 .custom-select {
   position: relative;
   color: #0f1010 !important;
+  background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
   overflow: hidden;
@@ -552,7 +552,9 @@
   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype"); }
 
 body {
-  font-family: "century-gothic" !important; }
+  font-family: "century-gothic" !important;
+  overscroll-behavior-y: none !important;
+  overscroll-behavior-x: none !important; }
   @media (min-width: 1200px) and (max-width: 1499.98px) {
     body .col-xl-6 {
       max-width: 60% !important; } }

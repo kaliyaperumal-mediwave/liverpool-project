@@ -60,6 +60,8 @@ $header-font-size: 32px;
 
 body {
   font-family: "century-gothic" !important;
+  overscroll-behavior-y: none !important;
+  overscroll-behavior-x: none !important;
 
   .col-xl-6 {
     @include lg-secondary {
