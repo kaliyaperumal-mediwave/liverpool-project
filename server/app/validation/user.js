@@ -15,11 +15,25 @@ const registerValidation = data => {
     password: Joi.string().min(8).required(),
     confirm_password: Joi.string().min(6).valid(Joi.ref('password')).required(),
     email: Joi.string().email().required(),
-    role :Joi.string().max(20).required()
+    role: Joi.string().max(20).required()
   })
   return schema.validate(data, options)
 }
 
+const changepasswordValidation = data => {
+
+  const schema = Joi.object({
+    current_password: Joi.string().min(8).required(),
+    new_password: Joi.string().min(8).required()
+  })
+  return schema.validate(data, options)
+}
+const forgotPasswordValidation = data => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+  })
+  return schema.validate(data, options)
+}
 
 const loginValidation = data => {
 
@@ -30,4 +44,4 @@ const loginValidation = data => {
   return loginSchema.validate(data, options)
 }
 
-module.exports = { registerValidation,loginValidation };
+module.exports = { registerValidation, loginValidation, changepasswordValidation, forgotPasswordValidation };

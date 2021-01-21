@@ -11,7 +11,7 @@ const router = new Router();
 
 //referral
 
-router.post('/user/eligibility',commonAuth, referralControler.eligibility);
+router.post('/user/eligibility', commonAuth, referralControler.eligibility);
 router.get('/user/fetchEligibility', referralControler.fetchEligibility);
 router.put('/user/updateEligibilityInfo', referralControler.updateEligibilityInfo);
 
@@ -35,8 +35,13 @@ router.get('/user/getRefNo', referralControler.getRefNo);
 router.post('/user/signup/', authController.signup);
 router.post('/user/login/', authController.login);
 
-router.get('/referral/getIncompleteReferral',validateToken, referralControler.getIncompleteReferral);
-router.get('/referral/getUserReferral/',validateToken, referralControler.getUserReferral);
+router.get('/referral/getIncompleteReferral', validateToken, referralControler.getIncompleteReferral);
+router.get('/referral/getUserReferral/', validateToken, referralControler.getUserReferral);
 
+router.post('/user/changePassword', validateToken, authController.changePassword);
+router.post('/user/changeEmail', validateToken, authController.changeEmail);
+router.post('/user/forgotPassword', authController.forgotPassword);
+router.post('/user/resetPassword', authController.resetPassword);
+router.post('/user/resetEmail', authController.resetEmail);
 
 module.exports = router;

@@ -33,6 +33,12 @@ module.exports = function modelType(sequelize, types) {
     password: {
       type: types.TEXT,
     },
+    verification_token: {
+      type: types.TEXT,
+    },
+    verification_expiry: {
+      type: types.DATE,
+    },
   }, {
     tableName: 'users',
   });
