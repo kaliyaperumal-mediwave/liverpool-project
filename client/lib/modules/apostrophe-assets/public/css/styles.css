@@ -444,7 +444,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important;
+  color: #0f1010 !important !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -620,20 +620,22 @@ body {
   body .readOnly-class .custom-select ::placeholder {
     /* Most modern browsers support this now. */
     color: #8f979e !important; }
+  body .apos-ui .apos-admin-bar {
+    z-index: 10002 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -641,7 +643,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -649,21 +651,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -1460,7 +1462,7 @@ a {
 .headerTop {
   position: fixed;
   top: 0px;
-  z-index: 449;
+  z-index: 10001;
   width: 100%; }
 
 .lds-spinner {
@@ -2696,3 +2698,6 @@ body .ui-widget .ui-menu-item {
 
 .overflow-auto {
   overflow: auto; }
+
+.hideChar {
+  color: white !important; }

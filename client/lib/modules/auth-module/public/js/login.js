@@ -45,20 +45,15 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        if (false || !!document.documentMode) {
-                            alert("Login successful.");
-                            hidePointer.style.pointerEvents = "none";
-                            location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
-                        } else {
-                            Vue.$toast.success('Login successful.', {
-                                position: 'top',
-                                duration: 1000,
-                                onDismiss: function () {
-                                    location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
-                                }
-                            });
-                            hidePointer.style.pointerEvents = "none";
-                        }
+
+                        Vue.$toast.success('Login successful.', {
+                            position: 'top',
+                            duration: 1000,
+                            onDismiss: function () {
+                                location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
+                            }
+                        });
+                        hidePointer.style.pointerEvents = "none";
 
                     } else {
                         $('#loader').hide();
