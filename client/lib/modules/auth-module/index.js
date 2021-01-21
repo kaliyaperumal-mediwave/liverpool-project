@@ -8,6 +8,7 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch("/login", self.login);
       self.dispatch("/sign_up", self.sign_up);
+      self.dispatch("/forgot_password", self.forgotPassword);
     };
 
     self.login = function (req, callback) {
@@ -100,6 +101,50 @@ module.exports = {
           resourcesPage: resourcesPage,
         })
       );
+    };
+
+    self.forgotPassword = function (req, callback) {
+      req.session.auth_token = "";
+      req.session.loginFlag = "false";
+      req.session.loginIdUrl = "";
+      var logoPath,
+        aboutPage,
+        termPage,
+        privacyPage,
+        feedbackPage,
+        contactPage,
+        navigateMkeRfrl,
+        navigateViewRfrl,
+        urgentHelpPage,
+        mentalHeathPage,
+        resourcesPage;
+      logoPath = "/";
+      aboutPage = "/pages/about";
+      termPage = "/pages/terms";
+      privacyPage = "/pages/privacy";
+      feedbackPage = "/pages/feedback";
+      contactPage = "/pages/contact";
+      navigateMkeRfrl = "/make-referral";
+      showLogout = false;
+      urgentHelpPage = "/pages/urgent-help";
+      mentalHeathPage = "/mental-health";
+      resourcesPage = "/resources";
+      return self.sendPage(req, self.renderer('forgot_password', {
+        showHeader: true,
+        home: true,
+        hideRefButton: true,
+        logoPath: logoPath,
+        aboutPage: aboutPage,
+        termPage: termPage,
+        privacyPage: privacyPage,
+        feedbackPage: feedbackPage,
+        contactPage: contactPage,
+        navigateViewRfrl: navigateViewRfrl,
+        navigateMkeRfrl: navigateMkeRfrl,
+        urgentHelpPage: urgentHelpPage,
+        mentalHeathPage: mentalHeathPage,
+        resourcesPage: resourcesPage,
+      }));
     };
 
     require('../../middleware')(self, options);

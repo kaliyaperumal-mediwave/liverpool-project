@@ -13,16 +13,16 @@
         <!-- <h2 class="home-header-primary text-center">CAMHS Services</h2>
         <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span> -->
         {{ apos.area(data.page, 'login', {
-            widgets: {
-              'apostrophe-rich-text': {
-                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                styles: [
-                  { name: 'Heading', element: 'h2' },
-                  { name: 'Paragraph', element: 'p' }
-                ]
-              }
-            }
-          }) }}
+        widgets: {
+        'apostrophe-rich-text': {
+        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+        styles: [
+        { name: 'Heading', element: 'h2' },
+        { name: 'Paragraph', element: 'p' }
+        ]
+        }
+        }
+        }) }}
     </div>
     <div class="home-primary-content-bg  col-md-6 col-sm-11 col-11 col-lg-8 p-0 col-xl-6 mx-auto">
         <!-- Loader start -->
@@ -51,17 +51,17 @@
             <div class="my-md-5 my-4">
                 <form class="px-3 py-2 mb-1">
                     <div class="form-group py-2 m-0">
-                      <div class="auth-font my-2">  {{ apos.area(data.page, 'login_email', {
+                        <div class="auth-font my-2"> {{ apos.area(data.page, 'login_email', {
                             widgets: {
-                              'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                  { name: 'Paragraph', element: 'p' }
-                                ]
-                              }
+                            'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                            { name: 'Paragraph', element: 'p' }
+                            ]
                             }
-                          }) }}
-                          </div>
+                            }
+                            }) }}
+                        </div>
                         <!-- <label for="loginEmail" class="auth-font my-2">My email address</label> -->
                         <input type="email" inputmode="email" placeholder="Enter your email address"
                             class="form-control auth-border" id="loginEmail" aria-describedby="authEmail"
@@ -77,17 +77,17 @@
                     </div>
 
                     <div class="form-group py-2 m-0">
-                      <div class="auth-font my-2">  {{ apos.area(data.page, 'login_password', {
+                        <div class="auth-font my-2"> {{ apos.area(data.page, 'login_password', {
                             widgets: {
-                              'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                  { name: 'Paragraph', element: 'p' }
-                                ]
-                              }
+                            'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                            { name: 'Paragraph', element: 'p' }
+                            ]
                             }
-                          }) }}
-                          </div>
+                            }
+                            }) }}
+                        </div>
                         <!-- <label for="loginPassword" class="auth-font my-2">Password</label> -->
                         <div id="authForm">
                             <div class="input-group">
@@ -135,7 +135,8 @@
                             </span></button>
                     </div>
                     <div class="py-2 text-center">
-                        <a class="auth-link cursor-pointer text-underline">Forgot Password?</a>
+                        <a class="auth-link cursor-pointer text-underline"
+                            @click="navigatePage('/users/forgot_password')">Forgot Password?</a>
                     </div>
                 </div>
 
@@ -158,47 +159,6 @@
         </div>
         <!-- Add HouseHold Modal End -->
     </div>
-
-
-
 </div>
-
-<!-- <div class="card-text">
-    <form>
-        <div class="form-group baseBottom">
-            <label for="exampleInputEmail1" class="login-email">My email address</label>
-            <input type="email" placeholder="Enter your email address"
-                class="form-control form-control-sm border-radius-10 textfieldHeight" id="exampleInputEmail1"
-                aria-describedby="emailHelp" v-model="loginObject.email">
-            <div class="invalid-feedback px-1 d-none"
-                v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.email),'invalid-fields':!loginObject.email }">
-                You must provide a email.
-            </div>
-            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.email && !emailRegex.test(loginObject.email)),
-            'invalid-fields':(loginObject.email && !emailRegex.test(loginObject.email)) }">
-                You must provide a real valid email.
-            </div>
-        </div>
-        <div class="form-group baseBottom">
-            <label for="exampleInputPassword1" class="login-email">Password</label>
-            <input type="password" placeholder="Enter your password" v-model="loginObject.password"
-                class="form-control form-control-sm border-radius-10 textfieldHeight" id="exampleInputPassword1">
-            <div class="invalid-feedback px-1 d-none"
-                v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.password),'invalid-fields':!loginObject.password }">
-                You must provide a password.
-            </div>
-            <div class="invalid-feedback px-1 d-none" v-bind:class="{ 'd-block': (isFormSubmitted && loginObject.password && !passwordRegex.test(loginObject.password)),
-            'invalid-fields':(loginObject.password && !passwordRegex.test(loginObject.password)) }">
-                You must provide a real valid password.
-            </div>
-        </div>
-        <div class="fullWidth d-flex align-items-center justify-content-center">
-            <button type="button" @click="submitLogin()" class="button-login">LOG IN</button>
-        </div>
-        <div class="fullWidth d-flex align-items-center justify-content-center">
-            <button type="submit" class="button-create-login">CREATE ACCOUNT</button>
-        </div>
-    </form>
-</div> -->
 
 {% endblock %}

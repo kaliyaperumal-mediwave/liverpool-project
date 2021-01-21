@@ -1,10 +1,4 @@
-// module.exports = {
-//   extend: 'apostrophe-module',
-//   label: 'Dashboard Module',
-//   construct: function (self, options, callback) {
 
-//   }
-// };
 const { btoa } = require('../../utils')
 const { atob } = require('../../utils')
 module.exports = {
@@ -18,53 +12,51 @@ module.exports = {
       self.dispatch('/', self.landing);
     };
     self.landing = function (req, callback) {
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
-      logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
-      aboutPage="/pages/about?"+req.url.substring(req.url.indexOf("?") + 1);
-      termPage = "/pages/terms?"+req.url.substring(req.url.indexOf("?") + 1);
-      privacyPage = "/pages/privacy?"+req.url.substring(req.url.indexOf("?") + 1);
-      feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
-      contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
-      navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1);
-      urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1);
-      mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
-      resourcesPage ="/resources?"+req.url.substring(req.url.indexOf("?") + 1);
-      showLogout=true;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage, resourcesPage;
+      logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
+      aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1);
+      termPage = "/pages/terms?" + req.url.substring(req.url.indexOf("?") + 1);
+      privacyPage = "/pages/privacy?" + req.url.substring(req.url.indexOf("?") + 1);
+      feedbackPage = "/pages/feedback?" + req.url.substring(req.url.indexOf("?") + 1);
+      contactPage = "/pages/contact?" + req.url.substring(req.url.indexOf("?") + 1);
+      navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1);
+      urgentHelpPage = "/pages/urgent-help?" + req.url.substring(req.url.indexOf("?") + 1);
+      mentalHeathPage = "/mental-health?" + req.url.substring(req.url.indexOf("?") + 1);
+      resourcesPage = "/resources?" + req.url.substring(req.url.indexOf("?") + 1);
+      showLogout = true;
       var deCodeParameter;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeGetParams = atob(getParams);
       let decodeValuesGetParams = deCodeGetParams.split("&");
-      console.log("---->"+decodeValuesGetParams[0]);
-      if(decodeValuesGetParams[0]!="loginFlag")
-      {
-        console.log("--if-->"+decodeValuesGetParams[0]);
+      console.log("---->" + decodeValuesGetParams[0]);
+      if (decodeValuesGetParams[0] != "loginFlag") {
+        console.log("--if-->" + decodeValuesGetParams[0]);
         deCodeParameter = "loginFlag&" + atob(getParams);
       }
-      else
-      {
-        console.log("--else-->"+decodeValuesGetParams[0]);
+      else {
+        console.log("--else-->" + decodeValuesGetParams[0]);
         deCodeParameter = atob(getParams);
       }
-     // let decodeValues = deCodeParameter.split("&");
-     navigateMkeRfrl =  "/make-referral?" + btoa(deCodeParameter);
-   //  console.log(deCodeParameter)
+      // let decodeValues = deCodeParameter.split("&");
+      navigateMkeRfrl = "/make-referral?" + btoa(deCodeParameter);
+      //  console.log(deCodeParameter)
       return self.sendPage(req, self.renderer('dashboard', {
         showHeader: true,
         home: true,
         showLogout: showLogout,
         hideRefButton: true,
         showLogout: showLogout,
-        logoPath:logoPath,
-        aboutPage:aboutPage,
-        termPage:termPage,
-        privacyPage:privacyPage,
-        feedbackPage:feedbackPage,
-        contactPage:contactPage,
-        navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage,
-        mentalHeathPage:mentalHeathPage,
-        resourcesPage:resourcesPage
+        logoPath: logoPath,
+        aboutPage: aboutPage,
+        termPage: termPage,
+        privacyPage: privacyPage,
+        feedbackPage: feedbackPage,
+        contactPage: contactPage,
+        navigateViewRfrl: navigateViewRfrl,
+        navigateMkeRfrl: navigateMkeRfrl,
+        urgentHelpPage: urgentHelpPage,
+        mentalHeathPage: mentalHeathPage,
+        resourcesPage: resourcesPage
       }));
     };
     require('../../middleware')(self, options);
