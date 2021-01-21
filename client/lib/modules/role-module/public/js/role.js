@@ -648,7 +648,7 @@ $(document).ready(function () {
                             this.elgibilityObj.submitProfForm = "false";
                             this.elgibilityObj.regProfGpTxt = "";
                         }
-                        else if (age > 19) {
+                        else if (age > 18) {
                             this.elgibilityObj.profaboveLimit = "yes";
                             this.elgibilityObj.profBelowAgeLimit = "";
                             this.elgibilityObj.parentConcern = "";
@@ -671,7 +671,7 @@ $(document).ready(function () {
                     }
 
                     else if (roleText == 'parent') {
-                        if (age > 19) {
+                        if (age > 18) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.contactParent = "";
                             this.elgibilityObj.submitForm = "false";

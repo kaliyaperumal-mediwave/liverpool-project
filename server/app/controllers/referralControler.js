@@ -2596,11 +2596,13 @@ exports.getIncompleteReferral = ctx => {
   })
 }
 exports.getUserReferral = ctx => {
+  console.log("==getUserReferral=>", ctx.request.decryptedUser);
+  console.log(ctx.query.reqCode);
   const ref = ctx.orm().Referral;
   console.log(ctx.query)
   return ref.findAll({
     where: {
-      login_id: ctx.query.loginId,
+      login_id: ctx.request.decryptedUser.id,
       referral_progress: {
         [Op.ne]: null
       },
@@ -2612,9 +2614,8 @@ exports.getUserReferral = ctx => {
   }).then((result) => {
 
     let finalObj = {}
-    let sendObj = {};
-    let sendReferral = [];
     result.forEach((games, index) => {
+      //console.log(games.createdAt)
       const date = convertDate(games.createdAt)
       result[index].date = date;
       if (finalObj[date]) {
@@ -2634,4 +2635,30 @@ function convertDate(date) {
   var mmChars = mm.split('');
   var ddChars = dd.split('');
   return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
+}
+
+
+exports.getReferalByCode = ctx => {
+
+  console.log("==getReferalByCode=>", ctx.request.decryptedUser);
+  console.log(ctx.query.reqCode);
+
+  const ref = ctx.orm().Referral;
+
+  return ref.findAll({
+    where: {
+      login_id: ctx.request.decryptedUser.id,
+
+      reference_code :{
+        [Op.like]: '%'+ctx.query.reqCode +'%'
+      },
+      referral_complete_status: 'completed'
+    },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
+  }).then((result) => {
+    console.log(result);
+    return ctx.body = result
+  })
 }

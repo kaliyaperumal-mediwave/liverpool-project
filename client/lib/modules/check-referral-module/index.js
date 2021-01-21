@@ -19,8 +19,25 @@ module.exports = {
       }));
     };
     require('../../middleware')(self, options);
-    self.route('get', 'getUserReferral/:loginId/:referralType', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?loginId=' +  req.params.loginId +"&referralType=" +req.params.referralType;
+    self.route('get','getUserReferral/:referralType', function (req, res) {
+      console.log("----------------------------------------------------- " +req.params.referralType );
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?referralType=' +  req.params.referralType;
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
+    self.route('get','getReferalByCode/:seachTxt', function (req, res) {
+      console.log("----------------------------------------------------- " +req.params.seachTxt );
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getReferalByCode?reqCode=' +  req.params.seachTxt;
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
