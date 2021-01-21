@@ -5,6 +5,7 @@ module.exports = {
   validateToken: (ctx, next) => {
     const authorizationHeaader = ctx.request.headers.authorization;
     let result;
+    // testing if login users or not. if logged user decrypt and append user obj in auth token
     if (authorizationHeaader) {
       const token = ctx.request.headers.authorization.split(' ')[1]; // Bearer <token>
       try {
@@ -23,6 +24,7 @@ module.exports = {
         });
       }
     } else {
+      //if not logged user let them continue
       return next();
     }
   },

@@ -7,6 +7,7 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
+      // clearSessionReferral - to clear uuid and userrole in referrance home page. 
       self.dispatch('/', self.middleware.clearSessionReferral,self.refHome);
     };
     self.refHome = function (req, callback) {

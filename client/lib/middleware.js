@@ -57,6 +57,8 @@ module.exports = function (self, options) {
       }
     },
 
+    //to clear uuid and userrole in referrance home page. 
+
     clearSessionReferral:function (req,res,next){
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";

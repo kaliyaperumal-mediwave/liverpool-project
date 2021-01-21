@@ -26,6 +26,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
+        // setting the uuid and userrole to use in upcoming sections. 
         if(!req.body.editFlag)
         {
           if(req.session.auth_token)

@@ -25,7 +25,7 @@ exports.sendReferralConfirmation = ctx => {
             }  
             else
             {
-                console.log(emailres)
+                //console.log(emailres)
             }
         });
         const sendResponseData={

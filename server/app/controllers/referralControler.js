@@ -163,6 +163,7 @@ exports.eligibility = ctx => {
             parentUserInfo.setParent(childUserInfo.id)
             const responseData = {
               userid: parentUserInfo.uuid,
+              user_role:parentUserInfo.user_role,
               status: "ok"
             }
             return ctx.body = responseData;
@@ -191,6 +192,7 @@ exports.eligibility = ctx => {
             parentUserInfo.setParent(childUserInfo.id)
             const responseData = {
               userid: parentUserInfo.uuid,
+              user_role:parentUserInfo.user_role,
               status: "ok"
             }
             return ctx.body = responseData;
@@ -285,6 +287,7 @@ exports.eligibility = ctx => {
               parenetUserInfo.setParent(childUserInfo.id)
               const responseData = {
                 userid: professionalUserInfo.uuid,
+                user_role:professionalUserInfo.user_role,
                 status: "ok"
               }
               return ctx.body = responseData;
@@ -324,6 +327,7 @@ exports.eligibility = ctx => {
               parenetUserInfo.setParent(childUserInfo.id)
               const responseData = {
                 userid: professionalUserInfo.uuid,
+                user_role:professionalUserInfo.user_role,
                 status: "ok"
               }
               return ctx.body = responseData;
