@@ -1,5 +1,6 @@
 {% extends 'apostrophe-templates:layout.html' %}
-
+{% block extraBody %}
+{% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
 {% set sluglist = data.sluglist %}
@@ -27,6 +28,20 @@
 
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     </div>
+
+
+    job 
+    {% for job in data.piece._jobs %}
+  <h4>
+    Position: <a href="{{ job._url }}">{{ job.title }}</a>
+  </h4>
+{% endfor %}
+    {{ data.ResourcesPage._job | json }}
+    {% if data.resources._job %}
+    <h4>
+      Position: <a href="{{ data.resources._job._url }}">{{ data.resources._job.title }}</a>
+    </h4>
+  {% endif %}
     <!-- Things to watch container -->
     <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">

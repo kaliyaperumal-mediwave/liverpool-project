@@ -29,27 +29,6 @@
 
 
 
-        <ul class="job-filters">
-      {% for job in data.piecesFilters.jobs %}
-        <li><a href="{{ data.url | build({ jobs: job.value }) }}">{{ job.label }}</a></li>
-      {% endfor %}
-    </ul>
-
-
-
-        <ul class="tag-filters">
-    {% for tag in data.piecesFilters.tags %}
-      <li><a href="{{ data.url | build({ tags: tag.value }) }}">{{ tag.label }}</a></li>
-    {% endfor %}
-  </ul>
-
-
-<!-- {{ data.pieces | json }} -->
-
-{{data.pieces[0].createdAt}}
-
-<br> hello
-
 {{ data[liverpool-read].createdAt | json }}
 
         {% for piece in data.pieces %}

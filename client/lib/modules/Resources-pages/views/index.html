@@ -34,9 +34,47 @@
 
         </div>
     </div>
+
+
+
+
+
+
+
+
+    
+    <ul class="job-filters">
+      {% for job in data.piecesFilters.jobs %}
+        {% if apos.utils.contains(data.query.jobs, job.value) %}
+          <a href="{{ data.url | build({ jobs: { $pull: job.value } }) }}" class="current">
+        {% else %}
+          <a href="{{ data.url | build({ jobs: { $addToSet: job.value } }) }}">
+        {% endif %}
+          {{ job.label }}
+        </a>
+      {% endfor %}
+    </ul>
+        {{data.piecesFilters.tags | json }}
+        <ul class="tag-filters">
+        {% for tag in data.piecesFilters.tags %}
+          <li><a href="{{ data.url | build({ tags: tag.value }) }}">{{ tag.label }}</a></li>
+        {% endfor %}
+        </ul>
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="resource-cont">
         <div class="bottom-arrow-container row" id="selva">
-          
+
           {% for piece in data.pieces %}
           <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
             <div class="insidePieceCont">
