@@ -269,7 +269,8 @@ $(document).ready(function () {
                        }
                        else
                        {
-                        location.href = "/review";
+                        var url = location.href;
+                        location.href = "/review?"  +url.substring(url.indexOf("?") + 1);
                        }
                    }
                    else

@@ -142,7 +142,8 @@ $(document).ready(function () {
                        }
                        else
                        {
-                        location.href = "/referral";
+                        var url = location.href;
+                        location.href = "/referral?" +url.substring(url.indexOf("?") + 1);
                        }
                    }
                    else

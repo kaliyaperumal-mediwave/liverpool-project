@@ -329,7 +329,8 @@ $(document).ready(function () {
                        }
                        else
                        {
-                        location.href = "/education";
+                        var url = location.href;
+                        location.href = "/education?"+url.substring(url.indexOf("?") + 1);
                        }
                    }
                    else
