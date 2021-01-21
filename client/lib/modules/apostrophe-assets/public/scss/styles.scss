@@ -63,6 +63,11 @@ body {
   overscroll-behavior-y: none !important;
   overscroll-behavior-x: none !important;
 
+  input::-ms-clear,
+  input::-ms-reveal {
+    display: none;
+  }
+
   .col-xl-6 {
     @include lg-secondary {
       max-width: 60% !important;
