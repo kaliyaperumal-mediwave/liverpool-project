@@ -34,9 +34,20 @@
 
         </div>
     </div>
+
+
+
+    <ul class="tag-filters">
+      {% for tag in data.piecesFilters.tags %}
+        <li><a href="{{ data.url | build({ tags: tag.value }) }}">{{ tag.label }} ({{ tag.count }})</a></li>
+      {% endfor %}
+    </ul>
+
+
+    
     <div class="resource-cont">
         <div class="bottom-arrow-container row" id="selva">
-          
+
           {% for piece in data.pieces %}
           <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
             <div class="insidePieceCont">

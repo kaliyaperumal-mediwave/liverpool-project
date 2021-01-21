@@ -34,6 +34,30 @@ var apos = require("apostrophe")({
     "auth-module": {},
     "about-module": {},
     "dashboard-module": {},
+    'jobs': {
+   extend: 'apostrophe-pieces'
+ },
+ 'jobs-pages': {
+   extend: 'apostrophe-pieces-pages'
+ },
+ 'apostrophe-pages': {
+   // Don't forget to add the page type!
+   types: [
+     // ... other page types here ...
+     {
+       name: 'liverpool-watch-pages',
+       label: 'watch Page'
+     },
+     {
+       name: 'liverpool-read-pages',
+       label: 'read Page'
+     },
+     {
+       name: 'jobs-page',
+       label: 'Jobs'
+     },
+   ]
+ },
     "Resources": {},
     "Resources-pages": { perPage: 999 },
     // "Resources-widgets": {
