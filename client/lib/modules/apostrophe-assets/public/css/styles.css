@@ -301,7 +301,7 @@
       background: #e8edee 0% 0% no-repeat padding-box;
       border: 1px solid #023047;
       padding: 10px;
-      display: inline-table;
+      display: inline-flex;
       position: relative;
       vertical-align: middle;
       cursor: pointer;
@@ -310,6 +310,7 @@
     content: "";
     display: block;
     position: absolute;
+    top: 10px;
     left: 16px;
     width: 6px;
     height: 21px;
@@ -555,6 +556,9 @@ body {
   font-family: "century-gothic" !important;
   overscroll-behavior-y: none !important;
   overscroll-behavior-x: none !important; }
+  body input::-ms-clear,
+  body input::-ms-reveal {
+    display: none; }
   @media (min-width: 1200px) and (max-width: 1499.98px) {
     body .col-xl-6 {
       max-width: 60% !important; } }
@@ -621,7 +625,7 @@ body {
     /* Most modern browsers support this now. */
     color: #8f979e !important; }
   body .apos-ui .apos-admin-bar {
-    z-index: 10002 !important; }
+    z-index: 450 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
@@ -1471,7 +1475,7 @@ a {
 .headerTop {
   position: fixed;
   top: 0px;
-  z-index: 10001;
+  z-index: 449;
   width: 100%; }
 
 .lds-spinner {
@@ -2710,3 +2714,14 @@ body .ui-widget .ui-menu-item {
 
 .hideChar {
   color: white !important; }
+
+.login-safe-pd {
+  width: 334px !important;
+  padding: 24px; }
+
+.model-text-pd {
+  padding: 4px 10px 0px 10px !important;
+  display: block !important; }
+
+.modal-dialog-centered {
+  justify-content: center; }

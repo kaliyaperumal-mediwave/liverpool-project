@@ -1,11 +1,5 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    if (false || !!document.documentMode) {
-        // 
-    }
-    else {
-        Vue.use(VueToast);
-    }
     new Vue({
         el: '#user-login',
 
@@ -17,7 +11,8 @@ $(document).ready(function () {
             isFormSubmitted: false,
             showVisibility: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/
+            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
+            tokenVariable:''
         },
 
         beforeMount: function () {
@@ -36,31 +31,18 @@ $(document).ready(function () {
 
             submitLogin: function () {
                 var formData = this.loginObject;
-                var hidePointer = document.body;
                 this.isFormSubmitted = true;
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
-                    hidePointer.style.pointerEvents = "none";
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
+                        this.tokenVariable = successData;
                         $('#loader').hide();
-
-                        Vue.$toast.success('Login successful.', {
-                            position: 'top',
-                            duration: 1000,
-                            onDismiss: function () {
-                                location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
-                            }
-                        });
-                        hidePointer.style.pointerEvents = "none";
-
+                        $('#logoutSuccess').modal('show');
                     } else {
                         $('#loader').hide();
-                        hidePointer.style.pointerEvents = "auto";
                     }
-
                 } else {
-                    hidePointer.style.pointerEvents = "auto";
                     return false;
                 }
             },
@@ -82,6 +64,9 @@ $(document).ready(function () {
                 this.isFormSubmitted = false;
                 this.loginObject.email = '';
                 this.loginObject.password = '';
+            },
+            gotoDashboard: function (token){
+                location.href = redirectUrl(location.href, "dashboard", token.data.sendUserResult.loginId, token.data.sendUserResult.role);
             }
 
         }

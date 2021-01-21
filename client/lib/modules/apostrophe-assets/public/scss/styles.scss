@@ -109,7 +109,7 @@ body {
   }
   // customize css for apostrophe z-index
   .apos-ui .apos-admin-bar{
-    z-index: 10002 !important;
+    z-index: 450 !important;
   }
   @include placeholder($placeholder-color);
 
@@ -982,7 +982,7 @@ a {
 .headerTop {
   position: fixed;
   top: 0px;
-  z-index: 10001;
+  z-index: 449;
   width: 100%;
 }
 .lds-spinner {
@@ -2285,4 +2285,15 @@ body .ui-widget .ui-menu-item {
 }
 .hideChar{
   color: white !important;
+}
+.login-safe-pd{
+  width: 334px !important;
+  padding: 24px
+}
+.model-text-pd{
+  padding: 4px 10px 0px 10px !important;
+  display: block !important;
+}
+.modal-dialog-centered{
+  justify-content: center;
 }

@@ -121,10 +121,14 @@ function apiCallPost(reqType, endPoint, payload) {
             if (false || !!document.documentMode) {
                 alert("Something went wrong!")
             } else {
-                Vue.$toast.error(error.responseJSON.message, {
-                    position: 'top',
-                    duration: 1000,
-                });
+                debugger
+                document.getElementById("toastMessage").innerHTML = error.responseJSON.message;
+                $("#myToast").toast({ delay: 2000 });
+                $("#myToast").toast('show');
+                // Vue.$toast.error(error.responseJSON.message, {
+                //     position: 'top',
+                //     duration: 1000,
+                // });
             }
             return false;
         }
