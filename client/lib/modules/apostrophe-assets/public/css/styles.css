@@ -620,6 +620,8 @@ body {
   body .readOnly-class .custom-select ::placeholder {
     /* Most modern browsers support this now. */
     color: #8f979e !important; }
+  body .apos-ui .apos-admin-bar {
+    z-index: 10002 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
@@ -1469,7 +1471,7 @@ a {
 .headerTop {
   position: fixed;
   top: 0px;
-  z-index: 449;
+  z-index: 10001;
   width: 100%; }
 
 .lds-spinner {
@@ -2705,3 +2707,6 @@ body .ui-widget .ui-menu-item {
 
 .overflow-auto {
   overflow: auto; }
+
+.hideChar {
+  color: white !important; }
