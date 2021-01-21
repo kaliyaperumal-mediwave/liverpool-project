@@ -121,7 +121,6 @@ function apiCallPost(reqType, endPoint, payload) {
             if (false || !!document.documentMode) {
                 alert("Something went wrong!")
             } else {
-                debugger
                 document.getElementById("toastMessage").innerHTML = error.responseJSON.message;
                 $("#myToast").toast({ delay: 2000 });
                 $("#myToast").toast('show');
