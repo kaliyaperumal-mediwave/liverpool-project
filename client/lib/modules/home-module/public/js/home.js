@@ -19,6 +19,14 @@ $(document).ready(function () {
             navigatePage: function (route) {
                 this.location.href = this.location.origin + route;
             },
+
+            themeChangerInit: function (e) {
+                debugger
+                var $node = e.target;
+                theme = $node.getAttribute('data-theme');
+                $('.theme-wrapper').removeClass('net default small large').addClass('net ' + theme).addClass('body-bg');
+            },
+
         }
 
     })
