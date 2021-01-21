@@ -12,7 +12,7 @@ $(document).ready(function () {
             showVisibility: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
-            tokenVariable:''
+            tokenVariable: ''
         },
 
         beforeMount: function () {
@@ -38,7 +38,7 @@ $(document).ready(function () {
                     if (successData && Object.keys(successData)) {
                         this.tokenVariable = successData;
                         $('#loader').hide();
-                        $('#logoutSuccess').modal('show');
+                        $('#logInSuccess').modal('show');
                     } else {
                         $('#loader').hide();
                     }
@@ -65,7 +65,8 @@ $(document).ready(function () {
                 this.loginObject.email = '';
                 this.loginObject.password = '';
             },
-            gotoDashboard: function (token){
+
+            gotoDashboard: function (token) {
                 location.href = redirectUrl(location.href, "dashboard", token.data.sendUserResult.loginId, token.data.sendUserResult.role);
             }
 
