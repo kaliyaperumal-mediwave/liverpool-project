@@ -941,7 +941,7 @@ $(document).ready(function () {
                 var age = this.diff_years(today, selectedDate);
                 //          //console.log(age);
                 if (roleText == 'child') {
-                    if (age < 15) {
+                    if (age < 14) {
 
                         this.elgibilityObj.belowAgeLimit = "yes";
                         this.elgibilityObj.aboveLimit = "no";
