@@ -23,7 +23,7 @@ $(document).ready(function () {
             showVisibilityPassword: false,
             showVisibilityConfirmPassword: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{8,}.$/,
+            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
             samePass: true,
             loginPath: '/users/login'
         },
@@ -46,9 +46,6 @@ $(document).ready(function () {
                 let formData = this.signUpObject;
                 var hidePointer = document.body;
                 this.isFormSubmitted = true;
-                formData.first_name = formData.first_name.trim();
-                formData.last_name = formData.last_name.trim();
-                formData.password = formData.password.trim();
                 if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     $('#loader').show();
                     hidePointer.style.pointerEvents = "none";
@@ -81,6 +78,7 @@ $(document).ready(function () {
                 }
             },
 
+            //Function to Identify space
             trimSpace: function (str) {
                 if (str.replace(/ /g, "").length) {
                     return true;
