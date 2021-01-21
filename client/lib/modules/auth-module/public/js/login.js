@@ -17,7 +17,7 @@ $(document).ready(function () {
             isFormSubmitted: false,
             showVisibility: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
-            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{8,}.$/
+            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/
         },
 
         beforeMount: function () {
@@ -38,7 +38,6 @@ $(document).ready(function () {
                 var formData = this.loginObject;
                 var hidePointer = document.body;
                 this.isFormSubmitted = true;
-                formData.password = formData.password.trim();
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
                     hidePointer.style.pointerEvents = "none";
                     $('#loader').show();

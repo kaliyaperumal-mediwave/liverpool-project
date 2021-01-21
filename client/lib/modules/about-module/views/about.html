@@ -35,7 +35,7 @@
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childName),'invalid-fields':!aboutObj.childName }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutObj.childName,true)),'invalid-fields':!trimSpace(aboutObj.childName,true) }">
                                 You must provide a full name.
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                         <label for="emailAddressOpts" class="question-font">{{sec2dynamicLabel.emailLabel}} -
                             <b>optional</b></label>
                         <div class="input-group">
-                            <input type="email" class="form-control" id="emailAddressOpts"
+                            <input type="text" class="form-control" id="emailAddressOpts"
                                 v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.childEmail">
                             <div class="input-group-append">
                                 <span class="input-group-text font-23">
@@ -89,8 +89,8 @@
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childAddress),
-                                'invalid-fields':!aboutObj.childAddress }">
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutObj.childAddress,true)),
+                                'invalid-fields':!trimSpace(aboutObj.childAddress,true) }">
                                 You must provide an address.
                             </div>
                         </div>
@@ -128,8 +128,8 @@
                         <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}}</label>
                         <input type="text" class="form-control" id="genderChoose" v-model="aboutObj.childGender"
                             v-bind:placeholder="sec2dynamicLabel.genderPlacLabel">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childGender),
-                            'invalid-fields':!aboutObj.childGender }">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutObj.childGender,true)),
+                            'invalid-fields':!trimSpace(aboutObj.childGender,true) }">
                             You must provide an answer to this question to continue.
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                         You must provide an answer to this question to continue.
                     </div>
                 </div>
-                <!-- Gender Indentification Start -->
+                <!-- Gender Identification Start -->
 
                 <!-- support content modal start -->
                 <div class="modal fade" id="genderIdentity" tabindex="-1" role="dialog" aria-hidden="true">
@@ -217,6 +217,10 @@
                         <input type="text" class="form-control" id="sexual"
                             v-bind:placeholder="sec2dynamicLabel.sexOrientPlacLabel"
                             v-model="aboutObj.childSexualOrientation">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutObj.childSexualOrientation,false)),
+                            'invalid-fields':!trimSpace(aboutObj.childSexualOrientation,false) }">
+                            You must provide an answer to this question to continue.
+                        </div>
                     </div>
                 </div>
                 <!-- child sexual orientation - optional End -->
@@ -228,6 +232,10 @@
                             <b>optional</label>
                         <input type="text" class="form-control" id="ethnicity"
                             v-bind:placeholder="sec2dynamicLabel.ethincityPlaceLabel" v-model="aboutObj.childEthnicity">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutObj.childEthnicity,false)),
+                            'invalid-fields':!trimSpace(aboutObj.childEthnicity,false) }">
+                            You must provide an answer to this question to continue.
+                        </div>
                     </div>
                 </div>
                 <!-- child ethnicity - optional End -->
@@ -377,8 +385,8 @@
                         <label for="carer" class="question-font"> {{sec2dynamicLabel.yourNameLabel}}</label>
                         <input type="text" class="form-control" id="carer"
                             v-bind:placeholder="sec2dynamicLabel.yourNamePlacLabel" v-model="aboutObj.parentName">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentName),
-                            'invalid-fields':!aboutObj.parentName }">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutObj.parentName,true)),
+                            'invalid-fields':!trimSpace(aboutObj.parentName,true) }">
                             You must provide an name.
                         </div>
                     </div>
@@ -437,8 +445,8 @@
                             <input type="text" class="form-control" id="contactNumber"
                                 placeholder="Enter your parent / carer’s name" v-model="aboutFormData.parentCarerName">
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerName),
-                                'invalid-fields':(!aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no') }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutFormData.parentCarerName,true)),
+                                'invalid-fields':(!trimSpace(aboutFormData.parentCarerName,true) && aboutFormData.parentialResponsibility =='no') }">
                                 You must provide an name.
                             </div>
                         </div>
@@ -457,8 +465,8 @@
                                 <input type="text" class="form-control" id="relationshipYou" name="relationShip"
                                     placeholder="eg mother, grandfather, foster parent etc"
                                     v-model="aboutFormData.relationshipToYou">
-                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.relationshipToYou),
-                                    'invalid-fields':!aboutFormData.relationshipToYou }">
+                                <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutFormData.relationshipToYou,true)),
+                                    'invalid-fields':!trimSpace(aboutFormData.relationshipToYou,true) }">
                                     You must provide an answer to this question to continue.
                                 </div>
                             </div>
@@ -496,7 +504,7 @@
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="emailAddress" class="question-font">{{sec2dynamicLabel.guardEmailLabel}}
                                     - <b>optional</label>
-                                <input type="email" class="form-control" id="emailAddress"
+                                <input type="text" class="form-control" id="emailAddress"
                                     v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
                                     v-model="aboutFormData.emailAddress">
                                 <div class="invalid-feedback d-none"
@@ -551,6 +559,10 @@
                                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                     </span>
                                 </div>
+                            </div>
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(aboutFormData.parentOrCarrerAddress,false)),
+                            'invalid-fields':!trimSpace(aboutFormData.parentOrCarrerAddress,false) }">
+                                You must provide an answer to this question to continue.
                             </div>
                         </div>
                     </div>
@@ -714,7 +726,7 @@
                                     <input type="text" class="form-control" v-model="houseHoldData.name"
                                         id="houseHoldName" placeholder="Enter name">
                                     <div class="invalid-feedback d-none"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && !houseHoldData.name) }">
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !trimSpace(houseHoldData.name,true)) }">
                                         Please provide a service name.
                                     </div>
                                 </div>
@@ -724,6 +736,10 @@
                                     <input type="text" inputmode="text" v-model="houseHoldData.relationShip"
                                         class="form-control" id="relationship"
                                         placeholder="Enter relationship with CYP">
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !trimSpace(houseHoldData.relationShip,false)) }">
+                                        Please provide a service name.
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="dob" class="question-font">Date of birth optional</label>
@@ -749,6 +765,10 @@
                                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                                             </span>
                                         </div>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !trimSpace(houseHoldData.profession,false)) }">
+                                        Please provide a service name.
                                     </div>
                                 </div>
                                 <div class="modal-footer">

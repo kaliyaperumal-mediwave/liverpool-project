@@ -1171,9 +1171,18 @@ a {
   color: #023047; }
 
 .completed-toast-header {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   color: #023047; }
+  @media (max-width: 575.98px) {
+    .completed-toast-header {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .completed-toast-header {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .completed-toast-header {
+      font-size: 20px !important; } }
 
 .input-group-secondary-text {
   background: #d6d8d8 0% 0% no-repeat padding-box !important;
