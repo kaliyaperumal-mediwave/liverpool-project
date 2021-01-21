@@ -90,8 +90,8 @@ $(document).ready(function () {
             this.paramValues = getParameter(location.href);
             if (this.paramValues != undefined) {
                 if (this.paramValues[0] != undefined) {
-                     this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
-                     this.elgibilityObj.editFlag = this.paramValues[0]
+                    this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
+                    this.elgibilityObj.editFlag = this.paramValues[0]
                     this.fetchSavedData();
                 }
 
@@ -131,7 +131,7 @@ $(document).ready(function () {
                 //console.log(data)
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-               // console.log(data)
+                // console.log(data)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -383,7 +383,7 @@ $(document).ready(function () {
             },
 
             gpSubmit: function (e) {
-                if(e) {
+                if (e) {
                     e.preventDefault();
                 }
             },
@@ -436,7 +436,7 @@ $(document).ready(function () {
                     error: function (err) {
                         // //console.log(err)
                     },
-                })  
+                })
             },
             getProfAddress: function (e) {
                 var nameData;
@@ -839,22 +839,20 @@ $(document).ready(function () {
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        if(_self.paramValues!= undefined)
-                        {
-                            if(_self.paramValues[0]=="sec5back")
-                            {
+                        if (_self.paramValues != undefined) {
+                            if (_self.paramValues[0] == "sec5back") {
                                 location.href = "/review";
                             }
-                            else
-                            {
-                                location.href = "/about";
+                            else {
+                                var url = location.href;
+                                //console.log(url.substring(req.url.indexOf("?") + 1));
+                                location.href = "/about?" +url.substring(url.indexOf("?") + 1);
                             }
                         }
-                        else
-                        {
+                        else {
                             location.href = "/about";
                         }
-                        
+
                         //location.href = redirectUrl(url, "about", data.userid, role);
                         // if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
                         //     var url = window.location.href.split('?')[0];
@@ -1055,8 +1053,8 @@ $(document).ready(function () {
                 return isRange;
             },
 
-            changePrevAns: function (attributeValue,inputId) {
-               
+            changePrevAns: function (attributeValue, inputId) {
+
                 this.elgibilityObj[attributeValue] = "";
                 document.getElementById(inputId).focus();
             }

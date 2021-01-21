@@ -13,6 +13,7 @@ module.exports = {
         // Let's pass back the decoded token to the request object
         ctx.request.decryptedUser = result;
         console.log("checkatuh")
+        console.log(ctx.request.decryptedUser)
         // We call next to pass execution to the subsequent middleware
         return next();
       } catch (err) {
