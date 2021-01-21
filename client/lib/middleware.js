@@ -22,6 +22,7 @@ module.exports = function (self, options) {
         return next();
       }
       else {
+        req.data.userRole =  req.session.user_role;
         return req.res.redirect("/")
       }
     },
@@ -41,6 +42,7 @@ module.exports = function (self, options) {
       if (req.session.auth_token) {
        req.data.loginId = req.session.loginIdUrl;
        req.data.userRole = req.session.user_role;
+       req.data.uuid = req.session.uuid;
        req.data.logoPath = "/dashboard"
        req.data.showLogout = true;
         return next();
@@ -49,6 +51,43 @@ module.exports = function (self, options) {
         req.data.logoPath = "/";
         req.data.showLogout=false;
         req.data.loginId = "";
+        req.data.uuid = req.session.uuid;
+        req.data.userRole =  req.session.user_role;
+        return next();
+      }
+    },
+
+    //to clear uuid and userrole in referrance home page. 
+
+    clearSessionReferral:function (req,res,next){
+      req.data.aboutPage = "/pages/about";
+      req.data.termPage = "/pages/terms";
+      req.data.privacyPage = "/pages/privacy";
+      req.data.feedbackPage = "/pages/feedback";
+      req.data.contactPage = "/pages/contact" ;
+      req.data.navigateViewRfrl = "/viewreferals" ;
+      req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.mentalHeathPage = "/mental-health";
+      req.data.resourcesPage = "/resources";
+      req.data.navigateMkeRfrl = "/make-referral";
+      req.data. path = "/role";
+      console.log(req.session.auth_token)
+      if (req.session.auth_token) {
+       req.data.loginId = req.session.loginIdUrl;
+       req.data.userRole = req.session.user_role;
+       delete req.session.uuid;
+       req.data.uuid = "";
+       req.data.logoPath = "/dashboard"
+       req.data.showLogout = true;
+        return next();
+      }
+      else {
+        req.data.logoPath = "/";
+        req.data.showLogout=false;
+        req.data.loginId = "";
+        delete req.session.uuid;
+        delete req.session.user_role;
+        req.data.uuid = "";
         req.data.userRole = "";
         return next();
       }

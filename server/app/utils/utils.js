@@ -5,6 +5,7 @@ module.exports = {
   validateToken: (ctx, next) => {
     const authorizationHeaader = ctx.request.headers.authorization;
     let result;
+    // testing if login users or not. if logged user decrypt and append user obj in auth token
     if (authorizationHeaader) {
       const token = ctx.request.headers.authorization.split(' ')[1]; // Bearer <token>
       try {
@@ -13,6 +14,7 @@ module.exports = {
         // Let's pass back the decoded token to the request object
         ctx.request.decryptedUser = result;
         console.log("checkatuh")
+        console.log(ctx.request.decryptedUser)
         // We call next to pass execution to the subsequent middleware
         return next();
       } catch (err) {
@@ -22,36 +24,8 @@ module.exports = {
         });
       }
     } else {
-      console.log("uncheckatuh")
-      return ctx.res.unauthorizedError({
-        message: 'Invalid token',
-      });
+      //if not logged user let them continue
       return next();
     }
   },
-  commonAuth: (ctx, next) => {
-    const authorizationHeaader = ctx.request.headers.authorization;
-    let result;
-    if (authorizationHeaader) {
-      const token = ctx.request.headers.authorization.split(' ')[1]; // Bearer <token>
-      try {
-        // verify makes sure that the token hasn't expired and has been issued by us
-        result = jwt.verify(token, process.env.JWT_SECRET);
-        // Let's pass back the decoded token to the request object
-        ctx.request.decryptedUser = result;
-        console.log("checkatuh")
-        // We call next to pass execution to the subsequent middleware
-        return next();
-      } catch (err) {
-        // Throw an error just in case anything goes wrong with verification
-        return ctx.res.unauthorizedError({
-          message: 'Token decryption failed',
-        });
-      }
-    } 
-    else
-    {
-      return next();
-    }
-  }
 };

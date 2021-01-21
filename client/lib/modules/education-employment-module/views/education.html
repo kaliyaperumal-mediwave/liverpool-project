@@ -56,7 +56,7 @@
                                     </span>
                                 </div>
                                 <div class="invalid-feedback d-none"
-                                    v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.attendedInfo),'invalid-fields': !educAndEmpData.attendedInfo }">
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(educAndEmpData.attendedInfo,true)),'invalid-fields': !trimSpace(educAndEmpData.attendedInfo,true) }">
                                     You must provide a address.
                                 </div>
                             </div>
@@ -77,14 +77,14 @@
                                 data-toggle="modal" data-target="#ehcpModal" alt="">
                         </div>
                         <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" id="planNo" value="no" name="EHCP"
+                            <input class="form-check-input" type="radio" id="planNo" value="No" name="EHCP"
                                 v-model="educAndEmpData.haveEhcpPlan" @change="onOptionChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="planNo">
                                 No
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" name="EHCP" id="planYes" value="yes"
+                            <input class="form-check-input" type="radio" name="EHCP" id="planYes" value="Yes"
                                 v-model="educAndEmpData.haveEhcpPlan" @change="onOptionChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="planYes">
                                 Yes
@@ -103,7 +103,7 @@
 
                 <!-- Early Help Assessment Tool Start-->
                 <form id="EHAT-form" data-options="haveEhat">
-                    <div v-if="educAndEmpData.haveEhcpPlan =='no' || educAndEmpData.haveEhcpPlan =='yes' || educAndEmpData.haveEhcpPlan == 'unsure'"
+                    <div v-if="educAndEmpData.haveEhcpPlan =='No' || educAndEmpData.haveEhcpPlan =='Yes'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="d-flex align-items-start">
                             <p class="question-font m-0">{{dynamicLabels.ehatToolLabel}}</p>
@@ -111,14 +111,14 @@
                                 data-toggle="modal" data-target="#eHatModal" alt="">
                         </div>
                         <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" id="assessmentNo" value="no" name="EHAT"
+                            <input class="form-check-input" type="radio" id="assessmentNo" value="No" name="EHAT"
                                 v-model="educAndEmpData.haveEhat" @change="onOptionChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="assessmentNo">
                                 No
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" name="EHAT" id="assessmentYes" value="yes"
+                            <input class="form-check-input" type="radio" name="EHAT" id="assessmentYes" value="Yes"
                                 v-model="educAndEmpData.haveEhat" @change="onOptionChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="assessmentYes">
                                 Yes
@@ -138,7 +138,7 @@
 
                 <!-- Have a Social Worker Start-->
                 <form id="isSocialWorker-form" data-options="haveSocialWorker">
-                    <div v-if="educAndEmpData.haveEhat =='no' || educAndEmpData.haveEhat =='yes' || educAndEmpData.haveEhat =='unsure'"
+                    <div v-if="educAndEmpData.haveEhat =='No' || educAndEmpData.haveEhat =='Yes'"
                         class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.isSocialWorkerLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
@@ -169,7 +169,7 @@
                             <input type="text" class="form-control" id="socialWorker"
                                 placeholder="Enter social worker's name" v-model="educAndEmpData.socialWorkName">
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(educAndEmpData.socialWorkName,true)),'invalid-fields':!trimSpace(educAndEmpData.socialWorkName,true) }">
                                 You must provide a name.
                             </div>
                         </div>

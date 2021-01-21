@@ -9,13 +9,16 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.userMode = this.paramValues[2];
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.userRole = document.getElementById('uRole').innerHTML;
+
+            this.userMode = this.paramValues;
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            console.log(this.userId, this.userRole, this.userMode)
-            if (this.userMode !== undefined) {
-                this.fetchSavedData();
+            //console.log(this.userId, this.userRole, this.userMode)
+            if (this.paramValues !== undefined) {
+                if (this.paramValues[0] != undefined) {
+                    this.fetchSavedData();
+                }
             }
             $('#loader').hide();
         },
@@ -183,7 +186,15 @@ $(document).ready(function () {
             },
 
             //Getting values from Other Input box and logic
-            onValueEnter: function (event) {
+            onValueEnter: function (event, condition) {
+                if (event.target.value && !event.target.value.replace(/ /g, "").length) {
+                    if (condition == "intake") {
+                        this.referralData.dailyIntakes = event.target.value.trim()
+                    } else if (condition == "other") {
+                        this.referralData.otherReasonsReferral = event.target.value.trim()
+                    }
+                    return false;
+                }
                 var questionIdentifier = event.target.name;
                 if (questionIdentifier === 'listReasonsForReferral') {
                     if (!event.target.value) {
@@ -220,17 +231,41 @@ $(document).ready(function () {
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
-                if (formData.referralInfo) {
+                if (formData.referralInfo && formData.referralInfo.replace(/ /g, "").length) {
+                    if ((formData.hasAnythingInfo && !formData.hasAnythingInfo.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if ((formData.triggerInfo && !formData.triggerInfo.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if ((formData.disabilityOrDifficulty && !formData.disabilityOrDifficulty.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if ((formData.weight && !formData.weight.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if ((formData.height && !formData.height.replace(/ /g, "").length)) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.reasonForReferral = this.reasonForReferral;
                     this.payloadData.eatingDifficulties = this.eatingDifficulties;
-                    // this.payloadData.diagnosisList = this.diagnosisList;
-                    // this.payloadData.problemsList = this.problemsList;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
-                    this.payloadData.editFlag = getUrlVars()['edt'];
+                   // if (this.paramValues!= undefined) {
+                        // this.elgibilityObj.uuid =  document.getElementById('uUid').innerHTML;
+                        //this.payloadData.editFlag = getUrlVars()['edt'];
+                   // }
                     this.payloadData.id = this.referralId;
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
@@ -247,13 +282,45 @@ $(document).ready(function () {
 
             },
 
+            //Function to Identify space
+            trimSpace: function (str, reqField) {
+                if (str == "" && reqField) {
+                    return false;
+                } else if (str == "" && !reqField) {
+                    return true;
+                } else {
+                    if (str.replace(/ /g, "").length) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+
             //Section 4(Referral) Save and Service call with navaigation Logic
             upsertReferralForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                   // location.href = redirectUrl(location.href, "review");
+                    // location.href = redirectUrl(location.href, "review");
                     location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
+                   // location.href = "/review";
+                   if(this.paramValues!= undefined)
+                   {
+                       if(this.paramValues[0]=="sec5back")
+                       {
+                           location.href = "/review";
+                       }
+                       else
+                       {
+                        var url = location.href;
+                        location.href = "/review?"  +url.substring(url.indexOf("?") + 1);
+                       }
+                   }
+                   else
+                   {
+                    location.href = "/review";
+                   }
                     this.storeDeleteData = null;
                 } else {
                     $('#loader').hide();
@@ -263,8 +330,7 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue: function (data) {
-                if(data.status!="fail")
-                {
+                if (data.status != "fail") {
                     this.eatingDifficulties = data.eating_disorder_difficulties;
                     this.reasonForReferral = data.reason_for_referral;
                     this.accessList = data.local_services;
@@ -277,15 +343,15 @@ $(document).ready(function () {
                     this.allAvailableService = data.services;
                     Vue.set(this.referralData, "support", data.referral_type);
                     Vue.set(this.referralData, "covid", data.is_covid);
-    
+
                     //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
                     Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
                     Vue.set(this.referralData, "height", data.height);
                     Vue.set(this.referralData, "weight", data.weight);
-                   // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
+                    // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
                     Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
-    
-    
+
+
                     Vue.set(this.referralData, "referralInfo", data.referral_issues);
                     Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
                     Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
@@ -299,7 +365,8 @@ $(document).ready(function () {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
-                if (serviceForm.name && serviceForm.professional && serviceForm.contact && this.phoneRegex.test(serviceForm.contact)) {
+                if ((serviceForm.name && serviceForm.name.replace(/ /g, "").length) && (serviceForm.professional && serviceForm.professional.replace(/ /g, "").length)
+                    && (serviceForm.contact && serviceForm.contact.replace(/ /g, "").length) && this.phoneRegex.test(serviceForm.contact)) {
                     if (serviceForm.mode === 'update') {
                         this.allAvailableService = this.allAvailableService.map(function (it) {
                             if (it.mode === 'update' && it.id === serviceForm.id) {

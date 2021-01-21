@@ -5,6 +5,7 @@ data.piece.title }} {% elseif data.page %} {{ data.page.title }} {% else %} {{
 apos.log('Looks like you forgot to override the title block in a template that
 does not have access to an Apostrophe page or piece.') }} {% endif %} {%
 endblock %} {% block extraHead %}
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
@@ -37,6 +38,10 @@ endblock %} {% block extraHead %}
 <!-- Latest compiled Bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<!-- Swipper -->
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
 <!-- <script type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script> -->
 
@@ -50,7 +55,8 @@ endblock %} {% block extraHead %}
 <!-- Lastly add this package -->
 <script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
 <!-- Init the plugin -->
-
+ <!-- swiper CDN -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
@@ -305,8 +311,12 @@ endblock %} {% block extraHead %}
     %}
   </div>
 </div>
+<p id="logId">{{data.loginId}}</p>
 <p id="uRole">{{data.userRole}}</p>
+<p id="uUid">{{data.uuid}}</p>
 <div class="footer-bg set-bottom-padding">
+<p class="d-none" id="uRole">{{data.showLogout}}</p>
+<div id="footer-placement" class="footer-bg footer set-bottom-padding">
   <div class="footer-container">
     <div>
       <a href="{{ data.aboutPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">About

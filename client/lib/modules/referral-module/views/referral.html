@@ -74,21 +74,21 @@
                         <p class="question-font m-0">Is this referral related to Covid-19?</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.covid"
-                                name="covidReferal" id="refYes" @change="onOptionChange($event)" value="yes">
+                                name="covidReferal" id="refYes" @change="onOptionChange($event)" value="Yes">
                             <label class="form-check-label option-font d-flex align-items-center" for="refYes">
                                 Yes
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.covid"
-                                name="covidReferal" id="refNo" @change="onOptionChange($event)" value="no">
+                                name="covidReferal" id="refNo" @change="onOptionChange($event)" value="No">
                             <label class="form-check-label option-font d-flex align-items-center" for="refNo">
                                 No
                             </label>
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.covid"
-                                name="covidReferal" id="refUnsure" @change="onOptionChange($event)" value="unsure">
+                                name="covidReferal" id="refUnsure" @change="onOptionChange($event)" value="Unsure">
                             <label class="form-check-label option-font d-flex align-items-center" for="refUnsure">
                                 Unsure
                             </label>
@@ -123,12 +123,13 @@
                             <label for="mainEatDiff" class="question-font">Please give a brief outline of [<i>your/ your
                                     child's / the child/young person's</i>] daily food/fluid intake:</label>
                             <textarea class="h-112 form-control" name="briefOutlineInfo" id="mainEatDiff"
-                                placeholder="Tell us about diet,eating habits,quantities" @keyup="onValueEnter($event)"
-                                v-model="referralData.dailyIntakes" rows="7"></textarea>
-                            <!-- <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.dailyIntakes),'invalid-fields':!referralData.dailyIntakes }">
+                                placeholder="Tell us about diet,eating habits,quantities"
+                                @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
+                                rows="7"></textarea>
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(referralData.dailyIntakes,true)),'invalid-fields':!trimSpace(referralData.dailyIntakes,true) }">
                                 You must provide answer to this question.
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -141,6 +142,10 @@
                             <label for="heightOpt" class="question-font">Height-<b>optional</b></label>
                             <input type="text" class="form-control" id="heightOpt" placeholder="Enter height"
                                 v-model="referralData.height">
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(referralData.height,false)),'invalid-fields':!trimSpace(referralData.height,false) }">
+                                You must provide valid answer to this question.
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -156,6 +161,10 @@
                                 it</p>
                             <input type="text" class="form-control" id="weightOpt" placeholder="Enter weight"
                                 v-model="referralData.weight">
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(referralData.weight,false)),'invalid-fields':!trimSpace(referralData.weight   ,false) }">
+                                You must provide valid answer to this question.
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -188,8 +197,12 @@
                         <div class="form-group py-2 m-0">
                             <label for="proOthers" class="question-font">Other <b>(optional)</b></label>
                             <textarea class="h-112 form-control" name="listReasonsForReferral" id="proOthers"
-                                v-model="referralData.otherReasonsReferral" @keyup="onValueEnter($event)"
+                                v-model="referralData.otherReasonsReferral" @input="onValueEnter($event,'other')"
                                 rows="4"></textarea>
+                            <div class="text-validation invalid-feedback d-none"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && !trimSpace(referralData.otherReasonsReferral,false)),'invalid-fields':!trimSpace(referralData.otherReasonsReferral,false) }">
+                                You must provide answer to this question.
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -207,7 +220,7 @@
                                 v-model="referralData.referralInfo"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
                             <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':(isFormSubmitted && !referralData.referralInfo),'invalid-fields':!referralData.referralInfo }">
+                                v-bind:class="{ 'd-block':(isFormSubmitted && !trimSpace(referralData.referralInfo,true)),'invalid-fields':!trimSpace(referralData.referralInfo,true) }">
                                 You must provide some information on your main referral issue.
                             </div>
                         </div>
@@ -224,10 +237,10 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
-                            <!-- <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(referralData.hasAnythingInfo,false)),'invalid-fields':!trimSpace(referralData.hasAnythingInfo,false) }">
                                 You must provide answer to this question.
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -243,10 +256,10 @@
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
-                            <!-- <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(referralData.triggerInfo,false)) ,'invalid-fields':!trimSpace(referralData.triggerInfo,false)}">
                                 You must provide answer to this question.
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -265,10 +278,10 @@
                                 <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
-                                <!-- <div class="text-validation invalid-feedback  d-none"
-                                    v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.disabilityOrDifficulty), 'invalid-fields':!referralData.disabilityOrDifficulty}">
+                                <div class="text-validation invalid-feedback  d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(referralData.disabilityOrDifficulty,false)), 'invalid-fields':!trimSpace(referralData.disabilityOrDifficulty,false)}">
                                     You must provide answer to this question.
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -378,7 +391,7 @@
                                         <input type="text" class="form-control" v-model="serviceData.name"
                                             id="service-name" placeholder="Enter the name of the service you have used">
                                         <div class="text-validation invalid-feedback  d-none"
-                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
+                                            v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !trimSpace(serviceData.name)) }">
                                             You must provide the name of the service.
                                         </div>
                                     </div>
@@ -388,7 +401,7 @@
                                         <input type="text" v-model="serviceData.professional" class="form-control"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
                                         <div class="text-validation invalid-feedback  d-none"
-                                            v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
+                                            v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !trimSpace(serviceData.professional)) }">
                                             You must provide the name of a professional at the service.
                                         </div>
                                     </div>

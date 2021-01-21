@@ -24,6 +24,13 @@ $(document).ready(function () {
                 console.log('clicked')
             },
 
+            preventWhiteSpace: function (e) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    this.feedbackData.comments = e.target.value.trim();
+                    return false;
+                }
+            },
+
             sendFeedback: function () {
                 this.isFormSubmitted = true;
                 if (this.feedbackData.ratings) {

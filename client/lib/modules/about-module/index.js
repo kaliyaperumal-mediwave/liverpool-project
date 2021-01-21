@@ -15,35 +15,35 @@ module.exports = {
       const getParamsData = req.url.substring(req.url.indexOf("?") + 1);
       var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
       console.log(!base64Matcher.test(getParamsData))
-      if (!base64Matcher.test(getParamsData)) {
-        req.res.redirect("/users/login")
-      } else {
         let labels;
         let decryptedUrl;
         const getParams = req.url.substring(req.url.indexOf("?") + 1);
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
-        if (decodeValues[2] == undefined) {
-          const getParamsRedirect = deCodeParameter + "&backbutton";
-          decryptedUrl = btoa(getParamsRedirect);
-        }
-        else if (decodeValues[2] == "backbutton") {
-          const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
-          decryptedUrl = btoa(getParamsRedirect);
-        }
-        else if (decodeValues[2] == "sec5back") {
-          const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
-          decryptedUrl = btoa(getParamsRedirect);
-        }
+        const getParamsRedirect = "backbutton";
+        decryptedUrl = btoa(getParamsRedirect);
+        //   decryptedUrl = btoa(getParamsRedirect);
+        // if (decodeValues[2] == undefined) {
+        //   const getParamsRedirect = deCodeParameter + "&backbutton";
+        //   decryptedUrl = btoa(getParamsRedirect);
+        // }
+        // else if (decodeValues[2] == "backbutton") {
+        //   const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
+        //   decryptedUrl = btoa(getParamsRedirect);
+        // }
+        // else if (decodeValues[2] == "sec5back") {
+        //   const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
+        //   decryptedUrl = btoa(getParamsRedirect);
+        // }
 
-        if (decodeValues[1] == 'child') {
-          labels = "Section 2 of 5: About you & your household";
-        } else if (decodeValues[1] == 'parent') {
-          labels = "Section 2 of 5: About your child & their household";
-        }
-        else if (decodeValues[1] == 'professional') {
-          labels = "Section 2 of 5: About the child /young person & their household";
-        }
+        // if (decodeValues[1] == 'child') {
+        //   labels = "Section 2 of 5: About you & your household";
+        // } else if (decodeValues[1] == 'parent') {
+        //   labels = "Section 2 of 5: About your child & their household";
+        // }
+        // else if (decodeValues[1] == 'professional') {
+        //   labels = "Section 2 of 5: About the child /young person & their household";
+        // }
         return self.sendPage(req, self.renderer('about', {
           headerContent: labels,
           headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
@@ -52,7 +52,7 @@ module.exports = {
           showHeader: true,
           hideRefButton: false,
         }));
-      }
+      
     };
 
     require('../../middleware')(self, options);
@@ -62,6 +62,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
@@ -89,6 +90,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

@@ -60,11 +60,22 @@ $header-font-size: 32px;
 
 body {
   font-family: "century-gothic" !important;
+  overscroll-behavior-y: none !important;
+  overscroll-behavior-x: none !important;
+
+  input::-ms-clear,
+  input::-ms-reveal {
+    display: none;
+  }
 
   .col-xl-6 {
     @include lg-secondary {
       max-width: 60% !important;
     }
+  }
+
+  select option {
+    text-transform: capitalize !important;
   }
 
   .h-75px {
@@ -75,6 +86,10 @@ body {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
+  }
+
+  .border-bottom-primary {
+    border-bottom: 1px solid #112f45 !important;
   }
 
   .readOnly-class {
@@ -139,6 +154,11 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important;
+  }
+
+  .search-wrap {
+    max-height: 220px !important;
+    overflow: auto;
   }
 
   #myBtn {
@@ -638,7 +658,16 @@ a {
 }
 
 .completed-toast-header {
-  @include set-titleStyles($primary-font-size, bold, $primary-color);
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: 18px !important;
+  }
+  @include sm-screen {
+    font-size: 19px !important;
+  }
+  @include md-screen {
+    font-size: 20px !important;
+  }
 }
 
 .input-group-secondary-text {
@@ -826,7 +855,7 @@ a {
     font-size: 24px;
   }
   .question-font {
-    font-size: 16px;
+    font-size: 14px;
   }
   .option-font {
     font-size: 15px !important;
@@ -1056,6 +1085,7 @@ a {
   width: 28px;
   height: 18px;
   border: none;
+  background-color: #54b7e6;
 }
 .header-set-height {
   height: 68px;
@@ -1063,6 +1093,10 @@ a {
   padding-right: 24px;
   display: flex;
   align-items: center;
+  @include xxs-screen-between {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 .button-referral {
   background-color: #ffb703;
@@ -1088,7 +1122,7 @@ a {
 }
 .footer-container {
   display: flex;
-  height: 49px;
+  height: 64px;
   justify-content: space-around;
   padding-left: 24px;
   padding-right: 24px;
@@ -1310,6 +1344,25 @@ select.selectIcon {
     font-size: 34px;
   }
 }
+.resource_search_text {
+  color: #023047;
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  @include xs-screen {
+    font-size: 14px;
+  }
+  @include sm-screen {
+    font-size: 15px;
+  }
+  @include xl-screen {
+    font-size: 22px;
+  }
+  @include xxl-screen {
+    font-size: 23px;
+  }
+}
+
 .height-44 {
   height: 44px !important;
 }
@@ -1533,7 +1586,7 @@ select.selectIcon {
     margin-left: 16px;
   }
   .button-referral {
-    width: 110px;
+    width: 125px;
     font-size: 12px;
   }
   .button-login {
@@ -1701,7 +1754,7 @@ body .ui-widget {
   }
   @include xl-screen {
     max-width: 410px;
-    max-height: 240px !important;
+    max-height: 180px !important;
   }
 }
 body .ui-widget .ui-menu-item {

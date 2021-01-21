@@ -4,6 +4,7 @@ const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
 const Op = require('sequelize').Op;
 exports.eligibility = ctx => {
+  console.log(ctx.request.body)
   const user = ctx.orm().Referral;
  console.log(ctx.request.decryptedUser)
   if (ctx.request.body.role == "child") {
@@ -46,12 +47,15 @@ exports.eligibility = ctx => {
           registerd_gp: ctx.request.body.registerd_gp,
           user_role: ctx.request.body.role,
           login_id: ctx.request.decryptedUser.id,
+          contact_parent_camhs: ctx.request.body.contact_parent_camhs,
+          reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
             userid: childUserInfo.uuid,
+            user_role:childUserInfo.user_role,
             status: "ok",
           }
           return ctx.body = responseData;
@@ -70,12 +74,15 @@ exports.eligibility = ctx => {
           consent_child: ctx.request.body.isInformation,
           registerd_gp: ctx.request.body.registerd_gp,
           user_role: ctx.request.body.role,
+          contact_parent_camhs: ctx.request.body.contact_parent_camhs,
+          reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
             userid: childUserInfo.uuid,
+            user_role:childUserInfo.user_role,
             status: "ok",
           }
           return ctx.body = responseData;
@@ -156,6 +163,7 @@ exports.eligibility = ctx => {
             parentUserInfo.setParent(childUserInfo.id)
             const responseData = {
               userid: parentUserInfo.uuid,
+              user_role:parentUserInfo.user_role,
               status: "ok"
             }
             return ctx.body = responseData;
@@ -184,6 +192,7 @@ exports.eligibility = ctx => {
             parentUserInfo.setParent(childUserInfo.id)
             const responseData = {
               userid: parentUserInfo.uuid,
+              user_role:parentUserInfo.user_role,
               status: "ok"
             }
             return ctx.body = responseData;
@@ -278,6 +287,7 @@ exports.eligibility = ctx => {
               parenetUserInfo.setParent(childUserInfo.id)
               const responseData = {
                 userid: professionalUserInfo.uuid,
+                user_role:professionalUserInfo.user_role,
                 status: "ok"
               }
               return ctx.body = responseData;
@@ -317,6 +327,7 @@ exports.eligibility = ctx => {
               parenetUserInfo.setParent(childUserInfo.id)
               const responseData = {
                 userid: professionalUserInfo.uuid,
+                user_role:professionalUserInfo.user_role,
                 status: "ok"
               }
               return ctx.body = responseData;
@@ -337,6 +348,8 @@ exports.eligibility = ctx => {
 
 
 exports.fetchEligibility = ctx => {
+
+  console.log(ctx.query)
   const user = ctx.orm().Referral;
   if (ctx.query.role == "child") {
     return user.findOne({
@@ -1780,7 +1793,6 @@ exports.fetchReview = ctx => {
 
   const user = ctx.orm().Referral;
   const referral = ctx.orm().Reason
-  console.log(ctx.query.user_id);
   if (ctx.query.role == "child") {
     return user.findOne({
       where: {
@@ -1817,6 +1829,7 @@ exports.fetchReview = ctx => {
         }).then((educationObj) => {
 
 
+          console.log(aboutObj)
           const section2Obj = {
             child_id: aboutObj.id,
             child_NHS: aboutObj.child_NHS,
@@ -1936,6 +1949,8 @@ exports.fetchReview = ctx => {
               },
               attributes: ['id']
             }).then((referralResult) => {
+
+              console.log(aboutObj)
 
               const section1Obj = {
                 child_id: elgibilityObj[0].parent[0].id,
@@ -2581,11 +2596,13 @@ exports.getIncompleteReferral = ctx => {
   })
 }
 exports.getUserReferral = ctx => {
+  console.log("==getUserReferral=>", ctx.request.decryptedUser);
+  console.log(ctx.query.reqCode);
   const ref = ctx.orm().Referral;
   console.log(ctx.query)
   return ref.findAll({
     where: {
-      login_id: ctx.query.loginId,
+      login_id: ctx.request.decryptedUser.id,
       referral_progress: {
         [Op.ne]: null
       },
@@ -2597,9 +2614,8 @@ exports.getUserReferral = ctx => {
   }).then((result) => {
 
     let finalObj = {}
-    let sendObj = {};
-    let sendReferral = [];
     result.forEach((games, index) => {
+      //console.log(games.createdAt)
       const date = convertDate(games.createdAt)
       result[index].date = date;
       if (finalObj[date]) {
@@ -2619,4 +2635,30 @@ function convertDate(date) {
   var mmChars = mm.split('');
   var ddChars = dd.split('');
   return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
+}
+
+
+exports.getReferalByCode = ctx => {
+
+  console.log("==getReferalByCode=>", ctx.request.decryptedUser);
+  console.log(ctx.query.reqCode);
+
+  const ref = ctx.orm().Referral;
+
+  return ref.findAll({
+    where: {
+      login_id: ctx.request.decryptedUser.id,
+
+      reference_code :{
+        [Op.like]: '%'+ctx.query.reqCode +'%'
+      },
+      referral_complete_status: 'completed'
+    },
+    order: [
+      ['createdAt', 'DESC'],
+    ],
+  }).then((result) => {
+    console.log(result);
+    return ctx.body = result
+  })
 }

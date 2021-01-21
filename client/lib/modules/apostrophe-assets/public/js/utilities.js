@@ -51,14 +51,16 @@ function backToPreviousPage(section, userId, userRole) {
 function scrollToInvalidInput() {
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
-    if (errorElements[0].parentElement) {
-        errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
-    } else {
-        errorElements[0].scrollIntoView(true, { behavior: "smooth", });
-    }
-    var scrolledY = window.scrollY;
-    if (scrolledY) {
-        window.scroll(0, scrolledY - headerHeight);
+    if (Array.from(errorElements).length) {
+        if (errorElements[0].parentElement) {
+            errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+        } else {
+            errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+        }
+        var scrolledY = window.scrollY;
+        if (scrolledY) {
+            window.scroll(0, scrolledY - headerHeight);
+        }
     }
     // errorElements[0].scrollIntoView(true, { behavior: 'smooth' })
     // setTimeout(function () {
@@ -103,13 +105,14 @@ function getUrlVars() {
 //Common API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
     var response;
+    var trimmedPayload = trimObj(payload);
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
         dataType: 'json',
         contentType: 'application/json',
         async: false,
-        data: JSON.stringify(payload),
+        data: JSON.stringify(trimmedPayload),
         success: function (res) {
             response = res;
         },
@@ -130,7 +133,7 @@ function apiCallPost(reqType, endPoint, payload) {
     return response
 };
 
-//Commom API Call for post Function
+//Common API Call for post Function
 function apiCallGet(reqType, endPoint, API_URI) {
     var response;
     console.log(API_URI + endPoint)
@@ -151,25 +154,40 @@ function apiCallGet(reqType, endPoint, API_URI) {
     return response
 };
 
-//Commom API Call for put Function
+//Common API Call for put Function
 function apiCallPut(reqType, endPoint, payload) {
     var response;
-    $.ajax({
-        url: API_URI + endPoint,
-        type: reqType,
-        dataType: 'json',
-        async: false,
-        contentType: 'application/json',
-        data: JSON.stringify(payload),
-        success: function (res) {
-            response = res;
-        },
-        error: function (error) {
-            console.log(error.responseJSON.message)
-        }
-    });
+    var trimmedPayload = trimObj(payload);
+    payload =
+        $.ajax({
+            url: API_URI + endPoint,
+            type: reqType,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(trimmedPayload),
+            success: function (res) {
+                response = res;
+            },
+            error: function (error) {
+                console.log(error.responseJSON.message)
+            }
+        });
     return response
 };
+
+//Function to trim white spaces for an object and array
+function trimObj(obj) {
+    if (obj === null || !Array.isArray(obj) && typeof obj != 'object') {
+        return obj;
+    }
+    return Object.keys(obj).reduce(function (acc, key) {
+        acc[key.trim()] = typeof obj[key] == 'string' ? obj[key].trim() : trimObj(obj[key]);
+        return acc;
+    }, Array.isArray(obj) ? [] : {});
+}
+
+
 //get URL parameter
 
 function getParameter(url) {
@@ -218,10 +236,14 @@ function convertDate(dbDate) {
 
     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
 }
+
+
 function setLoaderStyle() {
     var element = document.body;
     element.classList.add('body-bg');
 }
+
+
 //for make referral 1 to 5 section
 function redirectUrl(currentPge, nextPge, usrId, roles) {
     let decryptedUrl;
@@ -297,6 +319,7 @@ function closeSideDrawer() {
 }
 
 function logOut() {
+    // window.location.href = window.location.origin + '/users/login';
     window.location.href = "/logout";
 }
 

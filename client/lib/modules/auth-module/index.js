@@ -46,7 +46,8 @@ module.exports = {
       self.middleware.post(req, res, url, req.body).then((data) => {
         console.log(data.data.data.user_role)
         if (data) {
-         
+          ///req.session.auth_token = data.data.token;
+          req.session.email = data.data.email
           req.session.auth_token = data.data.token;
           req.session.user_role = data.data.data.user_role;
           req.session.loginFlag = "true";
@@ -65,7 +66,8 @@ module.exports = {
         console.log(data)
         if (data) {
           req.session.auth_token = data.data.sendUserResult.token;
-          req.session.user_role = data.data.sendUserResult.role
+          req.session.user_role=data.data.sendUserResult.role
+          req.session.email = data.data.sendUserResult.email
           req.session.loginFlag = "true";
           // need a change - decrypt
           req.session.reload(function () { });
