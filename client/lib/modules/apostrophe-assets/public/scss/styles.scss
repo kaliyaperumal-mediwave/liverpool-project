@@ -107,7 +107,10 @@ body {
     }
     @include placeholder(#8f979e);
   }
-
+  // customize css for apostrophe z-index
+  .apos-ui .apos-admin-bar{
+    z-index: 10002 !important;
+  }
   @include placeholder($placeholder-color);
 
   .text-validation {
@@ -979,7 +982,7 @@ a {
 .headerTop {
   position: fixed;
   top: 0px;
-  z-index: 449;
+  z-index: 10001;
   width: 100%;
 }
 .lds-spinner {
@@ -2279,4 +2282,7 @@ body .ui-widget .ui-menu-item {
 }
 .overflow-auto {
   overflow: auto;
+}
+.hideChar{
+  color: white !important;
 }
