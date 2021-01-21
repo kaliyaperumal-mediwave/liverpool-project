@@ -87,10 +87,26 @@ $(document).ready(function () {
                 if (formData.haveSocialWorker === 'yes') {
                     if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
                         if (formData.position === 'education' && formData.attendedInfo) {
+                            if (formData.attendedInfo && !formData.attendedInfo.replace(/ /g, "").length) {
+                                scrollToInvalidInput();
+                                return false;
+                            }
+                            if (formData.socialWorkName && !formData.socialWorkName.replace(/ /g, "").length) {
+                                scrollToInvalidInput();
+                                return false;
+                            }
                             $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
                         else if (formData.position != 'education') {
+                            if (formData.attendedInfo && !formData.attendedInfo.replace(/ /g, "").length) {
+                                scrollToInvalidInput();
+                                return false;
+                            }
+                            if (formData.socialWorkName && !formData.socialWorkName.replace(/ /g, "").length) {
+                                scrollToInvalidInput();
+                                return false;
+                            }
                             $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
@@ -153,6 +169,21 @@ $(document).ready(function () {
                     console.log('empty response')
                 }
 
+            },
+
+            //Function to Identify space
+            trimSpace: function (str, reqField) {
+                if (str == "" && reqField) {
+                    return false;
+                } else if (str == "" && !reqField) {
+                    return true;
+                } else {
+                    if (str.replace(/ /g, "").length) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
             },
 
             //Patching the value logic

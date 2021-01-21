@@ -63,6 +63,11 @@ body {
   overscroll-behavior-y: none !important;
   overscroll-behavior-x: none !important;
 
+  input::-ms-clear,
+  input::-ms-reveal {
+    display: none;
+  }
+
   .col-xl-6 {
     @include lg-secondary {
       max-width: 60% !important;
@@ -653,7 +658,16 @@ a {
 }
 
 .completed-toast-header {
-  @include set-titleStyles($primary-font-size, bold, $primary-color);
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: 18px !important;
+  }
+  @include sm-screen {
+    font-size: 19px !important;
+  }
+  @include md-screen {
+    font-size: 20px !important;
+  }
 }
 
 .input-group-secondary-text {
