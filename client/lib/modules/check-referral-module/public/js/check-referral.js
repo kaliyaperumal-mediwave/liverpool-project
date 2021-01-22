@@ -78,8 +78,6 @@ $(document).ready(function () {
                                 }
                             }
                         }
-                        console.log(_self.referralDateArray)
-                        console.log(_self.viewReferralArray)
                     },
                     error: function (error) {
                         console.log(error)

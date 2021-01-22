@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-
+const nodemailer = require('nodemailer');
 const config = require('../config');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 

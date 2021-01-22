@@ -6,7 +6,8 @@ $(document).ready(function () {
             location: window.location,
             paramValues: '',
             loginId: '',
-            incompleteReferral: []
+            incompleteReferral: [],
+            searchRefObj:{}
         },
 
 
@@ -54,6 +55,10 @@ $(document).ready(function () {
             checkReferral: function () {
                 location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
             },
+
+            searchReferral:function () {
+                console.log(this.searchRefObj.refCode)
+            }
         }
 
     })
