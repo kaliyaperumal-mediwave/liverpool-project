@@ -1,5 +1,6 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
+<script src="/modules/liverpool-read-pages/js/read.js"></script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -24,10 +25,10 @@
         <div class="text_inside_cont">
             Here are different real life experiences of users currently using the platform
         </div>
-        </a>
+      
 
         {% for piece in data.pieces %}
-
+  {% if loop.index == 1 %}
        <a class="text_inside_video text-decoration-none">
          {% if apos.images.first(piece.thumbnail) %}
              {% set img = apos.images.first(piece.thumbnail) %}
@@ -47,11 +48,11 @@
                {{ piece.text }}
            </div>
        </a><br>
-       {% endfor %}
+ {% else %}
         <div class="selectSource">
             More to read
         </div>
-        {% for piece in data.pieces %}
+
 
         <div class="large-toggle-cont no-padding">
             <div class="video-title-top">
@@ -71,6 +72,7 @@
                 4 hours ago
             </div>
         </div>
+        {% endif %}
         {% endfor %}
 
 
