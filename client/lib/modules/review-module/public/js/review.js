@@ -296,7 +296,7 @@ $(document).ready(function () {
 
             },
 
-            onDetectChange: function (e, toSection,section,key) {
+            onDetectChange: function (e, toSection, section, key) {
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this[section][key] = e.target.value.trim();
                     return false;
