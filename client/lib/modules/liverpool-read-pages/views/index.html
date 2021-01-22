@@ -25,13 +25,14 @@
         <div class="text_inside_cont">
             Here are different real life experiences of users currently using the platform
         </div>
-        </a>
+<!--
         <ul class="tag-filters">
           {% for tag in data.piecesFilters.tags %}
             <li><a href="{{ data.url | build({ tags: tag.value }) }}">{{ tag.label }} ({{ tag.count }})</a></li>
           {% endfor %}
-        </ul>
+        </ul> -->
         {% for piece in data.pieces %}
+
             {% if loop.index == 1 %}
                 <a class="text_inside_video text-decoration-none">
                     {% if apos.images.first(piece.thumbnail) %}
@@ -48,7 +49,10 @@
                         <div class="read-cont-p">
                             {{ piece.read_topic }}
                         </div>
-                        {{ piece.text }}
+                        <div class="">
+                          {{ piece.text }}
+
+                        </div>
                         <div class="video-placed-ago" id="videoTime{{loop.index}}">
                             <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
                         </div>
@@ -71,9 +75,9 @@
                     <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
                     <div class="video-para-bottom">
                         {{ piece.read_topic }}
-                        <div class="video-placed-ago" id="videoTime{{loop.index}}">
-                            <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
-                        </div>
+                    </div>
+                    <div class="video-placed-ago" id="videoTime{{loop.index}}">
+                      <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
                     </div>
                 </div>
             {% endif %}

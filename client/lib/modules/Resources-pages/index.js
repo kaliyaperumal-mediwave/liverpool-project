@@ -5,7 +5,8 @@ module.exports = {
   extend: 'apostrophe-pieces-pages',
   label: 'ResourcesPage',
   piecesFilters: [
-    { name: 'tags'}
+    { name: 'tags',
+  counts: true }
   ],
   addFields: [
   // ... other fields as shown earlier go here ...

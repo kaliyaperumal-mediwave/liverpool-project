@@ -5,7 +5,8 @@ module.exports = {
   extend: 'apostrophe-pieces-pages',
   label: 'readPage',
   piecesFilters: [
-    { name: 'tags'}
+    { name: 'tags',
+  counts: true }
   ],
 
   construct: function(self, options) {

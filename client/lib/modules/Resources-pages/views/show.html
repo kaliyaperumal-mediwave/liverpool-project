@@ -37,7 +37,7 @@
           {% for piecewatch in data.piece._watchPage %}
           <!-- <h1>{{ pieceread.title}}</h1> -->
 
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group"  style="width: 246.667px; margin-right: 30px;">
+            <a href="{{piecewatch._url}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group"  style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -48,10 +48,11 @@
                         </div>
                         <div class="container-bottom-set">
                             <div class="questionText">
+
                               {{ piecewatch.title}}
                             </div>
                             <div class="answerText">
-                            hi
+                              {{ piecewatch.SubTitle}}
 
                             </div>
                             <!-- <div class="questionText">
@@ -60,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
 
 
@@ -204,10 +205,10 @@
         </div>
         <div class="swiper-wrapper mb-4" id="swiper-wrapper-81093574348bf1075e" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
 
-          {% for pieceread in data.piece._readPage %}
-          <!-- <h1>{{ pieceread.title}}</h1> -->
 
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
+          {% for pieceread in data.piece._readPage %}
+          <!-- <h1>{{ pieceread._url}}</h1> -->
+            <a href="{{ pieceread._parentUrl}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -223,7 +224,7 @@
                         </div>
                         <div class="container-bottom-set">
                             <div class="questionText">
-                              {{ pieceread.title}}
+                              {{ pieceread.title }}
                             </div>
                             <div class="answerText">
                               {{ pieceread.read_topic}}
@@ -235,7 +236,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
 
           </div>
@@ -257,7 +258,7 @@
         <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
           {% for pieceevent in data.piece._eventPage %}
 
-          <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+          <a href="{{ pieceevent._url}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -277,9 +278,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
+                {% endfor %}
             </div>
-              {% endfor %}
 
 
 
@@ -298,7 +299,7 @@
         <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
           {% for piecegames in data.piece._gamesPage %}
 
-          <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+          <a href="{{ piecegames._url}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -319,7 +320,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
               {% endfor %}
 
   </div>
@@ -338,7 +339,7 @@
 
           {% for piecepartner in data.piece._partnerAgenciesPage %}
 
-          <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+          <a href="{{ piecepartner._url}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
             <div>
                 <div class="bg-white card-container-small">
                     <div class="container-top-set">
@@ -365,7 +366,7 @@
                     </div>
                 </div>
             </div>
-            </div>
+            </a>
               {% endfor %}
 
 
