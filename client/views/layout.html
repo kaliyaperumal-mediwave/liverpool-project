@@ -322,6 +322,28 @@ endblock %} {% block extraHead %}
     </div>
     <!-- Delete Modal End -->
 
+    <!-- Error Modal Start -->
+    <div class="modal fade" id="errorCommon" tabindex="-1" role="dialog" aria-labelledby="errorCommonLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bg">
+          <div class="my-3">
+            <div class="d-flex justify-content-center m-0 cursor-pointer">
+              <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                  class="fal fa-times fa-2x cursor-pointer"></i></i>
+            </div>
+          </div>
+          <div class="px-4 py-2 text-center">
+            <span style="color:#DD3939 !important">
+              <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+            </span>
+            <h5 id="errorContent" class="text-danger logout-font mt-3">error content</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Error Modal End -->
+
 
     {% endblock %} {% block main %} {# Usually, your page templates in the
     apostrophe-pages module will override this block. It is safe to assume this is
