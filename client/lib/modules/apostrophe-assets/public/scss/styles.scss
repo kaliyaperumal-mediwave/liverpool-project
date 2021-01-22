@@ -2297,3 +2297,9 @@ body .ui-widget .ui-menu-item {
 .modal-dialog-centered{
   justify-content: center;
 }
+.set-width-calc{
+  width: calc(100% - 55px);
+}
+.text-label-hide::before{
+  display: none !important;
+}

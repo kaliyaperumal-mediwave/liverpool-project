@@ -310,9 +310,9 @@
     content: "";
     display: block;
     position: absolute;
-    top: 10px;
     left: 16px;
     width: 6px;
+    top: 10px;
     height: 21px;
     width: 10px;
     border: solid #023047;
@@ -2725,3 +2725,9 @@ body .ui-widget .ui-menu-item {
 
 .modal-dialog-centered {
   justify-content: center; }
+
+.set-width-calc {
+  width: calc(100% - 55px); }
+
+.text-label-hide::before {
+  display: none !important; }
