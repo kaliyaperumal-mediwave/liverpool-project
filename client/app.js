@@ -40,28 +40,6 @@ var apos = require("apostrophe")({
  'jobs-pages': {
    extend: 'apostrophe-pieces-pages'
  },
- // 'apostrophe-pages': {
- //   // Don't forget to add the page type!
- //   types: [
- //     // ... other page types here ...
- //       {
- //       name: 'liverpool-read-pages',
- //       label: 'readPage'
- //     },
- //     {
- //     name: 'liverpool-watch-pages',
- //     label: 'watchPage'
- //   },
- //     {
- //     name: 'Resources-pages',
- //     label: 'ResourcesPage'
- //   },
- //     {
- //       name: 'jobs-page',
- //       label: 'Jobs'
- //     },
- //   ]
- // },
     "Resources": {},
     "Resources-pages": { perPage: 999 },
     // "Resources-widgets": {

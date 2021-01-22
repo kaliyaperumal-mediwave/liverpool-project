@@ -27,7 +27,7 @@
 
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     </div>
-  
+
     <!-- Things to watch container -->
     <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
@@ -37,7 +37,7 @@
           {% for piecewatch in data.piece._watchPage %}
           <!-- <h1>{{ pieceread.title}}</h1> -->
 
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
+            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group"  style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -212,7 +212,13 @@
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
+                              {% if apos.images.first(pieceread.thumbnail) %}
+                                  {% set img = apos.images.first(pieceread.thumbnail) %}
+                                {% endif %}
+                                {% if img %}
+                                  <img class="imageSet"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                                {% endif %}
+                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
                             </div>
                         </div>
                         <div class="container-bottom-set">
@@ -240,104 +246,44 @@
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
     <!-- Event container -->
+    {% for pieceread in data.piece._eventPage %}
+    <h1>{{ pieceevent.title}}</h1>
+    {% endfor %}
+
     <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
             Events
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
+          {% for pieceevent in data.piece._eventPage %}
+
+          <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
+                              {% if apos.images.first(pieceevent.thumbnail) %}
+                                  {% set img = apos.images.first(pieceevent.thumbnail) %}
+                                {% endif %}
+                                {% if img %}
+                                  <img class="imageSet"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                                {% endif %}
+                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
                             </div>
                         </div>
                         <div class="container-bottom-set">
                             <div class="questionText">
-                                lorem ipsum
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="2 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                lorem ipsum
+                            {{ pieceevent.title}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-active" data-swiper-slide-index="0" role="group" aria-label="3 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                lorem ipsum
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                lorem ipsum
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="5 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                lorem ipsum
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="6 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                lorem ipsum
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
+              {% endfor %}
+
+
+
+          </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span></div>
         <!-- Add Arrows -->
@@ -349,100 +295,34 @@
         <div class="title-thing-to-watch">
             Games
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
+          {% for piecegames in data.piece._gamesPage %}
+
+          <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
+                              {% if apos.images.first(piecegames.thumbnail) %}
+                                  {% set img = apos.images.first(piecegames.thumbnail) %}
+                                {% endif %}
+                                {% if img %}
+                                  <img class="imageSet"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                                {% endif %}
+                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
                             </div>
                         </div>
                         <div class="container-bottom-set">
                             <div class="questionText">
-                                Distract yourself
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="2 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Express yourself
+                                {{ piecegames.title}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-active" data-swiper-slide-index="0" role="group" aria-label="3 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Distract yourself
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Express yourself
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="5 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Distract yourself
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="6 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Express yourself
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
+              {% endfor %}
+
+  </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span></div>
         <!-- Add Arrows -->
@@ -454,121 +334,43 @@
         <div class="title-thing-to-watch">
             Partner agencies
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                ADHD Foundation
-                            </div>
-                            <div class="answerText">
-                                Improving emotional wellbeing
-                            </div>
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
 
+          {% for piecepartner in data.piece._partnerAgenciesPage %}
+
+          <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+            <div>
+                <div class="bg-white card-container-small">
+                    <div class="container-top-set">
+                        <div class="inside-cover-set">
+                          {% if apos.images.first(piecepartner.thumbnail) %}
+                              {% set img = apos.images.first(piecepartner.thumbnail) %}
+                            {% endif %}
+                            {% if img %}
+                              <img class="imageSet"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                            {% endif %}
+                            <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
                         </div>
                     </div>
-                </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="2 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
+                    <div class="container-bottom-set">
+                        <div class="questionText">
+                          {{ piecepartner.title}}
+
                         </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Barnardo’s
-                            </div>
-                            <div class="answerText">
-                                 Children’s charity supporting the venerable
-                            </div>
+                        <div class="answerText">
+                          {{ piecepartner.partnerAgencies}}
+
                         </div>
+
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-active" data-swiper-slide-index="0" role="group" aria-label="3 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                ADHD Foundation
-                            </div>
-                            <div class="answerText">
-                                Improving emotional wellbeing
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Barnardo’s
-                            </div>
-                            <div class="answerText">
-                                 Children’s charity supporting the venerable
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="5 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                ADHD Foundation
-                            </div>
-                            <div class="answerText">
-                                Improving emotional wellbeing
-                            </div>
+              {% endfor %}
 
-                        </div>
-                    </div>
-                </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="6 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Barnardo’s
-                            </div>
-                            <div class="answerText">
-                                 Children’s charity supporting the venerable
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
+
+
+  </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span></div>
         <!-- Add Arrows -->

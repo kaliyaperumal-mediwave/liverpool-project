@@ -38,13 +38,29 @@ name: '_watchPage',
 label: 'Watchs',
 type: 'joinByArray',
 withType: 'watchPage',
+},
+{
+name: '_eventPage',
+label: 'Events',
+type: 'joinByArray',
+withType: 'eventPage',
+},{
+name: '_gamesPage',
+label: 'Games',
+type: 'joinByArray',
+withType: 'gamesPage',
+},{
+name: '_partnerAgenciesPage',
+label: 'Partner Agencies',
+type: 'joinByArray',
+withType: 'partnerAgenciesPage',
 }
   ],
   arrangeFields: [
     {
       name: 'title',
       label: 'Title',
-      fields: [ 'title', 'text', 'tags','thumbnail','_readPage','_watchPage']
+      fields: [ 'title', 'text', 'tags','thumbnail','_readPage','_watchPage','_eventPage','_gamesPage','_partnerAgenciesPage']
     },
     {
       name: 'admin',

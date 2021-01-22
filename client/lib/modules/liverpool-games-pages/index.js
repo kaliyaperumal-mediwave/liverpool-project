@@ -3,7 +3,7 @@ var _ = require('lodash');
 module.exports = {
   name: 'liverpool-games-pages',
   extend: 'apostrophe-pieces-pages',
-  label: 'games Page',
+  label: 'gamesPage',
   piecesFilters: [
     { name: 'tags' }
   ],

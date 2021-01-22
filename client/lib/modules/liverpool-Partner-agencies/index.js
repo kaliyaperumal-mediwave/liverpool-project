@@ -1,7 +1,7 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'partner-agencies',
-  label: 'Partner-agencies',
+  name: 'partnerAgenciesPage',
+  label: 'partnerAgencies',
   pluralLabel: 'Partner Agencies',
   addFields: [{
       name: 'title',

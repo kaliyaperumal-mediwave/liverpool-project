@@ -1,6 +1,6 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'games',
+  name: 'gamesPage',
   label: 'Games',
   pluralLabel: 'Games',
   addFields: [{

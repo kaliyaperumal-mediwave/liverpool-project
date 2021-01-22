@@ -1,6 +1,6 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'Events',
+  name: 'eventPage',
   label: 'Events',
   pluralLabel: 'Events',
   addFields: [{

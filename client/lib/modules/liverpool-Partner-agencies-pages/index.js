@@ -3,7 +3,7 @@ var _ = require('lodash');
 module.exports = {
   name: 'liverpool-Partner-agencies-pages',
   extend: 'apostrophe-pieces-pages',
-  label: 'Partner-agencies Page',
+  label: 'partnerAgenciesPage',
   piecesFilters: [
     { name: 'tags' }
   ],
