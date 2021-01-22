@@ -1,6 +1,6 @@
 module.exports = {
-  extend: 'apostrophe-custom-pages',
-  label: 'Auth Module',
+  extend: "apostrophe-custom-pages",
+  label: "Auth Module",
   afterConstruct: function (self) {
     self.addDispatchRoutes();
   },
@@ -78,6 +78,5 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
-
-  }
-}
+  },
+};

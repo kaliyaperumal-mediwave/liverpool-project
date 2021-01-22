@@ -1,7 +1,3 @@
-// module.exports = {
-//   extend: 'apostrophe-module',
-//   label: 'Dashboard Module',
-//   construct: function (self, options, callback) {
 
 //   }
 // };

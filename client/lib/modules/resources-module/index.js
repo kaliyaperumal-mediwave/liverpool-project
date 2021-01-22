@@ -17,7 +17,6 @@ module.exports = {
     };
 
     self.resources = function (req, callback) {
-    
       return self.sendPage(req, self.renderer('resources', {
         showHeader: true,
         home: true,
@@ -27,7 +26,6 @@ module.exports = {
       }));
     };
     self.lists = function (req, callback) {
-     
       return self.sendPage(req, self.renderer('things-to-watch', {
         showHeader: true,
         home: true,

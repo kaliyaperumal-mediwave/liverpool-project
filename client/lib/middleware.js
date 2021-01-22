@@ -226,7 +226,30 @@ module.exports = function (self, options) {
     }
   };
 
-
+  self.checkCommonPageAuth = function (req) {
+    return new Promise((resolve, reject) => {
+      if (req.session.aposBlessings || !req.session.auth_token) {
+        req.data.user_data = {};
+        req.data.rolesIds = [];
+        resolve(req);
+      } else {
+        let url = self.apos.CANDMMODULE.getOption(req, 'phr-module') + self.apos.PATH.getOption(req, 'authentication-path') + '/apostropheAuth';
+        self.middleware.get(req, url).then((data) => {
+          req.data.user_data = data.data;
+          var rolesIds = [];
+          for (let i = 0; i < data.data.roles.length; i++) {
+            rolesIds.push(data.data.roles[i].id);
+          }
+          req.data.rolesIds = rolesIds;
+          resolve(req);
+        }).catch(() => {
+          req.data.user_data = {};
+          req.data.rolesIds = [];
+          resolve(req);
+        });
+      }
+    });
+  };
   self.setHeader = function (req) {
     let headers;
     if (req.session.auth_token) {

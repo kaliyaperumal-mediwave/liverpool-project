@@ -1,13 +1,13 @@
-{% extends "layout.html" %}
-
+{% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
-<script src="/modules/resources-module/js/resources.js"></script>
-<!-- <script src="/modules/resources-module/js/filters.js"></script> -->
-
 {% endblock %}
+{% set user_data = data.user_data %}
+{% set rolesIds = data.rolesIds %}
+{% set sluglist = data.sluglist %}
+
 {% block main %}
 <div id="resources_user" class="main-min-height">
-    <input hidden id="resources" value="{{data.piecesArray|dump}}">
+
     <div class="top-arrow-container" id="searchBar">
         <a href="{{ data.logoPath }}" class="text-decoration-none">
             <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
@@ -22,31 +22,8 @@
                 </div>
             </span>
             <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
-                @input="filterPieces()">
+                placeholder="Search your resource" id="example-search-input">
         </div>
-        {% raw %}
-        <!-- Search functionality start-->
-        <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-            depression?”</div>
-        <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-            <div class="primary-search-radius card cursor-pointer">
-
-                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                    <div class="d-flex align-items-center">
-                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                            class="px-1 px-md-2 cursor-pointer" alt="">
-                        <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                        </p>
-                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                            <li>Events</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Search functionality end-->
-        {% endraw %}
         <div class="text_inside_cont">
             Sometimes it’s hard to make sense of how you’re feeling, your thoughts and behaviours. In this section, you
             can use our guides and find out more about what support is available to you.
@@ -54,11 +31,66 @@
         </a>
         <div class="selectSource">
             Select a resource
+
         </div>
     </div>
+
+
+
+
+
+
+
+
+    
+    <ul class="job-filters">
+      {% for job in data.piecesFilters.jobs %}
+        {% if apos.utils.contains(data.query.jobs, job.value) %}
+          <a href="{{ data.url | build({ jobs: { $pull: job.value } }) }}" class="current">
+        {% else %}
+          <a href="{{ data.url | build({ jobs: { $addToSet: job.value } }) }}">
+        {% endif %}
+          {{ job.label }}
+        </a>
+      {% endfor %}
+    </ul>
+        {{data.piecesFilters.tags | json }}
+        <ul class="tag-filters">
+        {% for tag in data.piecesFilters.tags %}
+          <li><a href="{{ data.url | build({ tags: tag.value }) }}">{{ tag.label }}</a></li>
+        {% endfor %}
+        </ul>
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="resource-cont">
         <div class="bottom-arrow-container row" id="selva">
-            <div class="pieceCont col-6 col-sm-4 col-md-3" @click="navigatePage('{{ data.gotoList }}')">
+
+          {% for piece in data.pieces %}
+          <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
+            <div class="insidePieceCont">
+              <div class="midTextRange">{{ piece.title }}
+              </div>
+              {% if apos.images.first(piece.thumbnail) %}
+                 {% set img = apos.images.first(piece.thumbnail) %}
+               {% endif %}
+               {% if img %}
+               <img class="border-radius-10 h-2-182" src="{{ apos.attachments.url(img, { size: 'max' }) }}"/>
+               {% endif %}
+             </div>
+           </a>
+           {% endfor %}
+
+            <!-- <div class="pieceCont col-6 col-sm-4 col-md-3" @click="navigatePage('{{ data.gotoList }}')">
                 <div class="insidePieceCont">
                     <div class="midTextRange">ADHD
                     </div>
@@ -234,7 +266,7 @@
                     </div>
                     <img class="border-radius-10" src='/modules/my-apostrophe-assets/img/Wetting_and_soiling-01.svg' />
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="sub-header-bg my-4 setHadPad">
@@ -269,7 +301,7 @@
     </div>
 
     <div class="d-flex flexibility-screen">
-        <div class="row mr-0 ml-0 w-100">
+        <div class="row mr-0 ml-0">
             <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
                 @click="navigatePage('/users/login')">
                 <div class="text-center ">
