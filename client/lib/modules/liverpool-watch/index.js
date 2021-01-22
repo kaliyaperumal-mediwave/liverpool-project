@@ -1,7 +1,7 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'Watch',
-  label: 'Watch',
+  name: 'watchPage',
+  label: 'Watchs',
   pluralLabel: 'Things to Watch',
   addFields: [
     {

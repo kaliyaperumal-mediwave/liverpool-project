@@ -26,13 +26,25 @@ module.exports = {
     options: {
       limit: [ 1 ]
     }
-  }
+  },
+  {
+  name: '_readPage',
+  label: 'Reads',
+  type: 'joinByArray',
+  withType: 'readPage',
+},
+{
+name: '_watchPage',
+label: 'Watchs',
+type: 'joinByArray',
+withType: 'watchPage',
+}
   ],
   arrangeFields: [
     {
       name: 'title',
       label: 'Title',
-      fields: [ 'title', 'text', 'tags','thumbnail']
+      fields: [ 'title', 'text', 'tags','thumbnail','_readPage','_watchPage']
     },
     {
       name: 'admin',

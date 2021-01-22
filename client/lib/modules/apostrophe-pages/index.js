@@ -69,7 +69,7 @@ module.exports = {
     },
     {
       name: 'Resources-pages',
-      label: 'Resources pages'
+      label: 'ResourcesPages'
     },
     {
       name: 'account-settings-module',

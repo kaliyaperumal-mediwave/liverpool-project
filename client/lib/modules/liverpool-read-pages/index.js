@@ -3,30 +3,19 @@ var _ = require('lodash');
 module.exports = {
   name: 'liverpool-read-pages',
   extend: 'apostrophe-pieces-pages',
-  label: 'read Page',
+  label: 'readPage',
   piecesFilters: [
-    { name: 'tags',
-   counts: true }
+    { name: 'tags'}
   ],
-  addFields: [
-  // ... other fields as shown earlier go here ...
-  {
-    // Join field names MUST start with _
-    name: '_job',
-    label: 'Job',
-    type: 'joinByOne',
-    // SINGULAR, to match the `name` option, not the module name
-    withType: 'job'
-  }
-],
-
 
   construct: function(self, options) {
+    // console.log("-------------read log",self.filters);
+
     var superBefore = self.beforeShow;
     self.beforeShow = function(req, callback) {
       require('../../middleware')(self, options);
-
       self.checkCommonPageAuth(req).then((req) => {
+        console.log("-------------read log");
         return superBefore(req, callback);
       }).catch(() => {
       });
@@ -35,6 +24,8 @@ module.exports = {
     self.beforeIndex = function(req, callback) {
       require('../../middleware')(self, options);
 
+      // console.log("--------2-----read log",self);
+       // piece.title = piece.Title + ' ' + piece.Text;
       self.checkCommonPageAuth(req).then((req) => {
         return beforeIndex(req, callback);
       }).catch(() => {

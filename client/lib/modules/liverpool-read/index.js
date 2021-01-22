@@ -1,9 +1,10 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'Read',
-  label: 'Read',
+  name: 'readPage',
+  label: 'Reads',
   pluralLabel: 'Things to Read',
-  addFields: [{
+  addFields: [
+    {
       name: 'title',
       label: 'Title',
       type: 'string',
@@ -31,12 +32,11 @@ module.exports = {
     required: true,
     textarea: true
   }
-
   ],
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['title','thumbnail','read_topic','text','tags']
+      fields: ['title','thumbnail','read_topic','tags','text']
     },
     {
       name: 'admins',

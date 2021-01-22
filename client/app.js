@@ -44,14 +44,18 @@ var apos = require("apostrophe")({
    // Don't forget to add the page type!
    types: [
      // ... other page types here ...
-     {
-       name: 'liverpool-watch-pages',
-       label: 'watch Page'
-     },
-     {
+       {
        name: 'liverpool-read-pages',
-       label: 'read Page'
+       label: 'readPage'
      },
+     {
+     name: 'liverpool-watch-pages',
+     label: 'watchPage'
+   },
+     {
+     name: 'Resources-pages',
+     label: 'ResourcesPage'
+   },
      {
        name: 'jobs-page',
        label: 'Jobs'
