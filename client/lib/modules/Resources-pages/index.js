@@ -25,7 +25,6 @@ module.exports = {
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function(req, callback) {
       require('../../middleware')(self, options);
-console.log("--------self----", self.filters);
           self.checkCommonPageAuth(req).then((req) => {
         return beforeIndex(req, callback);
       }).catch(() => {
