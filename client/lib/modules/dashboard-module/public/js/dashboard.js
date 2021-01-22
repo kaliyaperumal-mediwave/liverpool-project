@@ -7,7 +7,7 @@ $(document).ready(function () {
             paramValues: '',
             loginId: '',
             incompleteReferral: [],
-            searchRefObj:{}
+            searchRefObj: {}
         },
 
 
@@ -17,7 +17,7 @@ $(document).ready(function () {
 
         mounted: function () {
             // this.paramValues = getParameter(location.href)
-        //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+            //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.fetchSavedData();
             $('#loader').hide();
@@ -30,14 +30,14 @@ $(document).ready(function () {
                 var _self = this;
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/getIncompleteReferral/" ,
+                    url: API_URI + "/getIncompleteReferral/",
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         _self.incompleteReferral = data.data
-                        console.table( _self.incompleteReferral);
+                        console.table(_self.incompleteReferral);
                         $('#loader').hide();
                     },
                     error: function (error) {
@@ -56,7 +56,7 @@ $(document).ready(function () {
                 location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
             },
 
-            searchReferral:function () {
+            searchReferral: function () {
                 console.log(this.searchRefObj.refCode)
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
@@ -66,8 +66,14 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
-                        _self.incompleteReferral = data.data
-                        console.table( _self.incompleteReferral);
+                        if(data.length!=0)
+                        {
+                            location.href = "/viewreferals";
+                        }
+                        else
+                        {
+                            console.log("No record found for "+ this.searchRefObj.refCode)
+                        }
                         $('#loader').hide();
                     },
                     error: function (error) {
@@ -75,7 +81,6 @@ $(document).ready(function () {
                         console.log(error.responseJSON.message)
                     }
                 });
-                location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
             }
         }
 
