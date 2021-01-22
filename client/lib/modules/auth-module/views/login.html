@@ -139,8 +139,45 @@
                     </div>
                 </div>
 
-            </div>
+                <!-- Login Succuss Modal Start -->
+                <div class="modal fade" id="logInSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+                    role="dialog" aria-labelledby="logInSuccessLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg login-safe-pd">
+                            <span aria-hidden="true" class="modal-close" @click="gotoDashboard(tokenVariable)">
+                                <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                            </span>
+                            <div class="modal-header justify-content-center model-text-pd text">
+                                <p class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </p>
+                                <h5 class="logout-font mt-3 text-center">Login successful.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Login Succuss Modal End -->
 
+
+                <!-- Login Failed Modal Start -->
+                <div class="modal fade" id="logoutFailed" tabindex="-1" role="dialog"
+                    aria-labelledby="logoutFailedLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg login-safe-pd">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                                <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                            </span>
+                            <div class="modal-header justify-content-center model-text-pd">
+                                <h5 class="logout-font mt-3">Invalid password</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Login Failed Modal Start  -->
+            </div>
         </div>
     </div>
 
@@ -158,8 +195,6 @@
         </div>
         <!-- Add HouseHold Modal End -->
     </div>
-
-
 
 </div>
 

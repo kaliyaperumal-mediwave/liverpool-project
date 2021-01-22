@@ -97,19 +97,22 @@ body {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
       @extend %input-shared;
+      pointer-events: none !important;
     }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
+      pointer-events: none !important;
     }
     textarea {
       color: #8f979e !important;
+      pointer-events: none !important;
     }
     @include placeholder(#8f979e);
   }
   // customize css for apostrophe z-index
   .apos-ui .apos-admin-bar{
-    z-index: 10002 !important;
+    z-index: 450 !important;
   }
   @include placeholder($placeholder-color);
 
@@ -982,7 +985,7 @@ a {
 .headerTop {
   position: fixed;
   top: 0px;
-  z-index: 10001;
+  z-index: 449;
   width: 100%;
 }
 .lds-spinner {
@@ -2285,4 +2288,19 @@ body .ui-widget .ui-menu-item {
 }
 .hideChar{
   color: white !important;
+}
+.login-safe-pd{
+  width: 334px !important;
+  padding: 24px
+}
+.model-text-pd{
+  padding: 4px 10px 0px 10px !important;
+  display: block !important;
+}
+.modal-dialog-centered{
+  justify-content: center;
+}
+
+.text-label-hide::before{
+  display: none !important;
 }

@@ -131,7 +131,7 @@ $(document).ready(function () {
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
-                        _self.section1Data.child_dob = convertDate(data.section1.child_dob);
+                        _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
 
                         if (_self.section4Data.other_reasons_referral) {
                             if (Array.isArray(_self.section4Data.reason_for_referral)) {
@@ -265,8 +265,9 @@ $(document).ready(function () {
 
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
-
-                return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+                var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+                // return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+                return showDate;
             },
 
             updateEligibility: function (updateObj) {
@@ -296,7 +297,7 @@ $(document).ready(function () {
 
             },
 
-            onDetectChange: function (e, toSection,section,key) {
+            onDetectChange: function (e, toSection, section, key) {
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this[section][key] = e.target.value.trim();
                     return false;

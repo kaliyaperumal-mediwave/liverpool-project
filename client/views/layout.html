@@ -7,54 +7,60 @@ does not have access to an Apostrophe page or piece.') }} {% endif %} {%
 endblock %} {% block extraHead %}
 
 <!-- Latest compiled and minified CSS -->
+
+<!--Bootstrap  Style Cdn-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+<!--Font Awesome Style Cdn -->
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-<link href="https://cdn.jsdelivr.net/npm/vue-toast-notification/dist/theme-sugar.css" rel="stylesheet">
+
+<!--Swipper Style Cdn -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
+<!--Vue Bootstrap Date-picker Style Cdn -->
 <link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
   rel="stylesheet" />
 
+<!--Jquery UI Theme Style Cdn -->
+<link href="http://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+</link>
+
+<!-- Google Fonts Cdn -->
 <script src="https://use.fontawesome.com/901da64fb9.js"></script>
 
-<!-- jQuery library -->
+<!-- Google Maps Cdn -->
 <script
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFWyAfPPWB-dCngwhrDQ3iUq8OwhW7NcI&libraries=places"></script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-  crossorigin="anonymous"></script> -->
+<!-- Jquery Cdn-->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+  crossorigin="anonymous"></script>
 
-<!-- Moment JS -->
+<!--  Jquery-UI Cdn -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+
+<!-- Moment JS Cdn-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
 <!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+  integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script> -->
 
 <!-- Latest compiled Bootstrap -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
-<!-- Swipper -->
+<!-- Swipper Cdn-->
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-
-<!-- <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js"></script> -->
-
-<!-- Date-picker itself -->
+<!--Vue Bootstrap Date-picker Cdn -->
 <script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
 </script>
+
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
-<!-- Vue.js -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6"></script> -->
-<!-- Lastly add this package -->
-<script src="https://cdn.jsdelivr.net/npm/vue-toast-notification"></script>
-<!-- Init the plugin -->
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
@@ -247,6 +253,20 @@ endblock %} {% block extraHead %}
 
 <div id='middleCont' class="middleContainer">
   <div class="set-mid-padding">
+    <!-- Toast start -->
+    <div class="toast d-flex justify-content-center align-items-center" id="myToast"
+      style=" background-color: red;z-index: 10000;position:absolute;left: 50%; ">
+      <div class="toast-header">
+        <div class="toast-body">
+          <div id="toastMessage">Invalid password</div>
+        </div>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Toast stop -->
     <!-- {#
     We recommend you use the beforeMain block for global page components
     like headers or navigation.
@@ -301,6 +321,28 @@ endblock %} {% block extraHead %}
     </div>
     <!-- Delete Modal End -->
 
+    <!-- Error Modal Start -->
+    <div class="modal fade" id="errorCommon" tabindex="-1" role="dialog" aria-labelledby="errorCommonLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-bg">
+          <div class="my-3">
+            <div class="d-flex justify-content-center m-0 cursor-pointer">
+              <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                  class="fal fa-times fa-2x cursor-pointer"></i></i>
+            </div>
+          </div>
+          <div class="px-4 py-2 text-center">
+            <span style="color:#DD3939 !important">
+              <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+            </span>
+            <h5 id="errorContent" class="text-danger logout-font mt-3">error content</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Error Modal End -->
+
 
     {% endblock %} {% block main %} {# Usually, your page templates in the
     apostrophe-pages module will override this block. It is safe to assume this is
@@ -317,7 +359,8 @@ endblock %} {% block extraHead %}
       </a>
     </div>
     <div>
-      <a href="{{ data.termPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">T &
+      <a href="{{ data.termPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">T
+          &
           Cs</span>
       </a>
     </div>
@@ -340,27 +383,6 @@ endblock %} {% block extraHead %}
     </a> -->
   </div>
 </div>
-
-<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
-
-
-
-<!-- Popper JS -->
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-  integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script> -->
-
-<!-- Latest compiled JavaScript -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-
-<!-- Date-picker itself -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
-</script>
-<link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
-  rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script> -->
-
-
 
 <!-- {#
     This would be a great place to put a global footer.

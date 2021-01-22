@@ -1,4 +1,7 @@
 /* CheckBox Global classes */
+.set-width-calc {
+  width: calc(100% - 55px);
+}
 
 .custom-form-group {
   display: block;
@@ -26,7 +29,7 @@
       background: #e8edee 0% 0% no-repeat padding-box;
       border: 1px solid #023047;
       padding: 10px;
-      display: inline-table;
+      display: inline-flex;
       position: relative;
       vertical-align: middle;
       cursor: pointer;
@@ -40,6 +43,7 @@
     position: absolute;
     left: 16px;
     width: 6px;
+    top: 10px;
     height: 21px;
     width: 10px;
     border: solid #023047;
