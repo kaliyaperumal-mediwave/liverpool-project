@@ -32,51 +32,52 @@
           {% endfor %}
         </ul>
         {% for piece in data.pieces %}
-
-       <a class="text_inside_video text-decoration-none">
-         {% if apos.images.first(piece.thumbnail) %}
-             {% set img = apos.images.first(piece.thumbnail) %}
-           {% endif %}
-           {% if img %}
-             <img class="img-placeholder" width="100%" height="315" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-           {% endif %}
-           <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="img-placeholder" /> -->
-                      <div class="body-cont-set">
-               <div class="read-cont-h1">
-                 {{ piece.title }}
-               </div>
-               <div class="read-cont-p">
-                   {{ piece.read_topic }}
-               </div>
-
-               {{ piece.text }}
-           </div>
-       </a><br>
+            {% if loop.index == 1 %}
+                <a class="text_inside_video text-decoration-none">
+                    {% if apos.images.first(piece.thumbnail) %}
+                        {% set img = apos.images.first(piece.thumbnail) %}
+                    {% endif %}
+                    {% if img %}
+                        <img class="img-placeholder" width="100%" height="315" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                    {% endif %}
+                    <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="img-placeholder" /> -->
+                    <div class="body-cont-set">
+                        <div class="read-cont-h1">
+                            {{ piece.title }}
+                        </div>
+                        <div class="read-cont-p">
+                            {{ piece.read_topic }}
+                        </div>
+                        {{ piece.text }}
+                        <div class="video-placed-ago" id="videoTime{{loop.index}}">
+                            <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
+                        </div>
+                    </div>
+                </a><br>
+                <div class="selectSource">
+                    More to read
+                </div>
+            {% else %}
+                <div class="large-toggle-cont no-padding">
+                    <div class="video-title-top">
+                        {{ piece.title }}
+                    </div>
+                    {% if apos.images.first(piece.thumbnail) %}
+                        {% set img = apos.images.first(piece.thumbnail) %}
+                    {% endif %}
+                    {% if img %}
+                        <img class="img-placeholder" width="100%" height="315" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                    {% endif %}
+                    <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
+                    <div class="video-para-bottom">
+                        {{ piece.read_topic }}
+                        <div class="video-placed-ago" id="videoTime{{loop.index}}">
+                            <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
        {% endfor %}
-        <div class="selectSource">
-            More to read
-        </div>
-        {% for piece in data.pieces %}
-
-        <div class="large-toggle-cont no-padding">
-            <div class="video-title-top">
-                 {{ piece.title }}
-            </div>
-            {% if apos.images.first(piece.thumbnail) %}
-                {% set img = apos.images.first(piece.thumbnail) %}
-              {% endif %}
-              {% if img %}
-                <img class="img-placeholder" width="100%" height="315" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-              {% endif %}
-            <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
-            <div class="video-para-bottom">
-                   {{ piece.read_topic }}
-            </div>
-            <div class="video-placed-ago" id="videoTime{{loop.index}}">
-                <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
-            </div>
-        </div>
-        {% endfor %}
     </div>
     <div class="sub-header-bg my-4 setHadPad">
         <div class=" mx-auto container-referal ">
