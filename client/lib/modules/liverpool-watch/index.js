@@ -34,12 +34,12 @@ module.exports = {
   arrangeFields: [{
       name: 'watch',
       label: 'watch',
-      fields: ['title','SubTitle','text','video','tags']
+      fields: ['title','SubTitle','text','video']
     },
     {
       name: 'admin',
       label: 'Administrative',
-      fields: ['slug','published']
+      fields: ['slug','published','tags']
     }
   ]
 };

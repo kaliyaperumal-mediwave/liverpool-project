@@ -29,20 +29,20 @@
     </div>
 
     <!-- Things to watch container -->
+{% if data.piece._watchPage and data.piece._watchPage.length%}
     <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
             Things to watch
         </div>
+
         <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite" style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;">
           {% for piecewatch in data.piece._watchPage %}
-          <!-- <h1>{{ pieceread.title}}</h1> -->
-
-            <a href="{{piecewatch._url}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group"  style="width: 246.667px; margin-right: 30px;">
+            <a href="{{piecewatch._parentUrl}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group"  style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
-                              <iframe  class="img-placeholder m-b-min-8"  src="{{ piecewatch.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                              <iframe  class="img-placeholder m-b-min-8" style="width:100%;" src="{{ piecewatch.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                             </div>
                         </div>
@@ -55,9 +55,7 @@
                               {{ piecewatch.SubTitle}}
 
                             </div>
-                            <!-- <div class="questionText">
-                                2 min read
-                            </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -66,6 +64,7 @@
 
 
           </div>
+
         <!-- Add Pagination -->
         <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span></div>
         <!-- Add Arrows -->
@@ -198,16 +197,19 @@
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    {% endif %}
     <!-- Things to read container -->
-    <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
+{% if data.piece._readPage and data.piece._readPage.length%}
+    <div class=" swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
             Things to read
         </div>
+
         <div class="swiper-wrapper mb-4" id="swiper-wrapper-81093574348bf1075e" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
 
 
           {% for pieceread in data.piece._readPage %}
-          <!-- <h1>{{ pieceread._url}}</h1> -->
+
             <a href="{{ pieceread._parentUrl}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
@@ -226,13 +228,12 @@
                             <div class="questionText">
                               {{ pieceread.title }}
                             </div>
+
                             <div class="answerText">
                               {{ pieceread.read_topic}}
 
                             </div>
-                            <!-- <div class="questionText">
-                                2 min read
-                            </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -246,11 +247,9 @@
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    {% endif %}
     <!-- Event container -->
-    {% for pieceread in data.piece._eventPage %}
-    <h1>{{ pieceevent.title}}</h1>
-    {% endfor %}
-
+{% if data.piece._eventPage and data.piece._eventPage.length%}
     <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
             Events
@@ -291,7 +290,11 @@
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    {% endif %}
+
      <!-- Games container -->
+     {% if data.piece._gamesPage and data.piece._gamesPage.length%}
+
      <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
             Games
@@ -330,7 +333,11 @@
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    {% endif %}
+
      <!-- Partner agencies container-->
+     {% if data.piece._partnerAgenciesPage and data.piece._partnerAgenciesPage.length%}
+
      <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
             Partner agencies
@@ -378,6 +385,8 @@
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
+    {% endif %}
+    
     <!-- Initialize Swiper -->
     <script>
         var swiper = new Swiper('.swiper-container', {

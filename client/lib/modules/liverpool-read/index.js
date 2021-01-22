@@ -36,12 +36,12 @@ module.exports = {
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['title','thumbnail','read_topic','tags','text']
+      fields: ['title','thumbnail','read_topic','text']
     },
     {
       name: 'admins',
       label: 'Administratives',
-      fields: [ 'slug','published']
+      fields: [ 'slug','published','tags']
     }
   ]
 };
