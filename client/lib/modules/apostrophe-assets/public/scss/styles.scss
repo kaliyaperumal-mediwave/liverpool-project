@@ -2303,3 +2303,9 @@ body .ui-widget .ui-menu-item {
 .text-label-hide::before{
   display: none !important;
 }
+input[readonly] {
+  pointer-events: none;
+}
+body .readOnly-class .form-control{
+  pointer-events: none !important;
+}
