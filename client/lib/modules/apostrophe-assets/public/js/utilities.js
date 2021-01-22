@@ -127,7 +127,6 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
-            debugger
             $('#loader').hide();
             if (error) {
                 showError(error.responseJSON.message);
