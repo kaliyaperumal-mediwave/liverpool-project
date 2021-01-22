@@ -464,9 +464,9 @@ $(document).ready(function () {
                     app.elgibilityObj.gpNotCoveredProf = false;
                     app.elgibilityObj.submitProfForm = "false";
                     if (searchTxt.length > 2) {
-                        var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
                         $('#showInputLoader').removeClass("d-none").addClass("d-block");
                         $('#addOpacity').css('opacity', '0.2');
+                        var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
                         $.ajax({
                             url: gpLink,
                             type: 'get',
