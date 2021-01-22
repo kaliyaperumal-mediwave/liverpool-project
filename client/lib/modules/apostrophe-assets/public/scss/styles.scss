@@ -107,7 +107,10 @@ body {
     }
     @include placeholder(#8f979e);
   }
-
+  // customize css for apostrophe z-index
+  .apos-ui .apos-admin-bar{
+    z-index: 450 !important;
+  }
   @include placeholder($placeholder-color);
 
   .text-validation {
@@ -2279,4 +2282,24 @@ body .ui-widget .ui-menu-item {
 }
 .overflow-auto {
   overflow: auto;
+}
+.hideChar{
+  color: white !important;
+}
+.login-safe-pd{
+  width: 334px !important;
+  padding: 24px
+}
+.model-text-pd{
+  padding: 4px 10px 0px 10px !important;
+  display: block !important;
+}
+.modal-dialog-centered{
+  justify-content: center;
+}
+.set-width-calc{
+  width: calc(100% - 55px);
+}
+.text-label-hide::before{
+  display: none !important;
 }

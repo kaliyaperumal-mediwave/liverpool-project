@@ -598,7 +598,7 @@ $(document).ready(function () {
                     this.dateFmt = this.setDate(date)
                     var selectedDate = new Date(this.dateFmt);
                     var age = this.diff_years(today, selectedDate);
-                    //console.log(age)
+                    // console.log(age)
                     //console.log(age > 19)
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
@@ -933,7 +933,7 @@ $(document).ready(function () {
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
                 if (roleText == 'child') {
-                    if (age < 15) {
+                    if (age < 14) {
 
                         this.elgibilityObj.belowAgeLimit = "yes";
                         this.elgibilityObj.aboveLimit = "no";
@@ -960,7 +960,7 @@ $(document).ready(function () {
                         this.elgibilityObj.parentConcern = "";
                         this.elgibilityObj.submitProfForm = "false";
                     }
-                    else if (age > 19) {
+                    else if (age > 18) {
                         this.elgibilityObj.profaboveLimit = "yes";
                         this.elgibilityObj.profBelowAgeLimit = "";
                         this.elgibilityObj.parentConcern = "";
@@ -975,7 +975,7 @@ $(document).ready(function () {
                 }
 
                 else if (roleText == 'parent') {
-                    if (age > 19) {
+                    if (age > 18) {
                         this.elgibilityObj.aboveLimit = "yes";
                         this.elgibilityObj.camhs = "";
                         this.elgibilityObj.submitForm = "false";

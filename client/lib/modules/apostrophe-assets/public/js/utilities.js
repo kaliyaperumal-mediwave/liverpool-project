@@ -23,6 +23,16 @@ function resetValues(currentForm, context, formObj) {
 };
 
 
+//Common Modal for API error messages
+function showError(content) {
+    if (!content) {
+        content = "Something went wrong.Please try again"
+    }
+    $('#errorContent').text(content);
+    $('#errorCommon').modal('show');
+};
+
+
 //Common Delete Logic for Service and HouseHold Modal
 function deleteLogic(arr, value, context, section) {
     var index;
@@ -118,19 +128,12 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').hide();
-            if (false || !!document.documentMode) {
-                alert("Something went wrong!")
-            } else {
-                console.log(error.responseJSON.message)
-                Vue.$toast.error(error.responseJSON.message, {
-                    position: 'top',
-                    duration: 1000,
-                });
+            if (error) {
+                showError(error.responseJSON.message);
             }
-            return false;
         }
     });
-    return response
+    return response;
 };
 
 //Common API Call for post Function
