@@ -8,9 +8,9 @@ $(document).ready(function () {
                 email: "",
                 loginId: "",
                 referralType: "completed",
-                searchTxt:""
+                searchTxt: ""
             },
-            searchReferrals:[],
+            searchReferrals: [],
             displayReferrals: [],
             savedReferrals: [],
             isFormSubmitted: false,
@@ -22,9 +22,14 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.viewReferralObj.loginId =  document.getElementById('logId').innerHTML; // hide in layout.html
-            this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
-            this.getUserReferral(this.viewReferralObj.referralType)
+            this.paramValues = getParameter(location.href);
+            console.log(this.paramValues);
+            if (this.paramValues != undefined && this.paramValues[0] != undefined) {
+                this.searchReferalByCode(this.paramValues[0])
+            }
+                this.viewReferralObj.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+                this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
+                this.getUserReferral(this.viewReferralObj.referralType);
         },
 
         methods: {
@@ -51,7 +56,7 @@ $(document).ready(function () {
                         _self.referralDateArray = [];
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
                             var date = _self.convertDate(_self.displayReferrals[i].createdAt);
-                           // var date = _self.displayReferrals[i].createdAt;
+                            // var date = _self.displayReferrals[i].createdAt;
                             obj = {
                                 date: "",
                                 data: []
@@ -125,8 +130,7 @@ $(document).ready(function () {
                 return dateFmt.getDate() + ' ' + ms[dateFmt.getMonth()] + ' ' + dateFmt.getFullYear();
             },
 
-            getReferalByCode:function(e)
-            {
+            getReferalByCode: function (e) {
                 var _self = this;
                 console.log(e.target.value)
                 var searchKey = e.target.value
@@ -137,8 +141,8 @@ $(document).ready(function () {
                         dataType: 'json',
                         contentType: 'application/json',
                         success: function (data) {
-                        _self.searchReferrals = data
-                        console.log(data)
+                            _self.searchReferrals = data
+                            console.log(data)
                         },
                         error: function (error) {
                             console.log(error)
@@ -146,9 +150,30 @@ $(document).ready(function () {
                     });
                 }
             },
+
+
+            searchReferalByCode: function (searchCode) {
+                var _self = this;
+                console.log(searchCode)
+                $.ajax({
+                    url: API_URI + "/searchReferalByCode/" + searchCode,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        _self.searchReferrals = data;
+                        _self.viewReferralObj.searchTxt = searchCode;
+                        console.log(data)
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+            },
             getStringLength: function (str) {
                 return str.length;
-            },
+            }
+
         }
-    })    
+    })
 });

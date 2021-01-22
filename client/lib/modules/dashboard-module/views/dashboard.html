@@ -167,7 +167,7 @@
                     <div  v-for="(inRefObj, index) in incompleteReferral" class="col-md-9 col-lg-7 text-center col-xl-6 col-11 mx-auto secondary">
                         <p class="home-referral-secondary my-2 my-md-3">You have completed {{inRefObj.referral_progress}} of your referral</p>
                         <div class="progress-radius progress">
-                            <div class="progress-bg progress-bar" role="progressbar" :style="{'width':'inRefObj.referral_progress'}"
+                            <div class="progress-bg progress-bar" role="progressbar" :style="{ width: inRefObj.referral_progress + '%' }"
                                 aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="link-text"></span>
                             </div>
                         </div>

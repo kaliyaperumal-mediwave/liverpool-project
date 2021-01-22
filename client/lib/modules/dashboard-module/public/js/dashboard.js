@@ -54,9 +54,10 @@ $(document).ready(function () {
 
             checkReferral: function () {
                 location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
-            },
+                },
 
             searchReferral: function () {
+                var _self = this;
                 console.log(this.searchRefObj.refCode)
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
@@ -68,11 +69,11 @@ $(document).ready(function () {
                     success: function (data) {
                         if(data.length!=0)
                         {
-                            location.href = "/viewreferals";
+                            location.href = "/viewreferals?"+ btoa(_self.searchRefObj.refCode);
                         }
                         else
                         {
-                            console.log("No record found for "+ this.searchRefObj.refCode)
+                            console.log("No record found for "+ _self.searchRefObj.refCode)
                         }
                         $('#loader').hide();
                     },
