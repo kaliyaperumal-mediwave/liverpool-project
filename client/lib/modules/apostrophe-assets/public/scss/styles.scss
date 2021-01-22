@@ -97,13 +97,16 @@ body {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
       @extend %input-shared;
+      pointer-events: none !important;
     }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
+      pointer-events: none !important;
     }
     textarea {
       color: #8f979e !important;
+      pointer-events: none !important;
     }
     @include placeholder(#8f979e);
   }
@@ -2302,10 +2305,4 @@ body .ui-widget .ui-menu-item {
 }
 .text-label-hide::before{
   display: none !important;
-}
-input[readonly] {
-  pointer-events: none;
-}
-body .readOnly-class .form-control{
-  pointer-events: none !important;
 }
