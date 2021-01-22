@@ -130,6 +130,9 @@ function apiCallPost(reqType, endPoint, payload) {
             $('#loader').hide();
             if (error) {
                 showError(error.responseJSON.message);
+                setTimeout(function () {
+                    $('#errorCommon').modal('hide');
+                }, 1000);
             }
         }
     });
