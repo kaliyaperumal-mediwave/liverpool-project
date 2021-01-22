@@ -30,14 +30,14 @@ $(document).ready(function () {
                 var _self = this;
                 $.ajax({
                     //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/getIncompleteReferral/",
+                    url: API_URI + "/getIncompleteReferral/" ,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         _self.incompleteReferral = data.data
-                        console.log( _self.incompleteReferral);
+                        console.table( _self.incompleteReferral);
                         $('#loader').hide();
                     },
                     error: function (error) {
@@ -58,6 +58,24 @@ $(document).ready(function () {
 
             searchReferral:function () {
                 console.log(this.searchRefObj.refCode)
+                $.ajax({
+                    //  url: API_URI + "/fetchEligibility",
+                    url: API_URI + "/searchReferalByCode/" + this.searchRefObj.refCode,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    // data: JSON.stringify(this.sendObj),
+                    success: function (data) {
+                        _self.incompleteReferral = data.data
+                        console.table( _self.incompleteReferral);
+                        $('#loader').hide();
+                    },
+                    error: function (error) {
+                        $('#loader').hide();
+                        console.log(error.responseJSON.message)
+                    }
+                });
+                location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
             }
         }
 
