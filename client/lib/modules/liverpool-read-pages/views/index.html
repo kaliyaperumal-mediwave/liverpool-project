@@ -1,5 +1,6 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
+<script src="/modules/liverpool-read-pages/js/read.js"></script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -71,13 +72,11 @@
             <div class="video-para-bottom">
                    {{ piece.read_topic }}
             </div>
-            <div class="video-placed-ago">
-                4 hours ago
+            <div class="video-placed-ago" id="videoTime{{loop.index}}">
+                <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
             </div>
         </div>
         {% endfor %}
-
-
     </div>
     <div class="sub-header-bg my-4 setHadPad">
         <div class=" mx-auto container-referal ">
