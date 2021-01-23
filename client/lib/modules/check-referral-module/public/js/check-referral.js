@@ -27,9 +27,9 @@ $(document).ready(function () {
             if (this.paramValues != undefined && this.paramValues[0] != undefined) {
                 this.searchReferalByCode(this.paramValues[0])
             }
-                this.viewReferralObj.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
-                this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
-                this.getUserReferral(this.viewReferralObj.referralType);
+            this.viewReferralObj.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+            this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
+            this.getUserReferral(this.viewReferralObj.referralType);
         },
 
         methods: {
@@ -105,20 +105,32 @@ $(document).ready(function () {
             },
             contineReferral: function (refObj) {
 
-                if (refObj.referral_progress == "20") {
+                console.log(refObj);
+                $.ajax({
+                    url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + this.viewReferralObj.userRole + "/" + refObj.referral_progress,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (refObj.referral_progress == "20") {
+                            location.href = "/about";
+                        }
+                        else if (refObj.referral_progress == "40") {
+                            location.href = "/education";
+                        }
+                        else if (refObj.referral_progress == "60") {
+                            location.href = "/referral";
 
-                    location.href = decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole);
+                        }
+                        else if (refObj.referral_progress == "80") {
+                            location.href = "/review";
 
-                }
-                else if (refObj.referral_progress == "40") {
-                    location.href = decryptUrl("education", refObj.uuid, this.viewReferralObj.userRole);
-                }
-                else if (refObj.referral_progress == "60") {
-                    location.href = decryptUrl("referral", refObj.uuid, this.viewReferralObj.userRole);
-                }
-                else if (refObj.referral_progress == "80") {
-                    location.href = decryptUrl("review", refObj.uuid, this.viewReferralObj.userRole);
-                }
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
             },
             fetchReferrals: function (referralType) {
                 this.viewReferralObj.referralType = referralType;

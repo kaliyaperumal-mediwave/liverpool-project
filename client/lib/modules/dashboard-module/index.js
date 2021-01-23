@@ -34,15 +34,6 @@ module.exports = {
     });
     // need a change loginId/:userRole
 
-    self.route('get', 'getUserReferral/:loginId', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?loginId=' + req.params.loginId
-      self.middleware.get(req, url).then((data) => {
-        return res.send(data);
-      }).catch((error) => {
-        return res.status(error.statusCode).send(error.error);
-      });
-    });
-
     self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
       self.middleware.get(req, url).then((data) => {
@@ -50,6 +41,26 @@ module.exports = {
       }).catch((error) => {
         return res.status(error.statusCode).send(error.error);
       });
+    });
+    self.route('get', 'getUserIncompleteReferral/:referralType', function (req, res) {
+      console.log("----------------------------------------------------- " + req.params.referralType);
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?referralType=' + req.params.referralType;
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
+
+    self.route('get', 'continueIncompleteReferral/:uuid/:role/:refProgress', function (req, res) {
+      //setting user role and uuid in session to navigate referral pages
+      req.session.user_role = req.params.role;
+      req.session.uuid = req.params.uuid;
+      return res.send(req.params.refProgress);
     });
   }
 }

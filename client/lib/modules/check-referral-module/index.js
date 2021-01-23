@@ -7,7 +7,7 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.checkAuth, self.checkReferral);
+      self.dispatch('/', self.middleware.checkAuth, self.checkReferral);
     };
 
     self.checkReferral = function (req, callback) {
@@ -17,9 +17,9 @@ module.exports = {
       }));
     };
     require('../../middleware')(self, options);
-    self.route('get','getUserReferral/:referralType', function (req, res) {
-      console.log("----------------------------------------------------- " +req.params.referralType );
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?referralType=' +  req.params.referralType;
+    self.route('get', 'getUserReferral/:referralType', function (req, res) {
+      console.log("----------------------------------------------------- " + req.params.referralType);
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?referralType=' + req.params.referralType;
       console.log("-------");
       console.log(url);
       console.log("-------");
@@ -30,9 +30,9 @@ module.exports = {
       });
     });
 
-    self.route('get','getReferalByCode/:seachTxt', function (req, res) {
-      console.log("----------------------------------------------------- " +req.params.seachTxt );
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getReferalByCode?reqCode=' +  req.params.seachTxt;
+    self.route('get', 'getReferalByCode/:seachTxt', function (req, res) {
+      console.log("----------------------------------------------------- " + req.params.seachTxt);
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getReferalByCode?reqCode=' + req.params.seachTxt;
       console.log("-------");
       console.log(url);
       console.log("-------");
@@ -44,13 +44,20 @@ module.exports = {
     });
 
     self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
-      console.log("----------------------------------------------------- " +req.params.reqCode );
+      console.log("----------------------------------------------------- " + req.params.reqCode);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
         return res.status(error.statusCode).send(error.error);
       });
+    });
+
+    self.route('get', 'continueIncompleteReferral/:uuid/:role/:refProgress', function (req, res) {
+      //setting user role and uuid in session to navigate referral pages
+      req.session.user_role = req.params.role;
+      req.session.uuid = req.params.uuid;
+      return res.send(req.params.refProgress);
     });
   }
 }
