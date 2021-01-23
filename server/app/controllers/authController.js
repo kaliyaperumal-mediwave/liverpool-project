@@ -193,9 +193,9 @@ exports.forgotPassword = async (ctx) => {
                 return user.update({
                     password_verification_token: token,
                     password_verification_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
-                }).then(() => {
+                }).then( async () => {
                     ctx.request.body.password_verification_token = token;
-                   // let emailStatus = await email.sendForgotPasswordMail();
+                    let emailStatus = await email.sendForgotPasswordMail();
                     console.log(emailStatus, "emailStatus=====");
                 }).catch(error => sequalizeErrorHandler.handleSequalizeError(ctx, error));
             }
@@ -229,9 +229,9 @@ exports.changeEmail = async (ctx) => {
                     secondary_email: ctx.request.body.secondary_email,
                     email_verification_token: token,
                     email_verification_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
-                }).then(() => {
+                }).then( async () => {
                     ctx.request.body.email_verification_token = token;
-                //    let emailStatus = await email.sendChangeMail();
+                    let emailStatus = await email.sendChangeMail();
                     console.log(emailStatus, "emailStatus=====");
                 }).catch(error => sequalizeErrorHandler.handleSequalizeError(ctx, error));
             }
