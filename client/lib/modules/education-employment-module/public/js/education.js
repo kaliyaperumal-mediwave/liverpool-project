@@ -194,7 +194,7 @@ $(document).ready(function () {
                 } else if (str == "" && !reqField) {
                     return true;
                 } else {
-                    if (str.replace(/ /g, "").length) {
+                    if (str && str.replace(/ /g, "").length) {
                         return true;
                     } else {
                         return false;

@@ -574,12 +574,15 @@ body {
     border-bottom: 1px solid #112f45 !important; }
   body .readOnly-class .form-control {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
-    color: #8f979e !important; }
+    color: #8f979e !important;
+    pointer-events: none !important; }
   body .readOnly-class .custom-select {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
-    color: #8f979e !important; }
+    color: #8f979e !important;
+    pointer-events: none !important; }
   body .readOnly-class textarea {
-    color: #8f979e !important; }
+    color: #8f979e !important;
+    pointer-events: none !important; }
   body .readOnly-class input[type="text"],
   body .readOnly-class input[type="password"],
   body .readOnly-class input[type="email"],

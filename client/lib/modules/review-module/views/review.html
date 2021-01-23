@@ -437,10 +437,20 @@
                                                 v-model="section2Data.can_send_post">
                                                 <option selected>
                                                     {{section2Data.can_send_post}}</option>
-                                                <option v-if="section2Data.can_send_post == 'No'" value="Yes">Yes
+
+                                                <template v-if="section2Data.can_send_post == 'No'">
+                                                    <option value="Yes">Yes
+                                                    </option>
+                                                </template>
+                                                <template v-if="section2Data.can_send_post == 'Yes'">
+                                                    <option value="No">No
+                                                    </option>
+                                                </template>
+
+                                                <!-- <option v-if="section2Data.can_send_post == 'No'" value="Yes">Yes
                                                 </option>
                                                 <option v-if="section2Data.can_send_post == 'Yes'" value="No">No
-                                                </option>
+                                                </option> -->
                                             </select>
                                         </span>
                                     </div>
@@ -476,17 +486,17 @@
                                                 <template v-if="section2Data.child_gender_birth == 'No'">
                                                     <option value="Yes">Yes
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_gender_birth == 'Yes'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_gender_birth == 'Unsure'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Yes">Yes
+                                                    <option value="Yes">Yes</option>
                                                 </template>
                                             </select>
                                         </span>
@@ -584,17 +594,17 @@
                                                 <template v-if="section2Data.child_care_adult == 'No'">
                                                     <option value="Yes">Yes
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_care_adult == 'Yes'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_care_adult == 'Unsure'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Yes">Yes
+                                                    <option value="Yes">Yes</option>
                                                 </template>
                                             </select>
                                         </span>
@@ -1045,17 +1055,17 @@
                                                 <template v-if="section4Data.is_covid == 'No'">
                                                     <option value="Yes">Yes
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section4Data.is_covid == 'Yes'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section4Data.is_covid == 'Unsure'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Yes">Yes
+                                                    <option value="Yes">Yes</option>
                                                 </template>
                                             </select>
                                         </span>
