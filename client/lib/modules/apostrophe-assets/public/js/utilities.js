@@ -297,6 +297,15 @@ function decryptUrl(nextPge, loginId, roles) {
 
 $(document).ready(function () {
     setLoaderStyle();
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+        $('[data-toggle="popover"]').popover(
+            {
+                container: 'body',
+                boundary: 'window'
+            }
+        )
+    })
 })
 
 //window resize function
