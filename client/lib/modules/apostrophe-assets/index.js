@@ -27,11 +27,12 @@ module.exports = {
       name: 'autocomplete'
     },
     {
-      name: 'bootstrap.min'
-    },
-    {
       name: 'popper.min'
     },
+    {
+      name: 'bootstrap.min'
+    },
+
     {
       name: process.env.ENV === 'development' ? 'vue' : 'vue.min'
     },

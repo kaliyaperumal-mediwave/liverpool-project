@@ -1,5 +1,3 @@
-const { btoa } = require('../../utils')
-const { atob } = require('../../utils')
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Check Referral Module',
@@ -38,6 +36,16 @@ module.exports = {
       console.log("-------");
       console.log(url);
       console.log("-------");
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
+    self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
+      console.log("----------------------------------------------------- " +req.params.reqCode );
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

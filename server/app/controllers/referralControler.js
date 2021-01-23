@@ -2660,5 +2660,26 @@ exports.getReferalByCode = ctx => {
   }).then((result) => {
     console.log(result);
     return ctx.body = result
-  })
+  }).catch((error) => {
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
+}
+
+exports.searchReferalByCode = ctx => {
+
+  console.log("==searchReferalByCode=>", ctx.request.decryptedUser);
+  console.log(ctx.query.reqCode);
+
+  const ref = ctx.orm().Referral;
+
+  return ref.findAll({
+    where: {
+      reference_code: ctx.query.reqCode,
+    },
+  }).then((result) => {
+    console.log(result);
+    return ctx.body = result
+  }).catch((error) => {
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
 }
