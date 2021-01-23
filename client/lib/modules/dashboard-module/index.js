@@ -42,5 +42,14 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
+
+    self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   }
 }

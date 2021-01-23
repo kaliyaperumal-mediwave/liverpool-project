@@ -6,7 +6,8 @@ $(document).ready(function () {
             location: window.location,
             paramValues: '',
             loginId: '',
-            incompleteReferral: []
+            incompleteReferral: [],
+            searchRefObj: {}
         },
 
 
@@ -16,7 +17,7 @@ $(document).ready(function () {
 
         mounted: function () {
             // this.paramValues = getParameter(location.href)
-        //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+            //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.fetchSavedData();
             $('#loader').hide();
@@ -36,7 +37,7 @@ $(document).ready(function () {
                     // data: JSON.stringify(this.sendObj),
                     success: function (data) {
                         _self.incompleteReferral = data.data
-                        console.log( _self.incompleteReferral);
+                        console.table(_self.incompleteReferral);
                         $('#loader').hide();
                     },
                     error: function (error) {
@@ -53,7 +54,35 @@ $(document).ready(function () {
 
             checkReferral: function () {
                 location.href = decryptUrl("viewreferals", this.loginId, this.userRole);
-            },
+                },
+
+            searchReferral: function () {
+                var _self = this;
+                console.log(this.searchRefObj.refCode)
+                $.ajax({
+                    //  url: API_URI + "/fetchEligibility",
+                    url: API_URI + "/searchReferalByCode/" + this.searchRefObj.refCode,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    // data: JSON.stringify(this.sendObj),
+                    success: function (data) {
+                        if(data.length!=0)
+                        {
+                            location.href = "/viewreferals?"+ btoa(_self.searchRefObj.refCode);
+                        }
+                        else
+                        {
+                            console.log("No record found for "+ _self.searchRefObj.refCode)
+                        }
+                        $('#loader').hide();
+                    },
+                    error: function (error) {
+                        $('#loader').hide();
+                        console.log(error.responseJSON.message)
+                    }
+                });
+            }
         }
 
     })
