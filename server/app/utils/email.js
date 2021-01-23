@@ -1,11 +1,13 @@
 const fs = require('fs');
 const path = require('path');
-
+const _ = require('lodash');
 const config = require('../config');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
-
-
+require("dotenv").config();
+const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
+const logger = require('../logger');
+
 sgMail.setApiKey(config.sendgrid_api_key);
 
 let Transport;
@@ -22,7 +24,6 @@ exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
             link: `${ctx.request.headers.domain_url}/users/reset?token=${ctx.request.body.password_verification_token}`,
-            trustMessage
         });
         const data = {
             from: config.email_from_address,
@@ -31,7 +32,7 @@ exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
             html: htmlTemplate,
         };
         Transport.sendMail(data, (err, res) => {
-
+            console.log(err, res);
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
@@ -58,7 +59,6 @@ exports.sendChangeMail = async ctx => new Promise((resolve, reject) => {
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
             link: `${ctx.request.headers.domain_url}/users/reset?token=${ctx.request.body.email_verification_token}`,
-            trustMessage
         });
         const data = {
             from: config.email_from_address,

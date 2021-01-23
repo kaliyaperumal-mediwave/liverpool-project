@@ -1,6 +1,5 @@
 const Joi = require('joi');
-const { registerValidation } = require('../validation/user');
-const { loginValidation } = require('../validation/user');
+const { registerValidation, loginValidation, forgotPasswordValidation, } = require('../validation/user');
 const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const email = require('../utils/email');
 
@@ -193,11 +192,11 @@ exports.forgotPassword = async (ctx) => {
                 return user.update({
                     password_verification_token: token,
                     password_verification_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
-                }).then(() => {
+                }).then(async () => {
                     ctx.request.body.password_verification_token = token;
-                    let emailStatus = await email.sendForgotPasswordMail();
+                    let emailStatus = await email.sendForgotPasswordMail(ctx);
                     console.log(emailStatus, "emailStatus=====");
-                }).catch(error => sequalizeErrorHandler.handleSequalizeError(ctx, error));
+                }).catch(error => { console.log(error, "errorerror"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
             }
             return ctx.res.ok({
                 message: reponseMessages[1007],
@@ -229,9 +228,9 @@ exports.changeEmail = async (ctx) => {
                     secondary_email: ctx.request.body.secondary_email,
                     email_verification_token: token,
                     email_verification_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
-                }).then(() => {
+                }).then(async () => {
                     ctx.request.body.email_verification_token = token;
-                    let emailStatus = await email.sendChangeMail();
+                    let emailStatus = await email.sendChangeMail(ctx);
                     console.log(emailStatus, "emailStatus=====");
                 }).catch(error => sequalizeErrorHandler.handleSequalizeError(ctx, error));
             }
