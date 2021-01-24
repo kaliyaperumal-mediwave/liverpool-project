@@ -29,11 +29,10 @@
         {% for piece in data.pieces %}
   {% if loop.index == 1 %}
 
-          <a class="text_inside_video text-decoration-none" href="">
-          <iframe  class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" /> -->
-
-            <div class="body-cont-set">
+          <div class="text_inside_video text-decoration-none">
+            <div class="large-toggle-cont no-padding">
+              <iframe  class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="body-cont-set">
                 <div class="read-cont-h1">
                   {{ piece.title }}
                 </div>
@@ -42,21 +41,24 @@
                 </div>
 
                   {{ piece.text }}
+                </div>
+              </div>
+            </div> <br>
+
+        {% if data.pieces.length > 1 %}
+            <div class="selectSource">
+                More to read
             </div>
-        </a> <br>
+        {% endif %}
+        {% else %}
 
-{% else %}
-        <div class="selectSource">
-            More videos to watch
-        </div>
+        <a href="{{ piece._parentUrl }}?piece_id={{ piece._id }}" class=" text-decoration-none">
 
-      <a href="" class="text-decoration-none">  <div class="large-toggle-cont no-padding ">
+          <div class="large-toggle-cont no-padding ">
             <div class="video-title-top">
                 {{ piece.title }}
             </div>
-            <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
             <iframe  class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
             <div class="body-cont-set">
             <div class="video-para-bottom">
                 {{ piece.SubTitle }}

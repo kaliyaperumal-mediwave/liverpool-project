@@ -25,19 +25,19 @@
         <div class="text_inside_cont">
             Here are different real life experiences of users currently using the platform
         </div>
-        </a>
+
 
         {% for piece in data.pieces %}
         {% if loop.index == 1 %}
 
        <a class="text_inside_video text-decoration-none">
+           <div class="large-toggle-cont no-padding">
          {% if apos.images.first(piece.thumbnail) %}
              {% set img = apos.images.first(piece.thumbnail) %}
            {% endif %}
            {% if img %}
              <img class="img-placeholder" width="100%" height="290" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
            {% endif %}
-           <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="img-placeholder" /> -->
                       <div class="body-cont-set">
                <div class="read-cont-h1">
                  {{ piece.title }}
@@ -48,12 +48,16 @@
 
                {{ piece.text }}
            </div>
+           </div>
        </a><br>
-       {% else %}
-        <div class="selectSource">
-            More to read
-        </div>
+       {% if data.pieces.length > 1 %}
+           <div class="selectSource">
+               More to read
+           </div>
+       {% endif %}
+        {% else %}
 
+        <a href="{{ piece._parentUrl }}?piece_id={{ piece._id }}" class=" text-decoration-none">
 
         <div class="large-toggle-cont no-padding">
             <div class="video-title-top">
@@ -65,7 +69,6 @@
               {% if img %}
                 <img class="img-placeholder" width="100%" height="290" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
               {% endif %}
-            <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
             <div class="video-para-bottom">
                    {{ piece.partnerAgencies }}
             </div>
@@ -73,6 +76,7 @@
                 4 hours ago
             </div>
         </div>
+        </a>
         {% endif %}
         {% endfor %}
 

@@ -79,7 +79,8 @@
         <div class="title-thing-to-watch">
             Things to download
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
+          <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active" data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -98,7 +99,8 @@
                         </div>
                     </div>
                 </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="2 / 6" style="width: 246.667px; margin-right: 30px;">
+            </div>
+            <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="2 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -175,7 +177,8 @@
                         </div>
                     </div>
                 </div>
-            </div><div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="6 / 6" style="width: 246.667px; margin-right: 30px;">
+            </div>
+            <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-next" data-swiper-slide-index="1" role="group" aria-label="6 / 6" style="width: 246.667px; margin-right: 30px;">
                 <div>
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
@@ -204,47 +207,51 @@
 
     <!-- Things to read container -->
     {% if data.piece._readPage and data.piece._readPage.length%}
-        <div class=" swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
-            <div class="title-thing-to-watch">Things to read</div>
-            <div class="swiper-wrapper mb-4" id="swiper-wrapper-81093574348bf1075e" aria-live="polite" style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
-                {% for pieceread in data.piece._readPage %}
-                    <a href="{{pieceread._parentUrl}}?piece_id={{pieceread._id}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none" data-swiper-slide-index="1" role="group" aria-label="4 / 6" style="width: 246.667px; margin-right: 30px;">
-                        <div>
-                            <div class="bg-white card-container-small">
-                                <div class="container-top-set">
-                                    <div class="inside-cover-set">
-                                        {% if apos.images.first(pieceread.thumbnail) %}
-                                            {% set img = apos.images.first(pieceread.thumbnail) %}
-                                        {% endif %}
-                                        {% if img %}
-                                            <img class="imageSet" style="width: 210px;height: 140px;" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-                                        {% endif %}
-                                        <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
-                                    </div>
-                                </div>
-                                <div class="container-bottom-set">
-                                    <div class="questionText">
-                                        {{ pieceread.title }}
-                                    </div>
-                                    <div class="answerText">
-                                        {{ pieceread.read_topic}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+
+        <div class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
+            <div class="title-thing-to-watch">
+              Things to read
+            </div>
+            <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"  style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;">
+              {% for pieceread in data.piece._readPage %}
+
+              <a href="{{pieceread._parentUrl}}?piece_id={{pieceread._id}}" class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none" data-swiper-slide-index="1" role="group"  style="width: 246.667px; margin-right: 30px;">
+                   <div>
+                       <div class="bg-white card-container-small">
+                           <div class="container-top-set">
+                               <div class="inside-cover-set">
+                                 {% if apos.images.first(pieceread.thumbnail) %}
+                                     {% set img = apos.images.first(pieceread.thumbnail) %}
+                                 {% endif %}
+                                 {% if img %}
+                                     <img class="imageSet" style="height: 140px;" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                                 {% endif %}
+                                   <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
+                               </div>
+                           </div>
+                           <div class="container-bottom-set">
+                               <div class="questionText">
+                                 {{ pieceread.title }}
+                               </div>
+                               <div class="answerText">
+                                   {{ pieceread.read_topic}}
+                               </div>
+                           </div>
+                       </div>
+                       </div>
+                   </a>
                 {% endfor %}
-            </div>
+
+
+
+
+              </div>
             <!-- Add Pagination -->
-            <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets">
-                <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span>
-                <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
-            </div>
+            <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span></div>
             <!-- Add Arrows -->
-            <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
-            <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-        </div>
+            <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+            <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
     {% endif %}
 
 
@@ -268,7 +275,7 @@
                                  {% set img = apos.images.first(pieceevents.thumbnail) %}
                                {% endif %}
                                {% if img %}
-                                 <img class="imageSet" style="width: 210px;height: 140px;"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                                 <img class="imageSet" style="height: 140px;"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
                                {% endif %}
                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
                            </div>
@@ -314,7 +321,7 @@
                                   {% set img = apos.images.first(piecegames.thumbnail) %}
                                 {% endif %}
                                 {% if img %}
-                                  <img class="imageSet" style="width: 210px;height: 140px;" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                                  <img class="imageSet" style="height: 140px;" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
                                 {% endif %}
                                 <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
                             </div>
@@ -358,7 +365,7 @@
                               {% set img = apos.images.first(piecepartner.thumbnail) %}
                             {% endif %}
                             {% if img %}
-                              <img class="imageSet" style="width: 210px;height: 140px;"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                              <img class="imageSet" style="height: 140px;"  src="{{ apos.attachments.url(img, { size: 'max' }) }}">
                             {% endif %}
                             <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
                         </div>
