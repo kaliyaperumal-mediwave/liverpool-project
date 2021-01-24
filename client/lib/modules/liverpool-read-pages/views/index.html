@@ -57,14 +57,14 @@
                             <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
                         </div>
                     </div>
-                </a><br>  {% else %}
+                </a><br>
+                {% else %}
                 <div class="selectSource">
                     More to read
                 </div>
-
-                <div class="large-toggle-cont no-padding">
+              <a href="" class="text-decoration-none">  <div class="large-toggle-cont no-padding">
                     <div class="video-title-top">
-                        {{ piece.title }}
+                        {{ piece.read_topic }}
                     </div>
                     {% if apos.images.first(piece.thumbnail) %}
                         {% set img = apos.images.first(piece.thumbnail) %}
@@ -74,12 +74,13 @@
                     {% endif %}
                     <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
                     <div class="video-para-bottom">
-                        {{ piece.read_topic }}
+                        {{ piece.text }}
                     </div>
                     <div class="video-placed-ago" id="videoTime{{loop.index}}">
                       <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
                     </div>
                 </div>
+</a>
             {% endif %}
        {% endfor %}
     </div>
