@@ -9,7 +9,7 @@
 {% block main %}
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow">
+      <a href="" class="previous-link">  <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow"></a>
         <div class="resource_text"> {{ piece.title }}</div>
         <div class="input-group">
             <span class="input-group-prepend">
@@ -399,6 +399,10 @@
 
     <!-- Initialize Swiper -->
     <script>
+      $(document).on('click', 'a.previous-link', function () {
+  parent.history.back();
+  return false;
+});
         var swiper = new Swiper('.swiper-container', {
             loop: true,
             loopFillGroupWithBlank: true,

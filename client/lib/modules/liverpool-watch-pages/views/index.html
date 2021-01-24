@@ -1,6 +1,11 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
 <script src="/modules/liverpool-read-pages/js/read.js"></script>
+<script>
+  $(document).on('click', 'a.previous-link', function () {
+parent.history.back();
+return false;
+});</script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -9,7 +14,7 @@
 {% block main %}
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
+        <a href="" class="previous-link">   <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" /></a>
         <div class="resource_text">Videos</div>
         <div class="input-group">
             <span class="input-group-prepend">
