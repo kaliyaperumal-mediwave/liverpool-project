@@ -32,7 +32,6 @@
           {% endfor %}
         </ul> -->
         {% for piece in data.pieces %}
-
             {% if loop.index == 1 %}
                 <a class="text_inside_video text-decoration-none">
                     {% if apos.images.first(piece.thumbnail) %}
@@ -58,11 +57,13 @@
                         </div>
                     </div>
                 </a><br>
-                {% else %}
-                <div class="selectSource">
-                    More to read
-                </div>
-              <a href="" class="text-decoration-none">  <div class="large-toggle-cont no-padding">
+                {% if data.pieces.length > 1 %}
+                    <div class="selectSource">
+                        More to read
+                    </div>
+                {% endif %}
+            {% else %}
+                <a href="{{ piece._parentUrl }}?piece_id={{ piece._id }}" class="text-decoration-none">  <div class="large-toggle-cont no-padding">
                     <div class="video-title-top">
                         {{ piece.read_topic }}
                     </div>
@@ -77,12 +78,12 @@
                         {{ piece.text }}
                     </div>
                     <div class="video-placed-ago" id="videoTime{{loop.index}}">
-                      <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
+                        <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
                     </div>
-                </div>
-</a>
+                    </div>
+                </a>
             {% endif %}
-       {% endfor %}
+        {% endfor %}
     </div>
     <div class="sub-header-bg my-4 setHadPad">
         <div class=" mx-auto container-referal ">
