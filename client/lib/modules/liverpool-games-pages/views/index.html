@@ -73,8 +73,8 @@ return false;
             <div class="video-para-bottom">
                    {{ piece.games_title }}
             </div>
-            <div class="video-placed-ago">
-                4 hours ago
+            <div class="video-placed-ago px-0" id="videoTime{{loop.index}}">
+                <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
             </div>
         </div>
         </a>

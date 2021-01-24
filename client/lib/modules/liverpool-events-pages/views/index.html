@@ -47,7 +47,9 @@ return false;
                <div class="read-cont-p text-break">
                    {{ piece.eventsTopic }}
                </div>
-               {{ piece.text }}
+               <div class=" text-break">
+                   {{ piece.text }}
+               </div>
            </div>
        </a><br>
         {% if data.pieces.length > 1 %}
@@ -71,8 +73,11 @@ return false;
             <div class="video-para-bottom">
                    {{ piece.eventsTopic }}
             </div>
-            <div class="video-placed-ago">
+            <!-- <div class="video-placed-ago">
                 4 hours ago
+            </div> -->
+            <div class="video-placed-ago px-0" id="videoTime{{loop.index}}">
+                <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
             </div>
         </div>
         </a>
