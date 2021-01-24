@@ -199,7 +199,6 @@ function trimObj(obj) {
 function getParameter(url) {
     var allParameter = url.substring(url.indexOf("?") + 1);
     var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
-    console.log(allParameter)
     if (base64Matcher.test(allParameter)) {
         var deCodeParameter = atob(allParameter)
         var decodeValues = deCodeParameter.split("&");

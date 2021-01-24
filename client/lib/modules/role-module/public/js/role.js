@@ -87,15 +87,12 @@ $(document).ready(function () {
                 $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
             }
-            this.paramValues = getParameter(location.href);
-            if (this.paramValues != undefined) {
-                if (this.paramValues[0] != undefined) {
-                    this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
-                    this.elgibilityObj.editFlag = this.paramValues[0]
-                    this.fetchSavedData();
-                }
-
+            if (this.paramValues[0] != undefined) {
+                this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
+                this.elgibilityObj.editFlag = this.paramValues[0]
             }
+            this.fetchSavedData();
+            this.paramValues = getParameter(location.href);
             $('#loader').hide();
         },
 
@@ -103,30 +100,25 @@ $(document).ready(function () {
             fetchSavedData: function () {
                 this.sendObj.uuid = document.getElementById('uUid').innerHTML;
                 this.sendObj.role = document.getElementById('uRole').innerHTML;
-                $.ajax({
-                    //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/fetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
-                    type: 'get',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    // data: JSON.stringify(this.sendObj),
-                    success: function (data) {
-                        app.setValues(data);
-                        $('#loader').hide();
-                    },
-                    error: function (error) {
-                        $('#loader').hide();
-                        //console.log(error.responseJSON.message)
-                    }
-                });
+                if ((this.sendObj.uuid != undefined && this.sendObj.uuid != "") && (this.sendObj.role != undefined && this.sendObj.role != "")) {
+                    $.ajax({
+                        //  url: API_URI + "/fetchEligibility",
+                        url: API_URI + "/fetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        // data: JSON.stringify(this.sendObj),
+                        success: function (data) {
+                            app.setValues(data);
+                            $('#loader').hide();
+                        },
+                        error: function (error) {
+                            $('#loader').hide();
+                            //console.log(error.responseJSON.message)
+                        }
+                    });
+                }
             },
-
-            // resetCalendar: function (e) {
-            //     debugger
-            //     console.log(e);
-            //     Vue.use('date-picker', VueBootstrapDatetimePicker);
-            // },
-
             setValues: function (data) {
                 //console.log(data)
                 var roleType = document.getElementById('uRole').innerHTML;
@@ -275,7 +267,7 @@ $(document).ready(function () {
                                             app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
-                                                console.log(_self.gpListShow[i].PostCode)
+                                               // console.log(_self.gpListShow[i].PostCode)
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                             }
@@ -293,7 +285,7 @@ $(document).ready(function () {
                                                     source: payload,
                                                     select: function (event, ui) {
                                                         _self.elgibilityObj.regGpTxt = ui.item.value;
-                                                        console.log(app.elgibilityObj.gpNotCovered)
+                                                       // console.log(app.elgibilityObj.gpNotCovered)
                                                         app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                         if (!app.elgibilityObj.gpNotCovered) {
                                                             _self.gpFlag = true;
@@ -340,7 +332,7 @@ $(document).ready(function () {
                                         $("#gpLocation").autocomplete({
                                             source: nameData,
                                             select: function (event, ui) {
-                                                console.log(app.elgibilityObj.gpNotCovered)
+                                           //     console.log(app.elgibilityObj.gpNotCovered)
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                 if (!app.elgibilityObj.gpNotCovered) {
@@ -861,7 +853,7 @@ $(document).ready(function () {
                             else {
                                 var url = location.href;
                                 //console.log(url.substring(req.url.indexOf("?") + 1));
-                                location.href = "/about?" +url.substring(url.indexOf("?") + 1);
+                                location.href = "/about?" + url.substring(url.indexOf("?") + 1);
                             }
                         }
                         else {

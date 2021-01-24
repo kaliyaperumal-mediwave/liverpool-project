@@ -15,11 +15,7 @@ $(document).ready(function () {
             this.userMode = this.paramValues;
             this.dynamicLabels = getDynamicLabels(this.userRole);
             //console.log(this.userId, this.userRole, this.userMode)
-            if (this.paramValues !== undefined) {
-                if (this.paramValues[0] != undefined) {
-                    this.fetchSavedData();
-                }
-            }
+            this.fetchSavedData();
             $('#loader').hide();
         },
         data: {

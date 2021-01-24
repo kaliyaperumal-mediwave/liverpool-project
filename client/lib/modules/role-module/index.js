@@ -10,6 +10,10 @@ module.exports = {
     };
     require('../../middleware')(self, options);
     self.role = function (req, callback) {
+      console.log("dfafa")
+      console.log("user_role" ,req.session.user_role)
+      console.log("uuid" ,req.session.uuid)
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('role', {
         headerContent: "Section 1 of 5: Eligibility",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
