@@ -14,6 +14,7 @@ module.exports = {
 
 ],
   construct: function(self, options) {
+
     var superBefore = self.beforeShow;
     self.beforeShow = function(req, callback) {
       require('../../middleware')(self, options);
@@ -22,6 +23,7 @@ module.exports = {
       }).catch(() => {
       });
     };
+
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function(req, callback) {
       require('../../middleware')(self, options);
