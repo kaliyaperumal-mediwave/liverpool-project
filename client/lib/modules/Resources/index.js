@@ -41,7 +41,7 @@ withType: 'watchPage',
 },
 {
 name: '_eventPage',
-label: 'Events',
+label: 'Event',
 type: 'joinByArray',
 withType: 'eventPage',
 },{
