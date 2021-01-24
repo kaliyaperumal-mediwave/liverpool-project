@@ -146,7 +146,7 @@ $(document).ready(function () {
                 var _self = this;
                 console.log(e.target.value)
                 var searchKey = e.target.value
-                if (searchKey.length > 2) {
+               // if (searchKey.length > 2) {
                     $.ajax({
                         url: API_URI + "/getReferalByCode/" + searchKey,
                         type: 'get',
@@ -160,7 +160,7 @@ $(document).ready(function () {
                             console.log(error)
                         }
                     });
-                }
+              //  }
             },
 
 

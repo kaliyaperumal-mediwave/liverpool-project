@@ -321,7 +321,7 @@ $(document).ready(function () {
                     this.payloadData.userid = document.getElementById('uUid').innerHTML
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
                     if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.paramValues[0]
+                        this.payloadData.editFlag = this.editPatchFlag
                     }
 
                     if (this.userMode === 'edit') {

@@ -87,10 +87,12 @@ $(document).ready(function () {
                 $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
             }
-            if (this.paramValues[0] != undefined) {
-                this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
-                this.elgibilityObj.editFlag = this.paramValues[0]
-            }
+            // if (this.paramValues[0] != undefined) {
+            //     this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
+            //     //this.elgibilityObj.editFlag = this.paramValues[0]
+            // }
+            this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
+            console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
@@ -107,6 +109,7 @@ $(document).ready(function () {
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
+                        cache: false,
                         // data: JSON.stringify(this.sendObj),
                         success: function (data) {
                             app.setValues(data);
@@ -120,7 +123,8 @@ $(document).ready(function () {
                 }
             },
             setValues: function (data) {
-                //console.log(data)
+               // console.log("length "+data.length)
+                this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
                 // console.log(data)
@@ -160,6 +164,7 @@ $(document).ready(function () {
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
                 }
+                //this.elgibilityObj.editFlag = "true";
 
             },
 
@@ -756,7 +761,7 @@ $(document).ready(function () {
             },
 
             save: function () {
-                this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
+               // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);

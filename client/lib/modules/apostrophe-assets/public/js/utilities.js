@@ -123,6 +123,7 @@ function apiCallPost(reqType, endPoint, payload) {
         contentType: 'application/json',
         async: false,
         data: JSON.stringify(trimmedPayload),
+        cache: false,
         success: function (res) {
             response = res;
         },

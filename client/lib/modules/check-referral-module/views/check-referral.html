@@ -34,7 +34,8 @@
             </div>
         </div>
         <div>
-            <div v-show="getStringLength(viewReferralObj.searchTxt) > 2" class="recent_content">
+            <!-- v-show="getStringLength(viewReferralObj.searchTxt) > 2" -->
+            <div v-show="getStringLength(viewReferralObj.searchTxt) > 0" class="recent_content">
                 <b>Search result for "{{viewReferralObj.searchTxt}}"</b>
                 <div v-for="(refObj, index1) in searchReferrals"
                 class="justify-content-between align-items-center" id="headingTwo">
