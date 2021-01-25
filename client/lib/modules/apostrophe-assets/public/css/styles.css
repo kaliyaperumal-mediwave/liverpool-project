@@ -448,7 +448,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important;
+  color: #0f1010 !important !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -638,14 +638,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -653,7 +653,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -661,21 +661,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -2736,8 +2736,23 @@ body .ui-widget .ui-menu-item {
   display: none !important; }
 
 .h-2-182 {
-  height: 182px;
-  width: 180px; }
+  width: 100%; }
 
 .m-b-min-8 {
   margin-bottom: -8px; }
+
+.ellipse-text {
+  display: block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 4.6em;
+  line-height: 1.8em; }
+
+.ellipse-text-large {
+  display: block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.6em;
+  line-height: 1.8em; }
