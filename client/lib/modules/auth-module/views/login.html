@@ -137,7 +137,7 @@
                     </div>
                     <div class="py-2 text-center">
                         <a class="auth-link cursor-pointer text-underline"
-                            @click="navigatePage('/users/forgot_password')">Forgot Password?</a>
+                            @click="navigatePage('/users/forgotpassword')">Forgot Password?</a>
                     </div>
                 </div>
 
@@ -160,43 +160,8 @@
                 </div>
                 <!-- Login Succuss Modal End -->
 
-
-                <!-- Login Failed Modal Start -->
-                <div class="modal fade" id="logoutFailed" tabindex="-1" role="dialog"
-                    aria-labelledby="logoutFailedLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content modal-bg login-safe-pd">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
-                                <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
-                            </span>
-                            <div class="modal-header justify-content-center model-text-pd">
-                                <h5 class="logout-font mt-3">Invalid password</h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Login Failed Modal Start  -->
             </div>
         </div>
-    </div>
-
-    <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-bg">
-                <div class="modal-header justify-content-center">
-                    <h5 class="logout-font mt-3">Are you sure want to logout?</h5>
-                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
-                        <i class="fa fa-times cursor-pointer font-25" aria-hidden="true"></i>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <!-- Add HouseHold Modal End -->
     </div>
 </div>
-
 {% endblock %}

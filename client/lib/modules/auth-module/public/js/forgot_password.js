@@ -4,7 +4,7 @@ $(document).ready(function () {
         // 
     }
     else {
-        Vue.use(VueToast);
+        // Vue.use(VueToast);
     }
     new Vue({
         el: '#forgotPassword',
@@ -35,27 +35,20 @@ $(document).ready(function () {
                 var formData = this.forgetPasswordData;
                 this.isFormSubmitted = true;
                 if (formData.email && this.emailRegex.test(formData.email)) {
-                    console.log('payload',formData);
-                    // $('#loader').show();
-                    // var successData = apiCallPost('post', '/doLogin', formData);
-                    // if (successData && Object.keys(successData)) {
-                    //     $('#loader').hide();
-                    //     if (false || !!document.documentMode) {
-                    //         alert("Login successful.");
-                    //         location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
-                    //     } else {
-                    //         Vue.$toast.success('Login successful.', {
-                    //             position: 'top',
-                    //             duration: 1000,
-                    //             onDismiss: function () {
-                    //                 location.href = redirectUrl(location.href, "dashboard", successData.data.sendUserResult.loginId, successData.data.sendUserResult.role);
-                    //             }
-                    //         });
-                    //     }
+                    console.log('payload', formData);
+                    $('#loader').show();
+                    var successData = apiCallPost('post', '/forgotPassword', formData);
+                    if (successData && Object.keys(successData)) {
+                        $('#loader').hide();
+                        this.resetForm();
+                        $('#forgotPasswordSuccess').modal('show');
+                        setTimeout(function () {
+                            $('#forgotPasswordSuccess').modal('hide');
+                        }, 1000)
 
-                    // } else {
-                    //     $('#loader').hide();
-                    // }
+                    } else {
+                        $('#loader').hide();
+                    }
 
                 } else {
                     return false;

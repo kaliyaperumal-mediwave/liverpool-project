@@ -1,53 +1,49 @@
-var API_URI = "/modules/account-settings-module";
+var API_URI = "/modules/auth-module";
 $(document).ready(function () {
     new Vue({
-        el: '#changePassword',
+        el: '#resetPassword',
+
         data: {
-            changePasswordData: {
-                oldPassword: "",
-                newPassword: "",
+            resetPasswordData: {
+                new_password: "",
+                confirm_password: "",
             },
-            visibleOldPassword: false,
             visibleNewPassword: false,
+            visibleConfirmPassword: false,
             isFormSubmitted: false,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/
         },
 
         beforeMount: function () {
-            // $('#loader').show();
+            $('#loader').show();
         },
 
         mounted: function () {
             var _self = this;
-            // setTimeout(function () {
-            //     _self.resetForm();
-            //     $('#loader').hide();
-            // }, 700);
+            setTimeout(function () {
+                _self.resetForm();
+                $('#loader').hide();
+            }, 700);
         },
 
         methods: {
 
-            changePassword: function () {
-                var formData = this.changePasswordData;
+            resetPassword: function () {
+                var formData = this.resetPasswordData;
                 this.isFormSubmitted = true;
-                if ((formData.oldPassword && this.passwordRegex.test(formData.oldPassword)) && (formData.newPassword && this.passwordRegex.test(formData.newPassword))) {
+                if ((formData.new_password && this.passwordRegex.test(formData.new_password)) && (formData.confirm_password && this.passwordRegex.test(formData.confirm_password))) {
+                    console.log('payload', formData);
+                    formData.token = getQueryStringValue("token");
                     console.log('payload', formData);
                     $('#loader').show();
-                    var successData = apiCallPost('post', '/changePassword', formData);
+                    var successData = apiCallPost('post', '/resetPassword', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        if (successData && Object.keys(successData)) {
-                            $('#loader').removeClass('d-block').addClass('d-none');
-                            $('#changePasswordSuccess').modal('show');
-
-                        } else {
-                            $('#loader').removeClass('d-block').addClass('d-none');
-                        }
+                        $('#resetPasswordSuccess').modal('show');
 
                     } else {
                         $('#loader').hide();
                     }
-
                 } else {
                     return false;
                 }
@@ -64,14 +60,14 @@ $(document).ready(function () {
 
             resetForm: function () {
                 this.isFormSubmitted = false;
-                this.changePasswordData.oldPassword = '';
-                this.changePasswordData.newPassword = '';
+                this.resetPasswordData.new_password = '';
+                this.resetPasswordData.confirm_password = '';
             },
 
             gotoLogin: function () {
-                $('#changePasswordSuccess').modal('hide');
+                $('#resetPasswordSuccess').modal('hide');
                 this.resetForm();
-                //window.location.href = window.location.origin + '/users/login';
+                window.location.href = window.location.origin + '/users/login';
             }
 
         }

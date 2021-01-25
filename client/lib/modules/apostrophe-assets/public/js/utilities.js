@@ -128,7 +128,7 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
-            $('#loader').hide();
+            $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
                 showError(error.responseJSON.message);
                 setTimeout(function () {
