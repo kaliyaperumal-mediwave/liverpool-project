@@ -23,6 +23,16 @@ function resetValues(currentForm, context, formObj) {
 };
 
 
+//Common Modal for API error messages
+function showError(content) {
+    if (!content) {
+        content = "Something went wrong.Please try again"
+    }
+    $('#errorContent').text(content);
+    $('#errorCommon').modal('show');
+};
+
+
 //Common Delete Logic for Service and HouseHold Modal
 function deleteLogic(arr, value, context, section) {
     var index;
@@ -118,21 +128,15 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').hide();
-            if (false || !!document.documentMode) {
-                alert("Something went wrong!")
-            } else {
-                document.getElementById("toastMessage").innerHTML = error.responseJSON.message;
-                $("#myToast").toast({ delay: 2000 });
-                $("#myToast").toast('show');
-                // Vue.$toast.error(error.responseJSON.message, {
-                //     position: 'top',
-                //     duration: 1000,
-                // });
+            if (error) {
+                showError(error.responseJSON.message);
+                setTimeout(function () {
+                    $('#errorCommon').modal('hide');
+                }, 1000);
             }
-            return false;
         }
     });
-    return response
+    return response;
 };
 
 //Common API Call for post Function
@@ -262,16 +266,23 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
     if (base64Matcher.test(getParams)) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
+        console.log(decodeValues[2])
+
         if (decodeValues[2] == "sec5back" && nextPge != "acknowledge") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&sec5back";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;
         }
-        else {
+        else if (decodeValues[2] == "backbutton") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/" + nextPge + "?" + decryptedUrl;
 
+        }
+        else if (decodeValues[2] == undefined) {
+            getParamsRedirect = usrId + "&" + roles;
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/" + nextPge + "?" + decryptedUrl;
         }
     } else {
         getParamsRedirect = usrId + "&" + roles;
@@ -292,7 +303,15 @@ function decryptUrl(nextPge, loginId, roles) {
 
 $(document).ready(function () {
     setLoaderStyle();
-    
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+        $('[data-toggle="popover"]').popover(
+            {
+                container: 'body',
+                boundary: 'window'
+            }
+        )
+    })
 })
 
 //window resize function

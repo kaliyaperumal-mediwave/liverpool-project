@@ -20,7 +20,7 @@ $(document).ready(function () {
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
             samePass: true,
             loginPath: '/users/login',
-            tokenVariable:''
+            tokenVariable: ''
         },
 
         beforeMount: function () {
@@ -39,7 +39,6 @@ $(document).ready(function () {
 
             submitSignIn: function () {
                 let formData = this.signUpObject;
-                var hidePointer = document.body;
                 this.isFormSubmitted = true;
                 if ((formData.first_name && formData.last_name && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && formData.email && this.emailRegex.test(formData.email) && (formData.password === formData.confirm_password) && formData.role)) {
                     $('#loader').show();
@@ -47,26 +46,11 @@ $(document).ready(function () {
                     if (successData && Object.keys(successData)) {
                         this.tokenVariable = successData;
                         $('#loader').hide();
-                        $('#SignInSuccess').modal('show');
+                        $('#signInSuccess').modal('show');
 
-                        // if (false || !!document.documentMode) {
-                        //     alert("Account created");
-                        //     // window.location.href = window.location.origin + '/users/login';
-                        //     location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
-                        // } else {
-                        //     Vue.$toast.success('Account created', {
-                        //         position: 'top',
-                        //         duration: 1000,
-                        //         onDismiss: function () {
-                        //             //  window.location.href = window.location.origin + '/users/login';
-                        //             location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
-                        //         }
-                        //     });
-                        // }
-
-                        // location.href = redirectUrl(location.href, "dashboard", successData.data.uuid, successData.data.user_role);
                     } else {
                         $('#loader').hide();
+                        showError(successData);
                     }
                 } else {
                     scrollToInvalidInput();
@@ -92,13 +76,6 @@ $(document).ready(function () {
                 }
             },
 
-            // /Prevention of entering white spaces
-            preventWhiteSpaces: function (e) {
-                if (e.which === 32 && e.target.selectionStart === 0) {
-                    e.preventDefault();
-                }
-            },
-
             resetForm: function () {
                 this.isFormSubmitted = false;
                 this.signUpObject.first_name = '';
@@ -107,10 +84,12 @@ $(document).ready(function () {
                 this.signUpObject.confirm_password = '';
                 this.signUpObject.role = '';
             },
-            gotoDashboard: function (token){
-                location.href = redirectUrl(location.href, "dashboard", token.data.uuid, token.data.user_role);
-            }
 
+            gotoDashboard: function (token) {
+                $('#signInSuccess').modal('hide');
+                //location.href = redirectUrl(location.href, "dashboard", token.data.uuid, token.data.user_role);
+                location.href = "/dashboard";
+            }
 
         }
     })

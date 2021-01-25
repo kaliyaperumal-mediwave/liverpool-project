@@ -24,7 +24,7 @@ $(document).ready(function () {
             getRefNo: function () {
                 var _self = this;
                 $.ajax({
-                    url: API_URI + "/getRefNo/" + this.paramValues[0],
+                    url: API_URI + "/getRefNo/" + document.getElementById('uUid').innerHTML,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -32,10 +32,7 @@ $(document).ready(function () {
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
                         console.log("logi flag ",_self.loginFlag)
-                        if(_self.loginFlag=="true")
-                        {
-                            _self.sendMail(_self.sendObj);
-                        }
+                         _self.sendMail(_self.sendObj);
                         $('#loader').hide();
                     },
                     error: function (error) {

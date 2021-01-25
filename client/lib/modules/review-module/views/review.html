@@ -43,14 +43,16 @@
                     </div>
                     <!-- Loader end -->
                     <div class="py-2 px-3">
-                        <div class="d-flex justify-content-between align-items-center" id="headingOne">
+                        <div class="d-flex justify-content-between align-items-center" id="headingOne"
+                            data-container="body">
                             <div class="d-flex align-items-center">
                                 <h2 class="py-2 m-0 question-header-font">
                                     Eligibility
                                 </h2>
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
-                                        @click="editAllSection('role')" data-placement="top" title="Edit Section 1"></i>
+                                        data-container="body" @click="editAllSection('role')" data-placement="top"
+                                        title="Edit Section 1"></i>
                                 </span>
                             </div>
                             <span style="color: #D6D8D8;">
@@ -68,6 +70,8 @@
                                         I am a:
                                     </label>
                                     <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
+                                        data-container="body" data-toggle="popover" data-trigger="focus"
+                                        data-placement="top" data-content="Go to that section to edit"
                                         v-model="yourInfo" id="iamA">
                                 </div>
                                 <!-- Your Info End -->
@@ -437,10 +441,20 @@
                                                 v-model="section2Data.can_send_post">
                                                 <option selected>
                                                     {{section2Data.can_send_post}}</option>
-                                                <option v-if="section2Data.can_send_post == 'No'" value="Yes">Yes
+
+                                                <template v-if="section2Data.can_send_post == 'No'">
+                                                    <option value="Yes">Yes
+                                                    </option>
+                                                </template>
+                                                <template v-if="section2Data.can_send_post == 'Yes'">
+                                                    <option value="No">No
+                                                    </option>
+                                                </template>
+
+                                                <!-- <option v-if="section2Data.can_send_post == 'No'" value="Yes">Yes
                                                 </option>
                                                 <option v-if="section2Data.can_send_post == 'Yes'" value="No">No
-                                                </option>
+                                                </option> -->
                                             </select>
                                         </span>
                                     </div>
@@ -476,17 +490,17 @@
                                                 <template v-if="section2Data.child_gender_birth == 'No'">
                                                     <option value="Yes">Yes
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_gender_birth == 'Yes'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_gender_birth == 'Unsure'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Yes">Yes
+                                                    <option value="Yes">Yes</option>
                                                 </template>
                                             </select>
                                         </span>
@@ -584,17 +598,17 @@
                                                 <template v-if="section2Data.child_care_adult == 'No'">
                                                     <option value="Yes">Yes
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_care_adult == 'Yes'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section2Data.child_care_adult == 'Unsure'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Yes">Yes
+                                                    <option value="Yes">Yes</option>
                                                 </template>
                                             </select>
                                         </span>
@@ -1045,17 +1059,17 @@
                                                 <template v-if="section4Data.is_covid == 'No'">
                                                     <option value="Yes">Yes
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section4Data.is_covid == 'Yes'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Unsure">Unsure
+                                                    <option value="Unsure">Unsure</option>
                                                 </template>
                                                 <template v-if="section4Data.is_covid == 'Unsure'">
                                                     <option value="No">No
                                                     </option>
-                                                    <option value="Yes">Yes
+                                                    <option value="Yes">Yes</option>
                                                 </template>
                                             </select>
                                         </span>

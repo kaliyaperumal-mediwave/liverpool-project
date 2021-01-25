@@ -97,13 +97,16 @@ body {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
       @extend %input-shared;
+      pointer-events: none !important;
     }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
+      pointer-events: none !important;
     }
     textarea {
       color: #8f979e !important;
+      pointer-events: none !important;
     }
     @include placeholder(#8f979e);
   }
@@ -2438,3 +2441,13 @@ $color-scheme: (
   @include theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize);
 }
 /*  Text Size End */
+.text-label-hide::before {
+  display: none !important;
+}
+.h-2-182 {
+  height: 182px;
+  width: 180px;
+}
+.m-b-min-8 {
+  margin-bottom: -8px;
+}

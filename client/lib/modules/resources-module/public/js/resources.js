@@ -7,8 +7,11 @@ $(document).ready(function () {
                 email: "",
                 password: ""
             },
-
             isFormSubmitted: false,
+            searchQuery: null,
+            filteredData: [],
+            showSearchResults: false,
+            resources: [],
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-]).{8,}$/,
             showSearchResults: false,
@@ -115,9 +118,27 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            this.resources = JSON.parse(document.getElementById('resources').value)
         },
 
         methods: {
+            filterPieces: function () {
+                console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                if (this.searchQuery) {
+                    this.filteredData = [];
+                    this.showSearchResults = true;
+                    return this.resources.filter((item) => {
+                        // TODO: add description and other content after CMS
+                        if (this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))) {
+                            this.filteredData.push(item)
+                        }
+                        return this.filteredData
+                    })
+                } else {
+                    this.showSearchResults = false;
+                    return this.filteredData = [];
+                }
+            },
             submitLogin: function () {
                 let formData = this.loginObject;
                 this.isFormSubmitted = true
@@ -135,15 +156,6 @@ $(document).ready(function () {
                     return false;
                 }
             },
-
-            searchData: function (e) {
-                if (e.target.value) {
-                    this.showSearchResults = true;
-                } else {
-                    this.showSearchResults = false;
-                }
-            }
-
         },
     })
 
