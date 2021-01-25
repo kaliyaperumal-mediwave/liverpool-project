@@ -9,6 +9,7 @@ const messageCodes = {
   1008: 'You will recieve a mail if you are registered at Liverpool CAMHS ',
   1009: 'Link expired! Request again.',
   1010: 'Password reset successful! Try login with new password.',
-  1011: "Current password doesn't match"
+  1011: "Current password doesn't match",
+  1012: 'Mail already registered at system ',
 };
 module.exports = messageCodes;

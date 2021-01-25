@@ -184,26 +184,40 @@ exports.changeEmail = async (ctx) => {
         } = ctx.orm();
         return User.findOne({
             where: {
-                email: ctx.request.decryptedUser.email,
-            },
+                email: ctx.request.body.newEmail,
+            }
         }).then((user) => {
-            if (user) {
-                const token = Math.floor(Math.random() * 90000) + 10000;
-                return user.update({
-                    secondary_email: ctx.request.body.newEmail,
-                    email_verification_token: token,
-                    email_verification_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
-                }).then(async () => {
-                    ctx.request.body.email_verification_token = token;
-                    ctx.request.body.email = ctx.request.decryptedUser.email;
-                    let emailStatus = await email.sendChangeMail(ctx);
-                    console.log(emailStatus, "emailStatus=====");
+            console.log(user);
+            if (!user) {
+                return User.findOne({
+                    where: {
+                        email: ctx.request.decryptedUser.email,
+                    },
+                }).then((user) => {
+                    if (user) {
+                        const token = Math.floor(Math.random() * 90000) + 10000;
+                        return user.update({
+                            secondary_email: ctx.request.body.newEmail,
+                            email_verification_token: token,
+                            email_verification_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
+                        }).then(async () => {
+                            ctx.request.body.email_verification_token = token;
+                            ctx.request.body.email = ctx.request.decryptedUser.email;
+                            let emailStatus = await email.sendChangeMail(ctx);
+                        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+                    }
+                    return ctx.res.badRequest({
+                        message: reponseMessages[1002],
+                    });
                 }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
             }
-            return ctx.res.ok({
-                message: reponseMessages[1001],
+            return ctx.res.badRequest({
+                message: reponseMessages[1012],
             });
         }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+
+
+
     } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
