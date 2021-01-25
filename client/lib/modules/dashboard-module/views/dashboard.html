@@ -114,8 +114,8 @@
                             </span>
                         </div>
                     </div>
-                    <small v-if = "searchRefObj.errMsg == true && getStringLength(searchRefObj.refCode) > 0" id="chkReferral" class="form-text text-muted">Not found</small>
-                    <small v-if = "searchRefObj.validateErrMsg == true && (searchRefObj.refCode == '' ||  searchRefObj.refCode == undefined) " id="chkReferral" class="form-text text-muted">Please type referrance code to search</small>
+                    <small v-if = "searchRefObj.errMsg == true && getStringLength(searchRefObj.refCode) > 0" id="chkReferral" class="form-text helper-text-evolved">Not found</small>
+                    <small v-if = "searchRefObj.validateErrMsg == true && (searchRefObj.refCode == '' ||  searchRefObj.refCode == undefined) " id="chkReferral" class="form-text  helper-text-evolved">Please type referrance code to search</small>
                     <div class="py-4 text-left d-flex">
                         <button type="button" @click="searchReferral()"
                             class="btn px-md-4 py-1 px-3 mx-auto w-100"><span class="btn-quaternary-text">CHECK A
@@ -162,11 +162,11 @@
             <div class="py-3 py-md-4 py-lg-3 py-xl-3">
                 <div class="row w-100 mx-auto">
                     <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
-                        <h2 class="home-referral-primary my-2 my-md-3">Progress of referral</h2>
+                        <h2 class="home-referral-primary my-2 my-md-3 d-flex justify-content-center">Progress of referral</h2>
                     </div>
                 </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div  v-for="(inRefObj, index) in incompleteReferral" class="col-md-9 col-lg-7 text-center col-xl-6 col-11 mx-auto secondary">
+                <div class="row py-3 w-100 mx-auto heightSetReferral">
+                    <div  v-for="(inRefObj, index) in incompleteReferral" class="col-md-9 col-lg-7 text-center col-xl-7 col-11 mx-auto secondary">
                         <p class="home-referral-secondary text-left my-2 my-md-3">You have completed {{inRefObj.referral_progress}} % of your referral</p>
                         <p class="home-referral-secondary text-left my-2 my-md-3">Date: {{convertDate(inRefObj.createdAt)}}</p>
                         <div class="progress-radius progress">
