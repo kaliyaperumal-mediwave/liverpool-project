@@ -1,11 +1,11 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
-<script src="/modules/liverpool-read-pages/js/read.js"></script>
 <script>
-  $(document).on('click', 'a.previous-link', function () {
-parent.history.back();
-return false;
-});</script>
+    $(document).on('click', 'a.previous-link', function () {
+        parent.history.back();
+        return false;
+    });
+</script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -53,6 +53,9 @@ return false;
                <div class="text-break">
                    {{ piece.text }}
                </div>
+               <div class="video-placed-ago px-0">
+                    {{ piece.uploadTime }}
+                </div>
            </div>
            </div>
        </a><br>
@@ -75,11 +78,14 @@ return false;
               {% if img %}
                 <img class="img-placeholder" width="100%" height="290" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
               {% endif %}
-            <div class="video-para-bottom">
+            <div class="video-para-bottom ellipse-text">
                    {{ piece.partnerAgencies }}
             </div>
-            <div class="video-placed-ago px-0" id="videoTime{{loop.index}}">
-                <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
+            <div class="video-para-bottom ellipse-text">
+                {{ piece.text }}
+            </div>
+            <div class="video-placed-ago">
+                {{ piece.uploadTime }}
             </div>
         </div>
         </a>

@@ -123,6 +123,7 @@ function apiCallPost(reqType, endPoint, payload) {
         contentType: 'application/json',
         async: false,
         data: JSON.stringify(trimmedPayload),
+        cache: false,
         success: function (res) {
             response = res;
         },
@@ -199,7 +200,6 @@ function trimObj(obj) {
 function getParameter(url) {
     var allParameter = url.substring(url.indexOf("?") + 1);
     var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
-    console.log(allParameter)
     if (base64Matcher.test(allParameter)) {
         var deCodeParameter = atob(allParameter)
         var decodeValues = deCodeParameter.split("&");
@@ -247,7 +247,12 @@ function convertDate(dbDate) {
 function setLoaderStyle() {
     var element = document.body;
     element.classList.add('body-bg');
+    element.classList.add('net');
+    element.classList.add('default');
+    element.classList.add('theme-wrapper');
 }
+
+
 
 
 //for make referral 1 to 5 section

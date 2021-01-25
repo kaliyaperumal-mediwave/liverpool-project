@@ -34,27 +34,26 @@ var apos = require("apostrophe")({
     "auth-module": {},
     "about-module": {},
     "dashboard-module": {},
-      "Resources": {},
+    "Resources": {},
     "Resources-pages": { perPage: 999 },
-  // "Resources-widgets": {
-  //   extend: "apostrophe-pieces-widgets"
-  // },
-
+    // "Resources-widgets": {
+    //   extend: "apostrophe-pieces-widgets"
+    // },
 
     "Resources-content-widgets": {},
     "liverpool-towatch-widgets": {},
     // "liverpool-watch-pages": {},
-    "liverpool-watch":{},
-    "liverpool-watch-pages":{ perPage: 999 },
-    "liverpool-read":{},
-    "liverpool-read-pages":{ perPage: 999 },
-    "liverpool-events":{},
-    "liverpool-events-pages":{ perPage: 999 },
-    "liverpool-games":{},
-    "liverpool-games-pages":{ perPage: 999 },
-    "liverpool-Partner-agencies":{},
-    "liverpool-Partner-agencies-pages":{ perPage: 999 },
-      "liverpool-mental-health": {},
+    "liverpool-watch": {},
+    "liverpool-watch-pages": { perPage: 999 },
+    "liverpool-read": {},
+    "liverpool-read-pages": { perPage: 999 },
+    "liverpool-events": {},
+    "liverpool-events-pages": { perPage: 999 },
+    "liverpool-games": {},
+    "liverpool-games-pages": { perPage: 999 },
+    "liverpool-Partner-agencies": {},
+    "liverpool-Partner-agencies-pages": { perPage: 999 },
+    "liverpool-mental-health": {},
     "liverpool-mental-health-pages": { perPage: 999 },
 
     "home-module": {},
@@ -69,6 +68,7 @@ var apos = require("apostrophe")({
     "check-referral-module": {},
     "mental-health-module": {},
     "account-settings-module": {},
+    "accessibility-module": {},
     "footer-pages-module": {},
     "apostrophe-templates": {
       viewsFolderFallback: path.join(__dirname, "views"),

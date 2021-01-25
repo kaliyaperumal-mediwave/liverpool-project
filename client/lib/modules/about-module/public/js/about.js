@@ -85,10 +85,7 @@ $(document).ready(function () {
             // this.userRole = this.paramValues[1];
             // this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.paramValues = getParameter(location.href)
-            if (this.paramValues != undefined) {
-                this.fetchSavedData();
-            }
-
+            this.fetchSavedData();
             this.userRole = document.getElementById('uRole').innerHTML;
             this.userId = document.getElementById('uUid').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
@@ -142,7 +139,7 @@ $(document).ready(function () {
                 payload.uuid = document.getElementById('uUid').innerHTML
                 payload.role = document.getElementById('uRole').innerHTML;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
-                console.log(successData)
+                //console.log(successData)
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -324,7 +321,7 @@ $(document).ready(function () {
                     this.payloadData.userid = document.getElementById('uUid').innerHTML
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
                     if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.paramValues[0]
+                        this.payloadData.editFlag = this.editPatchFlag
                     }
 
                     if (this.userMode === 'edit') {

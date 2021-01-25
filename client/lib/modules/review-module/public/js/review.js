@@ -109,7 +109,7 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
-            console.log(this.payloadData);
+          //  console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
 
         },
@@ -125,7 +125,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        console.log(data)
+                    //    console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
