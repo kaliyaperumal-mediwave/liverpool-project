@@ -39,12 +39,7 @@ var apos = require("apostrophe")({
   // "Resources-widgets": {
   //   extend: "apostrophe-pieces-widgets"
   // },
-  "jobs": {
-    extend: "apostrophe-pieces"
-  },
-  "jobs-pages": {
-    extend: "apostrophe-pieces-pages"
-  },
+
 
     "Resources-content-widgets": {},
     "liverpool-towatch-widgets": {},
