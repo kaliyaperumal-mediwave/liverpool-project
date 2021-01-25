@@ -164,7 +164,7 @@
           <!-- <label for="signUpPassword" class="auth-font my-2">Password</label> -->
           <div id="authForm">
             <div class="input-group">
-              <input type="password" class="form-control auth-border py-2" id="signUpPassword"
+              <input type="password" class="form-control auth-border py-2" id="signUpPassword" autocomplete="off"
                 v-model="signUpObject.password" placeholder="Enter your password">
               <span class="input-group-append">
                 <div class="input-group-text px-3">
@@ -211,7 +211,7 @@
           <!-- <label for="confirmPassword" class="auth-font my-2">Confirm password</label> -->
           <div id="authForm">
             <div class="input-group">
-              <input type="password" class="form-control auth-border py-2" id="confirmPassword"
+              <input type="password" class="form-control auth-border py-2" id="confirmPassword" autocomplete="off"
                 v-model="signUpObject.confirm_password" placeholder="Enter your password">
               <span class="input-group-append">
                 <div class="input-group-text px-3">
@@ -259,6 +259,29 @@
           <a href="/users/login" class="auth-link cursor-pointer text-underline">Already have an account? Login</a>
         </div>
       </div>
+
+      <!-- SignUp Success Modal Start -->
+      <div class="modal fade" id="signInSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="signInSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content modal-bg login-safe-pd">
+
+            <span aria-hidden="true" class="modal-close" @click="gotoDashboard(tokenVariable)">
+              <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+            </span>
+            <div class="modal-header justify-content-center model-text-pd">
+              <p class="text-center m-0 py-2">
+                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+              </p>
+              <h5 class="logout-font mt-3 text-center">ACCOUNT CREATED</h5>
+              <h6 class="question-font text-center">
+                Your account has been created
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SignUp Success Modal End -->
 
     </div>
   </div>

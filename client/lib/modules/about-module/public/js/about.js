@@ -17,6 +17,7 @@ $(document).ready(function () {
                 childSexualOrientation: "",
                 childEthnicity: "",
                 childCareAdult: "",
+                parentName: ""
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -79,38 +80,48 @@ $(document).ready(function () {
 
         mounted: function () {
             var _self = this;
+            // this.paramValues = getParameter(location.href)
+            // this.userId = this.paramValues[0];
+            // this.userRole = this.paramValues[1];
+            // this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            if (this.paramValues[2] != undefined) {
+            if (this.paramValues != undefined) {
                 this.fetchSavedData();
             }
+
+            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.initMaps();
             $('#loader').hide();
         },
         methods: {
 
-            //Initilaizing Google Maps Autocompleted
+            //Initializing Google Maps Autocompleted
             initMaps: function () {
+                $('#loader').hide();
                 var _self = this;
                 var childAddress;
                 var houseHoldAddress;
                 var parentAddress;
+
                 childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                     types: ['geocode'],
                 });
+
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
                     types: ['establishment'],
                 });
+
                 parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
                     types: ['geocode'],
                 });
+
                 google.maps.event.addListener(childAddress, 'place_changed', function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
                 });
+
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    // _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
 
@@ -125,11 +136,11 @@ $(document).ready(function () {
                 resetValues(event.target.form, this, 'aboutFormData');
             },
 
-            //Ftech Api service Logic
+            //Fetch Api service Logic
             fetchSavedData: function () {
                 var payload = {};
-                payload.uuid = this.userId;
-                payload.role = this.userRole;
+                payload.uuid = document.getElementById('uUid').innerHTML
+                payload.role = document.getElementById('uRole').innerHTML;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
                 console.log(successData)
                 if (successData && Object.keys(successData)) {
@@ -141,8 +152,24 @@ $(document).ready(function () {
                 }
             },
 
+            //Function to Identify space
+            trimSpace: function (str, reqField) {
+                if (str == "" && reqField) {
+                    return false;
+                } else if (str == "" && !reqField) {
+                    return true;
+                } else {
+                    if (str && str.replace(/ /g, "").length) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            },
+
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
+                this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
@@ -235,7 +262,7 @@ $(document).ready(function () {
                 }
             },
 
-            //Form Submittion of Section-4(Referral) with validation logic
+            //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 // var formData = Object.assign(this.aboutObj, this.aboutFormData);
@@ -275,13 +302,29 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
+
+                    if (formData.childSexualOrientation && !formData.childSexualOrientation.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if (formData.childEthnicity && !formData.childEthnicity.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                    if (formData.parentOrCarrerAddress && !formData.parentOrCarrerAddress.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
-                    this.payloadData.role = this.userRole;
-                    this.payloadData.userid = this.userId;
+                    this.payloadData.role = document.getElementById('uRole').innerHTML;
+                    this.payloadData.userid = document.getElementById('uUid').innerHTML
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
                     if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.paramValues[2]
+                        this.payloadData.editFlag = this.paramValues[0]
                     }
 
                     if (this.userMode === 'edit') {
@@ -306,13 +349,30 @@ $(document).ready(function () {
                 }
             },
 
-            //Section 2(About You) Save and Service call with navaigation Logic
+            //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     console.log(responseData)
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
+                    //console.log(redirectUrl(location.href, "education", this.userId, this.userRole));
+                   //location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
+                   if(this.paramValues!= undefined)
+                   {
+                       if(this.paramValues[0]=="sec5back")
+                       {
+                           location.href = "/review";
+                       }
+                       else
+                       {
+                        var url = location.href;
+                        location.href = "/education?"+url.substring(url.indexOf("?") + 1);
+                       }
+                   }
+                   else
+                   {
+                    location.href = "/education";
+                   }
                 } else {
                     $('#loader').hide();
                     console.log('empty response')
@@ -325,6 +385,15 @@ $(document).ready(function () {
                 var houseHoldForm = this.houseHoldData;
                 var modal = document.getElementById('closeModalRaj');
                 if (houseHoldForm.name) {
+                    if (houseHoldForm.relationShip && !houseHoldForm.relationShip.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+                    if (houseHoldForm.profession && !houseHoldForm.profession.replace(/ /g, "").length) {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                     if (houseHoldForm.mode === 'update') {
                         this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                             if (it.mode === 'update' && it.id === houseHoldForm.id) {
