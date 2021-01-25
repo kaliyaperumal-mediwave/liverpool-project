@@ -1,11 +1,11 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
-<script src="/modules/liverpool-read-pages/js/read.js"></script>
 <script>
-  $(document).on('click', 'a.previous-link', function () {
-parent.history.back();
-return false;
-});</script>
+    $(document).on('click', 'a.previous-link', function () {
+        parent.history.back();
+        return false;
+    });
+</script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -44,8 +44,12 @@ return false;
                 <div class="read-cont-p">
                     {{ piece.SubTitle }}
                 </div>
-
-                  {{ piece.text }}
+                <div class="text-break">
+                    {{ piece.text }}
+                  </div>
+                <div class="video-placed-ago px-0">
+                    {{ piece.uploadTime }}
+                </div>
                 </div>
               </div>
             </div> <br>
@@ -68,9 +72,10 @@ return false;
             <div class="">
                 {{ piece.SubTitle }}
             </div>
-            <div class="video-placed-ago" id="videoTime{{loop.index}}">
-              <input type="hidden" class="videoDateInput" value="{{piece.createdAt}}">
-            </div></div>
+            <div class="video-placed-ago">
+                {{ piece.uploadTime }}
+            </div>
+        </div>
         </div></a>
    {% endif %}
     {% endfor %}
