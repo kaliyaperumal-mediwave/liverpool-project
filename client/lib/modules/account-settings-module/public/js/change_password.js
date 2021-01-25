@@ -68,9 +68,10 @@ $(document).ready(function () {
                 this.changePasswordData.newPassword = '';
             },
 
-            gotoDashboard: function (token) {
+            gotoLogin: function () {
                 $('#changePasswordSuccess').modal('hide');
-                location.href = "/dashboard";
+                this.resetForm();
+                //window.location.href = window.location.origin + '/users/login';
             }
 
         }

@@ -19,11 +19,11 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            // var _self = this;
-            // setTimeout(function () {
-            //     _self.resetForm();
-            //     $('#loader').hide();
-            // }, 700);
+            var _self = this;
+            setTimeout(function () {
+                _self.resetForm();
+                $('#loader').hide();
+            }, 700);
         },
 
         methods: {
@@ -38,20 +38,8 @@ $(document).ready(function () {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/resetPassword', formData);
                     if (successData && Object.keys(successData)) {
-                        console.log(successData, "successData");
                         $('#loader').hide();
-                        if (false || !!document.documentMode) {
-                            alert(successData.message);
-                        } else {
-                            alert(successData.message);
-
-                            // Vue.$toast.success('Mail successfully sent!', {
-                            //     position: 'top',
-                            //     duration: 1000,
-                            //     onDismiss: function () {
-                            //     }
-                            // });
-                        }
+                        $('#resetPasswordSuccess').modal('show');
 
                     } else {
                         $('#loader').hide();
@@ -74,6 +62,12 @@ $(document).ready(function () {
                 this.isFormSubmitted = false;
                 this.resetPasswordData.new_password = '';
                 this.resetPasswordData.confirm_password = '';
+            },
+
+            gotoLogin: function () {
+                $('#resetPasswordSuccess').modal('hide');
+                this.resetForm();
+                window.location.href = window.location.origin + '/users/login';
             }
 
         }

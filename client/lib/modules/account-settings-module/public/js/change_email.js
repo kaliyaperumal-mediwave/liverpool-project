@@ -29,17 +29,17 @@ $(document).ready(function () {
                 var formData = this.changeEmailData;
                 this.isFormSubmitted = true;
                 if (formData.newEmail && this.emailRegex.test(formData.newEmail)) {
-                    $('#loader').removeClass('d-none').addClass('d-block');
+                    $('#loader').show();
                     var successData = apiCallPost('post', '/changeEmail', formData);
                     if (successData && Object.keys(successData)) {
-                        $('#loader').removeClass('d-block').addClass('d-none');
+                        $('#loader').hide();
                         $('#changeEmailSuccess').modal('show');
                         setTimeout(function () {
                             $('#changeEmailSuccess').modal('hide');
                         }, 1000);
 
                     } else {
-                        $('#loader').removeClass('d-block').addClass('d-none');
+                        $('#loader').hide();
                     }
                 } else {
                     return false;

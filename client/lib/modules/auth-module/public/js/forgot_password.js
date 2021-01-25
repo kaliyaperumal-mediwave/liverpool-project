@@ -18,15 +18,15 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            // $('#loader').show();
+            $('#loader').show();
         },
 
         mounted: function () {
-            // var _self = this;
-            // setTimeout(function () {
-            //     _self.resetForm();
-            //     $('#loader').hide();
-            // }, 700);
+            var _self = this;
+            setTimeout(function () {
+                _self.resetForm();
+                $('#loader').hide();
+            }, 700);
         },
 
         methods: {
@@ -40,18 +40,11 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/forgotPassword', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        if (false || !!document.documentMode) {
-                            alert(successData.message);
-                        } else {
-                            alert(successData.message);
-
-                            // Vue.$toast.success('Mail successfully sent!', {
-                            //     position: 'top',
-                            //     duration: 1000,
-                            //     onDismiss: function () {
-                            //     }
-                            // });
-                        }
+                        this.resetForm();
+                        $('#forgotPasswordSuccess').modal('show');
+                        setTimeout(function () {
+                            $('#forgotPasswordSuccess').modal('hide');
+                        }, 1000)
 
                     } else {
                         $('#loader').hide();

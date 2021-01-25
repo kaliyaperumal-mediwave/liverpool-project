@@ -3,7 +3,7 @@ $(document).ready(function () {
     new Vue({
         el: '#confirmationEmail',
         data: {
-
+            message: '',
         },
 
         beforeMount: function () {
@@ -12,42 +12,32 @@ $(document).ready(function () {
 
         mounted: function () {
             var formData = {};
-            // var _self = this;
-            // setTimeout(function () {
-            //     $('#loader').hide();
-            // }, 700);
             $('#loader').show();
             formData.token = getQueryStringValue("token");
-            console.log(formData.token, formData.token);
             if (!formData.token) {
-                // show error block
                 return;
             }
-            console.log(formData);
             var successData = apiCallPost('post', '/resetEmail', formData);
             if (successData && Object.keys(successData)) {
                 console.log(successData, "successData");
                 $('#loader').hide();
                 if (false || !!document.documentMode) {
-                    // show success block
-                    alert(successData.message);
+                    this.message = successData.message;
                 } else {
-                    // show success block
-                    alert(successData.message);
+                    this.message = successData.message;
                 }
 
             } else {
-                // show error block
-
                 $('#loader').hide();
             }
         },
 
         methods: {
-
-            navigatePage: function (route) {
-                window.location.href = window.location.origin + route;
-            },
+            
+            logOut: function () {
+                // window.location.href = window.location.origin + '/users/login';
+                window.location.href = "/logout";
+            }
 
         }
     })
