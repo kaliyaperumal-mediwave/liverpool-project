@@ -33,6 +33,7 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/changeEmail', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
+                        this.resetForm();
                         $('#changeEmailSuccess').modal('show');
                         setTimeout(function () {
                             $('#changeEmailSuccess').modal('hide');
