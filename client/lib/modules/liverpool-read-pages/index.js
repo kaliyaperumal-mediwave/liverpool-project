@@ -4,16 +4,19 @@ module.exports = {
   name: 'liverpool-read-pages',
   extend: 'apostrophe-pieces-pages',
   label: 'readPage',
+   pluralLabel: 'readPage',
   piecesFilters: [
     { name: 'tags',
     counts: true }
   ],
+
 
   construct: function(self, options) {
 
     var superBefore = self.beforeShow;
     self.beforeShow = function(req, callback) {
       require('../../middleware')(self, options);
+
       self.checkCommonPageAuth(req).then((req) => {
         return superBefore(req, callback);
       }).catch(() => {

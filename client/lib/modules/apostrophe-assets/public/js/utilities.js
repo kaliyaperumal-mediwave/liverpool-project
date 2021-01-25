@@ -23,6 +23,16 @@ function resetValues(currentForm, context, formObj) {
 };
 
 
+//Common Modal for API error messages
+function showError(content) {
+    if (!content) {
+        content = "Something went wrong.Please try again"
+    }
+    $('#errorContent').text(content);
+    $('#errorCommon').modal('show');
+};
+
+
 //Common Delete Logic for Service and HouseHold Modal
 function deleteLogic(arr, value, context, section) {
     var index;
@@ -51,14 +61,16 @@ function backToPreviousPage(section, userId, userRole) {
 function scrollToInvalidInput() {
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
-    if (errorElements[0].parentElement) {
-        errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
-    } else {
-        errorElements[0].scrollIntoView(true, { behavior: "smooth", });
-    }
-    var scrolledY = window.scrollY;
-    if (scrolledY) {
-        window.scroll(0, scrolledY - headerHeight);
+    if (Array.from(errorElements).length) {
+        if (errorElements[0].parentElement) {
+            errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+        } else {
+            errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+        }
+        var scrolledY = window.scrollY;
+        if (scrolledY) {
+            window.scroll(0, scrolledY - headerHeight);
+        }
     }
     // errorElements[0].scrollIntoView(true, { behavior: 'smooth' })
     // setTimeout(function () {
@@ -103,33 +115,31 @@ function getUrlVars() {
 //Common API Call for post Function
 function apiCallPost(reqType, endPoint, payload) {
     var response;
+    var trimmedPayload = trimObj(payload);
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
         dataType: 'json',
         contentType: 'application/json',
         async: false,
-        data: JSON.stringify(payload),
+        data: JSON.stringify(trimmedPayload),
         success: function (res) {
             response = res;
         },
         error: function (error) {
             $('#loader').hide();
-            if (false || !!document.documentMode) {
-                alert("Something went wrong!")
-            } else {
-                Vue.$toast.error(error.responseJSON.message, {
-                    position: 'top',
-                    duration: 1000,
-                });
+            if (error) {
+                showError(error.responseJSON.message);
+                setTimeout(function () {
+                    $('#errorCommon').modal('hide');
+                }, 1000);
             }
-            return false;
         }
     });
-    return response
+    return response;
 };
 
-//Commom API Call for post Function
+//Common API Call for post Function
 function apiCallGet(reqType, endPoint, API_URI) {
     var response;
     console.log(API_URI + endPoint)
@@ -150,25 +160,40 @@ function apiCallGet(reqType, endPoint, API_URI) {
     return response
 };
 
-//Commom API Call for put Function
+//Common API Call for put Function
 function apiCallPut(reqType, endPoint, payload) {
     var response;
-    $.ajax({
-        url: API_URI + endPoint,
-        type: reqType,
-        dataType: 'json',
-        async: false,
-        contentType: 'application/json',
-        data: JSON.stringify(payload),
-        success: function (res) {
-            response = res;
-        },
-        error: function (error) {
-            console.log(error.responseJSON.message)
-        }
-    });
+    var trimmedPayload = trimObj(payload);
+    payload =
+        $.ajax({
+            url: API_URI + endPoint,
+            type: reqType,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(trimmedPayload),
+            success: function (res) {
+                response = res;
+            },
+            error: function (error) {
+                console.log(error.responseJSON.message)
+            }
+        });
     return response
 };
+
+//Function to trim white spaces for an object and array
+function trimObj(obj) {
+    if (obj === null || !Array.isArray(obj) && typeof obj != 'object') {
+        return obj;
+    }
+    return Object.keys(obj).reduce(function (acc, key) {
+        acc[key.trim()] = typeof obj[key] == 'string' ? obj[key].trim() : trimObj(obj[key]);
+        return acc;
+    }, Array.isArray(obj) ? [] : {});
+}
+
+
 //get URL parameter
 
 function getParameter(url) {
@@ -217,10 +242,14 @@ function convertDate(dbDate) {
 
     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
 }
+
+
 function setLoaderStyle() {
     var element = document.body;
     element.classList.add('body-bg');
 }
+
+
 //for make referral 1 to 5 section
 function redirectUrl(currentPge, nextPge, usrId, roles) {
     let decryptedUrl;
@@ -231,16 +260,23 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
     if (base64Matcher.test(getParams)) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
+        console.log(decodeValues[2])
+
         if (decodeValues[2] == "sec5back" && nextPge != "acknowledge") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&sec5back";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;
         }
-        else {
+        else if (decodeValues[2] == "backbutton") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/" + nextPge + "?" + decryptedUrl;
 
+        }
+        else if (decodeValues[2] == undefined) {
+            getParamsRedirect = usrId + "&" + roles;
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/" + nextPge + "?" + decryptedUrl;
         }
     } else {
         getParamsRedirect = usrId + "&" + roles;
@@ -261,6 +297,15 @@ function decryptUrl(nextPge, loginId, roles) {
 
 $(document).ready(function () {
     setLoaderStyle();
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+        $('[data-toggle="popover"]').popover(
+            {
+                container: 'body',
+                boundary: 'window'
+            }
+        )
+    })
 })
 
 //window resize function
@@ -289,8 +334,8 @@ function closeSideDrawer() {
 }
 
 function logOut() {
-   // window.location.href = window.location.origin + '/users/login';
-   window.location.href = "/logout";
+    // window.location.href = window.location.origin + '/users/login';
+    window.location.href = "/logout";
 }
 
 window.onload = function (e) {

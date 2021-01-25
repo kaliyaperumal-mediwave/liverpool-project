@@ -8,11 +8,11 @@ module.exports = {
     { name: 'tags',
   counts: true }
   ],
-  addFields: [
-  // ... other fields as shown earlier go here ...
+  moogBundle: {
+  modules: ['liverpool-read-pages', 'liverpool-games-pages'],
+  directory: 'lib/modules'
+},
 
-
-],
   construct: function(self, options) {
 
     var superBefore = self.beforeShow;

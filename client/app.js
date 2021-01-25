@@ -34,30 +34,48 @@ var apos = require("apostrophe")({
     "auth-module": {},
     "about-module": {},
     "dashboard-module": {},
-    'jobs': {
-   extend: 'apostrophe-pieces'
- },
- 'jobs-pages': {
-   extend: 'apostrophe-pieces-pages'
- },
-    "Resources": {},
+      "Resources": {},
     "Resources-pages": { perPage: 999 },
-    // "Resources-widgets": {
-    //   extend: "apostrophe-pieces-widgets"
-    // },
+  // "Resources-widgets": {
+  //   extend: "apostrophe-pieces-widgets"
+  // },
+  "jobs": {
+    extend: "apostrophe-pieces"
+  },
+  "jobs-pages": {
+    extend: "apostrophe-pieces-pages"
+  },
+  "apostrophe-pages": {
+    // Don"t forget to add the page type!
+    types: [
+      // ... other page types here ...
+      {
+         name: "Resources-pages",
+         label: "Resources Page"
+      },
+      {
+        name: "liverpool-read-pages",
+        label: "read Page"
+      },
+      {
+        name: "jobs-page",
+        label: "Jobs"
+      },
+    ]
+  },
     "Resources-content-widgets": {},
     "liverpool-towatch-widgets": {},
     // "liverpool-watch-pages": {},
-    "liverpool-watch": {},
-    "liverpool-watch-pages": { perPage: 999 },
-    "liverpool-read": {},
-    "liverpool-read-pages": { perPage: 999 },
-    "liverpool-events": {},
-    "liverpool-events-pages": { perPage: 999 },
-    "liverpool-games": {},
-    "liverpool-games-pages": { perPage: 999 },
-    "liverpool-Partner-agencies": {},
-    "liverpool-Partner-agencies-pages": { perPage: 999 },
+    "liverpool-watch":{},
+    "liverpool-watch-pages":{ perPage: 999 },
+    "liverpool-read":{},
+    "liverpool-read-pages":{ perPage: 999 },
+    "liverpool-events":{},
+    "liverpool-events-pages":{ perPage: 999 },
+    "liverpool-games":{},
+    "liverpool-games-pages":{ perPage: 999 },
+    "liverpool-Partner-agencies":{},
+    "liverpool-Partner-agencies-pages":{ perPage: 999 },
     "home-module": {},
     "referral-home-module": {},
     "referral-module": {},

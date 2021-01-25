@@ -279,6 +279,9 @@
   transform: scale(1); }
 
 /* CheckBox Global classes */
+.set-width-calc {
+  width: calc(100% - 55px); }
+
 .custom-form-group {
   display: block;
   margin-bottom: 15px;
@@ -301,7 +304,7 @@
       background: #e8edee 0% 0% no-repeat padding-box;
       border: 1px solid #023047;
       padding: 10px;
-      display: inline-table;
+      display: inline-flex;
       position: relative;
       vertical-align: middle;
       cursor: pointer;
@@ -312,6 +315,7 @@
     position: absolute;
     left: 16px;
     width: 6px;
+    top: 10px;
     height: 21px;
     width: 10px;
     border: solid #023047;
@@ -444,7 +448,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important;
+  color: #0f1010 !important !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -555,6 +559,9 @@ body {
   font-family: "century-gothic" !important;
   overscroll-behavior-y: none !important;
   overscroll-behavior-x: none !important; }
+  body input::-ms-clear,
+  body input::-ms-reveal {
+    display: none; }
   @media (min-width: 1200px) and (max-width: 1499.98px) {
     body .col-xl-6 {
       max-width: 60% !important; } }
@@ -570,12 +577,15 @@ body {
     border-bottom: 1px solid #112f45 !important; }
   body .readOnly-class .form-control {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
-    color: #8f979e !important; }
+    color: #8f979e !important;
+    pointer-events: none !important; }
   body .readOnly-class .custom-select {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
-    color: #8f979e !important; }
+    color: #8f979e !important;
+    pointer-events: none !important; }
   body .readOnly-class textarea {
-    color: #8f979e !important; }
+    color: #8f979e !important;
+    pointer-events: none !important; }
   body .readOnly-class input[type="text"],
   body .readOnly-class input[type="password"],
   body .readOnly-class input[type="email"],
@@ -620,20 +630,22 @@ body {
   body .readOnly-class .custom-select ::placeholder {
     /* Most modern browsers support this now. */
     color: #8f979e !important; }
+  body .apos-ui .apos-admin-bar {
+    z-index: 450 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -641,7 +653,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -649,21 +661,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -1169,9 +1181,18 @@ a {
   color: #023047; }
 
 .completed-toast-header {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: bold;
   color: #023047; }
+  @media (max-width: 575.98px) {
+    .completed-toast-header {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .completed-toast-header {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .completed-toast-header {
+      font-size: 20px !important; } }
 
 .input-group-secondary-text {
   background: #d6d8d8 0% 0% no-repeat padding-box !important;
@@ -2696,6 +2717,23 @@ body .ui-widget .ui-menu-item {
 
 .overflow-auto {
   overflow: auto; }
+
+.hideChar {
+  color: white !important; }
+
+.login-safe-pd {
+  width: 334px !important;
+  padding: 24px; }
+
+.model-text-pd {
+  padding: 4px 10px 0px 10px !important;
+  display: block !important; }
+
+.modal-dialog-centered {
+  justify-content: center; }
+
+.text-label-hide::before {
+  display: none !important; }
 
 .h-2-182 {
   height: 182px;
