@@ -76,6 +76,10 @@ module.exports = {
       label: 'Account Settings Module'
     },
     {
+      name: 'accessibility-module',
+      label: 'Accessibility Module'
+    },
+    {
       name: 'liverpool-watch-pages',
       label: 'Resources watch'
     },

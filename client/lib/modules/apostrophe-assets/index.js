@@ -2,7 +2,7 @@
 // stylesheet by default, and to use jQuery 3.x
 
 module.exports = {
-  // jQuery: 3,
+  //jQuery: 3,
   stylesheets: [
     {
       name: 'site'

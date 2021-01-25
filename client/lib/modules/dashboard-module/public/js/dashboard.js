@@ -7,11 +7,11 @@ $(document).ready(function () {
             paramValues: '',
             loginId: '',
             incompleteReferral: [],
-            searchRefObj: {},
+            searchRefObj: {errMsg:false,validateErrMsg:false},
             displayReferrals: [],
             referralDateArray: [],
             viewReferralArray: [],
-            iterateReferralArray: []
+            iterateReferralArray: [],
         },
 
 
@@ -39,61 +39,13 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        console.table(data)
+                        //console.table(data)
                         _self.incompleteReferral = data;
-                        _self.viewReferralArray = [];
-                        _self.referralDateArray = [];
-                        for (var i = 0; i < _self.displayReferrals.length; i++) {
-                            var date = _self.convertDate(_self.displayReferrals[i].createdAt);
-                            // var date = _self.displayReferrals[i].createdAt;
-                            obj = {
-                                date: "",
-                                data: []
-                            };
-                            if (_self.referralDateArray.length == 0) {
-                                obj.date = date;
-                                obj.data.push(_self.displayReferrals[i])
-                                _self.referralDateArray.push(date)
-                                _self.viewReferralArray.push(obj)
-                            }
-                            else if (_self.referralDateArray.indexOf(date) === -1) {
-                                obj.date = date;
-                                obj.data.push(_self.displayReferrals[i])
-                                _self.referralDateArray.push(date)
-                                _self.viewReferralArray.push(obj)
-                            }
-                            else {
-                                for (var j = 0; j < _self.viewReferralArray.length; j++) {
-
-                                    if (_self.viewReferralArray[j].date == date) {
-                                        _self.viewReferralArray[j].data.push(_self.displayReferrals[i])
-                                    }
-
-                                }
-                            }
-                        }
                     },
                     error: function (error) {
                         console.log(error)
                     }
                 });
-                // $.ajax({
-                //     //  url: API_URI + "/fetchEligibility",
-                //     url: API_URI + "/getIncompleteReferral/",
-                //     type: 'get',
-                //     dataType: 'json',
-                //     contentType: 'application/json',
-                //     // data: JSON.stringify(this.sendObj),
-                //     success: function (data) {
-                //         _self.incompleteReferral = data.data
-                //         console.table(_self.incompleteReferral);
-                //         $('#loader').hide();
-                //     },
-                //     error: function (error) {
-                //         $('#loader').hide();
-                //         console.log(error.responseJSON.message)
-                //     }
-                // });
             },
 
             navigatePage: function (route) {
@@ -131,30 +83,36 @@ $(document).ready(function () {
 
             searchReferral: function () {
                 var _self = this;
-                console.log(this.searchRefObj.refCode)
-                $.ajax({
-                    //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/searchReferalByCode/" + this.searchRefObj.refCode,
-                    type: 'get',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    // data: JSON.stringify(this.sendObj),
-                    success: function (data) {
-                        if(data.length!=0)
-                        {
-                            location.href = "/viewreferals?"+ btoa(_self.searchRefObj.refCode);
+                if (this.searchRefObj.refCode!="" && this.searchRefObj.refCode!=undefined && (this.searchRefObj.refCode).trim()!="") {
+                    $.ajax({
+                        //  url: API_URI + "/fetchEligibility",
+                        url: API_URI + "/searchReferalByCode/" + this.searchRefObj.refCode,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        // data: JSON.stringify(this.sendObj),
+                        success: function (data) {
+                            if(data.length!=0)
+                            {
+                                location.href = "/viewreferals?"+ btoa(_self.searchRefObj.refCode);
+                                _self.searchRefObj.errMsg = false;
+                            }
+                            else
+                            {
+                                _self.searchRefObj.errMsg = true;
+                            }
+                            $('#loader').hide();
+                        },
+                        error: function (error) {
+                            $('#loader').hide();
+                            console.log(error.responseJSON.message)
                         }
-                        else
-                        {
-                            console.log("No record found for "+ _self.searchRefObj.refCode)
-                        }
-                        $('#loader').hide();
-                    },
-                    error: function (error) {
-                        $('#loader').hide();
-                        console.log(error.responseJSON.message)
-                    }
-                });
+                    });
+                }
+                else
+                {
+                    this.searchRefObj.validateErrMsg=true;
+                }
             },
             convertDate: function (dbDate) {
                 var date = new Date(dbDate)
@@ -169,6 +127,18 @@ $(document).ready(function () {
                 return date.getDate() + ' ' + ms[date.getMonth()] + ' ' + date.getFullYear();
                 //return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
             },
+            getStringLength: function (str) {
+                return str.length;
+            },
+            getRefCode: function (e) {
+                //set errmsg false to clear from view
+                var searchTxt = e.target.value;
+                if (searchTxt.length > 0) {
+                    this.searchRefObj.errMsg = false;
+                    this.searchRefObj.validateErrMsg=false;
+                }
+            }
+
         }
 
     })
