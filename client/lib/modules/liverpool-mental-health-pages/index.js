@@ -1,18 +1,13 @@
 var _ = require('lodash');
 
 module.exports = {
-  name: 'Resources-pages',
+  name: 'liverpool-mental-health-pages',
   extend: 'apostrophe-pieces-pages',
-  label: 'ResourcesPage',
+  label: 'Mental-Health-Page',
   piecesFilters: [
     { name: 'tags',
   counts: true }
-  ],
-  moogBundle: {
-  modules: ['liverpool-read-pages', 'liverpool-games-pages'],
-  directory: 'lib/modules'
-},
-
+],
   construct: function(self, options) {
 
     var superBefore = self.beforeShow;

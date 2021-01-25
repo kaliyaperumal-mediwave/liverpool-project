@@ -69,7 +69,7 @@ module.exports = {
     },
     {
       name: 'Resources-pages',
-      label: 'Resources pages'
+      label: 'ResourcesPages'
     },
     {
       name: 'account-settings-module',
@@ -94,6 +94,10 @@ module.exports = {
     {
       name: 'liverpool-Partner-agencies-pages',
       label: 'Partner-agencies'
+    },
+    {
+      name: 'liverpool-mental-health-pages',
+      label: 'Mental-Health-Page'
     }
 
     // Add more page types here, but make sure you create a corresponding

@@ -1,7 +1,7 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'partner-agencies',
-  label: 'Partner-agencies',
+  name: 'partnerAgenciesPage',
+  label: 'partnerAgencies',
   pluralLabel: 'Partner Agencies',
   addFields: [{
       name: 'title',
@@ -36,12 +36,12 @@ module.exports = {
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['title','thumbnail','partnerAgencies','text','tags']
+      fields: ['title','thumbnail','partnerAgencies','text']
     },
     {
       name: 'admins',
       label: 'Administratives',
-      fields: [ 'slug','published']
+      fields: [ 'slug','published','tags']
     }
   ]
 };
