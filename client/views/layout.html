@@ -136,11 +136,13 @@ endblock %} {% block extraHead %}
                   Make a referral
                 </div>
               </a>
-              <!-- <a href="{{ data.navigateViewRfrl }}">
+              {% if data.showLogout %}
+              <a href="{{ data.navigateViewRfrl }}">
                 <div class="border-bottom-0 cursor-pointer inside-cont-slider">
                   Saved referral
                 </div>
-              </a> -->
+              </a>
+              {% endif %}
             </div>
           </div>
           <div class="inside-cont-slider cursor-pointer">
@@ -350,6 +352,10 @@ endblock %} {% block extraHead %}
     %}
   </div>
 </div>
+<p id="logId">{{data.loginId}}</p>
+<p id="uRole">{{data.userRole}}</p>
+<p id="uUid">{{data.uuid}}</p>
+<div class="footer-bg set-bottom-padding">
 <p class="d-none" id="uRole">{{data.showLogout}}</p>
 <div id="footer-placement" class="footer-bg footer set-bottom-padding">
   <div class="footer-container">

@@ -89,7 +89,7 @@ $(document).ready(function () {
         mounted: function () {
             this.paramValues = getParameter(location.href)
             this.section5Labels = section5Labels;
-            this.userRole = this.paramValues[1];
+            this.userRole = document.getElementById('uRole').innerHTML;
             if (this.userRole === 'child') {
                 this.yourInfo = 'Child/Young person';
                 this.section5Labels.aboutLabel = "About you";
@@ -106,7 +106,7 @@ $(document).ready(function () {
                 this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
-            this.userId = this.paramValues[0];
+            this.userId = document.getElementById('uUid').innerHTML;
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
             console.log(this.payloadData);
@@ -187,7 +187,8 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
                     console.log(successData);
                     if (Object.keys(successData)) {
-                        location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
+                       // location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
+                       location.href = "/acknowledge";
                         this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
@@ -208,9 +209,10 @@ $(document).ready(function () {
 
 
             editAllSection: function (page) {
-                this.userId = this.paramValues[0];
-                this.userRole = this.paramValues[1];
-                var parameter = this.userId + "&" + this.userRole + "&" + "sec5back"
+                this.userId = document.getElementById('uUid').innerHTML
+                this.userRole =document.getElementById('uRole').innerHTML;
+                //var parameter = this.userId + "&" + this.userRole + "&" + "sec5back"
+                var parameter = "sec5back"
                 var enCodeParameter = btoa(parameter)
                 location.href = "/" + page + "?" + enCodeParameter
             },
@@ -368,9 +370,9 @@ $(document).ready(function () {
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
                         this.payloadData.endPoint = endpoint
-                        if (this.editPatchFlag) {
-                            this.payloadData.editFlag = this.paramValues[2]
-                        }
+                        // if (this.editPatchFlag) {
+                        //     this.payloadData.editFlag = this.paramValues[2]
+                        // }
 
                         if (this.userMode === 'edit') {
                             this.payloadData.userMode = 'edit';

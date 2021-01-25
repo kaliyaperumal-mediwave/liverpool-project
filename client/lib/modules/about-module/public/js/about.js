@@ -80,13 +80,18 @@ $(document).ready(function () {
 
         mounted: function () {
             var _self = this;
+            // this.paramValues = getParameter(location.href)
+            // this.userId = this.paramValues[0];
+            // this.userRole = this.paramValues[1];
+            // this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            if (this.paramValues[2] != undefined) {
+            if (this.paramValues != undefined) {
                 this.fetchSavedData();
             }
+
+            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.initMaps();
             $('#loader').hide();
         },
@@ -94,6 +99,7 @@ $(document).ready(function () {
 
             //Initializing Google Maps Autocompleted
             initMaps: function () {
+                $('#loader').hide();
                 var _self = this;
                 var childAddress;
                 var houseHoldAddress;
@@ -133,8 +139,8 @@ $(document).ready(function () {
             //Fetch Api service Logic
             fetchSavedData: function () {
                 var payload = {};
-                payload.uuid = this.userId;
-                payload.role = this.userRole;
+                payload.uuid = document.getElementById('uUid').innerHTML
+                payload.role = document.getElementById('uRole').innerHTML;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
                 console.log(successData)
                 if (successData && Object.keys(successData)) {
@@ -163,6 +169,7 @@ $(document).ready(function () {
 
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
+                this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
@@ -313,11 +320,11 @@ $(document).ready(function () {
 
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
-                    this.payloadData.role = this.userRole;
-                    this.payloadData.userid = this.userId;
+                    this.payloadData.role = document.getElementById('uRole').innerHTML;
+                    this.payloadData.userid = document.getElementById('uUid').innerHTML
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
                     if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.paramValues[2]
+                        this.payloadData.editFlag = this.paramValues[0]
                     }
 
                     if (this.userMode === 'edit') {
@@ -348,7 +355,24 @@ $(document).ready(function () {
                 if (responseData && Object.keys(responseData)) {
                     console.log(responseData)
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
+                    //console.log(redirectUrl(location.href, "education", this.userId, this.userRole));
+                   //location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
+                   if(this.paramValues!= undefined)
+                   {
+                       if(this.paramValues[0]=="sec5back")
+                       {
+                           location.href = "/review";
+                       }
+                       else
+                       {
+                        var url = location.href;
+                        location.href = "/education?"+url.substring(url.indexOf("?") + 1);
+                       }
+                   }
+                   else
+                   {
+                    location.href = "/education";
+                   }
                 } else {
                     $('#loader').hide();
                     console.log('empty response')

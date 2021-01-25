@@ -260,16 +260,23 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
     if (base64Matcher.test(getParams)) {
         const deCodeParameter = atob(getParams);
         let decodeValues = deCodeParameter.split("&");
+        console.log(decodeValues[2])
+
         if (decodeValues[2] == "sec5back" && nextPge != "acknowledge") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&sec5back";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/review?" + decryptedUrl;
         }
-        else {
+        else if (decodeValues[2] == "backbutton") {
             getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
             decryptedUrl = btoa(getParamsRedirect);
             gotopage = "/" + nextPge + "?" + decryptedUrl;
 
+        }
+        else if (decodeValues[2] == undefined) {
+            getParamsRedirect = usrId + "&" + roles;
+            decryptedUrl = btoa(getParamsRedirect);
+            gotopage = "/" + nextPge + "?" + decryptedUrl;
         }
     } else {
         getParamsRedirect = usrId + "&" + roles;
@@ -290,6 +297,15 @@ function decryptUrl(nextPge, loginId, roles) {
 
 $(document).ready(function () {
     setLoaderStyle();
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+        $('[data-toggle="popover"]').popover(
+            {
+                container: 'body',
+                boundary: 'window'
+            }
+        )
+    })
 })
 
 //window resize function
