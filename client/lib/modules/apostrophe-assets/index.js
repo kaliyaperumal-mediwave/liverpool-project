@@ -17,9 +17,9 @@ module.exports = {
     {
       name: 'site'
     },
-    {
-      name: 'jquery.min'
-    },
+    // {
+    //   name: 'jquery.min'
+    // },
     {
       name: 'jquery.cookie'
     },
