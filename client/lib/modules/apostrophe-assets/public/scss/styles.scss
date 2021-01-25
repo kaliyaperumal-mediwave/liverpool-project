@@ -2445,10 +2445,26 @@ $color-scheme: (
 .text-label-hide::before {
   display: none !important;
 }
-.h-2-182 {
-  height: 182px;
-  width: 180px;
+.h-2-182{
+  // height: 182px;
+width: 100%;
 }
 .m-b-min-8 {
   margin-bottom: -8px;
+}
+.ellipse-text{
+  display: block;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 4.6em;
+      line-height: 1.8em;
+}
+.ellipse-text-large{
+  display: block;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 3.6em;
+      line-height: 1.8em;
 }

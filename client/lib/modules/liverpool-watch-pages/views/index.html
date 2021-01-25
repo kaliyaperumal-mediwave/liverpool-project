@@ -44,7 +44,7 @@
                 <div class="read-cont-p">
                     {{ piece.SubTitle }}
                 </div>
-                <div class="text-break">
+                <div class="text-break ">
                     {{ piece.text }}
                   </div>
                 <div class="video-placed-ago px-0">
@@ -69,9 +69,12 @@
             </div>
             <iframe  class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="body-cont-set">
-            <div class="">
+            <div class="read-cont-p">
                 {{ piece.SubTitle }}
             </div>
+            <div class="text-break ellipse-text-large">
+                {{ piece.text }}
+              </div>
             <div class="video-placed-ago px-0">
                 {{ piece.uploadTime }}
             </div>

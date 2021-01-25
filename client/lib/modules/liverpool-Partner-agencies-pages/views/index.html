@@ -78,8 +78,11 @@
               {% if img %}
                 <img class="img-placeholder" width="100%" height="290" src="{{ apos.attachments.url(img, { size: 'max' }) }}">
               {% endif %}
-            <div class="video-para-bottom">
+            <div class="video-para-bottom ellipse-text">
                    {{ piece.partnerAgencies }}
+            </div>
+            <div class="video-para-bottom ellipse-text">
+                {{ piece.text }}
             </div>
             <div class="video-placed-ago">
                 {{ piece.uploadTime }}
