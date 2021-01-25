@@ -9,14 +9,13 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.userMode = this.paramValues[2];
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.userRole = document.getElementById('uRole').innerHTML;
+
+            this.userMode = this.paramValues;
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            console.log(this.userId, this.userRole, this.userMode)
-            if (this.userMode !== undefined) {
-                this.fetchSavedData();
-            }
+            //console.log(this.userId, this.userRole, this.userMode)
+            this.fetchSavedData();
             $('#loader').hide();
         },
         data: {
@@ -137,7 +136,8 @@ $(document).ready(function () {
                 { id: 'e116e2a3-4623-4c01-af34-bbe9ccb8a829', value: 'YPAS' },
                 { id: 'fefa3e54-a2ad-43a7-88cc-3fe4abe06533', value: 'Other' },
             ],
-            paramValues: []
+            paramValues: [],
+            updateFlag:false
         },
         methods: {
 
@@ -259,7 +259,9 @@ $(document).ready(function () {
                     this.payloadData.eatingDifficulties = this.eatingDifficulties;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
-                    this.payloadData.editFlag = getUrlVars()['edt'];
+                   if (this.updateFlag!= false) {
+                        this.payloadData.editFlag = this.updateFlag;
+                   }
                     this.payloadData.id = this.referralId;
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
@@ -296,7 +298,25 @@ $(document).ready(function () {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "review");
+                    // location.href = redirectUrl(location.href, "review");
+                    location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
+                   // location.href = "/review";
+                   if(this.paramValues!= undefined)
+                   {
+                       if(this.paramValues[0]=="sec5back")
+                       {
+                           location.href = "/review";
+                       }
+                       else
+                       {
+                        var url = location.href;
+                        location.href = "/review?"  +url.substring(url.indexOf("?") + 1);
+                       }
+                   }
+                   else
+                   {
+                    location.href = "/review";
+                   }
                     this.storeDeleteData = null;
                 } else {
                     $('#loader').hide();
@@ -306,33 +326,35 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue: function (data) {
-                console.log(data)
-                this.eatingDifficulties = data.eating_disorder_difficulties;
-                this.reasonForReferral = data.reason_for_referral;
-                this.accessList = data.local_services;
-                this.referralId = data.id;
-                if (this.accessList.indexOf("Other") > -1) {
-                    this.showAddOtherService = true;
-                } else {
-                    this.showAddOtherService = false;
+                if (data.status != "fail") {
+                    this.eatingDifficulties = data.eating_disorder_difficulties;
+                    this.reasonForReferral = data.reason_for_referral;
+                    this.accessList = data.local_services;
+                    this.referralId = data.id;
+                    this.updateFlag = true;
+                    if (this.accessList.indexOf("Other") > -1) {
+                        this.showAddOtherService = true;
+                    } else {
+                        this.showAddOtherService = false;
+                    }
+                    this.allAvailableService = data.services;
+                    Vue.set(this.referralData, "support", data.referral_type);
+                    Vue.set(this.referralData, "covid", data.is_covid);
+
+                    //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
+                    Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
+                    Vue.set(this.referralData, "height", data.height);
+                    Vue.set(this.referralData, "weight", data.weight);
+                    // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
+                    Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
+
+
+                    Vue.set(this.referralData, "referralInfo", data.referral_issues);
+                    Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
+                    Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
+                    Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
+                    Vue.set(this.referralData, "accessService", data.any_other_services);
                 }
-                this.allAvailableService = data.services;
-                Vue.set(this.referralData, "support", data.referral_type);
-                Vue.set(this.referralData, "covid", data.is_covid);
-
-                //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
-                Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
-                Vue.set(this.referralData, "height", data.height);
-                Vue.set(this.referralData, "weight", data.weight);
-                // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
-                Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
-
-
-                Vue.set(this.referralData, "referralInfo", data.referral_issues);
-                Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
-                Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
-                Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
-                Vue.set(this.referralData, "accessService", data.any_other_services);
             },
 
             //Adding and Updating  a service logic

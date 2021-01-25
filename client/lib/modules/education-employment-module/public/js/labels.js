@@ -1,7 +1,7 @@
 // $(document).ready(function () {
 //var currentLocation = getParameter(location.href);
 function getDynamicLabels(currentLocation) {
-    console.log(currentLocation)
+  //  console.log(currentLocation)
     var section3Labels = {
         positionLabel: '', locationLabel: '', ehcpPlanLabel: '', ehatToolLabel: '', isSocialWorkerLabel: '', socialWorkerNameLabel: '', socialWorkerContactLabel: '',
     }

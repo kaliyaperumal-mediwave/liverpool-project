@@ -17,7 +17,8 @@
                 </div>
             </span>
             <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                placeholder="Search your resource" id="example-search-input">
+                placeholder="Search your resource" id="example-search-input" v-model="viewReferralObj.searchTxt"
+                @input="getReferalByCode($event)">
         </div>
         <div class="dropdown d-flex justify-content-end align-items-center ">
 
@@ -33,11 +34,56 @@
                 </ul>
             </div>
         </div>
-        <div class='d-flex progress-container'>
-            <div @click="fetchReferrals('completed')" class="col-6 text-center text-complete cursor-pointer">
+        <div>
+            <!-- v-show="getStringLength(viewReferralObj.searchTxt) > 2" -->
+            <div v-show="getStringLength(viewReferralObj.searchTxt) > 0" class="recent_content">
+                <b>Search result for "{{viewReferralObj.searchTxt}}"</b>
+                <div v-for="(refObj, index1) in searchReferrals" class="justify-content-between align-items-center"
+                    id="headingTwo">
+                    <div class="align-items-center">
+                        <div class="collapse_title">
+                            <div>
+                                <div class="collapse show collapse-container">
+                                    <div class="collapse-title">
+                                        Hospital
+                                    </div>
+                                    <div class="collapse-para">
+                                        Alder Hey NHS
+                                    </div>
+                                    <div class="collapse-title">
+                                        Treatment
+                                    </div>
+                                    <div class="collapse-para">
+                                        N/A
+                                    </div>
+                                    <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
+                                        Code
+                                    </div>
+                                    <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-para">
+                                        {{refObj.reference_code}}
+                                    </div>
+                                    <div v-show="viewReferralObj.referralType == 'incomplete'"
+                                        class="container float-btn-cont">
+                                        <button class="float-btn" type="button" @click="contineReferral(refObj)">
+                                            <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-show="getStringLength(viewReferralObj.searchTxt) > 0 && searchReferrals.length == 0"
+            class="recent_content not-found">
+            <b>No results found</b>
+        </div>
+        <div v-if="getStringLength(viewReferralObj.searchTxt) < 1" class='d-flex progress-container'>
+            <div @click="fetchReferrals('completed')" class=" col-6 text-center text-complete cursor-pointer" v-bind:class="{'text-complete-active':!activeState}">
                 Completed
             </div>
-            <div @click="fetchReferrals('incomplete')" class="col-6 text-center text-not-complete cursor-pointer">
+            <div @click="fetchReferrals('incomplete')" class="col-6 text-center text-not-complete cursor-pointer" v-bind:class="{'text-complete-active':activeState}">
                 Not completed
             </div>
         </div>
@@ -50,162 +96,102 @@
                 A list of your most recent referrals
             </div>
             <hr class="dropdown-divider" />
-
-            <div class="accordion" id="accordionExample">
-
-                <!-- Section2-Start -->
-
-                <div class="py-2 px-3">
-                    <div class="d-flex justify-content-between align-items-center" id="headingTwo">
-                        <div class="d-flex align-items-center">
-                            <h2 class="py-2 m-0 question-header-font">
-                                DUMMY
-                            </h2>
-                            <span style="color: #023047">
-                                <i class="fa fa-pencil-square-o fa-2x res_fontz cursor-pointer px-3"
-                                    data-toggle="tooltip" @click="editAllSection('about')" data-placement="top"
-                                    title="Edit Section 2"></i>
-                            </span>
-                        </div>
+            <div v-for="(referrals, index) in viewReferralArray.slice(0, 1)"
+                class="justify-content-between align-items-center" id="headingOne">
+                <div class="d-flex pt-2 pb-2 w-100">
+                    <div class="flexGrow">
+                        {{referrals.date}}
+                    </div>
+                    <div>
                         <span style="color: #D6D8D8;">
-                            <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass" data-toggle="collapse"
-                                data-target="#collapseTwo" @click="toggleArrow($event)" aria-expanded="true"
-                                aria-controls="collapseTwo"></i>
+                            <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer" 
+                            data-toggle="collapse"
+                                :href="'#recentCollapseExample1'" @click="toggleArrow($event)" role="button" aria-expanded="false"
+                                aria-controls="collapseExample"></i>
                         </span>
                     </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                        <div>
-                            <!-- NHS Number Start -->
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nhsNumberSect5">
-                                    NHS Number:
-                                </label>
-                            </div>
-                            <!-- NHS Number End -->
+                </div>
+               
+                <!-- <span style="color: #D6D8D8;">
+                    <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
+                        data-toggle="collapse" id="toggle3" data-target="#collapseThree"
+                        @click="toggleArrow($event,3,allSectionData)" aria-expanded="true"
+                        aria-controls="collapseThree"></i>
+                </span> -->
 
-                            <!-- Full name Start -->
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameSec5">
-                                    Full name:
-                                </label>
-
-                            </div>
-                            <!-- Full name End -->
-
-                            <!-- Email Start -->
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="emailSec5">
-                                    Email:
-                                </label>
-                            </div>
-                            <!-- Email End -->
-
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
-                                    Contact Number:
-                                </label>
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
-                                    Address:
-                                </label>
-
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="orientSect5">
-                                    Sexual orientation:
-                                </label>
-
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
-                                    Ethnicity:
-                                </label>
-
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="ethincitySect5">
-                                    Household members
-                                </label>
-
-                            </div>
-
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="caresAdultSect5">
-                                    Cares for an Adult:
-                                </label>
-
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarName">
-                                    Parent / Carer's Name:
-                                </label>
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parResp">
-                                    Have parental responsibility:
-                                </label>
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="relSec5">
-                                    Relationship:
-                                </label>
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="contSec5">
-                                    Your Contact Number:
-                                </label>
-                            </div>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
-                                    Lives in same house:
-                                </label>
-                            </div>
-
-                            <template>
-                                <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarrerAdd5">
-                                        Parent/carer's address:
-                                    </label>
+                <div v-for="(refObj, index1) in referrals.data" class="justify-content-between align-items-center"
+                    id="headingTwo">
+                    <div class="align-items-center">
+                        <div class="collapse_title">
+                            <div>
+                                <div class="collapse show collapse-container" :id="'recentCollapseExample1'">
+                                    <div class="collapse-title">
+                                        Hospital
+                                    </div>
+                                    <div class="collapse-para">
+                                        Alder Hey NHS
+                                    </div>
+                                    <div class="collapse-title">
+                                        Treatment
+                                    </div>
+                                    <div class="collapse-para">
+                                        N/A
+                                    </div>
+                                    <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
+                                        Code
+                                    </div>
+                                    <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-para">
+                                        {{refObj.reference_code}}
+                                    </div>
+                                    <div v-show="viewReferralObj.referralType == 'incomplete'"
+                                        class="container float-btn-cont">
+                                        <button class="float-btn" type="button" @click="contineReferral(refObj)">
+                                            <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </template>
-
-                            <div class="py-3 w-100 mx-0 row align-items-center">
-                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
-                                    The child's legal care status:
-                                </label>
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-                <!-- Section2-End -->
-                <div class="dropdown-divider mx-3"></div>
             </div>
+        </div>
 
-            <!-- <div v-for="(referrals, index) in viewReferralArray"
-                class="d-flex justify-content-between align-items-center" id="headingOne">
-                {{referrals.date}}
+
+        <div class="text_blog">
+            <div class="recent_referrals">
+                Past referrals
+            </div>
+            <div class="recent_content">
+                A list of your past referrals
+            </div>
+            <hr class="dropdown-divider" />
+            <div v-for="(referrals, index) in viewReferralArray" v-if="index > 0"
+                class="justify-content-between align-items-center" id="headingOne">
+                <!-- {{referrals.date}}
                 <span style="color: #D6D8D8;">
                     <i class="fas fa-chevron-circle-down fa-2x res_fontz" data-toggle="collapse"
                         :href="'#collapseExample' + index" role="button" aria-expanded="false"
                         aria-controls="collapseExample"></i>
-                </span>
-                <div v-for="(refObj, index1) in referrals.data"
-                    class="d-flex justify-content-between align-items-center" id="headingTwo">
-                    <div class="d-flex align-items-center">
+                </span> -->
+
+                <div class="d-flex pt-2 pb-2 w-100">
+                    <div class="flexGrow">
+                        {{referrals.date}}
+                    </div>
+                    <div>
+                        <span style="color: #D6D8D8;">
+                            <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer" 
+                            data-toggle="collapse"
+                            :href="'#collapseExample' + index" id="'collapseExample' + index" @click="toggleArrow($event)" role="button" aria-expanded="false"
+                                aria-controls="collapseExample"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div v-for="(refObj, index1) in referrals.data" class=" justify-content-between align-items-center"
+                    id="headingTwo">
+                    <div class=" align-items-center">
                         <div class="collapse_title">
                             <div>
                                 <div class="collapse show collapse-container" :id="'collapseExample' + index">
@@ -238,12 +224,9 @@
                         </div>
                     </div>
                 </div>
-
-            </div> -->
+            </div>
         </div>
-        </a>
+        {% endraw %}
     </div>
-    {% endraw %}
-</div>
 
-{% endblock %}
+    {% endblock %}

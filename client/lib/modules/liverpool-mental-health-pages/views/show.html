@@ -1,0 +1,46 @@
+{% extends 'apostrophe-templates:layout.html' %}
+{% block extraBody %}
+{% endblock %}
+{% set user_data = data.user_data %}
+{% set rolesIds = data.rolesIds %}
+{% set sluglist = data.sluglist %}
+
+{% set piece = data.piece %}
+
+{% block main %}
+<div id="resources_user" class="main-min-height">
+    <div class="top-arrow-container" id="searchBar">
+      <a href="" class="previous-link">  <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow"></a>
+        <div class="resource_text"> {{ piece.title }}</div>
+        <div class="input-group">
+            <span class="input-group-prepend">
+                <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
+                    <span style="color: #023047 !important;">
+                        <i class="fal fa-search font-23"></i>
+                    </span>
+                </div>
+            </span>
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search" placeholder="Search your resource" id="example-search-input">
+        </div>
+      <div class="text_inside_return">
+         <div class="read-cont-h1">
+            {{ piece.title }}
+        </div>
+        <div class="read-cont-p">
+        {{ piece.subtitle }}
+        </div>
+        <div class="font-weight-light">
+            {{ piece.text }}
+        </div>
+        {% if apos.images.first(piece.thumbnail) %}
+           {% set img = apos.images.first(piece.thumbnail) %}
+         {% endif %}
+         {% if img %}
+      <div class="text-right">  <img class="img-placeholder" width="50%" src="{{ apos.attachments.url(img, { size: 'max' }) }}" /></div>
+         {% endif %}
+</div>
+
+
+    </div>
+    </div>
+{% endblock %}

@@ -80,57 +80,54 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.paramValues = getParameter(location.href);
-            //  this.getGP();
-            //  this.getProfGP();
-            if (this.paramValues != undefined) {
-                if (this.paramValues[0] == "loginFlag") {
-                    this.elgibilityObj.loginId = this.paramValues[1];
-                    this.elgibilityObj.role = this.paramValues[2];
-                    $('input[name=role]').attr("disabled", true);
-                    $('#loader').hide();
-                }
-                else if (this.paramValues[2] != undefined) {
-                    this.elgibilityObj.uuid = this.paramValues[0];
-                    this.elgibilityObj.editFlag = this.paramValues[2]
-                    this.fetchSavedData();
-                }
+
+            var userRole = document.getElementById('uRole').innerHTML;
+            if (userRole) {
+                this.elgibilityObj.role = userRole;
+                $('input[name=role]').attr("disabled", true);
+                $('#loader').hide();
             }
+            // if (this.paramValues[0] != undefined) {
+            //     this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
+            //     //this.elgibilityObj.editFlag = this.paramValues[0]
+            // }
+            this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
+            console.log(this.elgibilityObj.uuid)
+            this.fetchSavedData();
+            this.paramValues = getParameter(location.href);
             $('#loader').hide();
         },
 
         methods: {
             fetchSavedData: function () {
-                this.sendObj.uuid = this.paramValues[0];
-                this.sendObj.role = this.paramValues[1];
-                $.ajax({
-                    //  url: API_URI + "/fetchEligibility",
-                    url: API_URI + "/fetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
-                    type: 'get',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    // data: JSON.stringify(this.sendObj),
-                    success: function (data) {
-                        app.setValues(data);
-                        $('#loader').hide();
-                    },
-                    error: function (error) {
-                        $('#loader').hide();
-                        //console.log(error.responseJSON.message)
-                    }
-                });
+                this.sendObj.uuid = document.getElementById('uUid').innerHTML;
+                this.sendObj.role = document.getElementById('uRole').innerHTML;
+                if ((this.sendObj.uuid != undefined && this.sendObj.uuid != "") && (this.sendObj.role != undefined && this.sendObj.role != "")) {
+                    $.ajax({
+                        //  url: API_URI + "/fetchEligibility",
+                        url: API_URI + "/fetchEligibility/" + this.sendObj.uuid + "&role=" + this.sendObj.role,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        cache: false,
+                        // data: JSON.stringify(this.sendObj),
+                        success: function (data) {
+                            app.setValues(data);
+                            $('#loader').hide();
+                        },
+                        error: function (error) {
+                            $('#loader').hide();
+                            //console.log(error.responseJSON.message)
+                        }
+                    });
+                }
             },
-
-            // resetCalendar: function (e) {
-            //     debugger
-            //     console.log(e);
-            //     Vue.use('date-picker', VueBootstrapDatetimePicker);
-            // },
-
             setValues: function (data) {
-                var roleType = this.paramValues[1];
+               // console.log("length "+data.length)
+                this.elgibilityObj.editFlag = data.length;
+                var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-                console.log(data)
+                // console.log(data)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -142,7 +139,6 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
                     $('input[name=role]').attr("disabled", true);
-                    //   this.getGP();
                 }
                 else if (roleType == "parent") {
 
@@ -154,7 +150,6 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
-                    //  this.getGP();
                 }
                 else if (roleType == "professional") {
                     Vue.set(this.elgibilityObj, "role", roleType);
@@ -168,8 +163,8 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
-                    //  this.getProfGP();
                 }
+                //this.elgibilityObj.editFlag = "true";
 
             },
 
@@ -277,7 +272,7 @@ $(document).ready(function () {
                                             app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
-                                                console.log(_self.gpListShow[i].PostCode)
+                                               // console.log(_self.gpListShow[i].PostCode)
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                             }
@@ -295,7 +290,7 @@ $(document).ready(function () {
                                                     source: payload,
                                                     select: function (event, ui) {
                                                         _self.elgibilityObj.regGpTxt = ui.item.value;
-                                                        console.log(app.elgibilityObj.gpNotCovered)
+                                                       // console.log(app.elgibilityObj.gpNotCovered)
                                                         app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                         if (!app.elgibilityObj.gpNotCovered) {
                                                             _self.gpFlag = true;
@@ -342,7 +337,7 @@ $(document).ready(function () {
                                         $("#gpLocation").autocomplete({
                                             source: nameData,
                                             select: function (event, ui) {
-                                                console.log(app.elgibilityObj.gpNotCovered)
+                                           //     console.log(app.elgibilityObj.gpNotCovered)
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                 if (!app.elgibilityObj.gpNotCovered) {
@@ -444,14 +439,7 @@ $(document).ready(function () {
                         // //console.log(err)
                     },
                 })
-
-
-
             },
-
-
-
-
             getProfAddress: function (e) {
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this.elgibilityObj.regProfGpTxt = e.target.value.trim();
@@ -773,15 +761,11 @@ $(document).ready(function () {
             },
 
             save: function () {
-                // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
-                //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
-                //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
-                this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
+               // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
-                //console.log(this.elgibilityObj.role);
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
@@ -863,25 +847,37 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     success: function (data) {
-                        //alert("section 1 saved.");
-                        // //console.log(data);
                         _self.isSubmitted = false;
                         if (role === 'professional') {
                             _self.resetValidation();
                         }
-                        if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
-                            var url = window.location.href.split('?')[0];
-                            //  //console.log(url)
-                            location.href = redirectUrl(url, "about", data.userid, role);
+                        if (_self.paramValues != undefined) {
+                            if (_self.paramValues[0] == "sec5back") {
+                                location.href = "/review";
+                            }
+                            else {
+                                var url = location.href;
+                                //console.log(url.substring(req.url.indexOf("?") + 1));
+                                location.href = "/about?" + url.substring(url.indexOf("?") + 1);
+                            }
                         }
                         else {
-                            location.href = redirectUrl(location.href, "about", data.userid, role);
+                            location.href = "/about";
                         }
+
+                        //location.href = redirectUrl(url, "about", data.userid, role);
+                        // if (_self.paramValues != undefined && _self.paramValues[0] == "loginFlag") {
+                        //     var url = window.location.href.split('?')[0];
+                        //     location.href = redirectUrl(url, "about", data.userid, role);
+                        // }
+                        // else {
+                        //     location.href = redirectUrl(location.href, "about", data.userid, role);
+                        // }
 
                     },
                     error: function (error) {
                         $('#loader').hide();
-                        //console.log(error.responseJSON.message)
+                        console.log(error.responseJSON.message)
                     }
                 });
             },
@@ -912,13 +908,10 @@ $(document).ready(function () {
                 var ddChars = dd.split('');
                 var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
                 this.dateFmt = yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0])
-                // 'DD/MM/YYYY'
-                // return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 return showDate;
             },
 
             setDate: function (dbDate) {
-                //console.log(dbDate.split("/"))
                 var dateArray = dbDate.split("/");
                 var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
                 var date = new Date(toOldFmt)
@@ -929,17 +922,13 @@ $(document).ready(function () {
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
                 var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
-                // 'DD/MM/YYYY'
                 return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
-                //return showDate;
             },
 
             fetchAgeLogic: function (dbdob, roleText) {
-                //          //console.log(dbdob);
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
                 var age = this.diff_years(today, selectedDate);
-                //          //console.log(age);
                 if (roleText == 'child') {
                     if (age < 14) {
 

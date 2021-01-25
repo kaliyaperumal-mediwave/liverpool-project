@@ -2,10 +2,12 @@
 
 {% block extraBody %}
 <script src="/modules/resources-module/js/resources.js"></script>
+<!-- <script src="/modules/resources-module/js/filters.js"></script> -->
 
 {% endblock %}
 {% block main %}
 <div id="resources_user" class="main-min-height">
+    <input hidden id="resources" value="{{data.piecesArray|dump}}">
     <div class="top-arrow-container" id="searchBar">
         <a href="{{ data.logoPath }}" class="text-decoration-none">
             <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
@@ -20,74 +22,31 @@
                 </div>
             </span>
             <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                @input="searchData($event)" placeholder="Search your resource" id="example-search-input">
+                v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
+                @input="filterPieces()">
         </div>
-
+        {% raw %}
         <!-- Search functionality start-->
-        <!-- <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is depression?”</div>
+        <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+            depression?”</div>
         <div v-if="showSearchResults" class="search-wrap primary-search-radius">
             <div class="primary-search-radius card cursor-pointer">
-                <div class="border-bottom-primary card-body px-2 px-md-4">
-                    <div class="d-flex align-items-center">
-                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                            class="px-1 px-md-2 cursor-pointer" alt="">
-                        <p class="question-font my-0 mx-2 mx-md-4">Coping with <b>depression</b>
-                        </p>
-                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                            <li>Events</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="border-bottom-primary card-body px-2 px-md-4">
-                    <div class="d-flex align-items-center">
-                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                            class="px-1 px-md-2 cursor-pointer" alt="">
-                        <p class="question-font my-0 mx-2 mx-md-4">Living with <b>depression</b>
 
-                        </p>
-                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                            <li>Video</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="border-bottom-primary card-body px-2 px-md-4">
+                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
                     <div class="d-flex align-items-center">
                         <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
                             class="px-1 px-md-2 cursor-pointer" alt="">
-                        <p class="question-font my-0 mx-2 mx-md-4">Living with <b>pain</b>
-
+                        <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
                         </p>
-                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                            <li>Events</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="border-bottom-primary card-body px-2 px-md-4">
-                    <div class="d-flex align-items-center">
-                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                            class="px-1 px-md-2 cursor-pointer" alt="">
-                        <p class="question-font my-0 mx-2 mx-md-4">Coping with <b>pain</b>
-
-                        </p>
-                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                            <li>Events</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card-body px-2 px-md-4">
-                    <div class="d-flex align-items-center">
-                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                            class="px-1 px-md-2 cursor-pointer" alt="">
-                        <p class="question-font my-0 mx-2 mx-md-4">Living with <b>Stress</b> </p>
                         <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
                             <li>Events</li>
                         </ul>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
         <!-- Search functionality end-->
-
+        {% endraw %}
         <div class="text_inside_cont">
             Sometimes it’s hard to make sense of how you’re feeling, your thoughts and behaviours. In this section, you
             can use our guides and find out more about what support is available to you.
@@ -383,7 +342,7 @@
             <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
                 @click="navigatePage('/users/login')">
                 <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="sponsor-image-tag " alt="">
+                    <img src="/modules/my-apostrophe-assets/img/Spinning_World.jpg" class="sponsor-image-tag " alt="">
                 </div>
             </div>
 

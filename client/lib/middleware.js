@@ -2,6 +2,96 @@ const request = require('request-promise');
 
 module.exports = function (self, options) {
   self.middleware = {
+
+    checkAuth:function (req,res,next){
+      if (req.session.auth_token) {
+       req.data.loginId = req.session.loginIdUrl;
+       req.data.userRole = req.session.user_role;
+       req.data.logoPath = "/dashboard"
+       req.data.aboutPage = "/pages/about"
+       req.data.termPage = "/pages/terms"
+       req.data.privacyPage = "/pages/privacy"
+       req.data.feedbackPage = "/pages/feedback"
+       req.data.contactPage = "/pages/contact" 
+       req.data.navigateViewRfrl = "/viewreferals" 
+       req.data. urgentHelpPage = "/pages/urgent-help"
+       req.data.mentalHeathPage = "/mental-health"
+       req.data.resourcesPage = "/resources"
+       req.data.navigateMkeRfrl = "/make-referral"
+       req.data.showLogout = true;
+        return next();
+      }
+      else {
+        req.data.userRole =  req.session.user_role;
+        return req.res.redirect("/")
+      }
+    },
+
+    checkCommonPageAuth:function (req,res,next){
+      req.data.aboutPage = "/pages/about";
+      req.data.termPage = "/pages/terms";
+      req.data.privacyPage = "/pages/privacy";
+      req.data.feedbackPage = "/pages/feedback";
+      req.data.contactPage = "/pages/contact" ;
+      req.data.navigateViewRfrl = "/viewreferals" ;
+      req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.mentalHeathPage = "/mental-health";
+      req.data.resourcesPage = "/resources";
+      req.data.navigateMkeRfrl = "/make-referral";
+      req.data. path = "/role";
+      if (req.session.auth_token) {
+       req.data.loginId = req.session.loginIdUrl;
+       req.data.userRole = req.session.user_role;
+       req.data.uuid = req.session.uuid;
+       req.data.logoPath = "/dashboard"
+       req.data.showLogout = true;
+        return next();
+      }
+      else {
+        req.data.logoPath = "/";
+        req.data.showLogout=false;
+        req.data.loginId = "";
+        req.data.uuid = req.session.uuid;
+        req.data.userRole =  req.session.user_role;
+        return next();
+      }
+    },
+
+    //to clear uuid and userrole in referrance home page. 
+
+    clearSessionReferral:function (req,res,next){
+      req.data.aboutPage = "/pages/about";
+      req.data.termPage = "/pages/terms";
+      req.data.privacyPage = "/pages/privacy";
+      req.data.feedbackPage = "/pages/feedback";
+      req.data.contactPage = "/pages/contact" ;
+      req.data.navigateViewRfrl = "/viewreferals" ;
+      req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.mentalHeathPage = "/mental-health";
+      req.data.resourcesPage = "/resources";
+      req.data.navigateMkeRfrl = "/make-referral";
+      req.data. path = "/role";
+      console.log(req.session.auth_token)
+      if (req.session.auth_token) {
+       req.data.loginId = req.session.loginIdUrl;
+       req.data.userRole = req.session.user_role;
+       delete req.session.uuid;
+       req.data.uuid = "";
+       req.data.logoPath = "/dashboard"
+       req.data.showLogout = true;
+        return next();
+      }
+      else {
+        req.data.logoPath = "/";
+        req.data.showLogout=false;
+        req.data.loginId = "";
+        delete req.session.uuid;
+        delete req.session.user_role;
+        req.data.uuid = "";
+        req.data.userRole = "";
+        return next();
+      }
+    },
     post: function (req, res, url, body) {
       return new Promise((resolve, reject) => {
         let options = {
@@ -136,7 +226,30 @@ module.exports = function (self, options) {
     }
   };
 
-
+  self.checkCommonPageAuth = function (req) {
+    return new Promise((resolve, reject) => {
+      if (req.session.aposBlessings || !req.session.auth_token) {
+        req.data.user_data = {};
+        req.data.rolesIds = [];
+        resolve(req);
+      } else {
+        let url = self.apos.CANDMMODULE.getOption(req, 'phr-module') + self.apos.PATH.getOption(req, 'authentication-path') + '/apostropheAuth';
+        self.middleware.get(req, url).then((data) => {
+          req.data.user_data = data.data;
+          var rolesIds = [];
+          for (let i = 0; i < data.data.roles.length; i++) {
+            rolesIds.push(data.data.roles[i].id);
+          }
+          req.data.rolesIds = rolesIds;
+          resolve(req);
+        }).catch(() => {
+          req.data.user_data = {};
+          req.data.rolesIds = [];
+          resolve(req);
+        });
+      }
+    });
+  };
   self.setHeader = function (req) {
     let headers;
     if (req.session.auth_token) {

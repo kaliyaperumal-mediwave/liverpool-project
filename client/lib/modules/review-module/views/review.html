@@ -43,14 +43,16 @@
                     </div>
                     <!-- Loader end -->
                     <div class="py-2 px-3">
-                        <div class="d-flex justify-content-between align-items-center" id="headingOne">
+                        <div class="d-flex justify-content-between align-items-center" id="headingOne"
+                            data-container="body">
                             <div class="d-flex align-items-center">
                                 <h2 class="py-2 m-0 question-header-font">
                                     Eligibility
                                 </h2>
                                 <span style="color: #023047">
                                     <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
-                                        @click="editAllSection('role')" data-placement="top" title="Edit Section 1"></i>
+                                        data-container="body" @click="editAllSection('role')" data-placement="top"
+                                        title="Edit Section 1"></i>
                                 </span>
                             </div>
                             <span style="color: #D6D8D8;">
@@ -68,6 +70,8 @@
                                         I am a:
                                     </label>
                                     <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
+                                        data-container="body" data-toggle="popover" data-trigger="focus"
+                                        data-placement="top" data-content="Go to that section to edit"
                                         v-model="yourInfo" id="iamA">
                                 </div>
                                 <!-- Your Info End -->
