@@ -40,7 +40,7 @@ module.exports = {
       else if (req.session.user_role == 'professional') {
         labels = "Section 4 of 5: Your Reason For Referring the child/ young person";
       }
-
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('referral', {
         headerContent: labels,
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
