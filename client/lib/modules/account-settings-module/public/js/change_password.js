@@ -1,14 +1,7 @@
 // var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    if (false || !!document.documentMode) {
-        // 
-    }
-    else {
-        Vue.use(VueToast);
-    }
     new Vue({
         el: '#changePassword',
-
         data: {
             changePasswordData: {
                 oldPassword: "",
