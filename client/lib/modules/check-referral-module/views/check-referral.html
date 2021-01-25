@@ -75,7 +75,10 @@
             </div>
             </div>
         </div>
-        <div v-if="getStringLength(viewReferralObj.searchTxt) < 3" class='d-flex progress-container'>
+        <div v-show="getStringLength(viewReferralObj.searchTxt) > 0 && searchReferrals.length == 0" class="recent_content">
+            <b>Not found</b>
+        </div>
+        <div v-if="getStringLength(viewReferralObj.searchTxt) < 1" class='d-flex progress-container'>
             <div @click="fetchReferrals('completed')" class="col-6 text-center text-complete cursor-pointer">
                 Completed
             </div>
