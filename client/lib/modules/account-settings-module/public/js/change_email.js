@@ -1,14 +1,7 @@
 // var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    if (false || !!document.documentMode) {
-        // 
-    }
-    else {
-        Vue.use(VueToast);
-    }
     new Vue({
         el: '#changeEmail',
-
         data: {
             changeEmailData: {
                 oldEmail: "",
@@ -62,10 +55,6 @@ $(document).ready(function () {
                     return false;
                 }
             },
-
-            // navigatePage: function (route) {
-            //     window.location.href = window.location.origin + route;
-            // },
 
             resetForm: function () {
                 this.isFormSubmitted = false;

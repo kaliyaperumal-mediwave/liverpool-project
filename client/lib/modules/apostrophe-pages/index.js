@@ -76,6 +76,10 @@ module.exports = {
       label: 'Account Settings Module'
     },
     {
+      name: 'accessibility-module',
+      label: 'Accessibility Module'
+    },
+    {
       name: 'liverpool-watch-pages',
       label: 'Resources watch'
     },
@@ -98,7 +102,12 @@ module.exports = {
     {
       name: 'liverpool-mental-health-pages',
       label: 'Mental-Health-Page'
+    },
+    {
+      name: 'liverpool-about-service-pages',
+      label: 'About-Service-Page'
     }
+
 
     // Add more page types here, but make sure you create a corresponding
     // template in lib/modules/apostrophe-pages/views/pages!

@@ -247,7 +247,12 @@ function convertDate(dbDate) {
 function setLoaderStyle() {
     var element = document.body;
     element.classList.add('body-bg');
+    element.classList.add('net');
+    element.classList.add('default');
+    element.classList.add('theme-wrapper');
 }
+
+
 
 
 //for make referral 1 to 5 section

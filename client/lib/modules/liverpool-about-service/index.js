@@ -1,8 +1,8 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'About the people',
-  label: 'About the people',
-  pluralLabel: 'About the people',
+  name: 'About the services',
+  label: 'About the services',
+  pluralLabel: 'About the services',
   addFields: [
     {
       name: 'title',
@@ -38,12 +38,12 @@ module.exports = {
     {
       name: 'title',
       label: 'Title',
-      fields: [ 'title','subtitle','text', 'tags','thumbnail']
+      fields: [ 'title','subtitle','text','thumbnail']
     },
     {
       name: 'admin',
       label: 'Administrative',
-      fields: ['slug', 'published']
+      fields: ['slug', 'published', 'tags']
     }
   ]
 };
