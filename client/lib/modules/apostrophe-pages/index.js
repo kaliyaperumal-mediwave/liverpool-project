@@ -94,6 +94,10 @@ module.exports = {
     {
       name: 'liverpool-Partner-agencies-pages',
       label: 'Partner-agencies'
+    },
+    {
+      name: 'liverpool-mental-health-pages',
+      label: 'Mental-Health-Page'
     }
 
     // Add more page types here, but make sure you create a corresponding
