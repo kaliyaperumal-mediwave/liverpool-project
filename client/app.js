@@ -45,24 +45,7 @@ var apos = require("apostrophe")({
   "jobs-pages": {
     extend: "apostrophe-pieces-pages"
   },
-  "apostrophe-pages": {
-    // Don"t forget to add the page type!
-    types: [
-      // ... other page types here ...
-      {
-         name: "Resources-pages",
-         label: "Resources Page"
-      },
-      {
-        name: "liverpool-read-pages",
-        label: "read Page"
-      },
-      {
-        name: "jobs-page",
-        label: "Jobs"
-      },
-    ]
-  },
+
     "Resources-content-widgets": {},
     "liverpool-towatch-widgets": {},
     // "liverpool-watch-pages": {},
