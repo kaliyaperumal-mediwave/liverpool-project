@@ -36,7 +36,7 @@
            {% set img = apos.images.first(piece.thumbnail) %}
          {% endif %}
          {% if img %}
-      <div>  <img class="img-placeholder" width="100%" height="315" src="{{ apos.attachments.url(img, { size: 'max' }) }}" /></div>
+      <div class="text-right">  <img class="img-placeholder" width="50%" src="{{ apos.attachments.url(img, { size: 'max' }) }}" /></div>
          {% endif %}
 </div>
 
