@@ -11,7 +11,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            var formData = [];
+            var formData = {};
             // var _self = this;
             // setTimeout(function () {
             //     $('#loader').hide();

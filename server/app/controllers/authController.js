@@ -320,7 +320,7 @@ exports.resetEmail = (ctx) => {
                 email_verification_token: ctx.request.body.token,
             },
         }).then((user) => {
-            if (user && (((moment()).diff(moment(user.password_verification_expiry), 'days')) < 1)) {
+            if (user && (((moment()).diff(moment(user.email_verification_expiry), 'days')) < 1)) {
 
                 return new Promise((resolve, reject) => {
                     ctx.request.body.email = user.secondary_email;
@@ -336,7 +336,7 @@ exports.resetEmail = (ctx) => {
                 });
             }
             return ctx.res.badRequest({
-                message: eponseMessages[1009],
+                message: reponseMessages[1009],
             });
         }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
     } catch (e) {
