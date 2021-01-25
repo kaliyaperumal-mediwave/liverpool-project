@@ -85,5 +85,7 @@
 	"Completed": "Completed",
 	"Successful": "Successful",
 	"Errors": "Errors",
-	"Rich Text": "Rich Text"
+	"Rich Text": "Rich Text",
+	"An error has occurred": "An error has occurred",
+	"An error has occurred. We're working on it. We apologize for the inconvenience.": "An error has occurred. We're working on it. We apologize for the inconvenience."
 }

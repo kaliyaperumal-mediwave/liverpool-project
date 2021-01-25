@@ -279,6 +279,9 @@
   transform: scale(1); }
 
 /* CheckBox Global classes */
+.set-width-calc {
+  width: calc(100% - 55px); }
+
 .custom-form-group {
   display: block;
   margin-bottom: 15px;
@@ -445,7 +448,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -635,14 +638,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -650,7 +653,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -658,21 +661,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -2728,9 +2731,6 @@ body .ui-widget .ui-menu-item {
 
 .modal-dialog-centered {
   justify-content: center; }
-
-.set-width-calc {
-  width: calc(100% - 55px); }
 
 .text-label-hide::before {
   display: none !important; }
