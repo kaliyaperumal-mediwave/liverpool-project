@@ -54,6 +54,9 @@ var apos = require("apostrophe")({
     "liverpool-games-pages":{ perPage: 999 },
     "liverpool-Partner-agencies":{},
     "liverpool-Partner-agencies-pages":{ perPage: 999 },
+      "liverpool-mental-health": {},
+    "liverpool-mental-health-pages": { perPage: 999 },
+
     "home-module": {},
     "referral-home-module": {},
     "referral-module": {},
