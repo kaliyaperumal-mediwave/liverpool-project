@@ -279,6 +279,9 @@
   transform: scale(1); }
 
 /* CheckBox Global classes */
+.set-width-calc {
+  width: calc(100% - 55px); }
+
 .custom-form-group {
   display: block;
   margin-bottom: 15px;
@@ -2729,8 +2732,12 @@ body .ui-widget .ui-menu-item {
 .modal-dialog-centered {
   justify-content: center; }
 
-.set-width-calc {
-  width: calc(100% - 55px); }
-
 .text-label-hide::before {
   display: none !important; }
+
+.h-2-182 {
+  height: 182px;
+  width: 180px; }
+
+.m-b-min-8 {
+  margin-bottom: -8px; }
