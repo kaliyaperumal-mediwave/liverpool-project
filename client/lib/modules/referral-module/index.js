@@ -9,7 +9,7 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.checkCommonPageAuth,self.referral);
+      self.dispatch('/', self.middleware.checkCommonPageAuth, self.referral);
     };
     self.referral = function (req, callback) {
       let labels;
@@ -32,15 +32,15 @@ module.exports = {
       //   decryptedUrl = btoa(getParamsRedirect);
       // }
 
-
-      if (decodeValues[1] == 'child') {
+      if (req.session.user_role == 'child') {
         labels = "Section 4 of 5: Your Reason For Referral";
-      } else if (decodeValues[1] == 'parent') {
+      } else if (req.session.user_role == 'parent') {
         labels = "Section 4 of 5: Your Reason For Referring your child";
       }
-      else if (decodeValues[1] == 'professional') {
+      else if (req.session.user_role == 'professional') {
         labels = "Section 4 of 5: Your Reason For Referring the child/ young person";
       }
+
       return self.sendPage(req, self.renderer('referral', {
         headerContent: labels,
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",

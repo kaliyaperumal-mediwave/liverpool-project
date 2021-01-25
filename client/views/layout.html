@@ -352,45 +352,46 @@ endblock %} {% block extraHead %}
     %}
   </div>
 </div>
-<p id="logId">{{data.loginId}}</p>
-<p id="uRole">{{data.userRole}}</p>
-<p id="uUid">{{data.uuid}}</p>
+<p class="d-none" id="logId">{{data.loginId}}</p>
+<p class="d-none" id="uRole">{{data.userRole}}</p>
+<p class="d-none" id="uUid">{{data.uuid}}</p>
 <div class="footer-bg set-bottom-padding">
-<p class="d-none" id="uRole">{{data.showLogout}}</p>
-<div id="footer-placement" class="footer-bg footer set-bottom-padding">
-  <div class="footer-container">
-    <div>
-      <a href="{{ data.aboutPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">About
-        </span>
-      </a>
-    </div>
-    <div>
-      <a href="{{ data.termPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">T
-          &
-          Cs</span>
-      </a>
-    </div>
-    <div>
-      <a href="{{ data.privacyPage }}" class="text-decoration-none w-100 "> <span
-          class="footer-text cursor-pointer">Privacy</span>
-      </a>
-    </div>
-    <div>
-      <a href="{{ data.feedbackPage }}" class="text-decoration-none w-100 "> <span
-          class="footer-text cursor-pointer">Feedback</span>
-      </a>
-    </div>
-    <div>
-      <a class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">Contact</span>
-      </a>
-    </div>
-    <!-- <a href="{ data.contactPage }}" class="text-decoration-none"> <span
+  <p class="d-none" id="uRole">{{data.showLogout}}</p>
+  <div id="footer-placement" class="footer-bg footer set-bottom-padding">
+    <div class="footer-container">
+      <div>
+        <a href="{{ data.aboutPage }}" class="text-decoration-none w-100 "> <span
+            class="footer-text cursor-pointer">About
+          </span>
+        </a>
+      </div>
+      <div>
+        <a href="{{ data.termPage }}" class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">T
+            &
+            Cs</span>
+        </a>
+      </div>
+      <div>
+        <a href="{{ data.privacyPage }}" class="text-decoration-none w-100 "> <span
+            class="footer-text cursor-pointer">Privacy</span>
+        </a>
+      </div>
+      <div>
+        <a href="{{ data.feedbackPage }}" class="text-decoration-none w-100 "> <span
+            class="footer-text cursor-pointer">Feedback</span>
+        </a>
+      </div>
+      <div>
+        <a class="text-decoration-none w-100 "> <span class="footer-text cursor-pointer">Contact</span>
+        </a>
+      </div>
+      <!-- <a href="{ data.contactPage }}" class="text-decoration-none"> <span
         class="footer-text cursor-pointer">Contact</span>
     </a> -->
+    </div>
   </div>
-</div>
 
-<!-- {#
+  <!-- {#
     This would be a great place to put a global footer.
   #} -->
-{% endblock %}
+  {% endblock %}
