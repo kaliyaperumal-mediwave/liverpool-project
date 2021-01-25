@@ -21,7 +21,6 @@ $(document).ready(function () {
             },
 
             themeChangerInit: function (e) {
-                debugger
                 var $node = e.target;
                 theme = $node.getAttribute('data-theme');
                 $('.theme-wrapper').removeClass('net default small large').addClass('net ' + theme).addClass('body-bg');

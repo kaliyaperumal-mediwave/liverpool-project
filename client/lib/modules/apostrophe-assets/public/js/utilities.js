@@ -245,7 +245,6 @@ function convertDate(dbDate) {
 
 
 function setLoaderStyle() {
-    debugger
     var element = document.body;
     element.classList.add('body-bg');
     element.classList.add('net');
