@@ -37,10 +37,7 @@ $(document).ready(function () {
             //this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
             $('#loader').hide();
-            if (this.userMode != undefined) {
-                this.fetchSavedData();
-            }
-
+            this.fetchSavedData();
             this.initMaps()
         },
 

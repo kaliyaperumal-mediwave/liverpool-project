@@ -25,6 +25,7 @@ module.exports = {
 
       // check already logged user 
       // if yes redirect user to dashboard directly else redirect them to login page
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate'); //This will force the browser to obtain new copy of the page even when they hit "back".
       if (req.session.auth_token) {
         return req.res.redirect("/dashboard");
       }
@@ -38,6 +39,7 @@ module.exports = {
 
       // check already logged user 
       // if yes redirect user to dashboard directly else redirect them to signup page
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate'); //This will force the browser to obtain new copy of the page even when they hit "back".
       if (req.session.auth_token) {
         return req.res.redirect("/dashboard");
       }

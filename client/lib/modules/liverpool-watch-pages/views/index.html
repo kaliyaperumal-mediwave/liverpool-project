@@ -1,5 +1,11 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
+<script>
+    $(document).on('click', 'a.previous-link', function () {
+        parent.history.back();
+        return false;
+    });
+</script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -8,7 +14,7 @@
 {% block main %}
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
+        <a href="" class="previous-link">   <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" /></a>
         <div class="resource_text">Videos</div>
         <div class="input-group">
             <span class="input-group-prepend">
@@ -24,48 +30,58 @@
         <div class="text_inside_cont">
             Here are different videos currently used across the platform
         </div>
-        </a>
 
         {% for piece in data.pieces %}
+  {% if loop.index == 1 %}
 
-        <a class="text_inside_video">
-          <iframe  class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" /> -->
-            
-            <div class="body-cont-set">
+          <div class="text_inside_video text-decoration-none">
+            <div class="large-toggle-cont no-padding">
+              <iframe  class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <div class="body-cont-set">
                 <div class="read-cont-h1">
                   {{ piece.title }}
                 </div>
                 <div class="read-cont-p">
                     {{ piece.SubTitle }}
                 </div>
+                <div class="text-break ">
+                    {{ piece.text }}
+                  </div>
+                <div class="video-placed-ago px-0">
+                    {{ piece.uploadTime }}
+                </div>
+                </div>
+              </div>
+            </div> <br>
 
-                  {{ piece.text }}
+        {% if data.pieces.length > 1 %}
+            <div class="selectSource">
+                More to read
             </div>
-        </a><br>
-        {% endfor %}
-        <div class="selectSource">
-            More videos to watch
-        </div>
+        {% endif %}
+        {% else %}
 
-          {% for piece in data.pieces %}
-        <a class="large-toggle-cont no-padding text-decoration-none">
+        <a href="{{ piece._parentUrl }}?piece_id={{ piece._id }}" class=" text-decoration-none">
+
+          <div class="large-toggle-cont no-padding ">
             <div class="video-title-top">
                 {{ piece.title }}
             </div>
-            <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
             <iframe  class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
             <div class="body-cont-set">
-            <div class="video-para-bottom">
+            <div class="read-cont-p">
                 {{ piece.SubTitle }}
             </div>
-            <div class="video-placed-ago">
-                4 hours ago
-            </div></div>
-        </a>
-          {% endfor %}
-
+            <div class="text-break ellipse-text-large">
+                {{ piece.text }}
+              </div>
+            <div class="video-placed-ago px-0">
+                {{ piece.uploadTime }}
+            </div>
+        </div>
+        </div></a>
+   {% endif %}
+    {% endfor %}
     </div>
     <div class="sub-header-bg my-4 setHadPad">
         <div class=" mx-auto container-referal ">

@@ -68,7 +68,8 @@ $(document).ready(function () {
 
             gotoDashboard: function (token) {
                 $('#logInSuccess').modal('hide');
-                location.href = redirectUrl(location.href, "dashboard", token.data.sendUserResult.loginId, token.data.sendUserResult.role);
+                //location.href = redirectUrl(location.href, "dashboard", token.data.sendUserResult.loginId, token.data.sendUserResult.role);
+                location.href = "/dashboard";
             }
 
         }
