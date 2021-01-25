@@ -183,6 +183,8 @@ module.exports = {
 
     self.route('post', 'changeEmail', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/changeEmail';
+      console.log("changeEmailchangeEmailchangeEmail",url);
+
       self.middleware.post(req, res, url, req.body).then((data) => {
         console.log(data)
         return res.send(data);

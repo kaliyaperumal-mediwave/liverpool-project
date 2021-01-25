@@ -36,17 +36,12 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/changePassword', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
-                        if (false || !!document.documentMode) {
-                            alert(successData.message);
-                        } else {
-                            alert(successData.message);
+                        if (successData && Object.keys(successData)) {
+                            $('#loader').removeClass('d-block').addClass('d-none');
+                            $('#changePasswordSuccess').modal('show');
 
-                            // Vue.$toast.success('Mail successfully sent!', {
-                            //     position: 'top',
-                            //     duration: 1000,
-                            //     onDismiss: function () {
-                            //     }
-                            // });
+                        } else {
+                            $('#loader').removeClass('d-block').addClass('d-none');
                         }
 
                     } else {
@@ -71,6 +66,11 @@ $(document).ready(function () {
                 this.isFormSubmitted = false;
                 this.changePasswordData.oldPassword = '';
                 this.changePasswordData.newPassword = '';
+            },
+
+            gotoDashboard: function (token) {
+                $('#changePasswordSuccess').modal('hide');
+                location.href = "/dashboard";
             }
 
         }
