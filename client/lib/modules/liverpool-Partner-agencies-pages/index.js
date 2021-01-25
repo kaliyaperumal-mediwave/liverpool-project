@@ -61,5 +61,13 @@ module.exports = {
       }).catch(() => {
       });
     };
+
+    function setVideoValue(value, time) {
+      if(value == 1) {
+          return `${value} ${time} ago`;
+      } else {
+          return `${value} ${time}s ago`;
+      }
+    }
   }
 };
