@@ -31,21 +31,21 @@ module.exports = {
           let value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'days');
           let time = '';
           if(value < 1) {
-              value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'hours');
-              if(value == 1) {
-                  value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'minutes');
-                  time = 'minute';
-              } else {
-                  time = 'hour';
-              }
+            value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'hours');
+            if(value <= 1 ) {
+              value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'minutes');
+              time = 'minute';
+            } else {
+              time = 'hour';
+            }
           } else if(value < 30) {
-              time = 'day';
+            time = 'day';
           } else if(value < 365) {
-              value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'months');
-              time = 'month';
+            value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'months');
+            time = 'month';
           } else {
-              value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'years');
-              time = 'year';
+            value = moment(todayDate, 'DD-MM-YYYY HH:MM:SS').diff(moment(videoTime, 'DD-MM-YYYY HH:MM:SS'), 'years');
+            time = 'year';
           }
           req.data.pieces[index].uploadTime = setVideoValue(value, time);
           if(req.data.pieces[index]._id == req.query.piece_id) {
@@ -65,9 +65,9 @@ module.exports = {
 
     function setVideoValue(value, time) {
       if(value == 1) {
-          return `${value} ${time} ago`;
+        return `${value} ${time} ago`;
       } else {
-          return `${value} ${time}s ago`;
+        return `${value} ${time}s ago`;
       }
     }
   }
