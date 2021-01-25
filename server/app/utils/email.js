@@ -5,7 +5,6 @@ const nodemailer = require('nodemailer');
 const config = require('../config');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 require("dotenv").config();
-const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
 const logger = require('../logger');
 
@@ -24,7 +23,7 @@ exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
         const template = fs.readFileSync(path.join(`${__dirname}/./templates/forgotpassword.html`), 'utf8');
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
-            link: `${ctx.request.headers.domain_url}/users/reset?token=${ctx.request.body.password_verification_token}`,
+            link: `${ctx.request.headers.domain_url}/users/resetpassword?token=${ctx.request.body.password_verification_token}`,
         });
         const data = {
             from: config.email_from_address,
@@ -33,23 +32,22 @@ exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
             html: htmlTemplate,
         };
         Transport.sendMail(data, (err, res) => {
-            console.log(err, res);
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
-                    data: 'mail Successfully sent',
+                    message: 'Mail Successfully sent',
                 });
                 resolve();
             } else {
                 ctx.res.internalServerError({
-                    data: 'mail not sent',
+                    message: 'Failed to sent mail',
                 });
                 reject();
             }
         });
     } catch (e) {
         return resolve(ctx.res.internalServerError({
-            data: 'forgot mail not sent',
+            data: 'Failed to sent mail',
         }));
     }
 });
@@ -59,7 +57,7 @@ exports.sendChangeMail = async ctx => new Promise((resolve, reject) => {
         const template = fs.readFileSync(path.join(`${__dirname}/./templates/changeemail.html`), 'utf8');
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
-            link: `${ctx.request.headers.domain_url}/users/reset?token=${ctx.request.body.email_verification_token}`,
+            link: `${ctx.request.headers.domain_url}/account/confirmation_email?token=${ctx.request.body.email_verification_token}`,
         });
         const data = {
             from: config.email_from_address,
@@ -71,12 +69,12 @@ exports.sendChangeMail = async ctx => new Promise((resolve, reject) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
-                    data: 'mail Successfully sent',
+                    message: 'mail Successfully sent',
                 });
                 resolve();
             } else {
                 ctx.res.internalServerError({
-                    data: 'mail not sent',
+                    message: 'Failed to sent mail',
                 });
                 reject();
             }

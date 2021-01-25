@@ -1,10 +1,10 @@
-// var API_URI = "/modules/auth-module";
+var API_URI = "/modules/account-settings-module";
 $(document).ready(function () {
     if (false || !!document.documentMode) {
         // 
     }
     else {
-        Vue.use(VueToast);
+        // Vue.use(VueToast);
     }
     new Vue({
         el: '#changePassword',
@@ -21,24 +21,44 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            $('#loader').show();
+            // $('#loader').show();
         },
 
         mounted: function () {
             var _self = this;
-            setTimeout(function () {
-                _self.resetForm();
-                $('#loader').hide();
-            }, 700);
+            // setTimeout(function () {
+            //     _self.resetForm();
+            //     $('#loader').hide();
+            // }, 700);
         },
 
         methods: {
 
-            sendForgotPassword: function () {
+            changePassword: function () {
                 var formData = this.changePasswordData;
                 this.isFormSubmitted = true;
                 if ((formData.oldPassword && this.passwordRegex.test(formData.oldPassword)) && (formData.newPassword && this.passwordRegex.test(formData.newPassword))) {
                     console.log('payload', formData);
+                    $('#loader').show();
+                    var successData = apiCallPost('post', '/changePassword', formData);
+                    if (successData && Object.keys(successData)) {
+                        $('#loader').hide();
+                        if (false || !!document.documentMode) {
+                            alert(successData.message);
+                        } else {
+                            alert(successData.message);
+
+                            // Vue.$toast.success('Mail successfully sent!', {
+                            //     position: 'top',
+                            //     duration: 1000,
+                            //     onDismiss: function () {
+                            //     }
+                            // });
+                        }
+
+                    } else {
+                        $('#loader').hide();
+                    }
 
                 } else {
                     return false;

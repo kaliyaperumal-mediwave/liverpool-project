@@ -1,24 +1,21 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    if (false || !!document.documentMode) {
-        // 
-    }
-    else {
-        // Vue.use(VueToast);
-    }
     new Vue({
-        el: '#forgotPassword',
+        el: '#resetPassword',
 
         data: {
-            forgetPasswordData: {
-                email: "",
+            resetPasswordData: {
+                new_password: "",
+                confirm_password: "",
             },
+            visibleNewPassword: false,
+            visibleConfirmPassword: false,
             isFormSubmitted: false,
-            emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
+            passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/
         },
 
         beforeMount: function () {
-            // $('#loader').show();
+            $('#loader').show();
         },
 
         mounted: function () {
@@ -31,14 +28,17 @@ $(document).ready(function () {
 
         methods: {
 
-            sendForgotPassword: function () {
-                var formData = this.forgetPasswordData;
+            resetPassword: function () {
+                var formData = this.resetPasswordData;
                 this.isFormSubmitted = true;
-                if (formData.email && this.emailRegex.test(formData.email)) {
+                if ((formData.new_password && this.passwordRegex.test(formData.new_password)) && (formData.confirm_password && this.passwordRegex.test(formData.confirm_password))) {
+                    console.log('payload', formData);
+                    formData.token = getQueryStringValue("token");
                     console.log('payload', formData);
                     $('#loader').show();
-                    var successData = apiCallPost('post', '/forgotPassword', formData);
+                    var successData = apiCallPost('post', '/resetPassword', formData);
                     if (successData && Object.keys(successData)) {
+                        console.log(successData, "successData");
                         $('#loader').hide();
                         if (false || !!document.documentMode) {
                             alert(successData.message);
@@ -56,19 +56,24 @@ $(document).ready(function () {
                     } else {
                         $('#loader').hide();
                     }
-
                 } else {
                     return false;
                 }
             },
 
-            // navigatePage: function (route) {
-            //     window.location.href = window.location.origin + route;
-            // },
+            toggleVisibility: function (elem, toggleFlag) {
+                this[toggleFlag] = !this[toggleFlag];
+                if ($(elem).attr("type") == "text") {
+                    $(elem).attr('type', 'password');
+                } else if ($(elem).attr("type") == "password") {
+                    $(elem).attr('type', 'text');
+                }
+            },
 
             resetForm: function () {
                 this.isFormSubmitted = false;
-                this.forgetPasswordData.email = '';
+                this.resetPasswordData.new_password = '';
+                this.resetPasswordData.confirm_password = '';
             }
 
         }

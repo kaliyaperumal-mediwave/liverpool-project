@@ -9,8 +9,8 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/login', self.middleware.checkCommonPageAuth, self.login);
       self.dispatch('/sign_up', self.middleware.checkCommonPageAuth, self.sign_up);
-      self.dispatch('/forgetpassword', self.middleware.checkCommonPageAuth, self.forgotpassword);
-
+      self.dispatch('/forgotpassword', self.middleware.checkCommonPageAuth, self.forgotpassword);
+      self.dispatch("/resetpassword", self.middleware.checkCommonPageAuth, self.resetPassword);
     };
 
     self.forgotpassword = function (req, callback) {
@@ -44,6 +44,14 @@ module.exports = {
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
         home: true,
+      }));
+    };
+
+    self.resetPassword = function (req, callback) {
+      return self.sendPage(req, self.renderer('reset_password', {
+        showHeader: true,
+        home: true,
+        hideRefButton: true,
       }));
     };
 
@@ -89,6 +97,16 @@ module.exports = {
 
     self.route('post', 'forgotPassword', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/forgotPassword';
+      self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+    self.route('post', 'resetPassword', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/resetPassword';
       self.middleware.post(req, res, url, req.body).then((data) => {
         console.log(data)
         return res.send(data);

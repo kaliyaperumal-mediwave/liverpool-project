@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+<script src="/modules/account-settings-module/js/confirmation_email.js"></script>
+{% endblock %}
+{% block main %}
+<div id="confirmationEmail" class="py-4 main-min-height">
+    <!-- {% raw %} -->
+
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2">
+        <h2 class="home-header-primary text-center">CAMHS Services</h2>
+        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+    </div>
+
+    <div class="secondary-content-area col-md-6 my-5 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+        <div class="px-4 py-5">
+            <div class="col-md-8 col-sm-12 py-4 col-12 mx-auto toster-container">
+                <div class="px-2 py-4">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <p class="completed-toast-text text-center m-0 py-2">Your request to change the email has been</p>
+                    <h3 class="completed-toast-header text-center m-0 py-2">Changed successfully</h3>
+                </div>
+            </div>
+            <p class="completed-toast-text text-underline cursor-pointer col-md-8 mx-auto text-center m-0 py-4">
+                <a href="/users/login"> Please click here to login? </a>
+            </p>
+        </div>
+    </div>
+
+
+    <div class="secondary-content-area col-md-6 my-5 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+        <div class="px-4 py-5">
+            <div class="col-md-8 col-sm-12 py-4 col-12 mx-auto toster-container">
+                <div class="px-2 py-4">
+                    <p class="text-center m-0 py-2">
+                        <span style="color:#DD3939 !important">
+                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                        </span>
+                    </p>
+                    <p class="text-danger completed-toast-text text-center m-0 py-2">Your token has been expired,Please
+                        try login
+                        and request again</p>
+                    <!-- <h3 class="completed-toast-header text-center m-0 py-2">Changed successfully</h3> -->
+                </div>
+            </div>
+            <p class="completed-toast-text text-underline cursor-pointer col-md-8 mx-auto text-center m-0 py-4">
+                <a href="/users/login"> Please click here to login? </a>
+            </p>
+        </div>
+    </div>
+    <!-- {% endraw %} -->
+</div>
+
+{% endblock %}
