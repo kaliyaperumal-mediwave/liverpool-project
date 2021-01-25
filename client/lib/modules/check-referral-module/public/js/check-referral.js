@@ -23,7 +23,7 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href);
-            console.log(this.paramValues);
+            //console.log(this.paramValues);
             if (this.paramValues != undefined && this.paramValues[0] != undefined) {
                 this.searchReferalByCode(this.paramValues[0])
             }
@@ -146,7 +146,7 @@ $(document).ready(function () {
                 var _self = this;
                 console.log(e.target.value)
                 var searchKey = e.target.value
-                if (searchKey.length > 2) {
+                if (searchKey.length > 0) {
                     $.ajax({
                         url: API_URI + "/getReferalByCode/" + searchKey,
                         type: 'get',

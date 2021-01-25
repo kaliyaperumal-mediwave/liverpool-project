@@ -39,30 +39,7 @@ var apos = require("apostrophe")({
     // "Resources-widgets": {
     //   extend: "apostrophe-pieces-widgets"
     // },
-    "jobs": {
-      extend: "apostrophe-pieces"
-    },
-    "jobs-pages": {
-      extend: "apostrophe-pieces-pages"
-    },
-    // "apostrophe-pages": {
-    //   // Don"t forget to add the page type!
-    //   types: [
-    //     // ... other page types here ...
-    //     {
-    //        name: "Resources-pages",
-    //        label: "Resources Page"
-    //     },
-    //     {
-    //       name: "liverpool-read-pages",
-    //       label: "read Page"
-    //     },
-    //     {
-    //       name: "jobs-page",
-    //       label: "Jobs"
-    //     },
-    //   ]
-    // },
+
     "Resources-content-widgets": {},
     "liverpool-towatch-widgets": {},
     // "liverpool-watch-pages": {},
@@ -76,6 +53,9 @@ var apos = require("apostrophe")({
     "liverpool-games-pages": { perPage: 999 },
     "liverpool-Partner-agencies": {},
     "liverpool-Partner-agencies-pages": { perPage: 999 },
+    "liverpool-mental-health": {},
+    "liverpool-mental-health-pages": { perPage: 999 },
+
     "home-module": {},
     "referral-home-module": {},
     "referral-module": {},
