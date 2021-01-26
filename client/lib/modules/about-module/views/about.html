@@ -603,10 +603,6 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentOrCarrerAddress),
-                            'invalid-fields':!aboutFormData.parentOrCarrerAddress }">
-                                You must provide an answer to this question to continue.
-                            </div>
                         </div>
                     </div>
                 </form>
@@ -776,7 +772,7 @@
                                 <!-- Household Relationship start -->
                                 <div class="form-group">
                                     <label for="relationship" class="question-font">Relationship -
-                                        optional</label>
+                                        <b>optional</b></label>
                                     <input type="text" inputmode="text" v-model="houseHoldData.relationShip"
                                         @input="trimWhiteSpace($event,'houseHoldData','relationShip')"
                                         class="form-control" id="relationship"
@@ -786,7 +782,7 @@
 
                                 <!-- Household D.O.B start -->
                                 <div class="form-group">
-                                    <label for="dob" class="question-font">Date of birth optional</label>
+                                    <label for="dob" class="question-font">Date of birth -<b>optional</b></label>
                                     <div class="input-group" id="dobAboutCal">
                                         <date-picker name="date" placeholder="Enter D.O.B"
                                             @dp-show="setCalendarHeight($event)" v-model="houseHoldData.dob"
@@ -803,7 +799,7 @@
                                 <!-- Household School/College/Employment start -->
                                 <div class="form-group" v-show="getAge(houseHoldData.dob) < 19 ">
                                     <label for="educLocation" inputmode="search"
-                                        class="question-font">School/College/Employment</label>
+                                        class="question-font">School/College/Employment-<b>optional</b></label>
                                     <div class="input-group">
                                         <input type="search" class="form-control" placeholder="Start typing to search"
                                             @input="trimWhiteSpace($event,'houseHoldData','profession')"
