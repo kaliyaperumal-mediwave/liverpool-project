@@ -33,6 +33,8 @@ $(document).ready(function () {
                 contactProfParent: '',
                 regProfGpTxt: '',
                 profEmail: '',
+                profName: '',
+                profContactNumber: '',
                 disableRole: false,
                 contact_parent_camhs: '',
                 reason_contact_parent_camhs: '',
@@ -72,7 +74,9 @@ $(document).ready(function () {
             patchFlag: false,
             gpFlag: false,
             date: '',
-            dateFmt: ''
+            dateFmt: '',
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
         },
 
         beforeMount: function () {
@@ -123,7 +127,7 @@ $(document).ready(function () {
                 }
             },
             setValues: function (data) {
-               // console.log("length "+data.length)
+                // console.log("length "+data.length)
                 this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
@@ -225,6 +229,7 @@ $(document).ready(function () {
                         this.elgibilityObj.regProfGpTxt = "";
                     }
                 }
+                this.isSubmitted = false;
             },
 
             getAge: function (dateString) {
@@ -272,7 +277,7 @@ $(document).ready(function () {
                                             app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
-                                               // console.log(_self.gpListShow[i].PostCode)
+                                                // console.log(_self.gpListShow[i].PostCode)
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                             }
@@ -290,7 +295,7 @@ $(document).ready(function () {
                                                     source: payload,
                                                     select: function (event, ui) {
                                                         _self.elgibilityObj.regGpTxt = ui.item.value;
-                                                       // console.log(app.elgibilityObj.gpNotCovered)
+                                                        // console.log(app.elgibilityObj.gpNotCovered)
                                                         app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                         if (!app.elgibilityObj.gpNotCovered) {
                                                             _self.gpFlag = true;
@@ -337,7 +342,7 @@ $(document).ready(function () {
                                         $("#gpLocation").autocomplete({
                                             source: nameData,
                                             select: function (event, ui) {
-                                           //     console.log(app.elgibilityObj.gpNotCovered)
+                                                //     console.log(app.elgibilityObj.gpNotCovered)
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                 if (!app.elgibilityObj.gpNotCovered) {
@@ -710,6 +715,7 @@ $(document).ready(function () {
             },
 
             onVaueChange: function (e, type, section, key) {
+                debugger
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this[section][key] = e.target.value.trim();
                     return false;
@@ -761,7 +767,8 @@ $(document).ready(function () {
             },
 
             save: function () {
-               // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
+                debugger
+                // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
@@ -801,15 +808,16 @@ $(document).ready(function () {
                                     this.hasEmailInvalidError = true;
                                 }
                             }
-                            window.scrollTo(0, 0)
+                            scrollToInvalidInput();
+                            return false;
                         }
                     } else {
-                        if (this.elgibilityObj.profName === undefined) {
+                        if (!this.elgibilityObj.profName) {
                             this.hasNameReqError = true;
                         } else {
                             this.hasNameReqError = false;
                         }
-                        if (this.elgibilityObj.profContactNumber === undefined) {
+                        if (!this.elgibilityObj.profContactNumber) {
                             this.hasContactReqError = true;
                         } else {
                             this.hasContactReqError = false;
@@ -819,7 +827,8 @@ $(document).ready(function () {
                                 this.hasEmailInvalidError = true;
                             }
                         }
-                        window.scrollTo(0, 0)
+                        scrollToInvalidInput();
+                        return false;
                     }
                 } else if (role === 'parent') {
                     this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
