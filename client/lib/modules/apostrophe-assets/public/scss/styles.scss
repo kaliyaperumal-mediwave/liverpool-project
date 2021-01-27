@@ -2445,10 +2445,51 @@ $color-scheme: (
 .text-label-hide::before {
   display: none !important;
 }
-.h-2-182 {
-  height: 182px;
-  width: 180px;
+.h-2-182{
+  // height: 182px;
+width: 100%;
 }
 .m-b-min-8 {
   margin-bottom: -8px;
+}
+.heightSetReferral{
+  max-height: 500px;
+  overflow: auto;
+}
+.not-found{
+  background: #fff;
+    border-radius: 10px;
+    display: flex;
+    padding: 8px 15px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.flexGrow{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+.text-complete-active {
+  background-color: #dedede !important;
+}
+.helper-text-evolved{
+  color: #f78501 !important;
+  padding: 0px 10px;
+  font-weight: bold;
+}
+.ellipse-text{
+  display: block;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 4.6em;
+      line-height: 1.8em;
+}
+.ellipse-text-large{
+  display: block;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 3.6em;
+      line-height: 1.8em;
 }

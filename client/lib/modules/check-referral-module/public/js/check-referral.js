@@ -18,7 +18,8 @@ $(document).ready(function () {
             displayReferrals: [],
             referralDateArray: [],
             viewReferralArray: [],
-            iterateReferralArray: []
+            iterateReferralArray: [],
+            activeState: false
         },
 
         mounted: function () {
@@ -33,15 +34,28 @@ $(document).ready(function () {
         },
 
         methods: {
+
             toggleArrow: function (e) {
                 var ele = e.target;
-                var classList = Array.from(e.target.classList)
-                if (classList.indexOf('fa-chevron-circle-up') > -1) {
-                    $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
-                } else {
-                    $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
-                }
+                var elemId = e.target.id;
+                debugger
+                var allToggleIcons = Array.from(document.getElementsByClassName('arrowClass'));
+                allToggleIcons.filter(function (i) {
+                    if (i.id == elemId) {
+                        if (Array.from(ele.classList).indexOf('fa-chevron-circle-up') > -1) {
+                            $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                        } else {
+                            $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                        }
+                    } else {
+                        $(i).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    }
+                });
+
             },
+
+
+
             getUserReferral: function (referralType) {
                 var _self = this;
                 $.ajax({
@@ -133,8 +147,15 @@ $(document).ready(function () {
                 });
             },
             fetchReferrals: function (referralType) {
+
                 this.viewReferralObj.referralType = referralType;
                 this.getUserReferral(referralType)
+                if (referralType == "incomplete") {
+                    this.activeState = true
+                }
+                else {
+                    this.activeState = false
+                }
             },
             formatCompat: function (date) {
                 var dateFmt = new Date(date)

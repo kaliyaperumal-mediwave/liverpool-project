@@ -20,14 +20,33 @@ const registerValidation = data => {
   return schema.validate(data, options)
 }
 
-const changepasswordValidation = data => {
+const changePasswordValidation = data => {
 
   const schema = Joi.object({
-    current_password: Joi.string().min(8).required(),
-    new_password: Joi.string().min(8).required()
+    oldPassword: Joi.string().min(8).required(),
+    newPassword: Joi.string().min(8).required()
   })
   return schema.validate(data, options)
 }
+
+const changeEmailValidation = data => {
+
+  const schema = Joi.object({
+    newEmail: Joi.string().email().required(),
+  })
+  return schema.validate(data, options)
+}
+
+const resetPasswordValidation = data => {
+
+  const schema = Joi.object({
+    new_password: Joi.string().min(8).required(),
+    confirm_password: Joi.string().min(6).valid(Joi.ref('new_password')).required(),
+    token: Joi.string().max(8).required(),
+  })
+  return schema.validate(data, options)
+}
+
 const forgotPasswordValidation = data => {
   const schema = Joi.object({
     email: Joi.string().email().required(),
@@ -44,4 +63,11 @@ const loginValidation = data => {
   return loginSchema.validate(data, options)
 }
 
-module.exports = { registerValidation, loginValidation, changepasswordValidation, forgotPasswordValidation };
+const resetEmailValidation = data => {
+  const schema = Joi.object({
+    token: Joi.string().max(8).required(),
+  })
+  return schema.validate(data, options)
+}
+
+module.exports = { registerValidation, loginValidation, changePasswordValidation, resetEmailValidation, forgotPasswordValidation, resetPasswordValidation, changeEmailValidation };

@@ -18,6 +18,9 @@ module.exports = function modelType(sequelize, types) {
     email: {
       type: types.TEXT
     },
+    secondary_email: {
+      type: types.TEXT
+    },
     // email: {
     //   type: types.STRING,
     //   allowNull: false,
@@ -33,10 +36,16 @@ module.exports = function modelType(sequelize, types) {
     password: {
       type: types.TEXT,
     },
-    verification_token: {
+    password_verification_token: {
       type: types.TEXT,
     },
-    verification_expiry: {
+    password_verification_expiry: {
+      type: types.DATE,
+    },
+    email_verification_token: {
+      type: types.TEXT,
+    },
+    email_verification_expiry: {
       type: types.DATE,
     },
   }, {

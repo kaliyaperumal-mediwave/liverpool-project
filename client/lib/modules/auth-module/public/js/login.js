@@ -22,6 +22,7 @@ $(document).ready(function () {
         mounted: function () {
             var _self = this;
             setTimeout(function () {
+                // _self.resetForm(_self, "loginObject");
                 _self.resetForm();
                 $('#loader').hide();
             }, 700);
@@ -36,6 +37,8 @@ $(document).ready(function () {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
+                        // this.resetForm(this, "loginObject");
+                        this.resetForm();
                         this.tokenVariable = successData;
                         $('#loader').hide();
                         $('#logInSuccess').modal('show');
@@ -47,20 +50,23 @@ $(document).ready(function () {
                 }
             },
 
-            toggleVisibility: function () {
-                this.showVisibility = !this.showVisibility;
-                if ($('#loginPassword').attr("type") == "text") {
-                    $('#loginPassword').attr('type', 'password');
-                } else if ($('#loginPassword').attr("type") == "password") {
-                    $('#loginPassword').attr('type', 'text');
-                }
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
+            },
+
+            //Function to toggle password's show,hide icon
+            toggleVisibility: function (elem, visibility) {
+                commonToggleVisibility(this, elem, visibility);
             },
 
             navigatePage: function (route) {
                 window.location.href = window.location.origin + route;
             },
 
+            //Function to reset form
             resetForm: function () {
+                //dynamicFormReset(context, obj);
                 this.isFormSubmitted = false;
                 this.loginObject.email = '';
                 this.loginObject.password = '';
@@ -68,7 +74,6 @@ $(document).ready(function () {
 
             gotoDashboard: function (token) {
                 $('#logInSuccess').modal('hide');
-                //location.href = redirectUrl(location.href, "dashboard", token.data.sendUserResult.loginId, token.data.sendUserResult.role);
                 location.href = "/dashboard";
             }
 

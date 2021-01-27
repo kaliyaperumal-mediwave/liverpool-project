@@ -34,6 +34,14 @@ module.exports = {
           allowNull: true,
         },
       )
+    queryInterface.addColumn(
+      'users', // table name
+      'secondary_email', // new field name
+      {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+    )
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -41,5 +49,6 @@ module.exports = {
       queryInterface.removeColumn('users', 'email_verification_expiry')
     queryInterface.removeColumn('users', 'password_verification_token'),
       queryInterface.removeColumn('users', 'password_verification_expiry')
+    queryInterface.removeColumn('users', 'secondary_email')
   }
 };
