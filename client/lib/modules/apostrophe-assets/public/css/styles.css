@@ -3062,3 +3062,9 @@ html #slide-test-5 {
   font-weight: bold;
   color: #023047;
   margin-bottom: 0 !important; }
+
+.btn-quaternary-text p {
+  font-size: 26px;
+  font-weight: bold;
+  color: #023047;
+  margin-bottom: 0 !important; }
