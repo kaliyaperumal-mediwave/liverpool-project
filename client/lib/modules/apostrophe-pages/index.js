@@ -43,10 +43,7 @@ module.exports = {
       name: 'referral-complete-module',
       label: 'Referral Completed Module'
     },
-    {
-      name: 'resources-module',
-      label: 'Resources Module'
-    },
+  
     {
       name: 'dashboard-module',
       label: 'Dashboard Module'
