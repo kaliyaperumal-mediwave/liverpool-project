@@ -15,11 +15,7 @@ $(document).ready(function () {
             this.userMode = this.paramValues;
             this.dynamicLabels = getDynamicLabels(this.userRole);
             //console.log(this.userId, this.userRole, this.userMode)
-            if (this.paramValues !== undefined) {
-                if (this.paramValues[0] != undefined) {
-                    this.fetchSavedData();
-                }
-            }
+            this.fetchSavedData();
             $('#loader').hide();
         },
         data: {
@@ -140,7 +136,8 @@ $(document).ready(function () {
                 { id: 'e116e2a3-4623-4c01-af34-bbe9ccb8a829', value: 'YPAS' },
                 { id: 'fefa3e54-a2ad-43a7-88cc-3fe4abe06533', value: 'Other' },
             ],
-            paramValues: []
+            paramValues: [],
+            updateFlag: false
         },
         methods: {
 
@@ -231,30 +228,7 @@ $(document).ready(function () {
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
-                if (formData.referralInfo && formData.referralInfo.replace(/ /g, "").length) {
-                    if ((formData.hasAnythingInfo && !formData.hasAnythingInfo.replace(/ /g, "").length)) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.triggerInfo && !formData.triggerInfo.replace(/ /g, "").length)) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.disabilityOrDifficulty && !formData.disabilityOrDifficulty.replace(/ /g, "").length)) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                    if ((formData.weight && !formData.weight.replace(/ /g, "").length)) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                    if ((formData.height && !formData.height.replace(/ /g, "").length)) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
+                if (formData.referralInfo) {
                     this.payloadData.referralData = JSON.parse(JSON.stringify(this.referralData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
@@ -262,10 +236,9 @@ $(document).ready(function () {
                     this.payloadData.eatingDifficulties = this.eatingDifficulties;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
-                   // if (this.paramValues!= undefined) {
-                        // this.elgibilityObj.uuid =  document.getElementById('uUid').innerHTML;
-                        //this.payloadData.editFlag = getUrlVars()['edt'];
-                   // }
+                    if (this.updateFlag != false) {
+                        this.payloadData.editFlag = this.updateFlag;
+                    }
                     this.payloadData.id = this.referralId;
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
@@ -282,45 +255,30 @@ $(document).ready(function () {
 
             },
 
-            //Function to Identify space
-            trimSpace: function (str, reqField) {
-                if (str == "" && reqField) {
-                    return false;
-                } else if (str == "" && !reqField) {
-                    return true;
-                } else {
-                    if (str && str.replace(/ /g, "").length) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
             },
+
 
             //Section 4(Referral) Save and Service call with navaigation Logic
             upsertReferralForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    // location.href = redirectUrl(location.href, "review");
                     location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
-                   // location.href = "/review";
-                   if(this.paramValues!= undefined)
-                   {
-                       if(this.paramValues[0]=="sec5back")
-                       {
-                           location.href = "/review";
-                       }
-                       else
-                       {
-                        var url = location.href;
-                        location.href = "/review?"  +url.substring(url.indexOf("?") + 1);
-                       }
-                   }
-                   else
-                   {
-                    location.href = "/review";
-                   }
+                    if (this.paramValues != undefined) {
+                        if (this.paramValues[0] == "sec5back") {
+                            location.href = "/review";
+                        }
+                        else {
+                            var url = location.href;
+                            location.href = "/review?" + url.substring(url.indexOf("?") + 1);
+                        }
+                    }
+                    else {
+                        location.href = "/review";
+                    }
                     this.storeDeleteData = null;
                 } else {
                     $('#loader').hide();
@@ -335,6 +293,7 @@ $(document).ready(function () {
                     this.reasonForReferral = data.reason_for_referral;
                     this.accessList = data.local_services;
                     this.referralId = data.id;
+                    this.updateFlag = true;
                     if (this.accessList.indexOf("Other") > -1) {
                         this.showAddOtherService = true;
                     } else {
@@ -365,8 +324,7 @@ $(document).ready(function () {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
-                if ((serviceForm.name && serviceForm.name.replace(/ /g, "").length) && (serviceForm.professional && serviceForm.professional.replace(/ /g, "").length)
-                    && (serviceForm.contact && serviceForm.contact.replace(/ /g, "").length) && this.phoneRegex.test(serviceForm.contact)) {
+                if (serviceForm.name && serviceForm.professional && serviceForm.contact && this.phoneRegex.test(serviceForm.contact)) {
                     if (serviceForm.mode === 'update') {
                         this.allAvailableService = this.allAvailableService.map(function (it) {
                             if (it.mode === 'update' && it.id === serviceForm.id) {

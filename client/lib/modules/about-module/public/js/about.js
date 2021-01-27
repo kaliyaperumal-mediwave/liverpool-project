@@ -80,21 +80,16 @@ $(document).ready(function () {
 
         mounted: function () {
             var _self = this;
-            // this.paramValues = getParameter(location.href)
-            // this.userId = this.paramValues[0];
-            // this.userRole = this.paramValues[1];
-            // this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            this.paramValues = getParameter(location.href)
-            if (this.paramValues != undefined) {
-                this.fetchSavedData();
-            }
-
+            this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
             this.userId = document.getElementById('uUid').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            this.fetchSavedData();
             this.initMaps();
             $('#loader').hide();
         },
+
+
         methods: {
 
             //Initializing Google Maps Autocompleted
@@ -139,10 +134,9 @@ $(document).ready(function () {
             //Fetch Api service Logic
             fetchSavedData: function () {
                 var payload = {};
-                payload.uuid = document.getElementById('uUid').innerHTML
+                payload.uuid = document.getElementById('uUid').innerHTML;
                 payload.role = document.getElementById('uRole').innerHTML;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
-                console.log(successData)
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -152,20 +146,11 @@ $(document).ready(function () {
                 }
             },
 
-            //Function to Identify space
-            trimSpace: function (str, reqField) {
-                if (str == "" && reqField) {
-                    return false;
-                } else if (str == "" && !reqField) {
-                    return true;
-                } else {
-                    if (str && str.replace(/ /g, "").length) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
             },
+
 
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
@@ -265,66 +250,27 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
-                // var formData = Object.assign(this.aboutObj, this.aboutFormData);
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.contactNumber && formData.relationshipToYou &&
-                    formData.parentialResponsibility && formData.childGender && formData.parentName &&
+                    formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentName &&
                     formData.childIdentity && formData.sendPost && formData.childAddress && formData.childName && formData.childContactNumber
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
 
-                    if (formData.parentialResponsibility == 'no' && !formData.parentCarerName) {
+                    if ((formData.parentialResponsibility == 'no' && !formData.parentCarerName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                        || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
+                        || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
                         scrollToInvalidInput();
                         return false;
                     }
-
-                    if ((formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.childEmail && !this.emailRegex.test(formData.childEmail))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.contactNumber && !this.phoneRegex.test(formData.contactNumber))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if (formData.childSexualOrientation && !formData.childSexualOrientation.replace(/ /g, "").length) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if (formData.childEthnicity && !formData.childEthnicity.replace(/ /g, "").length) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if (formData.parentOrCarrerAddress && !formData.parentOrCarrerAddress.replace(/ /g, "").length) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
+                
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = document.getElementById('uRole').innerHTML;
                     this.payloadData.userid = document.getElementById('uUid').innerHTML
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
                     if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.paramValues[0]
+                        this.payloadData.editFlag = this.editPatchFlag
                     }
 
                     if (this.userMode === 'edit') {
@@ -353,26 +299,19 @@ $(document).ready(function () {
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
-                    console.log(responseData)
                     $('#loader').hide();
-                    //console.log(redirectUrl(location.href, "education", this.userId, this.userRole));
-                   //location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
-                   if(this.paramValues!= undefined)
-                   {
-                       if(this.paramValues[0]=="sec5back")
-                       {
-                           location.href = "/review";
-                       }
-                       else
-                       {
-                        var url = location.href;
-                        location.href = "/education?"+url.substring(url.indexOf("?") + 1);
-                       }
-                   }
-                   else
-                   {
-                    location.href = "/education";
-                   }
+                    if (this.paramValues != undefined) {
+                        if (this.paramValues[0] == "sec5back") {
+                            location.href = "/review";
+                        }
+                        else {
+                            var url = location.href;
+                            location.href = "/education?" + url.substring(url.indexOf("?") + 1);
+                        }
+                    }
+                    else {
+                        location.href = "/education";
+                    }
                 } else {
                     $('#loader').hide();
                     console.log('empty response')
@@ -385,15 +324,6 @@ $(document).ready(function () {
                 var houseHoldForm = this.houseHoldData;
                 var modal = document.getElementById('closeModalRaj');
                 if (houseHoldForm.name) {
-                    if (houseHoldForm.relationShip && !houseHoldForm.relationShip.replace(/ /g, "").length) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                    if (houseHoldForm.profession && !houseHoldForm.profession.replace(/ /g, "").length) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
                     if (houseHoldForm.mode === 'update') {
                         this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                             if (it.mode === 'update' && it.id === houseHoldForm.id) {
@@ -519,7 +449,6 @@ $(document).ready(function () {
             },
 
             setDateFormat: function (dbDate) {
-
                 if (dbDate != null) {
                     var dateArray = dbDate.split("/");
                     var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
@@ -533,8 +462,6 @@ $(document).ready(function () {
                     var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
                     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 }
-
-                // 'DD/MM/YYYY'
             },
         }
 

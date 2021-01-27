@@ -58,22 +58,14 @@ $(document).ready(function () {
                 }
             },
 
-            //Function to Identify space
-            trimSpace: function (str) {
-                if (str.replace(/ /g, "").length) {
-                    return true;
-                } else {
-                    return false;
-                }
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
             },
 
-            toggleVisibility: function (elem, toggleFlag) {
-                this[toggleFlag] = !this[toggleFlag];
-                if ($(elem).attr("type") == "text") {
-                    $(elem).attr('type', 'password');
-                } else if ($(elem).attr("type") == "password") {
-                    $(elem).attr('type', 'text');
-                }
+            //Function to toggle password's show,hide icon
+            toggleVisibility: function (elem, visibility) {
+                commonToggleVisibility(this, elem, visibility);
             },
 
             resetForm: function () {
@@ -87,7 +79,6 @@ $(document).ready(function () {
 
             gotoDashboard: function (token) {
                 $('#signInSuccess').modal('hide');
-                //location.href = redirectUrl(location.href, "dashboard", token.data.uuid, token.data.user_role);
                 location.href = "/dashboard";
             }
 

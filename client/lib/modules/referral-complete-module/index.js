@@ -7,7 +7,7 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       require('../../middleware')(self, options);
-      self.dispatch('/',self.middleware.checkCommonPageAuth, self.completed);
+      self.dispatch('/', self.middleware.checkCommonPageAuth, self.completed);
     };
     self.completed = function (req, callback) {
       return self.sendPage(req, self.renderer('completed', {

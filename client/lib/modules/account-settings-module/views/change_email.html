@@ -37,8 +37,8 @@
         <div class="col-md-7 col-12 py-4 mx-auto">
             <div class="my-md-5 my-4">
                 <form class="px-3 py-2 mb-1">
-                    <div class="form-group py-2 m-0">
-                        <!-- <div class="auth-font my-2"> {{ apos.area(data.page, 'login_email', {
+                    <!-- <div class="form-group py-2 m-0"> -->
+                    <!-- <div class="auth-font my-2"> {{ apos.area(data.page, 'login_email', {
                             widgets: {
                             'apostrophe-rich-text': {
                             toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -49,7 +49,7 @@
                             }
                             }) }}
                         </div> -->
-                        <label for="changeOldEmail" class="auth-font my-2">Old email address</label>
+                    <!-- <label for="changeOldEmail" class="auth-font my-2">Old email address</label>
                         <input type="email" inputmode="email" placeholder="Enter your email address"
                             class="form-control auth-border" id="changeOldEmail" v-model="changeEmailData.oldEmail">
                         <div class="invalid-feedback px-1 d-none"
@@ -60,7 +60,7 @@
                         'invalid-fields':(changeEmailData.oldEmail && !emailRegex.test(changeEmailData.oldEmail)) }">
                             You must provide a real valid email.
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="form-group py-2 m-0">
                         <!-- <div class="auth-font my-2"> {{ apos.area(data.page, 'login_email', {
@@ -106,6 +106,26 @@
                         <a class="auth-link cursor-pointer text-underline">Login</a>
                     </div> -->
                 </div>
+
+                <!-- Change Email Succuss Modal Start -->
+                <div class="modal fade" id="changeEmailSuccess" data-keyboard="false" tabindex="-1" role="dialog"
+                    aria-labelledby="changeEmailSuccessLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg login-safe-pd">
+                            <span aria-hidden="true" class="modal-close">
+                                <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                            </span>
+                            <div class="modal-header justify-content-center model-text-pd text">
+                                <p class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </p>
+                                <h5 class="logout-font mt-3 text-center">Request email has been sent successfully.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Change Email Succuss Modal End -->
+
             </div>
         </div>
     </div>

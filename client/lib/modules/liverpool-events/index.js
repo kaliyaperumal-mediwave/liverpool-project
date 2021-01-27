@@ -1,7 +1,7 @@
 module.exports = {
   extend: 'apostrophe-pieces',
-  name: 'Events',
-  label: 'Events',
+  name: 'eventPage',
+  label: 'Event',
   pluralLabel: 'Events',
   addFields: [{
       name: 'title',
@@ -36,12 +36,12 @@ module.exports = {
   arrangeFields: [{
       name: 'events',
       label: 'Events',
-      fields: ['title','thumbnail','eventsTopic','text','tags']
+      fields: ['title','thumbnail','eventsTopic','text']
     },
     {
       name: 'admins',
       label: 'Administratives',
-      fields: [ 'slug','published']
+      fields: [ 'slug','published','tags']
     }
   ]
 };

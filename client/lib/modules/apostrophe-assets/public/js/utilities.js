@@ -23,13 +23,34 @@ function resetValues(currentForm, context, formObj) {
 };
 
 
-//Common Modal for API error messages
-function showError(content) {
-    if (!content) {
-        content = "Something went wrong.Please try again"
+// Prevention of entering white spaces
+function preventWhiteSpaces(e, context, sectionObj, key) {
+    if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+        context[sectionObj][key] = e.target.value.trim();
+        return false;
+    } else {
+        return true;
     }
-    $('#errorContent').text(content);
-    $('#errorCommon').modal('show');
+};
+
+// Common function for resetting the form
+function dynamicFormReset(context, object) {
+    Object.keys(context[object]).map(function (k) {
+        if (context[object][k] && typeof context[object][k] === 'object') {
+            return dynamicFormReset(context[object][k]);
+        }
+        context[object][k] = '';
+    });
+}
+
+//Common Function to toggle password's show,hide icon
+function commonToggleVisibility(context, element, visibility) {
+    context[visibility] = !context[visibility];
+    if ($(element).attr("type") == "text") {
+        $(element).attr('type', 'password');
+    } else if ($(element).attr("type") == "password") {
+        $(element).attr('type', 'text');
+    }
 };
 
 
@@ -45,14 +66,29 @@ function deleteLogic(arr, value, context, section) {
     context[section].splice(index, 1);
 };
 
+//Common Modal for API error messages
+function showError(content) {
+    if (!content) {
+        content = "Something went wrong.Please try again"
+    }
+    $('#errorContent').text(content);
+    $('#errorCommon').modal('show');
+};
+
+
+//Function to Identify space Logic 2
+function trimSpace(str) {
+    if (str.replace(/ /g, "").length) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 //Back tp previous page navigation
 function backToPreviousPage(section, userId, userRole) {
-    // var uuid = this.getQueryStringValue('userid');
-    // var role = this.getQueryStringValue('role');
     var parameter = userId + "&" + userRole + "&" + "edit"
-    // console.log(parameter)
     var enCodeParameter = btoa(parameter)
-    //console.log(section + enCodeParameter)
     location.href = section + enCodeParameter
 };
 
@@ -123,11 +159,12 @@ function apiCallPost(reqType, endPoint, payload) {
         contentType: 'application/json',
         async: false,
         data: JSON.stringify(trimmedPayload),
+        cache: false,
         success: function (res) {
             response = res;
         },
         error: function (error) {
-            $('#loader').hide();
+            $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
                 showError(error.responseJSON.message);
                 setTimeout(function () {
@@ -199,7 +236,6 @@ function trimObj(obj) {
 function getParameter(url) {
     var allParameter = url.substring(url.indexOf("?") + 1);
     var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
-    console.log(allParameter)
     if (base64Matcher.test(allParameter)) {
         var deCodeParameter = atob(allParameter)
         var decodeValues = deCodeParameter.split("&");
@@ -247,7 +283,12 @@ function convertDate(dbDate) {
 function setLoaderStyle() {
     var element = document.body;
     element.classList.add('body-bg');
+    element.classList.add('net');
+    element.classList.add('default');
+    element.classList.add('theme-wrapper');
 }
+
+
 
 
 //for make referral 1 to 5 section

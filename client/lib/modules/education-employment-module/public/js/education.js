@@ -34,13 +34,9 @@ $(document).ready(function () {
             this.paramValues = getParameter(location.href)
             this.userId = document.getElementById('uUid').innerHTML;
             this.userRole = document.getElementById('uRole').innerHTML;
-            //this.userMode = this.paramValues[2];
             this.dynamicLabels = getDynamicLabels(this.userRole);
             $('#loader').hide();
-            if (this.userMode != undefined) {
-                this.fetchSavedData();
-            }
-
+            this.fetchSavedData();
             this.initMaps()
         },
 
@@ -71,7 +67,7 @@ $(document).ready(function () {
                 }
             },
 
-            //Form Submittion of Section-4(Referral) with validation logic
+            //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.educAndEmpData;
@@ -86,26 +82,10 @@ $(document).ready(function () {
                 if (formData.haveSocialWorker === 'yes') {
                     if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
                         if (formData.position === 'education' && formData.attendedInfo) {
-                            if (formData.attendedInfo && !formData.attendedInfo.replace(/ /g, "").length) {
-                                scrollToInvalidInput();
-                                return false;
-                            }
-                            if (formData.socialWorkName && !formData.socialWorkName.replace(/ /g, "").length) {
-                                scrollToInvalidInput();
-                                return false;
-                            }
                             $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
                         else if (formData.position != 'education') {
-                            if (formData.attendedInfo && !formData.attendedInfo.replace(/ /g, "").length) {
-                                scrollToInvalidInput();
-                                return false;
-                            }
-                            if (formData.socialWorkName && !formData.socialWorkName.replace(/ /g, "").length) {
-                                scrollToInvalidInput();
-                                return false;
-                            }
                             $('#loader').show();
                             this.upsertEducationForm(this.payloadData);
                         }
@@ -141,31 +121,25 @@ $(document).ready(function () {
 
             },
 
-            //Section 3(Education) Save and Service call with navaigation Logic
+            //Section 3(Education) Save and Service call with navigation's Logic
             upsertEducationForm: function (payload) {
-                // console.log(payload);
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    //location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
-                   // location.href = "/referral";
-                    if(this.paramValues!= undefined)
-                   {
-                       if(this.paramValues[0]=="sec5back")
-                       {
-                           location.href = "/review";
-                       }
-                       else
-                       {
-                        var url = location.href;
-                        location.href = "/referral?" +url.substring(url.indexOf("?") + 1);
-                       }
-                   }
-                   else
-                   {
-                    location.href = "/referral";
-                   }
+                    if (this.paramValues != undefined) {
+                        if (this.paramValues[0] == "sec5back") {
+                            location.href = "/review";
+                        }
+                        else {
+                            var url = location.href;
+                            location.href = "/referral?" + url.substring(url.indexOf("?") + 1);
+                        }
+                    }
+                    else {
+                        location.href = "/referral";
+                    }
+
                 } else {
                     $('#loader').hide();
                     console.log('empty response')
@@ -187,19 +161,9 @@ $(document).ready(function () {
 
             },
 
-            //Function to Identify space
-            trimSpace: function (str, reqField) {
-                if (str == "" && reqField) {
-                    return false;
-                } else if (str == "" && !reqField) {
-                    return true;
-                } else {
-                    if (str && str.replace(/ /g, "").length) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
             },
 
             //Patching the value logic

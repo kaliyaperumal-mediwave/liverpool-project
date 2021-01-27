@@ -11,6 +11,7 @@ const configs = {
     name: process.env.APP_NAME || 'koa-rest-api-boilerplate',
     host: process.env.APP_HOST || '0.0.0.0',
     port: process.env.APP_PORT,
+    email_from_address: process.env.FROM_EMAIL,
     orm: {
       name: 'orm',
       modelPath: join(__dirname, '../models'),

@@ -1,6 +1,7 @@
 @import "config";
 @import "utilities";
 @import "inputLoader";
+@import "rangeSlider";
 @import "mediaQueries";
 @import "footer";
 @import "tooltip";
@@ -111,7 +112,7 @@ body {
     @include placeholder(#8f979e);
   }
   // customize css for apostrophe z-index
-  .apos-ui .apos-admin-bar{
+  .apos-ui .apos-admin-bar {
     z-index: 450 !important;
   }
   @include placeholder($placeholder-color);
@@ -2286,28 +2287,209 @@ body .ui-widget .ui-menu-item {
 .overflow-auto {
   overflow: auto;
 }
-.hideChar{
+.hideChar {
   color: white !important;
 }
-.login-safe-pd{
+.login-safe-pd {
   width: 334px !important;
-  padding: 24px
+  padding: 24px;
 }
-.model-text-pd{
+.model-text-pd {
   padding: 4px 10px 0px 10px !important;
   display: block !important;
 }
-.modal-dialog-centered{
+.modal-dialog-centered {
   justify-content: center;
 }
 
-.text-label-hide::before{
+/* range slider */
+html #slide-test-5 {
+  --slider-active-color: black;
+  --slider-inactive-color: grey;
+}
+#slide-test-5 .range-labels .active {
+  font-weight: 700;
+}
+#slide-test-5 .range {
+  position: relative;
+  width: 185px;
+  height: 2px;
+}
+.range input {
+  width: 100%;
+  position: absolute;
+  height: 0;
+  -webkit-appearance: none;
+  margin-top: 2px;
+}
+.range input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  margin: -8px 0 0;
+  border-radius: 50%;
+  background: var(--slider-active-color);
+  cursor: pointer;
+  border: 0 !important;
+}
+.range input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  margin: -8px 0 0;
+  border-radius: 50%;
+  background: var(--slider-active-color);
+  cursor: pointer;
+  border: 0 !important;
+}
+.range input::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  margin: -8px 0 0;
+  border-radius: 50%;
+  background: var(--slider-active-color);
+  cursor: pointer;
+  border: 0 !important;
+  z-index: 10;
+}
+.range input::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: var(--slider-inactive-color);
+}
+.range input::-moz-range-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: var(--slider-inactive-color);
+}
+.range input::-ms-track {
+  width: 100%;
+  height: 2px;
+  cursor: pointer;
+  background: var(--slider-inactive-color);
+}
+.range input:focus {
+  background: none;
+  outline: none;
+}
+.range-labels {
+  margin: 20px -40px 0;
+  padding: 0;
+  list-style: none;
+}
+.range-labels li {
+  position: relative;
+  float: left;
+  width: 90.25px;
+  text-align: center;
+  color: var(--slider-inactive-color);
+  font-size: 14px;
+  cursor: pointer;
+}
+.range-labels li::before {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  left: -5px;
+  content: "";
+  margin: 0 auto;
+  width: 9px;
+  height: 9px;
+  background: var(--slider-inactive-color);
+  border-radius: 50%;
+}
+.range-labels .active {
+  color: var(--slider-active-color);
+}
+.range-labels .selected::before {
+  background: var(--slider-active-color);
+}
+.range-labels .active.selected::before {
+  display: none;
+}
+
+/*  Text Size Start */
+
+$color-scheme: (
+  (small, 28px, 20px, 18px, 16px, 14px),
+  (default, 32px, 24px, 22px, 18px, 14px),
+  (large, 38px, 28px, 26px, 22px, 18px)
+);
+@mixin theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize) {
+  .#{$name} {
+    .home-header-primary {
+      @include set-titleStyles($primaryTextSize, bold, $primary-color);
+      @include xs-screen {
+        @include set-dynamicFont($primaryTextSize, 4);
+      }
+      @include sm-screen {
+        @include set-dynamicFont($primaryTextSize, 2);
+      }
+      @include md-screen {
+        @include set-dynamicFont($primaryTextSize, 2);
+      }
+    }
+  }
+  [data-theme="#{$name}"] {
+    border: none;
+    padding: 5px 15px;
+  }
+}
+@each $name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize,
+  $quinaryTextSize in $color-scheme
+{
+  @include theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize);
+}
+/*  Text Size End */
+.text-label-hide::before {
   display: none !important;
 }
 .h-2-182{
-  height: 182px;
-width: 180px;
+  // height: 182px;
+width: 100%;
 }
-.m-b-min-8{
+.m-b-min-8 {
   margin-bottom: -8px;
+}
+.heightSetReferral{
+  max-height: 500px;
+  overflow: auto;
+}
+.not-found{
+  background: #fff;
+    border-radius: 10px;
+    display: flex;
+    padding: 8px 15px;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.flexGrow{
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+.text-complete-active {
+  background-color: #dedede !important;
+}
+.helper-text-evolved{
+  color: #f78501 !important;
+  padding: 0px 10px;
+  font-weight: bold;
+}
+.ellipse-text{
+  display: block;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 4.6em;
+      line-height: 1.8em;
+}
+.ellipse-text-large{
+  display: block;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 3.6em;
+      line-height: 1.8em;
 }
