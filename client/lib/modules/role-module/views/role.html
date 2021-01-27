@@ -29,10 +29,24 @@
     <!-- Loader end -->
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
         <div id="role-form" class="py-4">
-            {% raw %}
+
+
             <form id="type-form" data-options="role">
                 <div class="px-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <p class="question-font m-0">I am a</p>
+                    <!-- <p class="question-font m-0">I am a</p> -->
+
+                    <div class="question-font m-0">
+                      {{ apos.area(data.page, 'referral1_title', {
+                            widgets: {
+                              'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                  { name: 'Heading', element: 'p' }
+                                ]
+                              }
+                            }
+                          }) }}</div>
+                            {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
                             id="aboutYou" value="child" @change="onChange($event)">
@@ -54,12 +68,24 @@
                             Professional
                         </label>
                     </div>
+                    {% endraw %}
                 </div>
             </form>
             <form id="interpreter-form" data-options="interpreter">
                 <div v-show="elgibilityObj.role == 'child' || elgibilityObj.role=='parent'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <p class="question-font m-0">Do you need an interpreter?</p>
+                    <!-- <p class="question-font m-0">Do you need an interpreter?</p> -->
+                    <div class="question-font m-0">  {{ apos.area(data.page, 'referral1_titleam', {
+                            widgets: {
+                              'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                  { name: 'Heading', element: 'p' }
+                                ]
+                              }
+                            }
+                          }) }}</div>
+                        {% raw %}
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="interpreter" id="interpreterNo"
                             v-model="elgibilityObj.interpreter" value="no" @change="onChange($event)">
@@ -74,6 +100,7 @@
                             Yes
                         </label>
                     </div>
+                      {% endraw %}
                 </div>
             </form>
             <!-- toster-container start -->
@@ -90,7 +117,7 @@
                                 completing
                                 your referral</p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Please change your previous
+                            <p class="link-text cursor-pointer text-center m-0 py-2">  Please change your previous
                                 answer to
                                 continue</p>
                         </div>
@@ -103,8 +130,19 @@
             <form id="child-Dob-form" data-options="childDob">
                 <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
-                        {{elgibilityObj.maxDate}}</p>
+                    <!-- <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
+                        {{elgibilityObj.maxDate}}</p> -->
+                        <p v-show="elgibilityObj.role=='child'" class="question-font m-0"> {{ apos.area(data.page, 'referral1_titledate', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'p' }
+                                    ]
+                                  }
+                                }
+                              }) }}
+                            {{elgibilityObj.maxDate}}></p>
                     <div class="input-group" id="dobRoleCal">
                         <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.childDob"
                             autocomplete="off" @dp-show="resetFlag($event)"
@@ -124,9 +162,23 @@
             <form id="parent-Dob-form" data-options="childDob">
                 <div v-show="elgibilityObj.role=='parent' && elgibilityObj.interpreter == 'no'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                    <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
+                    <!-- <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
                         birth?
-                    </p>
+                    </p> -->
+                  <div v-show="elgibilityObj.role=='parent'" class="question-font m-0">
+                     {{ apos.area(data.page, 'referral1_titlechild', {
+                          widgets: {
+                            'apostrophe-rich-text': {
+                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                              styles: [
+                                { name: 'Heading', element: 'p' }
+                              ]
+                            }
+                          }
+                        }) }}
+                      </div>
+                      {% raw %}
+
                     <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.childDob"
                             @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)"
@@ -138,6 +190,7 @@
                             </span>
                         </div>
                     </div>
+                    {% endraw %}
                 </div>
             </form>
             <!-- calendar-end  parent-->
@@ -145,6 +198,7 @@
             <!-- Age under 14 start-->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="tostInterYes-form" data-options="belowAgeLimit">
                 <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
                     class="px-4 py-4">
@@ -157,16 +211,18 @@
                                 parent/carer to complete this referral.
                             </p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Please ask them to start this
+                            <p class="link-text cursor-pointer text-center m-0 py-2">  Please ask them to start this
                                 form from
                                 the beginning on your behalf</p>
                         </div>
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- toster-container start -->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="age-aboveLimit-form" data-options="aboveLimit">
                 <div v-show="((elgibilityObj.role == 'child' || elgibilityObj.role=='parent')) &&  elgibilityObj.aboveLimit == 'yes' && elgibilityObj.childDob!=null"
                     class="px-4 py-4">
@@ -180,12 +236,12 @@
                             <p class="link-text text-center py-2">Free mental health services for adults:</p>
                             <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
                                 your GP
-                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/ 
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                 " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
                             <p v-show="elgibilityObj.role == 'parent'" class="link-secondary text-center m-0 py-2">If
                                 the
                                 Child/young person's GP
-                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/ 
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                 " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
 
                             <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
@@ -212,9 +268,11 @@
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- toster-container start -->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="contactParent-AgeLimit-form" data-options="contactParent">
                 <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.contactParent == 'no' && elgibilityObj.childDob!=null"
                     class="px-4 py-4">
@@ -225,41 +283,66 @@
                             </p>
                             <p class="question-font text-center m-0 py-2">Anonymous help and advice for under 14s</p>
                             <p class="link-text text-center cursor-pointer m-0 py-2"> <a
-                                    href="https://www.childline.org.uk/ " target="_blank"> > Childline
+                                    href="https://www.childline.org.uk/ " target="_blank">  Childline
                                 </a>
                             </p>
                             <p class="link-text text-center cursor-pointer m-0 py-2"> <a
                                     href="https://www.nspcc.org.uk/keeping-children-safe/our-services/childline/"
                                     target="_blank">
-                                    > NSPCC</a>
+                                     NSPCC</a>
                             </p>
                             <p class="link-text text-center cursor-pointer m-0 py-2"> <a
-                                    href="https://www.bullying.co.uk/ " target="_blank">> Bullying UK</a></p>
+                                    href="https://www.bullying.co.uk/ " target="_blank"> Bullying UK</a></p>
                         </div>
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- toster-container start -->
 
 
 
             <!-- consent start-->
+
             <form id="isInformation-form3" data-options="contactParent">
                 <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p v-show="elgibilityObj.role=='child'" class="question-font m-0">Do you give consent for us to
+                        <div v-show="elgibilityObj.role=='child'" class="question-font m-0">
+                          <!-- Do you give consent for us to
                             use
                             the
                             information that you provide and
                             share it
-                            with other CAMHS partners so that we can help you?</p>
+                            with other CAMHS partners so that we can help you? -->
+                            {{ apos.area(data.page, 'referral1_titleChild', {
+                                  widgets: {
+                                    'apostrophe-rich-text': {
+                                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                      styles: [
+                                        { name: 'Heading', element: 'p' }
+                                      ]
+                                    }
+                                  }
+                                }) }}
+                          </div>
 
-                        <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">Do you have consent from your
-                            child
+                        <div v-show="elgibilityObj.role=='parent'" class="question-font m-0">
+                          <!-- Do you have consent from your child
                             for
                             us to use the information that you
-                            provide, and share it with other CAMHS partners so that we can help them?</p>
+                            provide, and share it with other CAMHS partners so that we can help them? -->
+                            {{ apos.area(data.page, 'referral1_titleCon', {
+                                  widgets: {
+                                    'apostrophe-rich-text': {
+                                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                      styles: [
+                                        { name: 'Heading', element: 'p' }
+                                      ]
+                                    }
+                                  }
+                                }) }}
+                          </div>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class"
                             data-toggle="modal" data-target="#consentModal" alt="">
                     </div>
@@ -281,6 +364,8 @@
                     </div>
                 </div>
             </form>
+
+
             <!-- consent-ent -->
 
             <!-- toster-container start -->
@@ -295,28 +380,69 @@
                                         data-target="#consentModal" aria-hidden="true"></i>
                                 </span>
                             </p>
-                            <p v-show="elgibilityObj.role=='child'" class="question-font text-center m-0 py-2">We need
-                                your
-                                consent to continue.</p>
-                            <p v-show="elgibilityObj.role=='parent'" class="question-font text-center m-0 py-2">We need
-                                your
-                                child's consent to continue.</p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Please change your answer above
+                            <p v-show="elgibilityObj.role=='child'" class="question-font text-center m-0 py-2">
+                              <!-- We need your consent to continue. -->
+                              {{ apos.area(data.page, 'referral1_childcon', {
+                                    widgets: {
+                                      'apostrophe-rich-text': {
+                                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                        styles: [
+                                          { name: 'Heading', element: 'p' }
+                                        ]
+                                      }
+                                    }
+                                  }) }}
+                            </p>
+                            <p v-show="elgibilityObj.role=='parent'" class="question-font text-center m-0 py-2">
+                              <!-- We need your child's consent to continue. -->
+                              {{ apos.area(data.page, 'referral1_parentcon', {
+                                    widgets: {
+                                      'apostrophe-rich-text': {
+                                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                        styles: [
+                                          { name: 'Heading', element: 'p' }
+                                        ]
+                                      }
+                                    }
+                                  }) }}</p>
+                            <p class="link-text cursor-pointer text-center m-0 py-2">
+                                <!-- Please change your answer above
                                 if
-                                you are willing to provide consent.
+                                you are willing to provide consent. -->
+                                {{ apos.area(data.page, 'referral1_change', {
+                                      widgets: {
+                                        'apostrophe-rich-text': {
+                                          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                          styles: [
+                                            { name: 'Heading', element: 'p' }
+                                          ]
+                                        }
+                                      }
+                                    }) }}
                             </p>
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a
                                     href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
-                                    > Tell me more about consent
+                                     <!-- Tell me more about consent -->
+                                     {{ apos.area(data.page, 'referral1_telConsent', {
+                                           widgets: {
+                                             'apostrophe-rich-text': {
+                                               toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                               styles: [
+                                                 { name: 'Heading', element: 'p' }
+                                               ]
+                                             }
+                                           }
+                                         }) }}
                                 </a></p>
                         </div>
                     </div>
                 </div>
             </form>
+
             <!-- toster-container start -->
 
             <!-- new flow start -->
-
+  {% raw %}
             <form id="reason-parentcontact-form" data-options="isInformation">
                 <div v-show="elgibilityObj.role == 'child' && elgibilityObj.childDob!=null && elgibilityObj.isInformation=='yes' &&  elgibilityObj.aboveLimit == 'no' && elgibilityObj.belowAgeLimit == 'no'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
@@ -344,10 +470,11 @@
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- new flow-end -->
 
             <!--Tell us why you do not want us to contact your parents or carer -start -->
-            <form id="reasons-not-contact" data-options="reason_contact_parent_camhs">
+            {% raw %}  <form id="reasons-not-contact" data-options="reason_contact_parent_camhs">
                 <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) && elgibilityObj.isInformation=='yes' && elgibilityObj.contact_parent_camhs =='yes'  &&  elgibilityObj.aboveLimit == 'no' && elgibilityObj.belowAgeLimit == 'no'"
                     class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-1">
@@ -364,6 +491,7 @@
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!--Tell us why you do not want us to contact your parents or carer-end -->
 
             <!-- GP Location start -->
@@ -378,10 +506,34 @@
                         <label v-show="elgibilityObj.role=='child'" for="gpLocation" class="question-font">Which GP are
                             you
                             registered with?</label>
-                        <label v-show="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is
+                          <!-- <div v-show="elgibilityObj.role=='child'" for="gpLocation" class="question-font">
+                             {{ apos.area(data.page, 'referral1_gpChild', {
+                                  widgets: {
+                                    'apostrophe-rich-text': {
+                                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                      styles: [
+                                        { name: 'Heading', element: 'p' }
+                                      ]
+                                    }
+                                  }
+                                }) }}
+                                </div> -->
+                        <!-- <label v-show="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">Which GP is
                             your
-                            child registered with?</label>
-
+                            child registered with?</label> -->
+                            <div v-show="elgibilityObj.role=='parent'" for="gpLocation" class="question-font">
+                               {{ apos.area(data.page, 'referral1_gpParent', {
+                                    widgets: {
+                                      'apostrophe-rich-text': {
+                                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                        styles: [
+                                          { name: 'Heading', element: 'p' }
+                                        ]
+                                      }
+                                    }
+                                  }) }}
+                                  </div>
+  {% raw %}
                         <div class="input-group">
                             <input type="text" class="form-control gpLocation" @input="getAddress($event)"
                                 placeholder="Start typing to search" id="gpLocation" aria-label="location"
@@ -406,12 +558,14 @@
                             our service.
                             <a :href="elgibilityObj.gpErrLink" target="_blank">Find a service local to me</a>
                         </small>
+                        {% endraw %}
                     </div>
                 </div>
             </form>
             <!--GP Location End -->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="gpNotCovered" data-options="gpNotCovered">
                 <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
                     class="px-4 py-4">
@@ -429,19 +583,21 @@
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a
                                     href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
                                     target="_blank">
-                                    > Find a service local to me
+                                     Find a service local to me
                                 </a></p>
 
                             <p class="link-text cursor-pointer text-center m-0 py-2"
-                                v-on:click="changePrevAns('regGpTxt','gpLocation')"> > Change my previous
+                                v-on:click="changePrevAns('regGpTxt','gpLocation')">  Change my previous
                                 answer </p>
                         </div>
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- toster-container start -->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="submitFormTrue-form2" data-options="submitForm">
                 <!-- <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4"> -->
@@ -463,6 +619,7 @@
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- toster-container start -->
 
             <div v-show="(elgibilityObj.role=='parent' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt) || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.reason_contact_parent_camhs) || (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.belowAgeLimit == 'yes') || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt)"
@@ -476,11 +633,14 @@
 
 
             <!-- Professional Info start -->
+
             <form id="professionalInfo-form" data-options="professionalForm">
                 <div v-show="elgibilityObj.role === 'professional'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
                         <label for="fullName" class="question-font">Your full name</label>
+
+                                      {% raw %}
                         <input type="text" v-model="elgibilityObj.profName"
                             @input="onVaueChange($event,'fullName','elgibilityObj','profName')"
                             placeholder="Enter your first and last name" class="form-control" id="fullName">
@@ -489,6 +649,8 @@
                             v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profName),'invalid-fields':!elgibilityObj.profName }">
                             Please provide a name.
                         </div>
+                        {% endraw %}
+
                         <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
                             Please provide a name.
                         </div>
@@ -499,6 +661,7 @@
                     <div class="form-group">
                         <label for="emailAddress" class="question-font">Your email address - <b>optional</b>
                         </label>
+                          {% raw %}
                         <input type="text" v-model="elgibilityObj.profEmail"
                             @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
                             placeholder="Enter your email address" class="form-control" id="emailAddress">
@@ -507,6 +670,8 @@
                             'invalid-fields':(elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)) }">
                             You must provide a valid email.
                         </div>
+                        {% endraw %}
+
                         <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasEmailInvalidError }">
                             Please provide a valid email.
                         </div> -->
@@ -538,6 +703,7 @@
 
             <!-- calender start-->
             <form id="profChildDob-form" data-options="profChildDobForm"></form>
+  {% raw %}
             <div v-show="elgibilityObj.role == 'professional'"
                 class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
@@ -554,9 +720,11 @@
                     </div>
                 </div>
             </div>
-            </form>
+              {% endraw %}
+            <!-- </form> -->
             <!-- calendar-end -->
             <!-- Age under 14 start-->
+              {% raw %}
             <form id="profBelowAgeLimit-form" data-options="profBelowAgeLimit">
                 <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
@@ -587,9 +755,11 @@
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- Age under 14 end-->
 
             <!-- toster-container start -->
+              {% raw %}
             <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profaboveLimit == 'yes' && elgibilityObj.profChildDob!=null"
                 class="px-4 py-4">
                 <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -602,7 +772,7 @@
                         <p class="link-text text-center  py-2">Free mental health services for adults:</p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Liverpool:
-                            <a href="https://www.talkliverpool.nhs.uk/ 
+                            <a href="https://www.talkliverpool.nhs.uk/
                             " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a>
                         </p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
@@ -619,9 +789,11 @@
                     </div>
                 </div>
             </div>
+              {% endraw %}
             <!-- toster-container start -->
 
             <!-- toster-container start -->
+              {% raw %}
             <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.contactProfParent == 'no' && elgibilityObj.profChildDob!=null"
                 class="px-4 py-4">
                 <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -631,18 +803,20 @@
                         </p>
                         <p class="question-font text-center m-0 py-2">We need the child/young person's parents consent
                             to continue</p>
-                        <p class="link-text cursor-pointer text-center m-0 py-2"> > Please change your answer above if
+                        <p class="link-text cursor-pointer text-center m-0 py-2">  Please change your answer above if
                             you are willing to provide consent.</p>
                         <p class="link-text cursor-pointer text-center m-0 py-2"><a
                                 href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
-                                > Tell me more about consent
+                                 Tell me more about consent
                             </a></p>
                     </div>
                 </div>
             </div>
+              {% endraw %}
             <!-- toster-container start -->
 
             <!-- consent parent start-->
+              {% raw %}
             <form id="contactProfParent-form" data-options="contactProfParent">
                 <div v-show="elgibilityObj.contactProfParent== 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
@@ -673,9 +847,11 @@
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- consent- parent end -->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="parentConcernInformation-form3" data-options="parentConcernInformation">
                 <div v-show="elgibilityObj.role == 'professional'  &&  elgibilityObj.parentConcernInformation == 'no' && elgibilityObj.profChildDob!=null "
                     class="px-4 py-4">
@@ -686,17 +862,18 @@
                             </p>
                             <p class="question-font text-center m-0 py-2">We need the child / young person’s consent to
                                 continue.</p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Please change your answer above
+                            <p class="link-text cursor-pointer text-center m-0 py-2">  Please change your answer above
                                 if
                                 you are willing to provide consent.</p>
                             <p class="link-text cursor-pointer text-center m-0 py-2"><a
                                     href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
-                                    > Tell me more about consent
+                                     Tell me more about consent
                                 </a></p>
                         </div>
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- toster-container start -->
 
 
@@ -751,6 +928,7 @@
 
 
             <!-- GP Location start -->
+              {% raw %}
             <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
                 <div v-show=" elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes' && elgibilityObj.profChildDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
@@ -786,9 +964,11 @@
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!--GP Location End -->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
                 <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && (elgibilityObj.profName && elgibilityObj.profContactNumber) &&  getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
                     class="px-4 py-4">
@@ -806,18 +986,20 @@
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a
                                     href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
                                     target="_blank">
-                                    > Find a service local to me
+                                     Find a service local to me
                                 </a></p>
                             <p class="link-text cursor-pointer text-center m-0 py-2"
-                                v-on:click="changePrevAns('regProfGpTxt','gpProfLocation')"> > Change my previous
+                                v-on:click="changePrevAns('regProfGpTxt','gpProfLocation')"> Change my previous
                                 answer </p>
                         </div>
                     </div>
                 </div>
             </form>
+              {% endraw %}
             <!-- toster-container start -->
 
             <!-- toster-container start -->
+              {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
                 <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profName && elgibilityObj.profContactNumber) && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
                     class="px-4 py-4">
@@ -838,6 +1020,7 @@
                 </div>
                 <!-- toster-container start -->
             </form>
+              {% endraw %}
             <template
                 v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profName || !elgibilityObj.profContactNumber) && elgibilityObj.profChildDob!=null">
                 <div class="px-4 py-4">
@@ -865,7 +1048,7 @@
                             CONTINUE</span></button>
                 </a>
             </div>
-            {% endraw %}
+        <!-- ----endraw- -->
         </div>
     </div>
 
@@ -879,24 +1062,48 @@
                             <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
                         </span>
                         <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
-                                class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                class="fal fa-times fa-2x cursor-pointer"></i>
                     </div>
                     <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
-                        <h3 class="support-modal-content-text text-left py-4"> Consent is when one person agrees to or
+                        <!-- <h3 class="support-modal-content-text text-left py-4">
+                           Consent is when one person agrees to or
                             gives
                             permission to another person to do something. Consent means agreeing to an action based on
                             your knowledge of what that action involves, its likely consequences and having the option
                             of saying no. The absence of no does not mean yes.
-                        </h3>
-                        <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
+                        </h3> -->
+                        <div class="support-modal-content-text text-left py-4">
+                          {{ apos.area(data.page, 'consentPerson', {
+                                widgets: {
+                                  'apostrophe-rich-text': {
+                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                    styles: [
+                                      { name: 'Heading', element: 'h3' }
+                                    ]
+                                  }
+                                }
+                              }) }}</div> -->
+                        <!-- <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                             <a href="https://www.nhs.uk/conditions/consent-to-treatment/ " target="_blank">
-                                > Learn more about consent
+                                 Learn more about consent
                             </a>
-                        </p>
+                              </p>
+                          <div class="support-modal-link-text cursor-pointer text-center m-0 py-2">  {{ apos.area(data.page, 'consentPerson', {
+                                  widgets: {
+                                    'apostrophe-rich-text': {
+                                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                      styles: [
+                                        { name: 'Heading', element: 'h3' }
+                                      ]
+                                    }
+                                  }
+                                }) }}
+                                </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<!-- </div> -->
 {% endblock %}
