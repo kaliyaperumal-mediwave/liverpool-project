@@ -385,7 +385,8 @@
                         <div class="input-group">
                             <input type="text" class="form-control gpLocation" @input="getAddress($event)"
                                 placeholder="Start typing to search" id="gpLocation" aria-label="location"
-                                v-model="elgibilityObj.regGpTxt" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
+                                v-model="elgibilityObj.regGpTxt" v-on:keypress.enter.prevent="gpSubmit()"
+                                autocomplete="off">
                             <div id="showInputLoaderProf" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
@@ -483,12 +484,17 @@
                         <input type="text" v-model="elgibilityObj.profName"
                             @input="onVaueChange($event,'fullName','elgibilityObj','profName')"
                             placeholder="Enter your first and last name" class="form-control" id="fullName">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
+
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profName),'invalid-fields':!elgibilityObj.profName }">
+                            Please provide a name.
+                        </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
                             Please provide a name.
                         </div>
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-none': hasNameInvalidError }">
                             Please provide a valid name.
-                        </div>
+                        </div> -->
                     </div>
                     <div class="form-group">
                         <label for="emailAddress" class="question-font">Your email address - <b>optional</b>
@@ -496,21 +502,35 @@
                         <input type="text" v-model="elgibilityObj.profEmail"
                             @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
                             placeholder="Enter your email address" class="form-control" id="emailAddress">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasEmailInvalidError }">
-                            Please provide a valid email.
+
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)),
+                            'invalid-fields':(elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)) }">
+                            You must provide a valid email.
                         </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasEmailInvalidError }">
+                            Please provide a valid email.
+                        </div> -->
                     </div>
                     <div class="form-group">
                         <label for="contact" class="question-font">Enter your contact number</label>
                         <input type="text" v-model="elgibilityObj.profContactNumber"
                             @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
                             placeholder="Enter your contact number" class="form-control" id="contact">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactReqError }">
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isSubmitted && !elgibilityObj.profContactNumber),'invalid-fields':!elgibilityObj.profContactNumber }">
+                            You must provide a number.
+                        </div>
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && !phoneRegex.test(elgibilityObj.profContactNumber)),
+                            'invalid-fields':(elgibilityObj.profContactNumber && !phoneRegex.test(elgibilityObj.profContactNumber)) }">
+                            You must provide a valid number.
+                        </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactReqError }">
                             Please provide a number.
                         </div>
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactInvalidError }">
                             Please provide a valid number.
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </form>

@@ -1,11 +1,5 @@
 var API_URI = "/modules/auth-module";
 $(document).ready(function () {
-    if (false || !!document.documentMode) {
-        // 
-    }
-    else {
-        // Vue.use(VueToast);
-    }
     new Vue({
         el: '#forgotPassword',
 
@@ -35,7 +29,6 @@ $(document).ready(function () {
                 var formData = this.forgetPasswordData;
                 this.isFormSubmitted = true;
                 if (formData.email && this.emailRegex.test(formData.email)) {
-                    console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/forgotPassword', formData);
                     if (successData && Object.keys(successData)) {
@@ -54,10 +47,6 @@ $(document).ready(function () {
                     return false;
                 }
             },
-
-            // navigatePage: function (route) {
-            //     window.location.href = window.location.origin + route;
-            // },
 
             resetForm: function () {
                 this.isFormSubmitted = false;

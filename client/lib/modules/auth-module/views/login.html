@@ -64,9 +64,9 @@
                             }) }}
                         </div>
                         <!-- <label for="loginEmail" class="auth-font my-2">My email address</label> -->
-                        <input type="email" inputmode="email" placeholder="Enter your email address"
+                        <input type="text" inputmode="email" placeholder="Enter your email address"
                             class="form-control auth-border" id="loginEmail" aria-describedby="authEmail"
-                            v-model="loginObject.email">
+                            @input="trimWhiteSpace($event,'loginObject','email')" v-model="loginObject.email">
                         <div class="invalid-feedback px-1 d-none"
                             v-bind:class="{ 'd-block': (isFormSubmitted && !loginObject.email),'invalid-fields':!loginObject.email }">
                             You must provide a email.
@@ -93,11 +93,12 @@
                         <div id="authForm">
                             <div class="input-group">
                                 <input type="password" class="form-control auth-border py-2" id="loginPassword"
+                                    @input="trimWhiteSpace($event,'loginObject','password')"
                                     v-model="loginObject.password" placeholder="Enter your password">
                                 <span class="input-group-append">
                                     <div class="input-group-text px-3">
                                         <span style="color: #023047 !important;" class="cursor-pointer font-23"
-                                            @click="toggleVisibility()">
+                                            @click="toggleVisibility('#loginPassword','showVisibility')">
                                             <template v-if="!showVisibility">
                                                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                             </template>
