@@ -31,7 +31,7 @@ $(document).ready(function () {
             resetPassword: function () {
                 var formData = this.resetPasswordData;
                 this.isFormSubmitted = true;
-                if ((formData.new_password && this.passwordRegex.test(formData.new_password)) && (formData.confirm_password && this.passwordRegex.test(formData.confirm_password))) {
+                if ((formData.new_password && this.passwordRegex.test(formData.new_password)) && (formData.confirm_password && this.passwordRegex.test(formData.confirm_password)) && (formData.new_password === formData.confirm_password)) {
                     console.log('payload', formData);
                     formData.token = getQueryStringValue("token");
                     console.log('payload', formData);
