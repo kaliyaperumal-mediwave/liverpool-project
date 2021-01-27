@@ -28,4 +28,7 @@ module.exports = {
       return next();
     }
   },
+  checkToken: (ctx, next) => {
+   
+  },
 };
