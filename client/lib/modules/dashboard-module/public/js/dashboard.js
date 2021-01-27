@@ -48,10 +48,10 @@ $(document).ready(function () {
                 });
             },
 
-            navigatePage: function (route) {
-                var url = location.href
-                this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
-            },
+            // navigatePage: function (route) {
+            //     var url = location.href
+            //     this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
+            // },
 
             checkReferral: function (refObj) {
                 $.ajax({
