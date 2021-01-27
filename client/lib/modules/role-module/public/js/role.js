@@ -127,8 +127,9 @@ $(document).ready(function () {
                 }
             },
             setValues: function (data) {
-                // console.log("length "+data.length)
-                this.elgibilityObj.editFlag = data.length;
+                console.log(data)
+                 console.log("length "+data.length)
+                //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
                 // console.log(data)
@@ -143,6 +144,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
                     $('input[name=role]').attr("disabled", true);
+                    this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "parent") {
 
@@ -154,6 +156,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
+                    this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
                     Vue.set(this.elgibilityObj, "role", roleType);
@@ -167,6 +170,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
+                    this.elgibilityObj.editFlag = "editFlag";
                 }
                 //this.elgibilityObj.editFlag = "true";
 

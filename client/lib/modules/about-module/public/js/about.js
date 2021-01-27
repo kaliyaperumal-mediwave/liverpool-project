@@ -81,10 +81,10 @@ $(document).ready(function () {
         mounted: function () {
             var _self = this;
             this.paramValues = getParameter(location.href);
-            this.fetchSavedData();
             this.userRole = document.getElementById('uRole').innerHTML;
             this.userId = document.getElementById('uUid').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            this.fetchSavedData();
             this.initMaps();
             $('#loader').hide();
         },
