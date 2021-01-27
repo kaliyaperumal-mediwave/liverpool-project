@@ -39,5 +39,8 @@ module.exports = {
     {
       name: 'utilities'
     },
+    {
+      name: 'filters'
+    },
   ]
 };
