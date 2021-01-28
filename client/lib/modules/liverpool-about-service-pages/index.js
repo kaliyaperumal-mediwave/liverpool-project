@@ -16,10 +16,7 @@ module.exports = {
     self.beforeShow = function (req, callback) {
       require('../../middleware')(self, options);
       self.checkCommonPageAuth(req).then(async (req) => {
-        req.data.piecesArray = _.map(req.data.pieces, (item) => {
-          item.custom_url = "/mental-health/people?piece_id=" + item._id
-          return item;
-        })
+        req.data.piecesArray = req.data.pieces;
         return superBefore(req, callback);
       }).catch(() => {
       });
