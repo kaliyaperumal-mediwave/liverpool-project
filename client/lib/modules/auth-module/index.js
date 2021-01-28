@@ -117,5 +117,17 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
+    self.route('get', 'doLogout', function (req, res) {
+      console.log("---- doLogout -------")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/logOut';
+      self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
+        req.session.destroy();
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   },
 };
