@@ -25,7 +25,10 @@ module.exports = {
 
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function (req, callback) {
-      req.data.piecesArray = req.data.pieces;
+      req.data.piecesArray = _.map(req.data.pieces, (item) => {
+        item.custom_url = "/read?piece_id=" + item._id
+        return item;
+      })
       if (req.query && req.query.piece_id) {
         const pieces = [];
         let todayDate = moment().format('DD-MM-YYYY HH:MM:SS');

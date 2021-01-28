@@ -8,6 +8,8 @@ $(document).ready(function () {
                 new_password: "",
                 confirm_password: "",
             },
+            message: "",
+            responseMessage: "",
             visibleNewPassword: false,
             visibleConfirmPassword: false,
             isFormSubmitted: false,
@@ -20,18 +22,36 @@ $(document).ready(function () {
 
         mounted: function () {
             var _self = this;
+            this.verifyToken();
             setTimeout(function () {
                 _self.resetForm();
-                $('#loader').hide();
+                // $('#loader').hide();
             }, 700);
         },
 
         methods: {
 
+            verifyToken: function() {
+                const token = getQueryStringValue("token");
+                if(token) {
+                    var successData = apiCallGet('get', '/resetPassword/verifyToken?token=' + token, API_URI);
+                    if (successData && Object.keys(successData)) {
+                        $('#loader').hide();
+                        if(!successData.data && successData.message) {
+                            this.message = successData.message;
+                        }
+                    } else {
+                        $('#loader').hide();
+                    }
+                } else {
+                    $('#loader').hide();
+                }
+            },
+
             resetPassword: function () {
                 var formData = this.resetPasswordData;
                 this.isFormSubmitted = true;
-                if ((formData.new_password && this.passwordRegex.test(formData.new_password)) && (formData.confirm_password && this.passwordRegex.test(formData.confirm_password))) {
+                if ((formData.new_password && this.passwordRegex.test(formData.new_password)) && (formData.confirm_password && this.passwordRegex.test(formData.confirm_password)) && (formData.new_password === formData.confirm_password)) {
                     console.log('payload', formData);
                     formData.token = getQueryStringValue("token");
                     console.log('payload', formData);
@@ -39,6 +59,7 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/resetPassword', formData);
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
+                        this.responseMessage = successData.message;
                         $('#resetPasswordSuccess').modal('show');
 
                     } else {
@@ -68,6 +89,10 @@ $(document).ready(function () {
                 $('#resetPasswordSuccess').modal('hide');
                 this.resetForm();
                 window.location.href = window.location.origin + '/users/login';
+            },
+
+            logOut: function () {
+                window.location.href = "/logout";
             }
 
         }

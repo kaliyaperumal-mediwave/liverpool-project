@@ -23,12 +23,35 @@ module.exports = {
       console.log("show==========");
       self.checkCommonPageAuth(req).then(async (req) => {
         let piecesArray = [];
-        var ThingsToWatch = req.data.piece._watchPage.length > 0 ? req.data.piece._watchPage : [];
-        var ThingsToRead = req.data.piece._readPage.length > 0 ? req.data.piece._readPage : [];
-        var Games = req.data.piece._gamesPage.length > 0 ? req.data.piece._gamesPage : [];
-        var Events = req.data.piece._eventPage.length > 0 ? req.data.piece._eventPage : [];
-        var PartnerAgencies = req.data.piece._partnerAgenciesPage.length > 0 ? req.data.piece._partnerAgenciesPage : [];
-        piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies)
+        if (req.data.piece) {
+          var ThingsToWatchArray = req.data.piece._watchPage.length > 0 ? req.data.piece._watchPage : [];
+          var ThingsToWatch = _.map(ThingsToWatchArray, (item) => {
+            item.custom_url = "/watch?piece_id=" + item._id
+            return item;
+          })
+
+          var ThingsToReadArray = req.data.piece._readPage.length > 0 ? req.data.piece._readPage : [];
+          var ThingsToRead = _.map(ThingsToReadArray, (item) => {
+            item.custom_url = "/read?piece_id=" + item._id
+            return item;
+          })
+          var GamesArray = req.data.piece._gamesPage.length > 0 ? req.data.piece._gamesPage : [];
+          var Games = _.map(GamesArray, (item) => {
+            item.custom_url = "/games?piece_id=" + item._id
+            return item;
+          })
+          var EventsArray = req.data.piece._eventPage.length > 0 ? req.data.piece._eventPage : [];
+          var Events = _.map(EventsArray, (item) => {
+            item.custom_url = "/events?piece_id=" + item._id
+            return item;
+          })
+          var PartnerAgenciesArray = req.data.piece._partnerAgenciesPage.length > 0 ? req.data.piece._partnerAgenciesPage : [];
+          var PartnerAgencies = _.map(PartnerAgenciesArray, (item) => {
+            item.custom_url = "/partner?piece_id=" + item._id
+            return item;
+          })
+          piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies)
+        }
         req.data.piecesArray = piecesArray;
         return superBefore(req, callback);
       }).catch(() => {
@@ -40,14 +63,33 @@ module.exports = {
       require('../../middleware')(self, options);
 
       self.checkCommonPageAuth(req).then(async (req) => {
-        let piecesArray = [];
         var Resources = await self.apos.modules['Resources-pages'].pieces.find(req, {}).toArray();
-        var ThingsToWatch = await self.apos.modules['liverpool-watch-pages'].pieces.find(req, {}).toArray();
-        var ThingsToRead = await self.apos.modules['liverpool-read-pages'].pieces.find(req, {}).toArray();
-        var Games = await self.apos.modules['liverpool-games-pages'].pieces.find(req, {}).toArray();
-        var Events = await self.apos.modules['liverpool-events-pages'].pieces.find(req, {}).toArray();
-        var PartnerAgencies = await self.apos.modules['liverpool-Partner-agencies-pages'].pieces.find(req, {}).toArray();
+        var ThingsToWatchArray = await self.apos.modules['liverpool-watch-pages'].pieces.find(req, {}).toArray();
+        var ThingsToWatch = _.map(ThingsToWatchArray, (item) => {
+          item.custom_url = "/watch?piece_id=" + item._id
+          return item;
+        })
+        var ThingsToReadArray = await self.apos.modules['liverpool-read-pages'].pieces.find(req, {}).toArray();
+        var ThingsToRead = _.map(ThingsToReadArray, (item) => {
+          item.custom_url = "/read?piece_id=" + item._id
+          return item;
+        })
+        var GamesArray = await self.apos.modules['liverpool-games-pages'].pieces.find(req, {}).toArray();
+        var Games = _.map(GamesArray, (item) => {
+          item.custom_url = "/games?piece_id=" + item._id
+          return item;
+        })
+        var EventsArray = await self.apos.modules['liverpool-events-pages'].pieces.find(req, {}).toArray();
+        var Events = _.map(EventsArray, (item) => {
+          item.custom_url = "/events?piece_id=" + item._id
+          return item;
+        })
 
+        var PartnerAgenciesArray = await self.apos.modules['liverpool-Partner-agencies-pages'].pieces.find(req, {}).toArray();
+        var PartnerAgencies = _.map(PartnerAgenciesArray, (item) => {
+          item.custom_url = "/partner?piece_id=" + item._id
+          return item;
+        })
         piecesArray = Resources.concat(ThingsToWatch, ThingsToRead, Games, Events, PartnerAgencies)
         req.data.piecesArray = piecesArray;
         return beforeIndex(req, callback);
