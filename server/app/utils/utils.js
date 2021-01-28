@@ -23,7 +23,7 @@ module.exports = {
           },
           attributes: ['email', 'session_token','session_token_expiry']
       }).then(async (userResult) => {
-          if(userResult.session_token==token){
+          if(userResult.session_token!=null && userResult.session_token==token){
             return next();
           }
           else

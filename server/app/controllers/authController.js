@@ -384,3 +384,35 @@ exports.logOut = (ctx) => {
         });
       })
 }
+
+exports.verifyPasswordToken = (ctx) => {
+    try {
+        const {
+            User,
+        } = ctx.orm();
+
+        return User.findOne({
+            where: {
+                password_verification_token: ctx.request.query.token,
+            },
+        }).then((user) => {
+            if (user) {
+                if (user && (((moment()).diff(moment(user.password_verification_expiry), 'days')) < 1)) {
+                    return ctx.res.ok({
+                        data: {token: user.password_verification_token}
+                    });
+                } else {
+                    return ctx.res.ok({
+                        message: reponseMessages[1009]
+                    });
+                }
+            } else {
+                return ctx.res.ok({
+                    message: reponseMessages[1009]
+                });
+            }
+        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+};
