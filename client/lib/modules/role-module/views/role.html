@@ -308,14 +308,14 @@
                 <div v-show="elgibilityObj.contactParent=='yes' && elgibilityObj.childDob!=null"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <div v-show="elgibilityObj.role=='child'" class="question-font m-0">
-                          <!-- Do you give consent for us to
+                        <p v-show="elgibilityObj.role=='child'" class="question-font m-0">
+                          Do you give consent for us to
                             use
                             the
                             information that you provide and
                             share it
-                            with other CAMHS partners so that we can help you? -->
-                            {{ apos.area(data.page, 'referral1_titleChild', {
+                            with other CAMHS partners so that we can help you?
+                            <!-- {{ apos.area(data.page, 'referral1_titleChild', {
                                   widgets: {
                                     'apostrophe-rich-text': {
                                       toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -324,8 +324,8 @@
                                       ]
                                     }
                                   }
-                                }) }}
-                          </div>
+                                }) }} -->
+                          </p>
 
                         <div v-show="elgibilityObj.role=='parent'" class="question-font m-0">
                           <!-- Do you have consent from your child
@@ -381,8 +381,8 @@
                                 </span>
                             </p>
                             <p v-show="elgibilityObj.role=='child'" class="question-font text-center m-0 py-2">
-                              <!-- We need your consent to continue. -->
-                              {{ apos.area(data.page, 'referral1_childcon', {
+                              We need your consent to continue.
+                              <!-- {{ apos.area(data.page, 'referral1_childcon', {
                                     widgets: {
                                       'apostrophe-rich-text': {
                                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -391,11 +391,11 @@
                                         ]
                                       }
                                     }
-                                  }) }}
+                                  }) }} -->
                             </p>
                             <p v-show="elgibilityObj.role=='parent'" class="question-font text-center m-0 py-2">
-                              <!-- We need your child's consent to continue. -->
-                              {{ apos.area(data.page, 'referral1_parentcon', {
+                              We need your child's consent to continue.
+                              <!-- {{ apos.area(data.page, 'referral1_parentcon', {
                                     widgets: {
                                       'apostrophe-rich-text': {
                                         toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -404,12 +404,13 @@
                                         ]
                                       }
                                     }
-                                  }) }}</p>
+                                  }) }} -->
+                                </p>
                             <p class="link-text cursor-pointer text-center m-0 py-2">
-                                <!-- Please change your answer above
+                                Please change your answer above
                                 if
-                                you are willing to provide consent. -->
-                                {{ apos.area(data.page, 'referral1_change', {
+                                you are willing to provide consent.
+                                <!-- {{ apos.area(data.page, 'referral1_change', {
                                       widgets: {
                                         'apostrophe-rich-text': {
                                           toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -418,12 +419,12 @@
                                           ]
                                         }
                                       }
-                                    }) }}
+                                    }) }} -->
                             </p>
                             <p class="link-text cursor-pointer text-center m-0 py-2"> <a
                                     href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
-                                     <!-- Tell me more about consent -->
-                                     {{ apos.area(data.page, 'referral1_telConsent', {
+                                     Tell me more about consent
+                                     <!-- {{ apos.area(data.page, 'referral1_telConsent', {
                                            widgets: {
                                              'apostrophe-rich-text': {
                                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -432,7 +433,7 @@
                                                ]
                                              }
                                            }
-                                         }) }}
+                                         }) }} -->
                                 </a></p>
                         </div>
                     </div>
