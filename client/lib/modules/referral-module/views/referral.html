@@ -30,9 +30,21 @@
         </div>
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-4">
-                <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
+                <!-- <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
                     referral
-                </h2>
+                </h2> -->
+                <div  class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                  {{ apos.area(data.page, 'referral_Titile', {
+                      widgets: {
+                        'apostrophe-rich-text': {
+                          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                          styles: [
+                            { name: 'Paragraph', element: 'p' }
+
+                          ]
+                        }
+                      }
+                    }) }}</div>
                 {% raw %}
 
                 <!--  Support-Start-->
