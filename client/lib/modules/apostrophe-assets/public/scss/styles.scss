@@ -561,6 +561,10 @@ a {
   @include md-screen {
     @include set-dynamicFont($tertiary-smFont-size, 2);
   }
+  ul li{
+        list-style: inside;
+        margin-bottom: 8px;
+  }
 }
 
 .footer-content-secondary {
@@ -617,6 +621,11 @@ a {
   @include md-screen {
     @include set-dynamicFont($secondary-mdFont-size, 4);
   }
+  h3{
+    font-size: 24px;
+font-weight: bold;
+color: #023047;
+  }
 }
 
 .content-text {
@@ -632,6 +641,12 @@ a {
     @include set-dynamicFont($quaternary-font-size, 1);
   }
   @include set-dynamicLineHeight($quaternary-font-size);
+  h4{
+    font-size: 18px;
+    }
+    a strong{
+      text-decoration: underline;
+    }
 }
 
 .question-header-font {
@@ -748,6 +763,11 @@ a {
 
 .question-font {
   @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+  h2{
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047;
+  }
 }
 
 .option-font {
@@ -863,6 +883,9 @@ a {
   }
   .question-font {
     font-size: 14px;
+  }
+  .question-font h2 {
+    font-size: 18px;
   }
   .option-font {
     font-size: 15px !important;
@@ -2492,4 +2515,22 @@ width: 100%;
       overflow: hidden;
       max-height: 3.6em;
       line-height: 1.8em;
+}
+.hinttext p{
+  font-size: 14px;
+    font-weight: bold;
+    color: #023047;
+}
+.button-text p{
+  font-size: 26px;
+  font-weight: bold;
+  color: #023047;
+  margin-bottom: 0 !important;
+}
+.btn-quaternary-text p{
+font-size: 26px;
+font-weight: bold;
+color: #023047;
+margin-bottom: 0 !important;
+
 }
