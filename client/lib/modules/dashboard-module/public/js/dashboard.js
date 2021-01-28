@@ -48,7 +48,15 @@ $(document).ready(function () {
                         _self.incompleteReferral = data;
                     },
                     error: function (error) {
-                        console.log(error)
+                        $('#loader').removeClass('d-block').addClass('d-none');
+                        if (error) {
+                            showError(error.responseJSON.message);
+                            setTimeout(function () {
+                                $('#errorCommon').modal('hide');
+                                location.href = "/users/login";
+                            }, 1000);
+
+                        }
                     }
                 });
             },
@@ -97,7 +105,15 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        console.log(error)
+                        $('#loader').removeClass('d-block').addClass('d-none');
+                        if (error) {
+                            showError(error.responseJSON.message);
+                            setTimeout(function () {
+                                $('#errorCommon').modal('hide');
+                                location.href = "/users/login";
+                            }, 1000);
+                           
+                        }
                     }
                 });
             },
@@ -124,7 +140,14 @@ $(document).ready(function () {
                         },
                         error: function (error) {
                             $('#loader').hide();
-                            console.log(error.responseJSON.message)
+                            if (error) {
+                                showError(error.responseJSON.message);
+                                setTimeout(function () {
+                                    $('#errorCommon').modal('hide');
+                                    location.href = "/users/login";
+                                }, 1000);
+                               
+                            }
                         }
                     });
                 }

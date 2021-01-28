@@ -50,11 +50,15 @@ module.exports = {
     };
 
     self.resetPassword = function (req, callback) {
-      return self.sendPage(req, self.renderer('reset_password', {
-        showHeader: true,
-        home: true,
-        hideRefButton: true,
-      }));
+      if(req.query && req.query.token) {
+        return self.sendPage(req, self.renderer('reset_password', {
+          showHeader: true,
+          home: true,
+          hideRefButton: true,
+        }));
+      } else {
+        return req.res.redirect("/dashboard");
+      }
     };
 
     require('../../middleware')(self, options);
@@ -111,6 +115,28 @@ module.exports = {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/resetPassword';
       self.middleware.post(req, res, url, req.body).then((data) => {
         console.log(data)
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+    self.route('get', 'doLogout', function (req, res) {
+      console.log("---- doLogout -------")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/logOut';
+      self.middleware.post(req, res, url, req.body).then((data) => {
+        console.log(data)
+        req.session.destroy();
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+    self.route('get', 'resetPassword/verifyToken', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/resetPassword/verifyToken?token=' + req.query.token;
+      self.middleware.get(req, url).then((data) => {
+        console.log(data);
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
