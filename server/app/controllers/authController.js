@@ -41,6 +41,7 @@ exports.signup = async (ctx) => {
             const payload = { email: result.email, id: result.uuid, role: result.user_role };
             const secret = process.env.JWT_SECRET;
             const token = jwt.sign(payload, secret);
+
             const sendSignupResult = {
                 data: result,
                 token: token
@@ -76,23 +77,32 @@ exports.login = async (ctx) => {
                     const payload = { email: userResult.email, id: userResult.uuid, role: userResult.user_role };
                     const secret = process.env.JWT_SECRET;
                     const token = jwt.sign(payload, secret);
-                    const sendUserResult = {
-                        loginId: userResult.uuid,
-                        first_name: userResult.first_name,
-                        last_name: userResult.last_name,
-                        email: userResult.email,
-                        role: userResult.user_role,
-                        token: token
-
-                    }
-
-                    const sendResponseData = {
-                        sendUserResult: sendUserResult,
-                    }
-                    return ctx.res.ok({
-                        status: "success",
-                        data: sendResponseData,
-                    });
+                    return user.update({
+                        session_token: token,
+                        session_token_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
+                    },{
+                        where:
+                          {  email: userResult.email, }
+                      }).then((sessionResult) => {
+                          console.log("----------------------------------update session ----------------------------------------------------")
+                        const sendUserResult = {
+                            loginId: userResult.uuid,
+                            first_name: userResult.first_name,
+                            last_name: userResult.last_name,
+                            email: userResult.email,
+                            role: userResult.user_role,
+                            token: token
+                        }
+                        const sendResponseData = {
+                            sendUserResult: sendUserResult,
+                        }
+                        return ctx.res.ok({
+                            status: "success",
+                            data: sendResponseData,
+                        });
+                    }).catch((error) => {
+                        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                    })
                 }
                 else {
                     return ctx.res.badRequest({
@@ -357,3 +367,20 @@ exports.resetEmail = (ctx) => {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 };
+
+exports.logOut = (ctx) => {
+    console.log("ctx" + ctx.request.decryptedUser.email)
+    console.log(ctx.request.decryptedUser)
+    const user = ctx.orm().User;
+    return user.update({
+        session_token: "",
+        session_token_expiry:null
+    },{
+        where:
+          {  email: ctx.request.decryptedUser.email, }
+      }).then((sessionResult) => {
+        return ctx.res.ok({
+            message: reponseMessages[1001],
+        });
+      })
+}
