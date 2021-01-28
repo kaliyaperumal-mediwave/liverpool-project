@@ -1390,6 +1390,10 @@ a {
   font-size: 18px;
   font-weight: normal;
   color: #023047; }
+  .question-font h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047; }
 
 .option-font {
   font-size: 17px;
@@ -1502,6 +1506,8 @@ a {
     font-size: 24px; }
   .question-font {
     font-size: 14px; }
+  .question-font h2 {
+    font-size: 18px; }
   .option-font {
     font-size: 15px !important; }
   .link-text {

@@ -763,6 +763,11 @@ color: #023047;
 
 .question-font {
   @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+  h2{
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047;
+  }
 }
 
 .option-font {
@@ -878,6 +883,9 @@ color: #023047;
   }
   .question-font {
     font-size: 14px;
+  }
+  .question-font h2 {
+    font-size: 18px;
   }
   .option-font {
     font-size: 15px !important;
