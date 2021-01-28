@@ -34,7 +34,7 @@
                 <div class="primary-search-radius card cursor-pointer">
 
                     <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                        <a :href="`${item._url}`">
+                        <a :href=" item.custom_url ? `${item.custom_url}` : `${item._url}` ">
                             <div class="d-flex align-items-center">
                                 <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
                                     class="px-1 px-md-2 cursor-pointer" alt="">
