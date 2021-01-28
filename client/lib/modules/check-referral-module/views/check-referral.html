@@ -45,16 +45,16 @@
                             <div>
                                 <div class="collapse show collapse-container">
                                     <div class="collapse-title">
-                                        Hospital
+                                       Date completed
                                     </div>
                                     <div class="collapse-para">
-                                        Alder Hey NHS
+                                        {{changeDateFormat(refObj.createdAt)}}
                                     </div>
                                     <div class="collapse-title">
-                                        Treatment
+                                        Status
                                     </div>
                                     <div class="collapse-para">
-                                        N/A
+                                        Pending
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Code
@@ -125,17 +125,20 @@
                         <div class="collapse_title">
                             <div>
                                 <div class="collapse show collapse-container" :id="'recentCollapseExample1'">
-                                    <div class="collapse-title">
-                                        Hospital
+                                    <div v-if="viewReferralObj.referralType == 'completed'" class="collapse-title">
+                                        Date completed
+                                    </div>
+                                    <div v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-title">
+                                        Date started
                                     </div>
                                     <div class="collapse-para">
-                                        Alder Hey NHS
+                                        {{changeDateFormat(refObj.createdAt)}}
                                     </div>
                                     <div class="collapse-title">
-                                        Treatment
+                                        Status
                                     </div>
                                     <div class="collapse-para">
-                                        N/A
+                                        Pending
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Code
@@ -195,17 +198,20 @@
                         <div class="collapse_title">
                             <div>
                                 <div class="collapse show collapse-container" :id="'collapseExample' + index">
-                                    <div class="collapse-title">
-                                        Hospital
+                                    <div v-if="viewReferralObj.referralType == 'completed'" class="collapse-title">
+                                        Date completed
+                                    </div>
+                                    <div v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-title">
+                                        Date started
                                     </div>
                                     <div class="collapse-para">
-                                        Alder Hey NHS
+                                        {{changeDateFormat(refObj.createdAt)}}
                                     </div>
                                     <div class="collapse-title">
-                                        Treatment
+                                        Status
                                     </div>
                                     <div class="collapse-para">
-                                        N/A
+                                        Pending
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Code

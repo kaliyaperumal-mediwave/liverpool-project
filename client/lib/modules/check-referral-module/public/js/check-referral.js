@@ -205,8 +205,11 @@ $(document).ready(function () {
             },
             getStringLength: function (str) {
                 return str.length;
-            }
+            },
 
+            changeDateFormat: function (date) {
+                return moment(date).format('DD/MM/YYYY');
+            },
         }
     })
 });
