@@ -38,197 +38,37 @@
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
             </a>
-            <h2 class="home-header-primary m-0 py-2">Privacy & cookies</h2>
+            <!-- <h2 class="home-header-primary m-0 py-2">Privacy & cookies</h2> -->
+          <div class="home-header-primary m-0 py-2">  {{ apos.area(data.page, 'privacyTitle', {
+           widgets: {
+           'apostrophe-rich-text': {
+           toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+           styles: [
+           { name: 'Heading', element: 'h2' }
+           ]
+           }
+           }
+           }) }}
+           </div>
         </div>
     </div>
 
     <div class="d-flex text-center">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 px-4 mx-auto home-primary-content-bg">
-            <h3 class="footer-content-secondary mt-2 mt-md-3 px-3 text-left">When do we collect information about you?
-            </h3>
+          <div class="footer-content  my-3 my-md-4 py-2 px-3 text-left bullet-inside">
+             {{ apos.area(data.page, 'privacysubTitle', {
+            widgets: {
+            'apostrophe-rich-text': {
+            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink','BulletedList' ],
+            styles: [
+            { name: 'Heading', element: 'h3' },
+            { name: 'Paragraph', element: 'p' }
+            ]
+            }
+            }
+            }) }}
+            </div>
 
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                We may collect personal information from you when you:
-            </h3>
-
-            <ul class="footer-content text-left px-3 ">
-                <li class="py-1 py-md-2">• Book a place on a training course or event hosted through the website;</li>
-                <li class="py-1 py-md-2">• Register to participate in any of our research projects or focus groups;
-                    and/or</li>
-                <li class="py-1 py-md-2">• Register for any of our mailing lists.</li>
-            </ul>
-
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">When you use our website we will collect:
-            </h3>
-
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Your IP address, and details of web browser and which version of it you used information on how you use
-                our website, using cookies, that will help us improve the website details of transactions you carry out
-                through our website and of the fulfilment of your orders.
-            </h3>
-
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                When you attend a course, workshop, conference or award ceremony we may collect images of you in films
-                or photographs or, in respect of contributions you may make, audio recording. We will seek to gain
-                permission to capture these images and prior consent if using them in external communications.
-            </h3>
-
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">The information we collect about you
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                If you are contacting us in a professional capacity, we may also collect the following information:
-            </h3>
-
-            <ul class="footer-content text-left px-3 ">
-                <li class="py-1 py-md-2">• Job title </li>
-                <li class="py-1 py-md-2">• Organisation/place of work details
-                    and/or</li>
-                <li class="py-1 py-md-2">• Business contact details</li>
-            </ul>
-
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                The personal information we collect about you when you book onto an event (such as a training course)
-                may include but is not limited to the following information about you:
-            </h3>
-
-            <ul class="footer-content text-left px-3 ">
-                <li class="py-1 py-md-2">• Your name (including your first name(s) and surname); </li>
-                <li class="py-1 py-md-2">• Your email address;</li>
-                <li class="py-1 py-md-2">• Business contact details</li>
-            </ul>
-
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                We may also collect other details about you that you or others provide to us – such as Equality data.
-            </h3>
-
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                We may also ask for or collect some non-personal information from you i.e. special requirements for your
-                booking.
-            </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">How we will use this information
-            </h3>
-
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                Your personal information will only be used by us to:
-            </h3>
-            <ul class="footer-content text-left px-3 ">
-                <li class="py-1 py-md-2">• Process your bookings, requests or payments; </li>
-                <li class="py-1 py-md-2">• Provide or administer communications and services, such as: e-newsletters
-                    (which contain information relating to Liverpool CAMHS partners), or training materials; </li>
-                <li class="py-1 py-md-2">• Send out surveys and requests to participate in research/activities that may
-                    be of interest to you </li>
-                <li class="py-1 py-md-2">• Aggregated and anonymous data is provided to funders of the service to meet
-                    our obligations to commissioners </li>
-                <li class="py-1 py-md-2">• Maintain our organisational records. </li>
-            </ul>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">If you do not want to receive future
-                information from us:
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                E-newsletter simply unsubscribe by clicking the unsubscribe link at the bottom of the newsletter; or
-                Contact Us by email at mentalhhealthpromotion@mya.org.uk with the word “unsubscribe” in the subject
-                field.
-            </h3>
-
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Sharing your personal information
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                As a member of the Liverpool and Sefton CAMHS partnership, Sefton CAMHS and Merseyside Youth Association
-                will not share your personal details with third parties, except where companies / organisations are
-                providing services on our behalf, in these cases your data may be shared with partners who commission
-                our services. For example, if you opt for a training course which is provided by one of the recognised
-                Liverpool CAMHS and Sefton CAMHS partners, we will need to provide information to them should you be
-                attending their course.
-            </h3>
-
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Your Rights
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                You have the right to confidentiality under the General Data Protection Regulations 2018, the Human
-                Rights Act 1998 and the common law duty of confidence (the Disability Discrimination and the Race
-                Relations Acts may also apply).
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                Under data protection legislation you have several rights concerning your personal data. These are:
-            </h3>
-            <ul class="footer-content text-left px-3 ">
-                <li class="py-1 py-md-2">• The right to be informed what personal data we hold about you and/or to
-                    obtain access to it </li>
-                <li class="py-1 py-md-2">• The right to rectification of personal data we hold about you if it is
-                    inaccurate </li>
-                <li class="py-1 py-md-2">• The right to erasure of your personal data (in certain circumstances) </li>
-                <li class="py-1 py-md-2">• The right to restrict processing (and, where our processing is based on your
-                    consent, you may withdraw that consent, without affecting the lawfulness of our processing based on
-                    consent before its withdrawal) </li>
-                <li class="py-1 py-md-2">• The right to receive from us the personal data we hold about you which you
-                    have provided to us, in a reasonable format specified by you, including for the purpose of you
-                    transmitting that personal data to another data controller</li>
-                <li class="py-1 py-md-2">• The right to object on grounds relating to your particular situation, to any
-                    of our particular processing activities where you feel this has a disproportionate impact on your
-                    rights.</li>
-            </ul>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                The above rights are not absolute, and we may be entitled to refuse requests where exceptions apply: for
-                example, if we have reason to believe the personal data we hold is accurate or we can show our
-                processing is necessary for a lawful purpose set out in this notice.
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                Where our processing of your personal data relies on your consent, and where you then withdraw that
-                consent, we may not be able to provide all or some aspects of our services to you and/or it may affect
-                the provision of those services. If you have given your consent and you wish to withdraw it, please
-                contact us at mentalhealthpromotion@mya.org
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                You can find out more about your rights under data protection legislation at www.ico.org.uk. If you are
-                not satisfied with how we are processing your personal data, you can make a complaint to the Information
-                Commissioner.
-            </h3>
-
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Security – How we look after and safeguard
-                your data
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                We will take reasonable precautions to prevent the loss, misuse or unauthorised alteration of
-                information you give us.
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                We use appropriate technical and organisational measures such as storing your information on secure
-                servers, encrypting transfers of data to or from our servers using Secure Sockets Layer (SSL)
-                technology, encrypting payments you make on or via our website using Secure Sockets Layer (SSL)
-                technology and only granting access to your information where necessary.
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                Communications in connection with the website and its content may be sent to you by us by e-mail. For
-                ease of use and compatibility, communications will not be sent to you in an encrypted form.
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                E-mail is not a fully secure means of communication. Whilst we try to keep our systems and
-                communications protected against viruses and other harmful effects we cannot guarantee this.
-            </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">How long do we store your data for
-            </h3>
-            <h3 class="footer-content  my-4 my-md-4 py-2 px-3 text-left">
-                We will retain your data for no longer than necessary, taking into account any training obligations we
-                have and any other legal basis we have for using your information (e.g. your consent to contact you via
-                the monthly newsletter until otherwise notified by yourself through unsubscribing).
-            </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Cookies
-            </h3>
-            <ul class="footer-content text-left mt-4 px-3 ">
-                <li class="py-1 py-md-2">• A “cookie” is a small text file that is placed on a website user’s computer
-                    hard drive by a website. There are several types of cookie. </li>
-                <li class="py-1 py-md-2">• The types of cookie we use are “session cookies”, which keep track of
-                    information you have entered or looked at as you travel from page to page within the Website. These
-                    cookies have a short lifetime and expire within a short time of you leaving the Website. We do not
-                    use other types of cookie that track your internet activity after leaving the Website. </li>
-                <li class="py-1 py-md-2">• We use cookies to tell whether you have logged in to the Website, to see how
-                    you are viewing the Website and how you navigate around the Website, and to assist us in providing
-                    the services we offer.</li>
-                <li class="py-1 py-md-2">• Internet browsers normally accept cookies by default. However, it is possible
-                    to set an internet browser to reject cookies. </li>
-                <li class="py-1 py-md-2"> • If you do not consent to our use of cookies, you must not use the Website.
-                </li>
-            </ul>
         </div>
     </div>
 

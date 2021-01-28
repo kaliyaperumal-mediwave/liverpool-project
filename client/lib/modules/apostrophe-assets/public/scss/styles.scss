@@ -561,6 +561,10 @@ a {
   @include md-screen {
     @include set-dynamicFont($tertiary-smFont-size, 2);
   }
+  ul li{
+        list-style: inside;
+        margin-bottom: 8px;
+  }
 }
 
 .footer-content-secondary {
