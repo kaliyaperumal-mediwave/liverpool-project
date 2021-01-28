@@ -127,15 +127,28 @@
                         id="chkReferral" class="form-text  helper-text-evolved">Please type referrance code to
                         search</small>
                     <div class="py-4 text-left d-flex">
-                        <button type="button" @click="searchReferral()"
+                        <!-- <button type="button" @click="searchReferral()"
                             class="btn px-md-4 py-1 px-3 mx-auto w-100"><span class="btn-quaternary-text">CHECK A
                                 REFERRAL
-                            </span></button>
+                            </span></button> -->
+                            {% endraw %}
+                            <div  class="btn px-md-4 py-1 px-3 mx-auto w-100 btn-quaternary-text">
+                                    {{ apos.area(data.page, 'referral1_Button', {
+                                      widgets: {
+                                        'apostrophe-rich-text': {
+                                          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                          styles: [
+                                          { name: 'Heading', element: 'p' }
+                                          ]
+                                        }
+                                      }
+                                    }) }}
+                              </div>
                     </div>
                 </div>
             </div>
         </div>
-
+</div>
         <!-- <div class="col-md-9 col-lg-7 col-xl-7 py-3 col-12 mx-auto">
             <div class="py-3 py-md-4">
                 <div class="row w-100 mx-auto">
@@ -167,7 +180,7 @@
             </div>
         </div> -->
 
-
+{% raw %}
         <div v-show="incompleteReferral.length > 0" class="col-md-9 col-lg-7 col-xl-7 col-12 mx-auto">
             <div class="py-3 py-md-4 py-lg-3 py-xl-3">
                 <div class="row w-100 mx-auto">
@@ -198,7 +211,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    <!-- </div> -->
     {% endraw %}
 </div>
 {% endblock %}
