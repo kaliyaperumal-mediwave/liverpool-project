@@ -821,6 +821,9 @@ body {
     cursor: pointer;
     padding: 15px;
     border-radius: 4px; }
+  body .stop-scrolling {
+    height: 100% !important;
+    overflow: hidden !important; }
 
 /*Logo Height style Start */
 a {
