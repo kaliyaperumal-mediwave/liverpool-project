@@ -7,11 +7,15 @@ $(document).ready(function () {
             paramValues: '',
             loginId: '',
             incompleteReferral: [],
-            searchRefObj: {errMsg:false,validateErrMsg:false},
+            searchRefObj: { errMsg: false, validateErrMsg: false },
             displayReferrals: [],
             referralDateArray: [],
             viewReferralArray: [],
             iterateReferralArray: [],
+            searchQuery: null,
+            filteredData: [],
+            showSearchResults: false,
+            resources: [],
         },
 
 
@@ -20,6 +24,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            this.resources = JSON.parse(document.getElementById('resources').value)
             // this.paramValues = getParameter(location.href)
             //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
@@ -52,7 +57,23 @@ $(document).ready(function () {
             //     var url = location.href
             //     this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
             // },
-
+            filterPieces: function () {
+                console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                if (this.searchQuery) {
+                    this.filteredData = [];
+                    this.showSearchResults = true;
+                    return this.resources.filter((item) => {
+                        // TODO: add description and other content after CMS
+                        if (this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))) {
+                            this.filteredData.push(item)
+                        }
+                        return this.filteredData
+                    })
+                } else {
+                    this.showSearchResults = false;
+                    return this.filteredData = [];
+                }
+            },
             checkReferral: function (refObj) {
                 $.ajax({
                     url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + this.userRole + "/" + refObj.referral_progress,
@@ -83,7 +104,7 @@ $(document).ready(function () {
 
             searchReferral: function () {
                 var _self = this;
-                if (this.searchRefObj.refCode!="" && this.searchRefObj.refCode!=undefined && (this.searchRefObj.refCode).trim()!="") {
+                if (this.searchRefObj.refCode != "" && this.searchRefObj.refCode != undefined && (this.searchRefObj.refCode).trim() != "") {
                     $.ajax({
                         //  url: API_URI + "/fetchEligibility",
                         url: API_URI + "/searchReferalByCode/" + this.searchRefObj.refCode,
@@ -92,13 +113,11 @@ $(document).ready(function () {
                         contentType: 'application/json',
                         // data: JSON.stringify(this.sendObj),
                         success: function (data) {
-                            if(data.length!=0)
-                            {
-                                location.href = "/viewreferals?"+ btoa(_self.searchRefObj.refCode);
+                            if (data.length != 0) {
+                                location.href = "/viewreferals?" + btoa(_self.searchRefObj.refCode);
                                 _self.searchRefObj.errMsg = false;
                             }
-                            else
-                            {
+                            else {
                                 _self.searchRefObj.errMsg = true;
                             }
                             $('#loader').hide();
@@ -109,9 +128,8 @@ $(document).ready(function () {
                         }
                     });
                 }
-                else
-                {
-                    this.searchRefObj.validateErrMsg=true;
+                else {
+                    this.searchRefObj.validateErrMsg = true;
                 }
             },
             convertDate: function (dbDate) {
@@ -135,7 +153,7 @@ $(document).ready(function () {
                 var searchTxt = e.target.value;
                 if (searchTxt.length > 0) {
                     this.searchRefObj.errMsg = false;
-                    this.searchRefObj.validateErrMsg=false;
+                    this.searchRefObj.validateErrMsg = false;
                 }
             }
 
