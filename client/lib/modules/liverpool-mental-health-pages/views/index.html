@@ -1,13 +1,13 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
-<script src="/modules/mental-health-module/js/people.js"></script>
+<!-- <script src="/modules/mental-health-module/js/people.js"></script> -->
 {% endblock %}
 {% block main
 %}
 
 <div id="aboutPeoplePage">
     <!-- Loader start -->
-    <div class="overlay" id="loader">
+    <!-- <div class="overlay" id="loader">
         <div class="overlay__inner">
             <div class="overlay__content">
                 <div class="lds-spinner">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Loader end -->
 
     <div class="d-flex text-left mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0">
@@ -41,7 +41,7 @@
 
     <div class="mt-md-3 mt-lg-3 mt-xl-3 mb-md-4 mb-4">
         <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
+            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto">
                 <input hidden id="resources" value="{{data.piecesArray|dump}}">
                 <div id="filter_content">
                     <div class="input-group">
