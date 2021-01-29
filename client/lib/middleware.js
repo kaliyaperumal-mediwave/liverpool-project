@@ -12,8 +12,8 @@ module.exports = function (self, options) {
        req.data.termPage = "/pages/terms"
        req.data.privacyPage = "/pages/privacy"
        req.data.feedbackPage = "/pages/feedback"
-       req.data.contactPage = "/pages/contact" 
-       req.data.navigateViewRfrl = "/viewreferals" 
+       req.data.contactPage = "/pages/contact"
+       req.data.navigateViewRfrl = "/viewreferals"
        req.data. urgentHelpPage = "/pages/urgent-help"
        req.data.mentalHeathPage = "/mental-health"
        req.data.resourcesPage = "/resources"
@@ -28,6 +28,7 @@ module.exports = function (self, options) {
     },
 
     checkCommonPageAuth:function (req,res,next){
+      console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";
@@ -57,7 +58,7 @@ module.exports = function (self, options) {
       }
     },
 
-    //to clear uuid and userrole in referrance home page. 
+    //to clear uuid and userrole in referrance home page.
 
     clearSessionReferral:function (req,res,next){
       req.data.aboutPage = "/pages/about";
@@ -227,28 +228,65 @@ module.exports = function (self, options) {
   };
 
   self.checkCommonPageAuth = function (req) {
-    return new Promise((resolve, reject) => {
-      if (req.session.aposBlessings || !req.session.auth_token) {
-        req.data.user_data = {};
-        req.data.rolesIds = [];
-        resolve(req);
-      } else {
-        let url = self.apos.CANDMMODULE.getOption(req, 'phr-module') + self.apos.PATH.getOption(req, 'authentication-path') + '/apostropheAuth';
-        self.middleware.get(req, url).then((data) => {
-          req.data.user_data = data.data;
-          var rolesIds = [];
-          for (let i = 0; i < data.data.roles.length; i++) {
-            rolesIds.push(data.data.roles[i].id);
-          }
-          req.data.rolesIds = rolesIds;
-          resolve(req);
-        }).catch(() => {
-          req.data.user_data = {};
-          req.data.rolesIds = [];
-          resolve(req);
-        });
-      }
-    });
+    // console.log("----------------self.checkCommonPageAuth-----------------------",req.session);
+    // return new Promise((resolve, reject) => {
+    //   if (req.session.aposBlessings || !req.session.auth_token) {
+    //     console.log('-------------no-user----------------');
+    //     req.data.user_data = {};
+    //     req.data.rolesIds = [];
+    //     resolve(req);
+    //   } else {
+    //     console.log('--------user exist-------',self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module'));
+    //     console.log('--------user exist-------',self.apos.PATH.getOption(req, 'authentication-path'));
+    //     let url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + self.apos.PATH.getOption(req, 'authentication-path') + '/apostropheAuth';
+    //     console.log('---------------',url);
+    //     self.middleware.get(req, url).then((data) => {
+    //       console.log('-------res--------',data);
+    //       req.data.user_data = data.data;
+    //       var rolesIds = [];
+    //       for (let i = 0; i < data.data.roles.length; i++) {
+    //         rolesIds.push(data.data.roles[i].id);
+    //       }
+    //       req.data.rolesIds = rolesIds;
+    //       resolve(req);
+    //     }).catch((e) => {
+    //       console.log('------------error-------',e);
+    //       req.data.user_data = {};
+    //       req.data.rolesIds = [];
+    //       resolve(req);
+    //     });
+    //   }
+    // });
+return new Promise((resolve, reject) => {
+    console.log("----------------checkCommonPageAuth-----------------------");
+    req.data.aboutPage = "/pages/about";
+    req.data.termPage = "/pages/terms";
+    req.data.privacyPage = "/pages/privacy";
+    req.data.feedbackPage = "/pages/feedback";
+    req.data.contactPage = "/pages/contact" ;
+    req.data.navigateViewRfrl = "/viewreferals" ;
+    req.data.urgentHelpPage = "/pages/urgent-help";
+    req.data.mentalHeathPage = "/mental-health";
+    req.data.resourcesPage = "/resources";
+    req.data.navigateMkeRfrl = "/make-referral";
+    req.data. path = "/role";
+    if (req.session.auth_token) {
+     req.data.loginId = req.session.loginIdUrl;
+     req.data.userRole = req.session.user_role;
+     req.data.uuid = req.session.uuid;
+     req.data.logoPath = "/dashboard"
+     req.data.showLogout = true;
+      return resolve(req);
+    }
+    else {
+      req.data.logoPath = "/";
+      req.data.showLogout=false;
+      req.data.loginId = "";
+      req.data.uuid = req.session.uuid;
+      req.data.userRole =  req.session.user_role;
+      return resolve(req);
+    }
+  });
   };
   self.setHeader = function (req) {
     let headers;
