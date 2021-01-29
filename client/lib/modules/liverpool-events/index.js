@@ -3,7 +3,14 @@ module.exports = {
   name: 'eventPage',
   label: 'Event',
   pluralLabel: 'Events',
-  addFields: [{
+  addFields: [
+    {
+      name: 'Topic',
+      label: 'Topic',
+      type: 'string',
+      def: 'Events',
+      readOnly: true
+    },{
       name: 'title',
       label: 'Title',
       type: 'string',
@@ -36,7 +43,7 @@ module.exports = {
   arrangeFields: [{
       name: 'events',
       label: 'Events',
-      fields: ['title','thumbnail','eventsTopic','text']
+      fields: ['Topic','title','thumbnail','eventsTopic','text']
     },
     {
       name: 'admins',

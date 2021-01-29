@@ -18,6 +18,7 @@ function resetValues(currentForm, context, formObj) {
         context.showAddOtherService = false;
         context.allAvailableService = [];
         context.storeDeleteData = null;
+        context.openShowMoreOrLessFlag = false;
     }
     context.isFormSubmitted = false;
 };

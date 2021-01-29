@@ -36,9 +36,6 @@ $(document).ready(function () {
 
         // Callback function
         onSlide: function (position, value) {
-            if (value >= 16) {
-                value = 19
-            }
             var $handle = this.$range.find('.rangeslider__handle__value');
             $handle.text(this.value);
         },
