@@ -5,6 +5,13 @@ module.exports = {
   pluralLabel: 'Things to Read',
   addFields: [
     {
+      name: 'Topic',
+      label: 'Topic',
+      type: 'string',
+      def: 'Read',
+      readOnly: true
+    },
+    {
       name: 'title',
       label: 'Title',
       type: 'string',
@@ -36,7 +43,7 @@ module.exports = {
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['title','thumbnail','read_topic','text']
+      fields: ['Topic','title','thumbnail','read_topic','text']
     },
     {
       name: 'admins',

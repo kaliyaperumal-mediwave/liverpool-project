@@ -3,7 +3,14 @@ module.exports = {
   name: 'partnerAgenciesPage',
   label: 'partnerAgencies',
   pluralLabel: 'Partner Agencies',
-  addFields: [{
+  addFields: [
+    {
+      name: 'Topic',
+      label: 'Topic',
+      type: 'string',
+      def: 'PartnerAgencies',
+      readOnly: true
+    },{
       name: 'title',
       label: 'Title',
       type: 'string',
@@ -36,7 +43,7 @@ module.exports = {
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['title','thumbnail','partnerAgencies','text']
+      fields: ['Topic','title','thumbnail','partnerAgencies','text']
     },
     {
       name: 'admins',
