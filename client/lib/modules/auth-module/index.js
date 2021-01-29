@@ -129,7 +129,7 @@ module.exports = {
         req.session.destroy();
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+       // console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });

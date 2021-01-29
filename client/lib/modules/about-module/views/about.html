@@ -121,7 +121,7 @@
 
                     <!-- child address Start-->
                     <div class="form-group py-2 my-2">
-                        <label for="txtChildAddress" class="question-font">{{sec2dynamicLabel.addressLabel}}</label>
+                      <div id="navigateiside">  <label for="txtChildAddress" class="question-font"> {{sec2dynamicLabel.addressLabel}}</label></div>
                         <div class="input-group">
                             <input type="search" class="form-control" placeholder="Start typing to search"
                                 @input="trimWhiteSpace($event,'aboutObj','childAddress')" id="txtChildAddress"

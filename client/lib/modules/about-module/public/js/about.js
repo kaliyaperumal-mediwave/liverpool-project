@@ -114,6 +114,10 @@ $(document).ready(function () {
 
                 google.maps.event.addListener(childAddress, 'place_changed', function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                    // const selectedPlace = google.maps.event.getPlace();
+                    // console.log(selectedPlace);
+                    // document.getElementById('navigateiside').innerHTML = selectedPlace.adr_address;
+                    // document.getElementById('navigateiside').innerHTML = _self.aboutObj.childAddres;
                 });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {

@@ -8,6 +8,8 @@
 {% set piece = data.piece %}
 
 {% block main %}
+{% include "../../shared-referal-module/views/header.html" %}
+
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
         <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow"></a>
@@ -55,23 +57,24 @@
             {{ piece.text }}
         </div>
 
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
     </div>
     <!-- Things to watch container -->
     {% if data.piece._watchPage and data.piece._watchPage.length%}
     <div
-        class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
+        class="swiper-container set-space-padding top-slider-cont-max">
         <div class="title-thing-to-watch">
             Things to watch
         </div>
 
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite"
-            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;">
+        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite"
+            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
+            <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite">
             {% for piecewatch in data.piece._watchPage %}
             <a href="{{piecewatch._parentUrl}}?piece_id={{piecewatch._id}}"
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
                 data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -101,17 +104,22 @@
 
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets">
+        <!-- <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div> -->
+        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets">
             <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
                 aria-label="Go to slide 1"></span>
             <span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span>
-        </div>
+        </div> -->
         <!-- Add Arrows -->
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
             aria-controls="swiper-wrapper-81093574348bf1075e"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-81093574348bf1075e"></div>
+            <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+    </div>
     </div>
     {% endif %}
     <!-- Things to download container-->
@@ -120,12 +128,13 @@
         <div class="title-thing-to-watch">
             Things to download
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite"
-            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
+        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite"
+            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
+            <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
             <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
                 data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                 style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -148,7 +157,7 @@
             <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next"
                 data-swiper-slide-index="1" role="group" aria-label="2 / 6"
                 style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -169,7 +178,7 @@
             </div>
             <div class="swiper-slide bg-no border-radius-10 swiper-slide-active" data-swiper-slide-index="0"
                 role="group" aria-label="3 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -192,7 +201,7 @@
             <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev"
                 data-swiper-slide-index="1" role="group" aria-label="4 / 6"
                 style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -214,7 +223,7 @@
             <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
                 data-swiper-slide-index="0" role="group" aria-label="5 / 6"
                 style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -237,7 +246,7 @@
             <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-next"
                 data-swiper-slide-index="1" role="group" aria-label="6 / 6"
                 style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -258,15 +267,16 @@
             </div>
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
                 class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
                 aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div>
+                aria-label="Go to slide 2"></span></div> -->
         <!-- Add Arrows -->
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
             aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+            <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
 
@@ -279,14 +289,15 @@
         <div class="title-thing-to-watch">
             Things to read
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
-            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;">
+        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
+            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
+            <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
             {% for pieceread in data.piece._readPage %}
 
             <a href="{{pieceread._parentUrl}}?piece_id={{pieceread._id}}"
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
                 data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -318,15 +329,16 @@
 
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
                 class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
                 aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div>
+                aria-label="Go to slide 2"></span></div> -->
         <!-- Add Arrows -->
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+            <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     {% endif %}
@@ -341,14 +353,15 @@
         <div class="title-thing-to-watch">
             Events
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
-            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;">
+        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
+            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
+            <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
             {% for pieceevents in data.piece._eventPage %}
 
             <a href="{{pieceevents._parentUrl}}?piece_id={{pieceevents._id}}"
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
                 data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -377,15 +390,16 @@
 
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
                 class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
                 aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div>
+                aria-label="Go to slide 2"></span></div> -->
         <!-- Add Arrows -->
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+            <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     {% endif %}
@@ -398,15 +412,16 @@
         <div class="title-thing-to-watch">
             Games
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite"
-            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
+        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite"
+            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
+            <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite">
             {% for piecegames in data.piece._gamesPage %}
 
             <a href="{{ piecegames._parentUrl}}?piece_id={{piecegames._id}}"
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
                 data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                 style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -432,15 +447,16 @@
 
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
                 class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
                 aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div>
+                aria-label="Go to slide 2"></span></div> -->
         <!-- Add Arrows -->
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
             aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
+            <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     {% endif %}
@@ -453,8 +469,9 @@
         <div class="title-thing-to-watch">
             Partner agencies
         </div>
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite"
-            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;">
+        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite"
+            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
+            <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite">
 
             {% for piecepartner in data.piece._partnerAgenciesPage %}
 
@@ -462,7 +479,7 @@
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
                 data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                 style="width: 246.667px; margin-right: 30px;">
-                <div>
+                <div class="w-100">
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
@@ -496,174 +513,73 @@
 
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
                 class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
                 aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div>
+                aria-label="Go to slide 2"></span></div> -->
         <!-- Add Arrows -->
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
             aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
+            <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     {% endif %}
 
     <!-- Initialize Swiper -->
-    <script>
+     <script>
         $(document).on('click', 'a.previous-link', function () {
             parent.history.back();
             return false;
         });
         var swiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
             loop: true,
-            loopFillGroupWithBlank: true,
+            loopedSlides: 0,
+            slidesPerView: '3',
+            slidesOffsetAfter:10,
+            spaceBetween: 10,
+            grabCursor: true,
+
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
             },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev',
+            scrollbar: '.swiper-scrollbar',
             breakpoints: {
                 1024: {
-                    spaceBetween: 30,
+                    spaceBetween: 10,
                     slidesPerView: 3,
+
                 },
                 992: {
-                    spaceBetween: 30,
+                    spaceBetween: 10,
                     slidesPerView: 2,
+
                 },
                 768: {
-                    spaceBetween: 30,
+                    spaceBetween: 10,
                     slidesPerView: 2,
-                    slidesPerGroup: 2,
-                    centeredSlides: false,
+
                 },
                 600: {
                     spaceBetween: 10,
                     slidesPerView: 2,
-                    centeredSlides: false,
+
                 },
                 424: {
-                    spaceBetween: 20,
-                    slidesPerView: 2,
-                    centeredSlides: false,
+                    spaceBetween: 10,
+                    slidesPerView: 1,
+
                 },
 
             }
         });
     </script>
-    <div class="sub-header-bg my-4 setHadPad">
-        <div class=" mx-auto container-referal ">
-            <div>
-                <div class="row w-100 mx-auto">
-                    <div class="">
-                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
-                        <p class="referral-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div class="input-group w-100 bg-fafa border-radius-10">
-                        <input class="height-44 home-primarySearch-bg border-0 suffix-form-control py-2" type="search"
-                            placeholder="Search referrals" id="example-search-input">
-                        <span class="input-group-append shape_and_center cursor-pointer">
-                            <div class="home-secondarySearch-bg w-100">
-                                <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23"></i>
-                                </span>
-                            </div>
-                        </span>
-                    </div>
-                </div>
-                <div class="py-4 text-left d-flex">
-                    <button type="button" @click="resetModal('add')" class="btn px-md-4 py-1 px-3 mx-auto w-100"><span
-                            class="btn-quaternary-text">CHECK A REFERRAL
-                        </span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="d-flex flexibility-screen">
-        <div class="row mr-0 ml-0">
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Ypas.png" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Bully_buster.jpg" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/ADHD_logo.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Kooth_logo.jpg" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Mersey_care.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Raise.jpg" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Edys_logo.png" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Addvanced_solutions.jpg" class="sponsor-image-tag"
-                        alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Liverpool_camhs_logo.png" class="sponsor-image-tag "
-                        alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Believe_in_barbardos.jpg" class="sponsor-image-tag"
-                        alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
+    {% include "../../shared-referal-module/views/referral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
 
-        </div>
-    </div>
-</div>
 {% endblock %}
