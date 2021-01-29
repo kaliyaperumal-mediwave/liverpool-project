@@ -380,7 +380,7 @@ exports.resetEmail = (ctx) => {
 };
 
 exports.logOut = (ctx) => {
-    console.log("ctx" + ctx.request.decryptedUser.email)
+    //console.log("ctx" + ctx.request.decryptedUser.email)
     console.log(ctx.request.decryptedUser)
     const user = ctx.orm().User;
     return user.update({
