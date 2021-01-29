@@ -214,13 +214,13 @@ endblock %} {% block extraHead %}
   <div class="sub-header-bg">
 
     {% if data.headerContent and data.home %}
-    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-3 py-md-4 header-title">
+    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-3 py-md-4 header-title custom-css-tag">
       {{data.headerContent}}
     </h2>
     {% endif %}
 
     {% if data.headerContent and data.completed %}
-    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title">
+    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title custom-css-tag">
       {{data.headerContent}}
     </h2>
     {% endif %}
@@ -230,7 +230,7 @@ endblock %} {% block extraHead %}
       class="header-title text-left px-4 pt-3 text-xl-center text-lg-center text-md-center m-0 pb-sm-3 pt-sm-3 pb-2 pb-md-0 pb-lg-0 pb-xl-0">
       {{data.headerContent}}</h2>
     <div
-      class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 secondary-header-title">
+      class="text-center d-sm-none d-md-block d-none d-sm-none mx-auto col-md-12 col-sm-12 col-xs-12 col-lg-11 col-xl-7 pb-2 custom-css-tag secondary-header-title">
       {{data.headerDescription}}
     </div>
     {% endif %}

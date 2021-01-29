@@ -114,6 +114,10 @@ $(document).ready(function () {
 
                 google.maps.event.addListener(childAddress, 'place_changed', function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                    // const selectedPlace = google.maps.event.getPlace();
+                    // console.log(selectedPlace);
+                    // document.getElementById('navigateiside').innerHTML = selectedPlace.adr_address;
+                    // document.getElementById('navigateiside').innerHTML = _self.aboutObj.childAddres;
                 });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
@@ -263,7 +267,7 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                
+
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = document.getElementById('uRole').innerHTML;
@@ -432,6 +436,11 @@ $(document).ready(function () {
                 }
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
+            },
+            resetAge: function (event, date) {
+                if (this.getAge(date) > 19) {
+                    this.houseHoldData.profession = "";
+                }
             },
 
             getAge: function (dateString) {
