@@ -263,7 +263,7 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                
+
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = document.getElementById('uRole').innerHTML;
@@ -432,6 +432,11 @@ $(document).ready(function () {
                 }
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
+            },
+            resetAge: function (event, date) {
+                if (this.getAge(date) > 19) {
+                    this.houseHoldData.profession = "";
+                }
             },
 
             getAge: function (dateString) {

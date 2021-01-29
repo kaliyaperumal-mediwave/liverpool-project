@@ -303,7 +303,7 @@
                                     </div>
                                 </div>
                                 <h3 class="link-text">{{item.relationShip}}</h3>
-                                <h3 class="link-text">{{item.dob}}</h3>
+                                <h3 class="link-text">{{item.dob}}</h3> 
                                 <h3 class="link-text">{{item.profession}}</h3>
                             </div>
                         </div>
@@ -785,7 +785,7 @@
                                     <label for="dob" class="question-font">Date of birth -<b>optional</b></label>
                                     <div class="input-group" id="dobAboutCal">
                                         <date-picker name="date" placeholder="Enter D.O.B"
-                                            @dp-show="setCalendarHeight($event)" v-model="houseHoldData.dob"
+                                            @dp-show="setCalendarHeight($event)" @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
                                             :config="options" :wrap="dateWrap"></date-picker>
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text">

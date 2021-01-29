@@ -1206,6 +1206,19 @@ a {
     .header-title {
       font-size: 20px !important; } }
 
+.custom-css-tag > a {
+  font-weight: bold;
+  color: #ffffff !important; }
+  @media (max-width: 575.98px) {
+    .custom-css-tag > a {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .custom-css-tag > a {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .custom-css-tag > a {
+      font-size: 20px !important; } }
+
 .secondary-header-title {
   font-size: 18px;
   font-weight: bold;
@@ -2133,7 +2146,10 @@ select.selectIcon {
   background-color: #112f45;
   border: none;
   position: relative;
-  bottom: 40px; }
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .float-btn-cont {
   float: right;
@@ -3077,3 +3093,6 @@ html #slide-test-5 {
   font-weight: bold;
   color: #023047;
   margin-bottom: 0 !important; }
+
+.invalid-feedback {
+  font-weight: 500 !important; }
