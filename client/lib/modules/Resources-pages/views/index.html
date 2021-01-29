@@ -6,6 +6,8 @@
 {% set sluglist = data.sluglist %}
 
 {% block main %}
+{% include "../../shared-referal-module/views/header.html" %}
+
 <div id="resources_user" class="main-min-height">
 
     <div class="top-arrow-container" id="searchBar">
@@ -85,7 +87,7 @@
 
         </div>
     </div>
-  
+
 {% include "../../shared-referal-module/views/referral.html" %}
 {% include "../../shared-referal-module/views/company.html" %}
 
