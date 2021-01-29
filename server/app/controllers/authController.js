@@ -273,7 +273,7 @@ exports.forgotPassword = async (ctx) => {
                 }).catch(error => { console.log(error, "errorerror"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
             }
             return ctx.res.ok({
-                message: reponseMessages[1008],
+                message: reponseMessages[1013],
             });
         }).catch(error => sequalizeErrorHandler.handleSequalizeError(ctx, error));
     } catch (e) {

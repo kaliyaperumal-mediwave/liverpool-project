@@ -7,6 +7,7 @@ $(document).ready(function () {
             forgetPasswordData: {
                 email: "",
             },
+            responseMessage: "You will recieve a mail if you are registered at Liverpool CAMHS.",
             isFormSubmitted: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
         },
@@ -34,10 +35,11 @@ $(document).ready(function () {
                     if (successData && Object.keys(successData)) {
                         $('#loader').hide();
                         this.resetForm();
+                        this.responseMessage = successData.message;
                         $('#forgotPasswordSuccess').modal('show');
                         setTimeout(function () {
                             $('#forgotPasswordSuccess').modal('hide');
-                        }, 1000)
+                        }, 2000)
 
                     } else {
                         $('#loader').hide();
@@ -45,6 +47,12 @@ $(document).ready(function () {
 
                 } else {
                     return false;
+                }
+            },
+
+            mailSubmit: function (e) {
+                if (e) {
+                    e.preventDefault();
                 }
             },
 
