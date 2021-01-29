@@ -782,6 +782,8 @@ body {
     border: none !important; }
   body .dropdown-divider {
     border-top: 1px solid #023047 !important; }
+  body .z-i-vallue .pac-container {
+    z-index: 400 !important; }
   body .pac-container {
     z-index: 10000 !important; }
   body .h-112 {
@@ -2308,8 +2310,7 @@ body .ui-widget {
   max-height: 180px !important;
   overflow: auto;
   max-width: 330px;
-  padding: 6px;
-  z-index: 440 !important; }
+  padding: 6px; }
   @media (min-width: 320px) and (max-width: 424px) {
     body .ui-widget {
       max-width: 230px;
@@ -3061,6 +3062,23 @@ html #slide-test-5 {
   max-height: 3.6em;
   line-height: 1.8em; }
 
+
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+  background-image: url("/modules/my-apostrophe-assets/img/slider_next.svg") !important;
+  background-size: 20px !important; }
+
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+  background-image: url("/modules/my-apostrophe-assets/img/slider_prev.svg") !important;
+  background-size: 20px !important; }
+
+.swiper-scrollbar {
+  background-color: #ffffff !important;
+  border-radius: 50px !important; }
+
+.swiper-scrollbar-drag {
+  background-color: #707070 !important;
+  border-radius: 50px !important; }
+
 .hinttext p {
   font-size: 14px;
   font-weight: bold;
@@ -3077,3 +3095,4 @@ html #slide-test-5 {
   font-weight: bold;
   color: #023047;
   margin-bottom: 0 !important; }
+

@@ -35,8 +35,8 @@ $(document).ready(function () {
         methods: {
             
             logOut: function () {
-                // window.location.href = window.location.origin + '/users/login';
-                window.location.href = "/logout";
+                window.location.href = window.location.origin + '/users/login';
+                //window.location.href = "/logout";
             }
 
         }

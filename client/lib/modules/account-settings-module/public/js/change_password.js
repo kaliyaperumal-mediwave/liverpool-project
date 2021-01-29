@@ -39,7 +39,7 @@ $(document).ready(function () {
                         if (successData && Object.keys(successData)) {
                             $('#loader').removeClass('d-block').addClass('d-none');
                             $('#changePasswordSuccess').modal('show');
-
+                            logOut()
                         } else {
                             $('#loader').removeClass('d-block').addClass('d-none');
                         }

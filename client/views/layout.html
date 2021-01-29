@@ -16,7 +16,10 @@ endblock %} {% block extraHead %}
   integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 <!--Swipper Style Cdn -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> -->
+
+<!--Swiper Slider CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/css/swiper.min.css">
 
 <!--Vue Bootstrap Date-picker Style Cdn -->
 <link href="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/css/bootstrap-datetimepicker.min.css"
@@ -53,7 +56,11 @@ endblock %} {% block extraHead %}
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
 <!-- Swipper Cdn-->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+
+<!-- Swiper JS CDN-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.1/js/swiper.min.js"></script>
 
 <!--Vue Bootstrap Date-picker Cdn -->
 <script src="https://cdn.jsdelivr.net/npm/pc-bootstrap4-datetimepicker@4.17/build/js/bootstrap-datetimepicker.min.js">
@@ -175,20 +182,20 @@ endblock %} {% block extraHead %}
           </div>
 
           {% if data.showLogout %}
-            <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider3" role="button"
-              aria-expanded="false" aria-controls="collapseSlider3">
-              Account settings
-            </div>
-            <div class="collapse" id="collapseSlider3">
-              <div class="collapse-body">
-                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                  <a href="/account/change_email" class="cursor-pointer">Change e-mail</a>
-                </div>
-                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                  <a href="/account/change_password" class="cursor-pointer"> Change password</a>
-                </div>
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider3" role="button"
+            aria-expanded="false" aria-controls="collapseSlider3">
+            Account settings
+          </div>
+          <div class="collapse" id="collapseSlider3">
+            <div class="collapse-body">
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                <a href="/account/change_email" class="cursor-pointer">Change e-mail</a>
+              </div>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                <a href="/account/change_password" class="cursor-pointer"> Change password</a>
               </div>
             </div>
+          </div>
           {% endif %}
 
           <!-- <div class="last-inside-cont-slider cursor-pointer">
@@ -257,20 +264,7 @@ endblock %} {% block extraHead %}
 
 <div id='middleCont' class="middleContainer">
   <div class="set-mid-padding">
-    <!-- Toast start -->
-    <div class="toast d-flex justify-content-center align-items-center" id="myToast"
-      style=" background-color: red;z-index: 10000;position:absolute;left: 50%; ">
-      <div class="toast-header">
-        <div class="toast-body">
-          <div id="toastMessage">Invalid password</div>
-        </div>
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-    </div>
 
-    <!-- Toast stop -->
     <!-- {#
     We recommend you use the beforeMain block for global page components
     like headers or navigation.

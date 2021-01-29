@@ -32,7 +32,9 @@ module.exports = {
     {
       name: 'bootstrap.min'
     },
-
+    {
+      name: 'swiper'
+    },
     {
       name: process.env.ENV === 'development' ? 'vue' : 'vue.min'
     },

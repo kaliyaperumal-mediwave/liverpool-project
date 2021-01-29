@@ -9,7 +9,7 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.checkAuth, self.feedback);
+      self.dispatch('/',self.middleware.checkCommonPageAuth, self.feedback);
     };
     self.feedback = function (req, callback) {
       return self.sendPage(req, self.renderer('feedback', {

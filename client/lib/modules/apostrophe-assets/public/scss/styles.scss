@@ -126,7 +126,6 @@ body {
   .dropdown-divider {
     border-top: 1px solid $primary-color !important;
   }
-
   .pac-container {
     z-index: 10000 !important;
   }
@@ -2516,6 +2515,28 @@ width: 100%;
       max-height: 3.6em;
       line-height: 1.8em;
 }
+
+// slider arrow 
+.swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+  background-image: url("/modules/my-apostrophe-assets/img/slider_next.svg") !important;
+  background-size: 20px !important;
+}
+
+.swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+  background-image: url("/modules/my-apostrophe-assets/img/slider_prev.svg") !important;
+  background-size: 20px !important;
+}
+
+.swiper-scrollbar{
+  background-color: $header-text-color !important;
+  border-radius: 50px !important;
+}
+.swiper-scrollbar-drag{
+  background-color: #707070 !important;
+  border-radius: 50px !important;
+}
+
+
 .hinttext p{
   font-size: 14px;
     font-weight: bold;
