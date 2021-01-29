@@ -41,16 +41,27 @@ exports.signup = async (ctx) => {
             const payload = { email: result.email, id: result.uuid, role: result.user_role };
             const secret = process.env.JWT_SECRET;
             const token = jwt.sign(payload, secret);
-
-            const sendSignupResult = {
-                data: result,
-                token: token
-            }
-            return ctx.res.ok({
-                status: "success",
-                message: reponseMessages[1005],
-                data: sendSignupResult,
-            });
+            
+            return user.update({
+                session_token: token,
+                session_token_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
+            },{
+                where:
+                  {  email: result.email, }
+              }).then((sessionResult) => {
+                  console.log("----------------------------------update session ----------------------------------------------------")
+                  const sendSignupResult = {
+                    data: result,
+                    token: token
+                }
+                return ctx.res.ok({
+                    status: "success",
+                    message: reponseMessages[1005],
+                    data: sendSignupResult,
+                });
+            }).catch((error) => {
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            })
         }).catch((error) => {
             console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
