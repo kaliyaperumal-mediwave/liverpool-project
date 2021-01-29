@@ -35,81 +35,42 @@
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
             </a>
-            <h2 class="home-header-primary m-0 py-2">Urgent help</h2>
+            <!-- <h2 class="home-header-primary m-0 py-2">Urgent help</h2> -->
+            <div class="home-header-primary m-0 py-2">
+               {{ apos.area(data.page, 'urgent_helpTitle', {
+              widgets: {
+              'apostrophe-rich-text': {
+              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+              styles: [
+                { name: 'Heading', element: 'h2' }
+              ]
+              }
+              }
+              }) }}
+              </div>
         </div>
     </div>
 
     <div class="d-flex text-center">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 px-4 mx-auto home-primary-content-bg">
-            <h3 class="footer-content  my-3 my-md-3 py-2 px-3 text-left">
-                What to do when you need urgent help If you’re concerned about your health, your GP is always a good
-                person to contact first. If you feel very distressed and can’t wait, or feel unable to keep yourself
-                safe, choose one of the options below:
-            </h3>
-            <h3 class="footer-content  my-3 my-md-3 py-2 px-3 text-left">
-                Urgent, non-emergency medical advice If you need help urgently but are not at risk of harm or serious
-                illness, use the NHS 111 non-emergency advice online or call 111.
-            </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">NHS 111 Online </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Call:111 Use the NHS 111 British Sign Language Service
-            </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Immediate support Go to your local A&E
-            </h3>
-
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Find your nearest A&E </h3>
-            <h3 class="footer-content mt-4 mt-md-4 px-3 text-left">If you feel that you need help immediately
-                call for an ambulance: </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Call or Text: 999
-            </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Free help and advice if you want to speak to someone anonymously
-            </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Shout Crisis Text Line</h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Shout offers confidential 24/7 crisis text support for times when you require immediate help. </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Text “SHOUT” to 85258 or visit Shout Crisis Text Line </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">The Samaritans: Free 24 hour support</h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                “A safe place for you to talk any time you like, in your own way – about whatever’s getting to you. We
-                won’t judge you or tell you what to do, we’ll listen to you.”</h3>
-            <div class="py-2 px-3">
-                <h3 class="footer-content text-left">
-                    Email: jo@samaritans.org/</h3>
-                <h3 class="footer-content text-left">
-                    Call: 116 123 </h3>
+          <div class="footer-content  my-3 my-md-4 py-2 px-3 text-left">
+             {{ apos.area(data.page, 'urgent_helpSubTitle', {
+            widgets: {
+            'apostrophe-rich-text': {
+            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+            styles: [
+              { name: 'Heading', element: 'h3' },
+            { name: 'Paragraph', element: 'p' }
+            ]
+            }
+            }
+            }) }}
             </div>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Papyrus</h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                “Confidential support and advice to young people struggling with thoughts of suicide, and anyone worried
-                about a young person” </h3>
-            <div class="py-2 px-3">
-                <h3 class="footer-content text-left">
-                    Call: 0800 068 41 41</h3>
-                <h3 class="footer-content text-left">
-                    Text: 07860 039967 </h3>
-                <h3 class="footer-content text-left">
-                    Email: pat@papyrus-uk.org </h3>
-            </div>
-            <div class="py-2 px-3 text-left">
-                <h3 class="footer-content">
-                    Opening hours:</h3>
-                <h3 class="footer-content text-left">
-                    9am to 12am every day of the year, </h3>
-                <h3 class="footer-content text-left">
-                    including weekends and bank holidays.</h3>
-            </div>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Urgent mental health support To locate urgent mental health support in your local area: </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Telephone numbers for urgent mental health support.</h3>
+          
         </div>
     </div>
 
-    <!-- 
+    <!--
     <div class="sub-header-bg my-5">
         <div class="col-md-9 col-lg-7 col-xl-7 py-3 col-12 mx-auto">
             <div class="py-3 py-md-4">

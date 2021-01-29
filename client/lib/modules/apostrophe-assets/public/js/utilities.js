@@ -376,7 +376,26 @@ function closeSideDrawer() {
 
 function logOut() {
     // window.location.href = window.location.origin + '/users/login';
-    window.location.href = "/logout";
+    //window.location.href = "/logout";
+    console.log("logout")
+    var API_URI = "/modules/auth-module";
+    var response;
+    console.log(API_URI + "/doLogout")
+    $.ajax({
+        url: API_URI + "/doLogout",
+        type: "get",
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json',
+        success: function (res) {
+            location.href = window.location.origin + '/users/login';
+        },
+        error: function (error) {
+            $('#loader').hide();
+            console.log(error.responseJSON.message)
+        }
+    });
+    return response
 }
 
 window.onload = function (e) {

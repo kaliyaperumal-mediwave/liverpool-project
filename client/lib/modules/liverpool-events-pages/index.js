@@ -23,7 +23,11 @@ module.exports = {
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = async function (req, callback) {
       require('../../middleware')(self, options);
-      req.data.piecesArray = req.data.pieces;
+      req.data.piecesArray = _.map(req.data.pieces, (item) => {
+        item.custom_url = "/events?piece_id=" + item._id
+        return item;
+      })
+      console.log(req.data.piecesArray);
       if (req.query && req.query.piece_id) {
         const pieces = [];
         let todayDate = moment().format('DD-MM-YYYY HH:MM:SS');

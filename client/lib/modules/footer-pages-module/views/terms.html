@@ -35,66 +35,37 @@
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
             </a>
-            <h2 class="home-header-primary m-0 py-2">Terms & conditions</h2>
+            <!-- <h2 class="home-header-primary m-0 py-2">Terms & conditions</h2> -->
+            <div class="home-header-primary m-0 py-2">
+              {{ apos.area(data.page, 'termsTitle', {
+              widgets: {
+              'apostrophe-rich-text': {
+              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+              styles: [
+              { name: 'Heading', element: 'h2' },
+              { name: 'Paragraph', element: 'p' }
+              ]
+              }
+              }
+              }) }}</div>
         </div>
     </div>
 
     <div class="d-flex text-center">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 px-4 mx-auto home-primary-content-bg">
-            <h3 class="footer-content  my-3 my-md-4 py-2 px-3 text-left">
-                Thank you for visiting this site. By using this site, you are agreeing to these terms and conditions.
-                This site is managed by Merseyside Youth Association which reserves the rights to change these terms and
-                conditions at any time by posting changes online. Your continued use of this site after changes are
-                posted constitutes your acceptance of this agreement as modified.
-            </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Disclaimer</h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                This site provides information about children and young people’s mental health for use as information or
-                for educational purposes. The website is intended to provide general information only and, as such,
-                should not be considered as a substitute for professional advice. It is up to you to contact a health
-                professional if you are concerned about the mental health of a child or young person. If a child or
-                young person is in immediate danger, you should contact the emergency services.
-            </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Liverpool CAMHS, Sefton CAMHS or Merseyside Youth Association does not give medical advice in relation
-                to any individual case or patient, nor does this site provide medical or diagnostic services.
-            </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                If you are a medical or health professional then you are encouraged to use this site for general
-                information purposes. However, you should not rely on material included here and we do not accept any
-                responsibility if you do. Liverpool CAMHS, Sefton CAMHS or Merseyside Youth Association does not
-                guarantee that the Website will be uninterrupted or error free, or that the Website or your use of it
-                will be free of viruses or harmful material. You are responsible for ensuring that your computer is
-                suitable to use the Website.
-            </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Use of this site</h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                You agree to use this site only for lawful purposes, and in a manner which does not infringe the rights,
-                or restrict, or inhibit the use and enjoyment of the site by any third party.
-            </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Except as permitted in these Terms and Conditions, you may not alter the Website in any way or do
-                anything that might or will damage or disrupt the good working order of the Website or our equipment or
-                software. You must be over 16 or over or have consent from a parent or guardian to view or use the
-                Website.
-            </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Information you provide to us You agree that any information you provide to us is true.
-            </h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                Any information you provide to us through the Website will be treated in accordance with our Privacy
-                Policy. </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Copyright and monitoring</h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-                The content of the Website is owned by Liverpool CAMHS, Sefton CAMHS, Merseyside Youth Association or
-                third parties. No content from the Website may be copied, used or reproduced without our written
-                consent, except where it is used for research and non-commercial use where no consent is required. </h3>
-            <h3 class="footer-content-secondary mt-4 mt-md-5 px-3 text-left">Linked sites</h3>
-            <h3 class="footer-content my-3 my-md-4 py-2 px-3 text-left">
-
-                When you access any other website through this site you understand that it is independent from Liverpool
-                CAMHS, Sefton CAMHS or Merseyside Youth Association and that we have no control over those websites, or
-                the services offered through it.</h3>
+        <div class="footer-content  my-3 my-md-4 py-2 px-3 text-left">
+           {{ apos.area(data.page, 'termssubTitle', {
+          widgets: {
+          'apostrophe-rich-text': {
+          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+          styles: [
+          { name: 'Heading', element: 'h3' },
+          { name: 'Paragraph', element: 'p' }
+          ]
+          }
+          }
+          }) }}
+          </div>
         </div>
     </div>
 
