@@ -48,6 +48,12 @@ module.exports = function modelType(sequelize, types) {
     email_verification_expiry: {
       type: types.DATE,
     },
+    session_token: {
+      type: types.TEXT,
+    },
+    session_token_expiry: {
+      type: types.DATE,
+    },
   }, {
     tableName: 'users',
   });

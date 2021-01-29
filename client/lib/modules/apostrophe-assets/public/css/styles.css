@@ -1174,6 +1174,9 @@ a {
   @media (min-width: 768px) and (max-width: 991.98px) {
     .footer-content {
       font-size: 18px !important; } }
+  .footer-content ul li {
+    list-style: inside;
+    margin-bottom: 8px; }
 
 .footer-content-secondary {
   font-size: 28px;
@@ -1232,6 +1235,10 @@ a {
   @media (min-width: 768px) and (max-width: 991.98px) {
     .content-secondary-header-text {
       font-size: 22px !important; } }
+  .content-secondary-header-text h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #023047; }
 
 .content-text {
   font-size: 18px;
@@ -1248,6 +1255,10 @@ a {
   @media (min-width: 768px) and (max-width: 991.98px) {
     .content-text {
       font-size: 17px !important; } }
+  .content-text h4 {
+    font-size: 18px; }
+  .content-text a strong {
+    text-decoration: underline; }
 
 .question-header-font {
   font-size: 22px;
@@ -1381,6 +1392,10 @@ a {
   font-size: 18px;
   font-weight: normal;
   color: #023047; }
+  .question-font h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047; }
 
 .option-font {
   font-size: 17px;
@@ -1493,6 +1508,8 @@ a {
     font-size: 24px; }
   .question-font {
     font-size: 14px; }
+  .question-font h2 {
+    font-size: 18px; }
   .option-font {
     font-size: 15px !important; }
   .link-text {
@@ -3045,6 +3062,7 @@ html #slide-test-5 {
   max-height: 3.6em;
   line-height: 1.8em; }
 
+
 .swiper-button-next, .swiper-container-rtl .swiper-button-prev {
   background-image: url("/modules/my-apostrophe-assets/img/slider_next.svg") !important;
   background-size: 20px !important; }
@@ -3060,3 +3078,21 @@ html #slide-test-5 {
 .swiper-scrollbar-drag {
   background-color: #707070 !important;
   border-radius: 50px !important; }
+
+.hinttext p {
+  font-size: 14px;
+  font-weight: bold;
+  color: #023047; }
+
+.button-text p {
+  font-size: 26px;
+  font-weight: bold;
+  color: #023047;
+  margin-bottom: 0 !important; }
+
+.btn-quaternary-text p {
+  font-size: 26px;
+  font-weight: bold;
+  color: #023047;
+  margin-bottom: 0 !important; }
+

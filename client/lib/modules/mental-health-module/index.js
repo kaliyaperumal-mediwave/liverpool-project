@@ -1,5 +1,7 @@
 const { btoa } = require('../../utils')
 const { atob } = require('../../utils')
+var _ = require('lodash');
+
 module.exports = {
   extend: 'apostrophe-module',
   label: 'Mental Health Module',
@@ -22,8 +24,12 @@ module.exports = {
 
     };
 
-    self.aboutMentalHealth = function (req, callback) {
-      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage, backMentalHealth, gotoPeople,resourcesPage;
+    self.aboutMentalHealth = async function (req, callback) {
+      var AboutService = await self.apos.modules['liverpool-about-service-pages'].pieces.find(req, {}).toArray();
+      var PeopleService = await self.apos.modules['liverpool-mental-health-pages'].pieces.find(req, {}).toArray();
+      piecesArray = AboutService.concat(PeopleService)
+      req.data.piecesArray = piecesArray;
+      var logoPath, aboutPage, termPage, privacyPage, feedbackPage, contactPage, navigateMkeRfrl, navigateViewRfrl, urgentHelpPage, mentalHeathPage, backMentalHealth, gotoPeople, resourcesPage;
       if (req.session.loginFlag == "true") {
         logoPath = "/dashboard?" + req.url.substring(req.url.indexOf("?") + 1)
         aboutPage = "/pages/about?" + req.url.substring(req.url.indexOf("?") + 1)
@@ -34,9 +40,9 @@ module.exports = {
         navigateViewRfrl = "/viewreferals?" + req.url.substring(req.url.indexOf("?") + 1)
         urgentHelpPage = "/pages/urgent-help?" + req.url.substring(req.url.indexOf("?") + 1)
         backMentalHealth = "/mental-health?" + req.url.substring(req.url.indexOf("?") + 1)
-        mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
+        mentalHeathPage = "/mental-health?" + req.url.substring(req.url.indexOf("?") + 1);
         gotoPeople = "/mental-health/people?" + req.url.substring(req.url.indexOf("?") + 1)
-        resourcesPage ="/resources?"+req.url.substring(req.url.indexOf("?") + 1)
+        resourcesPage = "/resources?" + req.url.substring(req.url.indexOf("?") + 1)
         showLogout = true;
         mentalHeathPage = "/mental-health?" + req.url.substring(req.url.indexOf("?") + 1);
         // navigateMkeRfrl = "/make-referral?" +req.url.substring(req.url.indexOf("?") + 1)
@@ -66,7 +72,7 @@ module.exports = {
         navigateMkeRfrl = "/make-referral";
         urgentHelpPage = "/pages/urgent-help";
         backMentalHealth = "/mental-health";
-        mentalHeathPage="/mental-health"
+        mentalHeathPage = "/mental-health"
         gotoPeople = "/mental-health/people";
         resourcesPage = "/resources";
         showLogout = false;
@@ -90,7 +96,7 @@ module.exports = {
         backMentalHealth: backMentalHealth,
         mentalHeathPage: mentalHeathPage,
         gotoPeople: gotoPeople,
-        resourcesPage:resourcesPage
+        resourcesPage: resourcesPage
 
       }));
     };

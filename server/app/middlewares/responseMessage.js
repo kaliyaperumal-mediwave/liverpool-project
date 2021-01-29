@@ -11,5 +11,6 @@ const messageCodes = {
   1010: 'Password reset successful! Try login with new password.',
   1011: "Current password doesn't match",
   1012: 'Mail already registered at system ',
+  1013: 'User not registered at Liverpool CAMHS ',
 };
 module.exports = messageCodes;

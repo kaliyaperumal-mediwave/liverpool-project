@@ -37,6 +37,7 @@ $(document).ready(function () {
                         $('#changeEmailSuccess').modal('show');
                         setTimeout(function () {
                             $('#changeEmailSuccess').modal('hide');
+                            logOut()
                         }, 1000);
 
                     } else {

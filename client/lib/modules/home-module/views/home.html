@@ -43,16 +43,44 @@
     <div class="my-md-3 my-lg-4 my-xl-4 my-4">
         <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
             <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
-                <div class="input-group">
-                    <span class="input-group-prepend">
-                        <div class="home-primarySearch-bg input-group-text  border-right-0">
-                            <span style="color: #023047 !important;">
-                                <i class="fa fa-search font-23"></i>
-                            </span>
+                <input hidden id="resources" value="{{data.piecesArray|dump}}">
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-prepend">
+                            <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
+                                <span style="color: #023047 !important;">
+                                    <i class="fal fa-search font-23"></i>
+                                </span>
+                            </div>
+                        </span>
+                        <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                            v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
+                            @input="filterPieces()">
+                    </div>
+                    {% raw %}
+                    <!-- Search functionality start-->
+                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+                        {{searchQuery}}?”</div>
+                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+                        <div class="primary-search-radius card cursor-pointer">
+
+                            <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                                <a :href=" item.custom_url ? `${item.custom_url}` : `${item._url}` ">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                            height="30" class="px-1 px-md-2 cursor-pointer" alt="">
+                                        <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                        </p>
+                                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
+                                            <li>{{item.type}}</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </span>
-                    <input class="home-primarySearch-bg border-0 form-control py-2" type="search"
-                        placeholder="Search your platform" id="example-search-input">
+                    </div>
+                    <!-- Search functionality end-->
+                    {% endraw %}
                 </div>
             </div>
         </div>
