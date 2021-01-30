@@ -5,6 +5,13 @@ module.exports = {
   pluralLabel: 'About the people',
   addFields: [
     {
+      name: 'Topic',
+      label: 'Topic',
+      type: 'string',
+      def: 'People',
+      readOnly: true
+    },
+    {
       name: 'title',
       label: 'Title',
       type: 'string',
@@ -38,7 +45,7 @@ module.exports = {
     {
       name: 'title',
       label: 'Title',
-      fields: [ 'title','subtitle','text', 'tags','thumbnail']
+      fields: ['Topic', 'title','subtitle','text', 'tags','thumbnail']
     },
     {
       name: 'admin',
