@@ -32,23 +32,18 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.userMode = this.paramValues[2];
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.userRole = document.getElementById('uRole').innerHTML;
             this.dynamicLabels = getDynamicLabels(this.userRole);
             $('#loader').hide();
-            if (this.userMode != undefined) {
-                this.fetchSavedData();
-            }
-            if (getUrlVars()['edt'] == 1) {
-                this.fetchSavedData();
-            }
+            this.fetchSavedData();
             this.initMaps()
         },
 
         methods: {
 
             initMaps: function () {
+                $('#loader').hide();
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('attendedLocation')), {
@@ -72,7 +67,7 @@ $(document).ready(function () {
                 }
             },
 
-            //Form Submittion of Section-4(Referral) with validation logic
+            //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = this.educAndEmpData;
@@ -126,14 +121,25 @@ $(document).ready(function () {
 
             },
 
-            //Section 3(Education) Save and Service call with navaigation Logic
+            //Section 3(Education) Save and Service call with navigation's Logic
             upsertEducationForm: function (payload) {
-                // console.log(payload);
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "referral", responseData.userid, responseData.role);
+                    if (this.paramValues != undefined) {
+                        if (this.paramValues[0] == "sec5back") {
+                            location.href = "/review";
+                        }
+                        else {
+                            var url = location.href;
+                            location.href = "/referral?" + url.substring(url.indexOf("?") + 1);
+                        }
+                    }
+                    else {
+                        location.href = "/referral";
+                    }
+
                 } else {
                     $('#loader').hide();
                     console.log('empty response')
@@ -153,6 +159,11 @@ $(document).ready(function () {
                     console.log('empty response')
                 }
 
+            },
+
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
             },
 
             //Patching the value logic

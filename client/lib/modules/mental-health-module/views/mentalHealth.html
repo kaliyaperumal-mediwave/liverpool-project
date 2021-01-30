@@ -42,16 +42,44 @@
     <div class="my-md-3 my-lg-4 my-xl-4 my-4">
         <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
             <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
-                <div class="input-group">
-                    <span class="input-group-prepend">
-                        <div class="home-primarySearch-bg input-group-text  border-right-0">
-                            <span style="color: #023047 !important;">
-                                <i class="fa fa-search font-23"></i>
-                            </span>
+                <input hidden id="resources" value="{{data.piecesArray|dump}}">
+                <div>
+                    <div class="input-group">
+                        <span class="input-group-prepend">
+                            <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
+                                <span style="color: #023047 !important;">
+                                    <i class="fal fa-search font-23"></i>
+                                </span>
+                            </div>
+                        </span>
+                        <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                            v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
+                            @input="filterPieces()">
+                    </div>
+                    {% raw %}
+                    <!-- Search functionality start-->
+                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+                        {{searchQuery}}?”</div>
+                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+                        <div class="primary-search-radius card cursor-pointer">
+
+                            <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                                <a :href=" item.custom_url ? `${item.custom_url}` : `${item._url}` ">
+                                    <div class="d-flex align-items-center">
+                                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                            height="30" class="px-1 px-md-2 cursor-pointer" alt="">
+                                        <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                        </p>
+                                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
+                                            <li>{{item.type}}</li>
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
-                    </span>
-                    <input class="home-primarySearch-bg border-0 form-control py-2" type="search"
-                        placeholder="Search your service" id="example-search-input">
+                    </div>
+                    <!-- Search functionality end-->
+                    {% endraw %}
                 </div>
             </div>
         </div>
@@ -82,221 +110,19 @@
     <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
         <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
             <div class="d-flex justify-content-center">
-                <div class="col-md-12 p-0 home-primary-content-bg">
+                <a class="col-md-12 p-0 home-primary-content-bg" href="/mental-health/services">
                     <div class="text-center py-4">
                         <img src="/modules/my-apostrophe-assets/img/services.svg" class="px-3 image-height" alt="">
                     </div>
                     <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
                         <span class="home-secondary-content px-1 px-md-3">About the services</span>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </div>
-
-    <div class="sub-header-bg my-5 setHadPad">
-        <div class=" mx-auto container-referal ">
-            <div>
-                <div class="row w-100 mx-auto">
-                    <div class="">
-                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
-                        <p class="referral-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div class="input-group w-100 bg-fafa border-radius-10">
-                        <input class="height-44 home-primarySearch-bg border-0 suffix-form-control py-2" type="search"
-                            placeholder="Search referrals" id="example-search-input">
-                        <span class="input-group-append shape_and_center cursor-pointer">
-                            <div class="home-secondarySearch-bg w-100">
-                                <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23"></i>
-                                </span>
-                            </div>
-                        </span>
-                    </div>
-                </div>
-                <div class="py-4 text-left d-flex">
-                    <button type="button" @click="resetModal('add')" class="btn px-md-4 py-1 px-3 mx-auto w-100"><span
-                            class="btn-quaternary-text">CHECK A
-                            REFERRAL
-                        </span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- <div class="sub-header-bg my-5">
-        <div class="col-md-9 col-lg-7 col-xl-7 py-3 col-12 mx-auto">
-            <div class="py-3 py-md-4">
-                <div class="row w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
-                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
-                        <p class="home-referral-secondary my-2 my-md-3">Check and view the status of your referrals</p>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto secondary">
-                        <div class="input-group">
-                            <span class="input-group-prepend">
-                                <div class="home-primarySearch-bg input-group-text  border-right-0">
-                                    <span style="color: #023047 !important;">
-                                        <i class="fa fa-search font-23"></i>
-                                    </span>
-                                </div>
-                            </span>
-                            <input class="home-primarySearch-bg form-control py-2" type="search"
-                                placeholder="Search referrals" id="searchAllreferrals">
-                            <span class="input-group-append">
-                                <div class="home-secondarySearch-bg input-group-text">
-                                    <span class="px-2 font-weight-bold">Search</span>
-                                </div>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-9 col-lg-7 col-xl-7 col-12 mx-auto">
-            <div class="py-3 py-md-4 py-lg-3 py-xl-3">
-                <div class="row w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
-                        <h2 class="home-referral-primary my-2 my-md-3">Progress of referral</h2>
-                        <p class="home-referral-secondary my-2 my-md-3">You have completed 60% of your referral</p>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 text-center col-xl-6 col-11 mx-auto secondary">
-                        <div class="progress-radius progress">
-                            <div class="progress-bg progress-bar" role="progressbar" style="width: 75%"
-                                aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"><span class="link-text"></span>
-                            </div>
-                        </div>
-                        <div class="py-4 text-left">
-                            <button type="button" @click="checkReferral()" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-quaternary-text">CONTINUE REFERRAL
-                                </span></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-
-    <div class="d-flex py-2 mt-3 mt-md-5">
-        <div class="col-md-6 col-lg-4 col-xl-4 col-10 px-md-1 px-0 py-2 mt-2 mt-md-3  mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Ypas.png" class="px-md-0 px-2 company-image" alt="">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="px-md-0 px-2 company-image "
-                            alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex mt-1">
-        <div class="col-md-6 col-lg-4 col-xl-4 col-10 px-md-1 px-0 py-2 mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Bully_buster.jpg" class="px-md-0 px-2 company-image"
-                            alt="">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/ADHD_logo.jpg" class="px-md-0 px-2 company-image"
-                            alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex mt-1">
-        <div class="col-md-6 col-lg-4 col-xl-4 col-10 px-md-1 px-0 py-2 mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Kooth_logo.jpg" class="px-md-0 px-2 company-image"
-                            alt="">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Mersey_care.jpg" class="px-md-0 px-2 company-image"
-                            alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex mt-1">
-        <div class="col-md-6 col-lg-4 col-xl-4 col-10 px-md-1 px-0 py-2 mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Raise.jpg" class="px-md-0 px-2 company-image"
-                            alt="">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Edys_logo.png" class="px-md-0 px-2 company-image"
-                            alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex mt-1">
-        <div class="col-md-6 col-lg-4 col-xl-4 col-10 px-md-1 px-0 py-2 mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Addvanced_solutions.jpg"
-                            class="px-md-0 px-2 company-image" alt="">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Liverpool_camhs_logo.png"
-                            class="px-md-0 px-2 company-image" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex mt-1">
-        <div class="col-md-6 col-lg-4 col-xl-4 col-10 px-md-1 px-0 py-2 mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Believe_in_barbardos.jpg"
-                            class="px-md-0 px-2 company-image" alt="">
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-7 col-xl-6 p-0 cursor-pointer home-primary-content-bg">
-                    <div class="text-center py-md-3 py-2 py-xl-4 py-lg-5">
-                        <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="px-md-0 px-2 company-image"
-                            alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include "../../shared-referal-module/views/referral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
 
 </div>
 {% endblock %}

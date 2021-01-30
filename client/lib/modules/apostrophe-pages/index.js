@@ -43,10 +43,7 @@ module.exports = {
       name: 'referral-complete-module',
       label: 'Referral Completed Module'
     },
-    {
-      name: 'resources-module',
-      label: 'Resources Module'
-    },
+  
     {
       name: 'dashboard-module',
       label: 'Dashboard Module'
@@ -66,7 +63,48 @@ module.exports = {
     {
       name: 'footer-pages-module',
       label: 'Footer Pages Module'
+    },
+    {
+      name: 'Resources-pages',
+      label: 'ResourcesPages'
+    },
+    {
+      name: 'account-settings-module',
+      label: 'Account Settings Module'
+    },
+    {
+      name: 'accessibility-module',
+      label: 'Accessibility Module'
+    },
+    {
+      name: 'liverpool-watch-pages',
+      label: 'Resources watch'
+    },
+    {
+      name: 'liverpool-read-pages',
+      label: 'Resources Read'
+    },
+    {
+      name: 'liverpool-events-pages',
+      label: 'Resources Events'
+    },
+    {
+      name: 'liverpool-games-pages',
+      label: 'Resources Games'
+    },
+    {
+      name: 'liverpool-Partner-agencies-pages',
+      label: 'Partner-agencies'
+    },
+    {
+      name: 'liverpool-mental-health-pages',
+      label: 'Mental-Health-Page'
+    },
+    {
+      name: 'liverpool-about-service-pages',
+      label: 'About-Service-Page'
     }
+
 
     // Add more page types here, but make sure you create a corresponding
     // template in lib/modules/apostrophe-pages/views/pages!

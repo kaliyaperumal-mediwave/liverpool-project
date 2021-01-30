@@ -17,6 +17,7 @@ $(document).ready(function () {
                 childSexualOrientation: "",
                 childEthnicity: "",
                 childCareAdult: "",
+                parentName: ""
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -79,38 +80,47 @@ $(document).ready(function () {
 
         mounted: function () {
             var _self = this;
-            this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
+            this.paramValues = getParameter(location.href);
+            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userId = document.getElementById('uUid').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
-            if (this.paramValues[2] != undefined) {
-                this.fetchSavedData();
-            }
+            this.fetchSavedData();
             this.initMaps();
             $('#loader').hide();
         },
+
+
         methods: {
 
-            //Initilaizing Google Maps Autocompleted
+            //Initializing Google Maps Autocompleted
             initMaps: function () {
+                $('#loader').hide();
                 var _self = this;
                 var childAddress;
                 var houseHoldAddress;
                 var parentAddress;
+
                 childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                     types: ['geocode'],
                 });
+
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
                     types: ['establishment'],
                 });
+
                 parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
                     types: ['geocode'],
                 });
+
                 google.maps.event.addListener(childAddress, 'place_changed', function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                    // const selectedPlace = google.maps.event.getPlace();
+                    // console.log(selectedPlace);
+                    // document.getElementById('navigateiside').innerHTML = selectedPlace.adr_address;
+                    // document.getElementById('navigateiside').innerHTML = _self.aboutObj.childAddres;
                 });
+
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    // _self.houseHoldData.profession = houseHoldAddress.getPlace().formatted_address;
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
 
@@ -125,13 +135,12 @@ $(document).ready(function () {
                 resetValues(event.target.form, this, 'aboutFormData');
             },
 
-            //Ftech Api service Logic
+            //Fetch Api service Logic
             fetchSavedData: function () {
                 var payload = {};
-                payload.uuid = this.userId;
-                payload.role = this.userRole;
+                payload.uuid = document.getElementById('uUid').innerHTML;
+                payload.role = document.getElementById('uRole').innerHTML;
                 var successData = apiCallPost('post', '/fetchAbout', payload);
-                console.log(successData)
                 if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                     $('#loader').hide();
@@ -141,8 +150,15 @@ $(document).ready(function () {
                 }
             },
 
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
+            },
+
+
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
+                this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
@@ -235,53 +251,30 @@ $(document).ready(function () {
                 }
             },
 
-            //Form Submittion of Section-4(Referral) with validation logic
+            //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
-                // var formData = Object.assign(this.aboutObj, this.aboutFormData);
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.contactNumber && formData.relationshipToYou &&
-                    formData.parentialResponsibility && formData.childGender && formData.parentName &&
+                    formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentName &&
                     formData.childIdentity && formData.sendPost && formData.childAddress && formData.childName && formData.childContactNumber
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
 
-                    if (formData.parentialResponsibility == 'no' && !formData.parentCarerName) {
+                    if ((formData.parentialResponsibility == 'no' && !formData.parentCarerName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                        || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
+                        || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
                         scrollToInvalidInput();
                         return false;
                     }
 
-                    if ((formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.childEmail && !this.emailRegex.test(formData.childEmail))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.contactNumber && !this.phoneRegex.test(formData.contactNumber))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
-                    if ((formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
-                        scrollToInvalidInput();
-                        return false;
-                    }
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
-                    this.payloadData.role = this.userRole;
-                    this.payloadData.userid = this.userId;
+                    this.payloadData.role = document.getElementById('uRole').innerHTML;
+                    this.payloadData.userid = document.getElementById('uUid').innerHTML
                     this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
                     if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.paramValues[2]
+                        this.payloadData.editFlag = this.editPatchFlag
                     }
 
                     if (this.userMode === 'edit') {
@@ -306,13 +299,23 @@ $(document).ready(function () {
                 }
             },
 
-            //Section 2(About You) Save and Service call with navaigation Logic
+            //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
-                    console.log(responseData)
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "education", this.userId, this.userRole);
+                    if (this.paramValues != undefined) {
+                        if (this.paramValues[0] == "sec5back") {
+                            location.href = "/review";
+                        }
+                        else {
+                            var url = location.href;
+                            location.href = "/education?" + url.substring(url.indexOf("?") + 1);
+                        }
+                    }
+                    else {
+                        location.href = "/education";
+                    }
                 } else {
                     $('#loader').hide();
                     console.log('empty response')
@@ -434,6 +437,11 @@ $(document).ready(function () {
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
             },
+            resetAge: function (event, date) {
+                if (this.getAge(date) > 19) {
+                    this.houseHoldData.profession = "";
+                }
+            },
 
             getAge: function (dateString) {
                 if (dateString != "") {
@@ -450,7 +458,6 @@ $(document).ready(function () {
             },
 
             setDateFormat: function (dbDate) {
-
                 if (dbDate != null) {
                     var dateArray = dbDate.split("/");
                     var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
@@ -464,8 +471,6 @@ $(document).ready(function () {
                     var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
                     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 }
-
-                // 'DD/MM/YYYY'
             },
         }
 

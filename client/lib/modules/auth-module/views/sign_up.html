@@ -65,9 +65,9 @@
           </div>
           <!-- <label for="firstName" class="auth-font my-2">First name</label> -->
           <input type="text" placeholder="Enter your first name" class="form-control auth-border" id="firstName"
-            v-model="signUpObject.first_name">
+            @input="trimWhiteSpace($event,'signUpObject','first_name')" v-model="signUpObject.first_name">
           <div class="invalid-feedback px-1 d-none"
-            v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(signUpObject.first_name)),'invalid-fields':!trimSpace(signUpObject.first_name) }">
+            v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.first_name),'invalid-fields':!signUpObject.first_name }">
             You must provide a first name.
           </div>
         </div>
@@ -86,9 +86,9 @@
           </div>
           <!-- <label for="lastName" class="auth-font my-2">Last name</label> -->
           <input type="text" placeholder="Enter your last name" class="form-control auth-border" id="lastName"
-            v-model="signUpObject.last_name">
+            @input="trimWhiteSpace($event,'signUpObject','last_name')" v-model="signUpObject.last_name">
           <div class="invalid-feedback px-1 d-none"
-            v-bind:class="{ 'd-block': (isFormSubmitted && !trimSpace(signUpObject.last_name)),'invalid-fields':!trimSpace(signUpObject.last_name) }">
+            v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.last_name),'invalid-fields':!signUpObject.last_name }">
             You must provide a last name.
           </div>
         </div>
@@ -106,8 +106,8 @@
             }) }}
           </div>
           <!-- <label for="emailAddressAuth" class="auth-font my-2">Email address</label> -->
-          <input type="email" inputmode="email" placeholder="Enter your email address" class="form-control auth-border"
-            id="emailAddressAuth" v-model="signUpObject.email">
+          <input type="text" inputmode="email" placeholder="Enter your email address" class="form-control auth-border"
+            @input="trimWhiteSpace($event,'signUpObject','email')" id="emailAddressAuth" v-model="signUpObject.email">
           <div class="invalid-feedback px-1 d-none"
             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.email),'invalid-fields':!signUpObject.email }">
             You must provide a email.
@@ -164,12 +164,12 @@
           <!-- <label for="signUpPassword" class="auth-font my-2">Password</label> -->
           <div id="authForm">
             <div class="input-group">
-              <input type="password" class="form-control auth-border py-2" id="signUpPassword"
-                v-model="signUpObject.password" placeholder="Enter your password">
+              <input type="password" class="form-control auth-border py-2" id="signUpPassword" autocomplete="off"
+                @input="trimWhiteSpace($event,'signUpObject','password')" v-model="signUpObject.password"
+                placeholder="Enter your password">
               <span class="input-group-append">
                 <div class="input-group-text px-3">
-                  <span style="color: #023047 !important;" class="cursor-pointer font-23" data-toggle="tooltip"
-                    data-container="body" data-placement="top" title="show"
+                  <span style="color: #023047 !important;" class="cursor-pointer font-23"
                     @click="toggleVisibility('#signUpPassword','showVisibilityPassword')">
                     <template v-if="!showVisibilityPassword">
                       <i class="fa fa-eye-slash" aria-hidden="true"></i>
@@ -181,9 +181,6 @@
                 </div>
               </span>
             </div>
-            <!-- <small id="emailHelp" class="form-text text-muted">Password must include atleast minimun 8
-                            characters with one uppercase ,lowercase,special character</small> -->
-
             <div class="invalid-feedback px-1 d-none"
               v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.password),'invalid-fields':!signUpObject.password }">
               You must provide a password.
@@ -211,7 +208,8 @@
           <!-- <label for="confirmPassword" class="auth-font my-2">Confirm password</label> -->
           <div id="authForm">
             <div class="input-group">
-              <input type="password" class="form-control auth-border py-2" id="confirmPassword"
+              <input type="password" class="form-control auth-border py-2" id="confirmPassword" autocomplete="off"
+                @input="trimWhiteSpace($event,'signUpObject','confirm_password')"
                 v-model="signUpObject.confirm_password" placeholder="Enter your password">
               <span class="input-group-append">
                 <div class="input-group-text px-3">
@@ -259,6 +257,29 @@
           <a href="/users/login" class="auth-link cursor-pointer text-underline">Already have an account? Login</a>
         </div>
       </div>
+
+      <!-- SignUp Success Modal Start -->
+      <div class="modal fade" id="signInSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="signInSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content modal-bg login-safe-pd">
+
+            <span aria-hidden="true" class="modal-close" @click="gotoDashboard(tokenVariable)">
+              <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+            </span>
+            <div class="modal-header justify-content-center model-text-pd">
+              <p class="text-center m-0 py-2">
+                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+              </p>
+              <h5 class="logout-font mt-3 text-center">ACCOUNT CREATED</h5>
+              <h6 class="question-font text-center">
+                Your account has been created
+              </h6>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SignUp Success Modal End -->
 
     </div>
   </div>

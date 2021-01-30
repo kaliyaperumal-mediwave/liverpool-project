@@ -7,8 +7,10 @@ $(document).ready(function () {
             viewReferralObj: {
                 email: "",
                 loginId: "",
-                referralType: "completed"
+                referralType: "completed",
+                searchTxt: ""
             },
+            searchReferrals: [],
             displayReferrals: [],
             savedReferrals: [],
             isFormSubmitted: false,
@@ -16,30 +18,48 @@ $(document).ready(function () {
             displayReferrals: [],
             referralDateArray: [],
             viewReferralArray: [],
-            iterateReferralArray: []
+            iterateReferralArray: [],
+            activeState: false
         },
 
         mounted: function () {
-            this.paramValues = getParameter(location.href)
-            this.viewReferralObj.loginId = this.paramValues[0];
-            this.viewReferralObj.userRole = this.paramValues[1]
-            this.getUserReferral(this.viewReferralObj.loginId, this.viewReferralObj.referralType)
+            this.paramValues = getParameter(location.href);
+            //console.log(this.paramValues);
+            if (this.paramValues != undefined && this.paramValues[0] != undefined) {
+                this.searchReferalByCode(this.paramValues[0])
+            }
+            this.viewReferralObj.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+            this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
+            this.getUserReferral(this.viewReferralObj.referralType);
         },
 
         methods: {
+
             toggleArrow: function (e) {
                 var ele = e.target;
-                var classList = Array.from(e.target.classList)
-                if (classList.indexOf('fa-chevron-circle-up') > -1) {
-                    $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
-                } else {
-                    $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
-                }
+                var elemId = e.target.id;
+                debugger
+                var allToggleIcons = Array.from(document.getElementsByClassName('arrowClass'));
+                allToggleIcons.filter(function (i) {
+                    if (i.id == elemId) {
+                        if (Array.from(ele.classList).indexOf('fa-chevron-circle-up') > -1) {
+                            $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                        } else {
+                            $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                        }
+                    } else {
+                        $(i).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    }
+                });
+
             },
-            getUserReferral: function (loginId, referralType) {
+
+
+
+            getUserReferral: function (referralType) {
                 var _self = this;
                 $.ajax({
-                    url: API_URI + "/getUserReferral/" + loginId + "/" + referralType,
+                    url: API_URI + "/getUserReferral/" + referralType,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -50,6 +70,7 @@ $(document).ready(function () {
                         _self.referralDateArray = [];
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
                             var date = _self.convertDate(_self.displayReferrals[i].createdAt);
+                            // var date = _self.displayReferrals[i].createdAt;
                             obj = {
                                 date: "",
                                 data: []
@@ -76,11 +97,9 @@ $(document).ready(function () {
                                 }
                             }
                         }
-                        console.log(_self.referralDateArray)
-                        console.log(_self.viewReferralArray)
                     },
                     error: function (error) {
-                        console.log(error.responseJSON.message)
+                        console.log(error)
                     }
                 });
             },
@@ -93,30 +112,104 @@ $(document).ready(function () {
 
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
-                return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
+                var ms = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                return moment(date).format('dddd, MMMM D, YYYY');
+                return date.getDate() + ' ' + ms[date.getMonth()] + ' ' + date.getFullYear();
+                //return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
             },
             contineReferral: function (refObj) {
 
-                if (refObj.referral_progress == "20") {
+                console.log(refObj);
+                $.ajax({
+                    url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + this.viewReferralObj.userRole + "/" + refObj.referral_progress,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        if (refObj.referral_progress == "20") {
+                            location.href = "/about";
+                        }
+                        else if (refObj.referral_progress == "40") {
+                            location.href = "/education";
+                        }
+                        else if (refObj.referral_progress == "60") {
+                            location.href = "/referral";
 
-                    location.href = decryptUrl("about", refObj.uuid, this.viewReferralObj.userRole);
+                        }
+                        else if (refObj.referral_progress == "80") {
+                            location.href = "/review";
 
-                }
-                else if (refObj.referral_progress == "40") {
-                    location.href = decryptUrl("education", refObj.uuid, this.viewReferralObj.userRole);
-                }
-                else if (refObj.referral_progress == "60") {
-                    location.href = decryptUrl("referral", refObj.uuid, this.viewReferralObj.userRole);
-                }
-                else if (refObj.referral_progress == "80") {
-                    location.href = decryptUrl("review", refObj.uuid, this.viewReferralObj.userRole);
-                }
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
             },
             fetchReferrals: function (referralType) {
+
                 this.viewReferralObj.referralType = referralType;
-                this.getUserReferral(this.viewReferralObj.loginId, referralType)
-            }
+                this.getUserReferral(referralType)
+                if (referralType == "incomplete") {
+                    this.activeState = true
+                }
+                else {
+                    this.activeState = false
+                }
+            },
+            formatCompat: function (date) {
+                var dateFmt = new Date(date)
+                var ms = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                return dateFmt.getDate() + ' ' + ms[dateFmt.getMonth()] + ' ' + dateFmt.getFullYear();
+            },
+
+            getReferalByCode: function (e) {
+                var _self = this;
+                console.log(e.target.value)
+                var searchKey = e.target.value
+                if (searchKey.length > 0) {
+                    $.ajax({
+                        url: API_URI + "/getReferalByCode/" + searchKey,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            _self.searchReferrals = data
+                            console.log(data)
+                        },
+                        error: function (error) {
+                            console.log(error)
+                        }
+                    });
+                }
+            },
+
+
+            searchReferalByCode: function (searchCode) {
+                var _self = this;
+                console.log(searchCode)
+                $.ajax({
+                    url: API_URI + "/searchReferalByCode/" + searchCode,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        _self.searchReferrals = data;
+                        _self.viewReferralObj.searchTxt = searchCode;
+                        console.log(data)
+                    },
+                    error: function (error) {
+                        console.log(error)
+                    }
+                });
+            },
+            getStringLength: function (str) {
+                return str.length;
+            },
+
+            changeDateFormat: function (date) {
+                return moment(date).format('DD/MM/YYYY');
+            },
         }
     })
-
 });

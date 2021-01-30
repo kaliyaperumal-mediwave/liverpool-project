@@ -30,9 +30,21 @@
         </div>
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
             <div class="py-4">
-                <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
+                <!-- <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
                     referral
-                </h2>
+                </h2> -->
+                <div  class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                  {{ apos.area(data.page, 'referral_Titile', {
+                      widgets: {
+                        'apostrophe-rich-text': {
+                          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                          styles: [
+                            { name: 'Paragraph', element: 'p' }
+
+                          ]
+                        }
+                      }
+                    }) }}</div>
                 {% raw %}
 
                 <!--  Support-Start-->
@@ -105,10 +117,20 @@
                         <p class="question-font m-0">Main eating disorder difficulties (Please tick all that apply)</p>
                         <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in listOfEatingDifficulties"
                             :key="index">
-                            <input type="checkbox" v-bind:id="item.id" name="eatingDisorder" v-bind:value="item.value"
-                                v-model="eatingDifficulties" @change="onOptionChange($event)">
-                            <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value }}</label>
+                            <div class="row m-0 align-items-center">
+                                <div>
+                                    <input type="checkbox" v-bind:id="item.id" name="eatingDisorder"
+                                        v-bind:value="item.value" v-model="eatingDifficulties"
+                                        @change="onOptionChange($event)">
+                                    <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                    </label>
+                                </div>
+                                <div class="set-width-calc">
+                                    <label class="text-label-hide option-font" v-bind:for="item.id">
+                                        {{ item.value }}
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -123,12 +145,9 @@
                             <label for="mainEatDiff" class="question-font">Please give a brief outline of [<i>your/ your
                                     child's / the child/young person's</i>] daily food/fluid intake:</label>
                             <textarea class="h-112 form-control" name="briefOutlineInfo" id="mainEatDiff"
-                                placeholder="Tell us about diet,eating habits,quantities" @keyup="onValueEnter($event)"
-                                v-model="referralData.dailyIntakes" rows="7"></textarea>
-                            <!-- <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.dailyIntakes),'invalid-fields':!referralData.dailyIntakes }">
-                                You must provide answer to this question.
-                            </div> -->
+                                placeholder="Tell us about diet,eating habits,quantities"
+                                @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
+                                rows="7"></textarea>
                         </div>
                     </div>
                 </form>
@@ -140,7 +159,7 @@
                         <div class="form-group py-1">
                             <label for="heightOpt" class="question-font">Height-<b>optional</b></label>
                             <input type="text" class="form-control" id="heightOpt" placeholder="Enter height"
-                                v-model="referralData.height">
+                                @input="trimWhiteSpace($event,'referralData','height')" v-model="referralData.height">
                         </div>
                     </div>
                 </form>
@@ -155,7 +174,7 @@
                             <p class="question-font">If you're not sure of your exact weight, please describe
                                 it</p>
                             <input type="text" class="form-control" id="weightOpt" placeholder="Enter weight"
-                                v-model="referralData.weight">
+                                @input="trimWhiteSpace($event,'referralData','weight')" v-model="referralData.weight">
                         </div>
                     </div>
                 </form>
@@ -164,17 +183,51 @@
 
                 <!-- Reason for making referral-start -->
                 <form id="reasonFormakingForm" data-options="reasonForReferral">
+
                     <div v-if="(referralData.covid && (referralData.support == 'Mental health' || referralData.dailyIntakes))"
                         class="px-4 pt-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">Main reason for making referral (please tick all that apply)</p>
-                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
-                            :key="index">
-                            <input type="checkbox" v-bind:id="item.id" name="listReasonsForReferral"
-                                v-bind:value="item.value" v-model="reasonForReferral" v-bind:checked="item.isActive"
-                                @change="onOptionChange($event)">
-                            <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value }}</label>
+                        <div v-if="showMoreOrLess" class="checkboxWrapper">
+                            <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
+                                :key="index">
+                                <div class="row m-0 align-items-center">
+                                    <div>
+                                        <input type="checkbox" v-bind:id="item.id" class="checkLogic"
+                                            name="listReasonsForReferral" v-bind:value="item.value"
+                                            v-model="reasonForReferral" v-bind:checked="item.isActive"
+                                            @change="onOptionChange($event)">
+                                        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                        </label>
+                                    </div>
+                                    <div class="set-width-calc">
+                                        <label class="text-label-hide option-font" v-bind:for="item.id">
+                                            {{ item.value }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="option-font cursor-pointer my-3 d-none" id="showMoreOrLessText"
+                                @click="toggleList($event)">...</p>
                         </div>
+                        <!-- <div v-if="!showMoreOrLess">
+                            <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
+                                :key="index">
+                                <div class="row m-0 align-items-center">
+                                    <div class="forInput">
+                                        <input type="checkbox" v-bind:id="item.id" name="listReasonsForReferral"
+                                            v-bind:value="item.value" v-model="reasonForReferral"
+                                            v-bind:checked="item.isActive" @change="onOptionChange($event)">
+                                        <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                        </label>
+                                    </div>
+                                    <div class="set-width-calc">
+                                        <label class="text-label-hide option-font" v-bind:for="item.id">
+                                            {{ item.value }}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
                     </div>
                 </form>
 
@@ -188,7 +241,7 @@
                         <div class="form-group py-2 m-0">
                             <label for="proOthers" class="question-font">Other <b>(optional)</b></label>
                             <textarea class="h-112 form-control" name="listReasonsForReferral" id="proOthers"
-                                v-model="referralData.otherReasonsReferral" @keyup="onValueEnter($event)"
+                                v-model="referralData.otherReasonsReferral" @input="onValueEnter($event,'other')"
                                 rows="4"></textarea>
                         </div>
                     </div>
@@ -204,6 +257,7 @@
                             <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}
                                 <b>{{dynamicLabels.referralSubLabel}}</b></label>
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
+                                @input="trimWhiteSpace($event,'referralData','referralInfo',true)"
                                 v-model="referralData.referralInfo"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
                             <div class="text-validation invalid-feedback  d-none"
@@ -222,12 +276,9 @@
                         <div class="form-group py-1">
                             <label for="textInfo2" class="question-font">Has anything helped? <b>(optional)</b></label>
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
+                                @input="trimWhiteSpace($event,'referralData','hasAnythingInfo')"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
-                            <!-- <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
-                                You must provide answer to this question.
-                            </div> -->
                         </div>
                     </div>
                 </form>
@@ -241,12 +292,9 @@
                             <label for="textInfo3" class="question-font">{{dynamicLabels.triggersLabel}}
                                 <b>(optional)</b></label>
                             <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
+                                @input="trimWhiteSpace($event,'referralData','triggerInfo')"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
-                            <!-- <div class="text-validation invalid-feedback  d-none"
-                                v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
-                                You must provide answer to this question.
-                            </div> -->
                         </div>
                     </div>
                 </form>
@@ -263,12 +311,9 @@
                                 <label for="disability" class="question-font">{{dynamicLabels.disabilitiesLabel}}
                                     <b>(optional)</b></label>
                                 <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
+                                    @input="trimWhiteSpace($event,'referralData','disabilityOrDifficulty')"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
-                                <!-- <div class="text-validation invalid-feedback  d-none"
-                                    v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.disabilityOrDifficulty), 'invalid-fields':!referralData.disabilityOrDifficulty}">
-                                    You must provide answer to this question.
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -376,7 +421,8 @@
                                     <div class="form-group">
                                         <label for="service-name" class="question-font">Name of service</label>
                                         <input type="text" class="form-control" v-model="serviceData.name"
-                                            id="service-name" placeholder="Enter the name of the service you have used">
+                                            @input="trimWhiteSpace($event,'serviceData','name')" id="service-name"
+                                            placeholder="Enter the name of the service you have used">
                                         <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
                                             You must provide the name of the service.
@@ -386,6 +432,7 @@
                                         <label for="profAtService" class="question-font">Name of professional at
                                             service</label>
                                         <input type="text" v-model="serviceData.professional" class="form-control"
+                                            @input="trimWhiteSpace($event,'serviceData','professional')"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
                                         <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
@@ -397,7 +444,8 @@
                                             number for
                                             professional</label>
                                         <input type="text" class="form-control" v-model="serviceData.contact"
-                                            id="contactNumber" placeholder="Enter a phone number for the professional">
+                                            @input="trimWhiteSpace($event,'serviceData','contact')" id="contactNumber"
+                                            placeholder="Enter a phone number for the professional">
                                         <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
                                             You must provide the 11 digit contact number.
@@ -461,7 +509,7 @@
                 </div>
                 <!-- Delete Modal End -->
 
-                <!-- Dynamic Toaster start Scenerio 1-->
+                <!-- Dynamic Toaster start Scenario 1-->
                 <template v-if="accessList.length && !showAddOtherService">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
@@ -504,7 +552,7 @@
                 </template>
                 <!-- Dynamic Toaster end -->
 
-                <!-- Dynamic Toaster start Scenerio 2-->
+                <!-- Dynamic Toaster start Scenario 2-->
                 <template v-if="referralData.accessService == 'no'">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
@@ -547,7 +595,7 @@
                 </template>
 
 
-                <!-- Dynamic Toaster start Scenerio 3-->
+                <!-- Dynamic Toaster start Scenario 3-->
                 <template v-if="allAvailableService.length">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
@@ -588,7 +636,7 @@
                         </a>
                     </div>
                 </template>
-                <!-- Dynamic Toaster end Scenerio 3-->
+                <!-- Dynamic Toaster end Scenario 3-->
 
                 <!-- support content modal start -->
                 <div class="modal fade" id="mentalConsentModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -627,10 +675,11 @@
                                         for example, fatigue, bed wetting or
                                         outbursts of anger.
                                     </h3>
-                                    <p class="support-modal-link-text cursor-pointer text-left m-0 py-2"> > Find out
-                                        more
-                                        about mental
-                                        health</p>
+                                    <p class="support-modal-link-text cursor-pointer text-left m-0 py-2"> <a
+                                            href="/mental-health">> Find out
+                                            more
+                                            about mental
+                                            health</a></p>
                                 </div>
                             </div>
                         </div>

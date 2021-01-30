@@ -11,6 +11,7 @@ const configs = {
     name: process.env.APP_NAME || 'koa-rest-api-boilerplate',
     host: process.env.APP_HOST || '0.0.0.0',
     port: process.env.APP_PORT,
+    email_from_address: process.env.FROM_EMAIL,
     orm: {
       name: 'orm',
       modelPath: join(__dirname, '../models'),
@@ -30,9 +31,11 @@ const configs = {
         maxIdleTime: 30000,
       },
     },
+    sendgrid_api_key: process.env.SENDGRID
   },
   development: {
     development: {
+      email_from_address: process.env.FROM_EMAIL,
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
@@ -40,12 +43,13 @@ const configs = {
       dialect: 'postgres',
       ssl: process.env.SSL,
       dialectOptions: {
-        ssl:process.env.SSL,
+        ssl: process.env.SSL,
       },
     },
   },
   production: {
     production: {
+      email_from_address: process.env.FROM_EMAIL,
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,

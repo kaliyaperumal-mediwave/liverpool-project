@@ -9,14 +9,11 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            this.userId = this.paramValues[0];
-            this.userRole = this.paramValues[1];
-            this.userMode = this.paramValues[2];
+            this.userId = document.getElementById('uUid').innerHTML;
+            this.userRole = document.getElementById('uRole').innerHTML;
+            this.userMode = this.paramValues;
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            console.log(this.userId, this.userRole, this.userMode)
-            if (this.userMode !== undefined) {
-                this.fetchSavedData();
-            }
+            this.fetchSavedData();
             $('#loader').hide();
         },
         data: {
@@ -63,6 +60,7 @@ $(document).ready(function () {
             isFormSubmitted: false,
             serviceOthers: [],
             showAddOtherService: false,
+            showMoreOrLess: true,
             userRole: '',
             userMode: '',
             userId: '',
@@ -75,6 +73,7 @@ $(document).ready(function () {
             allAvailableService: [],
             referralId: "",
             hasSubmittedServiceForm: false,
+            openShowMoreOrLessFlag: true,
             storeDeleteData: null,
             listOfEatingDifficulties: [
                 { id: '4937fd43-79ae-4974-90d9-601966a9d3fb', value: 'Restricting Food Intake' },
@@ -122,6 +121,36 @@ $(document).ready(function () {
                 { id: '8676c899-f721-4ebe-9276-7294a64adabd', value: 'Lacking confidence in myself' },
 
             ],
+            reasonForReferralCopyList: [
+                { id: 'cc33ecc3-f082-4f88-9a0f-e9128d7253cf', value: 'Trouble concentrating' },
+                { id: 'fe9ae124-521a-48a0-bd5d-135590a533ea', value: 'Feeling nervous or on edge', },
+                { id: '61cfb384-859e-4577-918b-4d4a82d17bbd', value: 'Trouble socialising' },
+                { id: 'deaa6970-5eee-49c6-9aa0-79b875b6f8cc', value: 'Bullying' },
+                { id: '8ac8f99a-c19a-45c0-af4c-e8dcd9a0c1c1', value: 'Find it hard to control myself' },
+                { id: '723986a5-72f2-4b6b-81af-a5048b670c34', value: 'Feeling sad, unhappy or hopeless' },
+                { id: '2c16a95a-22b7-48dd-b5b2-6f6ab96f6353', value: 'Trouble reading and writing' },
+                { id: '12cd71b2-416b-4712-8c9f-383b63709455', value: 'Drinking and drugs' },
+                { id: '271a505c-cf25-4d9e-b8a7-c0163fca0e77', value: 'Feeling clumsy and uncoordinated' },
+                { id: 'e3879609-e6cf-4d96-9aef-63722902e250', value: 'Issues with food, diet or eating' },
+                { id: '127c4331-ac2b-4f57-a16e-20cadd8e515a', value: 'Problems with family' },
+                { id: '89588dea-0a75-4df3-92c4-37b7a38812f2', value: 'Problems with self identity' },
+                { id: '2690556e-b164-4183-aace-39b0deb290b3', value: 'Compulsive behaviour' },
+                { id: 'df4ddfce-cbb6-4809-801a-f28ae74524bd', value: 'Panic attacks' },
+                { id: 'da157fc2-0538-4e7a-a1fb-4b7c643cfaaa', value: 'Feeling scared or anxious' },
+                { id: 'a67ed3d0-ee18-4b9f-bb2d-06d979fe22d1', value: 'Seeing or hearing things' },
+                { id: '9166f3e1-c522-4ddb-abd8-321365627b23', value: 'Had a traumatic experience' },
+                { id: '275ec9ca-8b29-404a-86d8-31faf9178516', value: 'Feeling that I want to hurt myself' },
+                { id: '3b2edbcf-3736-4db8-8585-424c38878ef5', value: 'Self-harming' },
+                { id: 'ccaa1f4e-eee1-47f2-99eb-83a163e5fb2b', value: 'Pulling hair out' },
+                { id: 'a1e9cbf0-a438-4257-abc9-03c46bcb049d', value: 'Trouble sleeping' },
+                { id: '243942fb-ad41-46d8-9271-45187e38bb7a', value: 'Feeling stressed' },
+                { id: '07a87460-f4f3-44e6-99e6-d4c2773cff11', value: 'Feeling that I don’t want to live' },
+                { id: 'a13f73d4-2033-49da-96fb-2ff6fc170f5c', value: 'Uncontrolled movements' },
+                { id: '16a98d68-8d81-4830-b2d9-656e8fe08e3f', value: 'Wetting or soiling myself' },
+                { id: '1b13cb77-7403-4b6f-bf40-4549af79deea', value: 'Low self esteem' },
+                { id: 'f8a1ca04-c60e-407e-ad6a-afbcc746e6a1', value: 'Lacking confidence in myself' },
+
+            ],
             listOfAvailableService: [
                 { id: '3346efa5-661f-4112-9caf-1fa12c98504e', value: 'Advanced Solutions' },
                 { id: '45d6204e-c1e1-46c1-8168-60ea04c70390', value: 'ADHD Foundation' },
@@ -137,7 +166,8 @@ $(document).ready(function () {
                 { id: 'e116e2a3-4623-4c01-af34-bbe9ccb8a829', value: 'YPAS' },
                 { id: 'fefa3e54-a2ad-43a7-88cc-3fe4abe06533', value: 'Other' },
             ],
-            paramValues: []
+            paramValues: [],
+            updateFlag: false
         },
         methods: {
 
@@ -146,6 +176,12 @@ $(document).ready(function () {
                 var questionIdentifier = event.target.name;
                 var optionsName = this.referralData;
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
+                    var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+                    allCheckbox.map(function (input) {
+                        var mainElem = input.parentElement.parentElement.parentElement;
+                        $(mainElem).removeClass('d-none').addClass('d-flex').css('pointer-events', '');
+                        $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+                    });
                     resetValues(event.target.form, this, 'referralData');
                     this.reasonForReferral = [];
                 } else if (questionIdentifier == 'accessedService') {
@@ -158,11 +194,21 @@ $(document).ready(function () {
                     }
                 }
                 else if (questionIdentifier === 'listReasonsForReferral') {
+                    if (event.target.checked) {
+                        event.currentTarget.setAttribute('data-selected', 'selected')
+                    } else {
+                        event.currentTarget.setAttribute('data-selected', 'unselected')
+                    }
+
                     if (!this.reasonForReferral.length) {
+                        $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
                         if (optionsName.otherReasonsReferral === '') {
                             resetValues(event.target.form, this, 'referralData');
                             this.reasonForReferral = [];
                         }
+                        //resetValues(event.target.form, this, 'referralData');
+                    } else {
+
                     }
                 }
                 else if (questionIdentifier === 'listService') {
@@ -183,7 +229,15 @@ $(document).ready(function () {
             },
 
             //Getting values from Other Input box and logic
-            onValueEnter: function (event) {
+            onValueEnter: function (event, condition) {
+                if (event.target.value && !event.target.value.replace(/ /g, "").length) {
+                    if (condition == "intake") {
+                        this.referralData.dailyIntakes = event.target.value.trim()
+                    } else if (condition == "other") {
+                        this.referralData.otherReasonsReferral = event.target.value.trim()
+                    }
+                    return false;
+                }
                 var questionIdentifier = event.target.name;
                 if (questionIdentifier === 'listReasonsForReferral') {
                     if (!event.target.value) {
@@ -226,11 +280,11 @@ $(document).ready(function () {
                     this.payloadData.userid = this.userId;
                     this.payloadData.reasonForReferral = this.reasonForReferral;
                     this.payloadData.eatingDifficulties = this.eatingDifficulties;
-                    // this.payloadData.diagnosisList = this.diagnosisList;
-                    // this.payloadData.problemsList = this.problemsList;
                     this.payloadData.accessList = this.accessList;
                     this.payloadData.allAvailableService = this.allAvailableService;
-                    this.payloadData.editFlag = getUrlVars()['edt'];
+                    if (this.updateFlag != false) {
+                        this.payloadData.editFlag = this.updateFlag;
+                    }
                     this.payloadData.id = this.referralId;
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
@@ -247,12 +301,86 @@ $(document).ready(function () {
 
             },
 
-            //Section 4(Referral) Save and Service call with navaigation Logic
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key, hasShowLess) {
+                preventWhiteSpaces(event, this, obj, key);
+                if (hasShowLess) {
+                    var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+                    var checkBoxCon = document.getElementsByClassName('checkboxWrapper');
+                    if (event.target.value) {
+                        if (this.reasonForReferral.length) {
+                            allCheckbox.map(function (input) {
+                                if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
+                                    var mainElem = input.parentElement.parentElement.parentElement;
+                                    $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list and change the answer</u>');
+                                    checkBoxCon[0].scrollIntoView();
+
+                                } else {
+                                    var mainElem = input.parentElement.parentElement.parentElement;
+                                    $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none');
+                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list and change the answer</u>');
+                                }
+                            });
+                            checkBoxCon[0].scrollIntoView();
+
+                        } else {
+                            // this.openShowMoreOrLessFlag = false;
+                            allCheckbox.map(function (input) {
+                                var mainElem = input.parentElement.parentElement.parentElement;
+                                $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                                $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+                                checkBoxCon[0].scrollIntoView();
+                            });
+                        }
+                    }
+
+                }
+            },
+
+            toggleList: function (event) {
+                debugger;
+                var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+                if (event.target.textContent === 'Click here to view full list and change the answer') {
+                    allCheckbox.map(function (input) {
+                        var mainElem = input.parentElement.parentElement.parentElement;
+                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                    });
+                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Show less list</u>');
+                } else if (event.target.textContent === 'Show less list') {
+                    allCheckbox.map(function (input) {
+                        if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
+                            var mainElem = input.parentElement.parentElement.parentElement;
+                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+
+                        } else {
+                            var mainElem = input.parentElement.parentElement.parentElement;
+                            $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none');
+                        }
+                    });
+                    $('#showMoreOrLessText').html('<u>Click here to view full list and change the answer</u>');
+                }
+
+            },
+
+            //Section 4(Referral) Save and Service call with navigation Logic
             upsertReferralForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
                     $('#loader').hide();
-                    location.href = redirectUrl(location.href, "review");
+                    location.href = redirectUrl(location.href, "review", this.userId, this.userRole);
+                    if (this.paramValues != undefined) {
+                        if (this.paramValues[0] == "sec5back") {
+                            location.href = "/review";
+                        }
+                        else {
+                            var url = location.href;
+                            location.href = "/review?" + url.substring(url.indexOf("?") + 1);
+                        }
+                    }
+                    else {
+                        location.href = "/review";
+                    }
                     this.storeDeleteData = null;
                 } else {
                     $('#loader').hide();
@@ -262,33 +390,35 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue: function (data) {
-                console.log(data)
-                this.eatingDifficulties = data.eating_disorder_difficulties;
-                this.reasonForReferral = data.reason_for_referral;
-                this.accessList = data.local_services;
-                this.referralId = data.id;
-                if (this.accessList.indexOf("Other") > -1) {
-                    this.showAddOtherService = true;
-                } else {
-                    this.showAddOtherService = false;
+                if (data.status != "fail") {
+                    this.eatingDifficulties = data.eating_disorder_difficulties;
+                    this.reasonForReferral = data.reason_for_referral;
+                    this.accessList = data.local_services;
+                    this.referralId = data.id;
+                    this.updateFlag = true;
+                    if (this.accessList.indexOf("Other") > -1) {
+                        this.showAddOtherService = true;
+                    } else {
+                        this.showAddOtherService = false;
+                    }
+                    this.allAvailableService = data.services;
+                    Vue.set(this.referralData, "support", data.referral_type);
+                    Vue.set(this.referralData, "covid", data.is_covid);
+
+                    //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
+                    Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
+                    Vue.set(this.referralData, "height", data.height);
+                    Vue.set(this.referralData, "weight", data.weight);
+                    // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
+                    Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
+
+
+                    Vue.set(this.referralData, "referralInfo", data.referral_issues);
+                    Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
+                    Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
+                    Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
+                    Vue.set(this.referralData, "accessService", data.any_other_services);
                 }
-                this.allAvailableService = data.services;
-                Vue.set(this.referralData, "support", data.referral_type);
-                Vue.set(this.referralData, "covid", data.is_covid);
-
-                //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
-                Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
-                Vue.set(this.referralData, "height", data.height);
-                Vue.set(this.referralData, "weight", data.weight);
-               // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
-                Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
-
-
-                Vue.set(this.referralData, "referralInfo", data.referral_issues);
-                Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
-                Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
-                Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
-                Vue.set(this.referralData, "accessService", data.any_other_services);
             },
 
             //Adding and Updating  a service logic

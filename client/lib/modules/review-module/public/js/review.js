@@ -1,4 +1,10 @@
 var API_URI = "/modules/review-module";
+
+window.history.forward(); 
+function noBack() { 
+    window.history.forward(); 
+}
+
 $(document).ready(function () {
     var app = new Vue({
         el: '#review-form',
@@ -89,7 +95,7 @@ $(document).ready(function () {
         mounted: function () {
             this.paramValues = getParameter(location.href)
             this.section5Labels = section5Labels;
-            this.userRole = this.paramValues[1];
+            this.userRole = document.getElementById('uRole').innerHTML;
             if (this.userRole === 'child') {
                 this.yourInfo = 'Child/Young person';
                 this.section5Labels.aboutLabel = "About you";
@@ -106,10 +112,10 @@ $(document).ready(function () {
                 this.section5Labels.referralLabel = "The child's reason for referral";
 
             }
-            this.userId = this.paramValues[0];
+            this.userId = document.getElementById('uUid').innerHTML;
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
-            console.log(this.payloadData);
+          //  console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
 
         },
@@ -125,13 +131,13 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        console.log(data)
+                    //    console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
-                        _self.section1Data.child_dob = convertDate(data.section1.child_dob);
+                        _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
 
                         if (_self.section4Data.other_reasons_referral) {
                             if (Array.isArray(_self.section4Data.reason_for_referral)) {
@@ -187,7 +193,8 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
                     console.log(successData);
                     if (Object.keys(successData)) {
-                        location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
+                       // location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
+                       location.href = "/acknowledge";
                         this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
@@ -198,10 +205,20 @@ $(document).ready(function () {
                 }
             },
 
+            preventWhiteSpaces: function (e) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    return false;
+                } else {
+                    return true;
+                }
+            },
+
+
             editAllSection: function (page) {
-                this.userId = this.paramValues[0];
-                this.userRole = this.paramValues[1];
-                var parameter = this.userId + "&" + this.userRole + "&" + "sec5back"
+                this.userId = document.getElementById('uUid').innerHTML
+                this.userRole =document.getElementById('uRole').innerHTML;
+                //var parameter = this.userId + "&" + this.userRole + "&" + "sec5back"
+                var parameter = "sec5back"
                 var enCodeParameter = btoa(parameter)
                 location.href = "/" + page + "?" + enCodeParameter
             },
@@ -256,8 +273,9 @@ $(document).ready(function () {
 
                 var mmChars = mm.split('');
                 var ddChars = dd.split('');
-
-                return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+                var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
+                // return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
+                return showDate;
             },
 
             updateEligibility: function (updateObj) {
@@ -287,7 +305,11 @@ $(document).ready(function () {
 
             },
 
-            onDetectChange: function (e, toSection) {
+            onDetectChange: function (e, toSection, section, key) {
+                if (e.target.value && !e.target.value.replace(/ /g, "").length) {
+                    this[section][key] = e.target.value.trim();
+                    return false;
+                }
                 var buttonElem = document.querySelector('#' + toSection);
                 if (toSection == "sect1") {
                     if (JSON.stringify(this.prevSection1Data) === JSON.stringify(this.section1Data)) {
@@ -354,9 +376,9 @@ $(document).ready(function () {
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
                         this.payloadData.endPoint = endpoint
-                        if (this.editPatchFlag) {
-                            this.payloadData.editFlag = this.paramValues[2]
-                        }
+                        // if (this.editPatchFlag) {
+                        //     this.payloadData.editFlag = this.paramValues[2]
+                        // }
 
                         if (this.userMode === 'edit') {
                             this.payloadData.userMode = 'edit';

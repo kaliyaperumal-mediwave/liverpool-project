@@ -2,7 +2,7 @@
 // stylesheet by default, and to use jQuery 3.x
 
 module.exports = {
-  jQuery: 3,
+  //jQuery: 3,
   stylesheets: [
     {
       name: 'site'
@@ -17,11 +17,32 @@ module.exports = {
     {
       name: 'site'
     },
+    // {
+    //   name: 'jquery.min'
+    // },
+    {
+      name: 'jquery.cookie'
+    },
+    {
+      name: 'autocomplete'
+    },
+    {
+      name: 'popper.min'
+    },
+    {
+      name: 'bootstrap.min'
+    },
+    {
+      name: 'swiper'
+    },
+    {
+      name: process.env.ENV === 'development' ? 'vue' : 'vue.min'
+    },
     {
       name: 'utilities'
     },
     {
-      name: process.env.ENV === 'development' ? 'vue' : 'vue.min'
-    }
+      name: 'filters'
+    },
   ]
 };

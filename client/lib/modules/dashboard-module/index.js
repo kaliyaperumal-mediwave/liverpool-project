@@ -1,12 +1,10 @@
-// module.exports = {
-//   extend: 'apostrophe-module',
-//   label: 'Dashboard Module',
-//   construct: function (self, options, callback) {
 
 //   }
 // };
+// remove unused var
 const { btoa } = require('../../utils')
 const { atob } = require('../../utils')
+var _ = require('lodash');
 module.exports = {
   extend: 'apostrophe-custom-pages',
   label: 'Dashboard Module',
@@ -14,80 +12,99 @@ module.exports = {
     self.addDispatchRoutes();
   },
   construct: function (self, options) {
+    require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.landing);
+      self.dispatch('/', self.middleware.checkAuth, self.landing);
     };
-    self.landing = function (req, callback) {
-      var logoPath,aboutPage,termPage,privacyPage,feedbackPage,contactPage,navigateMkeRfrl,navigateViewRfrl,urgentHelpPage,mentalHeathPage,resourcesPage;
-      logoPath="/dashboard?"+req.url.substring(req.url.indexOf("?") + 1)
-      aboutPage="/pages/about?"+req.url.substring(req.url.indexOf("?") + 1);
-      termPage = "/pages/terms?"+req.url.substring(req.url.indexOf("?") + 1);
-      privacyPage = "/pages/privacy?"+req.url.substring(req.url.indexOf("?") + 1);
-      feedbackPage = "/pages/feedback?"+req.url.substring(req.url.indexOf("?") + 1);
-      contactPage = "/pages/contact?"+req.url.substring(req.url.indexOf("?") + 1);
-      navigateViewRfrl = "/viewreferals?"+req.url.substring(req.url.indexOf("?") + 1);
-      urgentHelpPage = "/pages/urgent-help?"+req.url.substring(req.url.indexOf("?") + 1);
-      mentalHeathPage="/mental-health?"+req.url.substring(req.url.indexOf("?") + 1);
-      resourcesPage ="/resources?"+req.url.substring(req.url.indexOf("?") + 1);
-      showLogout=true;
-      var deCodeParameter;
-      const getParams = req.url.substring(req.url.indexOf("?") + 1);
-      const deCodeGetParams = atob(getParams);
-      let decodeValuesGetParams = deCodeGetParams.split("&");
-      console.log("---->"+decodeValuesGetParams[0]);
-      if(decodeValuesGetParams[0]!="loginFlag")
-      {
-        console.log("--if-->"+decodeValuesGetParams[0]);
-        deCodeParameter = "loginFlag&" + atob(getParams);
-      }
-      else
-      {
-        console.log("--else-->"+decodeValuesGetParams[0]);
-        deCodeParameter = atob(getParams);
-      }
-     // let decodeValues = deCodeParameter.split("&");
-     navigateMkeRfrl =  "/make-referral?" + btoa(deCodeParameter);
-   //  console.log(deCodeParameter)
+    self.landing = async function (req, callback) {
+      var Resources = await self.apos.modules['Resources-pages'].pieces.find(req, {}).toArray();
+      var ThingsToWatchArray = await self.apos.modules['liverpool-watch-pages'].pieces.find(req, {}).toArray();
+      var ThingsToWatch = _.map(ThingsToWatchArray, (item) => {
+        item.custom_url = "/watch?piece_id=" + item._id
+        return item;
+      })
+      var ThingsToReadArray = await self.apos.modules['liverpool-read-pages'].pieces.find(req, {}).toArray();
+      var ThingsToRead = _.map(ThingsToReadArray, (item) => {
+        item.custom_url = "/read?piece_id=" + item._id
+        return item;
+      })
+      var GamesArray = await self.apos.modules['liverpool-games-pages'].pieces.find(req, {}).toArray();
+      var Games = _.map(GamesArray, (item) => {
+        item.custom_url = "/games?piece_id=" + item._id
+        return item;
+      })
+      var EventsArray = await self.apos.modules['liverpool-events-pages'].pieces.find(req, {}).toArray();
+      var Events = _.map(EventsArray, (item) => {
+        item.custom_url = "/events?piece_id=" + item._id
+        return item;
+      })
+
+      var PartnerAgenciesArray = await self.apos.modules['liverpool-Partner-agencies-pages'].pieces.find(req, {}).toArray();
+      var PartnerAgencies = _.map(PartnerAgenciesArray, (item) => {
+        item.custom_url = "/partner?piece_id=" + item._id
+        return item;
+      })
+      var AboutService = await self.apos.modules['liverpool-about-service-pages'].pieces.find(req, {}).toArray();
+      var PeopleService = await self.apos.modules['liverpool-mental-health-pages'].pieces.find(req, {}).toArray();
+
+      piecesArray = Resources.concat(ThingsToWatch, ThingsToRead, Games, Events, PartnerAgencies, AboutService, PeopleService)
+
       return self.sendPage(req, self.renderer('dashboard', {
         showHeader: true,
         home: true,
-        showLogout: showLogout,
         hideRefButton: true,
-        showLogout: showLogout,
-        logoPath:logoPath,
-        aboutPage:aboutPage,
-        termPage:termPage,
-        privacyPage:privacyPage,
-        feedbackPage:feedbackPage,
-        contactPage:contactPage,
-        navigateViewRfrl:navigateViewRfrl,
-        navigateMkeRfrl:navigateMkeRfrl,
-        urgentHelpPage:urgentHelpPage,
-        mentalHeathPage:mentalHeathPage,
-        resourcesPage:resourcesPage
+        piecesArray: piecesArray
       }));
     };
-    require('../../middleware')(self, options);
-    self.route('get', 'getIncompleteReferral/:loginId/:userRole', function (req, res) {
-      console.log(req.params.loginId);
-      // console.log(req.params.userRole); 
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral?loginId=' + req.params.loginId + "&userRole=" + req.params.userRole;
+    // need a change loginId/:userRole
+    self.route('get', 'getIncompleteReferral', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getIncompleteReferral';
+      console.log(url)
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
         return res.status(error.statusCode).send(error.error);
       });
     });
+    // need a change loginId/:userRole
 
-    self.route('get', 'getUserReferral/:loginId', function (req, res) {
-      console.log(req.params.loginId);
-      // console.log(req.params.userRole); 
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?loginId=' + req.params.loginId
+    self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
+        if(error.statusCode==401)
+        {//unauthorized access
+          console.log(error.statusCode)
+          req.session.destroy();
+        }
+         return res.status(error.statusCode).send(error.error);
+       });
+    });
+    self.route('get', 'getUserIncompleteReferral/:referralType', function (req, res) {
+      console.log("----------------------------------------------------- " + req.params.referralType);
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?referralType=' + req.params.referralType;
+      console.log("-------");
+      console.log(url);
+      console.log("-------");
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+       if(error.statusCode==401)
+       {//unauthorized access
+         console.log(error.statusCode)
+         req.session.destroy();
+       }
         return res.status(error.statusCode).send(error.error);
       });
+    });
+
+
+    self.route('get', 'continueIncompleteReferral/:uuid/:role/:refProgress', function (req, res) {
+      //setting user role and uuid in session to navigate referral pages
+      req.session.user_role = req.params.role;
+      req.session.uuid = req.params.uuid;
+      return res.send(req.params.refProgress);
     });
   }
 }
