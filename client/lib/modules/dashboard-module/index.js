@@ -69,6 +69,7 @@ module.exports = {
     // need a change loginId/:userRole
 
     self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
+      console.log("----------------------dashboard------------------------------- " + req.params.reqCode);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
@@ -82,7 +83,7 @@ module.exports = {
        });
     });
     self.route('get', 'getUserIncompleteReferral/:referralType', function (req, res) {
-      console.log("----------------------------------------------------- " + req.params.referralType);
+      console.log("---------------------dashboard-------------------------------- " + req.params.referralType);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?referralType=' + req.params.referralType;
       console.log("-------");
       console.log(url);
