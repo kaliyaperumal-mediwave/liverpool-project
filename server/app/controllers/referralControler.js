@@ -2666,20 +2666,33 @@ exports.getReferalByCode = ctx => {
 }
 
 exports.searchReferalByCode = ctx => {
-
-  console.log("==searchReferalByCode=>", ctx.request.decryptedUser);
-  console.log(ctx.query.reqCode);
-
   const ref = ctx.orm().Referral;
+  if(!ctx.request.decryptedUser) //checking login user or not.for logged user we must fetch referrals made by them. 
+  {
+    return ref.findAll({
+      where: {
+        reference_code: ctx.query.reqCode,
+      },
+    }).then((result) => {
+      console.log(result);
+      return ctx.body = result
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+  }
+  else
+  {
+    return ref.findAll({
+      where: {
+        reference_code: ctx.query.reqCode,
+        login_id:ctx.request.decryptedUser.id
+      },
+    }).then((result) => {
+      console.log(result);
+      return ctx.body = result
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+  }
 
-  return ref.findAll({
-    where: {
-      reference_code: ctx.query.reqCode,
-    },
-  }).then((result) => {
-    console.log(result);
-    return ctx.body = result
-  }).catch((error) => {
-    sequalizeErrorHandler.handleSequalizeError(ctx, error)
-  });
 }
