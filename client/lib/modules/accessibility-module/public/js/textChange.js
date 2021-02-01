@@ -1,7 +1,6 @@
 $(document).ready(function () {
-    var current = 16;
-    $('.resize_range').on('change', function () {
-        debugger
+    var current = 18;
+    $('input[type=radio][name=font]').on('change', function () {
         console.log(" vacurrentlue", $(this).val())
         var change = $(this).val();
         if (Number(change) >= 16) {
