@@ -195,7 +195,7 @@ a {
 }
 
 .logout-font {
-  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include xs-screen {
     font-size: 18px !important;
   }

@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block extraBody %}
 <script src="/modules/footer-pages-module/js/terms.js"></script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 {% block main
 %}
@@ -69,7 +70,7 @@
         </div>
     </div>
 
-    {% include "../../shared-referal-module/views/referral.html" %}
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
     <!-- <div class="sub-header-bg my-5">
         <div class="col-md-9 col-lg-7 col-xl-7 py-3 col-12 mx-auto">
