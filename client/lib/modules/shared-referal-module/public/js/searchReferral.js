@@ -37,4 +37,6 @@ $(document).ready(function () {
     $("#toSearchRefCode").on('input', function () {
         $("#dispErrMsg").html("");
     });
+
+    console.log(document.getElementById('loginUserFlag').innerHTML)
 });
