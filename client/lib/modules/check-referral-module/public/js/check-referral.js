@@ -30,6 +30,7 @@ $(document).ready(function () {
             }
             this.viewReferralObj.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
+            this.viewReferralObj.loginUserFlag = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
             this.getUserReferral(this.viewReferralObj.referralType);
         },
 
