@@ -2,7 +2,7 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#ChangeTextSizePage',
         data: {
-            
+            textSizeData: ''
         },
         beforeMount: function () {
             $('#loader').show();
@@ -15,7 +15,9 @@ $(document).ready(function () {
         },
 
         methods: {
-
+            changeTextSize: function() {
+                console.log('clicked');
+            }
         }
 
     })

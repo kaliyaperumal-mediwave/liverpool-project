@@ -5,6 +5,13 @@ module.exports = {
   pluralLabel: 'Things to Watch',
   addFields: [
     {
+      name: 'Topic',
+      label: 'Topic',
+      type: 'string',
+      def: 'Watch',
+      readOnly: true
+    },
+    {
       name: 'title',
       label: 'Title',
       type: 'string',
@@ -34,7 +41,7 @@ module.exports = {
   arrangeFields: [{
       name: 'watch',
       label: 'watch',
-      fields: ['title','SubTitle','text','video']
+      fields: ['Topic','title','SubTitle','text','video']
     },
     {
       name: 'admin',

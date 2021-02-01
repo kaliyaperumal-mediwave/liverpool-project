@@ -782,8 +782,6 @@ body {
     border: none !important; }
   body .dropdown-divider {
     border-top: 1px solid #023047 !important; }
-  body .z-i-vallue .pac-container {
-    z-index: 400 !important; }
   body .pac-container {
     z-index: 10000 !important; }
   body .h-112 {
@@ -823,6 +821,9 @@ body {
     cursor: pointer;
     padding: 15px;
     border-radius: 4px; }
+  body .stop-scrolling {
+    height: 100% !important;
+    overflow: hidden !important; }
 
 /*Logo Height style Start */
 a {
@@ -1206,6 +1207,19 @@ a {
       font-size: 19px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .header-title {
+      font-size: 20px !important; } }
+
+.custom-css-tag > a {
+  font-weight: bold;
+  color: #ffffff !important; }
+  @media (max-width: 575.98px) {
+    .custom-css-tag > a {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .custom-css-tag > a {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .custom-css-tag > a {
       font-size: 20px !important; } }
 
 .secondary-header-title {
@@ -2135,7 +2149,10 @@ select.selectIcon {
   background-color: #112f45;
   border: none;
   position: relative;
-  bottom: 40px; }
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .float-btn-cont {
   float: right;
@@ -2310,7 +2327,8 @@ body .ui-widget {
   max-height: 180px !important;
   overflow: auto;
   max-width: 330px;
-  padding: 6px; }
+  padding: 6px;
+  z-index: 440 !important; }
   @media (min-width: 320px) and (max-width: 424px) {
     body .ui-widget {
       max-width: 230px;
@@ -3062,11 +3080,13 @@ html #slide-test-5 {
   max-height: 3.6em;
   line-height: 1.8em; }
 
-.swiper-button-next, .swiper-container-rtl .swiper-button-prev {
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
   background-image: url("/modules/my-apostrophe-assets/img/slider_next.svg") !important;
   background-size: 20px !important; }
 
-.swiper-button-prev, .swiper-container-rtl .swiper-button-next {
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
   background-image: url("/modules/my-apostrophe-assets/img/slider_prev.svg") !important;
   background-size: 20px !important; }
 
@@ -3077,6 +3097,7 @@ html #slide-test-5 {
 .swiper-scrollbar-drag {
   background-color: #707070 !important;
   border-radius: 50px !important; }
+
 .hinttext p {
   font-size: 14px;
   font-weight: bold;
@@ -3093,3 +3114,6 @@ html #slide-test-5 {
   font-weight: bold;
   color: #023047;
   margin-bottom: 0 !important; }
+
+.invalid-feedback {
+  font-weight: 500 !important; }

@@ -12,6 +12,10 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.referral);
     };
     self.referral = function (req, callback) {
+      if(!req.session.user_role)
+      {
+        return req.res.redirect("/")
+      }
       let labels;
       let decryptedUrl;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);

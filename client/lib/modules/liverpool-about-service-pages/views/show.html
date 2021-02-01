@@ -14,6 +14,8 @@
 {% set piece = data.piece %}
 
 {% block main %}
+{% include "../../shared-referal-module/views/header.html" %}
+
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
         <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow"></a>
@@ -44,7 +46,7 @@
                             <div class="d-flex align-items-center">
                                 <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
                                     class="px-1 px-md-2 cursor-pointer" alt="">
-                                <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                <p class="question-font my-0 mx-2 mx-md-4"> {{item.Topic}}
                                 </p>
                                 <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
                                     <li>{{item.type}}</li>

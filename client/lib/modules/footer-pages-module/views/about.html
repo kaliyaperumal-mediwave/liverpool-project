@@ -63,124 +63,13 @@
             }
             }) }}
             </div>
-        
-        </div>
-    </div>
-
-    <div class="sub-header-bg my-5 setHadPad">
-        <div class=" mx-auto container-referal ">
-            <div>
-                <div class="row w-100 mx-auto">
-                    <div class="">
-                        <h2 class="home-referral-primary my-2 my-md-3">Referrals</h2>
-                        <p class="referral-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto">
-                    <div class="input-group w-100 bg-fafa border-radius-10">
-                        <input class="height-44 home-primarySearch-bg border-0 suffix-form-control py-2"
-                            type="search" placeholder="Search referrals" id="example-search-input" v-model="searchRefObj.refCode" @input="getRefCode($event)">
-                        <span class="input-group-append shape_and_center cursor-pointer">
-                            <div class="home-secondarySearch-bg w-100">
-                                <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23"></i>
-                                </span>
-                            </div>
-                        </span>
-                    </div>
-                </div>
-                <small v-if = "searchRefObj.errMsg == true && getStringLength(searchRefObj.refCode) > 0" id="chkReferral" class="form-text helper-text-evolved">Not found</small>
-                <small v-if = "searchRefObj.validateErrMsg == true && (searchRefObj.refCode == '' ||  searchRefObj.refCode == undefined) " id="chkReferral" class="form-text  helper-text-evolved">Please type referrance code to search</small>
-                <div class="py-4 text-left d-flex">
-                    <button type="button" @click="searchReferral()"
-                        class="btn px-md-4 py-1 px-3 mx-auto w-100"><span class="btn-quaternary-text">CHECK A
-                            REFERRAL
-                        </span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex flexibility-screen">
-        <div class="row mr-0 ml-0 w-100">
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Ypas.png" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Fresh_alder.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Bully_buster.jpg" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/ADHD_logo.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Kooth_logo.jpg" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Mersey_care.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Raise.jpg" class="sponsor-image-tag" alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Edys_logo.png" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Addvanced_solutions.jpg" class="sponsor-image-tag"
-                        alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Liverpool_camhs_logo.png" class="sponsor-image-tag "
-                        alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 "
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Believe_in_barbardos.jpg" class="sponsor-image-tag"
-                        alt="">
-                </div>
-            </div>
-            <div class="cursor-pointer event-setOf-padding col-6 col-sm-4 col-md-3 col-lg-3 col-xl-2"
-                @click="navigatePage('/users/login')">
-                <div class="text-center ">
-                    <img src="/modules/my-apostrophe-assets/img/Spinning_World.jpg" class="sponsor-image-tag " alt="">
-                </div>
-            </div>
 
         </div>
     </div>
+    {% include "../../shared-referal-module/views/referral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
+
+
 
 </div>
 {% endblock %}

@@ -3,7 +3,14 @@ module.exports = {
   name: 'gamesPage',
   label: 'Games',
   pluralLabel: 'Games',
-  addFields: [{
+  addFields: [
+    {
+      name: 'Topic',
+      label: 'Topic',
+      type: 'string',
+      def: 'Games',
+      readOnly: true
+    },{
       name: 'title',
       label: 'Title',
       type: 'string',
@@ -36,7 +43,7 @@ module.exports = {
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['title','thumbnail','games_title','text']
+      fields: ['Topic','title','thumbnail','games_title','text']
     },
     {
       name: 'admins',

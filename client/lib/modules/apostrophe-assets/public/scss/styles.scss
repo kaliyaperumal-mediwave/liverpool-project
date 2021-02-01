@@ -182,6 +182,10 @@ body {
     padding: 15px;
     border-radius: 4px;
   }
+  .stop-scrolling {
+    height: 100% !important;
+    overflow: hidden !important;
+  }
 }
 
 /*Logo Height style Start */
@@ -560,9 +564,9 @@ a {
   @include md-screen {
     @include set-dynamicFont($tertiary-smFont-size, 2);
   }
-  ul li{
-        list-style: inside;
-        margin-bottom: 8px;
+  ul li {
+    list-style: inside;
+    margin-bottom: 8px;
   }
 }
 
@@ -595,7 +599,20 @@ a {
     font-size: 20px !important;
   }
 }
-
+// custom css on a tag inside para
+.custom-css-tag > a {
+  font-weight: bold;
+  color: $header-text-color !important;
+  @include xs-screen {
+    font-size: 18px !important;
+  }
+  @include sm-screen {
+    font-size: 19px !important;
+  }
+  @include md-screen {
+    font-size: 20px !important;
+  }
+}
 .secondary-header-title {
   @include set-titleStyles($quaternary-font-size, bold, $header-text-color);
   @include xs-screen {
@@ -620,10 +637,10 @@ a {
   @include md-screen {
     @include set-dynamicFont($secondary-mdFont-size, 4);
   }
-  h3{
+  h3 {
     font-size: 24px;
-font-weight: bold;
-color: #023047;
+    font-weight: bold;
+    color: #023047;
   }
 }
 
@@ -640,12 +657,12 @@ color: #023047;
     @include set-dynamicFont($quaternary-font-size, 1);
   }
   @include set-dynamicLineHeight($quaternary-font-size);
-  h4{
+  h4 {
     font-size: 18px;
-    }
-    a strong{
-      text-decoration: underline;
-    }
+  }
+  a strong {
+    text-decoration: underline;
+  }
 }
 
 .question-header-font {
@@ -762,7 +779,7 @@ color: #023047;
 
 .question-font {
   @include set-titleStyles($quaternary-font-size, normal, $primary-color);
-  h2{
+  h2 {
     font-size: 22px;
     font-weight: bold;
     color: #023047;
@@ -1552,6 +1569,9 @@ select.selectIcon {
   border: none;
   position: relative;
   bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .float-btn-cont {
   float: right;
@@ -2467,26 +2487,26 @@ $color-scheme: (
 .text-label-hide::before {
   display: none !important;
 }
-.h-2-182{
+.h-2-182 {
   // height: 182px;
-width: 100%;
+  width: 100%;
 }
 .m-b-min-8 {
   margin-bottom: -8px;
 }
-.heightSetReferral{
+.heightSetReferral {
   max-height: 500px;
   overflow: auto;
 }
-.not-found{
+.not-found {
   background: #fff;
-    border-radius: 10px;
-    display: flex;
-    padding: 8px 15px;
-    font-size: 12px;
-    margin-top: 10px;
+  border-radius: 10px;
+  display: flex;
+  padding: 8px 15px;
+  font-size: 12px;
+  margin-top: 10px;
 }
-.flexGrow{
+.flexGrow {
   flex-grow: 1;
   display: flex;
   align-items: center;
@@ -2494,63 +2514,67 @@ width: 100%;
 .text-complete-active {
   background-color: #dedede !important;
 }
-.helper-text-evolved{
+.helper-text-evolved {
   color: #f78501 !important;
   padding: 0px 10px;
   font-weight: bold;
 }
-.ellipse-text{
+.ellipse-text {
   display: block;
-      text-overflow: ellipsis;
-      word-wrap: break-word;
-      overflow: hidden;
-      max-height: 4.6em;
-      line-height: 1.8em;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 4.6em;
+  line-height: 1.8em;
 }
-.ellipse-text-large{
+.ellipse-text-large {
   display: block;
-      text-overflow: ellipsis;
-      word-wrap: break-word;
-      overflow: hidden;
-      max-height: 3.6em;
-      line-height: 1.8em;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.6em;
+  line-height: 1.8em;
 }
 
-// slider arrow 
-.swiper-button-next, .swiper-container-rtl .swiper-button-prev{
+// slider arrow
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
   background-image: url("/modules/my-apostrophe-assets/img/slider_next.svg") !important;
   background-size: 20px !important;
 }
 
-.swiper-button-prev, .swiper-container-rtl .swiper-button-next{
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
   background-image: url("/modules/my-apostrophe-assets/img/slider_prev.svg") !important;
   background-size: 20px !important;
 }
 
-.swiper-scrollbar{
+.swiper-scrollbar {
   background-color: $header-text-color !important;
   border-radius: 50px !important;
 }
-.swiper-scrollbar-drag{
+.swiper-scrollbar-drag {
   background-color: #707070 !important;
   border-radius: 50px !important;
 }
 
-.hinttext p{
+.hinttext p {
   font-size: 14px;
-    font-weight: bold;
-    color: #023047;
+  font-weight: bold;
+  color: #023047;
 }
-.button-text p{
+.button-text p {
   font-size: 26px;
   font-weight: bold;
   color: #023047;
   margin-bottom: 0 !important;
 }
-.btn-quaternary-text p{
-font-size: 26px;
-font-weight: bold;
-color: #023047;
-margin-bottom: 0 !important;
-
+.btn-quaternary-text p {
+  font-size: 26px;
+  font-weight: bold;
+  color: #023047;
+  margin-bottom: 0 !important;
+}
+.invalid-feedback {
+  font-weight: 500 !important;
 }
