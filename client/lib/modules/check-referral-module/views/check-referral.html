@@ -189,19 +189,21 @@
                     <div>
                         <span style="color: #D6D8D8;">
                             <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer"
-                                data-toggle="collapse" :href="'#collapseExample' + index" id="'collapseExample' + index"
+                                data-toggle="collapse" :href="'#collapseExample' + index + viewReferralObj.referralType" id="'collapseExample' + index"
                                 @click="toggleArrow($event)" role="button" aria-expanded="false"
                                 aria-controls="collapseExample"></i>
                         </span>
                     </div>
                 </div>
 
+                <div  class="collapse show collapse-container" :id="'collapseExample' + index + viewReferralObj.referralType">
+
                 <div v-for="(refObj, index1) in referrals.data" class=" justify-content-between align-items-center"
                     id="headingTwo">
                     <div class=" align-items-center">
                         <div class="collapse_title">
                             <div>
-                                <div class="collapse show collapse-container" :id="'collapseExample' + index">
+                                <div>
                                     <div v-if="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Date completed
                                     </div>
@@ -234,6 +236,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         {% endraw %}
