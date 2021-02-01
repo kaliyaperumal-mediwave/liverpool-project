@@ -85,3 +85,38 @@ exports.sendChangeMail = async ctx => new Promise((resolve, reject) => {
         }));
     }
 });
+
+exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
+    try {
+        const template = fs.readFileSync(path.join(`${__dirname}/./templates/feedback.html`), 'utf8');
+        let htmlTemplate = _.template(template);
+        htmlTemplate = htmlTemplate({
+            ratings: ctx.request.body.ratings,
+            comments: ctx.request.body.comments,
+        });
+        const data = {
+            from: config.email_from_address,
+            to: config.email_to_address,
+            subject: 'LIVERPOOL CAMHS - Feedback',
+            html: htmlTemplate,
+        };
+        Transport.sendMail(data, (err, res) => {
+            if (!err && res) {
+                logger.info(res);
+                ctx.res.ok({
+                    message: 'Feedback mail successfully sent',
+                });
+                resolve();
+            } else {
+                ctx.res.internalServerError({
+                    message: 'Failed to sent feedback mail',
+                });
+                reject();
+            }
+        });
+    } catch (e) {
+        return resolve(ctx.res.internalServerError({
+            data: 'Failed to sent feedback mail',
+        }));
+    }
+});

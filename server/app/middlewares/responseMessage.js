@@ -12,5 +12,6 @@ const messageCodes = {
   1011: "Current password doesn't match",
   1012: 'Mail already registered at system ',
   1013: 'User not registered at Liverpool CAMHS ',
+  1014: 'Thank you for your valuable feedback!'
 };
 module.exports = messageCodes;
