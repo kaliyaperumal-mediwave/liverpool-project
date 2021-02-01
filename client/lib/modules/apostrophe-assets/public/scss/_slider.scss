@@ -1,0 +1,65 @@
+.slider-stats {
+    background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 62px
+      center/68% 4px;
+  
+    @include xxs-screen-between {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 42px
+        center/68% 4px;
+    }
+    @media (min-width: 576px) and (max-width: 720.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 84px
+        center/68% 4px;
+    }
+    @media (min-width: 721px) and (max-width: 767px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 104px
+        center/68% 4px;
+    }
+    @media (min-width: 778px) and (max-width: 1250.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 79px
+        center/68% 4px;
+    }
+    @media (min-width: 1251px) and (max-width: 1500.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 99px
+        center/68% 4px;
+    }
+    @media (min-width: 1501px) and (max-width: 1700.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 116px
+        center/68% 4px;
+    }
+    @media (min-width: 1701px) and (max-width: 1900.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 132px
+        center/68% 4px;
+    }
+    @media (min-width: 1901px) and (max-width: 2250.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 163px
+        center/67% 4px;
+    }
+    @media (min-width: 2251px) and (max-width: 2450.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 182px
+        center/67% 4px;
+    }
+    @media (min-width: 2451px) and (max-width: 2600.98px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 199px
+        center/67% 4px;
+    }
+    @media (min-width: 2601px) {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 210px
+        center/67% 4px;
+  }
+  }
+  .customize-radio::before {
+    width: 28px !important;
+    height: 28px !important;
+    top: 6px !important;
+  }
+  .customize-radio::after {
+    width: 16px !important;
+    height: 16px !important;
+    top: 12px !important;
+    left: 6px !important;
+  }
+  .text-slider-res {
+    position: absolute;
+    top: 30px;
+    right: 22px;
+  }

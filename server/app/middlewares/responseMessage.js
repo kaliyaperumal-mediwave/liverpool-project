@@ -10,7 +10,7 @@ const messageCodes = {
   1009: 'Link expired! Request again.',
   1010: 'Password reset successful! Try login with new password.',
   1011: "Your Old password doesn't match",
-  1012: 'Mail already registered at system ',
+  1012: 'That Email is taken. Try another.',
   1013: 'User not registered at Liverpool CAMHS ',
   1014: 'Thank you for your valuable feedback!'
 };

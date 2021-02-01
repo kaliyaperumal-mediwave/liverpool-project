@@ -132,11 +132,12 @@
 
 <script>
   $(document).ready(function () {
+    $('#uniqueLogo').hide();
     var isLoggedInUser = document.getElementById('loginUserFlag').innerHTML;
     if (isLoggedInUser == 'false') {
       $('#showLogoutText').hide();
-    } else if(isLoggedInUser == 'true')
-    {
+
+    } else if (isLoggedInUser == 'true') {
       $('#showLogoutText').show();
     }
   });
