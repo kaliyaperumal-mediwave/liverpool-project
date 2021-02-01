@@ -6,6 +6,7 @@
         return false;
     });
 </script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -119,7 +120,7 @@
         {% endif %}
         {% endfor %}
     </div>
-    {% include "../../shared-referal-module/views/referral.html" %}
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
 <!-- </div> -->
 
