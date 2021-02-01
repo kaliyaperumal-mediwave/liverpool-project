@@ -214,13 +214,15 @@ endblock %} {% block extraHead %}
   <div class="sub-header-bg">
 
     {% if data.headerContent and data.home %}
-    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-3 py-md-4 header-title custom-css-tag">
+    <h2
+      class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-3 py-md-4 header-title custom-css-tag">
       {{data.headerContent}}
     </h2>
     {% endif %}
 
     {% if data.headerContent and data.completed %}
-    <h2 class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title custom-css-tag">
+    <h2
+      class="text-center mx-auto col-md-12 mb-0 col-sm-12 col-xs-12 col-lg-11 col-xl-7 py-4 header-title custom-css-tag">
       {{data.headerContent}}
     </h2>
     {% endif %}
@@ -320,8 +322,8 @@ endblock %} {% block extraHead %}
     <!-- Delete Modal End -->
 
     <!-- Error Modal Start -->
-    <div class="modal fade" id="errorCommon" tabindex="-1" role="dialog" aria-labelledby="errorCommonLabel"
-      aria-hidden="true">
+    <div class="modal fade" id="errorCommon" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+      aria-labelledby="errorCommonLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bg">
           <div class="my-3">
@@ -334,7 +336,7 @@ endblock %} {% block extraHead %}
             <span style="color:#DD3939 !important">
               <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
             </span>
-            <h5 id="errorContent" class="text-danger logout-font mt-3">error content</h5>
+            <h5 id="errorContent" class="text-danger logout-font my-4">error content</h5>
           </div>
         </div>
       </div>
@@ -351,6 +353,7 @@ endblock %} {% block extraHead %}
 <p id="logId" class="d-none">{{data.loginId}}</p>
 <p id="uRole" class="d-none">{{data.userRole}}</p>
 <p id="uUid" class="d-none">{{data.uuid}}</p>
+<p id="loginUserFlag" class="d-none" >{{data.showLogout}}</p>
 <div class="footer-bg set-bottom-padding">
   <p class="d-none" id="uRole">{{data.showLogout}}</p>
   <div id="footer-placement" class="footer-bg footer set-bottom-padding">

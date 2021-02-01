@@ -69,6 +69,7 @@ function deleteLogic(arr, value, context, section) {
 
 //Common Modal for API error messages
 function showError(content) {
+    debugger
     if (!content) {
         content = "Something went wrong.Please try again"
     }
@@ -168,9 +169,9 @@ function apiCallPost(reqType, endPoint, payload) {
             $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
                 showError(error.responseJSON.message);
-                setTimeout(function () {
-                    $('#errorCommon').modal('hide');
-                }, 1000);
+                // setTimeout(function () {
+                //     $('#errorCommon').modal('hide');
+                // }, 1000);
             }
         }
     });

@@ -66,6 +66,7 @@ var apos = require("apostrophe")({
     "referral-complete-module": {},
     "feedback-module": {},
     "check-referral-module": {},
+    "shared-referal-module":{},
     "mental-health-module": {},
     "account-settings-module": {},
     "accessibility-module": {},

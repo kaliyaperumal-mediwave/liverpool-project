@@ -195,7 +195,7 @@ a {
 }
 
 .logout-font {
-  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include xs-screen {
     font-size: 18px !important;
   }
@@ -263,6 +263,11 @@ a {
 }
 
 /*Logo Height style End */
+
+.slider-bg {
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background-size: cover !important;
+}
 
 /* Landing Page style start */
 

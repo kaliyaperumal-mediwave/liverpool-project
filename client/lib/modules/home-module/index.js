@@ -49,6 +49,7 @@ module.exports = {
         return req.res.redirect("/dashboard");
       }
       else {
+        //req.session.destroy();
         return self.sendPage(req, self.renderer('home', {
           showHeader: false,
           piecesArray: piecesArray
