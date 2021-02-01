@@ -548,7 +548,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -738,14 +738,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -753,7 +753,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -761,21 +761,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -830,7 +830,7 @@ a {
   color: #023047 !important; }
 
 .logout-font {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #023047; }
   @media (max-width: 575.98px) {
@@ -1207,6 +1207,19 @@ a {
       font-size: 19px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .header-title {
+      font-size: 20px !important; } }
+
+.custom-css-tag > a {
+  font-weight: bold;
+  color: #ffffff !important; }
+  @media (max-width: 575.98px) {
+    .custom-css-tag > a {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .custom-css-tag > a {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .custom-css-tag > a {
       font-size: 20px !important; } }
 
 .secondary-header-title {
@@ -2136,7 +2149,10 @@ select.selectIcon {
   background-color: #112f45;
   border: none;
   position: relative;
-  bottom: 40px; }
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .float-btn-cont {
   float: right;
@@ -3064,6 +3080,24 @@ html #slide-test-5 {
   max-height: 3.6em;
   line-height: 1.8em; }
 
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+  background-image: url("/modules/my-apostrophe-assets/img/slider_next.svg") !important;
+  background-size: 20px !important; }
+
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  background-image: url("/modules/my-apostrophe-assets/img/slider_prev.svg") !important;
+  background-size: 20px !important; }
+
+.swiper-scrollbar {
+  background-color: #ffffff !important;
+  border-radius: 50px !important; }
+
+.swiper-scrollbar-drag {
+  background-color: #707070 !important;
+  border-radius: 50px !important; }
+
 .hinttext p {
   font-size: 14px;
   font-weight: bold;
@@ -3080,3 +3114,6 @@ html #slide-test-5 {
   font-weight: bold;
   color: #023047;
   margin-bottom: 0 !important; }
+
+.invalid-feedback {
+  font-weight: 500 !important; }
