@@ -5,7 +5,7 @@ module.exports = {
   pluralLabel: 'Resources',
   addFields: [
     {
-      name: 'topic',
+      name: 'Topic',
       label: 'Topic',
       type: 'string',
       def: 'Resources',
@@ -67,7 +67,7 @@ withType: 'partnerAgenciesPage',
     {
       name: 'title',
       label: 'Title',
-      fields: [ 'topic','title', 'text', 'tags','thumbnail','_readPage','_watchPage','_eventPage','_gamesPage','_partnerAgenciesPage']
+      fields: [ 'Topic','title', 'text', 'tags','thumbnail','_readPage','_watchPage','_eventPage','_gamesPage','_partnerAgenciesPage']
     },
     {
       name: 'admin',

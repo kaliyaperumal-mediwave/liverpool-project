@@ -70,4 +70,13 @@ const resetEmailValidation = data => {
   return schema.validate(data, options)
 }
 
-module.exports = { registerValidation, loginValidation, changePasswordValidation, resetEmailValidation, forgotPasswordValidation, resetPasswordValidation, changeEmailValidation };
+const feedbackValidation = data => {
+
+  const schema = Joi.object({
+    comments: Joi.string().max(1000).required(),
+    ratings: Joi.number().required()
+  })
+  return schema.validate(data, options)
+}
+
+module.exports = { registerValidation, loginValidation, changePasswordValidation, resetEmailValidation, forgotPasswordValidation, resetPasswordValidation, changeEmailValidation, feedbackValidation };

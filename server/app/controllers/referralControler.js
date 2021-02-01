@@ -2644,25 +2644,47 @@ exports.getReferalByCode = ctx => {
   console.log(ctx.query.reqCode);
 
   const ref = ctx.orm().Referral;
-
-  return ref.findAll({
-    where: {
-      login_id: ctx.request.decryptedUser.id,
-
-      reference_code :{
-        [Op.like]: '%'+ctx.query.reqCode +'%'
+  if(!ctx.request.decryptedUser) //checking login user or not.for logged user we must fetch referrals made by them. 
+  {
+    return ref.findAll({
+      where: {  
+        reference_code :{
+          [Op.like]: '%'+ctx.query.reqCode +'%'
+        },
+        referral_complete_status: 'completed'
       },
-      referral_complete_status: 'completed'
-    },
-    order: [
-      ['createdAt', 'DESC'],
-    ],
-  }).then((result) => {
-    console.log(result);
-    return ctx.body = result
-  }).catch((error) => {
-    sequalizeErrorHandler.handleSequalizeError(ctx, error)
-  });
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+    }).then((result) => {
+      console.log(result);
+      return ctx.body = result
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+  }
+  else
+  {
+    return ref.findAll({
+      where: {
+        login_id: ctx.request.decryptedUser.id,
+  
+        reference_code :{
+          [Op.like]: '%'+ctx.query.reqCode +'%'
+        },
+        referral_complete_status: 'completed'
+      },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+    }).then((result) => {
+      console.log(result);
+      return ctx.body = result
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+  }
+
 }
 
 exports.searchReferalByCode = ctx => {
