@@ -50,5 +50,6 @@ router.post('/user/forgotPassword', authController.forgotPassword);
 router.post('/user/resetPassword', authController.resetPassword);
 router.post('/user/resetEmail', authController.resetEmail);
 router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken);
+router.post('/user/feedback', authController.sendFeedback);
 
 module.exports = router;
