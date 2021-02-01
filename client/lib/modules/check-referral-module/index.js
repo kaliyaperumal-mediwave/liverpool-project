@@ -14,6 +14,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('check-referral', {
         showHeader: true,
         home: true,
+        loginFlag:req.data.showLogout
       }));
     };
     require('../../middleware')(self, options);
