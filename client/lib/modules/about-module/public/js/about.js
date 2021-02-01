@@ -235,7 +235,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
-                        this.allHouseHoldMembers = data[0].parent[0].household_member;
+                        if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
+                            this.allHouseHoldMembers = data[0].parent[0].household_member;
+                        } else {
+                            this.allHouseHoldMembers = [];
+                        }
                         Vue.set(this.aboutObj, "parentName", data[0].parent_name);
                         Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
@@ -342,6 +346,7 @@ $(document).ready(function () {
                         });
 
                     } else {
+                        debugger
                         houseHoldForm.id = uuidV4();
                         houseHoldForm.mode = 'add';
                         this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
