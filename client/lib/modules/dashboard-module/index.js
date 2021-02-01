@@ -48,7 +48,7 @@ module.exports = {
       var PeopleService = await self.apos.modules['liverpool-mental-health-pages'].pieces.find(req, {}).toArray();
 
       piecesArray = Resources.concat(ThingsToWatch, ThingsToRead, Games, Events, PartnerAgencies, AboutService, PeopleService)
-
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('dashboard', {
         showHeader: true,
         home: true,

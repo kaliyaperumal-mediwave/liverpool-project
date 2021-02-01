@@ -12,6 +12,11 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.about);
     };
     self.about = function (req, callback) {
+      //console.log("role:->:  " +req.session.user_role )
+      if(!req.session.user_role)
+      {
+        return req.res.redirect("/")
+      }
       const getParamsData = req.url.substring(req.url.indexOf("?") + 1);
       var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
       console.log(!base64Matcher.test(getParamsData))

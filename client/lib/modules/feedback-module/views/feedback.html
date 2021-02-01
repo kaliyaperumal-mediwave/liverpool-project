@@ -2,6 +2,7 @@
 
 {% block extraBody %}
     <script src="/modules/feedback-module/js/feedback.js"></script>
+    <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -178,6 +179,8 @@
             </div>
         </div>
     </div>
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
 
     {% raw %}
     <!-- Change Password Succuss Modal Start -->
