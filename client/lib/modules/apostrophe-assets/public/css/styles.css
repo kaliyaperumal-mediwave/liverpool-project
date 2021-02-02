@@ -1051,7 +1051,7 @@ a {
   font-size: 22px;
   font-weight: bold;
   color: #023047;
-  line-height: 32px !important; }
+  line-height: 27px !important; }
   @media (max-width: 575.98px) {
     .home-primary-content {
       font-size: 16px !important;
@@ -1064,24 +1064,23 @@ a {
     .home-primary-content {
       font-size: 20px !important;
       letter-spacing: 0.64px !important; } }
-
-.home-primary-content h3 {
-  font-size: 22px;
-  font-weight: bold;
-  color: #023047;
-  line-height: 32px !important; }
-  @media (max-width: 575.98px) {
-    .home-primary-content h3 {
-      font-size: 16px !important;
-      letter-spacing: 0.64px !important; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
-    .home-primary-content h3 {
-      font-size: 18px !important;
-      letter-spacing: 0.64px !important; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .home-primary-content h3 {
-      font-size: 20px !important;
-      letter-spacing: 0.64px !important; } }
+  .home-primary-content h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047;
+    line-height: 27px !important; }
+    @media (max-width: 575.98px) {
+      .home-primary-content h3 {
+        font-size: 16px !important;
+        letter-spacing: 0.64px !important; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .home-primary-content h3 {
+        font-size: 18px !important;
+        letter-spacing: 0.64px !important; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .home-primary-content h3 {
+        font-size: 20px !important;
+        letter-spacing: 0.64px !important; } }
 
 .home-secondary-content {
   font-size: 18px;
@@ -1265,7 +1264,7 @@ a {
   font-size: 20px;
   font-weight: normal;
   color: #023047;
-  line-height: 30px !important; }
+  line-height: 25px !important; }
   @media (max-width: 575.98px) {
     .footer-content {
       font-size: 16px !important; } }
@@ -1358,14 +1357,14 @@ a {
   font-size: 18px;
   font-weight: normal;
   color: #023047;
-  line-height: 28px !important; }
+  line-height: 23px !important; }
   @media (max-width: 575.98px) {
     .content-text {
       font-size: 15px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .content-text {
       font-size: 16px !important;
-      line-height: 32px !important; } }
+      line-height: 27px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .content-text {
       font-size: 17px !important; } }

@@ -55,7 +55,7 @@
 
 //set dynamic line height
 @mixin set-dynamicLineHeight($size) {
-  line-height: $size + 10 !important;
+  line-height: $size + 5 !important;
 }
 
 //set dynamic border radius
