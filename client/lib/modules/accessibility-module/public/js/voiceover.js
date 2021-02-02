@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var app = new Vue({
-        el: '#themePage',
+        el: '#voiceOverPage',
         data: {
             textSizeData: ''
         },

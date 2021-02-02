@@ -1,4 +1,3 @@
-console.log("loaded search referral")
 $(document).ready(function () {
     var API_URI = "/modules/dashboard-module";
     $("#doSearchReferral").click(function (event) {
@@ -15,10 +14,10 @@ $(document).ready(function () {
             success: function (data) {
                 $('#loader').hide();
                 if (data.length != 0) {
-                    location.href = "/viewreferals?" + btoa($('#toSearchRefCode').val());
+                    location.href = "/viewreferrals?" + btoa($('#toSearchRefCode').val());
                 }
                 else {
-                    $("#dispErrMsg").html("Not found. Please enter valid referrance code");
+                    $("#dispErrMsg").html("Not found. Please enter valid reference code");
                 }
             },
             error: function (error) {
@@ -27,7 +26,6 @@ $(document).ready(function () {
                     showError(error.responseJSON.message);
                     setTimeout(function () {
                         $('#errorCommon').modal('hide');
-                        // location.href = "/users/login";
                     }, 1000);
                 }
             }

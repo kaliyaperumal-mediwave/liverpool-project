@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-<script src="/modules/accessibility-module/js/theme.js"></script>
+<script src="/modules/accessibility-module/js/voiceover.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 
@@ -53,7 +53,7 @@
                 })
                 }}
             </div> -->
-            <h2 class="home-header-primary m-0 py-2">Change theme</h2>
+            <h2 class="home-header-primary m-0 py-2">Voice over</h2>
         </div>
     </div>
 
@@ -103,10 +103,16 @@
                         <i class="fa fa-volume-up px-1" aria-hidden="true"></i>
                         icon will appear on text that can be played
                     </h2>
-                    <label class="switch">
+                    <!-- <label class="switch">
                         <input type="checkbox" class="default">
                         <span class="slider round"></span>
-                    </label>
+                    </label> -->
+                    <div class="container">
+                        <label class="switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>

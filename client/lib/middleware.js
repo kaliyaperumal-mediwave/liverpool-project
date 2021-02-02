@@ -3,88 +3,88 @@ const request = require('request-promise');
 module.exports = function (self, options) {
   self.middleware = {
 
-    checkAuth:function (req,res,next){
+    checkAuth: function (req, res, next) {
       if (req.session.auth_token) {
-       req.data.loginId = req.session.loginIdUrl;
-       req.data.userRole = req.session.user_role;
-       req.data.logoPath = "/dashboard"
-       req.data.aboutPage = "/pages/about"
-       req.data.termPage = "/pages/terms"
-       req.data.privacyPage = "/pages/privacy"
-       req.data.feedbackPage = "/pages/feedback"
-       req.data.contactPage = "/pages/contact"
-       req.data.navigateViewRfrl = "/viewreferals"
-       req.data. urgentHelpPage = "/pages/urgent-help"
-       req.data.mentalHeathPage = "/mental-health"
-       req.data.resourcesPage = "/resources"
-       req.data.navigateMkeRfrl = "/make-referral"
-       req.data.showLogout = true;
+        req.data.loginId = req.session.loginIdUrl;
+        req.data.userRole = req.session.user_role;
+        req.data.logoPath = "/dashboard"
+        req.data.aboutPage = "/pages/about"
+        req.data.termPage = "/pages/terms"
+        req.data.privacyPage = "/pages/privacy"
+        req.data.feedbackPage = "/pages/feedback"
+        req.data.contactPage = "/pages/contact"
+        req.data.navigateViewRfrl = "/viewreferrals"
+        req.data.urgentHelpPage = "/pages/urgent-help"
+        req.data.mentalHeathPage = "/mental-health"
+        req.data.resourcesPage = "/resources"
+        req.data.navigateMkeRfrl = "/make-referral"
+        req.data.showLogout = true;
         return next();
       }
       else {
-        req.data.userRole =  req.session.user_role;
+        req.data.userRole = req.session.user_role;
         return req.res.redirect("/")
       }
     },
 
-    checkCommonPageAuth:function (req,res,next){
+    checkCommonPageAuth: function (req, res, next) {
       console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";
       req.data.feedbackPage = "/pages/feedback";
-      req.data.contactPage = "/pages/contact" ;
-      req.data.navigateViewRfrl = "/viewreferals" ;
+      req.data.contactPage = "/pages/contact";
+      req.data.navigateViewRfrl = "/viewreferrals";
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.navigateMkeRfrl = "/make-referral";
-      req.data. path = "/role";
+      req.data.path = "/role";
       if (req.session.auth_token) {
-       req.data.loginId = req.session.loginIdUrl;
-       req.data.userRole = req.session.user_role;
-       req.data.uuid = req.session.uuid;
-       req.data.logoPath = "/dashboard"
-       req.data.showLogout = true;
+        req.data.loginId = req.session.loginIdUrl;
+        req.data.userRole = req.session.user_role;
+        req.data.uuid = req.session.uuid;
+        req.data.logoPath = "/dashboard"
+        req.data.showLogout = true;
         return next();
       }
       else {
         req.data.logoPath = "/";
-        req.data.showLogout=false;
+        req.data.showLogout = false;
         req.data.loginId = "";
         req.data.uuid = req.session.uuid;
-        req.data.userRole =  req.session.user_role;
+        req.data.userRole = req.session.user_role;
         return next();
       }
     },
 
     //to clear uuid and userrole in referrance home page.
 
-    clearSessionReferral:function (req,res,next){
+    clearSessionReferral: function (req, res, next) {
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";
       req.data.feedbackPage = "/pages/feedback";
-      req.data.contactPage = "/pages/contact" ;
-      req.data.navigateViewRfrl = "/viewreferals" ;
+      req.data.contactPage = "/pages/contact";
+      req.data.navigateViewRfrl = "/viewreferrals";
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.navigateMkeRfrl = "/make-referral";
-      req.data. path = "/role";
+      req.data.path = "/role";
       console.log(req.session.auth_token)
       if (req.session.auth_token) {
-       req.data.loginId = req.session.loginIdUrl;
-       req.data.userRole = req.session.user_role;
-       delete req.session.uuid;
-       req.data.uuid = "";
-       req.data.logoPath = "/dashboard"
-       req.data.showLogout = true;
+        req.data.loginId = req.session.loginIdUrl;
+        req.data.userRole = req.session.user_role;
+        delete req.session.uuid;
+        req.data.uuid = "";
+        req.data.logoPath = "/dashboard"
+        req.data.showLogout = true;
         return next();
       }
       else {
         req.data.logoPath = "/";
-        req.data.showLogout=false;
+        req.data.showLogout = false;
         req.data.loginId = "";
         delete req.session.uuid;
         delete req.session.user_role;
@@ -257,36 +257,36 @@ module.exports = function (self, options) {
     //     });
     //   }
     // });
-return new Promise((resolve, reject) => {
-    console.log("----------------checkCommonPageAuth-----------------------");
-    req.data.aboutPage = "/pages/about";
-    req.data.termPage = "/pages/terms";
-    req.data.privacyPage = "/pages/privacy";
-    req.data.feedbackPage = "/pages/feedback";
-    req.data.contactPage = "/pages/contact" ;
-    req.data.navigateViewRfrl = "/viewreferals" ;
-    req.data.urgentHelpPage = "/pages/urgent-help";
-    req.data.mentalHeathPage = "/mental-health";
-    req.data.resourcesPage = "/resources";
-    req.data.navigateMkeRfrl = "/make-referral";
-    req.data. path = "/role";
-    if (req.session.auth_token) {
-     req.data.loginId = req.session.loginIdUrl;
-     req.data.userRole = req.session.user_role;
-     req.data.uuid = req.session.uuid;
-     req.data.logoPath = "/dashboard"
-     req.data.showLogout = true;
-      return resolve(req);
-    }
-    else {
-      req.data.logoPath = "/";
-      req.data.showLogout=false;
-      req.data.loginId = "";
-      req.data.uuid = req.session.uuid;
-      req.data.userRole =  req.session.user_role;
-      return resolve(req);
-    }
-  });
+    return new Promise((resolve, reject) => {
+      console.log("----------------checkCommonPageAuth-----------------------");
+      req.data.aboutPage = "/pages/about";
+      req.data.termPage = "/pages/terms";
+      req.data.privacyPage = "/pages/privacy";
+      req.data.feedbackPage = "/pages/feedback";
+      req.data.contactPage = "/pages/contact";
+      req.data.navigateViewRfrl = "/viewreferralss";
+      req.data.urgentHelpPage = "/pages/urgent-help";
+      req.data.mentalHeathPage = "/mental-health";
+      req.data.resourcesPage = "/resources";
+      req.data.navigateMkeRfrl = "/make-referral";
+      req.data.path = "/role";
+      if (req.session.auth_token) {
+        req.data.loginId = req.session.loginIdUrl;
+        req.data.userRole = req.session.user_role;
+        req.data.uuid = req.session.uuid;
+        req.data.logoPath = "/dashboard"
+        req.data.showLogout = true;
+        return resolve(req);
+      }
+      else {
+        req.data.logoPath = "/";
+        req.data.showLogout = false;
+        req.data.loginId = "";
+        req.data.uuid = req.session.uuid;
+        req.data.userRole = req.session.user_role;
+        return resolve(req);
+      }
+    });
   };
   self.setHeader = function (req) {
     let headers;
