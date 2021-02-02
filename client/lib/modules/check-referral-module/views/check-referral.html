@@ -7,7 +7,7 @@
 
 <div id="check-referral" class="main-min-height">
     {% raw %}
-    <div class="top-arrow-container">
+    <div  id="searchBar" class="top-arrow-container">
         <div class="input-group">
             <span class="input-group-prepend">
                 <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
@@ -63,7 +63,7 @@
                                         {{refObj.reference_code}}
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'incomplete'"
-                                        class="container float-btn-cont">
+                                        class="container pr-0 float-btn-cont">
                                         <button class="float-btn" type="button" @click="contineReferral(refObj)">
                                             <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                                         </button>
@@ -149,7 +149,7 @@
                                             {{refObj.reference_code}}
                                         </div>
                                         <div v-show="viewReferralObj.referralType == 'incomplete'"
-                                            class="container float-btn-cont">
+                                            class="container pr-0 float-btn-cont">
                                             <button class="float-btn" type="button" @click="contineReferral(refObj)">
                                                 <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                                             </button>
@@ -224,7 +224,7 @@
                                         {{refObj.reference_code}}
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'incomplete'"
-                                        class="container float-btn-cont">
+                                        class="container pr-0 float-btn-cont">
                                         <button class="float-btn" type="button" @click="contineReferral(refObj)">
                                             <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                                         </button>

@@ -72,13 +72,13 @@ body {
   }
 
   [data-theme="dark"] {
-    $primary-color: #FFFFFF;
+    $primary-color: #ffffff;
     $secondary-color: #353638;
     $header-color: #353940;
-    $placeholder-color:#FFFFFF;
+    $placeholder-color: #ffffff;
     $primary-input-color: #353638;
     $secondary-input-color: #353638;
-    $search-bar-color: #3A3E47;
+    $search-bar-color: #3a3e47;
   }
 
   .col-xl-6 {
@@ -110,7 +110,7 @@ body {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
       @extend %input-shared;
-      pointer-events: none !important;
+      // pointer-events: none !important;
     }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
@@ -119,7 +119,7 @@ body {
     }
     textarea {
       color: #8f979e !important;
-      pointer-events: none !important;
+      // pointer-events: none !important;
     }
     @include placeholder(#8f979e);
   }
@@ -404,7 +404,7 @@ a {
 
 .referral-inside-text {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
-  font-size: 17px !important;
+  font-size: 16px;
   font-weight: 400 !important;
   @include xl-screen {
     font-weight: bold !important;
@@ -1250,7 +1250,7 @@ a {
   display: flex;
   align-items: center;
   height: 54px;
-  border-bottom: 2px solid #112f45;
+  border-bottom: 1px solid #112f45;
 }
 .last-inside-cont-slider {
   padding: 17px;
@@ -1581,8 +1581,8 @@ select.selectIcon {
   background-color: #dedede;
 }
 .float-btn {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
   background-color: #112f45;
   border: none;
@@ -1599,7 +1599,7 @@ select.selectIcon {
 }
 .plus-fa-fa {
   color: #fafafa;
-  font-size: 24px;
+  font-size: 21px;
 }
 .text-not-complete {
   background-color: #fafafa;
@@ -2596,4 +2596,26 @@ $color-scheme: (
 }
 .invalid-feedback {
   font-weight: 500 !important;
+}
+.tooltip {
+  text-decoration: none;
+  border-bottom: none;
+  color: #36c;
+  outline: none;
+}
+.fa-chevron-circle-down:before {
+  content: "\f107" !important;
+  color: black;
+  background: #d4d4d4;
+  border-radius: 100%;
+  padding: 3px 7px 0px 7px;
+  font-weight: 500;
+}
+.fa-chevron-circle-up:before {
+  content: "\f106" !important;
+  color: black;
+  background: #d4d4d4;
+  border-radius: 100%;
+  padding: 0px 7px 2px 7px;
+  font-weight: 500;
 }
