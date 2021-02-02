@@ -128,7 +128,7 @@ $(document).ready(function () {
             },
             setValues: function (data) {
                 console.log(data)
-                 console.log("length "+data.length)
+                console.log("length " + data.length)
                 //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;

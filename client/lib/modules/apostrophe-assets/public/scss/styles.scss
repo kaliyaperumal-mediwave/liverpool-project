@@ -34,36 +34,31 @@ $header-font-size: 32px;
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
 }
 @font-face {
   font-family: "century-gothic";
   font-style: italic;
   font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf")
-    format("truetype");
+  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
 body {
@@ -74,6 +69,16 @@ body {
   input::-ms-clear,
   input::-ms-reveal {
     display: none;
+  }
+
+  [data-theme="dark"] {
+    $primary-color: #ffffff;
+    $secondary-color: #353638;
+    $header-color: #353940;
+    $placeholder-color: #ffffff;
+    $primary-input-color: #353638;
+    $secondary-input-color: #353638;
+    $search-bar-color: #3a3e47;
   }
 
   .col-xl-6 {
@@ -105,7 +110,7 @@ body {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
       @extend %input-shared;
-      pointer-events: none !important;
+      // pointer-events: none !important;
     }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
@@ -114,7 +119,7 @@ body {
     }
     textarea {
       color: #8f979e !important;
-      pointer-events: none !important;
+      // pointer-events: none !important;
     }
     @include placeholder(#8f979e);
   }
@@ -272,8 +277,7 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
-    fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -400,7 +404,7 @@ a {
 
 .referral-inside-text {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
-  font-size: 17px !important;
+  font-size: 16px;
   font-weight: 400 !important;
   @include xl-screen {
     font-weight: bold !important;
@@ -603,39 +607,41 @@ a {
 .header-title {
   @include set-titleStyles($tertiary-mdFont-size, bold, $header-text-color);
   @include xs-screen {
-    font-size: 18px !important;
+    font-size: 18px;
   }
   @include sm-screen {
-    font-size: 19px !important;
+    font-size: 19px;
   }
   @include md-screen {
-    font-size: 20px !important;
+    font-size: 20px;
   }
 }
+
 // custom css on a tag inside para
 .custom-css-tag > a {
   font-weight: bold;
   color: $header-text-color !important;
   @include xs-screen {
-    font-size: 18px !important;
+    font-size: 18px;
   }
   @include sm-screen {
-    font-size: 19px !important;
+    font-size: 19px;
   }
   @include md-screen {
-    font-size: 20px !important;
+    font-size: 20px;
   }
 }
+
 .secondary-header-title {
   @include set-titleStyles($quaternary-font-size, bold, $header-text-color);
   @include xs-screen {
-    font-size: 15px !important;
+    font-size: 15px;
   }
   @include sm-screen {
-    font-size: 16px !important;
+    font-size: 16px;
   }
   @include md-screen {
-    font-size: 17px !important;
+    font-size: 17px;
   }
 }
 
@@ -681,26 +687,26 @@ a {
 .question-header-font {
   @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include xs-screen {
-    font-size: 18px !important;
+    font-size: 18px;
   }
   @include sm-screen {
-    font-size: 19px !important;
+    font-size: 19px;
   }
   @include md-screen {
-    font-size: 20px !important;
+    font-size: 20px;
   }
 }
 
 .back-text {
   @include set-titleStyles(16px, bold, $header-text-color);
   @include xs-screen {
-    font-size: 15px !important;
+    font-size: 15px;
   }
   @include sm-screen {
-    font-size: 16px !important;
+    font-size: 16px;
   }
   @include md-screen {
-    font-size: 16px !important;
+    font-size: 16px;
   }
 }
 
@@ -711,13 +717,13 @@ a {
 .completed-toast-header {
   @include set-titleStyles($secondary-font-size, bold, $primary-color);
   @include xs-screen {
-    font-size: 18px !important;
+    font-size: 18px;
   }
   @include sm-screen {
-    font-size: 19px !important;
+    font-size: 19px;
   }
   @include md-screen {
-    font-size: 20px !important;
+    font-size: 20px;
   }
 }
 
@@ -812,8 +818,7 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
   background-size: cover !important;
   height: 100%;
 }
@@ -841,8 +846,7 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -1246,7 +1250,7 @@ a {
   display: flex;
   align-items: center;
   height: 54px;
-  border-bottom: 2px solid #112f45;
+  border-bottom: 1px solid #112f45;
 }
 .last-inside-cont-slider {
   padding: 17px;
@@ -1577,8 +1581,8 @@ select.selectIcon {
   background-color: #dedede;
 }
 .float-btn {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
   background-color: #112f45;
   border: none;
@@ -1595,7 +1599,7 @@ select.selectIcon {
 }
 .plus-fa-fa {
   color: #fafafa;
-  font-size: 24px;
+  font-size: 21px;
 }
 .text-not-complete {
   background-color: #fafafa;
@@ -2473,14 +2477,7 @@ $color-scheme: (
   (default, 32px, 24px, 22px, 18px, 14px),
   (large, 38px, 28px, 26px, 22px, 18px)
 );
-@mixin theme(
-  $name,
-  $primaryTextSize,
-  $secondaryTextSize,
-  $tertiaryTextSize,
-  $quaternaryTextSize,
-  $quinaryTextSize
-) {
+@mixin theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize) {
   .#{$name} {
     .home-header-primary {
       @include set-titleStyles($primaryTextSize, bold, $primary-color);
@@ -2500,17 +2497,10 @@ $color-scheme: (
     padding: 5px 15px;
   }
 }
-@each $name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize,
-  $quaternaryTextSize, $quinaryTextSize in $color-scheme
+@each $name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize,
+  $quinaryTextSize in $color-scheme
 {
-  @include theme(
-    $name,
-    $primaryTextSize,
-    $secondaryTextSize,
-    $tertiaryTextSize,
-    $quaternaryTextSize,
-    $quinaryTextSize
-  );
+  @include theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize);
 }
 /*  Text Size End */
 .text-label-hide::before {
@@ -2607,4 +2597,25 @@ $color-scheme: (
 .invalid-feedback {
   font-weight: 500 !important;
 }
-
+.tooltip {
+  text-decoration: none;
+  border-bottom: none;
+  color: #36c;
+  outline: none;
+}
+.fa-chevron-circle-down:before {
+  content: "\f107" !important;
+  color: black;
+  background: #d4d4d4;
+  border-radius: 100%;
+  padding: 3px 7px 0px 7px;
+  font-weight: 500;
+}
+.fa-chevron-circle-up:before {
+  content: "\f106" !important;
+  color: black;
+  background: #d4d4d4;
+  border-radius: 100%;
+  padding: 0px 7px 2px 7px;
+  font-weight: 500;
+}
