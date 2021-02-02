@@ -2607,4 +2607,8 @@ $color-scheme: (
 .invalid-feedback {
   font-weight: 500 !important;
 }
-
+@media (max-width: 450px) {
+p.referral-inside-text.my-2.my-md-3{
+  font-size: 14px !important;
+}
+}
