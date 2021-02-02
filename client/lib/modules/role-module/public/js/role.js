@@ -719,6 +719,7 @@ $(document).ready(function () {
             },
 
             onVaueChange: function (e, type, section, key) {
+              //  debugger
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this[section][key] = e.target.value.trim();
                     return false;

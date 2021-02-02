@@ -20,6 +20,17 @@ $urgent-help-color: #e55f5f;
 $validation-color: #dd3939;
 $placeholder-color:#0f1010 !important;
 
+[data-theme="dark"] {
+  $primary-color: #ffffff;
+  $secondary-color: #353638 !important;
+  $header-color: #353940;
+  $placeholder-color: #ffffff;
+  $primary-input-color: #353638;
+  $secondary-input-color: #353638;
+  $search-bar-color: #3a3e47;
+}
+
+
 /* Global Font Variables */
 $primary-lgFont-size: 40px;
 $secondary-lgFont-size: 38px;

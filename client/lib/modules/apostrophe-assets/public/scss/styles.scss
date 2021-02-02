@@ -61,6 +61,16 @@ $header-font-size: 32px;
   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
+[data-theme="dark"] {
+  $primary-color: #ffffff;
+  $secondary-color: #353638 !important;
+  $header-color: #353940;
+  $placeholder-color: #ffffff;
+  $primary-input-color: #353638;
+  $secondary-input-color: #353638;
+  $search-bar-color: #3a3e47;
+}
+
 body {
   font-family: "century-gothic" !important;
   overscroll-behavior-y: none !important;
@@ -69,16 +79,6 @@ body {
   input::-ms-clear,
   input::-ms-reveal {
     display: none;
-  }
-
-  [data-theme="dark"] {
-    $primary-color: #ffffff;
-    $secondary-color: #353638;
-    $header-color: #353940;
-    $placeholder-color: #ffffff;
-    $primary-input-color: #353638;
-    $secondary-input-color: #353638;
-    $search-bar-color: #3a3e47;
   }
 
   .col-xl-6 {
@@ -2510,6 +2510,7 @@ $color-scheme: (
 {
   @include theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize);
 }
+
 /*  Text Size End */
 .text-label-hide::before {
   display: none !important;

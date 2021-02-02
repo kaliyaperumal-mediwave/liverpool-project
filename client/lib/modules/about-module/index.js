@@ -12,7 +12,7 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.about);
     };
     self.about = function (req, callback) {
-      //console.log("role:->:  " +req.session.user_role )
+      console.log("role:->:  " +req.session.user_role )
       if(!req.session.user_role)
       {
         return req.res.redirect("/")
@@ -36,7 +36,7 @@ module.exports = {
       else if (req.session.user_role == 'professional') {
         labels = "Section 2 of 5: About the child /young person & their household";
       }
-
+      req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('about', {
         headerContent: labels,
         headerDescription: "Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",

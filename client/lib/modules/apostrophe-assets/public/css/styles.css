@@ -202,9 +202,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%; }
 
-body {
-  background-color: #f1f2f3; }
-
 .middleContainer:after {
   content: "";
   display: block; }
@@ -644,7 +641,7 @@ body {
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -832,14 +829,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -847,7 +844,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -855,21 +852,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -2461,12 +2458,12 @@ body .ui-widget .ui-menu-item {
   height: 56px !important;
   color: #023047 !important;
   left: 0px !important;
-  display: flex !important; }
+  display: none !important; }
   @media (min-width: 320px) and (max-width: 424px) {
     .custom-control-prev {
       width: 34px !important;
       height: 44px !important;
-      display: flex !important; } }
+      display: none !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .custom-control-prev {
       width: 50px !important;
@@ -2496,12 +2493,12 @@ body .ui-widget .ui-menu-item {
   height: 56px !important;
   color: #023047 !important;
   right: 0px !important;
-  display: flex !important; }
+  display: none !important; }
   @media (min-width: 320px) and (max-width: 424px) {
     .custom-control-next {
       width: 34px !important;
       height: 44px !important;
-      display: flex !important; } }
+      display: none !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .custom-control-next {
       width: 50px !important;
