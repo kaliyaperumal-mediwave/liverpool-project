@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1904" viewBox="0 0 1920 1904">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_2550" data-name="Rectangle 2550" width="1920" height="1904"/>
+    </clipPath>
+  </defs>
+  <g id="Desktop_Background" clip-path="url(#clip-path)">
+    <rect id="Rectangle_2549" data-name="Rectangle 2549" width="1920" height="1904" fill="#1d1d1b"/>
+    <path id="Path_14534" data-name="Path 14534" d="M1516.2,2672.571c-419.042,738.663-1118.714,667.3-587.307,1663.6s1166.221,815.3,1352.618-39.774,258.62-1624.305,44.005-1808.458S1516.2,2672.571,1516.2,2672.571Z" transform="translate(-732 -3116.259)" fill="#1d1d1b"/>
+    <path id="Path_14535" data-name="Path 14535" d="M1516.2,2579.736C1097.162,3028.008,397.49,2984.7,928.9,3589.326s1166.221,494.781,1352.618-24.137,258.62-985.743,44.005-1097.5S1516.2,2579.736,1516.2,2579.736Z" transform="translate(-732 -1315.572)" fill="#374b61"/>
+    <path id="Path_14536" data-name="Path 14536" d="M2234.275,3517.339c-15.514-9.306-182.468-209.335-528.3,0s-502.375,250.922-388.141,638.892,1358.889,996.425,1384.721,430.2S2234.275,3517.339,2234.275,3517.339Z" transform="translate(-589.693 -3253.081)" fill="#374b61"/>
+    <path id="Path_14537" data-name="Path 14537" d="M1211.709,3653.664c-62.2-402.755,628.849-86.914,924.763,135.32s434.835,991.934,119.538,996.325S1273.908,4056.419,1211.709,3653.664Z" transform="translate(-630.396 -2824.891)" fill="#1d1d1b"/>
+  </g>
+</svg>

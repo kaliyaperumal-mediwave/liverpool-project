@@ -35,11 +35,6 @@ $(document).ready(function () {
                         $('#loader').hide();
                         this.resetForm();
                         $('#changeEmailSuccess').modal('show');
-                        setTimeout(function () {
-                            $('#changeEmailSuccess').modal('hide');
-                            logOut()
-                        }, 1000);
-
                     } else {
                         $('#loader').hide();
                     }
@@ -51,6 +46,11 @@ $(document).ready(function () {
             resetForm: function () {
                 this.isFormSubmitted = false;
                 this.changeEmailData.newEmail = '';
+            },
+
+            closeModal: function() {
+                $('#changeEmailSuccess').modal('hide');
+                logOut();
             }
 
         }

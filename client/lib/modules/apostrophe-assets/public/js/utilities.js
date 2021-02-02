@@ -69,7 +69,6 @@ function deleteLogic(arr, value, context, section) {
 
 //Common Modal for API error messages
 function showError(content) {
-    debugger
     if (!content) {
         content = "Something went wrong.Please try again"
     }

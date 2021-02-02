@@ -59,29 +59,6 @@
 
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-            <!-- <div class="home-primary-content m-0 py-4 py-md-2 px-2 text-left">
-                {{
-                apos.area(data.page, 'feedbackText', {
-                widgets: {
-                'apostrophe-rich-text': {
-                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                styles: [
-                { name: 'Heading', element: 'h3' },
-                { name: 'Paragraph', element: 'p' }
-                ]
-                }
-                }
-                })
-                }}
-            </div> -->
-            <div class="home-primary-content m-0 py-4 py-md-2 px-2 text-left">
-                <h2 class="home-primary-content">An audio icon will appear on audio related text</h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex text-center py-md-3 py-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <!-- <div class="home-primary-content m-0 py-2 px-2 text-left">
                 {{
                 apos.area(data.page, 'feedbackSecondText', {
@@ -100,17 +77,39 @@
             <div class="m-0 py-4 py-md-2 px-2 text-left">
                 <div class="d-flex justify-content-sm-between">
                     <h2 class="home-primary-content">The
-                        <i class="fa fa-volume-up px-1" aria-hidden="true"></i>
-                        icon will appear on text that can be played
+                        Change your theme for better experience.
                     </h2>
                     <label class="switch">
-                        <input type="checkbox" class="default">
+                        <input type="checkbox" id="switchId" v-model="theme" @change="changeTheme($event)" class="default">
                         <span class="slider round"></span>
                     </label>
+                </div>
+                <div class="text-center mt-5">
+                    <button @click="saveTheme(textSizeData)" type="button" class="btn px-md-4 py-1 px-3"><span
+                            class="btn-secondary-text">SAVE</span></button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!--Change Theme Succuss Modal Start -->
+    <div class="modal fade" id="themeSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="themeSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" @click="closeModal()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 class="logout-font mt-3 text-center">Theme saved successfully.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Change Theme Succuss Modal End -->
 
     {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}

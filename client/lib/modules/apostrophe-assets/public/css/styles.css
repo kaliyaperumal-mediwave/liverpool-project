@@ -202,9 +202,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%; }
 
-body {
-  background-color: #f1f2f3; }
-
 .middleContainer:after {
   content: "";
   display: block; }
@@ -773,15 +770,13 @@ body {
     border-bottom: 1px solid #112f45 !important; }
   body .readOnly-class .form-control {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
-    color: #8f979e !important;
-    pointer-events: none !important; }
+    color: #8f979e !important; }
   body .readOnly-class .custom-select {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
     color: #8f979e !important;
     pointer-events: none !important; }
   body .readOnly-class textarea {
-    color: #8f979e !important;
-    pointer-events: none !important; }
+    color: #8f979e !important; }
   body .readOnly-class input[type="text"],
   body .readOnly-class input[type="password"],
   body .readOnly-class input[type="email"],
@@ -1126,7 +1121,7 @@ a {
   font-size: 18px;
   font-weight: bold;
   color: #fafafa;
-  font-size: 17px !important;
+  font-size: 16px;
   font-weight: 400 !important; }
   @media (min-width: 1200px) {
     .referral-inside-text {
@@ -1301,26 +1296,26 @@ a {
   color: #ffffff; }
   @media (max-width: 575.98px) {
     .header-title {
-      font-size: 18px !important; } }
+      font-size: 18px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .header-title {
-      font-size: 19px !important; } }
+      font-size: 19px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .header-title {
-      font-size: 20px !important; } }
+      font-size: 20px; } }
 
 .custom-css-tag > a {
   font-weight: bold;
   color: #ffffff !important; }
   @media (max-width: 575.98px) {
     .custom-css-tag > a {
-      font-size: 18px !important; } }
+      font-size: 18px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .custom-css-tag > a {
-      font-size: 19px !important; } }
+      font-size: 19px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .custom-css-tag > a {
-      font-size: 20px !important; } }
+      font-size: 20px; } }
 
 .secondary-header-title {
   font-size: 18px;
@@ -1328,13 +1323,13 @@ a {
   color: #ffffff; }
   @media (max-width: 575.98px) {
     .secondary-header-title {
-      font-size: 15px !important; } }
+      font-size: 15px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .secondary-header-title {
-      font-size: 16px !important; } }
+      font-size: 16px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .secondary-header-title {
-      font-size: 17px !important; } }
+      font-size: 17px; } }
 
 .content-secondary-header-text {
   font-size: 24px;
@@ -1380,13 +1375,13 @@ a {
   color: #023047; }
   @media (max-width: 575.98px) {
     .question-header-font {
-      font-size: 18px !important; } }
+      font-size: 18px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .question-header-font {
-      font-size: 19px !important; } }
+      font-size: 19px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .question-header-font {
-      font-size: 20px !important; } }
+      font-size: 20px; } }
 
 .back-text {
   font-size: 16px;
@@ -1394,13 +1389,13 @@ a {
   color: #ffffff; }
   @media (max-width: 575.98px) {
     .back-text {
-      font-size: 15px !important; } }
+      font-size: 15px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .back-text {
-      font-size: 16px !important; } }
+      font-size: 16px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .back-text {
-      font-size: 16px !important; } }
+      font-size: 16px; } }
 
 .completed-toast-text {
   font-size: 18px;
@@ -1413,13 +1408,13 @@ a {
   color: #023047; }
   @media (max-width: 575.98px) {
     .completed-toast-header {
-      font-size: 18px !important; } }
+      font-size: 18px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .completed-toast-header {
-      font-size: 19px !important; } }
+      font-size: 19px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .completed-toast-header {
-      font-size: 20px !important; } }
+      font-size: 20px; } }
 
 .input-group-secondary-text {
   background: #d6d8d8 0% 0% no-repeat padding-box !important;
@@ -1917,7 +1912,7 @@ a {
   display: flex;
   align-items: center;
   height: 54px;
-  border-bottom: 2px solid #112f45; }
+  border-bottom: 1px solid #112f45; }
 
 .last-inside-cont-slider {
   padding: 17px;
@@ -2033,9 +2028,17 @@ select.selectIcon {
   padding: 0px !important; }
 
 .list-set-form {
-  border: 1px solid #023047 !important;
+  border-bottom: 1px solid #023047 !important;
   height: 33px;
-  padding: 6px !important; }
+  padding: 6px !important;
+  font-size: 14px;
+  font-weight: bold; }
+
+.list-set-form1 {
+  height: 33px;
+  padding: 6px !important;
+  font-size: 14px;
+  font-weight: bold; }
 
 .top-arrow-container {
   max-width: 375px;
@@ -2243,8 +2246,8 @@ select.selectIcon {
   background-color: #dedede; }
 
 .float-btn {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
   background-color: #112f45;
   border: none;
@@ -2261,7 +2264,7 @@ select.selectIcon {
 
 .plus-fa-fa {
   color: #fafafa;
-  font-size: 24px; }
+  font-size: 21px; }
 
 .text-not-complete {
   background-color: #fafafa;
@@ -2869,7 +2872,7 @@ body .ui-widget .ui-menu-item {
 
 .sponsor-image-tag {
   box-shadow: 0px 3px 6px #00000029;
-  border-radius: 11px;
+  border-radius: 3px;
   background-color: #fff;
   width: 100%; }
 
@@ -3217,6 +3220,36 @@ html #slide-test-5 {
 
 .invalid-feedback {
   font-weight: 500 !important; }
+
+.tooltip {
+  text-decoration: none;
+  border-bottom: none;
+  color: #36c;
+  outline: none; }
+
+.fa-chevron-circle-down:before {
+  content: "\f107" !important;
+  color: black;
+  background: #d4d4d4;
+  border-radius: 100%;
+  padding: 3px 7px 0px 7px;
+  font-weight: 500; }
+
+.fa-chevron-circle-up:before {
+  content: "\f106" !important;
+  color: black;
+  background: #d4d4d4;
+  border-radius: 100%;
+  padding: 0px 7px 2px 7px;
+  font-weight: 500; }
+
+.dropdown-custom {
+  border-radius: 0px !important;
+  border: none !important; }
+
+.border-set-color {
+  border-radius: 0px !important;
+  border: 1px solid #023047 !important; }
 
 @media (max-width: 450px) {
   p.referral-inside-text.my-2.my-md-3 {
