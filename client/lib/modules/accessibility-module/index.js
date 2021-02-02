@@ -29,7 +29,7 @@ module.exports = {
     };
 
     self.voiceover = function (req, callback) {
-      return self.sendPage(req, self.renderer('textSize', {
+      return self.sendPage(req, self.renderer('voiceover', {
         showHeader: true,
         home: true,
         hideRefButton: true,
