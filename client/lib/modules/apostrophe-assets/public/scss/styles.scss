@@ -1847,11 +1847,11 @@ body .ui-widget .ui-menu-item {
   height: 56px !important;
   color: #023047 !important;
   left: 0px !important;
-  display: flex !important;
+  display: none !important;
   @include xxs-screen-between {
     width: 34px !important;
     height: 44px !important;
-    display: flex !important;
+    display: none !important;
   }
   @include sm-screen {
     width: 50px !important;
@@ -1882,11 +1882,11 @@ body .ui-widget .ui-menu-item {
   height: 56px !important;
   color: #023047 !important;
   right: 0px !important;
-  display: flex !important;
+  display: none !important;
   @include xxs-screen-between {
     width: 34px !important;
     height: 44px !important;
-    display: flex !important;
+    display: none !important;
   }
   @include sm-screen {
     width: 50px !important;
