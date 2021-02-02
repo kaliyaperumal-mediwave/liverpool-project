@@ -30,6 +30,15 @@ var apos = require("apostrophe")({
     "apostrophe-db": {
       uri: process.env.MONGO_STRING,
     },
+    "apostrophe-attachments": {
+      uploadfs: {
+        storage: "azure",
+        account: process.env.AZURE_ACCOUNT_NAME,
+        container: process.env.AZURE_CONTAINER_NAME,
+        key: process.env.AZURE_STORAGE_ACCESS_KEY,
+        disabledFileKey: process.env.AZURE_DISABLED_FILE_KEY,
+      },
+    },
 
     "auth-module": {},
     "about-module": {},
@@ -66,6 +75,7 @@ var apos = require("apostrophe")({
     "referral-complete-module": {},
     "feedback-module": {},
     "check-referral-module": {},
+    "shared-referal-module": {},
     "mental-health-module": {},
     "account-settings-module": {},
     "accessibility-module": {},

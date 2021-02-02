@@ -37,10 +37,6 @@ $(document).ready(function () {
                         this.resetForm();
                         this.responseMessage = successData.message;
                         $('#forgotPasswordSuccess').modal('show');
-                        setTimeout(function () {
-                            $('#forgotPasswordSuccess').modal('hide');
-                        }, 2000)
-
                     } else {
                         $('#loader').hide();
                     }

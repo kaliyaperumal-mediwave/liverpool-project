@@ -6,6 +6,7 @@
         return false;
     });
 </script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 {% set user_data = data.user_data %}
 {% set rolesIds = data.rolesIds %}
@@ -47,7 +48,7 @@
                                 <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
                                 </p>
                                 <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                                    <li>{{item.type}}</li>
+                                    <li>{{item.Topic}}</li>
                                 </ul>
                             </div>
                         </a>
@@ -120,7 +121,7 @@
         {% endif %}
         {% endfor %}
     </div>
-    {% include "../../shared-referal-module/views/referral.html" %}
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
 <!-- </div> -->
 

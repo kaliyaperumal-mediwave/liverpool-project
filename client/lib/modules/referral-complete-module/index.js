@@ -10,6 +10,10 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.completed);
     };
     self.completed = function (req, callback) {
+      if(!req.session.user_role)
+      {
+        return req.res.redirect("/")
+      }
       return self.sendPage(req, self.renderer('completed', {
         showHeader: true,
         headerContent: "The referral has been made to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",

@@ -1,9 +1,11 @@
 {% extends "layout.html" %}
+
 {% block extraBody %}
-<script src="/modules/feedback-module/js/feedback.js"></script>
+    <script src="/modules/feedback-module/js/feedback.js"></script>
+    <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
-{% block main
-%}
+
+{% block main %}
 
 <div id="feedbackPage">
 
@@ -44,20 +46,19 @@
             </a>
 
             <div class="home-header-primary m-0 py-2">
-
-                {{ apos.area(data.page, 'feedbackTitle', {
-                widgets: {
-                'apostrophe-rich-text': {
-                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                styles: [
-                { name: 'Heading', element: 'h2' },
-                { name: 'Paragraph', element: 'p' }
-                ]
-                }
-                }
-                }) }}
-
-
+                {{
+                    apos.area(data.page, 'feedbackTitle', {
+                        widgets: {
+                            'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                    { name: 'Heading', element: 'h2' },
+                                    { name: 'Paragraph', element: 'p' }
+                                ]
+                            }
+                        }
+                    })
+                }}
             </div>
             <!-- <div class="d-flex align-items-center">
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" class="cursor-pointer" alt="">
@@ -70,17 +71,19 @@
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="home-primary-content m-0 py-4 py-md-2 px-2 text-left">
-                {{ apos.area(data.page, 'feedbackText', {
-                widgets: {
-                'apostrophe-rich-text': {
-                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                styles: [
-                { name: 'Heading', element: 'h3' },
-                { name: 'Paragraph', element: 'p' }
-                ]
-                }
-                }
-                }) }}
+                {{
+                    apos.area(data.page, 'feedbackText', {
+                        widgets: {
+                            'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                    { name: 'Heading', element: 'h3' },
+                                    { name: 'Paragraph', element: 'p' }
+                                ]
+                            }
+                        }
+                    })
+                }}
             </div>
         </div>
     </div>
@@ -89,17 +92,19 @@
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="home-primary-content m-0 py-2 px-2 text-left">
                 <!-- How satisfied are you with the platform? -->
-                {{ apos.area(data.page, 'feedbackSecondText', {
-                widgets: {
-                'apostrophe-rich-text': {
-                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                styles: [
-                { name: 'Heading', element: 'h3' },
-                { name: 'Paragraph', element: 'p' }
-                ]
-                }
-                }
-                }) }}
+                {{
+                    apos.area(data.page, 'feedbackSecondText', {
+                        widgets: {
+                            'apostrophe-rich-text': {
+                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                                styles: [
+                                    { name: 'Heading', element: 'h3' },
+                                    { name: 'Paragraph', element: 'p' }
+                                ]
+                            }
+                        }
+                    })
+                }}
             </div>
             <fieldset id="feedBackStars" class="rating m-0 float-left">
                 <input v-model="feedbackData.ratings" type="radio" id="5star" name="rating" value="5" />
@@ -149,10 +154,14 @@
                     @input="preventWhiteSpace($event)" placeholder="You can submit your feedback here"
                     rows="4"></textarea>
                     <!-- placeholder="I would recommend this highly to a friend" -->
+                    <div class="invalid-feedback d-none float-left text-left px-2 py-1"
+                        v-bind:class="{ 'd-block':(isFormSubmitted && !feedbackData.comments),'invalid-fields':!feedbackData.comments }">
+                        You must provide comment.
+                    </div>
             </div>
             <div class="py-4 text-center">
-                <button type="button" @click="sendFeedback()" id="secondary" class="btn px-md-4 py-2 px-3"><span
-                        class="btn-quaternary-text">
+                <button type="button" @click="sendFeedback()" id="secondary" class="btn px-md-4 py-2 px-3">
+                    <span class="btn-quaternary-text">
                         SUBMIT
                         <!-- {{ apos.area(data.page, 'feedbackButton', {
                             widgets: {
@@ -165,13 +174,36 @@
                               }
                             }
                           }) }} -->
-                    </span></button>
+                    </span>
+                </button>
             </div>
         </div>
     </div>
-    {% include "../../shared-referal-module/views/referral.html" %}
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
 
+    {% raw %}
+    <!-- Change Password Succuss Modal Start -->
+    <div class="modal fade" id="feedbackSuccess" data-backdrop="static" data-keyboard="false"
+        tabindex="-1" role="dialog" aria-labelledby="feedbackSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" @click="closeMsg()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 class="logout-font mt-3 text-center"> {{ feedbackMessage }} </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endraw %}
+    <!-- Change Email Succuss Modal End -->
 
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
 </div>
 {% endblock %}

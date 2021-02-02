@@ -24,7 +24,7 @@
 
             <button class=" custom-select-icon" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
-                Sort by
+                Sort by 
             </button>
             <div class="dropdown-menu no-padding" aria-labelledby="dropdownMenu2">
                 <ul class="list-group">
@@ -45,10 +45,10 @@
                             <div>
                                 <div class="collapse show collapse-container">
                                     <div class="collapse-title">
-                                       Date completed
+                                        Date completed
                                     </div>
                                     <div class="collapse-para">
-                                        {{changeDateFormat(refObj.createdAt)}}
+                                        {{changeDateFormat(refObj.updatedAt)}}
                                     </div>
                                     <div class="collapse-title">
                                         Status
@@ -79,16 +79,17 @@
             class="recent_content not-found">
             <b>No results found</b>
         </div>
-        <div v-if="getStringLength(viewReferralObj.searchTxt) < 1" class='d-flex progress-container'>
-            <div @click="fetchReferrals('completed')" class=" col-6 text-center text-complete cursor-pointer" v-bind:class="{'text-complete-active':!activeState}">
+        <div v-if="getStringLength(viewReferralObj.searchTxt) < 1 && viewReferralObj.loginUserFlag=='true'" class='d-flex progress-container'>
+            <div @click="fetchReferrals('completed')" class=" col-6 text-center text-complete cursor-pointer"
+                v-bind:class="{'text-complete-active':!activeState}">
                 Completed
             </div>
-            <div @click="fetchReferrals('incomplete')" class="col-6 text-center text-not-complete cursor-pointer" v-bind:class="{'text-complete-active':activeState}">
+            <div @click="fetchReferrals('incomplete')" class="col-6 text-center text-not-complete cursor-pointer"
+                v-bind:class="{'text-complete-active':activeState}">
                 Not completed
             </div>
         </div>
-
-        <div class="text_blog">
+        <div class="text_blog"  v-show="viewReferralObj.loginUserFlag=='true'" >
             <div class="recent_referrals">
                 Recent referrals
             </div>
@@ -104,53 +105,55 @@
                     </div>
                     <div>
                         <span style="color: #D6D8D8;">
-                            <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer" 
-                            data-toggle="collapse"
-                                :href="'#recentCollapseExample1'" @click="toggleArrow($event)" role="button" aria-expanded="false"
+                            <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer"
+                                data-toggle="collapse" :href="'#recentCollapseExample1'+ viewReferralObj.referralType" 
+                                @click="toggleArrow($event)" role="button" aria-expanded="false"
                                 aria-controls="collapseExample"></i>
                         </span>
                     </div>
                 </div>
-               
+
                 <!-- <span style="color: #D6D8D8;">
                     <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
                         data-toggle="collapse" id="toggle3" data-target="#collapseThree"
                         @click="toggleArrow($event,3,allSectionData)" aria-expanded="true"
                         aria-controls="collapseThree"></i>
                 </span> -->
-
-                <div v-for="(refObj, index1) in referrals.data" class="justify-content-between align-items-center"
-                    id="headingTwo">
-                    <div class="align-items-center">
-                        <div class="collapse_title">
-                            <div>
-                                <div class="collapse show collapse-container" :id="'recentCollapseExample1'">
-                                    <div v-if="viewReferralObj.referralType == 'completed'" class="collapse-title">
-                                        Date completed
-                                    </div>
-                                    <div v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-title">
-                                        Date 
-                                    </div>
-                                    <div class="collapse-para">
-                                        {{changeDateFormat(refObj.createdAt)}}
-                                    </div>
-                                    <div class="collapse-title">
-                                        Status
-                                    </div>
-                                    <div class="collapse-para">
-                                        Pending
-                                    </div>
-                                    <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
-                                        Code
-                                    </div>
-                                    <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-para">
-                                        {{refObj.reference_code}}
-                                    </div>
-                                    <div v-show="viewReferralObj.referralType == 'incomplete'"
-                                        class="container float-btn-cont">
-                                        <button class="float-btn" type="button" @click="contineReferral(refObj)">
-                                            <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
-                                        </button>
+                <div class="collapse show collapse-container" :id="'recentCollapseExample1'+ viewReferralObj.referralType">
+                    <div v-for="(refObj, index1) in referrals.data" class="justify-content-between align-items-center"
+                        id="headingTwo">
+                        <div class="align-items-center">
+                            <div class="collapse_title">
+                                <div>
+                                    <div>
+                                        <div v-if="viewReferralObj.referralType == 'completed'" class="collapse-title">
+                                            Date completed
+                                        </div>
+                                        <div v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-title">
+                                            Date
+                                        </div>
+                                        <div class="collapse-para">
+                                            {{changeDateFormat(refObj.updatedAt)}}
+                                        </div>
+                                        <div class="collapse-title">
+                                            Status
+                                        </div>
+                                        <div class="collapse-para">
+                                            Pending
+                                        </div>
+                                        <div v-show="viewReferralObj.referralType == 'completed'"
+                                            class="collapse-title">
+                                            Code
+                                        </div>
+                                        <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-para">
+                                            {{refObj.reference_code}}
+                                        </div>
+                                        <div v-show="viewReferralObj.referralType == 'incomplete'"
+                                            class="container float-btn-cont">
+                                            <button class="float-btn" type="button" @click="contineReferral(refObj)">
+                                                <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -161,7 +164,7 @@
         </div>
 
 
-        <div class="text_blog">
+        <div class="text_blog" v-show="viewReferralObj.loginUserFlag=='true'">
             <div class="recent_referrals">
                 Past referrals
             </div>
@@ -184,20 +187,21 @@
                     </div>
                     <div>
                         <span style="color: #D6D8D8;">
-                            <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer" 
-                            data-toggle="collapse"
-                            :href="'#collapseExample' + index" id="'collapseExample' + index" @click="toggleArrow($event)" role="button" aria-expanded="false"
+                            <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer"
+                                data-toggle="collapse" :href="'#collapseExample' + index + viewReferralObj.referralType" id="'collapseExample' + index"
+                                @click="toggleArrow($event)" role="button" aria-expanded="false"
                                 aria-controls="collapseExample"></i>
                         </span>
                     </div>
                 </div>
 
+                <div  class="collapse show collapse-container" :id="'collapseExample' + index + viewReferralObj.referralType">
                 <div v-for="(refObj, index1) in referrals.data" class=" justify-content-between align-items-center"
                     id="headingTwo">
                     <div class=" align-items-center">
                         <div class="collapse_title">
                             <div>
-                                <div class="collapse show collapse-container" :id="'collapseExample' + index">
+                                <div>
                                     <div v-if="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Date completed
                                     </div>
@@ -230,6 +234,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
         {% endraw %}

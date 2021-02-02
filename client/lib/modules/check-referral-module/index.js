@@ -7,13 +7,14 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.middleware.checkAuth, self.checkReferral);
+      self.dispatch('/', self.middleware.checkCommonPageAuth, self.checkReferral);
     };
 
     self.checkReferral = function (req, callback) {
       return self.sendPage(req, self.renderer('check-referral', {
         showHeader: true,
         home: true,
+        loginFlag:req.data.showLogout
       }));
     };
     require('../../middleware')(self, options);

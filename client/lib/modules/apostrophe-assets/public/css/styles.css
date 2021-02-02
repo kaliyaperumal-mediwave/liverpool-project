@@ -161,6 +161,50 @@
     transform: translateY(-5px);
     box-shadow: 0 -3px 2px rgba(0, 0, 0, 0.04), 0 -9px 25px rgba(0, 0, 0, 0.15); }
 
+.switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px; }
+
+.switch input {
+  display: none; }
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s; }
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px; }
+
+input:checked + .slider {
+  background-color: #66bb6a; }
+
+input:checked + .slider:before {
+  transform: translateX(26px); }
+
+.slider.round {
+  border-radius: 34px; }
+
+.slider.round:before {
+  border-radius: 50%; }
+
+body {
+  background-color: #f1f2f3; }
+
 .middleContainer:after {
   content: "";
   display: block; }
@@ -213,6 +257,58 @@
 
 .tooltip:hover .tooltipText {
   visibility: visible; }
+
+.slider-stats {
+  background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 62px center/68% 4px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 42px center/68% 4px; } }
+  @media (min-width: 576px) and (max-width: 720.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 84px center/68% 4px; } }
+  @media (min-width: 721px) and (max-width: 767px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 104px center/68% 4px; } }
+  @media (min-width: 778px) and (max-width: 1250.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 79px center/68% 4px; } }
+  @media (min-width: 1251px) and (max-width: 1500.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 99px center/68% 4px; } }
+  @media (min-width: 1501px) and (max-width: 1700.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 116px center/68% 4px; } }
+  @media (min-width: 1701px) and (max-width: 1900.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 132px center/68% 4px; } }
+  @media (min-width: 1901px) and (max-width: 2250.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 163px center/67% 4px; } }
+  @media (min-width: 2251px) and (max-width: 2450.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 182px center/67% 4px; } }
+  @media (min-width: 2451px) and (max-width: 2600.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 199px center/67% 4px; } }
+  @media (min-width: 2601px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 210px center/67% 4px; } }
+
+.customize-radio::before {
+  width: 28px !important;
+  height: 28px !important;
+  top: 6px !important; }
+
+.customize-radio::after {
+  width: 16px !important;
+  height: 16px !important;
+  top: 12px !important;
+  left: 6px !important; }
+
+.text-slider-res {
+  position: absolute;
+  top: 30px;
+  right: 22px; }
 
 #feedBackStars label {
   margin: 0;
@@ -830,7 +926,7 @@ a {
   color: #023047 !important; }
 
 .logout-font {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #023047; }
   @media (max-width: 575.98px) {
@@ -895,6 +991,10 @@ a {
       height: 92px !important; } }
 
 /*Logo Height style End */
+.slider-bg {
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background-size: cover !important; }
+
 /* Landing Page style start */
 .home-header-primary {
   font-size: 32px;
@@ -1207,6 +1307,19 @@ a {
       font-size: 19px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .header-title {
+      font-size: 20px !important; } }
+
+.custom-css-tag > a {
+  font-weight: bold;
+  color: #ffffff !important; }
+  @media (max-width: 575.98px) {
+    .custom-css-tag > a {
+      font-size: 18px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .custom-css-tag > a {
+      font-size: 19px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .custom-css-tag > a {
       font-size: 20px !important; } }
 
 .secondary-header-title {
@@ -2136,7 +2249,10 @@ select.selectIcon {
   background-color: #112f45;
   border: none;
   position: relative;
-  bottom: 40px; }
+  bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 .float-btn-cont {
   float: right;
@@ -3064,6 +3180,24 @@ html #slide-test-5 {
   max-height: 3.6em;
   line-height: 1.8em; }
 
+.swiper-button-next,
+.swiper-container-rtl .swiper-button-prev {
+  background-image: url("/modules/my-apostrophe-assets/img/slider_next.svg") !important;
+  background-size: 20px !important; }
+
+.swiper-button-prev,
+.swiper-container-rtl .swiper-button-next {
+  background-image: url("/modules/my-apostrophe-assets/img/slider_prev.svg") !important;
+  background-size: 20px !important; }
+
+.swiper-scrollbar {
+  background-color: #ffffff !important;
+  border-radius: 50px !important; }
+
+.swiper-scrollbar-drag {
+  background-color: #707070 !important;
+  border-radius: 50px !important; }
+
 .hinttext p {
   font-size: 14px;
   font-weight: bold;
@@ -3080,3 +3214,6 @@ html #slide-test-5 {
   font-weight: bold;
   color: #023047;
   margin-bottom: 0 !important; }
+
+.invalid-feedback {
+  font-weight: 500 !important; }

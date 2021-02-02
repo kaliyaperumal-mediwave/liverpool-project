@@ -1,30 +1,28 @@
-
 <div id="heightTopSet" class="headerTop">
   <!-- Header Ui Start-->
-<!--
+  <!--
+  <div class="urgent-help-bg d-flex align-items-center justify-content-between">
+    <a href="/pages/urgent-help" class="text-decoration-none">
+      <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
+    </a>
+  </div> -->
   <div class="urgent-help-bg d-flex align-items-center justify-content-between">
     <a href="/pages/urgent-help" class="text-decoration-none">
       <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
     </a>
 
 
+    <h3 data-toggle="modal" data-target="#logoutModal" id="showLogoutText"
+      class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer">
+      Logout</h3>
 
-  </div> -->
-  <div class="urgent-help-bg d-flex align-items-center justify-content-between">
-      <a href="/pages/urgent-help" class="text-decoration-none">
-        <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer"> Get urgent help</h3>
-      </a>
-
-
-      <h3 data-toggle="modal" data-target="#logoutModal" class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer">
-        Logout</h3>
-
-
-    </div>
+  </div>
   <nav class="header-bg header-set-height">
     <div class="row mx-0 w-100 justify-content-between align-center">
       <div class="butLogo-cont">
-        <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
+          data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+          aria-label="Toggle navigation">
           <i class="fal fa-bars fa-2x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
           <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
           <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
@@ -51,24 +49,32 @@
         <!-- Side Drawer Title -->
         <div class="header-slider d-flex align-items-center ">
           <div class="slider-header">LOGO</div>
-          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer" aria-hidden="true"></i>
+          <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
+            aria-hidden="true"></i>
         </div>
         <!-- Side Drawer content -->
         <div class="slider-container">
           <div class="inside-cont-slider cursor-pointer">
             <a href="/" class="text-decoration-none">Home</a>
           </div>
-          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
             Referrals
           </div>
           <div class="collapse" id="collapseExample">
             <div class="collapse-body text-decoration-none">
-              <a href="/make-referral">
-                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                <a href="/make-referral">
                   Make a referral
+                </a>
+              </div>
+              {% if data.showLogout %}
+              <a href="{{ data.navigateViewRfrl }}">
+                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                  Saved referral
                 </div>
               </a>
-
+              {% endif %}
             </div>
           </div>
           <div class="inside-cont-slider cursor-pointer">
@@ -78,7 +84,8 @@
             <a href="/resources" class="text-decoration-none"> Resources</a>
           </div>
 
-          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider2" role="button" aria-expanded="false" aria-controls="collapseSlider2">
+          <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider2" role="button"
+            aria-expanded="false" aria-controls="collapseSlider2">
             Accessibility
           </div>
           <div class="collapse" id="collapseSlider2">
@@ -128,3 +135,16 @@
   <!-- Subheader UI End -->
 
 </div>
+
+<script>
+  $(document).ready(function () {
+    $('#uniqueLogo').hide();
+    var isLoggedInUser = document.getElementById('loginUserFlag').innerHTML;
+    if (isLoggedInUser == 'false') {
+      $('#showLogoutText').hide();
+
+    } else if (isLoggedInUser == 'true') {
+      $('#showLogoutText').show();
+    }
+  });
+</script>

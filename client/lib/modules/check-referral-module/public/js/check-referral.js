@@ -30,6 +30,7 @@ $(document).ready(function () {
             }
             this.viewReferralObj.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
+            this.viewReferralObj.loginUserFlag = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
             this.getUserReferral(this.viewReferralObj.referralType);
         },
 
@@ -38,11 +39,10 @@ $(document).ready(function () {
             toggleArrow: function (e) {
                 var ele = e.target;
                 var elemId = e.target.id;
-                debugger
                 var allToggleIcons = Array.from(document.getElementsByClassName('arrowClass'));
                 allToggleIcons.filter(function (i) {
                     if (i.id == elemId) {
-                        if (Array.from(ele.classList).indexOf('fa-chevron-circle-up') > -1) {
+                        if (Array.from(ele.classList).indexOf('fa-chevron-circle-up') > -0) {
                             $(ele).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
                         } else {
                             $(ele).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
@@ -65,6 +65,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     success: function (data) {
                         let setObj = {};
+                        console.log(data)
                         _self.displayReferrals = data;
                         _self.viewReferralArray = [];
                         _self.referralDateArray = [];

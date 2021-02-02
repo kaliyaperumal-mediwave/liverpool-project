@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block extraBody %}
+<script src="/modules/accessibility-module/js/voiceover.js"></script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+{% endblock %}
+
+{% block main %}
+
+<div id="themePage">
+
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-2 mb-md-0">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
+            <a href="{{ data.logoPath }}">
+                <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
+                    title="Back" class="cursor-pointer py-1" alt="">
+            </a>
+            <!-- 
+            <div class="home-header-primary m-0 py-2">
+                {{
+                apos.area(data.page, 'feedbackTitle', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h2' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
+                }}
+            </div> -->
+            <h2 class="home-header-primary m-0 py-2">Voice over</h2>
+        </div>
+    </div>
+
+    <div class="d-flex text-center py-md-3 py-2">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+            <!-- <div class="home-primary-content m-0 py-4 py-md-2 px-2 text-left">
+                {{
+                apos.area(data.page, 'feedbackText', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h3' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
+                }}
+            </div> -->
+            <div class="home-primary-content m-0 py-4 py-md-2 px-2 text-left">
+                <h2 class="home-primary-content">An audio icon will appear on audio related text</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex text-center py-md-3 py-2">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+            <!-- <div class="home-primary-content m-0 py-2 px-2 text-left">
+                {{
+                apos.area(data.page, 'feedbackSecondText', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h3' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
+                }}
+            </div> -->
+            <div class="m-0 py-4 py-md-2 px-2 text-left">
+                <div class="d-flex justify-content-sm-between">
+                    <h2 class="home-primary-content">The
+                        <i class="fa fa-volume-up px-1" aria-hidden="true"></i>
+                        icon will appear on text that can be played
+                    </h2>
+                    <!-- <label class="switch">
+                        <input type="checkbox" class="default">
+                        <span class="slider round"></span>
+                    </label> -->
+                    <div class="container">
+                        <label class="switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round"></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
+
+</div>
+{% endblock %}

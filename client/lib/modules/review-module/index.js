@@ -12,6 +12,10 @@ module.exports = {
       self.dispatch('/',self.middleware.checkCommonPageAuth, self.review);
     };
     self.review = function (req, callback) {
+      if(!req.session.user_role)
+      {
+        return req.res.redirect("/")
+      }
       let decryptedUrl;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeParameter = atob(getParams);
