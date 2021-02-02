@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var current = 18;
+    setTextSize();
     $('input[type=radio][name=font]').on('change', function () {
         console.log(" vacurrentlue", $(this).val())
         var change = $(this).val();
@@ -31,4 +32,14 @@ $(document).ready(function () {
             }
         }
     });
+
+    function setTextSize() {
+        var textSize = localStorage.getItem('textSize');
+        if(textSize && (Number(textSize) >= 16)) {
+            $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
+                var newFontsize = textSize + 'px';
+                $(this).css('font-size', newFontsize);
+            });
+        }
+    }
 });
