@@ -7,7 +7,7 @@
 
 <div id="check-referral" class="main-min-height">
     {% raw %}
-    <div class="top-arrow-container">
+    <div  id="searchBar" class="top-arrow-container">
         <div class="input-group">
             <span class="input-group-prepend">
                 <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
@@ -26,11 +26,11 @@
                 aria-haspopup="true" aria-expanded="false">
                 Sort by 
             </button>
-            <div class="dropdown-menu no-padding" aria-labelledby="dropdownMenu2">
-                <ul class="list-group">
+            <div class="dropdown-menu no-padding dropdown-custom" aria-labelledby="dropdownMenu2">
+                <ul class="list-group border-set-color">
                     <li class="list-group-item list-set-form text-right">Date</li>
                     <li class="list-group-item list-set-form text-right">Hospital</li>
-                    <li class="list-group-item list-set-form  text-right">Treatment</li>
+                    <li class="list-group-item list-set-form1  text-right">Treatment</li>
                 </ul>
             </div>
         </div>
@@ -63,7 +63,7 @@
                                         {{refObj.reference_code}}
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'incomplete'"
-                                        class="container float-btn-cont">
+                                        class="container pr-0 float-btn-cont">
                                         <button class="float-btn" type="button" @click="contineReferral(refObj)">
                                             <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                                         </button>
@@ -149,7 +149,7 @@
                                             {{refObj.reference_code}}
                                         </div>
                                         <div v-show="viewReferralObj.referralType == 'incomplete'"
-                                            class="container float-btn-cont">
+                                            class="container pr-0 float-btn-cont">
                                             <button class="float-btn" type="button" @click="contineReferral(refObj)">
                                                 <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                                             </button>
@@ -224,7 +224,7 @@
                                         {{refObj.reference_code}}
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'incomplete'"
-                                        class="container float-btn-cont">
+                                        class="container pr-0 float-btn-cont">
                                         <button class="float-btn" type="button" @click="contineReferral(refObj)">
                                             <i class="fas fa-plus plus-fa-fa" aria-hidden="true"></i>
                                         </button>
