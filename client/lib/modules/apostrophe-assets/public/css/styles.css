@@ -161,6 +161,50 @@
     transform: translateY(-5px);
     box-shadow: 0 -3px 2px rgba(0, 0, 0, 0.04), 0 -9px 25px rgba(0, 0, 0, 0.15); }
 
+.switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px; }
+
+.switch input {
+  display: none; }
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: 0.4s; }
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: 0.4s;
+  width: 26px; }
+
+input:checked + .slider {
+  background-color: #66bb6a; }
+
+input:checked + .slider:before {
+  transform: translateX(26px); }
+
+.slider.round {
+  border-radius: 34px; }
+
+.slider.round:before {
+  border-radius: 50%; }
+
+body {
+  background-color: #f1f2f3; }
+
 .middleContainer:after {
   content: "";
   display: block; }
@@ -213,6 +257,58 @@
 
 .tooltip:hover .tooltipText {
   visibility: visible; }
+
+.slider-stats {
+  background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 62px center/68% 4px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 42px center/68% 4px; } }
+  @media (min-width: 576px) and (max-width: 720.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 84px center/68% 4px; } }
+  @media (min-width: 721px) and (max-width: 767px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 104px center/68% 4px; } }
+  @media (min-width: 778px) and (max-width: 1250.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 79px center/68% 4px; } }
+  @media (min-width: 1251px) and (max-width: 1500.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 99px center/68% 4px; } }
+  @media (min-width: 1501px) and (max-width: 1700.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 116px center/68% 4px; } }
+  @media (min-width: 1701px) and (max-width: 1900.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 132px center/68% 4px; } }
+  @media (min-width: 1901px) and (max-width: 2250.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 163px center/67% 4px; } }
+  @media (min-width: 2251px) and (max-width: 2450.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 182px center/67% 4px; } }
+  @media (min-width: 2451px) and (max-width: 2600.98px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 199px center/67% 4px; } }
+  @media (min-width: 2601px) {
+    .slider-stats {
+      background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 210px center/67% 4px; } }
+
+.customize-radio::before {
+  width: 28px !important;
+  height: 28px !important;
+  top: 6px !important; }
+
+.customize-radio::after {
+  width: 16px !important;
+  height: 16px !important;
+  top: 12px !important;
+  left: 6px !important; }
+
+.text-slider-res {
+  position: absolute;
+  top: 30px;
+  right: 22px; }
 
 #feedBackStars label {
   margin: 0;
@@ -548,7 +644,7 @@
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important;
+  color: #0f1010 !important !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -738,14 +834,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -753,7 +849,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important;
+    color: #0f1010 !important !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -761,21 +857,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important; }
+    color: #0f1010 !important !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -895,6 +991,10 @@ a {
       height: 92px !important; } }
 
 /*Logo Height style End */
+.slider-bg {
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background-size: cover !important; }
+
 /* Landing Page style start */
 .home-header-primary {
   font-size: 32px;

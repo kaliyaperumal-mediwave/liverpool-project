@@ -17,8 +17,6 @@ module.exports = {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
       self.dispatch('/',self.middleware.checkCommonPageAuth, self.aboutMentalHealth);
-      self.dispatch('/people',self.middleware.checkCommonPageAuth, self.aboutPeople);
-      self.dispatch('/types',self.middleware.checkCommonPageAuth, self.typesOfPeople);
 
     };
 
@@ -33,12 +31,5 @@ module.exports = {
       }));
     };
 
-    self.aboutPeople = function (req, callback) {
-      
-      return self.sendPage(req, self.renderer('people', {
-        showHeader: true,
-        logoPath: logoPath
-      }));
-    };
   }
 }

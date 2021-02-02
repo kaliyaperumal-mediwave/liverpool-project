@@ -89,7 +89,7 @@
                 Not completed
             </div>
         </div>
-        <div class="text_blog"  v-if="viewReferralObj.loginUserFlag=='true'" >
+        <div class="text_blog"  v-show="viewReferralObj.loginUserFlag=='true'" >
             <div class="recent_referrals">
                 Recent referrals
             </div>
@@ -164,7 +164,7 @@
         </div>
 
 
-        <div class="text_blog" v-if="viewReferralObj.loginUserFlag=='true'">
+        <div class="text_blog" v-show="viewReferralObj.loginUserFlag=='true'">
             <div class="recent_referrals">
                 Past referrals
             </div>

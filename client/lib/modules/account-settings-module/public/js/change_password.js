@@ -38,8 +38,8 @@ $(document).ready(function () {
                         $('#loader').hide();
                         if (successData && Object.keys(successData)) {
                             $('#loader').removeClass('d-block').addClass('d-none');
+                            this.resetForm();
                             $('#changePasswordSuccess').modal('show');
-                            logOut()
                         } else {
                             $('#loader').removeClass('d-block').addClass('d-none');
                         }
@@ -70,8 +70,7 @@ $(document).ready(function () {
 
             gotoLogin: function () {
                 $('#changePasswordSuccess').modal('hide');
-                this.resetForm();
-                //window.location.href = window.location.origin + '/users/login';
+                logOut();
             }
 
         }
