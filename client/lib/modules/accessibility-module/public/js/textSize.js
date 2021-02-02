@@ -21,9 +21,10 @@ $(document).ready(function () {
             saveTextSize: function (size) {
                 localStorage.setItem('textSize', size);
                 $('#textSizeSuccessLabel').modal('show');
-                setTimeout(function () {
-                    $('#textSizeSuccessLabel').modal('hide');
-                }, 1000);
+            },
+
+            closeModal: function() {
+                $('#textSizeSuccessLabel').modal('hide');
             }
         }
 
