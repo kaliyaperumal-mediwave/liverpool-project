@@ -5,6 +5,9 @@ $(document).ready(function () {
             textSizeData: 19
         },
         beforeMount: function () {
+            if(localStorage.getItem('textSize')) {
+                this.textSizeData = localStorage.getItem('textSize');
+            }
             $('#loader').show();
         },
 
@@ -16,8 +19,11 @@ $(document).ready(function () {
 
         methods: {
             saveTextSize: function (size) {
-                console.log('size', size);
                 localStorage.setItem('textSize', size);
+                $('#textSizeSuccessLabel').modal('show');
+                setTimeout(function () {
+                    $('#textSizeSuccessLabel').modal('hide');
+                }, 1000);
             }
         }
 
