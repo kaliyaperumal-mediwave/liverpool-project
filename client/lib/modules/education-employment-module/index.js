@@ -34,6 +34,7 @@ module.exports = {
       //   const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
       //   decryptedUrl = btoa(getParamsRedirect);
       // }
+      req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
 
       return self.sendPage(req, self.renderer('education', {
         headerContent: "Section 3 of 5: Education / employment & support needs",
