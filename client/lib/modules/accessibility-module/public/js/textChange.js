@@ -35,9 +35,13 @@ $(document).ready(function () {
 
     function setTextSize() {
         var textSize = localStorage.getItem('textSize');
-        if(textSize && (Number(textSize) >= 16)) {
+        var current = 18;
+        if (textSize && Number(textSize) >= 16) {
+            // var inc = Number(textSize) - Number(current);
             $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
+                var fontsize = parseInt($(this).css('font-size'));
                 var newFontsize = textSize + 'px';
+                // var newFontsize = textSize + 'px';
                 $(this).css('font-size', newFontsize);
             });
         }

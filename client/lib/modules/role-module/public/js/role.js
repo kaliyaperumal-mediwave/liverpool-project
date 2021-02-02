@@ -128,7 +128,7 @@ $(document).ready(function () {
             },
             setValues: function (data) {
                 console.log(data)
-                 console.log("length "+data.length)
+                console.log("length " + data.length)
                 //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
@@ -719,7 +719,6 @@ $(document).ready(function () {
             },
 
             onVaueChange: function (e, type, section, key) {
-                debugger
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this[section][key] = e.target.value.trim();
                     return false;
@@ -771,7 +770,6 @@ $(document).ready(function () {
             },
 
             save: function () {
-                debugger
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                 var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
