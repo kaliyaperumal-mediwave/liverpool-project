@@ -339,7 +339,6 @@ $(document).ready(function () {
             },
 
             toggleList: function (event) {
-                debugger;
                 var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
                 if (event.target.textContent === 'Click here to view full list and change the answer') {
                     allCheckbox.map(function (input) {

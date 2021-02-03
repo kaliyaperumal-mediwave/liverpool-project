@@ -69,7 +69,6 @@ function deleteLogic(arr, value, context, section) {
 
 //Common Modal for API error messages
 function showError(content) {
-    debugger
     if (!content) {
         content = "Something went wrong.Please try again"
     }
@@ -283,11 +282,11 @@ function convertDate(dbDate) {
 
 
 function setLoaderStyle() {
-    var element = document.body;
-    element.classList.add('body-bg');
-    element.classList.add('net');
-    element.classList.add('default');
-    element.classList.add('theme-wrapper');
+    var element = document.getElementsByClassName('apos-refreshable');
+    var body = document.body;
+    element[0].classList.add('body-bg');
+    body.classList.add('net');
+    body.classList.add('default');
 }
 
 

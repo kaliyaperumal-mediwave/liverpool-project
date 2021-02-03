@@ -108,34 +108,34 @@
             </div>
             <fieldset id="feedBackStars" class="rating m-0 float-left">
                 <input v-model="feedbackData.ratings" type="radio" id="5star" name="rating" value="5" />
-                <label class="full m-0" for="5star" title="Excellent"></label>
+                <label class="full m-0" for="5star" ></label> 
 
                 <input type="radio" v-model="feedbackData.ratings" id="4halfstar" name="rating" value="4.5" />
-                <label class="half" for="4halfstar" title="Good"></label>
+                <label class="half" for="4halfstar" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="4star" name="rating" value="4" />
-                <label class="full m-0" for="4star" title="Pretty good"></label>
+                <label class="full m-0" for="4star" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="3halfstar" name="rating" value="3.5" />
-                <label class="half" for="3halfstar" title="Nice"></label>
+                <label class="half" for="3halfstar" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="3star" name="rating" value="3" />
-                <label class="full m-0" for="3star" title="Ok"></label>
+                <label class="full m-0" for="3star" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="2halfstar" name="rating" value="2.5" />
-                <label class="half" for="2halfstar" title="Kinda bad"></label>
+                <label class="half" for="2halfstar" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="2star" name="rating" value="2" />
-                <label class="full m-0" for="2star" title="Bad"></label>
+                <label class="full m-0" for="2star" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="1halfstar" name="rating" value="1.5" />
-                <label class="half" for="1halfstar" title="Meh"></label>
+                <label class="half" for="1halfstar" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="1star" name="rating" value="1" />
-                <label class="full m-0" for="1star" title="Umm"></label>
+                <label class="full m-0" for="1star" ></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="halfstar" name="rating" value="0.5" />
-                <label class="half" for="halfstar" title="Worst"></label>
+                <label class="half" for="halfstar" ></label>
             </fieldset>
             <div class="invalid-feedback d-none float-left text-left px-2 py-1"
                 v-bind:class="{ 'd-block':(isFormSubmitted && !feedbackData.ratings),'invalid-fields':!feedbackData.ratings }">
@@ -202,8 +202,5 @@
     </div>
     {% endraw %}
     <!-- Change Email Succuss Modal End -->
-
-    {% include "../../shared-referal-module/views/searchReferral.html" %}
-    {% include "../../shared-referal-module/views/company.html" %}
 </div>
 {% endblock %}

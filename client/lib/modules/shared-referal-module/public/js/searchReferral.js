@@ -2,7 +2,7 @@ $(document).ready(function () {
     var API_URI = "/modules/dashboard-module";
     $("#doSearchReferral").click(function (event) {
         if (!$('#toSearchRefCode').val().trim()) {
-            $("#dispErrMsg").html("Please type referrance code to search");
+            $("#dispErrMsg").html("Please type reference code to search");
             return;
         }
         $('#loader').show();

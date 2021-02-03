@@ -13,6 +13,11 @@ module.exports = {
       console.log("dfafa")
       console.log("user_role" ,req.session.user_role)
       console.log("uuid" ,req.session.uuid)
+      console.log("---",req.session.frm_ref_home)
+      if(!req.session.frm_ref_home)
+      {
+        return req.res.redirect("/")
+      }
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('role', {
         headerContent: "Section 1 of 5: Eligibility",
