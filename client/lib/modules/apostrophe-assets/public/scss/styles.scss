@@ -324,15 +324,15 @@ a {
   @include set-dynamicLineHeight($tertiary-mdFont-size);
   @include xs-screen {
     font-size: $quaternary-mdFont-size !important;
-    letter-spacing: 0.64px !important;
+    // letter-spacing: 0.64px !important;
   }
   @include sm-screen {
     font-size: $quaternary-font-size !important;
-    letter-spacing: 0.64px !important;
+    // letter-spacing: 0.64px !important;
   }
   @include md-screen {
     @include set-dynamicFont($tertiary-mdFont-size, 2);
-    letter-spacing: 0.64px !important;
+    // letter-spacing: 0.64px !important;
   }
   h3 {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
