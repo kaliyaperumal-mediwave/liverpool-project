@@ -9,11 +9,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            var switchElem = document.getElementById('switchId');
-            switchElem.setAttribute('checked', false);
-            if (localStorage.getItem('theme')) {
-                this.theme = localStorage.getItem('theme');
-            }
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);

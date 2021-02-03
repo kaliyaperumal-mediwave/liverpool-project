@@ -97,14 +97,18 @@ endblock %} {% block extraHead %}
         <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
           data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
           aria-label="Toggle navigation">
-          <i class="fal fa-bars fa-2x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
-          <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
-          <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-none d-md-block d-lg-block d-xl-block ham-icon" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none ham-icon" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-block d-sm-none ham-icon" aria-hidden="true"></i>
         </button>
         <div class="logo">
           <!-- LOGO -->
-          <a href="{{ data.logoPath }}" class="text-decoration-none"><img
-              src="/modules/my-apostrophe-assets/img/liverpool.svg" /></a>
+          <a href="{{ data.logoPath }}" class="text-decoration-none">
+            <div class="logo-bg" style="height: 35px !important;">
+
+            </div>
+            <!-- <img src="/modules/my-apostrophe-assets/img/liverpool.svg" /> -->
+          </a>
         </div>
       </div>
 
@@ -355,7 +359,7 @@ endblock %} {% block extraHead %}
 <p id="logId" class="d-none">{{data.loginId}}</p>
 <p id="uRole" class="d-none">{{data.userRole}}</p>
 <p id="uUid" class="d-none">{{data.uuid}}</p>
-<p id="loginUserFlag" class="d-none" >{{data.showLogout}}</p>
+<p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
 <div class="footer-bg set-bottom-padding">
   <p class="d-none" id="uRole">{{data.showLogout}}</p>
   <div id="footer-placement" class="footer-bg footer set-bottom-padding">

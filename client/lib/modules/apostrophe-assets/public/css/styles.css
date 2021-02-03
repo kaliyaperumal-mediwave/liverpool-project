@@ -161,46 +161,43 @@
     transform: translateY(-5px);
     box-shadow: 0 -3px 2px rgba(0, 0, 0, 0.04), 0 -9px 25px rgba(0, 0, 0, 0.15); }
 
-.switch {
-  display: inline-block;
-  height: 34px;
-  position: relative;
-  width: 60px; }
-
-.switch input {
-  display: none; }
-
-.slider {
-  background-color: #ccc;
-  bottom: 0;
-  cursor: pointer;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: 0.4s; }
-
-.slider:before {
-  background-color: #fff;
-  bottom: 4px;
-  content: "";
-  height: 26px;
-  left: 4px;
-  position: absolute;
-  transition: 0.4s;
-  width: 26px; }
-
-input:checked + .slider {
-  background-color: #66bb6a; }
-
-input:checked + .slider:before {
-  transform: translateX(26px); }
-
-.slider.round {
-  border-radius: 34px; }
-
-.slider.round:before {
-  border-radius: 50%; }
+div.checkbox.switcher label,
+div.radio.switcher label {
+  padding: 0; }
+  div.checkbox.switcher label *,
+  div.radio.switcher label * {
+    vertical-align: middle; }
+  div.checkbox.switcher label input,
+  div.radio.switcher label input {
+    display: none; }
+    div.checkbox.switcher label input + span,
+    div.radio.switcher label input + span {
+      position: relative;
+      display: inline-block;
+      margin-right: 10px;
+      width: 56px;
+      height: 28px;
+      background: #c0c0c0;
+      border: 1px solid #eee;
+      border-radius: 50px;
+      transition: all 0.3s ease-in-out; }
+      div.checkbox.switcher label input + span small,
+      div.radio.switcher label input + span small {
+        position: absolute;
+        display: block;
+        width: 50%;
+        height: 100%;
+        background: #fff;
+        border-radius: 50%;
+        transition: all 0.3s ease-in-out;
+        left: 0; }
+    div.checkbox.switcher label input:checked + span,
+    div.radio.switcher label input:checked + span {
+      background: #ffb703;
+      border-color: #ffb703; }
+      div.checkbox.switcher label input:checked + span small,
+      div.radio.switcher label input:checked + span small {
+        left: 50%; }
 
 .middleContainer:after {
   content: "";
@@ -641,7 +638,7 @@ input:checked + .slider:before {
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -829,14 +826,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -844,7 +841,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -852,21 +849,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -920,6 +917,16 @@ body {
 /*Logo Height style Start */
 a {
   color: #023047 !important; }
+
+.logo-bg {
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
+  background-size: contain; }
+
+.ham-icon {
+  color: #023047; }
+
+.back-arrow {
+  color: #023047; }
 
 .logout-font {
   font-size: 22px;
@@ -1838,7 +1845,7 @@ a {
 
 .logo {
   width: 100px;
-  height: 35px;
+  height: 25px;
   align-items: center;
   display: grid;
   margin-left: 38px; }
@@ -3090,7 +3097,24 @@ html #slide-test-5 {
   color: #023047; }
 
 .on .home-primary-content-bg {
-  background: #fafafa 0% 0% no-repeat padding-box; }
+  background: #023047 0% 0% no-repeat padding-box; }
+
+.on .home-primary-content {
+  color: #fafafa; }
+
+.on .home-header-primary {
+  color: #fafafa; }
+
+.on .header-bg {
+  background: #353940 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
+
+.on .logo-bg {
+  background: url("/modules/my-apostrophe-assets/img/liverpool_dark.svg") no-repeat;
+  background-size: contain; }
+
+.on .ham-icon {
+  color: #fafafa; }
 
 [data-theme="on"] {
   border: none;
@@ -3109,7 +3133,24 @@ html #slide-test-5 {
   color: #ffffff; }
 
 .off .home-primary-content-bg {
-  background: #353638 0% 0% no-repeat padding-box; }
+  background: #ffffff 0% 0% no-repeat padding-box; }
+
+.off .home-primary-content {
+  color: #023047; }
+
+.off .home-header-primary {
+  color: #023047; }
+
+.off .header-bg {
+  background: #54b7e6 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
+
+.off .logo-bg {
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
+  background-size: contain; }
+
+.off .ham-icon {
+  color: #023047; }
 
 [data-theme="off"] {
   border: none;

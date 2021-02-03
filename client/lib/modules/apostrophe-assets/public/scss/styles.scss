@@ -49,16 +49,6 @@
   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
-[data-theme="dark"] {
-  $primary-color: #ffffff;
-  $secondary-color: #353638 !important;
-  $header-color: #353940;
-  $placeholder-color: #ffffff;
-  $primary-input-color: #353638;
-  $secondary-input-color: #353638;
-  $search-bar-color: #3a3e47;
-}
-
 body {
   font-family: "century-gothic" !important;
   overscroll-behavior-y: none !important;
@@ -195,6 +185,19 @@ a {
   color: #023047 !important;
 }
 
+.logo-bg {
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
+  background-size: contain;
+}
+
+.ham-icon {
+  color: $primary-color;
+}
+
+.back-arrow {
+  color: $primary-color;
+}
+
 .logout-font {
   @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include xs-screen {
@@ -303,7 +306,6 @@ a {
   }
 }
 
-
 .home-header-secondary {
   @include set-titleStyles($tertiary-font-size, bold, $primary-color);
   @include xs-screen {
@@ -325,15 +327,12 @@ a {
   @include set-dynamicLineHeight($tertiary-mdFont-size);
   @include xs-screen {
     font-size: $quaternary-mdFont-size !important;
-    // letter-spacing: 0.64px !important;
   }
   @include sm-screen {
     font-size: $quaternary-font-size !important;
-    // letter-spacing: 0.64px !important;
   }
   @include md-screen {
     @include set-dynamicFont($tertiary-mdFont-size, 2);
-    // letter-spacing: 0.64px !important;
   }
   h3 {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
@@ -901,11 +900,11 @@ a {
   width: auto;
 }
 @media (max-width: 768px) {
-.main-min-height {
-  min-height: 650px !important;
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-}
+  .main-min-height {
+    min-height: 650px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
 }
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
@@ -939,7 +938,6 @@ a {
     height: 25px;
     width: auto;
   }
-
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -1170,7 +1168,7 @@ a {
 }
 .logo {
   width: 100px;
-  height: 35px;
+  height: 25px;
   align-items: center;
   display: grid;
   margin-left: 38px;
@@ -2478,23 +2476,25 @@ $color-scheme: (
     on,
     #023047,
     #fafafa,
-    #54b7e6,
+    #353940,
     #0f1010,
     #e8edee,
     #ebebeb,
     #b0bec5,
-    url("/modules/my-apostrophe-assets/img/desktop_dark.svg")
+    url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
+    url("/modules/my-apostrophe-assets/img/liverpool_dark.svg")
   ),
   (
     off,
     #ffffff,
-    #353638,
-    #353940,
+    #023047,
+    #54b7e6,
     #ffffff,
     #353638,
     #353638,
     #3a3e47,
-    url("/modules/my-apostrophe-assets/img/desktop.svg")
+    url("/modules/my-apostrophe-assets/img/desktop.svg"),
+    url("/modules/my-apostrophe-assets/img/liverpool.svg")
   )
 );
 @mixin theme(
@@ -2506,7 +2506,8 @@ $color-scheme: (
   $primary-input-color,
   $secondary-input-color,
   $search-bar-color,
-  $background
+  $background,
+  $bgLogo
 ) {
   .#{$name} {
     .body-bg {
@@ -2522,7 +2523,23 @@ $color-scheme: (
       color: $primary;
     }
     .home-primary-content-bg {
-      background: $secondary 0% 0% no-repeat padding-box;
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .home-primary-content {
+      color: $secondary;
+    }
+    .home-header-primary {
+      color: $secondary;
+    }
+    .header-bg {
+      @include set-background($header-color, 1);
+    }
+    .logo-bg {
+      background: $bgLogo no-repeat;
+      background-size: contain;
+    }
+    .ham-icon {
+      color: $secondary;
     }
   }
   [data-theme="#{$name}"] {
@@ -2532,7 +2549,7 @@ $color-scheme: (
   }
 }
 @each $name, $primary, $secondary, $header-color, $placeholder-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background in $color-scheme
+  $search-bar-color, $background, $bgLogo in $color-scheme
 {
   @include theme(
     $name,
@@ -2543,7 +2560,8 @@ $color-scheme: (
     $primary-input-color,
     $secondary-input-color,
     $search-bar-color,
-    $background
+    $background,
+    $bgLogo
   );
 }
 
@@ -2700,10 +2718,10 @@ $color-scheme: (
 .headlogo {
   padding-right: 10px;
 }
-.apos-header-para-font h3{
+.apos-header-para-font h3 {
   font-size: 20px !important;
 }
-.apos-header-para-font p{
+.apos-header-para-font p {
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {

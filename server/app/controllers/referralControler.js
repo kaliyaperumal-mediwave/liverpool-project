@@ -2,6 +2,7 @@ const P = require("pino");
 var uniqid = require('uniqid');
 const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
+const email = require('../utils/email');
 const Op = require('sequelize').Op;
 exports.eligibility = ctx => {
   console.log(ctx.request.body)
@@ -2181,24 +2182,20 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
-  const uniqueNo = uniqid().toUpperCase();
-  return user.findOne({
-    where: {
+  return genetrateUniqueCode(ctx).then((uniqueNo) => {
+    return user.update({
+      referral_progress: 100,
+      referral_complete_status: "completed",
       reference_code: uniqueNo,
+      contact_preferences: ctx.request.body.contactPreference
     },
-  }).then((result) => {
-    if (result == null) {
-      return user.update({
-        referral_progress: 100,
-        referral_complete_status: "completed",
-        reference_code: uniqueNo,
-        contact_preferences: ctx.request.body.contactPreference
-      },
-        {
-          where:
-            { uuid: ctx.request.body.userid }
-        }
-      ).then((childUserInfo) => {
+      {
+        where:
+          { uuid: ctx.request.body.userid }
+      }
+    ).then((childUserInfo) => {
+      ctx.request.body.ref_code = uniqueNo;
+      return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
         const responseData = {
           userid: ctx.request.body.userid,
           status: "ok",
@@ -2209,8 +2206,12 @@ exports.saveReview = ctx => {
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
-    }
-  })
+    }).catch((error) => {
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+  }).catch((error) => {
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
 }
 
 exports.getRefNo = ctx => {
@@ -2718,3 +2719,22 @@ exports.searchReferalByCode = ctx => {
   }
 
 }
+
+const genetrateUniqueCode = (ctx) => new Promise(async (resolve, reject) => {
+  try {
+    const user = ctx.orm().Referral;
+    while(1) {
+      const uniqueCode = uniqid.process().toUpperCase();
+      let usrRes = await user.findOne({
+          where: {
+            reference_code: uniqueCode
+          }
+        });
+      if(!usrRes) {
+        return resolve(uniqueCode);
+      }
+    }
+  } catch(error) {
+    reject(error);
+  }
+});
