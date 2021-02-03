@@ -18,18 +18,6 @@
 @import "select";
 @import "toast";
 
-$primary-header-color: #8ecae6;
-$sub-header-color: #012f46;
-$primary-content-bg-img: url("/modules/my-apostrophe-assets/img/desktop.svg");
-$content-header-color: #023047;
-
-$header-text-color: #ffffff;
-$content-color: #fafafa;
-$footer-text-color: #feffff;
-
-$question-text-color: #023047;
-$header-font-size: 32px;
-
 @font-face {
   font-family: "century-gothic";
   font-style: normal;
@@ -364,7 +352,6 @@ a {
   }
 }
 
-
 .home-secondary-content {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
   @include xs-screen {
@@ -689,13 +676,13 @@ a {
 .question-header-font {
   @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include xs-screen {
-    font-size: 18px;
+    font-size: 15px;
   }
   @include sm-screen {
-    font-size: 19px;
+    font-size: 16px;
   }
   @include md-screen {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -820,7 +807,7 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -915,9 +902,6 @@ a {
 
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
-  .question-header-font {
-    font-size: 24px;
-  }
   .question-font {
     font-size: 14px;
   }
@@ -2480,40 +2464,83 @@ html #slide-test-5 {
   display: none;
 }
 
-/*  Text Size Start */
-
+/*  Dark theme Start */
 $color-scheme: (
-  (small, 28px, 20px, 18px, 16px, 14px),
-  (default, 32px, 24px, 22px, 18px, 14px),
-  (large, 38px, 28px, 26px, 22px, 18px)
+  (
+    on,
+    #023047,
+    #fafafa,
+    #54b7e6,
+    #0f1010,
+    #e8edee,
+    #ebebeb,
+    #b0bec5,
+    url("/modules/my-apostrophe-assets/img/desktop_dark.svg")
+  ),
+  (
+    off,
+    #ffffff,
+    #353638,
+    #353940,
+    #ffffff,
+    #353638,
+    #353638,
+    #3a3e47,
+    url("/modules/my-apostrophe-assets/img/desktop.svg")
+  )
 );
-@mixin theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize) {
+@mixin theme(
+  $name,
+  $primary,
+  $secondary,
+  $header-color,
+  $placeholder-color,
+  $primary-input-color,
+  $secondary-input-color,
+  $search-bar-color,
+  $background
+) {
   .#{$name} {
-    .home-header-primary {
-      @include set-titleStyles($primaryTextSize, bold, $primary-color);
-      @include xs-screen {
-        @include set-dynamicFont($primaryTextSize, 4);
-      }
-      @include sm-screen {
-        @include set-dynamicFont($primaryTextSize, 2);
-      }
-      @include md-screen {
-        @include set-dynamicFont($primaryTextSize, 2);
-      }
+    .body-bg {
+      background: #8ecae6 $background no-repeat fixed !important;
+      background-size: cover !important;
+      height: 100%;
+      // background: $background;
+    }
+    .home-header-primaryh2para h2 {
+      color: $primary;
+    }
+    .home-header-primaryh2para p {
+      color: $primary;
+    }
+    .home-primary-content-bg {
+      background: $secondary 0% 0% no-repeat padding-box;
     }
   }
   [data-theme="#{$name}"] {
     border: none;
     padding: 5px 15px;
+    background: $primary;
   }
 }
-@each $name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize,
-  $quinaryTextSize in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholder-color, $primary-input-color, $secondary-input-color,
+  $search-bar-color, $background in $color-scheme
 {
-  @include theme($name, $primaryTextSize, $secondaryTextSize, $tertiaryTextSize, $quaternaryTextSize, $quinaryTextSize);
+  @include theme(
+    $name,
+    $primary,
+    $secondary,
+    $header-color,
+    $placeholder-color,
+    $primary-input-color,
+    $secondary-input-color,
+    $search-bar-color,
+    $background
+  );
 }
 
-/*  Text Size End */
+/*  Dark theme End */
+
 .text-label-hide::before {
   display: none !important;
 }
@@ -2630,41 +2657,38 @@ $color-scheme: (
   padding: 0px 7px 2px 7px;
   font-weight: 500;
 }
-.dropdown-custom{
+.dropdown-custom {
   border-radius: 0px !important;
   border: none !important;
 }
-.border-set-color{
+.border-set-color {
   border-radius: 0px !important;
   border: 1px solid #023047 !important;
 }
 @media (max-width: 450px) {
-p.referral-inside-text.my-2.my-md-3{
-  font-size: 14px !important;
+  p.referral-inside-text.my-2.my-md-3 {
+    font-size: 14px !important;
+  }
 }
-}
-#style-7::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
-	border-radius: 10px;
-}
-
-#style-7::-webkit-scrollbar
-{
-	width: 7px;
-	background-color: #F5F5F5;
+#style-7::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 10px;
 }
 
-#style-7::-webkit-scrollbar-thumb
-{
-	border-radius: 0px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
-background-color: #ffb703;
+#style-7::-webkit-scrollbar {
+  width: 7px;
+  background-color: #f5f5f5;
 }
-.urgent-help-bg.d-flex.align-items-center.justify-content-between{
-      background: linear-gradient(125deg, #E55F5F 50%, #FB8500 50%) !important;
+
+#style-7::-webkit-scrollbar-thumb {
+  border-radius: 0px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #ffb703;
 }
-.headlogo{
+.urgent-help-bg.d-flex.align-items-center.justify-content-between {
+  background: linear-gradient(125deg, #e55f5f 50%, #fb8500 50%) !important;
+}
+.headlogo {
   padding-right: 10px;
 }
