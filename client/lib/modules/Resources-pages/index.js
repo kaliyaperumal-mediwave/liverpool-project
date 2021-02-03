@@ -24,28 +24,28 @@ module.exports = {
       self.checkCommonPageAuth(req).then(async (req) => {
         let piecesArray = [];
         if (req.data.piece) {
-          var ThingsToWatchArray = req.data.piece._watchPage.length > 0 ? req.data.piece._watchPage : [];
+          var ThingsToWatchArray = req.data.piece._watchPage && req.data.piece._watchPage.length > 0 ? req.data.piece._watchPage : [];
           var ThingsToWatch = _.map(ThingsToWatchArray, (item) => {
             item.custom_url = "/watch?piece_id=" + item._id
             return item;
           })
 
-          var ThingsToReadArray = req.data.piece._readPage.length > 0 ? req.data.piece._readPage : [];
+          var ThingsToReadArray = req.data.piece._readPage && req.data.piece._readPage.length > 0 ? req.data.piece._readPage : [];
           var ThingsToRead = _.map(ThingsToReadArray, (item) => {
             item.custom_url = "/read?piece_id=" + item._id
             return item;
           })
-          var GamesArray = req.data.piece._gamesPage.length > 0 ? req.data.piece._gamesPage : [];
+          var GamesArray = req.data.piece._gamesPage && req.data.piece._gamesPage.length > 0 ? req.data.piece._gamesPage : [];
           var Games = _.map(GamesArray, (item) => {
             item.custom_url = "/games?piece_id=" + item._id
             return item;
           })
-          var EventsArray = req.data.piece._eventPage.length > 0 ? req.data.piece._eventPage : [];
+          var EventsArray = req.data.piece._eventPage && req.data.piece._eventPage.length > 0 ? req.data.piece._eventPage : [];
           var Events = _.map(EventsArray, (item) => {
             item.custom_url = "/events?piece_id=" + item._id
             return item;
           })
-          var PartnerAgenciesArray = req.data.piece._partnerAgenciesPage.length > 0 ? req.data.piece._partnerAgenciesPage : [];
+          var PartnerAgenciesArray = req.data.piece._partnerAgenciesPage && req.data.piece._partnerAgenciesPage.length > 0 ? req.data.piece._partnerAgenciesPage : [];
           var PartnerAgencies = _.map(PartnerAgenciesArray, (item) => {
             item.custom_url = "/partner?piece_id=" + item._id
             return item;

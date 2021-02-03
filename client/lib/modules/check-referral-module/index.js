@@ -58,6 +58,7 @@ module.exports = {
       //setting user role and uuid in session to navigate referral pages
       req.session.user_role = req.params.role;
       req.session.uuid = req.params.uuid;
+      req.session.frm_ref_home = "Y";
       return res.send(req.params.refProgress);
     });
   }

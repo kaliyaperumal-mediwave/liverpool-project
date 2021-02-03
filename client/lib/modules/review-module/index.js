@@ -34,6 +34,7 @@ module.exports = {
       //   const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
       //   decryptedUrl = btoa(getParamsRedirect);
       // }
+      req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('review', {
         headerContent: "Section 5 of 5: Preferences and review",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",

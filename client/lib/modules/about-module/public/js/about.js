@@ -346,7 +346,6 @@ $(document).ready(function () {
                         });
 
                     } else {
-                        debugger
                         houseHoldForm.id = uuidV4();
                         houseHoldForm.mode = 'add';
                         this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
