@@ -1008,23 +1008,22 @@ a {
     .home-header-primary {
       font-size: 36px !important;
       letter-spacing: 1.5px !important; } }
-
-.home-header-primary h2 {
-  font-size: 32px;
-  font-weight: bold;
-  color: #023047; }
-  @media (max-width: 575.98px) {
-    .home-header-primary h2 {
-      font-size: 30px !important;
-      letter-spacing: 1.5px !important; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
-    .home-header-primary h2 {
-      font-size: 32px !important;
-      letter-spacing: 1.5px !important; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .home-header-primary h2 {
-      font-size: 36px !important;
-      letter-spacing: 1.5px !important; } }
+  .home-header-primary h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #023047; }
+    @media (max-width: 575.98px) {
+      .home-header-primary h2 {
+        font-size: 30px !important;
+        letter-spacing: 1.5px !important; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .home-header-primary h2 {
+        font-size: 32px !important;
+        letter-spacing: 1.5px !important; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .home-header-primary h2 {
+        font-size: 36px !important;
+        letter-spacing: 1.5px !important; } }
 
 .home-header-secondary {
   font-size: 24px;
@@ -3259,3 +3258,9 @@ html #slide-test-5 {
 
 .headlogo {
   padding-right: 10px; }
+
+.apos-header-para-font h3 {
+  font-size: 20px !important; }
+
+.apos-header-para-font p {
+  font-size: 16px !important; }
