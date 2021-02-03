@@ -1609,6 +1609,12 @@ a {
   height: 35px;
   width: auto; }
 
+@media (max-width: 768px) {
+  .main-min-height {
+    min-height: 650px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important; } }
+
 @media (max-width: 575.98px) {
   .question-font {
     font-size: 14px; }
