@@ -289,20 +289,20 @@ a {
     @include set-dynamicFont($primary-lgFont-size, 4);
     letter-spacing: 1.5px !important;
   }
-}
-.home-header-primary h2 {
-  @include set-titleStyles($primary-font-size, bold, $primary-color);
-  @include xs-screen {
-    font-size: $primary-mdFont-size !important;
-    letter-spacing: 1.5px !important;
-  }
-  @include sm-screen {
-    @include set-dynamicFont($primary-lgFont-size, 8);
-    letter-spacing: 1.5px !important;
-  }
-  @include md-screen {
-    @include set-dynamicFont($primary-lgFont-size, 4);
-    letter-spacing: 1.5px !important;
+  h2 {
+    @include set-titleStyles($primary-font-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: $primary-mdFont-size !important;
+      letter-spacing: 1.5px !important;
+    }
+    @include sm-screen {
+      @include set-dynamicFont($primary-lgFont-size, 8);
+      letter-spacing: 1.5px !important;
+    }
+    @include md-screen {
+      @include set-dynamicFont($primary-lgFont-size, 4);
+      letter-spacing: 1.5px !important;
+    }
   }
 }
 
@@ -327,15 +327,12 @@ a {
   @include set-dynamicLineHeight($tertiary-mdFont-size);
   @include xs-screen {
     font-size: $quaternary-mdFont-size !important;
-    letter-spacing: 0.64px !important;
   }
   @include sm-screen {
     font-size: $quaternary-font-size !important;
-    letter-spacing: 0.64px !important;
   }
   @include md-screen {
     @include set-dynamicFont($tertiary-mdFont-size, 2);
-    letter-spacing: 0.64px !important;
   }
   h3 {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
@@ -902,7 +899,13 @@ a {
   height: 35px;
   width: auto;
 }
-
+@media (max-width: 768px) {
+  .main-min-height {
+    min-height: 650px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
   .question-font {
@@ -2714,4 +2717,10 @@ $color-scheme: (
 }
 .headlogo {
   padding-right: 10px;
+}
+.apos-header-para-font h3 {
+  font-size: 20px !important;
+}
+.apos-header-para-font p {
+  font-size: 16px !important;
 }

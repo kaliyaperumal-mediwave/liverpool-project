@@ -1015,23 +1015,22 @@ a {
     .home-header-primary {
       font-size: 36px !important;
       letter-spacing: 1.5px !important; } }
-
-.home-header-primary h2 {
-  font-size: 32px;
-  font-weight: bold;
-  color: #023047; }
-  @media (max-width: 575.98px) {
-    .home-header-primary h2 {
-      font-size: 30px !important;
-      letter-spacing: 1.5px !important; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
-    .home-header-primary h2 {
-      font-size: 32px !important;
-      letter-spacing: 1.5px !important; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .home-header-primary h2 {
-      font-size: 36px !important;
-      letter-spacing: 1.5px !important; } }
+  .home-header-primary h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #023047; }
+    @media (max-width: 575.98px) {
+      .home-header-primary h2 {
+        font-size: 30px !important;
+        letter-spacing: 1.5px !important; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .home-header-primary h2 {
+        font-size: 32px !important;
+        letter-spacing: 1.5px !important; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .home-header-primary h2 {
+        font-size: 36px !important;
+        letter-spacing: 1.5px !important; } }
 
 .home-header-secondary {
   font-size: 24px;
@@ -1057,16 +1056,13 @@ a {
   line-height: 27px !important; }
   @media (max-width: 575.98px) {
     .home-primary-content {
-      font-size: 16px !important;
-      letter-spacing: 0.64px !important; } }
+      font-size: 16px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .home-primary-content {
-      font-size: 18px !important;
-      letter-spacing: 0.64px !important; } }
+      font-size: 18px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .home-primary-content {
-      font-size: 20px !important;
-      letter-spacing: 0.64px !important; } }
+      font-size: 20px !important; } }
   .home-primary-content h3 {
     font-size: 22px;
     font-weight: bold;
@@ -1618,6 +1614,12 @@ a {
 .img-class {
   height: 35px;
   width: auto; }
+
+@media (max-width: 768px) {
+  .main-min-height {
+    min-height: 650px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important; } }
 
 @media (max-width: 575.98px) {
   .question-font {
@@ -3297,3 +3299,9 @@ html #slide-test-5 {
 
 .headlogo {
   padding-right: 10px; }
+
+.apos-header-para-font h3 {
+  font-size: 20px !important; }
+
+.apos-header-para-font p {
+  font-size: 16px !important; }
