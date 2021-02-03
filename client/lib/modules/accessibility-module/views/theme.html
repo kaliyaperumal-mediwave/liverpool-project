@@ -36,6 +36,8 @@
             <a href="{{ data.logoPath }}">
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
+                <!-- <i class="fa fa-long-arrow-left cursor-pointer py-1 back-arrow" data-toggle="tooltip" data-placement="top"
+                    title="Back" aria-hidden="true"></i> -->
             </a>
             <!-- 
             <div class="home-header-primary m-0 py-2">
@@ -79,10 +81,17 @@
                     <h2 class="home-primary-content">The
                         Change your theme for better experience.
                     </h2>
-                    <label class="switch">
+                    <!-- <label class="switch">
                         <input type="checkbox" id="switchId" v-model="theme" @change="changeTheme($event)" class="default">
                         <span class="slider round"></span>
-                    </label>
+                    </label> -->
+                    <div class="checkbox switcher">
+                        <label for="test">
+                            <input type="checkbox" @change="changeTheme($event)" id="test" value="">
+                            <span><small></small></span>
+                            <!-- <small>Light switch</small> -->
+                        </label>
+                    </div>
                 </div>
                 <div class="text-center mt-5">
                     <button @click="saveTheme(textSizeData)" type="button" class="btn px-md-4 py-1 px-3"><span

@@ -1,3 +1,4 @@
+var currentTextSize = 18;
 
 //Reset Two-Way-Model Values 
 function resetValues(currentForm, context, formObj) {
@@ -337,8 +338,22 @@ function decryptUrl(nextPge, loginId, roles) {
     return gotopage;
 }
 
+function setTextSize() {
+    var textSize = localStorage.getItem('textSize');
+    if (textSize && Number(textSize) >= 16) {
+        var inc = Number(textSize) - Number(currentTextSize);
+        $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
+            var fontsize = parseInt($(this).css('font-size'));
+            var newFontsize = (fontsize + inc) + 'px';
+            $(this).css('font-size', newFontsize);
+        });
+        currentTextSize = textSize;
+    }
+}
+
 $(document).ready(function () {
     setLoaderStyle();
+    setTextSize();
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
         $('[data-toggle="popover"]').popover(

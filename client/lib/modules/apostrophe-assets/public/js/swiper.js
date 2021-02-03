@@ -21,27 +21,27 @@ $(document).ready(function() {
             1024: {
                 spaceBetween: 30,
                 slidesPerView: 3,
-                
+
             },
             992: {
                 spaceBetween: 30,
                 slidesPerView: 2,
-                
+
             },
             768: {
                 spaceBetween: 30,
                 slidesPerView: 2,
-                
+
             },
             600: {
                 spaceBetween: 30,
                 slidesPerView: 2,
-                
+
             },
             424: {
                 spaceBetween: 10,
-                slidesPerView: 1,
-                
+                slidesPerView: 1.5,
+
             },
 
         }

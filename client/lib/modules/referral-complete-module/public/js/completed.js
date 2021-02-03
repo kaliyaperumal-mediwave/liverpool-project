@@ -32,7 +32,7 @@ $(document).ready(function () {
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
                         console.log("logi flag ",_self.loginFlag)
-                         _self.sendMail(_self.sendObj);
+                        //  _self.sendMail(_self.sendObj);
                         $('#loader').hide();
                     },
                     error: function (error) {
@@ -41,26 +41,26 @@ $(document).ready(function () {
                     }
                 });
             },
-            sendMail: function (payLoadObj) {
+            // sendMail: function (payLoadObj) {
               
-                var _self = this;
-                $.ajax({
-                    url: API_URI + "/sendConfirmationMail",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(payLoadObj),
-                    success: function (data) {
-                        console.log("EmailSent")
-                        //_self.reference_code = data.reference_code;
-                        //$('#loader').hide();
-                    },
-                    error: function (error) {
-                        console.log('Something went Wrong', error);
-                        //$('#loader').hide();
-                    }
-                });
-            },
+            //     var _self = this;
+            //     $.ajax({
+            //         url: API_URI + "/sendConfirmationMail",
+            //         type: 'post',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         data: JSON.stringify(payLoadObj),
+            //         success: function (data) {
+            //             console.log("EmailSent")
+            //             //_self.reference_code = data.reference_code;
+            //             //$('#loader').hide();
+            //         },
+            //         error: function (error) {
+            //             console.log('Something went Wrong', error);
+            //             //$('#loader').hide();
+            //         }
+            //     });
+            // },
         }
     })
 });
