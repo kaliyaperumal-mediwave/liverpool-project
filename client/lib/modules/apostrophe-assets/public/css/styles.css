@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint, .small .home-header-primary, .default .home-header-primary, .large .home-header-primary {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -641,7 +641,7 @@ input:checked + .slider:before {
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important ;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -829,14 +829,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -844,7 +844,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -852,21 +852,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -1521,7 +1521,7 @@ a {
   opacity: 1; }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
   background-size: cover !important;
   height: 100%; }
 
@@ -3077,62 +3077,46 @@ html #slide-test-5 {
 .range-labels .active.selected::before {
   display: none; }
 
-/*  Text Size Start */
-.small .home-header-primary {
-  font-size: 28px;
-  font-weight: bold;
+/*  Dark theme Start */
+.on .body-bg {
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop_dark.svg") no-repeat fixed !important;
+  background-size: cover !important;
+  height: 100%; }
+
+.on .home-header-primaryh2para h2 {
   color: #023047; }
-  @media (max-width: 575.98px) {
-    .small .home-header-primary {
-      font-size: 24px !important; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
-    .small .home-header-primary {
-      font-size: 26px !important; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .small .home-header-primary {
-      font-size: 26px !important; } }
 
-[data-theme="small"] {
-  border: none;
-  padding: 5px 15px; }
-
-.default .home-header-primary {
-  font-size: 32px;
-  font-weight: bold;
+.on .home-header-primaryh2para p {
   color: #023047; }
-  @media (max-width: 575.98px) {
-    .default .home-header-primary {
-      font-size: 28px !important; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
-    .default .home-header-primary {
-      font-size: 30px !important; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .default .home-header-primary {
-      font-size: 30px !important; } }
 
-[data-theme="default"] {
+.on .home-primary-content-bg {
+  background: #fafafa 0% 0% no-repeat padding-box; }
+
+[data-theme="on"] {
   border: none;
-  padding: 5px 15px; }
+  padding: 5px 15px;
+  background: #023047; }
 
-.large .home-header-primary {
-  font-size: 38px;
-  font-weight: bold;
-  color: #023047; }
-  @media (max-width: 575.98px) {
-    .large .home-header-primary {
-      font-size: 34px !important; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
-    .large .home-header-primary {
-      font-size: 36px !important; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .large .home-header-primary {
-      font-size: 36px !important; } }
+.off .body-bg {
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed !important;
+  background-size: cover !important;
+  height: 100%; }
 
-[data-theme="large"] {
+.off .home-header-primaryh2para h2 {
+  color: #ffffff; }
+
+.off .home-header-primaryh2para p {
+  color: #ffffff; }
+
+.off .home-primary-content-bg {
+  background: #353638 0% 0% no-repeat padding-box; }
+
+[data-theme="off"] {
   border: none;
-  padding: 5px 15px; }
+  padding: 5px 15px;
+  background: #ffffff; }
 
-/*  Text Size End */
+/*  Dark theme End */
 .text-label-hide::before {
   display: none !important; }
 
@@ -3257,12 +3241,12 @@ html #slide-test-5 {
 
 #style-7::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   border-radius: 10px; }
 
 #style-7::-webkit-scrollbar {
   width: 7px;
-  background-color: #F5F5F5; }
+  background-color: #f5f5f5; }
 
 #style-7::-webkit-scrollbar-thumb {
   border-radius: 0px;
@@ -3270,7 +3254,7 @@ html #slide-test-5 {
   background-color: #ffb703; }
 
 .urgent-help-bg.d-flex.align-items-center.justify-content-between {
-  background: linear-gradient(125deg, #E55F5F 50%, #FB8500 50%) !important; }
+  background: linear-gradient(125deg, #e55f5f 50%, #fb8500 50%) !important; }
 
 .headlogo {
   padding-right: 10px; }

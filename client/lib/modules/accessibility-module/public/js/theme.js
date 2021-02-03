@@ -22,12 +22,15 @@ $(document).ready(function () {
         methods: {
 
             changeTheme: function (e) {
+                //  var element = $("[data-apos-refreshable]");
                 if (e.target.checked) {
-                    document.documentElement.setAttribute('data-theme', 'dark');
+                    theme = 'on';
+                    $('body').removeClass().addClass('net ' + theme).addClass('body-bg');
                     localStorage.setItem('theme', 'dark');
                 }
                 else {
-                    document.documentElement.setAttribute('data-theme', 'light');
+                    theme = 'off';
+                    $('body').removeClass().addClass('net ' + theme).addClass('body-bg');
                     localStorage.setItem('theme', 'light');
                 }
             },
