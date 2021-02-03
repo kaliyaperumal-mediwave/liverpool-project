@@ -2723,13 +2723,25 @@ exports.searchReferalByCode = ctx => {
 const genetrateUniqueCode = (ctx) => new Promise(async (resolve, reject) => {
   try {
     const user = ctx.orm().Referral;
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const charactersLength = characters.length;
     while(1) {
-      const uniqueCode = uniqid.process().toUpperCase();
-      let usrRes = await user.findOne({
+      let uniqueCode = uniqid().toUpperCase();
+      const uniqueCodeLength = uniqueCode.length;
+      if(uniqueCodeLength > 12) {
+        uniqueCode = uniqueCode.slice(0, 12);
+      } else if(uniqueCodeLength < 12) {
+        for(let index = uniqueCodeLength; index < 12; index++) {
+          uniqueCode += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+      }
+      let usrRes = await user.findOne(
+        {
           where: {
             reference_code: uniqueCode
           }
-        });
+        }
+      );
       if(!usrRes) {
         return resolve(uniqueCode);
       }
