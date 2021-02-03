@@ -1,5 +1,11 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
+<script>
+    $(document).on('click', 'a.previous-link', function () {
+        parent.history.back();
+        return false;
+    });
+</script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 {% set user_data = data.user_data %}
@@ -121,7 +127,7 @@
             <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
-    </div>
+    <!-- </div> -->
     {% endif %}
     <!-- Things to download container-->
     <div
@@ -526,10 +532,11 @@
             <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
+    </div>
     {% endif %}
 
     <!-- Initialize Swiper -->
-     <script>
+     <!-- <script>
         $(document).on('click', 'a.previous-link', function () {
             parent.history.back();
             return false;
@@ -579,7 +586,7 @@
 
             }
         });
-    </script>
+    </script> -->
     {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
 
