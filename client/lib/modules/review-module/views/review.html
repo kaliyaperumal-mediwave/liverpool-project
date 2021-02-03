@@ -16,18 +16,19 @@
                     are
                     correct before sending your child’s referral.
                 </p> -->
-              <div  class="question-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12">  {{ apos.area(data.page, 'review_referral', {
+                <div class="question-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
+                    'review_referral', {
                     widgets: {
-                      'apostrophe-rich-text': {
-                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                        styles: [
-                          { name: 'Heading', element: 'h2' },
-                          { name: 'Paragraph', element: 'p' }
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Heading', element: 'h2' },
+                    { name: 'Paragraph', element: 'p' }
 
-                        ]
-                      }
+                    ]
                     }
-                  }) }}</div>
+                    }
+                    }) }}</div>
                 <div class="dropdown-divider mx-3"></div>
 
                 <div class="accordion" id="accordionExample">
@@ -1153,8 +1154,7 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="infoAb5">
                                         Info about issue:
                                     </label>
-                                    <textarea
-                                        class="col-md-6 col-lg-6  text-capitalize col-xl-5 col-11 h-50 form-control"
+                                    <textarea class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control"
                                         name="infoTextAreas" id="infoAb5" rows="3"
                                         v-model="section4Data.referral_issues"
                                         @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
@@ -1164,8 +1164,7 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="hasHelp5">
                                         Has anything helped?:
                                     </label>
-                                    <textarea
-                                        class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="hasHelp5" rows="3"
                                         v-model="section4Data.has_anything_helped"
                                         @input="onDetectChange($event,'sect4','section4Data','has_anything_helped')">{{section4Data.has_anything_helped}}</textarea>
@@ -1175,8 +1174,7 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="trig5">
                                         Triggers:
                                     </label>
-                                    <textarea
-                                        class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="trig5" rows="3"
                                         v-model="section4Data.any_particular_trigger"
                                         @input="onDetectChange($event,'sect4','section4Data','any_particular_trigger')">{{section4Data.any_particular_trigger}}</textarea>
@@ -1186,8 +1184,7 @@
                                     <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
                                         Disabilities / difficulties:
                                     </label>
-                                    <textarea
-                                        class="h-50 form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         name="infoTextAreas" id="textInf0red" rows="3"
                                         v-model="section4Data.disabilities"
                                         @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
@@ -1237,31 +1234,31 @@
                         contacted about the progress of your child’s referral?
                     </p> -->
                     <div class="py-2 px-3 m-0 question-header-font">
-                    {{ apos.area(data.page, 'review_contact', {
-                         widgets: {
-                           'apostrophe-rich-text': {
-                             toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                             styles: [
-                               { name: 'Heading', element: 'h2' }
+                        {{ apos.area(data.page, 'review_contact', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Heading', element: 'h2' }
 
-                             ]
-                           }
-                         }
-                       }) }}
-                       </div>
-                       <div class="question-font py-2 my-2 px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
-                       {{ apos.area(data.page, 'review_contactSub', {
-                            widgets: {
-                              'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                  { name: 'Paragraph', element: 'p' }
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div>
+                    <div class="question-font py-2 my-2 px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                        {{ apos.area(data.page, 'review_contactSub', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Paragraph', element: 'p' }
 
-                                ]
-                              }
-                            }
-                          }) }}
-                          </div>
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div>
                     <div class="py-2 px-3 m-0 question-header-font">
                         <div class="custom-form-group m-0 pb-1">
                             <input type="checkbox" id="Post" name="contactPreference" value="post"
@@ -1304,17 +1301,18 @@
                         providing
                         are correct.
                     </p> -->
-                    <div  class="question-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12">  {{ apos.area(data.page, 'review_send', {
-                          widgets: {
-                            'apostrophe-rich-text': {
-                              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                              styles: [
-                                { name: 'Heading', element: 'h2' },
-                                { name: 'Paragraph', element: 'p' }
+                    <div class="question-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
+                        'review_send', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Heading', element: 'h2' },
+                        { name: 'Paragraph', element: 'p' }
 
-                              ]
-                            }
-                          }
+                        ]
+                        }
+                        }
                         }) }}</div>
                 </div>
                 <!-- Send End -->
