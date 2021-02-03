@@ -676,13 +676,13 @@ a {
 .question-header-font {
   @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include xs-screen {
-    font-size: 18px;
+    font-size: 15px;
   }
   @include sm-screen {
-    font-size: 19px;
+    font-size: 16px;
   }
   @include md-screen {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -902,9 +902,6 @@ a {
 
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
-  .question-header-font {
-    font-size: 24px;
-  }
   .question-font {
     font-size: 14px;
   }
