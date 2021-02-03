@@ -120,3 +120,39 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
         }));
     }
 });
+
+exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject) => {
+    try {
+        if(ctx.request.decryptedUser!=undefined) {
+            const data = {
+                from: 'info@mindwaveventures.com',
+                to: ctx.request.decryptedUser.email,
+                subject: 'Referral Confirmation',
+                html: '<p> Your referral code is <strong>' + ctx.request.body.ref_code + '</strong><p>',
+            };
+            Transport.sendMail(data, (err, res) => {
+                if (!err && res) {
+                    logger.info(res);
+                    ctx.res.ok({
+                        data: {sendUserResult: ctx.request.body.ref_code}
+                    });
+                    resolve();
+                } else {
+                    ctx.res.internalServerError({
+                        message: 'Failed to sent mail',
+                    });
+                    reject();
+                }
+            });
+        } else {
+            ctx.res.ok({
+                data: {sendUserResult: ctx.request.body.ref_code}
+            });
+            resolve();
+        }
+    } catch (e) {
+        return resolve(ctx.res.internalServerError({
+            data: 'Failed to sent mail',
+        }));
+    }
+});
