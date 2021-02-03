@@ -49,16 +49,6 @@
   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
 }
 
-[data-theme="dark"] {
-  $primary-color: #ffffff;
-  $secondary-color: #353638 !important;
-  $header-color: #353940;
-  $placeholder-color: #ffffff;
-  $primary-input-color: #353638;
-  $secondary-input-color: #353638;
-  $search-bar-color: #3a3e47;
-}
-
 body {
   font-family: "century-gothic" !important;
   overscroll-behavior-y: none !important;
@@ -193,6 +183,19 @@ body {
 
 a {
   color: #023047 !important;
+}
+
+.logo-bg {
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
+  background-size: contain;
+}
+
+.ham-icon {
+  color: $primary-color;
+}
+
+.back-arrow {
+  color: $primary-color;
 }
 
 .logout-font {
@@ -1162,7 +1165,7 @@ a {
 }
 .logo {
   width: 100px;
-  height: 35px;
+  height: 25px;
   align-items: center;
   display: grid;
   margin-left: 38px;
@@ -2470,23 +2473,25 @@ $color-scheme: (
     on,
     #023047,
     #fafafa,
-    #54b7e6,
+    #353940,
     #0f1010,
     #e8edee,
     #ebebeb,
     #b0bec5,
-    url("/modules/my-apostrophe-assets/img/desktop_dark.svg")
+    url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
+    url("/modules/my-apostrophe-assets/img/liverpool_dark.svg")
   ),
   (
     off,
     #ffffff,
-    #353638,
-    #353940,
+    #023047,
+    #54b7e6,
     #ffffff,
     #353638,
     #353638,
     #3a3e47,
-    url("/modules/my-apostrophe-assets/img/desktop.svg")
+    url("/modules/my-apostrophe-assets/img/desktop.svg"),
+    url("/modules/my-apostrophe-assets/img/liverpool.svg")
   )
 );
 @mixin theme(
@@ -2498,7 +2503,8 @@ $color-scheme: (
   $primary-input-color,
   $secondary-input-color,
   $search-bar-color,
-  $background
+  $background,
+  $bgLogo
 ) {
   .#{$name} {
     .body-bg {
@@ -2514,7 +2520,23 @@ $color-scheme: (
       color: $primary;
     }
     .home-primary-content-bg {
-      background: $secondary 0% 0% no-repeat padding-box;
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .home-primary-content {
+      color: $secondary;
+    }
+    .home-header-primary {
+      color: $secondary;
+    }
+    .header-bg {
+      @include set-background($header-color, 1);
+    }
+    .logo-bg {
+      background: $bgLogo no-repeat;
+      background-size: contain;
+    }
+    .ham-icon {
+      color: $secondary;
     }
   }
   [data-theme="#{$name}"] {
@@ -2524,7 +2546,7 @@ $color-scheme: (
   }
 }
 @each $name, $primary, $secondary, $header-color, $placeholder-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background in $color-scheme
+  $search-bar-color, $background, $bgLogo in $color-scheme
 {
   @include theme(
     $name,
@@ -2535,7 +2557,8 @@ $color-scheme: (
     $primary-input-color,
     $secondary-input-color,
     $search-bar-color,
-    $background
+    $background,
+    $bgLogo
   );
 }
 
