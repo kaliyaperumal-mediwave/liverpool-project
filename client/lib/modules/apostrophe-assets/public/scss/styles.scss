@@ -2734,6 +2734,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
+    word-break: break-all;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
