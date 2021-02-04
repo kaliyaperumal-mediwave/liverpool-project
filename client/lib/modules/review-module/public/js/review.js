@@ -147,8 +147,16 @@ $(document).ready(function () {
                             }
                         }
 
-                        _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
-                        _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties.toString();
+                        if(_self.section4Data.reason_for_referral)
+                        {
+                            _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
+                        }
+                        if(_self.section4Data.eating_disorder_difficulties)
+                        {
+                            _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties.toString();
+                        }
+                        
+                     
 
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));

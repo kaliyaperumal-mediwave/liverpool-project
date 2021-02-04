@@ -20,6 +20,7 @@
     "@kasa/koa-logging": "^0.3.0",
     "@kasa/koa-request-id": "^2.0.1",
     "@koa/cors": "^3.0.0",
+    "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
     "elastic-apm-node": "^3.2.0",

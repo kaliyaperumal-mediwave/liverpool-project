@@ -391,9 +391,6 @@ function closeSideDrawer() {
 }
 
 function logOut() {
-    // window.location.href = window.location.origin + '/users/login';
-    //window.location.href = "/logout";
-    console.log("logout")
     var API_URI = "/modules/auth-module";
     var response;
     console.log(API_URI + "/doLogout")
@@ -404,10 +401,11 @@ function logOut() {
         async: false,
         contentType: 'application/json',
         success: function (res) {
+            $('#logoutModal').modal('hide');
             location.href = window.location.origin + '/users/login';
         },
         error: function (error) {
-            $('#loader').hide();
+            $('#logoutModal').modal('hide');
             console.log(error.responseJSON.message)
         }
     });
