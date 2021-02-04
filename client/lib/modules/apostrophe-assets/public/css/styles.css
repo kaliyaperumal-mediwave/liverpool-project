@@ -3361,3 +3361,6 @@ html #slide-test-5 {
 
 .read-cont-h1 p:hover {
   text-decoration: none !important; }
+
+img.cursor-pointer {
+  width: 27px !important; }
