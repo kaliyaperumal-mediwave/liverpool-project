@@ -17,7 +17,6 @@ $(document).ready(function () {
         methods: {
 
             changeTheme: function (e) {
-                //  var element = $("[data-apos-refreshable]");
                 if (e.target.checked) {
                     theme = 'on';
                     $('body').removeClass().addClass('net ' + theme).addClass('body-bg');
@@ -30,7 +29,7 @@ $(document).ready(function () {
                 }
             },
 
-            saveTheme: function (selectedTheme) {
+            saveTheme: function () {
                 localStorage.setItem('theme', selectedTheme);
                 $('#themeSuccessModal').modal('show');
             },
