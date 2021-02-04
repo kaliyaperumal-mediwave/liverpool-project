@@ -2771,6 +2771,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
+    word-break: break-all;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
@@ -2781,4 +2782,21 @@ $color-scheme: (
     text-align: right !important;
     padding-right: 10px !important;
   }
+}
+.text-underlined{
+  text-decoration: underline !important;
+  word-break: break-all;
+}
+.ellipse-text-large-card {
+  display: block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  min-height: 3.6em;
+}
+.read-cont-h1 p:hover {
+  text-decoration: none !important;
+}
+img.cursor-pointer{
+  width: 27px !important;
 }

@@ -3,6 +3,7 @@ module.exports = {
   name: 'readPage',
   label: 'Reads',
   pluralLabel: 'Things to Read',
+  sortify: true,
   addFields: [
     {
       name: 'Topic',
@@ -36,14 +37,36 @@ module.exports = {
     name: 'text',
     label: 'Text',
     type: 'string',
-    required: true,
-    textarea: true
+  },
+  {
+    name: 'link',
+    label: 'Link',
+    type: 'area',
+      options: {
+        widgets: {
+          'apostrophe-rich-text': {
+            toolbar: ['Bold', 'Italic', 'Link', 'Unlink']
+          }
+        }
+      }
+  },
+  {
+    name: 'by_author',
+    label: 'By',
+    type: 'area',
+      options: {
+        widgets: {
+          'apostrophe-rich-text': {
+            toolbar: ['Bold', 'Italic', 'Link', 'Unlink']
+          }
+        }
+      }
   }
   ],
   arrangeFields: [{
       name: 'read',
       label: 'Read',
-      fields: ['Topic','title','thumbnail','read_topic','text']
+      fields: ['Topic','title','thumbnail','read_topic','text','link','by_author']
     },
     {
       name: 'admins',

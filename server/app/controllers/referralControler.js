@@ -2182,33 +2182,70 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
-  return genetrateUniqueCode(ctx).then((uniqueNo) => {
-    return user.update({
-      referral_progress: 100,
-      referral_complete_status: "completed",
+  var uniqueNo = uniqid().toUpperCase();
+  uniqueNo = uniqueNo.slice(0, 12);
+  return user.findOne({
+    where: {
       reference_code: uniqueNo,
-      contact_preferences: ctx.request.body.contactPreference
     },
-      {
-        where:
-          { uuid: ctx.request.body.userid }
-      }
-    ).then((childUserInfo) => {
-      ctx.request.body.ref_code = uniqueNo;
-      return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
-        const responseData = {
-          userid: ctx.request.body.userid,
-          status: "ok",
-          role: ctx.request.body.role,
-          refNo: uniqueNo
+  }).then((result) => {
+    if (result == null) {
+      return user.update({
+        referral_progress: 100,
+        referral_complete_status: "completed",
+        reference_code: uniqueNo,
+        contact_preferences: ctx.request.body.contactPreference
+      },
+        {
+          where:
+            { uuid: ctx.request.body.userid }
         }
-        return ctx.body = responseData;
+      ).then((childUserInfo) => {
+        ctx.request.body.ref_code = uniqueNo;
+        return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
+          const responseData = {
+            userid: ctx.request.body.userid,
+            status: "ok",
+            role: ctx.request.body.role,
+            refNo: uniqueNo
+          }
+          return ctx.body = responseData;
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
-    }).catch((error) => {
-      sequalizeErrorHandler.handleSequalizeError(ctx, error)
-    });
+    } else {
+      uniqueNo = uniqid().toUpperCase();
+      uniqueNo = uniqueNo.slice(0, 12);
+      return user.update({
+        referral_progress: 100,
+        referral_complete_status: "completed",
+        reference_code: uniqueNo,
+        contact_preferences: ctx.request.body.contactPreference
+      },
+        {
+          where:
+            { uuid: ctx.request.body.userid }
+        }
+      ).then((childUserInfo) => {
+        ctx.request.body.ref_code = uniqueNo;
+        return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
+          const responseData = {
+            userid: ctx.request.body.userid,
+            status: "ok",
+            role: ctx.request.body.role,
+            refNo: uniqueNo
+          }
+          return ctx.body = responseData;
+        }).catch((error) => {
+          sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    }
   }).catch((error) => {
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   });
@@ -2719,34 +2756,3 @@ exports.searchReferalByCode = ctx => {
   }
 
 }
-
-const genetrateUniqueCode = (ctx) => new Promise(async (resolve, reject) => {
-  try {
-    const user = ctx.orm().Referral;
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const charactersLength = characters.length;
-    while(1) {
-      let uniqueCode = uniqid().toUpperCase();
-      const uniqueCodeLength = uniqueCode.length;
-      if(uniqueCodeLength > 12) {
-        uniqueCode = uniqueCode.slice(0, 12);
-      } else if(uniqueCodeLength < 12) {
-        for(let index = uniqueCodeLength; index < 12; index++) {
-          uniqueCode += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-      }
-      let usrRes = await user.findOne(
-        {
-          where: {
-            reference_code: uniqueCode
-          }
-        }
-      );
-      if(!usrRes) {
-        return resolve(uniqueCode);
-      }
-    }
-  } catch(error) {
-    reject(error);
-  }
-});

@@ -77,6 +77,9 @@ function showError(content) {
     $('#errorCommon').modal('show');
 };
 
+function closeError() {
+    $('#errorCommon').modal('hide');
+}
 
 //Function to Identify space Logic 2
 function trimSpace(str) {
