@@ -167,12 +167,12 @@
                             <p class="link-text text-center py-2">Free mental health services for adults:</p>
                             <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
                                 your GP
-                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/ 
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                 " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
                             <p v-show="elgibilityObj.role == 'parent'" class="link-secondary text-center m-0 py-2">If
                                 the
                                 Child/young person's GP
-                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/ 
+                                is registered in Liverpool: <a href="https://www.talkliverpool.nhs.uk/
                                 " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a></p>
 
                             <p v-show="elgibilityObj.role == 'child'" class="link-secondary text-center m-0 py-2">If
@@ -368,7 +368,7 @@
                     <div class="form-group">
                         <label for="professionalFullName2" class="question-font">Your full name</label>
                         <input type="text" v-model="elgibilityObj.profName" @input="onVaueChange($event,'fullName')"
-                            placeholder="Enter your first and last name" class="form-control" id="professionalFullName2">
+                            placeholder="Enter your full name" class="form-control" id="professionalFullName2">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
                             Please provide a name.
                         </div>
@@ -465,7 +465,7 @@
                         <p class="link-text text-center  py-2">Free mental health services for adults:</p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
                             Liverpool:
-                            <a href="https://www.talkliverpool.nhs.uk/ 
+                            <a href="https://www.talkliverpool.nhs.uk/
                             " target="_blank"><b class="cursor-pointer"><u>Talk Liverpool</u></b></a>
                         </p>
                         <p class="link-secondary text-center m-0 py-2">If Child/young person's GP is registered in
