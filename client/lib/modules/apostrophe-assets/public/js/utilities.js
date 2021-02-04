@@ -352,11 +352,18 @@ function setTextSize() {
 }
 
 function setTheme() {
+    var logoElem = document.getElementById('logoBgHome');
     var theme = localStorage.getItem('theme');
     if (theme == 'light') {
         $('body').removeClass().addClass('net off').addClass('body-bg');
+        if (logoElem) {
+            logoElem.src = "/modules/my-apostrophe-assets/img/liverpool.svg";
+        }
         localStorage.setItem('theme', 'light');
     } else if (theme == 'dark') {
+        if (logoElem) {
+            logoElem.src = "/modules/my-apostrophe-assets/img/liverpool_dark.svg";
+        }
         $('body').removeClass().addClass('net on').addClass('body-bg');
         localStorage.setItem('theme', 'dark');
     }
