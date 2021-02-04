@@ -638,7 +638,7 @@ div.radio.switcher label {
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -826,14 +826,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -841,7 +841,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -849,21 +849,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -3120,6 +3120,9 @@ html #slide-test-5 {
 .on .question-font {
   color: #fafafa; }
 
+.on .question-header-font {
+  color: #fafafa; }
+
 .on .header-bg {
   background: #353940 0% 0% no-repeat padding-box !important;
   opacity: 1; }
@@ -3166,6 +3169,9 @@ html #slide-test-5 {
   color: #023047; }
 
 .off .question-font {
+  color: #023047; }
+
+.off .question-header-font {
   color: #023047; }
 
 .off .header-bg {
@@ -3305,7 +3311,7 @@ html #slide-test-5 {
 
 @media (max-width: 450px) {
   p.referral-inside-text.my-2.my-md-3 {
-    font-size: 14px !important; } }
+    font-size: 16px !important; } }
 
 #style-7::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -3335,3 +3341,8 @@ html #slide-test-5 {
 
 .apos-header-para-font ul li {
   font-size: 16px !important; }
+
+@media (max-width: 767px) {
+  .text-center.text-md-right.py-1.sub-header-bg.home-card-radius {
+    text-align: right !important;
+    padding-right: 10px !important; } }
