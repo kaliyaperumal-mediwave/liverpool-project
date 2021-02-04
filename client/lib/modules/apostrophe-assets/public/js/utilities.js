@@ -351,9 +351,21 @@ function setTextSize() {
     }
 }
 
+function setTheme() {
+    var theme = localStorage.getItem('theme');
+    if (theme == 'light') {
+        $('body').removeClass().addClass('net off').addClass('body-bg');
+        localStorage.setItem('theme', 'light');
+    } else if (theme == 'dark') {
+        $('body').removeClass().addClass('net on').addClass('body-bg');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
 $(document).ready(function () {
     setLoaderStyle();
     setTextSize();
+    setTheme();
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
         $('[data-toggle="popover"]').popover(
