@@ -2543,6 +2543,9 @@ $color-scheme: (
     .question-font {
       color: $secondary;
     }
+    .question-header-font {
+      color: $secondary;
+    }
     .header-bg {
       @include set-background($header-color, 1);
     }
