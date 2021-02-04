@@ -17,7 +17,7 @@
 
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" /></a>
+        <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a>
         <div class="resource_text">Videos</div>
         <input hidden id="resources" value="{{data.piecesArray|dump}}">
         <div id="filter_content">
@@ -79,7 +79,10 @@
                         {{ piece.SubTitle }}
                     </div>
                     <div class="text-break ">
-                        {{ piece.text }}
+                        {{apos.area(piece,'text')}}
+                    </div>
+                    <div class="text-break ">
+                        {{apos.area(piece,'by_author')}}
                     </div>
                     <div class="video-placed-ago px-0">
                         {{ piece.uploadTime }}
@@ -110,7 +113,7 @@
                         {{ piece.SubTitle }}
                     </div>
                     <div class="text-break ellipse-text-large">
-                        {{ piece.text }}
+                        {{apos.area(piece,'text')}}
                     </div>
                     <div class="video-placed-ago px-0">
                         {{ piece.uploadTime }}
