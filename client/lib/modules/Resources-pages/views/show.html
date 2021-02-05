@@ -1,5 +1,11 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
+<script>
+    $(document).on('click', 'a.previous-link', function () {
+        parent.history.back();
+        return false;
+    });
+</script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 {% set user_data = data.user_data %}
@@ -13,7 +19,7 @@
 
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow"></a>
+        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow cursor-pointer"></a>
         <div class="resource_text"> {{ piece.title }}</div>
         <input hidden id="resources" value="{{data.piecesArray|dump}}">
         <div id="filter_content">
@@ -91,7 +97,7 @@
 
                                 {{ piecewatch.title}}
                             </div>
-                            <div class="answerText">
+                            <div class="answerText ellipse-text-large-card">
                                 {{ piecewatch.SubTitle}}
 
                             </div>
@@ -121,7 +127,7 @@
             <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
-    </div>
+    <!-- </div> -->
     {% endif %}
     <!-- Things to download container-->
     <div
@@ -316,7 +322,7 @@
                             <div class="questionText">
                                 {{ pieceread.title }}
                             </div>
-                            <div class="answerText">
+                            <div class="answerText ellipse-text-large-card">
                                 {{ pieceread.read_topic}}
                             </div>
                         </div>
@@ -499,7 +505,7 @@
                                 {{ piecepartner.title}}
 
                             </div>
-                            <div class="answerText">
+                            <div class="answerText ellipse-text-large-card">
                                 {{ piecepartner.partnerAgencies}}
 
                             </div>
@@ -526,10 +532,11 @@
             <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
+    </div>
     {% endif %}
 
     <!-- Initialize Swiper -->
-     <script>
+     <!-- <script>
         $(document).on('click', 'a.previous-link', function () {
             parent.history.back();
             return false;
@@ -579,7 +586,7 @@
 
             }
         });
-    </script>
+    </script> -->
     {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
 

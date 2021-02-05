@@ -1,3 +1,4 @@
+var currentTextSize = 18;
 
 //Reset Two-Way-Model Values 
 function resetValues(currentForm, context, formObj) {
@@ -76,6 +77,9 @@ function showError(content) {
     $('#errorCommon').modal('show');
 };
 
+function closeError() {
+    $('#errorCommon').modal('hide');
+}
 
 //Function to Identify space Logic 2
 function trimSpace(str) {
@@ -337,8 +341,41 @@ function decryptUrl(nextPge, loginId, roles) {
     return gotopage;
 }
 
+function setTextSize() {
+    var textSize = localStorage.getItem('textSize');
+    if (textSize && Number(textSize) >= 16) {
+        var inc = Number(textSize) - Number(currentTextSize);
+        $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
+            var fontsize = parseInt($(this).css('font-size'));
+            var newFontsize = (fontsize + inc) + 'px';
+            $(this).css('font-size', newFontsize);
+        });
+        currentTextSize = textSize;
+    }
+}
+
+function setTheme() {
+    var logoElem = document.getElementById('logoBgHome');
+    var theme = localStorage.getItem('theme');
+    if (theme == 'light') {
+        $('body').removeClass().addClass('net off').addClass('body-bg');
+        if (logoElem) {
+            logoElem.src = "/modules/my-apostrophe-assets/img/liverpool.svg";
+        }
+        localStorage.setItem('theme', 'light');
+    } else if (theme == 'dark') {
+        if (logoElem) {
+            logoElem.src = "/modules/my-apostrophe-assets/img/liverpool_dark.svg";
+        }
+        $('body').removeClass().addClass('net on').addClass('body-bg');
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
 $(document).ready(function () {
     setLoaderStyle();
+    setTextSize();
+    setTheme();
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
         $('[data-toggle="popover"]').popover(

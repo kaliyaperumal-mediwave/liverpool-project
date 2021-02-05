@@ -17,7 +17,7 @@
 
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" /></a>
+        <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a>
         <div class="resource_text">Real life experiences</div>
         <input hidden id="resources" value="{{data.piecesArray|dump}}">
         <div id="filter_content">
@@ -64,7 +64,7 @@
 
         {% for piece in data.pieces %}
         {% if loop.index == 1 %}
-        <a class="text_inside_video text-decoration-none">
+        <div class="text_inside_video text-decoration-none">
             {% if apos.images.first(piece.thumbnail) %}
             {% set img = apos.images.first(piece.thumbnail) %}
             {% endif %}
@@ -81,13 +81,22 @@
                     {{ piece.read_topic }}
                 </div>
                 <div class="text-break">
-                    {{ piece.text }}
+                  {{ piece.text }}
+
                 </div>
-                <div class="video-placed-ago px-0">
+                <div class="text-underlined">
+                  {{apos.area(piece,'link')}}
+
+                </div>
+                <div class="read-cont-p p-0">
+                    {{apos.area(piece,'by_author')}}
+                </div>
+                <!-- <div class="video-placed-ago px-0 ">
                     {{ piece.uploadTime }}
-                </div>
+                </div> -->
+
             </div>
-        </a><br>
+        </div><br>
         {% if data.pieces.length > 1 %}
         <div class="selectSource">
             More to read
@@ -109,7 +118,16 @@
                 <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
 
                 <div class="video-para-bottom ellipse-text">
-                    {{ piece.text }}
+                {{ piece.text }}
+
+                </div>
+                <div class="video-para-bottom text-underlined">
+                  {{apos.area(piece,'link')}}
+
+                </div>
+                <div class="read-cont-p video-para-bottom">
+
+                    {{apos.area(piece,'by_author')}}
                 </div>
                 <div class="video-placed-ago">
                     {{ piece.uploadTime }}
