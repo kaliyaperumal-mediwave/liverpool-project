@@ -300,15 +300,21 @@ a {
     @include xs-screen {
       font-size: $primary-mdFont-size;
       letter-spacing: 1.5px !important;
+      margin-bottom: 0px !important;
     }
     @include sm-screen {
       @include set-dynamicFont($primary-lgFont-size, 8);
       letter-spacing: 1.5px !important;
+      margin-bottom: 0px;
     }
     @include md-screen {
       @include set-dynamicFont($primary-lgFont-size, 4);
       letter-spacing: 1.5px !important;
+      margin-bottom: 0px;
     }
+  }
+  p {
+    margin-bottom: 0px !important;
   }
 }
 
@@ -2474,7 +2480,8 @@ $color-scheme: (
       #353638,
       #3a3e47,
       url("/modules/my-apostrophe-assets/img/desktop.svg"),
-      url("/modules/my-apostrophe-assets/img/liverpool.svg")
+      url("/modules/my-apostrophe-assets/img/liverpool.svg"),
+      #023047
     )
     (
       on,
@@ -2486,7 +2493,8 @@ $color-scheme: (
       #ebebeb,
       #b0bec5,
       url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
-      url("/modules/my-apostrophe-assets/img/liverpool_dark.svg")
+      url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
+      #ffffff
     )
 );
 @mixin theme(
@@ -2499,7 +2507,8 @@ $color-scheme: (
   $secondary-input-color,
   $search-bar-color,
   $background,
-  $bgLogo
+  $bgLogo,
+  $togglePrimary
 ) {
   .#{$name} {
     .body-bg {
@@ -2533,8 +2542,24 @@ $color-scheme: (
     }
     .home-header-primary {
       color: $secondary;
+      h2 {
+        color: $secondary;
+      }
+      h3 {
+        color: $secondary;
+      }
+      p {
+        color: $secondary;
+      }
     }
     .home-header-secondary {
+      color: $secondary;
+    }
+
+    .footer-content {
+      color: $secondary;
+    }
+    .footer-content-secondary {
       color: $secondary;
     }
     .option-font {
@@ -2544,7 +2569,10 @@ $color-scheme: (
       color: $secondary;
     }
     .auth-link {
-      color: $secondary;
+      color: $togglePrimary !important;
+      a {
+        color: $togglePrimary !important;
+      }
     }
     .question-font {
       color: $secondary;
@@ -2558,9 +2586,19 @@ $color-scheme: (
     .content-header-text {
       color: $secondary;
     }
-    .content-secondary-header-text h3 p {
+    .resource_text {
       color: $secondary;
     }
+    .content-secondary-header-text {
+      color: $togglePrimary;
+      h3 {
+        color: $togglePrimary;
+      }
+      p {
+        color: $togglePrimary;
+      }
+    }
+
     .header-bg {
       @include set-background($header-color, 1);
     }
@@ -2598,7 +2636,7 @@ $color-scheme: (
   }
 }
 @each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo in $color-scheme
+  $search-bar-color, $background, $bgLogo, $togglePrimary in $color-scheme
 {
   @include theme(
     $name,
@@ -2610,7 +2648,8 @@ $color-scheme: (
     $secondary-input-color,
     $search-bar-color,
     $background,
-    $bgLogo
+    $bgLogo,
+    $togglePrimary
   );
 }
 
@@ -2771,7 +2810,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
-    word-break: break-all;
+  word-break: break-all;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
@@ -2783,7 +2822,7 @@ $color-scheme: (
     padding-right: 10px !important;
   }
 }
-.text-underlined{
+.text-underlined {
   text-decoration: underline !important;
   word-break: break-all;
 }
@@ -2797,6 +2836,6 @@ $color-scheme: (
 .read-cont-h1 p:hover {
   text-decoration: none !important;
 }
-img.cursor-pointer{
+img.cursor-pointer {
   width: 27px !important;
 }
