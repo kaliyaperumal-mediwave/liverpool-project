@@ -57,6 +57,10 @@ body {
     display: none;
   }
 
+  [v-cloak] {
+    display: none !important;
+  }
+
   .col-xl-6 {
     @include lg-secondary {
       max-width: 60% !important;
