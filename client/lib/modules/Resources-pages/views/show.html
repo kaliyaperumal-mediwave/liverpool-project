@@ -138,6 +138,7 @@
         <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite"
             style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
             <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
+                {% for orchaApps in data.orchaApps %}
             <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
                 data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                 style="width: 246.667px; margin-right: 30px;">
@@ -145,139 +146,23 @@
                     <div class="bg-white card-container-small">
                         <div class="container-top-set">
                             <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg"
+                                <img src="{{orchaApps.thumbnail}}"
                                     class="imageSet">
                             </div>
                         </div>
                         <div class="container-bottom-set">
                             <div class="questionText">
-                                WYSA
+                                {{orchaApps.appName}}
                             </div>
-                            <div class="answerText">
+                            <!-- <div class="answerText">
                                 stress, depression &amp; anxiety therapy chatbot
-                            </div>
+                            </div> -->
 
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-prev swiper-slide-duplicate-next"
-                data-swiper-slide-index="1" role="group" aria-label="2 / 6"
-                style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg"
-                                    class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Kooth
-                            </div>
-                            <div class="answerText">
-                                Your online mental wellbeing community
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-active" data-swiper-slide-index="0"
-                role="group" aria-label="3 / 6" style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg"
-                                    class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                WYSA
-                            </div>
-                            <div class="answerText">
-                                stress, depression &amp; anxiety therapy chatbot
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev"
-                data-swiper-slide-index="1" role="group" aria-label="4 / 6"
-                style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg"
-                                    class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Kooth
-                            </div>
-                            <div class="answerText">
-                                Your online mental wellbeing community
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
-                data-swiper-slide-index="0" role="group" aria-label="5 / 6"
-                style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg"
-                                    class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                WYSA
-                            </div>
-                            <div class="answerText">
-                                stress, depression &amp; anxiety therapy chatbot
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-next"
-                data-swiper-slide-index="1" role="group" aria-label="6 / 6"
-                style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg"
-                                    class="imageSet">
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                Kooth
-                            </div>
-                            <div class="answerText">
-                                Your online mental wellbeing community
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Add Pagination -->
-        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
-                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
-                aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div> -->
+            {% endfor %}
         <!-- Add Arrows -->
         <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
             aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
@@ -300,7 +185,7 @@
             style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
             <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
             {% for pieceread in data.piece._readPage %}
-
+            {{pieceread._parentUrl}}
             <a href="{{pieceread._parentUrl}}?piece_id={{pieceread._id}}"
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
                 data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">

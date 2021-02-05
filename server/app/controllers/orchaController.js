@@ -40,8 +40,9 @@ exports.getAllApps = ctx => new Promise((resolve, reject) => {
         data: data
     };
     axios(config).then((response) => {
+       // console.log(response)
         var data = {
-            "searchTerm": "adhd",
+            "searchTerm": "depression",
             "pageNumber": 1,
             "pageSize": 12,
             "platformId": "",
@@ -58,11 +59,11 @@ exports.getAllApps = ctx => new Promise((resolve, reject) => {
             headers: {'authorization': 'Bearer ' + response.data.result.accessToken,},
             data: data
         };
-
+//console.log(config)
         axios(config).then(function (apps) {
-            //console.log(apps.data)
+            console.log(apps.data)
                 ctx.res.ok({
-                   data: apps
+                   data: apps.data
                 });
                 resolve();
             })

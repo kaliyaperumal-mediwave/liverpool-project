@@ -95,6 +95,7 @@ module.exports = function (self, options) {
       }
     },
     post: function (req, res, url, body) {
+      console.log("post method")
       return new Promise((resolve, reject) => {
         let options = {
           method: 'POST',
