@@ -34,7 +34,7 @@ module.exports = {
           if(req.data.pieces[index].createdAt) {
             req.data.pieces[index].uploadTime = moment(req.data.pieces[index].createdAt).fromNow();
           } else {
-            pieces.push(req.data.pieces[index]);
+            req.data.pieces[index].uploadTime = '';
           }
           if (req.query && req.query.piece_id) {
             if (req.data.pieces[index]._id == req.query.piece_id) {
@@ -51,3 +51,5 @@ module.exports = {
       }).catch(() => {
       });
     };
+  }
+};
