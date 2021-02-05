@@ -862,6 +862,24 @@ a {
   }
 }
 
+.review-header-font {
+  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+  @include xs-screen {
+    font-size: 15px;
+  }
+  @include sm-screen {
+    font-size: 16px;
+  }
+  @include md-screen {
+    font-size: 17px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047;
+  }
+}
+
 .option-font {
   @include set-titleStyles($option-font-size, bold, $primary-color);
 }
@@ -2840,6 +2858,6 @@ $color-scheme: (
 .read-cont-h1 p:hover {
   text-decoration: none !important;
 }
-img.cursor-pointer {
-  width: 27px !important;
-}
+// img.cursor-pointer {
+//   width: 27px !important;
+// }

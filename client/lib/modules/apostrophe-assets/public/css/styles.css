@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .review-header-font, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -1573,6 +1573,24 @@ a {
     .question-font {
       font-size: 17px; } }
   .question-font h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047; }
+
+.review-header-font {
+  font-size: 18px;
+  font-weight: normal;
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .review-header-font {
+      font-size: 15px; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .review-header-font {
+      font-size: 16px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .review-header-font {
+      font-size: 17px; } }
+  .review-header-font h2 {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
@@ -3485,6 +3503,3 @@ html #slide-test-5 {
 
 .read-cont-h1 p:hover {
   text-decoration: none !important; }
-
-img.cursor-pointer {
-  width: 27px !important; }
