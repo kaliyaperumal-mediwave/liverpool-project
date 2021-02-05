@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const referralControler = require('./controllers/referralControler');
 const authController = require('./controllers/authController');
 const emailController = require('./controllers/emailController');
+const adminController = require('./controllers/adminController');
 const validateToken = require('./utils/utils').validateToken;
 //const commonAuth = require('./utils/utils').commonAuth;
 const router = new Router();
@@ -51,5 +52,7 @@ router.post('/user/resetPassword', authController.resetPassword);
 router.post('/user/resetEmail', authController.resetEmail);
 router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken);
 router.post('/user/feedback', authController.sendFeedback);
+
+router.get('/admin/referral', adminController.getReferral);
 
 module.exports = router;
