@@ -52,23 +52,21 @@
   @include sm-dec-screen {
     width: 100%;
   }
-
 }
-.added-js-slider{
+.added-js-slider {
   width: calc(100% - 300px);
   @include xs-sm-screen {
     width: 100%;
   }
 }
-.added-js-slider .button-cont-admin div{
+.added-js-slider .button-cont-admin div {
   width: 100% !important;
 }
-.set-div-width{
+.set-div-width {
   width: 33.33%;
   @include xs-screen {
     width: 100% !important;
   }
-
 }
 .slider-inside-contain {
   background: #fafafa;
@@ -178,19 +176,19 @@
     display: flex;
   }
 }
-.class-menu-hide{
+.class-menu-hide {
   @include ssm-dec-screen {
     display: none;
   }
 }
-.toggle-extra-css{
+.toggle-extra-css {
   right: 38px;
   @include xs-sm-screen {
     left: 220px !important;
     padding: 4px 0px 4px 10px !important;
   }
 }
-.btn-delete-admin{
+.btn-delete-admin {
   padding: 18px 20px;
   display: flex;
   align-items: center;
@@ -213,14 +211,14 @@
     padding: 18px 50px;
   }
 }
-.button-cont-admin{
+.button-cont-admin {
   border: 1px solid #00000029;
   border-radius: 10px;
   margin: 26px 0px !important;
   padding: 8px 12px;
   background: #f1f1f1;
 }
-.btn-archive-admin{
+.btn-archive-admin {
   padding: 18px 20px;
   display: flex;
   align-items: center;
@@ -243,6 +241,20 @@
     padding: 18px 50px;
   }
 }
-.rotate-icon{
+.rotate-icon {
   transform: rotate(180deg);
+}
+.overflow-x-auto {
+  overflow-x: auto;
+}
+.height-set-admin-select .form-control {
+  height: 37px !important;
+  background-color: #fff !important;
+  border: 1px solid #023047 !important;
+}
+.height-set-admin-select {
+  max-width: 200px;
+}
+.set-max-width{
+  max-width: 200px;
 }
