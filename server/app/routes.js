@@ -6,6 +6,7 @@ const emailController = require('./controllers/emailController');
 const orchaController = require('./controllers/orchaController');
 const validateToken = require('./utils/utils').validateToken;
 //const commonAuth = require('./utils/utils').commonAuth;
+const auth = require('./middlewares/auth');
 const router = new Router();
 
 
@@ -54,6 +55,6 @@ router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken
 router.post('/user/feedback', authController.sendFeedback);
 
 //orcha
-router.post('/orcha/generateTkn', orchaController.generateTkn);
-router.post('/orcha/getAllApps', orchaController.getAllApps);
+router.post('/orcha/generateTkn',auth.checkOrchaToken,orchaController.generateTkn);
+router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
 module.exports = router;
