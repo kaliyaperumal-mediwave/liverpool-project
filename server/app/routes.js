@@ -56,4 +56,5 @@ router.post('/user/feedback', authController.sendFeedback);
 
 //orcha
 router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
+router.get('/orcha/getApp/',auth.checkOrchaToken, orchaController.getApp);
 module.exports = router;

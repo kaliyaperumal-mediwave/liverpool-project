@@ -64,11 +64,16 @@ module.exports = {
         //return superBefore(req, callback);
         var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/orcha/getAllApps';
         console.log(url)
+        req.body.searchCategory=req.data.piece.title;
+        req.session.categoryTitle = req.data.piece.title;
         self.middleware.post(req, res, url, req.body).then((data) =>  {
           console.log("-----------shoiw=--------------")
          // console.log(data.data.result.items)
           //req.session.orcha_auth_token = data.data.result.items;
+          console.log(data.data.result.totalCount)
+       //   console.log(data.data.result.items)
           req.data.orchaApps = data.data.result.items;
+          req.session.orchaApps = data.data.result.items;
        //   console.log(req.data.orchaApps)
           return superBefore(req, callback);
          //return beforeIndex(req, callback);          

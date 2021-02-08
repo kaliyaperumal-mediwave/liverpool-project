@@ -137,288 +137,291 @@
         </div>
         <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite"
             style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
-            <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
-                {% for orchaApps in data.orchaApps %}
-            <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
-                data-swiper-slide-index="0" role="group" aria-label="1 / 6"
-                style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                <img src="{{orchaApps.thumbnail}}"
-                                    class="imageSet">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
+            {% for orchaApps in data.orchaApps %}
+            <a href="/downloads?app_id={{orchaApps.id}}">
+                <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
+                    data-swiper-slide-index="0" role="group" aria-label="1 / 6"
+                    style="width: 246.667px; margin-right: 30px;">
+                    <div class="w-100">
+                        <div class="bg-white card-container-small">
+                            <div class="container-top-set">
+                                <div class="inside-cover-set">
+                                    <img src="{{orchaApps.thumbnail}}" class="imageSet">
+                                </div>
                             </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                {{orchaApps.appName}}
-                            </div>
-                            <!-- <div class="answerText">
+                            <div class="container-bottom-set">
+                                <div class="questionText">
+                                    {{orchaApps.appName}}-{{orchaApps.platform}}
+                                </div>
+                                <!-- <div class="answerText">
                                 stress, depression &amp; anxiety therapy chatbot
                             </div> -->
 
                             </div>
                         </div>
-                    </a>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- Add Arrows -->
+    <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+        aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
+        aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+    <div class="swiper-scrollbar"></div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+</div>
+
+
+<!-- Things to read container -->
+{% if data.piece._readPage and data.piece._readPage.length%}
+
+<div
+    class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
+    <div class="title-thing-to-watch">
+        Things to read
+    </div>
+    <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
+            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
+    <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
+        {% for pieceread in data.piece._readPage %}
+        <a href="{{pieceread._parentUrl}}?piece_id={{pieceread._id}}"
+            class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
+            data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">
+            <div class="w-100">
+                <div class="bg-white card-container-small">
+                    <div class="container-top-set">
+                        <div class="inside-cover-set">
+                            {% if apos.images.first(pieceread.thumbnail) %}
+                            {% set img = apos.images.first(pieceread.thumbnail) %}
+                            {% endif %}
+                            {% if img %}
+                            <img class="imageSet" style="height: 140px;"
+                                src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                            {% endif %}
+                            <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
+                        </div>
+                    </div>
+                    <div class="container-bottom-set">
+                        <div class="questionText">
+                            {{ pieceread.title }}
+                        </div>
+                        <div class="answerText ellipse-text-large-card">
+                            {{ pieceread.read_topic}}
+                        </div>
+                    </div>
                 </div>
             </div>
-            {% endfor %}
-        <!-- Add Arrows -->
-        <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
-            aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
-        <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
-            aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
-        <div class="swiper-scrollbar"></div>
-        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        </a>
+        {% endfor %}
+
+
+
+
     </div>
-
-
-    <!-- Things to read container -->
-    {% if data.piece._readPage and data.piece._readPage.length%}
-
-    <div
-        class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
-        <div class="title-thing-to-watch">
-            Things to read
-        </div>
-        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
-            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
-            {% for pieceread in data.piece._readPage %}
-            <a href="{{pieceread._parentUrl}}?piece_id={{pieceread._id}}"
-                class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
-                data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                {% if apos.images.first(pieceread.thumbnail) %}
-                                {% set img = apos.images.first(pieceread.thumbnail) %}
-                                {% endif %}
-                                {% if img %}
-                                <img class="imageSet" style="height: 140px;"
-                                    src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-                                {% endif %}
-                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                {{ pieceread.title }}
-                            </div>
-                            <div class="answerText ellipse-text-large-card">
-                                {{ pieceread.read_topic}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
-
-
-
-
-        </div>
-        <!-- Add Pagination -->
-        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+    <!-- Add Pagination -->
+    <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
                 class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
                 aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
                 aria-label="Go to slide 2"></span></div> -->
-        <!-- Add Arrows -->
-        <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
-            aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
-        <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
-            aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
-        <div class="swiper-scrollbar"></div>
-        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-    </div>
-    {% endif %}
-
-
-
-
-    <!-- Event container -->
-    {% if data.piece._eventPage and data.piece._eventPage.length %}
-    <div
-        class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
-        <div class="title-thing-to-watch">
-            Events
-        </div>
-        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
-            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
-            {% for pieceevents in data.piece._eventPage %}
-
-            <a href="{{pieceevents._parentUrl}}?piece_id={{pieceevents._id}}"
-                class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
-                data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                {% if apos.images.first(pieceevents.thumbnail) %}
-                                {% set img = apos.images.first(pieceevents.thumbnail) %}
-                                {% endif %}
-                                {% if img %}
-                                <img class="imageSet" style="height: 140px;"
-                                    src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-                                {% endif %}
-                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                {{ pieceevents.title}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
-
-
-
-
-        </div>
-        <!-- Add Pagination -->
-        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
-                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
-                aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div> -->
-        <!-- Add Arrows -->
-        <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
-            aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
-        <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
-            aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
-        <div class="swiper-scrollbar"></div>
-        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-    </div>
-    {% endif %}
-
-    <!-- Games container -->
-    {% if data.piece._gamesPage and data.piece._gamesPage.length%}
-
-    <div
-        class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
-        <div class="title-thing-to-watch">
-            Games
-        </div>
-        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite"
-            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite">
-            {% for piecegames in data.piece._gamesPage %}
-
-            <a href="{{ piecegames._parentUrl}}?piece_id={{piecegames._id}}"
-                class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
-                data-swiper-slide-index="0" role="group" aria-label="1 / 6"
-                style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                {% if apos.images.first(piecegames.thumbnail) %}
-                                {% set img = apos.images.first(piecegames.thumbnail) %}
-                                {% endif %}
-                                {% if img %}
-                                <img class="imageSet" style="height: 140px;"
-                                    src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-                                {% endif %}
-                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                {{ piecegames.title}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
-
-        </div>
-        <!-- Add Pagination -->
-        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
-                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
-                aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div> -->
-        <!-- Add Arrows -->
-        <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
-            aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
-        <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
-            aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
-        <div class="swiper-scrollbar"></div>
-        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-    </div>
-    {% endif %}
-
-    <!-- Partner agencies container-->
-    {% if data.piece._partnerAgenciesPage and data.piece._partnerAgenciesPage.length%}
-
-    <div
-        class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
-        <div class="title-thing-to-watch">
-            Partner agencies
-        </div>
-        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite"
-            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
-        <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite">
-
-            {% for piecepartner in data.piece._partnerAgenciesPage %}
-
-            <a href="{{ piecepartner._parentUrl}}?piece_id={{piecepartner._id}}"
-                class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
-                data-swiper-slide-index="0" role="group" aria-label="1 / 6"
-                style="width: 246.667px; margin-right: 30px;">
-                <div class="w-100">
-                    <div class="bg-white card-container-small">
-                        <div class="container-top-set">
-                            <div class="inside-cover-set">
-                                {% if apos.images.first(piecepartner.thumbnail) %}
-                                {% set img = apos.images.first(piecepartner.thumbnail) %}
-                                {% endif %}
-                                {% if img %}
-                                <img class="imageSet" style="height: 140px;"
-                                    src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-                                {% endif %}
-                                <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
-                            </div>
-                        </div>
-                        <div class="container-bottom-set">
-                            <div class="questionText">
-                                {{ piecepartner.title}}
-
-                            </div>
-                            <div class="answerText ellipse-text-large-card">
-                                {{ piecepartner.partnerAgencies}}
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </a>
-            {% endfor %}
-
-
-
-        </div>
-        <!-- Add Pagination -->
-        <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
-                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
-                aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
-                aria-label="Go to slide 2"></span></div> -->
-        <!-- Add Arrows -->
-        <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
-            aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
-        <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
-            aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
-        <div class="swiper-scrollbar"></div>
-        <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-    </div>
+    <!-- Add Arrows -->
+    <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+        aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
+        aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+    <div class="swiper-scrollbar"></div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
 </div>
 {% endif %}
+
+
+
+
+<!-- Event container -->
+{% if data.piece._eventPage and data.piece._eventPage.length %}
+<div
+    class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
+    <div class="title-thing-to-watch">
+        Events
+    </div>
+    <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
+            style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
+    <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
+        {% for pieceevents in data.piece._eventPage %}
+
+        <a href="{{pieceevents._parentUrl}}?piece_id={{pieceevents._id}}"
+            class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
+            data-swiper-slide-index="1" role="group" style="width: 246.667px; margin-right: 30px;">
+            <div class="w-100">
+                <div class="bg-white card-container-small">
+                    <div class="container-top-set">
+                        <div class="inside-cover-set">
+                            {% if apos.images.first(pieceevents.thumbnail) %}
+                            {% set img = apos.images.first(pieceevents.thumbnail) %}
+                            {% endif %}
+                            {% if img %}
+                            <img class="imageSet" style="height: 140px;"
+                                src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                            {% endif %}
+                            <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
+                        </div>
+                    </div>
+                    <div class="container-bottom-set">
+                        <div class="questionText">
+                            {{ pieceevents.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+
+
+
+
+    </div>
+    <!-- Add Pagination -->
+    <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
+                aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
+                aria-label="Go to slide 2"></span></div> -->
+    <!-- Add Arrows -->
+    <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+        aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
+        aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
+    <div class="swiper-scrollbar"></div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+</div>
+{% endif %}
+
+<!-- Games container -->
+{% if data.piece._gamesPage and data.piece._gamesPage.length%}
+
+<div
+    class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
+    <div class="title-thing-to-watch">
+        Games
+    </div>
+    <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite"
+            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
+    <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite">
+        {% for piecegames in data.piece._gamesPage %}
+
+        <a href="{{ piecegames._parentUrl}}?piece_id={{piecegames._id}}"
+            class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
+            data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+            <div class="w-100">
+                <div class="bg-white card-container-small">
+                    <div class="container-top-set">
+                        <div class="inside-cover-set">
+                            {% if apos.images.first(piecegames.thumbnail) %}
+                            {% set img = apos.images.first(piecegames.thumbnail) %}
+                            {% endif %}
+                            {% if img %}
+                            <img class="imageSet" style="height: 140px;"
+                                src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                            {% endif %}
+                            <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
+                        </div>
+                    </div>
+                    <div class="container-bottom-set">
+                        <div class="questionText">
+                            {{ piecegames.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+
+    </div>
+    <!-- Add Pagination -->
+    <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
+                aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
+                aria-label="Go to slide 2"></span></div> -->
+    <!-- Add Arrows -->
+    <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+        aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
+    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
+        aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
+    <div class="swiper-scrollbar"></div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+</div>
+{% endif %}
+
+<!-- Partner agencies container-->
+{% if data.piece._partnerAgenciesPage and data.piece._partnerAgenciesPage.length%}
+
+<div
+    class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
+    <div class="title-thing-to-watch">
+        Partner agencies
+    </div>
+    <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite"
+            style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
+    <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite">
+
+        {% for piecepartner in data.piece._partnerAgenciesPage %}
+
+        <a href="{{ piecepartner._parentUrl}}?piece_id={{piecepartner._id}}"
+            class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
+            data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px;">
+            <div class="w-100">
+                <div class="bg-white card-container-small">
+                    <div class="container-top-set">
+                        <div class="inside-cover-set">
+                            {% if apos.images.first(piecepartner.thumbnail) %}
+                            {% set img = apos.images.first(piecepartner.thumbnail) %}
+                            {% endif %}
+                            {% if img %}
+                            <img class="imageSet" style="height: 140px;"
+                                src="{{ apos.attachments.url(img, { size: 'max' }) }}">
+                            {% endif %}
+                            <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
+                        </div>
+                    </div>
+                    <div class="container-bottom-set">
+                        <div class="questionText">
+                            {{ piecepartner.title}}
+
+                        </div>
+                        <div class="answerText ellipse-text-large-card">
+                            {{ piecepartner.partnerAgencies}}
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+
+
+
+    </div>
+    <!-- Add Pagination -->
+    <!-- <div class="swiper-pagination custom-pagination swiper-pagination-clickable swiper-pagination-bullets"><span
+                class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
+                aria-label="Go to slide 1"></span><span class="swiper-pagination-bullet" tabindex="0" role="button"
+                aria-label="Go to slide 2"></span></div> -->
+    <!-- Add Arrows -->
+    <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+        aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
+    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
+        aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
+    <div class="swiper-scrollbar"></div>
+    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+</div>
+</div>
+
+
+{% endif %}
+
+{% include "../../shared-referal-module/views/searchReferral.html" %}
+{% include "../../shared-referal-module/views/company.html" %}
 
 <!-- Initialize Swiper -->
 <!-- <script>
@@ -472,7 +475,6 @@
             }
         });
     </script> -->
-{% include "../../shared-referal-module/views/searchReferral.html" %}
-{% include "../../shared-referal-module/views/company.html" %}
+
 
 {% endblock %}
