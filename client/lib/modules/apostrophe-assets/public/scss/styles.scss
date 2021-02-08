@@ -18,36 +18,36 @@
 @import "select";
 @import "toast";
 
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: italic;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: italic;
-  font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
-}
+// @font-face {
+//   font-family: "century-gothic";
+//   font-style: normal;
+//   font-weight: 400;
+//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
+// }
+// @font-face {
+//   font-family: "century-gothic";
+//   font-style: normal;
+//   font-weight: bold;
+//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
+// }
+// @font-face {
+//   font-family: "century-gothic";
+//   font-style: normal;
+//   font-weight: bold;
+//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
+// }
+// @font-face {
+//   font-family: "century-gothic";
+//   font-style: italic;
+//   font-weight: bold;
+//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
+// }
+// @font-face {
+//   font-family: "century-gothic";
+//   font-style: italic;
+//   font-weight: normal;
+//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
+// }
 
 body {
   font-family: "century-gothic" !important;
@@ -2494,13 +2494,13 @@ html #slide-test-5 {
 $color-scheme: (
   (
       off,
-      #ffffff,
+      #FFFFFF,
       #023047,
       #54b7e6,
       #0f1010,
       #e8edee,
       #353638,
-      #3a3e47,
+      #b0bec5,
       url("/modules/my-apostrophe-assets/img/desktop.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool.svg"),
       #023047
@@ -2513,7 +2513,7 @@ $color-scheme: (
       #ffffff,
       #353638,
       #ebebeb,
-      #b0bec5,
+      #3A3E47,
       url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
       #ffffff
@@ -2646,6 +2646,13 @@ $color-scheme: (
     .dropdown-divider {
       border-top: 1px solid $secondary !important;
     }
+    .home-secondarySearch-bg {
+      background: $search-bar-color 0% 0% no-repeat padding-box !important;
+    }
+    .fa-search:before{
+      color: $secondary !important;
+    }
+ 
 
     // ::placeholder {
     //   color: $placeholderTheme-color !important;
@@ -2857,6 +2864,15 @@ $color-scheme: (
 }
 .read-cont-h1 p:hover {
   text-decoration: none !important;
+}
+img.cursor-pointer{
+  width: 27px !important;
+}
+
+ /* MODEL POP */
+.modal-open{
+  overflow-y: scroll !important;
+  padding-right: 0px !important;
 }
 // img.cursor-pointer {
 //   width: 27px !important;
