@@ -9,6 +9,22 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var switchElem = document.getElementById('test');
+            var logoElem = document.getElementById('logoBgHome');
+
+            if (localStorage.getItem('theme') == 'dark') {
+                if (logoElem) {
+                    logoElem.src = "/modules/my-apostrophe-assets/img/liverpool_dark.svg";
+                }
+                switchElem.value = localStorage.getItem('theme');
+                switchElem.checked = true;
+
+            } else if (localStorage.getItem('theme') == 'light') {
+                if (logoElem) {
+                    logoElem.src = "/modules/my-apostrophe-assets/img/liverpool.svg";
+                }
+                switchElem.checked = false;
+            }
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);
@@ -17,27 +33,22 @@ $(document).ready(function () {
         methods: {
 
             changeTheme: function (e) {
-                //  var element = $("[data-apos-refreshable]");
                 if (e.target.checked) {
-                    theme = 'on';
+                    e.target.value = "dark";
+                    var theme = 'on';
                     $('body').removeClass().addClass('net ' + theme).addClass('body-bg');
                     localStorage.setItem('theme', 'dark');
                 }
                 else {
-                    theme = 'off';
+                    e.target.value = "light"
+                    var theme = 'off';
                     $('body').removeClass().addClass('net ' + theme).addClass('body-bg');
                     localStorage.setItem('theme', 'light');
                 }
+                setTimeout(function () {
+                    $('#themeSuccessModal').modal('show');
+                }, 400)
             },
-
-            saveTheme: function (selectedTheme) {
-                localStorage.setItem('theme', selectedTheme);
-                $('#themeSuccessModal').modal('show');
-            },
-
-            closeModal: function () {
-                $('#themeSuccessModal').modal('hide');
-            }
         }
 
     })

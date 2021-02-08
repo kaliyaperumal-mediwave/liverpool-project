@@ -51,12 +51,14 @@
 
 body {
   font-family: "century-gothic" !important;
-  overscroll-behavior-y: none !important;
-  overscroll-behavior-x: none !important;
 
   input::-ms-clear,
   input::-ms-reveal {
     display: none;
+  }
+
+  [v-cloak] {
+    display: none !important;
   }
 
   .col-xl-6 {
@@ -88,7 +90,6 @@ body {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
       @extend %input-shared;
-      // pointer-events: none !important;
     }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
@@ -97,25 +98,29 @@ body {
     }
     textarea {
       color: #8f979e !important;
-      // pointer-events: none !important;
     }
     @include placeholder(#8f979e);
   }
+
   // customize css for apostrophe z-index
   .apos-ui .apos-admin-bar {
     z-index: 450 !important;
   }
+
   @include placeholder($placeholder-color);
 
   .text-validation {
     color: $validation-color !important;
   }
+
   .ui-widget.ui-widget-content {
     border: none !important;
   }
+
   .dropdown-divider {
     border-top: 1px solid $primary-color !important;
   }
+
   .pac-container {
     z-index: 10000 !important;
   }
@@ -187,6 +192,11 @@ a {
 
 .logo-bg {
   background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
+  background-size: contain;
+}
+
+.logo-bg-home {
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
   background-size: contain;
 }
 
@@ -278,7 +288,7 @@ a {
 .home-header-primary {
   @include set-titleStyles($primary-font-size, bold, $primary-color);
   @include xs-screen {
-    font-size: $primary-mdFont-size !important;
+    font-size: $primary-mdFont-size;
     letter-spacing: 1.5px !important;
   }
   @include sm-screen {
@@ -292,28 +302,34 @@ a {
   h2 {
     @include set-titleStyles($primary-font-size, bold, $primary-color);
     @include xs-screen {
-      font-size: $primary-mdFont-size !important;
+      font-size: $primary-mdFont-size;
       letter-spacing: 1.5px !important;
+      margin-bottom: 0px !important;
     }
     @include sm-screen {
       @include set-dynamicFont($primary-lgFont-size, 8);
       letter-spacing: 1.5px !important;
+      margin-bottom: 0px;
     }
     @include md-screen {
       @include set-dynamicFont($primary-lgFont-size, 4);
       letter-spacing: 1.5px !important;
+      margin-bottom: 0px;
     }
+  }
+  p {
+    margin-bottom: 0px !important;
   }
 }
 
 .home-header-secondary {
   @include set-titleStyles($tertiary-font-size, bold, $primary-color);
   @include xs-screen {
-    font-size: $quaternary-mdFont-size !important;
+    font-size: $quaternary-mdFont-size;
     letter-spacing: 0.64px !important;
   }
   @include sm-screen {
-    font-size: $quaternary-font-size !important;
+    font-size: $quaternary-font-size;
     letter-spacing: 0.64px !important;
   }
   @include md-screen {
@@ -326,10 +342,10 @@ a {
   @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include set-dynamicLineHeight($tertiary-mdFont-size);
   @include xs-screen {
-    font-size: $quaternary-mdFont-size !important;
+    font-size: $quaternary-mdFont-size;
   }
   @include sm-screen {
-    font-size: $quaternary-font-size !important;
+    font-size: $quaternary-font-size;
   }
   @include md-screen {
     @include set-dynamicFont($tertiary-mdFont-size, 2);
@@ -338,11 +354,11 @@ a {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
     @include set-dynamicLineHeight($tertiary-mdFont-size);
     @include xs-screen {
-      font-size: $quaternary-mdFont-size !important;
+      font-size: $quaternary-mdFont-size;
       letter-spacing: 0.64px !important;
     }
     @include sm-screen {
-      font-size: $quaternary-font-size !important;
+      font-size: $quaternary-font-size;
       letter-spacing: 0.64px !important;
     }
     @include md-screen {
@@ -355,23 +371,23 @@ a {
 .home-secondary-content {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
   @include xs-screen {
-    font-size: $senary-font-size !important;
+    font-size: 15px;
   }
   @include sm-screen {
-    text-align: right !important;
+    font-size: 16px;
   }
-  // @include md-screen {
-  //   @include set-dynamicFont($quaternary-font-size, 2);
-  // }
+  @include md-screen {
+    font-size: 17px;
+  }
 }
 
 .home-referral-primary {
   @include set-titleStyles($primary-mdFont-size, bold, $secondary-color);
   @include xs-screen {
-    font-size: $secondary-mdFont-size !important;
+    font-size: $secondary-mdFont-size;
   }
   @include sm-screen {
-    font-size: $secondary-mdFont-size !important;
+    font-size: $secondary-mdFont-size;
   }
   @include md-screen {
     @include set-dynamicFont($primary-mdFont-size, 2);
@@ -381,10 +397,10 @@ a {
 .home-referral-secondary {
   @include set-titleStyles($quaternary-font-size, bold, $secondary-color);
   @include xs-screen {
-    font-size: $quinary-font-size !important;
+    font-size: $quinary-font-size;
   }
   @include sm-screen {
-    font-size: $quaternary-mdFont-size !important;
+    font-size: $quaternary-mdFont-size;
   }
   @include md-screen {
     @include set-dynamicFont($quaternary-font-size, 2);
@@ -410,14 +426,6 @@ a {
   @include set-bgOnly($secondary-color);
   border-top-left-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
-}
-
-.home-primarySearch-bg::placeholder {
-  font-size: 16px;
-  color: #023047 !important;
-  @include xl-screen {
-    color: #707070 !important;
-  }
 }
 
 .secondary {
@@ -510,10 +518,10 @@ a {
   @include set-titleStyles($quaternary-font-size, bold, $primary-color);
   letter-spacing: 0.9px !important;
   @include xs-screen {
-    font-size: $quinary-font-size !important;
+    font-size: $quinary-font-size;
   }
   @include sm-screen {
-    font-size: $senary-font-size !important;
+    font-size: $senary-font-size;
   }
   @include md-screen {
     @include set-dynamicFont($quaternary-font-size, 2);
@@ -528,10 +536,13 @@ a {
   @include set-titleStyles($quaternary-font-size, bold, $primary-color);
   letter-spacing: 0.9px !important;
   @include xs-screen {
-    font-size: $quinary-font-size !important;
+    font-size: $quinary-font-size;
   }
   @include sm-screen {
-    font-size: $senary-font-size !important;
+    font-size: $senary-font-size;
+  }
+  @include md-screen {
+    font-size: $senary-font-size;
   }
 }
 
@@ -618,6 +629,45 @@ a {
   }
   @include md-screen {
     font-size: 20px;
+  }
+}
+
+.authorization-font {
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: 18px;
+  }
+  @include sm-screen {
+    font-size: 19px;
+  }
+  @include md-screen {
+    font-size: 20px;
+  }
+  h2 {
+    @include set-titleStyles($primary-font-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
+    margin-bottom: 0px;
+  }
+  p {
+    @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
+    margin-bottom: 0px;
   }
 }
 
@@ -730,6 +780,15 @@ a {
 
 .content-header-text {
   @include set-titleStyles(22px, bold, $primary-color);
+  @include xs-screen {
+    font-size: 15px;
+  }
+  @include sm-screen {
+    font-size: 18px;
+  }
+  @include md-screen {
+    font-size: 19px;
+  }
 }
 
 .hint-text {
@@ -787,6 +846,33 @@ a {
 
 .question-font {
   @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+  @include xs-screen {
+    font-size: 15px;
+  }
+  @include sm-screen {
+    font-size: 16px;
+  }
+  @include md-screen {
+    font-size: 17px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047;
+  }
+}
+
+.review-header-font {
+  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
+  @include xs-screen {
+    font-size: 15px;
+  }
+  @include sm-screen {
+    font-size: 16px;
+  }
+  @include md-screen {
+    font-size: 17px;
+  }
   h2 {
     font-size: 22px;
     font-weight: bold;
@@ -847,6 +933,10 @@ a {
   @include set-cardStyle($secondary-color, 22px, 22px, "", "top");
 }
 
+.last-content-area {
+  @include set-cardStyle($secondary-color, 22px, 22px, "", "top");
+}
+
 .secondary-content-area {
   @include set-cardStyle($secondary-color, "", "", 24px, "no");
 }
@@ -857,10 +947,6 @@ a {
   letter-spacing: 0px;
   color: #fafafa;
   opacity: 1;
-}
-
-.last-content-area {
-  @include set-cardStyle($secondary-color, 22px, 22px, "", "bottom");
 }
 
 .cursor-pointer {
@@ -908,12 +994,6 @@ a {
 }
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
-  .question-font {
-    font-size: 14px;
-  }
-  .question-font h2 {
-    font-size: 18px;
-  }
   .option-font {
     font-size: 15px !important;
   }
@@ -922,9 +1002,6 @@ a {
   }
   .btn-secondary-text {
     font-size: 20px !important;
-  }
-  .content-header-text {
-    font-size: 18px !important;
   }
   .btn-txt {
     font-size: 22px !important;
@@ -942,9 +1019,6 @@ a {
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 576px) and (max-width: 767.98px) {
-  .question-font {
-    font-size: 16px !important;
-  }
   .option-font {
     font-size: 15px !important;
   }
@@ -953,9 +1027,6 @@ a {
   }
   .btn-secondary-text {
     font-size: 22px !important;
-  }
-  .content-header-text {
-    font-size: 19px !important;
   }
   .btn-txt {
     font-size: 23px !important;
@@ -2296,58 +2367,7 @@ body .ui-widget .ui-menu-item {
 .even-width {
   width: 200px;
 }
-.home-header-primaryh2para h2 {
-  font-size: 32px;
-  font-weight: bold;
-  text-align: center;
-  color: #023047;
-}
-@media (max-width: 575.98px) {
-  .home-header-primaryh2para h2 {
-    font-size: 30px !important;
-    letter-spacing: 1.5px !important;
-  }
-}
-@media (min-width: 576px) and (max-width: 767.98px) {
-  .home-header-primaryh2para h2 {
-    font-size: 32px !important;
-    letter-spacing: 1.5px !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .home-header-primaryh2para h2 {
-    font-size: 36px !important;
-    letter-spacing: 1.5px !important;
-  }
-}
 
-.home-header-primaryh2para p {
-  font-size: 24px;
-  text-align: center;
-  font-weight: bold;
-  color: #023047;
-}
-@media (max-width: 575.98px) {
-  .home-header-primaryh2para p {
-    font-size: 16px !important;
-    letter-spacing: 0.64px !important;
-  }
-}
-@media (min-width: 576px) and (max-width: 767.98px) {
-  .home-header-primaryh2para p {
-    font-size: 18px !important;
-    letter-spacing: 0.64px !important;
-  }
-}
-@media (min-width: 768px) and (max-width: 991.98px) {
-  .home-header-primaryh2para p {
-    font-size: 22px !important;
-    letter-spacing: 1.5px !important;
-  }
-}
-.overflow-auto {
-  overflow: auto;
-}
 .hideChar {
   color: white !important;
 }
@@ -2473,74 +2493,163 @@ html #slide-test-5 {
 /*  Dark theme Start */
 $color-scheme: (
   (
-    on,
-    #023047,
-    #fafafa,
-    #353940,
-    #0f1010,
-    #e8edee,
-    #ebebeb,
-    #b0bec5,
-    url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
-    url("/modules/my-apostrophe-assets/img/liverpool_dark.svg")
-  ),
-  (
-    off,
-    #ffffff,
-    #023047,
-    #54b7e6,
-    #ffffff,
-    #353638,
-    #353638,
-    #3a3e47,
-    url("/modules/my-apostrophe-assets/img/desktop.svg"),
-    url("/modules/my-apostrophe-assets/img/liverpool.svg")
-  )
+      off,
+      #ffffff,
+      #023047,
+      #54b7e6,
+      #0f1010,
+      #e8edee,
+      #353638,
+      #3a3e47,
+      url("/modules/my-apostrophe-assets/img/desktop.svg"),
+      url("/modules/my-apostrophe-assets/img/liverpool.svg"),
+      #023047
+    )
+    (
+      on,
+      #353638,
+      #fafafa,
+      #353940,
+      #ffffff,
+      #353638,
+      #ebebeb,
+      #b0bec5,
+      url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
+      url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
+      #ffffff
+    )
 );
 @mixin theme(
   $name,
   $primary,
   $secondary,
   $header-color,
-  $placeholder-color,
+  $placeholderTheme-color,
   $primary-input-color,
   $secondary-input-color,
   $search-bar-color,
   $background,
-  $bgLogo
+  $bgLogo,
+  $togglePrimary
 ) {
   .#{$name} {
     .body-bg {
       background: #8ecae6 $background no-repeat fixed !important;
       background-size: cover !important;
       height: 100%;
-      // background: $background;
-    }
-    .home-header-primaryh2para h2 {
-      color: $primary;
-    }
-    .home-header-primaryh2para p {
-      color: $primary;
     }
     .home-primary-content-bg {
       background: $primary 0% 0% no-repeat padding-box;
+    }
+    .main-content-area {
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .last-content-area {
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .secondary-content-area {
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .authorization-font {
+      color: $secondary;
+    }
+    .authorization-font h2 {
+      color: $secondary;
+    }
+    .authorization-font p {
+      color: $secondary;
     }
     .home-primary-content {
       color: $secondary;
     }
     .home-header-primary {
       color: $secondary;
+      h2 {
+        color: $secondary;
+      }
+      h3 {
+        color: $secondary;
+      }
+      p {
+        color: $secondary;
+      }
     }
+    .home-header-secondary {
+      color: $secondary;
+    }
+
+    .footer-content {
+      color: $secondary;
+    }
+    .footer-content-secondary {
+      color: $secondary;
+    }
+    .option-font {
+      color: $secondary;
+    }
+    .auth-font {
+      color: $secondary;
+    }
+    .auth-link {
+      color: $togglePrimary !important;
+      a {
+        color: $togglePrimary !important;
+      }
+    }
+    .question-font {
+      color: $secondary;
+    }
+    .question-header-font {
+      color: $secondary;
+    }
+    .content-text {
+      color: $secondary;
+    }
+    .content-header-text {
+      color: $secondary;
+    }
+    .resource_text {
+      color: $secondary;
+    }
+    .content-secondary-header-text {
+      color: $togglePrimary;
+      h3 {
+        color: $togglePrimary;
+      }
+      p {
+        color: $togglePrimary;
+      }
+    }
+
     .header-bg {
       @include set-background($header-color, 1);
     }
+    // .sub-header-bg {
+    //   @include set-background($secondary, 1);
+    // }
     .logo-bg {
       background: $bgLogo no-repeat;
       background-size: contain;
     }
+    .logo-bg-home {
+      background: $bgLogo no-repeat 30px;
+    }
     .ham-icon {
       color: $secondary;
     }
+    .home-primarySearch-bg {
+      background: $primary-input-color 0% 0% no-repeat padding-box !important;
+    }
+    .bg-fafa {
+      background-color: $primary-input-color !important;
+    }
+    .dropdown-divider {
+      border-top: 1px solid $secondary !important;
+    }
+
+    // ::placeholder {
+    //   color: $placeholderTheme-color !important;
+    // }
   }
   [data-theme="#{$name}"] {
     border: none;
@@ -2548,20 +2657,21 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholder-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
+  $search-bar-color, $background, $bgLogo, $togglePrimary in $color-scheme
 {
   @include theme(
     $name,
     $primary,
     $secondary,
     $header-color,
-    $placeholder-color,
+    $placeholderTheme-color,
     $primary-input-color,
     $secondary-input-color,
     $search-bar-color,
     $background,
-    $bgLogo
+    $bgLogo,
+    $togglePrimary
   );
 }
 
@@ -2693,7 +2803,7 @@ $color-scheme: (
 }
 @media (max-width: 450px) {
   p.referral-inside-text.my-2.my-md-3 {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
 }
 #style-7::-webkit-scrollbar-track {
@@ -2722,8 +2832,32 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
+  word-break: break-all;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
   font-size: 16px !important;
 }
+@media (max-width: 767px) {
+  .text-center.text-md-right.py-1.sub-header-bg.home-card-radius {
+    text-align: right !important;
+    padding-right: 10px !important;
+  }
+}
+.text-underlined {
+  text-decoration: underline !important;
+  word-break: break-all;
+}
+.ellipse-text-large-card {
+  display: block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  min-height: 3.6em;
+}
+.read-cont-h1 p:hover {
+  text-decoration: none !important;
+}
+// img.cursor-pointer {
+//   width: 27px !important;
+// }

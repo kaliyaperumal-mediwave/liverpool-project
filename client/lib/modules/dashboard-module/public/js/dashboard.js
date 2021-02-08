@@ -50,12 +50,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            showError(error.responseJSON.message);
-                            setTimeout(function () {
-                                $('#errorCommon').modal('hide');
-                                location.href = "/users/login";
-                            }, 1000);
-
+                            _self.showErrorModal(error.responseJSON.message);
                         }
                     }
                 });
@@ -83,6 +78,7 @@ $(document).ready(function () {
                 }
             },
             checkReferral: function (refObj) {
+                var _self = this;
                 $.ajax({
                     url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + this.userRole + "/" + refObj.referral_progress,
                     type: 'get',
@@ -107,12 +103,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            showError(error.responseJSON.message);
-                            setTimeout(function () {
-                                $('#errorCommon').modal('hide');
-                                location.href = "/users/login";
-                            }, 1000);
-                           
+                            _self.showErrorModal(error.responseJSON.message);
                         }
                     }
                 });
@@ -141,12 +132,7 @@ $(document).ready(function () {
                         error: function (error) {
                             $('#loader').hide();
                             if (error) {
-                                showError(error.responseJSON.message);
-                                setTimeout(function () {
-                                    $('#errorCommon').modal('hide');
-                                    location.href = "/users/login";
-                                }, 1000);
-                               
+                                _self.showErrorModal(error.responseJSON.message);
                             }
                         }
                     });
@@ -178,6 +164,17 @@ $(document).ready(function () {
                     this.searchRefObj.errMsg = false;
                     this.searchRefObj.validateErrMsg = false;
                 }
+            },
+            showErrorModal: function(content) {
+                if (!content) {
+                    content = "Something went wrong.Please try again"
+                }
+                $('#errorModalContent').text(content);
+                $('#errorModal').modal('show');
+            },
+            closeErrorModal: function() {
+                $('#errorModal').modal('hide');
+                location.href = "/users/login";
             }
 
         }

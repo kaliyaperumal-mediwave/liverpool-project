@@ -19,7 +19,8 @@
 
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow"></a>
+        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
+                class="leftArrow cursor-pointer"></a>
         <div class="resource_text"> {{ piece.title }}</div>
         <input hidden id="resources" value="{{data.piecesArray|dump}}">
         <div id="filter_content">
@@ -68,15 +69,14 @@
     </div>
     <!-- Things to watch container -->
     {% if data.piece._watchPage and data.piece._watchPage.length%}
-    <div
-        class="swiper-container set-space-padding top-slider-cont-max">
+    <div class="swiper-container set-space-padding top-slider-cont-max">
         <div class="title-thing-to-watch">
             Things to watch
         </div>
 
         <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite"
             style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
-            <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite">
             {% for piecewatch in data.piece._watchPage %}
             <a href="{{piecewatch._parentUrl}}?piece_id={{piecewatch._id}}"
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
@@ -97,7 +97,7 @@
 
                                 {{ piecewatch.title}}
                             </div>
-                            <div class="answerText">
+                            <div class="answerText ellipse-text-large-card">
                                 {{ piecewatch.SubTitle}}
 
                             </div>
@@ -124,7 +124,7 @@
             aria-controls="swiper-wrapper-81093574348bf1075e"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-81093574348bf1075e"></div>
-            <div class="swiper-scrollbar"></div>
+        <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     <!-- </div> -->
@@ -158,8 +158,9 @@
                                 stress, depression &amp; anxiety therapy chatbot
                             </div> -->
 
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             {% endfor %}
@@ -168,7 +169,7 @@
             aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
-            <div class="swiper-scrollbar"></div>
+        <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
 
@@ -183,7 +184,7 @@
         </div>
         <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
             style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
-            <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
             {% for pieceread in data.piece._readPage %}
             <a href="{{pieceread._parentUrl}}?piece_id={{pieceread._id}}"
                 class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
@@ -206,7 +207,7 @@
                             <div class="questionText">
                                 {{ pieceread.title }}
                             </div>
-                            <div class="answerText">
+                            <div class="answerText ellipse-text-large-card">
                                 {{ pieceread.read_topic}}
                             </div>
                         </div>
@@ -229,7 +230,7 @@
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
-            <div class="swiper-scrollbar"></div>
+        <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     {% endif %}
@@ -246,7 +247,7 @@
         </div>
         <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite"
             style="transform: translate3d(-830px, 0px, 0px); transition-duration: 0ms;"> -->
-            <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-9f48a110e307a6101b" aria-live="polite">
             {% for pieceevents in data.piece._eventPage %}
 
             <a href="{{pieceevents._parentUrl}}?piece_id={{pieceevents._id}}"
@@ -290,7 +291,7 @@
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-9f48a110e307a6101b"></div>
-            <div class="swiper-scrollbar"></div>
+        <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     {% endif %}
@@ -305,7 +306,7 @@
         </div>
         <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite"
             style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
-            <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-32e10f67fb35007cd" aria-live="polite">
             {% for piecegames in data.piece._gamesPage %}
 
             <a href="{{ piecegames._parentUrl}}?piece_id={{piecegames._id}}"
@@ -347,7 +348,7 @@
             aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-32e10f67fb35007cd"></div>
-            <div class="swiper-scrollbar"></div>
+        <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
     {% endif %}
@@ -362,7 +363,7 @@
         </div>
         <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite"
             style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
-            <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite">
+        <div class="swiper-wrapper mb-4" id="swiper-wrapper-81407d8d9af8433d" aria-live="polite">
 
             {% for piecepartner in data.piece._partnerAgenciesPage %}
 
@@ -389,7 +390,7 @@
                                 {{ piecepartner.title}}
 
                             </div>
-                            <div class="answerText">
+                            <div class="answerText ellipse-text-large-card">
                                 {{ piecepartner.partnerAgencies}}
 
                             </div>
@@ -413,14 +414,14 @@
             aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
         <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button" aria-label="Previous slide"
             aria-controls="swiper-wrapper-81407d8d9af8433d"></div>
-            <div class="swiper-scrollbar"></div>
+        <div class="swiper-scrollbar"></div>
         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
     </div>
-    </div>
-    {% endif %}
+</div>
+{% endif %}
 
-    <!-- Initialize Swiper -->
-     <!-- <script>
+<!-- Initialize Swiper -->
+<!-- <script>
         $(document).on('click', 'a.previous-link', function () {
             parent.history.back();
             return false;
@@ -471,7 +472,7 @@
             }
         });
     </script> -->
-    {% include "../../shared-referal-module/views/searchReferral.html" %}
-    {% include "../../shared-referal-module/views/company.html" %}
+{% include "../../shared-referal-module/views/searchReferral.html" %}
+{% include "../../shared-referal-module/views/company.html" %}
 
 {% endblock %}
