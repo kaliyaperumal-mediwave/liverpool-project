@@ -716,7 +716,8 @@ div.radio.switcher label {
   justify-content: center; }
 
 body {
-  font-family: "century-gothic" !important; }
+  font-family: "century-gothic" !important;
+  /* Chrome, Safari, Edge, Opera */ }
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
@@ -3092,16 +3093,16 @@ html #slide-test-5 {
   height: 100%; }
 
 .off .home-primary-content-bg {
-  background: #FFFFFF 0% 0% no-repeat padding-box; }
+  background: #ffffff 0% 0% no-repeat padding-box; }
 
 .off .main-content-area {
-  background: #FFFFFF 0% 0% no-repeat padding-box; }
+  background: #ffffff 0% 0% no-repeat padding-box; }
 
 .off .last-content-area {
-  background: #FFFFFF 0% 0% no-repeat padding-box; }
+  background: #ffffff 0% 0% no-repeat padding-box; }
 
 .off .secondary-content-area {
-  background: #FFFFFF 0% 0% no-repeat padding-box; }
+  background: #ffffff 0% 0% no-repeat padding-box; }
 
 .off .authorization-font {
   color: #023047; }
@@ -3198,7 +3199,7 @@ html #slide-test-5 {
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
-  background: #FFFFFF; }
+  background: #ffffff; }
 
 .on .body-bg {
   background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop_dark.svg") no-repeat fixed !important;
@@ -3304,7 +3305,7 @@ html #slide-test-5 {
   border-top: 1px solid #fafafa !important; }
 
 .on .home-secondarySearch-bg {
-  background: #3A3E47 0% 0% no-repeat padding-box !important; }
+  background: #3a3e47 0% 0% no-repeat padding-box !important; }
 
 .on .fa-search:before {
   color: #fafafa !important; }
