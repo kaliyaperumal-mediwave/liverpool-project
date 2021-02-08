@@ -2,6 +2,7 @@ const sequelize = require('sequelize');
 const sequalizeErrorHandler = require('../middlewares/errorHandler');
 var axios = require('axios');
 const jwt_decode = require('jwt-decode');
+const config = require('../config');
 module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
     try {
         const { Orcha } = ctx.orm();
@@ -9,12 +10,12 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
         await Orcha.findOne().then(async (orchaTokens) => {
             if (!orchaTokens.auth_token) {
                 var data = {
-                    "username": "merseycare",
-                    "password": "Y6?Lp#F6nD?!PQrn"
+                    "username": config.ORCHA_USER,
+                    "password": config.ORCHA_PASS
                 }
                 var config = {
                     method: 'post',
-                    url: 'https://app-library-builder-api.orchahealth.co.uk/api/orcha/v1/Token/Authenticate',
+                    url: config.ORCHA_USER+'Token/Authenticate',
                     headers: {},
                     data: data
                 };

@@ -32,7 +32,10 @@ const configs = {
         maxIdleTime: 30000,
       },
     },
-    sendgrid_api_key: process.env.SENDGRID
+    sendgrid_api_key: process.env.SENDGRID,
+    orcha_api:process.env.ORCHA_API,
+    orcha_user:process.env.ORCHA_USER,
+    orcha_pass:process.env.ORCHA_PASS,
   },
   development: {
     development: {
