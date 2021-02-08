@@ -8,7 +8,7 @@ const messageCodes = {
   1007: 'Failed to update. Please try again.',
   1008: 'You will recieve a mail if you are registered at Liverpool CAMHS ',
   1009: 'Link expired! Request again.',
-  1010: 'Password reset successful! Try login with new password.',
+  1010: 'Password has been reset successfully! Try login with new password.',
   1011: "Your Old password doesn't match",
   1012: 'That Email is taken. Try another.',
   1013: 'User not registered at Liverpool CAMHS ',

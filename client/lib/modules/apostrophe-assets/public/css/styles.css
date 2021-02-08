@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .review-header-font, .option-font, .add-more-hint {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -852,6 +852,15 @@ body {
     padding-top: 2px; }
   body .font-25 {
     font-size: 25px !important; }
+    @media (max-width: 575.98px) {
+      body .font-25 {
+        font-size: 20px !important; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      body .font-25 {
+        font-size: 21px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      body .font-25 {
+        font-size: 23px; } }
   body .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -1047,7 +1056,8 @@ a {
     font-size: 22px;
     font-weight: bold;
     color: #023047;
-    line-height: 27px !important; }
+    line-height: 27px !important;
+    margin-bottom: 0px; }
     @media (max-width: 575.98px) {
       .home-primary-content h3 {
         font-size: 16px;
@@ -1060,6 +1070,8 @@ a {
       .home-primary-content h3 {
         font-size: 20px !important;
         letter-spacing: 0.64px !important; } }
+  .home-primary-content p {
+    margin-bottom: 0px; }
 
 .home-secondary-content {
   font-size: 18px;
@@ -1547,24 +1559,28 @@ a {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
-
-.review-header-font {
-  font-size: 18px;
-  font-weight: normal;
-  color: #023047; }
-  @media (max-width: 575.98px) {
-    .review-header-font {
-      font-size: 15px; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
-    .review-header-font {
-      font-size: 16px; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .review-header-font {
-      font-size: 17px; } }
-  .review-header-font h2 {
+    @media (max-width: 575.98px) {
+      .question-font h2 {
+        font-size: 18px; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .question-font h2 {
+        font-size: 19px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .question-font h2 {
+        font-size: 20px; } }
+  .question-font p {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
+    @media (max-width: 575.98px) {
+      .question-font p {
+        font-size: 18px; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .question-font p {
+        font-size: 19px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .question-font p {
+        font-size: 20px; } }
 
 .option-font {
   font-size: 17px;
@@ -1626,8 +1642,13 @@ a {
   background: #fafafa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   opacity: 1;
-  border-top-left-radius: 22px;
-  border-top-right-radius: 22px; }
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  background: #fafafa 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  opacity: 1;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px; }
 
 .secondary-content-area {
   background: #fafafa 0% 0% no-repeat padding-box;
@@ -3147,12 +3168,21 @@ html #slide-test-5 {
 
 .off .question-font {
   color: #023047; }
+  .off .question-font h2 {
+    color: #023047; }
+  .off .question-font p {
+    color: #023047; }
 
 .off .question-header-font {
   color: #023047; }
 
+.off .review-header-font {
+  color: #023047; }
+
 .off .content-text {
   color: #023047; }
+  .off .content-text strong {
+    color: #023047; }
 
 .off .content-header-text {
   color: #023047; }
@@ -3261,12 +3291,21 @@ html #slide-test-5 {
 
 .on .question-font {
   color: #fafafa; }
+  .on .question-font h2 {
+    color: #fafafa; }
+  .on .question-font p {
+    color: #fafafa; }
 
 .on .question-header-font {
   color: #fafafa; }
 
+.on .review-header-font {
+  color: #fafafa; }
+
 .on .content-text {
   color: #fafafa; }
+  .on .content-text strong {
+    color: #fafafa; }
 
 .on .content-header-text {
   color: #fafafa; }
@@ -3462,7 +3501,7 @@ html #slide-test-5 {
   font-size: 20px !important; }
 
 .apos-header-para-font p {
-  word-break: break-all;
+  word-break: normal;
   font-size: 16px !important; }
 
 .apos-header-para-font ul li {
@@ -3486,9 +3525,6 @@ html #slide-test-5 {
 
 .read-cont-h1 p:hover {
   text-decoration: none !important; }
-
-img.cursor-pointer {
-  width: 27px !important; }
 
 /* MODEL POP */
 .modal-open {
