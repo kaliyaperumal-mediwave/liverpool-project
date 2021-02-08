@@ -33,7 +33,7 @@ body {
   //   -webkit-appearance: none;
   //   margin: 0;
   // }
- 
+
   [v-cloak] {
     display: none !important;
   }
@@ -117,6 +117,15 @@ body {
 
   .font-25 {
     font-size: 25px !important;
+    @include xs-screen {
+      font-size: 20px !important;
+    }
+    @include sm-screen {
+      font-size: 21px;
+    }
+    @include md-screen {
+      font-size: 23px;
+    }
   }
 
   .ui-widget-content {
@@ -330,6 +339,8 @@ a {
   h3 {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
     @include set-dynamicLineHeight($tertiary-mdFont-size);
+    margin-bottom: 0px;
+
     @include xs-screen {
       font-size: $quaternary-mdFont-size;
       letter-spacing: 0.64px !important;
@@ -342,6 +353,9 @@ a {
       @include set-dynamicFont($tertiary-mdFont-size, 2);
       letter-spacing: 0.64px !important;
     }
+  }
+  p {
+    margin-bottom: 0px;
   }
 }
 
@@ -833,27 +847,29 @@ a {
     font-size: 17px;
   }
   h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #023047;
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
   }
-}
 
-.review-header-font {
-  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
-  @include xs-screen {
-    font-size: 15px;
-  }
-  @include sm-screen {
-    font-size: 16px;
-  }
-  @include md-screen {
-    font-size: 17px;
-  }
-  h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #023047;
+  p {
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
   }
 }
 
@@ -911,7 +927,8 @@ a {
 }
 
 .last-content-area {
-  @include set-cardStyle($secondary-color, 22px, 22px, "", "top");
+  @include set-cardStyle($secondary-color, 0px, 0px, "", "top");
+  @include set-cardStyle($secondary-color, 22px, 22px, "", "bottom");
 }
 
 .secondary-content-area {
@@ -2575,12 +2592,24 @@ $color-scheme: (
     }
     .question-font {
       color: $secondary;
+      h2 {
+        color: $secondary;
+      }
+      p {
+        color: $secondary;
+      }
     }
     .question-header-font {
       color: $secondary;
     }
+    .review-header-font {
+      color: $secondary;
+    }
     .content-text {
       color: $secondary;
+      strong {
+        color: $secondary;
+      }
     }
     .content-header-text {
       color: $secondary;
@@ -2815,7 +2844,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
-  word-break: break-all;
+  word-break: normal;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
@@ -2840,9 +2869,6 @@ $color-scheme: (
 }
 .read-cont-h1 p:hover {
   text-decoration: none !important;
-}
-img.cursor-pointer {
-  width: 27px !important;
 }
 
 /* MODEL POP */
