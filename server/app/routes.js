@@ -55,6 +55,5 @@ router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken
 router.post('/user/feedback', authController.sendFeedback);
 
 //orcha
-router.post('/orcha/generateTkn',auth.checkOrchaToken,orchaController.generateTkn);
 router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
 module.exports = router;

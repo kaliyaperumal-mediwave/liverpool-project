@@ -8,7 +8,6 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
         ctx.response.body = ctx.response.body ? ctx.response.body : {};
         await Orcha.findOne().then(async (orchaTokens) => {
             if (!orchaTokens.auth_token) {
-
                 var data = {
                     "username": "merseycare",
                     "password": "Y6?Lp#F6nD?!PQrn"
@@ -34,7 +33,6 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                           });
 
                     }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
-                    resolve();
                 }).catch((error) => {
                     ctx.res.internalServerError({
                         message: 'gdfgsgfg',
@@ -44,6 +42,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
             }
             else {
                 let orchaTknData = jwt_decode(orchaTokens.auth_token)
+                //**need to divide getTIme() by 1000
                 if (new Date().getTime() < orchaTknData.exp) {
                     ctx.response.body.orchaToken = orchaTokens.auth_token;
                 }

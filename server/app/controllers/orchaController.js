@@ -19,7 +19,7 @@ exports.getAllApps = ctx => new Promise((resolve, reject) => {
         data: data
     };
     axios(config).then(function (apps) {
-        console.log(apps.data)
+       // console.log(apps.data)
         ctx.res.ok({
             data: apps.data
         });
