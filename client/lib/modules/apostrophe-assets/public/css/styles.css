@@ -638,7 +638,7 @@ div.radio.switcher label {
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -714,36 +714,6 @@ div.radio.switcher label {
 
 .v-toast.v-toast--top {
   justify-content: center; }
-
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype"); }
-
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype"); }
-
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype"); }
-
-@font-face {
-  font-family: "century-gothic";
-  font-style: italic;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype"); }
-
-@font-face {
-  font-family: "century-gothic";
-  font-style: italic;
-  font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype"); }
 
 body {
   font-family: "century-gothic" !important; }
@@ -824,14 +794,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -839,7 +809,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -847,21 +817,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -3097,16 +3067,16 @@ html #slide-test-5 {
   height: 100%; }
 
 .off .home-primary-content-bg {
-  background: #ffffff 0% 0% no-repeat padding-box; }
+  background: #FFFFFF 0% 0% no-repeat padding-box; }
 
 .off .main-content-area {
-  background: #ffffff 0% 0% no-repeat padding-box; }
+  background: #FFFFFF 0% 0% no-repeat padding-box; }
 
 .off .last-content-area {
-  background: #ffffff 0% 0% no-repeat padding-box; }
+  background: #FFFFFF 0% 0% no-repeat padding-box; }
 
 .off .secondary-content-area {
-  background: #ffffff 0% 0% no-repeat padding-box; }
+  background: #FFFFFF 0% 0% no-repeat padding-box; }
 
 .off .authorization-font {
   color: #023047; }
@@ -3173,10 +3143,16 @@ html #slide-test-5 {
 .off .dropdown-divider {
   border-top: 1px solid #023047 !important; }
 
+.off .home-secondarySearch-bg {
+  background: #b0bec5 0% 0% no-repeat padding-box !important; }
+
+.off .fa-search:before {
+  color: #023047 !important; }
+
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
-  background: #ffffff; }
+  background: #FFFFFF; }
 
 .on .body-bg {
   background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop_dark.svg") no-repeat fixed !important;
@@ -3259,6 +3235,12 @@ html #slide-test-5 {
 
 .on .dropdown-divider {
   border-top: 1px solid #fafafa !important; }
+
+.on .home-secondarySearch-bg {
+  background: #3A3E47 0% 0% no-repeat padding-box !important; }
+
+.on .fa-search:before {
+  color: #fafafa !important; }
 
 [data-theme="on"] {
   border: none;
@@ -3439,3 +3421,8 @@ html #slide-test-5 {
 
 img.cursor-pointer {
   width: 27px !important; }
+
+/* MODEL POP */
+.modal-open {
+  overflow-y: scroll !important;
+  padding-right: 0px !important; }
