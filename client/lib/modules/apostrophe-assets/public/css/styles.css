@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .option-font, .add-more-hint {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-secondary, .home-primary-content, .home-primary-content h3, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .review-header-font, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -638,7 +638,7 @@ div.radio.switcher label {
 
 .custom-select {
   position: relative;
-  color: #0f1010 !important !important;
+  color: #0f1010 !important;
   background: #e8edee !important;
   border: none !important;
   white-space: nowrap;
@@ -750,6 +750,8 @@ body {
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
+  body [v-cloak] {
+    display: none !important; }
   @media (min-width: 1200px) and (max-width: 1499.98px) {
     body .col-xl-6 {
       max-width: 60% !important; } }
@@ -824,14 +826,14 @@ body {
   body textarea,
   body .custom-select ::-webkit-input-placeholder {
     /* WebKit, Blink, Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select :-moz-placeholder {
     /* Mozilla Firefox 4 to 18 */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -839,7 +841,7 @@ body {
   body textarea,
   body .custom-select ::-moz-placeholder {
     /* Mozilla Firefox 19+ */
-    color: #0f1010 !important !important;
+    color: #0f1010 !important;
     opacity: 1; }
   body input[type="text"],
   body input[type="password"],
@@ -847,21 +849,21 @@ body {
   body textarea,
   body .custom-select :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body input[type="text"],
   body input[type="password"],
   body input[type="email"],
   body textarea,
   body .custom-select ::placeholder {
     /* Most modern browsers support this now. */
-    color: #0f1010 !important !important; }
+    color: #0f1010 !important; }
   body .text-validation {
     color: #dd3939 !important; }
   body .ui-widget.ui-widget-content {
@@ -1024,15 +1026,20 @@ a {
     @media (max-width: 575.98px) {
       .home-header-primary h2 {
         font-size: 30px;
-        letter-spacing: 1.5px !important; } }
+        letter-spacing: 1.5px !important;
+        margin-bottom: 0px !important; } }
     @media (min-width: 576px) and (max-width: 767.98px) {
       .home-header-primary h2 {
         font-size: 32px !important;
-        letter-spacing: 1.5px !important; } }
+        letter-spacing: 1.5px !important;
+        margin-bottom: 0px; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       .home-header-primary h2 {
         font-size: 36px !important;
-        letter-spacing: 1.5px !important; } }
+        letter-spacing: 1.5px !important;
+        margin-bottom: 0px; } }
+  .home-header-primary p {
+    margin-bottom: 0px !important; }
 
 .home-header-secondary {
   font-size: 24px;
@@ -1566,6 +1573,24 @@ a {
     .question-font {
       font-size: 17px; } }
   .question-font h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047; }
+
+.review-header-font {
+  font-size: 18px;
+  font-weight: normal;
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .review-header-font {
+      font-size: 15px; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .review-header-font {
+      font-size: 16px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .review-header-font {
+      font-size: 17px; } }
+  .review-header-font h2 {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
@@ -3122,8 +3147,20 @@ html #slide-test-5 {
 
 .off .home-header-primary {
   color: #023047; }
+  .off .home-header-primary h2 {
+    color: #023047; }
+  .off .home-header-primary h3 {
+    color: #023047; }
+  .off .home-header-primary p {
+    color: #023047; }
 
 .off .home-header-secondary {
+  color: #023047; }
+
+.off .footer-content {
+  color: #023047; }
+
+.off .footer-content-secondary {
   color: #023047; }
 
 .off .option-font {
@@ -3133,7 +3170,9 @@ html #slide-test-5 {
   color: #023047; }
 
 .off .auth-link {
-  color: #023047; }
+  color: #023047 !important; }
+  .off .auth-link a {
+    color: #023047 !important; }
 
 .off .question-font {
   color: #023047; }
@@ -3147,8 +3186,15 @@ html #slide-test-5 {
 .off .content-header-text {
   color: #023047; }
 
-.off .content-secondary-header-text h3 p {
+.off .resource_text {
   color: #023047; }
+
+.off .content-secondary-header-text {
+  color: #023047; }
+  .off .content-secondary-header-text h3 {
+    color: #023047; }
+  .off .content-secondary-header-text p {
+    color: #023047; }
 
 .off .header-bg {
   background: #54b7e6 0% 0% no-repeat padding-box !important;
@@ -3209,8 +3255,20 @@ html #slide-test-5 {
 
 .on .home-header-primary {
   color: #fafafa; }
+  .on .home-header-primary h2 {
+    color: #fafafa; }
+  .on .home-header-primary h3 {
+    color: #fafafa; }
+  .on .home-header-primary p {
+    color: #fafafa; }
 
 .on .home-header-secondary {
+  color: #fafafa; }
+
+.on .footer-content {
+  color: #fafafa; }
+
+.on .footer-content-secondary {
   color: #fafafa; }
 
 .on .option-font {
@@ -3220,7 +3278,9 @@ html #slide-test-5 {
   color: #fafafa; }
 
 .on .auth-link {
-  color: #fafafa; }
+  color: #ffffff !important; }
+  .on .auth-link a {
+    color: #ffffff !important; }
 
 .on .question-font {
   color: #fafafa; }
@@ -3234,8 +3294,15 @@ html #slide-test-5 {
 .on .content-header-text {
   color: #fafafa; }
 
-.on .content-secondary-header-text h3 p {
+.on .resource_text {
   color: #fafafa; }
+
+.on .content-secondary-header-text {
+  color: #ffffff; }
+  .on .content-secondary-header-text h3 {
+    color: #ffffff; }
+  .on .content-secondary-header-text p {
+    color: #ffffff; }
 
 .on .header-bg {
   background: #353940 0% 0% no-repeat padding-box !important;
@@ -3436,6 +3503,3 @@ html #slide-test-5 {
 
 .read-cont-h1 p:hover {
   text-decoration: none !important; }
-
-img.cursor-pointer {
-  width: 27px !important; }
