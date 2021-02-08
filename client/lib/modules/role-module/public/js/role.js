@@ -719,7 +719,16 @@ $(document).ready(function () {
             },
 
             onVaueChange: function (e, type, section, key) {
-              //  debugger
+                // if (isNaN(e.target.value)) {
+                //     if (e.target.value.match(/\d+/)) {
+                //         e.target.value = e.target.value.match(/\d+/)[0];
+                //         this[section][key] = e.target.value;
+                //         return false;
+                //     } else {
+                //         this[section][key] = e.target.value;
+                //         return false;
+                //     }
+                // }
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this[section][key] = e.target.value.trim();
                     return false;

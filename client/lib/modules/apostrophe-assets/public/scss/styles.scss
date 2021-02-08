@@ -18,37 +18,6 @@
 @import "select";
 @import "toast";
 
-// @font-face {
-//   font-family: "century-gothic";
-//   font-style: normal;
-//   font-weight: 400;
-//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
-// }
-// @font-face {
-//   font-family: "century-gothic";
-//   font-style: normal;
-//   font-weight: bold;
-//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
-// }
-// @font-face {
-//   font-family: "century-gothic";
-//   font-style: normal;
-//   font-weight: bold;
-//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
-// }
-// @font-face {
-//   font-family: "century-gothic";
-//   font-style: italic;
-//   font-weight: bold;
-//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
-// }
-// @font-face {
-//   font-family: "century-gothic";
-//   font-style: italic;
-//   font-weight: normal;
-//   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
-// }
-
 body {
   font-family: "century-gothic" !important;
 
@@ -57,6 +26,14 @@ body {
     display: none;
   }
 
+  // hide input=[number] arrows
+  /* Chrome, Safari, Edge, Opera */
+  // input::-webkit-outer-spin-button,
+  // input::-webkit-inner-spin-button {
+  //   -webkit-appearance: none;
+  //   margin: 0;
+  // }
+ 
   [v-cloak] {
     display: none !important;
   }
@@ -2494,7 +2471,7 @@ html #slide-test-5 {
 $color-scheme: (
   (
       off,
-      #FFFFFF,
+      #ffffff,
       #023047,
       #54b7e6,
       #0f1010,
@@ -2513,7 +2490,7 @@ $color-scheme: (
       #ffffff,
       #353638,
       #ebebeb,
-      #3A3E47,
+      #3a3e47,
       url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
       #ffffff
@@ -2649,10 +2626,9 @@ $color-scheme: (
     .home-secondarySearch-bg {
       background: $search-bar-color 0% 0% no-repeat padding-box !important;
     }
-    .fa-search:before{
+    .fa-search:before {
       color: $secondary !important;
     }
- 
 
     // ::placeholder {
     //   color: $placeholderTheme-color !important;
@@ -2865,12 +2841,12 @@ $color-scheme: (
 .read-cont-h1 p:hover {
   text-decoration: none !important;
 }
-img.cursor-pointer{
+img.cursor-pointer {
   width: 27px !important;
 }
 
- /* MODEL POP */
-.modal-open{
+/* MODEL POP */
+.modal-open {
   overflow-y: scroll !important;
   padding-right: 0px !important;
 }
