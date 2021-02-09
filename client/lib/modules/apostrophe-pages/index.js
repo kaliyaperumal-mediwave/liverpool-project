@@ -43,7 +43,7 @@ module.exports = {
       name: 'referral-complete-module',
       label: 'Referral Completed Module'
     },
-  
+
     {
       name: 'dashboard-module',
       label: 'Dashboard Module'
@@ -79,6 +79,10 @@ module.exports = {
     {
       name: 'accessibility-module',
       label: 'Accessibility Module'
+    },
+    {
+      name: 'liverpool-orcha-module',
+      label: 'Liverpool Orcha Module'
     },
     {
       name: 'liverpool-watch-pages',

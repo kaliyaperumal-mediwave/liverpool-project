@@ -13,6 +13,9 @@ const configs = {
     port: process.env.APP_PORT,
     email_from_address: process.env.FROM_EMAIL,
     email_to_address: process.env.TO_EMAIL,
+    orcha_api:process.env.ORCHA_API,
+    orcha_user:process.env.ORCHA_USER,
+    orcha_pass:process.env.ORCHA_PASS,
     orm: {
       name: 'orm',
       modelPath: join(__dirname, '../models'),
@@ -32,7 +35,7 @@ const configs = {
         maxIdleTime: 30000,
       },
     },
-    sendgrid_api_key: process.env.SENDGRID
+    sendgrid_api_key: process.env.SENDGRID,
   },
   development: {
     development: {
@@ -44,6 +47,7 @@ const configs = {
       host: process.env.POSTGRES_HOST,
       dialect: 'postgres',
       ssl: process.env.SSL,
+      
       dialectOptions: {
         ssl: process.env.SSL,
       },

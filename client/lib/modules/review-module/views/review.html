@@ -9,13 +9,6 @@
     <div class="py-4 main-min-height">
         <div class="secondary-content-area  col-sm-10 col-11 col-lg-8 col-md-9 col-xl-6 mx-auto responsepy">
             <div class="p-2 p-sm-3 p-md-3 p-lg-3 p-xl-4">
-                <!-- <h2 class="py-2 m-0 question-header-font col-xl-10 col-lg-6 col-sm-12 col-12">Review
-                    infomation
-                </h2>
-                <p class="question-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12"> Please check that your answers
-                    are
-                    correct before sending your child’s referral.
-                </p> -->
                 <div class="question-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
                     'review_referral', {
                     widgets: {
@@ -62,11 +55,9 @@
                                 <h2 class="py-2 m-0 question-header-font">
                                     Eligibility
                                 </h2>
-                                <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
-                                        data-container="body" @click="editAllSection('role')" data-placement="top"
-                                        title="Edit Section 1"></i>
-                                </span>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" data-container="body" @click="editAllSection('role')"
+                                    data-placement="top" title="Edit Section 1"></i>
                             </div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer"
@@ -320,11 +311,9 @@
                                 <h2 class="py-2 m-0 question-header-font">
                                     {{ section5Labels.aboutLabel}}
                                 </h2>
-                                <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
-                                        @click="editAllSection('about')" data-placement="top"
-                                        title="Edit Section 2"></i>
-                                </span>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" @click="editAllSection('about')" data-placement="top"
+                                    title="Edit Section 2"></i>
                             </div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer"
@@ -827,11 +816,9 @@
                                 <h2 class="py-2 m-0 question-header-font">
                                     Support needs
                                 </h2>
-                                <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
-                                        @click="editAllSection('education')" data-placement="top"
-                                        title="Edit Section 3"></i>
-                                </span>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" @click="editAllSection('education')" data-placement="top"
+                                    title="Edit Section 3"></i>
                             </div>
 
                             <span style="color: #D6D8D8;">
@@ -1010,11 +997,9 @@
                                 <h2 class="py-2 m-0 question-header-font">
                                     {{section5Labels.referralLabel}}
                                 </h2>
-                                <span style="color: #023047">
-                                    <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3" data-toggle="tooltip"
-                                        @click="editAllSection('referral')" data-placement="top"
-                                        title="Edit Section 4"></i>
-                                </span>
+                                <i class="fa fa-pencil-square-o font-25 cursor-pointer px-3 ham-icon"
+                                    data-toggle="tooltip" @click="editAllSection('referral')" data-placement="top"
+                                    title="Edit Section 4"></i>
                             </div>
 
                             <span style="color: #D6D8D8;">

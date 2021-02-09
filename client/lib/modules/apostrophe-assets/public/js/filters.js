@@ -16,16 +16,17 @@ $(document).ready(function () {
 
             methods: {
                 filterPieces: function () {
-                    console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                   // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                     if (this.searchQuery) {
                         this.filteredData = [];
                         this.showSearchResults = true;
-                        return this.resources.filter((item) => {
+                        return this.resources.filter(function (item) {
                             // TODO: add description and other content after CMS
-                            if (this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))) {
-                                this.filteredData.push(item)
+                            if (this.searchQuery.toLowerCase().split(' ').every(function (v) {
+                                return !!~item.title.toLowerCase().indexOf(v)
+                            })) {
+                                return this.filteredData;
                             }
-                            return this.filteredData
                         })
                     } else {
                         this.showSearchResults = false;

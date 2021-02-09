@@ -5,7 +5,6 @@
 {% endblock %}
 {% block main
 %}
-
 <div id="aboutUsPage">
     <!-- Loader start -->
     <div class="overlay" id="loader">
@@ -36,7 +35,8 @@
                     title="Back" class="cursor-pointer py-1" alt=""> -->
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
-            <div class="home-header-primary m-0">
+            <!-- <h2 class="home-header-primary m-0 py-2">About the site</h2> -->
+            <div class="home-header-primary m-0 py-2">
                 {{ apos.area(data.page, 'aboutPageTitle', {
                 widgets: {
                 'apostrophe-rich-text': {
@@ -49,7 +49,6 @@
                 }) }}</div>
         </div>
     </div>
-
     <div class="d-flex text-center">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 px-4 mx-auto home-primary-content-bg">
             <div class="footer-content  my-3 my-md-4 py-2 px-3 text-left apos-header-para-font">
@@ -64,13 +63,10 @@
                 }
                 }) }}
             </div>
-
         </div>
     </div>
     {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
-
-
 
 </div>
 {% endblock %}

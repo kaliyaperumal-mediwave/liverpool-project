@@ -81,6 +81,7 @@ var apos = require("apostrophe")({
     "account-settings-module": {},
     "accessibility-module": {},
     "footer-pages-module": {},
+    "liverpool-orcha-module": {},
     "apostrophe-templates": {
       viewsFolderFallback: path.join(__dirname, "views"),
     },

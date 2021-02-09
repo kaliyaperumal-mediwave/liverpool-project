@@ -35,7 +35,7 @@ exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
-                    message: 'Mail Successfully sent',
+                    message: 'Mail successfully sent',
                 });
                 resolve();
             } else {
@@ -69,7 +69,7 @@ exports.sendChangeMail = async ctx => new Promise((resolve, reject) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
-                    message: 'mail Successfully sent',
+                    message: 'Mail successfully sent',
                 });
                 resolve();
             } else {
@@ -123,7 +123,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
 
 exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject) => {
     try {
-        if(ctx.request.decryptedUser!=undefined) {
+        if (ctx.request.decryptedUser != undefined) {
             const data = {
                 from: 'info@mindwaveventures.com',
                 to: ctx.request.decryptedUser.email,
@@ -134,7 +134,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
                 if (!err && res) {
                     logger.info(res);
                     ctx.res.ok({
-                        data: {sendUserResult: ctx.request.body.ref_code}
+                        data: { sendUserResult: ctx.request.body.ref_code }
                     });
                     resolve();
                 } else {
@@ -146,7 +146,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
             });
         } else {
             ctx.res.ok({
-                data: {sendUserResult: ctx.request.body.ref_code}
+                data: { sendUserResult: ctx.request.body.ref_code }
             });
             resolve();
         }

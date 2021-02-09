@@ -1,8 +1,8 @@
 var API_URI = "/modules/review-module";
 
-window.history.forward(); 
-function noBack() { 
-    window.history.forward(); 
+window.history.forward();
+function noBack() {
+    window.history.forward();
 }
 
 $(document).ready(function () {
@@ -115,7 +115,7 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
-          //  console.log(this.payloadData);
+            //  console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
 
         },
@@ -131,7 +131,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                    //    console.log(data)
+                        //    console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -146,10 +146,12 @@ $(document).ready(function () {
                                 _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral + _self.section4Data.other_reasons_referral;
                             }
                         }
-
-                        _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
-                        _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties.toString();
-
+                        if (_self.section4Data.reason_for_referral) {
+                            _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
+                        }
+                        if (_self.section4Data.eating_disorder_difficulties) {
+                            _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties.toString();
+                        }
                         _self.prevSection1Data = JSON.parse(JSON.stringify(data.section1));
                         _self.prevSection2Data = JSON.parse(JSON.stringify(data.section2));
                         _self.prevSection3Data = JSON.parse(JSON.stringify(data.section3));
@@ -193,8 +195,8 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
                     console.log(successData);
                     if (Object.keys(successData)) {
-                       // location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
-                       location.href = "/acknowledge";
+                        // location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
+                        location.href = "/acknowledge";
                         this.isFormSubmitted = false;
                     } else {
                         console.log('empty response')
@@ -216,7 +218,7 @@ $(document).ready(function () {
 
             editAllSection: function (page) {
                 this.userId = document.getElementById('uUid').innerHTML
-                this.userRole =document.getElementById('uRole').innerHTML;
+                this.userRole = document.getElementById('uRole').innerHTML;
                 //var parameter = this.userId + "&" + this.userRole + "&" + "sec5back"
                 var parameter = "sec5back"
                 var enCodeParameter = btoa(parameter)
