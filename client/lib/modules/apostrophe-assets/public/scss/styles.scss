@@ -172,6 +172,18 @@ body {
 
 /*Logo Height style Start */
 
+.card-container {
+  min-height: 160px;
+  position: relative;
+}
+
+.card-container img {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 80px;
+}
+
 a {
   color: #023047 !important;
 }
@@ -2675,7 +2687,8 @@ $color-scheme: (
     .fa-search:before {
       color: $secondary !important;
     }
-    input {
+
+    input[type="search"] {
       color: $secondary !important;
     }
   }
@@ -2892,6 +2905,3 @@ $color-scheme: (
   overflow-y: scroll !important;
   padding-right: 0px !important;
 }
-// img.cursor-pointer {
-//   width: 27px !important;
-// }
