@@ -189,6 +189,9 @@ a {
 .ham-icon {
   color: $primary-color;
 }
+.toggleColor-primaryColor {
+  color: $primary-color;
+}
 
 .back-arrow {
   color: $primary-color;
@@ -336,8 +339,8 @@ a {
 }
 
 .home-primary-content {
-  @include set-titleStyles($secondary-mdFont-size, bold, $primary-color);
-  @include set-dynamicLineHeight($secondary-mdFont-size);
+  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include set-dynamicLineHeight($tertiary-font-size);
   @include xs-screen {
     font-size: 15px;
   }
@@ -345,12 +348,10 @@ a {
     font-size: 16px;
   }
   @include md-screen {
-    @include set-dynamicFont($secondary-mdFont-size, 6);
+    font-size: 18px;
   }
   h3 {
-    @include set-titleStyles($secondary-mdFont-size, bold, $primary-color);
     margin-bottom: 0px;
-
     @include xs-screen {
       font-size: 15px;
     }
@@ -358,12 +359,11 @@ a {
       font-size: 16px;
     }
     @include md-screen {
-      @include set-dynamicFont($secondary-mdFont-size, 8);
+      font-size: 18px;
     }
   }
   p {
     margin-bottom: 0px;
-    @include set-titleStyles($secondary-mdFont-size, bold, $primary-color);
     @include xs-screen {
       font-size: 15px;
     }
@@ -371,7 +371,7 @@ a {
       font-size: 16px;
     }
     @include md-screen {
-      @include set-dynamicFont($secondary-mdFont-size, 8);
+      font-size: 18px;
     }
   }
 }
@@ -2552,6 +2552,9 @@ $color-scheme: (
     .home-primary-content-bg {
       background: $primary 0% 0% no-repeat padding-box;
     }
+    .home-primarySearch-bg {
+      background: $primary 0% 0% no-repeat padding-box !important;
+    }
     .main-content-area {
       background: $primary 0% 0% no-repeat padding-box;
     }
@@ -2634,6 +2637,9 @@ $color-scheme: (
     .resource_text {
       color: $secondary;
     }
+    .resource_search_text {
+      color: $secondary;
+    }
     .content-secondary-header-text {
       color: $togglePrimary;
       h3 {
@@ -2647,9 +2653,6 @@ $color-scheme: (
     .header-bg {
       @include set-background($header-color, 1);
     }
-    // .sub-header-bg {
-    //   @include set-background($secondary, 1);
-    // }
     .logo-bg {
       background: $bgLogo no-repeat;
       background-size: contain;
@@ -2659,9 +2662,6 @@ $color-scheme: (
     }
     .ham-icon {
       color: $secondary;
-    }
-    .home-primarySearch-bg {
-      background: $primary-input-color 0% 0% no-repeat padding-box !important;
     }
     .bg-fafa {
       background-color: $primary-input-color !important;
@@ -2675,10 +2675,9 @@ $color-scheme: (
     .fa-search:before {
       color: $secondary !important;
     }
-
-    // ::placeholder {
-    //   color: $placeholderTheme-color !important;
-    // }
+    input {
+      color: $secondary !important;
+    }
   }
   [data-theme="#{$name}"] {
     border: none;
