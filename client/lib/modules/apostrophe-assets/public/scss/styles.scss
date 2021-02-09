@@ -272,39 +272,50 @@ a {
 /* Landing Page style start */
 
 .home-header-primary {
-  @include set-titleStyles($primary-font-size, bold, $primary-color);
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
   @include xs-screen {
-    font-size: $primary-mdFont-size;
+    font-size: 18px;
     letter-spacing: 1.5px !important;
   }
   @include sm-screen {
-    @include set-dynamicFont($primary-lgFont-size, 8);
+    font-size: 19px;
     letter-spacing: 1.5px !important;
   }
   @include md-screen {
-    @include set-dynamicFont($primary-lgFont-size, 4);
+    font-size: 22px;
     letter-spacing: 1.5px !important;
   }
   h2 {
-    @include set-titleStyles($primary-font-size, bold, $primary-color);
+    margin-bottom: 0px !important;
+    @include set-titleStyles($secondary-font-size, bold, $primary-color);
     @include xs-screen {
-      font-size: $primary-mdFont-size;
+      font-size: 18px;
       letter-spacing: 1.5px !important;
-      margin-bottom: 0px !important;
     }
     @include sm-screen {
-      @include set-dynamicFont($primary-lgFont-size, 8);
+      font-size: 19px;
       letter-spacing: 1.5px !important;
-      margin-bottom: 0px;
     }
     @include md-screen {
-      @include set-dynamicFont($primary-lgFont-size, 4);
+      font-size: 22px;
       letter-spacing: 1.5px !important;
-      margin-bottom: 0px;
     }
   }
   p {
     margin-bottom: 0px !important;
+    @include set-titleStyles($secondary-font-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+      letter-spacing: 1.5px !important;
+    }
+    @include sm-screen {
+      font-size: 19px;
+      letter-spacing: 1.5px !important;
+    }
+    @include md-screen {
+      font-size: 22px;
+      letter-spacing: 1.5px !important;
+    }
   }
 }
 
@@ -325,37 +336,43 @@ a {
 }
 
 .home-primary-content {
-  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
-  @include set-dynamicLineHeight($tertiary-mdFont-size);
+  @include set-titleStyles($secondary-mdFont-size, bold, $primary-color);
+  @include set-dynamicLineHeight($secondary-mdFont-size);
   @include xs-screen {
-    font-size: $quaternary-mdFont-size;
+    font-size: 15px;
   }
   @include sm-screen {
-    font-size: $quaternary-font-size;
+    font-size: 16px;
   }
   @include md-screen {
-    @include set-dynamicFont($tertiary-mdFont-size, 2);
+    @include set-dynamicFont($secondary-mdFont-size, 6);
   }
   h3 {
-    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
-    @include set-dynamicLineHeight($tertiary-mdFont-size);
+    @include set-titleStyles($secondary-mdFont-size, bold, $primary-color);
     margin-bottom: 0px;
 
     @include xs-screen {
-      font-size: $quaternary-mdFont-size;
-      letter-spacing: 0.64px !important;
+      font-size: 15px;
     }
     @include sm-screen {
-      font-size: $quaternary-font-size;
-      letter-spacing: 0.64px !important;
+      font-size: 16px;
     }
     @include md-screen {
-      @include set-dynamicFont($tertiary-mdFont-size, 2);
-      letter-spacing: 0.64px !important;
+      @include set-dynamicFont($secondary-mdFont-size, 8);
     }
   }
   p {
     margin-bottom: 0px;
+    @include set-titleStyles($secondary-mdFont-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 15px;
+    }
+    @include sm-screen {
+      font-size: 16px;
+    }
+    @include md-screen {
+      @include set-dynamicFont($secondary-mdFont-size, 8);
+    }
   }
 }
 
