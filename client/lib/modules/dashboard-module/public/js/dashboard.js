@@ -44,7 +44,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        //console.table(data)
+                        console.log(data)
                         _self.incompleteReferral = data;
                     },
                     error: function (error) {

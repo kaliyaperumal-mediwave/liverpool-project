@@ -3,9 +3,14 @@ const Router = require('koa-router');
 const referralControler = require('./controllers/referralControler');
 const authController = require('./controllers/authController');
 const emailController = require('./controllers/emailController');
+<<<<<<< HEAD
 const adminController = require('./controllers/adminController');
+=======
+const orchaController = require('./controllers/orchaController');
+>>>>>>> cac540d11e8836002ae6e24ad640116128176614
 const validateToken = require('./utils/utils').validateToken;
 //const commonAuth = require('./utils/utils').commonAuth;
+const auth = require('./middlewares/auth');
 const router = new Router();
 
 
@@ -56,4 +61,7 @@ router.post('/user/feedback', authController.sendFeedback);
 
 router.get('/admin/referral', adminController.getReferral);
 
+//orcha
+router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
+router.get('/orcha/getApp/',auth.checkOrchaToken, orchaController.getApp);
 module.exports = router;

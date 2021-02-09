@@ -16,7 +16,7 @@ $(document).ready(function () {
 
             methods: {
                 filterPieces: function () {
-                    console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                   // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                     if (this.searchQuery) {
                         this.filteredData = [];
                         this.showSearchResults = true;
