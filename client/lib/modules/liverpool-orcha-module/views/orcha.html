@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/liverpool-orcha-module/js/orcha.js"></script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+{% endblock %}
+{% block main
+%}
+
+<div id="orchaPage">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div class="top-arrow-container" id="searchBar">
+        <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow" />
+        <div class="resource_text">Apps</div>
+        <div class="input-group">
+            <span class="input-group-prepend">
+                <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
+                    <span style="color: #023047 !important;">
+                        <i class="fal fa-search font-23"></i>
+                    </span>
+                </div>
+            </span>
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                placeholder="Search your app" id="example-search-input">
+        </div>
+        <div class="text_inside_cont">
+            On this page, you can access a range of useful websites and apps
+        </div>
+        </a>
+        <div class="text_inside_play-store">
+            <div class='d-flex'>
+                <div class="">
+                    <img class="panda-img" src="/modules/my-apostrophe-assets/img/WYSA_logo.png" />
+                </div>
+                <div class="title-cont-top">
+                    <div class="hearder-cont-h1">
+                        WYSA
+                    </div>
+                    <div class="para-cont-p">
+                        stress, depression & anxiety therapy chatbot
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img class="google-icon" src="/modules/my-apostrophe-assets/img/google-play-badge.png" />
+            </div>
+            Imagine a mood tracker, mindfulness coach, anxiety helper and mood-boosting buddy, all rolled into one.
+            Wysa, your happiness buddy is that friendly and caring chatbot. Always there for you when you need someone
+            to talk to, Wysa helps you keep track of your mood with friendly chats and helps fight stress and anxiety
+            with its…
+            <div class="py-4 text-left d-flex">
+                <button type="button" class="btn-download px-md-4 py-1 px-3 mx-auto w-100"><span
+                        class="btn-quaternary-text">DOWNLOAD
+                    </span></button>
+            </div>
+        </div>
+        <div class="selectSource">
+            More apps to download
+        </div>
+        <div class="large-toggle-cont">
+            <div class="row mr-0 ml-0 w-100">
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Chill_Panda.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Chill Panda
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Hope_Link.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Hope Link
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/What's_Up.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        What's Up?
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Future_Me.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Future Me
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Headspace.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Headspace
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Mood_Tools.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Mood Tools
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Calm.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Calm
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Kooth.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Kooth
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Stonewell.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Stonewall
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Daylio.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Daylio
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Calm_Harm.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Calm Harm
+                    </div>
+                </div>
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <div class="img-cont-app">
+                        <img class="panda-img" src="/modules/my-apostrophe-assets/img/Think_Ninja.png" />
+                    </div>
+                    <div class="text-cont-app">
+                        Think Ninja
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
+</div>
+{% endblock %}

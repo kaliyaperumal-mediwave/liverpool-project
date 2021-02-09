@@ -41,7 +41,7 @@
                 <div class="primary-search-radius card cursor-pointer">
 
                     <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                        <a :href=" item.custom_url ? `${item.custom_url}` : `${item._url}` ">
+                        <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
                             <div class="d-flex align-items-center">
                                 <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
                                     class="px-1 px-md-2 cursor-pointer" alt="">
@@ -117,15 +117,15 @@
                 {% endif %}
                 <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
 
-                <div class="video-para-bottom ellipse-text">
+                <div class="video-para-bottom ellipse-text pt-0">
                 {{ piece.text }}
 
                 </div>
-                <div class="video-para-bottom text-underlined">
+                <div class="video-para-bottom text-underlined pt-0">
                   {{apos.area(piece,'link')}}
 
                 </div>
-                <div class="read-cont-p video-para-bottom">
+                <div class="read-cont-p video-para-bottom pt-0">
 
                     {{apos.area(piece,'by_author')}}
                 </div>

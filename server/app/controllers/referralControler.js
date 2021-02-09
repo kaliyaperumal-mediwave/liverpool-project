@@ -2202,7 +2202,7 @@ exports.saveReview = ctx => {
         }
       ).then((childUserInfo) => {
         ctx.request.body.ref_code = uniqueNo;
-        return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
+        // return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
           const responseData = {
             userid: ctx.request.body.userid,
             status: "ok",
@@ -2210,10 +2210,11 @@ exports.saveReview = ctx => {
             refNo: uniqueNo
           }
           return ctx.body = responseData;
-        }).catch((error) => {
-          sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
+        // }).catch((error) => {
+        //   sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        // });
       }).catch((error) => {
+        console.log('\n\n\nERROR - update code: ', error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     } else {
@@ -2231,7 +2232,7 @@ exports.saveReview = ctx => {
         }
       ).then((childUserInfo) => {
         ctx.request.body.ref_code = uniqueNo;
-        return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
+        // return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
           const responseData = {
             userid: ctx.request.body.userid,
             status: "ok",
@@ -2239,14 +2240,16 @@ exports.saveReview = ctx => {
             refNo: uniqueNo
           }
           return ctx.body = responseData;
-        }).catch((error) => {
-          sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
+        // }).catch((error) => {
+        //   sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        // });
       }).catch((error) => {
+        console.log('\n\n\nERROR - update code: ', error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
   }).catch((error) => {
+    console.log('\n\n\nERROR - check code: ', error);
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   });
 }
