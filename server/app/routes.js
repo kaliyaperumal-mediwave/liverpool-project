@@ -3,6 +3,7 @@ const Router = require('koa-router');
 const referralControler = require('./controllers/referralControler');
 const authController = require('./controllers/authController');
 const emailController = require('./controllers/emailController');
+const adminController = require('./controllers/adminController');
 const orchaController = require('./controllers/orchaController');
 const validateToken = require('./utils/utils').validateToken;
 //const commonAuth = require('./utils/utils').commonAuth;
@@ -54,6 +55,8 @@ router.post('/user/resetPassword', authController.resetPassword);
 router.post('/user/resetEmail', authController.resetEmail);
 router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken);
 router.post('/user/feedback', authController.sendFeedback);
+
+router.get('/admin/referral', adminController.getReferral);
 
 //orcha
 router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
