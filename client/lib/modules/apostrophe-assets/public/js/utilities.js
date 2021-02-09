@@ -427,8 +427,12 @@ function logOut() {
             location.href = window.location.origin + '/users/login';
         },
         error: function (error) {
-            $('#logoutModal').modal('hide');
-            console.log(error.responseJSON.message)
+            if(error.status == 401) {
+                location.href = window.location.origin + '/users/login';
+            } else {
+                $('#loader').hide();
+                console.log(error.responseJSON.message);
+            }
         }
     });
     return response

@@ -18,37 +18,6 @@
 @import "select";
 @import "toast";
 
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: 400;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: normal;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold1.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: italic;
-  font-weight: bold;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-bold-italic.ttf") format("truetype");
-}
-@font-face {
-  font-family: "century-gothic";
-  font-style: italic;
-  font-weight: normal;
-  src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
-}
-
 body {
   font-family: "century-gothic" !important;
 
@@ -56,6 +25,14 @@ body {
   input::-ms-reveal {
     display: none;
   }
+
+  // hide input=[number] arrows
+  /* Chrome, Safari, Edge, Opera */
+  // input::-webkit-outer-spin-button,
+  // input::-webkit-inner-spin-button {
+  //   -webkit-appearance: none;
+  //   margin: 0;
+  // }
 
   [v-cloak] {
     display: none !important;
@@ -140,6 +117,15 @@ body {
 
   .font-25 {
     font-size: 25px !important;
+    @include xs-screen {
+      font-size: 20px !important;
+    }
+    @include sm-screen {
+      font-size: 21px;
+    }
+    @include md-screen {
+      font-size: 23px;
+    }
   }
 
   .ui-widget-content {
@@ -353,6 +339,8 @@ a {
   h3 {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
     @include set-dynamicLineHeight($tertiary-mdFont-size);
+    margin-bottom: 0px;
+
     @include xs-screen {
       font-size: $quaternary-mdFont-size;
       letter-spacing: 0.64px !important;
@@ -365,6 +353,9 @@ a {
       @include set-dynamicFont($tertiary-mdFont-size, 2);
       letter-spacing: 0.64px !important;
     }
+  }
+  p {
+    margin-bottom: 0px;
   }
 }
 
@@ -856,27 +847,29 @@ a {
     font-size: 17px;
   }
   h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #023047;
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
   }
-}
 
-.review-header-font {
-  @include set-titleStyles($quaternary-font-size, normal, $primary-color);
-  @include xs-screen {
-    font-size: 15px;
-  }
-  @include sm-screen {
-    font-size: 16px;
-  }
-  @include md-screen {
-    font-size: 17px;
-  }
-  h2 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #023047;
+  p {
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
   }
 }
 
@@ -934,7 +927,8 @@ a {
 }
 
 .last-content-area {
-  @include set-cardStyle($secondary-color, 22px, 22px, "", "top");
+  @include set-cardStyle($secondary-color, 0px, 0px, "", "top");
+  @include set-cardStyle($secondary-color, 22px, 22px, "", "bottom");
 }
 
 .secondary-content-area {
@@ -2500,7 +2494,7 @@ $color-scheme: (
       #0f1010,
       #e8edee,
       #353638,
-      #3a3e47,
+      #b0bec5,
       url("/modules/my-apostrophe-assets/img/desktop.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool.svg"),
       #023047
@@ -2513,7 +2507,7 @@ $color-scheme: (
       #ffffff,
       #353638,
       #ebebeb,
-      #b0bec5,
+      #3a3e47,
       url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
       #ffffff
@@ -2598,12 +2592,24 @@ $color-scheme: (
     }
     .question-font {
       color: $secondary;
+      h2 {
+        color: $secondary;
+      }
+      p {
+        color: $secondary;
+      }
     }
     .question-header-font {
       color: $secondary;
     }
+    .review-header-font {
+      color: $secondary;
+    }
     .content-text {
       color: $secondary;
+      strong {
+        color: $secondary;
+      }
     }
     .content-header-text {
       color: $secondary;
@@ -2645,6 +2651,12 @@ $color-scheme: (
     }
     .dropdown-divider {
       border-top: 1px solid $secondary !important;
+    }
+    .home-secondarySearch-bg {
+      background: $search-bar-color 0% 0% no-repeat padding-box !important;
+    }
+    .fa-search:before {
+      color: $secondary !important;
     }
 
     // ::placeholder {
@@ -2832,7 +2844,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
-  word-break: break-all;
+  word-break: normal;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
@@ -2857,6 +2869,12 @@ $color-scheme: (
 }
 .read-cont-h1 p:hover {
   text-decoration: none !important;
+}
+
+/* MODEL POP */
+.modal-open {
+  overflow-y: scroll !important;
+  padding-right: 0px !important;
 }
 // img.cursor-pointer {
 //   width: 27px !important;

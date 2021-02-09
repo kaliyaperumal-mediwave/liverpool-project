@@ -65,13 +65,15 @@ $(document).ready(function () {
                 if (this.searchQuery) {
                     this.filteredData = [];
                     this.showSearchResults = true;
-                    return this.resources.filter((item) => {
+                    return this.resources.filter(function (item) {
                         // TODO: add description and other content after CMS
-                        if (this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))) {
-                            this.filteredData.push(item)
+                        if (this.searchQuery.toLowerCase().split(' ').every(function (v) {
+                            return !!~item.title.toLowerCase().indexOf(v);
+                        })) {
+                            return this.filteredData;
                         }
-                        return this.filteredData
                     })
+                    return this.filteredData;
                 } else {
                     this.showSearchResults = false;
                     return this.filteredData = [];
@@ -165,14 +167,14 @@ $(document).ready(function () {
                     this.searchRefObj.validateErrMsg = false;
                 }
             },
-            showErrorModal: function(content) {
+            showErrorModal: function (content) {
                 if (!content) {
                     content = "Something went wrong.Please try again"
                 }
                 $('#errorModalContent').text(content);
                 $('#errorModal').modal('show');
             },
-            closeErrorModal: function() {
+            closeErrorModal: function () {
                 $('#errorModal').modal('hide');
                 location.href = "/users/login";
             }

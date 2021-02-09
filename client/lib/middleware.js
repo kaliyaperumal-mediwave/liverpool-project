@@ -5,21 +5,27 @@ module.exports = function (self, options) {
 
     checkAuth: function (req, res, next) {
       if (req.session.auth_token) {
-        req.data.loginId = req.session.loginIdUrl;
-        req.data.userRole = req.session.user_role;
-        req.data.logoPath = "/dashboard"
-        req.data.aboutPage = "/pages/about"
-        req.data.termPage = "/pages/terms"
-        req.data.privacyPage = "/pages/privacy"
-        req.data.feedbackPage = "/pages/feedback"
-        req.data.contactPage = "/pages/contact"
-        req.data.navigateViewRfrl = "/viewreferrals"
-        req.data.urgentHelpPage = "/pages/urgent-help"
-        req.data.mentalHeathPage = "/mental-health"
-        req.data.resourcesPage = "/resources"
-        req.data.navigateMkeRfrl = "/make-referral"
-        req.data.showLogout = true;
-        return next();
+        self.verifyToken(req)
+          .then((data) => {
+            req.data.loginId = req.session.loginIdUrl;
+            req.data.userRole = req.session.user_role;
+            req.data.logoPath = "/dashboard"
+            req.data.aboutPage = "/pages/about"
+            req.data.termPage = "/pages/terms"
+            req.data.privacyPage = "/pages/privacy"
+            req.data.feedbackPage = "/pages/feedback"
+            req.data.contactPage = "/pages/contact"
+            req.data.navigateViewRfrl = "/viewreferrals"
+            req.data.urgentHelpPage = "/pages/urgent-help"
+            req.data.mentalHeathPage = "/mental-health"
+            req.data.resourcesPage = "/resources"
+            req.data.navigateMkeRfrl = "/make-referral"
+            req.data.showLogout = true;
+            return next();
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
       }
       else {
         req.data.userRole = req.session.user_role;
@@ -42,12 +48,18 @@ module.exports = function (self, options) {
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.path = "/role";
       if (req.session.auth_token) {
-        req.data.loginId = req.session.loginIdUrl;
-        req.data.userRole = req.session.user_role;
-        req.data.uuid = req.session.uuid;
-        req.data.logoPath = "/dashboard"
-        req.data.showLogout = true;
-        return next();
+        self.verifyToken(req)
+          .then((data) => {
+            req.data.loginId = req.session.loginIdUrl;
+            req.data.userRole = req.session.user_role;
+            req.data.uuid = req.session.uuid;
+            req.data.logoPath = "/dashboard"
+            req.data.showLogout = true;
+            return next();
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
       }
       else {
         req.data.logoPath = "/";
@@ -75,13 +87,19 @@ module.exports = function (self, options) {
       req.data.path = "/role";
       console.log(req.session.auth_token)
       if (req.session.auth_token) {
-        req.data.loginId = req.session.loginIdUrl;
-        req.data.userRole = req.session.user_role;
-        delete req.session.uuid;
-        req.data.uuid = "";
-        req.data.logoPath = "/dashboard"
-        req.data.showLogout = true;
-        return next();
+        self.verifyToken(req)
+        .then((data) => {
+            req.data.loginId = req.session.loginIdUrl;
+            req.data.userRole = req.session.user_role;
+            delete req.session.uuid;
+            req.data.uuid = "";
+            req.data.logoPath = "/dashboard"
+            req.data.showLogout = true;
+            return next();
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
       }
       else {
         req.data.logoPath = "/";
@@ -274,12 +292,18 @@ module.exports = function (self, options) {
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.path = "/role";
       if (req.session.auth_token) {
-        req.data.loginId = req.session.loginIdUrl;
-        req.data.userRole = req.session.user_role;
-        req.data.uuid = req.session.uuid;
-        req.data.logoPath = "/dashboard"
-        req.data.showLogout = true;
-        return resolve(req);
+        self.verifyToken(req)
+          .then((data) => {
+            req.data.loginId = req.session.loginIdUrl;
+            req.data.userRole = req.session.user_role;
+            req.data.uuid = req.session.uuid;
+            req.data.logoPath = "/dashboard"
+            req.data.showLogout = true;
+            return resolve(req);
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
       }
       else {
         req.data.logoPath = "/";
@@ -304,6 +328,21 @@ module.exports = function (self, options) {
       };
     }
     return headers;
+  };
+
+  self.verifyToken = function (req) {
+    return new Promise((resolve, reject) => {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/token';
+      self.middleware.get(req, url).then((data) => {
+        return resolve(data);
+      }).catch((error) => {
+        delete req.session.uuid;
+        delete req.session.user_role;
+        delete req.session.auth_token;
+        delete req.session.loginFlag;
+        return reject(error);
+      });
+    });
   };
 
 };
