@@ -11,6 +11,7 @@
 {% block main%}
 
 <div id="admin">
+    {% raw %}
     <!-- navbar start -->
     <!-- <nav class="header-bg header-set-height">
         <div class="row mx-0 w-100 justify-content-between align-center">
@@ -103,147 +104,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="align-middle">Abigail Tone</td>
-                                <td class="align-middle">12/05/2009</td>
-                                <td class="align-middle">HDJ2123F</td>
-                                <td class="align-middle">Harry Toms</td>
-                                <td class="align-middle">Sefton</td>
-                                <td class="align-middle">Parent</td>
-                                <td class="align-middle">25/11/2020</td>
+                            <tr v-for="referralObj in referralData">
+                                <td class="align-middle">{{ referralObj.name }}</td>
+                                <td class="align-middle">{{ referralObj.dob }}</td>
+                                <td class="align-middle">{{ referralObj.reference_code }}</td>
+                                <td class="align-middle">{{ referralObj.referrer }}</td>
+                                <td class="align-middle">{{ referralObj.gp_location }}</td>
+                                <td class="align-middle">{{ referralObj.referrer_type }}</td>
+                                <td class="align-middle">{{ referralObj.date }}</td>
                                 <td class="align-middle">
                                     <div class="input-group height-set-admin-select">
                                         <span class="plain-select">
                                             <select class="custom-select form-control "
                                                name="legalCare">
-                                                <option value="Nothing" selected>Nothing
-                                                </option>
-                                                <option value="Accepted">Accepted
-                                                </option>
-                                                <option value="Forwarded to partner agency">Forwarded to partner agency 
-                                                </option>
-                                                <option value="Duplicate referral">Duplicate referral
-                                                </option>
-                                                <option value="Rejected referral">Rejected referral
-                                                </option>
-                                                <option value="Referral to community paeds required instead">Referral to community paeds required instead
-                                                </option>
-                                                <option value="Referral to other team ">Referral to other team 
-                                                </option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">Abigail Tone</td>
-                                <td class="align-middle">12/05/2009</td>
-                                <td class="align-middle">HDJ2123F</td>
-                                <td class="align-middle">Harry Toms</td>
-                                <td class="align-middle">Sefton</td>
-                                <td class="align-middle">Parent</td>
-                                <td class="align-middle">25/11/2020</td>
-                                <td class="align-middle">
-                                    <div class="input-group height-set-admin-select">
-                                        <span class="plain-select">
-                                            <select class="custom-select form-control "
-                                                name="legalCare">
-                                                <option value="Nothing" selected>Nothing
-                                                </option>
-                                                <option value="Accepted">Accepted
-                                                </option>
-                                                <option value="Forwarded to partner agency">Forwarded to partner agency 
-                                                </option>
-                                                <option value="Duplicate referral">Duplicate referral
-                                                </option>
-                                                <option value="Rejected referral">Rejected referral
-                                                </option>
-                                                <option value="Referral to community paeds required instead">Referral to community paeds required instead
-                                                </option>
-                                                <option value="Referral to other team ">Referral to other team 
-                                                </option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">Abigail Tone</td>
-                                <td class="align-middle">12/05/2009</td>
-                                <td class="align-middle">HDJ2123F</td>
-                                <td class="align-middle">Harry Toms</td>
-                                <td class="align-middle">Sefton</td>
-                                <td class="align-middle">Parent</td>
-                                <td class="align-middle">25/11/2020</td>
-                                <td class="align-middle">
-                                    <div class="input-group height-set-admin-select">
-                                        <span class="plain-select">
-                                            <select class="custom-select form-control "
-                                               name="legalCare">
-                                                <option value="Nothing" selected>Nothing
-                                                </option>
-                                                <option value="Accepted">Accepted
-                                                </option>
-                                                <option value="Forwarded to partner agency">Forwarded to partner agency 
-                                                </option>
-                                                <option value="Duplicate referral">Duplicate referral
-                                                </option>
-                                                <option value="Rejected referral">Rejected referral
-                                                </option>
-                                                <option value="Referral to community paeds required instead">Referral to community paeds required instead
-                                                </option>
-                                                <option value="Referral to other team ">Referral to other team 
-                                                </option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">Abigail Tone</td>
-                                <td class="align-middle">12/05/2009</td>
-                                <td class="align-middle">HDJ2123F</td>
-                                <td class="align-middle">Harry Toms</td>
-                                <td class="align-middle">Sefton</td>
-                                <td class="align-middle">Parent</td>
-                                <td class="align-middle">25/11/2020</td>
-                                <td class="align-middle">
-                                    <div class="input-group height-set-admin-select">
-                                        <span class="plain-select">
-                                            <select class="custom-select form-control "
-                                                 name="legalCare">
-                                                <option value="Nothing" selected>Nothing
-                                                </option>
-                                                <option value="Accepted">Accepted
-                                                </option>
-                                                <option value="Forwarded to partner agency">Forwarded to partner agency 
-                                                </option>
-                                                <option value="Duplicate referral">Duplicate referral
-                                                </option>
-                                                <option value="Rejected referral">Rejected referral
-                                                </option>
-                                                <option value="Referral to community paeds required instead">Referral to community paeds required instead
-                                                </option>
-                                                <option value="Referral to other team ">Referral to other team 
-                                                </option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">Abigail Tone</td>
-                                <td class="align-middle">12/05/2009</td>
-                                <td class="align-middle">HDJ2123F</td>
-                                <td class="align-middle">Harry Toms</td>
-                                <td class="align-middle">Sefton</td>
-                                <td class="align-middle">Parent</td>
-                                <td class="align-middle">25/11/2020</td>
-                                <td class="align-middle set-max-width">
-                                    <div class="input-group height-set-admin-select">
-                                        <span class="plain-select">
-                                            <select class="custom-select form-control "
-                                                 name="legalCare">
                                                 <option value="Nothing" selected>Nothing
                                                 </option>
                                                 <option value="Accepted">Accepted
@@ -269,6 +142,7 @@
             </div>
         </div>
     </div>
+    {% endraw %}
 </div>
 
 {% endblock %}
