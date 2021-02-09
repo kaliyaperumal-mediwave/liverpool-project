@@ -895,6 +895,16 @@ body {
     overflow: hidden !important; }
 
 /*Logo Height style Start */
+.card-container {
+  min-height: 160px;
+  position: relative; }
+
+.card-container img {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 80px; }
+
 a {
   color: #023047 !important; }
 
@@ -3247,7 +3257,7 @@ html #slide-test-5 {
 .off .fa-search:before {
   color: #023047 !important; }
 
-.off input {
+.off input[type="search"] {
   color: #023047 !important; }
 
 [data-theme="off"] {
@@ -3376,7 +3386,7 @@ html #slide-test-5 {
 .on .fa-search:before {
   color: #fafafa !important; }
 
-.on input {
+.on input[type="search"] {
   color: #fafafa !important; }
 
 [data-theme="on"] {
