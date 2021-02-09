@@ -61,19 +61,18 @@ $(document).ready(function () {
             //     this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
             // },
             filterPieces: function () {
-                console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 if (this.searchQuery) {
                     this.filteredData = [];
                     this.showSearchResults = true;
-                    return this.resources.filter(function (item) {
+                    let self = this;
+                    return self.resources.filter(function (item) {
                         // TODO: add description and other content after CMS
-                        if (this.searchQuery.toLowerCase().split(' ').every(function (v) {
-                            return !!~item.title.toLowerCase().indexOf(v);
-                        })) {
-                            return this.filteredData;
+                        if (!!~item.title.toLowerCase().indexOf(self.searchQuery)) {
+                            self.filteredData.push(item);
                         }
+                        return self.filteredData
                     })
-                    return this.filteredData;
                 } else {
                     this.showSearchResults = false;
                     return this.filteredData = [];
