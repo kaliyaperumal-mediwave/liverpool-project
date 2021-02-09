@@ -172,6 +172,18 @@ body {
 
 /*Logo Height style Start */
 
+.card-container {
+  min-height: 160px;
+  position: relative;
+}
+
+.card-container img {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 80px;
+}
+
 a {
   color: #023047 !important;
 }
@@ -187,6 +199,9 @@ a {
 }
 
 .ham-icon {
+  color: $primary-color;
+}
+.toggleColor-primaryColor {
   color: $primary-color;
 }
 
@@ -272,39 +287,50 @@ a {
 /* Landing Page style start */
 
 .home-header-primary {
-  @include set-titleStyles($primary-font-size, bold, $primary-color);
+  @include set-titleStyles($secondary-font-size, bold, $primary-color);
   @include xs-screen {
-    font-size: $primary-mdFont-size;
+    font-size: 18px;
     letter-spacing: 1.5px !important;
   }
   @include sm-screen {
-    @include set-dynamicFont($primary-lgFont-size, 8);
+    font-size: 19px;
     letter-spacing: 1.5px !important;
   }
   @include md-screen {
-    @include set-dynamicFont($primary-lgFont-size, 4);
+    font-size: 22px;
     letter-spacing: 1.5px !important;
   }
   h2 {
-    @include set-titleStyles($primary-font-size, bold, $primary-color);
+    margin-bottom: 0px !important;
+    @include set-titleStyles($secondary-font-size, bold, $primary-color);
     @include xs-screen {
-      font-size: $primary-mdFont-size;
+      font-size: 18px;
       letter-spacing: 1.5px !important;
-      margin-bottom: 0px !important;
     }
     @include sm-screen {
-      @include set-dynamicFont($primary-lgFont-size, 8);
+      font-size: 19px;
       letter-spacing: 1.5px !important;
-      margin-bottom: 0px;
     }
     @include md-screen {
-      @include set-dynamicFont($primary-lgFont-size, 4);
+      font-size: 22px;
       letter-spacing: 1.5px !important;
-      margin-bottom: 0px;
     }
   }
   p {
     margin-bottom: 0px !important;
+    @include set-titleStyles($secondary-font-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+      letter-spacing: 1.5px !important;
+    }
+    @include sm-screen {
+      font-size: 19px;
+      letter-spacing: 1.5px !important;
+    }
+    @include md-screen {
+      font-size: 22px;
+      letter-spacing: 1.5px !important;
+    }
   }
 }
 
@@ -325,37 +351,40 @@ a {
 }
 
 .home-primary-content {
-  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
-  @include set-dynamicLineHeight($tertiary-mdFont-size);
+  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include set-dynamicLineHeight($tertiary-font-size);
   @include xs-screen {
-    font-size: $quaternary-mdFont-size;
+    font-size: 15px;
   }
   @include sm-screen {
-    font-size: $quaternary-font-size;
+    font-size: 16px;
   }
   @include md-screen {
-    @include set-dynamicFont($tertiary-mdFont-size, 2);
+    font-size: 18px;
   }
   h3 {
-    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
-    @include set-dynamicLineHeight($tertiary-mdFont-size);
     margin-bottom: 0px;
-
     @include xs-screen {
-      font-size: $quaternary-mdFont-size;
-      letter-spacing: 0.64px !important;
+      font-size: 15px;
     }
     @include sm-screen {
-      font-size: $quaternary-font-size;
-      letter-spacing: 0.64px !important;
+      font-size: 16px;
     }
     @include md-screen {
-      @include set-dynamicFont($tertiary-mdFont-size, 2);
-      letter-spacing: 0.64px !important;
+      font-size: 18px;
     }
   }
   p {
     margin-bottom: 0px;
+    @include xs-screen {
+      font-size: 15px;
+    }
+    @include sm-screen {
+      font-size: 16px;
+    }
+    @include md-screen {
+      font-size: 18px;
+    }
   }
 }
 
@@ -2535,6 +2564,9 @@ $color-scheme: (
     .home-primary-content-bg {
       background: $primary 0% 0% no-repeat padding-box;
     }
+    .home-primarySearch-bg {
+      background: $primary 0% 0% no-repeat padding-box !important;
+    }
     .main-content-area {
       background: $primary 0% 0% no-repeat padding-box;
     }
@@ -2617,6 +2649,9 @@ $color-scheme: (
     .resource_text {
       color: $secondary;
     }
+    .resource_search_text {
+      color: $secondary;
+    }
     .content-secondary-header-text {
       color: $togglePrimary;
       h3 {
@@ -2630,9 +2665,6 @@ $color-scheme: (
     .header-bg {
       @include set-background($header-color, 1);
     }
-    // .sub-header-bg {
-    //   @include set-background($secondary, 1);
-    // }
     .logo-bg {
       background: $bgLogo no-repeat;
       background-size: contain;
@@ -2642,9 +2674,6 @@ $color-scheme: (
     }
     .ham-icon {
       color: $secondary;
-    }
-    .home-primarySearch-bg {
-      background: $primary-input-color 0% 0% no-repeat padding-box !important;
     }
     .bg-fafa {
       background-color: $primary-input-color !important;
@@ -2659,9 +2688,9 @@ $color-scheme: (
       color: $secondary !important;
     }
 
-    // ::placeholder {
-    //   color: $placeholderTheme-color !important;
-    // }
+    input[type="search"] {
+      color: $secondary !important;
+    }
   }
   [data-theme="#{$name}"] {
     border: none;
@@ -2876,6 +2905,3 @@ $color-scheme: (
   overflow-y: scroll !important;
   padding-right: 0px !important;
 }
-// img.cursor-pointer {
-//   width: 27px !important;
-// }
