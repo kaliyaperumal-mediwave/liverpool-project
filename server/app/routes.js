@@ -57,6 +57,7 @@ router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken
 router.post('/user/feedback', authController.sendFeedback);
 
 router.get('/admin/referral', adminController.getReferral);
+router.delete('/admin/referral/:uuid', adminController.deleteReferral);
 
 //orcha
 router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
