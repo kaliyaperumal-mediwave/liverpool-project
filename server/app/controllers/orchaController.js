@@ -1,4 +1,11 @@
 var axios = require('axios');
+const config = require('../config');
+
+console.log(config.orcha_api)
+
+console.log(config.orcha_user)
+
+console.log(config.orcha_pass)
 exports.getAllApps = ctx => new Promise((resolve, reject) => {
     console.log(ctx.request.body)
     var data = {
@@ -12,13 +19,13 @@ exports.getAllApps = ctx => new Promise((resolve, reject) => {
         "designedForIds": [],
         "countryIds": []
     };
-    var config = {
+    var config_api = {
         method: 'post',
-        url: 'https://app-library-builder-api.orchahealth.co.uk/api/orcha/v1/Review/SearchPagedReviews',
+        url: config.orcha_api+'Review/SearchPagedReviews',
         headers: { 'authorization': 'Bearer ' + ctx.response.body.orchaToken},
         data: data
     };
-    axios(config).then(function (apps) {
+    axios(config_api).then(function (apps) {
         console.log(apps.data)
         ctx.res.ok({
             data: apps.data
@@ -36,13 +43,13 @@ exports.getAllApps = ctx => new Promise((resolve, reject) => {
 exports.getApp = ctx => new Promise((resolve, reject) => {
     console.log("orcha app");
     console.log(ctx.query.app_id);
-    var config = {
+    var config_api = {
         method: 'get',
-        url: 'https://app-library-builder-api.orchahealth.co.uk/api/orcha/v1/Review/GetReview?reviewId='+ctx.query.app_id,
+        url:  config.orcha_api+'review/GetReview?reviewId='+ctx.query.app_id,
         headers: { 'authorization': 'Bearer ' + ctx.response.body.orchaToken}
     };
 
-    axios(config).then(function (apps) {
+    axios(config_api).then(function (apps) {
        //  console.log(apps.data)
          ctx.res.ok({
              data: apps.data

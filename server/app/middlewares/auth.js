@@ -10,17 +10,17 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
         await Orcha.findOne().then(async (orchaTokens) => {
             if (!orchaTokens.auth_token) {
                 var data = {
-                    "username": 'merseycare',
-                    "password": 'Y6?Lp#F6nD?!PQrn'
+                    "username": config.orcha_user,
+                    "password": config.orcha_pass
                 }
-                var config = {
+                var config_api = {
                     method: 'post',
-                    url: 'https://app-library-builder-api.orchahealth.co.uk/api/orcha/v1/Token/Authenticate',
+                    url: config.orcha_api+'Token/Authenticate',
                     headers: {},
                     data: data
                 };
 
-                axios(config).then((response) => {
+                axios(config_api).then((response) => {
                     var token = response.data.result.accessToken
                     return Orcha.update({
                         auth_token: token
@@ -31,7 +31,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                         ctx.response.body.orchaToken = token;
                         return next().then(() => {
                             resolve();
-                          });
+                        });
 
                     }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
                 }).catch((error) => {
@@ -49,17 +49,17 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                 }
                 else {
                     var data = {
-                        "username": "merseycare",
-                        "password": "Y6?Lp#F6nD?!PQrn"
+                        "username": config.orcha_user,
+                        "password": config.orcha_pass
                     }
-                    var config = {
+                    var config_api = {
                         method: 'post',
-                        url: 'https://app-library-builder-api.orchahealth.co.uk/api/orcha/v1/Token/Authenticate',
+                        url: config.orcha_api+'Token/Authenticate',
                         headers: {},
                         data: data
                     };
 
-                    axios(config).then(async (response) => {
+                    axios(config_api).then(async (response) => {
                         var token = response.data.result.accessToken
                         const { Orcha } = ctx.orm();
                         return Orcha.update({
@@ -71,7 +71,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                             ctx.response.body.orchaToken = orchaTokens.auth_token;
                             return next().then(() => {
                                 resolve();
-                              });
+                            });
                         }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
                     }).catch((error) => {
                         ctx.res.internalServerError({
