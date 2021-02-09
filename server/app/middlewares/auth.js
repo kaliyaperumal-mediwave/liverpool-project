@@ -10,12 +10,12 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
         await Orcha.findOne().then(async (orchaTokens) => {
             if (!orchaTokens.auth_token) {
                 var data = {
-                    "username": config.ORCHA_USER,
-                    "password": config.ORCHA_PASS
+                    "username": 'merseycare',
+                    "password": 'Y6?Lp#F6nD?!PQrn'
                 }
                 var config = {
                     method: 'post',
-                    url: config.ORCHA_USER+'Token/Authenticate',
+                    url: 'https://app-library-builder-api.orchahealth.co.uk/api/orcha/v1/Token/Authenticate',
                     headers: {},
                     data: data
                 };
