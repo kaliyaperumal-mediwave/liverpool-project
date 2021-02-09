@@ -63,8 +63,11 @@
                     </div> -->
                 </div>
             </div>
-            <div>
+            <div v-if="appObj.platform=='Android'">
                 <img class="google-icon" src="/modules/my-apostrophe-assets/img/google-play-badge.png" />
+            </div>
+            <div v-if="appObj.platform=='iOS'">
+                <img class="google-icon" src="/modules/my-apostrophe-assets/img/app-store.png" />
             </div>
             {{appObj.description}}
             <div class="py-4 text-left d-flex">
@@ -87,6 +90,14 @@
                     <a class="text-decoration-none" href="/downloads?app_id={{orchaApps.id}}">
                         <div class="img-cont-app">
                             <img class="panda-img" src="{{orchaApps.thumbnail}}" />
+                            {% if orchaApps.platform == 'Android' %}
+                            <img src="/modules/my-apostrophe-assets/img/android.png" width="50" height="30"
+                            class="px-1 px-md-2 cursor-pointer" alt="">
+                            {% endif %}
+                            {% if orchaApps.platform == 'iOS' %}
+                            <img src="/modules/my-apostrophe-assets/img/app-store.png" width="50" height="30"
+                            class="px-1 px-md-2 cursor-pointer" alt="">
+                            {% endif %}
                         </div>
                         <div class="text-cont-app">
                             {{orchaApps.appName}}

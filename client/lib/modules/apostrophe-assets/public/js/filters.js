@@ -16,10 +16,11 @@ $(document).ready(function () {
 
             methods: {
                 filterPieces: function () {
-                    console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                   // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                     if (this.searchQuery) {
                         this.filteredData = [];
                         this.showSearchResults = true;
+                      //  console.log(this.resources)
                         return this.resources.filter((item) => {
                             // TODO: add description and other content after CMS
                             if (this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))) {

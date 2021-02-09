@@ -57,26 +57,32 @@ module.exports = {
             item.custom_url = "/partner?piece_id=" + item._id
             return item;
           })
-          piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies)
+         // piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies)
         }
         //console.log("-----------shoiw=--------------")
-        req.data.piecesArray = piecesArray;
+       // req.data.piecesArray = piecesArray;
         //return superBefore(req, callback);
         var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/orcha/getAllApps';
         console.log(url)
         req.body.searchCategory=req.data.piece.title;
         req.session.categoryTitle = req.data.piece.title;
         self.middleware.post(req, res, url, req.body).then((data) =>  {
-          console.log("-----------shoiw=--------------")
-         // console.log(data.data.result.items)
-          //req.session.orcha_auth_token = data.data.result.items;
-          console.log(data.data.result.totalCount)
-       //   console.log(data.data.result.items)
+          var appsName=[];
+          var appTitle = {};
+          var listOfApps = data.data.result.items
+          for (var i = 0; i < listOfApps.length; i++) {
+            appTitle = {};
+            appTitle.title = listOfApps[i].appName;
+            appTitle.Topic = "Downloads"
+            appTitle.custom_url ='/downloads?app_id='+listOfApps[i].id;
+            appsName.push(appTitle);
+          }
+         // console.log( data.data.result.items);
+          piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies,appsName)
+          req.data.piecesArray = piecesArray;
           req.data.orchaApps = data.data.result.items;
           req.session.orchaApps = data.data.result.items;
-       //   console.log(req.data.orchaApps)
           return superBefore(req, callback);
-         //return beforeIndex(req, callback);          
         }).catch((error) => {
           console.log("---- error -------", error)
           return res.status(error.statusCode).send(error.error);

@@ -130,6 +130,7 @@
     <!-- </div> -->
     {% endif %}
     <!-- Things to download container-->
+    {% if data .orchaApps and data.orchaApps.length%}  <!-- check if orcha api return with apps or not. if no apps need to hide the things to download entire section-->
     <div
         class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal">
         <div class="title-thing-to-watch">
@@ -139,31 +140,35 @@
             style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
         <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
             {% for orchaApps in data.orchaApps %}
-            <a href="/downloads?app_id={{orchaApps.id}}">
-                <div class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
-                    data-swiper-slide-index="0" role="group" aria-label="1 / 6"
-                    style="width: 246.667px; margin-right: 30px;">
+            <a href="/downloads?app_id={{orchaApps.id}}"  class="swiper-slide bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"data-swiper-slide-index="0" role="group" aria-label="1 / 6"
+            style="width: 246.667px; margin-right: 30px;">
                     <div class="w-100">
                         <div class="bg-white card-container-small">
                             <div class="container-top-set">
                                 <div class="inside-cover-set">
                                     <img src="{{orchaApps.thumbnail}}" class="imageSet">
+                                    {% if orchaApps.platform == 'Android' %}
+                                    <img src="/modules/my-apostrophe-assets/img/android.png" width="50" height="30"
+                                    class="px-1 px-md-2 cursor-pointer" alt="">
+                                    {% endif %}
+                                    {% if orchaApps.platform == 'iOS' %}
+                                    <img src="/modules/my-apostrophe-assets/img/app-store.png" width="50" height="30"
+                                    class="px-1 px-md-2 cursor-pointer" alt="">
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="container-bottom-set">
                                 <div class="questionText">
-                                    {{orchaApps.appName}}-{{orchaApps.platform}}
+                                    {{orchaApps.appName}}
                                 </div>
-                                <!-- <div class="answerText">
-                                stress, depression &amp; anxiety therapy chatbot
-                            </div> -->
-
                             </div>
                         </div>
+                    </div>
+
             </a>
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
+   
     <!-- Add Arrows -->
     <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
         aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
@@ -172,7 +177,7 @@
     <div class="swiper-scrollbar"></div>
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
 </div>
-
+{% endif %}
 
 <!-- Things to read container -->
 {% if data.piece._readPage and data.piece._readPage.length%}
