@@ -656,28 +656,28 @@
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                                     aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
                                     aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentName &&
                                 !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
                                 aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                                     aboutFormData.parentialResponsibility && aboutObj.childGender &&
                                     aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentName ||
                                 !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
                                 !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
                                         <span style="color:#DD3939 !important">
@@ -687,7 +687,7 @@
                                 </p>
 
                                 <template
-                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                             aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
                             aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
@@ -695,7 +695,7 @@
                                         education / employment & support needs</p>
                                 </template>
 
-                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentName &&
                         !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
                         aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
@@ -704,7 +704,7 @@
                                 </template>
 
                                 <template
-                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                             aboutFormData.parentialResponsibility && aboutObj.childGender &&
                             aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
@@ -713,7 +713,7 @@
                                 </template>
 
                                 <template
-                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentName ||
                         !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
                         !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
