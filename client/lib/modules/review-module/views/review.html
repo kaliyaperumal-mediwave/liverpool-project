@@ -445,22 +445,10 @@
                                             <select class="custom-select h-50px text-capitalize"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.can_send_post">
-                                                <option selected>
-                                                    {{section2Data.can_send_post}}</option>
-
-                                                <template v-if="section2Data.can_send_post == 'No'">
-                                                    <option value="Yes">Yes
-                                                    </option>
-                                                </template>
-                                                <template v-if="section2Data.can_send_post == 'Yes'">
-                                                    <option value="No">No
-                                                    </option>
-                                                </template>
-
-                                                <!-- <option v-if="section2Data.can_send_post == 'No'" value="Yes">Yes
+                                                <option value="Yes">Yes
                                                 </option>
-                                                <option v-if="section2Data.can_send_post == 'Yes'" value="No">No
-                                                </option> -->
+                                                <option value="No">No
+                                                </option>
                                             </select>
                                         </span>
                                     </div>
@@ -491,23 +479,9 @@
                                             <select class="custom-select h-50px text-capitalize"
                                                 v-model="section2Data.child_gender_birth"
                                                 @change="onDetectChange($event,'sect2')">
-                                                <option selected>
-                                                    {{section2Data.child_gender_birth}}</option>
-                                                <template v-if="section2Data.child_gender_birth == 'No'">
-                                                    <option value="Yes">Yes
-                                                    </option>
-                                                    <option value="Unsure">Unsure</option>
-                                                </template>
-                                                <template v-if="section2Data.child_gender_birth == 'Yes'">
-                                                    <option value="No">No
-                                                    </option>
-                                                    <option value="Unsure">Unsure</option>
-                                                </template>
-                                                <template v-if="section2Data.child_gender_birth == 'Unsure'">
-                                                    <option value="No">No
-                                                    </option>
-                                                    <option value="Yes">Yes</option>
-                                                </template>
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No</option>
+                                                <option value="Unsure">Unsure</option>
                                             </select>
                                         </span>
                                     </div>
@@ -599,23 +573,9 @@
                                             <select class="custom-select h-50px text-capitalize"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.child_care_adult">
-                                                <option selected>
-                                                    {{section2Data.child_care_adult}}</option>
-                                                <template v-if="section2Data.child_care_adult == 'No'">
-                                                    <option value="Yes">Yes
-                                                    </option>
-                                                    <option value="Unsure">Unsure</option>
-                                                </template>
-                                                <template v-if="section2Data.child_care_adult == 'Yes'">
-                                                    <option value="No">No
-                                                    </option>
-                                                    <option value="Unsure">Unsure</option>
-                                                </template>
-                                                <template v-if="section2Data.child_care_adult == 'Unsure'">
-                                                    <option value="No">No
-                                                    </option>
-                                                    <option value="Yes">Yes</option>
-                                                </template>
+                                                <option value="No">No</option>
+                                                <option value="Yes">Yes</option>
+                                                <option value="Unsure">Unsure</option>
                                             </select>
                                         </span>
                                     </div>
@@ -877,14 +837,8 @@
                                             <select class="custom-select h-50px text-capitalize"
                                                 v-model="section3Data.child_EHCP"
                                                 @change="onDetectChange($event,'sect3')">
-                                                <option selected>
-                                                    {{section3Data.child_EHCP}}</option>
-                                                <template v-if="section3Data.child_EHCP == 'Yes'">
-                                                    <option value="No">No </option>
-                                                </template>
-                                                <template v-if="section3Data.child_EHCP == 'No'">
-                                                    <option value="Yes">Yes</option>
-                                                </template>
+                                                <option value="No">No </option>
+                                                <option value="Yes">Yes</option>
                                             </select>
                                         </span>
                                     </div>
@@ -899,10 +853,8 @@
                                             <select class="custom-select h-50px text-capitalize"
                                                 v-model="section3Data.child_EHAT"
                                                 @change="onDetectChange($event,'sect3')">
-                                                <option selected>
-                                                    {{section3Data.child_EHAT}}</option>
-                                                <option v-if="section3Data.child_EHAT != 'Yes'" value="Yes">Yes</option>
-                                                <option v-if="section3Data.child_EHAT != 'No'" value="No">No
+                                                <option value="Yes">Yes</option>
+                                                <option value="No">No
                                                 </option>
                                             </select>
                                         </span>
@@ -1018,65 +970,22 @@
                                     </label>
                                     <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
                                         v-model="section4Data.referral_type" id="supportNeedsSect5">
-                                    <!-- <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <select class="custom-select h-50px text-capitalize"
-                                            v-model="section4Data.referral_type"
-                                            @change="onDetectChange($event,'sect4')">
-                                            <option selected>
-                                                {{section4Data.referral_type}}
-                                            </option>
-                                            <template v-if="section4Data.referral_type == 'Mental health'">
-                                                <option value="Eating disorder">Eating disorder
-                                                </option>
-                                                <option value="Mental health & eating disorder">Mental health & eating
-                                                    disorder
-                                                </option>
-                                            </template>
-                                            <template v-if="section4Data.referral_type == 'Eating disorder'">
-                                                <option value="Mental health">Mental health</option>
-                                                <option value="Mental health & eating disorder">Mental health & eating
-                                                    disorder
-                                                </option>
-                                            </template>
-                                            <template
-                                                v-if="section4Data.referral_type == 'Mental health & eating disorder'">
-                                                <option value="Mental health">Mental health</option>
-                                                <option value="Eating disorder">Eating disorder
-                                                </option>
-                                            </template>
-                                        </select>
-                                    </div> -->
                                 </div>
 
                                 <div class=" py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="covid5">
                                         Covid related?
                                     </label>
-                                    <!-- <input readonly
-                                        class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
-                                        type="text" v-model="section4Data.is_covid"> -->
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
                                             <select class="custom-select h-50px text-capitalize"
                                                 v-model="section4Data.is_covid"
                                                 @change="onDetectChange($event,'sect4')">
-                                                <option selected>
-                                                    {{section4Data.is_covid}}</option>
-                                                <template v-if="section4Data.is_covid == 'No'">
-                                                    <option value="Yes">Yes
-                                                    </option>
-                                                    <option value="Unsure">Unsure</option>
-                                                </template>
-                                                <template v-if="section4Data.is_covid == 'Yes'">
-                                                    <option value="No">No
-                                                    </option>
-                                                    <option value="Unsure">Unsure</option>
-                                                </template>
-                                                <template v-if="section4Data.is_covid == 'Unsure'">
-                                                    <option value="No">No
-                                                    </option>
-                                                    <option value="Yes">Yes</option>
-                                                </template>
+                                                <option value="Yes">Yes
+                                                </option>
+                                                <option value="No">No
+                                                </option>
+                                                <option value="Unsure">Unsure</option>
                                             </select>
                                         </span>
                                     </div>
