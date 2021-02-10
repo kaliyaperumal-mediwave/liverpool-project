@@ -172,6 +172,18 @@ body {
 
 /*Logo Height style Start */
 
+.card-container {
+  min-height: 160px;
+  position: relative;
+}
+
+.card-container img {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  height: 80px;
+}
+
 a {
   color: #023047 !important;
 }
@@ -2627,14 +2639,20 @@ $color-scheme: (
     }
     .content-text {
       color: $secondary;
-      strong {
+      p {
         color: $secondary;
+        strong {
+          color: $secondary;
+        }
       }
     }
     .content-header-text {
       color: $secondary;
     }
     .resource_text {
+      color: $secondary;
+    }
+    .link-text {
       color: $secondary;
     }
     .resource_search_text {
@@ -2675,9 +2693,10 @@ $color-scheme: (
     .fa-search:before {
       color: $secondary !important;
     }
-    input {
-      color: $secondary !important;
-    }
+
+    // input[type="search"] {
+    //   color: $secondary !important;
+    // }
   }
   [data-theme="#{$name}"] {
     border: none;
@@ -2892,6 +2911,3 @@ $color-scheme: (
   overflow-y: scroll !important;
   padding-right: 0px !important;
 }
-// img.cursor-pointer {
-//   width: 27px !important;
-// }
