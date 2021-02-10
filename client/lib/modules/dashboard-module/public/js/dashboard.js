@@ -24,7 +24,12 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.resources = JSON.parse(document.getElementById('resources').value)
+            
+            if(document.getElementById('resources') && document.getElementById('resources').value) {
+                this.resources = JSON.parse(document.getElementById('resources').value);
+            } else {
+                this.resources = [];
+            }
             // this.paramValues = getParameter(location.href)
             //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
