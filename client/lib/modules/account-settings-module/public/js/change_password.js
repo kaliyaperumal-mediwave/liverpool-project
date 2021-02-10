@@ -14,15 +14,15 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            // $('#loader').show();
+            $('#loader').show();
         },
 
         mounted: function () {
             var _self = this;
-            // setTimeout(function () {
-            //     _self.resetForm();
-            //     $('#loader').hide();
-            // }, 700);
+            setTimeout(function () {
+                _self.resetForm();
+                $('#loader').hide();
+            }, 700);
         },
 
         methods: {

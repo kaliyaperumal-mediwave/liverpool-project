@@ -2639,14 +2639,20 @@ $color-scheme: (
     }
     .content-text {
       color: $secondary;
-      strong {
+      p {
         color: $secondary;
+        strong {
+          color: $secondary;
+        }
       }
     }
     .content-header-text {
       color: $secondary;
     }
     .resource_text {
+      color: $secondary;
+    }
+    .link-text {
       color: $secondary;
     }
     .resource_search_text {
@@ -2688,9 +2694,9 @@ $color-scheme: (
       color: $secondary !important;
     }
 
-    input[type="search"] {
-      color: $secondary !important;
-    }
+    // input[type="search"] {
+    //   color: $secondary !important;
+    // }
   }
   [data-theme="#{$name}"] {
     border: none;

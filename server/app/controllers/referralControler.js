@@ -2650,7 +2650,7 @@ exports.getUserReferral = ctx => {
       referral_complete_status: ctx.query.referralType
     },
     order: [
-      ['createdAt', 'DESC'],
+      ['updatedAt', 'DESC'],
     ],
   }).then((result) => {
 
