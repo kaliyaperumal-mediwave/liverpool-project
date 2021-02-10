@@ -12,10 +12,14 @@ $(document).ready(function () {
 
             mounted: function () {
                 
-                if(document.getElementById('resources') && document.getElementById('resources').value) {
-                    this.resources = JSON.parse(document.getElementById('resources').value);
-                } else {
-                    this.resources = [];
+                try {
+                    if(document.getElementById('resources') && document.getElementById('resources').value) {
+                        this.resources = JSON.parse(document.getElementById('resources').value);
+                    } else {
+                        this.resources = [];
+                    }
+                } catch (error) {
+                    console.log(error);
                 }
             },
 
