@@ -172,6 +172,9 @@ module.exports = function modelUser(sequelize, types) {
     reason_contact_parent_camhs:{
       type: types.TEXT
     },
+    archived:{
+      type: types.BOOLEAN
+    },
   }, {
     tableName: 'referrals',
   });
