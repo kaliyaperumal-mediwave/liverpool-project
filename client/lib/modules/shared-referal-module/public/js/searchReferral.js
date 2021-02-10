@@ -5,12 +5,14 @@ $(document).ready(function () {
             $("#dispErrMsg").html("Please type reference code to search");
             return;
         }
+        $('#loader').show();
         $.ajax({
             url: API_URI + "/searchReferalByCode/" + $('#toSearchRefCode').val(),
             type: 'get',
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
+                $('#loader').hide();
                 if (data.length != 0) {
                     location.href = "/viewreferrals?" + btoa($('#toSearchRefCode').val());
                 }
@@ -19,6 +21,7 @@ $(document).ready(function () {
                 }
             },
             error: function (error) {
+                $('#loader').hide();
                 if (error) {
                     showError(error.responseJSON.message);
                 }
