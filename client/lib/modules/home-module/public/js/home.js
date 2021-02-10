@@ -13,7 +13,16 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.resources = JSON.parse(document.getElementById('resources').value)
+            try {
+                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    this.resources = JSON.parse(document.getElementById('resources').value);
+                } else {
+                    this.resources = [];
+                }
+            } catch (error) {
+                $('#loader').hide();
+                console.log(error);
+            }
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);

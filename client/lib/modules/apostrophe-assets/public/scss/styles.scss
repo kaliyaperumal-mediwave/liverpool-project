@@ -876,7 +876,7 @@ a {
     font-size: 17px;
   }
   h2 {
-    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
     @include xs-screen {
       font-size: 18px;
     }
@@ -889,7 +889,7 @@ a {
   }
 
   p {
-    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
     @include xs-screen {
       font-size: 18px;
     }
@@ -2643,6 +2643,9 @@ $color-scheme: (
         color: $secondary;
         strong {
           color: $secondary;
+          a {
+            color: $secondary !important;
+          }
         }
       }
     }
