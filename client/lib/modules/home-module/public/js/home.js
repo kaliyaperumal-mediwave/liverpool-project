@@ -20,6 +20,7 @@ $(document).ready(function () {
                     this.resources = [];
                 }
             } catch (error) {
+                $('#loader').hide();
                 console.log(error);
             }
             setTimeout(function () {
