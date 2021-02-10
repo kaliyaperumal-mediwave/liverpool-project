@@ -1585,7 +1585,7 @@ a {
       font-size: 17px; } }
   .question-font h2 {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: normal;
     color: #023047; }
     @media (max-width: 575.98px) {
       .question-font h2 {
@@ -1598,7 +1598,7 @@ a {
         font-size: 20px; } }
   .question-font p {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: normal;
     color: #023047; }
     @media (max-width: 575.98px) {
       .question-font p {
@@ -3216,6 +3216,8 @@ html #slide-test-5 {
     color: #023047; }
     .off .content-text p strong {
       color: #023047; }
+      .off .content-text p strong a {
+        color: #023047 !important; }
 
 .off .content-header-text {
   color: #023047; }
@@ -3347,6 +3349,8 @@ html #slide-test-5 {
     color: #fafafa; }
     .on .content-text p strong {
       color: #fafafa; }
+      .on .content-text p strong a {
+        color: #fafafa !important; }
 
 .on .content-header-text {
   color: #fafafa; }
