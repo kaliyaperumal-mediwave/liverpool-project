@@ -2,6 +2,7 @@ const P = require("pino");
 var uniqid = require('uniqid');
 const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
+const email = require('../utils/email');
 const Op = require('sequelize').Op;
 exports.eligibility = ctx => {
   console.log(ctx.request.body)
@@ -2181,7 +2182,8 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
-  const uniqueNo = uniqid().toUpperCase();
+  var uniqueNo = uniqid().toUpperCase();
+  uniqueNo = uniqueNo.slice(0, 12);
   return user.findOne({
     where: {
       reference_code: uniqueNo,
@@ -2199,18 +2201,57 @@ exports.saveReview = ctx => {
             { uuid: ctx.request.body.userid }
         }
       ).then((childUserInfo) => {
-        const responseData = {
-          userid: ctx.request.body.userid,
-          status: "ok",
-          role: ctx.request.body.role,
-          refNo: uniqueNo
-        }
-        return ctx.body = responseData;
+        ctx.request.body.ref_code = uniqueNo;
+        // return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
+          const responseData = {
+            userid: ctx.request.body.userid,
+            status: "ok",
+            role: ctx.request.body.role,
+            refNo: uniqueNo
+          }
+          return ctx.body = responseData;
+        // }).catch((error) => {
+        //   sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        // });
       }).catch((error) => {
+        console.log('\n\n\nERROR - update code: ', error);
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
+    } else {
+      uniqueNo = uniqid().toUpperCase();
+      uniqueNo = uniqueNo.slice(0, 12);
+      return user.update({
+        referral_progress: 100,
+        referral_complete_status: "completed",
+        reference_code: uniqueNo,
+        contact_preferences: ctx.request.body.contactPreference
+      },
+        {
+          where:
+            { uuid: ctx.request.body.userid }
+        }
+      ).then((childUserInfo) => {
+        ctx.request.body.ref_code = uniqueNo;
+        // return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
+          const responseData = {
+            userid: ctx.request.body.userid,
+            status: "ok",
+            role: ctx.request.body.role,
+            refNo: uniqueNo
+          }
+          return ctx.body = responseData;
+        // }).catch((error) => {
+        //   sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        // });
+      }).catch((error) => {
+        console.log('\n\n\nERROR - update code: ', error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
-  })
+  }).catch((error) => {
+    console.log('\n\n\nERROR - check code: ', error);
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });
 }
 
 exports.getRefNo = ctx => {
@@ -2609,7 +2650,7 @@ exports.getUserReferral = ctx => {
       referral_complete_status: ctx.query.referralType
     },
     order: [
-      ['createdAt', 'DESC'],
+      ['updatedAt', 'DESC'],
     ],
   }).then((result) => {
 

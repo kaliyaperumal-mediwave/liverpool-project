@@ -42,7 +42,7 @@
                         <span class="input-group-prepend">
                             <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
                                 <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23"></i>
+                                    <i class="fal fa-search font-23 ham-icon"></i>
                                 </span>
                             </div>
                         </span>
@@ -55,23 +55,29 @@
                     <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
                         {{searchQuery}}?”</div>
                     <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                        <div class="primary-search-radius card cursor-pointer">
-
-                            <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                <a :href=" item.custom_url ? `${item.custom_url}` : `${item._url}` ">
-                                    <div class="d-flex align-items-center">
-                                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                            height="30" class="px-1 px-md-2 cursor-pointer" alt="">
-                                        <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                        </p>
-                                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                                            <li>{{item.Topic}}</li>
-                                        </ul>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                            <template v-if="filteredData.length">
+                                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                                    <a :href="item.custom_url ? 'item.custom_url' : 'item._url' ">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                                height="30" class="px-1 px-md-2 cursor-pointer" alt="">
+                                            <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                            </p>
+                                            <ul class="my-0 link-text mx-2 mx-md-4"
+                                                style="list-style: inside !important;">
+                                                <li>{{item.Topic}}</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </div>
+                            </template>
+                            <template v-if="!filteredData.length">
+                                <p class="home-header-secondary py-3">No results found</p>
+                            </template>
                         </div>
                     </div>
+
                     <!-- Search functionality end-->
                     {% endraw %}
                 </div>
@@ -140,7 +146,7 @@
                         <p class="home-referral-secondary text-left my-2 my-md-3">You have completed
                             {{inRefObj.referral_progress}} % of your referral</p>
                         <p class="home-referral-secondary text-left my-2 my-md-3">Date:
-                            {{convertDate(inRefObj.createdAt)}}</p>
+                            {{convertDate(inRefObj.updatedAt)}}</p>
                         <div class="progress-radius progress">
                             <div class="progress-bg progress-bar" role="progressbar"
                                 :style="{ width: inRefObj.referral_progress + '%' }" aria-valuenow="75"
@@ -158,6 +164,28 @@
         </div>
         {% endraw %}
     </div>
+
+    <!-- Error Modal Start -->
+    <div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="my-3">
+                    <div class="d-flex justify-content-center m-0 cursor-pointer">
+                        <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"
+                            @click="closeErrorModal()"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+                    </div>
+                </div>
+                <div class="px-4 py-2 text-center">
+                    <span style="color:#DD3939 !important">
+                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+                    </span>
+                    <h5 id="errorModalContent" class="text-danger logout-font my-4">error content</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Error Modal End -->
 
 </div>
 {% endblock %}

@@ -17,11 +17,18 @@ module.exports = {
 
   construct: function (self, options) {
 
+    self.addDispatchRoutes = function () {
+      console.log("orcha load Dis")
+      self.dispatch('/', self.middleware.checkCommonPageAuth, self.orcha);
+   };
+
+
     var superBefore = self.beforeShow;
     self.beforeShow = function (req, callback) {
       require('../../middleware')(self, options);
-      console.log("show==========");
-      self.checkCommonPageAuth(req).then(async (req) => {
+      //console.log("show==========tst");
+      //console.log(req.data.piece._url);
+      self.checkCommonPageAuth(req).then(async (req,res) => {
         let piecesArray = [];
         if (req.data.piece) {
           var ThingsToWatchArray = req.data.piece._watchPage && req.data.piece._watchPage.length > 0 ? req.data.piece._watchPage : [];
@@ -50,10 +57,40 @@ module.exports = {
             item.custom_url = "/partner?piece_id=" + item._id
             return item;
           })
-          piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies)
+         // piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies)
         }
-        req.data.piecesArray = piecesArray;
-        return superBefore(req, callback);
+        //console.log("-----------shoiw=--------------")
+       // req.data.piecesArray = piecesArray;
+        //return superBefore(req, callback);
+        var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/orcha/getAllApps';
+        //console.log(url)
+        req.body.searchCategory=req.data.piece.title;
+        req.session.categoryTitle = req.data.piece.title;
+        req.session.resUrl = req.data.piece._url
+        self.middleware.post(req, res, url, req.body).then((data) =>  {
+          var appsName=[];
+          var appTitle = {};
+          var listOfApps = data.data.result.items
+          for (var i = 0; i < listOfApps.length; i++) {
+            appTitle = {};
+            appTitle.title = listOfApps[i].appName;
+            appTitle.Topic = "Downloads"
+            appTitle.custom_url ='/downloads?app_id='+listOfApps[i].id;
+            appsName.push(appTitle);
+          }
+         // console.log( data.data.result.items);
+          piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies,appsName)
+         // console.log(piecesArray);
+          req.data.piecesArray = piecesArray;
+          req.data.orchaApps = data.data.result.items;
+          req.session.orchaApps = data.data.result.items;
+          return superBefore(req, callback);
+        }).catch((error) => {
+          console.log("---- error -------", error)
+          return res.status(error.statusCode).send(error.error);
+        });
+
+        
       }).catch(() => {
       });
     };
@@ -61,8 +98,8 @@ module.exports = {
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function (req, callback) {
       require('../../middleware')(self, options);
-
-      self.checkCommonPageAuth(req).then(async (req) => {
+      console.log("index==========tst");
+      self.checkCommonPageAuth(req).then(async (req,res) => {
         var Resources = await self.apos.modules['Resources-pages'].pieces.find(req, {}).toArray();
         var ThingsToWatchArray = await self.apos.modules['liverpool-watch-pages'].pieces.find(req, {}).toArray();
         var ThingsToWatch = _.map(ThingsToWatchArray, (item) => {
@@ -92,9 +129,14 @@ module.exports = {
         })
         piecesArray = Resources.concat(ThingsToWatch, ThingsToRead, Games, Events, PartnerAgencies)
         req.data.piecesArray = piecesArray;
-        return beforeIndex(req, callback);
+        return beforeIndex(req, callback); 
       }).catch(() => {
       });
     };
+
+
+    self.orcha = function (req, callback) {
+      console.log("orcha load")
+   }
   }
 };

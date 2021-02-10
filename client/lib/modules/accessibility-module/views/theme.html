@@ -34,8 +34,11 @@
     <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-2 mb-md-0">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
             <a href="{{ data.logoPath }}">
-                <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
-                    title="Back" class="cursor-pointer py-1" alt="">
+                <!-- <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
+                    title="Back" class="cursor-pointer py-1" alt=""> -->
+                <!-- <i class="fas fa-arrow-left fa-2x cursor-pointer py-1 ham-icon" data-toggle="tooltip"
+                    data-placement="top" title="Back" aria-hidden="true"></i> -->
+                <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
             <!-- 
             <div class="home-header-primary m-0 py-2">
@@ -54,6 +57,32 @@
                 }}
             </div> -->
             <h2 class="home-header-primary m-0 py-2">Change theme</h2>
+        </div>
+    </div>
+
+    <div class="d-flex text-center py-md-3 py-1">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+            <!-- <div class="home-primary-content m-0 py-2 px-2 text-left">
+                {{
+                apos.area(data.page, 'feedbackSecondText', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h3' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
+                }}
+            </div> -->
+            <div class="m-0 py-4 py-md-2 px-2 text-left">
+                <div class="d-flex justify-content-sm-between">
+                    <h2 class="home-primary-content">Here your can change your phone from dark mode to light mode
+                    </h2>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -77,16 +106,15 @@
             <div class="m-0 py-4 py-md-2 px-2 text-left">
                 <div class="d-flex justify-content-sm-between">
                     <h2 class="home-primary-content">The
-                        Change your theme for better experience.
+                        Change appearance to dark mode
                     </h2>
-                    <label class="switch">
-                        <input type="checkbox" id="switchId" v-model="theme" @change="changeTheme($event)" class="default">
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-                <div class="text-center mt-5">
-                    <button @click="saveTheme(textSizeData)" type="button" class="btn px-md-4 py-1 px-3"><span
-                            class="btn-secondary-text">SAVE</span></button>
+                    <div class="checkbox switcher">
+                        <label for="test">
+                            <input type="checkbox" @change="changeTheme($event)" id="test" value="" v-model="theme">
+                            <span><small></small></span>
+                            <!-- <small>Light switch</small> -->
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -97,14 +125,14 @@
         role="dialog" aria-labelledby="themeSuccessLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-bg login-safe-pd">
-                <span aria-hidden="true" class="modal-close" @click="closeModal()">
+                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
                     <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
                 </span>
                 <div class="modal-header justify-content-center model-text-pd text">
                     <p class="text-center m-0 py-2">
                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                     </p>
-                    <h5 class="logout-font mt-3 text-center">Theme saved successfully.</h5>
+                    <h5 class="logout-font mt-3 text-center">Theme saved successfully</h5>
                 </div>
             </div>
         </div>

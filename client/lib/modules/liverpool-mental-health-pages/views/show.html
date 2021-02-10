@@ -18,7 +18,7 @@
 
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow"></a>
+        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow cursor-pointer"></a>
         <div class="resource_text"> {{ piece.title }}</div>
         <input hidden id="resources" value="{{data.piecesArray|dump}}">
         <div id="filter_content">
@@ -42,7 +42,7 @@
                 <div class="primary-search-radius card cursor-pointer">
 
                     <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                        <a :href=" item.custom_url ? `${item.custom_url}` : `${item._url}` ">
+                        <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
                             <div class="d-flex align-items-center">
                                 <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
                                     class="px-1 px-md-2 cursor-pointer" alt="">
@@ -73,7 +73,7 @@
             {% set img = apos.images.first(piece.thumbnail) %}
             {% endif %}
             {% if img %}
-            <div class="text-right"> <img class="img-placeholder" width="50%"
+            <div class="text-right"> <img class="img-placeholder pt-3" width="25%"
                     src="{{ apos.attachments.url(img, { size: 'max' }) }}" /></div>
             {% endif %}
         </div>

@@ -444,3 +444,39 @@ exports.sendFeedback = async (ctx) => {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 };
+
+exports.verifyToken = async (ctx) => {
+    const authorizationHeader = ctx.request.headers.authorization;
+    if (authorizationHeader) {
+        const token = ctx.request.headers.authorization.split(' ')[1];
+        const user = ctx.orm().User;
+        try {
+            let result = await jwt.verify(token, process.env.JWT_SECRET);
+            ctx.request.decryptedUser = result;
+            return user.findOne({
+                where: {
+                    email: result.email,
+                },
+                attributes: ['email', 'session_token','session_token_expiry']
+            }).then(async (userResult) => {
+                if(userResult.session_token!=null && userResult.session_token==token){
+                    return ctx.res.ok({
+                        message: 'Token verified successfully',
+                    });
+                } else {
+                    return ctx.res.unauthorizedError({
+                        message: 'Session Expired',
+                    });
+                }
+            });
+        } catch (err) {
+            return ctx.res.unauthorizedError({
+                message: 'Token decryption failed',
+            });
+        }
+    } else {
+        return ctx.res.unauthorizedError({
+            message: 'Token not found',
+        });
+    }
+};

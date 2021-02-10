@@ -13,7 +13,17 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.resources = JSON.parse(document.getElementById('resources').value)
+
+            try {
+                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    this.resources = JSON.parse(document.getElementById('resources').value);
+                } else {
+                    this.resources = [];
+                }
+            } catch (error) {
+                $('#loader').hide();
+                console.log(error);
+            }
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);
@@ -24,22 +34,23 @@ $(document).ready(function () {
                 this.location.href = route;
             },
             filterPieces: function () {
-                console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 if (this.searchQuery) {
                     this.filteredData = [];
                     this.showSearchResults = true;
-                    return this.resources.filter((item) => {
+                    let self = this;
+                    return self.resources.filter(function (item) {
                         // TODO: add description and other content after CMS
-                        if (this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))) {
-                            this.filteredData.push(item)
+                        if (!!~item.title.toLowerCase().indexOf(self.searchQuery)) {
+                            self.filteredData.push(item);
                         }
-                        return this.filteredData
+                        return self.filteredData
                     })
                 } else {
                     this.showSearchResults = false;
                     return this.filteredData = [];
                 }
-            }
+            },
         }
 
     })

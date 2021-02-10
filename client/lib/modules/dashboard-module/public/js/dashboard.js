@@ -24,7 +24,18 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.resources = JSON.parse(document.getElementById('resources').value)
+
+            try {
+                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    this.resources = JSON.parse(document.getElementById('resources').value);
+                } else {
+                    this.resources = [];
+                }
+            } catch (error) {
+                console.log(error);
+                $('#loader').hide();
+            }
+            
             // this.paramValues = getParameter(location.href)
             //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
@@ -44,45 +55,39 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        //console.table(data)
+                        console.log(data)
                         _self.incompleteReferral = data;
                     },
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            showError(error.responseJSON.message);
-                            setTimeout(function () {
-                                $('#errorCommon').modal('hide');
-                                location.href = "/users/login";
-                            }, 1000);
-
+                            _self.showErrorModal(error.responseJSON.message);
                         }
                     }
                 });
             },
 
-            // navigatePage: function (route) {
-            //     var url = location.href
-            //     this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
-            // },
             filterPieces: function () {
-                console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 if (this.searchQuery) {
                     this.filteredData = [];
                     this.showSearchResults = true;
-                    return this.resources.filter((item) => {
+                    let self = this;
+                    return self.resources.filter(function (item) {
                         // TODO: add description and other content after CMS
-                        if (this.searchQuery.toLowerCase().split(' ').every(v => item.title.toLowerCase().includes(v))) {
-                            this.filteredData.push(item)
+                        if (!!~item.title.toLowerCase().indexOf(self.searchQuery)) {
+                            self.filteredData.push(item);
                         }
-                        return this.filteredData
+                        return self.filteredData
                     })
                 } else {
                     this.showSearchResults = false;
                     return this.filteredData = [];
                 }
             },
+
             checkReferral: function (refObj) {
+                var _self = this;
                 $.ajax({
                     url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + this.userRole + "/" + refObj.referral_progress,
                     type: 'get',
@@ -107,12 +112,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            showError(error.responseJSON.message);
-                            setTimeout(function () {
-                                $('#errorCommon').modal('hide');
-                                location.href = "/users/login";
-                            }, 1000);
-                           
+                            _self.showErrorModal(error.responseJSON.message);
                         }
                     }
                 });
@@ -141,12 +141,7 @@ $(document).ready(function () {
                         error: function (error) {
                             $('#loader').hide();
                             if (error) {
-                                showError(error.responseJSON.message);
-                                setTimeout(function () {
-                                    $('#errorCommon').modal('hide');
-                                    location.href = "/users/login";
-                                }, 1000);
-                               
+                                _self.showErrorModal(error.responseJSON.message);
                             }
                         }
                     });
@@ -178,6 +173,17 @@ $(document).ready(function () {
                     this.searchRefObj.errMsg = false;
                     this.searchRefObj.validateErrMsg = false;
                 }
+            },
+            showErrorModal: function (content) {
+                if (!content) {
+                    content = "Something went wrong.Please try again"
+                }
+                $('#errorModalContent').text(content);
+                $('#errorModal').modal('show');
+            },
+            closeErrorModal: function () {
+                $('#errorModal').modal('hide');
+                location.href = "/users/login";
             }
 
         }

@@ -8,6 +8,9 @@ endblock %} {% block extraHead %}
 
 <!-- Latest compiled and minified CSS -->
 
+<!--Font Family Cdn-->
+<link rel="stylesheet" href="https://use.typekit.net/htu8woz.css" />
+
 <!--Bootstrap  Style Cdn-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
@@ -97,14 +100,18 @@ endblock %} {% block extraHead %}
         <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
           data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
           aria-label="Toggle navigation">
-          <i class="fal fa-bars fa-2x d-none d-md-block d-lg-block d-xl-block" aria-hidden="true"></i>
-          <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none" aria-hidden="true"></i>
-          <i class="fal fa-bars fa-2x d-block d-sm-none" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-none d-md-block d-lg-block d-xl-block ham-icon" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-none d-sm-block d-md-none ham-icon" aria-hidden="true"></i>
+          <i class="fal fa-bars fa-2x d-block d-sm-none ham-icon" aria-hidden="true"></i>
         </button>
         <div class="logo">
           <!-- LOGO -->
-          <a href="{{ data.logoPath }}" class="text-decoration-none"><img
-              src="/modules/my-apostrophe-assets/img/liverpool.svg" /></a>
+          <a href="{{ data.logoPath }}" class="text-decoration-none">
+            <div class="logo-bg" style="height: 35px !important;">
+
+            </div>
+            <!-- <img src="/modules/my-apostrophe-assets/img/liverpool.svg" /> -->
+          </a>
         </div>
       </div>
 
@@ -123,7 +130,10 @@ endblock %} {% block extraHead %}
       <div class="mb-3 padding-set">
         <!-- Side Drawer Title -->
         <div class="header-slider d-flex align-items-center ">
-          <div class="slider-header">LOGO</div>
+          <!-- <div class="slider-header">LOGO</div> -->
+          <a href="/" class="text-decoration-none headlogo slider-header"><img
+              src="/modules/my-apostrophe-assets/img/Logo_white.svg"></a>
+
           <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
             aria-hidden="true"></i>
         </div>
@@ -258,8 +268,10 @@ endblock %} {% block extraHead %}
 
 {% else %}
 <a href="/" id="uniqueLogo">
-  <img src="/modules/my-apostrophe-assets/img/liverpool.svg"
+  <img src="/modules/my-apostrophe-assets/img/liverpool.svg" id="logoBgHome"
     class="px-4 mb-5 mb-md-0 px-md-5 mt-5 mb-0 mb-lg-2 mb-xl-2 height-50 cursor-pointer">
+  <!-- <div class="logo-bg-home mb-5 mb-0 mb-lg-2 mb-xl-2 cursor-pointer" style="height: 40px !important;">
+  </div> -->
 </a>
 
 {% endif %}
@@ -328,7 +340,7 @@ endblock %} {% block extraHead %}
         <div class="modal-content modal-bg">
           <div class="my-3">
             <div class="d-flex justify-content-center m-0 cursor-pointer">
-              <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+              <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close" onclick="closeError()"><i
                   class="fal fa-times fa-2x cursor-pointer"></i></i>
             </div>
           </div>
@@ -353,7 +365,7 @@ endblock %} {% block extraHead %}
 <p id="logId" class="d-none">{{data.loginId}}</p>
 <p id="uRole" class="d-none">{{data.userRole}}</p>
 <p id="uUid" class="d-none">{{data.uuid}}</p>
-<p id="loginUserFlag" class="d-none" >{{data.showLogout}}</p>
+<p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
 <div class="footer-bg set-bottom-padding">
   <p class="d-none" id="uRole">{{data.showLogout}}</p>
   <div id="footer-placement" class="footer-bg footer set-bottom-padding">

@@ -33,7 +33,7 @@
         <!-- Loader end -->
 
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
-            <div class="py-4">
+            <div class="py-4" v-cloak>
                 <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{sec2dynamicLabel.aboutYouLabel}}</h2>
 
@@ -121,7 +121,8 @@
 
                     <!-- child address Start-->
                     <div class="form-group py-2 my-2">
-                      <div id="navigateiside">  <label for="txtChildAddress" class="question-font"> {{sec2dynamicLabel.addressLabel}}</label></div>
+                        <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
+                                {{sec2dynamicLabel.addressLabel}}</label></div>
                         <div class="input-group">
                             <input type="search" class="form-control" placeholder="Start typing to search"
                                 @input="trimWhiteSpace($event,'aboutObj','childAddress')" id="txtChildAddress"
@@ -303,7 +304,7 @@
                                     </div>
                                 </div>
                                 <h3 class="link-text">{{item.relationShip}}</h3>
-                                <h3 class="link-text">{{item.dob}}</h3> 
+                                <h3 class="link-text">{{item.dob}}</h3>
                                 <h3 class="link-text">{{item.profession}}</h3>
                             </div>
                         </div>
@@ -655,28 +656,28 @@
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                                     aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
                                     aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentName &&
                                 !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
                                 aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                                     aboutFormData.parentialResponsibility && aboutObj.childGender &&
                                     aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentName ||
                                 !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
                                 !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
                                         <span style="color:#DD3939 !important">
@@ -686,7 +687,7 @@
                                 </p>
 
                                 <template
-                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                             aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
                             aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
@@ -694,7 +695,7 @@
                                         education / employment & support needs</p>
                                 </template>
 
-                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && 
+                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentName &&
                         !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
                         aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
@@ -703,7 +704,7 @@
                                 </template>
 
                                 <template
-                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && 
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
                             aboutFormData.parentialResponsibility && aboutObj.childGender &&
                             aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
@@ -712,7 +713,7 @@
                                 </template>
 
                                 <template
-                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || 
+                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentName ||
                         !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
                         !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
@@ -785,7 +786,8 @@
                                     <label for="dob" class="question-font">Date of birth -<b>optional</b></label>
                                     <div class="input-group" id="dobAboutCal">
                                         <date-picker name="date" placeholder="Enter D.O.B"
-                                            @dp-show="setCalendarHeight($event)" @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
+                                            @dp-show="setCalendarHeight($event)"
+                                            @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
                                             :config="options" :wrap="dateWrap"></date-picker>
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text">

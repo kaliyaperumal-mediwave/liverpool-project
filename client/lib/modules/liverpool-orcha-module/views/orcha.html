@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/liverpool-orcha-module/js/orcha.js"></script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+{% endblock %}
+{% block main
+%}
+
+<div id="orchaPage">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div class="top-arrow-container" id="searchBar">
+        <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
+                class="leftArrow cursor-pointer"></a>
+        <div class="resource_text">Apps</div>
+        <div class="input-group">
+            <span class="input-group-prepend">
+                <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
+                    <span style="color: #023047 !important;">
+                        <i class="fal fa-search font-23"></i>
+                    </span>
+                </div>
+            </span>
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                placeholder="Search your app" id="example-search-input">
+        </div>
+        <div class="text_inside_cont">
+            On this page, you can access a range of useful websites and apps
+        </div>
+        </a>
+        <div class="text_inside_play-store">
+            {% raw %}
+            <div class='d-flex'>
+                <div class="">
+                    <img class="panda-img" :src="appObj.thumbnail" />
+                </div>
+                <div class="title-cont-top">
+                    <div class="hearder-cont-h1">
+                        {{appObj.appName}}
+                    </div>
+                    <!-- <div class="para-cont-p">
+                        stress, depression & anxiety therapy chatbot
+                    </div> -->
+                </div>
+            </div>
+            <div v-if="appObj.platform=='Android'">
+                <img class="google-icon" src="/modules/my-apostrophe-assets/img/google-play-badge.png" />
+            </div>
+            <div v-if="appObj.platform=='iOS'">
+                <img class="google-icon" src="/modules/my-apostrophe-assets/img/app-store.png" />
+            </div>
+            {{appObj.description}}
+            <div class="py-4 text-left d-flex">
+                <a :href="appObj.downloadLink">
+                    <button type="button" class="btn-download px-md-4 py-1 px-3 mx-auto w-100"><span
+                            class="btn-quaternary-text">DOWNLOAD
+                        </span></button>
+                </a>
+            </div>
+            {% endraw %}
+        </div>
+      
+        <div class="selectSource">
+            More apps to download
+        </div>
+        {% if data .orchaApps and data.orchaApps.length > 1 %}
+        <div class="large-toggle-cont">
+            <div class="row mr-0 ml-0 w-100">
+                {% for orchaApps in data.orchaApps %}
+                {% if orchaApps.id != data.currentApp %}
+                <div class="col-4 col-md-3 padding-set-equal">
+                    <a class="text-decoration-none" href="/downloads?app_id={{orchaApps.id}}">
+                        <div class="img-cont-app">
+                            <img class="panda-img" src="{{orchaApps.thumbnail}}" />
+                            {% if orchaApps.platform == 'Android' %}
+                            <img src="/modules/my-apostrophe-assets/img/android.png" width="50" height="30"
+                                class="px-1 px-md-2 cursor-pointer" alt="">
+                            {% endif %}
+                            {% if orchaApps.platform == 'iOS' %}
+                            <img src="/modules/my-apostrophe-assets/img/app-store.png" width="50" height="30"
+                                class="px-1 px-md-2 cursor-pointer" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="text-cont-app">
+                            {{orchaApps.appName}}
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if data .orchaApps and data.orchaApps.length == 1 %}
+        <div class="large-toggle-cont">
+            <div class="row mr-0 ml-0 w-100 text-center py-3">
+                    No apps found
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
+        {% include "../../shared-referal-module/views/company.html" %}
+    </div>
+    {% endblock %}

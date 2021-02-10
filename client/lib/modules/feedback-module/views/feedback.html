@@ -1,8 +1,8 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-    <script src="/modules/feedback-module/js/feedback.js"></script>
-    <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+<script src="/modules/feedback-module/js/feedback.js"></script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 {% endblock %}
 
 {% block main %}
@@ -31,58 +31,47 @@
         </div>
     </div>
     <!-- Loader end -->
-    <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-2 mb-md-0">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
-            <!-- <span style="color: #023047 !important;" class="px-1 cursor-pointer">
-                <i class="fa fa-arrow-left" aria-hidden="true">
-                    <span class="d-sm-none d-md-inline-block">
-                        back
-                    </span>
-                </i>
-            </span> -->
+    <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-0">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mx-auto">
             <a href="{{ data.logoPath }}">
-                <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
-                    title="Back" class="cursor-pointer py-1" alt="">
+                <!-- <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
+                    title="Back" class="cursor-pointer py-1" alt=""> -->
+                <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
 
-            <div class="home-header-primary m-0 py-2">
+            <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">
                 {{
-                    apos.area(data.page, 'feedbackTitle', {
-                        widgets: {
-                            'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                    { name: 'Heading', element: 'h2' },
-                                    { name: 'Paragraph', element: 'p' }
-                                ]
-                            }
-                        }
-                    })
+                apos.area(data.page, 'feedbackTitle', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h2' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
                 }}
             </div>
-            <!-- <div class="d-flex align-items-center">
-                <img src="/modules/my-apostrophe-assets/img/Back.svg" class="cursor-pointer" alt="">
-                <span class="d-sm-none d-md-inline-block px-1 font-weight-bold"> back</span>
-            </div>
-            <h2 class="home-header-primary m-0 py-2">Feedback</h2> -->
         </div>
     </div>
 
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-            <div class="home-primary-content m-0 py-4 py-md-2 px-2 text-left">
+            <div class="home-primary-content m-0 py-2 px-2 text-left">
                 {{
-                    apos.area(data.page, 'feedbackText', {
-                        widgets: {
-                            'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                    { name: 'Heading', element: 'h3' },
-                                    { name: 'Paragraph', element: 'p' }
-                                ]
-                            }
-                        }
-                    })
+                apos.area(data.page, 'feedbackText', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h3' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
                 }}
             </div>
         </div>
@@ -93,49 +82,49 @@
             <div class="home-primary-content m-0 py-2 px-2 text-left">
                 <!-- How satisfied are you with the platform? -->
                 {{
-                    apos.area(data.page, 'feedbackSecondText', {
-                        widgets: {
-                            'apostrophe-rich-text': {
-                                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                styles: [
-                                    { name: 'Heading', element: 'h3' },
-                                    { name: 'Paragraph', element: 'p' }
-                                ]
-                            }
-                        }
-                    })
+                apos.area(data.page, 'feedbackSecondText', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h3' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
                 }}
             </div>
             <fieldset id="feedBackStars" class="rating m-0 float-left">
                 <input v-model="feedbackData.ratings" type="radio" id="5star" name="rating" value="5" />
-                <label class="full m-0" for="5star" ></label> 
+                <label class="full m-0" for="5star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="4halfstar" name="rating" value="4.5" />
-                <label class="half" for="4halfstar" ></label>
+                <label class="half" for="4halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="4star" name="rating" value="4" />
-                <label class="full m-0" for="4star" ></label>
+                <label class="full m-0" for="4star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="3halfstar" name="rating" value="3.5" />
-                <label class="half" for="3halfstar" ></label>
+                <label class="half" for="3halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="3star" name="rating" value="3" />
-                <label class="full m-0" for="3star" ></label>
+                <label class="full m-0" for="3star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="2halfstar" name="rating" value="2.5" />
-                <label class="half" for="2halfstar" ></label>
+                <label class="half" for="2halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="2star" name="rating" value="2" />
-                <label class="full m-0" for="2star" ></label>
+                <label class="full m-0" for="2star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="1halfstar" name="rating" value="1.5" />
-                <label class="half" for="1halfstar" ></label>
+                <label class="half" for="1halfstar"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="1star" name="rating" value="1" />
-                <label class="full m-0" for="1star" ></label>
+                <label class="full m-0" for="1star"></label>
 
                 <input type="radio" v-model="feedbackData.ratings" id="halfstar" name="rating" value="0.5" />
-                <label class="half" for="halfstar" ></label>
+                <label class="half" for="halfstar"></label>
             </fieldset>
             <div class="invalid-feedback d-none float-left text-left px-2 py-1"
                 v-bind:class="{ 'd-block':(isFormSubmitted && !feedbackData.ratings),'invalid-fields':!feedbackData.ratings }">
@@ -153,11 +142,11 @@
                 <textarea class="h-300 p-4 form-control my-1 my-md-3" id="feedback" v-model="feedbackData.comments"
                     @input="preventWhiteSpace($event)" placeholder="You can submit your feedback here"
                     rows="4"></textarea>
-                    <!-- placeholder="I would recommend this highly to a friend" -->
-                    <div class="invalid-feedback d-none float-left text-left px-2 py-1"
-                        v-bind:class="{ 'd-block':(isFormSubmitted && !feedbackData.comments),'invalid-fields':!feedbackData.comments }">
-                        You must provide comment.
-                    </div>
+                <!-- placeholder="I would recommend this highly to a friend" -->
+                <div class="invalid-feedback d-none float-left text-left px-2 py-1"
+                    v-bind:class="{ 'd-block':(isFormSubmitted && !feedbackData.comments),'invalid-fields':!feedbackData.comments }">
+                    You must provide comment.
+                </div>
             </div>
             <div class="py-4 text-center">
                 <button type="button" @click="sendFeedback()" id="secondary" class="btn px-md-4 py-2 px-3">
@@ -183,9 +172,10 @@
     {% include "../../shared-referal-module/views/company.html" %}
 
     {% raw %}
+
     <!-- Change Password Succuss Modal Start -->
-    <div class="modal fade" id="feedbackSuccess" data-backdrop="static" data-keyboard="false"
-        tabindex="-1" role="dialog" aria-labelledby="feedbackSuccessLabel" aria-hidden="true">
+    <div class="modal fade" id="feedbackSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="feedbackSuccessLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-bg login-safe-pd">
                 <span aria-hidden="true" class="modal-close" @click="closeMsg()">
@@ -202,5 +192,6 @@
     </div>
     {% endraw %}
     <!-- Change Email Succuss Modal End -->
+
 </div>
 {% endblock %}

@@ -29,7 +29,7 @@
         </div>
     </div>
     <!-- Loader end -->
-    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto" v-cloak>
         <div class="px-4 py-4  ">
             <div class="col-md-8 col-sm-12 col-12 mx-auto toster-container">
                 <div class="px-2 py-2 mt-md-5 mt-4">
@@ -40,7 +40,8 @@
                     <h3 class="completed-toast-header text-center m-0 py-2">{{reference_code}}</h3>
                 </div>
             </div>
-            <p v-if="loginFlag=='true'" class="completed-toast-text col-md-8 mx-auto text-left m-0 py-2">We have sent you a confirmation email.
+            <p v-if="loginFlag=='true'" class="completed-toast-text col-md-8 mx-auto text-left m-0 py-2">We have sent
+                you a confirmation email.
             </p>
         </div>
 

@@ -33,40 +33,41 @@
     <div class="d-flex text-left my-xl-5 my-lg-5 my-md-5 my-3">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto no-padding">
             <a href="{{ data.logoPath }}">
-                <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
-                    title="Back" class="cursor-pointer py-1" alt="">
+                <!-- <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
+                    title="Back" class="cursor-pointer py-1" alt=""> -->
+                <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
+
             </a>
-            <!-- <h2 class="home-header-primary m-0 py-2">Terms & conditions</h2> -->
-            <div class="home-header-primary m-0 py-2">
-              {{ apos.area(data.page, 'termsTitle', {
-              widgets: {
-              'apostrophe-rich-text': {
-              toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-              styles: [
-              { name: 'Heading', element: 'h2' },
-              { name: 'Paragraph', element: 'p' }
-              ]
-              }
-              }
-              }) }}</div>
+            <div class="home-header-primary m-0">
+                {{ apos.area(data.page, 'termsTitle', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h2' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                }) }}</div>
         </div>
     </div>
 
     <div class="d-flex text-center">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 px-4 mx-auto home-primary-content-bg">
-        <div class="footer-content  my-3 my-md-4 py-2 px-3 text-left">
-           {{ apos.area(data.page, 'termssubTitle', {
-          widgets: {
-          'apostrophe-rich-text': {
-          toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-          styles: [
-          { name: 'Heading', element: 'h3' },
-          { name: 'Paragraph', element: 'p' }
-          ]
-          }
-          }
-          }) }}
-          </div>
+            <div class="footer-content  my-3 my-md-4 py-2 px-3 text-left apos-header-para-font">
+                {{ apos.area(data.page, 'termssubTitle', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h3' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                }) }}
+            </div>
         </div>
     </div>
 

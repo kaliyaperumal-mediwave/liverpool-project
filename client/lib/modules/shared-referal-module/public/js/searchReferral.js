@@ -24,9 +24,6 @@ $(document).ready(function () {
                 $('#loader').hide();
                 if (error) {
                     showError(error.responseJSON.message);
-                    setTimeout(function () {
-                        $('#errorCommon').modal('hide');
-                    }, 1000);
                 }
             }
         });
@@ -35,6 +32,4 @@ $(document).ready(function () {
     $("#toSearchRefCode").on('input', function () {
         $("#dispErrMsg").html("");
     });
-
-    console.log(document.getElementById('loginUserFlag').innerHTML)
 });
