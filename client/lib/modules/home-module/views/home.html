@@ -56,7 +56,7 @@
                         <div class="primary-search-radius home-primary-content-bg cursor-pointer">
                             <template v-if="filteredData.length">
                                 <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                    <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
+                                    <a :href=" item.custom_url ? item.custom_url : item._url">
                                         <div class="d-flex align-items-center">
                                             <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
                                                 height="30" class="px-1 px-md-2 cursor-pointer" alt="">
