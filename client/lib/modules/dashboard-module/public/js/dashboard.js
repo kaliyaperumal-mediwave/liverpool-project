@@ -33,7 +33,9 @@ $(document).ready(function () {
                 }
             } catch (error) {
                 console.log(error);
+                $('#loader').hide();
             }
+            
             // this.paramValues = getParameter(location.href)
             //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
