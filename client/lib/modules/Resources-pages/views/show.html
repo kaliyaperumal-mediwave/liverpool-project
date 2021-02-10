@@ -168,7 +168,7 @@
             </a>
             {% endfor %}
         </div>
-   
+
     <!-- Add Arrows -->
     <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
         aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
@@ -201,11 +201,11 @@
                             {% if apos.images.first(pieceread.thumbnail) %}
                             {% set img = apos.images.first(pieceread.thumbnail) %}
                             {% endif %}
-                            {% if img %}
+                            <!-- {% if img %}
                             <img class="imageSet" style="height: 140px;"
                                 src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-                            {% endif %}
-                            <!-- <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet"> -->
+                            {% endif %} -->
+                            <img src="/modules/my-apostrophe-assets/img/Individual_ResourcePage_Button.svg" class="imageSet">
                         </div>
                     </div>
                     <div class="container-bottom-set">
