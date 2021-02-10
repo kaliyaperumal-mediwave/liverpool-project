@@ -6,8 +6,9 @@ module.exports = {
     self.addDispatchRoutes();
   },
   construct: function (self, options) {
+    require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.orcha);
+      self.dispatch('/',self.middleware.checkCommonPageAuth, self.orcha);
     };
     self.orcha = function (req, callback) {
       console.log(req.session.categoryTitle);
@@ -15,7 +16,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('orcha', {
         showHeader: true,
         hideRefButton: true,
-        bckBtn:"/resources/" + (req.session.categoryTitle).toLowerCase()
+        bckBtn:req.session.resUrl
       }));
     };
     require('../../middleware')(self, options);

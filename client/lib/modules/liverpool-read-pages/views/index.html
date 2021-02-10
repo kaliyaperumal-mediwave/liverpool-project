@@ -68,11 +68,11 @@
             {% if apos.images.first(piece.thumbnail) %}
             {% set img = apos.images.first(piece.thumbnail) %}
             {% endif %}
-            {% if img %}
+            <!-- {% if img %}
             <img class="img-placeholder" width="100%" height="315"
                 src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-            {% endif %}
-            <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="img-placeholder" /> -->
+            {% endif %} -->
+            <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="img-placeholder" />
             <div class="body-cont-set">
                 <div class="read-cont-h1">
                     {{ piece.title }}
@@ -111,11 +111,11 @@
                 {% if apos.images.first(piece.thumbnail) %}
                 {% set img = apos.images.first(piece.thumbnail) %}
                 {% endif %}
-                {% if img %}
+                <!-- {% if img %}
                 <img class="img-placeholder" width="100%" height="315"
                     src="{{ apos.attachments.url(img, { size: 'max' }) }}">
-                {% endif %}
-                <!-- <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" /> -->
+                {% endif %} -->
+                <img src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg" class="w-100" />
 
                 <div class="video-para-bottom ellipse-text pt-0">
                 {{ piece.text }}
