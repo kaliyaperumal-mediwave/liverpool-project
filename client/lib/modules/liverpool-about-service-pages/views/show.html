@@ -18,7 +18,8 @@
 
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow cursor-pointer"></a>
+        <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
+                class="leftArrow cursor-pointer"></a>
         <div class="resource_text"> {{ piece.title }}</div>
         <input hidden id="resources" value="{{data.piecesArray|dump}}">
         <div id="filter_content">
@@ -40,20 +41,24 @@
                 {{searchQuery}}?”</div>
             <div v-if="showSearchResults" class="search-wrap primary-search-radius">
                 <div class="primary-search-radius card cursor-pointer">
-
-                    <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                        <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
-                            <div class="d-flex align-items-center">
-                                <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                                    class="px-1 px-md-2 cursor-pointer" alt="">
-                                <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                </p>
-                                <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                                    <li>{{item.Topic}}</li>
-                                </ul>
-                            </div>
-                        </a>
-                    </div>
+                    <template v-if="filteredData.length">
+                        <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                            <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
+                                <div class="d-flex align-items-center">
+                                    <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
+                                        class="px-1 px-md-2 cursor-pointer" alt="">
+                                    <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                    </p>
+                                    <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
+                                        <li>{{item.Topic}}</li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                    </template>
+                    <template v-if="!filteredData.length">
+                        <p class="home-header-secondary py-3">No results found</p>
+                    </template>
                 </div>
             </div>
             <!-- Search functionality end-->

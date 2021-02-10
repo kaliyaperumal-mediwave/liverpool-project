@@ -3257,9 +3257,6 @@ html #slide-test-5 {
 .off .fa-search:before {
   color: #023047 !important; }
 
-.off input[type="search"] {
-  color: #023047 !important; }
-
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
@@ -3384,9 +3381,6 @@ html #slide-test-5 {
   background: #3a3e47 0% 0% no-repeat padding-box !important; }
 
 .on .fa-search:before {
-  color: #fafafa !important; }
-
-.on input[type="search"] {
   color: #fafafa !important; }
 
 [data-theme="on"] {

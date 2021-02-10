@@ -27,7 +27,7 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            $('#loader').show();
+           $('#loaderEduc').show();
         },
 
         mounted: function () {
@@ -35,15 +35,15 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.userRole = document.getElementById('uRole').innerHTML;
             this.dynamicLabels = getDynamicLabels(this.userRole);
-            $('#loader').hide();
             this.fetchSavedData();
-            this.initMaps()
+            this.initMaps();
+           $('#loaderEduc').hide();
         },
 
         methods: {
 
             initMaps: function () {
-                $('#loader').hide();
+               $('#loaderEduc').hide();
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('attendedLocation')), {
@@ -82,11 +82,11 @@ $(document).ready(function () {
                 if (formData.haveSocialWorker === 'yes') {
                     if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
                         if (formData.position === 'education' && formData.attendedInfo) {
-                            $('#loader').show();
+                           $('#loaderEduc').show();
                             this.upsertEducationForm(this.payloadData);
                         }
                         else if (formData.position != 'education') {
-                            $('#loader').show();
+                           $('#loaderEduc').show();
                             this.upsertEducationForm(this.payloadData);
                         }
 
@@ -101,11 +101,11 @@ $(document).ready(function () {
                     }
                 } else if (formData.haveSocialWorker === 'no') {
                     if (formData.position === 'education' && formData.attendedInfo) {
-                        $('#loader').show();
+                       $('#loaderEduc').show();
                         this.upsertEducationForm(this.payloadData);
                     }
                     else if (formData.position != 'education') {
-                        $('#loader').show();
+                       $('#loaderEduc').show();
                         this.upsertEducationForm(this.payloadData);
                     }
                     else {
@@ -115,7 +115,7 @@ $(document).ready(function () {
                 }
 
                 else {
-                    $('#loader').show();
+                   $('#loaderEduc').show();
                     this.upsertEducationForm(this.payloadData);
                 }
 
@@ -126,7 +126,7 @@ $(document).ready(function () {
                 var _self = this;
                 var responseData = apiCallPost('post', '/education', payload);
                 if (responseData && Object.keys(responseData)) {
-                    $('#loader').hide();
+                   $('#loaderEduc').hide();
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
                             location.href = "/review";
@@ -141,7 +141,7 @@ $(document).ready(function () {
                     }
 
                 } else {
-                    $('#loader').hide();
+                   $('#loaderEduc').hide();
                     console.log('empty response')
                 }
             },
@@ -155,7 +155,7 @@ $(document).ready(function () {
                 if (Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
-                    $('#loader').hide();
+                   $('#loaderEduc').hide();
                     console.log('empty response')
                 }
 
@@ -203,7 +203,6 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_name);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
                 }
-                $('#loader').hide();
             },
 
             //Back to previous page

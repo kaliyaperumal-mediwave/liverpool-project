@@ -2688,9 +2688,9 @@ $color-scheme: (
       color: $secondary !important;
     }
 
-    input[type="search"] {
-      color: $secondary !important;
-    }
+    // input[type="search"] {
+    //   color: $secondary !important;
+    // }
   }
   [data-theme="#{$name}"] {
     border: none;
