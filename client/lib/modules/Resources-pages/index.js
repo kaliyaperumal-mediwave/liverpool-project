@@ -80,6 +80,7 @@ module.exports = {
           }
          // console.log( data.data.result.items);
           piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies,appsName)
+         // console.log(piecesArray);
           req.data.piecesArray = piecesArray;
           req.data.orchaApps = data.data.result.items;
           req.session.orchaApps = data.data.result.items;
