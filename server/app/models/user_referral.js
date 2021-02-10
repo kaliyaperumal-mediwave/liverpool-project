@@ -173,7 +173,7 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     archived:{
-      type: types.BOOLEANBoolean
+      type: types.BOOLEAN
     },
   }, {
     tableName: 'referrals',
