@@ -13,7 +13,11 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.resources = JSON.parse(document.getElementById('resources').value)
+            if(document.getElementById('resources').value) {
+                this.resources = JSON.parse(document.getElementById('resources').value);
+            } else {
+                this.resources = [];
+            }
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);
