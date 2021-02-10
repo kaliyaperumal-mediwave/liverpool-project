@@ -41,9 +41,7 @@
                     <div class="input-group">
                         <span class="input-group-prepend">
                             <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
-                                <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23 ham-icon"></i>
-                                </span>
+                                <i class="fal fa-search font-23 ham-icon"></i>
                             </div>
                         </span>
                         <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
@@ -55,21 +53,26 @@
                     <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
                         {{searchQuery}}?”</div>
                     <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                        <div class="primary-search-radius card cursor-pointer">
-
-                            <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
-                                    <div class="d-flex align-items-center">
-                                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                            height="30" class="px-1 px-md-2 cursor-pointer" alt="">
-                                        <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                        </p>
-                                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                                            <li>{{item.Topic}}</li>
-                                        </ul>
-                                    </div>
-                                </a>
-                            </div>
+                        <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                            <template v-if="filteredData.length">
+                                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                                    <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
+                                        <div class="d-flex align-items-center">
+                                            <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                                height="30" class="px-1 px-md-2 cursor-pointer" alt="">
+                                            <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                            </p>
+                                            <ul class="my-0 link-text mx-2 mx-md-4"
+                                                style="list-style: inside !important;">
+                                                <li>{{item.Topic}}</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </div>
+                            </template>
+                            <template v-if="!filteredData.length">
+                                <p class="resource_search_text py-3">No records found</p>
+                            </template>
                         </div>
                     </div>
                     <!-- Search functionality end-->

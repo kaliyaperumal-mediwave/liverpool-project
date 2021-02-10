@@ -73,14 +73,14 @@
 
             {% for piece in data.pieces %}
             <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
-                <div class="insidePieceCont">
+                <div class="insidePieceCont card-container">
                     <div class="midTextRange">{{ piece.title }}
                     </div>
                     {% if apos.images.first(piece.thumbnail) %}
                     {% set img = apos.images.first(piece.thumbnail) %}
                     {% endif %}
                     {% if img %}
-                    <img class="border-radius-10 h-2-182" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
+                    <img class="border-radius-10" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
                     {% endif %}
                 </div>
             </a>
@@ -90,8 +90,8 @@
         </div>
     </div>
 
-{% include "../../shared-referal-module/views/searchReferral.html" %}
-{% include "../../shared-referal-module/views/company.html" %}
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
 
 </div>
 
