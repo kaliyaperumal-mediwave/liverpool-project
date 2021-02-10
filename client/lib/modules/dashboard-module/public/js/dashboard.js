@@ -56,10 +56,6 @@ $(document).ready(function () {
                 });
             },
 
-            // navigatePage: function (route) {
-            //     var url = location.href
-            //     this.location.href = this.location.origin + route + "?" + url.substring(url.indexOf("?") + 1);
-            // },
             filterPieces: function () {
                 // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 if (this.searchQuery) {
@@ -78,6 +74,7 @@ $(document).ready(function () {
                     return this.filteredData = [];
                 }
             },
+
             checkReferral: function (refObj) {
                 var _self = this;
                 $.ajax({

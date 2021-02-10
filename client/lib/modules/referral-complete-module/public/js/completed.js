@@ -7,9 +7,9 @@ $(document).ready(function () {
             ackObj: { refCode: '123' },
             paramValues: [],
             reference_code: '',
-            loginFlag:'',
-            mailId:'',
-            sendObj:{}
+            loginFlag: '',
+            mailId: '',
+            sendObj: {}
         },
         beforeMount: function () {
             $('#loader').show();
@@ -20,7 +20,9 @@ $(document).ready(function () {
             this.loginFlag = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.getRefNo();
         },
+
         methods: {
+
             getRefNo: function () {
                 var _self = this;
                 $.ajax({
@@ -31,7 +33,7 @@ $(document).ready(function () {
                     success: function (data) {
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
-                        console.log("logi flag ",_self.loginFlag)
+                        console.log("logi flag ", _self.loginFlag)
                         _self.sendMail(_self.sendObj);
                         $('#loader').hide();
                     },
@@ -41,8 +43,8 @@ $(document).ready(function () {
                     }
                 });
             },
+
             sendMail: function (payLoadObj) {
-              
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/sendConfirmationMail",
@@ -52,12 +54,9 @@ $(document).ready(function () {
                     data: JSON.stringify(payLoadObj),
                     success: function (data) {
                         console.log("EmailSent")
-                        //_self.reference_code = data.reference_code;
-                        //$('#loader').hide();
                     },
                     error: function (error) {
                         console.log('Something went Wrong', error);
-                        //$('#loader').hide();
                     }
                 });
             },
