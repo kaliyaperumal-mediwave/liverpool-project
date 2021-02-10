@@ -1014,46 +1014,9 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' &&
-                 (elgibilityObj.profName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber))  &&
-                elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt" class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: </p>
-                            <p class="question-font text-center m-0 pb-2">You are
-                                eligible
-                                to
-                                continue
-                                with this
-                                referral.</p>
-                        </div>
-                    </div>
-                </div>
                 <!-- toster-container start -->
             </form>
             {% endraw %}
-            <template
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber)) && elgibilityObj.profChildDob!=null">
-                <div class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </p>
-                            <p class="question-font text-center text-danger m-0 py-2">You have missed out a section on
-                                this
-                                page.Please re-check your answer.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </template>
-
             <template
                 v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber)) && elgibilityObj.profChildDob!=null">
                 <div class="px-4 py-4">
