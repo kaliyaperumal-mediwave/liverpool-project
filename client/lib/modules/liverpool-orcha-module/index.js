@@ -11,8 +11,12 @@ module.exports = {
       self.dispatch('/',self.middleware.checkCommonPageAuth, self.orcha);
     };
     self.orcha = function (req, callback) {
-      console.log(req.session.categoryTitle);
       req.data.orchaApps = req.session.orchaApps
+      var allParameter = req.url.substring(req.url.indexOf("?") + 1);
+      var urlAppParamenter=allParameter.split("=")
+      var appId = urlAppParamenter[1];
+      req.data.currentApp = appId;
+      console.log(appId)
       return self.sendPage(req, self.renderer('orcha', {
         showHeader: true,
         hideRefButton: true,

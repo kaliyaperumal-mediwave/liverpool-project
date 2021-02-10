@@ -31,7 +31,7 @@
     <!-- Loader end -->
     <div class="top-arrow-container" id="searchBar">
         <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
-            class="leftArrow cursor-pointer"></a>
+                class="leftArrow cursor-pointer"></a>
         <div class="resource_text">Apps</div>
         <div class="input-group">
             <span class="input-group-prepend">
@@ -79,24 +79,26 @@
             </div>
             {% endraw %}
         </div>
+      
         <div class="selectSource">
             More apps to download
         </div>
-
+        {% if data .orchaApps and data.orchaApps.length > 1 %}
         <div class="large-toggle-cont">
             <div class="row mr-0 ml-0 w-100">
                 {% for orchaApps in data.orchaApps %}
+                {% if orchaApps.id != data.currentApp %}
                 <div class="col-4 col-md-3 padding-set-equal">
                     <a class="text-decoration-none" href="/downloads?app_id={{orchaApps.id}}">
                         <div class="img-cont-app">
                             <img class="panda-img" src="{{orchaApps.thumbnail}}" />
                             {% if orchaApps.platform == 'Android' %}
                             <img src="/modules/my-apostrophe-assets/img/android.png" width="50" height="30"
-                            class="px-1 px-md-2 cursor-pointer" alt="">
+                                class="px-1 px-md-2 cursor-pointer" alt="">
                             {% endif %}
                             {% if orchaApps.platform == 'iOS' %}
                             <img src="/modules/my-apostrophe-assets/img/app-store.png" width="50" height="30"
-                            class="px-1 px-md-2 cursor-pointer" alt="">
+                                class="px-1 px-md-2 cursor-pointer" alt="">
                             {% endif %}
                         </div>
                         <div class="text-cont-app">
@@ -104,11 +106,21 @@
                         </div>
                     </a>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>
+        {% endif %}
+
+        {% if data .orchaApps and data.orchaApps.length == 1 %}
+        <div class="large-toggle-cont">
+            <div class="row mr-0 ml-0 w-100 text-center py-3">
+                    No apps found
+            </div>
+        </div>
+        {% endif %}
     </div>
     {% include "../../shared-referal-module/views/searchReferral.html" %}
-    {% include "../../shared-referal-module/views/company.html" %}
-</div>
-{% endblock %}
+        {% include "../../shared-referal-module/views/company.html" %}
+    </div>
+    {% endblock %}
