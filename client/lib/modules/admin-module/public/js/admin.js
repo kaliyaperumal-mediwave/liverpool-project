@@ -1,12 +1,15 @@
 var API_URI = "/modules/admin-module";
 $(document).ready(function () {
-  $('#example').DataTable();
+  //var table = $('#example').DataTable();
   new Vue({
     el: '#admin',
 
     data: {
       toggle: true,
       referralData: [],
+      pageLimit: 10,
+      pageNum: 1,
+      referral_ids: [],
     },
 
     beforeMount: function () {
@@ -15,6 +18,7 @@ $(document).ready(function () {
 
     mounted: function () {
       this.fetchReferral();
+      $('#example').DataTable();
     },
 
     methods: {
@@ -36,23 +40,43 @@ $(document).ready(function () {
       },
 
       fetchReferral: function () {
-        var _self = this;
-        $.ajax({
-          url: API_URI + "/referral/",
-          type: 'get',
-          dataType: 'json',
-          contentType: 'application/json',
-          cache: false,
-          success: function (data) {
-            _self.referralData = data.data;
-            console.log(this.referralData);
+        var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
+        if (successData && Object.keys(successData).length) {
+          this.referralData = successData.data;
+        }
+        $('#loader').hide();
+      },
+
+      deleteReferral: function () {
+        if (this.referral_ids.length) {
+          $('#loader').show();
+          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'delete' });
+          if (successData && Object.keys(successData)) {
+            this.fetchReferral();
+          } else {
             $('#loader').hide();
-          },
-          error: function (error) {
-            $('#loader').hide();
-            console.log(error);
           }
-        });
+        }
+      },
+
+      archiveReferral: function () {
+        if (this.referral_ids.length) {
+          $('#loader').show();
+          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archive' });
+          if (successData && Object.keys(successData)) {
+            this.fetchReferral();
+          } else {
+            $('#loader').hide();
+          }
+        }
+      },
+
+      selectData: function (e, id) {
+        if (e.target.checked) {
+          this.referral_ids.push(id);
+        } else {
+          this.referral_ids.splice(this.referral_ids.findIndex(uuid => uuid == id), 1);
+        }
       }
     }
   })

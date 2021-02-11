@@ -73,12 +73,12 @@
                 </div>
                 <div class="button-cont-admin row">
                     <div class="py-2 set-div-width d-flex align-center justify-content-center">
-                        <button type="button" class="btn-delete-admin">
+                        <button type="button" class="btn-delete-admin" @click="deleteReferral()">
                             Delete
                         </button>
                     </div>
                     <div class="py-2 set-div-width d-flex align-center justify-content-center">
-                        <button type="button" class="btn-archive-admin">
+                        <button type="button" class="btn-archive-admin" @click="archiveReferral()">
                             Archive
                         </button>
                     </div>
@@ -93,6 +93,7 @@
                     <table id="example" class="table table-striped table-bordered" style="width:100%">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Name</th>
                                 <th>DOB</th>
                                 <th>Unique code</th>
@@ -104,7 +105,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="referralObj in referralData">
+                            <tr v-for="(referralObj, index) in referralData">
+                                <td class="align-middle">
+                                    <input type="checkbox" :id="referralObj.uuid" :name="referralObj.uuid" :value="referralObj.uuid" @change="selectData($event, referralObj.uuid)">
+                                </td>
                                 <td class="align-middle">{{ referralObj.name }}</td>
                                 <td class="align-middle">{{ referralObj.dob }}</td>
                                 <td class="align-middle">{{ referralObj.reference_code }}</td>
@@ -115,21 +119,21 @@
                                 <td class="align-middle">
                                     <div class="input-group height-set-admin-select">
                                         <span class="plain-select">
-                                            <select class="custom-select form-control "
-                                               name="legalCare">
+                                            <select class="custom-select form-control " name="legalCare">
                                                 <option value="Nothing" selected>Nothing
                                                 </option>
                                                 <option value="Accepted">Accepted
                                                 </option>
-                                                <option value="Forwarded to partner agency">Forwarded to partner agency 
+                                                <option value="Forwarded to partner agency">Forwarded to partner agency
                                                 </option>
                                                 <option value="Duplicate referral">Duplicate referral
                                                 </option>
                                                 <option value="Rejected referral">Rejected referral
                                                 </option>
-                                                <option value="Referral to community paeds required instead">Referral to community paeds required instead
+                                                <option value="Referral to community paeds required instead">Referral to
+                                                    community paeds required instead
                                                 </option>
-                                                <option value="Referral to other team ">Referral to other team 
+                                                <option value="Referral to other team ">Referral to other team
                                                 </option>
                                             </select>
                                         </span>

@@ -26,6 +26,8 @@ exports.getReferral = ctx => {
                     },
                 ],
                 attributes: ['id', 'uuid', 'reference_code', 'child_name', 'parent_name', 'professional_name', 'child_dob', 'user_role', 'registerd_gp', 'createdAt'],
+                offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
+                limit: ctx.query.limit,
                 order: [
                     ['createdAt', 'DESC'],
                 ]
@@ -84,143 +86,30 @@ exports.getReferral = ctx => {
     });
 }
 
-exports.deleteReferral = ctx => {
+exports.updateReferral = ctx => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (ctx.request.body.referral_id) {
+            if (ctx.request.body.referral_id && ctx.request.body.referral_id.length && ctx.request.body.status) {
                 const referralModel = ctx.orm().Referral;
-                const reasonModel = ctx.orm().Reason;
-                let referrals = await referralModel.findAll({
-                    where: {
-                        uuid: ctx.request.body.referral_id
+                let status = 'archived';
+                if(ctx.request.body.status == 'delete') status = 'deleted';
+
+                await referralModel.update(
+                    {
+                        referral_complete_status: status
                     },
-                    include: [
-                        {
-                            model: reasonModel,
-                            as: 'referral_reason'
-                        },
-                        {
-                            model: referralModel,
-                            as: 'parent'
-                        },
-                        {
-                            model: referralModel,
-                            as: 'professional'
-                        }
-                    ]
-                });
-                referrals = JSON.parse(JSON.stringify(referrals));
-
-                if (referrals && referrals.length) {
-                    let referral_ids = [];
-                    let reason_ids = [];
-                    let referrals_length = referrals.length;
-                    for (let index = 0; index < referrals_length; index++) {
-                        referral_ids.push(referrals[index].id);
-                        if (referrals[index].parent && referrals[index].parent.length) referral_ids.push(referrals[index].parent[0].id);
-                        if (referrals[index].professional && referrals[index].professional.length) {
-                            referral_ids.push(referrals[index].professional[0].id);
-                            referral_ids.push(Number(referrals[index].professional[0].ChildProfessional.professionalId) + 2);
-                        }
-                        if (referrals[index].referral_reason && referrals[index].referral_reason.length) reason_ids.push(referrals[index].referral_reason[0].id);
-                    }
-
-                    await referralModel.destroy({
+                    {
                         where: {
-                            id: referral_ids
-                        },
-                    });
-                    if (reason_ids.length) {
-                        await reasonModel.destroy({
-                            where: {
-                                id: reason_ids
-                            },
-                        });
+                            uuid: ctx.request.body.referral_id
+                        }
                     }
-                    resolve(
-                        ctx.res.ok({
-                            message: reponseMessages[1015]
-                        })
-                    );
-                } else {
-                    resolve(
-                        ctx.res.ok({
-                            message: reponseMessages[1016]
-                        })
-                    );
-                }
-            } else {
+                );
+
                 resolve(
-                    ctx.res.badRequest({
-                        message: reponseMessages[1002]
+                    ctx.res.ok({
+                        message: reponseMessages[1001]
                     })
                 );
-            }
-        } catch (error) {
-            console.log(error);
-            reject(
-                sequalizeErrorHandler.handleSequalizeError(ctx, error)
-            );
-        }
-    });
-}
-
-exports.archiveReferral = ctx => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            if (ctx.request.body.referral_id) {
-                const referralModel = ctx.orm().Referral;
-                let referrals = await referralModel.findAll({
-                    where: {
-                        uuid: ctx.request.body.referral_id
-                    },
-                    include: [
-                        {
-                            model: referralModel,
-                            as: 'parent'
-                        },
-                        {
-                            model: referralModel,
-                            as: 'professional'
-                        }
-                    ]
-                });
-                referrals = JSON.parse(JSON.stringify(referrals));
-
-                if (referrals && referrals.length) {
-                    let referral_ids = [];
-                    let referrals_length = referrals.length;
-                    for (let index = 0; index < referrals_length; index++) {
-                        referral_ids.push(referrals[index].id);
-                        if (referrals[index].parent && referrals[index].parent.length) referral_ids.push(referrals[index].parent[0].id);
-                        if (referrals[index].professional && referrals[index].professional.length) {
-                            referral_ids.push(referrals[index].professional[0].id);
-                            referral_ids.push(Number(referrals[index].professional[0].ChildProfessional.professionalId) + 2);
-                        }
-                    }
-
-                    await referralModel.update(
-                        {
-                            archived: true
-                        },
-                        {
-                            where: {
-                                id: referral_ids
-                            },
-                        }
-                    );
-                    resolve(
-                        ctx.res.ok({
-                            message: reponseMessages[1001]
-                        })
-                    );
-                } else {
-                    resolve(
-                        ctx.res.ok({
-                            message: reponseMessages[1016]
-                        })
-                    );
-                }
             } else {
                 resolve(
                     ctx.res.badRequest({
