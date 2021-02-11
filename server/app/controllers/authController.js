@@ -428,17 +428,20 @@ exports.verifyPasswordToken = (ctx) => {
     }
 };
 
-exports.sendFeedback = async (ctx) => {
+exports.sendFeedback = (ctx) => {
     const { error } = feedbackValidation(ctx.request.body);
     if (error) {
         console.log(error);
         return ctx.body = error;
     }
     try {
-        let feedbackEmailStatus = await email.sendFeedbackMail(ctx);
-        console.log(feedbackEmailStatus, "feedbackEmailStatus=====");
-        return ctx.res.ok({
-            message: reponseMessages[1014],
+        return email.sendFeedbackMail(ctx).then((feedbackEmailStatus) => {
+            return ctx.res.ok({
+                message: reponseMessages[1014],
+            });
+        }).catch(error => {
+            console.log(error, "error");
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
