@@ -189,7 +189,7 @@
   }
 }
 .btn-delete-admin {
-  padding: 18px 20px;
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -198,17 +198,20 @@
   border: 1px solid #f84f43;
   border-radius: 10px;
   box-shadow: 0px 3px 6px #00000029;
-  height: 28px;
+  height: 40px;
   color: #f84f43;
   background-color: #fafafa;
+  @include xs-sm-screen {
+    min-width: 140px;
+  }
   @include sm-dec-screen {
-    padding: 18px 30px;
+    padding: 0px 30px;
   }
   @include lg-screen {
-    padding: 18px 40px;
+    padding: 0px 40px;
   }
   @include xl-screen {
-    padding: 18px 50px;
+    padding: 0px 50px;
   }
 }
 .button-cont-admin {
@@ -219,7 +222,7 @@
   background: #f1f1f1;
 }
 .btn-archive-admin {
-  padding: 18px 20px;
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,17 +231,20 @@
   border: 1px solid #023047;
   border-radius: 10px;
   box-shadow: 0px 3px 6px #00000029;
-  height: 28px;
+  height: 40px;
   color: #023047;
   background-color: #fafafa;
+  @include xs-sm-screen {
+    min-width: 140px;
+  }
   @include sm-dec-screen {
-    padding: 18px 30px;
+    padding: 0px 30px;
   }
   @include lg-screen {
-    padding: 18px 40px;
+    padding: 0px 40px;
   }
   @include xl-screen {
-    padding: 18px 50px;
+    padding: 0px 50px;
   }
 }
 .rotate-icon {
