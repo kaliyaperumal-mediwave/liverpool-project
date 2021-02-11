@@ -186,12 +186,20 @@ body {
 
 .img-pos {
   position: absolute;
-  top: 5;
-  right: 0;
+  top: 0;
+  right: -11px;
 }
 
 a {
   color: #023047 !important;
+}
+
+.swiper-button-prev.swiper-button-disabled {
+  display: none !important;
+}
+
+.swiper-button-next.swiper-button-disabled {
+  display: none !important;
 }
 
 .logo-bg {
@@ -2176,7 +2184,8 @@ body .ui-widget .ui-menu-item {
   font-weight: bold;
 }
 .google-icon {
-  width: 166px;
+  width: auto;
+  height: 50px;
   margin-bottom: 10px;
 }
 .text_inside_play-store {
@@ -2217,7 +2226,8 @@ body .ui-widget .ui-menu-item {
 }
 .panda-img {
   width: 100%;
-  border-radius: 11px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #00000029;
 }
 .padding-set-equal {
   padding: 6px !important;
@@ -2248,6 +2258,13 @@ body .ui-widget .ui-menu-item {
     padding: 10px;
   }
 }
+.text-container-wrap {
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .top-slider-cont-max {
   margin: auto;
   margin-top: 30px;
