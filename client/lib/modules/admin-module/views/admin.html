@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="overflow-x-auto pb-3">
-                    <table id="example" class="table table-striped table-bordered w-100" >
+                    <table id="example" class="table table-striped table-bordered w-100">
                         <thead>
                             <tr>
                                 <th></th>
@@ -103,44 +103,47 @@
                                 <th>Status</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <!-- <tr v-for="(referralObj, index) in referralData">
-                                <td class="align-middle">
-                                    <input type="checkbox" :id="referralObj.uuid" :name="referralObj.uuid" :value="referralObj.uuid" @change="selectData($event, referralObj.uuid)">
-                                </td>
-                                <td class="align-middle">{{ referralObj.name }}</td>
-                                <td class="align-middle">{{ referralObj.dob }}</td>
-                                <td class="align-middle">{{ referralObj.reference_code }}</td>
-                                <td class="align-middle">{{ referralObj.referrer }}</td>
-                                <td class="align-middle">{{ referralObj.gp_location }}</td>
-                                <td class="align-middle">{{ referralObj.referrer_type }}</td>
-                                <td class="align-middle">{{ referralObj.date }}</td>
-                                <td class="align-middle">
-                                    <div class="input-group height-set-admin-select">
-                                        <span class="plain-select">
-                                            <select class="custom-select form-control " name="legalCare">
-                                                <option value="Nothing" selected>Nothing
-                                                </option>
-                                                <option value="Accepted">Accepted
-                                                </option>
-                                                <option value="Forwarded to partner agency">Forwarded to partner agency
-                                                </option>
-                                                <option value="Duplicate referral">Duplicate referral
-                                                </option>
-                                                <option value="Rejected referral">Rejected referral
-                                                </option>
-                                                <option value="Referral to community paeds required instead">Referral to
-                                                    community paeds required instead
-                                                </option>
-                                                <option value="Referral to other team ">Referral to other team
-                                                </option>
-                                            </select>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr> -->
-                        </tbody>
                     </table>
+                    <!-- Loader start -->
+                    <div class="overlay" id="loader">
+                        <div class="overlay__inner">
+                            <div class="overlay__content">
+                                <div class="lds-spinner">
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Loader end -->
+                    <!-- Login Succuss Modal Start -->
+                    <div class="modal fade" id="deletedSuccess" data-backdrop="static" data-keyboard="false"
+                        tabindex="-1" role="dialog" aria-labelledby="deletedSuccessLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-bg login-safe-pd">
+                                <span aria-hidden="true" class="modal-close" @click="closeModal()">
+                                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                                </span>
+                                <div class="modal-header justify-content-center model-text-pd text">
+                                    <p class="text-center m-0 py-2">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </p>
+                                    <h5 class="logout-font mt-3 text-center">{{ successMessage }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Login Succuss Modal End -->
                 </div>
             </div>
         </div>
