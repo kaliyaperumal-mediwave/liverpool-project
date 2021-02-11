@@ -24,7 +24,7 @@ module.exports = {
       options: {
         widgets: {
           "apostrophe-rich-text": {
-            toolbar: ["Bold", "Italic", "Link", "Unlink"],
+            toolbar: ["Bold", "Italic", "Link", "Unlink","BulletedList"],
           },
         },
       },
