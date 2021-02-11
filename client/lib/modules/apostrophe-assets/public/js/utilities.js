@@ -4,7 +4,7 @@ var currentTextSize = 18;
 function resetValues(currentForm, context, formObj) {
     var allForms = Array.from(document.forms);
     var formIndex = allForms.indexOf(currentForm);
-    for (let i = 0; i < allForms.length; i++) {
+    for (var i = 0; i < allForms.length; i++) {
         var attributeValue = $(allForms[i]).data('options');
         if (formIndex < i) {
             context[formObj][attributeValue] = '';
@@ -298,14 +298,14 @@ function setLoaderStyle() {
 
 //for make referral 1 to 5 section
 function redirectUrl(currentPge, nextPge, usrId, roles) {
-    let decryptedUrl;
+    var decryptedUrl;
     var gotopage;
     var getParamsRedirect
     var getParams = currentPge.substring(currentPge.indexOf("?") + 1);
     var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
     if (base64Matcher.test(getParams)) {
         const deCodeParameter = atob(getParams);
-        let decodeValues = deCodeParameter.split("&");
+        var decodeValues = deCodeParameter.split("&");
         console.log(decodeValues[2])
 
         if (decodeValues[2] == "sec5back" && nextPge != "acknowledge") {
@@ -333,7 +333,7 @@ function redirectUrl(currentPge, nextPge, usrId, roles) {
 }
 //for dashboard,check referral and all static pages
 function decryptUrl(nextPge, loginId, roles) {
-    let decryptedUrl;
+    var decryptedUrl;
     var gotopage;
     var getParamsRedirect = loginId + "&" + roles;
     decryptedUrl = btoa(getParamsRedirect);
@@ -427,7 +427,7 @@ function logOut() {
             location.href = window.location.origin + '/users/login';
         },
         error: function (error) {
-            if(error.status == 401) {
+            if (error.status == 401) {
                 location.href = window.location.origin + '/users/login';
             } else {
                 $('#loader').hide();

@@ -5,16 +5,16 @@ $(document).ready(function () {
             el: '#filter_content',
             data: {
                 searchQuery: null,
-                searchQueryToLower:null,
+                searchQueryToLower: null,
                 filteredData: [],
                 showSearchResults: false,
                 resources: [],
             },
 
             mounted: function () {
-                
+
                 try {
-                    if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    if (document.getElementById('resources') && document.getElementById('resources').value) {
                         this.resources = JSON.parse(document.getElementById('resources').value);
                     } else {
                         this.resources = [];
@@ -33,7 +33,7 @@ $(document).ready(function () {
                     if (this.searchQueryToLower) {
                         this.filteredData = [];
                         this.showSearchResults = true;
-                        let self = this;
+                        var self = this;
                         return self.resources.filter(function (item) {
                             // TODO: add description and other content after CMS
                             if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
