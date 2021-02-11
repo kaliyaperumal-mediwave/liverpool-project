@@ -12,6 +12,7 @@ exports.getReferral = ctx => {
                     reference_code: {
                         [Op.ne]: null
                     },
+                    referral_complete_status:"completed"
                 },
                 include: [
                     {
@@ -26,8 +27,8 @@ exports.getReferral = ctx => {
                     },
                 ],
                 attributes: ['id', 'uuid', 'reference_code', 'child_name', 'parent_name', 'professional_name', 'child_dob', 'user_role', 'registerd_gp', 'createdAt'],
-                offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
-                limit: ctx.query.limit,
+                // offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
+                // limit: ctx.query.limit,
                 order: [
                     ['createdAt', 'DESC'],
                 ]
@@ -91,12 +92,10 @@ exports.updateReferral = ctx => {
         try {
             if (ctx.request.body.referral_id && ctx.request.body.referral_id.length && ctx.request.body.status) {
                 const referralModel = ctx.orm().Referral;
-                let status = 'archived';
-                if(ctx.request.body.status == 'delete') status = 'deleted';
 
                 await referralModel.update(
                     {
-                        referral_complete_status: status
+                        referral_complete_status: ctx.request.body.status
                     },
                     {
                         where: {
