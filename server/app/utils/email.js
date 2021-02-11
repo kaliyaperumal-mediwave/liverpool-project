@@ -94,9 +94,11 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
             ratings: ctx.request.body.ratings,
             comments: ctx.request.body.comments,
         });
+        var to_email = [];
+        if(config.email_to_address) to_email = config.email_to_address.split(',');
         const data = {
             from: config.email_from_address,
-            to: config.email_to_address,
+            to: to_email,
             subject: 'LIVERPOOL CAMHS - Feedback',
             html: htmlTemplate,
         };
