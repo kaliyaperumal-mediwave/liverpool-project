@@ -10,8 +10,7 @@ $(document).ready(function () {
       referralData: [],
       pageLimit: 10,
       pageNum: 1,
-      referral_ids: [],
-      dataSet : []
+      referral_ids: []
     },
 
     beforeMount: function () {
@@ -51,16 +50,16 @@ $(document).ready(function () {
         }
       },
 
-      fetchReferral: function () {
+      fetchReferral: function (asd) {
         var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
         if (successData && Object.keys(successData).length) {
           this.referralData = successData.data;
 
-          var _self = this;
+          var dataSet = [];
          
 
         for (var i = 0; i < this.referralData.length; i++) {
-          this.dataSet.push([
+          dataSet.push([
             "<input type='checkbox' id='"+ this.referralData[i].uuid +"' name='"+ this.referralData[i].uuid +"' value='"+ this.referralData[i].uuid +"' class='selectCheckBox'>",
             this.referralData[i].name,
             this.referralData[i].dob,
@@ -85,11 +84,19 @@ $(document).ready(function () {
           ])
         }
 
-        console.log(_self.dataSet)
+        console.log(dataSet)
 
-          $('#example').DataTable({
-            data:_self.dataSet
-          });
+        // if ($.fn.DataTable.isDataTable("#example")) {
+        //   // $('#example').DataTable().clear().destroy();
+        //   $("#example").DataTable().clear().draw();
+        //   $("#example").dataTable().fnDestroy();
+        //   // $('#example').empty();
+        // }
+        $('#example').DataTable({
+          destroy: true,
+          data: dataSet
+        });
+
         }
         $('#loader').hide();
       },
@@ -104,7 +111,7 @@ $(document).ready(function () {
             //this.fetchReferral();
             // var _self = this;
             //$("#example").DataTable().destroy()
-             this.fetchReferral();
+             this.fetchReferral('asd');
           } else {
             $('#loader').hide();
           }
