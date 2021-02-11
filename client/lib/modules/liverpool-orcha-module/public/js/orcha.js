@@ -40,19 +40,19 @@ $(document).ready(function () {
                 var successData = apiCallGet('get', '/getApp/'+appId, API_URI);
                 //console.log(successData)
                 this.appObj = successData.data.result.smallAppCardInfo;
-                console.log(this.appObj)
+                //console.log(this.appObj)
             },
             filterApps: function () {
-                 console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 this.searchQueryToLower = this.searchQuery.toLowerCase();
                 if (this.searchQueryToLower) {
                     this.filteredData = [];
                     this.showSearchResults = true;
                     let self = this;
-                    console.log(self.resources)
+                   // console.log(self.resources)
                     return self.resources.filter(function (item) {
                         // TODO: add description and other content after CMS
-                        if (!!~item.appName.toLowerCase().indexOf(self.searchQueryToLower)) {
+                        if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
                             self.filteredData.push(item);
                         }
                         return self.filteredData
