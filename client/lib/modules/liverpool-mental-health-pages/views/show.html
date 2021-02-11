@@ -62,12 +62,13 @@
         <div class="text_inside_return">
             <div class="read-cont-h1">
                 {{ piece.title }}
+
             </div>
-            <div class="read-cont-p">
-                {{ piece.subtitle }}
+            <div class="read-cont-p footer-content">
+                {{apos.area(piece,'subtitle')}}
             </div>
-            <div class="font-weight-light">
-                {{ piece.text }}
+            <div class="font-weight-light read-cont-p footer-content">
+                {{apos.area(piece,'text')}}
             </div>
             {% if apos.images.first(piece.thumbnail) %}
             {% set img = apos.images.first(piece.thumbnail) %}
