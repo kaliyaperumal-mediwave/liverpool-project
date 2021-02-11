@@ -31,7 +31,7 @@ var apos = require("apostrophe")({
       uri: process.env.MONGO_STRING,
     },
     'apostrophe-assets': {
-      minify: true
+      minify: false
     },
     "apostrophe-attachments": {
       uploadfs: {
