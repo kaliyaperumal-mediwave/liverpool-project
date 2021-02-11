@@ -186,12 +186,20 @@ body {
 
 .img-pos {
   position: absolute;
-  top: 5;
-  right: 0;
+  top: 0;
+  right: -11px;
 }
 
 a {
   color: #023047 !important;
+}
+
+.swiper-button-prev.swiper-button-disabled {
+  display: none !important;
+}
+
+.swiper-button-next.swiper-button-disabled {
+  display: none !important;
 }
 
 .logo-bg {
@@ -896,6 +904,44 @@ a {
 
   p {
     @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
+  }
+}
+
+.review-header-font {
+  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: 15px;
+  }
+  @include sm-screen {
+    font-size: 16px;
+  }
+  @include md-screen {
+    font-size: 17px;
+  }
+  h2 {
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xs-screen {
+      font-size: 18px;
+    }
+    @include sm-screen {
+      font-size: 19px;
+    }
+    @include md-screen {
+      font-size: 20px;
+    }
+  }
+
+  p {
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
     @include xs-screen {
       font-size: 18px;
     }
@@ -2176,7 +2222,8 @@ body .ui-widget .ui-menu-item {
   font-weight: bold;
 }
 .google-icon {
-  width: 166px;
+  width: auto;
+  height: 50px;
   margin-bottom: 10px;
 }
 .text_inside_play-store {
@@ -2217,7 +2264,8 @@ body .ui-widget .ui-menu-item {
 }
 .panda-img {
   width: 100%;
-  border-radius: 11px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #00000029;
 }
 .padding-set-equal {
   padding: 6px !important;
@@ -2248,6 +2296,13 @@ body .ui-widget .ui-menu-item {
     padding: 10px;
   }
 }
+.text-container-wrap {
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .top-slider-cont-max {
   margin: auto;
   margin-top: 30px;
@@ -2637,10 +2692,16 @@ $color-scheme: (
         color: $secondary;
       }
     }
-    .question-header-font {
-      color: $secondary;
-    }
     .review-header-font {
+      color: $secondary;
+      h2 {
+        color: $secondary;
+      }
+      p {
+        color: $secondary;
+      }
+    }
+    .question-header-font {
       color: $secondary;
     }
     .content-text {

@@ -42,13 +42,12 @@
                     </span>
                 </div>
             </span>
-                <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                v-model="searchQuery" placeholder="Search your app" id="example-search-input"
-                @input="filterApps()">
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                v-model="searchQuery" placeholder="Search your app" id="example-search-input" @input="filterApps()">
         </div>
         {% raw %}
-         <!-- Search functionality start-->
-         <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+        <!-- Search functionality start-->
+        <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
             {{searchQuery}}?”</div>
         <div v-if="showSearchResults" class="search-wrap primary-search-radius">
             <div class="primary-search-radius home-primary-content-bg cursor-pointer">
@@ -56,12 +55,11 @@
                     <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
                         <a :href=" item.custom_url ? item.custom_url : item._url ">
                             <div class="d-flex align-items-center">
-                                <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                    height="30" class="px-1 px-md-2 cursor-pointer" alt="">
+                                <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
+                                    class="px-1 px-md-2 cursor-pointer" alt="">
                                 <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
                                 </p>
-                                <ul class="my-0 link-text mx-2 mx-md-4"
-                                    style="list-style: inside !important;">
+                                <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
                                     <li>{{item.platform}}</li>
                                 </ul>
                             </div>
@@ -95,10 +93,10 @@
                     </div> -->
                 </div>
             </div>
-            <div v-if="appObj.platform=='Android'">
-                <img class="google-icon" src="/modules/my-apostrophe-assets/img/google-play-badge.svg" />
+            <div v-if="appObj.platform=='Android'" class="py-3">
+                <img class="google-icon" src="/modules/my-apostrophe-assets/img/google-play-badge.svg" height="30" />
             </div>
-            <div v-if="appObj.platform=='iOS'">
+            <div v-if="appObj.platform=='iOS'" class="py-3" >
                 <img class="google-icon" src="/modules/my-apostrophe-assets/img/app-store-badge.svg" />
             </div>
             {{appObj.description}}
@@ -120,20 +118,20 @@
             <div class="row mr-0 ml-0 w-100">
                 {% for orchaApps in data.orchaApps %}
                 {% if orchaApps.id != data.currentApp %}
-                <div class="col-4 col-md-3 padding-set-equal">
+                <div class="col-4 col-md-2 padding-set-equal">
                     <a class="text-decoration-none" href="/downloads?app_id={{orchaApps.id}}">
                         <div class="img-cont-app position-relative">
                             <img class="panda-img" src="{{orchaApps.thumbnail}}" />
                             {% if orchaApps.platform == 'Android' %}
-                            <img src="/modules/my-apostrophe-assets/img/android.png" width="50" height="30"
-                                class="px-1 px-md-2 cursor-pointer img-pos" alt="">
+                            <img src="/modules/my-apostrophe-assets/img/android.svg" width="60" height="40"
+                                class="cursor-pointer img-pos" alt="">
                             {% endif %}
                             {% if orchaApps.platform == 'iOS' %}
-                            <img src="/modules/my-apostrophe-assets/img/app-store.png" width="50" height="30"
-                                class="px-1 px-md-2 cursor-pointer img-pos" alt="">
+                            <img src="/modules/my-apostrophe-assets/img/ios.svg" width="60" height="40"
+                                class="cursor-pointer img-pos" alt="">
                             {% endif %}
                         </div>
-                        <div class="text-cont-app">
+                        <div class="text-cont-app text-container-wrap py-2">
                             {{orchaApps.appName}}
                         </div>
                     </a>
