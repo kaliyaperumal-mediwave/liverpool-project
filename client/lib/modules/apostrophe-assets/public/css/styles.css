@@ -905,8 +905,19 @@ body {
   bottom: 0px;
   height: 80px; }
 
+.img-pos {
+  position: absolute;
+  top: 0;
+  right: -11px; }
+
 a {
   color: #023047 !important; }
+
+.swiper-button-prev.swiper-button-disabled {
+  display: none !important; }
+
+.swiper-button-next.swiper-button-disabled {
+  display: none !important; }
 
 .logo-bg {
   background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
@@ -2796,7 +2807,8 @@ body .ui-widget .ui-menu-item {
   font-weight: bold; }
 
 .google-icon {
-  width: 166px;
+  width: auto;
+  height: 50px;
   margin-bottom: 10px; }
 
 .text_inside_play-store {
@@ -2836,7 +2848,8 @@ body .ui-widget .ui-menu-item {
 
 .panda-img {
   width: 100%;
-  border-radius: 11px; }
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #00000029; }
 
 .padding-set-equal {
   padding: 6px !important; }
@@ -2866,6 +2879,12 @@ body .ui-widget .ui-menu-item {
   @media (min-width: 320px) and (max-width: 424px) {
     .large-toggle-cont {
       padding: 10px; } }
+
+.text-container-wrap {
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 .top-slider-cont-max {
   margin: auto;
