@@ -468,11 +468,8 @@ a {
 #searchBar {
   .input-group {
     .form-control {
-      // @include set-borderRadius(0px, "topParallel");
       border-top-right-radius: 10px !important;
       border-bottom-right-radius: 10px !important;
-      // border-top-left-radius: 10px !important;
-      // border-bottom-left-radius: 10px !important;
     }
   }
 }
@@ -483,7 +480,7 @@ a {
   }
   .suffix-form-control {
     @include set-borderRadius(0px, "topParallel");
-    border-top-right-radius: 0px !important;
+    border-top-right-radius: 0px;
     border-bottom-right-radius: 0px !important;
     border-top-left-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
@@ -505,7 +502,7 @@ a {
 }
 
 .home-card-radius {
-  @include set-borderRadius(14px, "bottom");
+  @include set-borderRadius(13px, "bottom");
 }
 
 /* Landing Page style end */
