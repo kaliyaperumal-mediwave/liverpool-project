@@ -33,6 +33,7 @@
         <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
                 class="leftArrow cursor-pointer"></a>
         <div class="resource_text">Apps</div>
+        <input hidden id="resources" value="{{data.orchaApps|dump}}">
         <div class="input-group">
             <span class="input-group-prepend">
                 <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
@@ -41,9 +42,40 @@
                     </span>
                 </div>
             </span>
-            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                placeholder="Search your app" id="example-search-input">
+                <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                v-model="searchQuery" placeholder="Search your app" id="example-search-input"
+                @input="filterApps()">
         </div>
+        {% raw %}
+         <!-- Search functionality start-->
+         <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+            {{searchQuery}}?”</div>
+        <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+            <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                <template v-if="filteredData.length">
+                    <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                        <a :href="/downloads?app_id={{item.id}}">
+                            <div class="d-flex align-items-center">
+                                <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                    height="30" class="px-1 px-md-2 cursor-pointer" alt="">
+                                <p class="question-font my-0 mx-2 mx-md-4"> {{item.appName}} - {{item.id}}
+                                </p>
+                                <ul class="my-0 link-text mx-2 mx-md-4"
+                                    style="list-style: inside !important;">
+                                    <li>{{item.platform}}</li>
+                                </ul>
+                            </div>
+                        </a>
+                    </div>
+                </template>
+                <template v-if="!filteredData.length">
+                    <p class="home-header-secondary py-3">No results found</p>
+                </template>
+            </div>
+        </div>
+
+        <!-- Search functionality end-->
+        {% endraw %}
         <div class="text_inside_cont">
             On this page, you can access a range of useful websites and apps
         </div>
@@ -64,10 +96,10 @@
                 </div>
             </div>
             <div v-if="appObj.platform=='Android'">
-                <img class="google-icon" src="/modules/my-apostrophe-assets/img/google-play-badge.png" />
+                <img class="google-icon" src="/modules/my-apostrophe-assets/img/google-play-badge.svg" />
             </div>
             <div v-if="appObj.platform=='iOS'">
-                <img class="google-icon" src="/modules/my-apostrophe-assets/img/app-store.png" />
+                <img class="google-icon" src="/modules/my-apostrophe-assets/img/app-store-badge.svg" />
             </div>
             {{appObj.description}}
             <div class="py-4 text-left d-flex">
@@ -79,7 +111,7 @@
             </div>
             {% endraw %}
         </div>
-      
+
         <div class="selectSource">
             More apps to download
         </div>
@@ -90,15 +122,15 @@
                 {% if orchaApps.id != data.currentApp %}
                 <div class="col-4 col-md-3 padding-set-equal">
                     <a class="text-decoration-none" href="/downloads?app_id={{orchaApps.id}}">
-                        <div class="img-cont-app">
+                        <div class="img-cont-app position-relative">
                             <img class="panda-img" src="{{orchaApps.thumbnail}}" />
                             {% if orchaApps.platform == 'Android' %}
                             <img src="/modules/my-apostrophe-assets/img/android.png" width="50" height="30"
-                                class="px-1 px-md-2 cursor-pointer" alt="">
+                                class="px-1 px-md-2 cursor-pointer img-pos" alt="">
                             {% endif %}
                             {% if orchaApps.platform == 'iOS' %}
                             <img src="/modules/my-apostrophe-assets/img/app-store.png" width="50" height="30"
-                                class="px-1 px-md-2 cursor-pointer" alt="">
+                                class="px-1 px-md-2 cursor-pointer img-pos" alt="">
                             {% endif %}
                         </div>
                         <div class="text-cont-app">
@@ -115,12 +147,12 @@
         {% if data .orchaApps and data.orchaApps.length == 1 %}
         <div class="large-toggle-cont">
             <div class="row mr-0 ml-0 w-100 text-center py-3">
-                    No apps found
+                No apps found
             </div>
         </div>
         {% endif %}
     </div>
     {% include "../../shared-referal-module/views/searchReferral.html" %}
-        {% include "../../shared-referal-module/views/company.html" %}
-    </div>
-    {% endblock %}
+    {% include "../../shared-referal-module/views/company.html" %}
+</div>
+{% endblock %}
