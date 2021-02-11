@@ -716,8 +716,7 @@ div.radio.switcher label {
   justify-content: center; }
 
 body {
-  font-family: "century-gothic" !important;
-  /* Chrome, Safari, Edge, Opera */ }
+  font-family: "century-gothic" !important; }
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
