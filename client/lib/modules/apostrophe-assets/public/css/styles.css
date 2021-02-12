@@ -462,6 +462,19 @@ div.radio.switcher label {
 .set-max-width {
   max-width: 200px; }
 
+.custom-table-nested > div > div + div {
+  overflow: auto; }
+
+.custom-table-nested .custom-select {
+  padding: 0px 20px;
+  border-radius: 10px !important;
+  text-align: center;
+  text-align-last: center;
+  height: 36px !important; }
+
+.custom-table-nested .form-control {
+  height: 40px !important; }
+
 .middleContainer:after {
   content: "";
   display: block; }

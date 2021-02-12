@@ -261,6 +261,23 @@
 .height-set-admin-select {
   max-width: 200px;
 }
-.set-max-width{
+.set-max-width {
   max-width: 200px;
 }
+.custom-table-nested > div > div + div  {
+  overflow: auto;
+}
+.custom-table-nested .custom-select {
+  padding: 0px 20px;
+  border-radius: 10px !important;
+  text-align: center;
+  text-align-last: center;
+  height: 36px !important;
+}
+.custom-table-nested .form-control {
+  height: 40px !important;
+}
+// .custom-table-nested .col-md-6{
+// display: flex;
+// align-items: center;
+// }
