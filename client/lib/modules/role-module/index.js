@@ -18,7 +18,7 @@ module.exports = {
       {
         return req.res.redirect("/")
       }
-      //req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('role', {
         headerContent: "Section 1 of 5: Eligibility",
         headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
