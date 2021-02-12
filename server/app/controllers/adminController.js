@@ -46,22 +46,22 @@ exports.getReferral = ctx => {
                     referrer: '',
                     gp_location: 'Liverpool',
                     referrer_type: referrals[index].user_role.charAt(0).toUpperCase() + referrals[index].user_role.slice(1),
-                    date: moment(referrals[index].updatedAt, 'YYYY-MM-DD HH:MM;SS').format('DD/MM/YYYY')
+                    date: moment(referrals[index].updatedAt).format('DD/MM/YYYY')
                 }
                 let gp_location = '';
                 if (referrals[index].user_role.toLowerCase() == 'child') {
                     referralObj.name = referrals[index].child_name;
-                    referralObj.dob = moment(referrals[index].child_dob, 'YYYY-MM-DD HH:MM;SS').format('DD/MM/YYYY');
+                    referralObj.dob = moment(referrals[index].child_dob).format('DD/MM/YYYY');
                     referralObj.referrer = referrals[index].child_name;
                     gp_location = referrals[index].registerd_gp;
                 } else if ((referrals[index].user_role.toLowerCase() == 'parent') && referrals[index].parent && referrals[index].parent.length) {
                     referralObj.name = referrals[index].parent[0].child_name;
-                    referralObj.dob = moment(referrals[index].parent[0].child_dob, 'YYYY-MM-DD HH:MM;SS').format('DD/MM/YYYY');
+                    referralObj.dob = moment(referrals[index].parent[0].child_dob).format('DD/MM/YYYY');
                     referralObj.referrer = referrals[index].parent_name;
                     gp_location = referrals[index].parent[0].registerd_gp;
                 } else if ((referrals[index].user_role.toLowerCase() == 'professional') && referrals[index].professional && referrals[index].professional.length) {
                     referralObj.name = referrals[index].professional[0].child_name;
-                    referralObj.dob = moment(referrals[index].professional[0].child_dob, 'YYYY-MM-DD HH:MM;SS').format('DD/MM/YYYY');
+                    referralObj.dob = moment(referrals[index].professional[0].child_dob).format('DD/MM/YYYY');
                     referralObj.referrer = referrals[index].professional_name;
                     gp_location = referrals[index].professional[0].registerd_gp;
                 }
