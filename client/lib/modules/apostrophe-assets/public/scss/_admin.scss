@@ -264,7 +264,10 @@
 .set-max-width {
   max-width: 200px;
 }
-.custom-table-nested > div > div + div  {
+.custom-table-nested > div > div + div {
+  overflow: auto;
+}
+.custom-table-nested > div > div {
   overflow: auto;
 }
 .custom-table-nested .custom-select {
@@ -277,7 +280,13 @@
 .custom-table-nested .form-control {
   height: 40px !important;
 }
-// .custom-table-nested .col-md-6{
-// display: flex;
-// align-items: center;
-// }
+.custom-table-nested label {
+  width: 100%;
+}
+.custom-table-nested > div > div > div + div > div > label > input {
+  height: 40px !important;
+  width: 100% !important;
+  display: flex !important;
+}
+
+
