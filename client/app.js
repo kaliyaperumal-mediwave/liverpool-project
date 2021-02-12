@@ -42,6 +42,7 @@ var apos = require("apostrophe")({
 
     "auth-module": {},
     "about-module": {},
+    "admin-module": {},
     "dashboard-module": {},
     "Resources": {},
     "Resources-pages": { perPage: 999 },
