@@ -631,15 +631,21 @@ a {
 /* Referral Home page style end */
 
 .header-title {
-  @include set-titleStyles($tertiary-mdFont-size, bold, $header-text-color);
+  @include set-titleStyles($tertiary-font-size, bold, $header-text-color);
   @include xs-screen {
-    font-size: 18px;
+    font-size: 16px;
+  }
+  @include xs-screen {
+    font-size: 17px;
   }
   @include sm-screen {
     font-size: 19px;
   }
   @include md-screen {
     font-size: 20px;
+  }
+  @include md-screen {
+    font-size: 22px;
   }
 }
 
@@ -750,15 +756,18 @@ a {
 }
 
 .question-header-font {
-  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
-  @include xs-screen {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+  @include xxs-screen {
     font-size: 15px;
   }
-  @include sm-screen {
+  @include xs-screen {
     font-size: 16px;
   }
+  @include sm-screen {
+    font-size: 17px;
+  }
   @include md-screen {
-    font-size: 18px;
+    font-size: 19px;
   }
 }
 
@@ -909,18 +918,24 @@ a {
 }
 
 .review-header-font {
-  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
-  @include xs-screen {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+  @include xxs-screen {
     font-size: 15px;
   }
-  @include sm-screen {
+  @include xs-screen {
     font-size: 16px;
   }
-  @include md-screen {
+  @include sm-screen {
     font-size: 17px;
+  }
+  @include md-screen {
+    font-size: 19px;
   }
   h2 {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xxs-screen {
+      font-size: 18px;
+    }
     @include xs-screen {
       font-size: 18px;
     }
@@ -934,6 +949,9 @@ a {
 
   p {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xxs-screen {
+      font-size: 18px;
+    }
     @include xs-screen {
       font-size: 18px;
     }
