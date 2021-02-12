@@ -91,7 +91,7 @@ $(document).ready(function () {
           $('#loader').show();
           var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
           if (successData && Object.keys(successData)) {
-            this.successMessage = 'Deleted successfully .'
+            this.successMessage = 'Referrals deleted successfully .'
             this.fetchReferral();
             $('#loader').hide();
             $('#deletedSuccess').modal('show');
@@ -106,7 +106,7 @@ $(document).ready(function () {
           $('#loader').show();
           var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
           if (successData && Object.keys(successData)) {
-            this.successMessage = 'Archived successfully .';
+            this.successMessage = 'Referrals archived successfully .';
             this.fetchReferral();
             $('#loader').hide();
             $('#deletedSuccess').modal('show');
