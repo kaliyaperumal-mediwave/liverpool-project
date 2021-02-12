@@ -104,7 +104,7 @@ $(document).ready(function () {
       archiveReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
-          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archivedr' });
+          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
           if (successData && Object.keys(successData)) {
             this.successMessage = 'Archived successfully .';
             this.fetchReferral();
