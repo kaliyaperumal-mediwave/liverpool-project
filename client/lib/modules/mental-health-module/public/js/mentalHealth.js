@@ -7,13 +7,24 @@ $(document).ready(function () {
             filteredData: [],
             showSearchResults: false,
             resources: [],
+            searchQueryToLower:null,
         },
         beforeMount: function () {
             $('#loader').show();
         },
 
         mounted: function () {
-            this.resources = JSON.parse(document.getElementById('resources').value)
+
+            try {
+                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    this.resources = JSON.parse(document.getElementById('resources').value);
+                } else {
+                    this.resources = [];
+                }
+            } catch (error) {
+                $('#loader').hide();
+                console.log(error);
+            }
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);
@@ -25,13 +36,14 @@ $(document).ready(function () {
             },
             filterPieces: function () {
                 // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
-                if (this.searchQuery) {
+                this.searchQueryToLower = this.searchQuery.toLowerCase();
+                if (this.searchQueryToLower) {
                     this.filteredData = [];
                     this.showSearchResults = true;
                     let self = this;
                     return self.resources.filter(function (item) {
                         // TODO: add description and other content after CMS
-                        if (!!~item.title.toLowerCase().indexOf(self.searchQuery)) {
+                        if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
                             self.filteredData.push(item);
                         }
                         return self.filteredData

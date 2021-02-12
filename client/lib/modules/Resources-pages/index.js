@@ -26,8 +26,8 @@ module.exports = {
     var superBefore = self.beforeShow;
     self.beforeShow = function (req, callback) {
       require('../../middleware')(self, options);
-      console.log("show==========tst");
-      console.log(req.data.piece);
+      //console.log("show==========tst");
+      //console.log(req.data.piece._url);
       self.checkCommonPageAuth(req).then(async (req,res) => {
         let piecesArray = [];
         if (req.data.piece) {
@@ -63,9 +63,10 @@ module.exports = {
        // req.data.piecesArray = piecesArray;
         //return superBefore(req, callback);
         var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/orcha/getAllApps';
-        console.log(url)
+        //console.log(url)
         req.body.searchCategory=req.data.piece.title;
         req.session.categoryTitle = req.data.piece.title;
+        req.session.resUrl = req.data.piece._url
         self.middleware.post(req, res, url, req.body).then((data) =>  {
           var appsName=[];
           var appTitle = {};
@@ -79,6 +80,7 @@ module.exports = {
           }
          // console.log( data.data.result.items);
           piecesArray = ThingsToWatch.concat(ThingsToRead, Games, Events, PartnerAgencies,appsName)
+         // console.log(piecesArray);
           req.data.piecesArray = piecesArray;
           req.data.orchaApps = data.data.result.items;
           req.session.orchaApps = data.data.result.items;
@@ -127,21 +129,6 @@ module.exports = {
         })
         piecesArray = Resources.concat(ThingsToWatch, ThingsToRead, Games, Events, PartnerAgencies)
         req.data.piecesArray = piecesArray;
-       
-        return beforeIndex(req, callback); 
-
-        var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/orcha/getAllApps';
-        console.log(url)
-        self.middleware.post(req, res, url, req.body).then(async (data) =>  {
-          console.log("-----------index=--------------")
-          //console.log(data.data.result.accessToken)
-          //req.session.orcha_auth_token = data.data.result.accessToken;
-         //return beforeIndex(req, callback);          
-        }).catch((error) => {
-         // console.log("---- error -------", error)
-          return res.status(error.statusCode).send(error.error);
-        });
-
         return beforeIndex(req, callback); 
       }).catch(() => {
       });

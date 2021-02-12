@@ -16,6 +16,7 @@ $(document).ready(function () {
             filteredData: [],
             showSearchResults: false,
             resources: [],
+            searchQueryToLower:null,
         },
 
 
@@ -24,7 +25,18 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            this.resources = JSON.parse(document.getElementById('resources').value)
+
+            try {
+                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    this.resources = JSON.parse(document.getElementById('resources').value);
+                } else {
+                    this.resources = [];
+                }
+            } catch (error) {
+                console.log(error);
+                $('#loader').hide();
+            }
+            
             // this.paramValues = getParameter(location.href)
             //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
@@ -58,13 +70,14 @@ $(document).ready(function () {
 
             filterPieces: function () {
                 // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
-                if (this.searchQuery) {
+                this.searchQueryToLower = this.searchQuery.toLowerCase();
+                if (this.searchQueryToLower) {
                     this.filteredData = [];
                     this.showSearchResults = true;
                     let self = this;
                     return self.resources.filter(function (item) {
                         // TODO: add description and other content after CMS
-                        if (!!~item.title.toLowerCase().indexOf(self.searchQuery)) {
+                        if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
                             self.filteredData.push(item);
                         }
                         return self.filteredData
