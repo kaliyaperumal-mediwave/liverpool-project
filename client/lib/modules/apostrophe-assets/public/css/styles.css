@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
+.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -465,6 +465,9 @@ div.radio.switcher label {
 .custom-table-nested > div > div + div {
   overflow: auto; }
 
+.custom-table-nested > div > div {
+  overflow: auto; }
+
 .custom-table-nested .custom-select {
   padding: 0px 20px;
   border-radius: 10px !important;
@@ -474,6 +477,20 @@ div.radio.switcher label {
 
 .custom-table-nested .form-control {
   height: 40px !important; }
+
+.custom-table-nested label {
+  width: 100%; }
+
+.custom-table-nested > div > div > div + div > div > label > input {
+  height: 40px !important;
+  width: 100% !important;
+  display: flex !important; }
+
+.icon-display-none::before {
+  display: none !important; }
+
+.icon-display-none::after {
+  display: none !important; }
 
 .middleContainer:after {
   content: "";
@@ -1599,18 +1616,24 @@ a {
 /* Footer fonts style end */
 /* Referral Home page style end */
 .header-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
   color: #ffffff; }
   @media (max-width: 575.98px) {
     .header-title {
-      font-size: 18px; } }
+      font-size: 16px; } }
+  @media (max-width: 575.98px) {
+    .header-title {
+      font-size: 17px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .header-title {
       font-size: 19px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .header-title {
       font-size: 20px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .header-title {
+      font-size: 22px; } }
 
 .custom-css-tag > a {
   font-weight: bold;
@@ -1720,18 +1743,21 @@ a {
     text-decoration: underline; }
 
 .question-header-font {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   color: #023047; }
-  @media (max-width: 575.98px) {
+  @media (min-width: 320px) and (max-width: 575.98px) {
     .question-header-font {
       font-size: 15px; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
+  @media (max-width: 575.98px) {
     .question-header-font {
       font-size: 16px; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .question-header-font {
+      font-size: 17px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .question-header-font {
-      font-size: 18px; } }
+      font-size: 19px; } }
 
 .back-text {
   font-size: 16px;
@@ -1897,22 +1923,28 @@ a {
         font-size: 20px; } }
 
 .review-header-font {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #023047; }
-  @media (max-width: 575.98px) {
+  @media (min-width: 320px) and (max-width: 575.98px) {
     .review-header-font {
       font-size: 15px; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
+  @media (max-width: 575.98px) {
     .review-header-font {
       font-size: 16px; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
+  @media (min-width: 576px) and (max-width: 767.98px) {
     .review-header-font {
       font-size: 17px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .review-header-font {
+      font-size: 19px; } }
   .review-header-font h2 {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
+    @media (min-width: 320px) and (max-width: 575.98px) {
+      .review-header-font h2 {
+        font-size: 18px; } }
     @media (max-width: 575.98px) {
       .review-header-font h2 {
         font-size: 18px; } }
@@ -1926,6 +1958,9 @@ a {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
+    @media (min-width: 320px) and (max-width: 575.98px) {
+      .review-header-font p {
+        font-size: 18px; } }
     @media (max-width: 575.98px) {
       .review-header-font p {
         font-size: 18px; } }
