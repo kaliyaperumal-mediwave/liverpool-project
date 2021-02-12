@@ -69,6 +69,10 @@ module.exports = {
       label: 'ResourcesPages'
     },
     {
+      name: 'admin-module',
+      label: 'AdminModule'
+    },
+    {
       name: 'account-settings-module',
       label: 'Account Settings Module'
     },

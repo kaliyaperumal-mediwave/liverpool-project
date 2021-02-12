@@ -420,7 +420,7 @@ label {
   }
 }
 
-/* @font-face {
+@font-face {
   font-family: "century-gothic";
   font-style: normal;
   font-weight: 400;
@@ -453,7 +453,7 @@ label {
   font-style: italic;
   font-weight: normal;
   src: url("/modules/my-apostrophe-assets/fonts/century-gothic-italic.ttf") format("truetype");
-} */
+}
 
 body {
   font-family: "century-gothic" !important;

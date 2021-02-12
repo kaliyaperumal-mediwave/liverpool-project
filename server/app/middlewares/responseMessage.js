@@ -12,6 +12,8 @@ const messageCodes = {
   1011: "Your Old password doesn't match",
   1012: 'That Email is taken. Try another.',
   1013: 'User not registered at Liverpool CAMHS ',
-  1014: 'Thank you for your valuable feedback!'
+  1014: 'Thank you for your valuable feedback!',
+  1015: 'Deleted successfully.',
+  1016: 'Data not found.',
 };
 module.exports = messageCodes;
