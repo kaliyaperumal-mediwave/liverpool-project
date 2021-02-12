@@ -74,6 +74,7 @@ module.exports = {
           for (var i = 0; i < listOfApps.length; i++) {
             appTitle = {};
             appTitle.title = listOfApps[i].appName;
+            appTitle.platform = listOfApps[i].platform;
             appTitle.Topic = "Downloads"
             appTitle.custom_url ='/downloads?app_id='+listOfApps[i].id;
             appsName.push(appTitle);

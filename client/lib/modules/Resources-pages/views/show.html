@@ -59,7 +59,13 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
                   class="px-1 px-md-2 cursor-pointer"
                   alt=""
                 />
-                <p class="question-font my-0 mx-2 mx-md-4">{{item.title}}</p>
+                
+                <p v-if="item.Topic=='Watch'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.SubTitle}}</p>
+                <p v-if="item.Topic=='Read'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.partnerAgencies}}</p>
+                <p v-if="item.Topic=='Games'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.games_title}}</p>
+                <p v-if="item.Topic=='Events'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.eventsTopic}}</p>
+                <p v-if="item.Topic=='PartnerAgencies'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.partnerAgencies}}</p>
+                <p v-if="item.Topic=='Downloads'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.platform}}</p>
                 <ul
                   class="my-0 link-text mx-2 mx-md-4"
                   style="list-style: inside !important"
