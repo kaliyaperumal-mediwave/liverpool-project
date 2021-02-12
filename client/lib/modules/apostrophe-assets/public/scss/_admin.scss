@@ -288,5 +288,9 @@
   width: 100% !important;
   display: flex !important;
 }
-
-
+.icon-display-none::before {
+  display: none !important;
+}
+.icon-display-none::after {
+  display: none !important;
+}
