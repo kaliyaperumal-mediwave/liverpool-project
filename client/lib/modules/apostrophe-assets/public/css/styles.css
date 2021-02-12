@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .option-font, .add-more-hint {
+.btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -979,8 +979,7 @@ div.radio.switcher label {
   justify-content: center; }
 
 body {
-  font-family: "century-gothic" !important;
-  /* Chrome, Safari, Edge, Opera */ }
+  font-family: "century-gothic" !important; }
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
@@ -1168,8 +1167,19 @@ body {
   bottom: 0px;
   height: 80px; }
 
+.img-pos {
+  position: absolute;
+  top: 0;
+  right: -11px; }
+
 a {
   color: #023047 !important; }
+
+.swiper-button-prev.swiper-button-disabled {
+  display: none !important; }
+
+.swiper-button-next.swiper-button-disabled {
+  display: none !important; }
 
 .logo-bg {
   background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat;
@@ -1848,7 +1858,7 @@ a {
       font-size: 17px; } }
   .question-font h2 {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: normal;
     color: #023047; }
     @media (max-width: 575.98px) {
       .question-font h2 {
@@ -1861,7 +1871,7 @@ a {
         font-size: 20px; } }
   .question-font p {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: normal;
     color: #023047; }
     @media (max-width: 575.98px) {
       .question-font p {
@@ -1871,6 +1881,46 @@ a {
         font-size: 19px; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       .question-font p {
+        font-size: 20px; } }
+
+.review-header-font {
+  font-size: 18px;
+  font-weight: bold;
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .review-header-font {
+      font-size: 15px; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .review-header-font {
+      font-size: 16px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .review-header-font {
+      font-size: 17px; } }
+  .review-header-font h2 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047; }
+    @media (max-width: 575.98px) {
+      .review-header-font h2 {
+        font-size: 18px; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .review-header-font h2 {
+        font-size: 19px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .review-header-font h2 {
+        font-size: 20px; } }
+  .review-header-font p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047; }
+    @media (max-width: 575.98px) {
+      .review-header-font p {
+        font-size: 18px; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .review-header-font p {
+        font-size: 19px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .review-header-font p {
         font-size: 20px; } }
 
 .option-font {
@@ -3059,7 +3109,8 @@ body .ui-widget .ui-menu-item {
   font-weight: bold; }
 
 .google-icon {
-  width: 166px;
+  width: auto;
+  height: 50px;
   margin-bottom: 10px; }
 
 .text_inside_play-store {
@@ -3099,7 +3150,8 @@ body .ui-widget .ui-menu-item {
 
 .panda-img {
   width: 100%;
-  border-radius: 11px; }
+  border-radius: 10px;
+  box-shadow: 0px 3px 6px #00000029; }
 
 .padding-set-equal {
   padding: 6px !important; }
@@ -3129,6 +3181,12 @@ body .ui-widget .ui-menu-item {
   @media (min-width: 320px) and (max-width: 424px) {
     .large-toggle-cont {
       padding: 10px; } }
+
+.text-container-wrap {
+  max-height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
 
 .top-slider-cont-max {
   margin: auto;
@@ -3467,10 +3525,14 @@ html #slide-test-5 {
   .off .question-font p {
     color: #023047; }
 
-.off .question-header-font {
-  color: #023047; }
-
 .off .review-header-font {
+  color: #023047; }
+  .off .review-header-font h2 {
+    color: #023047; }
+  .off .review-header-font p {
+    color: #023047; }
+
+.off .question-header-font {
   color: #023047; }
 
 .off .content-text {
@@ -3479,6 +3541,8 @@ html #slide-test-5 {
     color: #023047; }
     .off .content-text p strong {
       color: #023047; }
+      .off .content-text p strong a {
+        color: #023047 !important; }
 
 .off .content-header-text {
   color: #023047; }
@@ -3598,10 +3662,14 @@ html #slide-test-5 {
   .on .question-font p {
     color: #fafafa; }
 
-.on .question-header-font {
-  color: #fafafa; }
-
 .on .review-header-font {
+  color: #fafafa; }
+  .on .review-header-font h2 {
+    color: #fafafa; }
+  .on .review-header-font p {
+    color: #fafafa; }
+
+.on .question-header-font {
   color: #fafafa; }
 
 .on .content-text {
@@ -3610,6 +3678,8 @@ html #slide-test-5 {
     color: #fafafa; }
     .on .content-text p strong {
       color: #fafafa; }
+      .on .content-text p strong a {
+        color: #fafafa !important; }
 
 .on .content-header-text {
   color: #fafafa; }

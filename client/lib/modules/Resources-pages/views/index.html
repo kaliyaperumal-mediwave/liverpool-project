@@ -39,7 +39,7 @@
                 <div class="primary-search-radius card cursor-pointer">
 
                     <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                        <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
+                        <a :href=" item.custom_url ? item.custom_url : item._url">
                             <div class="d-flex align-items-center">
                                 <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
                                     class="px-1 px-md-2 cursor-pointer" alt="">
@@ -71,7 +71,7 @@
     <div class="resource-cont">
         <div class="bottom-arrow-container row" id="selva">
 
-            {% for piece in data.pieces %}
+            {% for piece in data.pieces |sort(false, true, 'title') %}
             <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
                 <div class="insidePieceCont card-container">
                     <div class="midTextRange">{{ piece.title }}

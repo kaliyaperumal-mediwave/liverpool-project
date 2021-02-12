@@ -17,13 +17,14 @@ $(document).ready(function () {
 
         methods: {
             goToRole: function () {
-                //console.log("32323232")
                 $.ajax({
                     url: API_URI + "/setSessionRefHome/y",
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
+                        console.log("-------------------------------success block");
                         location.href = "/role";
                     },
                     error: function (error) {

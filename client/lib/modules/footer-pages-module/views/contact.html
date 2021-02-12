@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/footer-pages-module/js/contact.js"></script>
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+{% endblock %}
+{% block main
+%}
+<div id="contactUsPage">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div class="d-flex text-left my-xl-5 my-lg-5 my-md-5 my-3">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
+            <a href="{{ data.logoPath }}">
+                <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
+            </a>
+            <h2 class="home-header-primary m-0 py-2">Contact Us
+            </h2>
+            <!-- <div class="home-header-primary m-0 py-2">
+                {{ apos.area(data.page, 'aboutPageTitle', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h2' }
+                ]
+                }
+                }
+                }) }}</div> -->
+        </div>
+    </div>
+    <div class="d-flex text-center">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 px-4 mx-auto home-primary-content-bg">
+            <div class="footer-content  my-3 my-md-4 py-2 px-3 text-left apos-header-para-font">
+                <!-- {{ apos.area(data.page, 'aboutsubTitle', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink','BulletedList' ],
+                styles: [
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                }) }} -->
+                <h3>
+                    MYA RAISE Team
+                </h3>
+                <h3>
+                    Merseyside Youth Association
+                </h3>
+                <h3>
+                    65-67 Hanover Street
+                </h3>
+                <h3>
+                    Liverpool
+                </h3>
+                <h3>
+                    L1 3DY
+                </h3>
+                <h3 class="py-2">
+                    Email: mentalhealthpromotion@mya.org.uk
+
+                </h3>
+                <h3 class="py-2">
+                    Tel: 0151 702 0700
+                </h3>
+            </div>
+        </div>
+    </div>
+    {% include "../../shared-referal-module/views/searchReferral.html" %}
+    {% include "../../shared-referal-module/views/company.html" %}
+
+</div>
+{% endblock %}

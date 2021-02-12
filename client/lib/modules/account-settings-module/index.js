@@ -17,14 +17,14 @@ module.exports = {
   },
   construct: function (self, options) {
     require('../../middleware')(self, options);
-
     self.addDispatchRoutes = function () {
-      self.dispatch('/change_email', self.middleware.checkCommonPageAuth,self.changeEmail);
-      self.dispatch('/change_password',self.middleware.checkCommonPageAuth, self.changePassword);
+      self.dispatch('/change_email', self.middleware.checkAuth,self.changeEmail);
+      self.dispatch('/change_password',self.middleware.checkAuth, self.changePassword);
       self.dispatch('/confirmation_email',self.middleware.checkCommonPageAuth, self.confirmationEmail);
     };
 
     self.changeEmail = function (req, callback) {
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('change_email', {
         showHeader: true,
         hideRefButton: true,
@@ -32,6 +32,7 @@ module.exports = {
     };
 
     self.changePassword = function (req, callback) {
+      req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('change_password', {
         showHeader: true,
         hideRefButton: true,

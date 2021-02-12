@@ -9,10 +9,12 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/about',self.middleware.checkCommonPageAuth, self.aboutUs);
-      self.dispatch('/terms',self.middleware.checkCommonPageAuth, self.termsCondition);
-      self.dispatch('/privacy',self.middleware.checkCommonPageAuth, self.privacyPolicy);
-      self.dispatch('/urgent-help',self.middleware.checkCommonPageAuth, self.urgentHelp);
+      self.dispatch('/about', self.middleware.checkCommonPageAuth, self.aboutUs);
+      self.dispatch('/terms', self.middleware.checkCommonPageAuth, self.termsCondition);
+      self.dispatch('/privacy', self.middleware.checkCommonPageAuth, self.privacyPolicy);
+      self.dispatch('/urgent-help', self.middleware.checkCommonPageAuth, self.urgentHelp);
+      self.dispatch('/contact', self.middleware.checkCommonPageAuth, self.contact);
+
     };
 
     self.aboutUs = function (req, callback) {
@@ -38,6 +40,13 @@ module.exports = {
 
     self.urgentHelp = function (req, callback) {
       return self.sendPage(req, self.renderer('urgent', {
+        showHeader: true,
+        hideRefButton: true,
+      }));
+    };
+
+    self.contact = function (req, callback) {
+      return self.sendPage(req, self.renderer('contact', {
         showHeader: true,
         hideRefButton: true,
       }));
