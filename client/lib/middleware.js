@@ -34,7 +34,7 @@ module.exports = function (self, options) {
     },
 
     checkCommonPageAuth: function (req, res, next) {
-      //req.res.header('Cache-Control', 'no-cache, no-store'); 
+      req.res.header('Cache-Control', 'no-cache, no-store'); 
       console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
@@ -278,7 +278,7 @@ module.exports = function (self, options) {
     //   }
     // });
     return new Promise((resolve, reject) => {
-      //req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
+      req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";

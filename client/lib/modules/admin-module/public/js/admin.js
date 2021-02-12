@@ -48,7 +48,9 @@ $(document).ready(function () {
       },
 
       fetchReferral: function () {
-        var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
+        // var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
+        var successData = apiCallGet('get', '/referral', API_URI);
+
         if (successData && Object.keys(successData).length) {
           this.referralData = successData.data;
           this.dataSet = [];
