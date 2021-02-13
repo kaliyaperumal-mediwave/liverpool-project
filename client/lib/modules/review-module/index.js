@@ -9,11 +9,10 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       require('../../middleware')(self, options);
-      self.dispatch('/',self.middleware.checkCommonPageAuth, self.review);
+      self.dispatch('/', self.middleware.checkCommonPageAuth, self.review);
     };
     self.review = function (req, callback) {
-      if(!req.session.user_role)
-      {
+      if (!req.session.user_role) {
         return req.res.redirect("/")
       }
       let decryptedUrl;
@@ -37,7 +36,7 @@ module.exports = {
       req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('review', {
         headerContent: "Section 5 of 5: Preferences and review",
-        headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
+        headerDescription: "Finally please review all the information you have provided to check if anything needs changing",
         backContent: '/referral?' + decryptedUrl,
         home: false,
         showHeader: true,

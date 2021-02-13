@@ -1185,6 +1185,82 @@
                 </div>
                 <!-- Contact preferences Start -->
 
+                <!-- Contact preferences Start -->
+                <div id="directlySendReferral" class="py-3">
+                    <h2 class="py-2 px-3 mb-2 question-header-font">
+                        Do you want to directly send this referral to?
+                    </h2>
+                    <!-- <p class="question-font py-2 my-2 px-3 col-xl-10 col-lg-6 col-sm-12 col-12"> How would you like to
+                        be
+                        contacted about the progress of your child’s referral?
+                    </p> -->
+                    <!-- <div class="py-2 px-3 m-0 review-header-font">
+                        {{ apos.area(data.page, 'review_contact', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Heading', element: 'h2' }
+
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div> -->
+                    <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                        {{ apos.area(data.page, 'review_contactSub', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Paragraph', element: 'p' }
+
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div> -->
+                    <div class="py-2 px-3 m-0 question-header-font">
+                        <div class="custom-form-group m-0 pb-1">
+                            <input type="checkbox" id="YPAS" value="YPAS" v-model="sendRef">
+                            <label for="YPAS" class="option-font d-flex align-items-center">
+                                YPAS</label>
+                        </div>
+                        <div class="custom-form-group m-0 pb-1">
+                            <input type="checkbox" id="venus" value="Venus" v-model="sendRef">
+                            <label for="venus" class="option-font d-flex align-items-center">
+                                Venus</label>
+                        </div>
+                        <div class="custom-form-group m-0 pb-1">
+                            <input type="checkbox" id="IAPTUS" value="IAPTUS" v-model="sendRef">
+                            <label for="IAPTUS" class="option-font d-flex align-items-center">
+                                IAPTUS</label>
+                        </div>
+                        <div class="custom-form-group m-0 pb-1">
+                            <input type="checkbox" id="sendRefDirOther" @change="addOtherOrg($event)" value="Other"
+                                v-model="sendRef">
+                            <label for="sendRefDirOther" class="option-font d-flex align-items-center">
+                                Other</label>
+                        </div>
+                        <template v-if="addMoreOrg">
+                            <div class="form-group py-2 m-0 w-75">
+                                <label for="whereToSend" class="question-font mb-3">Enter the name of where you want to
+                                    send
+                                    the referral</label>
+                                <textarea class="h-112 form-control" id="whereToSend" v-model="nameForOthers"
+                                    @input="onValueEnter($event,'other')" rows="4"></textarea>
+                            </div>
+                        </template>
+
+                    </div>
+                    <div class="invalid-feedback d-none m-0 px-3"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
+                        You must provide an answer.
+                    </div>
+                </div>
+                <!-- Contact preferences Start -->
+
+
                 <!-- Send Start -->
                 <div id="send" class="py-4">
                     <!-- <h2 class="py-2 px-3 m-0 question-header-font">

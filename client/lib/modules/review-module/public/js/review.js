@@ -63,6 +63,7 @@ $(document).ready(function () {
             prevSection4Data: {},
             payloadData: {},
             contactPref: [],
+            sendRef: [],
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -74,7 +75,8 @@ $(document).ready(function () {
             showSec1: false,
             digArray: [],
             disableSection1Button: false,
-            showLoader: false
+            showLoader: false,
+            nameForOthers: ""
         },
 
         // beforeCreate: function () {
@@ -205,6 +207,16 @@ $(document).ready(function () {
                     scrollToInvalidInput();
                     return false;
                 }
+            },
+
+            addOtherOrg: function (e) {
+                if (e.target.checked) {
+                    this.addMoreOrg = true;
+                } else {
+                    this.addMoreOrg = false;
+                    this.nameForOthers = "";
+                }
+
             },
 
             preventWhiteSpaces: function (e) {
