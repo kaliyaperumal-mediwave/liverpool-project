@@ -1186,7 +1186,7 @@
                 <!-- Contact preferences Start -->
 
                 <!-- Contact preferences Start -->
-                <div id="directlySendReferral" class="py-3">
+                <div v-if="userRole === 'professional'" id="directlySendReferral" class="py-3">
                     <h2 class="py-2 px-3 mb-2 question-header-font">
                         Do you want to directly send this referral to?
                     </h2>

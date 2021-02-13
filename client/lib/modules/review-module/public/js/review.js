@@ -76,7 +76,8 @@ $(document).ready(function () {
             digArray: [],
             disableSection1Button: false,
             showLoader: false,
-            nameForOthers: ""
+            nameForOthers: "",
+            addMoreOrg:false
         },
 
         // beforeCreate: function () {
@@ -95,6 +96,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            debugger
             this.paramValues = getParameter(location.href)
             this.section5Labels = section5Labels;
             this.userRole = document.getElementById('uRole').innerHTML;
