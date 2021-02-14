@@ -254,6 +254,7 @@ $(document).ready(function () {
             },
 
             resetProvider: function () {
+                this.isFormSubmitted = false;
                 this.sendRef = [];
                 this.addMoreOrg = false;
                 this.nameForOthers = "";

@@ -1277,6 +1277,10 @@
                                 <textarea class="h-112 form-control" id="whereToSend" v-model="nameForOthers"
                                     @input="preventWhiteSpaces($event,'other')" rows="4"></textarea>
                             </div>
+                            <div class="invalid-feedback d-none m-0 py-2"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && sendRef =='Other' && !nameForOthers), 'invalid-fields':(isFormSubmitted && sendRef =='Other' && !nameForOthers)}">
+                                You must provide an answer.
+                            </div>
                         </template>
 
                     </div>
