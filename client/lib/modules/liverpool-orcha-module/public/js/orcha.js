@@ -40,7 +40,7 @@ $(document).ready(function () {
                 var successData = apiCallGet('get', '/getApp/'+appId, API_URI);
                 //console.log(successData)
                 this.appObj = successData.data.result.smallAppCardInfo;
-                //console.log(this.appObj)
+                console.log(this.appObj)
             },
             filterApps: function () {
                 // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
