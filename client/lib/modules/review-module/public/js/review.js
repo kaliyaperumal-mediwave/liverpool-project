@@ -245,8 +245,10 @@ $(document).ready(function () {
 
             changeProvider: function (e) {
                 if (e.target.value == 'Other') {
+                    this.isFormSubmitted = false;
                     this.addMoreOrg = true;
                 } else {
+                    this.isFormSubmitted = false;
                     this.addMoreOrg = false;
                     this.nameForOthers = "";
                 }
