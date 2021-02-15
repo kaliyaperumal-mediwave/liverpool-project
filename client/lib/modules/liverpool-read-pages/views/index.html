@@ -33,6 +33,7 @@
                     v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
                     @input="filterPieces()">
             </div>
+              <div  id="hideserachblock" class="d-none">
             {% raw %}
             <!-- Search functionality start-->
             <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
@@ -57,6 +58,7 @@
             </div>
             <!-- Search functionality end-->
             {% endraw %}
+            </div>
         </div>
         <div class="text_inside_cont">
             Here are different real life experiences of users currently using the platform
