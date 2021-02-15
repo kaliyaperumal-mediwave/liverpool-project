@@ -87,6 +87,11 @@ module.exports = {
           req.data.piecesArray = piecesArray;
           req.data.orchaApps = data.data.result.items;
           req.session.orchaApps = data.data.result.items;
+          req.session.readArray = ThingsToRead;
+          req.session.watchArray = ThingsToWatch;
+          req.session.gamesArray = Games;
+          req.session.eventsArray = Events;
+          req.session.partnerAgenciesArray = PartnerAgencies;
           return superBefore(req, callback);
         }).catch((error) => {
           console.log("---- error -------", error)
