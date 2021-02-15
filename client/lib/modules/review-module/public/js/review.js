@@ -197,6 +197,7 @@ $(document).ready(function () {
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
                 if (this.contactPref.length && this.selectProvider && this.selectProvider == 'No') {
+                    this.payloadData.referral_provider = "";
                     var successData = apiCallPost('post', '/saveReview', this.payloadData);
                     console.log(successData);
                     if (Object.keys(successData)) {
