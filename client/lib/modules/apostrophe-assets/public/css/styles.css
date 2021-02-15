@@ -375,7 +375,7 @@ div.radio.switcher label {
     .admin-toggle-menu {
       display: flex; } }
 
-@media (max-width: 374px) {
+@media (min-width: 320px) and (max-width: 374px) {
   .class-menu-hide {
     display: none; } }
 
@@ -610,17 +610,24 @@ div.radio.switcher label {
   display: none !important; }
 
 .rating > label:before {
-  width: 30px !important;
+  width: 36px !important;
   font-size: 2.5em !important;
   font-family: FontAwesome !important;
   display: inline-block !important;
   content: "\f005" !important;
   position: relative !important;
   background: none !important;
-  border: none !important; }
+  border: none !important;
+  margin: 0px 8px; }
+  @media (min-width: 320px) and (max-width: 374px) {
+    .rating > label:before {
+      margin: 0px; } }
+  @media (min-width: 375px) and (max-width: 425px) {
+    .rating > label:before {
+      margin: 0px 5px; } }
 
 .rating > label::after {
-  padding: 3px !important;
+  padding: 4px !important;
   position: relative !important;
   background: none !important; }
 
