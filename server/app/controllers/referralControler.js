@@ -2182,9 +2182,11 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
+  console.log('\nsave review payload == ', ctx.request.body);
   var uniqueNo = uniqid().toUpperCase();
-  uniqueNo = uniqueNo.slice(0, 12);
-  console.log( ctx.request.body)
+  console.log('\nReference Code - ', uniqueNo);
+  uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
+  console.log(uniqueNo);
   return user.findOne({
     where: {
       reference_code: uniqueNo,
@@ -2221,7 +2223,9 @@ exports.saveReview = ctx => {
       });
     } else {
       uniqueNo = uniqid().toUpperCase();
-      uniqueNo = uniqueNo.slice(0, 12);
+      console.log('\nReference Code - ', uniqueNo);
+      uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
+      console.log(uniqueNo);
       return user.update({
         referral_progress: 100,
         referral_complete_status: "completed",
