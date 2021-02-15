@@ -77,9 +77,9 @@ exports.getReferral = ctx => {
                     var splitLocation = gp_location.split(',');
                     if(splitLocation.length > 1) {
                         if(gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            referralObj.gp_location = "Liverpool";
+                            referralObj.gp_location = gpCodes[0].type;
                         } else if(gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            referralObj.gp_location = "Sefton";
+                            referralObj.gp_location = gpCodes[1].type;
                         }
                     }
                 }
