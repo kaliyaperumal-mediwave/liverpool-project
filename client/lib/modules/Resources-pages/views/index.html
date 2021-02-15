@@ -30,7 +30,7 @@
                     v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
                     @input="filterPieces()">
             </div>
-
+            <div  id="hideserachblock" class="d-none">
             {% raw %}
             <!-- Search functionality start-->
             <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
@@ -54,7 +54,9 @@
                 </div>
             </div>
             <!-- Search functionality end-->
+
             {% endraw %}
+            </div>
         </div>
         <div class="text_inside_cont">
             Sometimes it’s hard to make sense of how you’re feeling, your thoughts and behaviours. In this section, you
