@@ -39,6 +39,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           @input="filterPieces()"
         />
       </div>
+        <div  id="hideserachblock" class="d-none">
       {% raw %}
       <!-- Search functionality start-->
       <div v-if="showSearchResults" class="resource_search_text my-3">
@@ -78,6 +79,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
       </div>
       <!-- Search functionality end-->
       {% endraw %}
+      </div>
     </div>
     <div class="text_inside_return">{{apos.area(piece,'text')}}</div>
 
