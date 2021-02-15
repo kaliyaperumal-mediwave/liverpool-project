@@ -357,6 +357,22 @@ a {
   }
 }
 
+.home-header-secondary-description {
+  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $quaternary-mdFont-size;
+    letter-spacing: 0.64px !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-font-size;
+    letter-spacing: 0.64px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-font-size, 2);
+    letter-spacing: 1.5px !important;
+  }
+}
+
 .home-primary-content {
   @include set-titleStyles($tertiary-font-size, bold, $primary-color);
   @include set-dynamicLineHeight($tertiary-font-size);
@@ -494,7 +510,7 @@ a {
 }
 
 .home-primary-content-bg {
-  @include set-cardStyle($secondary-color, "", "", 14px, "no");
+  @include set-cardStyle($secondary-color, "", "", 10px, "no");
 }
 
 .home-search-area {
@@ -506,7 +522,7 @@ a {
 }
 
 .home-card-radius {
-  @include set-borderRadius(14px, "bottom");
+  @include set-borderRadius(10px, "bottom");
 }
 
 /* Landing Page style end */
@@ -552,6 +568,9 @@ a {
   }
   @include md-screen {
     @include set-dynamicFont($quaternary-font-size, 2);
+  }
+  p {
+    margin-bottom: 0px;
   }
 }
 
@@ -632,21 +651,21 @@ a {
 /* Referral Home page style end */
 
 .header-title {
-  @include set-titleStyles($tertiary-font-size, bold, $header-text-color);
+  @include set-titleStyles($tertiary-mdFont-size, bold, $header-text-color);
+  @include xxs-screen {
+    font-size: 15px;
+  }
   @include xs-screen {
     font-size: 16px;
   }
-  @include xs-screen {
+  @include sm-screen {
     font-size: 17px;
   }
-  @include sm-screen {
+  @include md-screen {
     font-size: 19px;
   }
   @include md-screen {
     font-size: 20px;
-  }
-  @include md-screen {
-    font-size: 22px;
   }
 }
 
@@ -2774,7 +2793,13 @@ $color-scheme: (
     .fa-search:before {
       color: $secondary !important;
     }
-
+    @include placeholder($secondary);
+    input::placeholder {
+      color: $secondary !important;
+    }
+    input {
+      color: $placeholderTheme-color !important;
+    }
     // input[type="search"] {
     //   color: $secondary !important;
     // }

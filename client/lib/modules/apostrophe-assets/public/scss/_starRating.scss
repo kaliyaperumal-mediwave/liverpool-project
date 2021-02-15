@@ -1,45 +1,52 @@
 #feedBackStars {
-    label {
-        margin: 0;
-        padding: 0;
-        margin-bottom: 16px !important;
-    }
+  label {
+    margin: 0;
+    padding: 0;
+    margin-bottom: 16px !important;
+  }
 }
 
 .rating [type="radio"] {
-    border: none !important;
-    float: left !important;
+  border: none !important;
+  float: left !important;
 }
 
 .rating > input {
-    display: none !important;
+  display: none !important;
 }
 
 .rating > label:before {
-    width: 30px !important;
-    font-size: 2.5em !important;
-    font-family: FontAwesome !important;
-    display: inline-block !important;
-    content: "\f005" !important;
-    position: relative !important;
-    background: none !important;
-    border: none !important;
+  width: 36px !important;
+  font-size: 2.5em !important;
+  font-family: FontAwesome !important;
+  display: inline-block !important;
+  content: "\f005" !important;
+  position: relative !important;
+  background: none !important;
+  border: none !important;
+  margin: 0px 8px;
+  @include ssm-dec-screen {
+    margin: 0px;
+  }
+  @include ssm-between-screen {
+    margin: 0px 5px;
+  }
 }
 .rating > label::after {
-    padding: 3px !important;
-    position: relative !important;
-    background: none !important;
+  padding: 4px !important;
+  position: relative !important;
+  background: none !important;
 }
 .rating > .half:before {
-    content: "\f089" !important;
-    position: absolute !important;
+  content: "\f089" !important;
+  position: absolute !important;
 }
 
 .rating > label {
-    color: #ddd !important;
-    float: right !important;
+  color: #ddd !important;
+  float: right !important;
 }
 
 .rating > input:checked ~ label {
-    color: #ffd700 !important;
+  color: #ffd700 !important;
 }

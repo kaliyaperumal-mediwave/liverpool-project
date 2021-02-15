@@ -48,11 +48,11 @@
             </div>
         </div>
         <!-- Loader end -->
-        <div class="col-md-7 col-12 py-4 mx-auto">
-            <div class="my-md-5 my-4">
+        <div class="col-md-7 col-12 py-sm-4 mx-auto">
+            <div class="my-md-5 my-sm-4">
                 <form class="px-3 py-2 mb-1">
                     <div class="form-group py-2 m-0">
-                        <div class="auth-font my-2"> {{ apos.area(data.page, 'login_email', {
+                        <div class="auth-font my-1"> {{ apos.area(data.page, 'login_email', {
                             widgets: {
                             'apostrophe-rich-text': {
                             toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -63,7 +63,7 @@
                             }
                             }) }}
                         </div>
-                        <!-- <label for="loginEmail" class="auth-font my-2">My email address</label> -->
+                        <!-- <label for="loginEmail" class="auth-font my-1">My email address</label> -->
                         <input type="text" inputmode="email" placeholder="Enter your email address"
                             class="form-control auth-border" id="loginEmail" aria-describedby="authEmail"
                             @input="trimWhiteSpace($event,'loginObject','email')" v-model="loginObject.email">
@@ -78,7 +78,7 @@
                     </div>
 
                     <div class="form-group py-2 m-0">
-                        <div class="auth-font my-2"> {{ apos.area(data.page, 'login_password', {
+                        <div class="auth-font my-1"> {{ apos.area(data.page, 'login_password', {
                             widgets: {
                             'apostrophe-rich-text': {
                             toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -89,7 +89,7 @@
                             }
                             }) }}
                         </div>
-                        <!-- <label for="loginPassword" class="auth-font my-2">Password</label> -->
+                        <!-- <label for="loginPassword" class="auth-font my-1">Password</label> -->
                         <div id="authForm">
                             <div class="input-group">
                                 <input type="password" class="form-control auth-border py-2" id="loginPassword"

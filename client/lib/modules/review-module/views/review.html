@@ -1153,14 +1153,14 @@
                         }
                         }) }}
                     </div>
-                    <div class="py-2 px-3 m-0 question-header-font">
-                        <div class="custom-form-group m-0 pb-1">
+                    <div class="px-3 m-0 question-header-font">
+                        <div class="custom-form-group pt-3 mb-2 pl-0">
                             <input type="checkbox" id="Post" name="contactPreference" value="post"
                                 v-model="contactPref">
                             <label for="Post" class="option-font d-flex align-items-center">
                                 Post</label>
                         </div>
-                        <div class="custom-form-group m-0 pb-1">
+                        <div class="custom-form-group m-0">
                             <input type="checkbox" id="phone" name="contactPreference" value="phone"
                                 v-model="contactPref">
                             <label for="phone" class="option-font d-flex align-items-center">
@@ -1184,6 +1184,113 @@
                     </div>
                 </div>
                 <!-- Contact preferences Start -->
+
+                <!--Select a provider Start -->
+                <div v-if="userRole === 'professional'" class="py-3">
+                    <h2 class="py-2 px-3 mb-2 question-header-font">
+                        Do you want to select a provider to receive this referral?
+                    </h2>
+                    <div class="px-3 m-0 question-header-font">
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" @change="resetProvider()"
+                                id="selectProviderYes" value="Yes" v-model="selectProvider">
+                            <label for="selectProviderYes"
+                                class="form-check-label option-font d-flex align-items-center">
+                                Yes</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" @change="resetProvider()" id="selectProviderNo"
+                                value="No" v-model="selectProvider">
+                            <label for="selectProviderNo"
+                                class="form-check-label option-font d-flex align-items-center">
+                                No</label>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback d-none m-0 px-3 py-2"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !selectProvider), 'invalid-fields':!selectProvider}">
+                        You must provide an answer.
+                    </div>
+                </div>
+                <!--Select a provider end -->
+
+                <!-- Provider List Start-->
+                <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3">
+                    <h2 class="py-2 px-3 mb-2 question-header-font">
+                        Please select Provider:
+                    </h2>
+                    <!-- <div class="py-2 px-3 m-0 review-header-font">
+                        {{ apos.area(data.page, 'review_contact', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Heading', element: 'h2' }
+
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div> -->
+                    <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                        {{ apos.area(data.page, 'review_contactSub', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Paragraph', element: 'p' }
+
+                        ]
+                        }
+                        }
+                        }) }}
+                    </div> -->
+                    <div class="px-3 m-0 question-header-font">
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" @change="changeProvider($event)" id="YPAS"
+                                value="YPAS" v-model="sendRef">
+                            <label for="YPAS" class="form-check-label option-font d-flex align-items-center">
+                                YPAS</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" id="venus" @change="changeProvider($event)"
+                                value="Venus" v-model="sendRef">
+                            <label for="venus" class="form-check-label option-font d-flex align-items-center">
+                                Venus</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" id="IAPTUS" @change="changeProvider($event)"
+                                value="IAPTUS" v-model="sendRef">
+                            <label for="IAPTUS" class="form-check-label option-font d-flex align-items-center">
+                                IAPTUS</label>
+                        </div>
+                        <div class="form-check pt-3 pl-0">
+                            <input type="radio" class="form-check-input" id="sendRefDirOther"
+                                @change="changeProvider($event)" value="Other" v-model="sendRef">
+                            <label for="sendRefDirOther" class="form-check-label option-font d-flex align-items-center">
+                                Other</label>
+                        </div>
+                        <template v-if="addMoreOrg">
+                            <div class="form-group pt-4 pb-0 m-0 w-75">
+                                <label for="whereToSend" class="question-font mb-3">Enter the name of where you want to
+                                    send
+                                    the referral</label>
+                                <textarea class="h-112 form-control" id="whereToSend" v-model="nameForOthers"
+                                    @input="preventWhiteSpaces($event,'other')" rows="4"></textarea>
+                            </div>
+                            <div class="invalid-feedback d-none m-0 py-2"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && sendRef =='Other' && !nameForOthers), 'invalid-fields':(isFormSubmitted && sendRef =='Other' && !nameForOthers)}">
+                                You must provide an answer.
+                            </div>
+                        </template>
+
+                    </div>
+                    <div class="invalid-feedback d-none m-0 px-3 py-2"
+                        v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
+                        You must provide an answer.
+                    </div>
+                </div>
+                <!-- Provider List End-->
+
 
                 <!-- Send Start -->
                 <div id="send" class="py-4">
