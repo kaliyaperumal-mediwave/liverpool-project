@@ -10,7 +10,7 @@ endblock %} {% block extraHead %}
 
 <!--Font Family Cdn-->
 <link rel="stylesheet" href="https://use.typekit.net/htu8woz.css" />
-<link rel="stylesheet" href="https://stagingliverpool.blob.core.windows.net/asset/styles.css" />
+<!-- <link rel="stylesheet" href="https://stagingliverpool.blob.core.windows.net/asset/styles.css" /> -->
 
 <!--Bootstrap  Style Cdn-->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -73,9 +73,9 @@ endblock %} {% block extraHead %}
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
 <script>
- $(document).ready(function() {
-      $('#hideserachblock').removeClass('d-none');
- });
+  $(document).ready(function () {
+    $('#hideserachblock').removeClass('d-none');
+  });
 </script>
 
 <!-- {#
@@ -83,7 +83,7 @@ endblock %} {% block extraHead %}
     It is a good place to put extra <script> <link> and <meta> tags.
   #} -->
 {% endblock %}
- {% block beforeMain %}
+{% block beforeMain %}
 
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
