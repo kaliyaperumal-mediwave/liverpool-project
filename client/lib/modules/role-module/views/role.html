@@ -128,7 +128,7 @@
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p> -->
-                    <div v-show="elgibilityObj.role=='child'" class="question-font m-0"> 
+                    <div v-show="elgibilityObj.role=='child'" class="question-font m-0">
                         {{ apos.area(data.page,
                         'referral1_titledate', {
                         widgets: {
@@ -147,7 +147,7 @@
                             @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
-                            <span class="input-group-text">
+                            <span class="input-group-text p-16">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
@@ -183,7 +183,7 @@
                             :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
-                            <span class="input-group-text">
+                            <span class="input-group-text p-16">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
@@ -542,7 +542,7 @@
                                 <i class="inputLoader"></i>
                             </div>
                             <div class="input-group-append" id="addOpacityProf">
-                                <span class="input-group-text">
+                                <span class="input-group-text p-16">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -602,18 +602,23 @@
                     class="px-4 py-4"> -->
                 <div v-show="(elgibilityObj.role=='parent' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt) || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.reason_contact_parent_camhs) || (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.belowAgeLimit == 'yes') || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt)"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
+                        <div class="">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: </p>
-                            <p class="question-font text-center m-0 pb-2">You are
+                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished:You are
                                 eligible
                                 to
                                 continue
                                 with this
-                                referral.</p>
+                                referral. </p>
+                            <!-- <p class="question-font text-center m-0 pb-2">You are
+                                eligible
+                                to
+                                continue
+                                with this
+                                referral.</p> -->
                         </div>
                     </div>
                 </div>
@@ -713,7 +718,7 @@
                         :config="options" :wrap="dateWrap">
                     </date-picker>
                     <div class="input-group-append cursor-pointer">
-                        <span class="input-group-text">
+                        <span class="input-group-text p-16">
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                         </span>
                     </div>
@@ -941,7 +946,7 @@
                                 <i class="inputLoader"></i>
                             </div>
                             <div class="input-group-append" id="addOpacity">
-                                <span class="input-group-text">
+                                <span class="input-group-text p-16">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -1000,18 +1005,23 @@
             <form id="submitFormTrue-form1" data-options="submitProfForm">
                 <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber))  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
                     class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
+                        <div class="">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: </p>
-                            <p class="question-font text-center m-0 pb-2">You are
+                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: You are
                                 eligible
                                 to
                                 continue
                                 with this
                                 referral.</p>
+                            <!-- <p class="question-font text-center m-0 pb-2">You are
+                                eligible
+                                to
+                                continue
+                                with this
+                                referral.</p> -->
                         </div>
                     </div>
                 </div>
