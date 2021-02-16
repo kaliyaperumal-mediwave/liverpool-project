@@ -71,7 +71,15 @@ endblock %} {% block extraHead %}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
-
+<script type="text/javascript">
+  (function () {
+    window.Saber = { com: [], do: function () { this.com.push(arguments) } };
+    var e = document.createElement("script");
+    e.setAttribute("type", "text/javascript");
+    e.setAttribute("src", "//feedback.saberfeedback.com/feedback.js?api_key=6e89e5c714fe9c505573");
+    document.getElementsByTagName("head")[0].appendChild(e);
+  })();
+</script>
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
