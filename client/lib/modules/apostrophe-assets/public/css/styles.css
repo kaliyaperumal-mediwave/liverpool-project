@@ -4147,3 +4147,19 @@ i.fa.fa-map-marker {
 i.fa.fa-calendar {
   font-size: 21px;
   font-weight: 600; }
+
+::-webkit-input-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important; }
+
+::-moz-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important; }
+
+:-ms-input-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important; }
+
+:-moz-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important; }
