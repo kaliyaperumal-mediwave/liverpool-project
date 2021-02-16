@@ -1328,7 +1328,7 @@
                         // https://bugs.jquery.com/ticket/12359
                         docElem.appendChild(el).innerHTML = "<a id='" + expando + "'></a>" +
                             "<select id='" + expando + "-\r\\' msallowcapture=''>" +
-                            "<option selected=''></option></select>";
+                            "<option class='option-text' selected=''></option></select>";
 
                         // Support: IE8, Opera 11-12.16
                         // Nothing should be selected when empty strings follow ^= or $= or *=
@@ -1384,7 +1384,7 @@
 
                     assert(function (el) {
                         el.innerHTML = "<a href='' disabled='disabled'></a>" +
-                            "<select disabled='disabled'><option/></select>";
+                            "<select disabled='disabled'><option class='option-text'/></select>";
 
                         // Support: Windows 8 Native Apps
                         // The type and name attributes are restricted during .innerHTML assignment
@@ -4929,9 +4929,9 @@
         support.noCloneChecked = !!div.cloneNode(true).lastChild.defaultValue;
 
         // Support: IE <=9 only
-        // IE <=9 replaces <option> tags with their contents when inserted outside of
+        // IE <=9 replaces <option class='option-text'> tags with their contents when inserted outside of
         // the select element.
-        div.innerHTML = "<option></option>";
+        div.innerHTML = "<option class='option-text'></option>";
         support.option = !!div.lastChild;
     })();
 

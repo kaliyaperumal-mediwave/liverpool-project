@@ -56,11 +56,6 @@ body {
   }
 
   .readOnly-class {
-    .form-control {
-      background: #eef2f3 0% 0% no-repeat padding-box !important;
-      color: #8f979e !important;
-      @extend %input-shared;
-    }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
@@ -201,7 +196,8 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
+    30px;
   background-size: contain;
 }
 
@@ -287,7 +283,8 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
+    fixed !important;
   background-size: cover !important;
 }
 
@@ -997,7 +994,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -1025,7 +1023,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -2615,7 +2614,9 @@ $color-scheme: (
       #b0bec5,
       url("/modules/my-apostrophe-assets/img/desktop.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool.svg"),
-      #023047
+      #023047,
+      #e8edee,
+      #ffffff
     )
     (
       on,
@@ -2628,7 +2629,9 @@ $color-scheme: (
       #3a3e47,
       url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
-      #ffffff
+      #ffffff,
+      #535454,
+      #535454
     )
 );
 @mixin theme(
@@ -2642,7 +2645,9 @@ $color-scheme: (
   $search-bar-color,
   $background,
   $bgLogo,
-  $togglePrimary
+  $togglePrimary,
+  $input-form-color,
+  $card-bg-color
 ) {
   .#{$name} {
     .body-bg {
@@ -2692,12 +2697,43 @@ $color-scheme: (
     .home-header-secondary {
       color: $secondary;
     }
-
+    .bg-set-on-card {
+      background: $card-bg-color;
+    }
     .footer-content {
+      color: $secondary;
+    }
+    .input-bg-form-control {
+      background: $input-form-color 0% 0% no-repeat padding-box !important;
+    }
+    #authForm {
+      .input-group-text {
+        background: $input-form-color 0% 0% no-repeat padding-box !important;
+      }
+    }
+    .fa-pencil {
+      color: $secondary;
+    }
+    .fa-trash-o {
+      color: $secondary;
+    }
+    .option-text {
+      color: $secondary;
+    }
+    .fa-eye-slash {
+      color: $secondary;
+    }
+    .custom-select {
+      color: $secondary !important;
+    }
+    .fa-eye {
       color: $secondary;
     }
     .footer-content-secondary {
       color: $secondary;
+    }
+    .plain-select::after {
+      border-top: 6px solid $secondary !important;
     }
     .option-font {
       color: $secondary;
@@ -2782,10 +2818,10 @@ $color-scheme: (
     .ham-icon {
       color: $secondary;
     }
-    .selectSource{
+    .selectSource {
       color: $secondary;
     }
-    .title-thing-to-watch{
+    .title-thing-to-watch {
       color: $secondary;
     }
     .bg-fafa {
@@ -2804,6 +2840,18 @@ $color-scheme: (
     input::placeholder {
       color: $secondary !important;
     }
+    textarea::placeholder {
+      color: $secondary !important;
+    }
+    
+      .readOnly-class{
+        .form-control {
+          background: $input-form-color 0% 0% no-repeat padding-box !important;
+          color: #8f979e !important;
+        }
+      }
+    
+    
     input {
       color: $placeholderTheme-color !important;
     }
@@ -2817,8 +2865,9 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo, $togglePrimary in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
+  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -2831,7 +2880,9 @@ $color-scheme: (
     $search-bar-color,
     $background,
     $bgLogo,
-    $togglePrimary
+    $togglePrimary,
+    $input-form-color,
+    $card-bg-color
   );
 }
 
@@ -3024,20 +3075,20 @@ $color-scheme: (
   overflow-y: scroll !important;
   padding-right: 0px !important;
 }
-.dropdown.d-flex.justify-content-end.align-items-center.show .fa-caret-down{
-  -moz-transform:rotate(180deg);
-   -webkit-transform:rotate(180deg);
-   transform:rotate(180deg);
-   font-size: 20px;
-   padding-right: 10px;
-   padding-left: 0px;
+.dropdown.d-flex.justify-content-end.align-items-center.show .fa-caret-down {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  font-size: 20px;
+  padding-right: 10px;
+  padding-left: 0px;
 }
-.dropdown.d-flex.justify-content-end.align-items-center .custom-select-icon{
+.dropdown.d-flex.justify-content-end.align-items-center .custom-select-icon {
   background: none !important;
   text-align: right;
-    margin-right: 15px;
+  margin-right: 15px;
 }
-.fas.fa-caret-down{
-   font-size: 20px;
-   padding-left: 10px;
+.fas.fa-caret-down {
+  font-size: 20px;
+  padding-left: 10px;
 }

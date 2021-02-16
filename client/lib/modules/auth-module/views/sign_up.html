@@ -64,7 +64,7 @@
             }) }}
           </div>
           <!-- <label for="firstName" class="auth-font my-1">First name</label> -->
-          <input type="text" placeholder="Enter your first name" class="form-control auth-border" id="firstName"
+          <input type="text" placeholder="Enter your first name" class="form-control auth-border input-bg-form-control" id="firstName"
             @input="trimWhiteSpace($event,'signUpObject','first_name')" v-model="signUpObject.first_name">
           <div class="invalid-feedback px-1 d-none"
             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.first_name),'invalid-fields':!signUpObject.first_name }">
@@ -85,7 +85,7 @@
             }) }}
           </div>
           <!-- <label for="lastName" class="auth-font my-1">Last name</label> -->
-          <input type="text" placeholder="Enter your last name" class="form-control auth-border" id="lastName"
+          <input type="text" placeholder="Enter your last name" class="form-control auth-border input-bg-form-control" id="lastName"
             @input="trimWhiteSpace($event,'signUpObject','last_name')" v-model="signUpObject.last_name">
           <div class="invalid-feedback px-1 d-none"
             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.last_name),'invalid-fields':!signUpObject.last_name }">
@@ -106,7 +106,7 @@
             }) }}
           </div>
           <!-- <label for="emailAddressAuth" class="auth-font my-1">Email address</label> -->
-          <input type="text" inputmode="email" placeholder="Enter your email address" class="form-control auth-border"
+          <input type="text" inputmode="email" placeholder="Enter your email address" class="form-control auth-border input-bg-form-control"
             @input="trimWhiteSpace($event,'signUpObject','email')" id="emailAddressAuth" v-model="signUpObject.email">
           <div class="invalid-feedback px-1 d-none"
             v-bind:class="{ 'd-block': (isFormSubmitted && !signUpObject.email),'invalid-fields':!signUpObject.email }">
@@ -132,14 +132,14 @@
           </div>
           <!-- <label for="authRoles" class="auth-font my-1">Select role</label> -->
           <span class="plain-select">
-            <select class="custom-select form-control auth-border" v-model="signUpObject.role" name="legalCare">
-              <option value="" selected disabled>Select role
+            <select class="custom-select form-control auth-border input-bg-form-control" v-model="signUpObject.role" name="legalCare">
+              <option class='option-text' value="" selected disabled>Select role
               </option>
-              <option value="child">Child
+              <option class='option-text' value="child">Child
               </option>
-              <option value="parent">Parent
+              <option class='option-text' value="parent">Parent
               </option>
-              <option value="professional">Professional
+              <option class='option-text' value="professional">Professional
               </option>
             </select>
           </span>
@@ -164,7 +164,7 @@
           <!-- <label for="signUpPassword" class="auth-font my-1">Password</label> -->
           <div id="authForm">
             <div class="input-group">
-              <input type="password" class="form-control auth-border py-2" id="signUpPassword" autocomplete="off"
+              <input type="password" class="form-control auth-border py-2 input-bg-form-control" id="signUpPassword" autocomplete="off"
                 @input="trimWhiteSpace($event,'signUpObject','password')" v-model="signUpObject.password"
                 placeholder="Enter your password">
               <span class="input-group-append">
@@ -208,7 +208,7 @@
           <!-- <label for="confirmPassword" class="auth-font my-1">Confirm password</label> -->
           <div id="authForm">
             <div class="input-group">
-              <input type="password" class="form-control auth-border py-2" id="confirmPassword" autocomplete="off"
+              <input type="password" class="form-control auth-border py-2 input-bg-form-control" id="confirmPassword" autocomplete="off"
                 @input="trimWhiteSpace($event,'signUpObject','confirm_password')"
                 v-model="signUpObject.confirm_password" placeholder="Enter your password">
               <span class="input-group-append">

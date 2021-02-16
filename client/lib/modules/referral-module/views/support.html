@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <label for="attendedLocation" class="question-font">{{dynamicLabels.locationLabel}}</label>
                             <div class="input-group">
-                                <input type="search" class="form-control" placeholder="Start typing to search"
+                                <input type="search" class="form-control input-bg-form-control" placeholder="Start typing to search"
                                     id="attendedLocation" aria-label="location" name="educationLocation"
                                     v-model="educAndEmpData.attendedInfo">
                                 <div class="input-group-append">
@@ -166,7 +166,7 @@
                         <div class="form-group m-0">
                             <label for="socialWorker"
                                 class="question-font">{{dynamicLabels.socialWorkerNameLabel}}</label>
-                            <input type="text" class="form-control" id="socialWorker"
+                            <input type="text" class="form-control input-bg-form-control" id="socialWorker"
                                 placeholder="Enter social worker's name" v-model="educAndEmpData.socialWorkName">
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
@@ -183,7 +183,7 @@
                         <div class="form-group">
                             <label for="contactWorker"
                                 class="question-font">{{dynamicLabels.socialWorkerContactLabel}}</label>
-                            <input type="text" class="form-control" id="contactWorker"
+                            <input type="text" class="form-control input-bg-form-control" id="contactWorker"
                                 placeholder="Enter social worker's phone number"
                                 v-model="educAndEmpData.socialWorkContact">
                             <div class="invalid-feedback d-none"

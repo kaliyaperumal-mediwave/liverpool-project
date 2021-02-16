@@ -84,7 +84,7 @@
                     <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p>
                     <div class="input-group">
-                        <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.childDob"
+                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date" v-model="elgibilityObj.childDob"
                             @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)"
                             :config="options" :wrap="dateWrap">
                         </date-picker>
@@ -106,7 +106,7 @@
                         birth?
                     </p>
                     <div class="input-group">
-                        <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.childDob"
+                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date" v-model="elgibilityObj.childDob"
                             @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)"
                             :config="options" :wrap="dateWrap">
                         </date-picker>
@@ -368,7 +368,7 @@
                     <div class="form-group">
                         <label for="professionalFullName2" class="question-font">Your full name</label>
                         <input type="text" v-model="elgibilityObj.profName" @input="onVaueChange($event,'fullName')"
-                            placeholder="Enter your full name" class="form-control" id="professionalFullName2">
+                            placeholder="Enter your full name" class="form-control input-bg-form-control" id="professionalFullName2">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
                             Please provide a name.
                         </div>
@@ -380,7 +380,7 @@
                         <label for="emailAddress" class="question-font">Your email address - <b>optional</b>
                         </label>
                         <input type="email" v-model="elgibilityObj.profEmail" @input="onVaueChange($event,'email')"
-                            placeholder="Enter your email address" class="form-control" id="emailAddress">
+                            placeholder="Enter your email address" class="form-control input-bg-form-control" id="emailAddress">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasEmailInvalidError }">
                             Please provide a valid email.
                         </div>
@@ -389,7 +389,7 @@
                         <label for="contact" class="question-font">Enter your contact number</label>
                         <input type="text" v-model="elgibilityObj.profContactNumber"
                             @input="onVaueChange($event,'contact')" placeholder="Enter your contact number"
-                            class="form-control" id="contact">
+                            class="form-control input-bg-form-control" id="contact">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactReqError }">
                             Please provide a number.
                         </div>
@@ -407,7 +407,7 @@
                 class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <p class="question-font m-0">What is the child / young person’s date of birth?</p>
                 <div class="input-group">
-                    <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.profChildDob"
+                    <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date" v-model="elgibilityObj.profChildDob"
                         @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.profChildDob)"
                         :config="options" :wrap="dateWrap">
                     </date-picker>
