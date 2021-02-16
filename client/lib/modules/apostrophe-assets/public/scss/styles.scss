@@ -3095,3 +3095,20 @@ i.fa.fa-calendar{
 .dropdown.d-flex.justify-content-end.align-items-center.show * {
   color: #023047 !important;
 }
+@media (max-width: 768px) {
+  ::-webkit-input-placeholder {
+  font-size: 14px !important;
+  }
+  ::-moz-placeholder {
+    font-size: 14px !important;
+  }
+  :-ms-input-placeholder {
+    font-size: 14px !important;
+  }
+  :-moz-placeholder {
+    font-size: 14px !important;
+  }
+  .form-control.auth-border{
+    font-size: 14px !important;
+  }
+}
