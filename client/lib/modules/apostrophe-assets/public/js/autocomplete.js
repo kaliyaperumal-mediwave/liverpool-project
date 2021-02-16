@@ -9011,7 +9011,7 @@
                 monthHtml += "<select class='ui-datepicker-month' data-handler='selectMonth' data-event='change'>";
                 for (month = 0; month < 12; month++) {
                     if ((!inMinYear || month >= minDate.getMonth()) && (!inMaxYear || month <= maxDate.getMonth())) {
-                        monthHtml += "<option value='" + month + "'" +
+                        monthHtml += "<option class='option-text' value='" + month + "'" +
                             (month === drawMonth ? " selected='selected'" : "") +
                             ">" + monthNamesShort[month] + "</option>";
                     }
@@ -9045,7 +9045,7 @@
                     endYear = (maxDate ? Math.min(endYear, maxDate.getFullYear()) : endYear);
                     inst.yearshtml += "<select class='ui-datepicker-year' data-handler='selectYear' data-event='change'>";
                     for (; year <= endYear; year++) {
-                        inst.yearshtml += "<option value='" + year + "'" +
+                        inst.yearshtml += "<option class='option-text' value='" + year + "'" +
                             (year === drawYear ? " selected='selected'" : "") +
                             ">" + year + "</option>";
                     }

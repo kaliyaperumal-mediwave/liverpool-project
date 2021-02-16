@@ -144,7 +144,7 @@
                         <div class="form-group py-1">
                             <label for="mainEatDiff" class="question-font">Please give a brief outline of [<i>your/ your
                                     child's / the child/young person's</i>] daily food/fluid intake:</label>
-                            <textarea class="h-112 form-control" name="briefOutlineInfo" id="mainEatDiff"
+                            <textarea class="h-112 form-control input-bg-form-control" name="briefOutlineInfo" id="mainEatDiff"
                                 placeholder="Tell us about diet,eating habits,quantities"
                                 @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
                                 rows="7"></textarea>
@@ -158,7 +158,7 @@
                     <div v-if="eatingDifficulties.length" class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-1">
                             <label for="heightOpt" class="question-font">Height-<b>optional</b></label>
-                            <input type="text" class="form-control" id="heightOpt" placeholder="Enter height"
+                            <input type="text" class="form-control input-bg-form-control" id="heightOpt" placeholder="Enter height"
                                 @input="trimWhiteSpace($event,'referralData','height')" v-model="referralData.height">
                         </div>
                     </div>
@@ -173,7 +173,7 @@
                             <label for="weightOpt" class="question-font">Weight-<b>optional</b></label>
                             <p class="question-font">If you're not sure of your exact weight, please describe
                                 it</p>
-                            <input type="text" class="form-control" id="weightOpt" placeholder="Enter weight"
+                            <input type="text" class="form-control input-bg-form-control" id="weightOpt" placeholder="Enter weight"
                                 @input="trimWhiteSpace($event,'referralData','weight')" v-model="referralData.weight">
                         </div>
                     </div>
@@ -240,7 +240,7 @@
                         class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="proOthers" class="question-font">Other <b>(optional)</b></label>
-                            <textarea class="h-112 form-control" name="listReasonsForReferral" id="proOthers"
+                            <textarea class="h-112 form-control input-bg-form-control" name="listReasonsForReferral" id="proOthers"
                                 v-model="referralData.otherReasonsReferral" @input="onValueEnter($event,'other')"
                                 rows="4"></textarea>
                         </div>
@@ -256,7 +256,7 @@
                         <div class="form-group">
                             <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}
                                 <b>{{dynamicLabels.referralSubLabel}}</b></label>
-                            <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo1"
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo1"
                                 @input="trimWhiteSpace($event,'referralData','referralInfo',true)"
                                 v-model="referralData.referralInfo"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
@@ -275,7 +275,7 @@
                         class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-1">
                             <label for="textInfo2" class="question-font">Has anything helped? <b>(optional)</b></label>
-                            <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo2"
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo2"
                                 @input="trimWhiteSpace($event,'referralData','hasAnythingInfo')"
                                 v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
@@ -291,7 +291,7 @@
                         <div class="form-group py-1">
                             <label for="textInfo3" class="question-font">{{dynamicLabels.triggersLabel}}
                                 <b>(optional)</b></label>
-                            <textarea class="h-112 form-control" name="infoTextAreas" id="textInfo3"
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo3"
                                 @input="trimWhiteSpace($event,'referralData','triggerInfo')"
                                 v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
@@ -310,7 +310,7 @@
                             <div class="form-group m-0">
                                 <label for="disability" class="question-font">{{dynamicLabels.disabilitiesLabel}}
                                     <b>(optional)</b></label>
-                                <textarea class="h-112 form-control" name="disabilitiesandDifficulty" id="disability"
+                                <textarea class="h-112 form-control input-bg-form-control" name="disabilitiesandDifficulty" id="disability"
                                     @input="trimWhiteSpace($event,'referralData','disabilityOrDifficulty')"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
@@ -367,7 +367,7 @@
                         <!-- <div class="text-center"> -->
                         <template v-if="allAvailableService.length">
                             <div class="card text-left mb-2" v-for="(item, index) in allAvailableService" :key="index">
-                                <div class="card-body text-capitalize">
+                                <div class="card-body text-capitalize bg-set-on-card">
                                     <div class="d-flex align-items-center justify-content-between my-1">
                                         <h3 class="link-text">{{item.name}}</h3>
                                         <div>
@@ -420,7 +420,7 @@
                                 <form id="add-service-form">
                                     <div class="form-group">
                                         <label for="service-name" class="question-font">Name of service</label>
-                                        <input type="text" class="form-control" v-model="serviceData.name"
+                                        <input type="text" class="form-control input-bg-form-control" v-model="serviceData.name"
                                             @input="trimWhiteSpace($event,'serviceData','name')" id="service-name"
                                             placeholder="Enter the name of the service you have used">
                                         <div class="text-validation invalid-feedback  d-none"
@@ -431,7 +431,7 @@
                                     <div class="form-group">
                                         <label for="profAtService" class="question-font">Name of professional at
                                             service</label>
-                                        <input type="text" v-model="serviceData.professional" class="form-control"
+                                        <input type="text" v-model="serviceData.professional" class="form-control input-bg-form-control"
                                             @input="trimWhiteSpace($event,'serviceData','professional')"
                                             id="profAtService" placeholder="Enter the name of who you worked with">
                                         <div class="text-validation invalid-feedback  d-none"
@@ -443,7 +443,7 @@
                                         <label for="contactNumber" class="question-font">Contact
                                             number for
                                             professional</label>
-                                        <input type="text" class="form-control" v-model="serviceData.contact"
+                                        <input type="text" class="form-control input-bg-form-control" v-model="serviceData.contact"
                                             @input="trimWhiteSpace($event,'serviceData','contact')" id="contactNumber"
                                             placeholder="Enter a phone number for the professional">
                                         <div class="text-validation invalid-feedback  d-none"

@@ -67,13 +67,13 @@ $(document).ready(function () {
               '<div class="input-group height-set-admin-select">' +
               '<span class="plain-select">' +
               '<select class="custom-select form-control " name="legalCare">' +
-              '<option value="Nothing" selected>Nothing</option>' +
-              '<option value="Accepted">Accepted</option>' +
-              '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
-              '<option value="Duplicate referral">Duplicate referral</option>' +
-              '<option value="Rejected referral">Rejected referral</option>' +
-              '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
-              '<option value="Referral to other team ">Referral to other team</option>' +
+              '<option class='option-text' value="Nothing" selected>Nothing</option>' +
+              '<option class='option-text' value="Accepted">Accepted</option>' +
+              '<option class='option-text' value="Forwarded to partner agency">Forwarded to partner agency</option>' +
+              '<option class='option-text' value="Duplicate referral">Duplicate referral</option>' +
+              '<option class='option-text' value="Rejected referral">Rejected referral</option>' +
+              '<option class='option-text' value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
+              '<option class='option-text' value="Referral to other team ">Referral to other team</option>' +
               '</select>' +
               '</span>' +
               '</div>'
