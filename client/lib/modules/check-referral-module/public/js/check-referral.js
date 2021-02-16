@@ -100,7 +100,10 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        console.log(error)
+                        if(error) {
+                            console.log(error)
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
                 });
             },
@@ -143,7 +146,10 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        console.log(error)
+                        if(error) {
+                            console.log(error)
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
                 });
             },
@@ -179,7 +185,10 @@ $(document).ready(function () {
                             console.log(data)
                         },
                         error: function (error) {
-                            console.log(error)
+                            if(error) {
+                                console.log(error)
+                                showError(error.responseJSON.message, error.status);
+                            }
                         }
                     });
                 }
@@ -200,7 +209,10 @@ $(document).ready(function () {
                         console.log(data)
                     },
                     error: function (error) {
-                        console.log(error)
+                        if(error) {
+                            console.log(error)
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
                 });
             },

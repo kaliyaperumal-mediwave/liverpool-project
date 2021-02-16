@@ -69,16 +69,21 @@ function deleteLogic(arr, value, context, section) {
 };
 
 //Common Modal for API error messages
-function showError(content) {
+function showError(content, statusCode = "") {
     if (!content) {
         content = "Something went wrong.Please try again"
     }
     $('#errorContent').text(content);
+    $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text(statusCode);
     $('#errorCommon').modal('show');
 };
 
 function closeError() {
+    var statusCode = $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text();
     $('#errorCommon').modal('hide');
+    if(statusCode && statusCode == '401') {
+        location.href = "/users/login";
+    }
 }
 
 //Function to Identify space Logic 2
@@ -171,7 +176,7 @@ function apiCallPost(reqType, endPoint, payload) {
         error: function (error) {
             $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
-                showError(error.responseJSON.message);
+                showError(error.responseJSON.message, error.status);
                 // setTimeout(function () {
                 //     $('#errorCommon').modal('hide');
                 // }, 1000);
@@ -196,7 +201,7 @@ function apiCallGet(reqType, endPoint, API_URI) {
         },
         error: function (error) {
             $('#loader').hide();
-            console.log(error.responseJSON.message)
+            showError(error.responseJSON.message, error.status);
         }
     });
     return response
@@ -218,7 +223,7 @@ function apiCallPut(reqType, endPoint, payload) {
                 response = res;
             },
             error: function (error) {
-                console.log(error.responseJSON.message)
+                showError(error.responseJSON.message, error.status);
             }
         });
     return response
@@ -427,7 +432,7 @@ function logOut() {
             location.href = window.location.origin + '/users/login';
         },
         error: function (error) {
-            if(error.status == 401) {
+            if (error.status == 401) {
                 location.href = window.location.origin + '/users/login';
             } else {
                 $('#loader').hide();

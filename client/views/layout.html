@@ -72,9 +72,9 @@ endblock %} {% block extraHead %}
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
 <script>
- $(document).ready(function() {
-      $('#hideserachblock').removeClass('d-none');
- });
+  $(document).ready(function () {
+    $('#hideserachblock').removeClass('d-none');
+  });
 </script>
 
 <!-- {#
@@ -82,7 +82,7 @@ endblock %} {% block extraHead %}
     It is a good place to put extra <script> <link> and <meta> tags.
   #} -->
 {% endblock %}
- {% block beforeMain %}
+{% block beforeMain %}
 
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
@@ -355,6 +355,7 @@ endblock %} {% block extraHead %}
               <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
             </span>
             <h5 id="errorContent" class="text-danger logout-font my-4">error content</h5>
+            <span class="d-none" id="74dae8ad-4a79-4a60-845b-603e8a643ceb"></span>
           </div>
         </div>
       </div>

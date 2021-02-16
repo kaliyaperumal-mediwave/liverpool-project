@@ -121,6 +121,9 @@ $(document).ready(function () {
                         },
                         error: function (error) {
                             $('#loader').hide();
+                            if(error) {
+                                showError(error.responseJSON.message, error.status);
+                            }
                             //console.log(error.responseJSON.message)
                         }
                     });
@@ -898,7 +901,10 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         $('#loader').hide();
-                        console.log(error.responseJSON.message)
+                        if(error) {
+                            console.log(error.responseJSON.message)
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
                 });
             },
