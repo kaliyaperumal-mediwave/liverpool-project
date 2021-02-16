@@ -62,7 +62,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            _self.showErrorModal(error.responseJSON.message);
+                            showError(error.responseJSON.message, error.status);
                         }
                     }
                 });
@@ -114,7 +114,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            _self.showErrorModal(error.responseJSON.message);
+                            showError(error.responseJSON.message, error.status);
                         }
                     }
                 });
@@ -143,7 +143,7 @@ $(document).ready(function () {
                         error: function (error) {
                             $('#loader').hide();
                             if (error) {
-                                _self.showErrorModal(error.responseJSON.message);
+                                showError(error.responseJSON.message, error.status);
                             }
                         }
                     });
@@ -175,17 +175,6 @@ $(document).ready(function () {
                     this.searchRefObj.errMsg = false;
                     this.searchRefObj.validateErrMsg = false;
                 }
-            },
-            showErrorModal: function (content) {
-                if (!content) {
-                    content = "Something went wrong.Please try again"
-                }
-                $('#errorModalContent').text(content);
-                $('#errorModal').modal('show');
-            },
-            closeErrorModal: function () {
-                $('#errorModal').modal('hide');
-                location.href = "/users/login";
             }
 
         }

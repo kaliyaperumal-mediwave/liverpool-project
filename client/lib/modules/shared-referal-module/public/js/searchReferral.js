@@ -23,7 +23,7 @@ $(document).ready(function () {
             error: function (error) {
                 $('#loader').hide();
                 if (error) {
-                    showError(error.responseJSON.message);
+                    showError(error.responseJSON.message, error.status);
                 }
             }
         });
