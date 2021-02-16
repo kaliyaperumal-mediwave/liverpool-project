@@ -3,14 +3,92 @@ $(document).ready(function () {
   var vueApp = new Vue({
     el: '#admin',
 
+    components: {
+      'BootstrapTable': BootstrapTable
+    },  
+
     data: {
       toggle: true,
       referralData: [],
-      pageLimit: 10,
+      pageLimit: 30,
       pageNum: 1,
       referral_ids: [],
       dataSet: [],
       successMessage: '',
+      columns: [
+        {
+          field: 'state',
+          checkbox: true,
+          valign: 'middle'
+        },
+        {
+          field: 'name',
+          title: '<b>Name</b>',
+          sortable: true,
+        },
+        {
+          field: 'dob',
+          title: '<b>DOB</b>',
+          sortable: true,
+        },
+        {
+          field: 'reference_code',
+          title: '<b>Unique code</b>',
+          sortable: true,
+        },
+        {
+          field: 'referrer',
+          title: '<b>Referrer</b>',
+          sortable: true,
+        },
+        {
+          field: 'gp_location',
+          title: '<b>GP Location</b>',
+          sortable: true,
+        },
+        {
+          field: 'referrer_type',
+          title: '<b>Referrer type</b>',
+          sortable: true,
+        },
+        {
+          field: 'date',
+          title: '<b>Date</b>',
+          sortable: true,
+        },
+        {
+          field: 'action',
+          title: '<b>Status</b>',
+          align: 'center',
+          valign: 'middle',
+          formatter: function () {
+            return '<div class="input-group height-set-admin-select">' +
+            '<span class="plain-select">' +
+            '<select class="custom-select form-control " name="legalCare">' +
+            '<option value="Nothing" selected>Nothing</option>' +
+            '<option value="Accepted">Accepted</option>' +
+            '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
+            '<option value="Duplicate referral">Duplicate referral</option>' +
+            '<option value="Rejected referral">Rejected referral</option>' +
+            '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
+            '<option value="Referral to other team ">Referral to other team</option>' +
+            '</select>' +
+            '</span>' +
+            '</div>';
+          },
+          events: {
+            'change .like': function (e, value, row) {
+              alert(JSON.stringify(row))
+            }
+          }
+        }
+      ],
+      options: {
+        search: true,
+        showColumns: true,
+        pagination: true,
+        pageType: 'numbers'
+      },
     },
 
     beforeMount: function () {
@@ -53,36 +131,36 @@ $(document).ready(function () {
 
         if (successData && Object.keys(successData).length) {
           this.referralData = successData.data;
-          this.dataSet = [];
-          for (var i = 0; i < this.referralData.length; i++) {
-            this.dataSet.push([
-              "<input type='checkbox' id='" + this.referralData[i].uuid + "' name='" + this.referralData[i].uuid + "' value='" + this.referralData[i].uuid + "'>",
-              this.referralData[i].name,
-              this.referralData[i].dob,
-              this.referralData[i].reference_code,
-              this.referralData[i].referrer,
-              this.referralData[i].gp_location,
-              this.referralData[i].referrer_type,
-              this.referralData[i].date,
-              '<div class="input-group height-set-admin-select">' +
-              '<span class="plain-select">' +
-              '<select class="custom-select form-control " name="legalCare">' +
-              '<option value="Nothing" selected>Nothing</option>' +
-              '<option value="Accepted">Accepted</option>' +
-              '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
-              '<option value="Duplicate referral">Duplicate referral</option>' +
-              '<option value="Rejected referral">Rejected referral</option>' +
-              '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
-              '<option value="Referral to other team ">Referral to other team</option>' +
-              '</select>' +
-              '</span>' +
-              '</div>'
-            ]);
-          }
-          $('#example').DataTable({
-            destroy: true,
-            data: this.dataSet
-          });
+          // this.dataSet = [];
+          // for (var i = 0; i < this.referralData.length; i++) {
+          //   this.dataSet.push([
+          //     "<input type='checkbox' id='" + this.referralData[i].uuid + "' name='" + this.referralData[i].uuid + "' value='" + this.referralData[i].uuid + "'>",
+          //     this.referralData[i].name,
+          //     this.referralData[i].dob,
+          //     this.referralData[i].reference_code,
+          //     this.referralData[i].referrer,
+          //     this.referralData[i].gp_location,
+          //     this.referralData[i].referrer_type,
+          //     this.referralData[i].date,
+          //     '<div class="input-group height-set-admin-select">' +
+          //     '<span class="plain-select">' +
+          //     '<select class="custom-select form-control " name="legalCare">' +
+          //     '<option value="Nothing" selected>Nothing</option>' +
+          //     '<option value="Accepted">Accepted</option>' +
+          //     '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
+          //     '<option value="Duplicate referral">Duplicate referral</option>' +
+          //     '<option value="Rejected referral">Rejected referral</option>' +
+          //     '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
+          //     '<option value="Referral to other team ">Referral to other team</option>' +
+          //     '</select>' +
+          //     '</span>' +
+          //     '</div>'
+          //   ]);
+          // }
+          // $('#example').DataTable({
+          //   destroy: true,
+          //   data: this.dataSet
+          // });
           this.referral_ids = [];
         }
         $('#loader').hide();
