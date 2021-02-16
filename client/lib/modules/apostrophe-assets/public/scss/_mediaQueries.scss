@@ -5,6 +5,12 @@
   }
 }
 
+@mixin xxs-screen {
+  @media (min-width: 320px) and (max-width: 575.98px) {
+    @content;
+  }
+}
+
 @mixin xs-screen {
   @media (max-width: 575.98px) {
     @content;
@@ -32,6 +38,12 @@
   }
 }
 
+@mixin lg-secondary {
+  @media (min-width: 1200px) and (max-width: 1499.98px) {
+    @content;
+  }
+}
+
 // Extra large devices (large desktops, 1200px and up)
 @mixin xl-screen {
   @media (min-width: 1200px) {
@@ -41,12 +53,6 @@
 
 @mixin xxl-screen {
   @media (min-width: 1900px) {
-    @content;
-  }
-}
-
-@mixin lg-secondary {
-  @media (min-width: 1200px) and (max-width: 1499.98px) {
     @content;
   }
 }
@@ -67,7 +73,12 @@
   }
 }
 @mixin ssm-dec-screen {
-    @media (max-width: 374px) {
-      @content;
-    }
+  @media (min-width: 320px) and (max-width: 374px) {
+    @content;
   }
+}
+@mixin ssm-between-screen {
+  @media (min-width: 375px) and (max-width: 425px) {
+    @content;
+  }
+}

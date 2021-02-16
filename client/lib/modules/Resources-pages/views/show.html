@@ -39,6 +39,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           @input="filterPieces()"
         />
       </div>
+        <div  id="hideserachblock" class="d-none">
       {% raw %}
       <!-- Search functionality start-->
       <div v-if="showSearchResults" class="resource_search_text my-3">
@@ -59,9 +60,8 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
                   class="px-1 px-md-2 cursor-pointer"
                   alt=""
                 />
-                
                 <p v-if="item.Topic=='Watch'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.SubTitle}}</p>
-                <p v-if="item.Topic=='Read'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.partnerAgencies}}</p>
+                <p v-if="item.Topic=='Read'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.read_topic}}</p>
                 <p v-if="item.Topic=='Games'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.games_title}}</p>
                 <p v-if="item.Topic=='Events'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.eventsTopic}}</p>
                 <p v-if="item.Topic=='PartnerAgencies'" class="question-font my-0 mx-2 mx-md-4">{{item.title}} - {{item.partnerAgencies}}</p>
@@ -79,6 +79,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
       </div>
       <!-- Search functionality end-->
       {% endraw %}
+      </div>
     </div>
     <div class="text_inside_return">{{apos.area(piece,'text')}}</div>
 
@@ -211,7 +212,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
             </div>
             <div class="container-bottom-set">
               <div class="questionText ellipse-text-large-card">
-                {{orchaApps.appName}}
+                {{orchaApps.appName}} - {{orchaApps.score}}
               </div>
             </div>
           </div>

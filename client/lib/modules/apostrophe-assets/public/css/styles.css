@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
+.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-header-secondary-description, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -375,7 +375,7 @@ div.radio.switcher label {
     .admin-toggle-menu {
       display: flex; } }
 
-@media (max-width: 374px) {
+@media (min-width: 320px) and (max-width: 374px) {
   .class-menu-hide {
     display: none; } }
 
@@ -485,6 +485,12 @@ div.radio.switcher label {
   height: 40px !important;
   width: 100% !important;
   display: flex !important; }
+
+.icon-display-none::before {
+  display: none !important; }
+
+.icon-display-none::after {
+  display: none !important; }
 
 .middleContainer:after {
   content: "";
@@ -604,17 +610,24 @@ div.radio.switcher label {
   display: none !important; }
 
 .rating > label:before {
-  width: 30px !important;
+  width: 36px !important;
   font-size: 2.5em !important;
   font-family: FontAwesome !important;
   display: inline-block !important;
   content: "\f005" !important;
   position: relative !important;
   background: none !important;
-  border: none !important; }
+  border: none !important;
+  margin: 0px 8px; }
+  @media (min-width: 320px) and (max-width: 374px) {
+    .rating > label:before {
+      margin: 0px; } }
+  @media (min-width: 375px) and (max-width: 425px) {
+    .rating > label:before {
+      margin: 0px 5px; } }
 
 .rating > label::after {
-  padding: 3px !important;
+  padding: 4px !important;
   position: relative !important;
   background: none !important; }
 
@@ -1361,6 +1374,23 @@ a {
       font-size: 22px !important;
       letter-spacing: 1.5px !important; } }
 
+.home-header-secondary-description {
+  font-size: 24px;
+  font-weight: bold;
+  color: #023047; }
+  @media (max-width: 575.98px) {
+    .home-header-secondary-description {
+      font-size: 16px;
+      letter-spacing: 0.64px !important; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .home-header-secondary-description {
+      font-size: 18px;
+      letter-spacing: 0.64px !important; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .home-header-secondary-description {
+      font-size: 22px !important;
+      letter-spacing: 1.5px !important; } }
+
 .home-primary-content {
   font-size: 24px;
   font-weight: bold;
@@ -1485,7 +1515,7 @@ a {
   background: #fafafa 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   opacity: 1;
-  border-radius: 14px; }
+  border-radius: 10px; }
 
 .home-search-area {
   background: #fafafa 0% 0% no-repeat padding-box !important; }
@@ -1494,8 +1524,8 @@ a {
   border-radius: 10px !important; }
 
 .home-card-radius {
-  border-bottom-left-radius: 14px !important;
-  border-bottom-right-radius: 14px !important; }
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important; }
 
 /* Landing Page style end */
 .progress {
@@ -1535,6 +1565,8 @@ a {
   @media (min-width: 768px) and (max-width: 991.98px) {
     .auth-font {
       font-size: 16px !important; } }
+  .auth-font p {
+    margin-bottom: 0px; }
 
 .auth-border {
   border-radius: 10px !important; }
@@ -1613,10 +1645,16 @@ a {
   font-size: 22px;
   font-weight: bold;
   color: #ffffff; }
+  @media (min-width: 320px) and (max-width: 575.98px) {
+    .header-title {
+      font-size: 15px; } }
   @media (max-width: 575.98px) {
     .header-title {
-      font-size: 18px; } }
+      font-size: 16px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
+    .header-title {
+      font-size: 17px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
     .header-title {
       font-size: 19px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
@@ -1731,18 +1769,21 @@ a {
     text-decoration: underline; }
 
 .question-header-font {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
   color: #023047; }
-  @media (max-width: 575.98px) {
+  @media (min-width: 320px) and (max-width: 575.98px) {
     .question-header-font {
       font-size: 15px; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
+  @media (max-width: 575.98px) {
     .question-header-font {
       font-size: 16px; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .question-header-font {
+      font-size: 17px; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .question-header-font {
-      font-size: 18px; } }
+      font-size: 19px; } }
 
 .back-text {
   font-size: 16px;
@@ -1908,22 +1949,28 @@ a {
         font-size: 20px; } }
 
 .review-header-font {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: #023047; }
-  @media (max-width: 575.98px) {
+  @media (min-width: 320px) and (max-width: 575.98px) {
     .review-header-font {
       font-size: 15px; } }
-  @media (min-width: 576px) and (max-width: 767.98px) {
+  @media (max-width: 575.98px) {
     .review-header-font {
       font-size: 16px; } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
+  @media (min-width: 576px) and (max-width: 767.98px) {
     .review-header-font {
       font-size: 17px; } }
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .review-header-font {
+      font-size: 19px; } }
   .review-header-font h2 {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
+    @media (min-width: 320px) and (max-width: 575.98px) {
+      .review-header-font h2 {
+        font-size: 18px; } }
     @media (max-width: 575.98px) {
       .review-header-font h2 {
         font-size: 18px; } }
@@ -1937,6 +1984,9 @@ a {
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
+    @media (min-width: 320px) and (max-width: 575.98px) {
+      .review-header-font p {
+        font-size: 18px; } }
     @media (max-width: 575.98px) {
       .review-header-font p {
         font-size: 18px; } }
@@ -3613,6 +3663,62 @@ html #slide-test-5 {
 .off .fa-search:before {
   color: #023047 !important; }
 
+.off input[type="text"],
+.off input[type="password"],
+.off input[type="email"],
+.off textarea,
+.off .custom-select ::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #023047 !important; }
+
+.off input[type="text"],
+.off input[type="password"],
+.off input[type="email"],
+.off textarea,
+.off .custom-select :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #023047 !important;
+  opacity: 1; }
+
+.off input[type="text"],
+.off input[type="password"],
+.off input[type="email"],
+.off textarea,
+.off .custom-select ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #023047 !important;
+  opacity: 1; }
+
+.off input[type="text"],
+.off input[type="password"],
+.off input[type="email"],
+.off textarea,
+.off .custom-select :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #023047 !important; }
+
+.off input[type="text"],
+.off input[type="password"],
+.off input[type="email"],
+.off textarea,
+.off .custom-select ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #023047 !important; }
+
+.off input[type="text"],
+.off input[type="password"],
+.off input[type="email"],
+.off textarea,
+.off .custom-select ::placeholder {
+  /* Most modern browsers support this now. */
+  color: #023047 !important; }
+
+.off input::placeholder {
+  color: #023047 !important; }
+
+.off input {
+  color: #0f1010 !important; }
+
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
@@ -3749,6 +3855,62 @@ html #slide-test-5 {
 
 .on .fa-search:before {
   color: #fafafa !important; }
+
+.on input[type="text"],
+.on input[type="password"],
+.on input[type="email"],
+.on textarea,
+.on .custom-select ::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #fafafa !important; }
+
+.on input[type="text"],
+.on input[type="password"],
+.on input[type="email"],
+.on textarea,
+.on .custom-select :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #fafafa !important;
+  opacity: 1; }
+
+.on input[type="text"],
+.on input[type="password"],
+.on input[type="email"],
+.on textarea,
+.on .custom-select ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #fafafa !important;
+  opacity: 1; }
+
+.on input[type="text"],
+.on input[type="password"],
+.on input[type="email"],
+.on textarea,
+.on .custom-select :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #fafafa !important; }
+
+.on input[type="text"],
+.on input[type="password"],
+.on input[type="email"],
+.on textarea,
+.on .custom-select ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #fafafa !important; }
+
+.on input[type="text"],
+.on input[type="password"],
+.on input[type="email"],
+.on textarea,
+.on .custom-select ::placeholder {
+  /* Most modern browsers support this now. */
+  color: #fafafa !important; }
+
+.on input::placeholder {
+  color: #fafafa !important; }
+
+.on input {
+  color: #ffffff !important; }
 
 [data-theme="on"] {
   border: none;

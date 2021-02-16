@@ -53,6 +53,7 @@ module.exports = {
         showHeader: true,
         home: true,
         hideRefButton: true,
+        hideRefButton: false,
         piecesArray: piecesArray
       }));
     };
