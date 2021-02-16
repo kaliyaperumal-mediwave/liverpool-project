@@ -4136,3 +4136,14 @@ html #slide-test-5 {
 
 .p-l-r-2 {
   padding-bottom: 15px; }
+
+i.fa.fa-map-marker {
+  font-weight: 600;
+  color: #023047; }
+
+.p-16 {
+  padding: 16px !important; }
+
+i.fa.fa-calendar {
+  font-size: 21px;
+  font-weight: 600; }
