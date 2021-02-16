@@ -86,7 +86,7 @@ $(document).ready(function () {
       options: {
         search: false,
         showColumns: true,
-        pagination: false,
+        showfooter:true
       },
       searchRefObj:{}
     },

@@ -10,9 +10,20 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            setTimeout(function () {
+            console.log(document.getElementById('sessionExp').innerHTML)
+            if(document.getElementById('sessionExp').innerHTML)
+            {
                 $('#loader').hide();
-            }, 1000);
+               // document.getElementById(sessionExp).innerHTML="false";
+                showError("Searcn Expired", 401);
+                return;
+            }
+            else
+            {
+                setTimeout(function () {
+                    $('#loader').hide();
+                }, 1000);
+            }
         },
 
         methods: {

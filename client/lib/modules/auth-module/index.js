@@ -28,6 +28,7 @@ module.exports = {
       console.log("req.session.auth_token")
       console.log(req.session)
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate'); //This will force the browser to obtain new copy of the page even when they hit "back".
+      console.log(req.session.auth_token)
       if (req.session.auth_token) {
         return req.res.redirect("/dashboard");
       }

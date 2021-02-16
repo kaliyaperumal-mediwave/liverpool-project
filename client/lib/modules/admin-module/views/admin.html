@@ -66,7 +66,8 @@
                             </div>
                         </span>
                         <input class="height-44  border-0 form-control py-2 searchSetColor" type="search"
-                            placeholder="Search referral"  v-model="searchRefObj.searchTxt"  @input="getReferalByCode($event)" id="example-search-input">
+                            placeholder="Search referral" v-model="searchRefObj.searchTxt"
+                            @input="getReferalByCode($event)" id="example-search-input">
                     </div>
                 </div>
 
@@ -94,7 +95,7 @@
                     </div>
                 </div>
                 <div class="custom-table-nested pb-3">
-                    <bootstrap-table  id="table" :columns="columns" :data="referralData" :options="options"></bootstrap-table>
+                     <bootstrap-table   data-side-pagination="server"  data-search="true"  id="table" :columns="columns" :data="referralData" :options="options"></bootstrap-table> 
                     <!-- <table id="example" class="table table-striped table-bordered w-100">
                         <thead>
                             <tr>
@@ -111,6 +112,17 @@
                         </thead>
                     </table> -->
                     <!-- Loader start -->
+                    <!-- <table id="table" data-toolbar="#toolbar" data-search="true" data-show-refresh="true"
+                        data-show-toggle="true" data-show-fullscreen="true" data-show-columns="true"
+                        data-show-columns-toggle-all="true" data-detail-view="true" data-show-export="true"
+                        data-click-to-select="true" data-detail-formatter="detailFormatter"
+                        data-minimum-count-columns="2" data-show-pagination-switch="true" data-pagination="true"
+                        data-id-field="id" data-page-list="[10, 25, 50, 100, all]" data-show-footer="true"
+                        data-side-pagination="server"
+                        data-url="https://examples.wenzhixin.net.cn/examples/bootstrap_table/data"
+                        data-response-handler="responseHandler">
+                    </table> -->
+
                     <div class="overlay" id="loader">
                         <div class="overlay__inner">
                             <div class="overlay__content">

@@ -69,16 +69,22 @@ function deleteLogic(arr, value, context, section) {
 };
 
 //Common Modal for API error messages
-function showError(content) {
+function showError(content, statusCode) {
     if (!content) {
         content = "Something went wrong.Please try again"
     }
     $('#errorContent').text(content);
+    if(statusCode) {
+    $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text(statusCode);
+    }
     $('#errorCommon').modal('show');
 };
-
 function closeError() {
+    var statusCode = $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text();
     $('#errorCommon').modal('hide');
+    if(statusCode && statusCode == '401') {
+        location.href = "/users/login";
+    }
 }
 
 //Function to Identify space Logic 2

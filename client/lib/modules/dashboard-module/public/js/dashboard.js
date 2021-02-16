@@ -25,23 +25,33 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-
-            try {
-                if(document.getElementById('resources') && document.getElementById('resources').value) {
-                    this.resources = JSON.parse(document.getElementById('resources').value);
-                } else {
-                    this.resources = [];
+            if(document.getElementById('sessionExp').innerHTML)
+            {
+                console.log("session out")
+                $('#loader').hide();
+             //this.showErrorModal("Session Expired");
+             return
+            }
+            else
+            {
+                try {
+                    if(document.getElementById('resources') && document.getElementById('resources').value) {
+                        this.resources = JSON.parse(document.getElementById('resources').value);
+                    } else {
+                        this.resources = [];
+                    }
+                } catch (error) {
+                    console.log(error);
+                    $('#loader').hide();
                 }
-            } catch (error) {
-                console.log(error);
+                console.log(document.getElementById('sessionExp').innerHTML)
+       
+                // this.paramValues = getParameter(location.href)
+                //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+                this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
+                this.fetchSavedData();
                 $('#loader').hide();
             }
-            
-            // this.paramValues = getParameter(location.href)
-            //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
-            this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
-            this.fetchSavedData();
-            $('#loader').hide();
         },
 
         methods: {
