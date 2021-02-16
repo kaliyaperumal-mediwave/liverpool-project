@@ -10,8 +10,8 @@ $(document).ready(function () {
     data: {
       toggle: true,
       referralData: [],
-      pageLimit: 30,
-      pageNum: 1,
+      pageLimit: 25,
+      pageNum: 2,
       referral_ids: [],
       dataSet: [],
       successMessage: '',
@@ -126,11 +126,13 @@ $(document).ready(function () {
       },
 
       fetchReferral: function () {
-        // var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
-        var successData = apiCallGet('get', '/referral', API_URI);
+         var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
+        //var successData = apiCallGet('get', '/referral', API_URI);
+        console.log(successData)
 
         if (successData && Object.keys(successData).length) {
           this.referralData = successData.data;
+          console.log( this.referralData);
           // this.dataSet = [];
           // for (var i = 0; i < this.referralData.length; i++) {
           //   this.dataSet.push([
@@ -200,7 +202,19 @@ $(document).ready(function () {
         $('#deletedSuccess').modal('hide');
         this.successMessage = '';
       },
-    }
+      loadData:function (){
+        this.pageLimit= 30;
+        this.pageNum= 3;
+        var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
+        //var successData = apiCallGet('get', '/referral', API_URI);
+  console.log(successData)
+        if (successData && Object.keys(successData).length) {
+          var $table = $('#table')
+          console.log($table)
+          $table.bootstrapTable('load', successData.data)
+        }
+      }
+    },
   })
 
   $(document).on('change', 'input', function (e) {
