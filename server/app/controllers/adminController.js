@@ -10,7 +10,7 @@ const gpCodes = [
         code: ["L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8", "L9", "L10", "L11", "L12", "L13", "L14", "L15",
             "L16", "L17", "L18", "L19", "L24", "L25", "L26", "L27", "L28", "L32", "L33", "L34", "L35", "L36", "PR8", "PR9"]
     },
-    {type: "Sefton", code: ["L20", "L21", "L22", "L23", "L29", "L30", "L31", "L37", "L38"]},
+    { type: "Sefton", code: ["L20", "L21", "L22", "L23", "L29", "L30", "L31", "L37", "L38"] },
 ]
 
 exports.getReferral = ctx => {
@@ -37,15 +37,15 @@ exports.getReferral = ctx => {
                     },
                 ],
                 attributes: ['id', 'uuid', 'reference_code', 'child_name', 'parent_name', 'professional_name', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt'],
-                 offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
-                 limit: ctx.query.limit,
+                offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
+                limit: ctx.query.limit,
                 order: [
                     ['updatedAt', 'DESC'],
                 ]
             });
 
             referrals = JSON.parse(JSON.stringify(referrals));
-            _.forEach(referrals, function(refObj, index) {
+            _.forEach(referrals, function (refObj, index) {
                 var referralObj = {
                     uuid: refObj.uuid,
                     name: '',
@@ -73,12 +73,12 @@ exports.getReferral = ctx => {
                     referralObj.referrer = refObj.professional_name;
                     gp_location = refObj.professional[0].registerd_gp;
                 }
-                if(gp_location) {
+                if (gp_location) {
                     var splitLocation = gp_location.split(',');
-                    if(splitLocation.length > 1) {
-                        if(gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                    if (splitLocation.length > 1) {
+                        if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                             referralObj.gp_location = gpCodes[0].type;
-                        } else if(gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                        } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                             referralObj.gp_location = gpCodes[1].type;
                         }
                     }
@@ -136,4 +136,36 @@ exports.updateReferral = ctx => {
             );
         }
     });
+}
+
+exports.getReferalBySearch = ctx => {
+
+    const ref = ctx.orm().Referral;
+    return ref.findAll({
+        where: {
+            referral_complete_status: 'completed',
+            [Op.or]: [
+                {
+                    reference_code: {
+                        [Op.like]: '%' + ctx.query.reqCode + '%'
+                    } 
+                },
+                {
+                    child_name: {
+                        [Op.like]: '%' + ctx.query.reqCode + '%'
+                    } 
+                },
+              ],
+        },
+        order: [
+            ['updatedAt', 'DESC'],
+        ],
+    }).then((result) => {
+        console.log(result);
+        return ctx.body = result
+    }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+
+
 }

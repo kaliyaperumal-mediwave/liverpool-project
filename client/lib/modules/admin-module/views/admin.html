@@ -66,7 +66,7 @@
                             </div>
                         </span>
                         <input class="height-44  border-0 form-control py-2 searchSetColor" type="search"
-                            placeholder="Search referral" id="example-search-input">
+                            placeholder="Search referral"  v-model="searchRefObj.searchTxt"  @input="getReferalByCode($event)" id="example-search-input">
                     </div>
                 </div>
 

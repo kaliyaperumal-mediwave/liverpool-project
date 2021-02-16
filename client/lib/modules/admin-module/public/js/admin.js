@@ -10,8 +10,8 @@ $(document).ready(function () {
     data: {
       toggle: true,
       referralData: [],
-      pageLimit: 25,
-      pageNum: 2,
+      pageLimit: 10,
+      pageNum: 1,
       referral_ids: [],
       dataSet: [],
       successMessage: '',
@@ -84,11 +84,11 @@ $(document).ready(function () {
         }
       ],
       options: {
-        search: true,
+        search: false,
         showColumns: true,
-        pagination: true,
-        pageType: 'numbers'
+        pagination: false,
       },
+      searchRefObj:{}
     },
 
     beforeMount: function () {
@@ -203,8 +203,8 @@ $(document).ready(function () {
         this.successMessage = '';
       },
       loadData:function (){
-        this.pageLimit= 30;
-        this.pageNum= 3;
+        this.pageLimit= 15;
+        this.pageNum= 2;
         var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
         //var successData = apiCallGet('get', '/referral', API_URI);
   console.log(successData)

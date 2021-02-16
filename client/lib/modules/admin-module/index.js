@@ -28,6 +28,16 @@ module.exports = {
       });
     });
 
+    self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
+      console.log("----------------------------------------------------- " + req.params.reqCode);
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
     self.route('put', 'referral', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral';
       self.middleware.put(req, res, url, req.body).then((data) => {
