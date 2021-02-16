@@ -19,8 +19,8 @@ module.exports = {
     };
 
     self.route('get', 'referral', function (req, res) {
-      // var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral?offset=' + req.query.offset +'&limit=' + req.query.limit;
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral';
+       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral?offset=' + req.query.offset +'&limit=' + req.query.limit;
+      //var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral';
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

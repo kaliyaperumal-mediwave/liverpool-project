@@ -37,8 +37,8 @@ exports.getReferral = ctx => {
                     },
                 ],
                 attributes: ['id', 'uuid', 'reference_code', 'child_name', 'parent_name', 'professional_name', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt'],
-                // offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
-                // limit: ctx.query.limit,
+                 offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
+                 limit: ctx.query.limit,
                 order: [
                     ['updatedAt', 'DESC'],
                 ]
