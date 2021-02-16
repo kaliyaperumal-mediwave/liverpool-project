@@ -595,7 +595,14 @@ div.radio.switcher label {
 .text-slider-res {
   position: absolute;
   top: 30px;
-  right: 22px; }
+  right: 22px;
+  padding-top: 8px; }
+
+.text-slider-res-middle {
+  position: absolute;
+  top: 30px;
+  right: 9px;
+  padding-top: 8px; }
 
 #feedBackStars label {
   margin: 0;
@@ -1694,13 +1701,13 @@ a {
     margin-bottom: 0px; }
     @media (max-width: 575.98px) {
       .authorization-font h2 {
-        font-size: 18px; } }
+        font-size: 22px; } }
     @media (min-width: 576px) and (max-width: 767.98px) {
       .authorization-font h2 {
-        font-size: 19px; } }
+        font-size: 24px; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       .authorization-font h2 {
-        font-size: 20px; } }
+        font-size: 24px; } }
   .authorization-font p {
     font-size: 24px;
     font-weight: bold;
@@ -2110,9 +2117,7 @@ a {
 
 @media (max-width: 768px) {
   .main-min-height {
-    min-height: 650px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important; } }
+    min-height: 650px !important; } }
 
 @media (max-width: 575.98px) {
   .option-font {
@@ -3627,6 +3632,9 @@ html #slide-test-5 {
 .off .link-text {
   color: #023047; }
 
+.off .link-text > a {
+  color: #023047 !important; }
+
 .off .resource_search_text {
   color: #023047; }
 
@@ -3649,6 +3657,12 @@ html #slide-test-5 {
   background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px; }
 
 .off .ham-icon {
+  color: #023047; }
+
+.off .selectSource {
+  color: #023047; }
+
+.off .title-thing-to-watch {
   color: #023047; }
 
 .off .bg-fafa {
@@ -3820,6 +3834,9 @@ html #slide-test-5 {
 .on .link-text {
   color: #fafafa; }
 
+.on .link-text > a {
+  color: #fafafa !important; }
+
 .on .resource_search_text {
   color: #fafafa; }
 
@@ -3842,6 +3859,12 @@ html #slide-test-5 {
   background: url("/modules/my-apostrophe-assets/img/liverpool_dark.svg") no-repeat 30px; }
 
 .on .ham-icon {
+  color: #fafafa; }
+
+.on .selectSource {
+  color: #fafafa; }
+
+.on .title-thing-to-watch {
   color: #fafafa; }
 
 .on .bg-fafa {

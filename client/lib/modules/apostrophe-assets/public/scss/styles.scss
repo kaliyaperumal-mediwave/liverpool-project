@@ -698,13 +698,13 @@ a {
   h2 {
     @include set-titleStyles($primary-font-size, bold, $primary-color);
     @include xs-screen {
-      font-size: 18px;
+      font-size: 22px;
     }
     @include sm-screen {
-      font-size: 19px;
+      font-size: 24px;
     }
     @include md-screen {
-      font-size: 20px;
+      font-size: 24px;
     }
     margin-bottom: 0px;
   }
@@ -1093,8 +1093,6 @@ a {
 @media (max-width: 768px) {
   .main-min-height {
     min-height: 650px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
   }
 }
 // Extra small devices (portrait phones, less than 576px)
@@ -2755,6 +2753,9 @@ $color-scheme: (
     .link-text {
       color: $secondary;
     }
+    .link-text > a {
+      color: $secondary !important;
+    }
     .resource_search_text {
       color: $secondary;
     }
@@ -2779,6 +2780,12 @@ $color-scheme: (
       background: $bgLogo no-repeat 30px;
     }
     .ham-icon {
+      color: $secondary;
+    }
+    .selectSource{
+      color: $secondary;
+    }
+    .title-thing-to-watch{
       color: $secondary;
     }
     .bg-fafa {

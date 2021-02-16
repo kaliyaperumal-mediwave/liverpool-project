@@ -128,7 +128,8 @@
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p> -->
-                    <p v-show="elgibilityObj.role=='child'" class="question-font m-0"> {{ apos.area(data.page,
+                    <div v-show="elgibilityObj.role=='child'" class="question-font m-0"> 
+                        {{ apos.area(data.page,
                         'referral1_titledate', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -139,7 +140,7 @@
                         }
                         }
                         }) }}
-                        {{elgibilityObj.maxDate}}</p>
+                        {{elgibilityObj.maxDate}}</div>
                     <div class="input-group" id="dobRoleCal">
                         <date-picker placeholder="Enter D.O.B" name="date" v-model="elgibilityObj.childDob"
                             autocomplete="off" @dp-show="resetFlag($event)"
