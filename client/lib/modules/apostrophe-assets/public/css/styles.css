@@ -4198,4 +4198,8 @@ i.fa.fa-calendar {
   :-moz-placeholder {
     font-size: 14px !important; }
   .form-control.auth-border {
-    font-size: 14px !important; } }
+    font-size: 14px !important; }
+  .res-font h2 {
+    font-size: 30px !important; }
+  .res-font p {
+    font-size: 16px !important; } }
