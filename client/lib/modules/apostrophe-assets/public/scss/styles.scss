@@ -2095,7 +2095,7 @@ body .ui-widget .ui-menu-item {
 }
 
 .card-container-small {
-  min-height: 280px;
+  min-height: 300px;
   border-radius: 10px;
 }
 .container-top-set {
@@ -2105,6 +2105,24 @@ body .ui-widget .ui-menu-item {
 }
 .inside-cover-set {
   padding: 18px;
+}
+.wrap-contain-app {
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.circle {
+  width: 75px;
+  height: 75px;
+  background: #ffb703;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.inside-cover-only-brand {
+  padding: 18px 42px 18px 18px;
 }
 .imageSet {
   width: 100%;
@@ -2782,10 +2800,10 @@ $color-scheme: (
     .ham-icon {
       color: $secondary;
     }
-    .selectSource{
+    .selectSource {
       color: $secondary;
     }
-    .title-thing-to-watch{
+    .title-thing-to-watch {
       color: $secondary;
     }
     .bg-fafa {
@@ -3024,20 +3042,20 @@ $color-scheme: (
   overflow-y: scroll !important;
   padding-right: 0px !important;
 }
-.dropdown.d-flex.justify-content-end.align-items-center.show .fa-caret-down{
-  -moz-transform:rotate(180deg);
-   -webkit-transform:rotate(180deg);
-   transform:rotate(180deg);
-   font-size: 20px;
-   padding-right: 10px;
-   padding-left: 0px;
+.dropdown.d-flex.justify-content-end.align-items-center.show .fa-caret-down {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  font-size: 20px;
+  padding-right: 10px;
+  padding-left: 0px;
 }
-.dropdown.d-flex.justify-content-end.align-items-center .custom-select-icon{
+.dropdown.d-flex.justify-content-end.align-items-center .custom-select-icon {
   background: none !important;
   text-align: right;
-    margin-right: 15px;
+  margin-right: 15px;
 }
-.fas.fa-caret-down{
-   font-size: 20px;
-   padding-left: 10px;
+.fas.fa-caret-down {
+  font-size: 20px;
+  padding-left: 10px;
 }

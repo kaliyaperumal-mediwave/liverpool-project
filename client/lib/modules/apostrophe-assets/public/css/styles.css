@@ -3034,7 +3034,7 @@ body .ui-widget .ui-menu-item {
       font-size: 28px !important; } }
 
 .card-container-small {
-  min-height: 280px;
+  min-height: 300px;
   border-radius: 10px; }
 
 .container-top-set {
@@ -3044,6 +3044,24 @@ body .ui-widget .ui-menu-item {
 
 .inside-cover-set {
   padding: 18px; }
+
+.wrap-contain-app {
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; }
+
+.circle {
+  width: 75px;
+  height: 75px;
+  background: #ffb703;
+  border-radius: 50%;
+  font-weight: bold; }
+
+.inside-cover-only-brand {
+  padding: 18px 42px 18px 18px; }
 
 .imageSet {
   width: 100%;
