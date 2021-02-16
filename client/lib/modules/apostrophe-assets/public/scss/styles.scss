@@ -1298,17 +1298,6 @@ a {
   align-items: center;
 }
 
-.redHeader {
-  background-color: #e55f5f;
-  height: 33px;
-  color: #023047;
-  font-size: 14px;
-  font-weight: 600;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 14px;
-}
 .button-toggle {
   padding: 0px;
   display: contents;
@@ -1332,7 +1321,7 @@ a {
 .button-referral {
   background-color: #ffb703;
   height: 35px;
-  width: 145px;
+  //width: 145px;
   float: right;
   border: none;
   box-shadow: 0px 3px 6px #00000029;
@@ -1870,11 +1859,6 @@ select.selectIcon {
 }
 //desktop design
 @media (min-width: 1024px) {
-  .redHeader {
-    height: 48px;
-    padding-left: 22px;
-    font-size: 20px;
-  }
   .button-toggle {
     width: 40px;
     height: 28px;
@@ -1888,9 +1872,9 @@ select.selectIcon {
     min-height: 700px;
   }
   .button-referral {
-    width: 174px;
+    // width: 174px;
     height: 44px;
-    font-size: 18px;
+    font-size: 18px !important;
   }
   .logo {
     width: 140px;
@@ -3059,19 +3043,19 @@ $color-scheme: (
   font-size: 20px;
   padding-left: 10px;
 }
-.p-l-r-2{
+.p-l-r-2 {
   padding-bottom: 15px;
 }
-i.fa.fa-map-marker{
+i.fa.fa-map-marker {
   font-weight: 600;
-      color: #023047;
+  color: #023047;
 }
-.p-16{
+.p-16 {
   padding: 16px !important;
 }
-i.fa.fa-calendar{
+i.fa.fa-calendar {
   font-size: 21px;
-    font-weight: 600;
+  font-weight: 600;
 }
 ::-webkit-input-placeholder {
   color: #023047 !important;
@@ -3079,7 +3063,7 @@ i.fa.fa-calendar{
 }
 ::-moz-placeholder {
   color: #023047 !important;
-    opacity: 0.5 !important;
+  opacity: 0.5 !important;
 }
 :-ms-input-placeholder {
   color: #023047 !important;
@@ -3089,7 +3073,7 @@ i.fa.fa-calendar{
   color: #023047 !important;
   opacity: 0.5 !important;
 }
-.w-35{
+.w-35 {
   width: 35px !important;
 }
 .dropdown.d-flex.justify-content-end.align-items-center.show * {

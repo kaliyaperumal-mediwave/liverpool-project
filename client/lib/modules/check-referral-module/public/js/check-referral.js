@@ -22,9 +22,12 @@ $(document).ready(function () {
             activeState: false
         },
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
             this.paramValues = getParameter(location.href);
-            //console.log(this.paramValues);
             if (this.paramValues != undefined && this.paramValues[0] != undefined) {
                 this.searchReferalByCode(this.paramValues[0])
             }
@@ -32,6 +35,7 @@ $(document).ready(function () {
             this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
             this.viewReferralObj.loginUserFlag = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
             this.getUserReferral(this.viewReferralObj.referralType);
+            $('#loader').hide();
         },
 
         methods: {
@@ -64,6 +68,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                        $('#loader').hide();
                         let setObj = {};
                         console.log(data)
                         _self.displayReferrals = data;
@@ -100,7 +105,8 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        if(error) {
+                        if (error) {
+                            $('#loader').hide();
                             console.log(error)
                             showError(error.responseJSON.message, error.status);
                         }
@@ -146,7 +152,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        if(error) {
+                        if (error) {
                             console.log(error)
                             showError(error.responseJSON.message, error.status);
                         }
@@ -185,7 +191,7 @@ $(document).ready(function () {
                             console.log(data)
                         },
                         error: function (error) {
-                            if(error) {
+                            if (error) {
                                 console.log(error)
                                 showError(error.responseJSON.message, error.status);
                             }
@@ -204,13 +210,15 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                        $('#loader').hide();
                         _self.searchReferrals = data;
                         _self.viewReferralObj.searchTxt = searchCode;
                         console.log(data)
                     },
                     error: function (error) {
-                        if(error) {
-                            console.log(error)
+                        if (error) {
+                            console.log(error);
+                            $('#loader').hide();
                             showError(error.responseJSON.message, error.status);
                         }
                     }

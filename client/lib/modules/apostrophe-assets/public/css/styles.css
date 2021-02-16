@@ -2289,17 +2289,6 @@ a {
 .align-center {
   align-items: center; }
 
-.redHeader {
-  background-color: #e55f5f;
-  height: 33px;
-  color: #023047;
-  font-size: 14px;
-  font-weight: 600;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 14px; }
-
 .button-toggle {
   padding: 0px;
   display: contents;
@@ -2323,7 +2312,6 @@ a {
 .button-referral {
   background-color: #ffb703;
   height: 35px;
-  width: 145px;
   float: right;
   border: none;
   box-shadow: 0px 3px 6px #00000029;
@@ -2839,10 +2827,6 @@ select.selectIcon {
   background-color: #fafafa; }
 
 @media (min-width: 1024px) {
-  .redHeader {
-    height: 48px;
-    padding-left: 22px;
-    font-size: 20px; }
   .button-toggle {
     width: 40px;
     height: 28px; }
@@ -2853,9 +2837,8 @@ select.selectIcon {
   .login-container {
     min-height: 700px; }
   .button-referral {
-    width: 174px;
     height: 44px;
-    font-size: 18px; }
+    font-size: 18px !important; }
   .logo {
     width: 140px;
     height: 50px; }
