@@ -4166,3 +4166,6 @@ i.fa.fa-calendar {
 
 .w-35 {
   width: 35px !important; }
+
+.dropdown.d-flex.justify-content-end.align-items-center.show * {
+  color: #023047 !important; }
