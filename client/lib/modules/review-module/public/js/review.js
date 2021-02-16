@@ -179,6 +179,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').hide();
                         console.log('Something went Wrong', error)
+                        showError(error.responseJSON.message, error.status);
                     }
                 });
             },
