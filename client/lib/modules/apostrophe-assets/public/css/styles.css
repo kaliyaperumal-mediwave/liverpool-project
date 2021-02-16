@@ -848,7 +848,7 @@ div.radio.switcher label {
       font-size: 22px !important; } }
 
 /* Input Fields Global classes */
-.form-control, .input-group-text, body .readOnly-class .form-control {
+.form-control, .input-group-text {
   border-radius: 2px !important;
   opacity: 1 !important;
   border-color: white !important;
@@ -1042,9 +1042,6 @@ body {
     text-overflow: ellipsis !important; }
   body .border-bottom-primary {
     border-bottom: 1px solid #112f45 !important; }
-  body .readOnly-class .form-control {
-    background: #eef2f3 0% 0% no-repeat padding-box !important;
-    color: #8f979e !important; }
   body .readOnly-class .custom-select {
     background: #eef2f3 0% 0% no-repeat padding-box !important;
     color: #8f979e !important;
@@ -3581,11 +3578,41 @@ html #slide-test-5 {
 .off .home-header-secondary {
   color: #023047; }
 
+.off .bg-set-on-card {
+  background: #ffffff; }
+
 .off .footer-content {
+  color: #023047; }
+
+.off .input-bg-form-control {
+  background: #e8edee 0% 0% no-repeat padding-box !important; }
+
+.off #authForm .input-group-text {
+  background: #e8edee 0% 0% no-repeat padding-box !important; }
+
+.off .fa-pencil {
+  color: #023047; }
+
+.off .fa-trash-o {
+  color: #023047; }
+
+.off .option-text {
+  color: #023047; }
+
+.off .fa-eye-slash {
+  color: #023047; }
+
+.off .custom-select {
+  color: #023047 !important; }
+
+.off .fa-eye {
   color: #023047; }
 
 .off .footer-content-secondary {
   color: #023047; }
+
+.off .plain-select::after {
+  border-top: 6px solid #023047 !important; }
 
 .off .option-font {
   color: #023047; }
@@ -3731,6 +3758,13 @@ html #slide-test-5 {
 .off input::placeholder {
   color: #023047 !important; }
 
+.off textarea::placeholder {
+  color: #023047 !important; }
+
+.off .readOnly-class .form-control {
+  background: #e8edee 0% 0% no-repeat padding-box !important;
+  color: #8f979e !important; }
+
 .off input {
   color: #0f1010 !important; }
 
@@ -3783,11 +3817,41 @@ html #slide-test-5 {
 .on .home-header-secondary {
   color: #fafafa; }
 
+.on .bg-set-on-card {
+  background: #535454; }
+
 .on .footer-content {
+  color: #fafafa; }
+
+.on .input-bg-form-control {
+  background: #535454 0% 0% no-repeat padding-box !important; }
+
+.on #authForm .input-group-text {
+  background: #535454 0% 0% no-repeat padding-box !important; }
+
+.on .fa-pencil {
+  color: #fafafa; }
+
+.on .fa-trash-o {
+  color: #fafafa; }
+
+.on .option-text {
+  color: #fafafa; }
+
+.on .fa-eye-slash {
+  color: #fafafa; }
+
+.on .custom-select {
+  color: #fafafa !important; }
+
+.on .fa-eye {
   color: #fafafa; }
 
 .on .footer-content-secondary {
   color: #fafafa; }
+
+.on .plain-select::after {
+  border-top: 6px solid #fafafa !important; }
 
 .on .option-font {
   color: #fafafa; }
@@ -3932,6 +3996,13 @@ html #slide-test-5 {
 
 .on input::placeholder {
   color: #fafafa !important; }
+
+.on textarea::placeholder {
+  color: #fafafa !important; }
+
+.on .readOnly-class .form-control {
+  background: #535454 0% 0% no-repeat padding-box !important;
+  color: #8f979e !important; }
 
 .on input {
   color: #ffffff !important; }
@@ -4170,3 +4241,23 @@ i.fa.fa-calendar {
 
 .dropdown.d-flex.justify-content-end.align-items-center.show * {
   color: #023047 !important; }
+
+@media (max-width: 768px) {
+  ::-webkit-input-placeholder {
+    font-size: 14px !important; }
+  ::-moz-placeholder {
+    font-size: 14px !important; }
+  :-ms-input-placeholder {
+    font-size: 14px !important; }
+  :-moz-placeholder {
+    font-size: 14px !important; }
+  .form-control.auth-border {
+    font-size: 14px !important; }
+  .res-font h2 {
+    font-size: 30px !important; }
+  .res-font p {
+    font-size: 16px !important; } }
+
+.w-h-sub {
+  width: 187px;
+  height: 46px; }
