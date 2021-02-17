@@ -19,11 +19,14 @@ module.exports = {
     };
 
     self.route('get', 'referral', function (req, res) {
-       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral?offset=' + req.query.offset +'&limit=' + req.query.limit;
-       if(req.query.searchTxt) {
-         url += '&searchTxt=' + req.query.searchTxt;
-       }
-      //var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral';
+      console.log('\n\nget referral queries-----------------------------------------\n', req.query, '\n\n');
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral?offset=' + (parseInt(req.query.start)/parseInt(req.query['length']) + 1) +'&limit=' + req.query['length'];
+      if(req.query.search && req.query.search.value) {
+        url += '&searchValue=' + req.query.search.value;
+      }
+      if(req.query.order && req.query.order.length) {
+        url += '&orderBy=' + req.query.order[0].column + '&orderType=' + req.query.order[0].dir;
+      }
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

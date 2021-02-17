@@ -3,10 +3,6 @@ $(document).ready(function () {
   var vueApp = new Vue({
     el: '#admin',
 
-    components: {
-      'BootstrapTable': BootstrapTable
-    },  
-
     data: {
       searchTxt: "",
       toggle: true,
@@ -16,84 +12,7 @@ $(document).ready(function () {
       referral_ids: [],
       dataSet: [],
       successMessage: '',
-      columns: [
-        {
-          field: 'state',
-          checkbox: true,
-          valign: 'middle'
-        },
-        {
-          field: 'name',
-          title: '<b>Name</b>',
-          sortable: true,
-        },
-        {
-          field: 'dob',
-          title: '<b>DOB</b>',
-          sortable: true,
-        },
-        {
-          field: 'reference_code',
-          title: '<b>Unique code</b>',
-          sortable: true,
-        },
-        {
-          field: 'referrer',
-          title: '<b>Referrer</b>',
-          sortable: true,
-        },
-        // {
-        //   field: 'uuid',
-        //   title: '<b>ID</b>',
-        //   visible: false,
-        // },
-        {
-          field: 'gp_location',
-          title: '<b>GP Location</b>',
-          sortable: true,
-        },
-        {
-          field: 'referrer_type',
-          title: '<b>Referrer type</b>',
-          sortable: true,
-        },
-        {
-          field: 'date',
-          title: '<b>Date</b>',
-          sortable: true,
-        },
-        {
-          field: 'action',
-          title: '<b>Status</b>',
-          align: 'center',
-          valign: 'middle',
-          formatter: function () {
-            return '<div class="input-group height-set-admin-select">' +
-            '<span class="plain-select">' +
-            '<select class="custom-select form-control " name="legalCare">' +
-            '<option value="Nothing" selected>Nothing</option>' +
-            '<option value="Accepted">Accepted</option>' +
-            '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
-            '<option value="Duplicate referral">Duplicate referral</option>' +
-            '<option value="Rejected referral">Rejected referral</option>' +
-            '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
-            '<option value="Referral to other team ">Referral to other team</option>' +
-            '</select>' +
-            '</span>' +
-            '</div>';
-          },
-          events: {
-            'change .like': function (e, value, row) {
-              alert(JSON.stringify(row))
-            }
-          }
-        }
-      ],
-      options: {
-        search: false,
-        showColumns: true,
-        showfooter:true
-      },
+      draw: 1,
       searchRefObj:{}
     },
 
@@ -123,6 +42,73 @@ $(document).ready(function () {
         }
       },
 
+      fetchReferral: function () {
+        var _self = this;
+        $('#example').DataTable({
+          destroy: true,
+          processing: true,
+          serverSide: true,
+          columnDefs: [
+            {targets: 0, orderable: false},
+            {targets: 1, orderable: true},
+            {targets: 2, orderable: true, type: 'date-uk'},
+            {targets: 4, orderable: true},
+            {targets: 5, orderable: true},
+            {targets: 6, orderable: true},
+            {targets: 7, orderable: true, type: 'date-uk'},
+            {targets: 8, orderable: false},
+          ],
+          order: [[7, 'desc' ]],
+          language: {
+            searchPlaceholder: 'Search referral',
+            emptyTable: 'No referrals to displays',
+            zeroRecords: 'No matching referrals found'
+          },
+          ajax: {
+            url: '/modules/admin-module/referral',
+            type: 'GET',
+            dataFilter: function(referralRes) {
+              referralRes = jQuery.parseJSON(referralRes);
+              var json = {
+                draw: _self.draw,
+                data: [],
+                recordsTotal: referralRes.data.totalReferrals,
+                recordsFiltered: referralRes.data.filteredReferrals
+              };
+              _self.draw += 1;
+              for (var i = 0; i < referralRes.data.data.length; i++) {
+                json.data.push([
+                  "<input type='checkbox' class='tableCheckbox' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
+                  referralRes.data.data[i].name,
+                  referralRes.data.data[i].dob,
+                  referralRes.data.data[i].reference_code,
+                  referralRes.data.data[i].referrer,
+                  referralRes.data.data[i].gp_location,
+                  referralRes.data.data[i].referrer_type,
+                  referralRes.data.data[i].date,
+                  '<div class="input-group height-set-admin-select">' +
+                  '<span class="plain-select">' +
+                  '<select class="custom-select form-control " name="legalCare">' +
+                  '<option value="Nothing" selected>Nothing</option>' +
+                  '<option value="Accepted">Accepted</option>' +
+                  '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
+                  '<option value="Duplicate referral">Duplicate referral</option>' +
+                  '<option value="Rejected referral">Rejected referral</option>' +
+                  '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
+                  '<option value="Referral to other team ">Referral to other team</option>' +
+                  '</select>' +
+                  '</span>' +
+                  '</div>'
+                ]);
+              }
+              return JSON.stringify(json);
+            }
+          }
+        });
+        this.referral_ids = [];
+        $('#loader').hide();
+      },
+
       selectcheck: function (checked, id) {
         if (checked) {
           this.referral_ids.push(id);
@@ -131,60 +117,15 @@ $(document).ready(function () {
         }
       },
 
-      fetchReferral: function () {
-         var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
-        //var successData = apiCallGet('get', '/referral', API_URI);
-        console.log(successData)
-
-        if (successData && Object.keys(successData).length) {
-          this.referralData = successData.data;
-          console.log( this.referralData);
-          // this.dataSet = [];
-          // for (var i = 0; i < this.referralData.length; i++) {
-          //   this.dataSet.push([
-          //     "<input type='checkbox' id='" + this.referralData[i].uuid + "' name='" + this.referralData[i].uuid + "' value='" + this.referralData[i].uuid + "'>",
-          //     this.referralData[i].name,
-          //     this.referralData[i].dob,
-          //     this.referralData[i].reference_code,
-          //     this.referralData[i].referrer,
-          //     this.referralData[i].gp_location,
-          //     this.referralData[i].referrer_type,
-          //     this.referralData[i].date,
-          //     '<div class="input-group height-set-admin-select">' +
-          //     '<span class="plain-select">' +
-          //     '<select class="custom-select form-control " name="legalCare">' +
-          //     '<option value="Nothing" selected>Nothing</option>' +
-          //     '<option value="Accepted">Accepted</option>' +
-          //     '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
-          //     '<option value="Duplicate referral">Duplicate referral</option>' +
-          //     '<option value="Rejected referral">Rejected referral</option>' +
-          //     '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
-          //     '<option value="Referral to other team ">Referral to other team</option>' +
-          //     '</select>' +
-          //     '</span>' +
-          //     '</div>'
-          //   ]);
-          // }
-          // $('#example').DataTable({
-          //   destroy: true,
-          //   data: this.dataSet
-          // });
-          this.referral_ids = [];
-        }
-        $('#loader').hide();
-      },
-
       deleteReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
           var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
+          $('#loader').hide();
           if (successData && Object.keys(successData)) {
             this.successMessage = 'Referrals deleted successfully .'
             this.fetchReferral();
-            $('#loader').hide();
             $('#deletedSuccess').modal('show');
-          } else {
-            $('#loader').hide();
           }
         }
       },
@@ -193,52 +134,37 @@ $(document).ready(function () {
         if (this.referral_ids.length) {
           $('#loader').show();
           var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
+          $('#loader').hide();
           if (successData && Object.keys(successData)) {
             this.successMessage = 'Referrals archived successfully .';
-            this.fetchReferral();
-            $('#loader').hide();
             $('#deletedSuccess').modal('show');
-          } else {
-            $('#loader').hide();
           }
         }
       },
 
       closeModal: function () {
+        $('#example').DataTable().ajax.reload();
         $('#deletedSuccess').modal('hide');
         this.successMessage = '';
       },
 
-      searchReferral: function() {
-        console.log(this.searchTxt);
-        if(this.searchTxt.length) {
-          var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit + '&searchTxt=' + this.searchTxt, API_URI);
-          this.referralData = successData.data;
-        } else {
-          this.fetchReferral();
-        }
-        this.referral_ids = [];
-      },
-
       loadData:function (){
-        this.pageLimit= 15;
-        this.pageNum= 2;
-        var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
-        //var successData = apiCallGet('get', '/referral', API_URI);
-  console.log(successData)
-        if (successData && Object.keys(successData).length) {
-          var $table = $('#table')
-          console.log($table)
-          $table.bootstrapTable('load', successData.data)
-        }
+        // this.pageLimit= 15;
+        // this.pageNum= 2;
+        // var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
+        // //var successData = apiCallGet('get', '/referral', API_URI);
+        // console.log(successData)
+        // if (successData && Object.keys(successData).length) {
+        //   var $table = $('#table')
+        //   console.log($table)
+        //   $table.bootstrapTable('load', successData.data)
+        // }
       }
     },
   })
 
-  $(document).on('change', 'input', function (e) {
-    // vueApp.selectcheck(e.target.checked, e.target.id);
-    console.log('1');
-    console.log(e);
+  $(document).on('change', '.tableCheckbox', function (e) {
+    vueApp.selectcheck(e.target.checked, e.target.id);
   });
 
 });
