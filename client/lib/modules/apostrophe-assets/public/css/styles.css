@@ -1456,6 +1456,10 @@ a {
   border-top-right-radius: 10px !important;
   border-bottom-right-radius: 10px !important; }
 
+#filter_content .input-group .form-control {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important; }
+
 .input-group .form-control {
   border-radius: 0px !important; }
 
@@ -3535,6 +3539,9 @@ html #slide-test-5 {
   .off .home-header-primary p {
     color: #023047; }
 
+.off .form-check-input:disabled ~ .form-check-label, .off .form-check-input[disabled] ~ .form-check-label {
+  color: #023047; }
+
 .off .home-header-secondary {
   color: #023047; }
 
@@ -3784,6 +3791,9 @@ html #slide-test-5 {
     color: #fafafa; }
   .on .home-header-primary p {
     color: #fafafa; }
+
+.on .form-check-input:disabled ~ .form-check-label, .on .form-check-input[disabled] ~ .form-check-label {
+  color: #fafafa; }
 
 .on .home-header-secondary {
   color: #fafafa; }

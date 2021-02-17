@@ -210,7 +210,7 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchProfession', payload);
-                if (Object.keys(successData)) {
+                if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
                     $('#loaderEduc').hide();
