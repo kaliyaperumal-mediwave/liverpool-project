@@ -226,7 +226,6 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue: function (data) {
-                debugger
                 if (this.userRole == "child") {
                     if (data.child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
@@ -257,6 +256,7 @@ $(document).ready(function () {
                         Vue.set(this.educAndEmpData, "attendedInfo", data[0].professional[0].child_education_place);
                     }
                     if (data[0].professional[0].child_profession) {
+                        data[0].professional[0].child_profession = capitalizeFirstLetter(data[0].professional[0].child_profession);
                         var convertArray = data[0].professional[0].child_profession.split(",");
                         if (convertArray.indexOf('Education') != -1) {
                             this.showInstitution = true;
