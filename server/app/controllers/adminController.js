@@ -17,13 +17,34 @@ exports.getReferral = ctx => {
     return new Promise(async (resolve, reject) => {
         try {
             const referralModel = ctx.orm().Referral;
-            let referrals = await referralModel.findAll({
-                where: {
+            var condition = {
+                reference_code: {
+                    [Op.ne]: null
+                },
+                referral_complete_status: 'completed'
+            };
+            if(ctx.query.searchTxt) {
+                condition = {
                     reference_code: {
                         [Op.ne]: null
                     },
-                    referral_complete_status: 'completed'
-                },
+                    referral_complete_status: 'completed',
+                    [Op.or]: [
+                        {
+                            reference_code: {
+                                [Op.like]: '%' + ctx.query.searchTxt + '%'
+                            } 
+                        },
+                        {
+                            child_name: {
+                                [Op.like]: '%' + ctx.query.searchTxt + '%'
+                            } 
+                        },
+                    ]
+                }
+            }
+            let referrals = await referralModel.findAll({
+                where: condition,
                 include: [
                     {
                         model: referralModel,

@@ -8,6 +8,7 @@ $(document).ready(function () {
     },  
 
     data: {
+      searchTxt: "",
       toggle: true,
       referralData: [],
       pageLimit: 10,
@@ -41,6 +42,11 @@ $(document).ready(function () {
           title: '<b>Referrer</b>',
           sortable: true,
         },
+        // {
+        //   field: 'uuid',
+        //   title: '<b>ID</b>',
+        //   visible: false,
+        // },
         {
           field: 'gp_location',
           title: '<b>GP Location</b>',
@@ -202,6 +208,18 @@ $(document).ready(function () {
         $('#deletedSuccess').modal('hide');
         this.successMessage = '';
       },
+
+      searchReferral: function() {
+        console.log(this.searchTxt);
+        if(this.searchTxt.length) {
+          var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit + '&searchTxt=' + this.searchTxt, API_URI);
+          this.referralData = successData.data;
+        } else {
+          this.fetchReferral();
+        }
+        this.referral_ids = [];
+      },
+
       loadData:function (){
         this.pageLimit= 15;
         this.pageNum= 2;
@@ -218,7 +236,9 @@ $(document).ready(function () {
   })
 
   $(document).on('change', 'input', function (e) {
-    vueApp.selectcheck(e.target.checked, e.target.id);
+    // vueApp.selectcheck(e.target.checked, e.target.id);
+    console.log('1');
+    console.log(e);
   });
 
 });
