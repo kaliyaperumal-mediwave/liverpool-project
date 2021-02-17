@@ -1,5 +1,7 @@
 {% extends 'apostrophe-templates:layout.html' %}
 {% block extraBody %}
+<script src="/modules/shared-referal-module/js/searchReferral.js"></script>
+
 <script>
     $(document).on('click', 'a.previous-link', function () {
         parent.history.back();
@@ -15,7 +17,28 @@
 
 {% block main %}
 {% include "../../shared-referal-module/views/header.html" %}
-
+<div class="loadaddclass">
+<!-- Loader start -->
+            <div class="overlay" id="loader">
+                <div class="overlay__inner">
+                    <div class="overlay__content">
+                        <div class="lds-spinner">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
         <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow cursor-pointer"></a>
@@ -83,5 +106,6 @@
 
 
     </div>
+</div>
 </div>
 {% endblock %}

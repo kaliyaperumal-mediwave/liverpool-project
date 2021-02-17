@@ -14,7 +14,28 @@
 
 {% block main %}
 {% include "../../shared-referal-module/views/header.html" %}
-
+<div class="loadaddclass">
+<!-- Loader start -->
+            <div class="overlay" id="loader">
+                <div class="overlay__inner">
+                    <div class="overlay__content">
+                        <div class="lds-spinner">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
         <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a>
@@ -128,6 +149,6 @@
     </div>
     {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
-<!-- </div> -->
+</div>
 
 {% endblock %}

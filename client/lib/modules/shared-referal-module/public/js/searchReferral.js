@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  $("#loader").addClass("d-none");
     var API_URI = "/modules/dashboard-module";
     $("#doSearchReferral").click(function (event) {
         if (!$('#toSearchRefCode').val().trim()) {

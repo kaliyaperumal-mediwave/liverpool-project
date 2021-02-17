@@ -9,7 +9,28 @@
 {% endblock %} {% set user_data = data.user_data %} {% set rolesIds =
 data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
 {% block main %} {% include "../../shared-referal-module/views/header.html" %}
-
+<div class="loadaddclass">
+<!-- Loader start -->
+            <div class="overlay" id="loader">
+                <div class="overlay__inner">
+                    <div class="overlay__content">
+                        <div class="lds-spinner">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 <div id="resources_user" class="main-min-height">
   <div class="top-arrow-container" id="searchBar">
     <a href="/resources" class="">
@@ -388,7 +409,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
   </div>
 </div>
-
+</div>
 {% endif %} {% include "../../shared-referal-module/views/searchReferral.html"
 %} {% include "../../shared-referal-module/views/company.html" %}
 
