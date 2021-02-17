@@ -2856,6 +2856,9 @@ $color-scheme: (
     input {
       color: $placeholderTheme-color !important;
     }
+    .footer-content a{
+      color: $secondary !important;
+    }
     // input[type="search"] {
     //   color: $secondary !important;
     // }

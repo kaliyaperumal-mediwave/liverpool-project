@@ -3720,6 +3720,9 @@ html #slide-test-5 {
 .off input {
   color: #0f1010 !important; }
 
+.off .footer-content a {
+  color: #023047 !important; }
+
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
@@ -3962,6 +3965,9 @@ html #slide-test-5 {
 
 .on input {
   color: #ffffff !important; }
+
+.on .footer-content a {
+  color: #fafafa !important; }
 
 [data-theme="on"] {
   border: none;
