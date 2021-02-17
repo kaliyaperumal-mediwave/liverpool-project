@@ -1456,6 +1456,10 @@ a {
   border-top-right-radius: 10px !important;
   border-bottom-right-radius: 10px !important; }
 
+#filter_content .input-group .form-control {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important; }
+
 .input-group .form-control {
   border-radius: 0px !important; }
 
