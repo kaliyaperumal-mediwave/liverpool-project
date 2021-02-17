@@ -73,6 +73,16 @@ endblock %} {% block extraHead %}
 
 <script>
   $(document).ready(function () {
+
+    $('body').on('keypress',function(){
+      if ($('.bodyclass').hasClass('apos-active-blackout')) {
+        $(".loadaddclass").addClass("d-none");
+      }
+      else{
+        $(".overlay").addClass("d-none");
+      }
+  });
+
     $('#hideserachblock').removeClass('d-none');
   });
 </script>
@@ -82,6 +92,7 @@ endblock %} {% block extraHead %}
     It is a good place to put extra <script> <link> and <meta> tags.
   #} -->
 {% endblock %}
+{% block bodyClass %}bodyclass{% endblock %}
 {% block beforeMain %}
 
 {% if data.showHeader %}
