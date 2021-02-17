@@ -1809,6 +1809,10 @@ select.selectIcon {
     padding: 16px 24px 24px 16px;
     max-width: 700px;
   }
+  .top-arrow-container.pd-container{
+    padding: 16px 0px 24px 0px;
+
+  }
   .bottom-arrow-container {
     padding: 50px 40px;
     max-width: 700px;
@@ -1894,6 +1898,10 @@ select.selectIcon {
     padding: 16px 24px 24px 16px;
     max-width: 800px;
   }
+  .top-arrow-container.pd-container{
+    padding: 16px 0px 24px 0px;
+
+  }
   .bottom-arrow-container {
     padding: 104px 0px;
     max-width: 800px;
@@ -1951,6 +1959,10 @@ select.selectIcon {
   .top-arrow-container {
     padding: 48px 24px 24px 24px;
     max-width: 943px;
+  }
+  .top-arrow-container.pd-container{
+    padding: 48px 0px 24px 0px;
+
   }
   .bottom-arrow-container {
     padding: 108px 0px;
@@ -2691,6 +2703,9 @@ $color-scheme: (
       p {
         color: $secondary;
       }
+    }
+    .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label{
+      color:$secondary;
     }
     .home-header-secondary {
       color: $secondary;

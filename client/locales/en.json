@@ -140,5 +140,11 @@
 	"Copy (Overrides the existing permissions)": "Copy (Overrides the existing permissions)",
 	"Append (Adds to the existing permissions)": "Append (Adds to the existing permissions)",
 	"Show Content With These Tags": "Show Content With These Tags",
-	"AdminModule": "AdminModule"
+	"AdminModule": "AdminModule",
+	"Stop": "Stop",
+	"Done": "Done",
+	"In Progress...": "In Progress...",
+	"Completed": "Completed",
+	"Successful": "Successful",
+	"Errors": "Errors"
 }
