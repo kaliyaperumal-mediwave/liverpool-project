@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-header-secondary-description, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .footer-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
+.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-header-secondary-description, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -1456,6 +1456,10 @@ a {
   border-top-right-radius: 10px !important;
   border-bottom-right-radius: 10px !important; }
 
+#filter_content .input-group .form-control {
+  border-top-right-radius: 10px !important;
+  border-bottom-right-radius: 10px !important; }
+
 .input-group .form-control {
   border-radius: 0px !important; }
 
@@ -1860,9 +1864,14 @@ a {
   color: #0b181e; }
 
 .footer-text {
-  font-size: 19px;
+  color: #feffff;
   font-weight: bold;
-  color: #feffff; }
+  font-size: 16px;
+  display: flex;
+  padding: 20px 0px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .footer-text {
+      font-size: 14px; } }
 
 .question-font {
   font-size: 18px;
@@ -2260,13 +2269,21 @@ a {
 
 .button-referral {
   background-color: #ffb703;
-  height: 35px;
+  padding: 12px 22px;
   float: right;
   border: none;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 19px;
   font-weight: bold; }
+  @media (min-width: 320px) and (max-width: 575.98px) {
+    .button-referral {
+      font-size: 14px !important;
+      padding: 10px 14px; } }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .button-referral {
+      font-size: 16px !important;
+      padding: 10px 14px; } }
 
 .logo {
   width: 100px;
@@ -2291,13 +2308,6 @@ a {
       padding-left: 10px;
       padding-right: 10px; } }
 
-.footer-text {
-  font-size: 16px !important;
-  display: flex; }
-  @media (min-width: 320px) and (max-width: 424px) {
-    .footer-text {
-      font-size: 14px !important; } }
-
 .slider-header {
   color: #fff;
   font-size: 14px;
@@ -2308,7 +2318,7 @@ a {
   content: "\00d7"; }
 
 .set-bottom-padding {
-  margin-top: 32px; }
+  margin-top: 35px; }
 
 .close-slider {
   font-size: 38px !important;
@@ -2327,13 +2337,13 @@ a {
   width: 100%; }
 
 .inside-cont-slider {
-  padding: 17px;
+  padding: 16px;
   font-size: 16px;
   font-weight: bold;
   color: #002f47;
   display: flex;
   align-items: center;
-  height: 54px;
+  min-height: 54px;
   border-bottom: 1px solid #112f45; }
 
 .double-inside-cont-slider {
@@ -2734,6 +2744,8 @@ select.selectIcon {
   .top-arrow-container {
     padding: 16px 24px 24px 16px;
     max-width: 700px; }
+  .top-arrow-container.pd-container {
+    padding: 16px 0px 24px 0px; }
   .bottom-arrow-container {
     padding: 50px 40px;
     max-width: 700px; } }
@@ -2742,9 +2754,6 @@ select.selectIcon {
   .logo {
     width: 100px;
     margin-left: 16px; }
-  .button-referral {
-    width: 125px;
-    font-size: 12px; }
   .button-login {
     min-width: 240px;
     height: 40px;
@@ -2785,9 +2794,6 @@ select.selectIcon {
     padding-right: 50px; }
   .login-container {
     min-height: 700px; }
-  .button-referral {
-    height: 44px;
-    font-size: 18px !important; }
   .logo {
     width: 140px;
     height: 50px; }
@@ -2802,11 +2808,11 @@ select.selectIcon {
   .titleBig {
     padding-top: 40px;
     padding-bottom: 70px; }
-  .footer-text {
-    padding: 20px 0px; }
   .top-arrow-container {
     padding: 16px 24px 24px 16px;
     max-width: 800px; }
+  .top-arrow-container.pd-container {
+    padding: 16px 0px 24px 0px; }
   .bottom-arrow-container {
     padding: 104px 0px;
     max-width: 800px; } }
@@ -2849,6 +2855,8 @@ select.selectIcon {
   .top-arrow-container {
     padding: 48px 24px 24px 24px;
     max-width: 943px; }
+  .top-arrow-container.pd-container {
+    padding: 48px 0px 24px 0px; }
   .bottom-arrow-container {
     padding: 108px 0px;
     max-width: 943px; } }
@@ -3494,6 +3502,10 @@ html #slide-test-5 {
 .off .home-primary-content-bg {
   background: #ffffff 0% 0% no-repeat padding-box; }
 
+.off .card-set-container-bg {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  color: #023047; }
+
 .off .home-primarySearch-bg {
   background: #ffffff 0% 0% no-repeat padding-box !important; }
 
@@ -3527,6 +3539,9 @@ html #slide-test-5 {
   .off .home-header-primary p {
     color: #023047; }
 
+.off .form-check-input:disabled ~ .form-check-label, .off .form-check-input[disabled] ~ .form-check-label {
+  color: #023047; }
+
 .off .home-header-secondary {
   color: #023047; }
 
@@ -3538,6 +3553,10 @@ html #slide-test-5 {
 
 .off .input-bg-form-control {
   background: #e8edee 0% 0% no-repeat padding-box !important; }
+
+.off .footer-bg {
+  background: #023047 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
 
 .off #authForm .input-group-text {
   background: #e8edee 0% 0% no-repeat padding-box !important; }
@@ -3720,6 +3739,9 @@ html #slide-test-5 {
 .off input {
   color: #0f1010 !important; }
 
+.off .footer-content a {
+  color: #023047 !important; }
+
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
@@ -3732,6 +3754,10 @@ html #slide-test-5 {
 
 .on .home-primary-content-bg {
   background: #353638 0% 0% no-repeat padding-box; }
+
+.on .card-set-container-bg {
+  background: #353638 0% 0% no-repeat padding-box;
+  color: #fafafa; }
 
 .on .home-primarySearch-bg {
   background: #353638 0% 0% no-repeat padding-box !important; }
@@ -3766,6 +3792,9 @@ html #slide-test-5 {
   .on .home-header-primary p {
     color: #fafafa; }
 
+.on .form-check-input:disabled ~ .form-check-label, .on .form-check-input[disabled] ~ .form-check-label {
+  color: #fafafa; }
+
 .on .home-header-secondary {
   color: #fafafa; }
 
@@ -3777,6 +3806,10 @@ html #slide-test-5 {
 
 .on .input-bg-form-control {
   background: #535454 0% 0% no-repeat padding-box !important; }
+
+.on .footer-bg {
+  background: #353940 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
 
 .on #authForm .input-group-text {
   background: #535454 0% 0% no-repeat padding-box !important; }
@@ -3959,6 +3992,9 @@ html #slide-test-5 {
 .on input {
   color: #ffffff !important; }
 
+.on .footer-content a {
+  color: #fafafa !important; }
+
 [data-theme="on"] {
   border: none;
   padding: 5px 15px;
@@ -4105,7 +4141,7 @@ html #slide-test-5 {
   font-size: 20px !important; }
 
 .apos-header-para-font p {
-  word-break: break-all;
+  word-break: break-word;
   font-size: 16px !important; }
 
 .apos-header-para-font ul li {

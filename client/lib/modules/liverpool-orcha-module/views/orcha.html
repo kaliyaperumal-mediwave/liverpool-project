@@ -30,8 +30,10 @@
     </div>
     <!-- Loader end -->
     <div class="top-arrow-container" id="searchBar">
-        <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
-                class="leftArrow cursor-pointer"></a>
+        <!-- <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
+                class="leftArrow cursor-pointer"></a> -->
+                <a href="{{data.bckBtn}}" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i></a>
+
         <div class="resource_text">Apps</div>
         <input hidden id="resources" value="{{data.searchApps|dump}}">
         <div class="input-group">
