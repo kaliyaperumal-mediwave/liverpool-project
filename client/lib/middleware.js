@@ -20,6 +20,8 @@ module.exports = function (self, options) {
             req.data.mentalHeathPage = "/mental-health"
             req.data.resourcesPage = "/resources"
             req.data.navigateMkeRfrl = "/make-referral"
+            req.data.mentalHealth_peoplePage = "mental-health/people";
+            req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
             return next();
           })
@@ -46,6 +48,8 @@ module.exports = function (self, options) {
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.navigateMkeRfrl = "/make-referral";
+      req.data.mentalHealth_peoplePage = "mental-health/people";
+      req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
       if (req.session.auth_token) {
         self.verifyToken(req)
@@ -84,6 +88,8 @@ module.exports = function (self, options) {
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.navigateMkeRfrl = "/make-referral";
+      req.data.mentalHealth_peoplePage = "mental-health/people";
+      req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
       console.log(req.session.auth_token)
       if (req.session.auth_token) {
@@ -290,6 +296,8 @@ module.exports = function (self, options) {
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
       req.data.navigateMkeRfrl = "/make-referral";
+      req.data.mentalHealth_peoplePage = "mental-health/people";
+      req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
       if (req.session.auth_token) {
         self.verifyToken(req)

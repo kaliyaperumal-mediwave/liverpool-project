@@ -71,21 +71,31 @@ endblock %} {% block extraHead %}
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
-<script type="text/javascript">
-  (function () {
-    window.Saber = { com: [], do: function () { this.com.push(arguments) } };
-    var e = document.createElement("script");
-    e.setAttribute("type", "text/javascript");
-    e.setAttribute("src", "//feedback.saberfeedback.com/feedback.js?api_key=6e89e5c714fe9c505573");
-    document.getElementsByTagName("head")[0].appendChild(e);
-  })();
+
+<script>
+  $(document).ready(function () {
+
+    $('body').on('keypress', function () {
+      if ($('.bodyclass').hasClass('apos-active-blackout')) {
+        $(".loadaddclass").addClass("d-none");
+      }
+      else {
+        $(".overlay").addClass("d-none");
+      }
+    });
+
+    $('#hideserachblock').removeClass('d-none');
+  });
 </script>
+
 
 <!-- {#
     This block outputs its contents in the HTML document's <head>.
     It is a good place to put extra <script> <link> and <meta> tags.
   #} -->
-{% endblock %} {% block beforeMain %}
+{% endblock %}
+{% block bodyClass %}bodyclass{% endblock %}
+{% block beforeMain %}
 
 {% if data.showHeader %}
 <div id="heightTopSet" class="headerTop">
@@ -130,6 +140,10 @@ endblock %} {% block extraHead %}
         <button class="button-referral">
           Make a referral
         </button>
+        <!-- <button type="button" id="secondary" class="btn px-md-4 py-2 py-md-1 px-3">
+          <span class="btn-quaternary-text"> Make a referral
+          </span>
+        </button> -->
       </a>
       {% endif %}
 
@@ -153,21 +167,17 @@ endblock %} {% block extraHead %}
           </div>
           <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
-            Referrals
+            <a class="text-decoration-none">Referrals</a>
           </div>
           <div class="collapse" id="collapseExample">
             <div class="collapse-body text-decoration-none">
-              <a href="{{ data.navigateMkeRfrl }}">
-                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                  Make a referral
-                </div>
-              </a>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                <a href="{{ data.navigateMkeRfrl }}">Make a referral</a>
+              </div>
               {% if data.showLogout %}
-              <a href="{{ data.navigateViewRfrl }}">
-                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                  Saved referral
-                </div>
-              </a>
+              <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                <a href="{{ data.navigateViewRfrl }}">Saved referral</a>
+              </div>
               {% endif %}
             </div>
           </div>
@@ -180,7 +190,7 @@ endblock %} {% block extraHead %}
 
           <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider2" role="button"
             aria-expanded="false" aria-controls="collapseSlider2">
-            Accessibility
+            <a class="text-decoration-none">Accessibility</a>
           </div>
           <div class="collapse" id="collapseSlider2">
             <div class="collapse-body">
@@ -195,20 +205,33 @@ endblock %} {% block extraHead %}
               </div>
             </div>
           </div>
-
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.mentalHeathPage }}" class="text-decoration-none"> About mental health services</a>
           </div>
+          <!-- <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseMentalHealth" role="button"
+            aria-expanded="false" aria-controls="collapseExample">
+            <a  class="text-decoration-none"> About mental health services</a>
+          </div>
+          <div class="collapse" id="collapseMentalHealth">
+            <div class="collapse-body text-decoration-none">
+                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                  <a href="{{ data.mentalHealth_peoplePage }}">About the people</a>
+                </div>
+                <div class="border-bottom-0 cursor-pointer inside-cont-slider">
+                  <a href="{{ data.mentalHealth_servicePage }}">About the services</a>
+                </div>
+            </div>
+          </div> -->
 
           {% if data.showLogout %}
           <div class="double-inside-cont-slider" data-toggle="collapse" href="#collapseSlider3" role="button"
             aria-expanded="false" aria-controls="collapseSlider3">
-            Account settings
+            <a class="text-decoration-none">Account settings</a>
           </div>
           <div class="collapse" id="collapseSlider3">
             <div class="collapse-body">
               <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                <a href="/account/change_email" class="cursor-pointer">Change e-mail</a>
+                <a href="/account/change_email" class="cursor-pointer">Change email</a>
               </div>
               <div class="border-bottom-0 cursor-pointer inside-cont-slider">
                 <a href="/account/change_password" class="cursor-pointer"> Change password</a>
@@ -285,6 +308,16 @@ endblock %} {% block extraHead %}
 
 {% endif %}
 
+<script type="text/javascript">
+  (function () {
+    window.Saber = { com: [], do: function () { this.com.push(arguments) } };
+    var e = document.createElement("script");
+    e.setAttribute("type", "text/javascript");
+    e.setAttribute("src", "//feedback.saberfeedback.com/feedback.js?api_key=6e89e5c714fe9c505573");
+    document.getElementsByTagName("head")[0].appendChild(e);
+  })();
+</script>
+
 <div id='middleCont' class="middleContainer">
   <div class="set-mid-padding">
 
@@ -358,6 +391,7 @@ endblock %} {% block extraHead %}
               <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
             </span>
             <h5 id="errorContent" class="text-danger logout-font my-4">error content</h5>
+            <span class="d-none" id="74dae8ad-4a79-4a60-845b-603e8a643ceb"></span>
           </div>
         </div>
       </div>

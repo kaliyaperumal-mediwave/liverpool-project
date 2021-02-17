@@ -4,8 +4,8 @@
 @import "rangeSlider";
 @import "switch";
 @import "mediaQueries";
+@import "admin";
 @import "footer";
-@import "tooltip";
 @import "slider";
 @import "starRating";
 @import "calendar";
@@ -16,7 +16,6 @@
 @import "modal";
 @import "loader";
 @import "select";
-@import "toast";
 
 body {
   font-family: "century-gothic" !important;
@@ -56,11 +55,6 @@ body {
   }
 
   .readOnly-class {
-    .form-control {
-      background: #eef2f3 0% 0% no-repeat padding-box !important;
-      color: #8f979e !important;
-      @extend %input-shared;
-    }
     .custom-select {
       background: #eef2f3 0% 0% no-repeat padding-box !important;
       color: #8f979e !important;
@@ -201,7 +195,8 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
+    30px;
   background-size: contain;
 }
 
@@ -287,7 +282,8 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
+    fixed !important;
   background-size: cover !important;
 }
 
@@ -342,6 +338,22 @@ a {
 }
 
 .home-header-secondary {
+  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: $quaternary-mdFont-size;
+    letter-spacing: 0.64px !important;
+  }
+  @include sm-screen {
+    font-size: $quaternary-font-size;
+    letter-spacing: 0.64px !important;
+  }
+  @include md-screen {
+    @include set-dynamicFont($tertiary-font-size, 2);
+    letter-spacing: 1.5px !important;
+  }
+}
+
+.home-header-secondary-description {
   @include set-titleStyles($tertiary-font-size, bold, $primary-color);
   @include xs-screen {
     font-size: $quaternary-mdFont-size;
@@ -477,6 +489,17 @@ a {
     }
   }
 }
+#filter_content {
+  .input-group {
+    .form-control {
+      // @include set-borderRadius(0px, "topParallel");
+      border-top-right-radius: 10px !important;
+      border-bottom-right-radius: 10px !important;
+      // border-top-left-radius: 10px !important;
+      // border-bottom-left-radius: 10px !important;
+    }
+  }
+}
 
 .input-group {
   .form-control {
@@ -494,7 +517,7 @@ a {
 }
 
 .home-primary-content-bg {
-  @include set-cardStyle($secondary-color, "", "", 14px, "no");
+  @include set-cardStyle($secondary-color, "", "", 10px, "no");
 }
 
 .home-search-area {
@@ -506,7 +529,7 @@ a {
 }
 
 .home-card-radius {
-  @include set-borderRadius(14px, "bottom");
+  @include set-borderRadius(10px, "bottom");
 }
 
 /* Landing Page style end */
@@ -552,6 +575,9 @@ a {
   }
   @include md-screen {
     @include set-dynamicFont($quaternary-font-size, 2);
+  }
+  p {
+    margin-bottom: 0px;
   }
 }
 
@@ -633,10 +659,16 @@ a {
 
 .header-title {
   @include set-titleStyles($tertiary-mdFont-size, bold, $header-text-color);
+  @include xxs-screen {
+    font-size: 15px;
+  }
   @include xs-screen {
-    font-size: 18px;
+    font-size: 16px;
   }
   @include sm-screen {
+    font-size: 17px;
+  }
+  @include md-screen {
     font-size: 19px;
   }
   @include md-screen {
@@ -673,13 +705,13 @@ a {
   h2 {
     @include set-titleStyles($primary-font-size, bold, $primary-color);
     @include xs-screen {
-      font-size: 18px;
+      font-size: 22px;
     }
     @include sm-screen {
-      font-size: 19px;
+      font-size: 24px;
     }
     @include md-screen {
-      font-size: 20px;
+      font-size: 24px;
     }
     margin-bottom: 0px;
   }
@@ -751,15 +783,18 @@ a {
 }
 
 .question-header-font {
-  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
-  @include xs-screen {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+  @include xxs-screen {
     font-size: 15px;
   }
-  @include sm-screen {
+  @include xs-screen {
     font-size: 16px;
   }
+  @include sm-screen {
+    font-size: 17px;
+  }
   @include md-screen {
-    font-size: 18px;
+    font-size: 19px;
   }
 }
 
@@ -868,7 +903,14 @@ a {
 }
 
 .footer-text {
-  @include set-titleStyles($footer-font-size, bold, $footer-text-color);
+  color: $footer-text-color;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  padding: 20px 0px;
+  @include xxs-screen-between {
+    font-size: 14px;
+  }
 }
 
 .question-font {
@@ -910,18 +952,24 @@ a {
 }
 
 .review-header-font {
-  @include set-titleStyles($quaternary-font-size, bold, $primary-color);
-  @include xs-screen {
+  @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
+  @include xxs-screen {
     font-size: 15px;
   }
-  @include sm-screen {
+  @include xs-screen {
     font-size: 16px;
   }
-  @include md-screen {
+  @include sm-screen {
     font-size: 17px;
+  }
+  @include md-screen {
+    font-size: 19px;
   }
   h2 {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xxs-screen {
+      font-size: 18px;
+    }
     @include xs-screen {
       font-size: 18px;
     }
@@ -935,6 +983,9 @@ a {
 
   p {
     @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include xxs-screen {
+      font-size: 18px;
+    }
     @include xs-screen {
       font-size: 18px;
     }
@@ -960,7 +1011,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -988,7 +1040,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -1056,8 +1109,6 @@ a {
 @media (max-width: 768px) {
   .main-min-height {
     min-height: 650px !important;
-    padding-left: 10px !important;
-    padding-right: 10px !important;
   }
 }
 // Extra small devices (portrait phones, less than 576px)
@@ -1263,17 +1314,6 @@ a {
   align-items: center;
 }
 
-.redHeader {
-  background-color: #e55f5f;
-  height: 33px;
-  color: #023047;
-  font-size: 14px;
-  font-weight: 600;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: 14px;
-}
 .button-toggle {
   padding: 0px;
   display: contents;
@@ -1296,14 +1336,21 @@ a {
 }
 .button-referral {
   background-color: #ffb703;
-  height: 35px;
-  width: 145px;
+  padding: 12px 22px;
   float: right;
   border: none;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 19px;
   font-weight: bold;
+  @include xxs-screen {
+    font-size: 14px !important;
+    padding: 10px 14px;
+  }
+  @include sm-screen {
+    font-size: 16px !important;
+    padding: 10px 14px;
+  }
 }
 .logo {
   width: 100px;
@@ -1328,13 +1375,6 @@ a {
     padding-right: 10px;
   }
 }
-.footer-text {
-  font-size: 16px !important;
-  display: flex;
-  @include xxs-screen-between {
-    font-size: 14px !important;
-  }
-}
 .slider-header {
   color: #fff;
   font-size: 14px;
@@ -1345,7 +1385,7 @@ a {
   content: "\00d7";
 }
 .set-bottom-padding {
-  margin-top: 32px;
+  margin-top: 35px;
 }
 .close-slider {
   font-size: 38px !important;
@@ -1364,13 +1404,13 @@ a {
   width: 100%;
 }
 .inside-cont-slider {
-  padding: 17px;
+  padding: 16px;
   font-size: 16px;
   font-weight: bold;
   color: #002f47;
   display: flex;
   align-items: center;
-  height: 54px;
+  min-height: 54px;
   border-bottom: 1px solid #112f45;
 }
 .double-inside-cont-slider {
@@ -1781,6 +1821,9 @@ select.selectIcon {
     padding: 16px 24px 24px 16px;
     max-width: 700px;
   }
+  .top-arrow-container.pd-container {
+    padding: 16px 0px 24px 0px;
+  }
   .bottom-arrow-container {
     padding: 50px 40px;
     max-width: 700px;
@@ -1791,10 +1834,6 @@ select.selectIcon {
   .logo {
     width: 100px;
     margin-left: 16px;
-  }
-  .button-referral {
-    width: 125px;
-    font-size: 12px;
   }
   .button-login {
     min-width: 240px;
@@ -1835,11 +1874,6 @@ select.selectIcon {
 }
 //desktop design
 @media (min-width: 1024px) {
-  .redHeader {
-    height: 48px;
-    padding-left: 22px;
-    font-size: 20px;
-  }
   .button-toggle {
     width: 40px;
     height: 28px;
@@ -1851,11 +1885,6 @@ select.selectIcon {
   }
   .login-container {
     min-height: 700px;
-  }
-  .button-referral {
-    width: 174px;
-    height: 44px;
-    font-size: 18px;
   }
   .logo {
     width: 140px;
@@ -1876,12 +1905,12 @@ select.selectIcon {
     padding-top: 40px;
     padding-bottom: 70px;
   }
-  .footer-text {
-    padding: 20px 0px;
-  }
   .top-arrow-container {
     padding: 16px 24px 24px 16px;
     max-width: 800px;
+  }
+  .top-arrow-container.pd-container {
+    padding: 16px 0px 24px 0px;
   }
   .bottom-arrow-container {
     padding: 104px 0px;
@@ -1940,6 +1969,9 @@ select.selectIcon {
   .top-arrow-container {
     padding: 48px 24px 24px 24px;
     max-width: 943px;
+  }
+  .top-arrow-container.pd-container {
+    padding: 48px 0px 24px 0px;
   }
   .bottom-arrow-container {
     padding: 108px 0px;
@@ -2060,7 +2092,7 @@ body .ui-widget .ui-menu-item {
 }
 
 .card-container-small {
-  min-height: 280px;
+  min-height: 300px;
   border-radius: 10px;
 }
 .container-top-set {
@@ -2070,6 +2102,24 @@ body .ui-widget .ui-menu-item {
 }
 .inside-cover-set {
   padding: 18px;
+}
+.wrap-contain-app {
+  height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+.circle {
+  width: 75px;
+  height: 75px;
+  background: #ffb703;
+  border-radius: 50%;
+  font-weight: bold;
+}
+.inside-cover-only-brand {
+  padding: 18px 42px 18px 18px;
 }
 .imageSet {
   width: 100%;
@@ -2580,6 +2630,9 @@ $color-scheme: (
       #b0bec5,
       url("/modules/my-apostrophe-assets/img/desktop.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool.svg"),
+      #023047,
+      #e8edee,
+      #ffffff,
       #023047
     )
     (
@@ -2593,7 +2646,10 @@ $color-scheme: (
       #3a3e47,
       url("/modules/my-apostrophe-assets/img/desktop_dark.svg"),
       url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
-      #ffffff
+      #ffffff,
+      #535454,
+      #535454,
+      #353940
     )
 );
 @mixin theme(
@@ -2607,7 +2663,10 @@ $color-scheme: (
   $search-bar-color,
   $background,
   $bgLogo,
-  $togglePrimary
+  $togglePrimary,
+  $input-form-color,
+  $card-bg-color,
+  $footer-bg-color
 ) {
   .#{$name} {
     .body-bg {
@@ -2617,6 +2676,10 @@ $color-scheme: (
     }
     .home-primary-content-bg {
       background: $primary 0% 0% no-repeat padding-box;
+    }
+    .card-set-container-bg {
+      background: $primary 0% 0% no-repeat padding-box;
+      color: $secondary;
     }
     .home-primarySearch-bg {
       background: $primary 0% 0% no-repeat padding-box !important;
@@ -2654,15 +2717,52 @@ $color-scheme: (
         color: $secondary;
       }
     }
+    .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label{
+      color:$secondary;
+    }
     .home-header-secondary {
       color: $secondary;
     }
-
+    .bg-set-on-card {
+      background: $card-bg-color;
+    }
     .footer-content {
+      color: $secondary;
+    }
+    .input-bg-form-control {
+      background: $input-form-color 0% 0% no-repeat padding-box !important;
+    }
+    .footer-bg {
+      @include set-background($footer-bg-color, 1);
+    }
+    #authForm {
+      .input-group-text {
+        background: $input-form-color 0% 0% no-repeat padding-box !important;
+      }
+    }
+    .fa-pencil {
+      color: $secondary;
+    }
+    .fa-trash-o {
+      color: $secondary;
+    }
+    .option-text {
+      color: $secondary;
+    }
+    .fa-eye-slash {
+      color: $secondary;
+    }
+    .custom-select {
+      color: $secondary !important;
+    }
+    .fa-eye {
       color: $secondary;
     }
     .footer-content-secondary {
       color: $secondary;
+    }
+    .plain-select::after {
+      border-top: 6px solid $secondary !important;
     }
     .option-font {
       color: $secondary;
@@ -2718,6 +2818,9 @@ $color-scheme: (
     .link-text {
       color: $secondary;
     }
+    .link-text > a {
+      color: $secondary !important;
+    }
     .resource_search_text {
       color: $secondary;
     }
@@ -2744,6 +2847,12 @@ $color-scheme: (
     .ham-icon {
       color: $secondary;
     }
+    .selectSource {
+      color: $secondary;
+    }
+    .title-thing-to-watch {
+      color: $secondary;
+    }
     .bg-fafa {
       background-color: $primary-input-color !important;
     }
@@ -2756,7 +2865,27 @@ $color-scheme: (
     .fa-search:before {
       color: $secondary !important;
     }
+    @include placeholder($secondary);
+    input::placeholder {
+      color: $secondary !important;
+    }
+    textarea::placeholder {
+      color: $secondary !important;
+    }
 
+    .readOnly-class {
+      .form-control {
+        background: $input-form-color 0% 0% no-repeat padding-box !important;
+        color: #8f979e !important;
+      }
+    }
+
+    input {
+      color: $placeholderTheme-color !important;
+    }
+    .footer-content a {
+      color: $secondary !important;
+    }
     // input[type="search"] {
     //   color: $secondary !important;
     // }
@@ -2767,8 +2896,10 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo, $togglePrimary in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
+  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color,
+  $footer-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -2781,7 +2912,10 @@ $color-scheme: (
     $search-bar-color,
     $background,
     $bgLogo,
-    $togglePrimary
+    $togglePrimary,
+    $input-form-color,
+    $card-bg-color,
+    $footer-bg-color
   );
 }
 
@@ -2881,12 +3015,7 @@ $color-scheme: (
 .invalid-feedback {
   font-weight: 500 !important;
 }
-.tooltip {
-  text-decoration: none;
-  border-bottom: none;
-  color: #36c;
-  outline: none;
-}
+
 .fa-chevron-circle-down:before {
   content: "\f107" !important;
   color: black;
@@ -2942,7 +3071,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
-  word-break: normal;
+  word-break: break-word;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
@@ -2973,4 +3102,84 @@ $color-scheme: (
 .modal-open {
   overflow-y: scroll !important;
   padding-right: 0px !important;
+}
+.dropdown.d-flex.justify-content-end.align-items-center.show .fa-caret-down {
+  -moz-transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+  font-size: 20px;
+  padding-right: 10px;
+  padding-left: 0px;
+}
+.dropdown.d-flex.justify-content-end.align-items-center .custom-select-icon {
+  background: none !important;
+  text-align: right;
+  margin-right: 15px;
+}
+.fas.fa-caret-down {
+  font-size: 20px;
+  padding-left: 10px;
+}
+.p-l-r-2 {
+  padding-bottom: 15px;
+}
+i.fa.fa-map-marker {
+  font-weight: 600;
+  color: #023047;
+}
+.p-16 {
+  padding: 16px !important;
+}
+i.fa.fa-calendar {
+  font-size: 21px;
+  font-weight: 600;
+}
+::-webkit-input-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important;
+}
+::-moz-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important;
+}
+:-ms-input-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important;
+}
+:-moz-placeholder {
+  color: #023047 !important;
+  opacity: 0.5 !important;
+}
+.w-35 {
+  width: 35px !important;
+}
+.dropdown.d-flex.justify-content-end.align-items-center.show * {
+  color: #023047 !important;
+}
+@media (max-width: 768px) {
+  ::-webkit-input-placeholder {
+    font-size: 14px !important;
+  }
+  ::-moz-placeholder {
+    font-size: 14px !important;
+  }
+  :-ms-input-placeholder {
+    font-size: 14px !important;
+  }
+  :-moz-placeholder {
+    font-size: 14px !important;
+  }
+  .form-control.auth-border {
+    font-size: 14px !important;
+  }
+  .res-font h2 {
+    font-size: 30px !important;
+  }
+  .res-font p {
+    font-size: 16px !important;
+  }
+}
+.w-h-sub {
+  width: 187px;
+  height: 46px;
 }

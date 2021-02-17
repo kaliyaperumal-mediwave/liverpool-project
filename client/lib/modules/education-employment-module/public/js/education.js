@@ -14,6 +14,18 @@ $(document).ready(function () {
                 socialWorkName: '',
                 socialWorkContact: ''
             },
+            yourAreIn: [{
+                id: 'c1035a21-07a4-407f-a8d0-dcc0e70c6e07',
+                value: 'Education'
+            }, {
+                id: '8a7060dd-1b5e-434c-846e-80f5ef0f34b5',
+                value: 'Employment'
+
+            }, {
+                id: '4dea507b-fca1-4cc9-a68b-953e1fb81ff5',
+                value: 'Neither'
+
+            }],
             currentSection: 'education',
             userMode: '',
             userRole: '',
@@ -24,10 +36,12 @@ $(document).ready(function () {
             mapsEntered: false,
             isFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            aboutYourSelf: [],
+            showInstitution: false
         },
 
         beforeMount: function () {
-           $('#loaderEduc').show();
+            $('#loaderEduc').show();
         },
 
         mounted: function () {
@@ -37,13 +51,13 @@ $(document).ready(function () {
             this.dynamicLabels = getDynamicLabels(this.userRole);
             this.fetchSavedData();
             this.initMaps();
-           $('#loaderEduc').hide();
+            $('#loaderEduc').hide();
         },
 
         methods: {
 
             initMaps: function () {
-               $('#loaderEduc').hide();
+                $('#loaderEduc').hide();
                 var _self = this;
                 var autoCompleteChild;
                 autoCompleteChild = new google.maps.places.Autocomplete((document.getElementById('attendedLocation')), {
@@ -61,8 +75,50 @@ $(document).ready(function () {
             },
 
             onOptionChange: function (event) {
+                var _self = this;
                 var questionIdentifier = event.target.name;
-                if (questionIdentifier == 'currentPosition' || questionIdentifier == 'EHCP' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
+                var data = event.target.value;
+                if (questionIdentifier == 'currentPosition') {
+                    if (event.target.checked) {
+                        if (data == 'Education') {
+                            var neitherIndex = _self.aboutYourSelf.indexOf('Neither');
+                            if (neitherIndex != -1) {
+                                _self.aboutYourSelf.splice(neitherIndex, 1);
+                            }
+                            _self.showInstitution = true;
+                            $('#4dea507b-fca1-4cc9-a68b-953e1fb81ff5').attr('checked', false);
+                            resetValues(event.target.form, this, 'educAndEmpData');
+
+                        } else if (data == 'Employment') {
+                            var neitherIndex = _self.aboutYourSelf.indexOf('Neither');
+                            if (neitherIndex != -1) {
+                                _self.aboutYourSelf.splice(neitherIndex, 1);
+                            }
+                            if (_self.aboutYourSelf.indexOf('Education') != -1) {
+                                _self.showInstitution = true;
+                            }
+                            $('#4dea507b-fca1-4cc9-a68b-953e1fb81ff5').attr('checked', false);
+                            resetValues(event.target.form, this, 'educAndEmpData');
+
+                        }
+                        else if (data == 'Neither') {
+                            $('#c1035a21-07a4-407f-a8d0-dcc0e70c6e07').attr('checked', false);
+                            $('#8a7060dd-1b5e-434c-846e-80f5ef0f34b5').attr('checked', false);
+                            _self.showInstitution = false;
+                            _self.aboutYourSelf = ['Neither'];
+                            resetValues(event.target.form, this, 'educAndEmpData');
+                        }
+
+                    } else {
+                        if (data == 'Education') {
+                            _self.showInstitution = false;
+
+                        }
+                        resetValues(event.target.form, this, 'educAndEmpData');
+                    }
+
+                }
+                else if (questionIdentifier == 'EHCP' || questionIdentifier == 'EHAT' || questionIdentifier == 'SocialWorker') {
                     resetValues(event.target.form, this, 'educAndEmpData');
                 }
             },
@@ -81,18 +137,19 @@ $(document).ready(function () {
                 }
                 if (formData.haveSocialWorker === 'yes') {
                     if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
-                        if (formData.position === 'education' && formData.attendedInfo) {
-                           $('#loaderEduc').show();
-                            this.upsertEducationForm(this.payloadData);
-                        }
-                        else if (formData.position != 'education') {
-                           $('#loaderEduc').show();
-                            this.upsertEducationForm(this.payloadData);
-                        }
+                        if (this.showInstitution) {
+                            if (formData.attendedInfo) {
+                                $('#loaderEduc').show();
+                                this.upsertEducationForm(this.payloadData);
+                            } else {
+                                scrollToInvalidInput();
+                                return false;
+                            }
 
+                        }
                         else {
-                            scrollToInvalidInput();
-                            return false;
+                            $('#loaderEduc').show();
+                            this.upsertEducationForm(this.payloadData);
                         }
 
                     } else {
@@ -101,11 +158,11 @@ $(document).ready(function () {
                     }
                 } else if (formData.haveSocialWorker === 'no') {
                     if (formData.position === 'education' && formData.attendedInfo) {
-                       $('#loaderEduc').show();
+                        $('#loaderEduc').show();
                         this.upsertEducationForm(this.payloadData);
                     }
                     else if (formData.position != 'education') {
-                       $('#loaderEduc').show();
+                        $('#loaderEduc').show();
                         this.upsertEducationForm(this.payloadData);
                     }
                     else {
@@ -115,7 +172,7 @@ $(document).ready(function () {
                 }
 
                 else {
-                   $('#loaderEduc').show();
+                    $('#loaderEduc').show();
                     this.upsertEducationForm(this.payloadData);
                 }
 
@@ -124,9 +181,10 @@ $(document).ready(function () {
             //Section 3(Education) Save and Service call with navigation's Logic
             upsertEducationForm: function (payload) {
                 var _self = this;
+                payload.educAndEmpData.position = this.aboutYourSelf.toString();
                 var responseData = apiCallPost('post', '/education', payload);
                 if (responseData && Object.keys(responseData)) {
-                   $('#loaderEduc').hide();
+                    $('#loaderEduc').hide();
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
                             location.href = "/review";
@@ -141,7 +199,7 @@ $(document).ready(function () {
                     }
 
                 } else {
-                   $('#loaderEduc').hide();
+                    $('#loaderEduc').hide();
                     console.log('empty response')
                 }
             },
@@ -152,10 +210,10 @@ $(document).ready(function () {
                 payload.uuid = this.userId;
                 payload.role = this.userRole;
                 var successData = apiCallPost('post', '/fetchProfession', payload);
-                if (Object.keys(successData)) {
+                if (successData && Object.keys(successData)) {
                     this.patchValue(successData);
                 } else {
-                   $('#loaderEduc').hide();
+                    $('#loaderEduc').hide();
                     console.log('empty response')
                 }
 
@@ -172,6 +230,7 @@ $(document).ready(function () {
                     if (data.child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
                     }
+
                     Vue.set(this.educAndEmpData, "position", data.child_profession);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
@@ -196,7 +255,15 @@ $(document).ready(function () {
                     if (data[0].professional[0].child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data[0].professional[0].child_education_place);
                     }
-                    Vue.set(this.educAndEmpData, "position", data[0].professional[0].child_profession);
+                    if (data[0].professional[0].child_profession) {
+                        data[0].professional[0].child_profession = capitalizeFirstLetter(data[0].professional[0].child_profession);
+                        var convertArray = data[0].professional[0].child_profession.split(",");
+                        if (convertArray.indexOf('Education') != -1) {
+                            this.showInstitution = true;
+                        }
+                        this.aboutYourSelf = convertArray;
+                    }
+                    //Vue.set(this.educAndEmpData, "position", data[0].professional[0].child_profession);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional[0].child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].professional[0].child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].child_socialworker);

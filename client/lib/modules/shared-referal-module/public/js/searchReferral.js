@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  $("#loader").addClass("d-none");
     var API_URI = "/modules/dashboard-module";
     $("#doSearchReferral").click(function (event) {
         if (!$('#toSearchRefCode').val().trim()) {
@@ -23,7 +24,7 @@ $(document).ready(function () {
             error: function (error) {
                 $('#loader').hide();
                 if (error) {
-                    showError(error.responseJSON.message);
+                    showError(error.responseJSON.message, error.status);
                 }
             }
         });

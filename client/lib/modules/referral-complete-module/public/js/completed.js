@@ -40,6 +40,7 @@ $(document).ready(function () {
                     error: function (error) {
                         console.log('Something went Wrong', error);
                         $('#loader').hide();
+                        showError(error.responseJSON.message, error.status);
                     }
                 });
             },
@@ -57,6 +58,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.log('Something went Wrong', error);
+                        showError(error.responseJSON.message, error.status);
                     }
                 });
             },

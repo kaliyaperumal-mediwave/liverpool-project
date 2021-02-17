@@ -127,7 +127,7 @@
                                         </label>
                                         <div class="col-md-4 col-12 px-0">
                                             <div class="input-group">
-                                                <input class="form-control" type="text"
+                                                <input class="form-control input-bg-form-control" type="text"
                                                     @keyup="onDetectChange($event,'sect1')"
                                                     v-model="section1Data.professional_name" id="profNameSec5">
                                                 <div class="input-group-append">
@@ -151,7 +151,7 @@
                                         </label>
                                         <div class="col-md-4 col-12 px-0">
                                             <div class="input-group">
-                                                <input class="form-control" type="text"
+                                                <input class="form-control input-bg-form-control" type="text"
                                                     @input="onDetectChange($event,'sect1')"
                                                     v-model="section1Data.professional_email" id="profEmailSec5">
                                                 <div class="input-group-append">
@@ -174,7 +174,7 @@
                                         </label>
                                         <div class="col-md-4 col-12 px-0">
                                             <div class="input-group">
-                                                <input class="form-control" type="text"
+                                                <input class="form-control input-bg-form-control" type="text"
                                                     @keyup="onDetectChange($event,'sect1')"
                                                     v-model="section1Data.professional_contact_number"
                                                     id="profContactSec5">
@@ -260,7 +260,7 @@
                                         NHS Number:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <input class="form-control" @keyup="onDetectChange($event,'sect2')" type="text"
+                                        <input class="form-control input-bg-form-control" @keyup="onDetectChange($event,'sect2')" type="text"
                                             v-model="section2Data.child_NHS" id="nhsNumberSect5">
                                         <small class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_NHS && !nhsRegex.test(section2Data.child_NHS)),
@@ -278,7 +278,7 @@
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" @keyup="onDetectChange($event,'sect2')"
+                                            <input class="form-control input-bg-form-control" @keyup="onDetectChange($event,'sect2')"
                                                 type="text" v-model="section2Data.child_name" id="nameSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
@@ -301,7 +301,7 @@
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" @keyup="onDetectChange($event,'sect2')"
+                                            <input class="form-control input-bg-form-control" @keyup="onDetectChange($event,'sect2')"
                                                 type="text" v-model="section2Data.child_email" id="emailSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
@@ -329,7 +329,7 @@
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" @keyup="onDetectChange($event,'sect2')"
+                                            <input class="form-control input-bg-form-control" @keyup="onDetectChange($event,'sect2')"
                                                 type="text" v-model="section2Data.child_contact_number" id="cont">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
@@ -355,7 +355,7 @@
                                         Address:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <textarea readonly class="form-control" type="text"
+                                        <textarea readonly class="form-control input-bg-form-control" type="text"
                                             v-model="section2Data.child_address" id="addressSect5">
                                 </textarea>
                                     </div>
@@ -370,11 +370,11 @@
                                             <select class="custom-select text-capitalize"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.can_send_post">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section2Data.can_send_post}}</option>
-                                                <option v-if="section2Data.can_send_post == 'no'" value="yes">Yes
+                                                <option class='option-text' v-if="section2Data.can_send_post == 'no'" value="yes">Yes
                                                 </option>
-                                                <option v-if="section2Data.can_send_post == 'yes'" value="no">no
+                                                <option class='option-text' v-if="section2Data.can_send_post == 'yes'" value="no">no
                                                 </option>
                                             </select>
                                         </span>
@@ -386,7 +386,7 @@
                                         Gender:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control input-bg-form-control" type="text" @keyup="onDetectChange($event,'sect2')"
                                             v-model="section2Data.child_gender" id="genderSect5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_gender),
                                         'invalid-fields':!section2Data.child_gender }">
@@ -404,22 +404,22 @@
                                             <select class="custom-select text-capitalize"
                                                 v-model="section2Data.child_gender_birth"
                                                 @change="onDetectChange($event,'sect2')">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section2Data.child_gender_birth}}</option>
                                                 <template v-if="section2Data.child_gender_birth == 'no'">
-                                                    <option value="yes">yes
+                                                    <option class='option-text' value="yes">yes
                                                     </option>
-                                                    <option value="unsure">unsure
+                                                    <option class='option-text' value="unsure">unsure
                                                 </template>
                                                 <template v-if="section2Data.child_gender_birth == 'yes'">
-                                                    <option value="no">no
+                                                    <option class='option-text' value="no">no
                                                     </option>
-                                                    <option value="unsure">unsure
+                                                    <option class='option-text' value="unsure">unsure
                                                 </template>
                                                 <template v-if="section2Data.child_gender_birth == 'Unsure'">
-                                                    <option value="no">no
+                                                    <option class='option-text' value="no">no
                                                     </option>
-                                                    <option value="yes">yes
+                                                    <option class='option-text' value="yes">yes
                                                 </template>
                                             </select>
                                         </span>
@@ -431,7 +431,7 @@
                                         Sexual orientation:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control input-bg-form-control" type="text" @keyup="onDetectChange($event,'sect2')"
                                             v-model="section2Data.child_sexual_orientation" id="orientSect5">
                                     </div>
                                 </div>
@@ -441,7 +441,7 @@
                                         Ethnicity:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control input-bg-form-control" type="text" @keyup="onDetectChange($event,'sect2')"
                                             v-model="section2Data.child_ethnicity" id="ethincitySect5">
                                     </div>
                                 </div>
@@ -456,22 +456,22 @@
                                             <select class="custom-select text-capitalize"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.child_care_adult">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section2Data.child_care_adult}}</option>
                                                 <template v-if="section2Data.child_care_adult == 'no'">
-                                                    <option value="yes">yes
+                                                    <option class='option-text' value="yes">yes
                                                     </option>
-                                                    <option value="unsure">Unsure
+                                                    <option class='option-text' value="unsure">Unsure
                                                 </template>
                                                 <template v-if="section2Data.child_care_adult == 'yes'">
-                                                    <option value="no">no
+                                                    <option class='option-text' value="no">no
                                                     </option>
-                                                    <option value="unsure">unsure
+                                                    <option class='option-text' value="unsure">unsure
                                                 </template>
                                                 <template v-if="section2Data.child_care_adult == 'unsure'">
-                                                    <option value="no">no
+                                                    <option class='option-text' value="no">no
                                                     </option>
-                                                    <option value="yes">yes
+                                                    <option class='option-text' value="yes">yes
                                                 </template>
                                             </select>
                                         </span>
@@ -490,7 +490,7 @@
                                         Parent / Carer's Name:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control input-bg-form-control" type="text" @keyup="onDetectChange($event,'sect2')"
                                             v-model="section2Data.parent_name" id="parCarName">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_name),
                                     'invalid-fields':!section2Data.parent_name}">
@@ -504,7 +504,7 @@
                                         Have parental responsibility:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <input class="form-control" readonly type="text"
+                                        <input class="form-control input-bg-form-control" readonly type="text"
                                             @keyup="onDetectChange($event,'sect2')"
                                             v-model="section2Data.parential_responsibility" id="parResp">
                                     </div>
@@ -515,7 +515,7 @@
                                         Relationship:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <input class="form-control" type="text" @keyup="onDetectChange($event,'sect2')"
+                                        <input class="form-control input-bg-form-control" type="text" @keyup="onDetectChange($event,'sect2')"
                                             v-model="section2Data.child_parent_relationship" id="relSec5">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_parent_relationship),
                                     'invalid-fields':!section2Data.child_parent_relationship }">
@@ -530,7 +530,7 @@
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control input-bg-form-control" type="text"
                                                 @keyup="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_contact_number" id="contSec5">
                                             <div class="input-group-append">
@@ -557,7 +557,7 @@
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control input-bg-form-control" type="text"
                                                 @keyup="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_email" id="emailparentSec5">
                                             <div class="input-group-append">
@@ -583,11 +583,11 @@
                                             <select disabled class="custom-select text-capitalize"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_same_house">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section2Data.parent_same_house}}</option>
-                                                <option v-if="section2Data.parent_same_house == 'no'" value="yes">Yes
+                                                <option class='option-text' v-if="section2Data.parent_same_house == 'no'" value="yes">Yes
                                                 </option>
-                                                <option v-if="section2Data.parent_same_house == 'yes'" value="no">no
+                                                <option class='option-text' v-if="section2Data.parent_same_house == 'yes'" value="no">no
                                                 </option>
                                             </select>
                                         </span>
@@ -600,7 +600,7 @@
                                             Parent/carer's address:
                                         </label>
                                         <div class="col-md-4 col-12 px-0">
-                                            <textarea readonly class="form-control" type="text"
+                                            <textarea readonly class="form-control input-bg-form-control" type="text"
                                                 @keyup="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_address" id="parCarrerAdd5">
                                             </textarea>
@@ -616,30 +616,30 @@
                                         <span class="plain-select">
                                             <select class="custom-select" @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.legal_care_status">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section2Data.legal_care_status}}</option>
-                                                <option value="Care of Parent">Care of Parent
+                                                <option class='option-text' value="Care of Parent">Care of Parent
                                                 </option>
-                                                <option value="Care of Local Authority (Liverpool)">Care of Local
+                                                <option class='option-text' value="Care of Local Authority (Liverpool)">Care of Local
                                                     Authority
                                                     (Liverpool)
                                                 </option>
-                                                <option value="Care of Local Authority (Sefton)">Care of Local Authority
+                                                <option class='option-text' value="Care of Local Authority (Sefton)">Care of Local Authority
                                                     (Sefton)
                                                 </option>
-                                                <option value="Care of Local Authority (Other)">Care of Local Authority
+                                                <option class='option-text' value="Care of Local Authority (Other)">Care of Local Authority
                                                     (Other)
                                                 </option>
-                                                <option value="Section 20 Voluntary">Section 20 Voluntary
+                                                <option class='option-text' value="Section 20 Voluntary">Section 20 Voluntary
                                                 </option>
-                                                <option value="Accommodated">Accommodated
+                                                <option class='option-text' value="Accommodated">Accommodated
                                                 </option>
-                                                <option value="Full Care Order">Full Care Order</option>
-                                                <option value="Interim Care Order">Interim Care Order</option>
-                                                <option value="Care Order places at home">Care Order places at home
+                                                <option class='option-text' value="Full Care Order">Full Care Order</option>
+                                                <option class='option-text' value="Interim Care Order">Interim Care Order</option>
+                                                <option class='option-text' value="Care Order places at home">Care Order places at home
                                                 </option>
-                                                <option value="Child Protection Plan">Child Protection Plan</option>
-                                                <option value="Other Carer">Other Carer</option>
+                                                <option class='option-text' value="Child Protection Plan">Child Protection Plan</option>
+                                                <option class='option-text' value="Other Carer">Other Carer</option>
                                             </select>
                                         </span>
                                     </div>
@@ -697,15 +697,15 @@
                                             <select disabled class="custom-select text-capitalize"
                                                 v-model="section3Data.child_profession"
                                                 @change="onDetectChange($event,'sect3')">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section3Data.child_profession}}</option>
-                                                <option v-if="section3Data.child_profession != 'education'"
+                                                <option class='option-text' v-if="section3Data.child_profession != 'education'"
                                                     value="education">
                                                     Education</option>
-                                                <option v-if="section3Data.child_profession != 'employment'"
+                                                <option class='option-text' v-if="section3Data.child_profession != 'employment'"
                                                     value="employment">
                                                     Employment</option>
-                                                <option v-if="section3Data.child_profession != 'neither'"
+                                                <option class='option-text' v-if="section3Data.child_profession != 'neither'"
                                                     value="neither">
                                                     Neither</option>
                                             </select>
@@ -719,7 +719,7 @@
                                         School/college:
                                     </label>
                                     <div class="col-md-4 col-12 px-0">
-                                        <textarea class="form-control" type="text"
+                                        <textarea class="form-control input-bg-form-control" type="text"
                                             v-model="section3Data.child_education_place" id="childEducationPlace"
                                             @keyup="onDetectChange($event,'sect3')">
                                 </textarea>
@@ -735,10 +735,10 @@
                                             <select class="custom-select text-capitalize"
                                                 v-model="section3Data.child_EHCP"
                                                 @change="onDetectChange($event,'sect3')">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section3Data.child_EHCP}}</option>
-                                                <option v-if="section3Data.child_EHCP != 'yes'" value="yes">Yes</option>
-                                                <option v-if="section3Data.child_EHCP != 'no'" value="no">no
+                                                <option class='option-text' v-if="section3Data.child_EHCP != 'yes'" value="yes">Yes</option>
+                                                <option class='option-text' v-if="section3Data.child_EHCP != 'no'" value="no">no
                                                 </option>
                                             </select>
                                         </span>
@@ -754,10 +754,10 @@
                                             <select class="custom-select text-capitalize"
                                                 v-model="section3Data.child_EHAT"
                                                 @change="onDetectChange($event,'sect3')">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section3Data.child_EHAT}}</option>
-                                                <option v-if="section3Data.child_EHAT != 'yes'" value="yes">Yes</option>
-                                                <option v-if="section3Data.child_EHAT != 'no'" value="no">no
+                                                <option class='option-text' v-if="section3Data.child_EHAT != 'yes'" value="yes">Yes</option>
+                                                <option class='option-text' v-if="section3Data.child_EHAT != 'no'" value="no">no
                                                 </option>
                                             </select>
                                         </span>
@@ -772,11 +772,11 @@
                                         <span class="plain-select">
                                             <select disabled class="custom-select text-capitalize"
                                                 v-model="section3Data.child_socialworker">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section3Data.child_socialworker}}</option>
-                                                <option v-if="section3Data.child_socialworker != 'yes'" value="yes">Yes
+                                                <option class='option-text' v-if="section3Data.child_socialworker != 'yes'" value="yes">Yes
                                                 </option>
-                                                <option v-if="section3Data.child_socialworker != 'no'" value="no">no
+                                                <option class='option-text' v-if="section3Data.child_socialworker != 'no'" value="no">no
                                                 </option>
                                             </select>
                                         </span>
@@ -790,7 +790,7 @@
                                             Social Worker name:
                                         </label>
                                         <div class="col-md-4 col-12 px-0">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control input-bg-form-control" type="text"
                                                 v-model="section3Data.child_socialworker_name" id="socialworkerNameSec5"
                                                 @keyup="onDetectChange($event,'sect3')">
                                         </div>
@@ -802,7 +802,7 @@
                                             Social Worker number:
                                         </label>
                                         <div class="col-md-4 col-12 px-0">
-                                            <input class="form-control" type="text"
+                                            <input class="form-control input-bg-form-control" type="text"
                                                 v-model="section3Data.child_socialworker_contact"
                                                 id="socialworkerNumSec5" @keyup="onDetectChange($event,'sect3')">
                                         </div>
@@ -861,13 +861,13 @@
                                     <!-- <div class="col-md-4 col-12 px-0">
                                         <select disabled class="custom-select text-capitalize"
                                             v-model="section4Data.referral_type">
-                                            <option selected>
+                                            <option class='option-text' selected>
                                                 {{section4Data.referral_type}}</option>
-                                            <option v-if="section4Data.referral_type != 'mentalHealth'"
+                                            <option class='option-text' v-if="section4Data.referral_type != 'mentalHealth'"
                                                 value="mentalHealth">Mental health</option>
-                                            <option v-if="section4Data.referral_type != 'eatingDisorder'"
+                                            <option class='option-text' v-if="section4Data.referral_type != 'eatingDisorder'"
                                                 value="eatingDisorder">Eating disorder</option>
-                                            <option v-if="section4Data.referral_type != 'bothMental&Eating'"
+                                            <option class='option-text' v-if="section4Data.referral_type != 'bothMental&Eating'"
                                                 value="bothMental&Eating">Mental health & eating disorder</option>
                                         </select>
                                     </div> -->
@@ -882,10 +882,10 @@
                                             <select class="custom-select text-capitalize"
                                                 v-model="section4Data.is_covid"
                                                 @change="onDetectChange($event,'sect4')">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section4Data.is_covid}}</option>
-                                                <option v-if="section4Data.is_covid == 'no'" value="yes">Yes</option>
-                                                <option v-if="section4Data.is_covid == 'yes'" value="no">no
+                                                <option class='option-text' v-if="section4Data.is_covid == 'no'" value="yes">Yes</option>
+                                                <option class='option-text' v-if="section4Data.is_covid == 'yes'" value="no">no
                                                 </option>
                                             </select>
                                         </span>
@@ -901,12 +901,12 @@
                                             <select disabled class="custom-select text-capitalize"
                                                 v-model="section4Data.mental_health_diagnosis"
                                                 @change="onDetectChange($event,'sect4')">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section4Data.mental_health_diagnosis}}</option>
-                                                <option v-if="section4Data.mental_health_diagnosis == 'no'" value="yes">
+                                                <option class='option-text' v-if="section4Data.mental_health_diagnosis == 'no'" value="yes">
                                                     Yes
                                                 </option>
-                                                <option v-if="section4Data.mental_health_diagnosis == 'yes'" value="no">
+                                                <option class='option-text' v-if="section4Data.mental_health_diagnosis == 'yes'" value="no">
                                                     no
                                                 </option>
                                             </select>
@@ -935,12 +935,12 @@
                                             <select disabled class="custom-select text-capitalize"
                                                 v-model="section4Data.symptoms_supportneeds"
                                                 @change="onDetectChange($event,'sect4')">
-                                                <option selected>
+                                                <option class='option-text' selected>
                                                     {{section4Data.symptoms_supportneeds}}</option>
-                                                <option v-if="section4Data.symptoms_supportneeds == 'no'" value="yes">
+                                                <option class='option-text' v-if="section4Data.symptoms_supportneeds == 'no'" value="yes">
                                                     Yes
                                                 </option>
-                                                <option v-if="section4Data.symptoms_supportneeds == 'yes'" value="no">no
+                                                <option class='option-text' v-if="section4Data.symptoms_supportneeds == 'yes'" value="no">no
                                                 </option>
                                             </select>
                                         </span>

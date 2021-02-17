@@ -32,7 +32,7 @@ function getDynamicLabels(currentLocation) {
         allLabels.triggersLabel = "Do they have any particular triggers?";
         allLabels.triggersPlaceHolder = "Is there anything that you or your child have noticed that makes this issue worse for them? Tell us about it here."
         allLabels.disabilitiesLabel = "Does your child have any disabilities, difficulties or challenging behaviours (diagnosed or under investigation)?";
-        allLabels.disabilitiesPlaceHolder = "Tell us about any disabilities or difficulties they might have.";
+        allLabels.disabilitiesPlaceHolder = "Tell us about any disabilities, difficulties, health conditions or challenging behaviours you might have.";
         allLabels.prevAccessedServiceLabel = "Has your child previously accessed any other services?";
         allLabels.listServiceLabel = "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service."
     }
@@ -46,8 +46,8 @@ function getDynamicLabels(currentLocation) {
         allLabels.anythingHelpedPlaceHolder = "Have they tried anything before that has helped them with this issue? Tell us more about it here.";
         allLabels.triggersLabel = "Do they have any particular triggers?";
         allLabels.triggersPlaceHolder = "Is there anything that you or the child/young person have noticed that makes this issue worse for them? Tell us about it here."
-        allLabels.disabilitiesLabel = "Does the child/young person have any disabilities, difficulties or challenging behaviours (diagnosed or under investigation)?";
-        allLabels.disabilitiesPlaceHolder = "Tell us about any disabilities or difficulties they might have.";
+        allLabels.disabilitiesLabel = "Do you have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
+        allLabels.disabilitiesPlaceHolder = "Tell us about any disabilities, difficulties, health conditions or challenging behaviours you might have.";
         allLabels.prevAccessedServiceLabel = "Has the child/young previously accessed any other services?";
         allLabels.listServiceLabel = "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service."
     }

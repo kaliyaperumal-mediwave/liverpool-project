@@ -63,6 +63,8 @@ $(document).ready(function () {
             prevSection4Data: {},
             payloadData: {},
             contactPref: [],
+            selectProvider: '',
+            sendRef: '',
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -74,7 +76,9 @@ $(document).ready(function () {
             showSec1: false,
             digArray: [],
             disableSection1Button: false,
-            showLoader: false
+            showLoader: false,
+            nameForOthers: "",
+            addMoreOrg: false,
         },
 
         // beforeCreate: function () {
@@ -175,6 +179,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').hide();
                         console.log('Something went Wrong', error)
+                        showError(error.responseJSON.message, error.status);
                     }
                 });
             },
@@ -191,20 +196,91 @@ $(document).ready(function () {
             save: function () {
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
-                if (this.contactPref.length) {
-                    var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                    console.log(successData);
-                    if (Object.keys(successData)) {
-                        // location.href = redirectUrl(location.href, "acknowledge", this.paramValues[0], this.paramValues[1]);
-                        location.href = "/acknowledge";
-                        this.isFormSubmitted = false;
+                if (this.userRole == 'child' || this.userRole == 'parent') {
+                    if (this.contactPref.length) {
+                        this.payloadData.referral_provider = "";
+                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        console.log(successData);
+                        if (Object.keys(successData)) {
+                            location.href = "/acknowledge";
+                            this.isFormSubmitted = false;
+                        } else {
+                            console.log('empty response')
+                        }
                     } else {
-                        console.log('empty response')
+                        scrollToInvalidInput();
+                        return false;
                     }
+
                 } else {
-                    scrollToInvalidInput();
-                    return false;
+                    if (this.contactPref.length && this.selectProvider && this.selectProvider == 'No') {
+                        this.payloadData.referral_provider = "";
+                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        console.log(successData);
+                        if (Object.keys(successData)) {
+                            location.href = "/acknowledge";
+                            this.isFormSubmitted = false;
+                        } else {
+                            console.log('empty response')
+                        }
+                    } else if (this.contactPref.length && this.selectProvider && this.selectProvider == 'Yes') {
+                        if (this.sendRef && (this.sendRef == 'YPAS' || this.sendRef == 'Venus' || this.sendRef == 'IAPTUS')) {
+                            this.payloadData.referral_provider = this.sendRef;
+                            var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                            if (Object.keys(successData)) {
+                                location.href = "/acknowledge";
+                                this.isFormSubmitted = false;
+                            } else {
+                                console.log('empty response')
+                            }
+
+                        } else if (this.sendRef && this.sendRef == 'Other') {
+                            if (this.nameForOthers) {
+                                this.payloadData.referral_provider = this.nameForOthers;
+                                var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                                if (Object.keys(successData)) {
+                                    location.href = "/acknowledge";
+                                    this.isFormSubmitted = false;
+                                } else {
+                                    console.log('empty response')
+                                }
+                            } else {
+                                scrollToInvalidInput();
+                                return false;
+                            }
+
+                        } else {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+
+                    }
+                    else {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
                 }
+
+            },
+
+            changeProvider: function (e) {
+                if (e.target.value == 'Other') {
+                    this.isFormSubmitted = false;
+                    this.addMoreOrg = true;
+                } else {
+                    this.isFormSubmitted = false;
+                    this.addMoreOrg = false;
+                    this.nameForOthers = "";
+                }
+
+            },
+
+            resetProvider: function () {
+                this.isFormSubmitted = false;
+                this.sendRef = [];
+                this.addMoreOrg = false;
+                this.nameForOthers = "";
             },
 
             preventWhiteSpaces: function (e) {

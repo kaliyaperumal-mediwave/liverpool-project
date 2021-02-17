@@ -34,7 +34,7 @@
 
             <div class="py-2" v-cloak>
                 <!-- About Your Self Start-->
-                <form id="position-form" data-options="position">
+                <!-- <form id="position-form" data-options="position">
                     <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.postionLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
@@ -59,22 +59,44 @@
                             </label>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <!-- About Your Self End-->
+
+                <form id="position-form" data-options="position">
+                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <p class="question-font m-0">{{dynamicLabels.postionLabel}}</p>
+                        <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in yourAreIn" :key="index">
+                            <div class="row m-0 align-items-center">
+                                <div>
+                                    <input type="checkbox" v-bind:id="item.id" name="currentPosition"
+                                        v-bind:value="item.value" v-model="aboutYourSelf"
+                                        @change="onOptionChange($event)">
+                                    <label v-bind:for="item.id" class="option-font d-flex align-items-center">
+                                    </label>
+                                </div>
+                                <div class="set-width-calc">
+                                    <label class="text-label-hide option-font" v-bind:for="item.id">
+                                        {{ item.value }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
 
                 <!-- Which school / college / university / do you attend? Start  -->
                 <form id="attended-form" data-options="attendedInfo">
-                    <div v-show="educAndEmpData.position =='education'"
-                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div v-show="showInstitution" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group">
                             <label for="attendedLocation" class="question-font">{{dynamicLabels.locationLabel}}</label>
                             <div class="input-group">
-                                <input type="search" class="form-control" placeholder="Start typing to search"
+                                <input type="search" class="form-control input-bg-form-control" placeholder="Start typing to search"
                                     @input="trimWhiteSpace($event,'educAndEmpData','attendedInfo')"
                                     id="attendedLocation" aria-label="location" name="educationLocation"
                                     v-model="educAndEmpData.attendedInfo">
                                 <div class="input-group-append">
-                                    <span class="input-group-text">
+                                    <span class="input-group-text p-16">
                                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                     </span>
                                 </div>
@@ -91,8 +113,7 @@
 
                 <!-- Education or HealthCare Plan Start-->
                 <form id="EHCP-form" data-options="haveEhcpPlan">
-                    <div v-if="educAndEmpData.position =='employment' || educAndEmpData.position =='neither' || educAndEmpData.position =='education'"
-                        class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div v-if="aboutYourSelf.length" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="d-flex align-items-start">
                             <p class="question-font m-0">
                                 {{dynamicLabels.ehcpPlanLabel}}</p>
@@ -189,7 +210,7 @@
                         <div class="form-group m-0">
                             <label for="socialWorker"
                                 class="question-font">{{dynamicLabels.socialWorkerNameLabel}}</label>
-                            <input type="text" class="form-control" id="socialWorker"
+                            <input type="text" class="form-control input-bg-form-control" id="socialWorker"
                                 @input="trimWhiteSpace($event,'educAndEmpData','socialWorkName')"
                                 placeholder="Enter social worker's name" v-model="educAndEmpData.socialWorkName">
                             <div class="invalid-feedback d-none"
@@ -208,7 +229,7 @@
                         <div class="form-group">
                             <label for="contactWorker"
                                 class="question-font">{{dynamicLabels.socialWorkerContactLabel}}</label>
-                            <input type="text" class="form-control" id="contactWorker"
+                            <input type="text" class="form-control input-bg-form-control" id="contactWorker"
                                 @input="trimWhiteSpace($event,'educAndEmpData','socialWorkContact')"
                                 placeholder="Enter social worker's phone number"
                                 v-model="educAndEmpData.socialWorkContact">
@@ -232,28 +253,40 @@
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
                                     <template
-                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && !showInstitution && !educAndEmpData.attendedInfo">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template
-                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && showInstitution && educAndEmpData.attendedInfo">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
                                     <template
-                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && showInstitution && !educAndEmpData.attendedInfo">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
                                     <template
-                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position == 'education'">
+                                        v-if="showInstitution && educAndEmpData.attendedInfo && (!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </template>
+                                    <template
+                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && showInstitution && !educAndEmpData.attendedInfo">
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </template>
+                                    <template
+                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && !showInstitution && !educAndEmpData.attendedInfo ">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
                                 </p>
                                 <template
-                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && !showInstitution && !educAndEmpData.attendedInfo">
                                     <p class="question-font text-center m-0 pt-2">Over half way there! </p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
@@ -262,7 +295,7 @@
                                 </template>
 
                                 <template
-                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && showInstitution && educAndEmpData.attendedInfo">
                                     <p class="question-font text-center m-0 pt-2">Over half way there! </p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
@@ -271,7 +304,7 @@
                                 </template>
 
                                 <template
-                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && showInstitution && !educAndEmpData.attendedInfo">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
@@ -279,7 +312,31 @@
                                     </p>
                                 </template>
                                 <template
-                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !educAndEmpData.attendedInfo || !phoneRegex.test(educAndEmpData.socialWorkContact)) && educAndEmpData.position == 'education'">
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.attendedInfo && phoneRegex.test(educAndEmpData.socialWorkContact) && !showInstitution && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
+                                        this
+                                        page
+                                    </p>
+                                </template>
+                                <template
+                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && showInstitution && !educAndEmpData.attendedInfo">
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
+                                        this
+                                        page
+                                    </p>
+                                </template>
+                                <template
+                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && !showInstitution && !educAndEmpData.attendedInfo ">
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
+                                        this
+                                        page
+                                    </p>
+                                </template>
+                                <template
+                                    v-if="showInstitution && educAndEmpData.attendedInfo && (!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact))">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
@@ -305,39 +362,36 @@
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
-                                    <template
-                                        v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                    <template v-if="showInstitution && educAndEmpData.attendedInfo">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
-                                    <template
-                                        v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                    <template v-if="!showInstitution && !educAndEmpData.attendedInfo">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
-                                    <template
-                                        v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
+                                    <template v-if="showInstitution && !educAndEmpData.attendedInfo">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
                                 </p>
-                                <template v-if="educAndEmpData.position == 'education' && educAndEmpData.attendedInfo">
+                                <template v-if="showInstitution && educAndEmpData.attendedInfo">
                                     <p class="question-font text-center m-0 pt-2">Over half way there! </p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
                                 </template>
-                                <template v-if="educAndEmpData.position != 'education' && !educAndEmpData.attendedInfo">
+                                <template v-if="!showInstitution && !educAndEmpData.attendedInfo">
                                     <p class="question-font text-center m-0 pt-2">Over half way there! </p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
                                         your referral request.</p>
                                 </template>
-                                <template v-if="educAndEmpData.position == 'education' && !educAndEmpData.attendedInfo">
+                                <template v-if="showInstitution && !educAndEmpData.attendedInfo">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on this
-                                        page.</p>
+                                        page1.</p>
                                 </template>
                             </div>
                         </div>
