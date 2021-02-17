@@ -356,7 +356,7 @@ function setTextSize() {
             var setLineHeight = Number(fontsize + inc) + 4;
             var newFontsize = (fontsize + inc) + 'px';
             $(this).css('font-size', newFontsize);
-            $(this).css('line-height', setLineHeight + 'px');
+            //$(this).css('line-height', setLineHeight + 'px');
         });
         currentTextSize = textSize;
     }

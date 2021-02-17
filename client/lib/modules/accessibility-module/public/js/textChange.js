@@ -12,7 +12,7 @@ $(document).ready(function () {
                     var setLineHeight = Number(fontsize + inc) + 6;
                     var newFontsize = (fontsize + inc) + 'px';
                     $(this).css('font-size', newFontsize);
-                    $(this).css('line-height', setLineHeight + 'px')
+                   // $(this).css('line-height', setLineHeight + 'px')
                 });
                 currentTextSize = change;
             }
@@ -24,7 +24,7 @@ $(document).ready(function () {
                     var setLineHeight = Number(fontsize + inc) + 6;
                     var newFontsize = (fontsize - dec) + 'px';
                     $(this).css('font-size', newFontsize);
-                    $(this).css('line-height', setLineHeight + 'px')
+                   // $(this).css('line-height', setLineHeight + 'px')
                 });
                 currentTextSize = change;
             }
