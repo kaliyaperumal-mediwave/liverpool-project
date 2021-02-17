@@ -33,10 +33,10 @@
             <a href="{{ data.logoPath }}">
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
-            <h2 class="home-header-primary m-0 py-2">Contact Us
-            </h2>
-            <!-- <div class="home-header-primary m-0 py-2">
-                {{ apos.area(data.page, 'aboutPageTitle', {
+            <!-- <h2 class="home-header-primary m-0 py-2">Contact Us
+            </h2> -->
+            <div class="home-header-primary m-0 py-2">
+                {{ apos.area(data.page, 'contactPageTitle', {
                 widgets: {
                 'apostrophe-rich-text': {
                 toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -45,23 +45,24 @@
                 ]
                 }
                 }
-                }) }}</div> -->
+                }) }}</div>
         </div>
     </div>
     <div class="d-flex text-center">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 px-4 mx-auto home-primary-content-bg">
             <div class="footer-content text-break my-3 my-md-4 py-2 px-3 text-left apos-header-para-font">
-                <!-- {{ apos.area(data.page, 'aboutsubTitle', {
+                {{ apos.area(data.page, 'contactsubTitle', {
                 widgets: {
                 'apostrophe-rich-text': {
                 toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink','BulletedList' ],
                 styles: [
+                  { name: 'Heading', element: 'H3' },
                 { name: 'Paragraph', element: 'p' }
                 ]
                 }
                 }
-                }) }} -->
-                <h3>
+                }) }}
+                <!-- <h3>
                     MYA RAISE Team
                 </h3>
                 <h3>
@@ -82,7 +83,7 @@
                 </h3>
                 <h3 class="py-2">
                     Tel: 0151 702 0700
-                </h3>
+                </h3> -->
             </div>
         </div>
     </div>
