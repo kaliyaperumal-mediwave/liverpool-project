@@ -893,7 +893,14 @@ a {
 }
 
 .footer-text {
-  @include set-titleStyles($footer-font-size, bold, $footer-text-color);
+  color: $footer-text-color;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  padding: 20px 0px;
+  @include xxs-screen-between {
+    font-size: 14px;
+  }
 }
 
 .question-font {
@@ -1320,7 +1327,6 @@ a {
 .button-referral {
   background-color: #ffb703;
   height: 35px;
-  //width: 145px;
   float: right;
   border: none;
   box-shadow: 0px 3px 6px #00000029;
@@ -1349,13 +1355,6 @@ a {
   @include xxs-screen-between {
     padding-left: 10px;
     padding-right: 10px;
-  }
-}
-.footer-text {
-  font-size: 16px !important;
-  display: flex;
-  @include xxs-screen-between {
-    font-size: 14px !important;
   }
 }
 .slider-header {
@@ -1387,13 +1386,13 @@ a {
   width: 100%;
 }
 .inside-cont-slider {
-  padding: 17px;
+  padding: 16px;
   font-size: 16px;
   font-weight: bold;
   color: #002f47;
   display: flex;
   align-items: center;
-  height: 54px;
+  min-height: 54px;
   border-bottom: 1px solid #112f45;
 }
 .double-inside-cont-slider {
@@ -1893,9 +1892,6 @@ select.selectIcon {
   .titleBig {
     padding-top: 40px;
     padding-bottom: 70px;
-  }
-  .footer-text {
-    padding: 20px 0px;
   }
   .top-arrow-container {
     padding: 16px 24px 24px 16px;
@@ -2618,7 +2614,8 @@ $color-scheme: (
       url("/modules/my-apostrophe-assets/img/liverpool.svg"),
       #023047,
       #e8edee,
-      #ffffff
+      #ffffff,
+      #023047
     )
     (
       on,
@@ -2633,7 +2630,8 @@ $color-scheme: (
       url("/modules/my-apostrophe-assets/img/liverpool_dark.svg"),
       #ffffff,
       #535454,
-      #535454
+      #535454,
+      #353940
     )
 );
 @mixin theme(
@@ -2649,7 +2647,8 @@ $color-scheme: (
   $bgLogo,
   $togglePrimary,
   $input-form-color,
-  $card-bg-color
+  $card-bg-color,
+  $footer-bg-color
 ) {
   .#{$name} {
     .body-bg {
@@ -2707,6 +2706,9 @@ $color-scheme: (
     }
     .input-bg-form-control {
       background: $input-form-color 0% 0% no-repeat padding-box !important;
+    }
+    .footer-bg {
+      @include set-background($footer-bg-color, 1);
     }
     #authForm {
       .input-group-text {
@@ -2845,15 +2847,14 @@ $color-scheme: (
     textarea::placeholder {
       color: $secondary !important;
     }
-    
-      .readOnly-class{
-        .form-control {
-          background: $input-form-color 0% 0% no-repeat padding-box !important;
-          color: #8f979e !important;
-        }
+
+    .readOnly-class {
+      .form-control {
+        background: $input-form-color 0% 0% no-repeat padding-box !important;
+        color: #8f979e !important;
       }
-    
-    
+    }
+
     input {
       color: $placeholderTheme-color !important;
     }
@@ -2869,7 +2870,7 @@ $color-scheme: (
 }
 @each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
   $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color in $color-scheme
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -2884,7 +2885,8 @@ $color-scheme: (
     $bgLogo,
     $togglePrimary,
     $input-form-color,
-    $card-bg-color
+    $card-bg-color,
+    $footer-bg-color
   );
 }
 
@@ -3132,7 +3134,7 @@ i.fa.fa-calendar {
 }
 @media (max-width: 768px) {
   ::-webkit-input-placeholder {
-  font-size: 14px !important;
+    font-size: 14px !important;
   }
   ::-moz-placeholder {
     font-size: 14px !important;
@@ -3143,17 +3145,17 @@ i.fa.fa-calendar {
   :-moz-placeholder {
     font-size: 14px !important;
   }
-  .form-control.auth-border{
+  .form-control.auth-border {
     font-size: 14px !important;
   }
-  .res-font h2{
+  .res-font h2 {
     font-size: 30px !important;
   }
-  .res-font p{
+  .res-font p {
     font-size: 16px !important;
   }
 }
-.w-h-sub{
+.w-h-sub {
   width: 187px;
-height: 46px;
+  height: 46px;
 }
