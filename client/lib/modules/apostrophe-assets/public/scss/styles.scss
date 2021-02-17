@@ -6,7 +6,6 @@
 @import "mediaQueries";
 @import "admin";
 @import "footer";
-@import "tooltip";
 @import "slider";
 @import "starRating";
 @import "calendar";
@@ -17,7 +16,6 @@
 @import "modal";
 @import "loader";
 @import "select";
-@import "toast";
 
 body {
   font-family: "century-gothic" !important;
@@ -196,8 +194,7 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
-    30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
   background-size: contain;
 }
 
@@ -283,8 +280,7 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
-    fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -628,6 +624,7 @@ a {
     list-style: inside;
     margin-bottom: 8px;
   }
+
 }
 
 .footer-content-secondary {
@@ -994,8 +991,7 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -1023,8 +1019,7 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -2845,15 +2840,14 @@ $color-scheme: (
     textarea::placeholder {
       color: $secondary !important;
     }
-    
-      .readOnly-class{
-        .form-control {
-          background: $input-form-color 0% 0% no-repeat padding-box !important;
-          color: #8f979e !important;
-        }
+
+    .readOnly-class {
+      .form-control {
+        background: $input-form-color 0% 0% no-repeat padding-box !important;
+        color: #8f979e !important;
       }
-    
-    
+    }
+
     input {
       color: $placeholderTheme-color !important;
     }
@@ -2867,9 +2861,8 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
-  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
+  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -2984,12 +2977,7 @@ $color-scheme: (
 .invalid-feedback {
   font-weight: 500 !important;
 }
-.tooltip {
-  text-decoration: none;
-  border-bottom: none;
-  color: #36c;
-  outline: none;
-}
+
 .fa-chevron-circle-down:before {
   content: "\f107" !important;
   color: black;
@@ -3045,7 +3033,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
-  word-break: normal;
+  word-break: break-all;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
@@ -3132,7 +3120,7 @@ i.fa.fa-calendar {
 }
 @media (max-width: 768px) {
   ::-webkit-input-placeholder {
-  font-size: 14px !important;
+    font-size: 14px !important;
   }
   ::-moz-placeholder {
     font-size: 14px !important;
@@ -3143,17 +3131,17 @@ i.fa.fa-calendar {
   :-moz-placeholder {
     font-size: 14px !important;
   }
-  .form-control.auth-border{
+  .form-control.auth-border {
     font-size: 14px !important;
   }
-  .res-font h2{
+  .res-font h2 {
     font-size: 30px !important;
   }
-  .res-font p{
+  .res-font p {
     font-size: 16px !important;
   }
 }
-.w-h-sub{
+.w-h-sub {
   width: 187px;
-height: 46px;
+  height: 46px;
 }

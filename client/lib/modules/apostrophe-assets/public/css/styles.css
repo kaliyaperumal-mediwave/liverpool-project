@@ -9,6 +9,12 @@
   overflow: hidden !important;
   text-overflow: ellipsis !important; }
 
+.tooltip {
+  text-decoration: none;
+  border-bottom: none;
+  color: #36c;
+  outline: none; }
+
 .text-underline {
   text-decoration: underline !important; }
 
@@ -513,38 +519,6 @@ div.radio.switcher label {
   .set-mid-padding {
     padding-bottom: 80px; } }
 
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black; }
-
-.tooltip .tooltipText {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -60px; }
-
-.tooltip .tooltipText::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: black transparent transparent transparent; }
-
-.tooltip:hover .tooltipText {
-  visibility: visible; }
-
 .slider-stats {
   background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 62px center/68% 4px; }
   @media (min-width: 320px) and (max-width: 424px) {
@@ -999,28 +973,6 @@ div.radio.switcher label {
   vertical-align: middle;
   position: relative;
   width: 100%; }
-
-.v-toast__item .v-toast__text::before {
-  font-family: FontAwesome !important;
-  color: #fff;
-  float: right;
-  left: 18px;
-  font-size: 19px;
-  font-weight: bold;
-  position: relative;
-  bottom: 16px;
-  cursor: pointer; }
-
-.v-toast__item .v-toast__text {
-  padding: 0px 30px 0px 10px !important;
-  font-size: 16px;
-  font-weight: bold; }
-
-.v-toast__item {
-  min-height: 44px !important; }
-
-.v-toast.v-toast--top {
-  justify-content: center; }
 
 body {
   font-family: "century-gothic" !important; }
@@ -4101,12 +4053,6 @@ html #slide-test-5 {
 .invalid-feedback {
   font-weight: 500 !important; }
 
-.tooltip {
-  text-decoration: none;
-  border-bottom: none;
-  color: #36c;
-  outline: none; }
-
 .fa-chevron-circle-down:before {
   content: "\f107" !important;
   color: black;
@@ -4159,7 +4105,7 @@ html #slide-test-5 {
   font-size: 20px !important; }
 
 .apos-header-para-font p {
-  word-break: normal;
+  word-break: break-all;
   font-size: 16px !important; }
 
 .apos-header-para-font ul li {
