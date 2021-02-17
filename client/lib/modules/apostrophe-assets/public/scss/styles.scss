@@ -2692,6 +2692,9 @@ $color-scheme: (
         color: $secondary;
       }
     }
+    .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label{
+      color:$secondary;
+    }
     .home-header-secondary {
       color: $secondary;
     }
