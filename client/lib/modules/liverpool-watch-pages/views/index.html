@@ -104,7 +104,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           {% endraw %}
         </div>
       </div>
-      <div class="text_inside_cont">
+      <div class="text_inside_cont card-set-container-bg">
         Here are different videos currently used across the platform
       </div>
 
@@ -121,7 +121,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-          <div class="body-cont-set">
+          <div class="body-cont-set card-set-container-bg">
             <div class="read-cont-h1">{{ piece.title }}</div>
             <div class="read-cont-p">{{ piece.SubTitle }}</div>
             <div class="text-break">{{apos.area(piece,'text')}}</div>
@@ -151,7 +151,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
           ></iframe>
-          <div class="body-cont-set">
+          <div class="body-cont-set card-set-container-bg">
             <div class="read-cont-p">{{ piece.SubTitle }}</div>
             <div class="text-break ellipse-text-large">
               {{apos.area(piece,'text')}}
