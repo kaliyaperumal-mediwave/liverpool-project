@@ -6,7 +6,6 @@
 @import "mediaQueries";
 @import "admin";
 @import "footer";
-@import "tooltip";
 @import "slider";
 @import "starRating";
 @import "calendar";
@@ -17,7 +16,6 @@
 @import "modal";
 @import "loader";
 @import "select";
-@import "toast";
 
 body {
   font-family: "century-gothic" !important;
@@ -2870,7 +2868,8 @@ $color-scheme: (
 }
 @each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
   $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color in $color-scheme
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color,
+  $footer-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -2986,12 +2985,7 @@ $color-scheme: (
 .invalid-feedback {
   font-weight: 500 !important;
 }
-.tooltip {
-  text-decoration: none;
-  border-bottom: none;
-  color: #36c;
-  outline: none;
-}
+
 .fa-chevron-circle-down:before {
   content: "\f107" !important;
   color: black;
@@ -3047,7 +3041,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
-  word-break: normal;
+  word-break: break-word;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {

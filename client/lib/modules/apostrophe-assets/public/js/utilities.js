@@ -74,8 +74,8 @@ function showError(content, statusCode) {
         content = "Something went wrong.Please try again"
     }
     $('#errorContent').text(content);
-    if(statusCode) {
-    $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text(statusCode);
+    if (statusCode) {
+        $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text(statusCode);
     }
     $('#errorCommon').modal('show');
 };
@@ -83,7 +83,7 @@ function showError(content, statusCode) {
 function closeError() {
     var statusCode = $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text();
     $('#errorCommon').modal('hide');
-    if(statusCode && statusCode == '401') {
+    if (statusCode && statusCode == '401') {
         location.href = "/users/login";
     }
 }
@@ -179,19 +179,15 @@ function apiCallPost(reqType, endPoint, payload) {
             $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
                 showError(error.responseJSON.message, error.status);
-                // setTimeout(function () {
-                //     $('#errorCommon').modal('hide');
-                // }, 1000);
             }
         }
     });
     return response;
 };
 
-//Common API Call for post Function
+//Common API Call for Get Function
 function apiCallGet(reqType, endPoint, API_URI) {
     var response;
-    //console.log(API_URI + endPoint)
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
@@ -300,7 +296,10 @@ function setLoaderStyle() {
     body.classList.add('default');
 }
 
-
+//common function to make first letter capital
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 
 //for make referral 1 to 5 section
@@ -354,8 +353,10 @@ function setTextSize() {
         var inc = Number(textSize) - Number(currentTextSize);
         $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
             var fontsize = parseInt($(this).css('font-size'));
+            var setLineHeight = Number(fontsize + inc) + 4;
             var newFontsize = (fontsize + inc) + 'px';
             $(this).css('font-size', newFontsize);
+            $(this).css('line-height', setLineHeight + 'px');
         });
         currentTextSize = textSize;
     }
