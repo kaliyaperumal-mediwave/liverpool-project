@@ -83,7 +83,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                       src="/modules/my-apostrophe-assets/img/placeholder.svg"
                       width="50"
                       height="30"
-                      class="px-1 px-md-2 cursor-pointer"
+                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
                       alt=""
                     />
                     <p class="question-font my-0 mx-2 mx-md-4">
@@ -104,7 +104,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           {% endraw %}
         </div>
       </div>
-      <div class="text_inside_cont">
+      <div class="text_inside_cont card-set-container-bg">
         Here are different real life experiences of users currently using the
         platform
       </div>
@@ -121,7 +121,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           src="/modules/my-apostrophe-assets/img/Recommendations_Placeholder.svg"
           class="img-placeholder"
         />
-        <div class="body-cont-set">
+        <div class="body-cont-set card-set-container-bg">
           <div class="read-cont-h1">{{ piece.title }}</div>
           <div class="read-cont-p">{{ piece.read_topic }}</div>
           <div class="text-break">{{ piece.text }}</div>

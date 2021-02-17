@@ -2647,15 +2647,17 @@ exports.getUserReferral = ctx => {
   console.log("==getUserReferral=>", ctx.request.decryptedUser);
   console.log(ctx.query.reqCode);
   const ref = ctx.orm().Referral;
-  console.log(ctx.query)
-  return ref.findAll({
-    where: {
-      login_id: ctx.request.decryptedUser.id,
-      referral_progress: {
-        [Op.ne]: null
-      },
-      referral_complete_status: ctx.query.referralType
+  var query = {
+    referral_progress: {
+      [Op.ne]: null
     },
+    referral_complete_status: ctx.query.referralType
+  }
+  if(ctx.request.decryptedUser) {
+    query.login_id = ctx.request.decryptedUser.id;
+  }
+  return ref.findAll({
+    where: query,
     order: [
       ['updatedAt', 'DESC'],
     ],

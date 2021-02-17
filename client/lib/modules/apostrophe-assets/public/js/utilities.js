@@ -364,16 +364,19 @@ function setTextSize() {
 
 function setTheme() {
     var logoElem = document.getElementById('logoBgHome');
+    var placeholderImg = document.getElementsByClassName('toggle-img-placehold');
     var theme = localStorage.getItem('theme');
     if (theme == 'light') {
         $('body').removeClass().addClass('net off').addClass('body-bg');
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool.svg";
+            placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder.svg";
         }
         localStorage.setItem('theme', 'light');
     } else if (theme == 'dark') {
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool_dark.svg";
+            placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder_white.svg";
         }
         $('body').removeClass().addClass('net on').addClass('body-bg');
         localStorage.setItem('theme', 'dark');
