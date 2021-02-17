@@ -17,6 +17,7 @@ module.exports = {
         showHeader: true,
         home: false,
         completed: true,
+        backContent: '/dashboard',
         loginFlag: req.data.showLogout
       }));
     };
