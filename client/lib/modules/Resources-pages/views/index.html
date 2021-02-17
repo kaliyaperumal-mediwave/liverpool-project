@@ -34,9 +34,10 @@
 <div id="resources_user" class="main-min-height">
 
     <div class="top-arrow-container" id="searchBar">
-        <a href="{{ data.logoPath }}" class="text-decoration-none">
+        <!-- <a href="{{ data.logoPath }}" class="text-decoration-none">
             <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" />
-        </a>
+        </a> -->
+        <a href="{{ data.logoPath }}"><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i></a>
         <div class="resource_text"> Resources</div>
         <input hidden id="resources" value="{{data.piecesArray|dump}}">
         <div id="filter_content">
