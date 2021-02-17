@@ -1324,13 +1324,21 @@ a {
 }
 .button-referral {
   background-color: #ffb703;
-  height: 35px;
+  padding:12px 22px;
   float: right;
   border: none;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 19px;
   font-weight: bold;
+  @include xxs-screen {
+    font-size: 14px !important;
+    padding: 10px 14px;
+  }
+  @include sm-screen{
+    font-size: 16px !important;
+    padding: 10px 14px;
+  }
 }
 .logo {
   width: 100px;
@@ -1812,10 +1820,6 @@ select.selectIcon {
     width: 100px;
     margin-left: 16px;
   }
-  .button-referral {
-    width: 125px;
-    font-size: 12px;
-  }
   .button-login {
     min-width: 240px;
     height: 40px;
@@ -1866,11 +1870,6 @@ select.selectIcon {
   }
   .login-container {
     min-height: 700px;
-  }
-  .button-referral {
-    // width: 174px;
-    height: 44px;
-    font-size: 18px !important;
   }
   .logo {
     width: 140px;
