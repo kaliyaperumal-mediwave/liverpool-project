@@ -628,6 +628,7 @@ a {
     list-style: inside;
     margin-bottom: 8px;
   }
+
 }
 
 .footer-content-secondary {
@@ -2845,15 +2846,15 @@ $color-scheme: (
     textarea::placeholder {
       color: $secondary !important;
     }
-    
+
       .readOnly-class{
         .form-control {
           background: $input-form-color 0% 0% no-repeat padding-box !important;
           color: #8f979e !important;
         }
       }
-    
-    
+
+
     input {
       color: $placeholderTheme-color !important;
     }
@@ -3045,7 +3046,7 @@ $color-scheme: (
   font-size: 20px !important;
 }
 .apos-header-para-font p {
-  word-break: normal;
+  word-break: break-all;
   font-size: 16px !important;
 }
 .apos-header-para-font ul li {
