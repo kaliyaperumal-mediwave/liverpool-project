@@ -1,117 +1,132 @@
-{% extends 'apostrophe-templates:layout.html' %}
-{% block extraBody %}
+{% extends 'apostrophe-templates:layout.html' %} {% block extraBody %}
 <script>
-    $(document).on('click', 'a.previous-link', function () {
-        parent.history.back();
-        return false;
-    });
+  $(document).on("click", "a.previous-link", function () {
+    parent.history.back();
+    return false;
+  });
 </script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 
-{% endblock %}
-{% set user_data = data.user_data %}
-{% set rolesIds = data.rolesIds %}
-{% set sluglist = data.sluglist %}
-
-{% set piece = data.piece %}
-
-{% block main %}
-{% include "../../shared-referal-module/views/header.html" %}
+{% endblock %} {% set user_data = data.user_data %} {% set rolesIds =
+data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
+{% block main %} {% include "../../shared-referal-module/views/header.html" %}
 <div class="loadaddclass">
-<!-- Loader start -->
-            <div class="overlay" id="loader">
-                <div class="overlay__inner">
-                    <div class="overlay__content">
-                        <div class="lds-spinner">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-<div id="resources_user" class="main-min-height">
-    <div class="top-arrow-container" id="searchBar">
-        <!-- <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
-                class="leftArrow cursor-pointer"></a> -->
-                <a href="" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i></a>
-                
-        <div class="resource_text"> {{ piece.title }}</div>
-        <input hidden id="resources" value="{{data.piecesArray|dump}}">
-        <div id="filter_content">
-            <div class="input-group">
-                <span class="input-group-prepend">
-                    <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
-                        <span style="color: #023047 !important;">
-                            <i class="fal fa-search font-23"></i>
-                        </span>
-                    </div>
-                </span>
-                <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                    v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
-                    @input="filterPieces()">
-            </div>
-              <div  id="hideserachblock" class="d-none">
-            {% raw %}
-            <!-- Search functionality start-->
-            <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                {{searchQuery}}?”</div>
-            <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                <div class="primary-search-radius card cursor-pointer">
-                    <template v-if="filteredData.length">
-                        <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                            <a :href=" item.custom_url ? item.custom_url : item._url">
-                                <div class="d-flex align-items-center">
-                                    <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                                        class="px-1 px-md-2 cursor-pointer" alt="">
-                                    <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                    </p>
-                                    <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                                        <li>{{item.Topic}}</li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-                    </template>
-                    <template v-if="!filteredData.length">
-                        <p class="home-header-secondary py-3">No results found</p>
-                    </template>
-                </div>
-            </div>
-            <!-- Search functionality end-->
-            {% endraw %}
-            </div>
+  <!-- Loader start -->
+  <div class="overlay" id="loader">
+    <div class="overlay__inner">
+      <div class="overlay__content">
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-        <div class="text_inside_return">
-            <div class="read-cont-h1">
-                {{ piece.title }}
-            </div>
-            <div class="read-cont-p">
-                {{ piece.subtitle }}
-            </div>
-            <div class="font-weight-light">
-                {{ piece.text }}
-            </div>
-            {% if apos.images.first(piece.thumbnail) %}
-            {% set img = apos.images.first(piece.thumbnail) %}
-            {% endif %}
-            {% if img %}
-            <div class="text-right"> <img class="img-placeholder" width="50%"
-                    src="{{ apos.attachments.url(img, { size: 'max' }) }}" /></div>
-            {% endif %}
-        </div>
-
-
+      </div>
     </div>
-</div>
+  </div>
+  <div id="resources_user" class="main-min-height">
+    <div class="top-arrow-container" id="searchBar">
+      <!-- <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
+                class="leftArrow cursor-pointer"></a> -->
+      <a href="" class="previous-link"
+        ><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i
+      ></a>
+
+      <div class="resource_text">{{ piece.title }}</div>
+      <input hidden id="resources" value="{{data.piecesArray|dump}}" />
+      <div id="filter_content">
+        <div class="input-group">
+          <span class="input-group-prepend">
+            <div
+              class="home-primarySearch-bg input-group-text border-right-0 height-44"
+            >
+              <span style="color: #023047 !important">
+                <i class="fal fa-search font-23"></i>
+              </span>
+            </div>
+          </span>
+          <input
+            class="height-44 home-primarySearch-bg border-0 form-control py-2"
+            type="search"
+            v-model="searchQuery"
+            placeholder="Search your resource"
+            id="example-search-input"
+            @input="filterPieces()"
+          />
+        </div>
+        <div id="hideserachblock" class="d-none">
+          {% raw %}
+          <!-- Search functionality start-->
+          <div v-if="showSearchResults" class="resource_search_text my-3">
+            Search results for “what is {{searchQuery}}?”
+          </div>
+          <div
+            v-if="showSearchResults"
+            class="search-wrap primary-search-radius"
+          >
+            <div
+              class="primary-search-radius card cursor-pointer card-set-container-bg"
+            >
+              <template v-if="filteredData.length">
+                <div
+                  v-for="item in filteredData"
+                  class="border-bottom-primary card-body px-2 px-md-4"
+                >
+                  <a :href=" item.custom_url ? item.custom_url : item._url">
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="/modules/my-apostrophe-assets/img/placeholder.svg"
+                        width="50"
+                        height="30"
+                        class="px-1 px-md-2 cursor-pointer"
+                        alt=""
+                      />
+                      <p class="question-font my-0 mx-2 mx-md-4">
+                        {{item.title}}
+                      </p>
+                      <ul
+                        class="my-0 link-text mx-2 mx-md-4"
+                        style="list-style: inside !important"
+                      >
+                        <li>{{item.Topic}}</li>
+                      </ul>
+                    </div>
+                  </a>
+                </div>
+              </template>
+              <template v-if="!filteredData.length">
+                <p class="home-header-secondary py-3 pl-4">No results found</p>
+              </template>
+            </div>
+          </div>
+          <!-- Search functionality end-->
+          {% endraw %}
+        </div>
+      </div>
+      <div class="text_inside_return card-set-container-bg">
+        <div class="read-cont-h1">{{ piece.title }}</div>
+        <div class="read-cont-p">{{ piece.subtitle }}</div>
+        <div class="font-weight-light">{{ piece.text }}</div>
+        {% if apos.images.first(piece.thumbnail) %} {% set img =
+        apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
+        <div class="text-right">
+          <img
+            class="img-placeholder"
+            width="50%"
+            src="{{ apos.attachments.url(img, { size: 'max' }) }}"
+          />
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}

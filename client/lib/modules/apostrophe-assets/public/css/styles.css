@@ -3498,6 +3498,10 @@ html #slide-test-5 {
 .off .home-primary-content-bg {
   background: #ffffff 0% 0% no-repeat padding-box; }
 
+.off .card-set-container-bg {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  color: #023047; }
+
 .off .home-primarySearch-bg {
   background: #ffffff 0% 0% no-repeat padding-box !important; }
 
@@ -3743,6 +3747,10 @@ html #slide-test-5 {
 
 .on .home-primary-content-bg {
   background: #353638 0% 0% no-repeat padding-box; }
+
+.on .card-set-container-bg {
+  background: #353638 0% 0% no-repeat padding-box;
+  color: #fafafa; }
 
 .on .home-primarySearch-bg {
   background: #353638 0% 0% no-repeat padding-box !important; }

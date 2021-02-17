@@ -140,5 +140,10 @@
 	"Copy (Overrides the existing permissions)": "Copy (Overrides the existing permissions)",
 	"Append (Adds to the existing permissions)": "Append (Adds to the existing permissions)",
 	"Show Content With These Tags": "Show Content With These Tags",
-	"AdminModule": "AdminModule"
+	"AdminModule": "AdminModule",
+	"Add Watchs": "Add Watchs",
+	"Search Things to Watch...": "Search Things to Watch...",
+	"You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?": "You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?",
+	"An error has occurred": "An error has occurred",
+	"An error has occurred. We're working on it. We apologize for the inconvenience.": "An error has occurred. We're working on it. We apologize for the inconvenience."
 }

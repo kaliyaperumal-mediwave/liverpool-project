@@ -1,132 +1,183 @@
-{% extends "layout.html" %}
-{% block extraBody %}
+{% extends "layout.html" %} {% block extraBody %}
 <script src="/modules/mental-health-module/js/mentalHealth.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
-{% endblock %}
-{% block main
-%}
+{% endblock %} {% block main %}
 
 <div id="mentalHealthPage">
-    <!-- Loader start -->
-    <div class="overlay" id="loader">
-        <div class="overlay__inner">
-            <div class="overlay__content">
-                <div class="lds-spinner">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+  <!-- Loader start -->
+  <div class="overlay" id="loader">
+    <div class="overlay__inner">
+      <div class="overlay__content">
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
+      </div>
     </div>
-    <!-- Loader end -->
+  </div>
+  <!-- Loader end -->
 
-    <div class="d-flex text-left mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
-            <!-- <a href="{{ data.logoPath }}" class="text-decoration-none">
+  <div class="d-flex text-left mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0">
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
+      <!-- <a href="{{ data.logoPath }}" class="text-decoration-none">
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
             </a> -->
-            <a href="{{ data.logoPath }}" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i></a>
+      <a href="{{ data.logoPath }}" class="previous-link"
+        ><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i
+      ></a>
 
-            <h2 class="home-header-primary m-0 py-2">About mental health services</h2>
-        </div>
+      <h2 class="home-header-primary m-0 py-2">About mental health services</h2>
     </div>
+  </div>
 
-    <div class="my-md-3 my-lg-4 my-xl-4 my-4">
-        <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
-                <input hidden id="resources" value="{{data.piecesArray|dump}}">
-                <div>
-                    <div class="input-group">
-                        <span class="input-group-prepend">
-                            <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
-                                <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23"></i>
-                                </span>
-                            </div>
-                        </span>
-                        <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                            v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
-                            @input="filterPieces()">
+  <div class="my-md-3 my-lg-4 my-xl-4 my-4">
+    <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
+        <input hidden id="resources" value="{{data.piecesArray|dump}}" />
+        <div>
+          <div class="input-group">
+            <span class="input-group-prepend">
+              <div
+                class="home-primarySearch-bg input-group-text border-right-0 height-44"
+              >
+                <span style="color: #023047 !important">
+                  <i class="fal fa-search font-23"></i>
+                </span>
+              </div>
+            </span>
+            <input
+              class="height-44 home-primarySearch-bg border-0 form-control py-2"
+              type="search"
+              v-model="searchQuery"
+              placeholder="Search your resource"
+              id="example-search-input"
+              @input="filterPieces()"
+            />
+          </div>
+          <div id="hideserachblock" class="d-none">
+            {% raw %}
+            <!-- Search functionality start-->
+            <div v-if="showSearchResults" class="resource_search_text my-3">
+              Search results for “what is {{searchQuery}}?”
+            </div>
+            <div
+              v-if="showSearchResults"
+              class="search-wrap primary-search-radius"
+            >
+              <div
+                class="primary-search-radius card cursor-pointer card-set-container-bg"
+              >
+                <div
+                  v-for="item in filteredData"
+                  class="border-bottom-primary card-body px-2 px-md-4"
+                >
+                  <a :href=" item.custom_url ? item.custom_url : item._url">
+                    <div class="d-flex align-items-center">
+                      <img
+                        src="/modules/my-apostrophe-assets/img/placeholder.svg"
+                        width="50"
+                        height="30"
+                        class="px-1 px-md-2 cursor-pointer"
+                        alt=""
+                      />
+                      <p class="question-font my-0 mx-2 mx-md-4">
+                        {{item.title}}
+                      </p>
+                      <ul
+                        class="my-0 link-text mx-2 mx-md-4"
+                        style="list-style: inside !important"
+                      >
+                        <li>{{item.Topic}}</li>
+                      </ul>
                     </div>
-                      <div  id="hideserachblock" class="d-none">
-                    {% raw %}
-                    <!-- Search functionality start-->
-                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                        {{searchQuery}}?”</div>
-                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                        <div class="primary-search-radius card cursor-pointer">
-                            <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                <a :href=" item.custom_url ? item.custom_url : item._url">
-                                    <div class="d-flex align-items-center">
-                                        <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                            height="30" class="px-1 px-md-2 cursor-pointer" alt="">
-                                        <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                        </p>
-                                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                                            <li>{{item.Topic}}</li>
-                                        </ul>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Search functionality end-->
-                    {% endraw %}
-                    </div>
+                  </a>
                 </div>
+              </div>
             </div>
+            <!-- Search functionality end-->
+            {% endraw %}
+          </div>
         </div>
-        <div class="d-flex text-center py-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-                <h3 class="home-primary-content m-0 py-3 px-2 text-left">
-                    Here you can find information to the types of people you can meet
-                </h3>
-            </div>
-        </div>
+      </div>
     </div>
-
-    <div class="d-flex py-0 mt-md-2 pb-1 mt-2">
-        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 py-md-0 mx-auto cursor-pointer">
-            <div class="d-flex justify-content-center">
-                <a class="col-md-12 p-0 home-primary-content-bg" href="/mental-health/people">
-                    <div class="text-center py-4">
-                        <img src="/modules/my-apostrophe-assets/img/people.svg" class="px-3 image-height" alt="">
-                    </div>
-                    <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content px-1 px-md-3">About the people</span>
-                    </div>
-                </a>
-            </div>
-        </div>
+    <div class="d-flex text-center py-2">
+      <div
+        class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg"
+      >
+        <h3 class="home-primary-content m-0 py-3 px-2 text-left">
+          Here you can find information to the types of people you can meet
+        </h3>
+      </div>
     </div>
+  </div>
 
-    <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
-        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
-            <div class="d-flex justify-content-center">
-                <a class="col-md-12 p-0 home-primary-content-bg" href="/mental-health/services">
-                    <div class="text-center py-4">
-                        <img src="/modules/my-apostrophe-assets/img/services.svg" class="px-3 image-height" alt="">
-                    </div>
-                    <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content px-1 px-md-3">About the services</span>
-                    </div>
-                </a>
-            </div>
-        </div>
+  <div class="d-flex py-0 mt-md-2 pb-1 mt-2">
+    <div
+      class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 py-md-0 mx-auto cursor-pointer"
+    >
+      <div class="d-flex justify-content-center">
+        <a
+          class="col-md-12 p-0 home-primary-content-bg"
+          href="/mental-health/people"
+        >
+          <div class="text-center py-4">
+            <img
+              src="/modules/my-apostrophe-assets/img/people.svg"
+              class="px-3 image-height"
+              alt=""
+            />
+          </div>
+          <div
+            class="text-center text-md-right py-1 sub-header-bg home-card-radius"
+          >
+            <span class="home-secondary-content px-1 px-md-3"
+              >About the people</span
+            >
+          </div>
+        </a>
+      </div>
     </div>
-    {% include "../../shared-referal-module/views/searchReferral.html" %}
-    {% include "../../shared-referal-module/views/company.html" %}
+  </div>
 
+  <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
+    <div
+      class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer"
+    >
+      <div class="d-flex justify-content-center">
+        <a
+          class="col-md-12 p-0 home-primary-content-bg"
+          href="/mental-health/services"
+        >
+          <div class="text-center py-4">
+            <img
+              src="/modules/my-apostrophe-assets/img/services.svg"
+              class="px-3 image-height"
+              alt=""
+            />
+          </div>
+          <div
+            class="text-center text-md-right py-1 sub-header-bg home-card-radius"
+          >
+            <span class="home-secondary-content px-1 px-md-3"
+              >About the services</span
+            >
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  {% include "../../shared-referal-module/views/searchReferral.html" %} {%
+  include "../../shared-referal-module/views/company.html" %}
 </div>
 {% endblock %}
