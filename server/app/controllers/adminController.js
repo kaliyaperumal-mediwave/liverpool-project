@@ -89,7 +89,7 @@ exports.getReferral = ctx => {
 
             // order by
             var order = [
-                ["referrer_name", 'DESC']
+                ["updatedAt", 'DESC']
             ];
             if (ctx.query && ctx.query.orderBy) {
                 if (ctx.query.orderBy == '3') order = [['reference_code', ctx.query.orderType.toUpperCase()]];
