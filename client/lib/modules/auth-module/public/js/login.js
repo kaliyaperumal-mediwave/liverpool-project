@@ -23,7 +23,20 @@ $(document).ready(function () {
             console.log(document.getElementById('sessionExp').innerHTML)
             if(document.getElementById('sessionExp').innerHTML=="true")
             {
-                showError('Session expired');
+                $.ajax({
+                    url: API_URI + "/setSessionExpFalse/false",
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    cache: false,
+                    success: function (data) {
+                        showError('Session expired');
+                    },
+                    error: function (error) {
+                        console.log(error)
+                        showError(error.responseJSON.message, error.status);
+                    }
+                })
             }
             var _self = this;
             setTimeout(function () {
