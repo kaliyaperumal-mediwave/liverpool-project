@@ -3244,3 +3244,7 @@ i.fa.fa-calendar {
   width: 187px;
   height: 46px;
 }
+div.collapse-container.collapsing{
+  // overflow: none !important;
+  transition: none !important;
+}

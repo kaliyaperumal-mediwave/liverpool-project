@@ -4312,3 +4312,6 @@ i.fa.fa-calendar {
 .w-h-sub {
   width: 187px;
   height: 46px; }
+
+div.collapse-container.collapsing {
+  transition: none !important; }
