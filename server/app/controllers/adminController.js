@@ -44,12 +44,18 @@ exports.getReferral = ctx => {
                 {
                     model: referralModel,
                     as: 'parent',
-                    attributes: ['id', 'uuid', 'child_name', 'child_dob', 'registerd_gp']
+                    attributes: [
+                        'id', 'uuid', 'child_name', 'child_dob', 'registerd_gp',
+                        // [sequelize.literal(`CASE WHEN parent.child_name IS NOT NULL THEN parent.child_dob END`), 'child_dob']
+                    ]
                 },
                 {
                     model: referralModel,
                     as: 'professional',
-                    attributes: ['id', 'uuid', 'child_name', 'child_dob', 'registerd_gp']
+                    attributes: [
+                        'id', 'uuid', 'child_name', 'child_dob', 'registerd_gp',
+                        // [sequelize.literal(`CASE WHEN professional.child_name IS NOT NULL THEN professional.child_dob END`), 'child_dob']
+                    ]
                 },
             ];
 
@@ -88,14 +94,17 @@ exports.getReferral = ctx => {
             }
 
             // order by
-            var order = [
-                ["updatedAt", 'DESC']
-            ];
+            var order = [];
             if (ctx.query && ctx.query.orderBy) {
-                if (ctx.query.orderBy == '3') order = [['reference_code', ctx.query.orderType.toUpperCase()]];
-                else if (ctx.query.orderBy == '6') order = [['user_role', ctx.query.orderType.toUpperCase()]];
-                // else if(ctx.query.orderBy == '4') order = [['referrer_name', ctx.query.orderType.toUpperCase()]];
-                else if (ctx.query.orderBy == '7') order = [['updatedAt', ctx.query.orderType.toUpperCase()]];
+                var orderBy = ctx.query.orderBy.split(','),
+                    orderType = ctx.query.orderType.split(',');
+                for (let index = 0; index < orderBy.length; index++) {
+                    if (orderBy[index] == '2') order.push(['child_dob', orderType[index].toUpperCase()]);
+                    else if (orderBy[index] == '3') order.push(['reference_code', orderType[index].toUpperCase()]);
+                    else if (orderBy[index] == '4') order.push(['child_name', orderType[index].toUpperCase()]);
+                    else if (orderBy[index] == '6') order.push(['user_role', orderType[index].toUpperCase()]);
+                    else if (orderBy[index] == '7') order.push(['updatedAt', orderType[index].toUpperCase()]);
+                }
             }
 
             // get referrals as per the pagination
@@ -105,12 +114,14 @@ exports.getReferral = ctx => {
                 offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
                 limit: ctx.query.limit,
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_name', 'parent_name', 'professional_name', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt',
+                    [sequelize.fn('CONCAT', sequelize.col('child_name'), sequelize.col('parent_name'), sequelize.col('professional_name')), 'referrer_name']
                     // [sequelize.literal(`CASE WHEN child_name IS NOT NULL THEN child_name WHEN parent_name IS NOT NULL THEN parent_name WHEN professional_name IS NOT NULL THEN professional_name END`), 'referrer_name'],
                 ],
                 order: order
             });
 
+            // create json to display data on admin referral page
             referrals = JSON.parse(JSON.stringify(referrals));
             _.forEach(referrals, function (refObj, index) {
                 var referralObj = {
@@ -118,26 +129,23 @@ exports.getReferral = ctx => {
                     name: '',
                     dob: '',
                     reference_code: refObj.reference_code,
-                    referrer: '',
+                    referrer: refObj.referrer_name,
                     gp_location: '',
                     referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                     date: moment(refObj.updatedAt).format('DD/MM/YYYY')
                 }
                 var gp_location = '';
-                if (refObj.user_role.toLowerCase() == 'child') {
-                    referralObj.name = refObj.child_name;
-                    referralObj.dob = moment(refObj.child_dob).format('DD/MM/YYYY');
-                    referralObj.referrer = refObj.child_name;
+                if (refObj.user_role == 'child') {
+                    referralObj.name = refObj.referrer_name;
+                    if (refObj.child_dob) referralObj.dob = moment(refObj.child_dob).format('DD/MM/YYYY');
                     gp_location = refObj.registerd_gp;
-                } else if ((refObj.user_role.toLowerCase() == 'parent') && refObj.parent && refObj.parent.length) {
+                } else if (refObj.user_role == 'parent') {
                     referralObj.name = refObj.parent[0].child_name;
-                    referralObj.dob = moment(refObj.parent[0].child_dob).format('DD/MM/YYYY');
-                    referralObj.referrer = refObj.parent_name;
+                    if (refObj.parent[0].child_dob) referralObj.dob = moment(refObj.parent[0].child_dob).format('DD/MM/YYYY');
                     gp_location = refObj.parent[0].registerd_gp;
-                } else if ((refObj.user_role.toLowerCase() == 'professional') && refObj.professional && refObj.professional.length) {
+                } else if (refObj.user_role == 'professional') {
                     referralObj.name = refObj.professional[0].child_name;
-                    referralObj.dob = moment(refObj.professional[0].child_dob).format('DD/MM/YYYY');
-                    referralObj.referrer = refObj.professional_name;
+                    if (refObj.professional[0].child_dob) referralObj.dob = moment(refObj.professional[0].child_dob).format('DD/MM/YYYY');
                     gp_location = refObj.professional[0].registerd_gp;
                 }
                 if (gp_location) {

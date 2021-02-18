@@ -25,7 +25,12 @@ module.exports = {
         url += '&searchValue=' + req.query.search.value;
       }
       if(req.query.order && req.query.order.length) {
-        url += '&orderBy=' + req.query.order[0].column + '&orderType=' + req.query.order[0].dir;
+        var orderBy = [], orderType = [];
+        for(let index = 0; index < req.query.order.length; index++) {
+          orderBy.push(req.query.order[index].column);
+          orderType.push(req.query.order[index].dir);
+        }
+        url += '&orderBy=' + orderBy.toString() + '&orderType=' + orderType.toString();
       }
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
