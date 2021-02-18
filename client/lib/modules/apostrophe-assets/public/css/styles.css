@@ -3565,6 +3565,10 @@ html #slide-test-5 {
 
 .off .home-primary-content {
   color: #023047; }
+  .off .home-primary-content h3 {
+    color: #023047; }
+  .off .home-primary-content p {
+    color: #023047; }
 
 .off .home-header-primary {
   color: #023047; }
@@ -3825,6 +3829,10 @@ html #slide-test-5 {
 
 .on .home-primary-content {
   color: #fafafa; }
+  .on .home-primary-content h3 {
+    color: #fafafa; }
+  .on .home-primary-content p {
+    color: #fafafa; }
 
 .on .home-header-primary {
   color: #fafafa; }
