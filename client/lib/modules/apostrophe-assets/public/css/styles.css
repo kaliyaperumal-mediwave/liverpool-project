@@ -3744,6 +3744,12 @@ html #slide-test-5 {
 .off .footer-content a {
   color: #023047 !important; }
 
+.off .bg-place {
+  background: url("/modules/my-apostrophe-assets/img/placeholder.svg") no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 30px; }
+
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
@@ -3996,6 +4002,12 @@ html #slide-test-5 {
 
 .on .footer-content a {
   color: #fafafa !important; }
+
+.on .bg-place {
+  background: url("/modules/my-apostrophe-assets/img/placeholder_white.svg") no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 30px; }
 
 [data-theme="on"] {
   border: none;

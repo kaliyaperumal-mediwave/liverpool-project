@@ -2635,8 +2635,9 @@ $color-scheme: (
       #023047,
       #e8edee,
       #ffffff,
-      #023047
-    )
+      #023047,
+      url("/modules/my-apostrophe-assets/img/placeholder.svg"),
+      )
     (
       on,
       #353638,
@@ -2651,8 +2652,9 @@ $color-scheme: (
       #ffffff,
       #535454,
       #535454,
-      #353940
-    )
+      #353940,
+      url("/modules/my-apostrophe-assets/img/placeholder_white.svg"),
+      )
 );
 @mixin theme(
   $name,
@@ -2668,7 +2670,8 @@ $color-scheme: (
   $togglePrimary,
   $input-form-color,
   $card-bg-color,
-  $footer-bg-color
+  $footer-bg-color,
+  $bg-place
 ) {
   .#{$name} {
     .body-bg {
@@ -2888,6 +2891,13 @@ $color-scheme: (
     .footer-content a {
       color: $secondary !important;
     }
+    .bg-place{
+      background: $bg-place no-repeat;
+      background-size: contain;
+      width: 50px;
+      height: 30px;
+    }
+
     // input[type="search"] {
     //   color: $secondary !important;
     // }
@@ -2901,7 +2911,7 @@ $color-scheme: (
 @each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
   $primary-input-color, $secondary-input-color, $search-bar-color, $background,
   $bgLogo, $togglePrimary, $input-form-color, $card-bg-color,
-  $footer-bg-color in $color-scheme
+  $footer-bg-color,$bg-place in $color-scheme
 {
   @include theme(
     $name,
@@ -2917,7 +2927,8 @@ $color-scheme: (
     $togglePrimary,
     $input-form-color,
     $card-bg-color,
-    $footer-bg-color
+    $footer-bg-color,
+    $bg-place
   );
 }
 
