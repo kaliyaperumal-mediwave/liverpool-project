@@ -2666,8 +2666,8 @@ $color-scheme: (
       #e8edee,
       #ffffff,
       #023047,
-      url("/modules/my-apostrophe-assets/img/placeholder.svg"),
-      )
+      url("/modules/my-apostrophe-assets/img/placeholder.svg")
+    )
     (
       on,
       #353638,
@@ -2683,8 +2683,8 @@ $color-scheme: (
       #535454,
       #535454,
       #353940,
-      url("/modules/my-apostrophe-assets/img/placeholder_white.svg"),
-      )
+      url("/modules/my-apostrophe-assets/img/placeholder_white.svg")
+    )
 );
 @mixin theme(
   $name,
@@ -2739,6 +2739,12 @@ $color-scheme: (
     }
     .home-primary-content {
       color: $secondary;
+      h3 {
+        color: $secondary;
+      }
+      p {
+        color: $secondary;
+      }
     }
     .home-header-primary {
       color: $secondary;
@@ -2922,7 +2928,7 @@ $color-scheme: (
     .footer-content a {
       color: $secondary !important;
     }
-    .bg-place{
+    .bg-place {
       background: $bg-place no-repeat;
       background-size: contain;
       width: 50px;
@@ -2939,10 +2945,9 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
-  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color,
-  $footer-bg-color,$bg-place in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
+  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place in $color-scheme
 {
   @include theme(
     $name,
@@ -3200,16 +3205,16 @@ i.fa.fa-calendar {
 .dropdown.d-flex.justify-content-end.align-items-center.show * {
   color: #023047 !important;
 }
-.w-97{
+.w-97 {
   width: 97% !important;
   margin: auto;
 }
-.w-97-large{
+.w-97-large {
   width: 100% !important;
   margin: auto;
 }
 @media (max-width: 768px) {
-  .w-97-large{
+  .w-97-large {
     width: 97% !important;
     margin: auto;
   }

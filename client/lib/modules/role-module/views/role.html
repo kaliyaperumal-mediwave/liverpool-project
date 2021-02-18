@@ -43,21 +43,21 @@
                         }
                         }) }}</div>
                     {% raw %}
-                    <div class="form-check pt-3 pb-1 pl-0">
+                    <div class="form-check pt-3 pb-1 pl-0" id="1752a966-f49a-4443-baae-ed131ebb477b">
                         <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
                             id="aboutYou" value="child" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="aboutYou">
                             Child / Young Person
                         </label>
                     </div>
-                    <div class="form-check py-2 pl-0">
+                    <div class="form-check py-2 pl-0" id="398a82d9-59fe-459c-8d1e-85f803d0319c">
                         <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role" id="whom"
                             value="parent" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="whom">
                             Parent / Carer
                         </label>
                     </div>
-                    <div class="form-check py-2 pl-0">
+                    <div class="form-check py-2 pl-0" id="96dda9ca-9328-47e8-ac1a-8cdc972df4d0">
                         <input class="form-check-input" type="radio" v-model="elgibilityObj.role" name="role"
                             id="profession" value="professional" @change="onChange($event)">
                         <label class="form-check-label d-flex align-items-center option-font" for="profession">
@@ -142,8 +142,8 @@
                         }) }}
                         {{elgibilityObj.maxDate}}</div>
                     <div class="input-group" id="dobRoleCal">
-                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date" v-model="elgibilityObj.childDob"
-                            autocomplete="off" @dp-show="resetFlag($event)"
+                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
+                            v-model="elgibilityObj.childDob" autocomplete="off" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
@@ -178,9 +178,9 @@
                     {% raw %}
 
                     <div class="input-group">
-                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date" v-model="elgibilityObj.childDob"
-                            @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.childDob)"
-                            :config="options" :wrap="dateWrap">
+                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
+                            v-model="elgibilityObj.childDob" @dp-show="resetFlag($event)"
+                            @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
@@ -534,10 +534,10 @@
                         </div>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" class="form-control gpLocation input-bg-form-control" @input="getAddress($event)"
-                                placeholder="Start typing to search" id="gpLocation" aria-label="location"
-                                v-model="elgibilityObj.regGpTxt" v-on:keypress.enter.prevent="gpSubmit()"
-                                autocomplete="off">
+                            <input type="text" class="form-control gpLocation input-bg-form-control"
+                                @input="getAddress($event)" placeholder="Start typing to search" id="gpLocation"
+                                aria-label="location" v-model="elgibilityObj.regGpTxt"
+                                v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoaderProf" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
@@ -668,7 +668,8 @@
                         {% raw %}
                         <input type="text" v-model="elgibilityObj.profEmail"
                             @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
-                            placeholder="Enter your email address" class="form-control input-bg-form-control" id="emailAddress">
+                            placeholder="Enter your email address" class="form-control input-bg-form-control"
+                            id="emailAddress">
 
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)),
                             'invalid-fields':(elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)) }">
@@ -684,7 +685,8 @@
                         <label for="contact" class="question-font">Enter your contact number</label>
                         <input type="text" v-model="elgibilityObj.profContactNumber"
                             @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
-                            placeholder="Enter your contact number" class="form-control input-bg-form-control" id="contact">
+                            placeholder="Enter your contact number" class="form-control input-bg-form-control"
+                            id="contact">
                         <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': (isSubmitted && !elgibilityObj.profContactNumber),'invalid-fields':!elgibilityObj.profContactNumber }">
                             You must provide a number.
@@ -713,9 +715,9 @@
                 <p class="question-font">What is the child / young person’s date of birth?</p>
 
                 <div class="input-group">
-                    <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date" v-model="elgibilityObj.profChildDob"
-                        @dp-show="resetFlag($event)" @dp-change="changeDob($event,elgibilityObj.profChildDob)"
-                        :config="options" :wrap="dateWrap">
+                    <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
+                        v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
+                        @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options" :wrap="dateWrap">
                     </date-picker>
                     <div class="input-group-append cursor-pointer">
                         <span class="input-group-text p-16">
@@ -939,9 +941,10 @@
                             registered
                             with?</label>
                         <div class="input-group">
-                            <input type="text" class="form-control gpProfLocation input-bg-form-control" v-model="elgibilityObj.regProfGpTxt"
-                                placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
-                                aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
+                            <input type="text" class="form-control gpProfLocation input-bg-form-control"
+                                v-model="elgibilityObj.regProfGpTxt" placeholder="Start typing to search"
+                                @input="getProfAddress($event)" id="gpProfLocation" aria-label="location"
+                                v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoader" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
