@@ -74,15 +74,15 @@ function showError(content, statusCode) {
         content = "Something went wrong.Please try again"
     }
     $('#errorContent').text(content);
-    if(statusCode) {
-    $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text(statusCode);
+    if (statusCode) {
+        $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text(statusCode);
     }
     $('#errorCommon').modal('show');
 };
 function closeError() {
     var statusCode = $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text();
     $('#errorCommon').modal('hide');
-    if(statusCode && statusCode == '401') {
+    if (statusCode && statusCode == '401') {
         location.href = "/users/login";
     }
 }
@@ -177,20 +177,16 @@ function apiCallPost(reqType, endPoint, payload) {
         error: function (error) {
             $('#loader').removeClass('d-block').addClass('d-none');
             if (error) {
-                showError(error.responseJSON.message);
-                // setTimeout(function () {
-                //     $('#errorCommon').modal('hide');
-                // }, 1000);
+                showError(error.responseJSON.message, error.status);
             }
         }
     });
     return response;
 };
 
-//Common API Call for post Function
+//Common API Call for Get Function
 function apiCallGet(reqType, endPoint, API_URI) {
     var response;
-    //console.log(API_URI + endPoint)
     $.ajax({
         url: API_URI + endPoint,
         type: reqType,
@@ -202,7 +198,7 @@ function apiCallGet(reqType, endPoint, API_URI) {
         },
         error: function (error) {
             $('#loader').hide();
-            console.log(error.responseJSON.message)
+            showError(error.responseJSON.message, error.status);
         }
     });
     return response
@@ -224,7 +220,7 @@ function apiCallPut(reqType, endPoint, payload) {
                 response = res;
             },
             error: function (error) {
-                console.log(error.responseJSON.message)
+                showError(error.responseJSON.message, error.status);
             }
         });
     return response
@@ -299,7 +295,10 @@ function setLoaderStyle() {
     body.classList.add('default');
 }
 
-
+//common function to make first letter capital
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 
 //for make referral 1 to 5 section
@@ -353,8 +352,10 @@ function setTextSize() {
         var inc = Number(textSize) - Number(currentTextSize);
         $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
             var fontsize = parseInt($(this).css('font-size'));
+            var setLineHeight = Number(fontsize + inc) + 4;
             var newFontsize = (fontsize + inc) + 'px';
             $(this).css('font-size', newFontsize);
+            //$(this).css('line-height', setLineHeight + 'px');
         });
         currentTextSize = textSize;
     }
@@ -362,16 +363,19 @@ function setTextSize() {
 
 function setTheme() {
     var logoElem = document.getElementById('logoBgHome');
+    var placeholderImg = document.getElementsByClassName('toggle-img-placehold');
     var theme = localStorage.getItem('theme');
     if (theme == 'light') {
         $('body').removeClass().addClass('net off').addClass('body-bg');
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool.svg";
+            placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder.svg";
         }
         localStorage.setItem('theme', 'light');
     } else if (theme == 'dark') {
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool_dark.svg";
+            placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder_white.svg";
         }
         $('body').removeClass().addClass('net on').addClass('body-bg');
         localStorage.setItem('theme', 'dark');
@@ -433,7 +437,7 @@ function logOut() {
             location.href = window.location.origin + '/users/login';
         },
         error: function (error) {
-            if(error.status == 401) {
+            if (error.status == 401) {
                 location.href = window.location.origin + '/users/login';
             } else {
                 $('#loader').hide();

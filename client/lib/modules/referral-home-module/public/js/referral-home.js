@@ -29,6 +29,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.log(error)
+                        showError(error.responseJSON.message, error.status);
                     }
                 })
             }

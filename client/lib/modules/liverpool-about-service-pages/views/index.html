@@ -1,144 +1,175 @@
-{% extends 'apostrophe-templates:layout.html' %}
-{% block extraBody %}
+{% extends 'apostrophe-templates:layout.html' %} {% block extraBody %}
 <script>
-    $(document).on('click', 'a.previous-link', function () {
-        parent.history.back();
-        return false;
-    });
+  $(document).on("click", "a.previous-link", function () {
+    parent.history.back();
+    return false;
+  });
 </script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
-{% endblock %}
-{% block main
-%}
-{% include "../../shared-referal-module/views/header.html" %}
-
-<div id="aboutPeoplePage">
-    <!-- Loader start -->
-    <!-- <div class="overlay" id="loader">
-        <div class="overlay__inner">
-            <div class="overlay__content">
-                <div class="lds-spinner">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+{% endblock %} {% block main %} {% include
+"../../shared-referal-module/views/header.html" %}
+<div class="loadaddclass">
+  <!-- Loader start -->
+  <div class="overlay" id="loader">
+    <div class="overlay__inner">
+      <div class="overlay__content">
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
-    </div> -->
-    <!-- Loader end -->
-
+      </div>
+    </div>
+  </div>
+  <div id="aboutPeoplePage">
     <div class="d-flex text-left mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
-            <a href="" class="text-decoration-none previous-link">
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
+        <!-- <a href="" class="text-decoration-none previous-link">
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
-            </a>
-            <h2 class="home-header-primary m-0 py-2">About the services</h2>
-        </div>
+            </a> -->
+        <a href="" class="previous-link"
+          ><i
+            class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"
+          ></i
+        ></a>
+
+        <h2 class="home-header-primary m-0 py-2">About the services</h2>
+      </div>
     </div>
 
     <div class="mt-md-3 mt-lg-3 mt-xl-3 mb-md-4 mb-4">
-        <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
-                <input hidden id="resources" value="{{data.piecesArray|dump}}">
-                <div id="filter_content">
-                    <div class="input-group">
-                        <span class="input-group-prepend">
-                            <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
-                                <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23"></i>
-                                </span>
-                            </div>
-                        </span>
-                        <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                            v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
-                            @input="filterPieces()">
-                    </div>
-                      <div  id="hideserachblock" class="d-none">
-                    {% raw %}
-                    <!-- Search functionality start-->
-                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                        {{searchQuery}}?”</div>
-                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                        <div class="primary-search-radius card cursor-pointer">
-                            <template v-if="filteredData.length">
-                                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                    <a :href="item.custom_url ? 'item.custom_url' : 'item._url' ">
-                                        <div class="d-flex align-items-center">
-                                            <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                                height="30" class="px-1 px-md-2 cursor-pointer" alt="">
-                                            <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                            </p>
-                                            <ul class="my-0 link-text mx-2 mx-md-4"
-                                                style="list-style: inside !important;">
-                                                <li>{{item.Topic}}</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                </div>
-                            </template>
-                            <template v-if="!filteredData.length">
-                                <p class="home-header-secondary py-3">No results found</p>
-                            </template>
-                        </div>
-                    </div>
-                    <!-- Search functionality end-->
-                    {% endraw %}
-                    </div>
+      <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
+        <div
+          class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto"
+          id="searchBar"
+        >
+          <input hidden id="resources" value="{{data.piecesArray|dump}}" />
+          <div id="filter_content">
+            <div class="input-group">
+              <span class="input-group-prepend">
+                <div
+                  class="home-primarySearch-bg input-group-text border-right-0 height-44"
+                >
+                  <span style="color: #023047 !important">
+                    <i class="fal fa-search font-23"></i>
+                  </span>
                 </div>
+              </span>
+              <input
+                class="height-44 home-primarySearch-bg border-0 form-control py-2"
+                type="search"
+                v-model="searchQuery"
+                placeholder="Search your resource"
+                id="example-search-input"
+                @input="filterPieces()"
+              />
             </div>
-        </div>
-        <div class="d-flex text-center py-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-                <h3 class="home-primary-content m-0 py-3 px-2 text-left">
-                    Here you can find information to the types of services
-                </h3>
+            <div id="hideserachblock" class="d-none">
+              {% raw %}
+              <!-- Search functionality start-->
+              <div v-if="showSearchResults" class="resource_search_text my-3">
+                Search results for “what is {{searchQuery}}?”
+              </div>
+              <div
+                v-if="showSearchResults"
+                class="search-wrap primary-search-radius"
+              >
+                <div
+                  class="primary-search-radius card cursor-pointer card-set-container-bg"
+                >
+                  <template v-if="filteredData.length">
+                    <div
+                      v-for="item in filteredData"
+                      class="border-bottom-primary card-body px-2 px-md-4"
+                    >
+                      <a
+                        :href="item.custom_url ? 'item.custom_url' : 'item._url' "
+                      >
+                        <div class="d-flex align-items-center">
+                          <img
+                            src="/modules/my-apostrophe-assets/img/placeholder.svg"
+                            width="50"
+                            height="30"
+                            class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
+                            alt=""
+                          />
+                          <p class="question-font my-0 mx-2 mx-md-4">
+                            {{item.title}}
+                          </p>
+                          <ul
+                            class="my-0 link-text mx-2 mx-md-4"
+                            style="list-style: inside !important"
+                          >
+                            <li>{{item.Topic}}</li>
+                          </ul>
+                        </div>
+                      </a>
+                    </div>
+                  </template>
+                  <template v-if="!filteredData.length">
+                    <p class="home-header-secondary py-3 pl-4">
+                      No results found
+                    </p>
+                  </template>
+                </div>
+              </div>
+              <!-- Search functionality end-->
+              {% endraw %}
             </div>
+          </div>
         </div>
+      </div>
+      <div class="d-flex text-center py-2">
+        <div
+          class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg"
+        >
+          <h3 class="home-primary-content m-0 py-3 px-2 text-left">
+            Here you can find information to the types of services
+          </h3>
+        </div>
+      </div>
     </div>
 
     <div class="d-flex text-left mt-xl-3 mt-lg-3 mt-md-3 mt-4 my-md-0 mb-4">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
-            <h2 class="footer-content-secondary m-0 py-md-4 px-3">Types of services</h2>
-        </div>
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
+        <h2 class="footer-content-secondary m-0 py-md-4 px-3">
+          Types of services
+        </h2>
+      </div>
     </div>
 
     <div class="resource-cont">
-        <div class="bottom-arrow-container row" id="selva">
+      <div class="bottom-arrow-container row" id="selva">
+        {% for piece in data.pieces | sort(false, true, 'title') %}
+        <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
+          <div class="insidePieceCont">
+            <div class="midTextRange">{{ piece.title }}</div>
 
+            {% if apos.images.first(piece.thumbnail) %} {% set img =
+            apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
+            <img
+              class="border-radius-10 h-2-182"
+              src="{{ apos.attachments.url(img, { size: 'max' }) }}"
+            />
+            {% endif %}
+          </div>
+        </a>
 
-            {% for piece in data.pieces | sort(false, true, 'title') %}
-            <a class="pieceCont col-6 col-sm-4 col-md-3" href="{{ piece._url }}">
-                <div class="insidePieceCont">
-                    <div class="midTextRange">
-                        {{ piece.title }}
-                    </div>
-
-                    {% if apos.images.first(piece.thumbnail) %}
-                    {% set img = apos.images.first(piece.thumbnail) %}
-                    {% endif %}
-                    {% if img %}
-                    <img class="border-radius-10 h-2-182" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
-                    {% endif %}
-                </div>
-            </a>
-
-            {% endfor %}
-
-
-        </div>
+        {% endfor %}
+      </div>
     </div>
-    {% include "../../shared-referal-module/views/searchReferral.html" %}
-    {% include "../../shared-referal-module/views/company.html" %}
-
+    {% include "../../shared-referal-module/views/searchReferral.html" %} {%
+    include "../../shared-referal-module/views/company.html" %}
+  </div>
 </div>
 {% endblock %}

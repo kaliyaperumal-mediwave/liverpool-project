@@ -25,33 +25,22 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            if(document.getElementById('sessionExp').innerHTML)
-            {
-                console.log("session out")
-                $('#loader').hide();
-             //this.showErrorModal("Session Expired");
-             return
-            }
-            else
-            {
-                try {
-                    if(document.getElementById('resources') && document.getElementById('resources').value) {
-                        this.resources = JSON.parse(document.getElementById('resources').value);
-                    } else {
-                        this.resources = [];
-                    }
-                } catch (error) {
-                    console.log(error);
-                    $('#loader').hide();
+            try {
+                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    this.resources = JSON.parse(document.getElementById('resources').value);
+                } else {
+                    this.resources = [];
                 }
-                console.log(document.getElementById('sessionExp').innerHTML)
-       
-                // this.paramValues = getParameter(location.href)
-                //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
-                this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
-                this.fetchSavedData();
+            } catch (error) {
+                //console.log(error);
                 $('#loader').hide();
             }
+            
+            // this.paramValues = getParameter(location.href)
+            //    this.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
+            this.userRole = document.getElementById('uRole').innerHTML; // hide in layout.html
+            this.fetchSavedData();
+            $('#loader').hide();
         },
 
         methods: {
@@ -66,13 +55,13 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        console.log(data)
+                      //  console.log(data)
                         _self.incompleteReferral = data;
                     },
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            _self.showErrorModal(error.responseJSON.message);
+                            showError(error.responseJSON.message, error.status);
                         }
                     }
                 });
@@ -124,7 +113,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').removeClass('d-block').addClass('d-none');
                         if (error) {
-                            _self.showErrorModal(error.responseJSON.message);
+                            showError(error.responseJSON.message, error.status);
                         }
                     }
                 });
@@ -153,7 +142,7 @@ $(document).ready(function () {
                         error: function (error) {
                             $('#loader').hide();
                             if (error) {
-                                _self.showErrorModal(error.responseJSON.message);
+                                showError(error.responseJSON.message, error.status);
                             }
                         }
                     });
@@ -185,17 +174,6 @@ $(document).ready(function () {
                     this.searchRefObj.errMsg = false;
                     this.searchRefObj.validateErrMsg = false;
                 }
-            },
-            showErrorModal: function (content) {
-                if (!content) {
-                    content = "Something went wrong.Please try again"
-                }
-                $('#errorModalContent').text(content);
-                $('#errorModal').modal('show');
-            },
-            closeErrorModal: function () {
-                $('#errorModal').modal('hide');
-                location.href = "/users/login";
             }
 
         }

@@ -54,7 +54,7 @@ router.post('/user/forgotPassword', authController.forgotPassword);
 router.post('/user/resetPassword', authController.resetPassword);
 router.post('/user/resetEmail', authController.resetEmail);
 router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken);
-router.post('/user/feedback', authController.sendFeedback);
+router.post('/user/feedback', validateToken, authController.sendFeedback);
 
 router.get('/admin/referral', adminController.getReferral);
 router.put('/admin/referral', adminController.updateReferral);
