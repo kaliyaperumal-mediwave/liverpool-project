@@ -33,7 +33,7 @@ $(document).ready(function () {
                     this.resources = [];
                 }
             } catch (error) {
-                console.log(error);
+                //console.log(error);
                 $('#loader').hide();
             }
             
@@ -56,7 +56,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        console.log(data)
+                      //  console.log(data)
                         _self.incompleteReferral = data;
                     },
                     error: function (error) {

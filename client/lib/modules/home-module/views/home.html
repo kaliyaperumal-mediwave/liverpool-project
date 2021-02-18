@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 
 {% block extraBody %}
@@ -48,38 +49,38 @@
                             v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
                             @input="filterPieces()">
                     </div>
-                    <div id="hideserachblock" class="d-none">
-                        {% raw %}
-                        <!-- Search functionality start-->
-                        <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                            {{searchQuery}}?”</div>
-                        <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                            <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                                <template v-if="filteredData.length">
-                                    <div v-for="item in filteredData"
-                                        class="border-bottom-primary card-body px-2 px-md-4">
-                                        <a :href=" item.custom_url ? item.custom_url : item._url">
-                                            <div class="d-flex align-items-center">
-                                                <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                                    height="30" class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
-                                                    alt="">
-                                                <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                                </p>
-                                                <ul class="my-0 link-text mx-2 mx-md-4"
-                                                    style="list-style: inside !important;">
-                                                    <li>{{item.Topic}}</li>
-                                                </ul>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </template>
-                                <template v-if="!filteredData.length">
-                                    <p class="resource_search_text py-3">No records found</p>
-                                </template>
-                            </div>
+                      <div  id="hideserachblock" class="d-none">
+                    {% raw %}
+                    <!-- Search functionality start-->
+                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+                        {{searchQuery}}?”</div>
+                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+                        <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                            <template v-if="filteredData.length">
+                                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                                    <a :href=" item.custom_url ? item.custom_url : item._url">
+                                        <div class="d-flex align-items-center">
+                                            <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                                height="30" class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
+                                                <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+
+                                            <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                            </p>
+                                            <ul class="my-0 link-text mx-2 mx-md-4"
+                                                style="list-style: inside !important;">
+                                                <li>{{item.Topic}}</li>
+                                            </ul>
+                                        </div>
+                                    </a>
+                                </div>
+                            </template>
+                            <template v-if="!filteredData.length">
+                                <p class="resource_search_text py-3">No records found</p>
+                            </template>
                         </div>
-                        <!-- Search functionality end-->
-                        {% endraw %}
+                    </div>
+                    <!-- Search functionality end-->
+                    {% endraw %}
                     </div>
                 </div>
             </div>
@@ -94,64 +95,58 @@
         </div>
     </div>
 
-    <div class="d-flex py-0 mt-md-4 pb-1 mt-3">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-0 pb-2 mx-auto">
+    <div class="d-flex py-0 mt-md-4 pb-1 mt-3 w-97">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 pb-2 mx-auto">
             <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-6 p-0 cursor-pointer " @click="navigatePage('/make-referral')">
-                    <div class="mr-2 home-primary-content-bg">
-                        <div class="text-center py-5">
-                            <img src="/modules/my-apostrophe-assets/img/MakeAReferral2.svg" class="px-3 image-height"
-                                alt="">
-                        </div>
-                        <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-                            <span class="home-secondary-content pr-2 px-md-3">Make a referral</span>
-                        </div>
+                <div class="col-md-6 col-lg-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg"
+                    @click="navigatePage('/make-referral')">
+                    <div class="text-center py-5">
+                        <img src="/modules/my-apostrophe-assets/img/MakeAReferral2.svg" class="px-3 image-height"
+                            alt="">
+                    </div>
+                    <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+                        <span class="home-secondary-content pr-2 px-md-3">Make a referral</span>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 p-0 cursor-pointer " @click="navigatePage('/pages/urgent-help')">
-                    <div class="ml-2 home-primary-content-bg">
-                        <div class="text-center py-5">
-                            <img src="/modules/my-apostrophe-assets/img/UrgentHelp.svg" class="px-3 image-height "
-                                alt="">
-                        </div>
-                        <div class="text-right text-md-right py-1 py-1 sub-header-bg home-card-radius">
-                            <span class="home-secondary-content pr-2 px-md-3">Urgent help</span>
-                        </div>
+                <div class="col-md-6 col-lg-6 p-0 cursor-pointer home-primary-content-bg"
+                    @click="navigatePage('/pages/urgent-help')">
+                    <div class="text-center py-5">
+                        <img src="/modules/my-apostrophe-assets/img/UrgentHelp.svg" class="px-3 image-height " alt="">
+                    </div>
+                    <div class="text-right text-md-right py-1 py-1 sub-header-bg home-card-radius">
+                        <span class="home-secondary-content pr-2 px-md-3">Urgent help</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="d-flex py-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-0 py-2 mx-auto">
+    <div class="d-flex py-2 w-97">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 py-2 mx-auto">
             <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-6 p-0 " @click="navigatePage('/users/login')">
-                    <div class="mr-2 home-primary-content-bg">
-                        <div class="text-center py-5">
-                            <img src="/modules/my-apostrophe-assets/img/Login.svg" class="px-3 image-height" alt="">
-                        </div>
-                        <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-                            <span class="home-secondary-content pr-2 px-md-3">Log in / Sign up</span>
-                        </div>
+                <div class="col-md-6 col-lg-6 mr-3 mr-md-4 p-0 cursor-pointer home-primary-content-bg"
+                    @click="navigatePage('/users/login')">
+                    <div class="text-center py-5">
+                        <img src="/modules/my-apostrophe-assets/img/Login.svg" class="px-3 image-height" alt="">
+                    </div>
+                    <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+                        <span class="home-secondary-content pr-2 px-md-3">Log in / Sign up</span>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 cursor-pointer p-0 " @click="navigatePage('/resources')">
-                    <div class="ml-2 home-primary-content-bg">
-                        <div class="text-center py-5">
-                            <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height "
-                                alt="">
-                        </div>
-                        <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-                            <span class="home-secondary-content pr-2 px-md-3">Resources</span>
-                        </div>
+                <div class="col-md-6 col-lg-6 cursor-pointer p-0 home-primary-content-bg"
+                    @click="navigatePage('/resources')">
+                    <div class="text-center py-5">
+                        <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height " alt="">
+                    </div>
+                    <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+                        <span class="home-secondary-content pr-2 px-md-3">Resources</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="d-flex py-2">
+    <div class="d-flex py-2 w-97-large">
         <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-0 py-1 mx-auto cursor-pointer">
             <div class="d-flex justify-content-center">
                 <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mental-health')">
