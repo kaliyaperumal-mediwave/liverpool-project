@@ -2764,6 +2764,8 @@ select.selectIcon {
     padding: 14px 22px 22px 14px;
     max-width: 500px;
     margin: auto; }
+  .top-arrow-container.pd-container {
+    padding: 14px 14px 22px 14px; }
   .bottom-arrow-container {
     padding: 40px 24px 24px 24px;
     max-width: 500px;
@@ -4260,7 +4262,18 @@ i.fa.fa-calendar {
 .dropdown.d-flex.justify-content-end.align-items-center.show * {
   color: #023047 !important; }
 
+.w-97 {
+  width: 97% !important;
+  margin: auto; }
+
+.w-97-large {
+  width: 100% !important;
+  margin: auto; }
+
 @media (max-width: 768px) {
+  .w-97-large {
+    width: 97% !important;
+    margin: auto; }
   ::-webkit-input-placeholder {
     font-size: 14px !important; }
   ::-moz-placeholder {
