@@ -20,6 +20,11 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            console.log(document.getElementById('sessionExp').innerHTML)
+            if(document.getElementById('sessionExp').innerHTML=="true")
+            {
+                showError('Session expired');
+            }
             var _self = this;
             setTimeout(function () {
                 // _self.resetForm(_self, "loginObject");

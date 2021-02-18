@@ -10,20 +10,9 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            console.log(document.getElementById('sessionExp').innerHTML)
-            if(document.getElementById('sessionExp').innerHTML)
-            {
+            setTimeout(function () {
                 $('#loader').hide();
-               // document.getElementById(sessionExp).innerHTML="false";
-                showError("Searcn Expired", 401);
-                return;
-            }
-            else
-            {
-                setTimeout(function () {
-                    $('#loader').hide();
-                }, 1000);
-            }
+            }, 1000);
         },
 
         methods: {
@@ -40,6 +29,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.log(error)
+                        showError(error.responseJSON.message, error.status);
                     }
                 })
             }

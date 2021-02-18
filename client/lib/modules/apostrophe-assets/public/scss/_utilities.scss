@@ -43,6 +43,14 @@
   }
 }
 
+//Tooltip custom class
+.tooltip {
+  text-decoration: none;
+  border-bottom: none;
+  color: #36c;
+  outline: none;
+}
+
 //set dynamic background color radius
 @mixin set-bgOnly($color) {
   background: $color 0% 0% no-repeat padding-box !important;

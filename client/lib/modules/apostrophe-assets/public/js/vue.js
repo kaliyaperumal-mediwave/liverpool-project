@@ -6735,7 +6735,7 @@
             baseSetAttr(el, key, value);
         } else if (isBooleanAttr(key)) {
             // set attribute for blank value
-            // e.g. <option disabled>Select one</option>
+            // e.g. <option class='option-text' disabled>Select one</option>
             if (isFalsyAttrValue(value)) {
                 el.removeAttribute(key);
             } else {

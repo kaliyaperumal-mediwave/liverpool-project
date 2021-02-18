@@ -42,6 +42,7 @@ $(document).ready(function () {
                         error: function (error) {
                             $('#loader').hide();
                             console.log(error.responseJSON.message)
+                            showError(error.responseJSON.message, error.status);
                         }
                     });
                 }

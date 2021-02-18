@@ -9,11 +9,10 @@ module.exports = {
   construct: function (self, options) {
     require('../../middleware')(self, options);
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.checkCommonPageAuth, self.education);
+      self.dispatch('/', self.middleware.checkCommonPageAuth, self.education);
     };
     self.education = function (req, callback) {
-      if(!req.session.user_role)
-      {
+      if (!req.session.user_role) {
         return req.res.redirect("/")
       }
       let decryptedUrl;
@@ -38,10 +37,11 @@ module.exports = {
 
       return self.sendPage(req, self.renderer('education', {
         headerContent: "Section 3 of 5: Education / employment & support needs",
-        headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
+        headerDescription: "",
         backContent: '/about?' + decryptedUrl,
         home: false,
         showHeader: true,
+        completed: true,
         hideRefButton: false,
       }));
     };

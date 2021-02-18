@@ -1,11 +1,5 @@
 $(document).ready(function () {
-
-    if(document.getElementById('sessionExp').innerHTML)
-    {
-        document.getElementById(sessionExp).innerHTML="false";
-        showError("Searcn Expired", 401);
-        return;
-    }
+  $("#loader").addClass("d-none");
     var API_URI = "/modules/dashboard-module";
     $("#doSearchReferral").click(function (event) {
         if (!$('#toSearchRefCode').val().trim()) {
@@ -30,7 +24,7 @@ $(document).ready(function () {
             error: function (error) {
                 $('#loader').hide();
                 if (error) {
-                    showError(error.responseJSON.message);
+                    showError(error.responseJSON.message, error.status);
                 }
             }
         });

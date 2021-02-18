@@ -12,9 +12,13 @@ module.exports = {
 
     self.checkReferral = function (req, callback) {
       return self.sendPage(req, self.renderer('check-referral', {
+        headerContent: "Check a referral",
+        headerDescription: "",
         showHeader: true,
-        home: true,
-        loginFlag:req.data.showLogout
+        home: false,
+        completed: true,
+        backContent: '/dashboard',
+        loginFlag: req.data.showLogout
       }));
     };
     require('../../middleware')(self, options);

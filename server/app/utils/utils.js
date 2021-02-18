@@ -22,17 +22,17 @@ module.exports = {
               email: result.email,
           },
           attributes: ['email', 'session_token','session_token_expiry']
-      }).then(async (userResult) => {
-          if(userResult.session_token!=null && userResult.session_token==token){
-            return next();
-          }
-          else
-          {
-            return ctx.res.unauthorizedError({
-              message: 'Session Expired',
-            });
-          }
-      })
+        }).then(async (userResult) => {
+            if(userResult.session_token!=null && userResult.session_token==token){
+              return next();
+            }
+            else
+            {
+              return ctx.res.unauthorizedError({
+                message: 'Session Expired .',
+              });
+            }
+        })
         // We call next to pass execution to the subsequent middleware
       } catch (err) {
         // Throw an error just in case anything goes wrong with verification

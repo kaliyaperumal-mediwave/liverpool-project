@@ -60,7 +60,7 @@
                                     data-placement="top" title="Edit Section 1"></i>
                             </div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer"
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
                                     data-toggle="collapse" id="toggle1" data-target="#collapseOne" aria-expanded="true"
                                     @click="toggleArrow($event,1,allSectionData)" aria-controls="collapseOne"></i>
                             </span>
@@ -86,7 +86,7 @@
                                     <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
                                         Interpreter needed:
                                     </label>
-                                    <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" data-toggle="popover" data-trigger="focus"
                                         data-placement="bottom" data-content="My popover content."
                                         v-model="section1Data.need_interpreter" id="InterpreterNeed">
@@ -125,7 +125,7 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
                                             Consent given:
                                         </label>
-                                        <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                        <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="section1Data.consent_child"
                                             id="consentGivenSec5">
                                     </div>
@@ -138,7 +138,7 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
                                             Contact parent or carer:
                                         </label>
-                                        <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                        <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="section1Data.contact_parent_camhs"
                                             id="canReasonCamhs">
                                     </div>
@@ -152,7 +152,7 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
                                             Reason for no contact:
                                         </label>
-                                        <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                        <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="section1Data.reason_contact_parent_camhs"
                                             id="reasonCamhs">
                                     </div>
@@ -165,7 +165,7 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenChild">
                                             Consent given by child:
                                         </label>
-                                        <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                        <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="section1Data.consent_child"
                                             id="consentGivenChild">
                                     </div>
@@ -174,7 +174,7 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
                                             Consent given by parent:
                                         </label>
-                                        <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                        <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="section1Data.consent_parent"
                                             id="consentGivenPar">
                                     </div>
@@ -191,7 +191,7 @@
                                         </label>
                                         <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control text-capitalize" type="text"
+                                                <input class="form-control text-capitalize input-bg-form-control" type="text"
                                                     placeholder="Enter full name" @keypress="preventWhiteSpaces($event)"
                                                     @input="onDetectChange($event,'sect1','section1Data','professional_name')"
                                                     v-model="section1Data.professional_name" id="profNameSec5">
@@ -216,7 +216,7 @@
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control text-capitalize" type="text"
+                                                <input class="form-control text-capitalize input-bg-form-control" type="text"
                                                     inputmode="email" @keypress="preventWhiteSpaces($event)"
                                                     placeholder="Enter email"
                                                     @input="onDetectChange($event,'sect1','section1Data','professional_email')"
@@ -241,7 +241,7 @@
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control" type="text"
+                                                <input class="form-control input-bg-form-control" type="text"
                                                     placeholder="Enter contact number"
                                                     @input="onDetectChange($event,'sect1','section1Data','professional_contact_number')"
                                                     inputmode="tel" v-model="section1Data.professional_contact_number"
@@ -273,7 +273,7 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         GP:
                                     </label>
-                                    <textarea class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" v-model="section1Data.registerd_gp" id="gpLoc">
                                         </textarea>
                                 </div>
@@ -331,7 +331,7 @@
                                         NHS Number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control text-capitalize"
+                                        <input class="form-control text-capitalize input-bg-form-control"
                                             @input="onDetectChange($event,'sect2','section2Data','child_NHS')"
                                             type="text" inputmode="numeric" placeholder="Enter NHS number"
                                             v-model="section2Data.child_NHS" id="nhsNumberSect5">
@@ -351,7 +351,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control text-capitalize"
+                                            <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_name')"
                                                 placeholder="Enter full name" type="text"
                                                 v-model="section2Data.child_name" id="nameSec5">
@@ -376,7 +376,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control text-capitalize"
+                                            <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_email')"
                                                 placeholder="Enter email" inputmode="email" type="text"
                                                 v-model="section2Data.child_email" id="emailSec5">
@@ -402,7 +402,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control text-capitalize"
+                                            <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_contact_number')"
                                                 placeholder="Enter contact number" inputmode="tel" type="text"
                                                 v-model="section2Data.child_contact_number" id="cont">
@@ -430,7 +430,7 @@
                                         Address:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea readonly class="form-control text-capitalize" type="text"
+                                        <textarea readonly class="form-control text-capitalize input-bg-form-control" type="text"
                                             v-model="section2Data.child_address" id="addressSect5">
                                 </textarea>
                                     </div>
@@ -442,12 +442,12 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px text-capitalize"
+                                            <select class="custom-select h-50px text-capitalize input-bg-form-control"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.can_send_post">
-                                                <option value="Yes">Yes
+                                                <option class='option-text' value="Yes">Yes
                                                 </option>
-                                                <option value="No">No
+                                                <option class='option-text' value="No">No
                                                 </option>
                                             </select>
                                         </span>
@@ -459,7 +459,7 @@
                                         Gender:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control text-capitalize" type="text"
+                                        <input class="form-control text-capitalize input-bg-form-control" type="text"
                                             @input="onDetectChange($event,'sect2','section2Data','child_gender')"
                                             placeholder="Enter gender" v-model="section2Data.child_gender"
                                             id="genderSect5">
@@ -476,12 +476,12 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px text-capitalize"
+                                            <select class="custom-select h-50px text-capitalize input-bg-form-control"
                                                 v-model="section2Data.child_gender_birth"
                                                 @change="onDetectChange($event,'sect2')">
-                                                <option value="Yes">Yes</option>
-                                                <option value="No">No</option>
-                                                <option value="Unsure">Unsure</option>
+                                                <option class='option-text' value="Yes">Yes</option>
+                                                <option class='option-text' value="No">No</option>
+                                                <option class='option-text' value="Unsure">Unsure</option>
                                             </select>
                                         </span>
                                     </div>
@@ -492,7 +492,7 @@
                                         Sexual orientation:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control text-capitalize" type="text"
+                                        <input class="form-control text-capitalize input-bg-form-control" type="text"
                                             @input="onDetectChange($event,'sect2','section2Data','child_sexual_orientation')"
                                             placeholder="Enter sexual orientation"
                                             v-model="section2Data.child_sexual_orientation" id="orientSect5">
@@ -504,7 +504,7 @@
                                         Ethnicity:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control text-capitalize" type="text"
+                                        <input class="form-control text-capitalize input-bg-form-control" type="text"
                                             @input="onDetectChange($event,'sect2','section2Data','child_ethnicity')"
                                             placeholder="Enter ethnicity" v-model="section2Data.child_ethnicity"
                                             id="ethincitySect5">
@@ -517,9 +517,9 @@
                                         Household members
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <div class="card text-left mb-2"
+                                        <div class="card text-left mb-2 border-0"
                                             v-for="(item, index) in section2Data.household_member" :key="index">
-                                            <div class="card-body py-2 px-3">
+                                            <div class="card-body py-2 px-3 input-bg-form-control">
                                                 <div class="d-flex align-items-center justify-content-between my-1">
                                                     <h5 class="question-font">{{item.name}}</h5>
                                                 </div>
@@ -570,12 +570,12 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px text-capitalize"
+                                            <select class="custom-select h-50px text-capitalize input-bg-form-control"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.child_care_adult">
-                                                <option value="No">No</option>
-                                                <option value="Yes">Yes</option>
-                                                <option value="Unsure">Unsure</option>
+                                                <option class='option-text' value="No">No</option>
+                                                <option class='option-text' value="Yes">Yes</option>
+                                                <option class='option-text' value="Unsure">Unsure</option>
                                             </select>
                                         </span>
                                     </div>
@@ -586,7 +586,7 @@
                                         Parent / Carer's Name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control" type="text"
+                                        <input class="form-control input-bg-form-control" type="text"
                                             @input="onDetectChange($event,'sect2','section2Data','parent_name')"
                                             placeholder="Enter name" v-model="section2Data.parent_name" id="parCarName">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_name),
@@ -612,7 +612,7 @@
                                         Relationship:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control text-capitalize" type="text"
+                                        <input class="form-control text-capitalize input-bg-form-control" type="text"
                                             @input="onDetectChange($event,'sect2','section2Data','child_parent_relationship')"
                                             placeholder="Enter relationship"
                                             v-model="section2Data.child_parent_relationship" id="relSec5">
@@ -629,7 +629,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control" type="text" inputmode="tel"
+                                            <input class="form-control input-bg-form-control" type="text" inputmode="tel"
                                                 placeholder="Enter contact number"
                                                 @input="onDetectChange($event,'sect2','section2Data','parent_contact_number')"
                                                 v-model="section2Data.parent_contact_number" id="contSec5">
@@ -657,7 +657,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <input class="form-control text-capitalize" type="text" inputmode="email"
+                                            <input class="form-control text-capitalize input-bg-form-control" type="text" inputmode="email"
                                                 placeholder="Enter email"
                                                 @input="onDetectChange($event,'sect2','section2Data','parent_email')"
                                                 v-model="section2Data.parent_email" id="emailparentSec5">
@@ -679,17 +679,17 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
                                         Lives in same house:
                                     </label>
-                                    <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" v-model="section2Data.parent_same_house">
                                     <!-- <div class="col-md-4 col-12 px-0">
-                                        <select disabled class="custom-select h-50px text-capitalize"
+                                        <select disabled class="custom-select h-50px text-capitalize input-bg-form-control"
                                             @change="onDetectChange($event,'sect2')"
                                             v-model="section2Data.parent_same_house">
-                                            <option selected>
+                                            <option class='option-text' selected>
                                                 {{section2Data.parent_same_house}}</option>
-                                            <option v-if="section2Data.parent_same_house == 'no'" value="yes">Yes
+                                            <option class='option-text' v-if="section2Data.parent_same_house == 'no'" value="yes">Yes
                                             </option>
-                                            <option v-if="section2Data.parent_same_house == 'yes'" value="no">no
+                                            <option class='option-text' v-if="section2Data.parent_same_house == 'yes'" value="no">no
                                             </option>
                                         </select>
                                     </div> -->
@@ -701,7 +701,7 @@
                                             Parent/carer's address:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <textarea readonly class="form-control text-capitalize" type="text"
+                                            <textarea readonly class="form-control text-capitalize input-bg-form-control" type="text"
                                                 @input="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.parent_address" id="parCarrerAdd5">
                                             </textarea>
@@ -715,31 +715,31 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px"
+                                            <select class="custom-select h-50px custom-select h-50px  input-bg-form-control"
                                                 @change="onDetectChange($event,'sect2')"
                                                 v-model="section2Data.legal_care_status">
-                                                <option value="Care of Parent">Care of Parent
+                                                <option class='option-text' value="Care of Parent">Care of Parent
                                                 </option>
-                                                <option value="Care of Local Authority (Liverpool)">Care of Local
+                                                <option class='option-text' value="Care of Local Authority (Liverpool)">Care of Local
                                                     Authority
                                                     (Liverpool)
                                                 </option>
-                                                <option value="Care of Local Authority (Sefton)">Care of Local Authority
+                                                <option class='option-text' value="Care of Local Authority (Sefton)">Care of Local Authority
                                                     (Sefton)
                                                 </option>
-                                                <option value="Care of Local Authority (Other)">Care of Local Authority
+                                                <option class='option-text' value="Care of Local Authority (Other)">Care of Local Authority
                                                     (Other)
                                                 </option>
-                                                <option value="Section 20 Voluntary">Section 20 Voluntary
+                                                <option class='option-text' value="Section 20 Voluntary">Section 20 Voluntary
                                                 </option>
-                                                <option value="Accommodated">Accommodated
+                                                <option class='option-text' value="Accommodated">Accommodated
                                                 </option>
-                                                <option value="Full Care Order">Full Care Order</option>
-                                                <option value="Interim Care Order">Interim Care Order</option>
-                                                <option value="Care Order places at home">Care Order places at home
+                                                <option class='option-text' value="Full Care Order">Full Care Order</option>
+                                                <option class='option-text' value="Interim Care Order">Interim Care Order</option>
+                                                <option class='option-text' value="Care Order places at home">Care Order places at home
                                                 </option>
-                                                <option value="Child Protection Plan">Child Protection Plan</option>
-                                                <option value="Other Carer">Other Carer</option>
+                                                <option class='option-text' value="Child Protection Plan">Child Protection Plan</option>
+                                                <option class='option-text' value="Other Carer">Other Carer</option>
                                             </select>
                                         </span>
                                     </div>
@@ -795,21 +795,21 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="eduSect5">
                                         Education / employment:
                                     </label>
-                                    <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" v-model="section3Data.child_profession">
                                     <!-- <div class="col-md-4 col-12 px-0">
-                                        <select disabled class="custom-select h-50px text-capitalize"
+                                        <select disabled class="custom-select h-50px text-capitalize input-bg-form-control"
                                             v-model="section3Data.child_profession"
                                             @change="onDetectChange($event,'sect3')">
-                                            <option selected>
+                                            <option class='option-text' selected>
                                                 {{section3Data.child_profession}}</option>
-                                            <option v-if="section3Data.child_profession != 'education'"
+                                            <option class='option-text' v-if="section3Data.child_profession != 'education'"
                                                 value="education">
                                                 Education</option>
-                                            <option v-if="section3Data.child_profession != 'employment'"
+                                            <option class='option-text' v-if="section3Data.child_profession != 'employment'"
                                                 value="employment">
                                                 Employment</option>
-                                            <option v-if="section3Data.child_profession != 'neither'" value="neither">
+                                            <option class='option-text' v-if="section3Data.child_profession != 'neither'" value="neither">
                                                 Neither</option>
                                         </select>
                                     </div> -->
@@ -821,7 +821,7 @@
                                         School/college:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="form-control text-capitalize" type="text"
+                                        <textarea class="form-control text-capitalize input-bg-form-control" type="text"
                                             v-model="section3Data.child_education_place" id="childEducationPlace"
                                             @input="onDetectChange($event,'sect3')">
                                 </textarea>
@@ -834,11 +834,11 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px text-capitalize"
+                                            <select class="custom-select h-50px text-capitalize input-bg-form-control"
                                                 v-model="section3Data.child_EHCP"
                                                 @change="onDetectChange($event,'sect3')">
-                                                <option value="No">No </option>
-                                                <option value="Yes">Yes</option>
+                                                <option class='option-text' value="No">No </option>
+                                                <option class='option-text' value="Yes">Yes</option>
                                             </select>
                                         </span>
                                     </div>
@@ -850,11 +850,11 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px text-capitalize"
+                                            <select class="custom-select h-50px text-capitalize input-bg-form-control"
                                                 v-model="section3Data.child_EHAT"
                                                 @change="onDetectChange($event,'sect3')">
-                                                <option value="Yes">Yes</option>
-                                                <option value="No">No
+                                                <option class='option-text' value="Yes">Yes</option>
+                                                <option class='option-text' value="No">No
                                                 </option>
                                             </select>
                                         </span>
@@ -865,16 +865,16 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="isSocialSent5">
                                         Social Worker:
                                     </label>
-                                    <input class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <input class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" v-model="section3Data.child_socialworker">
                                     <!-- <div class="col-md-4 col-12 px-0">
-                                        <select disabled class="custom-select h-50px text-capitalize"
+                                        <select disabled class="custom-select h-50px text-capitalize input-bg-form-control"
                                             v-model="section3Data.child_socialworker">
-                                            <option selected>
+                                            <option class='option-text' selected>
                                                 {{section3Data.child_socialworker}}</option>
-                                            <option v-if="section3Data.child_socialworker != 'yes'" value="yes">Yes
+                                            <option class='option-text' v-if="section3Data.child_socialworker != 'yes'" value="yes">Yes
                                             </option>
-                                            <option v-if="section3Data.child_socialworker != 'no'" value="no">no
+                                            <option class='option-text' v-if="section3Data.child_socialworker != 'no'" value="no">no
                                             </option>
                                         </select>
                                     </div> -->
@@ -887,7 +887,7 @@
                                             Social Worker name:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control text-capitalize" type="text"
+                                            <input class="form-control text-capitalize input-bg-form-control" type="text"
                                                 placeholder="Enter social worker name"
                                                 v-model="section3Data.child_socialworker_name" id="socialworkerNameSec5"
                                                 @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_name')">
@@ -904,7 +904,7 @@
                                             Social Worker number:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control" type="text" inputmode="tel"
+                                            <input class="form-control input-bg-form-control" type="text" inputmode="tel"
                                                 placeholder="Enter social worker number"
                                                 v-model="section3Data.child_socialworker_contact"
                                                 id="socialworkerNumSec5"
@@ -978,14 +978,14 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px text-capitalize"
+                                            <select class="custom-select h-50px text-capitalize input-bg-form-control"
                                                 v-model="section4Data.is_covid"
                                                 @change="onDetectChange($event,'sect4')">
-                                                <option value="Yes">Yes
+                                                <option class='option-text' value="Yes">Yes
                                                 </option>
-                                                <option value="No">No
+                                                <option class='option-text' value="No">No
                                                 </option>
-                                                <option value="Unsure">Unsure</option>
+                                                <option class='option-text' value="Unsure">Unsure</option>
                                             </select>
                                         </span>
                                     </div>
@@ -997,7 +997,7 @@
                                             Main eating disorder difficulties
                                         </label>
                                         <textarea
-                                            class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
                                             name="infoTextAreas" id="textInf0red" rows="3"
                                             v-model="section4Data.eating_disorder_difficulties"
                                             readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
@@ -1010,7 +1010,7 @@
                                             Height
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control text-capitalize" type="text"
+                                            <input class="form-control text-capitalize input-bg-form-control" type="text"
                                                 placeholder="Enter height" v-model="section4Data.height"
                                                 id="heightSect5"
                                                 @input="onDetectChange($event,'sect4','section4Data', 'height')">
@@ -1024,7 +1024,7 @@
                                             Weight
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control text-capitalize" type="text"
+                                            <input class="form-control text-capitalize input-bg-form-control" type="text"
                                                 placeholder="Enter weight" v-model="section4Data.weight"
                                                 id="weightSect5"
                                                 @input="onDetectChange($event,'sect4','section4Data', 'weight')">
@@ -1037,7 +1037,7 @@
                                         Main reason for making referral
                                     </label>
                                     <textarea
-                                        class="form-control text-capitalize col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                        class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
                                         name="infoTextAreas" id="textInf0red" rows="3"
                                         v-model="section4Data.reason_for_referral"
                                         readonly>{{section4Data.reason_for_referral}}</textarea>
@@ -1048,7 +1048,7 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="infoAb5">
                                         Info about issue:
                                     </label>
-                                    <textarea class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control"
+                                    <textarea class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control  input-bg-form-control"
                                         name="infoTextAreas" id="infoAb5" rows="3"
                                         v-model="section4Data.referral_issues"
                                         @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
@@ -1058,7 +1058,7 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="hasHelp5">
                                         Has anything helped?:
                                     </label>
-                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
                                         name="infoTextAreas" id="hasHelp5" rows="3"
                                         v-model="section4Data.has_anything_helped"
                                         @input="onDetectChange($event,'sect4','section4Data','has_anything_helped')">{{section4Data.has_anything_helped}}</textarea>
@@ -1068,7 +1068,7 @@
                                     <label class="question-font px-0 col-12 col-md-4" for="trig5">
                                         Triggers:
                                     </label>
-                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
                                         name="infoTextAreas" id="trig5" rows="3"
                                         v-model="section4Data.any_particular_trigger"
                                         @input="onDetectChange($event,'sect4','section4Data','any_particular_trigger')">{{section4Data.any_particular_trigger}}</textarea>
@@ -1078,7 +1078,7 @@
                                     <label class="question-font col-12 px-0 col-md-4" for="aboutYou">
                                         Disabilities / difficulties:
                                     </label>
-                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                    <textarea class="h-50 form-control col-md-6 col-lg-6 col-xl-5 col-11 input-bg-form-control"
                                         name="infoTextAreas" id="textInf0red" rows="3"
                                         v-model="section4Data.disabilities"
                                         @input="onDetectChange($event,'sect4','section4Data','disabilities')">{{section4Data.disabilities}}</textarea>
@@ -1091,7 +1091,7 @@
                                         Accessed Services
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <textarea class="h-50 form-control text-capitalize" name="infoTextAreas"
+                                        <textarea class="h-50 form-control text-capitalize input-bg-form-control" name="infoTextAreas"
                                             placeholder="" rows="3"
                                             v-model="section4Data.local_services">{{section4Data.symptoms}}</textarea>
                                     </div>
@@ -1274,7 +1274,7 @@
                                 <label for="whereToSend" class="question-font mb-3">Enter the name of where you want to
                                     send
                                     the referral</label>
-                                <textarea class="h-112 form-control" id="whereToSend" v-model="nameForOthers"
+                                <textarea class="h-112 form-control input-bg-form-control" id="whereToSend" v-model="nameForOthers"
                                     @input="preventWhiteSpaces($event,'other')" rows="4"></textarea>
                             </div>
                             <div class="invalid-feedback d-none m-0 py-2"
