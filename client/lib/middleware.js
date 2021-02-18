@@ -349,7 +349,7 @@ module.exports = function (self, options) {
         delete req.session.user_role;
         delete req.session.auth_token;
         delete req.session.loginFlag;
-        req.session.sessionExp = true;
+       // req.session.sessionExp = true;
         return reject(error);
       });
     });

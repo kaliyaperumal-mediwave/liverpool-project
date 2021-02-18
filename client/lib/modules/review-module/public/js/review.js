@@ -135,7 +135,7 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
-                        //    console.log(data)
+                            console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;

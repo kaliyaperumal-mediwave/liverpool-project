@@ -977,26 +977,21 @@ exports.fetchAbout = ctx => {
     }).then((professionalResult) => {
 
       return user.findAll({
-        include: [
-          {
-            model: ctx.orm().Referral,
-            nested: true,
-            as: 'professional',
-          },
-          {
-            model: ctx.orm().Referral,
-            nested: true,
-            as: 'parent',
-          },
-        ],
-
+        include: [{
+          model: ctx.orm().Referral,
+          as: 'professional',
+          include: [{
+              model: ctx.orm().Referral,
+              as: 'child_parent',
+          }]
+      }],
         where: {
           id: professionalResult.id,
         },
       }).then((childResult) => {
-
-        //  return ctx.body = childResult;
         var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
+        var parentIdNew = childResult[0].professional[0].child_parent[0].id;
+        //  var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
         // return ctx.body = childResult;
         console.log(parentId)
         return user.findAll({
@@ -1008,7 +1003,7 @@ exports.fetchAbout = ctx => {
             },
           ],
           where: {
-            id: parentId,
+            id: parentIdNew,
           },
         }).then((parentResult) => {
 
@@ -2027,29 +2022,34 @@ exports.fetchReview = ctx => {
   }
   else if (ctx.query.role == "professional") {
 
-
+    console.log("uuid"+ctx.query.user_id,)
     return user.findOne({
+    
       where: {
         uuid: ctx.query.user_id,
       },
     }).then((userObj) => {
 
       return user.findOne({
-
-        include: [
-          {
-            model: ctx.orm().Referral,
-            nested: true,
-            as: 'professional',
-            attributes: ['id', 'child_dob', 'registerd_gp']
-          },
-        ],
+        include: [{
+          model: ctx.orm().Referral,
+          as: 'professional',
+          attributes: ['id', 'child_dob', 'registerd_gp'],
+          include: [{
+              model: ctx.orm().Referral,
+              as: 'child_parent',
+          }]
+      }],
         where: {
           id: userObj.id,
         },
         attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent']
       }).then((elgibilityObj) => {
+        //return ctx.body = elgibilityObj.professional[0].child_parent[0];
+        var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
         var childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
+        console.log(childIdNew);
+        console.log(childId);
 
         //  var childId = elgibilityObj[0].professional[0].ChildProfessional.UserId
         //  var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) + 2
@@ -2064,7 +2064,7 @@ exports.fetchReview = ctx => {
             },
           ],
           where: {
-            id: childId,
+            id: childIdNew,
           },
           attributes: ['id', 'parent_name', 'parential_responsibility', 'responsibility_parent_name', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
         }).then((aboutObj) => {
@@ -2174,6 +2174,7 @@ exports.fetchReview = ctx => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }).catch((error) => {
+      console.log(error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
