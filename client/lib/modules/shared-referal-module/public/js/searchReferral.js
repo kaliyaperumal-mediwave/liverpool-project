@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
-    if(document.getElementById('sessionExp').innerHTML)
-    {
-        document.getElementById(sessionExp).innerHTML="false";
-        showError("Searcn Expired", 401);
-        return;
-    }
+    // if(document.getElementById('sessionExp').innerHTML =='true' )
+    // {
+    //     document.getElementById(sessionExp).innerHTML="false";
+    //     showError("Searcn Expired", 401);
+    //     return;
+    // }
     var API_URI = "/modules/dashboard-module";
     $("#doSearchReferral").click(function (event) {
         if (!$('#toSearchRefCode').val().trim()) {
