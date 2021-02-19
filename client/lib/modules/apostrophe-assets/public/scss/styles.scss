@@ -3271,3 +3271,9 @@ div.collapse-container.collapsing {
       font-size: 22px !important;
     }
 }
+.p-0-res-10{
+  padding-left: 0px;
+  @include sm-dec-screen {
+  padding-left: 18px;
+  }
+}

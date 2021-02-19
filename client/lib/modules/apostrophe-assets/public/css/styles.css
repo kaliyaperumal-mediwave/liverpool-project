@@ -4331,3 +4331,9 @@ div.collapse-container.collapsing {
   @media (max-width: 768px) {
     .btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text {
       font-size: 22px !important; } }
+
+.p-0-res-10 {
+  padding-left: 0px; }
+  @media (max-width: 768px) {
+    .p-0-res-10 {
+      padding-left: 18px; } }
