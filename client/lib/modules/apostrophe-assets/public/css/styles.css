@@ -4323,3 +4323,9 @@ div.collapse-container.collapsing {
 
 .text-slider-res-middle {
   right: 0px !important; }
+
+.btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text {
+  font-size: 26px !important; }
+  @media (max-width: 768px) {
+    .btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text {
+      font-size: 22px !important; } }

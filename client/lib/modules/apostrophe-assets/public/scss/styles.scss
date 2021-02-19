@@ -942,7 +942,7 @@ a {
         font-size: 14px;
         padding: 10px 20px !important;
     }
-  
+
 }
 
 .question-font {
@@ -3257,4 +3257,10 @@ div.collapse-container.collapsing{
 }
 .text-slider-res-middle{
   right: 0px !important;
+}
+.btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text{
+  font-size: 26px !important;
+    @include sm-dec-screen {
+      font-size: 22px !important;
+    }
 }
