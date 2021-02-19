@@ -130,7 +130,9 @@ body {
       font-size: 28px;
     }
   }
-
+  .font-16 {
+    font-size: 16px !important;
+  }
   .font-38 {
     font-size: 38px;
     @include xxs-screen {
@@ -226,7 +228,8 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
+    30px;
   background-size: contain;
 }
 
@@ -312,7 +315,8 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
+    fixed !important;
   background-size: cover !important;
 }
 
@@ -938,10 +942,12 @@ a {
   font-weight: bold;
   font-size: 16px;
   display: flex;
-  padding: 20px 0px;
-  @include xxs-screen-between {
-    font-size: 14px;
-  }
+  padding: 20px 30px;
+    @include sm-dec-screen {
+        font-size: 14px;
+        padding: 10px 20px !important;
+    }
+
 }
 
 .question-font {
@@ -1042,7 +1048,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -1070,7 +1077,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -1394,11 +1402,14 @@ a {
 }
 .footer-container {
   display: flex;
-  height: 64px;
+  // height: 64px;
+  height: auto;
+
   justify-content: space-around;
   padding-left: 24px;
   padding-right: 24px;
   align-items: center;
+  text-align: center;
   @include xxs-screen-between {
     padding-left: 10px;
     padding-right: 10px;
@@ -2945,8 +2956,9 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
+  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
   $bg-place in $color-scheme
 {
   @include theme(
@@ -3244,13 +3256,19 @@ i.fa.fa-calendar {
   width: 187px;
   height: 46px;
 }
-div.collapse-container.collapsing{
+div.collapse-container.collapsing {
   // overflow: none !important;
   transition: none !important;
 }
-.text-slider-res{
+.text-slider-res {
   right: 14px !important;
 }
-.text-slider-res-middle{
+.text-slider-res-middle {
   right: 0px !important;
+}
+.btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text{
+  font-size: 26px !important;
+    @include sm-dec-screen {
+      font-size: 22px !important;
+    }
 }
