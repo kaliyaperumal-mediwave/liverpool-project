@@ -13,7 +13,7 @@ $(document).ready(function () {
       dataSet: [],
       successMessage: '',
       draw: 1,
-      searchRefObj:{}
+      searchRefObj: {}
     },
 
     beforeMount: function () {
@@ -49,16 +49,16 @@ $(document).ready(function () {
           processing: true,
           serverSide: true,
           columnDefs: [
-            {targets: 0, orderable: false},
-            {targets: 1, orderable: true},
-            {targets: 2, orderable: true, type: 'date-uk'},
-            {targets: 4, orderable: true},
-            {targets: 5, orderable: true},
-            {targets: 6, orderable: true},
-            {targets: 7, orderable: true, type: 'date-uk'},
-            {targets: 8, orderable: false},
+            { targets: 0, orderable: false },
+            { targets: 1, orderable: true },
+            { targets: 2, orderable: true, type: 'date-uk' },
+            { targets: 4, orderable: true },
+            { targets: 5, orderable: true },
+            { targets: 6, orderable: true },
+            { targets: 7, orderable: true, type: 'date-uk' },
+            { targets: 8, orderable: false },
           ],
-          order: [[7, 'desc' ]],
+          order: [[7, 'desc']],
           language: {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
@@ -67,8 +67,10 @@ $(document).ready(function () {
           ajax: {
             url: '/modules/admin-module/referral',
             type: 'GET',
-            dataFilter: function(referralRes) {
+            dataFilter: function (referralRes) {
+
               referralRes = jQuery.parseJSON(referralRes);
+              console.table(referralRes.data);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -148,18 +150,18 @@ $(document).ready(function () {
         this.successMessage = '';
       },
 
-      loadData:function (){
-        // this.pageLimit= 15;
-        // this.pageNum= 2;
-        // var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
-        // //var successData = apiCallGet('get', '/referral', API_URI);
-        // console.log(successData)
-        // if (successData && Object.keys(successData).length) {
-        //   var $table = $('#table')
-        //   console.log($table)
-        //   $table.bootstrapTable('load', successData.data)
-        // }
-      }
+      // loadData:function (){
+      // this.pageLimit= 15;
+      // this.pageNum= 2;
+      // var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
+      // //var successData = apiCallGet('get', '/referral', API_URI);
+      // console.log(successData)
+      // if (successData && Object.keys(successData).length) {
+      //   var $table = $('#table')
+      //   console.log($table)
+      //   $table.bootstrapTable('load', successData.data)
+      // }
+      // }
     },
   })
 

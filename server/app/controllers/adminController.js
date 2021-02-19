@@ -20,105 +20,35 @@ exports.getReferral = ctx => {
             console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
 
-            // get total number of referrals
-            const totalReferrals = await referralModel.count({
+            var referrals = await referralModel.findAll({
                 where: {
                     reference_code: {
                         [sequelize.Op.ne]: null
                     },
-                    referral_complete_status: 'completed'
-                }
-            });
-            var filteredReferrals = totalReferrals;
-
-            // condition
-            var query = {
-                reference_code: {
-                    [sequelize.Op.ne]: null
-                },
-                referral_complete_status: 'completed',
-            };
-
-            // reference
-            var include = [
-                {
-                    model: referralModel,
-                    as: 'parent',
-                    attributes: [
-                        'id', 'uuid', 'child_name', 'child_dob', 'registerd_gp',
-                        // [sequelize.literal(`CASE WHEN parent.child_name IS NOT NULL THEN parent.child_dob END`), 'child_dob']
-                    ]
-                },
-                {
-                    model: referralModel,
-                    as: 'professional',
-                    attributes: [
-                        'id', 'uuid', 'child_name', 'child_dob', 'registerd_gp',
-                        // [sequelize.literal(`CASE WHEN professional.child_name IS NOT NULL THEN professional.child_dob END`), 'child_dob']
-                    ]
-                },
-            ];
-
-            if (ctx.query.searchValue) {
-                query = {
-                    reference_code: {
-                        [sequelize.Op.ne]: null
-                    },
                     referral_complete_status: 'completed',
-                    [sequelize.Op.or]: [
-                        {
-                            reference_code: {
-                                [sequelize.Op.like]: '%' + ctx.query.searchValue + '%'
-                            }
-                        },
-                        {
-                            child_name: {
-                                [sequelize.Op.like]: '%' + ctx.query.searchValue + '%'
-                            }
-                        },
-                        {
-                            parent_name: {
-                                [sequelize.Op.like]: '%' + ctx.query.searchValue + '%'
-                            }
-                        },
-                        {
-                            professional_name: {
-                                [sequelize.Op.like]: '%' + ctx.query.searchValue + '%'
-                            }
-                        }
-                    ]
-                }
-
-                // get total number of filtered referrals
-                filteredReferrals = await referralModel.count({ where: query });
-            }
-
-            // order by
-            var order = [];
-            if (ctx.query && ctx.query.orderBy) {
-                var orderBy = ctx.query.orderBy.split(','),
-                    orderType = ctx.query.orderType.split(',');
-                for (let index = 0; index < orderBy.length; index++) {
-                    if (orderBy[index] == '2') order.push(['child_dob', orderType[index].toUpperCase()]);
-                    else if (orderBy[index] == '3') order.push(['reference_code', orderType[index].toUpperCase()]);
-                    else if (orderBy[index] == '4') order.push(['child_name', orderType[index].toUpperCase()]);
-                    else if (orderBy[index] == '6') order.push(['user_role', orderType[index].toUpperCase()]);
-                    else if (orderBy[index] == '7') order.push(['updatedAt', orderType[index].toUpperCase()]);
-                }
-            }
-
-            // get referrals as per the pagination
-            var referrals = await referralModel.findAll({
-                where: query,
-                include: include,
-                offset: ((Number(ctx.query.offset) - 1) * Number(ctx.query.limit)),
-                limit: ctx.query.limit,
+                },
+                include: [
+                    {
+                        model: referralModel,
+                        as: 'parent',
+                        attributes: ['id', 'uuid', 'child_name', 'child_dob', 'registerd_gp',
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'professional',
+                        attributes: [
+                            'id', 'uuid', 'child_name', 'child_dob', 'registerd_gp',
+                        ]
+                    },
+                ],
                 attributes: [
                     'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt',
-                    [sequelize.fn('CONCAT', sequelize.col('child_name'), sequelize.col('parent_name'), sequelize.col('professional_name')), 'referrer_name']
-                    // [sequelize.literal(`CASE WHEN child_name IS NOT NULL THEN child_name WHEN parent_name IS NOT NULL THEN parent_name WHEN professional_name IS NOT NULL THEN professional_name END`), 'referrer_name'],
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_name'), sequelize.col('professional.child_name'), sequelize.col('Referral.child_name')), 'name'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_name'), sequelize.col('Referral.professional_name'), sequelize.col('Referral.parent_name')), 'referrer_name'],
                 ],
-                order: order
             });
 
             // create json to display data on admin referral page
@@ -126,30 +56,16 @@ exports.getReferral = ctx => {
             _.forEach(referrals, function (refObj, index) {
                 var referralObj = {
                     uuid: refObj.uuid,
-                    name: '',
-                    dob: '',
+                    name: refObj.name,
+                    dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                     reference_code: refObj.reference_code,
                     referrer: refObj.referrer_name,
                     gp_location: '',
                     referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                     date: moment(refObj.updatedAt).format('DD/MM/YYYY')
                 }
-                var gp_location = '';
-                if (refObj.user_role == 'child') {
-                    referralObj.name = refObj.referrer_name;
-                    if (refObj.child_dob) referralObj.dob = moment(refObj.child_dob).format('DD/MM/YYYY');
-                    gp_location = refObj.registerd_gp;
-                } else if (refObj.user_role == 'parent') {
-                    referralObj.name = refObj.parent[0].child_name;
-                    if (refObj.parent[0].child_dob) referralObj.dob = moment(refObj.parent[0].child_dob).format('DD/MM/YYYY');
-                    gp_location = refObj.parent[0].registerd_gp;
-                } else if (refObj.user_role == 'professional') {
-                    referralObj.name = refObj.professional[0].child_name;
-                    if (refObj.professional[0].child_dob) referralObj.dob = moment(refObj.professional[0].child_dob).format('DD/MM/YYYY');
-                    gp_location = refObj.professional[0].registerd_gp;
-                }
-                if (gp_location) {
-                    var splitLocation = gp_location.split(',');
+                if (refObj.gp_location) {
+                    var splitLocation = refObj.gp_location.split(',');
                     if (splitLocation.length > 1) {
                         if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                             referralObj.gp_location = gpCodes[0].type;
@@ -161,11 +77,13 @@ exports.getReferral = ctx => {
                 referrals[index] = referralObj;
             });
 
+            
+
             resolve(
                 ctx.res.ok({
                     data: {
-                        totalReferrals: totalReferrals,
-                        filteredReferrals: filteredReferrals,
+                        totalReferrals: referrals.length,
+                        filteredReferrals: referrals.length,
                         data: referrals
                     }
                 })
