@@ -941,10 +941,12 @@ a {
   font-weight: bold;
   font-size: 16px;
   display: flex;
-  padding: 20px 0px;
-  @include xxs-screen-between {
-    font-size: 14px;
-  }
+  padding: 20px 30px;
+    @include sm-dec-screen {
+        font-size: 14px;
+        padding: 10px 20px !important;
+    }
+
 }
 
 .question-font {
@@ -1399,11 +1401,14 @@ a {
 }
 .footer-container {
   display: flex;
-  height: 64px;
+  // height: 64px;
+  height: auto;
+
   justify-content: space-around;
   padding-left: 24px;
   padding-right: 24px;
   align-items: center;
+  text-align: center;
   @include xxs-screen-between {
     padding-left: 10px;
     padding-right: 10px;
@@ -3259,4 +3264,10 @@ div.collapse-container.collapsing {
 }
 .text-slider-res-middle {
   right: 0px !important;
+}
+.btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text{
+  font-size: 26px !important;
+    @include sm-dec-screen {
+      font-size: 22px !important;
+    }
 }

@@ -230,8 +230,15 @@ $(document).ready(function () {
                     if (data.child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
                     }
-
-                    Vue.set(this.educAndEmpData, "position", data.child_profession);
+                    if (data.child_profession) {
+                        data.child_profession = capitalizeFirstLetter(data.child_profession);
+                        var convertArray = data.child_profession.split(",");
+                        if (convertArray.indexOf('Education') != -1) {
+                            this.showInstitution = true;
+                        }
+                        this.aboutYourSelf = convertArray;
+                    }
+                    //Vue.set(this.educAndEmpData, "position", data.child_profession);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data.child_socialworker);
@@ -239,11 +246,18 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
                 }
                 else if (this.userRole == "parent") {
-
                     if (data[0].parent[0].child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
                     }
-                    Vue.set(this.educAndEmpData, "position", data[0].parent[0].child_profession);
+                    if (data[0].parent[0].child_profession) {
+                        data[0].parent[0].child_profession = capitalizeFirstLetter(data[0].parent[0].child_profession);
+                        var convertArray = data[0].parent[0].child_profession.split(",");
+                        if (convertArray.indexOf('Education') != -1) {
+                            this.showInstitution = true;
+                        }
+                        this.aboutYourSelf = convertArray;
+                    }
+                    // Vue.set(this.educAndEmpData, "position", data[0].parent[0].child_profession);
                     //   Vue.set(this.educAndEmpData,"childEducationPlace",data[0].parent[0].child_education_place);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHAT);

@@ -1904,10 +1904,11 @@ a {
   font-weight: bold;
   font-size: 16px;
   display: flex;
-  padding: 20px 0px; }
-  @media (min-width: 320px) and (max-width: 424px) {
+  padding: 20px 30px; }
+  @media (max-width: 768px) {
     .footer-text {
-      font-size: 14px; } }
+      font-size: 14px;
+      padding: 10px 20px !important; } }
 
 .question-font {
   font-size: 18px;
@@ -2334,11 +2335,12 @@ a {
 
 .footer-container {
   display: flex;
-  height: 64px;
+  height: auto;
   justify-content: space-around;
   padding-left: 24px;
   padding-right: 24px;
-  align-items: center; }
+  align-items: center;
+  text-align: center; }
   @media (min-width: 320px) and (max-width: 424px) {
     .footer-container {
       padding-left: 10px;
@@ -4323,3 +4325,9 @@ div.collapse-container.collapsing {
 
 .text-slider-res-middle {
   right: 0px !important; }
+
+.btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text {
+  font-size: 26px !important; }
+  @media (max-width: 768px) {
+    .btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text {
+      font-size: 22px !important; } }
