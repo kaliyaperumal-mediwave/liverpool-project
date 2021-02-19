@@ -53,7 +53,7 @@ $(document).ready(function () {
             { targets: 1, orderable: true },
             { targets: 2, orderable: true, type: 'date-uk' },
             { targets: 4, orderable: true },
-            { targets: 5, orderable: true },
+            { targets: 5, orderable: false },
             { targets: 6, orderable: true },
             { targets: 7, orderable: true, type: 'date-uk' },
             { targets: 8, orderable: false },
@@ -70,7 +70,6 @@ $(document).ready(function () {
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
-              console.table(referralRes.data);
               var json = {
                 draw: _self.draw,
                 data: [],

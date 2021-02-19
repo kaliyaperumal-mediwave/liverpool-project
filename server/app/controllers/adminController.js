@@ -20,12 +20,29 @@ exports.getReferral = ctx => {
             console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
 
+            var order = [];
+            if (ctx.query && ctx.query.orderBy) {
+                if (ctx.query.orderBy == '1') order.push([sequelize.literal('name'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '2') order.push([sequelize.literal('dob'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '3') order.push(['reference_code', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '7') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+            }
+
             var referrals = await referralModel.findAll({
+                attributes: [
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt',
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_name'), sequelize.col('professional.child_name'), sequelize.col('Referral.child_name')), 'name'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_name'), sequelize.col('Referral.professional_name'), sequelize.col('Referral.parent_name')), 'referrer_name'],
+                ],
                 where: {
                     reference_code: {
                         [sequelize.Op.ne]: null
                     },
-                    referral_complete_status: 'completed',
+                    referral_complete_status: 'completed'
                 },
                 include: [
                     {
@@ -42,48 +59,84 @@ exports.getReferral = ctx => {
                         ]
                     },
                 ],
-                attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt',
-                    [sequelize.fn('CONCAT', sequelize.col('parent.child_name'), sequelize.col('professional.child_name'), sequelize.col('Referral.child_name')), 'name'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
-                    [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_name'), sequelize.col('Referral.professional_name'), sequelize.col('Referral.parent_name')), 'referrer_name'],
-                ],
+                order: order
             });
 
             // create json to display data on admin referral page
             referrals = JSON.parse(JSON.stringify(referrals));
-            _.forEach(referrals, function (refObj, index) {
-                var referralObj = {
-                    uuid: refObj.uuid,
-                    name: refObj.name,
-                    dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
-                    reference_code: refObj.reference_code,
-                    referrer: refObj.referrer_name,
-                    gp_location: '',
-                    referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
-                    date: moment(refObj.updatedAt).format('DD/MM/YYYY')
-                }
-                if (refObj.gp_location) {
-                    var splitLocation = refObj.gp_location.split(',');
-                    if (splitLocation.length > 1) {
-                        if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            referralObj.gp_location = gpCodes[0].type;
-                        } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            referralObj.gp_location = gpCodes[1].type;
+            var totalReferrals = referrals.length;
+            var filteredReferrals = referrals.length;
+            if (ctx.query.searchValue) {
+                ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
+                let filter_referrals = [];
+                _.forEach(referrals, function (refObj, index) {
+                    var referralObj = {
+                        uuid: refObj.uuid,
+                        name: refObj.name,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        reference_code: refObj.reference_code,
+                        referrer: refObj.referrer_name,
+                        gp_location: '',
+                        referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY')
+                    }
+                    if (refObj.gp_location) {
+                        var splitLocation = refObj.gp_location.split(',');
+                        if (splitLocation.length > 1) {
+                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[0].type;
+                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[1].type;
+                            }
                         }
                     }
-                }
-                referrals[index] = referralObj;
-            });
+                    if((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.reference_code.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referrer.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.date.toLowerCase()).includes(ctx.query.searchValue)
+                    ) {
+                        filter_referrals.push(referralObj);
+                    }
+                });
+                filteredReferrals = filter_referrals.length;
+                referrals = filter_referrals;
+            } else {
+                _.forEach(referrals, function (refObj, index) {
+                    var referralObj = {
+                        uuid: refObj.uuid,
+                        name: refObj.name,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        reference_code: refObj.reference_code,
+                        referrer: refObj.referrer_name,
+                        gp_location: '',
+                        referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY')
+                    }
+                    if (refObj.gp_location) {
+                        var splitLocation = refObj.gp_location.split(',');
+                        if (splitLocation.length > 1) {
+                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[0].type;
+                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[1].type;
+                            }
+                        }
+                    }
+                    referrals[index] = referralObj;
+                });
+            }
 
-            
+            // pagination
+            referrals = referrals.slice((Number(ctx.query.offset) - 1) * Number(ctx.query.limit), Number(ctx.query.offset) * Number(ctx.query.limit));
 
             resolve(
                 ctx.res.ok({
                     data: {
-                        totalReferrals: referrals.length,
-                        filteredReferrals: referrals.length,
+                        totalReferrals: totalReferrals,
+                        filteredReferrals: filteredReferrals,
                         data: referrals
                     }
                 })
