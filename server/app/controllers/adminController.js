@@ -8,10 +8,12 @@ const { req } = require('@kasa/koa-logging/lib/serializers');
 const gpCodes = [
     {
         type: 'Liverpool',
-        code: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', 'L11', 'L12', 'L13', 'L14', 'L15',
-            'L16', 'L17', 'L18', 'L19', 'L24', 'L25', 'L26', 'L27', 'L28', 'L32', 'L33', 'L34', 'L35', 'L36', 'PR8', 'PR9']
+        code: [
+            'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', 'L11', 'L12', 'L13', 'L14', 'L15',
+            'L16', 'L17', 'L18', 'L19', 'L20', 'L24', 'L25', 'L26', 'L27', 'L28', 'L32', 'L33', 'L34', 'L35', 'L36', 'PR8', 'PR9'
+        ]
     },
-    { type: 'Sefton', code: ['L20', 'L21', 'L22', 'L23', 'L29', 'L30', 'L31', 'L37', 'L38'] },
+    { type: 'Sefton', code: ['L21', 'L22', 'L23', 'L29', 'L30', 'L31', 'L37', 'L38'] },
 ]
 
 exports.getReferral = ctx => {
@@ -20,6 +22,7 @@ exports.getReferral = ctx => {
             console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
 
+            // sorting
             var order = [];
             if (ctx.query && ctx.query.orderBy) {
                 if (ctx.query.orderBy == '1') order.push([sequelize.literal('name'), ctx.query.orderType.toUpperCase()]);
@@ -62,10 +65,10 @@ exports.getReferral = ctx => {
                 order: order
             });
 
-            // create json to display data on admin referral page
             referrals = JSON.parse(JSON.stringify(referrals));
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
+            // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
                 let filter_referrals = [];
@@ -90,7 +93,7 @@ exports.getReferral = ctx => {
                             }
                         }
                     }
-                    if((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
+                    if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.reference_code.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referrer.toLowerCase()).includes(ctx.query.searchValue) ||
@@ -103,6 +106,7 @@ exports.getReferral = ctx => {
                 });
                 filteredReferrals = filter_referrals.length;
                 referrals = filter_referrals;
+                // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
                     var referralObj = {
@@ -189,7 +193,6 @@ exports.updateReferral = ctx => {
 }
 
 exports.getReferalBySearch = ctx => {
-
     const ref = ctx.orm().Referral;
     return ref.findAll({
         where: {
@@ -216,6 +219,4 @@ exports.getReferalBySearch = ctx => {
     }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
-
-
 }
