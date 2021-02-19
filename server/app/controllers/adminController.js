@@ -45,39 +45,39 @@ exports.getReferral = ctx => {
                 attributes: [
                     'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_name'), sequelize.col('professional.child_name'), sequelize.col('Referral.child_name')), 'name'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
-                    [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_name'), sequelize.col('Referral.professional_name'), sequelize.col('Referral.parent_name')), 'referrer_name'],
+                    // [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
+                    // [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                    // [sequelize.fn('CONCAT', sequelize.col('Referral.child_name'), sequelize.col('Referral.professional_name'), sequelize.col('Referral.parent_name')), 'referrer_name'],
                 ],
             });
 
             // create json to display data on admin referral page
-            referrals = JSON.parse(JSON.stringify(referrals));
-            _.forEach(referrals, function (refObj, index) {
-                var referralObj = {
-                    uuid: refObj.uuid,
-                    name: refObj.name,
-                    dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
-                    reference_code: refObj.reference_code,
-                    referrer: refObj.referrer_name,
-                    gp_location: '',
-                    referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
-                    date: moment(refObj.updatedAt).format('DD/MM/YYYY')
-                }
-                if (refObj.gp_location) {
-                    var splitLocation = refObj.gp_location.split(',');
-                    if (splitLocation.length > 1) {
-                        if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            referralObj.gp_location = gpCodes[0].type;
-                        } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            referralObj.gp_location = gpCodes[1].type;
-                        }
-                    }
-                }
-                referrals[index] = referralObj;
-            });
+            // referrals = JSON.parse(JSON.stringify(referrals));
+            // _.forEach(referrals, function (refObj, index) {
+            //     var referralObj = {
+            //         uuid: refObj.uuid,
+            //         name: refObj.name,
+            //         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+            //         reference_code: refObj.reference_code,
+            //         referrer: refObj.referrer_name,
+            //         gp_location: '',
+            //         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+            //         date: moment(refObj.updatedAt).format('DD/MM/YYYY')
+            //     }
+            //     if (refObj.gp_location) {
+            //         var splitLocation = refObj.gp_location.split(',');
+            //         if (splitLocation.length > 1) {
+            //             if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+            //                 referralObj.gp_location = gpCodes[0].type;
+            //             } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+            //                 referralObj.gp_location = gpCodes[1].type;
+            //             }
+            //         }
+            //     }
+            //     referrals[index] = referralObj;
+            // });
 
-            
+
 
             resolve(
                 ctx.res.ok({
@@ -163,6 +163,117 @@ exports.getReferalBySearch = ctx => {
     }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
-
-
 }
+
+
+exports.getAllReferral = ctx => {
+    var childArray = [];
+    var parentArray = [];
+    var professionalArray = [];
+    var resultArray = []
+    var sendArray = [];
+    var obj = [];
+    const ref = ctx.orm().Referral;
+    return ref.findAll({
+        where: {
+            reference_code: {
+                [sequelize.Op.ne]: null
+            },
+            user_role: 'child'
+        },
+        attributes: [
+            'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt', 'child_name',
+            [sequelize.fn('CONCAT', sequelize.col('child_name'),), 'referrer_name'],
+        ],
+    }).then((childResult) => {
+        childArray = childResult;
+
+        return ref.findAll({
+            include: [
+                {
+                    model: ctx.orm().Referral,
+                    as: 'parent',
+                },
+            ],
+            where: {
+                reference_code: {
+                    [sequelize.Op.ne]: null
+                },
+                user_role: 'parent'
+            },
+            attributes: [
+                'id', 'uuid', 'reference_code', 'user_role', 'updatedAt', ['parent_name', 'referrer_name'],
+                [sequelize.fn('CONCAT', sequelize.col('parent.child_name'),), 'child_name'],
+                [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'),), 'child_dob'],
+                [sequelize.fn('CONCAT', sequelize.col('parent.registerd_gp'),), 'registerd_gp'],
+            ],
+        }).then((parentResult) => {
+            // childArray = childResult;
+            parentArray = parentResult
+
+            return ref.findAll({
+                include: [
+                    {
+                        model: ctx.orm().Referral,
+                        as: 'professional',
+                    },
+                ],
+                where: {
+                    reference_code: {
+                        [sequelize.Op.ne]: null
+                    },
+                    user_role: 'professional'
+                },
+                attributes: [
+                    'id', 'uuid', 'reference_code', 'user_role', 'updatedAt', ['professional_name', 'referrer_name'],
+                    [sequelize.fn('CONCAT', sequelize.col('professional.child_name'),), 'child_name'],
+                    [sequelize.fn('CONCAT', sequelize.col('professional.child_dob'),), 'child_dob'],
+                    [sequelize.fn('CONCAT', sequelize.col('professional.registerd_gp'),), 'registerd_gp'],
+                ],
+            }).then((professionalResult) => {
+                professionalArray = professionalResult
+                resultArray = professionalArray.concat(parentArray, childArray)
+
+                resultArray = JSON.parse(JSON.stringify(resultArray));
+            for (var i = 0; i < resultArray.length; i++) {
+                console.log(resultArray[i])
+                obj = {};
+                obj.uuid = resultArray[i].uuid;
+                obj.name = resultArray[i].child_name;
+                obj.child_dob= resultArray[i].child_dob;
+                obj.reference_code = resultArray[i].reference_code
+                obj.referrer = resultArray[i].referrer_name;
+                obj.referrer_type = resultArray[i].user_role;
+                obj.date = resultArray[i].updatedAt
+                if (resultArray[i].registerd_gp) {
+                    var splitLocation = resultArray[i].registerd_gp.split(',');
+                    if (splitLocation.length > 1) {
+                        if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            obj.registerd_gp = gpCodes[0].type;
+                        } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            obj.registerd_gp = gpCodes[1].type;
+                        }
+                        else 
+                        {
+                            obj.registerd_gp = "thiru";
+                        }
+                    }
+                }
+               sendArray.push(obj);
+              }
+                     console.log("----------------------------------------------end")
+                     //array = [];
+                    return ctx.body = sendArray
+                }).catch((error) => {
+                    console.log(error)
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+            }).catch((error) => {
+                console.log(error)
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+        }).catch((error) => {
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    }

@@ -21,7 +21,7 @@ $(document).ready(function () {
     },
 
     mounted: function () {
-      this.fetchReferral();
+      this.fetchAllRef();
     },
 
     methods: {
@@ -65,12 +65,13 @@ $(document).ready(function () {
             zeroRecords: 'No matching referrals found'
           },
           ajax: {
-            url: '/modules/admin-module/referral',
+            //url: '/modules/admin-module/referral',
+            url: '/modules/admin-module/getAllreferral',
             type: 'GET',
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
-              console.table(referralRes.data);
+              console.table(referralRes.data.data);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -162,7 +163,14 @@ $(document).ready(function () {
       //   $table.bootstrapTable('load', successData.data)
       // }
       // }
+      fetchAllRef:function ()
+      {
+        var successData = apiCallGet('get', '/getAllreferral',API_URI);
+        $('#loader').hide();
+        console.log(successData)
+      }
     },
+
   })
 
   $(document).on('change', '.tableCheckbox', function (e) {
