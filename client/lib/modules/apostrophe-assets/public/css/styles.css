@@ -1130,6 +1130,8 @@ body {
     @media (min-width: 768px) and (max-width: 991.98px) {
       body .font-30 {
         font-size: 28px; } }
+  body .font-16 {
+    font-size: 16px !important; }
   body .font-38 {
     font-size: 38px; }
     @media (min-width: 320px) and (max-width: 575.98px) {
