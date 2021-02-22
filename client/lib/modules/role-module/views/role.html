@@ -654,13 +654,6 @@
                             Please provide a name.
                         </div>
                         {% endraw %}
-
-                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasNameReqError }">
-                            Please provide a name.
-                        </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-none': hasNameInvalidError }">
-                            Please provide a valid name.
-                        </div> -->
                     </div>
                     <div class="form-group">
                         <label for="emailAddress" class="question-font">Your email address - <b>optional</b>
@@ -696,12 +689,34 @@
                             'invalid-fields':(elgibilityObj.profContactNumber && !phoneRegex.test(elgibilityObj.profContactNumber)) }">
                             You must provide a valid number.
                         </div>
-                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactReqError }">
-                            Please provide a number.
+                    </div>
+                    <div class="form-group">
+                        <label for="yourAddress" class="question-font">Your address</label>
+
+                        {% raw %}
+                        <input type="text" v-model="elgibilityObj.profAddress"
+                            @input="onVaueChange($event,'yourAddress','elgibilityObj','profAddress')"
+                            placeholder="Enter your address" class="form-control input-bg-form-control" id="txtProfessionalAddress">
+
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profAddress),'invalid-fields':!elgibilityObj.profAddress }">
+                            Please provide your address.
                         </div>
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': hasContactInvalidError }">
-                            Please provide a valid number.
-                        </div> -->
+                        {% endraw %}
+                    </div>
+                    <div class="form-group">
+                        <label for="yourProfession" class="question-font">Your profession</label>
+
+                        {% raw %}
+                        <input type="text" v-model="elgibilityObj.profProfession"
+                            @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
+                            placeholder="Enter your profession" class="form-control input-bg-form-control" id="txtProfessionalProfession">
+
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
+                            Please provide your provision.
+                        </div>
+                        {% endraw %}
                     </div>
                 </div>
             </form>
@@ -878,59 +893,7 @@
                 </div>
             </form>
             {% endraw %}
-            <!-- toster-container start -->
-
-
-            <!-- consent child start-->
-
-            <!-- <div v-show="elgibilityObj.role == 'professional' && elgibilityObj.parentConcernInformation == 'yes'"
-                class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-                <div class="d-flex align-items-start">
-                    <p class="question-font m-0">Do you have consent from the child / young person for us to use the
-                        information that you provide, and share it with other CAMHS partners so that we can help them?
-                    </p>
-                    <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class" alt="">
-                </div>
-                <div class="form-check pt-3 pb-1 pl-0">
-                    <input class="form-check-input" type="radio" id="camhsNo" value="no"
-                        v-model="elgibilityObj.childConcernInformation" name="childConcernSelect"
-                        @change="onChange($event)">
-                    <label class="form-check-label option-font d-flex align-items-center" for="camhsNo">
-                        No
-                    </label>
-                </div>
-                <div class="form-check py-2 pl-0">
-                    <input class="form-check-input" type="radio" v-model="elgibilityObj.childConcernInformation"
-                        name="childConcernSelect" @change="onChange($event)" id="camhYes" value="yes">
-                    <label class="form-check-label option-font d-flex align-items-center" for="camhYes">
-                        Yes
-                    </label>
-                </div>
-            </div> -->
-
-            <!-- consent- child end -->
-
-            <!-- toster-container start -->
-            <!-- <form id="childConcernInformation-form" data-options="parentConcernInformation">
-                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.parentConcernInformation == 'no'"
-                    class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                            </p>
-                            <p class="question-font text-center m-0 py-2">We need the child / young person’s consent to
-                                continue.</p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Change my previous answer to continue</p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> > Tell me more about consent</p>
-                        </div>
-                    </div>
-                </div>
-            </form> -->
-            <!-- toster-container start -->
-
-
-
+    
             <!-- GP Location start -->
             {% raw %}
             <form id="parentConcernInformation-form4" data-options="parentConcernInformation">

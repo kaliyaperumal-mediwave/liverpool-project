@@ -107,18 +107,24 @@ $(document).ready(function () {
 
                 }
             }
-            // if (this.paramValues[0] != undefined) {
-            //     this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
-            //     //this.elgibilityObj.editFlag = this.paramValues[0]
-            // }
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
+            this.initMaps();
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
         },
 
         methods: {
+            initMaps: function () {
+                var _self = this;
+                professionalAddress = new google.maps.places.Autocomplete((document.getElementById('txtProfessionalAddress')), {
+                    types: ['geocode'],
+                });
+                google.maps.event.addListener(professionalAddress, 'place_changed', function () {
+                    _self.elgibilityObj.profAddress = professionalAddress.getPlace().formatted_address;
+                });
+            },
             fetchSavedData: function () {
                 this.sendObj.uuid = document.getElementById('uUid').innerHTML;
                 this.sendObj.role = document.getElementById('uRole').innerHTML;
@@ -858,6 +864,11 @@ $(document).ready(function () {
                                 this.hasEmailInvalidError = true;
                             }
                         }
+                        if (!this.elgibilityObj.profAddress) {
+                            this.hasNameReqError = true;
+                        } else {
+                            this.hasNameReqError = false;
+                        }
                         scrollToInvalidInput();
                         return false;
                     }
@@ -872,7 +883,7 @@ $(document).ready(function () {
             },
 
             apiRequest: function (payload, role) {
-                //console.log(payload)
+                console.log(payload)
                 if (role == "professional") {
                     payload.prof_ChildDob = this.dateFmt;
                 }
