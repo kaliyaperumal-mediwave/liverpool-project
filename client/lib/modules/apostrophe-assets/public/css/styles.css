@@ -483,7 +483,8 @@ div.radio.switcher label {
   height: 36px !important; }
 
 .custom-table-nested .form-control {
-  height: 40px !important; }
+  height: 40px !important;
+  margin: 0px !important; }
 
 .custom-table-nested label {
   width: 100%; }
