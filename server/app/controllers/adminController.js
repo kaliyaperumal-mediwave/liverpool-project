@@ -115,7 +115,7 @@ exports.getReferral = ctx => {
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name,
-                        gp_location: '',
+                        gp_location: 'Liverpool',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY')
                     }
@@ -123,14 +123,20 @@ exports.getReferral = ctx => {
                         var splitLocation = refObj.gp_location.split(',');
                         if (splitLocation.length > 1) {
                             if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                // Liverpool
                                 referralObj.gp_location = gpCodes[0].type;
                             } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                // Sefton
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
                     }
                     referrals[index] = referralObj;
                 });
+            }
+
+            if (ctx.query && ctx.query.orderBy == '5') {
+                referrals = _.orderBy(referrals, 'gp_location', ctx.query.orderType);
             }
 
             // pagination

@@ -21,7 +21,8 @@ $(document).ready(function () {
     },
 
     mounted: function () {
-      this.fetchAllRef();
+      // this.fetchAllRef();
+      this.fetchReferral();
     },
 
     methods: {
@@ -53,7 +54,7 @@ $(document).ready(function () {
             { targets: 1, orderable: true },
             { targets: 2, orderable: true, type: 'date-uk' },
             { targets: 4, orderable: true },
-            { targets: 5, orderable: false },
+            { targets: 5, orderable: true },
             { targets: 6, orderable: true },
             { targets: 7, orderable: true, type: 'date-uk' },
             { targets: 8, orderable: false },
@@ -65,8 +66,8 @@ $(document).ready(function () {
             zeroRecords: 'No matching referrals found'
           },
           ajax: {
-            //url: '/modules/admin-module/referral',
-            url: '/modules/admin-module/getAllreferral',
+            url: '/modules/admin-module/referral',
+            // url: '/modules/admin-module/getAllreferral',
             type: 'GET',
             dataFilter: function (referralRes) {
 
