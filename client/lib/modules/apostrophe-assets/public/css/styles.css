@@ -1904,7 +1904,7 @@ a {
 .footer-text {
   color: #feffff;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
   display: flex;
   padding: 20px 30px; }
   @media (max-width: 768px) {
@@ -2358,7 +2358,7 @@ a {
   content: "\00d7"; }
 
 .set-bottom-padding {
-  margin-top: 35px; }
+  margin-top: 37px; }
 
 .close-slider {
   font-size: 38px !important;
