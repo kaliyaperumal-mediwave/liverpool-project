@@ -429,7 +429,8 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "accessService", data.any_other_services);
                 }
                 setTimeout(function () {
-                    _self.patchCheck();
+                    if (_self.reasonForReferral.length)
+                        _self.patchCheck();
                 }, 200)
 
             },
