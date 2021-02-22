@@ -469,7 +469,8 @@ div.radio.switcher label {
   max-width: 200px; }
 
 .custom-table-nested > div > div + div {
-  overflow: auto; }
+  overflow: auto;
+  margin-bottom: 12px; }
 
 .custom-table-nested > div > div {
   overflow: auto; }
@@ -3574,6 +3575,55 @@ html #slide-test-5 {
   .off .home-primary-content p {
     color: #023047; }
 
+.off .admin-contain-right {
+  background-color: #fafafa; }
+
+.off .slider-inside-contain {
+  background-color: #fafafa; }
+
+.off .text-slider-fix {
+  color: #023047;
+  border-bottom: 1px solid #112f45; }
+
+.off .btn-archive-admin {
+  background-color: #fafafa;
+  color: #023047;
+  border: 1px solid #023047; }
+
+.off .custom-table-nested .form-control {
+  background-color: #e8edee !important; }
+
+.off .custom-table-nested li > a {
+  background-color: #ffffff !important;
+  color: #023047 !important; }
+
+.off .custom-table-nested {
+  color: #023047; }
+
+.off .custom-table-nested th {
+  color: #023047; }
+
+.off .custom-table-nested th {
+  color: #023047; }
+
+.off .custom-table-nested td {
+  color: #023047; }
+
+.off .btn-delete-admin {
+  background-color: #fafafa; }
+
+.off .admin-referral-primary {
+  color: #023047; }
+
+.off .button-cont-admin {
+  background-color: #e8edee; }
+
+.off .admin-inside-text {
+  color: #023047; }
+
+.off .height-set-admin-select .form-control {
+  background-color: #ffffff !important; }
+
 .off .home-header-primary {
   color: #023047; }
   .off .home-header-primary h2 {
@@ -3837,6 +3887,55 @@ html #slide-test-5 {
     color: #fafafa; }
   .on .home-primary-content p {
     color: #fafafa; }
+
+.on .admin-contain-right {
+  background-color: #535454; }
+
+.on .slider-inside-contain {
+  background-color: #535454; }
+
+.on .text-slider-fix {
+  color: #fafafa;
+  border-bottom: 1px solid #fafafa; }
+
+.on .btn-archive-admin {
+  background-color: #535454;
+  color: #fafafa;
+  border: 1px solid #fafafa; }
+
+.on .custom-table-nested .form-control {
+  background-color: #353638 !important; }
+
+.on .custom-table-nested li > a {
+  background-color: #353638 !important;
+  color: #fafafa !important; }
+
+.on .custom-table-nested {
+  color: #fafafa; }
+
+.on .custom-table-nested th {
+  color: #fafafa; }
+
+.on .custom-table-nested th {
+  color: #fafafa; }
+
+.on .custom-table-nested td {
+  color: #fafafa; }
+
+.on .btn-delete-admin {
+  background-color: #535454; }
+
+.on .admin-referral-primary {
+  color: #fafafa; }
+
+.on .button-cont-admin {
+  background-color: #656767; }
+
+.on .admin-inside-text {
+  color: #fafafa; }
+
+.on .height-set-admin-select .form-control {
+  background-color: #353638 !important; }
 
 .on .home-header-primary {
   color: #fafafa; }
@@ -4190,6 +4289,21 @@ html #slide-test-5 {
 
 #style-7::-webkit-scrollbar-thumb {
   border-radius: 0px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #ffb703; }
+
+#scroll-style-admin .row::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 10px; }
+
+#scroll-style-admin .row::-webkit-scrollbar {
+  width: 7px;
+  background-color: #f5f5f5;
+  border-radius: 10px; }
+
+#scroll-style-admin .row::-webkit-scrollbar-thumb {
+  border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #ffb703; }
 
