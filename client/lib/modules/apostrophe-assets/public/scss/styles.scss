@@ -98,14 +98,14 @@ body {
   }
 
   .font-23 {
-    font-size: 20px !important;
+    font-size: 20px;
     padding-top: 2px;
   }
 
   .font-25 {
-    font-size: 25px !important;
+    font-size: 25px;
     @include xs-screen {
-      font-size: 20px !important;
+      font-size: 20px;
     }
     @include sm-screen {
       font-size: 21px;
@@ -115,6 +115,39 @@ body {
     }
   }
 
+  .font-30 {
+    font-size: 30px;
+    @include xxs-screen {
+      font-size: 22px;
+    }
+    @include xs-screen {
+      font-size: 24px;
+    }
+    @include sm-screen {
+      font-size: 26px;
+    }
+    @include md-screen {
+      font-size: 28px;
+    }
+  }
+  .font-16 {
+    font-size: 16px !important;
+  }
+  .font-38 {
+    font-size: 38px;
+    @include xxs-screen {
+      font-size: 30px;
+    }
+    @include xs-screen {
+      font-size: 32px;
+    }
+    @include sm-screen {
+      font-size: 34px;
+    }
+    @include md-screen {
+      font-size: 34px;
+    }
+  }
   .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -382,19 +415,21 @@ a {
     font-size: 18px;
   }
   h3 {
+    @include set-titleStyles($tertiary-font-size, bold, $primary-color);
     margin-bottom: 0px;
     @include xs-screen {
-      font-size: 15px;
-    }
-    @include sm-screen {
       font-size: 16px;
     }
-    @include md-screen {
+    @include sm-screen {
       font-size: 18px;
+    }
+    @include md-screen {
+      font-size: 20px;
     }
   }
   p {
     margin-bottom: 0px;
+    @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
     @include xs-screen {
       font-size: 15px;
     }
@@ -907,10 +942,12 @@ a {
   font-weight: bold;
   font-size: 16px;
   display: flex;
-  padding: 20px 0px;
-  @include xxs-screen-between {
-    font-size: 14px;
-  }
+  padding: 20px 30px;
+    @include sm-dec-screen {
+        font-size: 14px;
+        padding: 10px 20px !important;
+    }
+
 }
 
 .question-font {
@@ -1365,11 +1402,14 @@ a {
 }
 .footer-container {
   display: flex;
-  height: 64px;
+  // height: 64px;
+  height: auto;
+
   justify-content: space-around;
   padding-left: 24px;
   padding-right: 24px;
   align-items: center;
+  text-align: center;
   @include xxs-screen-between {
     padding-left: 10px;
     padding-right: 10px;
@@ -1802,6 +1842,9 @@ select.selectIcon {
     padding: 14px 22px 22px 14px;
     max-width: 500px;
     margin: auto;
+  }
+  .top-arrow-container.pd-container {
+    padding: 14px 14px 22px 14px;
   }
   .bottom-arrow-container {
     padding: 40px 24px 24px 24px;
@@ -2633,7 +2676,8 @@ $color-scheme: (
       #023047,
       #e8edee,
       #ffffff,
-      #023047
+      #023047,
+      url("/modules/my-apostrophe-assets/img/placeholder.svg")
     )
     (
       on,
@@ -2649,7 +2693,8 @@ $color-scheme: (
       #ffffff,
       #535454,
       #535454,
-      #353940
+      #353940,
+      url("/modules/my-apostrophe-assets/img/placeholder_white.svg")
     )
 );
 @mixin theme(
@@ -2666,7 +2711,8 @@ $color-scheme: (
   $togglePrimary,
   $input-form-color,
   $card-bg-color,
-  $footer-bg-color
+  $footer-bg-color,
+  $bg-place
 ) {
   .#{$name} {
     .body-bg {
@@ -2704,6 +2750,12 @@ $color-scheme: (
     }
     .home-primary-content {
       color: $secondary;
+      h3 {
+        color: $secondary;
+      }
+      p {
+        color: $secondary;
+      }
     }
     .home-header-primary {
       color: $secondary;
@@ -2717,8 +2769,9 @@ $color-scheme: (
         color: $secondary;
       }
     }
-    .form-check-input:disabled~.form-check-label, .form-check-input[disabled]~.form-check-label{
-      color:$secondary;
+    .form-check-input:disabled ~ .form-check-label,
+    .form-check-input[disabled] ~ .form-check-label {
+      color: $secondary;
     }
     .home-header-secondary {
       color: $secondary;
@@ -2886,6 +2939,13 @@ $color-scheme: (
     .footer-content a {
       color: $secondary !important;
     }
+    .bg-place {
+      background: $bg-place no-repeat;
+      background-size: contain;
+      width: 50px;
+      height: 30px;
+    }
+
     // input[type="search"] {
     //   color: $secondary !important;
     // }
@@ -2898,8 +2958,8 @@ $color-scheme: (
 }
 @each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
   $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color,
-  $footer-bg-color in $color-scheme
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place in $color-scheme
 {
   @include theme(
     $name,
@@ -2915,7 +2975,8 @@ $color-scheme: (
     $togglePrimary,
     $input-form-color,
     $card-bg-color,
-    $footer-bg-color
+    $footer-bg-color,
+    $bg-place
   );
 }
 
@@ -3156,7 +3217,19 @@ i.fa.fa-calendar {
 .dropdown.d-flex.justify-content-end.align-items-center.show * {
   color: #023047 !important;
 }
+.w-97 {
+  width: 97% !important;
+  margin: auto;
+}
+.w-97-large {
+  width: 100% !important;
+  margin: auto;
+}
 @media (max-width: 768px) {
+  .w-97-large {
+    width: 97% !important;
+    margin: auto;
+  }
   ::-webkit-input-placeholder {
     font-size: 14px !important;
   }
@@ -3182,4 +3255,26 @@ i.fa.fa-calendar {
 .w-h-sub {
   width: 187px;
   height: 46px;
+}
+div.collapse-container.collapsing {
+  // overflow: none !important;
+  transition: none !important;
+}
+.text-slider-res {
+  right: 14px !important;
+}
+.text-slider-res-middle {
+  right: 0px !important;
+}
+.btn.px-md-4.py-1.px-3.mx-auto.w-h-sub .btn-quaternary-text{
+  font-size: 26px !important;
+    @include sm-dec-screen {
+      font-size: 22px !important;
+    }
+}
+.p-0-res-10{
+  padding-left: 0px;
+  @include sm-dec-screen {
+  padding-left: 18px;
+  }
 }

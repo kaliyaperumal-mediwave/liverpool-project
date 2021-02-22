@@ -27,7 +27,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
   </div>
   <!-- Loader end -->
   <div id="resources_user" class="main-min-height">
-    <div class="top-arrow-container" id="searchBar">
+    <div class="top-arrow-container pd-container" id="searchBar">
       <!-- <a href="{{ data.logoPath }}" class="text-decoration-none">
             <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" />
         </a> -->
@@ -75,13 +75,14 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
               >
                 <a :href=" item.custom_url ? item.custom_url : item._url">
                   <div class="d-flex align-items-center">
-                    <img
+                    <!-- <img
                       src="/modules/my-apostrophe-assets/img/placeholder.svg"
                       width="50"
                       height="30"
-                      class="px-1 px-md-2 cursor-pointer"
+                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
                       alt=""
-                    />
+                    /> -->
+                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
                     <p class="question-font my-0 mx-2 mx-md-4">
                       {{item.title}}
                     </p>
@@ -101,7 +102,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           {% endraw %}
         </div>
       </div>
-      <div class="text_inside_cont">
+      <div class="text_inside_cont card-set-container-bg">
         Sometimes it’s hard to make sense of how you’re feeling, your thoughts
         and behaviours. In this section, you can use our guides and find out
         more about what support is available to you.

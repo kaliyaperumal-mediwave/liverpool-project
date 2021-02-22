@@ -84,12 +84,28 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
+            var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
+            var disableProfessional = document.getElementById('96dda9ca-9328-47e8-ac1a-8cdc972df4d0').lastElementChild;
 
             var userRole = document.getElementById('uRole').innerHTML;
             if (userRole) {
                 this.elgibilityObj.role = userRole;
                 $('input[name=role]').attr("disabled", true);
                 $('#loader').hide();
+                if (userRole == 'child') {
+                    disableParent.style.opacity = '0.6';
+                    disableProfessional.style.opacity = '0.6';
+
+                } else if (userRole == 'parent') {
+                    disableChild.style.opacity = '0.6';
+                    disableProfessional.style.opacity = '0.6';
+
+                } else if (userRole == 'professional') {
+                    disableChild.style.opacity = '0.6';
+                    disableParent.style.opacity = '0.6';
+
+                }
             }
             // if (this.paramValues[0] != undefined) {
             //     this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
@@ -121,7 +137,7 @@ $(document).ready(function () {
                         },
                         error: function (error) {
                             $('#loader').hide();
-                            if(error) {
+                            if (error) {
                                 showError(error.responseJSON.message, error.status);
                             }
                             //console.log(error.responseJSON.message)
@@ -901,7 +917,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         $('#loader').hide();
-                        if(error) {
+                        if (error) {
                             console.log(error.responseJSON.message)
                             showError(error.responseJSON.message, error.status);
                         }

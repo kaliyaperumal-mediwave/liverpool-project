@@ -1,3 +1,4 @@
+
 {% extends "layout.html" %}
 
 {% block extraBody %}
@@ -31,7 +32,7 @@
 
     <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2 res-font">
         <h2 class="home-header-primary text-center">CAMHS Services</h2>
-        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+        <span class="home-header-secondary text-center d-block">Getting help is hard ,We make it easy </span>
     </div>
     <div class="my-md-3 my-lg-4 my-xl-4 my-4">
         <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
@@ -59,8 +60,10 @@
                                 <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
                                     <a :href=" item.custom_url ? item.custom_url : item._url">
                                         <div class="d-flex align-items-center">
-                                            <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                                height="30" class="px-1 px-md-2 cursor-pointer" alt="">
+                                            <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                                height="30" class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
+                                                <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+
                                             <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
                                             </p>
                                             <ul class="my-0 link-text mx-2 mx-md-4"
@@ -92,7 +95,7 @@
         </div>
     </div>
 
-    <div class="d-flex py-0 mt-md-4 pb-1 mt-3">
+    <div class="d-flex py-0 mt-md-4 pb-1 mt-3 w-97">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 pb-2 mx-auto">
             <div class="d-flex justify-content-center">
                 <div class="col-md-6 col-lg-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg"
@@ -118,7 +121,7 @@
         </div>
     </div>
 
-    <div class="d-flex py-2">
+    <div class="d-flex py-2 w-97">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 py-2 mx-auto">
             <div class="d-flex justify-content-center">
                 <div class="col-md-6 col-lg-6 mr-3 mr-md-4 p-0 cursor-pointer home-primary-content-bg"
@@ -143,7 +146,7 @@
         </div>
     </div>
 
-    <div class="d-flex py-2">
+    <div class="d-flex py-2 w-97-large">
         <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-0 py-1 mx-auto cursor-pointer">
             <div class="d-flex justify-content-center">
                 <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mental-health')">
