@@ -134,6 +134,7 @@ $(document).ready(function () {
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
                             console.log(data)
                         _self.allSectionData = data;

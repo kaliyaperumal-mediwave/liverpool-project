@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-header-secondary-description, .home-primary-content, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
+.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-header-secondary-description, .home-primary-content, .home-primary-content h3, .home-primary-content p, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -1103,19 +1103,47 @@ body {
   body .h-300 {
     height: 300px !important; }
   body .font-23 {
-    font-size: 20px !important;
+    font-size: 20px;
     padding-top: 2px; }
   body .font-25 {
-    font-size: 25px !important; }
+    font-size: 25px; }
     @media (max-width: 575.98px) {
       body .font-25 {
-        font-size: 20px !important; } }
+        font-size: 20px; } }
     @media (min-width: 576px) and (max-width: 767.98px) {
       body .font-25 {
         font-size: 21px; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       body .font-25 {
         font-size: 23px; } }
+  body .font-30 {
+    font-size: 30px; }
+    @media (min-width: 320px) and (max-width: 575.98px) {
+      body .font-30 {
+        font-size: 22px; } }
+    @media (max-width: 575.98px) {
+      body .font-30 {
+        font-size: 24px; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      body .font-30 {
+        font-size: 26px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      body .font-30 {
+        font-size: 28px; } }
+  body .font-38 {
+    font-size: 38px; }
+    @media (min-width: 320px) and (max-width: 575.98px) {
+      body .font-38 {
+        font-size: 30px; } }
+    @media (max-width: 575.98px) {
+      body .font-38 {
+        font-size: 32px; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      body .font-38 {
+        font-size: 34px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      body .font-38 {
+        font-size: 34px; } }
   body .ui-widget-content {
     border-radius: 2px !important;
     opacity: 1 !important;
@@ -1362,18 +1390,24 @@ a {
     .home-primary-content {
       font-size: 18px; } }
   .home-primary-content h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #023047;
     margin-bottom: 0px; }
     @media (max-width: 575.98px) {
       .home-primary-content h3 {
-        font-size: 15px; } }
+        font-size: 16px; } }
     @media (min-width: 576px) and (max-width: 767.98px) {
       .home-primary-content h3 {
-        font-size: 16px; } }
+        font-size: 18px; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       .home-primary-content h3 {
-        font-size: 18px; } }
+        font-size: 20px; } }
   .home-primary-content p {
-    margin-bottom: 0px; }
+    margin-bottom: 0px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #023047; }
     @media (max-width: 575.98px) {
       .home-primary-content p {
         font-size: 15px; } }
@@ -3531,6 +3565,10 @@ html #slide-test-5 {
 
 .off .home-primary-content {
   color: #023047; }
+  .off .home-primary-content h3 {
+    color: #023047; }
+  .off .home-primary-content p {
+    color: #023047; }
 
 .off .home-header-primary {
   color: #023047; }
@@ -3541,7 +3579,8 @@ html #slide-test-5 {
   .off .home-header-primary p {
     color: #023047; }
 
-.off .form-check-input:disabled ~ .form-check-label, .off .form-check-input[disabled] ~ .form-check-label {
+.off .form-check-input:disabled ~ .form-check-label,
+.off .form-check-input[disabled] ~ .form-check-label {
   color: #023047; }
 
 .off .home-header-secondary {
@@ -3744,6 +3783,12 @@ html #slide-test-5 {
 .off .footer-content a {
   color: #023047 !important; }
 
+.off .bg-place {
+  background: url("/modules/my-apostrophe-assets/img/placeholder.svg") no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 30px; }
+
 [data-theme="off"] {
   border: none;
   padding: 5px 15px;
@@ -3784,6 +3829,10 @@ html #slide-test-5 {
 
 .on .home-primary-content {
   color: #fafafa; }
+  .on .home-primary-content h3 {
+    color: #fafafa; }
+  .on .home-primary-content p {
+    color: #fafafa; }
 
 .on .home-header-primary {
   color: #fafafa; }
@@ -3794,7 +3843,8 @@ html #slide-test-5 {
   .on .home-header-primary p {
     color: #fafafa; }
 
-.on .form-check-input:disabled ~ .form-check-label, .on .form-check-input[disabled] ~ .form-check-label {
+.on .form-check-input:disabled ~ .form-check-label,
+.on .form-check-input[disabled] ~ .form-check-label {
   color: #fafafa; }
 
 .on .home-header-secondary {
@@ -3996,6 +4046,12 @@ html #slide-test-5 {
 
 .on .footer-content a {
   color: #fafafa !important; }
+
+.on .bg-place {
+  background: url("/modules/my-apostrophe-assets/img/placeholder_white.svg") no-repeat;
+  background-size: contain;
+  width: 50px;
+  height: 30px; }
 
 [data-theme="on"] {
   border: none;
@@ -4256,3 +4312,6 @@ i.fa.fa-calendar {
 .w-h-sub {
   width: 187px;
   height: 46px; }
+
+div.collapse-container.collapsing {
+  transition: none !important; }
