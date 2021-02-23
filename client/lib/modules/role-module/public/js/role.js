@@ -35,6 +35,8 @@ $(document).ready(function () {
                 profEmail: '',
                 profName: '',
                 profContactNumber: '',
+                profAddress:'',
+                profProfession:'',
                 disableRole: false,
                 contact_parent_camhs: '',
                 reason_contact_parent_camhs: '',
@@ -192,6 +194,8 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
+                    Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
+                    Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
                     Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
@@ -811,10 +815,11 @@ $(document).ready(function () {
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
                 var role = this.elgibilityObj.role;
+                console.log(this.elgibilityObj);
                 if (role === 'professional') {
                     this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profName && this.elgibilityObj.profContactNumber) {
-                        if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
+                    if (this.elgibilityObj.profName && this.elgibilityObj.profContactNumber && this.elgibilityObj.profAddress && this.elgibilityObj.profProfession ) {
+                        if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber) ) {
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();

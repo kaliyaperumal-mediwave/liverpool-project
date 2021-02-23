@@ -699,7 +699,7 @@
                             placeholder="Enter your address" class="form-control input-bg-form-control" id="txtProfessionalAddress">
 
                         <div class="text-validation invalid-feedback  d-none"
-                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profAddress),'invalid-fields':!elgibilityObj.profAddress }">
+                        v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profAddress),'invalid-fields':!elgibilityObj.profAddress }">
                             Please provide your address.
                         </div>
                         {% endraw %}
@@ -713,7 +713,7 @@
                             placeholder="Enter your profession" class="form-control input-bg-form-control" id="txtProfessionalProfession">
 
                         <div class="text-validation invalid-feedback  d-none"
-                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
+                        v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
                             Please provide your provision.
                         </div>
                         {% endraw %}
@@ -969,7 +969,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber))  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -995,7 +995,7 @@
             </form>
             {% endraw %}
             <template
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber)) && elgibilityObj.profChildDob!=null">
+                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession) && elgibilityObj.profChildDob!=null">
                 <div class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">

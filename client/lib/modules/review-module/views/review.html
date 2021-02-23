@@ -265,6 +265,38 @@
                                         </p>
                                     </div>
 
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profNameSec5">
+                                            Address:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <textarea class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                                readonly type="text" v-model="section1Data.professional_address" id="profAddressSec5">
+                                                </textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profNameSec5">
+                                            Profession:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control" type="text"
+                                                    placeholder="Enter your profession" @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_profession')"
+                                                    v-model="section1Data.professional_profession" id="profProfessionSec5">
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_profession),
+                                                'invalid-fields':!section1Data.professional_profession }">
+                                                    You must provide your profession.
+                                                </small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </template>
                                 <!-- Professional Info End -->
 

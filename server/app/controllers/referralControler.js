@@ -2049,7 +2049,7 @@ exports.fetchReview = ctx => {
         where: {
           id: userObj.id,
         },
-        attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent']
+        attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent','professional_address','professional_profession']
       }).then((elgibilityObj) => {
         //return ctx.body = elgibilityObj.professional[0].child_parent[0];
         var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -2115,6 +2115,8 @@ exports.fetchReview = ctx => {
                 professional_name: elgibilityObj.professional_name,
                 professional_email: elgibilityObj.professional_email,
                 professional_contact_number: elgibilityObj.professional_contact_number,
+                professional_address: elgibilityObj.professional_address,
+                professional_profession: elgibilityObj.professional_profession,
 
               }
               const section2Obj = {
@@ -2465,6 +2467,7 @@ exports.updateEligibilityInfo = ctx => {
     professional_name: ctx.request.body.section1Data.professional_name,
     professional_email: ctx.request.body.section1Data.professional_email,
     professional_contact_number: ctx.request.body.section1Data.professional_contact_number,
+    professional_profession:ctx.request.body.section1Data.professional_profession
   },
     {
       where: {
@@ -2481,7 +2484,7 @@ exports.updateEligibilityInfo = ctx => {
           where: {
             id: ctx.request.body.section1Data.professional_id,
           },
-          attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent']
+          attributes: ['id', 'uuid', 'professional_name', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent','professional_profession','professional_address']
         }).then((professionalObj) => {
           const section1Obj = {
             child_id: ctx.request.body.section1Data.child_id,
@@ -2493,6 +2496,8 @@ exports.updateEligibilityInfo = ctx => {
             professional_name: professionalObj.professional_name,
             professional_email: professionalObj.professional_email,
             professional_contact_number: professionalObj.professional_contact_number,
+            professional_address:professionalObj.professional_address,
+            professional_profession:professionalObj.professional_profession,
           }
           return ctx.res.ok({
             data: section1Obj,
