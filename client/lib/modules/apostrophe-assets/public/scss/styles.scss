@@ -265,13 +265,7 @@ a {
 
 .height-50 {
   height: 50px !important;
-  @include xs-screen {
-    height: 45px !important;
-  }
-  @include sm-screen {
-    height: 45px !important;
-  }
-  @include md-screen {
+  @include sm-dec-screen {
     height: 45px !important;
   }
 }
@@ -1141,11 +1135,12 @@ a {
   height: 35px;
   width: auto;
 }
-@media (max-width: 768px) {
-  .main-min-height {
-    min-height: 650px !important;
-  }
-}
+
+// .main-min-height {
+//   @include sm-dec-screen {
+//     min-height: 650px !important;
+//   }
+// }
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
   .option-font {
