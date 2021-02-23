@@ -24,6 +24,7 @@ body {
   input::-ms-reveal {
     display: none;
   }
+  
 
   [v-cloak] {
     display: none !important;
@@ -2553,10 +2554,10 @@ body .ui-widget .ui-menu-item {
 }
 
 /* range slider */
-html #slide-test-5 {
-  --slider-active-color: black;
-  --slider-inactive-color: grey;
-}
+// html #slide-test-5 {
+//   // --slider-active-color: black;
+//   // --slider-inactive-color: grey;
+// }
 #slide-test-5 .range-labels .active {
   font-weight: 700;
 }

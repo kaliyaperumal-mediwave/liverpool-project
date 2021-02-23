@@ -50,5 +50,5 @@ You can shut Apostrophe down at any time with:
 docker-compose stop
 ```
 
-When you start it up again, your uploaded files and your database will still be there.
+When you start it up again, your uploaded files and your database will still be there
 
