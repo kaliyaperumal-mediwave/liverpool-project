@@ -1,191 +1,263 @@
-{% extends "layout.html" %}
-{% block extraBody %}
+{% extends "layout.html" %} {% block extraBody %}
 <script src="/modules/dashboard-module/js/dashboard.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
-{% endblock %}
-{% block main
-%}
+{% endblock %} {% block main %}
 
 <div id="dashboardPage">
-    <!-- Loader start -->
-    <div class="overlay" id="loader">
-        <div class="overlay__inner">
-            <div class="overlay__content">
-                <div class="lds-spinner">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+  <!-- Loader start -->
+  <div class="overlay" id="loader">
+    <div class="overlay__inner">
+      <div class="overlay__content">
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
+      </div>
     </div>
-    <!-- Loader end -->
-    <div class="mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0">
-        <h2 class="home-header-primary text-center">CAMHS Services</h2>
-        <span class="home-header-secondary text-center d-block">Getting help is hard but we make it easy</span>
+  </div>
+  <!-- Loader end -->
+  <div class="mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0 res-font">
+    <h2 class="home-header-primary text-center">CAMHS Services</h2>
+    <span class="home-header-secondary text-center d-block"
+      >Getting help is hard ,We make it easy </span
+    >
+  </div>
+  <div class="my-md-3 my-lg-4 my-xl-4 my-4">
+    <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
+        <input hidden id="resources" value="{{data.piecesArray|dump}}" />
+        <div>
+          <div class="input-group">
+            <span class="input-group-prepend">
+              <div
+                class="home-primarySearch-bg input-group-text border-right-0 height-44"
+              >
+                <span style="color: #023047 !important">
+                  <i class="fal fa-search font-23 ham-icon"></i>
+                </span>
+              </div>
+            </span>
+            <input
+              class="height-44 home-primarySearch-bg border-0 form-control py-2"
+              type="search"
+              v-model="searchQuery"
+              placeholder="Search your resource"
+              id="example-search-input"
+              @input="filterPieces()"
+            />
+          </div>
+          <div id="hideserachblock" class="d-none">
+            {% raw %}
+            <!-- Search functionality start-->
+            <div v-if="showSearchResults" class="resource_search_text my-3">
+              Search results for “what is {{searchQuery}}?”
+            </div>
+            <div
+              v-if="showSearchResults"
+              class="search-wrap primary-search-radius"
+            >
+              <div
+                class="primary-search-radius home-primary-content-bg cursor-pointer"
+              >
+                <template v-if="filteredData.length">
+                  <div
+                    v-for="item in filteredData"
+                    class="border-bottom-primary card-body px-2 px-md-4"
+                  >
+                    <a :href="item.custom_url ? item.custom_url : item._url ">
+                      <div class="d-flex align-items-center">
+                        <!-- <img
+                          src="/modules/my-apostrophe-assets/img/placeholder.svg"
+                          width="50"
+                          height="30"
+                          class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
+                          alt=""
+                        /> -->
+                        <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+
+                        <p class="question-font my-0 mx-2 mx-md-4">
+                          {{item.title}}
+                        </p>
+                        <ul
+                          class="my-0 link-text mx-2 mx-md-4"
+                          style="list-style: inside !important"
+                        >
+                          <li>{{item.Topic}}</li>
+                        </ul>
+                      </div>
+                    </a>
+                  </div>
+                </template>
+                <template v-if="!filteredData.length">
+                  <p class="home-header-secondary py-3 pl-4">
+                    No results found
+                  </p>
+                </template>
+              </div>
+            </div>
+
+            <!-- Search functionality end-->
+            {% endraw %}
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="my-md-3 my-lg-4 my-xl-4 my-4">
-        <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
-                <input hidden id="resources" value="{{data.piecesArray|dump}}">
-                <div>
-                    <div class="input-group">
-                        <span class="input-group-prepend">
-                            <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
-                                <span style="color: #023047 !important;">
-                                    <i class="fal fa-search font-23 ham-icon"></i>
-                                </span>
-                            </div>
-                        </span>
-                        <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                            v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
-                            @input="filterPieces()">
-                    </div>
-                    {% raw %}
-                    <!-- Search functionality start-->
-                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                        {{searchQuery}}?”</div>
-                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                        <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                            <template v-if="filteredData.length">
-                                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                    <a :href="item.custom_url ? item.custom_url : item._url ">
-                                        <div class="d-flex align-items-center">
-                                            <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                                height="30" class="px-1 px-md-2 cursor-pointer" alt="">
-                                            <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                            </p>
-                                            <ul class="my-0 link-text mx-2 mx-md-4"
-                                                style="list-style: inside !important;">
-                                                <li>{{item.Topic}}</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                </div>
-                            </template>
-                            <template v-if="!filteredData.length">
-                                <p class="home-header-secondary py-3">No results found</p>
-                            </template>
-                        </div>
-                    </div>
-
-                    <!-- Search functionality end-->
-                    {% endraw %}
-                </div>
-            </div>
-        </div>
-        <div class="d-flex text-center py-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-                <h3 class="home-primary-content m-0 py-3 px-2 text-left">
-                    Liverpool CAMHS and Sefton services aims to promote the mental health and wellbeing of all children,
-                    young
-                    people, families and their carers.
-                </h3>
-            </div>
-        </div>
+    <div class="d-flex text-center py-2">
+      <div
+        class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg"
+      >
+        <h3 class="home-primary-content m-0 py-3 px-2 text-left">
+          Liverpool & Sefton CAMHS services aim to promote the mental health and
+          wellbeing of all children, young people, families and carers.
+        </h3>
+      </div>
     </div>
-    <a href="/resources" class="text-decoration-none">
-        <div class="d-flex py-0 mt-md-2 pb-1 mt-2">
-            <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 py-md-0 mx-auto cursor-pointer">
-                <div class="d-flex justify-content-center">
-                    <div class="col-md-12 p-0 home-primary-content-bg">
-                        <div class="text-center py-4">
-                            <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height "
-                                alt="">
-                        </div>
-                        <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                            <span class="home-secondary-content px-1 px-md-3">Resources</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </a>
+  </div>
 
-    <a href="/mental-health" class="text-decoration-none">
-        <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
-            <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer">
-                <div class="d-flex justify-content-center">
-                    <div class="col-md-12 p-0 home-primary-content-bg">
-                        <div class="text-center py-4">
-                            <img src="/modules/my-apostrophe-assets/img/MentalHealth.svg" class="px-3 image-height"
-                                alt="">
-                        </div>
-                        <div class="text-center text-md-right py-1 sub-header-bg home-card-radius">
-                            <span class="home-secondary-content px-1 px-md-3">About mental health services</span>
-                        </div>
-                    </div>
-                </div>
+  <a href="/make-referral" class="text-decoration-none">
+    <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
+      <div
+        class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 py-md-0 mx-auto cursor-pointer"
+      >
+        <div class="d-flex justify-content-center">
+          <div class="col-md-12 p-0 home-primary-content-bg">
+            <div class="text-center py-4">
+              <img
+                src="/modules/my-apostrophe-assets/img/MakeAReferral2.svg"
+                class="px-3 image-height"
+                alt=""
+              />
             </div>
-        </div>
-    </a>
-
-    <div class="sub-header-bg my-5">
-        {% include "../../shared-referal-module/views/searchReferral.html" %}
-        {% raw %}
-        <div v-show="incompleteReferral.length > 0" class="col-md-9 col-lg-7 col-xl-7 col-12 mx-auto">
-            <div class="py-3 py-md-4 py-lg-3 py-xl-3">
-                <div class="row w-100 mx-auto">
-                    <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
-                        <h2 class="home-referral-primary my-2 my-md-3 d-flex justify-content-center">Progress of
-                            referral</h2>
-                    </div>
-                </div>
-                <div class="row py-3 w-100 mx-auto heightSetReferral" id="style-7">
-                    <div v-for="(inRefObj, index) in incompleteReferral"
-                        class="col-md-9 col-lg-7 text-center col-xl-7 col-11 mx-auto secondary">
-                        <p class="home-referral-secondary text-left my-2 my-md-3">You have completed
-                            {{inRefObj.referral_progress}} % of your referral</p>
-                        <p class="home-referral-secondary text-left my-2 my-md-3">Date:
-                            {{convertDate(inRefObj.updatedAt)}}</p>
-                        <div class="progress-radius progress">
-                            <div class="progress-bg progress-bar" role="progressbar"
-                                :style="{ width: inRefObj.referral_progress + '%' }" aria-valuenow="75"
-                                aria-valuemin="0" aria-valuemax="100"><span class="link-text"></span>
-                            </div>
-                        </div>
-                        <div class="py-4 text-left">
-                            <button type="button" @click="checkReferral(inRefObj)" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-quaternary-text">CONTINUE REFERRAL
-                                </span></button>
-                        </div>
-                    </div>
-                </div>
+            <div
+              class="text-center text-md-right py-1 sub-header-bg home-card-radius"
+            >
+              <span class="home-secondary-content px-1 px-md-3"
+                >Make a referral</span
+              >
             </div>
+          </div>
         </div>
-        {% endraw %}
+      </div>
     </div>
+  </a>
 
-    <!-- Error Modal Start -->
-    <div class="modal fade" id="errorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
-        aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content modal-bg">
-                <div class="my-3">
-                    <div class="d-flex justify-content-center m-0 cursor-pointer">
-                        <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"
-                            @click="closeErrorModal()"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
-                    </div>
-                </div>
-                <div class="px-4 py-2 text-center">
-                    <span style="color:#DD3939 !important">
-                        <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
-                    </span>
-                    <h5 id="errorModalContent" class="text-danger logout-font my-4">error content</h5>
-                </div>
+  <a href="/resources" class="text-decoration-none">
+    <div class="d-flex py-0 mt-md-4 pb-1 mt-2">
+      <div
+        class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 py-md-0 mx-auto cursor-pointer"
+      >
+        <div class="d-flex justify-content-center">
+          <div class="col-md-12 p-0 home-primary-content-bg">
+            <div class="text-center py-4">
+              <img
+                src="/modules/my-apostrophe-assets/img/Resources.svg"
+                class="px-3 image-height"
+                alt=""
+              />
             </div>
+            <div
+              class="text-center text-md-right py-1 sub-header-bg home-card-radius"
+            >
+              <span class="home-secondary-content px-1 px-md-3">Resources</span>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- Error Modal End -->
+  </a>
 
+  <a href="/mental-health" class="text-decoration-none">
+    <div class="d-flex py-0 mt-md-3 pb-1 mt-2">
+      <div
+        class="col-md-8 col-lg-6 col-11 col-xl-6 px-md-1 px-0 py-2 mx-auto cursor-pointer"
+      >
+        <div class="d-flex justify-content-center">
+          <div class="col-md-12 p-0 home-primary-content-bg">
+            <div class="text-center py-4">
+              <img
+                src="/modules/my-apostrophe-assets/img/MentalHealth.svg"
+                class="px-3 image-height"
+                alt=""
+              />
+            </div>
+            <div
+              class="text-center text-md-right py-1 sub-header-bg home-card-radius"
+            >
+              <span class="home-secondary-content px-1 px-md-3"
+                >About mental health services</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  <div class="sub-header-bg my-5">
+    {% include "../../shared-referal-module/views/searchReferral.html" %} {% raw
+    %}
+    <div
+      v-show="incompleteReferral.length > 0"
+      class="col-md-9 col-lg-7 col-xl-7 col-12 mx-auto"
+    >
+      <div class="py-3 py-md-4 py-lg-3 py-xl-3">
+        <div class="row w-100 mx-auto">
+          <div class="col-md-9 col-lg-7 col-xl-6 col-11 mx-auto">
+            <h2
+              class="home-referral-primary my-2 my-md-3 d-flex justify-content-center"
+            >
+              Progress of referral
+            </h2>
+          </div>
+        </div>
+        <div class="row py-3 w-100 mx-auto heightSetReferral" id="style-7">
+          <div
+            v-for="(inRefObj, index) in incompleteReferral"
+            class="col-md-9 col-lg-7 text-center col-xl-7 col-11 mx-auto secondary"
+          >
+            <p class="home-referral-secondary text-left my-2 my-md-3">
+              You have completed {{inRefObj.referral_progress}} % of your
+              referral
+            </p>
+            <p class="home-referral-secondary text-left my-2 my-md-3">
+              Date: {{convertDate(inRefObj.updatedAt)}}
+            </p>
+            <div class="progress-radius progress">
+              <div
+                class="progress-bg progress-bar"
+                role="progressbar"
+                :style="{ width: inRefObj.referral_progress + '%' }"
+                aria-valuenow="75"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                <span class="link-text"></span>
+              </div>
+            </div>
+            <div class="py-4 text-left">
+              <button
+                type="button"
+                @click="checkReferral(inRefObj)"
+                class="btn px-md-4 py-1 px-3"
+              >
+                <span class="btn-quaternary-text">CONTINUE REFERRAL </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endraw %}
+  </div>
 </div>
 {% endblock %}

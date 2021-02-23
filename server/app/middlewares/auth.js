@@ -44,8 +44,11 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
             else {
                 let orchaTknData = jwt_decode(orchaTokens.auth_token)
                 //**need to divide getTIme() by 1000
-                if (new Date().getTime() < orchaTknData.exp) {
+                if (((new Date().getTime()) / 1000) < orchaTknData.exp) {
                     ctx.response.body.orchaToken = orchaTokens.auth_token;
+                    return next().then(() => {
+                        resolve();
+                    });
                 }
                 else {
                     var data = {
@@ -60,7 +63,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                     };
 
                     axios(config_api).then(async (response) => {
-                        var token = response.data.result.accessToken
+                        var token = response.data.result.accessToken;
                         const { Orcha } = ctx.orm();
                         return Orcha.update({
                             auth_token: token
@@ -68,7 +71,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                             where:
                                 { id: 1 }
                         }).then(async () => {
-                            ctx.response.body.orchaToken = orchaTokens.auth_token;
+                            ctx.response.body.orchaToken = token;
                             return next().then(() => {
                                 resolve();
                             });

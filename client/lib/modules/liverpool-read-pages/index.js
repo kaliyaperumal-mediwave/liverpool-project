@@ -25,22 +25,23 @@ module.exports = {
 
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function (req, callback) {
-      req.data.piecesArray = _.map(req.data.pieces, (item) => {
+      req.data.piecesArray = _.map(req.session.readArray, (item) => {
         item.custom_url = "/read?piece_id=" + item._id
         return item;
       })
       const pieces = [];
-        for (let index = 0; index < req.data.pieces.length; index++) {
-          if(req.data.pieces[index].createdAt) {
-            req.data.pieces[index].uploadTime = moment(req.data.pieces[index].createdAt).fromNow();
+      console.log( req.session.readArray);
+        for (let index = 0; index < req.session.readArray.length; index++) {
+          if(req.session.readArray[index].createdAt) {
+            req.session.readArray[index].uploadTime = moment(req.session.readArray[index].createdAt).fromNow();
           } else {
-            req.data.pieces[index].uploadTime = '';
+            req.session.readArray[index].uploadTime = '';
           }
           if (req.query && req.query.piece_id) {
-            if (req.data.pieces[index]._id == req.query.piece_id) {
-              pieces.splice(0, 0, req.data.pieces[index]);
+            if (req.session.readArray[index]._id == req.query.piece_id) {
+              pieces.splice(0, 0, req.session.readArray[index]);
             } else {
-              pieces.push(req.data.pieces[index]);
+              pieces.push(req.session.readArray[index]);
             }
           }
         }

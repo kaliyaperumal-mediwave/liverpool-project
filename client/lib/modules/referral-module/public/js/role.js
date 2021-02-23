@@ -96,6 +96,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.log(error.responseJSON.message)
+                        showError(error.responseJSON.message, error.status);
                     }
                 });
             },
@@ -586,6 +587,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         console.log(error.responseJSON.message)
+                        showError(error.responseJSON.message, error.status);
                     }
                 });
             },

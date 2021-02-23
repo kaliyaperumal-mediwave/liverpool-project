@@ -30,8 +30,10 @@
     </div>
     <!-- Loader end -->
     <div class="top-arrow-container" id="searchBar">
-        <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
-                class="leftArrow cursor-pointer"></a>
+        <!-- <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
+                class="leftArrow cursor-pointer"></a> -->
+                <a href="{{data.bckBtn}}" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i></a>
+
         <div class="resource_text">Apps</div>
         <input hidden id="resources" value="{{data.searchApps|dump}}">
         <div class="input-group">
@@ -45,6 +47,7 @@
             <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                 v-model="searchQuery" placeholder="Search your app" id="example-search-input" @input="filterApps()">
         </div>
+          <div  id="hideserachblock" class="d-none">
         {% raw %}
         <!-- Search functionality start-->
         <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
@@ -55,8 +58,10 @@
                     <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
                         <a :href=" item.custom_url ? item.custom_url : item._url ">
                             <div class="d-flex align-items-center">
-                                <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                                    class="px-1 px-md-2 cursor-pointer" alt="">
+                                <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
+                                    class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
+                                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+
                                 <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
                                 </p>
                                 <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
@@ -74,8 +79,11 @@
 
         <!-- Search functionality end-->
         {% endraw %}
-        <div class="text_inside_cont">
+        </div>
+        <div class="text_inside_cont card-set-container-bg">
+            <h5 class="font-weight-bold">
             On this page, you can access a range of useful websites and apps
+            </h5>
         </div>
         </a>
         <div class="text_inside_play-store">
@@ -86,7 +94,7 @@
                 </div>
                 <div class="title-cont-top">
                     <div class="hearder-cont-h1">
-                        {{appObj.appName}}
+                        {{appObj.appName}} -  {{appObj.score}}
                     </div>
                     <!-- <div class="para-cont-p">
                         stress, depression & anxiety therapy chatbot

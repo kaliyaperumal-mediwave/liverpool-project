@@ -71,11 +71,14 @@ module.exports = {
           var appsName=[];
           var appTitle = {};
           var listOfApps = data.data.result.items
+          //console.log(listOfApps);
           for (var i = 0; i < listOfApps.length; i++) {
             appTitle = {};
             appTitle.title = listOfApps[i].appName;
+            appTitle.platform = listOfApps[i].platform;
             appTitle.Topic = "Downloads"
             appTitle.custom_url ='/downloads?app_id='+listOfApps[i].id;
+            appTitle.score = listOfApps[i].score
             appsName.push(appTitle);
           }
          // console.log( data.data.result.items);
@@ -84,6 +87,11 @@ module.exports = {
           req.data.piecesArray = piecesArray;
           req.data.orchaApps = data.data.result.items;
           req.session.orchaApps = data.data.result.items;
+          req.session.readArray = ThingsToRead;
+          req.session.watchArray = ThingsToWatch;
+          req.session.gamesArray = Games;
+          req.session.eventsArray = Events;
+          req.session.partnerAgenciesArray = PartnerAgencies;
           return superBefore(req, callback);
         }).catch((error) => {
           console.log("---- error -------", error)

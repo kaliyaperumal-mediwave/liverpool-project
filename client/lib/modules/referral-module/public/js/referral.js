@@ -178,8 +178,9 @@ $(document).ready(function () {
                 if (questionIdentifier == 'support' || questionIdentifier == 'covidReferal') {
                     var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
                     allCheckbox.map(function (input) {
+                        $(input).removeAttr("data-selected")
                         var mainElem = input.parentElement.parentElement.parentElement;
-                        $(mainElem).removeClass('d-none').addClass('d-flex').css('pointer-events', '');
+                        $(mainElem).removeClass('d-none').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
                         $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
                     });
                     resetValues(event.target.form, this, 'referralData');
@@ -313,26 +314,34 @@ $(document).ready(function () {
                                 if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
                                     var mainElem = input.parentElement.parentElement.parentElement;
                                     $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
-                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list and change the answer</u>');
+                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
                                     checkBoxCon[0].scrollIntoView();
 
                                 } else {
                                     var mainElem = input.parentElement.parentElement.parentElement;
-                                    $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none');
-                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list and change the answer</u>');
+                                    $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
                                 }
                             });
                             checkBoxCon[0].scrollIntoView();
 
                         } else {
-                            // this.openShowMoreOrLessFlag = false;
                             allCheckbox.map(function (input) {
+                                $(input).removeAttr("data-selected");
                                 var mainElem = input.parentElement.parentElement.parentElement;
-                                $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                                $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
                                 $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
                                 checkBoxCon[0].scrollIntoView();
                             });
                         }
+                    } else {
+                        allCheckbox.map(function (input) {
+                            // $(input).removeAttr("data-selected");
+                            var mainElem = input.parentElement.parentElement.parentElement;
+                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                            $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+                            //checkBoxCon[0].scrollIntoView();
+                        });
                     }
 
                 }
@@ -340,7 +349,7 @@ $(document).ready(function () {
 
             toggleList: function (event) {
                 var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
-                if (event.target.textContent === 'Click here to view full list and change the answer') {
+                if (event.target.textContent === 'Click here to view full list & change the answer') {
                     allCheckbox.map(function (input) {
                         var mainElem = input.parentElement.parentElement.parentElement;
                         $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
@@ -357,7 +366,7 @@ $(document).ready(function () {
                             $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none');
                         }
                     });
-                    $('#showMoreOrLessText').html('<u>Click here to view full list and change the answer</u>');
+                    $('#showMoreOrLessText').html('<u>Click here to view full list & change the answer</u>');
                 }
 
             },
@@ -389,6 +398,7 @@ $(document).ready(function () {
 
             //Patching the value logic
             patchValue: function (data) {
+                var _self = this;
                 if (data.status != "fail") {
                     this.eatingDifficulties = data.eating_disorder_difficulties;
                     this.reasonForReferral = data.reason_for_referral;
@@ -418,35 +428,64 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "disabilityOrDifficulty", data.disabilities);
                     Vue.set(this.referralData, "accessService", data.any_other_services);
                 }
+                setTimeout(function () {
+                    if (_self.reasonForReferral.length)
+                        _self.patchCheck();
+                }, 200)
+
             },
+
+            patchCheck: function () {
+                var _self = this;
+                var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+                allCheckbox.map(function (input) {
+                    if (_self.reasonForReferral.indexOf(input.value) != -1) {
+                        input.setAttribute('data-selected', 'selected')
+                        var mainElem = input.parentElement.parentElement.parentElement;
+                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                        $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
+
+                    } else {
+                        input.setAttribute('data-selected', 'unselected')
+                        var mainElem = input.parentElement.parentElement.parentElement;
+                        $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                        $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
+                    }
+                });
+            },
+
 
             //Adding and Updating  a service logic
             upsertService: function () {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
-                if (serviceForm.name && serviceForm.professional && serviceForm.contact && this.phoneRegex.test(serviceForm.contact)) {
-                    if (serviceForm.mode === 'update') {
-                        this.allAvailableService = this.allAvailableService.map(function (it) {
-                            if (it.mode === 'update' && it.id === serviceForm.id) {
-                                it = JSON.parse(JSON.stringify(serviceForm));
-                                delete it.mode;
-                                return it;
-                            }
-                            else {
-                                delete it.mode;
-                                return it;
-                            }
-                        });
-
+                if (serviceForm.name) {
+                    if (serviceForm.contact && !this.phoneRegex.test(serviceForm.contact)) {
+                        modal.removeAttribute("data-dismiss", "modal");
+                        return;
                     } else {
-                        serviceForm.id = uuidV4();
-                        serviceForm.mode = 'add';
-                        this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
-                    }
-                    this.resetModalValues();
-                    modal.setAttribute("data-dismiss", "modal");
+                        if (serviceForm.mode === 'update') {
+                            this.allAvailableService = this.allAvailableService.map(function (it) {
+                                if (it.mode === 'update' && it.id === serviceForm.id) {
+                                    it = JSON.parse(JSON.stringify(serviceForm));
+                                    delete it.mode;
+                                    return it;
+                                }
+                                else {
+                                    delete it.mode;
+                                    return it;
+                                }
+                            });
 
+                        } else {
+                            serviceForm.id = uuidV4();
+                            serviceForm.mode = 'add';
+                            this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
+                        }
+                        this.resetModalValues();
+                        modal.setAttribute("data-dismiss", "modal");
+                    }
                 } else {
                     modal.removeAttribute("data-dismiss", "modal");
                     return;

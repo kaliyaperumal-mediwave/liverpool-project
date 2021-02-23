@@ -22,16 +22,25 @@ $(document).ready(function () {
             activeState: false
         },
 
+        beforeMount: function () {
+            $('#loader').show();
+        },
+
         mounted: function () {
             this.paramValues = getParameter(location.href);
-            //console.log(this.paramValues);
             if (this.paramValues != undefined && this.paramValues[0] != undefined) {
                 this.searchReferalByCode(this.paramValues[0])
             }
             this.viewReferralObj.loginId = document.getElementById('logId').innerHTML; // hide in layout.html
             this.viewReferralObj.userRole = document.getElementById('uRole').innerHTML;// hide in layout.html
             this.viewReferralObj.loginUserFlag = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
-            this.getUserReferral(this.viewReferralObj.referralType);
+            this.viewReferralObj.loginFlg = document.getElementById('loginUserFlag').innerHTML;// hide in layout.html
+            //CALL FETCH METHOD ONLY FOR LOGGED USER
+            if(this.viewReferralObj.loginFlg=='true')
+            {
+                this.getUserReferral(this.viewReferralObj.referralType);
+            }
+            $('#loader').hide();
         },
 
         methods: {
@@ -57,6 +66,7 @@ $(document).ready(function () {
 
 
             getUserReferral: function (referralType) {
+                console.log("erer")
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/getUserReferral/" + referralType,
@@ -64,8 +74,9 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                        $('#loader').hide();
                         let setObj = {};
-                        console.log(data)
+                        //console.log(data)
                         _self.displayReferrals = data;
                         _self.viewReferralArray = [];
                         _self.referralDateArray = [];
@@ -100,7 +111,11 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        console.log(error)
+                        if (error) {
+                            $('#loader').hide();
+                            //console.log(error)
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
                 });
             },
@@ -120,7 +135,7 @@ $(document).ready(function () {
             },
             contineReferral: function (refObj) {
 
-                console.log(refObj);
+                //console.log(refObj);
                 $.ajax({
                     url: API_URI + "/continueIncompleteReferral/" + refObj.uuid + "/" + this.viewReferralObj.userRole + "/" + refObj.referral_progress,
                     type: 'get',
@@ -143,7 +158,10 @@ $(document).ready(function () {
                         }
                     },
                     error: function (error) {
-                        console.log(error)
+                        if (error) {
+                            //console.log(error)
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
                 });
             },
@@ -166,7 +184,7 @@ $(document).ready(function () {
 
             getReferalByCode: function (e) {
                 var _self = this;
-                console.log(e.target.value)
+               // console.log(e.target.value)
                 var searchKey = e.target.value
                 if (searchKey.length > 0) {
                     $.ajax({
@@ -179,7 +197,10 @@ $(document).ready(function () {
                             console.log(data)
                         },
                         error: function (error) {
-                            console.log(error)
+                            if (error) {
+                                console.log(error)
+                                showError(error.responseJSON.message, error.status);
+                            }
                         }
                     });
                 }
@@ -188,19 +209,24 @@ $(document).ready(function () {
 
             searchReferalByCode: function (searchCode) {
                 var _self = this;
-                console.log(searchCode)
+               // console.log(searchCode)
                 $.ajax({
                     url: API_URI + "/searchReferalByCode/" + searchCode,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                        $('#loader').hide();
                         _self.searchReferrals = data;
                         _self.viewReferralObj.searchTxt = searchCode;
-                        console.log(data)
+                     //   console.log(data)
                     },
                     error: function (error) {
-                        console.log(error)
+                        if (error) {
+                          //  console.log(error);
+                            $('#loader').hide();
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
                 });
             },

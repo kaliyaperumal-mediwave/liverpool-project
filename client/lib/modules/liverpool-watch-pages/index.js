@@ -23,22 +23,22 @@ module.exports = {
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function (req, callback) {
       require('../../middleware')(self, options);
-      req.data.piecesArray = _.map(req.data.pieces, (item) => {
+      req.data.piecesArray = _.map(req.session.watchArray, (item) => {
         item.custom_url = "/watch?piece_id=" + item._id
         return item;
       })
       const pieces = [];
-        for (let index = 0; index < req.data.pieces.length; index++) {
-          if(req.data.pieces[index].createdAt) {
-            req.data.pieces[index].uploadTime = moment(req.data.pieces[index].createdAt).fromNow();
+        for (let index = 0; index < req.session.watchArray.length; index++) {
+          if(req.session.watchArray[index].createdAt) {
+            req.session.watchArray[index].uploadTime = moment(req.session.watchArray[index].createdAt).fromNow();
           } else {
-            req.data.pieces[index].uploadTime = '';
+            req.session.watchArray[index].uploadTime = '';
           }
           if (req.query && req.query.piece_id) {
-            if (req.data.pieces[index]._id == req.query.piece_id) {
-              pieces.splice(0, 0, req.data.pieces[index]);
+            if (req.session.watchArray[index]._id == req.query.piece_id) {
+              pieces.splice(0, 0, req.session.watchArray[index]);
             } else {
-              pieces.push(req.data.pieces[index]);
+              pieces.push(req.session.watchArray[index]);
             }
           }
         }
