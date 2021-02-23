@@ -460,28 +460,32 @@ $(document).ready(function () {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
-                if (serviceForm.name && serviceForm.professional && serviceForm.contact && this.phoneRegex.test(serviceForm.contact)) {
-                    if (serviceForm.mode === 'update') {
-                        this.allAvailableService = this.allAvailableService.map(function (it) {
-                            if (it.mode === 'update' && it.id === serviceForm.id) {
-                                it = JSON.parse(JSON.stringify(serviceForm));
-                                delete it.mode;
-                                return it;
-                            }
-                            else {
-                                delete it.mode;
-                                return it;
-                            }
-                        });
-
+                if (serviceForm.name) {
+                    if (serviceForm.contact && !this.phoneRegex.test(serviceForm.contact)) {
+                        modal.removeAttribute("data-dismiss", "modal");
+                        return;
                     } else {
-                        serviceForm.id = uuidV4();
-                        serviceForm.mode = 'add';
-                        this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
-                    }
-                    this.resetModalValues();
-                    modal.setAttribute("data-dismiss", "modal");
+                        if (serviceForm.mode === 'update') {
+                            this.allAvailableService = this.allAvailableService.map(function (it) {
+                                if (it.mode === 'update' && it.id === serviceForm.id) {
+                                    it = JSON.parse(JSON.stringify(serviceForm));
+                                    delete it.mode;
+                                    return it;
+                                }
+                                else {
+                                    delete it.mode;
+                                    return it;
+                                }
+                            });
 
+                        } else {
+                            serviceForm.id = uuidV4();
+                            serviceForm.mode = 'add';
+                            this.allAvailableService.push(JSON.parse(JSON.stringify(serviceForm)));
+                        }
+                        this.resetModalValues();
+                        modal.setAttribute("data-dismiss", "modal");
+                    }
                 } else {
                     modal.removeAttribute("data-dismiss", "modal");
                     return;

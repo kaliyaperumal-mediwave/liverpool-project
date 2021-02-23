@@ -228,8 +228,7 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
-    30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
   background-size: contain;
 }
 
@@ -266,13 +265,7 @@ a {
 
 .height-50 {
   height: 50px !important;
-  @include xs-screen {
-    height: 45px !important;
-  }
-  @include sm-screen {
-    height: 45px !important;
-  }
-  @include md-screen {
+  @include sm-dec-screen {
     height: 45px !important;
   }
 }
@@ -315,8 +308,7 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
-    fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -427,6 +419,19 @@ a {
       font-size: 20px;
     }
   }
+  h4 {
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    margin-bottom: 0px;
+    @include xs-screen {
+      font-size: 16px;
+    }
+    @include sm-screen {
+      font-size: 16px;
+    }
+    @include md-screen {
+      font-size: 18px;
+    }
+  }
   p {
     margin-bottom: 0px;
     @include set-titleStyles($tertiary-smFont-size, bold, $primary-color);
@@ -516,11 +521,8 @@ a {
 #searchBar {
   .input-group {
     .form-control {
-      // @include set-borderRadius(0px, "topParallel");
       border-top-right-radius: 10px !important;
       border-bottom-right-radius: 10px !important;
-      // border-top-left-radius: 10px !important;
-      // border-bottom-left-radius: 10px !important;
     }
   }
 }
@@ -542,7 +544,7 @@ a {
   }
   .suffix-form-control {
     @include set-borderRadius(0px, "topParallel");
-    border-top-right-radius: 0px !important;
+    border-top-right-radius: 0px;
     border-bottom-right-radius: 0px !important;
     border-top-left-radius: 10px !important;
     border-bottom-left-radius: 10px !important;
@@ -942,7 +944,7 @@ a {
   font-weight: bold;
   font-size: 15px;
   display: flex;
-  padding: 20px 30px;
+  padding: 20px 28px;
   @include sm-dec-screen {
     font-size: 14px;
     padding: 10px 20px !important;
@@ -1047,8 +1049,7 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -1076,8 +1077,7 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -1142,11 +1142,12 @@ a {
   height: 35px;
   width: auto;
 }
-@media (max-width: 768px) {
-  .main-min-height {
-    min-height: 650px !important;
-  }
-}
+
+// .main-min-height {
+//   @include sm-dec-screen {
+//     min-height: 650px !important;
+//   }
+// }
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
   .option-font {
@@ -3013,11 +3014,9 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
-  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color,
-  $admin-btn-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
+  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color in $color-scheme
 {
   @include theme(
     $name,
