@@ -1,6 +1,6 @@
 /* Global Color Variables */
 /* Global Font Variables */
-.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-header-secondary-description, .home-primary-content, .home-primary-content h3, .home-primary-content p, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
+.admin-referral-primary, .admin-inside-text, .btn-quaternary-text, .logout-font, .home-header-primary, .home-header-primary h2, .home-header-primary p, .home-header-secondary, .home-header-secondary-description, .home-primary-content, .home-primary-content h3, .home-primary-content h4, .home-primary-content p, .home-secondary-content, .home-referral-primary, .home-referral-secondary, .referral-inside-text, .auth-font, .auth-link, .urgent-help-text, .footer-content, .footer-content-secondary, .header-title, .authorization-font, .authorization-font h2, .authorization-font p, .secondary-header-title, .content-secondary-header-text, .content-text, .question-header-font, .back-text, .completed-toast-text, .completed-toast-header, .send-font, .sub-header-title, .content-header-text, .hint-text, .support-modal-header-text, .support-modal-link-text, .support-modal-content-text, .link-text, .link-secondary, .btn-txt, .btn-secondary-text, .btn-terirary-text, .btn-modal-text, .question-font, .question-font h2, .question-font p, .review-header-font, .review-header-font h2, .review-header-font p, .option-font, .add-more-hint {
   letter-spacing: 0px;
   opacity: 1; }
 
@@ -1401,6 +1401,20 @@ a {
     @media (min-width: 768px) and (max-width: 991.98px) {
       .home-primary-content h3 {
         font-size: 20px; } }
+  .home-primary-content h4 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #023047;
+    margin-bottom: 0px; }
+    @media (max-width: 575.98px) {
+      .home-primary-content h4 {
+        font-size: 16px; } }
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      .home-primary-content h4 {
+        font-size: 16px; } }
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      .home-primary-content h4 {
+        font-size: 18px; } }
   .home-primary-content p {
     margin-bottom: 0px;
     font-size: 20px;
@@ -1900,7 +1914,7 @@ a {
   font-weight: bold;
   font-size: 15px;
   display: flex;
-  padding: 20px 30px; }
+  padding: 20px 28px; }
   @media (max-width: 768px) {
     .footer-text {
       font-size: 14px;
