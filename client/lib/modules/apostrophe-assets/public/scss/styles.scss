@@ -264,13 +264,7 @@ a {
 
 .height-50 {
   height: 50px !important;
-  @include xs-screen {
-    height: 45px !important;
-  }
-  @include sm-screen {
-    height: 45px !important;
-  }
-  @include md-screen {
+  @include sm-dec-screen {
     height: 45px !important;
   }
 }
@@ -422,6 +416,19 @@ a {
     }
     @include md-screen {
       font-size: 20px;
+    }
+  }
+  h4 {
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    margin-bottom: 0px;
+    @include xs-screen {
+      font-size: 16px;
+    }
+    @include sm-screen {
+      font-size: 16px;
+    }
+    @include md-screen {
+      font-size: 18px;
     }
   }
   p {
@@ -939,7 +946,7 @@ a {
   font-weight: bold;
   font-size: 15px;
   display: flex;
-  padding: 20px 30px;
+  padding: 20px 28px;
   @include sm-dec-screen {
     font-size: 14px;
     padding: 10px 20px !important;
@@ -1137,11 +1144,12 @@ a {
   height: 35px;
   width: auto;
 }
-@media (max-width: 768px) {
-  .main-min-height {
-    min-height: 650px !important;
-  }
-}
+
+// .main-min-height {
+//   @include sm-dec-screen {
+//     min-height: 650px !important;
+//   }
+// }
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
   .option-font {
