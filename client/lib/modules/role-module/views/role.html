@@ -642,16 +642,16 @@
                 <div v-show="elgibilityObj.role === 'professional'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="fullName" class="question-font">Your full name</label>
-
+                        <label for="firstName" class="question-font">Your first name</label>
                         {% raw %}
-                        <input type="text" v-model="elgibilityObj.profName"
-                            @input="onVaueChange($event,'fullName','elgibilityObj','profName')"
-                            placeholder="Enter your full name" class="form-control input-bg-form-control" id="fullName">
+                        <input type="text" v-model="elgibilityObj.profFirstName"
+                            @input="onVaueChange($event,'firstName','elgibilityObj','profFirstName')"
+                            placeholder="Enter your first name" class="form-control input-bg-form-control"
+                            id="fullFirstName">
 
                         <div class="text-validation invalid-feedback  d-none"
-                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profName),'invalid-fields':!elgibilityObj.profName }">
-                            Please provide a name.
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profFirstName),'invalid-fields':!elgibilityObj.profFirstName }">
+                            Please provide a first name.
                         </div>
                         {% endraw %}
                     </div>
@@ -696,10 +696,11 @@
                         {% raw %}
                         <input type="text" v-model="elgibilityObj.profAddress"
                             @input="onVaueChange($event,'yourAddress','elgibilityObj','profAddress')"
-                            placeholder="Enter your address" class="form-control input-bg-form-control" id="txtProfessionalAddress">
+                            placeholder="Enter your address" class="form-control input-bg-form-control"
+                            id="txtProfessionalAddress">
 
                         <div class="text-validation invalid-feedback  d-none"
-                        v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profAddress),'invalid-fields':!elgibilityObj.profAddress }">
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profAddress),'invalid-fields':!elgibilityObj.profAddress }">
                             Please provide your address.
                         </div>
                         {% endraw %}
@@ -710,10 +711,11 @@
                         {% raw %}
                         <input type="text" v-model="elgibilityObj.profProfession"
                             @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
-                            placeholder="Enter your profession" class="form-control input-bg-form-control" id="txtProfessionalProfession">
+                            placeholder="Enter your profession" class="form-control input-bg-form-control"
+                            id="txtProfessionalProfession">
 
                         <div class="text-validation invalid-feedback  d-none"
-                        v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
+                            v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
                             Please provide your provision.
                         </div>
                         {% endraw %}
@@ -893,7 +895,7 @@
                 </div>
             </form>
             {% endraw %}
-    
+
             <!-- GP Location start -->
             {% raw %}
             <form id="parentConcernInformation-form4" data-options="parentConcernInformation">
@@ -938,7 +940,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
-                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && (elgibilityObj.profName && elgibilityObj.profContactNumber) &&  getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
+                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && (elgibilityObj.profFirstName && elgibilityObj.profContactNumber) &&  getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -969,7 +971,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -995,7 +997,7 @@
             </form>
             {% endraw %}
             <template
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession) && elgibilityObj.profChildDob!=null">
+                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession) && elgibilityObj.profChildDob!=null">
                 <div class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">

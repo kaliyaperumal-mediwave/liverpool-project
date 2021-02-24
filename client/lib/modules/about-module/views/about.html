@@ -52,13 +52,13 @@
                     </div>
                     <!-- child NHS Number End-->
 
-                    <!-- child Full name Start-->
+                    <!-- child first name Start-->
                     <div class="form-group py-2 my-2">
-                        <label for="childFullName" class="question-font">{{sec2dynamicLabel.fullNameLabel}}</label>
+                        <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
-                            <input type="text" class="form-control input-bg-form-control" v-model="aboutObj.childName" id="childFullName"
-                                @input="trimWhiteSpace($event,'aboutObj','childName')"
-                                v-bind:placeholder="sec2dynamicLabel.fullNamePlacLabel">
+                            <input type="text" class="form-control input-bg-form-control" v-model="aboutObj.childFirstName" id="childFirstName"
+                                @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
+                                v-bind:placeholder="sec2dynamicLabel.firstNamePlacLabel">
                             <div class="input-group-append">
                                 <span class="input-group-text font-23">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- child Full name End-->
+                    <!-- child first name End-->
 
                     <!-- child email Start-->
                     <div class="form-group py-2 my-2">
@@ -420,13 +420,13 @@
                     {{sec2dynamicLabel.carerLabel}}</h2>
                 <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group my-2">
-                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourNameLabel}}</label>
+                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourFirstNameLabel}}</label>
                         <input type="text" class="form-control input-bg-form-control" id="carer"
-                            @input="trimWhiteSpace($event,'aboutObj','parentName')"
-                            v-bind:placeholder="sec2dynamicLabel.yourNamePlacLabel" v-model="aboutObj.parentName">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentName),
-                            'invalid-fields':!aboutObj.parentName }">
-                            You must provide an name.
+                            @input="trimWhiteSpace($event,'aboutObj','parentFirstName')"
+                            v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel" v-model="aboutObj.parentFirstName">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentFirstName),
+                            'invalid-fields':!aboutObj.parentFirstName }">
+                            You must provide a first name.
                         </div>
                     </div>
                 </div>
@@ -475,18 +475,18 @@
                 <!-- Parental Responsibility Toaster container end -->
 
                 <!-- Parent or Carer Name Start -->
-                <form id="parentOrCarer-form" data-options="parentCarerName">
+                <form id="parentOrCarer-form" data-options="parentCarerFirstName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
-                                class="question-font">{{sec2dynamicLabel.parentOrCarerNameLabel}}</label>
+                                class="question-font">{{sec2dynamicLabel.parentOrCarerFirstNameLabel}}</label>
                             <input type="text" class="form-control input-bg-form-control" id="contactNumber"
-                                @input="trimWhiteSpace($event,'aboutFormData','parentCarerName')"
-                                placeholder="Enter your parent / carer’s name" v-model="aboutFormData.parentCarerName">
+                                @input="trimWhiteSpace($event,'aboutFormData','parentCarerFirstName')"
+                                placeholder="Enter your parent / carer’s name" v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel" v-model="aboutFormData.parentCarerFirstName">
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerName),
-                                'invalid-fields':(!aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no') }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerFirstName),
+                                'invalid-fields':(!aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no') }">
                                 You must provide an name.
                             </div>
                         </div>

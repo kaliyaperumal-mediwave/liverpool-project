@@ -21,13 +21,13 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
 
-    child_name: {
+    child_firstname: {
       type: types.TEXT
     },
-    parent_name: {
+    parent_firstname: {
       type: types.TEXT
     },
-    professional_name: {
+    professional_firstname: {
       type: types.TEXT
     },
     need_interpreter: {
@@ -93,15 +93,11 @@ module.exports = function modelUser(sequelize, types) {
     child_care_adult: {
       type: types.TEXT
     },
-    parent_name: {
-      type: types.TEXT
-    },
-
     parential_responsibility: {
       type: types.TEXT
     },
 
-    responsibility_parent_name: {
+    responsibility_parent_firstname: {
       type: types.TEXT
     },
 
@@ -179,6 +175,18 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     professional_profession:{
+      type: types.TEXT
+    },
+    child_lastname: {
+      type: types.TEXT
+    },
+    parent_lastname: {
+      type: types.TEXT
+    },
+    professional_lastname: {
+      type: types.TEXT
+    },
+    responsibility_parent_lastname: {
       type: types.TEXT
     },
   }, {

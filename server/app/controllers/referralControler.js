@@ -240,7 +240,7 @@ exports.eligibility = ctx => {
                 { id: childId }
             }).then((childUserInfo) => {
               return user.update({
-                professional_name: ctx.request.body.profName,
+                professional_firstname: ctx.request.body.profFirstName,
                 professional_email: ctx.request.body.profEmail,
                 professional_contact_number: ctx.request.body.profContactNumber,
                 professional_address:ctx.request.body.profAddress,
@@ -272,7 +272,7 @@ exports.eligibility = ctx => {
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
-            professional_name: ctx.request.body.profName,
+            professional_firstname: ctx.request.body.profFirstName,
             professional_email: ctx.request.body.profEmail,
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_address:ctx.request.body.profAddress,
@@ -315,7 +315,7 @@ exports.eligibility = ctx => {
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
-            professional_name: ctx.request.body.profName,
+            professional_firstname: ctx.request.body.profFirstName,
             professional_email: ctx.request.body.profEmail,
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_address:ctx.request.body.profAddress,
@@ -339,13 +339,16 @@ exports.eligibility = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
+              //console.log(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
   
           }).catch((error) => {
+           // console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {
+          console.log(error);
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }

@@ -33,7 +33,7 @@ $(document).ready(function () {
                 contactProfParent: '',
                 regProfGpTxt: '',
                 profEmail: '',
-                profName: '',
+                profFirstName: '',
                 profContactNumber: '',
                 profAddress:'',
                 profProfession:'',
@@ -187,7 +187,7 @@ $(document).ready(function () {
                 }
                 else if (roleType == "professional") {
                     Vue.set(this.elgibilityObj, "role", roleType);
-                    Vue.set(this.elgibilityObj, "profName", data[0].professional_name);
+                    Vue.set(this.elgibilityObj, "profFirstName", data[0].professional_firstname);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
@@ -210,7 +210,7 @@ $(document).ready(function () {
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role") {
                     this.resetValues(event.target.form);
-                    this.elgibilityObj.profName = "";
+                    this.elgibilityObj.profFirstName = "";
                     this.elgibilityObj.profEmail = "";
                     this.elgibilityObj.profContactNumber = "";
                     this.elgibilityObj.profChildDob = "";
@@ -818,8 +818,8 @@ $(document).ready(function () {
                 console.log(this.elgibilityObj);
                 if (role === 'professional') {
                     this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profName && this.elgibilityObj.profContactNumber && this.elgibilityObj.profAddress && this.elgibilityObj.profProfession ) {
-                        if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber) ) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.profContactNumber && this.elgibilityObj.profAddress && this.elgibilityObj.profProfession ) {
+                        if (nameRegex.test(this.elgibilityObj.profFirstName) && phoneRegex.test(this.elgibilityObj.profContactNumber) ) {
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
@@ -835,7 +835,7 @@ $(document).ready(function () {
                             }
                         }
                         else {
-                            if (!nameRegex.test(this.elgibilityObj.profName)) {
+                            if (!nameRegex.test(this.elgibilityObj.profFirstName)) {
                                 this.hasNameInvalidError = true;
                             } else {
                                 this.hasNameInvalidError = false;
@@ -854,7 +854,7 @@ $(document).ready(function () {
                             return false;
                         }
                     } else {
-                        if (!this.elgibilityObj.profName) {
+                        if (!this.elgibilityObj.profFirstName) {
                             this.hasNameReqError = true;
                         } else {
                             this.hasNameReqError = false;
