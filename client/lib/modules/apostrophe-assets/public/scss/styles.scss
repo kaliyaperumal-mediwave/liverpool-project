@@ -24,7 +24,7 @@ body {
   input::-ms-reveal {
     display: none;
   }
-  
+
 
   [v-cloak] {
     display: none !important;
@@ -3353,4 +3353,7 @@ div.collapse-container.collapsing {
   @include sm-dec-screen {
     padding-left: 18px;
   }
+}
+.color-yellow{
+  background: #FFB703 !important;
 }
