@@ -33,12 +33,12 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
   </div>
   <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container" id="searchBar">
-      <a href="" class="previous-link"
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3">  <a href="" class="previous-link"
         ><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i
       ></a>
 
       <!-- <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a> -->
-      <div class="resource_text">Real life experiences</div>
+      <div class="resource_text pb-sm-0">Real life experiences</div></div>
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
 
       <div id="filter_content">

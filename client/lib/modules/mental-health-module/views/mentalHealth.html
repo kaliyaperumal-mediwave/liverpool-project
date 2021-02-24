@@ -33,15 +33,18 @@
                 <img src="/modules/my-apostrophe-assets/img/Back.svg" data-toggle="tooltip" data-placement="top"
                     title="Back" class="cursor-pointer py-1" alt="">
             </a> -->
-      <a href="{{ data.logoPath }}" class="previous-link"
+
+    <!-- <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"> -->
+       <a href="{{ data.logoPath }}" class="previous-link"
         ><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i
       ></a>
 
-      <h2 class="home-header-primary m-0 py-2">About mental health services</h2>
+      <h2 class="home-header-primary m-0  pb-0">About mental health services</h2>
+      <!-- </div> -->
     </div>
   </div>
 
-  <div class="my-md-3 my-lg-4 my-xl-4 my-4">
+  <div class="">
     <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
       <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
         <input hidden id="resources" value="{{data.piecesArray|dump}}" />
