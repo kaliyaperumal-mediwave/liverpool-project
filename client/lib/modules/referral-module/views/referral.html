@@ -433,7 +433,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="profAtService" class="question-font">Name of professional at
-                                            service</label>
+                                            service - <b>optional</b></label>
                                         <input type="text" v-model="serviceData.professional"
                                             class="form-control input-bg-form-control"
                                             @input="trimWhiteSpace($event,'serviceData','professional')"
@@ -446,7 +446,7 @@
                                     <div class="form-group">
                                         <label for="contactNumber" class="question-font">Contact
                                             number for
-                                            professional</label>
+                                            professional - <b>optional</b></label>
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="serviceData.contact"
                                             @input="trimWhiteSpace($event,'serviceData','contact')" id="contactNumber"
