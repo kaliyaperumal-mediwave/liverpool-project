@@ -287,7 +287,7 @@
                 </h2>
 
                 <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    <label for="employment" class="question-font">Add your household members</label>
+                    <label class="question-font"> {{sec2dynamicLabel.houseHoldAddMemberLabel}}</label>
                     <template v-if="checkArrayLength(allHouseHoldMembers)">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body text-capitalize bg-set-on-card">
@@ -334,7 +334,7 @@
                                     delete this member?</h5>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal" autofocus>
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
                                     <span class="btn-modal-text">No
                                     </span>
                                 </button>
