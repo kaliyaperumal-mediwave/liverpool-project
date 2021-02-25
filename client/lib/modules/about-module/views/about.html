@@ -42,8 +42,8 @@
                     <!-- child NHS Number Start-->
                     <div class="form-group py-2 my-2">
                         <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
-                        <input type="text" class="form-control input-bg-form-control" id="nhs" v-model="aboutObj.nhsNumber"
-                            @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"
+                        <input type="text" class="form-control input-bg-form-control" id="nhs"
+                            v-model="aboutObj.nhsNumber" @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"
                             v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)),
                             'invalid-fields':(aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) }">
@@ -56,7 +56,8 @@
                     <div class="form-group py-2 my-2">
                         <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
-                            <input type="text" class="form-control input-bg-form-control" v-model="aboutObj.childFirstName" id="childFirstName"
+                            <input type="text" class="form-control input-bg-form-control"
+                                v-model="aboutObj.childFirstName" id="childFirstName"
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
                                 v-bind:placeholder="sec2dynamicLabel.firstNamePlacLabel">
                             <div class="input-group-append">
@@ -124,7 +125,8 @@
                         <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
                                 {{sec2dynamicLabel.addressLabel}}</label></div>
                         <div class="input-group">
-                            <input type="search" class="form-control input-bg-form-control" placeholder="Start typing to search"
+                            <input type="search" class="form-control input-bg-form-control"
+                                placeholder="Start typing to search"
                                 @input="trimWhiteSpace($event,'aboutObj','childAddress')" id="txtChildAddress"
                                 aria-label="location" v-model="aboutObj.childAddress">
                             <div class="input-group-append">
@@ -169,8 +171,8 @@
                 <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
                         <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}}</label>
-                        <input type="text" class="form-control input-bg-form-control" id="genderChoose" v-model="aboutObj.childGender"
-                            @input="trimWhiteSpace($event,'aboutObj','childGender')"
+                        <input type="text" class="form-control input-bg-form-control" id="genderChoose"
+                            v-model="aboutObj.childGender" @input="trimWhiteSpace($event,'aboutObj','childGender')"
                             v-bind:placeholder="sec2dynamicLabel.genderPlacLabel">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childGender),
                             'invalid-fields':!aboutObj.childGender }">
@@ -402,7 +404,8 @@
                                     are carers</h3>
                                 <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
                                     <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
-                                        <a href="https://www.barnardos.org.uk/what-we-do/services/action-young-carers-liverpool" target="_blank">
+                                        <a href="https://www.barnardos.org.uk/what-we-do/services/action-young-carers-liverpool"
+                                            target="_blank">
                                             > Link
                                             to
                                             support and advice
@@ -423,7 +426,8 @@
                         <label for="carer" class="question-font"> {{sec2dynamicLabel.yourFirstNameLabel}}</label>
                         <input type="text" class="form-control input-bg-form-control" id="carer"
                             @input="trimWhiteSpace($event,'aboutObj','parentFirstName')"
-                            v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel" v-model="aboutObj.parentFirstName">
+                            v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel"
+                            v-model="aboutObj.parentFirstName">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentFirstName),
                             'invalid-fields':!aboutObj.parentFirstName }">
                             You must provide a first name.
@@ -483,7 +487,9 @@
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerFirstNameLabel}}</label>
                             <input type="text" class="form-control input-bg-form-control" id="contactNumber"
                                 @input="trimWhiteSpace($event,'aboutFormData','parentCarerFirstName')"
-                                placeholder="Enter your parent / carer’s name" v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel" v-model="aboutFormData.parentCarerFirstName">
+                                placeholder="Enter your parent / carer’s name"
+                                v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel"
+                                v-model="aboutFormData.parentCarerFirstName">
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerFirstName),
                                 'invalid-fields':(!aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no') }">
@@ -502,7 +508,8 @@
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="relationshipYou"
                                     class="question-font">{{sec2dynamicLabel.relationShipLabel}}</label>
-                                <input type="text" class="form-control input-bg-form-control" id="relationshipYou" name="relationShip"
+                                <input type="text" class="form-control input-bg-form-control" id="relationshipYou"
+                                    name="relationShip"
                                     @input="trimWhiteSpace($event,'aboutFormData','relationshipToYou')"
                                     placeholder="eg mother, grandfather, foster parent etc"
                                     v-model="aboutFormData.relationshipToYou">
@@ -522,7 +529,8 @@
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="ParentOrCarcontactNumber"
                                     class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
-                                <input type="text" class="form-control input-bg-form-control" id="ParentOrCarcontactNumber"
+                                <input type="text" class="form-control input-bg-form-control"
+                                    id="ParentOrCarcontactNumber"
                                     @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
                                     v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
                                     v-model="aboutFormData.contactNumber">
@@ -618,28 +626,35 @@
                             </label>
                             <div class="input-group">
                                 <span class="plain-select">
-                                    <select class="custom-select form-control input-bg-form-control" v-model="aboutFormData.legalCareStatus"
-                                        name="legalCare">
-                                        <option class='option-text' value="" disabled selected>{{sec2dynamicLabel.legalCarePlacLabel}}
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="aboutFormData.legalCareStatus" name="legalCare">
+                                        <option class='option-text' value="" disabled selected>
+                                            {{sec2dynamicLabel.legalCarePlacLabel}}
                                         </option>
                                         <option class='option-text' value="Care of Parent">Care of Parent
                                         </option>
-                                        <option class='option-text' value="Care of Local Authority (Liverpool)">Care of Local Authority
+                                        <option class='option-text' value="Care of Local Authority (Liverpool)">Care of
+                                            Local Authority
                                             (Liverpool)
                                         </option>
-                                        <option class='option-text' value="Care of Local Authority (Sefton)">Care of Local Authority
+                                        <option class='option-text' value="Care of Local Authority (Sefton)">Care of
+                                            Local Authority
                                             (Sefton)
                                         </option>
-                                        <option class='option-text' value="Care of Local Authority (Other)">Care of Local Authority (Other)
+                                        <option class='option-text' value="Care of Local Authority (Other)">Care of
+                                            Local Authority (Other)
                                         </option>
                                         <option class='option-text' value="Section 20 Voluntary">Section 20 Voluntary
                                         </option>
                                         <option class='option-text' value="Accommodated">Accommodated
                                         </option>
                                         <option class='option-text' value="Full Care Order">Full Care Order</option>
-                                        <option class='option-text' value="Interim Care Order">Interim Care Order</option>
-                                        <option class='option-text' value="Care Order places at home">Care Order places at home</option>
-                                        <option class='option-text' value="Child Protection Plan">Child Protection Plan</option>
+                                        <option class='option-text' value="Interim Care Order">Interim Care Order
+                                        </option>
+                                        <option class='option-text' value="Care Order places at home">Care Order places
+                                            at home</option>
+                                        <option class='option-text' value="Child Protection Plan">Child Protection Plan
+                                        </option>
                                         <option class='option-text' value="Other Carer">Other Carer</option>
                                     </select>
                                 </span>
@@ -664,14 +679,14 @@
 
                                     <template
                                         v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentFirstName &&
-                                !aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
+                                aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
                                 aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
                                         v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName &&
-                                    aboutFormData.parentialResponsibility && aboutObj.childGender &&
+                                    aboutFormData.parentialResponsibility == 'yes' && aboutObj.childGender &&
                                     aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
@@ -695,8 +710,9 @@
                                         education / employment & support needs</p>
                                 </template>
 
-                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentFirstName &&
-                        !aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
+                                <template
+                                    v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentFirstName &&
+                        aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
                         aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
                                         move on to
@@ -705,7 +721,7 @@
 
                                 <template
                                     v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName &&
-                            aboutFormData.parentialResponsibility && aboutObj.childGender &&
+                            aboutFormData.parentialResponsibility == 'yes'  && aboutObj.childGender &&
                             aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
                                         move on to
@@ -714,7 +730,7 @@
 
                                 <template
                                     v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentFirstName ||
-                        !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
+                                    (!aboutFormData.parentialResponsibility) || (aboutFormData.parentialResponsibility == 'no' && aboutFormData.parentCarerFirstName == '') || (aboutFormData.parentialResponsibility == 'no' && !aboutFormData.parentCarerFirstName) ||!aboutObj.childGender ||
                         !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childFirstName">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
@@ -760,7 +776,8 @@
                                 <!-- Household name start -->
                                 <div class="form-group">
                                     <label for="houseHoldName" inputmode="text" class="question-font">Name</label>
-                                    <input type="text" class="form-control input-bg-form-control" v-model="houseHoldData.name"
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        v-model="houseHoldData.name"
                                         @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
                                         placeholder="Enter name">
                                     <div class="invalid-feedback d-none"
@@ -803,7 +820,8 @@
                                     <label for="educLocation" inputmode="search"
                                         class="question-font">School/College/Employment-<b>optional</b></label>
                                     <div class="input-group">
-                                        <input type="search" class="form-control input-bg-form-control" placeholder="Start typing to search"
+                                        <input type="search" class="form-control input-bg-form-control"
+                                            placeholder="Start typing to search"
                                             @input="trimWhiteSpace($event,'houseHoldData','profession')"
                                             id="educLocation" v-model="houseHoldData.profession">
                                         <div class="input-group-append">

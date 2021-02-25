@@ -766,7 +766,7 @@ $(document).ready(function () {
                     var phoneRegex = /^[0-9,-]{10,15}$|^$/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                     var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
-                    if (type === 'fullName') {
+                    if (type === 'firstName') {
                         if (e.target.value.length === 0) {
                             this.hasNameReqError = true;
                         } else {
@@ -805,6 +805,19 @@ $(document).ready(function () {
                         }
 
                     }
+                    else if (type === 'lastName') {
+                        if (e.target.value.length === 0) {
+                            this.hasNameReqError = true;
+                        } else {
+                            if (!nameRegex.test(e.target.value)) {
+                                this.hasNameInvalidError = true;
+                            } else {
+                                this.hasNameInvalidError = false;
+                            }
+                            this.hasNameReqError = false;
+                        }
+
+                    } 
                 }
             },
 
