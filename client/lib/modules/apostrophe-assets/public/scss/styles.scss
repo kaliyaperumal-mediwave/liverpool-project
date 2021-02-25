@@ -3361,9 +3361,15 @@ div.collapse-container.collapsing {
 .p-0-res-10 {
   padding-left: 0px;
   @include sm-dec-screen {
-    padding-left: 18px;
+    padding-left: 5px;
   }
 }
 .color-yellow{
   background: #FFB703 !important;
+}
+.mlr-sm-5{
+  @include sm-dec-screen{
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }
