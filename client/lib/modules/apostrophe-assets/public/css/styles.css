@@ -4332,11 +4332,16 @@ body .ui-widget .ui-menu-item {
   word-break: break-all; }
 
 .ellipse-text-large-card {
-  display: block;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
   overflow: hidden;
-  min-height: 3.6em; }
+  display: -webkit-box;
+  text-align: left;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  height: 42px;
+  color: #11214B;
+  opacity: 1;
+  margin-bottom: 0px;
+  padding-bottom: 0; }
 
 .read-cont-h1 p:hover {
   text-decoration: none !important; }
