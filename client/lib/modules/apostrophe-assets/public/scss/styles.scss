@@ -24,7 +24,7 @@ body {
   input::-ms-reveal {
     display: none;
   }
-  
+
 
   [v-cloak] {
     display: none !important;
@@ -3209,7 +3209,7 @@ $color-scheme: (
 }
 .apos-header-para-font p {
   word-break: break-word;
-  font-size: 16px !important;
+  font-size: 16px ;
 }
 .apos-header-para-font ul li {
   font-size: 16px !important;
@@ -3225,11 +3225,21 @@ $color-scheme: (
   word-break: break-all;
 }
 .ellipse-text-large-card {
-  display: block;
-  text-overflow: ellipsis;
-  word-wrap: break-word;
   overflow: hidden;
-  min-height: 3.6em;
+    display: -webkit-box;
+    text-align: left;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    height: 42px;
+    color: #11214B;
+    opacity: 1;
+    margin-bottom: 0px;
+    padding-bottom: 0;
+  // display: block;
+  // text-overflow: ellipsis;
+  // word-wrap: break-word;
+  // overflow: hidden;
+  // min-height: 3.6em;
 }
 .read-cont-h1 p:hover {
   text-decoration: none !important;
@@ -3351,6 +3361,15 @@ div.collapse-container.collapsing {
 .p-0-res-10 {
   padding-left: 0px;
   @include sm-dec-screen {
-    padding-left: 18px;
+    padding-left: 5px;
+  }
+}
+.color-yellow{
+  background: #FFB703 !important;
+}
+.mlr-sm-5{
+  @include sm-dec-screen{
+    margin-left: 10px;
+    margin-right: 10px;
   }
 }
