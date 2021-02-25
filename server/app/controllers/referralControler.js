@@ -479,7 +479,7 @@ exports.about = ctx => {
           var parentid = userResult[0].parent[0].ChildParents.parentId
           return user.update(
             {
-              child_name: ctx.request.body.aboutData.childName,
+              child_firstname: ctx.request.body.aboutData.childFirstName,
               child_NHS: ctx.request.body.aboutData.nhsNumber,
               child_email: ctx.request.body.aboutData.childEmail,
               child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -501,9 +501,9 @@ exports.about = ctx => {
 
             return user.update(
               {
-                parent_name: ctx.request.body.aboutData.parentName,
+                parent_firstname: ctx.request.body.aboutData.parentFirstName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-                responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+                responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
                 child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
                 parent_contact_number: ctx.request.body.aboutData.contactNumber,
                 parent_email: ctx.request.body.aboutData.emailAddress,
@@ -565,7 +565,7 @@ exports.about = ctx => {
 
           return user.update(
             {
-              child_name: ctx.request.body.aboutData.childName,
+              child_firstname: ctx.request.body.aboutData.childFirstName,
               child_NHS: ctx.request.body.aboutData.nhsNumber,
               child_email: ctx.request.body.aboutData.childEmail,
               child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -594,9 +594,9 @@ exports.about = ctx => {
 
               console.log(userResult.id + "====>" + userResult.uuid);
               return user.create({
-                parent_name: ctx.request.body.aboutData.parentName,
+                parent_firstname: ctx.request.body.aboutData.parentFirstName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-                responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+                responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
                 child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
                 parent_contact_number: ctx.request.body.aboutData.contactNumber,
                 parent_email: ctx.request.body.aboutData.emailAddress,
@@ -652,7 +652,7 @@ exports.about = ctx => {
         console.log(ctx.request.body.allHouseHoldMembers)
         return user.update(
           {
-            child_name: ctx.request.body.aboutData.childName,
+            child_firstname: ctx.request.body.aboutData.childFirstName,
             child_NHS: ctx.request.body.aboutData.nhsNumber,
             child_email: ctx.request.body.aboutData.childEmail,
             child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -673,9 +673,9 @@ exports.about = ctx => {
           }
         ).then((updateResult) => {
           return user.update({
-            parent_name: ctx.request.body.aboutData.parentName,
+            parent_firstname: ctx.request.body.aboutData.parentFirstName,
             parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-            responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+            responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
             child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
             parent_contact_number: ctx.request.body.aboutData.contactNumber,
             parent_email: ctx.request.body.aboutData.emailAddress,
@@ -739,7 +739,7 @@ exports.about = ctx => {
           var childId = userResult[0].professional[0].ChildProfessional.professionalId
           return user.update(
             {
-              child_name: ctx.request.body.aboutData.childName,
+              child_firstname: ctx.request.body.aboutData.childFirstName,
               child_NHS: ctx.request.body.aboutData.nhsNumber,
               child_email: ctx.request.body.aboutData.childEmail,
               child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -768,9 +768,9 @@ exports.about = ctx => {
             }).then((result) => {
 
               return user.update({
-                parent_name: ctx.request.body.aboutData.parentName,
+                parent_firstname: ctx.request.body.aboutData.parentFirstName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-                responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+                responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
                 child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
                 parent_contact_number: ctx.request.body.aboutData.contactNumber,
                 parent_email: ctx.request.body.aboutData.emailAddress,
@@ -846,7 +846,7 @@ exports.about = ctx => {
             var parentId = Number(userResult[0].professional[0].ChildProfessional.ReferralId) + 1
             return user.update(
               {
-                child_name: ctx.request.body.aboutData.childName,
+                child_firstname: ctx.request.body.aboutData.childFirstName,
                 child_NHS: ctx.request.body.aboutData.nhsNumber,
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -866,9 +866,9 @@ exports.about = ctx => {
               }
             ).then((updateResult) => {
               return user.update({
-                parent_name: ctx.request.body.aboutData.parentName,
+                parent_firstname: ctx.request.body.aboutData.parentFirstName,
                 parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
-                responsibility_parent_name: ctx.request.body.aboutData.parentCarerName,
+                responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
                 child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
                 parent_contact_number: ctx.request.body.aboutData.contactNumber,
                 parent_email: ctx.request.body.aboutData.emailAddress,
