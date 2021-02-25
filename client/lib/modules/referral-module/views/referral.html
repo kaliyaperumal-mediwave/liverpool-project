@@ -305,8 +305,8 @@
                 <!-- Your History Start-->
                 <form id="history-start-form" data-options="disabilityOrDifficulty">
                     <div v-if="reasonForReferral.length || referralData.otherReasonsReferral" class="pt-2">
-                        <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">Your
-                            history
+                        <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            {{dynamicLabels.historyLabel}}
                         </h2>
                         <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                             <div class="form-group m-0">
@@ -499,7 +499,7 @@
                                     delete this service?</h5>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal" autofocus>
+                                <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
                                     <span class="btn-modal-text">No
                                     </span>
                                 </button>

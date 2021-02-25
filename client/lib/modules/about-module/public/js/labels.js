@@ -4,6 +4,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     headerLabel: "",
     aboutYouLabel: "",
     houseHoldLabel: "",
+    houseHoldAddMemberLabel: "",
     carerLabel: "",
     nhsLabel: "",
     nhsPlaceLabel: "",
@@ -44,9 +45,10 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
   if (currentLocation === "child") {
     section2Labels.headerLabel = "Section 2 of 5: About you & your household";
-    section2Labels.aboutYouLabel = "About You";
+    section2Labels.aboutYouLabel = "About you";
     section2Labels.houseHoldLabel = "Your household";
-    section2Labels.carerLabel = "Your parent / carer";
+    section2Labels.houseHoldAddMemberLabel = "Add your household members";
+    section2Labels.carerLabel = "Your parent/carer details";
     section2Labels.nhsLabel = "Your NHS number";
     section2Labels.nhsPlaceLabel = "Enter your 10 digit NHS number";
     section2Labels.fullNameLabel = "Your full name";
@@ -98,9 +100,10 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
   } else if (currentLocation === "parent") {
     section2Labels.headerLabel =
       "Section 2 of 5: About your child & their household";
-    section2Labels.aboutYouLabel = "About Your Child";
+    section2Labels.aboutYouLabel = "About your child";
     section2Labels.houseHoldLabel = "Your child's household";
-    section2Labels.carerLabel = "Your Details";
+    section2Labels.houseHoldAddMemberLabel = "Add your child's household members";
+    section2Labels.carerLabel = "Your details";
     section2Labels.nhsLabel = "Your child's NHS number";
     section2Labels.nhsPlaceLabel = "Enter your child's 10 digit NHS number";
     section2Labels.fullNameLabel = "Your child's full name";
@@ -167,8 +170,9 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.headerLabel =
       "Section 2 of 5: About the child /young person & their household";
     section2Labels.aboutYouLabel = "About the child/young person";
-    section2Labels.houseHoldLabel = "the child/young person household";
-    section2Labels.carerLabel = "Child/Young Person's Parent Details";
+    section2Labels.houseHoldLabel = "The child/young person's household";
+    section2Labels.houseHoldAddMemberLabel = "Add child/young person's household members";
+    section2Labels.carerLabel = "Child/Young person's parent/carer details";
     section2Labels.nhsLabel = "The child/young person's NHS number";
     section2Labels.nhsPlaceLabel =
       "Enter child/young person's your 10 digit NHS number";
