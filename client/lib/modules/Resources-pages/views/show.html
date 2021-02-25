@@ -149,6 +149,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
     </div>
     <!-- Things to watch container -->
     {% if data.piece._watchPage and data.piece._watchPage.length%}
+    <div class="mlr-sm-5">
     <div class="swiper-container set-space-padding top-slider-cont-max">
       <div class="title-thing-to-watch p-0-res-10">Things to watch</div>
 
@@ -223,11 +224,12 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
         aria-atomic="true"
       ></span>
     </div>
-    <!-- </div> -->
+    </div>
     {% endif %}
     <!-- Things to download container-->
     {% if data .orchaApps and data.orchaApps.length%}
     <!-- check if orcha api return with apps or not. if no apps need to hide the things to download entire section-->
+    <div class="mlr-sm-5">
     <div
       class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal"
     >
@@ -330,10 +332,12 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
         aria-atomic="true"
       ></span>
     </div>
+    </div>
     {% endif %}
 
     <!-- Things to read container -->
     {% if data.piece._readPage and data.piece._readPage.length%}
+    <div class="mlr-sm-5">
 
     <div
       class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal"
@@ -407,11 +411,12 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
         aria-live="assertive"
         aria-atomic="true"
       ></span>
-    </div>
+    </div></div>
     {% endif %}
 
     <!-- Event container -->
     {% if data.piece._eventPage and data.piece._eventPage.length %}
+    <div class="mlr-sm-5">
     <div
       class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal"
     >
@@ -482,11 +487,12 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
         aria-live="assertive"
         aria-atomic="true"
       ></span>
-    </div>
+    </div></div>
     {% endif %}
 
     <!-- Games container -->
     {% if data.piece._gamesPage and data.piece._gamesPage.length%}
+    <div class="mlr-sm-5">
 
     <div
       class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal"
@@ -559,12 +565,13 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
         aria-live="assertive"
         aria-atomic="true"
       ></span>
-    </div>
+    </div></div>
     {% endif %}
 
     <!-- Partner agencies container-->
     {% if data.piece._partnerAgenciesPage and
     data.piece._partnerAgenciesPage.length%}
+    <div class="mlr-sm-5">
 
     <div
       class="swiper-container set-space-padding top-slider-cont-max swiper-container-initialized swiper-container-horizontal"
@@ -642,7 +649,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
       ></span>
     </div>
   </div>
-</div>
+</div></div>
 {% endif %} {% include "../../shared-referal-module/views/searchReferral.html"
 %} {% include "../../shared-referal-module/views/company.html" %}
 

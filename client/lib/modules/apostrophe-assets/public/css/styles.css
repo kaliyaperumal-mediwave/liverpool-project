@@ -4454,7 +4454,12 @@ div.collapse-container.collapsing {
   padding-left: 0px; }
   @media (max-width: 768px) {
     .p-0-res-10 {
-      padding-left: 18px; } }
+      padding-left: 5px; } }
 
 .color-yellow {
   background: #FFB703 !important; }
+
+@media (max-width: 768px) {
+  .mlr-sm-5 {
+    margin-left: 10px;
+    margin-right: 10px; } }
