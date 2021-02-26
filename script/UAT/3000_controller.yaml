@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
-        image: ${RESEARCH_REGISTRY}/phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr:v${BUILD_NUMBER}
+        image: ${RESEARCH_REGISTRY}/$PHR_LIVERPOOL_NAMESPACE-phr:v${BUILD_NUMBER}
         env:
         - name: APP_PORT
           value: '3001'
