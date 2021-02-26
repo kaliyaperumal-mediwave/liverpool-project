@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_LIVERPOOL_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+  namespace: $PHR_LIVERPOOL_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+  template:
+    metadata:
+      labels:
+        app: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+    spec:
+      containers:
+      - name: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+        image: ${RESEARCH_REGISTRY}/phr-${PHR_LIVERPOOL_NAMESPACE}-apostrophe:v${BUILD_NUMBER}
+        env:
+        - name: NODE_ENV
+          value: development
+        - name: PORT
+          value: '80'
+        - name: MONGO_STRING
+          value: $PHR_LIVERPOOL_MONGO_STRING
+        - name: SERVICE_PHR
+          value: https://phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr:3001
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        - name: AZURE_ACCOUNT_NAME
+          value: '$PHR_LIVERPOOL_AZURE_ACCOUNT_NAME'
+        - name: AZURE_BLOB
+          value: '$PHR_LIVERPOOL_AZURE_BLOB'
+        - name: AZURE_DISABLED_FILE_KEY
+          value: '$PHR_LIVERPOOL_AZURE_DISABLED_FILE_KEY'
+        - name: AZURE_DOMAIN_PATH
+          value: '$PHR_LIVERPOOL_AZURE_DOMAIN_PATH'
+        - name: AZURE_STORAGE_ACCESS_KEY
+          value: '$PHR_LIVERPOOL_AZURE_STORAGE_ACCESS_KEY'
+        - name: AZURE_STORAGE_CONNECTION_STRING
+          value: '$PHR_LIVERPOOL_AZURE_STORAGE_CONNECTION_STRING'
+        - name: IMG_UPLOAD_DOMAIN
+          value: '$PHR_LIVERPOOL_IMG_UPLOAD_DOMAIN'
+        ports:
+        - containerPort: 80
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+  namespace: $PHR_LIVERPOOL_NAMESPACE
+spec:
+  selector:
+    app: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+  ports:
+  - port: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+  namespace: $PHR_LIVERPOOL_NAMESPACE
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - $PHR_LIVERPOOL_DOMAIN
+    secretName: tls-secret-prod
+  rules:
+  - host: $PHR_LIVERPOOL_DOMAIN
+    http:
+      paths:
+      - backend:
+          serviceName: apostrophe-${PHR_LIVERPOOL_NAMESPACE}
+          servicePort: 80
+        path: /

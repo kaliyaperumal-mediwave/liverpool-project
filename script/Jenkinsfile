@@ -11,5 +11,22 @@ pipeline {
         acrQuickTask(azureCredentialsId: "$env.AZURE_SP" , local:"server", imageNames: [[image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-phr:v$env.BUILD_NUMBER" ], [image: "$env.PHR_REGISTRY/$env.PHR_LIVERPOOL_NAMESPACE-phr:latest"]], registryName: "$env.AZURE_CONTAINER_REGISTRY", resourceGroupName: "$env.AZURE_RG", timeout: 28800)
       }
     }
+
+    stage('Deployment') {
+      parallel {
+
+        stage('Deploy Apostrophe') {
+          steps {
+           kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'script/staging/80_apostrophe.yaml')
+         }
+       }
+
+        stage('Deploy Phr') {
+          steps {
+            kubernetesDeploy(kubeConfig: [path:"$KUBERNETES_CONFIG"], configs: 'script/staging/3000_controller.yaml')
+          }
+        }
+      }
+    }
   }
 }
