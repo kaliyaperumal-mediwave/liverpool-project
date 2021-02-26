@@ -192,7 +192,7 @@
                                         <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
                                                 <input class="form-control text-capitalize input-bg-form-control" type="text"
-                                                    placeholder="Enter full name" @keypress="preventWhiteSpaces($event)"
+                                                    placeholder="Enter first name" @keypress="preventWhiteSpaces($event)"
                                                     @input="onDetectChange($event,'sect1','section1Data','professional_name')"
                                                     v-model="section1Data.professional_name" id="profNameSec5">
                                                 <div class="input-group-append">
@@ -202,12 +202,37 @@
                                                 </div>
                                                 <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_name),
                                                 'invalid-fields':!section1Data.professional_name }">
-                                                    You must provide first name.
+                                                    You must provide a first name.
                                                 </small>
                                             </div>
 
                                         </div>
                                     </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
+                                            Last name:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control" type="text"
+                                                    placeholder="Enter last name" @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_lastname')"
+                                                    v-model="section1Data.professional_lastname" id="profLastNameSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_lastname),
+                                                'invalid-fields':!section1Data.professional_lastname }">
+                                                    You must provide a last name.
+                                                </small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
@@ -385,7 +410,7 @@
                                         <div class="input-group">
                                             <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_name')"
-                                                placeholder="Enter full name" type="text"
+                                                placeholder="Enter first name" type="text"
                                                 v-model="section2Data.child_name" id="nameSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
@@ -395,11 +420,36 @@
                                         </div>
                                         <small class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_name),'invalid-fields':!section2Data.child_name }">
-                                            You must provide  first name.
+                                            You must provide a first name.
                                         </small>
                                     </div>
                                 </div>
                                 <!-- Full name End -->
+
+                                <!-- last name Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameLastSec5">
+                                        Last name:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <div class="input-group">
+                                            <input class="form-control text-capitalize input-bg-form-control"
+                                                @input="onDetectChange($event,'sect2','section2Data','child_lastname')"
+                                                placeholder="Enter last name" type="text"
+                                                v-model="section2Data.child_lastname" id="nameSec5">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text font-23">
+                                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.child_lastname),'invalid-fields':!section2Data.child_lastname }">
+                                            You must provide a last name.
+                                        </small>
+                                    </div>
+                                </div>
+                                <!-- last name End -->
 
                                 <!-- Email Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
@@ -620,10 +670,25 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control input-bg-form-control" type="text"
                                             @input="onDetectChange($event,'sect2','section2Data','parent_name')"
-                                            placeholder="Enter name" v-model="section2Data.parent_name" id="parCarName">
+                                            placeholder="Enter first name" v-model="section2Data.parent_name" id="parCarName">
                                         <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_name),
                                     'invalid-fields':!section2Data.parent_name}">
                                             You must provide first name.
+                                        </small>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarLastName">
+                                        Parent / Carer's last name:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text"
+                                            @input="onDetectChange($event,'sect2','section2Data','parent_lastname')"
+                                            placeholder="Enter last name" v-model="section2Data.parent_lastname" id="parCarLastName">
+                                        <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection2Submitted && !section2Data.parent_lastname),
+                                    'invalid-fields':!section2Data.parent_lastname}">
+                                            You must provide last name.
                                         </small>
                                     </div>
                                 </div>

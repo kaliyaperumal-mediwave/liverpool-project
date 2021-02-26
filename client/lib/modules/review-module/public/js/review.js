@@ -425,8 +425,8 @@ $(document).ready(function () {
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
-                    if (formData.child_name && formData.child_contact_number &&
-                        formData.child_gender && formData.parent_name && formData.child_parent_relationship && formData.parent_contact_number
+                    if (formData.child_name && formData.child_lastname && formData.child_contact_number &&
+                        formData.child_gender && formData.parent_name  && formData.parent_lastname && formData.child_parent_relationship && formData.parent_contact_number
                         && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
                     ) {
 
@@ -504,7 +504,7 @@ $(document).ready(function () {
                 }
                 else if (endpoint == "/user/updateEligibilityInfo") {
                     this.isSection1Submitted = true;
-                    if (formData.professional_name && formData.professional_contact_number &&
+                    if (formData.professional_name && formData.professional_lastname && formData.professional_contact_number &&
                         this.phoneRegex.test(formData.professional_contact_number) && formData.professional_profession) {
                         if (formData.professional_email && !this.emailRegex.test(formData.professional_email)) {
                             scrollToInvalidInput();

@@ -8,6 +8,7 @@ $(document).ready(function () {
             aboutObj: {
                 nhsNumber: "",
                 childFirstName: "",
+                childLastName:"",
                 childEmail: "",
                 childContactNumber: "",
                 childAddress: "",
@@ -17,11 +18,13 @@ $(document).ready(function () {
                 childSexualOrientation: "",
                 childEthnicity: "",
                 childCareAdult: "",
-                parentFirstName: ""
+                parentFirstName: "",
+                parentLastName:""
             },
             aboutFormData: {
                 parentialResponsibility: "",
                 parentCarerFirstName: "",
+                parentCarerLastName:"",
                 relationshipToYou: "",
                 contactNumber: "",
                 emailAddress: "",
@@ -158,13 +161,14 @@ $(document).ready(function () {
 
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
-                console.log(data)
+                //console.log(data)
                 this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data.child_NHS);
                         Vue.set(this.aboutObj, "childFirstName", data.child_firstname);
+                        Vue.set(this.aboutObj, "childLastName", data.child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data.child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data.child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data.child_address);
@@ -176,10 +180,12 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
                         this.allHouseHoldMembers = data.household_member;
                         Vue.set(this.aboutObj, "parentFirstName", data.parent[0].parent_firstname);
+                        Vue.set(this.aboutObj, "parentLastName", data.parent[0].parent_lastname);
                         Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parential_responsibility);
                         //  ue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parential_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname); 
+                        Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname); 
                         Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
                         Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
@@ -195,6 +201,7 @@ $(document).ready(function () {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
+                        Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
@@ -206,11 +213,13 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
-                        Vue.set(this.aboutObj, "parentContactName", data[0].responsibility_parent_firstname);
+                        Vue.set(this.aboutObj, "parentLastName", data.parent_lastname);
+                        //Vue.set(this.aboutObj, "parentContactName", data[0].responsibility_parent_firstname);
                         this.allHouseHoldMembers = data[0].household_member;
                         Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
+                        Vue.set(this.aboutFormData, "parentCarerLastName", data.responsibility_parent_lastname); 
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
@@ -226,6 +235,7 @@ $(document).ready(function () {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
+                        Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
@@ -242,9 +252,11 @@ $(document).ready(function () {
                             this.allHouseHoldMembers = [];
                         }
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
+                        Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
                         Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
+                        Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname); 
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
@@ -261,12 +273,12 @@ $(document).ready(function () {
                 this.isFormSubmitted = true;
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.contactNumber && formData.relationshipToYou &&
-                    formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName &&
-                    formData.childIdentity && formData.sendPost && formData.childAddress && formData.childFirstName && formData.childContactNumber
+                    formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
+                    formData.childIdentity && formData.sendPost && formData.childAddress && formData.childFirstName && formData.childLastName && formData.childContactNumber
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
 
-                    if ((formData.parentialResponsibility == 'no' && !formData.parentCarerFirstName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                    if ((formData.parentialResponsibility == 'no' && !formData.parentCarerFirstName && !formData.parentCarerLastName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
                         || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
                         || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
                         scrollToInvalidInput();

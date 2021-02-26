@@ -34,6 +34,7 @@ $(document).ready(function () {
                 regProfGpTxt: '',
                 profEmail: '',
                 profFirstName: '',
+                proflastName:'',
                 profContactNumber: '',
                 profAddress:'',
                 profProfession:'',
@@ -110,7 +111,7 @@ $(document).ready(function () {
                 }
             }
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
-            console.log(this.elgibilityObj.uuid)
+            //console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
             this.initMaps();
             this.paramValues = getParameter(location.href);
@@ -148,18 +149,18 @@ $(document).ready(function () {
                             if (error) {
                                 showError(error.responseJSON.message, error.status);
                             }
-                            //console.log(error.responseJSON.message)
+                            ////console.log(error.responseJSON.message)
                         }
                     });
                 }
             },
             setValues: function (data) {
-                console.log(data)
-                console.log("length " + data.length)
+                //console.log(data)
+                //console.log("length " + data.length)
                 //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-                // console.log(data)
+                // //console.log(data)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -185,9 +186,10 @@ $(document).ready(function () {
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
-                else if (roleType == "professional") {
+                else if (roleType == "professional") { 
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profFirstName", data[0].professional_firstname);
+                    Vue.set(this.elgibilityObj, "proflastName", data[0].professional_lastname);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
@@ -226,7 +228,7 @@ $(document).ready(function () {
                     this.elgibilityObj.contactParent = optionValue;
                 }
                 else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
-                    console.log(event.target.form)
+                    //console.log(event.target.form)
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contact_parent_camhs = optionValue;
                 }
@@ -253,7 +255,7 @@ $(document).ready(function () {
                 var formIndex = allForms.indexOf(currentForm);
                 for (let i = 0; i < allForms.length; i++) {
                     var attributeValue = $(allForms[i]).data('options');
-                    //console.log(attributeValue + ',' + formIndex + ',' + i)
+                    ////console.log(attributeValue + ',' + formIndex + ',' + i)
                     if (formIndex < i) {
                         this.elgibilityObj[attributeValue] = "";
                     }
@@ -310,7 +312,7 @@ $(document).ready(function () {
                                             app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
-                                                // console.log(_self.gpListShow[i].PostCode)
+                                                // //console.log(_self.gpListShow[i].PostCode)
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
                                                 _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                                             }
@@ -328,7 +330,7 @@ $(document).ready(function () {
                                                     source: payload,
                                                     select: function (event, ui) {
                                                         _self.elgibilityObj.regGpTxt = ui.item.value;
-                                                        // console.log(app.elgibilityObj.gpNotCovered)
+                                                        // //console.log(app.elgibilityObj.gpNotCovered)
                                                         app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                         if (!app.elgibilityObj.gpNotCovered) {
                                                             _self.gpFlag = true;
@@ -375,7 +377,7 @@ $(document).ready(function () {
                                         $("#gpLocation").autocomplete({
                                             source: nameData,
                                             select: function (event, ui) {
-                                                //     console.log(app.elgibilityObj.gpNotCovered)
+                                                //     //console.log(app.elgibilityObj.gpNotCovered)
                                                 _self.elgibilityObj.regGpTxt = ui.item.value;
                                                 app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
                                                 if (!app.elgibilityObj.gpNotCovered) {
@@ -437,7 +439,7 @@ $(document).ready(function () {
                 $("#gpLocation").autocomplete({
                     source: data,
                     select: function (event, ui) {
-                        //console.log(ui);
+                        ////console.log(ui);
                     },
                     response: function (event, ui) {
                         if (ui.content.length == 0) {
@@ -463,18 +465,18 @@ $(document).ready(function () {
                             _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
                         }
                         payload = _self.gpListName;
-                        //console.log(payload);
+                        ////console.log(payload);
                         $("#gpLocation").autocomplete({
                             source: payload,
                             select: function (event, ui) {
-                                //console.log(ui);
+                                ////console.log(ui);
                             },
                         });
 
 
                     },
                     error: function (err) {
-                        // //console.log(err)
+                        // ////console.log(err)
                     },
                 })
             },
@@ -549,7 +551,7 @@ $(document).ready(function () {
                                         },
                                         error: function (err) {
 
-                                            console.log(err)
+                                            //console.log(err)
                                             $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                             $('#addOpacity').css('opacity', '1');
                                             app.elgibilityObj.gpErrMsg = "Please enter valid GP address or postcode";
@@ -598,7 +600,7 @@ $(document).ready(function () {
 
                             },
                             error: function (err) {
-                                console.log(err)
+                                //console.log(err)
                                 $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                 $('#addOpacity').css('opacity', '1');
                                 app.elgibilityObj.gpErrMsg = "Please enter valid GP address or postcode";
@@ -623,24 +625,24 @@ $(document).ready(function () {
             },
 
             selectGp: function () {
-                //console.log("erer")
+                ////console.log("erer")
             },
 
             changeDob: function (e, date) {
-                //  //console.log(date);
+                //  ////console.log(date);
                 if (this.patchFlag != true && date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
                     var selectedDate = new Date(this.dateFmt);
                     var age = this.diff_years(today, selectedDate);
-                    // console.log(age)
-                    //console.log(age > 19)
+                    // //console.log(age)
+                    ////console.log(age > 19)
                     var roleText = this.elgibilityObj.role;
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
                     }
 
-                    //   //console.log(age);
+                    //   ////console.log(age);
                     if (roleText == 'child') {
                         if (age < 14) {
                             this.elgibilityObj.belowAgeLimit = "yes";
@@ -662,7 +664,7 @@ $(document).ready(function () {
                             this.elgibilityObj.regGpTxt = "";
                         }
                         else {
-                            //console.log("343")
+                            ////console.log("343")
                             this.elgibilityObj.contactParent = "yes";
                             this.elgibilityObj.belowAgeLimit = "no";
                             this.elgibilityObj.aboveLimit = "no";
@@ -828,11 +830,11 @@ $(document).ready(function () {
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
                 var role = this.elgibilityObj.role;
-                console.log(this.elgibilityObj);
+                //console.log(this.elgibilityObj);
                 if (role === 'professional') {
                     this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.profContactNumber && this.elgibilityObj.profAddress && this.elgibilityObj.profProfession ) {
-                        if (nameRegex.test(this.elgibilityObj.profFirstName) && phoneRegex.test(this.elgibilityObj.profContactNumber) ) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.elgibilityObj.profAddress && this.elgibilityObj.profProfession ) {
+                        if (nameRegex.test(this.elgibilityObj.profFirstName) && nameRegex.test(this.elgibilityObj.proflastName) && phoneRegex.test(this.elgibilityObj.profContactNumber) ) {
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
@@ -901,7 +903,7 @@ $(document).ready(function () {
             },
 
             apiRequest: function (payload, role) {
-                console.log(payload)
+                //console.log(payload)
                 if (role == "professional") {
                     payload.prof_ChildDob = this.dateFmt;
                 }
@@ -926,7 +928,7 @@ $(document).ready(function () {
                             }
                             else {
                                 var url = location.href;
-                                //console.log(url.substring(req.url.indexOf("?") + 1));
+                                ////console.log(url.substring(req.url.indexOf("?") + 1));
                                 location.href = "/about?" + url.substring(url.indexOf("?") + 1);
                             }
                         }
@@ -947,7 +949,7 @@ $(document).ready(function () {
                     error: function (error) {
                         $('#loader').hide();
                         if (error) {
-                            console.log(error.responseJSON.message)
+                            //console.log(error.responseJSON.message)
                             showError(error.responseJSON.message, error.status);
                         }
                     }
@@ -1132,7 +1134,7 @@ $(document).ready(function () {
                 if (postCode) {
                     var index = ((postCode).substring(0, postCode.indexOf(' '))).replace(/\D/g, '');
                     if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
-                        // console.log("getPostCodeDigits L " + postCode);
+                        // //console.log("getPostCodeDigits L " + postCode);
                         isRange = false
                     }
                     else if (postCode.substring(0, 2) == "PR" && (index == 8 || index == 9)) {

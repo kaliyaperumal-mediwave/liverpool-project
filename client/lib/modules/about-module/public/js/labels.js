@@ -1,10 +1,10 @@
 function getDynamicLabels(currentLocation, responsibilityFlow) {
     // var currentLocation = getQueryStringValue("role");
     var section2Labels = {
-        headerLabel: "", aboutYouLabel: "", houseHoldLabel: "", carerLabel: "", nhsLabel: "", nhsPlaceLabel: "", firstNameLabel: "", firstNamePlacLabel: "",
+        headerLabel: "", aboutYouLabel: "", houseHoldLabel: "", carerLabel: "", nhsLabel: "", nhsPlaceLabel: "", firstNameLabel: "", firstNamePlacLabel: "", lastNameLabel: "", lastNamePlacLabel: "",
         referralPlaceHolder: "", emailLabel: "", emailPlacLabel: "", contactLabel: "", contactPlacLabel: "", addressLabel: "", postLabel: "", genderLabel: "",
         genderPlacLabel: "", identityLabel: "", sexOrientLabel: "", sexOrientPlacLabel: "", ethincityLabel: "", ethincityPlaceLabel: "", careAdultLabel: "",
-        listServiceLabel: "", yourFirstNameLabel: "", yourFirstNamePlacLabel: "", parentalResLabel: "", responsibilityToastLabel: "", parentOrCarerFirstNameLabel: "",
+        listServiceLabel: "", yourFirstNameLabel: "", yourFirstNamePlacLabel: "",yourLastNameLabel:"",yourLastNameLabelPlacLabel:"", parentalResLabel: "", responsibilityToastLabel: "", parentOrCarerFirstNameLabel: "", parentOrCarerLastNameLabel: "",
         relationShipLabel: "", guardContactLabel: "", guardContactPlacLabel: "", guardEmailLabel: "", guardEmailPlacLabel: "", sameHouseLabel: "",
         guardAddress: "", guardPlacAddress: "", legalCareLabel: "", legalCarePlacLabel: ""
     }
@@ -18,7 +18,9 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.nhsLabel = "Your NHS number";
         section2Labels.nhsPlaceLabel = "Enter your 10 digit NHS number";
         section2Labels.firstNameLabel = "Your first name";
-        section2Labels.firstNamePlacLabel = "Enter your first and last name";
+        section2Labels.firstNamePlacLabel = "Enter your first name";
+        section2Labels.lastNameLabel = "Your last name";
+        section2Labels.lastNamePlacLabel = "Enter your last name";
         section2Labels.emailLabel = "Your email address";
         section2Labels.emailPlacLabel = "Enter your email address";
         section2Labels.contactLabel = "Your contact number";
@@ -35,9 +37,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.careAdultLabel = "Do you care for an adult?";
         section2Labels.yourFirstNameLabel = "What is your parent / carer’s first name?";
         section2Labels.yourFirstNamePlacLabel = "Enter this person’s first name";
+        section2Labels.yourLastNameLabel = "What is your parent / carer’s last name?";
+        section2Labels.yourLastNameLabelPlacLabel = "Enter this person’s last name";
         section2Labels.parentalResLabel = "Does this person have parental responsibility for you?";
         section2Labels.responsibilityToastLabel = "Please enter the details below for the person who has parental responsibility for you.";
         section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carers first name?";
+        section2Labels.parentOrCarerLastNameLabel = "What is your parent or carers last name?";
 
         if (responsibilityFlow === 'no' || responsibilityFlow === 'yes') {
             section2Labels.relationShipLabel = "What is this persons relationship to you?";
@@ -61,7 +66,9 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.nhsLabel = "Your child's NHS number";
         section2Labels.nhsPlaceLabel = "Enter your child's 10 digit NHS number";
         section2Labels.firstNameLabel = "Your child's full name";
-        section2Labels.firstNamePlacLabel = "Enter child/young person's first and last name";
+        section2Labels.firstNamePlacLabel = "Enter child/young person's first name";
+        section2Labels.lastNameLabel = "Your child's last name";
+        section2Labels.lastNamePlacLabel = "Enter child/young person's last name";
         section2Labels.emailLabel = "Your child's email address";
         section2Labels.emailPlacLabel = "Enter child's your email address";
         section2Labels.contactLabel = "Your child's contact number";
@@ -78,9 +85,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.careAdultLabel = "Does your child care for an adult?";
         section2Labels.yourFirstNameLabel = "What is your first name?";
         section2Labels.yourFirstNamePlacLabel = "Enter your first name";
+        section2Labels.yourLastNameLabel = "What is your last name?";
+        section2Labels.yourLastNameLabelPlacLabel = "Enter your last name";
         section2Labels.parentalResLabel = "Do you have parental responsibility for your child?";
         section2Labels.responsibilityToastLabel = "Please enter the details below for the person who has parental responsibility for your child.";
         section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carers first name?";
+        section2Labels.parentOrCarerLastNameLabel = "What is the parent or carers last name?";
 
         if (responsibilityFlow === 'no') {
             section2Labels.relationShipLabel = "What is their relationship to your child?";
@@ -119,6 +129,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.nhsPlaceLabel = "Enter child/young person's your 10 digit NHS number";
         section2Labels.firstNameLabel = "The child/young person's first name";
         section2Labels.firstNamePlacLabel = "Enter child/young person's first name";
+        section2Labels.lastNameLabel = "Your child/young person's last name";
+        section2Labels.lastNamePlacLabel = "Enter child/young person's last name";
         section2Labels.emailLabel = "The child/young person's email address";
         section2Labels.emailPlacLabel = "Enter child / young person's email address";
         section2Labels.contactLabel = "The child/young person's contact number";
@@ -135,9 +147,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
         section2Labels.careAdultLabel = "Does the child /young person care for an adult?";
         section2Labels.yourFirstNameLabel = "What is the first name of the young person's parent / carer?";
         section2Labels.yourFirstNamePlacLabel = "Enter the person’s first name";
+        section2Labels.yourLastNameLabel = "What is the last name of the young person's parent / carer?";
+        section2Labels.yourLastNameLabelPlacLabel = "Enter the person’s last name";
         section2Labels.parentalResLabel = "Does this person have parental responsibility for the child /young person?";
         section2Labels.responsibilityToastLabel = "Please enter the details below for the person who has parental responsibility for the child /young person.";
         section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carers first name?";
+        section2Labels.parentOrCarerLastNameLabel = "What is the parent or carers last name?";
 
         if (responsibilityFlow === 'no') {
             section2Labels.relationShipLabel = "What is their relationship to the child/young person?";
