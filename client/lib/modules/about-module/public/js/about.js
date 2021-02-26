@@ -48,7 +48,8 @@ $(document).ready(function () {
                 name: '',
                 relationShip: '',
                 dob: '',
-                profession: ''
+                profession: '',
+                lastName:''
             },
             allHouseHoldMembers: [],
             isFormSubmitted: false,
@@ -377,6 +378,7 @@ $(document).ready(function () {
             patchHouseHold: function (houseHold) {
                 var houseHoldForm = this.houseHoldData;
                 houseHoldForm.name = houseHold.name;
+                houseHoldForm.lastName = houseHold.lastName;
                 houseHoldForm.relationShip = houseHold.relationShip;
                 houseHoldForm.dob = houseHold.dob;
                 houseHoldForm.profession = houseHold.profession;
@@ -409,6 +411,7 @@ $(document).ready(function () {
             resetModalValues: function () {
                 this.isHouseHoldFormSubmitted = false;
                 this.houseHoldData.name = '';
+                this.houseHoldData.lastName = '';
                 this.houseHoldData.relationShip = '';
                 this.houseHoldData.dob = '';
                 this.houseHoldData.profession = '';
