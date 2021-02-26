@@ -33,7 +33,7 @@
   </div>
   <div id="aboutPeoplePage">
     <div class="d-flex text-left mt-xl-5 mt-lg-5 mt-md-5 mt-4 my-md-0">
-      <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto">
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto p-0">
         <!-- <a href=" " class="text-decoration-none previous-link">
         <img
           src="/modules/my-apostrophe-assets/img/Back.svg"
@@ -44,18 +44,18 @@
           alt=""
         />
       </a> -->
-        <a href="" class="previous-link"
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 ">  <a href="" class="previous-link"
           ><i
-            class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"
+            class="fal fa-long-arrow-left fa-2x ham-icon "
           ></i
         ></a>
 
-        <h2 class="home-header-primary m-0 py-2">About the people</h2>
+        <h2 class="home-header-primary  pb-sm-0">About the people</h2></div>
       </div>
     </div>
 
-    <div class="mt-md-3 mt-lg-3 mt-xl-3 mb-md-4 mb-4">
-      <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
+    <div class="">
+      <div class="d-flex text-center py-2 my-2 ">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto">
           <input hidden id="resources" value="{{data.piecesArray|dump}}" />
           <div id="filter_content">
@@ -73,7 +73,7 @@
                 class="height-44 home-primarySearch-bg border-0 form-control py-2"
                 type="search"
                 v-model="searchQuery"
-                placeholder="Search your resource"
+                placeholder="Search your person"
                 id="example-search-input"
                 @input="filterPieces()"
               />
@@ -105,7 +105,7 @@
                           alt=""
                         /> -->
                         <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-                        
+
                         <p class="question-font my-0 mx-2 mx-md-4">
                           {{item.title}}
                         </p>

@@ -363,6 +363,7 @@ $(document).ready(function () {
                     type: 'put',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     data: JSON.stringify(updateObj),
                     success: function (data) {
                         alert("Your Reference Number" + data.refNo);

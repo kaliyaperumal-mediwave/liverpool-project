@@ -139,7 +139,7 @@
                 <label for="feedback" class="home-primary-content m-0 py-3 py-md-2">Feel free to leave
                     more
                     feedback below</label>
-                <textarea class="h-300 p-4 form-control my-1 my-md-3" id="feedback" v-model="feedbackData.comments"
+                <textarea class="h-300 p-4 form-control my-1 my-md-3 input-bg-form-control" id="feedback" v-model="feedbackData.comments"
                     @input="preventWhiteSpace($event)" placeholder="You can submit your feedback here"
                     rows="4"></textarea>
                 <!-- placeholder="I would recommend this highly to a friend" -->
@@ -149,7 +149,7 @@
                 </div>
             </div>
             <div class="py-4 text-center">
-                <button type="button" @click="sendFeedback()" id="secondary" class="btn px-md-4 py-1 px-3 mx-auto w-h-sub">
+                <button type="button" @click="sendFeedback()" id="secondary" class="btn px-md-4 py-1 px-3 mx-auto w-h-sub ">
                     <span class="btn-quaternary-text">
                         SUBMIT
                         <!-- {{ apos.area(data.page, 'feedbackButton', {

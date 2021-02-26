@@ -33,7 +33,7 @@ $(document).ready(function () {
                     if (this.searchQueryToLower) {
                         this.filteredData = [];
                         this.showSearchResults = true;
-                        let self = this;
+                        var self = this;
                         return self.resources.filter(function (item) {
                             // TODO: add description and other content after CMS
                             // if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {

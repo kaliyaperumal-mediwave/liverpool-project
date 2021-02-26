@@ -32,13 +32,13 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
     </div>
   </div>
   <div id="resources_user" class="main-min-height">
-    <div class="top-arrow-container" id="searchBar">
+    <div class="top-arrow-container pd-container " id="searchBar">
       <!-- <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a> -->
-      <a href="" class="previous-link"
-        ><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="" class="previous-link"
+        ><i class="fal fa-long-arrow-left fa-2x ham-icon"></i
       ></a>
 
-      <div class="resource_text">Videos</div>
+      <div class="resource_text pb-sm-0 pt-2">Videos</div></div>
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
       <div id="filter_content">
         <div class="input-group">
@@ -87,7 +87,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                       alt=""
                     /> -->
                     <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-                    
+
                     <p class="question-font my-0 mx-2 mx-md-4">
                       {{item.title}}
                     </p>
@@ -107,7 +107,9 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
         </div>
       </div>
       <div class="text_inside_cont card-set-container-bg">
+        <h5 class="font-weight-bold">
         Here are different videos currently used across the platform
+        </h5>
       </div>
 
       {% for piece in data.pieces %} {% if loop.index == 1 %}

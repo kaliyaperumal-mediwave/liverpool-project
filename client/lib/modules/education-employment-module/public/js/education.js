@@ -27,7 +27,6 @@ $(document).ready(function () {
 
             }],
             currentSection: 'education',
-            userMode: '',
             userRole: '',
             userId: '',
             payloadData: {},
@@ -130,13 +129,11 @@ $(document).ready(function () {
                 this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
                 this.payloadData.role = this.userRole;
                 this.payloadData.userid = this.userId;
-                if (this.userMode === 'edit') {
-                    this.payloadData.userMode = 'edit';
-                } else {
-                    this.payloadData.userMode = 'add';
-                }
                 if (formData.haveSocialWorker === 'yes') {
-                    if (formData.socialWorkName && formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
+                    if (formData.socialWorkContact && !this.phoneRegex.test(formData.socialWorkContact)) {
+                        scrollToInvalidInput();
+                        return false;
+                    } else {
                         if (this.showInstitution) {
                             if (formData.attendedInfo) {
                                 $('#loaderEduc').show();
@@ -151,24 +148,83 @@ $(document).ready(function () {
                             $('#loaderEduc').show();
                             this.upsertEducationForm(this.payloadData);
                         }
+                    }
+
+
+                    // if (!formData.socialWorkName && !formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
+                    //     if (this.showInstitution) {
+                    //         if (formData.attendedInfo) {
+                    //             $('#loaderEduc').show();
+                    //             this.upsertEducationForm(this.payloadData);
+                    //         } else {
+                    //             scrollToInvalidInput();
+                    //             return false;
+                    //         }
+
+                    //     }
+                    //     else {
+                    //         $('#loaderEduc').show();
+                    //         this.upsertEducationForm(this.payloadData);
+                    //     }
+
+                    // } else {
+                    //     scrollToInvalidInput();
+                    //     return false;
+                    // }
+
+
+                }
+                else if (formData.haveSocialWorker === 'no') {
+                    if (this.showInstitution) {
+                        if (formData.attendedInfo) {
+                            $('#loaderEduc').show();
+                            this.upsertEducationForm(this.payloadData);
+
+                        } else {
+                            scrollToInvalidInput();
+                            return false;
+                        }
 
                     } else {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-                } else if (formData.haveSocialWorker === 'no') {
-                    if (formData.position === 'education' && formData.attendedInfo) {
                         $('#loaderEduc').show();
                         this.upsertEducationForm(this.payloadData);
                     }
-                    else if (formData.position != 'education') {
-                        $('#loaderEduc').show();
-                        this.upsertEducationForm(this.payloadData);
-                    }
-                    else {
-                        scrollToInvalidInput();
-                        return false;
-                    }
+
+
+
+                    // if (this.aboutYourSelf[0] == "Neither") {
+                    //     $('#loaderEduc').show();
+                    //     this.upsertEducationForm(this.payloadData);
+
+                    // } else {
+                    //     if (this.showInstitution) {
+                    //         if (formData.attendedInfo) {
+                    //             $('#loaderEduc').show();
+                    //             this.upsertEducationForm(this.payloadData);
+                    //         } else {
+                    //             scrollToInvalidInput();
+                    //             return false;
+                    //         }
+
+                    //     }
+                    //     else {
+                    //         $('#loaderEduc').show();
+                    //         this.upsertEducationForm(this.payloadData);
+                    //     }
+                    // }
+
+                    // if (formData.position === 'education' && formData.attendedInfo) {
+                    //     $('#loaderEduc').show();
+                    //     this.upsertEducationForm(this.payloadData);
+                    // }
+                    // else if (formData.position != 'education') {
+                    //     $('#loaderEduc').show();
+                    //     this.upsertEducationForm(this.payloadData);
+                    // }
+                    // else {
+                    //     scrollToInvalidInput();
+                    //     return false;
+                    // }
                 }
 
                 else {
@@ -180,7 +236,6 @@ $(document).ready(function () {
 
             //Section 3(Education) Save and Service call with navigation's Logic
             upsertEducationForm: function (payload) {
-                var _self = this;
                 payload.educAndEmpData.position = this.aboutYourSelf.toString();
                 var responseData = apiCallPost('post', '/education', payload);
                 if (responseData && Object.keys(responseData)) {
@@ -286,10 +341,6 @@ $(document).ready(function () {
                 }
             },
 
-            //Back to previous page
-            backToAbout: function () {
-                backToPreviousPage('/about?', this.userId, this.userRole)
-            },
         }
     })
 });

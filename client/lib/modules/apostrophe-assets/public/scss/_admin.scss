@@ -266,6 +266,7 @@
 }
 .custom-table-nested > div > div + div {
   overflow: auto;
+  margin-bottom: 12px;
 }
 .custom-table-nested > div > div {
   overflow: auto;
@@ -279,6 +280,7 @@
 }
 .custom-table-nested .form-control {
   height: 40px !important;
+  margin: 0px !important;
 }
 .custom-table-nested label {
   width: 100%;
