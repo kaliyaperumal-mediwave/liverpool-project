@@ -4315,3 +4315,9 @@ i.fa.fa-calendar {
 
 div.collapse-container.collapsing {
   transition: none !important; }
+
+.text-slider-res {
+  right: 14px !important; }
+
+.text-slider-res-middle {
+  right: 0px !important; }
