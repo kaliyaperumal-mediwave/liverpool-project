@@ -214,13 +214,13 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
-                        Vue.set(this.aboutObj, "parentLastName", data.parent_lastname);
+                        Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
                         //Vue.set(this.aboutObj, "parentContactName", data[0].responsibility_parent_firstname);
                         this.allHouseHoldMembers = data[0].household_member;
                         Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
-                        Vue.set(this.aboutFormData, "parentCarerLastName", data.responsibility_parent_lastname); 
+                        Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname); 
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);

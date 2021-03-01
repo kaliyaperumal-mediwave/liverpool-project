@@ -139,7 +139,7 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
 
-    child_socialworker_name: {
+    child_socialworker_firstname: {
       type: types.TEXT
     },
 
@@ -187,6 +187,9 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     responsibility_parent_lastname: {
+      type: types.TEXT
+    },
+    child_socialworker_lastname: {
       type: types.TEXT
     },
   }, {

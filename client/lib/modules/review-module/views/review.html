@@ -981,16 +981,33 @@
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0"
                                             for="socialworkerNameSec5">
-                                            Social Worker name:
+                                            Social Worker first name:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <input class="form-control text-capitalize input-bg-form-control" type="text"
-                                                placeholder="Enter social worker name"
-                                                v-model="section3Data.child_socialworker_name" id="socialworkerNameSec5"
-                                                @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_name')">
-                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_name),
-                                                'invalid-fields':!section3Data.child_socialworker_name }">
-                                                You must provide a full name.
+                                                placeholder="Enter social worker first name"
+                                                v-model="section3Data.child_socialworker_firstname" id="socialworkerNameSec5"
+                                                @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_firstname')">
+                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_firstname),
+                                                'invalid-fields':!section3Data.child_socialworker_firstname }">
+                                                You must provide a first name.
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="socialworkerNameSec5">
+                                            Social Worker last name:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <input class="form-control text-capitalize input-bg-form-control" type="text"
+                                                placeholder="Enter social worker last name"
+                                                v-model="section3Data.child_socialworker_lastname" id="socialworkerLastNameSec5"
+                                                @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_lastname')">
+                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_lastname),
+                                                'invalid-fields':!section3Data.child_socialworker_lastname }">
+                                                You must provide a last name.
                                             </small>
                                         </div>
                                     </div>
