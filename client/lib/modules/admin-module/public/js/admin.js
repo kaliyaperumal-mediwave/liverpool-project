@@ -72,6 +72,7 @@ $(document).ready(function () {
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
+              console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
