@@ -1866,6 +1866,7 @@ select.selectIcon {
   }
   .top-arrow-container.pd-container {
     padding: 16px 0px 24px 0px;
+
   }
   .bottom-arrow-container {
     padding: 50px 40px;
@@ -3372,4 +3373,7 @@ div.collapse-container.collapsing {
     margin-left: 10px;
     margin-right: 10px;
   }
+}
+.top-arrow-container.pd-container{
+    margin-top: 5px;
 }

@@ -4463,3 +4463,6 @@ div.collapse-container.collapsing {
   .mlr-sm-5 {
     margin-left: 10px;
     margin-right: 10px; } }
+
+.top-arrow-container.pd-container {
+  margin-top: 5px; }

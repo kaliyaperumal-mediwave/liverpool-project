@@ -33,8 +33,8 @@
                 <!-- <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
                     referral
                 </h2> -->
-                <div class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                    {{ apos.area(data.page, 'referral_Titile', {
+                <div v-if="userRole == 'child'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{ apos.area(data.page, 'referral_TitileChild', {
                     widgets: {
                     'apostrophe-rich-text': {
                     toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
@@ -45,6 +45,32 @@
                     }
                     }
                     }) }}</div>
+                    <div v-if="userRole == 'parent'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        {{ apos.area(data.page, 'referral_Titileparent', {
+                        widgets: {
+                        'apostrophe-rich-text': {
+                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                        styles: [
+                        { name: 'Paragraph', element: 'p' }
+
+                        ]
+                        }
+                        }
+                        }) }}</div>
+                        <div v-if="userRole == 'professional'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                            {{ apos.area(data.page, 'referral_TitileProffessional', {
+                            widgets: {
+                            'apostrophe-rich-text': {
+                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                            styles: [
+                            { name: 'Paragraph', element: 'p' }
+
+                            ]
+                            }
+                            }
+                            }) }}</div>
+
+
                 {% raw %}
 
                 <!--  Support-Start-->

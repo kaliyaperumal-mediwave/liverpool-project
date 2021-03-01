@@ -36,10 +36,10 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
       <!-- <a href="/resources" class="">
       <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow cursor-pointer" /></a> -->
     <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3">  <a href="/resources"
-        ><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i
+        ><i class="fal fa-long-arrow-left fa-2x ham-icon "></i
       ></a>
 
-      <div class="resource_text pb-sm-0">{{ piece.title }}</div>
+      <div class="resource_text pb-sm-2 pt-2">{{ piece.title }}</div>
       </div>
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
       <div id="filter_content">
