@@ -1,10 +1,11 @@
+var API_URI = "/modules/home-module";
 $(document).ready(function () {
     new Vue({
         el: '#landing-page',
         data: {
             location: window.location,
             searchQuery: null,
-            searchQueryToLower:null,
+            searchQueryToLower: null,
             filteredData: [],
             showSearchResults: false,
             resources: [],
@@ -14,22 +15,20 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            try {
-                if(document.getElementById('resources') && document.getElementById('resources').value) {
-                    this.resources = JSON.parse(document.getElementById('resources').value);
-                } else {
-                    this.resources = [];
-                }
-            } catch (error) {
-                $('#loader').hide();
-                console.log(error);
-            }
+            var _self = this;
             setTimeout(function () {
                 $('#loader').hide();
+                _self.loadPiecesData();
             }, 1000);
         },
 
         methods: {
+            loadPiecesData: function () {
+                console.log("api call start")
+                var successData = apiCallGet('get', '/getPiecesData', API_URI);
+                console.log(successData.data.searchData);
+                this.resources = successData.data.searchData;
+            },
 
             navigatePage: function (route) {
                 this.location.href = this.location.origin + route;

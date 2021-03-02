@@ -1,4 +1,3 @@
-
 {% extends "layout.html" %}
 
 {% block extraBody %}
@@ -37,9 +36,9 @@
     <div class="my-md-3 my-lg-4 my-xl-4 my-4">
         <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
             <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
-                <input hidden id="resources" value="{{data.piecesArray|dump}}">
+                <input hidden id="resources">
                 <div>
-                    <div class="input-group">
+                    <div class="input-group position-relative">
                         <span class="input-group-prepend">
                             <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
                                 <i class="fal fa-search font-23 ham-icon"></i>
@@ -48,45 +47,51 @@
                         <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                             v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
                             @input="filterPieces()">
-                    </div>
-                      <div  id="hideserachblock" class="d-none">
-                    {% raw %}
-                    <!-- Search functionality start-->
-                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                        {{searchQuery}}?”</div>
-                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                        <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                            <template v-if="filteredData.length">
-                                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                    <a :href=" item.custom_url ? item.custom_url : item._url">
-                                        <div class="d-flex align-items-center">
-                                            <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
-                                                height="30" class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
-                                                <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-
-                                            <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                            </p>
-                                            <ul class="my-0 link-text mx-2 mx-md-4"
-                                                style="list-style: inside !important;">
-                                                <li>{{item.Topic}}</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                </div>
-                            </template>
-                            <template v-if="!filteredData.length">
-                                <p class="resource_search_text py-3">No records found</p>
-                            </template>
+                        <div class="icon-container">
+                            <i class="loader"></i>
                         </div>
                     </div>
-                    <!-- Search functionality end-->
-                    {% endraw %}
+                    <div id="hideserachblock" class="d-none">
+                        {% raw %}
+                        <!-- Search functionality start-->
+                        <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+                            {{searchQuery}}?”</div>
+                        <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+                            <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                                <template v-if="filteredData.length">
+                                    <div v-for="item in filteredData"
+                                        class="border-bottom-primary card-body px-2 px-md-4">
+                                        <a :href=" item.custom_url ? item.custom_url : item._url">
+                                            <div class="d-flex align-items-center">
+                                                <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+                                                height="30" class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
+                                                <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place">
+                                                </div>
+
+                                                <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                                </p>
+                                                <ul class="my-0 link-text mx-2 mx-md-4"
+                                                    style="list-style: inside !important;">
+                                                    <li>{{item.Topic}}</li>
+                                                </ul>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </template>
+                                <template v-if="!filteredData.length">
+                                    <p class="resource_search_text py-3">No records found</p>
+                                </template>
+                            </div>
+                        </div>
+                        <!-- Search functionality end-->
+                        {% endraw %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="d-flex text-center py-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg home-primary-content">
+            <div
+                class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg home-primary-content">
                 <h4 class="m-0 py-2 px-2 text-left font-weight-bold home-primary-content">
                     Liverpool & Sefton CAMHS services aim to promote the mental health and wellbeing of all children,
                     young people, families and carers.

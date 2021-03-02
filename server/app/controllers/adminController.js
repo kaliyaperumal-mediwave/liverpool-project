@@ -4,6 +4,7 @@ const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
 const sequelize = require('sequelize');
 const { req } = require('@kasa/koa-logging/lib/serializers');
+const email = require('../utils/email');
 
 const gpCodes = [
     {
@@ -53,14 +54,14 @@ exports.getReferral = ctx => {
                     {
                         model: referralModel,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname','child_lastname', 'child_dob', 'registerd_gp',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
                         ]
                     },
                     {
                         model: referralModel,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname','child_lastname', 'child_dob', 'registerd_gp',
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
                         ]
                     },
                 ],
@@ -80,7 +81,7 @@ exports.getReferral = ctx => {
                         name: refObj.name,
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.referrer_name  + refObj.referrer_lastname,
+                        referrer: refObj.referrer_name + refObj.referrer_lastname,
                         gp_location: '',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY')
@@ -299,39 +300,34 @@ exports.getAllReferral = ctx => {
                 resultArray = professionalArray.concat(parentArray, childArray)
 
                 resultArray = JSON.parse(JSON.stringify(resultArray));
-            for (var i = 0; i < resultArray.length; i++) {
-                console.log(resultArray[i])
-                obj = {};
-                obj.uuid = resultArray[i].uuid;
-                obj.name = resultArray[i].child_name;
-                obj.child_dob= resultArray[i].child_dob;
-                obj.reference_code = resultArray[i].reference_code
-                obj.referrer = resultArray[i].referrer_name;
-                obj.referrer_type = resultArray[i].user_role;
-                obj.date = resultArray[i].updatedAt
-                if (resultArray[i].registerd_gp) {
-                    var splitLocation = resultArray[i].registerd_gp.split(',');
-                    if (splitLocation.length > 1) {
-                        if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            obj.registerd_gp = gpCodes[0].type;
-                        } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                            obj.registerd_gp = gpCodes[1].type;
-                        }
-                        else 
-                        {
-                            obj.registerd_gp = "thiru";
+                for (var i = 0; i < resultArray.length; i++) {
+                    console.log(resultArray[i])
+                    obj = {};
+                    obj.uuid = resultArray[i].uuid;
+                    obj.name = resultArray[i].child_name;
+                    obj.child_dob = resultArray[i].child_dob;
+                    obj.reference_code = resultArray[i].reference_code
+                    obj.referrer = resultArray[i].referrer_name;
+                    obj.referrer_type = resultArray[i].user_role;
+                    obj.date = resultArray[i].updatedAt
+                    if (resultArray[i].registerd_gp) {
+                        var splitLocation = resultArray[i].registerd_gp.split(',');
+                        if (splitLocation.length > 1) {
+                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                obj.registerd_gp = gpCodes[0].type;
+                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                obj.registerd_gp = gpCodes[1].type;
+                            }
+                            else {
+                                obj.registerd_gp = "thiru";
+                            }
                         }
                     }
+                    sendArray.push(obj);
                 }
-               sendArray.push(obj);
-              }
-                     console.log("----------------------------------------------end")
-                     //array = [];
-                    return ctx.body = sendArray
-                }).catch((error) => {
-                    console.log(error)
-                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
-                });
+                console.log("----------------------------------------------end")
+                //array = [];
+                return ctx.body = sendArray
             }).catch((error) => {
                 console.log(error)
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -340,4 +336,83 @@ exports.getAllReferral = ctx => {
             console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
+    }).catch((error) => {
+        console.log(error)
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+}
+exports.sendAttachment = ctx => {
+
+    try {
+        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+            console.log(sendReferralStatus)
+            return ctx.res.ok({
+                message: reponseMessages[1017],
+            });
+        }).catch(error => {
+            console.log(error, "error");
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
+
+    // var pdfObj = {
+    //     ratings: "2.5",
+    //     comments: "test",
+    // }
+    // const template = fs.readFileSync(path.join(`${__dirname}/./templates/referralSendTemplate.html`), 'utf8');
+    // let htmlTemplate = _.template(template);
+    // htmlTemplate = htmlTemplate({
+    //     body: pdfObj,
+    // });
+
+
+    // var opt = {
+    //     format: 'A4',
+    //     orientation: 'portrait',
+    //     header: {
+    //         "height": "5mm"
+    //     },
+    //     footer: {
+    //         "height": "5mm"
+    //     }
+    // };
+
+
+    // pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {
+
+
+    //     if (buffer) {
+    //         const data = {
+    //             from: config.email_from_address,
+    //             to: "thiru@mindwaveventures.com",
+    //             subject: 'LIVERPOOL CAMHS - Feedback',
+    //             html:htmlTemplate,
+    //             attachments: [{
+    //                 filename: `test.pdf`,
+    //                 content: buffer,
+    //                 contentType: 'application/pdf'
+    //             }]
+    //         };
+
+    //         Transport.sendMail(data, (err, res) => {
+    //             console.log(res)
+    //             if (!err && res) {
+    //                 ctx.res.ok({
+    //                     data: 'mail Successfully sent',
+    //                 });
+    //                 resolve();
+
+    //             } else {
+    //                 console.log(err);
+    //                 logger.error('Mail error', err);
+    //                 ctx.res.internalServerError({
+    //                     data: 'mail not sent',
+    //                 });
+    //                 reject();
+    //             }
+    //         });
+    //     }
+    // });
+}

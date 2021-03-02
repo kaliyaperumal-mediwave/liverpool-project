@@ -169,6 +169,11 @@ $(document).ready(function () {
         var successData = apiCallGet('get', '/getAllreferral',API_URI);
         $('#loader').hide();
         console.log(successData)
+      },
+      sendAttachment:function()
+      {
+        var successData = apiCallGet('get', '/sendAttachment', API_URI);
+        console.log(successData)
       }
     },
 
