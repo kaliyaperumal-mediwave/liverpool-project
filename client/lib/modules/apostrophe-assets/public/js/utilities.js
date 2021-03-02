@@ -79,6 +79,7 @@ function showError(content, statusCode) {
     }
     $('#errorCommon').modal('show');
 };
+
 function closeError() {
     var statusCode = $('#74dae8ad-4a79-4a60-845b-603e8a643ceb').text();
     $('#errorCommon').modal('hide');
@@ -198,7 +199,10 @@ function apiCallGet(reqType, endPoint, API_URI) {
         },
         error: function (error) {
             $('#loader').hide();
-            showError(error.responseJSON.message, error.status);
+            if (error) {
+                showError(error.responseJSON.message, error.status);
+            }
+            // showError(error.responseJSON.message, error.status);
         }
     });
     return response
@@ -220,7 +224,9 @@ function apiCallPut(reqType, endPoint, payload) {
                 response = res;
             },
             error: function (error) {
-                showError(error.responseJSON.message, error.status);
+                if (error) {
+                    showError(error.responseJSON.message, error.status);
+                }
             }
         });
     return response

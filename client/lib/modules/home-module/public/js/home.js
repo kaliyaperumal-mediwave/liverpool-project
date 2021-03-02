@@ -12,12 +12,15 @@ $(document).ready(function () {
         },
         beforeMount: function () {
             $('#loader').show();
+            $('#piecesLoader').show();
+            
         },
 
         mounted: function () {
             var _self = this;
             setTimeout(function () {
                 $('#loader').hide();
+                $('#piecesLoader').hide();
                 _self.loadPiecesData();
             }, 1000);
         },
@@ -25,9 +28,11 @@ $(document).ready(function () {
         methods: {
             loadPiecesData: function () {
                 console.log("api call start")
+                $('#piecesLoader').show();
                 var successData = apiCallGet('get', '/getPiecesData', API_URI);
                 console.log(successData.data.searchData);
                 this.resources = successData.data.searchData;
+                $('#piecesLoader').hide();
             },
 
             navigatePage: function (route) {
