@@ -43,7 +43,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
       <div class="home-header-primary m-0 pt-1 pt-md-2 pb-sm-1">{{ piece.title }}</div></div>
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
       <div id="filter_content">
-        <div class="input-group">
+        <div class="input-group home-primary-content-bg">
           <span class="input-group-prepend">
             <div
               class="home-primarySearch-bg input-group-text border-right-0 height-44"
@@ -113,7 +113,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           {% endraw %}
         </div>
       </div>
-      <div class="text_inside_return card-set-container-bg">
+      <div class="text_inside_return card-set-container-bg home-primary-content-bg">
         <div class="read-cont-h1">{{ piece.title }}</div>
         <div class="read-cont-p">{{ piece.subtitle }}</div>
         <div class="font-weight-light">{{ piece.text }}</div>
