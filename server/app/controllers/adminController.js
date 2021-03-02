@@ -80,7 +80,7 @@ exports.getReferral = ctx => {
                         name: refObj.name,
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.referrer_name,
+                        referrer: refObj.referrer_name  + refObj.referrer_lastname,
                         gp_location: '',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY')
@@ -116,7 +116,7 @@ exports.getReferral = ctx => {
                         name: refObj.name + refObj.lastname,
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
-                        referrer: refObj.referrer_name + referrer_lastname,
+                        referrer: refObj.referrer_name + refObj.referrer_lastname,
                         gp_location: 'Liverpool',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY')
