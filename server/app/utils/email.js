@@ -181,7 +181,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             }
         };
         pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {
-return ctx.body = buffer;
+//return ctx.body = buffer;
             if (buffer) {
                 const data = {
                     from: config.email_from_address,
