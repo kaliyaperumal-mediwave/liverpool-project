@@ -199,6 +199,7 @@ function apiCallGet(reqType, endPoint, API_URI) {
         },
         error: function (error) {
             $('#loader').hide();
+            $('#piecesLoader').hide();
             if (error) {
                 showError(error.responseJSON.message, error.status);
             }
