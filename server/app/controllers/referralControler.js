@@ -241,6 +241,7 @@ exports.eligibility = ctx => {
             }).then((childUserInfo) => {
               return user.update({
                 professional_firstname: ctx.request.body.profFirstName,
+                professional_lastname: ctx.request.body.proflastName,
                 professional_email: ctx.request.body.profEmail,
                 professional_contact_number: ctx.request.body.profContactNumber,
                 professional_address:ctx.request.body.profAddress,
@@ -273,6 +274,7 @@ exports.eligibility = ctx => {
           childUserInfo.setType("1")
           return user.create({
             professional_firstname: ctx.request.body.profFirstName,
+            professional_lastname: ctx.request.body.proflastName,
             professional_email: ctx.request.body.profEmail,
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_address:ctx.request.body.profAddress,
