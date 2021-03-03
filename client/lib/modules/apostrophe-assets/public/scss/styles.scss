@@ -25,6 +25,10 @@ body {
     display: none;
   }
 
+  .form-check-input:disabled ~ .form-check-label,
+  .form-check-input[disabled] ~ .form-check-label {
+    color: #023047;
+  }
 
   [v-cloak] {
     display: none !important;
@@ -1866,7 +1870,6 @@ select.selectIcon {
   }
   .top-arrow-container.pd-container {
     padding: 16px 0px 24px 0px;
-
   }
   .bottom-arrow-container {
     padding: 50px 40px;
@@ -3210,7 +3213,7 @@ $color-scheme: (
 }
 .apos-header-para-font p {
   word-break: break-word;
-  font-size: 16px ;
+  font-size: 16px;
 }
 .apos-header-para-font ul li {
   font-size: 16px !important;
@@ -3227,15 +3230,15 @@ $color-scheme: (
 }
 .ellipse-text-large-card {
   overflow: hidden;
-    display: -webkit-box;
-    text-align: left;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    height: 42px;
-    color: #11214B;
-    opacity: 1;
-    margin-bottom: 0px;
-    padding-bottom: 0;
+  display: -webkit-box;
+  text-align: left;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  height: 42px;
+  color: #11214b;
+  opacity: 1;
+  margin-bottom: 0px;
+  padding-bottom: 0;
   // display: block;
   // text-overflow: ellipsis;
   // word-wrap: break-word;
@@ -3365,19 +3368,19 @@ div.collapse-container.collapsing {
     padding-left: 5px;
   }
 }
-.color-yellow{
-  background: #FFB703 !important;
+.color-yellow {
+  background: #ffb703 !important;
 }
-.mlr-sm-5{
-  @include sm-dec-screen{
+.mlr-sm-5 {
+  @include sm-dec-screen {
     margin-left: 10px;
     margin-right: 10px;
   }
 }
-.top-arrow-container.pd-container{
-    margin-top: 5px;
+.top-arrow-container.pd-container {
+  margin-top: 5px;
 }
-.btn{
+.btn {
   // box-shadow : 0px 0px 0px #00000029 !important;
   border: 0px !important;
 }
