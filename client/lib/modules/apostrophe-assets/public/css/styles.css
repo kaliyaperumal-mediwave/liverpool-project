@@ -4466,3 +4466,6 @@ div.collapse-container.collapsing {
 
 .top-arrow-container.pd-container {
   margin-top: 5px; }
+
+.btn {
+  border: 0px !important; }

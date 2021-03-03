@@ -12,7 +12,7 @@ var apos = require("apostrophe")({
     // Apostrophe module configuration
 
     'apostrophe-security-headers': {
-      'X-Frame-Options': 'ALLOW'
+      'X-Frame-Options': 'DENY'
     },
 
 
