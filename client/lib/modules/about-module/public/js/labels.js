@@ -246,7 +246,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
             "What is the parent or carers name?";
         section2Labels.firstNameLabel = "The child/young person's first name";
         section2Labels.firstNamePlacLabel = "Enter child/young person's first name";
-        section2Labels.lastNameLabel = "Your child/young person's last name";
+        section2Labels.lastNameLabel = "The child/young person's last name";
         section2Labels.lastNamePlacLabel = "Enter child/young person's last name";
 
         section2Labels.yourFirstNameLabel = "What is the first name of the young person's parent / carer?";

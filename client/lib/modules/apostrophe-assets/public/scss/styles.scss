@@ -30,6 +30,11 @@ body {
     color: #023047;
   }
 
+  .form-check-input:disabled ~ .form-check-label,
+  .form-check-input[disabled] ~ .form-check-label {
+    color: #023047;
+  }
+
   [v-cloak] {
     display: none !important;
   }
@@ -103,7 +108,7 @@ body {
 
   .font-23 {
     font-size: 20px;
-    padding-top: 2px;
+    // padding-top: 2px;
   }
 
   .font-25 {

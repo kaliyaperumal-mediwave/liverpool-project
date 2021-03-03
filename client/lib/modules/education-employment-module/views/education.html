@@ -211,9 +211,17 @@
                         <div class="form-group m-0">
                             <label for="socialWorker" class="question-font">{{dynamicLabels.socialWorkerNameLabel}} (if
                                 you know it)</label>
-                            <input type="text" class="form-control input-bg-form-control" id="socialWorker"
-                                @input="trimWhiteSpace($event,'educAndEmpData','socialWorkName')"
-                                placeholder="Enter social worker's first name" v-model="educAndEmpData.socialWorkName">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" id="socialWorker"
+                                    @input="trimWhiteSpace($event,'educAndEmpData','socialWorkName')"
+                                    placeholder="Enter social worker's first name"
+                                    v-model="educAndEmpData.socialWorkName">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text px-3 font-23">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
                             <!-- <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
                                 You must provide a name.
@@ -227,11 +235,20 @@
                     <div v-if="educAndEmpData.haveSocialWorker =='yes'"
                         class="px-4 pt-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group m-0">
-                            <label for="socialWorker" class="question-font">{{dynamicLabels.socialWorkerLastNameLabel}} (if
+                            <label for="socialWorker" class="question-font">{{dynamicLabels.socialWorkerLastNameLabel}}
+                                (if
                                 you know it)</label>
-                            <input type="text" class="form-control input-bg-form-control" id="socialWorker"
-                                @input="trimWhiteSpace($event,'educAndEmpData','socialWorkName')"
-                                placeholder="Enter social worker's last name" v-model="educAndEmpData.socialWorkLastName">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" id="socialWorker"
+                                    @input="trimWhiteSpace($event,'educAndEmpData','socialWorkName')"
+                                    placeholder="Enter social worker's last name"
+                                    v-model="educAndEmpData.socialWorkLastName">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text px-3 font-23">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
                             <!-- <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
                                 You must provide a name.
@@ -239,7 +256,7 @@
                         </div>
                     </div>
                 </form>
-                
+
                 <!-- Social Worker Name End -->
 
                 <!-- Social Worker Contact Start -->
@@ -249,10 +266,18 @@
                         <div class="form-group">
                             <label for="contactWorker" class="question-font">{{dynamicLabels.socialWorkerContactLabel}}
                                 (if you know it)</label>
-                            <input type="text" class="form-control input-bg-form-control" id="contactWorker"
-                                @input="trimWhiteSpace($event,'educAndEmpData','socialWorkContact')"
-                                placeholder="Enter social worker's phone number"
-                                v-model="educAndEmpData.socialWorkContact">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" id="contactWorker"
+                                    @input="trimWhiteSpace($event,'educAndEmpData','socialWorkContact')"
+                                    placeholder="Enter social worker's phone number"
+                                    v-model="educAndEmpData.socialWorkContact">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text px-3 font-25">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+
                             <!-- <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkContact),'invalid-fields':!educAndEmpData.socialWorkContact }">
                                 You must provide a number.
