@@ -197,7 +197,7 @@
 
             <!-- toster-container start -->
             {% raw %}
-            <form id="tostInterYes-form" data-options="belowAgeLimit">
+            <form id="tostInterYesAnother-form" data-options="belowAgeLimit">
                 <div v-show="(elgibilityObj.role == 'child' && elgibilityObj.childDob!=null) &&  elgibilityObj.belowAgeLimit == 'yes'"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
@@ -644,11 +644,17 @@
                     <div class="form-group">
                         <label for="firstName" class="question-font">Your first name</label>
                         {% raw %}
-                        <input type="text" v-model="elgibilityObj.profFirstName"
-                            @input="onVaueChange($event,'firstName','elgibilityObj','profFirstName')"
-                            placeholder="Enter your first name" class="form-control input-bg-form-control"
-                            id="fullFirstName">
-
+                        <div class="input-group">
+                            <input type="text" v-model="elgibilityObj.profFirstName"
+                                @input="onVaueChange($event,'firstName','elgibilityObj','profFirstName')"
+                                placeholder="Enter your first name" class="form-control input-bg-form-control"
+                                id="fullFirstName">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profFirstName),'invalid-fields':!elgibilityObj.profFirstName }">
                             You must provide a first name.
@@ -658,11 +664,17 @@
                     <div class="form-group">
                         <label for="lastName" class="question-font">Your last name</label>
                         {% raw %}
-                        <input type="text" v-model="elgibilityObj.proflastName"
-                            @input="onVaueChange($event,'lastName','elgibilityObj','proflastName')"
-                            placeholder="Enter your last name" class="form-control input-bg-form-control"
-                            id="fullFirstName">
-
+                        <div class="input-group">
+                            <input type="text" v-model="elgibilityObj.proflastName"
+                                @input="onVaueChange($event,'lastName','elgibilityObj','proflastName')"
+                                placeholder="Enter your last name" class="form-control input-bg-form-control"
+                                id="fullLatstName">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.proflastName),'invalid-fields':!elgibilityObj.proflastName }">
                             You must provide a last name.
@@ -673,11 +685,17 @@
                         <label for="emailAddress" class="question-font">Your email address - <b>optional</b>
                         </label>
                         {% raw %}
-                        <input type="text" v-model="elgibilityObj.profEmail"
-                            @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
-                            placeholder="Enter your email address" class="form-control input-bg-form-control"
-                            id="emailAddress">
-
+                        <div class="input-group">
+                            <input type="text" v-model="elgibilityObj.profEmail"
+                                @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
+                                placeholder="Enter your email address" class="form-control input-bg-form-control"
+                                id="emailAddress">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i aria-hidden="true" class="fa fa-envelope"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)),
                             'invalid-fields':(elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail)) }">
                             You must provide a valid email.
@@ -690,10 +708,17 @@
                     </div>
                     <div class="form-group">
                         <label for="contact" class="question-font">Enter your contact number</label>
-                        <input type="text" v-model="elgibilityObj.profContactNumber"
-                            @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
-                            placeholder="Enter your contact number" class="form-control input-bg-form-control"
-                            id="contact">
+                        <div class="input-group">
+                            <input type="text" v-model="elgibilityObj.profContactNumber"
+                                @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
+                                placeholder="Enter your contact number" class="form-control input-bg-form-control"
+                                id="contact">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-25">
+                                    <i aria-hidden="true" class="fa fa-phone"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="invalid-feedback d-none"
                             v-bind:class="{ 'd-block': (isSubmitted && !elgibilityObj.profContactNumber),'invalid-fields':!elgibilityObj.profContactNumber }">
                             You must provide a number.
@@ -706,13 +731,18 @@
                     </div>
                     <div class="form-group">
                         <label for="yourAddress" class="question-font">Your address</label>
-
                         {% raw %}
-                        <input type="text" v-model="elgibilityObj.profAddress"
-                            @input="onVaueChange($event,'yourAddress','elgibilityObj','profAddress')"
-                            placeholder="Enter your address" class="form-control input-bg-form-control"
-                            id="txtProfessionalAddress">
-
+                        <div class="input-group">
+                            <input type="text" v-model="elgibilityObj.profAddress"
+                                @input="onVaueChange($event,'yourAddress','elgibilityObj','profAddress')"
+                                placeholder="Enter your address" class="form-control input-bg-form-control"
+                                id="txtProfessionalAddress">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3">
+                                    <i aria-hidden="true" class="fa fa-map-marker fa-2x"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profAddress),'invalid-fields':!elgibilityObj.profAddress }">
                             You must provide a address.
@@ -721,13 +751,18 @@
                     </div>
                     <div class="form-group">
                         <label for="yourProfession" class="question-font">Your profession</label>
-
                         {% raw %}
-                        <input type="text" v-model="elgibilityObj.profProfession"
-                            @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
-                            placeholder="Enter your profession" class="form-control input-bg-form-control"
-                            id="txtProfessionalProfession">
-
+                        <div class="input-group">
+                            <input type="text" v-model="elgibilityObj.profProfession"
+                                @input="onVaueChange($event,'yourProfession','elgibilityObj','profProfession')"
+                                placeholder="Enter your profession" class="form-control input-bg-form-control"
+                                id="txtProfessionalProfession">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fas fa-user-tie"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block':(isSubmitted && !elgibilityObj.profProfession),'invalid-fields':!elgibilityObj.profProfession }">
                             Please provide your provision.

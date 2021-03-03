@@ -61,7 +61,7 @@
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
                                 v-bind:placeholder="sec2dynamicLabel.firstNamePlacLabel">
                             <div class="input-group-append">
-                                <span class="input-group-text font-23">
+                                <span class="input-group-text px-3 font-23">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -82,7 +82,7 @@
                                 @input="trimWhiteSpace($event,'aboutObj','childLastName')"
                                 v-bind:placeholder="sec2dynamicLabel.lastNamePlacLabel">
                             <div class="input-group-append">
-                                <span class="input-group-text font-23">
+                                <span class="input-group-text px-3 font-23">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -103,7 +103,7 @@
                                 @input="trimWhiteSpace($event,'aboutObj','childEmail')"
                                 v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.childEmail">
                             <div class="input-group-append">
-                                <span class="input-group-text font-23">
+                                <span class="input-group-text px-3 font-23">
                                     <i class="fa fa-envelope" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -124,7 +124,7 @@
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
                                 v-model="aboutObj.childContactNumber">
                             <div class="input-group-append">
-                                <span class="input-group-text font-25">
+                                <span class="input-group-text px-3 font-25">
                                     <i class="fa fa-phone" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -151,7 +151,7 @@
                                 @input="trimWhiteSpace($event,'aboutObj','childAddress')" id="txtChildAddress"
                                 aria-label="location" v-model="aboutObj.childAddress">
                             <div class="input-group-append">
-                                <span class="input-group-text p-16">
+                                <span class="input-group-text px-3">
                                     <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
@@ -314,12 +314,13 @@
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body text-capitalize bg-set-on-card">
                                 <div class="d-flex align-items-center justify-content-between my-1">
-                                    <h3 class="link-text">{{item.name}}</h3>
-                                    <h3 class="link-text">{{item.lastName}}</h3>
+                                    <h3 class="link-text">{{item.name}} {{item.lastName}}</h3>
+                                    <!-- <h3 class="link-text">{{item.lastName}}</h3> -->
                                     <div>
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
-                                            data-target="#houseHoldModal" @click="patchHouseHold(item)"><i
-                                                class="fa fa-pencil fa-2x" aria-hidden="true"></i>
+                                            data-target="#houseHoldModal" @click="patchHouseHold(item)">
+                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            </i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
                                                 data-target="#deleteModalAbout" @click="openDeleteModal(item)"
@@ -446,11 +447,19 @@
                 <!-- Your parent / carer firstname Start -->
                 <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group my-2">
-                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourFirstNameLabel}}</label>
-                        <input type="text" class="form-control input-bg-form-control" id="carer"
-                            @input="trimWhiteSpace($event,'aboutObj','parentFirstName')"
-                            v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel"
-                            v-model="aboutObj.parentFirstName">
+                        <label for="carerFirstname" class="question-font">
+                            {{sec2dynamicLabel.yourFirstNameLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control" id="carerFirstname"
+                                @input="trimWhiteSpace($event,'aboutObj','parentFirstName')"
+                                v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel"
+                                v-model="aboutObj.parentFirstName">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentFirstName),
                             'invalid-fields':!aboutObj.parentFirstName }">
                             You must provide a first name.
@@ -458,14 +467,23 @@
                     </div>
                 </div>
                 <!-- Your parent / carer firstname end -->
+
                 <!-- Your parent / carer lastname Start -->
                 <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group my-2">
-                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourLastNameLabel}}</label>
-                        <input type="text" class="form-control input-bg-form-control" id="parentLastName"
-                            @input="trimWhiteSpace($event,'aboutObj','parentLastName')"
-                            v-bind:placeholder="sec2dynamicLabel.yourLastNameLabelPlacLabel"
-                            v-model="aboutObj.parentLastName">
+                        <label for="parentLastName" class="question-font">
+                            {{sec2dynamicLabel.yourLastNameLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control" id="parentLastName"
+                                @input="trimWhiteSpace($event,'aboutObj','parentLastName')"
+                                v-bind:placeholder="sec2dynamicLabel.yourLastNameLabelPlacLabel"
+                                v-model="aboutObj.parentLastName">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text px-3 font-23">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentLastName),
                             'invalid-fields':!aboutObj.parentLastName }">
                             You must provide a last name.
@@ -523,11 +541,18 @@
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerFirstNameLabel}}</label>
-                            <input type="text" class="form-control input-bg-form-control" id="contactNumber"
-                                @input="trimWhiteSpace($event,'aboutFormData','parentCarerFirstName')"
-                                placeholder="Enter your parent / carer’s first name"
-                                v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel"
-                                v-model="aboutFormData.parentCarerFirstName">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" id="contactNumber"
+                                    @input="trimWhiteSpace($event,'aboutFormData','parentCarerFirstName')"
+                                    placeholder="Enter your parent / carer’s first name"
+                                    v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel"
+                                    v-model="aboutFormData.parentCarerFirstName">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text px-3 font-23">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerFirstName),
                                 'invalid-fields':(!aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no') }">
@@ -545,11 +570,18 @@
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerLastNameLabel}}</label>
-                            <input type="text" class="form-control input-bg-form-control" id="contactNumber"
-                                @input="trimWhiteSpace($event,'aboutFormData','parentCarerLastName')"
-                                placeholder="Enter your parent / carer’s first name"
-                                v-bind:placeholder="sec2dynamicLabel.parentOrCarerLastNameLabel"
-                                v-model="aboutFormData.parentCarerLastName">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" id="contactNumber"
+                                    @input="trimWhiteSpace($event,'aboutFormData','parentCarerLastName')"
+                                    placeholder="Enter your parent / carer’s first name"
+                                    v-bind:placeholder="sec2dynamicLabel.parentOrCarerLastNameLabel"
+                                    v-model="aboutFormData.parentCarerLastName">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text px-3 font-23">
+                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerLastName),
                                 'invalid-fields':(!aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='no') }">
@@ -590,11 +622,17 @@
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="ParentOrCarcontactNumber"
                                     class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
-                                <input type="text" class="form-control input-bg-form-control"
-                                    id="ParentOrCarcontactNumber"
-                                    @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
-                                    v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
-                                    v-model="aboutFormData.contactNumber">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        id="ParentOrCarcontactNumber"
+                                        @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
+                                        v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
+                                        v-model="aboutFormData.contactNumber">
+                                    <div class="input-group-append cursor-pointer">
+                                        <span class="input-group-text px-3 font-25"><i aria-hidden="true"
+                                                class="fa fa-phone"></i></span>
+                                    </div>
+                                </div>
                                 <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.contactNumber),
                                     'invalid-fields':!aboutFormData.contactNumber }">
                                     You must provide a number.
@@ -615,10 +653,16 @@
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="emailAddress" class="question-font">{{sec2dynamicLabel.guardEmailLabel}}
                                     - <b>optional</label>
-                                <input type="text" class="form-control input-bg-form-control" id="emailAddress"
-                                    @input="trimWhiteSpace($event,'aboutFormData','emailAddress')"
-                                    v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
-                                    v-model="aboutFormData.emailAddress">
+                                <div class="input-group">
+                                    <input type="text" class="form-control input-bg-form-control" id="emailAddress"
+                                        @input="trimWhiteSpace($event,'aboutFormData','emailAddress')"
+                                        v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
+                                        v-model="aboutFormData.emailAddress">
+                                    <div class="input-group-append cursor-pointer">
+                                        <span class="input-group-text px-3 font-23"><i aria-hidden="true"
+                                                class="fa fa-envelope"></i></span>
+                                    </div>
+                                </div>
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)),
                                     'invalid-fields':(aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)) }">
@@ -668,7 +712,7 @@
                                     v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
                                     aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
                                 <div class="input-group-append">
-                                    <span class="input-group-text p-16">
+                                    <span class="input-group-text px-3">
                                         <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                     </span>
                                 </div>
@@ -821,10 +865,17 @@
                                 <!-- Household first name start -->
                                 <div class="form-group">
                                     <label for="houseHoldName" inputmode="text" class="question-font">First name</label>
-                                    <input type="text" class="form-control input-bg-form-control"
-                                        v-model="houseHoldData.name"
-                                        @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
-                                        placeholder="Enter name">
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.name"
+                                            @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
+                                            placeholder="Enter name">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i aria-hidden="true" class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name) }">
                                         Please provide a first name.
@@ -834,11 +885,19 @@
 
                                 <!-- Household last name start -->
                                 <div class="form-group">
-                                    <label for="houseHoldLastName" inputmode="text" class="question-font">Last name</label>
-                                    <input type="text" class="form-control input-bg-form-control"
-                                        v-model="houseHoldData.lastName"
-                                        @input="trimWhiteSpace($event,'houseHoldData','lastName')" id="houseHoldLastName"
-                                        placeholder="Enter last name">
+                                    <label for="houseHoldLastName" inputmode="text" class="question-font">Last
+                                        name</label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.lastName"
+                                            @input="trimWhiteSpace($event,'houseHoldData','lastName')"
+                                            id="houseHoldLastName" placeholder="Enter last name">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i aria-hidden="true" class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName) }">
                                         Please provide a last name.
@@ -866,7 +925,7 @@
                                             @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
                                             :config="options" :wrap="dateWrap"></date-picker>
                                         <div class="input-group-append cursor-pointer">
-                                            <span class="input-group-text input-group-secondary-text p-16">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
                                         </div>
@@ -884,7 +943,7 @@
                                             @input="trimWhiteSpace($event,'houseHoldData','profession')"
                                             id="educLocation" v-model="houseHoldData.profession">
                                         <div class="input-group-append">
-                                            <span class="input-group-text input-group-secondary-text font-25">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-25">
                                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                                             </span>
                                         </div>
