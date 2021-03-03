@@ -127,7 +127,7 @@ $(document).ready(function () {
 
             //Get Request to get all section's data
             getAllSectionData: function (payloadData) {
-                console.log()
+               // console.log()
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
@@ -136,7 +136,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        //    console.log(data)
+                            console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -426,8 +426,8 @@ $(document).ready(function () {
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
-                    if (formData.child_name && formData.child_contact_number &&
-                        formData.child_gender && formData.parent_name && formData.child_parent_relationship && formData.parent_contact_number
+                    if (formData.child_name && formData.child_lastname && formData.child_contact_number &&
+                        formData.child_gender && formData.parent_name  && formData.parent_lastname && formData.child_parent_relationship && formData.parent_contact_number
                         && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
                     ) {
 
@@ -505,8 +505,8 @@ $(document).ready(function () {
                 }
                 else if (endpoint == "/user/updateEligibilityInfo") {
                     this.isSection1Submitted = true;
-                    if (formData.professional_name && formData.professional_contact_number &&
-                        this.phoneRegex.test(formData.professional_contact_number)) {
+                    if (formData.professional_name && formData.professional_lastname && formData.professional_contact_number &&
+                        this.phoneRegex.test(formData.professional_contact_number) && formData.professional_profession) {
                         if (formData.professional_email && !this.emailRegex.test(formData.professional_email)) {
                             scrollToInvalidInput();
                             return false;
@@ -536,6 +536,7 @@ $(document).ready(function () {
                     async: false,
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
+                    cache: false,
                     success: function (res) {
                         _self.showLoader = true;
                         buttonElem.disabled = true;
@@ -582,10 +583,12 @@ $(document).ready(function () {
             },
 
             resetFormSubmitted: function (section, data) {
+                console.log(data);
                 if (section == 1) {
                     this.isSection1Submitted = false;
                     this.section1Data = data;
                     this.allSectionData.section1 = data;
+                    this.section1Data.child_dob = this.convertDate(data.child_dob);
                 }
                 else if (section == 2) {
                     this.isSection2Submitted = false;

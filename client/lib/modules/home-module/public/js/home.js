@@ -1,35 +1,55 @@
+var API_URI = "/modules/home-module";
 $(document).ready(function () {
     new Vue({
         el: '#landing-page',
         data: {
             location: window.location,
             searchQuery: null,
-            searchQueryToLower:null,
+            searchQueryToLower: null,
             filteredData: [],
             showSearchResults: false,
             resources: [],
         },
         beforeMount: function () {
             $('#loader').show();
+            $('#piecesLoader').show();
+
         },
 
         mounted: function () {
-            try {
-                if(document.getElementById('resources') && document.getElementById('resources').value) {
-                    this.resources = JSON.parse(document.getElementById('resources').value);
-                } else {
-                    this.resources = [];
-                }
-            } catch (error) {
-                $('#loader').hide();
-                console.log(error);
-            }
+            var _self = this;
             setTimeout(function () {
                 $('#loader').hide();
+                $('#piecesLoader').hide();
+                _self.loadPiecesData();
             }, 1000);
         },
 
         methods: {
+
+            loadPiecesData: function () {
+                var _self = this;
+                $('#piecesLoader').show();
+                $.ajax({
+                    url: API_URI + "/getPiecesData",
+                    type: 'get',
+                    async: true,
+                    success: function (response) {
+                        $('#piecesLoader').hide();
+                        _self.resources = response.data.searchData;
+                    },
+                    error: function (err) {
+                        $('#piecesLoader').hide();
+                        // console.log(err)
+                    },
+                })
+                // console.log("api call start")
+                // $('#piecesLoader').show();
+                // var successData = apiCallGet('get', '/getPiecesData', API_URI);
+                // console.log(successData.data.searchData);
+                // this.resources = successData.data.searchData;
+                // $('#piecesLoader').hide();
+            },
 
             navigatePage: function (route) {
                 this.location.href = this.location.origin + route;

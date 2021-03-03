@@ -38,7 +38,7 @@ $(document).ready(function () {
             getAppsDetail: function (appId) {
                 //console.log(appId)
                 var successData = apiCallGet('get', '/getApp/'+appId, API_URI);
-                //console.log(successData)
+                console.log(successData)
                 this.appObj = successData.data.result.smallAppCardInfo;
                 console.log(this.appObj)
             },

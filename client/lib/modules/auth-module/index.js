@@ -25,9 +25,9 @@ module.exports = {
 
       // check already logged user 
       // if yes redirect user to dashboard directly else redirect them to login page
-      console.log("req.session.auth_token")
-      console.log(req.session)
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate'); //This will force the browser to obtain new copy of the page even when they hit "back".
+      console.log(req.session.auth_token)
+      console.log(req.session.sessionExp)
       if (req.session.auth_token) {
         return req.res.redirect("/dashboard");
       }
@@ -35,6 +35,7 @@ module.exports = {
         showHeader: true,
         home: true,
         hideRefButton: true,
+        sessionExp: req.session.sessionExp
       }));
     };
     self.sign_up = function (req, callback) {
@@ -52,7 +53,7 @@ module.exports = {
     };
 
     self.resetPassword = function (req, callback) {
-      if(req.query && req.query.token) {
+      if (req.query && req.query.token) {
         return self.sendPage(req, self.renderer('reset_password', {
           showHeader: true,
           home: true,
@@ -132,7 +133,7 @@ module.exports = {
         req.session.destroy();
         return res.send(data);
       }).catch((error) => {
-       // console.log("---- error -------", error)
+        // console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
@@ -145,6 +146,13 @@ module.exports = {
         console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
+    });
+
+    //set sessionExp to false
+    self.route('get', 'setSessionExpFalse/:fromLogin', function (req, res) {
+      req.session.sessionExp = "false";
+      console.log(req.session.frm_ref_home)
+      return res.send({ data: { success: "true", message: "session ref_home set" } });
     });
   },
 };

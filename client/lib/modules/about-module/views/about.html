@@ -52,25 +52,47 @@
                     </div>
                     <!-- child NHS Number End-->
 
-                    <!-- child Full name Start-->
+                    <!-- child first name Start-->
                     <div class="form-group py-2 my-2">
-                        <label for="childFullName" class="question-font">{{sec2dynamicLabel.fullNameLabel}}</label>
+                        <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
-                            <input type="text" class="form-control input-bg-form-control" v-model="aboutObj.childName"
-                                id="childFullName" @input="trimWhiteSpace($event,'aboutObj','childName')"
-                                v-bind:placeholder="sec2dynamicLabel.fullNamePlacLabel">
+                            <input type="text" class="form-control input-bg-form-control"
+                                v-model="aboutObj.childFirstName" id="childFirstName"
+                                @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
+                                v-bind:placeholder="sec2dynamicLabel.firstNamePlacLabel">
                             <div class="input-group-append">
                                 <span class="input-group-text font-23">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childName),'invalid-fields':!aboutObj.childName }">
-                                You must provide a full name.
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childFirstName),'invalid-fields':!aboutObj.childFirstName }">
+                                You must provide a first name.
                             </div>
                         </div>
                     </div>
-                    <!-- child Full name End-->
+                    <!-- child first name End-->
+
+                    <!-- child last name Start-->
+                    <div class="form-group py-2 my-2">
+                        <label for="childLastName" class="question-font">{{sec2dynamicLabel.lastNameLabel}}</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control input-bg-form-control"
+                                v-model="aboutObj.childLastName" id="childLastName"
+                                @input="trimWhiteSpace($event,'aboutObj','childLastName')"
+                                v-bind:placeholder="sec2dynamicLabel.lastNamePlacLabel">
+                            <div class="input-group-append">
+                                <span class="input-group-text font-23">
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childLastName),'invalid-fields':!aboutObj.childLastName }">
+                                You must provide a last name.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- child last name End-->
 
                     <!-- child email Start-->
                     <div class="form-group py-2 my-2">
@@ -292,7 +314,8 @@
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body text-capitalize bg-set-on-card">
                                 <div class="d-flex align-items-center justify-content-between my-1">
-                                    <h3 class="link-text">{{item.name}}</h3>
+                                    <h3 class="link-text">{{item.name}} {{item.lastName}}</h3>
+                                    <!-- <h3 class="link-text">{{item.lastName}}</h3> -->
                                     <div>
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#houseHoldModal" @click="patchHouseHold(item)"><i
@@ -420,19 +443,36 @@
                 <!-- Your parent / carer Start -->
                 <h2 class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{sec2dynamicLabel.carerLabel}}</h2>
+                <!-- Your parent / carer firstname Start -->
                 <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     <div class="form-group my-2">
-                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourNameLabel}}</label>
+                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourFirstNameLabel}}</label>
                         <input type="text" class="form-control input-bg-form-control" id="carer"
-                            @input="trimWhiteSpace($event,'aboutObj','parentName')"
-                            v-bind:placeholder="sec2dynamicLabel.yourNamePlacLabel" v-model="aboutObj.parentName">
-                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentName),
-                            'invalid-fields':!aboutObj.parentName }">
-                            You must provide an name.
+                            @input="trimWhiteSpace($event,'aboutObj','parentFirstName')"
+                            v-bind:placeholder="sec2dynamicLabel.yourFirstNamePlacLabel"
+                            v-model="aboutObj.parentFirstName">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentFirstName),
+                            'invalid-fields':!aboutObj.parentFirstName }">
+                            You must provide a first name.
                         </div>
                     </div>
                 </div>
-
+                <!-- Your parent / carer firstname end -->
+                <!-- Your parent / carer lastname Start -->
+                <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="form-group my-2">
+                        <label for="carer" class="question-font"> {{sec2dynamicLabel.yourLastNameLabel}}</label>
+                        <input type="text" class="form-control input-bg-form-control" id="parentLastName"
+                            @input="trimWhiteSpace($event,'aboutObj','parentLastName')"
+                            v-bind:placeholder="sec2dynamicLabel.yourLastNameLabelPlacLabel"
+                            v-model="aboutObj.parentLastName">
+                        <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.parentLastName),
+                            'invalid-fields':!aboutObj.parentLastName }">
+                            You must provide a last name.
+                        </div>
+                    </div>
+                </div>
+                <!-- Your parent / carer lastname end -->
                 <!-- Reset Flow Start -->
 
                 <!-- Parental Responsibility start -->
@@ -476,25 +516,50 @@
                 </div>
                 <!-- Parental Responsibility Toaster container end -->
 
-                <!-- Parent or Carer Name Start -->
-                <form id="parentOrCarer-form" data-options="parentCarerName">
+                <!-- Parent or Carer First Name Start -->
+                <form id="parentOrCarer-form" data-options="parentCarerFirstName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
-                                class="question-font">{{sec2dynamicLabel.parentOrCarerNameLabel}}</label>
+                                class="question-font">{{sec2dynamicLabel.parentOrCarerFirstNameLabel}}</label>
                             <input type="text" class="form-control input-bg-form-control" id="contactNumber"
-                                @input="trimWhiteSpace($event,'aboutFormData','parentCarerName')"
-                                placeholder="Enter your parent / carer’s name" v-model="aboutFormData.parentCarerName">
+                                @input="trimWhiteSpace($event,'aboutFormData','parentCarerFirstName')"
+                                placeholder="Enter your parent / carer’s first name"
+                                v-bind:placeholder="sec2dynamicLabel.parentOrCarerFirstNameLabel"
+                                v-model="aboutFormData.parentCarerFirstName">
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerName),
-                                'invalid-fields':(!aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no') }">
-                                You must provide an name.
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerFirstName),
+                                'invalid-fields':(!aboutFormData.parentCarerFirstName && aboutFormData.parentialResponsibility =='no') }">
+                                You must provide a first name.
                             </div>
                         </div>
                     </div>
                 </form>
-                <!-- Parent or Carer Name End -->
+                <!-- Parent or Carer First Name End -->
+
+                <!-- Parent or Carer end Name Start -->
+                <form id="parentOrCarer-form" data-options="parentCarerLastName">
+                    <div v-if="aboutFormData.parentialResponsibility == 'no'"
+                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group py-2 my-2">
+                            <label for="contactNumber"
+                                class="question-font">{{sec2dynamicLabel.parentOrCarerLastNameLabel}}</label>
+                            <input type="text" class="form-control input-bg-form-control" id="contactNumber"
+                                @input="trimWhiteSpace($event,'aboutFormData','parentCarerLastName')"
+                                placeholder="Enter your parent / carer’s first name"
+                                v-bind:placeholder="sec2dynamicLabel.parentOrCarerLastNameLabel"
+                                v-model="aboutFormData.parentCarerLastName">
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !aboutFormData.parentCarerLastName),
+                                'invalid-fields':(!aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='no') }">
+                                You must provide a last name.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Parent or Carer end Name End -->
+
 
                 <template
                     v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
@@ -667,30 +732,22 @@
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
-                                    aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
-                                    aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentCarerFirstName  && aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentName &&
-                                !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
-                                aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName &&aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender && aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
-                                    aboutFormData.parentialResponsibility && aboutObj.childGender &&
-                                    aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility == 'yes' && aboutObj.childGender &&aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
                                     <template
-                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentName ||
-                                !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
-                                !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
+                                        v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentFirstName || !aboutObj.parentLastName ||(!aboutFormData.parentialResponsibility) || (aboutFormData.parentialResponsibility == 'no' && (aboutFormData.parentCarerFirstName == '' || aboutFormData.parentCarerLastName == '')) || (aboutFormData.parentialResponsibility == 'no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName)) ||!aboutObj.childGender ||!aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childFirstName || !aboutObj.childLastName">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
@@ -698,35 +755,28 @@
                                 </p>
 
                                 <template
-                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
-                            aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&
-                            aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <template v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentName &&
-                        !aboutFormData.parentCarerName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName  && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender && aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
                                         move on to
                                         education / employment & support needs</p>
                                 </template>
 
                                 <template
-                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentName &&
-                            aboutFormData.parentialResponsibility && aboutObj.childGender &&
-                            aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childName">
+                                    v-if="aboutFormData.contactNumber  && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentCarerFirstName  && aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='no' && aboutObj.childGender && aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
                                     <p class="question-font text-center m-0 py-2">Another section finished. Lets
                                         move on to
                                         education / employment & support needs</p>
                                 </template>
 
                                 <template
-                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentName ||
-                        !aboutFormData.parentialResponsibility || !aboutObj.childGender ||
-                        !aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childName">
+                                    v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName &&aboutFormData.parentialResponsibility == 'yes'  && aboutObj.childGender &&aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
+                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
+                                        move on to
+                                        education / employment & support needs</p>
+                                </template>
+
+                                <template
+                                    v-if="!aboutFormData.contactNumber || !aboutFormData.relationshipToYou || !aboutObj.parentFirstName || !aboutObj.parentLastName ||(!aboutFormData.parentialResponsibility) || (aboutFormData.parentialResponsibility == 'no' && (aboutFormData.parentCarerFirstName == '' || aboutFormData.parentCarerLastName == '')) || (aboutFormData.parentialResponsibility == 'no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName)) ||!aboutObj.childGender ||!aboutObj.childIdentity || !aboutObj.sendPost || !aboutObj.childAddress || !aboutObj.childFirstName || !aboutObj.childLastName">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
@@ -768,16 +818,31 @@
                             </div>
                             <div class="modal-body py-1 px-4">
 
-                                <!-- Household name start -->
+                                <!-- Household first name start -->
                                 <div class="form-group">
-                                    <label for="houseHoldName" inputmode="text" class="question-font">Name</label>
+                                    <label for="houseHoldName" inputmode="text" class="question-font">First name</label>
                                     <input type="text" class="form-control input-bg-form-control"
                                         v-model="houseHoldData.name"
                                         @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
                                         placeholder="Enter name">
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name) }">
-                                        Please provide a name.
+                                        Please provide a first name.
+                                    </div>
+                                </div>
+                                <!-- Household first name end -->
+
+                                <!-- Household last name start -->
+                                <div class="form-group">
+                                    <label for="houseHoldLastName" inputmode="text" class="question-font">Last
+                                        name</label>
+                                    <input type="text" class="form-control input-bg-form-control"
+                                        v-model="houseHoldData.lastName"
+                                        @input="trimWhiteSpace($event,'houseHoldData','lastName')"
+                                        id="houseHoldLastName" placeholder="Enter last name">
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName) }">
+                                        Please provide a last name.
                                     </div>
                                 </div>
                                 <!-- Household name end -->

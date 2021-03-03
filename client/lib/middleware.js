@@ -51,7 +51,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
-      if (req.session.auth_token) {
+      if (req.session.auth_token) {   
         self.verifyToken(req)
           .then((data) => {
             req.data.loginId = req.session.loginIdUrl;
@@ -344,10 +344,12 @@ module.exports = function (self, options) {
       self.middleware.get(req, url).then((data) => {
         return resolve(data);
       }).catch((error) => {
+        console.log("verify tokn")
         delete req.session.uuid;
         delete req.session.user_role;
         delete req.session.auth_token;
         delete req.session.loginFlag;
+       // req.session.sessionExp = true;
         return reject(error);
       });
     });

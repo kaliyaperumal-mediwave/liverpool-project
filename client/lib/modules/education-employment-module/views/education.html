@@ -213,7 +213,7 @@
                                 you know it)</label>
                             <input type="text" class="form-control input-bg-form-control" id="socialWorker"
                                 @input="trimWhiteSpace($event,'educAndEmpData','socialWorkName')"
-                                placeholder="Enter social worker's name" v-model="educAndEmpData.socialWorkName">
+                                placeholder="Enter social worker's first name" v-model="educAndEmpData.socialWorkName">
                             <!-- <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
                                 You must provide a name.
@@ -221,6 +221,25 @@
                         </div>
                     </div>
                 </form>
+
+
+                <form id="socialWorkerName-info" data-options="socialWorkLastName">
+                    <div v-if="educAndEmpData.haveSocialWorker =='yes'"
+                        class="px-4 pt-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="form-group m-0">
+                            <label for="socialWorker" class="question-font">{{dynamicLabels.socialWorkerLastNameLabel}} (if
+                                you know it)</label>
+                            <input type="text" class="form-control input-bg-form-control" id="socialWorker"
+                                @input="trimWhiteSpace($event,'educAndEmpData','socialWorkName')"
+                                placeholder="Enter social worker's last name" v-model="educAndEmpData.socialWorkLastName">
+                            <!-- <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !educAndEmpData.socialWorkName),'invalid-fields':!educAndEmpData.socialWorkName }">
+                                You must provide a name.
+                            </div> -->
+                        </div>
+                    </div>
+                </form>
+                
                 <!-- Social Worker Name End -->
 
                 <!-- Social Worker Contact Start -->
