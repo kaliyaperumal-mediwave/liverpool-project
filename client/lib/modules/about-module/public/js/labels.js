@@ -156,7 +156,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
             "Please enter the details below for the person who has parental responsibility for your child.";
         section2Labels.parentOrCarerNameLabel =
             "What is the parent or carers name?";
-        section2Labels.firstNameLabel = "Your child's full name";
+        section2Labels.firstNameLabel = "Your child's first name";
         section2Labels.firstNamePlacLabel = "Enter child/young person's first name";
         section2Labels.lastNameLabel = "Your child's last name";
         section2Labels.lastNamePlacLabel = "Enter child/young person's last name";
