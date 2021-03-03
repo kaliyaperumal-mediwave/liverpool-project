@@ -13,7 +13,7 @@ $(document).ready(function () {
         beforeMount: function () {
             $('#loader').show();
             $('#piecesLoader').show();
-            
+
         },
 
         mounted: function () {
@@ -26,13 +26,29 @@ $(document).ready(function () {
         },
 
         methods: {
+
             loadPiecesData: function () {
-                console.log("api call start")
+                var _self = this;
                 $('#piecesLoader').show();
-                var successData = apiCallGet('get', '/getPiecesData', API_URI);
-                console.log(successData.data.searchData);
-                this.resources = successData.data.searchData;
-                $('#piecesLoader').hide();
+                $.ajax({
+                    url: API_URI + "/getPiecesData",
+                    type: 'get',
+                    async: true,
+                    success: function (response) {
+                        $('#piecesLoader').hide();
+                        _self.resources = response.data.searchData;
+                    },
+                    error: function (err) {
+                        $('#piecesLoader').hide();
+                        // console.log(err)
+                    },
+                })
+                // console.log("api call start")
+                // $('#piecesLoader').show();
+                // var successData = apiCallGet('get', '/getPiecesData', API_URI);
+                // console.log(successData.data.searchData);
+                // this.resources = successData.data.searchData;
+                // $('#piecesLoader').hide();
             },
 
             navigatePage: function (route) {
