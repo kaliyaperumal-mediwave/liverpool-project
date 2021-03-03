@@ -981,6 +981,12 @@ body {
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
+  body .form-check-input:disabled ~ .form-check-label,
+  body .form-check-input[disabled] ~ .form-check-label {
+    color: #023047; }
+  body .form-check-input:disabled ~ .form-check-label,
+  body .form-check-input[disabled] ~ .form-check-label {
+    color: #023047; }
   body [v-cloak] {
     display: none !important; }
   @media (min-width: 1200px) and (max-width: 1499.98px) {
@@ -1105,8 +1111,7 @@ body {
   body .h-300 {
     height: 300px !important; }
   body .font-23 {
-    font-size: 20px;
-    padding-top: 2px; }
+    font-size: 20px; }
   body .font-25 {
     font-size: 25px; }
     @media (max-width: 575.98px) {
@@ -4338,7 +4343,7 @@ body .ui-widget .ui-menu-item {
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   height: 42px;
-  color: #11214B;
+  color: #11214b;
   opacity: 1;
   margin-bottom: 0px;
   padding-bottom: 0; }
@@ -4457,7 +4462,7 @@ div.collapse-container.collapsing {
       padding-left: 5px; } }
 
 .color-yellow {
-  background: #FFB703 !important; }
+  background: #ffb703 !important; }
 
 @media (max-width: 768px) {
   .mlr-sm-5 {

@@ -33,7 +33,8 @@
                 <!-- <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">About your
                     referral
                 </h2> -->
-                <div v-if="userRole == 'child'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div v-if="userRole == 'child'"
+                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_TitileChild', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -45,30 +46,32 @@
                     }
                     }
                     }) }}</div>
-                    <div v-if="userRole == 'parent'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        {{ apos.area(data.page, 'referral_Titileparent', {
-                        widgets: {
-                        'apostrophe-rich-text': {
-                        toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                        styles: [
-                        { name: 'Paragraph', element: 'p' }
+                <div v-if="userRole == 'parent'"
+                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{ apos.area(data.page, 'referral_Titileparent', {
+                    widgets: {
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Paragraph', element: 'p' }
 
-                        ]
-                        }
-                        }
-                        }) }}</div>
-                        <div v-if="userRole == 'professional'" class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                            {{ apos.area(data.page, 'referral_TitileProffessional', {
-                            widgets: {
-                            'apostrophe-rich-text': {
-                            toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                            styles: [
-                            { name: 'Paragraph', element: 'p' }
+                    ]
+                    }
+                    }
+                    }) }}</div>
+                <div v-if="userRole == 'professional'"
+                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    {{ apos.area(data.page, 'referral_TitileProffessional', {
+                    widgets: {
+                    'apostrophe-rich-text': {
+                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                    styles: [
+                    { name: 'Paragraph', element: 'p' }
 
-                            ]
-                            }
-                            }
-                            }) }}</div>
+                    ]
+                    }
+                    }
+                    }) }}</div>
 
 
                 {% raw %}
@@ -397,7 +400,7 @@
                             <div class="card text-left mb-2" v-for="(item, index) in allAvailableService" :key="index">
                                 <div class="card-body text-capitalize bg-set-on-card">
                                     <div class="d-flex align-items-center justify-content-between my-1">
-                                        <h3 class="link-text">{{item.name}}</h3>
+                                        <h3 class="link-text">{{item.name}} </h3>
                                         <div>
                                             <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                                 data-target="#serviceModal" @click="patchService(item)"><i
@@ -410,7 +413,7 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <h3 class="link-text">{{item.professional}}</h3>
+                                    <h3 class="link-text">{{item.profFirstName}} {{item.profLastName}}</h3>
                                     <h3 class="link-text">{{item.contact}}</h3>
                                 </div>
                             </div>
@@ -458,25 +461,55 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="profAtService" class="question-font">Name of professional at
+                                        <label for="profAtService" class="question-font">First name of professional at
                                             service - <b>optional</b></label>
-                                        <input type="text" v-model="serviceData.professional"
-                                            class="form-control input-bg-form-control"
-                                            @input="trimWhiteSpace($event,'serviceData','professional')"
-                                            id="profAtService" placeholder="Enter the name of who you worked with">
+                                        <div class="input-group">
+                                            <input type="text" v-model="serviceData.profFirstName"
+                                                class="form-control input-bg-form-control"
+                                                @input="trimWhiteSpace($event,'serviceData','profFirstName')"
+                                                id="profAtService" placeholder="Enter the name of who you worked with">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span
+                                                    class="input-group-secondary-text input-group-text px-3 font-23"><i
+                                                        aria-hidden="true" class="fa fa-user-circle"></i></span>
+                                            </div>
+                                        </div>
                                         <!-- <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
                                             You must provide the name of a professional at the service.
                                         </div> -->
                                     </div>
                                     <div class="form-group">
+                                        <label for="profAtService" class="question-font">Last name of professional at
+                                            service - <b>optional</b></label>
+                                        <div class="input-group">
+                                            <input type="text" v-model="serviceData.profLastName"
+                                                class="form-control input-bg-form-control"
+                                                @input="trimWhiteSpace($event,'serviceData','profLastName')"
+                                                id="profAtService" placeholder="Enter the name of who you worked with">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span
+                                                    class="input-group-secondary-text input-group-text px-3 font-23"><i
+                                                        aria-hidden="true" class="fa fa-user-circle"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="contactNumber" class="question-font">Contact
                                             number for
                                             professional - <b>optional</b></label>
-                                        <input type="text" class="form-control input-bg-form-control"
-                                            v-model="serviceData.contact"
-                                            @input="trimWhiteSpace($event,'serviceData','contact')" id="contactNumber"
-                                            placeholder="Enter a phone number for the professional">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-bg-form-control"
+                                                v-model="serviceData.contact"
+                                                @input="trimWhiteSpace($event,'serviceData','contact')"
+                                                id="contactNumber"
+                                                placeholder="Enter a phone number for the professional">
+                                            <div class="input-group-append cursor-pointer">
+                                                <span
+                                                    class="input-group-secondary-text input-group-text px-3 font-25"><i
+                                                        aria-hidden="true" class="fa fa-phone"></i></span>
+                                            </div>
+                                        </div>
                                         <!-- <div class="text-validation invalid-feedback  d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
                                             You must provide the 11 digit contact number.

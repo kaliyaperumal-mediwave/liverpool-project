@@ -13,6 +13,7 @@ $(document).ready(function () {
         beforeMount: function () {
             $('#loader').show();
             $('#piecesLoader').show();
+            //document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'none';
 
         },
 
@@ -37,18 +38,14 @@ $(document).ready(function () {
                     success: function (response) {
                         $('#piecesLoader').hide();
                         _self.resources = response.data.searchData;
+                        // document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'apply';
                     },
                     error: function (err) {
                         $('#piecesLoader').hide();
-                        // console.log(err)
+                        // document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'apply';
+                        console.log(err)
                     },
                 })
-                // console.log("api call start")
-                // $('#piecesLoader').show();
-                // var successData = apiCallGet('get', '/getPiecesData', API_URI);
-                // console.log(successData.data.searchData);
-                // this.resources = successData.data.searchData;
-                // $('#piecesLoader').hide();
             },
 
             navigatePage: function (route) {
@@ -61,7 +58,6 @@ $(document).ready(function () {
                 $('.theme-wrapper').removeClass('net default small large').addClass('net ' + theme).addClass('body-bg');
             },
             filterPieces: function () {
-                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 this.searchQueryToLower = this.searchQuery.toLowerCase();
                 if (this.searchQueryToLower) {
                     this.filteredData = [];

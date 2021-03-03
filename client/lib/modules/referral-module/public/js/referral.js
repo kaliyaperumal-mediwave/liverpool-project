@@ -51,7 +51,8 @@ $(document).ready(function () {
             ],
             serviceData: {
                 name: null,
-                professional: null,
+                profFirstName: null,
+                profLastName: null,
                 contact: null,
             },
             currentSection: 'referral',
@@ -497,7 +498,8 @@ $(document).ready(function () {
             patchService: function (service) {
                 var serviceForm = this.serviceData;
                 serviceForm.name = service.name;
-                serviceForm.professional = service.professional;
+                serviceForm.profFirstName = service.profFirstName;
+                serviceForm.profLastName = service.profLastName;
                 serviceForm.contact = service.contact;
                 serviceForm.id = service.id;
                 serviceForm.mode = 'update';
@@ -526,7 +528,8 @@ $(document).ready(function () {
             resetModalValues: function () {
                 this.hasSubmittedServiceForm = false;
                 this.serviceData.name = '';
-                this.serviceData.professional = '';
+                this.serviceData.profFirstName = '';
+                this.serviceData.profLastName = '';
                 this.serviceData.contact = '';
                 this.serviceData.mode = '';
             },
