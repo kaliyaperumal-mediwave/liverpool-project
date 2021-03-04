@@ -174,7 +174,33 @@ $(document).ready(function () {
       {
         var successData = apiCallGet('get', '/sendAttachment', API_URI);
         console.log(successData)
+        //this.toArrayBuffer(successData.data.data)
+       // saveByteArray("test.pdf" , successData.data.data)
+        var blob = new Blob([this.toArrayBuffer(successData.data.data)], {type: "application/pdf"});
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = "test.pdf";
+        link.download = fileName;
+        link.click();
+      },
+
+      saveByteArray:function (reportName, byte) {
+        var blob = new Blob([byte], {type: "application/pdf"});
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        var fileName = reportName;
+        link.download = fileName;
+        link.click();
+    },
+    toArrayBuffer: function(buf) {
+      console.log(buf);
+      var ab = new ArrayBuffer(buf.length);
+      var view = new Uint8Array(ab);
+      for (var i = 0; i < buf.length; ++i) {
+          view[i] = buf[i];
       }
+      return ab;
+  }
     },
 
   })

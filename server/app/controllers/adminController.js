@@ -5,6 +5,7 @@ const reponseMessages = require('../middlewares/responseMessage');
 const sequelize = require('sequelize');
 const { req } = require('@kasa/koa-logging/lib/serializers');
 const email = require('../utils/email');
+const pdf = require('../utils/pdfgenerate');
 
 const gpCodes = [
     {
@@ -343,17 +344,33 @@ exports.getAllReferral = ctx => {
 }
 exports.sendAttachment = ctx => {
 
+    // try {
+    //     return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+    //         console.log(sendReferralStatus)
+    //         return ctx.res.ok({
+    //             message: reponseMessages[1017],
+    //         });
+    //     }).catch(error => {
+    //         console.log(error, "error");
+    //         sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    //     });
+    // } catch (e) {
+    //     return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    // }
+
     try {
-        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+        return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             console.log(sendReferralStatus)
             return ctx.res.ok({
+                data:sendReferralStatus,
                 message: reponseMessages[1017],
             });
         }).catch(error => {
-            console.log(error, "error");
+            console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
+        console.log(e);
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 
