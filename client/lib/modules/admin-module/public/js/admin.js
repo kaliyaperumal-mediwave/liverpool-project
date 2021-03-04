@@ -64,19 +64,8 @@ $(document).ready(function () {
               this.referralData[i].gp_location,
               this.referralData[i].referrer_type,
               this.referralData[i].date,
-              '<div class="input-group height-set-admin-select">' +
-              '<span class="plain-select">' +
-              '<select class="custom-select form-control " name="legalCare">' +
-              '<option class="option-text" value="Nothing" selected>Nothing</option>' +
-              '<option class="option-text" value="Accepted">Accepted</option>' +
-              '<option class="option-text" value="Forwarded to partner agency">Forwarded to partner agency</option>' +
-              '<option class="option-text" value="Duplicate referral">Duplicate referral</option>' +
-              '<option class="option-text" value="Rejected referral">Rejected referral</option>' +
-              '<option class="option-text" value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
-              '<option class="option-text" value="Referral to other team ">Referral to other team</option>' +
-              '</select>' +
-              '</span>' +
-              '</div>'
+              "completed",
+              '<div class="d-flex"><button class="btn-pdf">Pdf</button><button class="btn-pdf">Pdf</button></div>'
             ]);
           }
           $('#example').DataTable({

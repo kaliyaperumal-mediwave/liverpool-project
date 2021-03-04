@@ -245,18 +245,9 @@ div.radio.switcher label {
 
 .admin-contain-right {
   border-radius: 10px;
-  width: calc(100% - 400px);
+  width: 100%;
   background: #fafafa;
   padding: 30px; }
-  @media (min-width: 992px) and (max-width: 1199.98px) {
-    .admin-contain-right {
-      width: calc(100% - 320px); } }
-  @media (min-width: 768px) and (max-width: 991.98px) {
-    .admin-contain-right {
-      width: calc(100% - 300px); } }
-  @media (max-width: 768px) {
-    .admin-contain-right {
-      width: 100%; } }
 
 .added-js-slider {
   width: calc(100% - 300px); }
@@ -499,6 +490,17 @@ div.radio.switcher label {
 
 .icon-display-none::after {
   display: none !important; }
+
+.btn-pdf {
+  width: 60px;
+  height: 40px;
+  border-radius: 6px;
+  background: #fdb732;
+  border: none;
+  font-weight: 600;
+  font-size: 17px;
+  box-shadow: 0px 3px 6px #00000029;
+  margin: 0px 10px 0px 0px; }
 
 .middleContainer:after {
   content: "";
