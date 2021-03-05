@@ -2773,6 +2773,7 @@ exports.searchReferalByCode = ctx => {
     return ref.findAll({
       where: {
         reference_code: ctx.query.reqCode,
+        referral_complete_status: 'completed'
       },
     }).then((result) => {
       console.log(result);

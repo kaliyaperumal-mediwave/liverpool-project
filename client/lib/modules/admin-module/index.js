@@ -59,10 +59,9 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       })
     });
-
-    self.route('get', 'sendAttachment', function (req, res) {
+    self.route('get', 'sendAttachment/:uuid/:role/', function (req, res) {
       console.log("get all referal")
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendAttachment';
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendAttachment?refId='+req.params.uuid+'/role='+req.params.role;
       console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
