@@ -336,6 +336,12 @@
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
+                                    <template
+                                        v-if="showInstitution && !educAndEmpData.attendedInfo && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </template>
 
                                     <!-- <template
                                         v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && !showInstitution && !educAndEmpData.attendedInfo">
@@ -404,6 +410,15 @@
 
                                 <template
                                     v-if="showInstitution && educAndEmpData.attendedInfo && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                        section on
+                                        this
+                                        page
+                                    </p>
+                                </template>
+
+                                <template
+                                    v-if="showInstitution && !educAndEmpData.attendedInfo && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
