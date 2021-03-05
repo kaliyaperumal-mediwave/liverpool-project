@@ -11,6 +11,11 @@ var apos = require("apostrophe")({
   modules: {
     // Apostrophe module configuration
 
+    'apostrophe-security-headers': {
+      'X-Frame-Options': 'DENY'
+    },
+
+
     // Note: most configuration occurs in the respective
     // modules' directories. See lib/apostrophe-assets/index.js for an example.
 
@@ -19,7 +24,6 @@ var apos = require("apostrophe")({
 
     // If a template is not found somewhere else, serve it from the top-level
     // `views/` folder of the project
-
     settings: {
       // So we can write `apos.settings` in a template
       alias: "LIVERPOOLMODULE",
@@ -32,6 +36,9 @@ var apos = require("apostrophe")({
     },
     'apostrophe-assets': {
       minify: false
+    },
+    'apostrophe-express': {
+      csrf: false,
     },
     "apostrophe-attachments": {
       uploadfs: {

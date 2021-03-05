@@ -15,5 +15,6 @@ const messageCodes = {
   1014: 'Thank you for your valuable feedback!',
   1015: 'Deleted successfully.',
   1016: 'Data not found.',
+  1017: 'Referral details sent'
 };
 module.exports = messageCodes;

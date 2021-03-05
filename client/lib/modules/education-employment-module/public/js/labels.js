@@ -3,7 +3,7 @@
 function getDynamicLabels(currentLocation) {
   //  console.log(currentLocation)
     var section3Labels = {
-        positionLabel: '', locationLabel: '', ehcpPlanLabel: '', ehatToolLabel: '', isSocialWorkerLabel: '', socialWorkerNameLabel: '', socialWorkerContactLabel: '',
+        positionLabel: '', locationLabel: '', ehcpPlanLabel: '', ehatToolLabel: '', isSocialWorkerLabel: '', socialWorkerNameLabel: '',socialWorkerLastNameLabel: '', socialWorkerContactLabel: '',
     }
 
     if (currentLocation === "child") {
@@ -12,7 +12,8 @@ function getDynamicLabels(currentLocation) {
         section3Labels.ehcpPlanLabel = "Do you have an Education & Health Care Plan (EHCP)?";
         section3Labels.ehatToolLabel = "Do you have an open Early Help Assessment Tool (EHAT)?";
         section3Labels.isSocialWorkerLabel = "Do you have a social worker?";
-        section3Labels.socialWorkerNameLabel = "What is the name of your social worker?";
+        section3Labels.socialWorkerNameLabel = "What is the first name of your social worker?";
+        section3Labels.socialWorkerLastNameLabel = "What is the last name of your social worker?";
         section3Labels.socialWorkerContactLabel = "What is the contact number for your social worker";
 
     } else if (currentLocation === "parent") {
@@ -21,7 +22,8 @@ function getDynamicLabels(currentLocation) {
         section3Labels.ehcpPlanLabel = "Does your child have an Education & Health Care Plan (EHCP)?";
         section3Labels.ehatToolLabel = "Do your child have an open Early Help Assessment Tool (EHAT)?";
         section3Labels.isSocialWorkerLabel = "Does your child have a social worker?";
-        section3Labels.socialWorkerNameLabel = "What is the name of their social worker?";
+        section3Labels.socialWorkerNameLabel = "What is the first name of their social worker?";
+        section3Labels.socialWorkerLastNameLabel = "What is the last name of their social worker?";
         section3Labels.socialWorkerContactLabel = "What is the contact number for their social worker";
 
     }
@@ -31,7 +33,8 @@ function getDynamicLabels(currentLocation) {
         section3Labels.ehcpPlanLabel = "Does the child/young person have an Education & Health Care Plan (EHCP)?";
         section3Labels.ehatToolLabel = "Does the child/young person have an open Early Help Assessment Tool (EHAT)?";
         section3Labels.isSocialWorkerLabel = "Does the child/young  have a social worker?";
-        section3Labels.socialWorkerNameLabel = "What is the name of the child/young person's social worker?";
+        section3Labels.socialWorkerNameLabel = "What is the first name of the child/young person's social worker?";
+        section3Labels.socialWorkerLastNameLabel = "What is the last name of the child/young person's social worker?";
         section3Labels.socialWorkerContactLabel = "What is the contact number for the child/young person's  social worker";
     }
 

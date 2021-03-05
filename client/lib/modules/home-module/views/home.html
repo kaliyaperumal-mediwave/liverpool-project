@@ -1,165 +1,159 @@
-
-{% extends "layout.html" %}
-
-{% block extraBody %}
+{% extends "layout.html" %} {% block extraBody %}
 <script src="/modules/home-module/js/home.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
-{% endblock %}
-{% block main %}
+{% endblock %} {% block main %}
 <div id="landing-page">
-    <!-- Loader start -->
-    <div class="overlay" id="loader">
-        <div class="overlay__inner">
-            <div class="overlay__content">
-                <div class="lds-spinner">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+  <!-- Loader start -->
+  <div class="overlay" id="loader">
+    <div class="overlay__inner">
+      <div class="overlay__content">
+        <div class="lds-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
+      </div>
     </div>
-    <!-- Loader end -->
-
-    <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2 res-font">
-        <h2 class="home-header-primary text-center">CAMHS Services</h2>
-        <span class="home-header-secondary text-center d-block">Getting help is hard ,We make it easy </span>
-    </div>
-    <div class="my-md-3 my-lg-4 my-xl-4 my-4">
-        <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
-                <input hidden id="resources" value="{{data.piecesArray|dump}}">
-                <div>
-                    <div class="input-group">
-                        <span class="input-group-prepend">
-                            <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
-                                <i class="fal fa-search font-23 ham-icon"></i>
-                            </div>
-                        </span>
-                        <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                            v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
-                            @input="filterPieces()">
-                    </div>
-                      <div  id="hideserachblock" class="d-none">
-                    {% raw %}
-                    <!-- Search functionality start-->
-                    <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                        {{searchQuery}}?”</div>
-                    <div v-if="showSearchResults" class="search-wrap primary-search-radius">
-                        <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                            <template v-if="filteredData.length">
-                                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                                    <a :href=" item.custom_url ? item.custom_url : item._url">
-                                        <div class="d-flex align-items-center">
-                                            <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
+  </div>
+  <!-- Loader end -->
+  <div class="mt-xl-0 mt-lg-0 mt-md-5 mt-2 res-font">
+    <h2 class="home-header-primary text-center">CAMHS Services</h2>
+    <span class="home-header-secondary text-center d-block">Getting help is hard ,We make it easy
+    </span>
+  </div>
+  <div class="my-md-3 my-lg-4 my-xl-4 my-4">
+    <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar">
+        <input hidden id="resources" value="{{data.piecesArray|dump}}" />
+        <div>
+          <div class="input-group home-primary-content-bg">
+            <span class="input-group-prepend">
+              <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
+                <i class="fal fa-search font-23 ham-icon"></i>
+              </div>
+            </span>
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+              v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
+              @input="filterPieces()" />
+            <div id="piecesLoader" class="icon-container">
+              <i class="inputLoader"></i>
+            </div>
+          </div>
+          <div id="hideserachblock" class="d-none">
+            {% raw %}
+            <!-- Search functionality start-->
+            <div v-if="showSearchResults" class="resource_search_text my-3">
+              Search results for "what is {{searchQuery}}?"
+            </div>
+            <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+              <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                <template v-if="filteredData.length">
+                  <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                    <a :href=" item.custom_url ? item.custom_url : item._url">
+                      <div class="d-flex align-items-center">
+                        <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50"
                                                 height="30" class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
-                                                <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-
-                                            <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
-                                            </p>
-                                            <ul class="my-0 link-text mx-2 mx-md-4"
-                                                style="list-style: inside !important;">
-                                                <li>{{item.Topic}}</li>
-                                            </ul>
-                                        </div>
-                                    </a>
-                                </div>
-                            </template>
-                            <template v-if="!filteredData.length">
-                                <p class="resource_search_text py-3">No records found</p>
-                            </template>
-                        </div>
-                    </div>
-                    <!-- Search functionality end-->
-                    {% endraw %}
-                    </div>
-                </div>
+                        <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+                        <p class="question-font my-0 mx-2 mx-md-4">
+                          {{item.title}}
+                        </p>
+                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important">
+                          <li>{{item.Topic}}</li>
+                        </ul>
+                      </div>
+                    </a>
+                  </div>
+                </template>
+                <template v-if="!filteredData.length">
+                  <p class="resource_search_text py-3">No records found</p>
+                </template>
+              </div>
             </div>
+            <!-- Search functionality end-->
+            {% endraw %}
+          </div>
         </div>
-        <div class="d-flex text-center py-2">
-            <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-                <h3 class="home-primary-content m-0 py-2 px-2 text-left">
-                    Liverpool & Sefton CAMHS services aim to promote the mental health and wellbeing of all children,
-                    young people, families and carers.
-                </h3>
-            </div>
-        </div>
+      </div>
     </div>
-
-    <div class="d-flex py-0 mt-md-4 pb-1 mt-3 w-97">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 pb-2 mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg"
-                    @click="navigatePage('/make-referral')">
-                    <div class="text-center py-5">
-                        <img src="/modules/my-apostrophe-assets/img/MakeAReferral2.svg" class="px-3 image-height"
-                            alt="">
-                    </div>
-                    <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content pr-2 px-md-3">Make a referral</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 p-0 cursor-pointer home-primary-content-bg"
-                    @click="navigatePage('/pages/urgent-help')">
-                    <div class="text-center py-5">
-                        <img src="/modules/my-apostrophe-assets/img/UrgentHelp.svg" class="px-3 image-height " alt="">
-                    </div>
-                    <div class="text-right text-md-right py-1 py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content pr-2 px-md-3">Urgent help</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="d-flex text-center py-2">
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg home-primary-content">
+        <h4 class="m-0 py-2 px-2 text-left font-weight-bold home-primary-content">
+          Liverpool & Sefton CAMHS services aim to promote the mental health and
+          wellbeing of all children, young people, families and carers.
+        </h4>
+      </div>
     </div>
-
-    <div class="d-flex py-2 w-97">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 py-2 mx-auto">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-6 col-lg-6 mr-3 mr-md-4 p-0 cursor-pointer home-primary-content-bg"
-                    @click="navigatePage('/users/login')">
-                    <div class="text-center py-5">
-                        <img src="/modules/my-apostrophe-assets/img/Login.svg" class="px-3 image-height" alt="">
-                    </div>
-                    <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content pr-2 px-md-3">Log in / Sign up</span>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 cursor-pointer p-0 home-primary-content-bg"
-                    @click="navigatePage('/resources')">
-                    <div class="text-center py-5">
-                        <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height " alt="">
-                    </div>
-                    <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content pr-2 px-md-3">Resources</span>
-                    </div>
-                </div>
-            </div>
+  </div>
+  <div class="d-flex py-0 mt-md-4 pb-1 mt-3">
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 pb-2 mx-auto">
+      <div class="d-flex justify-content-center">
+        <div class="col-md-6 col-lg-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg"
+          @click="navigatePage('/make-referral')">
+          <div class="text-center py-5">
+            <img src="/modules/my-apostrophe-assets/img/MakeAReferral2.svg" class="px-3 image-height" alt="" />
+          </div>
+          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+            <span class="home-secondary-content pr-2 px-md-3">Make a referral</span>
+          </div>
         </div>
-    </div>
-
-    <div class="d-flex py-2 w-97-large">
-        <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-0 py-1 mx-auto cursor-pointer">
-            <div class="d-flex justify-content-center">
-                <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mental-health')">
-                    <div class="text-center py-5">
-                        <img src="/modules/my-apostrophe-assets/img/MentalHealth.svg" class="px-3 image-height" alt="">
-                    </div>
-                    <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-                        <span class="home-secondary-content pr-2 px-md-3">About mental health services</span>
-                    </div>
-                </div>
-            </div>
+        <div class="col-md-6 col-lg-6 p-0 cursor-pointer home-primary-content-bg"
+          @click="navigatePage('/pages/urgent-help')">
+          <div class="text-center py-5">
+            <img src="/modules/my-apostrophe-assets/img/UrgentHelp.svg" class="px-3 image-height" alt="" />
+          </div>
+          <div class="text-right text-md-right py-1 py-1 sub-header-bg home-card-radius">
+            <span class="home-secondary-content pr-2 px-md-3">Urgent help</span>
+          </div>
         </div>
+      </div>
     </div>
-    {% include "../../shared-referal-module/views/searchReferral.html" %}
+  </div>
+  <div class="d-flex py-2">
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 py-2 mx-auto">
+      <div class="d-flex justify-content-center">
+        <div class="col-md-6 col-lg-6 mr-3 mr-md-4 p-0 cursor-pointer home-primary-content-bg"
+          @click="navigatePage('/users/login')">
+          <div class="text-center py-5">
+            <img src="/modules/my-apostrophe-assets/img/Login.svg" class="px-3 image-height" alt="" />
+          </div>
+          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+            <span class="home-secondary-content pr-2 px-md-3">Log in / Sign up</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 cursor-pointer p-0 home-primary-content-bg" @click="navigatePage('/resources')">
+          <div class="text-center py-5">
+            <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height" alt="" />
+          </div>
+          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+            <span class="home-secondary-content pr-2 px-md-3">Resources</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex py-2">
+    <div class="col-md-8 col-lg-6 col-11 col-xl-6 px-0 py-1 mx-auto cursor-pointer">
+      <div class="d-flex justify-content-center">
+        <div class="col-md-12 p-0 home-primary-content-bg" @click="navigatePage('/mental-health')">
+          <div class="text-center py-5">
+            <img src="/modules/my-apostrophe-assets/img/MentalHealth.svg" class="px-3 image-height" alt="" />
+          </div>
+          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+            <span class="home-secondary-content pr-2 px-md-3">About mental health services</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "../../shared-referal-module/views/searchReferral.html" %}
 </div>
 {% endblock %}

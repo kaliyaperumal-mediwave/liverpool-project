@@ -1,35 +1,52 @@
+var API_URI = "/modules/home-module";
 $(document).ready(function () {
     new Vue({
         el: '#landing-page',
         data: {
             location: window.location,
             searchQuery: null,
-            searchQueryToLower:null,
+            searchQueryToLower: null,
             filteredData: [],
             showSearchResults: false,
             resources: [],
         },
         beforeMount: function () {
             $('#loader').show();
+            $('#piecesLoader').show();
+            //document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'none';
+
         },
 
         mounted: function () {
-            try {
-                if(document.getElementById('resources') && document.getElementById('resources').value) {
-                    this.resources = JSON.parse(document.getElementById('resources').value);
-                } else {
-                    this.resources = [];
-                }
-            } catch (error) {
-                $('#loader').hide();
-                console.log(error);
-            }
+            var _self = this;
             setTimeout(function () {
                 $('#loader').hide();
+                $('#piecesLoader').hide();
+                _self.loadPiecesData();
             }, 1000);
         },
 
         methods: {
+
+            loadPiecesData: function () {
+                var _self = this;
+                $('#piecesLoader').show();
+                $.ajax({
+                    url: API_URI + "/getPiecesData",
+                    type: 'get',
+                    async: true,
+                    success: function (response) {
+                        $('#piecesLoader').hide();
+                        _self.resources = response.data.searchData;
+                        // document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'apply';
+                    },
+                    error: function (err) {
+                        $('#piecesLoader').hide();
+                        // document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'apply';
+                        console.log(err)
+                    },
+                })
+            },
 
             navigatePage: function (route) {
                 this.location.href = this.location.origin + route;
@@ -41,7 +58,6 @@ $(document).ready(function () {
                 $('.theme-wrapper').removeClass('net default small large').addClass('net ' + theme).addClass('body-bg');
             },
             filterPieces: function () {
-                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 this.searchQueryToLower = this.searchQuery.toLowerCase();
                 if (this.searchQueryToLower) {
                     this.filteredData = [];

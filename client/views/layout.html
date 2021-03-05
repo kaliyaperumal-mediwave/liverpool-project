@@ -361,7 +361,7 @@ endblock %} {% block extraHead %}
             </span>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn px-md-4 w-25" id="logNoBtn" data-dismiss="modal" autofocus>
+            <button type="button" class="btn px-md-4 w-25" id="logNoBtn" data-dismiss="modal">
               <span class="btn-modal-text">No
               </span>
             </button>
@@ -410,6 +410,7 @@ endblock %} {% block extraHead %}
 <p id="uUid" class="d-none">{{data.uuid}}</p>
 <!-- Dont remove this line. it is used in check a referral page -->
 <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
+<p id="sessionExp">{{data.sessionExp}}</p>
 <div class="footer-bg set-bottom-padding">
   <p class="d-none" id="uRole">{{data.showLogout}}</p>
   <!-- <div id="footer-placement" class="footer-bg footer set-bottom-padding">

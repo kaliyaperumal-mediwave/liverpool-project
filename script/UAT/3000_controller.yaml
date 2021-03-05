@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: $PHR_LIVERPOOL_NAMESPACE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
+  namespace: $PHR_LIVERPOOL_NAMESPACE
+spec:
+  selector:
+    matchLabels:
+      app: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
+  template:
+    metadata:
+      labels:
+        app: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
+    spec:
+      containers:
+      - name: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
+        image: ${RESEARCH_REGISTRY}/$PHR_LIVERPOOL_NAMESPACE-phr:v${BUILD_NUMBER}
+        env:
+        - name: APP_PORT
+          value: '3001'
+        - name: APP_NAME
+          value: liverpool-phr
+        - name: NODE_ENV
+          value: development
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
+        - name: FROM_EMAIL
+          value: $PHR_LIVERPOOL_FROM_EMAIL
+        - name: JWT_SECRET
+          value: $PHR_LIVERPOOL_JWT_SECRET
+        - name: ORCHA_API
+          value: $PHR_LIVERPOOL_ORCHA_API
+        - name: ORCHA_USER
+          value: $PHR_LIVERPOOL_ORCHA_USER
+        - name: ORCHA_PASS
+          value: $PHR_LIVERPOOL_ORCHA_PASS
+        - name: POSTGRES_DB
+          value: $PHR_LIVERPOOL_POSTGRES_DB
+        - name: POSTGRES_HOST
+          value: $PHR_LIVERPOOL_POSTGRES_HOST
+        - name: POSTGRES_PASSWORD
+          value: $PHR_LIVERPOOL_POSTGRES_PASSWORD
+        - name: POSTGRES_PORT
+          value: $PHR_LIVERPOOL_POSTGRES_PORT
+        - name: POSTGRES_USER
+          value: $PHR_LIVERPOOL_POSTGRES_USER
+        - name: SENDGRID_API_KEY
+          value: $PHR_LIVERPOOL_SENDGRID_API_KEY
+        - name: SSL
+          value: $PHR_LIVERPOOL_SSL
+        - name: TO_EMAIL
+          value: $PHR_LIVERPOOL_TO_EMAIL
+        
+        ports:
+        - containerPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
+  namespace: $PHR_LIVERPOOL_NAMESPACE
+spec:
+  selector:
+    app: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
+  ports:
+  - port: 3001
+    targetPort: 3001

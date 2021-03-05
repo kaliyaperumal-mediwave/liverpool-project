@@ -7,7 +7,7 @@ const nodemailerSendgrid = require('nodemailer-sendgrid');
 require("dotenv").config();
 const sgMail = require('@sendgrid/mail');
 const logger = require('../logger');
-
+var pdf = require('html-pdf');
 sgMail.setApiKey(config.sendgrid_api_key);
 
 let Transport;
@@ -95,7 +95,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
             comments: ctx.request.body.comments,
         });
         var to_email = [];
-        if(config.email_to_address) to_email = config.email_to_address.split(',');
+        if (config.email_to_address) to_email = config.email_to_address.split(',');
         const data = {
             from: config.email_from_address,
             to: to_email,
@@ -152,6 +152,66 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
             });
             resolve();
         }
+    } catch (e) {
+        return resolve(ctx.res.internalServerError({
+            data: 'Failed to sent mail',
+        }));
+    }
+});
+
+exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
+    try {
+        var pdfObj = {
+            ratings: "2.5",
+            comments: "test",
+        }
+        const template = fs.readFileSync(path.join(`${__dirname}/./templates/referralSendTemplate.html`), 'utf8');
+        let htmlTemplate = _.template(template);
+        htmlTemplate = htmlTemplate({
+            body: pdfObj,
+        });
+        var opt = {
+            format: 'A4',
+            orientation: 'portrait',
+            header: {
+                "height": "5mm"
+            },
+            footer: {
+                "height": "5mm"
+            }
+        };
+        pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {
+//return ctx.body = buffer;
+            if (buffer) {
+                const data = {
+                    from: config.email_from_address,
+                    to: "thiru@mindwaveventures.com",
+                    subject: 'LIVERPOOL CAMHS - Referral Details',
+                    html: htmlTemplate,
+                    attachments: [{
+                        filename: `test.pdf`,
+                        content: buffer,
+                        contentType: 'application/pdf'
+                    }]
+                };
+
+                Transport.sendMail(data, (err, res) => {
+                    if (!err && res) {
+                        ctx.res.ok({
+                            data: 'mail Successfully sent',
+                        });
+                        resolve();
+
+                    } else {
+                        logger.error('Mail error', err);
+                        ctx.res.internalServerError({
+                            data: 'mail not sent',
+                        });
+                        reject();
+                    }
+                });
+            }
+        });
     } catch (e) {
         return resolve(ctx.res.internalServerError({
             data: 'Failed to sent mail',

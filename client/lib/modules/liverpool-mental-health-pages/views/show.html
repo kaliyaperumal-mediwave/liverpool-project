@@ -33,16 +33,15 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
     </div>
   </div>
   <div id="resources_user" class="main-min-height">
-    <div class="top-arrow-container" id="searchBar">
-      <a href="" class="previous-link"
-        ><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i
+    <div class="top-arrow-container pd-container" id="searchBar">
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-2">    <a href="" class="previous-link"
+        ><i class="fal fa-long-arrow-left fa-2x ham-icon"></i
       ></a>
 
-      <!-- <a href="" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow cursor-pointer"></a> -->
-      <div class="resource_text">{{ piece.title }}</div>
+      <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">{{ piece.title }}</div></div>
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
       <div id="filter_content">
-        <div class="input-group">
+        <div class="input-group home-primary-content-bg">
           <span class="input-group-prepend">
             <div
               class="home-primarySearch-bg input-group-text border-right-0 height-44"
@@ -107,7 +106,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           {% endraw %}
         </div>
       </div>
-      <div class="text_inside_return card-set-container-bg">
+      <div class="text_inside_return card-set-container-bg home-primary-content-bg">
         <div class="read-cont-h1">{{ piece.title }}</div>
         <div class="read-cont-p footer-content">
           {{apos.area(piece,'subtitle')}}

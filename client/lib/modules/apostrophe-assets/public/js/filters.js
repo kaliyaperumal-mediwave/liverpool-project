@@ -28,7 +28,7 @@ $(document).ready(function () {
             methods: {
                 filterPieces: function () {
                     // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
-                    console.log(this.searchQuery)
+                    //console.log(this.searchQuery)
                     this.searchQueryToLower = this.searchQuery.toLowerCase();
                     if (this.searchQueryToLower) {
                         this.filteredData = [];
@@ -69,6 +69,43 @@ $(document).ready(function () {
                                     self.filteredData.push(item);
                                 }
                             }
+
+                        //     if(item.Topic.toLowerCase()=='watch')
+                        //     {
+                        //         if (!!~item.SubTitle.toLowerCase().indexOf(self.searchQueryToLower)) {
+                        //             self.filteredData.push(item);
+                        //         }
+                        //     }
+                        //    else if(item.Topic.toLowerCase()=='read')
+                        //     {
+                        //         if (!!~item.read_topic.toLowerCase().indexOf(self.searchQueryToLower)) {
+                        //             self.filteredData.push(item);
+                        //         }
+                        //     }
+                        //     else if(item.Topic.toLowerCase()=='games')
+                        //     {
+                        //         if (!!~item.games_title.toLowerCase().indexOf(self.searchQueryToLower)) {
+                        //             self.filteredData.push(item);
+                        //         }
+                        //     }
+                        //     else if(item.Topic.toLowerCase()=='events')
+                        //     {
+                        //         if (!!~item.eventsTopic.toLowerCase().indexOf(self.searchQueryToLower)) {
+                        //             self.filteredData.push(item);
+                        //         }
+                        //     }
+                        //     else if(item.Topic.toLowerCase()=='partneragencies')
+                        //     {
+                        //         if (!!~item.partnerAgencies.toLowerCase().indexOf(self.searchQueryToLower)) {
+                        //             self.filteredData.push(item);
+                        //         }
+                        //     }
+                        //     else
+                        //     {
+                        //         if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
+                        //             self.filteredData.push(item);
+                        //         }
+                        //     }
                             return self.filteredData
                         })
                     } else {

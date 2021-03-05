@@ -25,7 +25,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-
             try {
                 if(document.getElementById('resources') && document.getElementById('resources').value) {
                     this.resources = JSON.parse(document.getElementById('resources').value);

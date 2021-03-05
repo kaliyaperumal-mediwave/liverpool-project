@@ -199,7 +199,11 @@ function apiCallGet(reqType, endPoint, API_URI) {
         },
         error: function (error) {
             $('#loader').hide();
-            showError(error.responseJSON.message, error.status);
+            $('#piecesLoader').hide();
+            if (error) {
+                showError(error.responseJSON.message, error.status);
+            }
+            // showError(error.responseJSON.message, error.status);
         }
     });
     return response
@@ -221,7 +225,9 @@ function apiCallPut(reqType, endPoint, payload) {
                 response = res;
             },
             error: function (error) {
-                showError(error.responseJSON.message, error.status);
+                if (error) {
+                    showError(error.responseJSON.message, error.status);
+                }
             }
         });
     return response

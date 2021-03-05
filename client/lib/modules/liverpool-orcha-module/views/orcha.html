@@ -29,14 +29,14 @@
         </div>
     </div>
     <!-- Loader end -->
-    <div class="top-arrow-container" id="searchBar">
+    <div class="top-arrow-container pd-container" id="searchBar">
         <!-- <a href="{{data.bckBtn}}" class="previous-link"> <img src="/modules/my-apostrophe-assets/img/Back.svg"
                 class="leftArrow cursor-pointer"></a> -->
-                <a href="{{data.bckBtn}}" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon font-weight-normal"></i></a>
+                <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="{{data.bckBtn}}" class="previous-link"><i class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
 
-        <div class="resource_text">Apps</div>
+        <div class="resource_text pb-sm-0 pt-0">Apps</div></div>
         <input hidden id="resources" value="{{data.searchApps|dump}}">
-        <div class="input-group">
+        <div class="input-group home-primary-content-bg">
             <span class="input-group-prepend">
                 <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
                     <span style="color: #023047 !important;">
@@ -80,8 +80,10 @@
         <!-- Search functionality end-->
         {% endraw %}
         </div>
-        <div class="text_inside_cont card-set-container-bg">
+        <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
+            <h5 class="font-weight-bold">
             On this page, you can access a range of useful websites and apps
+            </h5>
         </div>
         </a>
         <div class="text_inside_play-store">
