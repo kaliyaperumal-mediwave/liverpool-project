@@ -2,7 +2,6 @@ var API_URI = "/modules/admin-module";
 $(document).ready(function () {
   var vueApp = new Vue({
     el: '#admin',
-
     data: {
       searchTxt: "",
       toggle: true,
@@ -90,19 +89,8 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
-                  '<div class="input-group height-set-admin-select">' +
-                  '<span class="plain-select">' +
-                  '<select class="custom-select form-control " name="legalCare">' +
-                  '<option value="Nothing" selected>Nothing</option>' +
-                  '<option value="Accepted">Accepted</option>' +
-                  '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
-                  '<option value="Duplicate referral">Duplicate referral</option>' +
-                  '<option value="Rejected referral">Rejected referral</option>' +
-                  '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
-                  '<option value="Referral to other team ">Referral to other team</option>' +
-                  '</select>' +
-                  '</span>' +
-                  '</div>'
+                  "completed",
+                  '<div class="d-flex"><button onclick="sendPdf("123")" class="btn-pdf">View</button><button class="btn-pdf">Send</button></div>'
                 ]);
               }
               return JSON.stringify(json);
@@ -151,32 +139,16 @@ $(document).ready(function () {
         $('#deletedSuccess').modal('hide');
         this.successMessage = '';
       },
-
-      // loadData:function (){
-      // this.pageLimit= 15;
-      // this.pageNum= 2;
-      // var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
-      // //var successData = apiCallGet('get', '/referral', API_URI);
-      // console.log(successData)
-      // if (successData && Object.keys(successData).length) {
-      //   var $table = $('#table')
-      //   console.log($table)
-      //   $table.bootstrapTable('load', successData.data)
-      // }
-      // }
-      fetchAllRef:function ()
-      {
-        var successData = apiCallGet('get', '/getAllreferral',API_URI);
+      fetchAllRef: function () {
+        var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').hide();
         console.log(successData)
       },
-      sendAttachment:function()
-      {
+      sendAttachment: function () {
+        console.log("successData")
         var successData = apiCallGet('get', '/sendAttachment', API_URI);
         console.log(successData)
-        //this.toArrayBuffer(successData.data.data)
-       // saveByteArray("test.pdf" , successData.data.data)
-        var blob = new Blob([this.toArrayBuffer(successData.data.data)], {type: "application/pdf"});
+        var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         var fileName = "test.pdf";
@@ -184,23 +156,23 @@ $(document).ready(function () {
         link.click();
       },
 
-      saveByteArray:function (reportName, byte) {
-        var blob = new Blob([byte], {type: "application/pdf"});
+      saveByteArray: function (reportName, byte) {
+        var blob = new Blob([byte], { type: "application/pdf" });
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         var fileName = reportName;
         link.download = fileName;
         link.click();
-    },
-    toArrayBuffer: function(buf) {
-      console.log(buf);
-      var ab = new ArrayBuffer(buf.length);
-      var view = new Uint8Array(ab);
-      for (var i = 0; i < buf.length; ++i) {
+      },
+      toArrayBuffer: function (buf) {
+        console.log(buf);
+        var ab = new ArrayBuffer(buf.length);
+        var view = new Uint8Array(ab);
+        for (var i = 0; i < buf.length; ++i) {
           view[i] = buf[i];
+        }
+        return ab;
       }
-      return ab;
-  }
     },
 
   })
@@ -210,3 +182,24 @@ $(document).ready(function () {
   });
 
 });
+
+
+function sendPdf() {
+  console.log("role")
+  // var successData = apiCallGet('get', '/sendAttachment', API_URI);
+  // var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+  // var link = document.createElement('a');
+  // link.href = window.URL.createObjectURL(blob);
+  // var fileName = "test.pdf";
+  // link.download = fileName;
+  // link.click();
+}
+function toArrayBuffer(buf) {
+  console.log(buf);
+  var ab = new ArrayBuffer(buf.length);
+  var view = new Uint8Array(ab);
+  for (var i = 0; i < buf.length; ++i) {
+    view[i] = buf[i];
+  }
+  return ab;
+}

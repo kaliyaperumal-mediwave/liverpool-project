@@ -12,9 +12,6 @@ module.exports = {
 
     self.admin = function (req, callback) {
       return self.sendPage(req, self.renderer('admin', {
-        showHeader: true,
-        home: true,
-        hideRefButton: true,
       }));
     };
 
