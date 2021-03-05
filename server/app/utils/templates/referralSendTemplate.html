@@ -1,82 +1,430 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+        @import url('http://fonts.cdnfonts.com/css/century-gothic');
+    </style>
+    <style>
+        .labelTitle {
+            font-size: 16px;
+        }
+
+        .text-container {
+            display: flex;
+            align-items: center;
+            padding: 8px 0px
+        }
+
+        .label-set {
+            width: 300px;
+        }
+
+        .input-text {
+            background: #e8edee 0% 0% no-repeat padding-box !important;
+            color: #8f979e !important;
+            font-size: 16px;
+            padding: .375rem .75rem;
+            font-weight: 400;
+            line-height: 1.5;
+            width: 100%;
+            border-radius: 2px !important;
+            opacity: 1 !important;
+            border-color: white !important;
+            border: none !important;
+            height: 36px !important;
+        }
+    </style>
 </head>
 
-<body>
+<body style="font-family: 'Century Gothic', sans-serif !important;">
+    <div style="padding: 40px 68px;">
+        <h2>Summary of your referral</h2>
+        <div style="border-top: 2px solid #b4b8ba"></div>
+        <div>
+            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+                Eligibility</h5>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        I am a:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Interpreter needed:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Child's D.O.B:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Consent given:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Contact parent or carer:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        GP:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
 
-  <!-- <div class="container">
-  <h2>Button Styles</h2>
-  <button type="button" class="btn">Basic</button>
-  <button type="button" class="btn btn-default">Default</button>
-  <button type="button" class="btn btn-primary">Primary</button>
-  <button type="button" class="btn btn-success">Success</button>
-  <button type="button" class="btn btn-info">Info</button>
-  <button type="button" class="btn btn-warning">Warning</button>
-  <button type="button" class="btn btn-danger">Danger</button>
-  <button type="button" class="btn btn-link">Link</button>   
-     
-</div> -->
-  <div class="container py-4" id="summaryForm">
-    <h2 class="home-referral-primary">Summary of your referral</h2>
-    <div class="dropdown-divider mt-3"></div>
-    <div class="py-4 px-2">
-      <h5>Eligibility</h5>
-      <div class="py-3 w-100 mx-0 row align-items-center">
-        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="iamA">
-          I am a:
-        </label>
-        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" type="text" id="iamA">
-      </div>
 
-      <div class="readOnly-class py-2 w-100 mx-0 row align-items-center">
-        <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
-          Interpreter needed:
-        </label>
-        <input class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11" type="text"
-          id="InterpreterNeed">
-      </div>
+        </div>
+        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div>
+            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+                About you</h5>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        NHS Number:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Full name:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        E-mail:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Contact Number:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Address:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Happy for post to be send:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Gender:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Identifies with gender of birth:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Sexual orientation:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Ethnicity
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        cares for an adult:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Parent / carer’s name:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Have a parental responsibility:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Relationship:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Your contact Number
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Your email address:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Lives in same house:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        the child's legal care status:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
 
-      <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
-        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobChilds">
-          Child's D.O.B:
-        </label>
-        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" type="text" id="dobChilds">
-      </div>
-
-      <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
-          Consent given:
-        </label>
-        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" type="text" id="consentGivenSec5">
-      </div>
-
-      <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
-          Contact parent or carer:
-        </label>
-        <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" type="text" id="canReasonCamhs">
-      </div>
-
-      <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
-        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
-          GP:
-        </label>
-        <textarea class="form-control col-md-6 col-lg-6 col-xl-5 col-11" type="text" id="gpLoc">
-              </textarea>
-      </div>
-
+        </div>
+        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div>
+            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+                Support needs</h5>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Education / employment:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        EHCP plan:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Open to EHAP:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Social worked:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+        </div>
+        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div>
+            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+                Your reason for referral</h5>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Support needs:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Covid related?
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Main reason for making referral:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Info about issue:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Has anything helped?
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Triggers:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Disabilities / difficulties:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Accessed services:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <input type="text" class="input-text" id="iamA">
+                </div>
+            </div>
+            <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        </div>
     </div>
-    <div class="dropdown-divider mt-3"></div>
-  </div>
-
 </body>
 
 </html>
