@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <label for="attendedLocation" class="question-font">{{dynamicLabels.locationLabel}}</label>
                             <div class="input-group">
-                                <input type="search" class="form-control input-bg-form-control"
+                                <input type="search" class="form-control input-bg-form-control" inputmode="search"
                                     placeholder="Start typing to search"
                                     @input="trimWhiteSpace($event,'educAndEmpData','attendedInfo')"
                                     id="attendedLocation" aria-label="location" name="educationLocation"
@@ -268,7 +268,7 @@
                                 (if you know it)</label>
                             <div class="input-group">
                                 <input type="text" class="form-control input-bg-form-control" id="contactWorker"
-                                    @input="trimWhiteSpace($event,'educAndEmpData','socialWorkContact')"
+                                    inputmode="tel" @input="trimWhiteSpace($event,'educAndEmpData','socialWorkContact')"
                                     placeholder="Enter social worker's phone number"
                                     v-model="educAndEmpData.socialWorkContact">
                                 <div class="input-group-append cursor-pointer">
