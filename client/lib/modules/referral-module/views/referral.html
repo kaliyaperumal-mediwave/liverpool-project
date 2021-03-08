@@ -500,7 +500,7 @@
                                             professional - <b>optional</b></label>
                                         <div class="input-group">
                                             <input type="text" class="form-control input-bg-form-control"
-                                                v-model="serviceData.contact"
+                                                inputmode="tel" v-model="serviceData.contact"
                                                 @input="trimWhiteSpace($event,'serviceData','contact')"
                                                 id="contactNumber"
                                                 placeholder="Enter a phone number for the professional">
