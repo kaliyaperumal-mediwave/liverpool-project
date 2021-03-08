@@ -172,7 +172,11 @@ body {
     color: #023047 !important;
     opacity: 1 !important;
   }
-
+  .form-control {
+    @include xxs-screen-between {
+      font-size: 16px !important;
+    }
+  }
   .search-wrap {
     max-height: 220px !important;
     overflow: auto;
@@ -237,7 +241,8 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
+    30px;
   background-size: contain;
 }
 
@@ -317,7 +322,8 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
+    fixed !important;
   background-size: cover !important;
 }
 
@@ -466,6 +472,9 @@ a {
   }
   @include md-screen {
     font-size: 17px;
+  }
+  @include ssm-dec-screen {
+    font-size: 16px !important;
   }
 }
 
@@ -1058,7 +1067,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -1086,7 +1096,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -3023,9 +3034,11 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
+  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place, $admin-bg-color, $border-color,
+  $admin-btn-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -3338,7 +3351,7 @@ i.fa.fa-calendar {
     font-size: 14px !important;
   }
   .form-control.auth-border {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
   .res-font h2 {
     font-size: 30px !important;

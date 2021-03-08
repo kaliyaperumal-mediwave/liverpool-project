@@ -6,6 +6,9 @@
   &.dropdown-menu {
     padding: 0px !important;
     z-index: 448 !important;
+    @include ssm-dec-screen{
+      width: 246px !important;
+    }
   }
 
   th {
