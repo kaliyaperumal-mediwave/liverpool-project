@@ -5,10 +5,19 @@ $(document).ready(function () {
         el: '#completed-form',
         data: {
             ackObj: { refCode: '123' },
+            refSignUpData: {
+                email: '',
+                role: '',
+                password: '',
+                confirmPassword: ''
+            },
             paramValues: [],
             reference_code: '',
             loginFlag: '',
             mailId: '',
+            isFormSubmitted: false,
+            showVisibilityPassword: false,
+            showVisibilityConfirmPassword: false,
             sendObj: {}
         },
         beforeMount: function () {
@@ -22,6 +31,16 @@ $(document).ready(function () {
         },
 
         methods: {
+
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
+            },
+
+            //Function to toggle password's show,hide icon
+            toggleVisibility: function (elem, visibility) {
+                commonToggleVisibility(this, elem, visibility);
+            },
 
             getRefNo: function () {
                 var _self = this;
