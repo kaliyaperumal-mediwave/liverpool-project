@@ -2223,31 +2223,22 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
-  console.log('\nsave review payload == ', ctx.request.body);
-  var uniqueNo = uniqid().toUpperCase();
-  console.log('\nReference Code - ', uniqueNo);
-  uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
-  console.log(uniqueNo);
-  return user.findOne({
-    where: {
+  console.log('\nSave Review Payload == ', ctx.request.body);
+  return genetrateUniqueCode(ctx).then((uniqueNo) => {
+    return user.update({
+      referral_progress: 100,
+      referral_complete_status: "completed",
       reference_code: uniqueNo,
+      contact_preferences: ctx.request.body.contactPreference,
+      referral_provider: ctx.request.body.referral_provider
     },
-  }).then((result) => {
-    if (result == null) {
-      return user.update({
-        referral_progress: 100,
-        referral_complete_status: "completed",
-        reference_code: uniqueNo,
-        contact_preferences: ctx.request.body.contactPreference,
-        referral_provider: ctx.request.body.referral_provider
-      },
-        {
-          where:
-            { uuid: ctx.request.body.userid }
-        }
-      ).then((childUserInfo) => {
-        ctx.request.body.ref_code = uniqueNo;
-        // return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
+      {
+        where:
+          { uuid: ctx.request.body.userid }
+      }
+    ).then((childUserInfo) => {
+      ctx.request.body.ref_code = uniqueNo;
+      return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
         const responseData = {
           userid: ctx.request.body.userid,
           status: "ok",
@@ -2255,52 +2246,42 @@ exports.saveReview = ctx => {
           refNo: uniqueNo
         }
         return ctx.body = responseData;
-        // }).catch((error) => {
-        //   sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        // });
       }).catch((error) => {
-        console.log('\n\n\nERROR - update code: ', error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
-    } else {
-      uniqueNo = uniqid().toUpperCase();
-      console.log('\nReference Code - ', uniqueNo);
-      uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
-      console.log(uniqueNo);
-      return user.update({
-        referral_progress: 100,
-        referral_complete_status: "completed",
-        reference_code: uniqueNo,
-        contact_preferences: ctx.request.body.contactPreference,
-        referral_provider: ctx.request.body.referral_provider
-      },
-        {
-          where:
-            { uuid: ctx.request.body.userid }
-        }
-      ).then((childUserInfo) => {
-        ctx.request.body.ref_code = uniqueNo;
-        // return email.sendReferralConfirmationMail(ctx).then((mailStatus) => {
-        const responseData = {
-          userid: ctx.request.body.userid,
-          status: "ok",
-          role: ctx.request.body.role,
-          refNo: uniqueNo
-        }
-        return ctx.body = responseData;
-        // }).catch((error) => {
-        //   sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        // });
-      }).catch((error) => {
-        console.log('\n\n\nERROR - update code: ', error);
-        sequalizeErrorHandler.handleSequalizeError(ctx, error)
-      });
-    }
+    }).catch((error) => {
+      console.log('\n\n\nERROR - update code: ', error);
+      sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
   }).catch((error) => {
     console.log('\n\n\nERROR - check code: ', error);
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   });
 }
+
+const genetrateUniqueCode = (ctx) => new Promise(async (resolve, reject) => {
+  try {
+    const user = ctx.orm().Referral;
+    var uniqueNo = uniqid().toUpperCase();
+    console.log('\n1. Reference Code - ', uniqueNo);
+    uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
+    console.log(uniqueNo);
+    let user_response = user.findOne({
+      where: {
+        reference_code: uniqueNo,
+      },
+    });
+    if(user_response) {
+      uniqueNo = uniqid().toUpperCase();
+      console.log('\n2. Reference Code - ', uniqueNo);
+      uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
+      console.log(uniqueNo);
+    }
+    resolve(uniqueNo);
+  } catch(error) {
+    reject(error);
+  }
+});
 
 exports.getRefNo = ctx => {
   const user = ctx.orm().Referral;
