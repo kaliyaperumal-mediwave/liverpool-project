@@ -13,7 +13,11 @@
   text-decoration: none;
   border-bottom: none;
   color: #36c;
-  outline: none; }
+  outline: none;
+  z-index: 200 !important; }
+
+.popover {
+  z-index: 200 !important; }
 
 .text-underline {
   text-decoration: underline !important; }
