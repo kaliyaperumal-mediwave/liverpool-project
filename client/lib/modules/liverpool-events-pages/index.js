@@ -10,10 +10,7 @@ module.exports = {
   construct: function (self, options) {
     var superBefore = self.beforeShow;
     self.beforeShow = function (req, callback) {
-      delete ($el, value);
-      console.log("--------", +$el);
-
-      require("../../middleware")(self, options);
+          require("../../middleware")(self, options);
 
       self
         .checkCommonPageAuth(req)
@@ -29,7 +26,7 @@ module.exports = {
         item.custom_url = "/events?piece_id=" + item._id;
         return item;
       });
-      console.log(req.session.eventsArrayArray);
+      // console.log(req.session.eventsArrayArray);
 
       const pieces = [];
       const today = moment().format("YYYY-MM-DD hh:mm:ss");
@@ -85,7 +82,7 @@ module.exports = {
             req.session.eventsArray[index].start_time;
         }
 
-        console.log("\n", req.session.eventsArray[index].title, "   ", diff);
+        // console.log("\n", req.session.eventsArray[index].title, "   ", diff);
 
         //   req.session.eventsArray[index].uploadTime = moment(
         //     req.session.eventsArray[index].createdAt
