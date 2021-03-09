@@ -37,6 +37,9 @@ var apos = require("apostrophe")({
     'apostrophe-assets': {
       minify: false
     },
+    'apostrophe-express': {
+      csrf: false,
+    },
     "apostrophe-attachments": {
       uploadfs: {
         storage: "azure",

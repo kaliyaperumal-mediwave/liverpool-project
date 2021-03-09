@@ -172,7 +172,11 @@ body {
     color: #023047 !important;
     opacity: 1 !important;
   }
-
+  .form-control {
+    @include xxs-screen-between {
+      font-size: 16px !important;
+    }
+  }
   .search-wrap {
     max-height: 220px !important;
     overflow: auto;
@@ -468,6 +472,9 @@ a {
   }
   @include md-screen {
     font-size: 17px;
+  }
+  @include ssm-dec-screen {
+    font-size: 16px !important;
   }
 }
 
@@ -3344,7 +3351,7 @@ i.fa.fa-calendar {
     font-size: 14px !important;
   }
   .form-control.auth-border {
-    font-size: 14px !important;
+    font-size: 16px !important;
   }
   .res-font h2 {
     font-size: 30px !important;

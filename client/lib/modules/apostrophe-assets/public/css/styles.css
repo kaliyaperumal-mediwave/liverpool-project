@@ -13,7 +13,11 @@
   text-decoration: none;
   border-bottom: none;
   color: #36c;
-  outline: none; }
+  outline: none;
+  z-index: 200 !important; }
+
+.popover {
+  z-index: 200 !important; }
 
 .text-underline {
   text-decoration: underline !important; }
@@ -631,6 +635,9 @@ div.radio.switcher label {
 .bootstrap-datetimepicker-widget.dropdown-menu {
   padding: 0px !important;
   z-index: 448 !important; }
+  @media (min-width: 320px) and (max-width: 374px) {
+    .bootstrap-datetimepicker-widget.dropdown-menu {
+      width: 246px !important; } }
 
 .bootstrap-datetimepicker-widget th {
   border-radius: 0px !important; }
@@ -1165,6 +1172,9 @@ body {
     letter-spacing: 0px !important;
     color: #023047 !important;
     opacity: 1 !important; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    body .form-control {
+      font-size: 16px !important; } }
   body .search-wrap {
     max-height: 220px !important;
     overflow: auto; }
@@ -1448,6 +1458,9 @@ a {
   @media (min-width: 768px) and (max-width: 991.98px) {
     .home-secondary-content {
       font-size: 17px; } }
+  @media (min-width: 320px) and (max-width: 374px) {
+    .home-secondary-content {
+      font-size: 16px !important; } }
 
 .home-referral-primary {
   font-size: 30px;
@@ -4430,7 +4443,7 @@ i.fa.fa-calendar {
   :-moz-placeholder {
     font-size: 14px !important; }
   .form-control.auth-border {
-    font-size: 14px !important; }
+    font-size: 16px !important; }
   .res-font h2 {
     font-size: 30px !important; }
   .res-font p {
