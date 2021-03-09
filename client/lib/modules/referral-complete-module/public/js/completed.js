@@ -6,10 +6,13 @@ $(document).ready(function () {
         data: {
             ackObj: { refCode: '123' },
             refSignUpData: {
+                first_name: '',
+                last_name: '',
                 email: '',
                 role: '',
                 password: '',
-                confirmPassword: ''
+                confirm_password: '',
+                reference_code: '',
             },
             paramValues: [],
             reference_code: '',
@@ -19,7 +22,7 @@ $(document).ready(function () {
             showVisibilityPassword: false,
             showVisibilityConfirmPassword: false,
             sendObj: {},
-            showSignUpForm: false,
+            showSignUpForm: true,
             isEmailRequired: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
@@ -29,13 +32,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            var isLoggedInUser = document.getElementById('logId').innerHTML; // hide in layout.html
-            if (!isLoggedInUser) {
-                this.showSignUpForm = true;
-                //this.getSignUpData();
-            } else {
-                this.showSignUpForm = false;
-            }
             this.paramValues = getParameter(location.href)
             this.loginFlag = document.getElementById('uRole').innerHTML; // hide in layout.html
             this.getRefNo();
@@ -44,20 +40,28 @@ $(document).ready(function () {
         methods: {
 
             getSignUpData: function () {
-                var successData = apiCallGet('get', '/your api call', API_URI);
-                if (successData && Object.keys(successData)) {
-                    Vue.set(this.refSignUpData, "role", successData.data.role);
-                    if (successData.data.email) {
-                        Vue.set(this.refSignUpData, "email", successData.data.email);
-                        document.getElementById('refEmail').setAttribute('readonly', true);
-                        this.isEmailRequired = true;
+                var isLoggedInUser = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
+                if (isLoggedInUser == 'false') {
+                    this.showSignUpForm = true;
+                    var successData = apiCallGet('get', '/getReferalByCode/' + this.reference_code, API_URI);
+                    if (successData && successData.length) {
+                        Vue.set(this.refSignUpData, "role", successData[0].user_role);
+                        Vue.set(this.refSignUpData, "email", successData[0][this.refSignUpData.role + '_email']);
+                        Vue.set(this.refSignUpData, "first_name", successData[0][this.refSignUpData.role + '_firstname']);
+                        Vue.set(this.refSignUpData, "last_name", successData[0][this.refSignUpData.role + '_lastname']);
+                        if (successData[0][this.refSignUpData.role + '_email']) {
+                            document.getElementById('refEmail').setAttribute('readonly', true);
+                            this.isEmailRequired = true;
+                        } else {
+                            document.getElementById('refEmail').removeAttribute('readonly');
+                            this.isEmailRequired = false;
+                        }
+                        $('#loader').hide();
                     } else {
-                        document.getElementById('refEmail').setAttribute('readonly', false);
-                        this.isEmailRequired = false;
+                        $('#loader').hide();
                     }
-                    $('#loader').hide();
                 } else {
-                    $('#loader').hide();
+                    this.showSignUpForm = false;
                 }
             },
 
@@ -82,7 +86,8 @@ $(document).ready(function () {
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
                         console.log("logi flag ", _self.loginFlag)
-                        _self.sendMail(_self.sendObj);
+                        // _self.sendMail(_self.sendObj);
+                        _self.getSignUpData();
                         $('#loader').hide();
                     },
                     error: function (error) {
@@ -94,62 +99,47 @@ $(document).ready(function () {
             },
 
             noLoginSignUp: function () {
-                console.log('clicked');
                 let formData = this.refSignUpData;
                 this.isFormSubmitted = true;
-                if (this.isEmailRequired) {
-                    if ((formData.password && this.passwordRegex.test(formData.password) && formData.confirmPassword && this.passwordRegex.test(formData.confirmPassword) && (formData.password === formData.confirm_password))) {
-                        $('#loader').show();
-                        var successData = apiCallPost('post', '/doCreateAcc', formData);
-                        if (successData && Object.keys(successData)) {
-                            this.tokenVariable = successData;
-                            $('#loader').hide();
-                            $('#signInSuccess').modal('show');
-
-                        } else {
-                            $('#loader').hide();
-                        }
+                if ((!this.isEmailRequired || (this.isEmailRequired && formData.email && this.emailRegex.test(formData.email))) && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && (formData.password === formData.confirm_password)) {
+                    $('#loader').show();
+                    formData.reference_code = this.reference_code;
+                    var successData = apiCallPost('post', '/doCreateAcc', formData);
+                    if (successData && Object.keys(successData)) {
+                        this.tokenVariable = successData;
+                        $('#loader').hide();
+                        $('#signInSuccess').modal('show');
                     } else {
-                        scrollToInvalidInput();
-                        return false;
+                        $('#loader').hide();
                     }
                 } else {
-                    if ((formData.email && this.emailRegex.test(formData.email) && formData.password && this.passwordRegex.test(formData.password) && formData.confirmPassword && this.passwordRegex.test(formData.confirmPassword) && (formData.password === formData.confirm_password))) {
-                        $('#loader').show();
-                        var successData = apiCallPost('post', '/doCreateAcc', formData);
-                        if (successData && Object.keys(successData)) {
-                            this.tokenVariable = successData;
-                            $('#loader').hide();
-                            $('#signInSuccess').modal('show');
-
-                        } else {
-                            $('#loader').hide();
-                        }
-                    } else {
-                        scrollToInvalidInput();
-                        return false;
-                    }
+                    scrollToInvalidInput();
+                    return false;
                 }
-
             },
 
-            sendMail: function (payLoadObj) {
-                var _self = this;
-                $.ajax({
-                    url: API_URI + "/sendConfirmationMail",
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    data: JSON.stringify(payLoadObj),
-                    success: function (data) {
-                        console.log("EmailSent")
-                    },
-                    error: function (error) {
-                        console.log('Something went Wrong', error);
-                        showError(error.responseJSON.message, error.status);
-                    }
-                });
-            },
+            // sendMail: function (payLoadObj) {
+            //     var _self = this;
+            //     $.ajax({
+            //         url: API_URI + "/sendConfirmationMail",
+            //         type: 'post',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         data: JSON.stringify(payLoadObj),
+            //         success: function (data) {
+            //             console.log("EmailSent")
+            //         },
+            //         error: function (error) {
+            //             console.log('Something went Wrong', error);
+            //             showError(error.responseJSON.message, error.status);
+            //         }
+            //     });
+            // },
+
+            gotoDashboard: function (token) {
+                $('#signInSuccess').modal('hide');
+                location.href = "/dashboard";
+            }
         }
     })
 });

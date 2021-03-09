@@ -65,8 +65,8 @@
 
                     <div class="readOnly-class form-group py-2 m-0">
                         <label for="refRole" class="auth-font my-1">Role</label>
-                        <input type="text" placeholder="Enter your email" value="Child" readonly
-                            class="form-control auth-border input-bg-form-control" id="refRole">
+                        <input type="text" placeholder="Enter your role" id="refRole" readonly
+                            v-model="refSignUpData.role" class="form-control auth-border input-bg-form-control">
                     </div>
 
                     <div class="form-group py-2 m-0">
@@ -110,8 +110,8 @@
                             <div class="input-group">
                                 <input type="password" class="form-control auth-border py-2 input-bg-form-control"
                                     id="refConfirmPassword" autocomplete="off"
-                                    @input="trimWhiteSpace($event,'refSignUpData','confirmPassword')"
-                                    v-model="refSignUpData.confirmPassword" placeholder="Enter your confirm password">
+                                    @input="trimWhiteSpace($event,'refSignUpData','confirm_password')"
+                                    v-model="refSignUpData.confirm_password" placeholder="Enter your confirm password">
                                 <span class="input-group-append">
                                     <div class="input-group-text px-3">
                                         <span style="color: #023047 !important;" class="cursor-pointer font-23"
@@ -127,17 +127,17 @@
                                 </span>
                             </div>
                             <div class="invalid-feedback px-1 d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && !refSignUpData.confirmPassword),'invalid-fields':!refSignUpData.confirmPassword }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !refSignUpData.confirm_password),'invalid-fields':!refSignUpData.confirm_password }">
                                 You must provide a password.
                             </div>
                             <div class="invalid-feedback px-1 d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.confirmPassword && !passwordRegex.test(refSignUpData.confirmPassword)),
-                              'invalid-fields':(refSignUpData.confirmPassword && !passwordRegex.test(refSignUpData.confirmPassword)) }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.confirm_password && !passwordRegex.test(refSignUpData.confirm_password)),
+                              'invalid-fields':(refSignUpData.confirm_password && !passwordRegex.test(refSignUpData.confirm_password)) }">
                                 Your password must include at least 8
                                 characters with one uppercase, one lowercase, one number, one special character.
                             </div>
                             <div class="invalid-feedback px-1 d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.confirmPassword && passwordRegex.test(refSignUpData.confirmPassword) && (refSignUpData.password != refSignUpData.confirmPassword)),'invalid-fields':!refSignUpData.confirmPassword }">
+                                v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.confirm_password && passwordRegex.test(refSignUpData.confirm_password) && (refSignUpData.password != refSignUpData.confirm_password)),'invalid-fields':!refSignUpData.confirm_password }">
                                 Your password and confirm password are not equal.
                             </div>
                         </div>
@@ -167,6 +167,29 @@
             <p class="py-2 content-text">Further info & advice can be found at <b class="cursor-pointer"><u> Liverpool
                         CAMHS</u></b></p>
         </div>
+
+        <!-- SignUp Success Modal Start -->
+        <div class="modal fade" id="signInSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="signInSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+
+            <span aria-hidden="true" class="modal-close" @click="gotoDashboard(tokenVariable)">
+                <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+            </span>
+            <div class="modal-header justify-content-center model-text-pd">
+                <p class="text-center m-0 py-2">
+                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                </p>
+                <h5 class="logout-font mt-3 text-center">ACCOUNT CREATED</h5>
+                <h6 class="question-font text-center">
+                Your account has been created
+                </h6>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- SignUp Success Modal End -->
     </div>
     {% endraw %}
 </div>
