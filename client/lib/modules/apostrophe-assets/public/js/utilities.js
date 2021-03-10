@@ -187,6 +187,7 @@ function apiCallPost(reqType, endPoint, payload) {
 
 //Common API Call for Get Function
 function apiCallGet(reqType, endPoint, API_URI) {
+    console.log(API_URI + endPoint,)
     var response;
     $.ajax({
         url: API_URI + endPoint,

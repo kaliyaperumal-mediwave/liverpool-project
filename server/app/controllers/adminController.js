@@ -342,8 +342,7 @@ exports.getAllReferral = ctx => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
 }
-exports.sendAttachment = ctx => {
-
+exports.sendAttachment = async ctx => {
     // try {
     //     return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
     //         console.log(sendReferralStatus)
@@ -357,12 +356,13 @@ exports.sendAttachment = ctx => {
     // } catch (e) {
     //     return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     // }
-
+    let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
+    ctx.request.body.referralData = referralData;
     try {
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             console.log(sendReferralStatus)
             return ctx.res.ok({
-                data:sendReferralStatus,
+                data: sendReferralStatus,
                 message: reponseMessages[1017],
             });
         }).catch(error => {
@@ -373,63 +373,420 @@ exports.sendAttachment = ctx => {
         console.log(e);
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
+}
 
-    // var pdfObj = {
-    //     ratings: "2.5",
-    //     comments: "test",
-    // }
-    // const template = fs.readFileSync(path.join(`${__dirname}/./templates/referralSendTemplate.html`), 'utf8');
-    // let htmlTemplate = _.template(template);
-    // htmlTemplate = htmlTemplate({
-    //     body: pdfObj,
-    // });
+function getRefData(refID, refRole, ctx) {
+    console.log(refID)
+    console.log(refRole)
+    const user = ctx.orm().Referral;
+    const referral = ctx.orm().Reason
+    if (refRole == "Child") {
+        return user.findOne({
+            where: {
+                uuid: refID,
+            },
+            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registerd_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs']
+        }).then((eligibilityObj) => {
 
+            return user.findOne({
+                include: [
+                    {
+                        model: ctx.orm().Referral,
+                        as: 'parent',
+                        attributes: ['id', 'parent_firstname', 'parent_lastname', 'parential_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+                    },
+                ],
+                where: {
+                    id: eligibilityObj.id,
+                },
+                attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
+            }).then((aboutObj) => {
+                return user.findOne({
+                    include: [
+                        {
+                            model: ctx.orm().Reason,
+                            nested: true,
+                            as: 'referral_reason',
+                        },
+                    ],
+                    where: {
+                        id: eligibilityObj.id,
+                    },
+                    attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact']
+                }).then((educationObj) => {
+                    const section2Obj = {
+                        child_id: aboutObj.id,
+                        child_NHS: aboutObj.child_NHS,
+                        child_name: aboutObj.child_firstname,
+                        child_lastname: aboutObj.child_lastname,
+                        child_email: aboutObj.child_email,
+                        child_contact_number: aboutObj.child_contact_number,
+                        child_address: aboutObj.child_address,
+                        can_send_post: aboutObj.can_send_post,
+                        child_gender: aboutObj.child_gender,
+                        child_gender_birth: aboutObj.child_gender_birth,
+                        child_sexual_orientation: aboutObj.child_sexual_orientation,
+                        child_ethnicity: aboutObj.child_ethnicity,
+                        child_care_adult: aboutObj.child_care_adult,
+                        household_member: aboutObj.household_member,
+                        parent_id: aboutObj.parent[0].id,
+                        parent_name: aboutObj.parent[0].parent_firstname,
+                        parent_lastname: aboutObj.parent[0].parent_lastname,
+                        parential_responsibility: aboutObj.parent[0].parential_responsibility,
+                        child_parent_relationship: aboutObj.parent[0].child_parent_relationship,
+                        parent_contact_number: aboutObj.parent[0].parent_contact_number,
+                        parent_email: aboutObj.parent[0].parent_email,
+                        parent_same_house: aboutObj.parent[0].parent_same_house,
+                        parent_address: aboutObj.parent[0].parent_address,
+                        legal_care_status: aboutObj.parent[0].legal_care_status,
+                    }
+                    const responseData = {
+                        userid: ctx.query.refID,
+                        section1: eligibilityObj,
+                        child_dob: convertDate(eligibilityObj.child_dob),
+                        section2: section2Obj,
+                        section3: educationObj,
+                        section4: educationObj.referral_reason[0],
+                        status: "ok",
+                        role: ctx.query.refRole
+                    }
+                    return responseData;
+                }).catch((error) => {
+                    console.log("1")
+                    console.log(error)
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+            }).catch((error) => {
+                console.log("2")
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
 
-    // var opt = {
-    //     format: 'A4',
-    //     orientation: 'portrait',
-    //     header: {
-    //         "height": "5mm"
-    //     },
-    //     footer: {
-    //         "height": "5mm"
-    //     }
-    // };
+        }).catch((error) => {
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    }
+    else if (refRole == "Parent") {
+        return user.findOne({
+            where: {
+                uuid: refID,
+            },
+        }).then((userObj) => {
 
+            return user.findAll({
+                include: [
+                    {
+                        model: ctx.orm().Referral,
+                        nested: true,
+                        as: 'parent',
+                        attributes: ['id', 'child_dob', 'registerd_gp']
+                    },
+                ],
+                where: {
+                    id: userObj.id,
+                },
+                attributes: ['id', 'uuid', 'need_interpreter', 'contact_parent', 'consent_child']
+            }).then((elgibilityObj) => {
+                //  return ctx.body = elgibilityObj[0];
 
-    // pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {
+                return user.findAll({
+                    include: [
+                        //childData
+                        {
+                            model: ctx.orm().Referral,
+                            nested: true,
+                            as: 'parent',
+                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
+                        },
+                    ],
+                    where: {
+                        id: elgibilityObj[0].id,
+                    },
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parential_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+                }).then((aboutObj) => {
+                    return user.findAll({
+                        include: [
+                            //childData
+                            {
+                                model: ctx.orm().Referral,
+                                nested: true,
+                                as: 'parent',
+                                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname']
+                            },
+                        ],
+                        where: {
+                            id: elgibilityObj[0].id,
+                        },
+                        attributes: ['id']
+                    }).then((edu_empObj) => {
 
+                        return user.findOne({
 
-    //     if (buffer) {
-    //         const data = {
-    //             from: config.email_from_address,
-    //             to: "thiru@mindwaveventures.com",
-    //             subject: 'LIVERPOOL CAMHS - Feedback',
-    //             html:htmlTemplate,
-    //             attachments: [{
-    //                 filename: `test.pdf`,
-    //                 content: buffer,
-    //                 contentType: 'application/pdf'
-    //             }]
-    //         };
+                            include: [
+                                {
+                                    model: ctx.orm().Reason,
+                                    nested: true,
+                                    as: 'referral_reason',
+                                },
+                            ],
+                            where: {
+                                id: elgibilityObj[0].id,
+                            },
+                            attributes: ['id']
+                        }).then((referralResult) => {
 
-    //         Transport.sendMail(data, (err, res) => {
-    //             console.log(res)
-    //             if (!err && res) {
-    //                 ctx.res.ok({
-    //                     data: 'mail Successfully sent',
-    //                 });
-    //                 resolve();
+                            console.log(aboutObj)
 
-    //             } else {
-    //                 console.log(err);
-    //                 logger.error('Mail error', err);
-    //                 ctx.res.internalServerError({
-    //                     data: 'mail not sent',
-    //                 });
-    //                 reject();
-    //             }
-    //         });
-    //     }
-    // });
+                            const section1Obj = {
+                                child_id: elgibilityObj[0].parent[0].id,
+                                child_dob: elgibilityObj[0].parent[0].child_dob,
+                                registerd_gp: elgibilityObj[0].parent[0].registerd_gp,
+                                parent_id: elgibilityObj[0].id,
+                                consent_child: elgibilityObj[0].consent_child,
+                                consent_parent: elgibilityObj[0].consent_parent,
+                                need_interpreter: elgibilityObj[0].need_interpreter,
+                            }
+                            const section2Obj = {
+                                child_id: aboutObj[0].parent[0].id,
+                                child_NHS: aboutObj[0].parent[0].child_NHS,
+                                child_name: aboutObj[0].parent[0].child_firstname,
+                                child_lastname: aboutObj[0].parent[0].child_lastname,
+                                child_email: aboutObj[0].parent[0].child_email,
+                                child_contact_number: aboutObj[0].parent[0].child_contact_number,
+                                child_address: aboutObj[0].parent[0].child_address,
+                                can_send_post: aboutObj[0].parent[0].can_send_post,
+                                child_gender: aboutObj[0].parent[0].child_gender,
+                                child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
+                                child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
+                                child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                                child_care_adult: aboutObj[0].parent[0].child_care_adult,
+                                household_member: aboutObj[0].parent[0].household_member,
+                                parent_id: aboutObj[0].id,
+                                parent_name: aboutObj[0].parent_firstname,
+                                parent_lastname: aboutObj[0].parent_lastname,
+                                parential_responsibility: aboutObj[0].parential_responsibility,
+                                child_parent_relationship: aboutObj[0].child_parent_relationship,
+                                parent_contact_number: aboutObj[0].parent_contact_number,
+                                parent_email: aboutObj[0].parent_email,
+                                parent_same_house: aboutObj[0].parent_same_house,
+                                parent_address: aboutObj[0].parent_address,
+                                legal_care_status: aboutObj[0].legal_care_status,
+                            }
+
+                            const section3Obj = {
+                                child_id: edu_empObj[0].parent[0].id,
+                                child_profession: edu_empObj[0].parent[0].child_profession,
+                                child_education_place: edu_empObj[0].parent[0].child_education_place,
+                                child_EHCP: edu_empObj[0].parent[0].child_EHCP,
+                                child_EHAT: edu_empObj[0].parent[0].child_EHAT,
+                                child_socialworker: edu_empObj[0].parent[0].child_socialworker,
+                                child_socialworker_firstname: edu_empObj[0].parent[0].child_socialworker_firstname,
+                                child_socialworker_lastname: edu_empObj[0].parent[0].child_socialworker_lastname,
+                                child_socialworker_contact: edu_empObj[0].parent[0].child_socialworker_contact,
+                            }
+                            const responseData = {
+                                userid: refID,
+                                section1: section1Obj,
+                                section2: section2Obj,
+                                section3: section3Obj,
+                                child_dob: convertDate(elgibilityObj[0].parent[0].child_dob),
+                                section4: referralResult.referral_reason[0],
+                                status: "ok",
+                                role: refRole
+                            }
+                            return responseData;
+                        }).catch((error) => {
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                        });
+                    }).catch((error) => {
+                        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                    });
+                }).catch((error) => {
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+
+            }).catch((error) => {
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+
+        }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    }
+    else if (refRole == "Professional") {
+        return user.findOne({
+
+            where: {
+                uuid: refID,
+            },
+        }).then((userObj) => {
+
+            return user.findOne({
+                include: [{
+                    model: ctx.orm().Referral,
+                    as: 'professional',
+                    attributes: ['id', 'child_dob', 'registerd_gp'],
+                    include: [{
+                        model: ctx.orm().Referral,
+                        as: 'child_parent',
+                    }]
+                }],
+                where: {
+                    id: userObj.id,
+                },
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession']
+            }).then((elgibilityObj) => {
+                //return ctx.body = elgibilityObj.professional[0].child_parent[0];
+                var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
+                var childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
+                console.log(childIdNew);
+                console.log(childId);
+
+                //  var childId = elgibilityObj[0].professional[0].ChildProfessional.UserId
+                //  var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) + 2
+                return user.findAll({
+                    include: [
+                        //childData
+                        {
+                            model: ctx.orm().Referral,
+                            nested: true,
+                            as: 'parent',
+                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
+                        },
+                    ],
+                    where: {
+                        id: childIdNew,
+                    },
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parential_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+                }).then((aboutObj) => {
+
+                    return user.findAll({
+                        include: [
+                            //childData
+                            {
+                                model: ctx.orm().Referral,
+                                nested: true,
+                                as: 'professional',
+                                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact']
+                            },
+                        ],
+                        where: {
+                            id: elgibilityObj.id,
+                        },
+                        attributes: ['id']
+                    }).then((edu_empObj) => {
+
+                        return user.findOne({
+
+                            include: [
+                                {
+                                    model: ctx.orm().Reason,
+                                    nested: true,
+                                    as: 'referral_reason',
+                                },
+                            ],
+                            where: {
+                                id: elgibilityObj.id,
+                            },
+                            attributes: ['id']
+                        }).then((referralResult) => {
+                            const section1Obj = {
+                                child_id: elgibilityObj.professional[0].id,
+                                child_dob:elgibilityObj.professional[0].child_dob,
+                                registerd_gp: elgibilityObj.professional[0].registerd_gp,
+                                professional_id: elgibilityObj.id,
+                                consent_child: elgibilityObj.consent_child,
+                                consent_parent: elgibilityObj.consent_parent,
+                                professional_name: elgibilityObj.professional_firstname,
+                                professional_lastname: elgibilityObj.professional_lastname,
+                                professional_email: elgibilityObj.professional_email,
+                                professional_contact_number: elgibilityObj.professional_contact_number,
+                                professional_address: elgibilityObj.professional_address,
+                                professional_profession: elgibilityObj.professional_profession,
+
+                            }
+                            const section2Obj = {
+                                child_id: aboutObj[0].parent[0].id,
+                                child_NHS: aboutObj[0].parent[0].child_NHS,
+                                child_name: aboutObj[0].parent[0].child_firstname,
+                                child_lastname: aboutObj[0].parent[0].child_lastname,
+                                child_email: aboutObj[0].parent[0].child_email,
+                                child_contact_number: aboutObj[0].parent[0].child_contact_number,
+                                child_address: aboutObj[0].parent[0].child_address,
+                                can_send_post: aboutObj[0].parent[0].can_send_post,
+                                child_gender: aboutObj[0].parent[0].child_gender,
+                                child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
+                                child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
+                                child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
+                                child_care_adult: aboutObj[0].parent[0].child_care_adult,
+                                household_member: aboutObj[0].parent[0].household_member,
+                                parent_id: aboutObj[0].id,
+                                parent_name: aboutObj[0].parent_firstname,
+                                parent_lastname: aboutObj[0].parent_lastname,
+                                parential_responsibility: aboutObj[0].parential_responsibility,
+                                child_parent_relationship: aboutObj[0].child_parent_relationship,
+                                parent_contact_number: aboutObj[0].parent_contact_number,
+                                parent_email: aboutObj[0].parent_email,
+                                parent_same_house: aboutObj[0].parent_same_house,
+                                parent_address: aboutObj[0].parent_address,
+                                legal_care_status: aboutObj[0].legal_care_status,
+                            }
+
+                            const section3Obj = {
+                                child_id: edu_empObj[0].professional[0].id,
+                                child_profession: edu_empObj[0].professional[0].child_profession,
+                                child_education_place: edu_empObj[0].professional[0].child_education_place,
+                                child_EHCP: edu_empObj[0].professional[0].child_EHCP,
+                                child_EHAT: edu_empObj[0].professional[0].child_EHAT,
+                                child_socialworker: edu_empObj[0].professional[0].child_socialworker,
+                                child_socialworker_name: edu_empObj[0].professional[0].child_socialworker_name,
+                                child_socialworker_firstname: edu_empObj[0].professional[0].child_firstname,
+                                child_socialworker_lastname: edu_empObj[0].professional[0].child_lastname,
+                                child_socialworker_contact: edu_empObj[0].professional[0].child_socialworker_contact,
+                            }
+
+                            //  return ctx.body = section1Obj;
+                            const responseData = {
+                                userid: refID,
+                                section1: section1Obj,
+                                section2: section2Obj,
+                                child_dob: convertDate(elgibilityObj.professional[0].child_dob),
+                                section3: edu_empObj[0].professional[0],
+                                section4: referralResult.referral_reason[0],
+                                status: "ok",
+                                role: refRole
+                            }
+                            return ctx.body = responseData;
+                        }).catch((error) => {
+
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                        });
+
+                    }).catch((error) => {
+
+                        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                    });
+                })
+                    .catch((error) => {
+                        console.log(error)
+                        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                    });
+            })
+                .catch((error) => {
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+        }).catch((error) => {
+            console.log(error);
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    }
+}
+
+function convertDate(date) {
+    var yyyy = date.getFullYear().toString();
+    var mm = (date.getMonth() + 1).toString();
+    var dd = date.getDate().toString();
+    var mmChars = mm.split('');
+    var ddChars = dd.split('');
+    return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
 }

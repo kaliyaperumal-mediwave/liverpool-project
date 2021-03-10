@@ -7,7 +7,7 @@
     </style>
     <style>
         .labelTitle {
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .text-container {
@@ -16,8 +16,22 @@
             padding: 8px 0px;
             display: -webkit-flex;
         }
+
         .label-set {
             width: 200px;
+        }
+
+        .duplicate_text {
+            background: #e8edee 0% 0% no-repeat padding-box !important;
+            color: #8f979e !important;
+            font-size: 14px;
+            padding: .375rem .75rem;
+            font-weight: 400;
+            border-radius: 2px !important;
+            min-height: 20px !important;
+            width: 200px;
+            align-items: center;
+            word-break: break-word;
         }
 
         .input-text {
@@ -42,74 +56,99 @@
         <h2>Summary of your referral</h2>
         <div style="border-top: 2px solid #b4b8ba"></div>
         <div>
-            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
                 Eligibility</h5>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        I am a:
-                    </label>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            I am a:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.role %>
+                        </div>
+                        <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
+                    </div>
                 </div>
-                <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Interpreter needed:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.need_interpreter %>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Interpreter needed:
-                    </label>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Child's D.O.B:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.child_dob %>
+                        </div>
+                    </div>
                 </div>
-                <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Consent given:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.consent_child %>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Child's D.O.B:
-                    </label>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Contact parent or carer:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.contact_parent_camhs %>
+                        </div>
+                    </div>
                 </div>
-                <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                <% if(body.role=='Child'){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Reason for no contact:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.reason_contact_parent_camhs %>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Consent given:
-                    </label>
+                <% } %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            GP:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.registerd_gp %>
+                        </div>
+                    </div>
                 </div>
-                <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Contact parent or carer:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        GP:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
-                </div>
-            </div>
-
-
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
-            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
                 About you</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -118,17 +157,33 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_NHS %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Full name:
+                        First name:
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_name %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        last name:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_lastname %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -138,7 +193,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_email %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -148,7 +205,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_contact_number %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -158,7 +217,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_address %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -168,7 +229,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.can_send_post %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -178,7 +241,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_gender %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -188,7 +253,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_gender_birth %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -198,7 +265,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_sexual_orientation %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -208,7 +277,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_ethnicity %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -218,17 +289,33 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_care_adult %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Parent / carer’s name:
+                        Parent / carer’s first name:
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.parent_name %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Parent / carer’s last name:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section2.parent_lastname %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -238,7 +325,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.parential_responsibility %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -248,27 +337,33 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_parent_relationship %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Your contact Number
+                        Parent contact Number
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.parent_contact_number %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Your email address:
+                        Parent email address:
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.parent_email %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -278,7 +373,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.parent_same_house %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -288,14 +385,16 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section2.legal_care_status %>
+                    </div>
                 </div>
             </div>
 
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
-            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
                 Support needs</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -304,7 +403,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section3.child_profession %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -314,33 +415,39 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section3.child_EHCP %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Open to EHAP:
+                        Open to EHAT:
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section3.child_EHAT %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Social worked:
+                        Social worker:
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section3.child_socialworker %>
+                    </div>
                 </div>
             </div>
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
-            <h5 style="font-size: 18px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
                 Your reason for referral</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -349,7 +456,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.referral_type %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -359,17 +468,21 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.is_covid %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Main reason for making referral:
+                        Main reason for making referral
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.reason_for_referral %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -379,7 +492,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.referral_issues %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -389,7 +504,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.has_anything_helped %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -399,7 +516,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.any_particular_trigger %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -409,7 +528,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.disabilities %>
+                    </div>
                 </div>
             </div>
             <div class="text-container">
@@ -419,7 +540,9 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <input type="text" class="input-text" id="iamA">
+                    <div class="duplicate_text">
+                        <%= body.section4.local_services %>
+                    </div>
                 </div>
             </div>
             <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>

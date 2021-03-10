@@ -60,9 +60,9 @@ module.exports = {
       })
     });
 
-    self.route('get', 'sendAttachment', function (req, res) {
+    self.route('get', 'sendAttachment/:refID/:refRole', function (req, res) {
       console.log("get all referal")
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendAttachment';
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendAttachment?refID=' + req.params.refID +'&refRole='+ req.params.refRole ;
       console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
