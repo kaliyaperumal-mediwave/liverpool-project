@@ -534,7 +534,7 @@
                         </div>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" class="form-control gpLocation input-bg-form-control"
+                            <input type="text" class="form-control gpLocation input-bg-form-control" inputmode="search"
                                 @input="getAddress($event)" placeholder="Start typing to search" id="gpLocation"
                                 aria-label="location" v-model="elgibilityObj.regGpTxt"
                                 v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
@@ -686,7 +686,7 @@
                         </label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profEmail"
+                            <input type="text" v-model="elgibilityObj.profEmail" inputmode="email"
                                 @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
                                 placeholder="Enter your email address" class="form-control input-bg-form-control"
                                 id="emailAddress">
@@ -709,7 +709,7 @@
                     <div class="form-group">
                         <label for="contact" class="question-font">Enter your contact number</label>
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profContactNumber"
+                            <input type="text" v-model="elgibilityObj.profContactNumber" inputmode="tel"
                                 @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
                                 placeholder="Enter your contact number" class="form-control input-bg-form-control"
                                 id="contact">
@@ -733,7 +733,7 @@
                         <label for="yourAddress" class="question-font">Your address</label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profAddress"
+                            <input type="text" v-model="elgibilityObj.profAddress" inputmode="search"
                                 @input="onVaueChange($event,'yourAddress','elgibilityObj','profAddress')"
                                 placeholder="Enter your address" class="form-control input-bg-form-control"
                                 id="txtProfessionalAddress">
@@ -956,9 +956,9 @@
                             with?</label>
                         <div class="input-group">
                             <input type="text" class="form-control gpProfLocation input-bg-form-control"
-                                v-model="elgibilityObj.regProfGpTxt" placeholder="Start typing to search"
-                                @input="getProfAddress($event)" id="gpProfLocation" aria-label="location"
-                                v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
+                                inputmode="search" v-model="elgibilityObj.regProfGpTxt"
+                                placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
+                                aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoader" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>

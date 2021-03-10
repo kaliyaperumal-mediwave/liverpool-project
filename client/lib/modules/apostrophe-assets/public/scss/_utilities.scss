@@ -49,6 +49,11 @@
   border-bottom: none;
   color: #36c;
   outline: none;
+  z-index: 200 !important;
+}
+
+.popover {
+  z-index: 200 !important;
 }
 
 //set dynamic background color radius
