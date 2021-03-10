@@ -73,6 +73,10 @@ module.exports = {
       label: 'AdminModule'
     },
     {
+      name: 'orcha-module',
+      label: 'OrchaModule'
+    },
+    {
       name: 'account-settings-module',
       label: 'Account Settings Module'
     },

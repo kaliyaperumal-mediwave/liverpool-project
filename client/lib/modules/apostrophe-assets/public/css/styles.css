@@ -1559,7 +1559,8 @@ a {
   border-radius: 15px !important; }
 
 .progress-bg {
-  background: #fb8500 0% 0% no-repeat padding-box !important; }
+  background: #fb8500 0% 0% no-repeat padding-box !important;
+  border-radius: 10px; }
 
 /* Auth Pages style end */
 #authForm .input-group .form-control {
@@ -4496,3 +4497,40 @@ div.collapse-container.collapsing {
 
 .f-16::first-letter {
   text-transform: capitalize; }
+
+.percentage-container {
+  background-color: #b2bf04;
+  color: #023047;
+  font-size: 28px;
+  font-weight: bold;
+  height: 88px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px; }
+
+.text_inside_play-store-orcha {
+  margin-bottom: 28px;
+  padding: 22px;
+  background-color: #fafafa;
+  color: #023047;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: 16px; }
+
+.seemore {
+  color: #023047;
+  font-size: 16px;
+  font-weight: bold; }
+
+.titleQuestion {
+  font-size: 16px;
+  color: #023047;
+  padding-right: 8px; }
+
+.progressOrcha {
+  background: #d5d5d5 0% 0% no-repeat padding-box !important;
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  line-height: 0;
+  font-size: 0.75rem;
+  border-radius: 15px !important; }
