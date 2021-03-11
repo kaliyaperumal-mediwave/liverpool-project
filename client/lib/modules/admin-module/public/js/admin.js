@@ -181,8 +181,8 @@ function toArrayBuffer(buf) {
 
 function openSendPopup(uuid, role)
 {
-  $('#sendProviderModal').modal('show');
-  document.getElementById('logYesBtn').setAttribute('onclick',"sendPdf(\"" + uuid + "\",\"" + role + "\")")
+  //$('#sendProviderModal').modal('show');
+//document.getElementById('logYesBtn').setAttribute('onclick',"sendPdf(\"" + uuid + "\",\"" + role + "\")")
 }
 
 function sendPdf(uuid, role) {
