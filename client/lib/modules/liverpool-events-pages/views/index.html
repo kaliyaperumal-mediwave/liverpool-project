@@ -33,12 +33,14 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
   </div>
   <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container pd-container" id="searchBar">
-    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3">  <a href="" class="previous-link"
-        ><i class="fal fa-long-arrow-left fa-2x ham-icon "></i
-      ></a>
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3">
+        <a href="" class="previous-link"
+          ><i class="fal fa-long-arrow-left fa-2x ham-icon"></i
+        ></a>
 
-      <!-- <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a> -->
-      <div class="resource_text pb-sm-0 pt-0">Real life experiences</div></div>
+        <!-- <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a> -->
+        <div class="resource_text pb-sm-0 pt-0">Real life experiences</div>
+      </div>
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
 
       <div id="filter_content">
@@ -89,11 +91,14 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                       class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
                       alt=""
                     /> -->
-                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+                    <div
+                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"
+                    ></div>
 
                     <p class="question-font my-0 mx-2 mx-md-4">
                       {{item.title}} {{item.custom_url}}
                     </p>
+
                     <ul
                       class="my-0 link-text mx-2 mx-md-4"
                       style="list-style: inside !important"
@@ -111,27 +116,99 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
       </div>
       <div class="text_inside_cont card-set-container-bg">
         <h5 class="font-weight-bold">
-        Here are different real life experiences of users currently using the
-        platform
+          Here are different real life experiences of users currently using the
+          platform
         </h5>
       </div>
 
       {% for piece in data.pieces %} {% if loop.index == 1 %}
+
       <a class="text_inside_video text-decoration-none text_inside_cont">
-        {% if apos.images.first(piece.thumbnail) %} {% set img =
-        apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
-        <img
-          class="img-placeholder"
-          width="100%"
-          height="315"
-          src="{{ apos.attachments.url(img, { size: 'max' }) }}"
-        />
-        {% endif %}
-        <div class="body-cont-set card-set-container-bg">
-          <div class="read-cont-h1">{{ piece.title }}</div>
-          <div class="read-cont-p text-break">{{ piece.eventsTopic }}</div>
-          <div class="text-break">{{ piece.text }}</div>
-          <div class="video-placed-ago px-0">{{ piece.uploadTime }}</div>
+        <div class="large-toggle-cont no-padding">
+          <div class="video-title-top">{{ piece.title }}</div>
+
+          {% if apos.images.first(piece.thumbnail) %} {% set img =
+          apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
+          <img
+            class=""
+            width="100%"
+            height="auto"
+            src="{{ apos.attachments.url(img, { size: 'max' }) }}" style="
+    max-height: 315px;
+"
+          />
+          {% endif %}
+          <div class="body-cont-set pb-0">
+            <div class="input-group-append cursor-pointer">
+              <span class="p-1 d-flex align-items-center">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+              </span>
+              <div class="p-3">
+                <p class="mb-0 row pl-3 f-16">{{piece.piece_date }}</p>
+                <span class="video-placed-ago mb-0 p-0 f-16">
+                  {{ piece.start_time}}-{{piece.end_time}}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <div id="addOpacityProf" class="input-group-append">
+                <span class="p-1 d-flex align-items-center"
+                  ><i aria-hidden="true" class="fa fa-map-marker fa-2x"></i
+                ></span>
+                <div class="p-3">
+                  <p class="mb-0 row pl-3 f-16">{{piece.location}}</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="read-cont-h1">{{ piece.title }}</div> -->
+            <!-- <div class="read-cont-p text-break">{{ piece.eventsTopic }}</div> -->
+            <div class="text-break font-weight-normal pb-3 f-16">
+              {{ piece.text }}
+            </div>
+            <!-- <div
+              class="text-break video-para-bottom text-center font-weight-normal pl-0 pr-0 f-16"
+            >
+              View full map in google maps
+            </div> -->
+          </div>
+          <!-- <div class="w-100 find-col-iframe">
+            <div>
+              <iframe
+                allowfullscreen=""
+                frameborder="0"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBkomrx4qmPlPWQQZKG1Uuuj5FaammMT2Y&amp;q={{piece.location}}&amp;zoom=10"
+                width="100%"
+                height="300"
+              ></iframe>
+            </div>
+          </div> -->
+          <a
+            href="{{piece.joinLink}}"
+            target="_blank"
+            class="py-4 text-left d-flex text-decoration-none"
+          >
+            <button
+              type="button"
+              class="btn px-md-4 py-1 px-3 mx-auto w-50"
+              style="font-size: 17px"
+            >
+              <span
+                id="doSearchReferral"
+                class="btn-quaternary-text"
+                style="font-size: 27px"
+              >
+                JOIN
+              </span>
+            </button>
+
+            <!-- <button class="btn btn-primary phr-bg-yellow" type="button" id="doSearchReferral">CHECK A
+                REFERRAL</button> -->
+          </a>
+
+          <!-- <div class="video-placed-ago px-0">{{ piece.uploadTime }}</div> -->
+          <!-- </div> -->
         </div> </a
       ><br />
       {% if data.pieces.length > 1 %}

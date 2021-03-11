@@ -30,7 +30,7 @@
     </div>
     <!-- Loader end -->
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto" v-cloak>
-        <div class="px-4 py-4  ">
+        <div class="px-4 py-4">
             <div class="col-md-8 col-sm-12 col-12 mx-auto toster-container">
                 <div class="px-2 py-2 mt-md-5 mt-4">
                     <p class="text-center m-0 py-2">
@@ -45,6 +45,122 @@
             </p>
         </div>
 
+        <div v-if="showSignUpForm" class="py-4">
+            <div class="px-4 py-2 col-md-8 col-sm-12 col-12 mx-auto">
+                <div class="py-3">
+                    <h2 class="home-header-secondary  pb-3">Would you like to create an account as this will allow you
+                        to
+                        fully
+                        view your referral in the future</h2>
+                    <h2 class="home-header-secondary">Setting up your password</h2>
+                    <span class="content-text ">Choose a password to create an account</span>
+                </div>
+                <form>
+                    <div class="form-group py-2 m-0">
+                        <label for="refEmail" class="auth-font my-1">Email</label>
+                        <input type="text" placeholder="Enter your email"
+                            class="form-control auth-border input-bg-form-control" id="refEmail"
+                            v-model="refSignUpData.email" @input="trimWhiteSpace($event,'refSignUpData','email')">
+                        <div class="invalid-feedback px-1 d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !refSignUpData.email),'invalid-fields':!refSignUpData.email }">
+                            You must provide an email.
+                        </div>
+                    </div>
+
+                    <div class="readOnly-class form-group py-2 m-0">
+                        <label for="refRole" class="auth-font my-1">Role</label>
+                        <input type="text" placeholder="Enter your role" id="refRole" readonly
+                            v-model="refSignUpData.role"
+                            class="form-control text-capitalize auth-border input-bg-form-control">
+                    </div>
+
+                    <div class="form-group py-2 m-0">
+                        <label for="refPassword" class="auth-font my-1">Password</label>
+                        <div id="authForm">
+                            <div class="input-group">
+                                <input type="password" class="form-control auth-border py-2 input-bg-form-control"
+                                    id="refPassword" autocomplete="off"
+                                    @input="trimWhiteSpace($event,'refSignUpData','password')"
+                                    v-model="refSignUpData.password" placeholder="Enter your password">
+                                <span class="input-group-append">
+                                    <div class="input-group-text px-3">
+                                        <span style="color: #023047 !important;" class="cursor-pointer font-23"
+                                            @click="toggleVisibility('#refPassword','showVisibilityPassword')">
+                                            <template v-if="!showVisibilityPassword">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </template>
+                                            <template v-if="showVisibilityPassword">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </template>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !refSignUpData.password),'invalid-fields':!refSignUpData.password }">
+                                You must provide a password.
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.password && !passwordRegex.test(refSignUpData.password)),
+                              'invalid-fields':(refSignUpData.password && !passwordRegex.test(refSignUpData.password)) }">
+                                Your password must include at least 8
+                                characters with one uppercase, one lowercase, one number, one special character.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group py-2 m-0">
+                        <label for="refConfirmPassword" class="auth-font my-1">Confirm password</label>
+                        <div id="authForm">
+                            <div class="input-group">
+                                <input type="password" class="form-control auth-border py-2 input-bg-form-control"
+                                    id="refConfirmPassword" autocomplete="off"
+                                    @input="trimWhiteSpace($event,'refSignUpData','confirm_password')"
+                                    v-model="refSignUpData.confirm_password" placeholder="Enter your confirm password">
+                                <span class="input-group-append">
+                                    <div class="input-group-text px-3">
+                                        <span style="color: #023047 !important;" class="cursor-pointer font-23"
+                                            @click="toggleVisibility('#refConfirmPassword','showVisibilityConfirmPassword')">
+                                            <template v-if="!showVisibilityConfirmPassword">
+                                                <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                            </template>
+                                            <template v-if="showVisibilityConfirmPassword">
+                                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                            </template>
+                                        </span>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && !refSignUpData.confirm_password),'invalid-fields':!refSignUpData.confirm_password }">
+                                You must provide a password.
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.confirm_password && !passwordRegex.test(refSignUpData.confirm_password)),
+                              'invalid-fields':(refSignUpData.confirm_password && !passwordRegex.test(refSignUpData.confirm_password)) }">
+                                Your password must include at least 8
+                                characters with one uppercase, one lowercase, one number, one special character.
+                            </div>
+                            <div class="invalid-feedback px-1 d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.confirm_password && passwordRegex.test(refSignUpData.confirm_password) && (refSignUpData.password != refSignUpData.confirm_password)),'invalid-fields':!refSignUpData.confirm_password }">
+                                Your password and confirm password are not equal.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="py-4 text-center mb-2 mb-md-3">
+                    <button type="button" @click="noLoginSignUp()"
+                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-8 col-lg-10 col-xl-10 col-sm-9 col-9">
+                        <span class="btn-quaternary-text">CREATE ACCOUNT
+                        </span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+
         <div class="px-4 py-2 col-md-8 col-sm-12 col-12 mx-auto">
             <h2 class="my-2 question-header-font">
                 What next?</h2>
@@ -56,6 +172,29 @@
             <p class="py-2 content-text">Further info & advice can be found at <b class="cursor-pointer"><u> Liverpool
                         CAMHS</u></b></p>
         </div>
+
+        <!-- SignUp Success Modal Start -->
+        <div class="modal fade" id="signInSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            role="dialog" aria-labelledby="signInSuccessLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content modal-bg login-safe-pd">
+
+                    <span aria-hidden="true" class="modal-close" @click="gotoDashboard(tokenVariable)">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                    <div class="modal-header justify-content-center model-text-pd">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <h5 class="logout-font mt-3 text-center">ACCOUNT CREATED</h5>
+                        <h6 class="question-font text-center">
+                            Your account has been created
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SignUp Success Modal End -->
     </div>
     {% endraw %}
 </div>

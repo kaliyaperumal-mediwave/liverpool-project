@@ -42,7 +42,7 @@
                     <!-- child NHS Number Start-->
                     <div class="form-group py-2 my-2">
                         <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
-                        <input type="text" class="form-control input-bg-form-control" id="nhs"
+                        <input type="text" class="form-control input-bg-form-control" id="nhs" inputmode="numeric"
                             v-model="aboutObj.nhsNumber" @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"
                             v-bind:placeholder="sec2dynamicLabel.nhsPlaceLabel">
                         <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)),
@@ -100,7 +100,7 @@
                             <b>optional</b></label>
                         <div class="input-group">
                             <input type="text" class="form-control input-bg-form-control" id="emailAddressOpts"
-                                @input="trimWhiteSpace($event,'aboutObj','childEmail')"
+                                inputmode="email" @input="trimWhiteSpace($event,'aboutObj','childEmail')"
                                 v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.childEmail">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
@@ -119,7 +119,7 @@
                     <div class="form-group py-2 my-2">
                         <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
                         <div class="input-group">
-                            <input type="text" class="form-control input-bg-form-control" id="contact"
+                            <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
                                 @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
                                 v-model="aboutObj.childContactNumber">
@@ -146,7 +146,7 @@
                         <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
                                 {{sec2dynamicLabel.addressLabel}}</label></div>
                         <div class="input-group">
-                            <input type="search" class="form-control input-bg-form-control"
+                            <input type="search" class="form-control input-bg-form-control" inputmode="search"
                                 placeholder="Start typing to search"
                                 @input="trimWhiteSpace($event,'aboutObj','childAddress')" id="txtChildAddress"
                                 aria-label="location" v-model="aboutObj.childAddress">
@@ -535,7 +535,7 @@
                 <!-- Parental Responsibility Toaster container end -->
 
                 <!-- Parent or Carer First Name Start -->
-                <form id="parentOrCarer-form" data-options="parentCarerFirstName">
+                <form id="parentOrCarerFirstName-form" data-options="parentCarerFirstName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
@@ -564,7 +564,7 @@
                 <!-- Parent or Carer First Name End -->
 
                 <!-- Parent or Carer end Name Start -->
-                <form id="parentOrCarer-form" data-options="parentCarerLastName">
+                <form id="parentOrCarerLastName-form" data-options="parentCarerLastName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
@@ -620,11 +620,11 @@
                     <form id="parentOrCarerContact-form" data-options="contactNumber">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
-                                <label for="ParentOrCarcontactNumber"
+                                <label for="parentOrCarcontactNumber1"
                                     class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control"
-                                        id="ParentOrCarcontactNumber"
+                                        id="parentOrCarcontactNumber1" inputmode="tel"
                                         @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
                                         v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
                                         v-model="aboutFormData.contactNumber">
@@ -655,7 +655,7 @@
                                     - <b>optional</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control" id="emailAddress"
-                                        @input="trimWhiteSpace($event,'aboutFormData','emailAddress')"
+                                        inputmode="email" @input="trimWhiteSpace($event,'aboutFormData','emailAddress')"
                                         v-bind:placeholder="sec2dynamicLabel.guardEmailPlacLabel"
                                         v-model="aboutFormData.emailAddress">
                                     <div class="input-group-append cursor-pointer">
@@ -707,7 +707,7 @@
                             <label for="gpParentorCarerLocation" class="question-font">{{sec2dynamicLabel.guardAddress}}
                                 - <b>optional</b></label>
                             <div class="input-group">
-                                <input type="text" class="form-control input-bg-form-control"
+                                <input type="text" class="form-control input-bg-form-control" inputmode="search"
                                     @input="trimWhiteSpace($event,'aboutFormData','parentOrCarrerAddress')"
                                     v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
                                     aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
@@ -776,7 +776,8 @@
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentCarerFirstName  && aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
+                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
+                                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutFormData.parentCarerFirstName  && aboutFormData.parentCarerLastName ">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
@@ -848,14 +849,14 @@
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
                                 <template v-if="houseHoldData.mode == 'update'">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Edit household</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Edit household member</h5>
                                 </template>
                                 <template v-else-if="houseHoldData.mode == ''">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add household</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
                                     </span>
                                 </template>
                                 <template v-else>
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add household</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
                                 </template>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>

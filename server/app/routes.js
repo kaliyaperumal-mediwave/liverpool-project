@@ -39,6 +39,7 @@ router.get('/user/getRefNo', validateToken, referralControler.getRefNo);
 router.post('/user/signup/', validateToken, authController.signup);
 router.post('/user/login/', validateToken, authController.login);
 router.post('/user/logOut/', validateToken, authController.logOut);
+router.post('/user/referralSignup/', validateToken, authController.referralSignup);
 router.get('/user/token', authController.verifyToken);
 
 router.get('/referral/getIncompleteReferral', validateToken, referralControler.getIncompleteReferral);
