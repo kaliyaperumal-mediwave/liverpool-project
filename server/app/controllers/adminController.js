@@ -343,19 +343,6 @@ exports.getAllReferral = ctx => {
     });
 }
 exports.downloadReferral = async ctx => {
-    // try {
-    //     return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
-    //         console.log(sendReferralStatus)
-    //         return ctx.res.ok({
-    //             message: reponseMessages[1017],
-    //         });
-    //     }).catch(error => {
-    //         console.log(error, "error");
-    //         sequalizeErrorHandler.handleSequalizeError(ctx, error)
-    //     });
-    // } catch (e) {
-    //     return sequalizeErrorHandler.handleSequalizeError(ctx, e);
-    // }
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
     try {
@@ -371,6 +358,24 @@ exports.downloadReferral = async ctx => {
         });
     } catch (e) {
         console.log(e);
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+}
+
+exports.sendReferral = async ctx => {
+    let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
+    ctx.request.body.referralData = referralData;
+    try {
+        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+            console.log(sendReferralStatus)
+            return ctx.res.ok({
+                message: reponseMessages[1017],
+            });
+        }).catch(error => {
+            console.log(error, "error");
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 }

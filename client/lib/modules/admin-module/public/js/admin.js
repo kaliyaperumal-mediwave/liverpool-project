@@ -90,7 +90,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
                   "completed",
-                  "<div class='d-flex'><button  onclick='sendPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button class='btn-pdf'>Send</button></div>"
+                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")' class='btn-pdf'>Send</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -144,35 +144,6 @@ $(document).ready(function () {
         $('#loader').hide();
         console.log(successData)
       },
-      sendAttachment: function () {
-        console.log("successData")
-        var successData = apiCallGet('get', '/sendAttachment', API_URI);
-        console.log(successData)
-        var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        var fileName = "test.pdf";
-        link.download = fileName;
-        link.click();
-      },
-
-      saveByteArray: function (reportName, byte) {
-        var blob = new Blob([byte], { type: "application/pdf" });
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        var fileName = reportName;
-        link.download = fileName;
-        link.click();
-      },
-      toArrayBuffer: function (buf) {
-        console.log(buf);
-        var ab = new ArrayBuffer(buf.length);
-        var view = new Uint8Array(ab);
-        for (var i = 0; i < buf.length; ++i) {
-          view[i] = buf[i];
-        }
-        return ab;
-      }
     },
 
   })
@@ -183,15 +154,14 @@ $(document).ready(function () {
 
 });
 
-function sendPdf(uuid, role) {
-  
+function viewPdf(uuid, role) {
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
   var link = document.createElement('a');
   link.href = window.URL.createObjectURL(blob);
   link.target = '_blank'
-  var fileName = "test.pdf";
+ // var fileName = "test.pdf";
   //link.download = fileName;
   link.click();
   setTimeout(function () {
@@ -199,6 +169,7 @@ function sendPdf(uuid, role) {
   }, 1000);
   //link.click();
 }
+
 function toArrayBuffer(buf) {
   var ab = new ArrayBuffer(buf.length);
   var view = new Uint8Array(ab);
@@ -206,4 +177,15 @@ function toArrayBuffer(buf) {
     view[i] = buf[i];
   }
   return ab;
+}
+
+function openSendPopup(uuid, role)
+{
+  $('#sendProviderModal').modal('show');
+  document.getElementById('logYesBtn').setAttribute('onclick',"sendPdf(\"" + uuid + "\",\"" + role + "\")")
+}
+
+function sendPdf(uuid, role) {
+  console.log("sendpdf",uuid,role)
+  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role, API_URI);
 }

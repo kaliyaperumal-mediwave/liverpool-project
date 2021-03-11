@@ -10,7 +10,7 @@
 <script src="https://cdn.datatables.net/plug-ins/1.10.22/sorting/date-uk.js"></script>
 {% endblock %}
 {% block main%}
-{% include "../../shared-referal-module/views/adminHeader.html" %} 
+{% include "../../shared-referal-module/views/adminHeader.html" %}
 <div id="admin">
     {% raw %}
     <!-- navbar start -->
@@ -157,7 +157,45 @@
             </div>
         </div>
     </div>
-    {% endraw %}
+    <!-- Send popup Start -->
+    <div class="modal fade" id="sendProviderModal" tabindex="-1" role="dialog" aria-labelledby="sendProviderModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="logout-font mt-3">Select Provider?</h5>
+                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="input-group w-100">
+                        <span class="plain-select">
+                            <select class="custom-select form-control input-bg-form-control">
+                                <option class='option-text' value="YPAS">YPAS
+                                </option>
+                                <option class='option-text' value="Venus">Venus
+                                </option>
+                                <option class='option-text' value="IAPTUS">IAPTUS</option>
+                                <option class='option-text' value="Other">Other
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn px-md-4 w-25" id="logYesBtn" >
+                        <span class="btn-modal-text">Send
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Send popup End -->
+
+</div>
+{% endraw %}
 </div>
 
 {% endblock %}
