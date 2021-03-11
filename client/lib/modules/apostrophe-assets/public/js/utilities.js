@@ -177,8 +177,12 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').removeClass('d-block').addClass('d-none');
-            if (error) {
-                showError(error.responseJSON.message, error.status);
+            if (endPoint == '/resetEmail') {
+                return;
+            } else {
+                if (error) {
+                    showError(error.responseJSON.message, error.status);
+                }
             }
         }
     });
@@ -187,6 +191,7 @@ function apiCallPost(reqType, endPoint, payload) {
 
 //Common API Call for Get Function
 function apiCallGet(reqType, endPoint, API_URI) {
+    console.log(API_URI + endPoint,)
     var response;
     $.ajax({
         url: API_URI + endPoint,
