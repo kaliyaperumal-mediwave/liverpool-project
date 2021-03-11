@@ -177,8 +177,12 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').removeClass('d-block').addClass('d-none');
-            if (error) {
-                showError(error.responseJSON.message, error.status);
+            if (endPoint == '/resetEmail') {
+                return;
+            } else {
+                if (error) {
+                    showError(error.responseJSON.message, error.status);
+                }
             }
         }
     });
