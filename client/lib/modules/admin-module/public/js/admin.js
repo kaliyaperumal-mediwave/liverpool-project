@@ -90,7 +90,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
                   "completed",
-                  "<div class='d-flex'><button  onclick='sendPdf(\""+ referralRes.data.data[i].uuid +"\",\""+ referralRes.data.data[i].referrer_type +"\")'  class='btn-pdf'>View</button><button class='btn-pdf'>Send</button></div>"
+                  "<div class='d-flex'><button  onclick='sendPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button class='btn-pdf'>Send</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -183,19 +183,22 @@ $(document).ready(function () {
 
 });
 
-
-function sendPdf(uuid,role) {
-  console.log(uuid,role);
-  var successData = apiCallGet('get', '/sendAttachment/'+ uuid + "/" + role, API_URI);
+function sendPdf(uuid, role) {
+  $('#loader').show();
+  var successData = apiCallGet('get', '/sendAttachment/' + uuid + "/" + role, API_URI);
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
   var link = document.createElement('a');
   link.href = window.URL.createObjectURL(blob);
+  link.target = '_blank'
   var fileName = "test.pdf";
-  link.download = fileName;
+  //link.download = fileName;
   link.click();
+  setTimeout(function () {
+    $('#loader').hide();
+  }, 1000);
+  //link.click();
 }
 function toArrayBuffer(buf) {
-  console.log(buf);
   var ab = new ArrayBuffer(buf.length);
   var view = new Uint8Array(ab);
   for (var i = 0; i < buf.length; ++i) {

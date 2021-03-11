@@ -52,7 +52,7 @@
 </head>
 
 <body style="font-family: 'Century Gothic', sans-serif !important;">
-    <div style="padding: 40px 68px;">
+    <div style="padding: 0px 68px;">
         <h2>Summary of your referral</h2>
         <div style="border-top: 2px solid #b4b8ba"></div>
         <div>
@@ -418,6 +418,44 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section3.child_socialworker=='yes') {%>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Social Worker first name:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section3.child_socialworker_firstname %>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Social Worker last name:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section3.child_socialworker_lastname %>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Social Worker number:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section3.child_socialworker_contact %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
@@ -471,7 +509,8 @@
                     </div>
                 </div>
             </div>
-            <div class="text-container">
+            <br>
+            <div style="padding-top: 20px;" class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
                         Has anything helped?

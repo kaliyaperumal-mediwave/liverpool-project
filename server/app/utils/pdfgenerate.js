@@ -8,10 +8,6 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
     var template;
     try {
         console.log(ctx.request.body.referralData)
-        var pdfObj = {
-            ratings: "2.5",
-            comments: "test",
-        }
         if(ctx.request.body.referralData.role == "Child")
         {
              template = fs.readFileSync(path.join(`${__dirname}/./templates/child_referralSendTemplate.html`), 'utf8');
@@ -32,10 +28,14 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
         var opt = {
             format: 'A4',
             orientation: 'portrait',
-            margin: {
-                top: '50px',
-                left: '20px'
-              }
+            margin: '1cm',
+              footer: {
+                "height": "5mm"
+              },
+            border: {
+                "top": "1in",            // default is 0, units: mm, cm, in, px
+                "bottom": "1in",
+              },
         };
         pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {
             resolve(ctx.body = buffer);
