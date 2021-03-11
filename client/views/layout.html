@@ -74,6 +74,7 @@ endblock %} {% block extraHead %}
 
 <script>
   $(document).ready(function () {
+    $('#example-search-input').val('');
 
     $('body').on('keypress', function () {
       if ($('.bodyclass').hasClass('apos-active-blackout')) {
