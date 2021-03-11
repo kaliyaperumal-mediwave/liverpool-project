@@ -358,11 +358,12 @@ function setTextSize() {
     if (textSize && Number(textSize) >= 16) {
         var inc = Number(textSize) - Number(currentTextSize);
         $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
+            debugger
             var fontsize = parseInt($(this).css('font-size'));
-            var setLineHeight = Number(fontsize + inc) + 4;
             var newFontsize = (fontsize + inc) + 'px';
             $(this).css('font-size', newFontsize);
-            //$(this).css('line-height', setLineHeight + 'px');
+            // var setLineHeight = Number(fontsize + inc) + 4;
+            // $('p,h1,h2,h3,h4,h5').css('line-height', setLineHeight + 'px');
         });
         currentTextSize = textSize;
     }

@@ -1309,11 +1309,11 @@ a {
   color: #023047; }
   @media (max-width: 575.98px) {
     .home-header-primary {
-      font-size: 18px;
+      font-size: 20px;
       letter-spacing: 1.5px !important; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .home-header-primary {
-      font-size: 19px;
+      font-size: 21px;
       letter-spacing: 1.5px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .home-header-primary {
@@ -1326,11 +1326,11 @@ a {
     color: #023047; }
     @media (max-width: 575.98px) {
       .home-header-primary h2 {
-        font-size: 18px;
+        font-size: 20px;
         letter-spacing: 1.5px !important; } }
     @media (min-width: 576px) and (max-width: 767.98px) {
       .home-header-primary h2 {
-        font-size: 19px;
+        font-size: 21px;
         letter-spacing: 1.5px !important; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       .home-header-primary h2 {
@@ -1343,11 +1343,11 @@ a {
     color: #023047; }
     @media (max-width: 575.98px) {
       .home-header-primary p {
-        font-size: 18px;
+        font-size: 20px;
         letter-spacing: 1.5px !important; } }
     @media (min-width: 576px) and (max-width: 767.98px) {
       .home-header-primary p {
-        font-size: 19px;
+        font-size: 21px;
         letter-spacing: 1.5px !important; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       .home-header-primary p {
@@ -1355,7 +1355,7 @@ a {
         letter-spacing: 1.5px !important; } }
 
 .home-header-secondary {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #023047; }
   @media (max-width: 575.98px) {
@@ -1368,7 +1368,7 @@ a {
       letter-spacing: 0.64px !important; } }
   @media (min-width: 768px) and (max-width: 991.98px) {
     .home-header-secondary {
-      font-size: 22px !important;
+      font-size: 20px !important;
       letter-spacing: 1.5px !important; } }
 
 .home-header-secondary-description {
@@ -1389,10 +1389,10 @@ a {
       letter-spacing: 1.5px !important; } }
 
 .home-primary-content {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #023047;
-  line-height: 29px !important; }
+  line-height: 27px !important; }
   @media (max-width: 575.98px) {
     .home-primary-content {
       font-size: 15px; } }
@@ -1403,7 +1403,7 @@ a {
     .home-primary-content {
       font-size: 18px; } }
   .home-primary-content h3 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #023047;
     margin-bottom: 0px; }

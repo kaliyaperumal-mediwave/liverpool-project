@@ -535,7 +535,7 @@
                 <!-- Parental Responsibility Toaster container end -->
 
                 <!-- Parent or Carer First Name Start -->
-                <form id="parentOrCarer-form" data-options="parentCarerFirstName">
+                <form id="parentOrCarerFirstName-form" data-options="parentCarerFirstName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
@@ -564,7 +564,7 @@
                 <!-- Parent or Carer First Name End -->
 
                 <!-- Parent or Carer end Name Start -->
-                <form id="parentOrCarer-form" data-options="parentCarerLastName">
+                <form id="parentOrCarerLastName-form" data-options="parentCarerLastName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
                         class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
@@ -620,11 +620,11 @@
                     <form id="parentOrCarerContact-form" data-options="contactNumber">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
-                                <label for="ParentOrCarcontactNumber"
+                                <label for="parentOrCarcontactNumber1"
                                     class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control"
-                                        id="ParentOrCarcontactNumber" inputmode="tel"
+                                        id="parentOrCarcontactNumber1" inputmode="tel"
                                         @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
                                         v-bind:placeholder="sec2dynamicLabel.guardContactPlacLabel"
                                         v-model="aboutFormData.contactNumber">
@@ -776,7 +776,8 @@
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
                                     <template
-                                        v-if="aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentCarerFirstName  && aboutFormData.parentCarerLastName && aboutFormData.parentialResponsibility =='yes' && aboutObj.childGender &&aboutObj.childIdentity && aboutObj.sendPost && aboutObj.childAddress && aboutObj.childFirstName && aboutObj.childLastName">
+                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
+                                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && aboutFormData.contactNumber && aboutFormData.relationshipToYou && aboutFormData.parentCarerFirstName  && aboutFormData.parentCarerLastName ">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </template>
 
@@ -848,14 +849,14 @@
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
                                 <template v-if="houseHoldData.mode == 'update'">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Edit household</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Edit household member</h5>
                                 </template>
                                 <template v-else-if="houseHoldData.mode == ''">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add household</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
                                     </span>
                                 </template>
                                 <template v-else>
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add household</h5>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
                                 </template>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>
