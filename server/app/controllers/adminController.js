@@ -342,7 +342,7 @@ exports.getAllReferral = ctx => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
 }
-exports.sendAttachment = async ctx => {
+exports.downloadReferral = async ctx => {
     // try {
     //     return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
     //         console.log(sendReferralStatus)

@@ -59,7 +59,7 @@ router.post('/user/feedback', validateToken, authController.sendFeedback);
 router.get('/admin/referral', adminController.getReferral);
 router.put('/admin/referral', adminController.updateReferral);
 router.get('/admin/getAllreferral', adminController.getAllReferral);
-router.get('/admin/sendAttachment', adminController.sendAttachment);
+router.get('/admin/downloadReferral', adminController.downloadReferral);
 
 //orcha
 router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);

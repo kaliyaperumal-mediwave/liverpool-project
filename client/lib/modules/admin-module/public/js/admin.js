@@ -46,7 +46,7 @@ $(document).ready(function () {
         var _self = this;
         $('#example').DataTable({
           destroy: true,
-          processing: true,
+          processing: false,
           serverSide: true,
           columnDefs: [
             { targets: 0, orderable: false },
@@ -184,8 +184,9 @@ $(document).ready(function () {
 });
 
 function sendPdf(uuid, role) {
+  
   $('#loader').show();
-  var successData = apiCallGet('get', '/sendAttachment/' + uuid + "/" + role, API_URI);
+  var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
   var link = document.createElement('a');
   link.href = window.URL.createObjectURL(blob);
