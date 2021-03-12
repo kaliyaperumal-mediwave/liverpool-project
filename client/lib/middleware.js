@@ -9,17 +9,18 @@ module.exports = function (self, options) {
           .then((data) => {
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
-            req.data.logoPath = "/dashboard"
-            req.data.aboutPage = "/pages/about"
-            req.data.termPage = "/pages/terms"
-            req.data.privacyPage = "/pages/privacy"
-            req.data.feedbackPage = "/pages/feedback"
-            req.data.contactPage = "/pages/contact"
-            req.data.navigateViewRfrl = "/viewreferrals"
-            req.data.urgentHelpPage = "/pages/urgent-help"
-            req.data.mentalHeathPage = "/mental-health"
-            req.data.resourcesPage = "/resources"
-            req.data.navigateMkeRfrl = "/make-referral"
+            req.data.logoPath = "/dashboard";
+            req.data.aboutPage = "/pages/about";
+            req.data.termPage = "/pages/terms";
+            req.data.privacyPage = "/pages/privacy";
+            req.data.feedbackPage = "/pages/feedback";
+            req.data.contactPage = "/pages/contact";
+            req.data.navigateViewRfrl = "/viewreferrals";
+            req.data.urgentHelpPage = "/pages/urgent-help";
+            req.data.mentalHeathPage = "/mental-health";
+            req.data.resourcesPage = "/resources";
+            req.data.orchaPage = "/orcha";
+            req.data.navigateMkeRfrl = "/make-referral";
             req.data.mentalHealth_peoplePage = "mental-health/people";
             req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
@@ -36,7 +37,7 @@ module.exports = function (self, options) {
     },
 
     checkCommonPageAuth: function (req, res, next) {
-      req.res.header('Cache-Control', 'no-cache, no-store'); 
+      req.res.header('Cache-Control', 'no-cache, no-store');
       console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
@@ -47,11 +48,12 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
+      req.data.orchaPage = "/orcha";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
-      if (req.session.auth_token) {   
+      if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
             req.data.loginId = req.session.loginIdUrl;
@@ -87,6 +89,7 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
+      req.data.orchaPage = "/orcha";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
@@ -94,7 +97,7 @@ module.exports = function (self, options) {
       console.log(req.session.auth_token)
       if (req.session.auth_token) {
         self.verifyToken(req)
-        .then((data) => {
+          .then((data) => {
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
             delete req.session.uuid;
@@ -295,6 +298,7 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
+      req.data.orchaPage = "/orcha";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
@@ -349,7 +353,7 @@ module.exports = function (self, options) {
         delete req.session.user_role;
         delete req.session.auth_token;
         delete req.session.loginFlag;
-       // req.session.sessionExp = true;
+        // req.session.sessionExp = true;
         return reject(error);
       });
     });
