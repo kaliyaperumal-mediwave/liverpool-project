@@ -79,4 +79,18 @@ const feedbackValidation = data => {
   return schema.validate(data, options)
 }
 
-module.exports = { registerValidation, loginValidation, changePasswordValidation, resetEmailValidation, forgotPasswordValidation, resetPasswordValidation, changeEmailValidation, feedbackValidation };
+const referralRegisterValidation = data => {
+
+  const schema = Joi.object({
+    first_name: Joi.string().max(255).required(),
+    last_name: Joi.string().max(255).required(),
+    password: Joi.string().min(8).required(),
+    confirm_password: Joi.string().min(6).valid(Joi.ref('password')).required(),
+    email: Joi.string().email().required(),
+    role: Joi.string().max(20).required(),
+    reference_code: Joi.string().max(20).required()
+  })
+  return schema.validate(data, options)
+}
+
+module.exports = { referralRegisterValidation, registerValidation, loginValidation, changePasswordValidation, resetEmailValidation, forgotPasswordValidation, resetPasswordValidation, changeEmailValidation, feedbackValidation };

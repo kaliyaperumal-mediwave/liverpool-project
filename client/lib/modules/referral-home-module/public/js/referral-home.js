@@ -16,7 +16,9 @@ $(document).ready(function () {
         },
 
         methods: {
+          
             goToRole: function () {
+                var _self = this;
                 $.ajax({
                     url: API_URI + "/setSessionRefHome/y",
                     type: 'get',
@@ -25,7 +27,13 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
                         console.log("-------------------------------success block");
-                        location.href = "/role";
+                       location.href = "/role";
+                      // window.top.location= "/role";
+                       // parent.location.href = "/role";
+                       if (window != window.top) { 
+                        // the page is inside an iframe
+                       // window.location.href = "/role"
+                    }
                     },
                     error: function (error) {
                         console.log(error)

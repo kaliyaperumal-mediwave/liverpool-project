@@ -127,7 +127,7 @@ $(document).ready(function () {
 
             //Get Request to get all section's data
             getAllSectionData: function (payloadData) {
-               // console.log()
+                // console.log()
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
@@ -136,7 +136,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                            console.log(data)
+                        console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -370,8 +370,6 @@ $(document).ready(function () {
                         console.log(data);
                     },
                 });
-
-
             },
 
             onValueChange: function (e) {
@@ -427,7 +425,7 @@ $(document).ready(function () {
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
                     if (formData.child_name && formData.child_lastname && formData.child_contact_number &&
-                        formData.child_gender && formData.parent_name  && formData.parent_lastname && formData.child_parent_relationship && formData.parent_contact_number
+                        formData.child_gender && formData.parent_name && formData.parent_lastname && formData.child_parent_relationship && formData.parent_contact_number
                         && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
                     ) {
 

@@ -241,8 +241,7 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
-    30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
   background-size: contain;
 }
 
@@ -322,8 +321,7 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
-    fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -332,11 +330,11 @@ a {
 .home-header-primary {
   @include set-titleStyles($secondary-font-size, bold, $primary-color);
   @include xs-screen {
-    font-size: 18px;
+    font-size: 20px;
     letter-spacing: 1.5px !important;
   }
   @include sm-screen {
-    font-size: 19px;
+    font-size: 21px;
     letter-spacing: 1.5px !important;
   }
   @include md-screen {
@@ -347,11 +345,11 @@ a {
     margin-bottom: 0px !important;
     @include set-titleStyles($secondary-font-size, bold, $primary-color);
     @include xs-screen {
-      font-size: 18px;
+      font-size: 20px;
       letter-spacing: 1.5px !important;
     }
     @include sm-screen {
-      font-size: 19px;
+      font-size: 21px;
       letter-spacing: 1.5px !important;
     }
     @include md-screen {
@@ -363,11 +361,11 @@ a {
     margin-bottom: 0px !important;
     @include set-titleStyles($secondary-font-size, bold, $primary-color);
     @include xs-screen {
-      font-size: 18px;
+      font-size: 20px;
       letter-spacing: 1.5px !important;
     }
     @include sm-screen {
-      font-size: 19px;
+      font-size: 21px;
       letter-spacing: 1.5px !important;
     }
     @include md-screen {
@@ -378,7 +376,7 @@ a {
 }
 
 .home-header-secondary {
-  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
   @include xs-screen {
     font-size: $quaternary-mdFont-size;
     letter-spacing: 0.64px !important;
@@ -388,7 +386,7 @@ a {
     letter-spacing: 0.64px !important;
   }
   @include md-screen {
-    @include set-dynamicFont($tertiary-font-size, 2);
+    @include set-dynamicFont($tertiary-mdFont-size, 2);
     letter-spacing: 1.5px !important;
   }
 }
@@ -410,8 +408,8 @@ a {
 }
 
 .home-primary-content {
-  @include set-titleStyles($tertiary-font-size, bold, $primary-color);
-  @include set-dynamicLineHeight($tertiary-font-size);
+  @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+  @include set-dynamicLineHeight($tertiary-mdFont-size);
   @include xs-screen {
     font-size: 15px;
   }
@@ -422,7 +420,7 @@ a {
     font-size: 18px;
   }
   h3 {
-    @include set-titleStyles($tertiary-font-size, bold, $primary-color);
+    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
     margin-bottom: 0px;
     @include xs-screen {
       font-size: 16px;
@@ -1068,8 +1066,7 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -1097,8 +1094,7 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -3035,11 +3031,9 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
-  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color,
-  $admin-btn-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
+  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color in $color-scheme
 {
   @include theme(
     $name,

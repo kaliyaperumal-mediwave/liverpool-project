@@ -177,8 +177,12 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').removeClass('d-block').addClass('d-none');
-            if (error) {
-                showError(error.responseJSON.message, error.status);
+            if (endPoint == '/resetEmail') {
+                return;
+            } else {
+                if (error) {
+                    showError(error.responseJSON.message, error.status);
+                }
             }
         }
     });
@@ -359,10 +363,10 @@ function setTextSize() {
         var inc = Number(textSize) - Number(currentTextSize);
         $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
             var fontsize = parseInt($(this).css('font-size'));
-            var setLineHeight = Number(fontsize + inc) + 4;
             var newFontsize = (fontsize + inc) + 'px';
             $(this).css('font-size', newFontsize);
-            //$(this).css('line-height', setLineHeight + 'px');
+            // var setLineHeight = Number(fontsize + inc) + 4;
+            // $('p,h1,h2,h3,h4,h5').css('line-height', setLineHeight + 'px');
         });
         currentTextSize = textSize;
     }
