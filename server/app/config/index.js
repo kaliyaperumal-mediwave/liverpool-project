@@ -13,9 +13,15 @@ const configs = {
     port: process.env.APP_PORT,
     email_from_address: process.env.FROM_EMAIL,
     email_to_address: process.env.TO_EMAIL,
-    orcha_api:process.env.ORCHA_API,
-    orcha_user:process.env.ORCHA_USER,
-    orcha_pass:process.env.ORCHA_PASS,
+    orcha_api: process.env.ORCHA_API,
+    orcha_user: process.env.ORCHA_USER,
+    orcha_pass: process.env.ORCHA_PASS,
+    //Provider Email address to send completed referrals. 
+    ypas_email: process.env.YPAS_EMAIL,
+    venus_email: process.env.VENUS_EMAIL  ,
+    iaptus_email: process.env.IAPTUS_EMAIL,
+    other_email: process.env.OTHER_EMAIL,
+
     orm: {
       name: 'orm',
       modelPath: join(__dirname, '../models'),
@@ -47,7 +53,7 @@ const configs = {
       host: process.env.POSTGRES_HOST,
       dialect: 'postgres',
       ssl: process.env.SSL,
-      
+
       dialectOptions: {
         ssl: process.env.SSL,
       },
