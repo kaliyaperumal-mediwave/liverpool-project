@@ -160,12 +160,29 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 });
 
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
+    var toAddress;
     try {
-        const template = fs.readFileSync(path.join(`${__dirname}/./templates/feedback.html`), 'utf8');
+        console.log( ctx.request.body.emailToProvider)
+        if(ctx.request.body.emailToProvider == "YPAS")
+        {
+            toAddress = config.ypas_email
+        }
+        else if (ctx.request.body.emailToProvider == "Venus")
+        {
+            toAddress = config.venus_email
+        }
+        else if (ctx.request.body.emailToProvider == "IAPTUS")
+        {
+            toAddress = config.iaptus_email
+        }
+        else if (ctx.request.body.emailToProvider == "Other")
+        {
+            toAddress = config.other_email
+        }
+        const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
-            ratings: "ctx.request.body.ratings",
-            comments: "ctx.request.body.comments",
+            refCode: ctx.request.body.refCode,
         });
 
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
@@ -173,10 +190,10 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             if (sendReferralStatus) {
                 const data = {
                     from: config.email_from_address,
-                    to: "thiru@mindwaveventures.com",
+                    to: toAddress,
                     subject: 'LIVERPOOL CAMHS - Referral Details',
                     attachments: [{
-                        filename: `test.pdf`,
+                        filename: ctx.request.body.refCode,
                         content: sendReferralStatus,
                         contentType: 'application/pdf'
                     }],
