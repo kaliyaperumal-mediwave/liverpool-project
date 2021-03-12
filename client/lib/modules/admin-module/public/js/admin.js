@@ -181,11 +181,11 @@ function toArrayBuffer(buf) {
 
 function openSendPopup(uuid, role)
 {
-  //$('#sendProviderModal').modal('show');
-//document.getElementById('logYesBtn').setAttribute('onclick',"sendPdf(\"" + uuid + "\",\"" + role + "\")")
+  $('#sendProviderModal').modal('show');
+  document.getElementById('sendRef').setAttribute('onclick','sendPdf(\'' + uuid + '\',\'' + role + '\')');
 }
 
 function sendPdf(uuid, role) {
-  console.log("sendpdf",uuid,role)
-  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role, API_URI);
+  var selectedProvider = document.getElementById('SelectedProvider').value;
+  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider, API_URI);
 }

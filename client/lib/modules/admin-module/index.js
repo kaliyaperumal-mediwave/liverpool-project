@@ -72,9 +72,9 @@ module.exports = {
       })
     });
 
-    self.route('get', 'sendReferral/:refID/:refRole', function (req, res) {
+    self.route('get', 'sendReferral/:refID/:refRole/:selectedProvider', function (req, res) {
       console.log("get all referal")
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID +'&refRole='+ req.params.refRole ;
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID +'&refRole='+ req.params.refRole +'&selectedProvider=' + req.params.selectedProvider;
       console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
