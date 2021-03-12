@@ -21,7 +21,7 @@ const gpCodes = [
 exports.getReferral = ctx => {
     return new Promise(async (resolve, reject) => {
         try {
-            console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
+            //console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
 
             // sorting
@@ -37,7 +37,7 @@ exports.getReferral = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt','referral_provider',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
@@ -77,6 +77,14 @@ exports.getReferral = ctx => {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
+                    if(refObj.referral_provider==null)
+                    {
+                        refObj.referral_provider = "Pending"
+                    }
+                    else
+                    {
+                        refObj.referral_provider = refObj.referral_provider
+                    }
                     var referralObj = {
                         uuid: refObj.uuid,
                         name: refObj.name,
@@ -85,7 +93,8 @@ exports.getReferral = ctx => {
                         referrer: refObj.referrer_name + refObj.referrer_lastname,
                         gp_location: '',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
-                        date: moment(refObj.updatedAt).format('DD/MM/YYYY')
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        referral_provider: refObj.referral_provider
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
@@ -97,13 +106,15 @@ exports.getReferral = ctx => {
                             }
                         }
                     }
+                    //console.log()(referralObj)
                     if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.reference_code.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referrer.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
-                        (referralObj.date.toLowerCase()).includes(ctx.query.searchValue)
+                        (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referral_provider.toLowerCase()).includes(ctx.query.searchValue)
                     ) {
                         filter_referrals.push(referralObj);
                     }
@@ -113,6 +124,14 @@ exports.getReferral = ctx => {
                 // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
+                    if(refObj.referral_provider==null)
+                    {
+                        refObj.referral_provider = "Pending"
+                    }
+                    else
+                    {
+                        refObj.referral_provider = refObj.referral_provider
+                    }
                     var referralObj = {
                         uuid: refObj.uuid,
                         name: refObj.name + refObj.lastname,
@@ -121,7 +140,8 @@ exports.getReferral = ctx => {
                         referrer: refObj.referrer_name + refObj.referrer_lastname,
                         gp_location: 'Liverpool',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
-                        date: moment(refObj.updatedAt).format('DD/MM/YYYY')
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        referral_provider: refObj.referral_provider
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
@@ -156,7 +176,7 @@ exports.getReferral = ctx => {
                 })
             );
         } catch (error) {
-            console.log(error);
+            //console.log()(error);
             reject(
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             );
@@ -194,7 +214,7 @@ exports.updateReferral = ctx => {
                 );
             }
         } catch (error) {
-            console.log(error);
+            //console.log()(error);
             reject(
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             );
@@ -224,7 +244,7 @@ exports.getReferalBySearch = ctx => {
             ['updatedAt', 'DESC'],
         ],
     }).then((result) => {
-        console.log(result);
+        //console.log()(result);
         return ctx.body = result
     }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -302,7 +322,7 @@ exports.getAllReferral = ctx => {
 
                 resultArray = JSON.parse(JSON.stringify(resultArray));
                 for (var i = 0; i < resultArray.length; i++) {
-                    console.log(resultArray[i])
+                    //console.log()(resultArray[i])
                     obj = {};
                     obj.uuid = resultArray[i].uuid;
                     obj.name = resultArray[i].child_name;
@@ -326,19 +346,19 @@ exports.getAllReferral = ctx => {
                     }
                     sendArray.push(obj);
                 }
-                console.log("----------------------------------------------end")
+                //console.log()("----------------------------------------------end")
                 //array = [];
                 return ctx.body = sendArray
             }).catch((error) => {
-                console.log(error)
+                //console.log()(error)
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
         }).catch((error) => {
-            console.log(error)
+            //console.log()(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }).catch((error) => {
-        console.log(error)
+        //console.log()(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
 }
@@ -347,17 +367,17 @@ exports.downloadReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     try {
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
-            console.log(sendReferralStatus)
+            //console.log()(sendReferralStatus)
             return ctx.res.ok({
                 data: sendReferralStatus,
                 message: reponseMessages[1017],
             });
         }).catch(error => {
-            console.log(error);
+            //console.log()(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
-        console.log(e);
+        //console.log()(e);
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 }
@@ -365,14 +385,30 @@ exports.downloadReferral = async ctx => {
 exports.sendReferral = async ctx => {
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
+    ctx.request.body.emailToProvider = ctx.query.selectedProvider;
+    ctx.request.body.refCode = ctx.query.refCode;
     try {
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
-            console.log(sendReferralStatus)
-            return ctx.res.ok({
-                message: reponseMessages[1017],
+            //console.log()(sendReferralStatus)
+            const referralModel = ctx.orm().Referral;
+            return referralModel.update({
+                referral_provider: "Sent to " + ctx.query.selectedProvider
+              },
+                {
+                  where:
+                    { uuid: ctx.query.refID }
+                }
+              ).then((result) => {
+                return ctx.res.ok({
+                    message: reponseMessages[1017],
+                });
+              }).catch(error => {
+                //console.log()(error);
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
+
         }).catch(error => {
-            console.log(error, "error");
+            //console.log()(error, "error");
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
@@ -381,8 +417,8 @@ exports.sendReferral = async ctx => {
 }
 
 function getRefData(refID, refRole, ctx) {
-    console.log(refID)
-    console.log(refRole)
+    //console.log()(refID)
+    //console.log()(refRole)
     const user = ctx.orm().Referral;
     const referral = ctx.orm().Reason
     if (refRole == "Child") {
@@ -457,17 +493,17 @@ function getRefData(refID, refRole, ctx) {
                     }
                     return responseData;
                 }).catch((error) => {
-                    console.log("1")
-                    console.log(error)
+                    //console.log()("1")
+                    //console.log()(error)
                     sequalizeErrorHandler.handleSequalizeError(ctx, error)
                 });
             }).catch((error) => {
-                console.log("2")
+                //console.log()("2")
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
 
         }).catch((error) => {
-            console.log(error)
+            //console.log()(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
@@ -540,7 +576,7 @@ function getRefData(refID, refRole, ctx) {
                             attributes: ['id']
                         }).then((referralResult) => {
 
-                            console.log(aboutObj)
+                            //console.log()(aboutObj)
 
                             const section1Obj = {
                                 child_id: elgibilityObj[0].parent[0].id,
@@ -644,8 +680,8 @@ function getRefData(refID, refRole, ctx) {
                 //return ctx.body = elgibilityObj.professional[0].child_parent[0];
                 var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
                 var childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
-                console.log(childIdNew);
-                console.log(childId);
+                //console.log()(childIdNew);
+                //console.log()(childId);
 
                 //  var childId = elgibilityObj[0].professional[0].ChildProfessional.UserId
                 //  var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) + 2
@@ -763,17 +799,14 @@ function getRefData(refID, refRole, ctx) {
                             }
                             return ctx.body = responseData;
                         }).catch((error) => {
-
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
                         });
 
                     }).catch((error) => {
-
                         sequalizeErrorHandler.handleSequalizeError(ctx, error)
                     });
                 })
                     .catch((error) => {
-                        console.log(error)
                         sequalizeErrorHandler.handleSequalizeError(ctx, error)
                     });
             })
@@ -781,7 +814,6 @@ function getRefData(refID, refRole, ctx) {
                     sequalizeErrorHandler.handleSequalizeError(ctx, error)
                 });
         }).catch((error) => {
-            console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
