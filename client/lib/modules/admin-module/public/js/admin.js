@@ -71,7 +71,7 @@ $(document).ready(function () {
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
-              console.log(referralRes);
+              //console.log()(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -89,8 +89,8 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
-                  "completed",
-                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")' class='btn-pdf'>Send</button></div>"
+                  referralRes.data.data[i].referral_provider,
+                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\")' class='btn-pdf'>Send</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -139,10 +139,16 @@ $(document).ready(function () {
         $('#deletedSuccess').modal('hide');
         this.successMessage = '';
       },
+
+      closeMailSuccessPopup: function () {
+        $('#example').DataTable().ajax.reload();
+        $('#mailSentSuccess').modal('hide');
+      },
+
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').hide();
-        console.log(successData)
+        //console.log()(successData)
       },
     },
 
@@ -161,7 +167,7 @@ function viewPdf(uuid, role) {
   var link = document.createElement('a');
   link.href = window.URL.createObjectURL(blob);
   link.target = '_blank'
- // var fileName = "test.pdf";
+  // var fileName = "test.pdf";
   //link.download = fileName;
   link.click();
   setTimeout(function () {
@@ -179,13 +185,19 @@ function toArrayBuffer(buf) {
   return ab;
 }
 
-function openSendPopup(uuid, role)
-{
-  //$('#sendProviderModal').modal('show');
-//document.getElementById('logYesBtn').setAttribute('onclick',"sendPdf(\"" + uuid + "\",\"" + role + "\")")
+function openSendPopup(uuid, role, refCode) {
+  $('#sendProviderModal').modal('show');
+  document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
 }
 
-function sendPdf(uuid, role) {
-  console.log("sendpdf",uuid,role)
-  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role, API_URI);
+function sendPdf(uuid, role, refCode) {
+  var selectedProvider = document.getElementById('SelectedProvider').value;
+  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
+  if (successData && Object.keys(successData)) {
+    $('#sendProviderModal').modal('hide');
+    $('#mailSentSuccess').modal('show');
+  }
+  else {
+    $('#sendProviderModal').modal('hide');
+  }
 }

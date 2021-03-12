@@ -2230,7 +2230,7 @@ exports.saveReview = ctx => {
       referral_complete_status: "completed",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
-      referral_provider: ctx.request.body.referral_provider
+      referral_provider: "Sent to " + ctx.request.body.referral_provider
     },
       {
         where:
