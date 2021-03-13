@@ -1,14 +1,13 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-<!-- <script src="/modules/feedback-module/js/feedback.js"></script>
-<script src="/modules/shared-referal-module/js/searchReferral.js"></script> -->
+<script src="/modules/orcha-module/js/orchahome.js"></script> -->
 {% endblock %}
 {% block main %}
 
 <div id="orchaHomePage">
     <!-- Loader start -->
-    <!-- <div class="overlay" id="loader">
+    <div class="overlay" id="loader">
         <div class="overlay__inner">
             <div class="overlay__content">
                 <div class="lds-spinner">
@@ -27,7 +26,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Loader end -->
     <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-0">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mx-auto">
@@ -86,90 +85,67 @@
                 </label>
             </div>
             <div class="pt-4 pb-2 row mx-0 w-100 justify-content- align-items-center">
+                {% raw %}
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Cancer
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
+                        <select id="purchase_order_number" v-model="fitlerObj.capability" class="custom-select form-control input-bg-form-control" :change="getSearchData()">
+                            <option  class='option-text' value="">Capabilities</option>
+                            <option  v-for="(capabilityObj, index) in capabilityList" :key="index"  class='option-text' :value="capabilityObj.id">{{capabilityObj.capabilityName}}</option>
+                            <!-- <option class='option-text' value="Breast Cancer">Breast Cancer
                             </option>
                             <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
                             </option>
                             <option class='option-text' value="Liver Cancer">Liver Cancer
+                            </option> -->
+                        </select>                          
+                    </span>
+                </div>
+                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                    <span class="plain-select">
+                        <select v-model="fitlerObj.subCategory"  class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Function Features
                             </option>
+                            <option  v-for="(subCategoryObj, index) in subCategoryList" :key="index"  class='option-text' :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
                         </select>
                     </span>
                 </div>
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Function Features
+                        <select v-model="fitlerObj.designedfor"  class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Designed For
                             </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                            <option  v-for="(designedForObj, index) in designedForList" :key="index"  class='option-text' :value="designedForObj.id">{{designedForObj.designedForName}}</option>
                         </select>
                     </span>
                 </div>
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Designed For
+                        <select v-model="fitlerObj.country" class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Country of origin
                             </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                            <option  v-for="(countryObj, index) in countryList" :key="index"  class='option-text' :value="countryObj.id">{{countryObj.countryName}}</option>
                         </select>
                     </span>
                 </div>
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Country of origin
+                        <select v-model="fitlerObj.cost" class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Cost
                             </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
-                        </select>
-                    </span>
-                </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Cost
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                            <option  v-for="(costObj, index) in costList" :key="index"  class='option-text' :value="costObj.id">{{costObj.costName}}</option>
                         </select>
                     </span>
                 </div>
                 <div class="input-group col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Platform
+                        <select v-model="fitlerObj.platform"  class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Platform
                             </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                            <option  v-for="(platformObj, index) in platformList" :key="index"  class='option-text' :value="platformObj.id">{{platformObj.platformName}}</option>
                         </select>
                     </span>
                 </div>
+                {% endraw %}
             </div>
             <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a>Hide Filters</a></u></p>
         </div>

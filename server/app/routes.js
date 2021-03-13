@@ -66,4 +66,6 @@ router.get('/admin/sendReferral', adminController.sendReferral);
 //orcha
 router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
 router.get('/orcha/getApp/',auth.checkOrchaToken, orchaController.getApp);
+router.get('/orcha/getFilterData/',auth.checkOrchaToken, orchaController.getFilterDropDwnData);
+router.post('/orcha/getSearchData/',auth.checkOrchaToken, orchaController.getSearchData);
 module.exports = router;
