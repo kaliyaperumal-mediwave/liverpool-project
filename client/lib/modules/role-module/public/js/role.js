@@ -105,6 +105,8 @@ $(document).ready(function () {
                     disableProfessional.style.opacity = '0.6';
 
                 } else if (userRole == 'professional') {
+                    this.prof_data = document.getElementById('prof_data').innerHTML;
+                    console.log(this.prof_data);
                     disableChild.style.opacity = '0.6';
                     disableParent.style.opacity = '0.6';
 
@@ -129,6 +131,7 @@ $(document).ready(function () {
                 });
             },
             fetchSavedData: function () {
+                console.log(this.sendObj.uuid);
                 this.sendObj.uuid = document.getElementById('uUid').innerHTML;
                 this.sendObj.role = document.getElementById('uRole').innerHTML;
                 if ((this.sendObj.uuid != undefined && this.sendObj.uuid != "") && (this.sendObj.role != undefined && this.sendObj.role != "")) {
@@ -152,6 +155,17 @@ $(document).ready(function () {
                             ////console.log(error.responseJSON.message)
                         }
                     });
+                } else {
+                    if(this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
+                        var profData = document.getElementById('prof_data').innerHTML;
+                        profData = JSON.parse(profData);
+                        Vue.set(this.elgibilityObj, "profFirstName", profData.first_name);
+                        Vue.set(this.elgibilityObj, "proflastName", profData.last_name);
+                        Vue.set(this.elgibilityObj, "profEmail", profData.email);
+                        Vue.set(this.elgibilityObj, "profContactNumber", profData.contact_number);
+                        Vue.set(this.elgibilityObj, "profAddress", profData.address);
+                        Vue.set(this.elgibilityObj, "profProfession", profData.profession);
+                    }
                 }
             },
             setValues: function (data) {

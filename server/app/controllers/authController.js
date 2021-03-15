@@ -94,15 +94,37 @@ exports.login = async (ctx) => {
                     },{
                         where:
                           {  email: userResult.email, }
-                      }).then((sessionResult) => {
-                          console.log("----------------------------------update session ----------------------------------------------------")
-                        const sendUserResult = {
+                      }).then(async (sessionResult) => {
+                        console.log("----------------------------------update session ----------------------------------------------------");
+                        var sendUserResult = {
                             loginId: userResult.uuid,
                             first_name: userResult.first_name,
                             last_name: userResult.last_name,
                             email: userResult.email,
                             role: userResult.user_role,
                             token: token
+                        }
+                        if(userResult.user_role === 'professional') {
+                            const Referral = ctx.orm().Referral;
+                            const prof_referral = await Referral.findOne({
+                                where: {
+                                    login_id: userResult.uuid,
+                                    referral_complete_status: 'completed'
+                                },
+                                order: [
+                                    ['id', 'asc']
+                                ]
+                            });
+                            if(prof_referral) {
+                                sendUserResult.prof_data = {
+                                    first_name: userResult.first_name,
+                                    last_name: userResult.last_name,
+                                    email: prof_referral.professional_email ? prof_referral.professional_email : '',
+                                    contact_number: prof_referral.professional_contact_number ? prof_referral.professional_contact_number : '',
+                                    profession: prof_referral.professional_profession ? prof_referral.professional_profession : '',
+                                    address: prof_referral.professional_address ? prof_referral.professional_address : ''
+                                };
+                            }
                         }
                         const sendResponseData = {
                             sendUserResult: sendUserResult,
