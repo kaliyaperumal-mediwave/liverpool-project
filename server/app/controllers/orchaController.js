@@ -103,7 +103,7 @@ exports.getSearchData = async (ctx) => {
         }
 
         if (ctx.request.body.country) {
-            app_body.countryIds = ctx.request.body.country ? _.map(ctx.request.body.country.split(','), function (v) { return parseInt(v) }) : [];
+            app_body.countryIds = ctx.request.body.country;
         }
         if (ctx.request.body.platform) {
             app_body.platformId = ctx.request.body.platform;
@@ -111,14 +111,14 @@ exports.getSearchData = async (ctx) => {
         if (ctx.request.body.subCategory) {
             app_body.subCategoryId = ctx.request.body.subCategory;
         }
-        if (ctx.query.capabilities) {
-            app_body.capabilityIds = ctx.query.capabilities ? _.map(ctx.query.capabilities.split(','), function (v) { return parseInt(v) }) : [];
+        if (ctx.request.body.capabilities) {
+            app_body.capabilityIds = ctx.request.body.capabilities;
         }
         if (ctx.request.body.designedFor) {
-            app_body.designedForIds = ctx.request.body.designedFor ? _.map(ctx.request.body.designedFor.split(','), function (v) { return parseInt(v) }) : [];
+            app_body.designedForIds = ctx.request.body.designedFor;
         }
         if (ctx.request.body.cost) {
-            app_body.costIds = ctx.request.body.cost ? _.map(ctx.request.body.cost.split(','), function (v) { return parseInt(v) }) : [];
+            app_body.costIds = ctx.request.body.cost;
         }
 
         var appData = await get_apps(app_body, ctx.response.body.orchaToken)

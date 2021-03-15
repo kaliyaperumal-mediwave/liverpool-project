@@ -12,12 +12,14 @@ $(document).ready(function () {
             countryList: [],
             fitlerObj: {
                 capability: "",
-                designedfor:"",
-                subCategory:"",
-                platform:"",
-                cost:"",
-                country:""
-            }
+                designedfor: "",
+                subCategory: "",
+                platform: "",
+                cost: "",
+                country: ""
+            },
+            searchQuery: null,
+            selectedCapabilitiesList: []
         },
 
         beforeMount: function () {
@@ -25,6 +27,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            $('#loader').hide();
             console.log("orchaHomePage vue loaded")
             this.getFilterDataDropdown();
         },
@@ -49,10 +52,45 @@ $(document).ready(function () {
             },
 
 
-            getSearchData: function () {
-                console.log(this.fitlerObj)
+            getSearchData: function (event) {
                 $('#loader').show();
-                var successData = apiCallPost('post', '/getSearchData/', this.fitlerObj);
+                let filter = {};
+                let selectedCapabilitiesList = [];
+                let selectedDesignedForList = [];
+                let selectedCostList = [];
+                var filterType = event.target.name;
+
+                $.each($("input[name='capabilities']:checked"), function () {
+                    selectedCapabilitiesList.push($(this).val());
+                });
+                if (selectedCapabilitiesList && selectedCapabilitiesList.length > 0) {
+                    filter.capabilities = selectedCapabilitiesList;
+                }
+
+                $.each($("input[name='designedFor']:checked"), function () {
+                    selectedDesignedForList.push($(this).val());
+                });
+                if (selectedDesignedForList && selectedDesignedForList.length > 0) {
+                    filter.designedFor = selectedDesignedForList;
+                }
+
+                $.each($("input[name='cost']:checked"), function () {
+                    selectedCostList.push($(this).val());
+                });
+                if (selectedCostList && selectedCostList.length > 0) {
+                    filter.cost = selectedCostList;
+                }
+
+                if ($("#countrySelect").val()) {
+                    filter.countryOfOrigin = $("#countrySelect").val();
+                }
+                if ($("#category_list").val()) {
+                    filter.categories = $("#category_list").val();
+                }
+                if ($("#platformSelect").val()) {
+                    filter.platform = $("#platformSelect").val();
+                }
+                var successData = apiCallPost('post', '/getSearchData/', filter);
                 $('#loader').hide();
                 console.log(successData)
             }
