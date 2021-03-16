@@ -241,7 +241,8 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
+    30px;
   background-size: contain;
 }
 
@@ -321,7 +322,8 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
+    fixed !important;
   background-size: cover !important;
 }
 
@@ -1066,7 +1068,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat fixed;
   background-size: cover !important;
   height: 100%;
 }
@@ -1094,7 +1097,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -3031,9 +3035,11 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
+  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place, $admin-bg-color, $border-color,
+  $admin-btn-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -3442,4 +3448,35 @@ div.collapse-container.collapsing {
   line-height: 0;
   font-size: 0.75rem;
   border-radius: 15px !important;
+}
+.select-customize-drop {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.select-customize-drop .btn-group .btn {
+  background: #e8edee 0% 0% no-repeat padding-box !important;
+  height: 48px;
+  border-radius: 0% !important;
+  width: 100%;
+  .caret {
+    display: none;
+  }
+}
+.select-customize-drop .btn-group .btn::after {
+  display: none;
+}
+.select-customize-drop .multiselect-selected-text {
+  width: 93%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
+}
+.select-customize-drop .btn-group {
+  width: 100%;
+}
+.select-customize-drop .multiselect-container > li > a > label {
+  padding: 3px 14px 4px 12px !important;
 }

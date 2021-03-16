@@ -404,7 +404,25 @@ $(document).ready(function () {
                 container: 'body',
                 boundary: 'window'
             }
-        )
+        );
+        $('#multiple-cancer').multiselect({
+            includeSelectAllOption: true,
+        });
+        $('#function-features').multiselect({
+            includeSelectAllOption: true,
+        });
+        $('#designed-for').multiselect({
+            includeSelectAllOption: true,
+        });
+        $('#country-origin').multiselect({
+            includeSelectAllOption: true,
+        });
+        $('#multiple-cost').multiselect({
+            includeSelectAllOption: true,
+        });
+        $('#platform-select').multiselect({
+            includeSelectAllOption: true,
+        });
     })
 })
 

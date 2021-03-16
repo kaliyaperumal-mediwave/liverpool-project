@@ -3,6 +3,14 @@
 {% block extraBody %}
 <!-- <script src="/modules/feedback-module/js/feedback.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script> -->
+<script src="/modules/orcha-module/js/orcha-home.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
+
 {% endblock %}
 {% block main %}
 
@@ -86,89 +94,66 @@
                 </label>
             </div>
             <div class="pt-4 pb-2 row mx-0 w-100 justify-content- align-items-center">
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Cancer
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <div class="select-customize-drop plain-select">
+                        <select id="multiple-cancer" multiple="multiple">
+                            <option selected value="Cancer">Cancer</option>
+                            <option value="Breast Cancer">Breast Cancer</option>
+                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
+                            <option value="Liver Cancer">Liver Cancer</option>
                         </select>
-                    </span>
+                    </div>
                 </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Function Features
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <div class="select-customize-drop plain-select">
+                        <select id="function-features" multiple="multiple">
+                            <option selected value="Cancer">Function Features</option>
+                            <option value="Breast Cancer">Breast Cancer</option>
+                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
+                            <option value="Liver Cancer">Liver Cancer</option>
                         </select>
-                    </span>
+                    </div>
+            
                 </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Designed For
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <div class="select-customize-drop plain-select">
+                        <select id="designed-for" multiple="multiple">
+                            <option selected value="Cancer">Designed For</option>
+                            <option value="Breast Cancer">Breast Cancer</option>
+                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
+                            <option value="Liver Cancer">Liver Cancer</option>
                         </select>
-                    </span>
+                    </div>
                 </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Country of origin
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <div class="select-customize-drop plain-select">
+                        <select id="country-origin" multiple="multiple">
+                            <option selected value="Cancer">Country of origin</option>
+                            <option value="Breast Cancer">Breast Cancer</option>
+                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
+                            <option value="Liver Cancer">Liver Cancer</option>
                         </select>
-                    </span>
+                    </div>
                 </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Cost
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <div class="select-customize-drop plain-select">
+                        <select id="multiple-cost" multiple="multiple">
+                            <option selected value="Cancer">Cost</option>
+                            <option value="Breast Cancer">Breast Cancer</option>
+                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
+                            <option value="Liver Cancer">Liver Cancer</option>
                         </select>
-                    </span>
+                    </div>
                 </div>
-                <div class="input-group col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="Cancer">Platform
-                            </option>
-                            <option class='option-text' value="Breast Cancer">Breast Cancer
-                            </option>
-                            <option class='option-text' value="Care of Local Authority (Sefton)">Skin Cancer
-                            </option>
-                            <option class='option-text' value="Liver Cancer">Liver Cancer
-                            </option>
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <div class="select-customize-drop plain-select">
+                        <select id="platform-select" multiple="multiple">
+                            <option selected value="Cancer">Platform</option>
+                            <option value="Breast Cancer">Breast Cancer</option>
+                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
+                            <option value="Liver Cancer">Liver Cancer</option>
                         </select>
-                    </span>
+                    </div>
                 </div>
             </div>
             <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a>Hide Filters</a></u></p>
