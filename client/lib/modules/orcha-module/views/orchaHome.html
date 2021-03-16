@@ -254,7 +254,8 @@
             <div class="swiper-container swiper-container-initialized swiper-container-horizontal text-left">
                 <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
                     {% raw %}
-                    <a  v-for="(filteredAppsObj, index) in filteredAppsList" :key="index"  class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
+                    <div v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
+                        <a  :href="'/orcha?app_id='+filteredAppsObj.id"   class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
                         data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                         style="width: 246.667px; margin-right: 30px">
                         <div class="w-100 position-relative">
@@ -293,6 +294,7 @@
                             </div>
                         </div>
                     </a>
+                    </div>
                     {% endraw %}
                 </div>
                 <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"

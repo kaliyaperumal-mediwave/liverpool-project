@@ -1,34 +1,13 @@
 {% extends "layout.html" %}
 {% block extraBody %}
+<script src="/modules/orcha-module/js/orcha.js"></script>
 {% endblock %}
-{% block main
-%}
+{% block main%}
 
 <div id="orchaDetailPage">
-    <!-- Loader start -->
-    <!-- <div class="overlay" id="loader">
-        <div class="overlay__inner">
-            <div class="overlay__content">
-                <div class="lds-spinner">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Loader end -->
+
     <div class="top-arrow-container pd-container" id="searchBar">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="" class="previous-link"><i
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a  class="previous-link"><i
                     class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
 
             <div class="resource_text pb-sm-0 pt-0">Apps</div>
@@ -43,18 +22,18 @@
                 </div>
             </span>
             <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                v-model="searchQuery" placeholder="Search your app" id="example-search-input" @input="">
+                 placeholder="Search your app" id="example-search-input">
         </div>
         <div id="hideserachblock" class="d-none">
             {% raw %}
             <!-- Search functionality start-->
             <!-- <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
                 ”</div> -->
-            <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+            <div  class="search-wrap primary-search-radius">
                 <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                    <template v-if="filteredData.length">
-                        <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                            <a :href=" ">
+                    <template >
+                        <div  class="border-bottom-primary card-body px-2 px-md-4">
+                            <a >
                                 <div class="d-flex align-items-center">
                                     <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
 
@@ -67,7 +46,7 @@
                             </a>
                         </div>
                     </template>
-                    <template v-if="!filteredData.length">
+                    <template >
                         <p class="home-header-secondary py-3 pl-4">No results found</p>
                     </template>
                 </div>
@@ -81,7 +60,6 @@
                 On this page, you can access a range of useful websites and apps
             </h5>
         </div>
-        </a>
         <div>
             <div class="percentage-container d-flex justify-content-center align-items-center">
                 88%
@@ -91,7 +69,7 @@
                 {% raw %}
                 <div class='d-flex'>
                     <div class="">
-                        <img class="panda-img" :src="" />
+                        <img class="panda-img"  />
                     </div>
                     <div class="title-cont-top">
                         <div class="hearder-cont-h1">
@@ -126,7 +104,7 @@
                         </div>
                     </div>
 
-                    <div class="collapse show " :id="">
+                    <div class="collapse show " >
                         <div class="justify-content-between align-items-center" id="headingTwo">
                             <div class="d-flex my-2">
                                 <div class="titleQuestion">
@@ -189,7 +167,7 @@
                         </div>
                     </div>
 
-                    <div class="collapse show " :id="">
+                    <div class="collapse show " >
                         <div class="justify-content-between align-items-center" id="headingTwo">
                             <div class="d-flex my-2">
                                 <div class="seemore flexGrow">
@@ -211,7 +189,7 @@
                 </div>
 
                 <div class="py-4 text-left d-flex">
-                    <a :href="appObj.downloadLink">
+                    <a>
                         <button type="button" class="btn-download px-md-4 py-1 px-3 mx-auto w-100"><span
                                 class="btn-quaternary-text">DOWNLOAD
                             </span></button>
