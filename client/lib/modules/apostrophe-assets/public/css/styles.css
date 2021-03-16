@@ -804,6 +804,48 @@ div.radio.switcher label {
     border-width: 0 5px 4px 0;
     transform: rotate(45deg); }
 
+.select-customize-drop {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; }
+
+.select-customize-drop .btn-group .btn {
+  background: #e8edee 0% 0% no-repeat padding-box !important;
+  height: 48px;
+  border-radius: 0% !important;
+  width: 100%; }
+  .select-customize-drop .btn-group .btn .caret {
+    display: none; }
+
+.select-customize-drop .btn-group .btn::after {
+  display: none; }
+
+.select-customize-drop .multiselect-selected-text {
+  width: 93%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start; }
+
+.select-customize-drop .btn-group {
+  width: 100%; }
+
+.select-customize-drop .multiselect-container > li > a > label {
+  padding: 6px 14px 6px 12px !important;
+  margin-bottom: 0px; }
+
+.select-customize-drop .btn-group .multiselect-container {
+  max-height: 320px;
+  width: 250px;
+  overflow: auto; }
+
+.select-customize-drop .btn-group .multiselect-container li:hover {
+  background: #e9e9ea; }
+
+.select-customize-drop .btn-group .multiselect-container .active {
+  background: #e9e9ea; }
+
 /* Button Global classes */
 .btn {
   box-shadow: 0px 3px 6px #00000029 !important;
@@ -4536,45 +4578,3 @@ div.collapse-container.collapsing {
   line-height: 0;
   font-size: 0.75rem;
   border-radius: 15px !important; }
-
-.select-customize-drop {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start; }
-
-.select-customize-drop .btn-group .btn {
-  background: #e8edee 0% 0% no-repeat padding-box !important;
-  height: 48px;
-  border-radius: 0% !important;
-  width: 100%; }
-  .select-customize-drop .btn-group .btn .caret {
-    display: none; }
-
-.select-customize-drop .btn-group .btn::after {
-  display: none; }
-
-.select-customize-drop .multiselect-selected-text {
-  width: 93%;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: start; }
-
-.select-customize-drop .btn-group {
-  width: 100%; }
-
-.select-customize-drop .multiselect-container > li > a > label {
-  padding: 6px 14px 6px 12px !important;
-  margin-bottom: 0px; }
-
-.select-customize-drop .btn-group .multiselect-container {
-  max-height: 320px;
-  width: 250px;
-  overflow: auto; }
-
-.select-customize-drop .btn-group .multiselect-container li:hover {
-  background: #e9e9ea; }
-
-.select-customize-drop .btn-group .multiselect-container .active {
-  background: #e9e9ea; }

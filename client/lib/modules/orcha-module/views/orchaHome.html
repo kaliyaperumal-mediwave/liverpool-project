@@ -74,7 +74,7 @@
                         </span>
                     </div>
                 </span>
-                <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                <input id="searchTxt" v-model = "filterObj.searchTxt" class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                     placeholder="Search your apps" id="example-search-input" />
             </div>
         </div>
@@ -90,12 +90,7 @@
 
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-            <div class="form-check pt-3 pb-1 pl-0 px-2">
-                <input class="form-check-input" type="radio" id="prioritiseCovid" value="Covid-19" name="SocialWorker">
-                <label class="form-check-label option-font d-flex align-items-center" for="prioritiseCovid">
-                    Prioritise Covid-19
-                </label>
-            </div>
+            
             <div class="pt-4 pb-2 row mx-0 w-100 justify-content- align-items-center">
                 {% raw %}
                 <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
@@ -124,7 +119,7 @@
                     <label style="font-weight: bold;" for="">Category</label>
                     <span class="plain-select">
                         <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="fitlerObj.subCategory" class=" selectpicker" @change="getSearchData($event)">
+                            v-model="filterObj.subCategory" class=" selectpicker" @change="getSearchData($event)">
                             <option class='option-text' value="">Function Features
                             </option>
                             <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
@@ -155,7 +150,7 @@
                     <label style="font-weight: bold;" for="">Country of origin</label>
                     <span class="plain-select">
                         <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="fitlerObj.country" class=" selectpicker" @change="getSearchData($event)">
+                            v-model="filterObj.country" class=" selectpicker" @change="getSearchData($event)">
                             <option class='option-text' value="">Country of origin
                             <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
                                 :value="countryObj.id">{{countryObj.countryName}}</option>
@@ -184,7 +179,7 @@
                 <br>
                 <label style="font-weight: bold;" for="">Platform</label>
                 <br>
-                <select id="platformSelect" v-model="fitlerObj.platform"
+                <select id="platformSelect" v-model="filterObj.platform"
                     class="custom-select form-control input-bg-form-control" @change="getSearchData($event)">
                     <option class='option-text' value="">Platform
                     </option>
@@ -198,7 +193,7 @@
             <!--       {% raw %}
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select  data-live-search="true" id="purchase_order_number" v-model="fitlerObj.capability" class="custom-select form-control input-bg-form-control" :change="getSearchData()">
+                        <select  data-live-search="true" id="purchase_order_number" v-model="filterObj.capability" class="custom-select form-control input-bg-form-control" :change="getSearchData()">
                             <option  class='option-text' value="">Capabilities</option>
                             <option  v-for="(capabilityObj, index) in capabilityList" :key="index"  class='option-text' :value="capabilityObj.id">{{capabilityObj.capabilityName}}</option>
                         </select>                          
@@ -206,7 +201,7 @@
                 </div>
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select v-model="fitlerObj.subCategory"  class="custom-select form-control input-bg-form-control">
+                        <select v-model="filterObj.subCategory"  class="custom-select form-control input-bg-form-control">
                             <option class='option-text' value="">Function Features
                             </option>
                             <option  v-for="(subCategoryObj, index) in subCategoryList" :key="index"  class='option-text' :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
@@ -216,7 +211,7 @@
                 </div>
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select v-model="fitlerObj.designedfor"  class="custom-select form-control input-bg-form-control">
+                        <select v-model="filterObj.designedfor"  class="custom-select form-control input-bg-form-control">
                             <option class='option-text' value="">Designed For
                             </option>
                             <option  v-for="(designedForObj, index) in designedForList" :key="index"  class='option-text' :value="designedForObj.id">{{designedForObj.designedForName}}</option>
@@ -225,7 +220,7 @@
                 </div>
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select v-model="fitlerObj.country" class="custom-select form-control input-bg-form-control">
+                        <select v-model="filterObj.country" class="custom-select form-control input-bg-form-control">
                             <option class='option-text' value="">Country of origin
                             </option>
                             <option  v-for="(countryObj, index) in countryList" :key="index"  class='option-text' :value="countryObj.id">{{countryObj.countryName}}</option>
@@ -234,7 +229,7 @@
                 </div>
                 <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select v-model="fitlerObj.cost" class="custom-select form-control input-bg-form-control">
+                        <select v-model="filterObj.cost" class="custom-select form-control input-bg-form-control">
                             <option class='option-text' value="">Cost
                             </option>
                             <option  v-for="(costObj, index) in costList" :key="index"  class='option-text' :value="costObj.id">{{costObj.costName}}</option>
@@ -243,7 +238,7 @@
                 </div>
                 <div class="input-group col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
                     <span class="plain-select">
-                        <select v-model="fitlerObj.platform"  class="custom-select form-control input-bg-form-control">
+                        <select v-model="filterObj.platform"  class="custom-select form-control input-bg-form-control">
                             <option class='option-text' value="">Platform
                             </option>
                             <option  v-for="(platformObj, index) in platformList" :key="index"  class='option-text' :value="platformObj.id">{{platformObj.platformName}}</option>
@@ -269,7 +264,8 @@
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
             <div class="swiper-container swiper-container-initialized swiper-container-horizontal text-left">
                 <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
-                    <a class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
+                    {% raw %}
+                    <a  v-for="(filteredAppsObj, index) in filteredAppsList" :key="index"  class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
                         data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                         style="width: 246.667px; margin-right: 30px">
                         <div class="w-100 position-relative">
@@ -278,11 +274,11 @@
                                     <div class="inside-cover-only-brand">
                                         <div class="row p-0 m-0">
                                             <div class="col-5 p-0 m-0">
-                                                <img src="{{orchaApps.thumbnail}}" class="imageSet" />
+                                                <img :src="filteredAppsObj.thumbnail" class="imageSet" />
                                             </div>
                                             <div class="col-7 m-0 d-flex pl-2 py-0 pr-0">
                                                 <div class="questionText ellipse-text-large-card">
-                                                    Rajkumar
+                                                    {{filteredAppsObj.appName}}
                                                 </div>
                                             </div>
                                         </div>
@@ -293,12 +289,12 @@
                                 </div>
                                 <div class="container-bottom-set">
                                     <div class="questionText wrap-contain-app">
-                                        dsgsdgdgdfsg
+                                        {{filteredAppsObj.description}}
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end">
                                     <div class="circle mr-3 font-bold d-flex align-items-center justify-content-center">
-                                        854%
+                                        {{filteredAppsObj.score}}
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start pl-3 pb-2">
@@ -308,7 +304,7 @@
                             </div>
                         </div>
                     </a>
-
+                    {% endraw %}
                     <a class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
                         data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                         style="width: 246.667px; margin-right: 30px">

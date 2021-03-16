@@ -121,11 +121,11 @@ exports.getSearchData = async (ctx) => {
             app_body.costIds = ctx.request.body.cost;
         }
 
+        if (ctx.request.body.keyword) {
+            app_body.searchTerm = ctx.request.body.keyword;
+        }
+        console.log(app_body)
         var appData = await get_apps(app_body, ctx.response.body.orchaToken)
-
-        // Response Objects
-
-        // console.log('---------------', appData.result.pagingInfo);
 
         ctx.res.ok({
             data: appData
