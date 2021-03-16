@@ -105,8 +105,6 @@ $(document).ready(function () {
                     disableProfessional.style.opacity = '0.6';
 
                 } else if (userRole == 'professional') {
-                    this.prof_data = document.getElementById('prof_data').innerHTML;
-                    console.log(this.prof_data);
                     disableChild.style.opacity = '0.6';
                     disableParent.style.opacity = '0.6';
 
@@ -131,7 +129,6 @@ $(document).ready(function () {
                 });
             },
             fetchSavedData: function () {
-                console.log(this.sendObj.uuid);
                 this.sendObj.uuid = document.getElementById('uUid').innerHTML;
                 this.sendObj.role = document.getElementById('uRole').innerHTML;
                 if ((this.sendObj.uuid != undefined && this.sendObj.uuid != "") && (this.sendObj.role != undefined && this.sendObj.role != "")) {
