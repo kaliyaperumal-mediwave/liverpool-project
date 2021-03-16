@@ -94,15 +94,37 @@ exports.login = async (ctx) => {
                     },{
                         where:
                           {  email: userResult.email, }
-                      }).then((sessionResult) => {
-                          console.log("----------------------------------update session ----------------------------------------------------")
-                        const sendUserResult = {
+                      }).then(async (sessionResult) => {
+                        console.log("----------------------------------update session ----------------------------------------------------");
+                        var sendUserResult = {
                             loginId: userResult.uuid,
                             first_name: userResult.first_name,
                             last_name: userResult.last_name,
                             email: userResult.email,
                             role: userResult.user_role,
                             token: token
+                        }
+                        if(userResult.user_role === 'professional') {
+                            const Referral = ctx.orm().Referral;
+                            const prof_referral = await Referral.findOne({
+                                where: {
+                                    login_id: userResult.uuid,
+                                    referral_complete_status: 'completed'
+                                },
+                                order: [
+                                    ['id', 'asc']
+                                ]
+                            });
+                            if(prof_referral) {
+                                sendUserResult.prof_data = {
+                                    first_name: prof_referral.professional_firstname,
+                                    last_name: prof_referral.professional_lastname,
+                                    email: prof_referral.professional_email ? prof_referral.professional_email : '',
+                                    contact_number: prof_referral.professional_contact_number ? prof_referral.professional_contact_number : '',
+                                    profession: prof_referral.professional_profession ? prof_referral.professional_profession : '',
+                                    address: prof_referral.professional_address ? prof_referral.professional_address : ''
+                                };
+                            }
                         }
                         const sendResponseData = {
                             sendUserResult: sendUserResult,
@@ -492,7 +514,6 @@ exports.referralSignup = async (ctx) => {
         });
     } else {
         const user = ctx.orm().User;
-        const Referral = ctx.orm().Referral;
         const email = await user.findOne({
             where: {
                 email: ctx.request.body.email,
@@ -523,16 +544,38 @@ exports.referralSignup = async (ctx) => {
                 where: {  email: result.email
                 }
             }).then((sessionResult) => {
-                return Referral.update({
-                    login_id: result.uuid,
-                },{
-                    where: {  reference_code: ctx.request.body.reference_code
-                    }
-                }).then((referralResult) => {
+                const Referral = ctx.orm().Referral;
+                return Referral.update(
+                    {
+                        login_id: result.uuid,
+                    },
+                    { where: {  reference_code: ctx.request.body.reference_code }
+                }).then(async (referralResult) => {
                     console.log("----------------------------------update referral ----------------------------------------------------")
-                    const sendSignupResult = {
+                    var sendSignupResult = {
                         data: result,
                         token: token
+                    }
+                    if(result.user_role === 'professional') {
+                        const prof_referral = await Referral.findOne({
+                            where: {
+                                login_id: result.uuid,
+                                referral_complete_status: 'completed'
+                            },
+                            order: [
+                                ['id', 'asc']
+                            ]
+                        });
+                        if(prof_referral) {
+                            sendSignupResult.prof_data = {
+                                first_name: prof_referral.professional_firstname,
+                                last_name: prof_referral.professional_lastname,
+                                email: prof_referral.professional_email ? prof_referral.professional_email : '',
+                                contact_number: prof_referral.professional_contact_number ? prof_referral.professional_contact_number : '',
+                                profession: prof_referral.professional_profession ? prof_referral.professional_profession : '',
+                                address: prof_referral.professional_address ? prof_referral.professional_address : ''
+                            };
+                        }
                     }
                     return ctx.res.ok({
                         status: "success",

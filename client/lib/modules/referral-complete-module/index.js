@@ -71,6 +71,7 @@ module.exports = {
           req.session.auth_token = data.data.token;
           req.session.user_role = data.data.data.user_role;
           req.session.loginFlag = "true";
+          req.session.prof_data = data.data.prof_data ? JSON.stringify(data.data.prof_data) : '';
           req.session.reload(function () { });
         }
         return res.send(data);
