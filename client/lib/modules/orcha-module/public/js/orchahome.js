@@ -32,9 +32,8 @@ $(document).ready(function () {
             this.getFilterDataDropdown();
             this.getSearchData();
             var _self = this;
-            $("#capabilitiesDropdown").change(function (e) {
-                var selectedText = $(this).find("option:selected").text();
-                _self.getSearchData(selectedText);
+            $(".selectMultipleBE").change(function (e) {
+                _self.getSearchData();
             });
         },
 
@@ -60,27 +59,31 @@ $(document).ready(function () {
                 let selectedDesignedForList = [];
                 let selectedCostList = [];
                 //mulit-select search with checkbox
-                var capabilityValue= $("#capabilitiesDropdown").val()
+                var capabilityValue= $("#capabilitiesDropdown").val();
+                var designedForValue=$("#designedForDropdown").val();
+                var costValue = $("#costDropdown").val();
               
                 if ( capabilityValue!= null) {
                     selectedCapabilitiesList.push(capabilityValue);
                 }
                 if (selectedCapabilitiesList && selectedCapabilitiesList.length > 0) {
-                    filter.capabilities = selectedCapabilitiesList;
+                    filter.capabilities = selectedCapabilitiesList[0];
                 }
 
-                $.each($("input[name='designedFor']:checked"), function () {
-                    selectedDesignedForList.push($(this).val());
-                });
+                if ( designedForValue!= null) {
+                    selectedDesignedForList.push(designedForValue);
+                }
+
                 if (selectedDesignedForList && selectedDesignedForList.length > 0) {
-                    filter.designedFor = selectedDesignedForList;
+                    filter.designedFor = selectedDesignedForList[0];
                 }
 
-                $.each($("input[name='cost']:checked"), function () {
-                    selectedCostList.push($(this).val());
-                });
+                if ( costValue!= null) {
+                    selectedCostList.push(costValue);
+                }
+
                 if (selectedCostList && selectedCostList.length > 0) {
-                    filter.cost = selectedCostList;
+                    filter.cost = selectedCostList[0];
                 }
                 //single search - searchable drop down.
                 if ($("#countrySelect").val()) {
@@ -96,6 +99,7 @@ $(document).ready(function () {
                     filter.keyword = $("#searchTxt").val();
                 }
               
+                console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 $('#loader').hide();
                 if (successData && Object.keys(successData) && successData.data!=null) {
@@ -105,7 +109,7 @@ $(document).ready(function () {
                 {
                     this.filteredAppsList=[];
                 }
-               
+               console.log(this.filteredAppsList);
             }
         }
     })

@@ -408,6 +408,12 @@ $(document).ready(function () {
         $('#capabilitiesDropdown').multiselect({
             includeSelectAllOption: false,
         });
+        $('#designedForDropdown').multiselect({
+            includeSelectAllOption: false,
+        });
+        $('#costDropdown').multiselect({
+            includeSelectAllOption: false,
+        });
     })
 })
 

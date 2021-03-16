@@ -95,30 +95,20 @@
                 {% raw %}
                 <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">capability</label>
-
                     <div class="select-customize-drop plain-select">
-                        <select  id="capabilitiesDropdown" data-live-search="true" multiple="multiple">
+                          <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                        <select class="selectMultipleBE" id="capabilitiesDropdown" data-live-search="true" multiple="multiple">
                             <option  v-for="(capabilityObj, index) in capabilityList" :value="capabilityObj.id">{{ capabilityObj.capabilityName }}</option>
                         </select>
                     </div>
                 </div>
-                <!-- <div>
-                    <br>
-                    <div style='overflow:auto; width:400px;height:400px;'>
-                        <div v-for="(capabilityObj, index) in capabilityList">
-                            <input @change="getSearchData($event)" type="checkbox" :id="'capability_'+capabilityObj.id"
-                                :value="capabilityObj.id" name="capabilities" />
-                            <label>{{ capabilityObj.capabilityName }}</label>
-                        </div>
-                    </div>
-                </div> -->
                 {% endraw %}
 
                 {% raw %}
                 <div>
                     <label style="font-weight: bold;" for="">Category</label>
                     <span class="plain-select">
-                        <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
+                        <select  id="category_list" data-live-search="true" data-live-search-style="startsWith"
                             v-model="filterObj.subCategory" class=" selectpicker" @change="getSearchData($event)">
                             <option class='option-text' value="">Function Features
                             </option>
@@ -135,12 +125,12 @@
                     <br>
                     <label style="font-weight: bold;" for="">Designed for</label>
                     <br>
-                    <div style='overflow:auto; width:400px;height:400px;'>
-                        <div v-for="(designedForObj, index) in designedForList">
-                            <input type="checkbox" :id="'designFor_'+designedForObj.id" name='designedFor'
-                                :value="designedForObj.id" @change="getSearchData($event)">
-                            <label>{{ designedForObj.designedForName }}</label>
-                        </div>
+
+                    <div class="select-customize-drop plain-select">
+                          <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                        <select class="selectMultipleBE" id="designedForDropdown" data-live-search="true" multiple="multiple">
+                            <option  v-for="(designedForObj, index) in designedForList" :value="designedForObj.id">{{ designedForObj.designedForName }}</option>
+                        </select>
                     </div>
                 </div>
                 {% endraw %}
@@ -164,13 +154,12 @@
                 <br>
                 <label style="font-weight: bold;" for="">Cost</label>
                 <br>
-                <div style='overflow:auto; width:400px;height:400px;'>
-                    <div v-for="(costObj, index) in costList">
-                        <input name='cost' type="checkbox" :id="'cost_'+costObj.id" :value="costObj.id"
-                            @change="getSearchData($event)">
-                        <label>{{ costObj.costName }}</label>
-                    </div>
-                </div>
+                <div class="select-customize-drop plain-select">
+                    <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                  <select class="selectMultipleBE" id="costDropdown" data-live-search="true" multiple="multiple">
+                      <option  v-for="(costObj, index) in costList" :value="costObj.id">{{ costObj.costName }}</option>
+                  </select>
+              </div>
             </div>
             {% endraw %}
 
