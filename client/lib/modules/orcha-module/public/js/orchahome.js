@@ -20,7 +20,7 @@ $(document).ready(function () {
             },
             searchQuery: null,
             selectedCapabilitiesList: [],
-            filteredAppsList:[]
+            filteredAppsList: []
         },
 
         beforeMount: function () {
@@ -31,6 +31,11 @@ $(document).ready(function () {
             $('#loader').hide();
             this.getFilterDataDropdown();
             this.getSearchData();
+            var _self = this;
+            $("#capabilitiesDropdown").change(function (e) {
+                var selectedText = $(this).find("option:selected").text();
+                _self.getSearchData(selectedText);
+            });
         },
 
         methods: {
@@ -48,17 +53,18 @@ $(document).ready(function () {
                 }
             },
 
-
             getSearchData: function (event) {
-                $('#loader').show();
+                //$('#loader').show();
                 let filter = {};
                 let selectedCapabilitiesList = [];
                 let selectedDesignedForList = [];
                 let selectedCostList = [];
                 //mulit-select search with checkbox
-                $.each($("input[name='capabilities']:checked"), function () {
-                    selectedCapabilitiesList.push($(this).val());
-                });
+                var capabilityValue= $("#capabilitiesDropdown").val()
+              
+                if ( capabilityValue!= null) {
+                    selectedCapabilitiesList.push(capabilityValue);
+                }
                 if (selectedCapabilitiesList && selectedCapabilitiesList.length > 0) {
                     filter.capabilities = selectedCapabilitiesList;
                 }
@@ -89,9 +95,17 @@ $(document).ready(function () {
                 if ($("#searchTxt").val()) {
                     filter.keyword = $("#searchTxt").val();
                 }
+              
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 $('#loader').hide();
-                this.filteredAppsList = successData.data.result.items
+                if (successData && Object.keys(successData) && successData.data!=null) {
+                    this.filteredAppsList = successData.data.result.items
+                }
+                else
+                {
+                    this.filteredAppsList=[];
+                }
+               
             }
         }
     })
