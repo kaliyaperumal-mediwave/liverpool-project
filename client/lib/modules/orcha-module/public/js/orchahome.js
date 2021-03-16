@@ -10,7 +10,7 @@ $(document).ready(function () {
             platformList: [],
             costList: [],
             countryList: [],
-            fitlerObj: {
+            filterObj: {
                 capability: "",
                 designedfor: "",
                 subCategory: "",
@@ -19,7 +19,8 @@ $(document).ready(function () {
                 country: ""
             },
             searchQuery: null,
-            selectedCapabilitiesList: []
+            selectedCapabilitiesList: [],
+            filteredAppsList:[]
         },
 
         beforeMount: function () {
@@ -28,13 +29,12 @@ $(document).ready(function () {
 
         mounted: function () {
             $('#loader').hide();
-            console.log("orchaHomePage vue loaded")
             this.getFilterDataDropdown();
+            this.getSearchData();
         },
 
         methods: {
             getFilterDataDropdown: function (appId) {
-                //console.log(appId)
                 var _self = this;
                 var successData = apiCallGet('get', '/getFilterData/', API_URI);
                 console.log(successData)
@@ -46,9 +46,6 @@ $(document).ready(function () {
                     _self.costList = successData.data.cost_payload;
                     _self.countryList = successData.data.country_payload;
                 }
-                else {
-
-                }
             },
 
 
@@ -58,8 +55,7 @@ $(document).ready(function () {
                 let selectedCapabilitiesList = [];
                 let selectedDesignedForList = [];
                 let selectedCostList = [];
-                var filterType = event.target.name;
-
+                //mulit-select search with checkbox
                 $.each($("input[name='capabilities']:checked"), function () {
                     selectedCapabilitiesList.push($(this).val());
                 });
@@ -80,7 +76,7 @@ $(document).ready(function () {
                 if (selectedCostList && selectedCostList.length > 0) {
                     filter.cost = selectedCostList;
                 }
-
+                //single search - searchable drop down.
                 if ($("#countrySelect").val()) {
                     filter.countryOfOrigin = $("#countrySelect").val();
                 }
@@ -90,9 +86,12 @@ $(document).ready(function () {
                 if ($("#platformSelect").val()) {
                     filter.platform = $("#platformSelect").val();
                 }
+                if ($("#searchTxt").val()) {
+                    filter.keyword = $("#searchTxt").val();
+                }
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 $('#loader').hide();
-                console.log(successData)
+                this.filteredAppsList = successData.data.result.items
             }
         }
     })
