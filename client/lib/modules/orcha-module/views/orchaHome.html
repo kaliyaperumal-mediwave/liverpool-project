@@ -1,22 +1,25 @@
 {% extends "layout.html" %}
 
 {% block extraBody %}
-<!-- <script src="/modules/feedback-module/js/feedback.js"></script>
-<script src="/modules/shared-referal-module/js/searchReferral.js"></script> -->
-<script src="/modules/orcha-module/js/orcha-home.js"></script>
+<script src="/modules/orcha-module/js/orchahome.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css"> -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" /> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script> -->
+
 
 {% endblock %}
 {% block main %}
 
 <div id="orchaHomePage">
     <!-- Loader start -->
-    <!-- <div class="overlay" id="loader">
+    <div class="overlay" id="loader">
         <div class="overlay__inner">
             <div class="overlay__content">
                 <div class="lds-spinner">
@@ -35,7 +38,7 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
     <!-- Loader end -->
     <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-0">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mx-auto">
@@ -94,70 +97,165 @@
                 </label>
             </div>
             <div class="pt-4 pb-2 row mx-0 w-100 justify-content- align-items-center">
+                {% raw %}
                 <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">capability</label>
+
                     <div class="select-customize-drop plain-select">
-                        <select id="multiple-cancer" multiple="multiple">
-                            <option selected value="Cancer">Cancer</option>
-                            <option value="Breast Cancer">Breast Cancer</option>
-                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
-                            <option value="Liver Cancer">Liver Cancer</option>
+                        <select id="multiple-cancer" data-live-search="true" multiple="multiple">
+                            <option  v-for="(capabilityObj, index) in capabilityList" value="Breast Cancer">{{ capabilityObj.capabilityName }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
-                    <div class="select-customize-drop plain-select">
-                        <select id="function-features" multiple="multiple">
-                            <option selected value="Cancer">Function Features</option>
-                            <option value="Breast Cancer">Breast Cancer</option>
-                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
-                            <option value="Liver Cancer">Liver Cancer</option>
+                <!-- <div>
+                    <br>
+                    <div style='overflow:auto; width:400px;height:400px;'>
+                        <div v-for="(capabilityObj, index) in capabilityList">
+                            <input @change="getSearchData($event)" type="checkbox" :id="'capability_'+capabilityObj.id"
+                                :value="capabilityObj.id" name="capabilities" />
+                            <label>{{ capabilityObj.capabilityName }}</label>
+                        </div>
+                    </div>
+                </div> -->
+                {% endraw %}
+
+                {% raw %}
+                <div>
+                    <label style="font-weight: bold;" for="">Category</label>
+                    <span class="plain-select">
+                        <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
+                            v-model="fitlerObj.subCategory" class=" selectpicker" @change="getSearchData($event)">
+                            <option class='option-text' value="">Function Features
+                            </option>
+                            <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
+                                :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
+                        </select>
+                    </span>
+                </div>
+                {% endraw %}
+
+
+                {% raw %}
+                <div>
+                    <br>
+                    <label style="font-weight: bold;" for="">Designed for</label>
+                    <br>
+                    <div style='overflow:auto; width:400px;height:400px;'>
+                        <div v-for="(designedForObj, index) in designedForList">
+                            <input type="checkbox" :id="'designFor_'+designedForObj.id" name='designedFor'
+                                :value="designedForObj.id" @change="getSearchData($event)">
+                            <label>{{ designedForObj.designedForName }}</label>
+                        </div>
+                    </div>
+                </div>
+                {% endraw %}
+
+                {% raw %}
+                <div>
+                    <label style="font-weight: bold;" for="">Country of origin</label>
+                    <span class="plain-select">
+                        <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
+                            v-model="fitlerObj.country" class=" selectpicker" @change="getSearchData($event)">
+                            <option class='option-text' value="">Country of origin
+                            <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
+                                :value="countryObj.id">{{countryObj.countryName}}</option>
+                        </select>
+                </div>
+            </div>
+            {% endraw %}
+
+            {% raw %}
+            <div>
+                <br>
+                <label style="font-weight: bold;" for="">Cost</label>
+                <br>
+                <div style='overflow:auto; width:400px;height:400px;'>
+                    <div v-for="(costObj, index) in costList">
+                        <input name='cost' type="checkbox" :id="'cost_'+costObj.id" :value="costObj.id"
+                            @change="getSearchData($event)">
+                        <label>{{ costObj.costName }}</label>
+                    </div>
+                </div>
+            </div>
+            {% endraw %}
+
+            {% raw %}
+            <div>
+                <br>
+                <label style="font-weight: bold;" for="">Platform</label>
+                <br>
+                <select id="platformSelect" v-model="fitlerObj.platform"
+                    class="custom-select form-control input-bg-form-control" @change="getSearchData($event)">
+                    <option class='option-text' value="">Platform
+                    </option>
+                    <option v-for="(platformObj, index) in platformList" :key="index" class='option-text'
+                        :value="platformObj.id">{{platformObj.platformName}}</option>
+                </select>
+            </div>
+            {% endraw %}
+
+
+            <!--       {% raw %}
+                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                    <span class="plain-select">
+                        <select  data-live-search="true" id="purchase_order_number" v-model="fitlerObj.capability" class="custom-select form-control input-bg-form-control" :change="getSearchData()">
+                            <option  class='option-text' value="">Capabilities</option>
+                            <option  v-for="(capabilityObj, index) in capabilityList" :key="index"  class='option-text' :value="capabilityObj.id">{{capabilityObj.capabilityName}}</option>
+                        </select>                          
+                    </span>
+                </div>
+                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                    <span class="plain-select">
+                        <select v-model="fitlerObj.subCategory"  class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Function Features
+                            </option>
+                            <option  v-for="(subCategoryObj, index) in subCategoryList" :key="index"  class='option-text' :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
                         </select>
                     </div>
             
                 </div>
-                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
-                    <div class="select-customize-drop plain-select">
-                        <select id="designed-for" multiple="multiple">
-                            <option selected value="Cancer">Designed For</option>
-                            <option value="Breast Cancer">Breast Cancer</option>
-                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
-                            <option value="Liver Cancer">Liver Cancer</option>
+                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                    <span class="plain-select">
+                        <select v-model="fitlerObj.designedfor"  class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Designed For
+                            </option>
+                            <option  v-for="(designedForObj, index) in designedForList" :key="index"  class='option-text' :value="designedForObj.id">{{designedForObj.designedForName}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
-                    <div class="select-customize-drop plain-select">
-                        <select id="country-origin" multiple="multiple">
-                            <option selected value="Cancer">Country of origin</option>
-                            <option value="Breast Cancer">Breast Cancer</option>
-                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
-                            <option value="Liver Cancer">Liver Cancer</option>
+                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                    <span class="plain-select">
+                        <select v-model="fitlerObj.country" class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Country of origin
+                            </option>
+                            <option  v-for="(countryObj, index) in countryList" :key="index"  class='option-text' :value="countryObj.id">{{countryObj.countryName}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
-                    <div class="select-customize-drop plain-select">
-                        <select id="multiple-cost" multiple="multiple">
-                            <option selected value="Cancer">Cost</option>
-                            <option value="Breast Cancer">Breast Cancer</option>
-                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
-                            <option value="Liver Cancer">Liver Cancer</option>
+                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                    <span class="plain-select">
+                        <select v-model="fitlerObj.cost" class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Cost
+                            </option>
+                            <option  v-for="(costObj, index) in costList" :key="index"  class='option-text' :value="costObj.id">{{costObj.costName}}</option>
                         </select>
                     </div>
                 </div>
-                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
-                    <div class="select-customize-drop plain-select">
-                        <select id="platform-select" multiple="multiple">
-                            <option selected value="Cancer">Platform</option>
-                            <option value="Breast Cancer">Breast Cancer</option>
-                            <option value="Care of Local Authority (Sefton)">Skin Cancer</option>
-                            <option value="Liver Cancer">Liver Cancer</option>
+                <div class="input-group col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
+                    <span class="plain-select">
+                        <select v-model="fitlerObj.platform"  class="custom-select form-control input-bg-form-control">
+                            <option class='option-text' value="">Platform
+                            </option>
+                            <option  v-for="(platformObj, index) in platformList" :key="index"  class='option-text' :value="platformObj.id">{{platformObj.platformName}}</option>
                         </select>
                     </div>
                 </div>
-            </div>
-            <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a>Hide Filters</a></u></p>
+                {% endraw %}
+            </div> -->
+
         </div>
+        <!-- <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a>Hide Filters</a></u></p> -->
+        <br>
     </div>
 
     <div class="d-flex pt-2 pb-2">
@@ -524,7 +622,8 @@
             </div>
         </div>
     </div>
-
-    {% raw %}
 </div>
+
+{% raw %}
+
 {% endblock %}

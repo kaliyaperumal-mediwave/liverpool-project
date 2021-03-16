@@ -423,6 +423,7 @@ $(document).ready(function () {
         $('#platform-select').multiselect({
             includeSelectAllOption: true,
         });
+            $('.selectpicker').selectpicker();
     })
 })
 
