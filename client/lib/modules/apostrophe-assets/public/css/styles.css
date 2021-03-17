@@ -4603,3 +4603,14 @@ div.collapse-container.collapsing {
   line-height: 0;
   font-size: 0.75rem;
   border-radius: 15px !important; }
+
+.search-btn-set {
+  margin: auto 7px auto auto !important;
+  width: 69px;
+  height: 31px;
+  display: flex !important;
+  align-items: center; }
+
+.search-btn-set span {
+  font-size: 14px !important;
+  font-weight: bold !important; }
