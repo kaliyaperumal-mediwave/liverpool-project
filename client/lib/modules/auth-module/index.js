@@ -93,6 +93,7 @@ module.exports = {
           req.session.user_role = data.data.sendUserResult.role
           req.session.email = data.data.sendUserResult.email
           req.session.loginFlag = "true";
+          req.session.prof_data = data.data.sendUserResult.prof_data ? JSON.stringify(data.data.sendUserResult.prof_data) : '';
           // need a change - decrypt
           req.session.reload(function () { });
         }
