@@ -46,12 +46,11 @@ exports.getApp = ctx => new Promise((resolve, reject) => {
     console.log(ctx.query.app_id);
     var config_api = {
         method: 'get',
-        url: config.orcha_api + 'review/GetReview?reviewId=' + ctx.query.app_id,
+        url: config.orcha_api + 'Review/GetReview?reviewId=' + ctx.query.app_id,
         headers: { 'authorization': 'Bearer ' + ctx.response.body.orchaToken }
     };
 
     axios(config_api).then(function (apps) {
-        //  console.log(apps.data)
         ctx.res.ok({
             data: apps.data
         });

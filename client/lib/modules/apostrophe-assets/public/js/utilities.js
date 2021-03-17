@@ -405,16 +405,21 @@ $(document).ready(function () {
                 boundary: 'window'
             }
         );
-
-        $('#capabilitiesDropdown').multiselect({
-            includeSelectAllOption: false,
-        });
-        $('#designedForDropdown').multiselect({
-            includeSelectAllOption: false,
-        });
-        $('#costDropdown').multiselect({
-            includeSelectAllOption: false,
-        });
+        if(document.getElementById('capabilitiesDropdown')) {
+            $('#capabilitiesDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
+        if(document.getElementById('designedForDropdown')) {
+            $('#designedForDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
+        if(document.getElementById('costDropdown')) {
+            $('#costDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
     })
 })
 

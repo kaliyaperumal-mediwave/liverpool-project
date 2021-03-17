@@ -60,35 +60,44 @@
                 On this page, you can access a range of useful websites and apps
             </h5>
         </div>
-        <div>
+        {% raw %}
+        <div v-if="showAppContent">
             <div class="percentage-container d-flex justify-content-center align-items-center">
-                88%
+                {{ appObj.smallAppCardInfo.score }}%
             </div>
             <div class="text_inside_play-store-orcha">
 
-                {% raw %}
+                
                 <div class='d-flex'>
                     <div class="">
-                        <img class="panda-img"  />
+                        <img class="panda-img" :src="appObj.smallAppCardInfo.thumbnail">
                     </div>
                     <div class="title-cont-top">
                         <div class="hearder-cont-h1">
-                            Description
+                            {{ appObj.smallAppCardInfo.appName }}
+                        </div>
+                        <div class="d-flex">
+                            <div class="para-cont-p font-weight-lighter pr-2">
+                                PublisherName :
+                            </div>
+                            <div class="para-cont-p ">
+                                {{ appObj.smallAppCardInfo.publisherName }}
+                            </div>
                         </div>
                     </div>
                 </div>
-                Brain in Hand is a personal self-management support system that’s packed full of features. A
-                subscription-based software licence is required which can be accessed through funding pathways or paid
-                for
-                privately. If you are interested in Brain in Hand but do not yet have a subscription then please get in
-                touch before downloading the app, we can then explain how the system could work for you and signpost the
-                best pathway for funding…
-                <div>
-                    <a class="seemore">See more...</a>
+                <div class="py-2 ">
+                    <div class="hearder-cont-h1 ">
+                        Description
+                    </div>
                 </div>
+                {{ appObj.smallAppCardInfo.description }}
+                <!-- <div>
+                    <a class="seemore">See more...</a>
+                </div> -->
                 <hr class="dropdown-divider my-3" />
 
-                <div class="justify-content-between align-items-center" id="appdetail">
+                <div class="justify-content-between align-items-center" id="headingAppDetails">
                     <div class="d-flex pt-2 pb-2 w-100">
                         <div class="flexGrow">
                             <div class="hearder-cont-h1">
@@ -98,21 +107,20 @@
                         <div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
-                                    data-toggle="collapse" @click="toggleArrow($event)" role="button"
-                                    aria-expanded="false" aria-controls="collapseExample"></i>
+                                    data-toggle="collapse" data-target="#collapseAppDetails" @click="toggleArrow($event)" role="button"
+                                    aria-expanded="true" aria-controls="collapseAppDetails"></i>
                             </span>
                         </div>
                     </div>
 
-                    <div class="collapse show " >
-                        <div class="justify-content-between align-items-center" id="headingTwo">
+                    <div id="collapseAppDetails" class="collapse" aria-labelledby="headingAppDetails">
+                        <div class="justify-content-between align-items-center">
                             <div class="d-flex my-2">
                                 <div class="titleQuestion">
                                     Category:
                                 </div>
                                 <div class="seemore">
-                                    Panic Attack, Stress and Anxiety, Self Harm Prevention, Autistic Spectrum Disorders,
-                                    ADHD
+                                    {{ appObj.categoryName }}
                                 </div>
                             </div>
                             <div class="d-flex my-2">
@@ -120,7 +128,7 @@
                                     Reviewed on:
                                 </div>
                                 <div class="seemore">
-                                    11/02/2021
+                                    {{ appObj.review_date }}
                                 </div>
                             </div>
                             <div class="d-flex my-2">
@@ -128,7 +136,7 @@
                                     Released:
                                 </div>
                                 <div class="seemore">
-                                    24/04/2021
+                                    {{ appObj.release_date }}
                                 </div>
                             </div>
                             <div class="d-flex my-2">
@@ -136,7 +144,7 @@
                                     Version:
                                 </div>
                                 <div class="seemore">
-                                    3.3.4
+                                    {{ appObj.smallAppCardInfo.version}}
                                 </div>
                             </div>
                             <div class="d-flex my-2">
@@ -144,14 +152,14 @@
                                     Size:
                                 </div>
                                 <div class="seemore">
-                                    37 MB
+                                    {{ appObj.file_size }}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <hr class="dropdown-divider my-3" />
-                <div class="justify-content-between align-items-center" id="appdetail">
+                <div class="justify-content-between align-items-center" id="headingSummary">
                     <div class="d-flex pt-2 pb-2 w-100">
                         <div class="flexGrow">
                             <div class="hearder-cont-h1">
@@ -161,43 +169,125 @@
                         <div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
-                                    data-toggle="collapse" @click="toggleArrow($event)" role="button"
-                                    aria-expanded="false" aria-controls="collapseExample"></i>
+                                    data-toggle="collapse" data-target="#collapseSummary" @click="toggleArrow($event)" role="button"
+                                    aria-expanded="true" aria-controls="collapseSummary"></i>
                             </span>
                         </div>
                     </div>
 
-                    <div class="collapse show " >
-                        <div class="justify-content-between align-items-center" id="headingTwo">
+                    <div id="collapseSummary" class="collapse" aria-labelledby="headingSummary">
+                        <div class="justify-content-between align-items-center">
                             <div class="d-flex my-2">
                                 <div class="seemore flexGrow">
                                     Data Privacy:
                                 </div>
                                 <div class="titleQuestion">
-                                    81%
+                                    {{ appObj.data_privacy_score }}%
                                 </div>
                             </div>
                             <div class="progress-radius progressOrcha my-3">
                                 <div class="progress-bg progress-bar" role="progressbar"
-                                  style="width: 88%;" aria-valuenow="75" aria-valuemin="0"
+                                :style="{ width: appObj.data_privacy_score + '%' }" aria-valuenow="75" aria-valuemin="0"
                                   aria-valuemax="100">
                                   <span class="link-text"></span>
                                 </div>
-                              </div>
+                            </div>
+
+                            <div class="d-flex my-2">
+                                <div class="seemore flexGrow">
+                                    Clinical Assurance:
+                                </div>
+                                <div class="titleQuestion">
+                                    {{ appObj.clinical_assurance_score }}%
+                                </div>
+                            </div>
+                            <div class="progress-radius progressOrcha my-3">
+                                <div class="progress-bg progress-bar" role="progressbar"
+                                :style="{ width: appObj.clinical_assurance_score + '%' }" aria-valuenow="75" aria-valuemin="0"
+                                  aria-valuemax="100">
+                                  <span class="link-text"></span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex my-2">
+                                <div class="seemore flexGrow">
+                                    User Experience:
+                                </div>
+                                <div class="titleQuestion">
+                                    {{ appObj.user_experience_score }}%
+                                </div>
+                            </div>
+                            <div class="progress-radius progressOrcha my-3">
+                                <div class="progress-bg progress-bar" role="progressbar"
+                                :style="{ width: appObj.user_experience_score + '%' }" aria-valuenow="75" aria-valuemin="0"
+                                  aria-valuemax="100">
+                                  <span class="link-text"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <hr class="dropdown-divider my-3" />
+                <div class="justify-content-between align-items-center" id="headingGallery">
+                    <div class="d-flex pt-2 pb-2 w-100">
+                        <div class="flexGrow">
+                            <div class="hearder-cont-h1">
+                                Gallery
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" data-target="#collapseGallery" @click="toggleArrow($event)" role="button"
+                                    aria-expanded="true" aria-controls="collapseGallery"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="collapseGallery" class="collapse" aria-labelledby="headingGallery">
+                        <!-- <div class="card app-heading">
+                            <div class="card-header app" id="headingFour">
+                                <h2 class="mb-0 po-rel">
+                                <h6 class="btn btn-link tite" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour"> Gallery 
+                                    <div class="re-acc"> 
+                                        <i class="fa fa-chevron-down"></i>
+                                    </div> 
+                                </h6>
+                            </h2>
+                            </div>
+                            <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
+                            <div class="orcha-rec-slide orcha-popup"> 
+                            <div id="slider" class="swiper-container view-app-slider"> 
+                            <div class="swiper-wrapper">
+                                gallery +  
+                                <div class="swiper-slide view-slider">
+                                    <div class="card-body ">
+                                        <img class="width-slide">
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="swiper-pagination grye-bull">
+                              </div>
+                              </div>
+                              <div class="swiper-button-prev orcha app-pre"></div>
+                              <div class="swiper-button-next orcha app-next"></div>
+                              <div class="swiper-scrollbar" style="opacity: 0; transition-duration: 400ms;">
+                                <div class="swiper-scrollbar-drag" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; width: 0px;"></div>
+                                </div></div></div> 
+                                <div class="hr-line-track m-b-25"></div> </div> -->
+                    </div>
+                </div>
+                <hr class="dropdown-divider my-3" />
 
                 <div class="py-4 text-left d-flex">
-                    <a>
+                    <a :href="appObj.smallAppCardInfo.downloadLink" target="_blank">
                         <button type="button" class="btn-download px-md-4 py-1 px-3 mx-auto w-100"><span
                                 class="btn-quaternary-text">DOWNLOAD
                             </span></button>
                     </a>
                 </div>
-                {% endraw %}
             </div>
         </div>
+        {% endraw %}
 
 
     </div>
