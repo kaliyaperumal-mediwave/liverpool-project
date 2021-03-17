@@ -171,7 +171,6 @@ async function get_apps(data, token) {
       };
       return await axios(option)
         .then(apps => {
-           console.log('------------', apps.data);
           return apps.data;
         })
         .catch(function (err) {

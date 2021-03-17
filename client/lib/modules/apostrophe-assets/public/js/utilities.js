@@ -405,8 +405,8 @@ $(document).ready(function () {
                 boundary: 'window'
             }
         );
-        $('#multiple-cancer').multiselect({
-            includeSelectAllOption: true,
+        $('#capabilitiesDropdown').multiselect({
+            includeSelectAllOption: false,
         });
     })
 })
