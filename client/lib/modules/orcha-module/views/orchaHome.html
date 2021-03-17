@@ -104,22 +104,9 @@
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
 
-            <div class="pt-4 pb-2 row mx-0 w-100 justify-content- align-items-center">
+            <div class="pb-2 row mx-0 w-100 justify-content- align-items-center">
                 {% raw %}
                 <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
-                    <label style="font-weight: bold;" for="">capability</label>
-                    <div class="select-customize-drop plain-select">
-                        <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
-                        <select class="selectMultipleBE" id="capabilitiesDropdown" multiple="multiple">
-                            <option v-for="(capabilityObj, index) in capabilityList" :value="capabilityObj.id">
-                                {{ capabilityObj.capabilityName }}</option>
-                        </select>
-                    </div>
-                </div>
-                {% endraw %}
-
-                {% raw %}
-                <div>
                     <label style="font-weight: bold;" for="">Category</label>
                     <div class="select-customize-drop plain-select">
                         <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
@@ -133,13 +120,35 @@
                 </div>
                 {% endraw %}
 
+                {% raw %}
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Country</label>
+                    <span class="select-customize-drop plain-select">
+                        <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
+                            v-model="filterObj.country" class=" selectpicker" @change="getSearchData($event)">
+                            <option class='option-text' value="">Country of origin
+                            <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
+                                :value="countryObj.id">{{countryObj.countryName}}</option>
+                        </select>
+                </div>
+                {% endraw %}
 
                 {% raw %}
-                <div>
-                    <br>
-                    <label style="font-weight: bold;" for="">Designed for</label>
-                    <br>
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Capability</label>
+                    <div class="select-customize-drop plain-select">
+                        <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                        <select class="selectMultipleBE" id="capabilitiesDropdown" multiple="multiple">
+                            <option v-for="(capabilityObj, index) in capabilityList" :value="capabilityObj.id">
+                                {{ capabilityObj.capabilityName }}</option>
+                        </select>
+                    </div>
+                </div>
+                {% endraw %}
 
+                {% raw %}
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Designed for</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
                         <select class="selectMultipleBE" id="designedForDropdown" data-live-search="true"
@@ -151,113 +160,39 @@
                 </div>
                 {% endraw %}
 
+
+
                 {% raw %}
-                <div>
-                    <label style="font-weight: bold;" for="">Country of origin</label>
-                    <span class="select-customize-drop plain-select">
-                        <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.country" class=" selectpicker" @change="getSearchData($event)">
-                            <option class='option-text' value="">Country of origin
-                            <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
-                                :value="countryObj.id">{{countryObj.countryName}}</option>
-                        </select>
-                </div>
-            </div>
-            {% endraw %}
-
-            {% raw %}
-            <div>
-                <br>
-                <label style="font-weight: bold;" for="">Cost</label>
-                <br>
-                <div class="select-customize-drop plain-select">
-                    <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
-                    <select class="selectMultipleBE" id="costDropdown" data-live-search="true" multiple="multiple">
-                        <option v-for="(costObj, index) in costList" :value="costObj.id">{{ costObj.costName }}</option>
-                    </select>
-                </div>
-            </div>
-            {% endraw %}
-
-            {% raw %}
-            <div>
-                <br>
-                <label style="font-weight: bold;" for="">Platform</label>
-                <br>
-                <select id="platformSelect" v-model="filterObj.platform"
-                    class="custom-select form-control input-bg-form-control" @change="getSearchData($event)">
-                    <option class='option-text' value="">Platform
-                    </option>
-                    <option v-for="(platformObj, index) in platformList" :key="index" class='option-text'
-                        :value="platformObj.id">{{platformObj.platformName}}</option>
-                </select>
-            </div>
-            {% endraw %}
-
-
-            <!--       {% raw %}
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select  data-live-search="true" id="purchase_order_number" v-model="filterObj.capability" class="custom-select form-control input-bg-form-control" :change="getSearchData()">
-                            <option  class='option-text' value="">Capabilities</option>
-                            <option  v-for="(capabilityObj, index) in capabilityList" :key="index"  class='option-text' :value="capabilityObj.id">{{capabilityObj.capabilityName}}</option>
-                        </select>                          
-                    </span>
-                </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select v-model="filterObj.subCategory"  class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="">Function Features
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Cost</label>
+                    <div class="select-customize-drop plain-select">
+                        <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                        <select class="selectMultipleBE" id="costDropdown" data-live-search="true" multiple="multiple">
+                            <option v-for="(costObj, index) in costList" :value="costObj.id">{{ costObj.costName }}
                             </option>
-                            <option  v-for="(subCategoryObj, index) in subCategoryList" :key="index"  class='option-text' :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
-                        </select>
-                    </div>
-            
-                </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select v-model="filterObj.designedfor"  class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="">Designed For
-                            </option>
-                            <option  v-for="(designedForObj, index) in designedForList" :key="index"  class='option-text' :value="designedForObj.id">{{designedForObj.designedForName}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select v-model="filterObj.country" class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="">Country of origin
-                            </option>
-                            <option  v-for="(countryObj, index) in countryList" :key="index"  class='option-text' :value="countryObj.id">{{countryObj.countryName}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="input-group px-2 col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select v-model="filterObj.cost" class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="">Cost
-                            </option>
-                            <option  v-for="(costObj, index) in costList" :key="index"  class='option-text' :value="costObj.id">{{costObj.costName}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="input-group col-6 col-sm-3 col-md-3 col-lg-3 col-xl-3 mb-3">
-                    <span class="plain-select">
-                        <select v-model="filterObj.platform"  class="custom-select form-control input-bg-form-control">
-                            <option class='option-text' value="">Platform
-                            </option>
-                            <option  v-for="(platformObj, index) in platformList" :key="index"  class='option-text' :value="platformObj.id">{{platformObj.platformName}}</option>
                         </select>
                     </div>
                 </div>
                 {% endraw %}
-            </div> -->
 
+                {% raw %}
+                <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Platform</label>
+                    <div class="select-customize-drop plain-select">
+                        <select id="platformSelect" v-model="filterObj.platform"
+                            class="custom-select form-control input-bg-form-control" @change="getSearchData($event)">
+                            <option class='option-text' value="">Platform
+                            </option>
+                            <option v-for="(platformObj, index) in platformList" :key="index" class='option-text'
+                                :value="platformObj.id">{{platformObj.platformName}}</option>
+                        </select>
+                    </div>
+                </div>
+                {% endraw %}
+            </div>
+            <!-- <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a>Hide Filters</a></u></p> -->
         </div>
-        <!-- <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a>Hide Filters</a></u></p> -->
-        <br>
     </div>
-
     <div class="d-flex pt-2 pb-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto">
             <h3 class="authorization-font pt-3 pb-2 mb-0">Recommended for you</h3>
@@ -507,9 +442,9 @@
             </div>
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <script  type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script  type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 </div>
 
 {% raw %}

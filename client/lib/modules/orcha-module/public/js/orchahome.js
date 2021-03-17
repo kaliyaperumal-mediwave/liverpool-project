@@ -41,6 +41,13 @@ $(document).ready(function () {
             $(".selectMultipleBE").change(function (e) {
                 _self.getSearchData();
             });
+
+            // var categorySelect = document.getElementsByClassName('categoryS');
+            // var elem = categorySelect[0].children[0];
+
+            // $('#category_list').change(function (e) {
+            //     _self.getSearchData();
+            // });
         },
 
         methods: {
@@ -58,25 +65,26 @@ $(document).ready(function () {
                 }
             },
 
-            getSearchData: function (event) {
+            getSearchData: function () {
                 //$('#loader').show();
+                debugger
                 let filter = {};
                 let selectedCapabilitiesList = [];
                 let selectedDesignedForList = [];
                 let selectedCostList = [];
                 //mulit-select search with checkbox
-                var capabilityValue= $("#capabilitiesDropdown").val();
-                var designedForValue=$("#designedForDropdown").val();
+                var capabilityValue = $("#capabilitiesDropdown").val();
+                var designedForValue = $("#designedForDropdown").val();
                 var costValue = $("#costDropdown").val();
-              
-                if ( capabilityValue!= null) {
+
+                if (capabilityValue != null) {
                     selectedCapabilitiesList.push(capabilityValue);
                 }
                 if (selectedCapabilitiesList && selectedCapabilitiesList.length > 0) {
                     filter.capabilities = selectedCapabilitiesList[0];
                 }
 
-                if ( designedForValue!= null) {
+                if (designedForValue != null) {
                     selectedDesignedForList.push(designedForValue);
                 }
 
@@ -84,7 +92,7 @@ $(document).ready(function () {
                     filter.designedFor = selectedDesignedForList[0];
                 }
 
-                if ( costValue!= null) {
+                if (costValue != null) {
                     selectedCostList.push(costValue);
                 }
 
@@ -104,18 +112,17 @@ $(document).ready(function () {
                 if ($("#searchTxt").val()) {
                     filter.keyword = $("#searchTxt").val();
                 }
-              
+
                 console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 $('#loader').hide();
-                if (successData && Object.keys(successData) && successData.data!=null) {
+                if (successData && Object.keys(successData) && successData.data != null) {
                     this.filteredAppsList = successData.data.result.items
                 }
-                else
-                {
-                    this.filteredAppsList=[];
+                else {
+                    this.filteredAppsList = [];
                 }
-               console.log(this.filteredAppsList);
+                console.log(this.filteredAppsList);
             }
         }
     })
