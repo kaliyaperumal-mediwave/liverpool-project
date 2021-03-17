@@ -35,7 +35,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-           // $('#loader').hide();
+            // $('#loader').hide();
             this.getFilterDataDropdown();
             this.getSearchData(undefined);
             var _self = this;
@@ -58,7 +58,9 @@ $(document).ready(function () {
                 $('#loader').show();
                 var _self = this;
                 var successData = apiCallGet('get', '/getFilterData/', API_URI);
-                $('#loader').hide();
+                setTimeout(function () {
+                    $('#loader').hide();
+                }, 1000);
                 if (successData && Object.keys(successData)) {
                     _self.capabilityList = successData.data.capability_payload;
                     _self.designedForList = successData.data.designedFor_payload;
@@ -115,12 +117,10 @@ $(document).ready(function () {
                 if ($("#searchTxt").val()) {
                     filter.keyword = $("#searchTxt").val();
                 }
-                if(page=="prev")
-                {
+                if (page == "prev") {
                     filter.pageNum = Number(this.paginationObj.currentPage) - 1;
                 }
-                else if(page=="next")
-                {
+                else if (page == "next") {
                     filter.pageNum = Number(this.paginationObj.currentPage) + 1;
                 }
                 else if (page) {
@@ -129,7 +129,10 @@ $(document).ready(function () {
 
                 console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
-                $('#loader').hide();
+                setTimeout(function () {
+                    $('#loader').hide();
+                }, 1000);
+              
                 console.log(successData)
                 if (successData && Object.keys(successData) && successData.data != null) {
                     this.filteredAppsList = successData.data.result.items
@@ -137,9 +140,8 @@ $(document).ready(function () {
                     this.paginationObj.totalPages = successData.data.result.pagingInfo.totalPages;
                     this.paginationObj.currentPage = successData.data.result.pagingInfo.currentPage;
                     this.paginationObj.itemsPerPage = successData.data.result.pagingInfo.itemsPerPage;
-
                     var pagingInfo = successData.data.result.pagingInfo.totalPages;
-                    var obj = {};
+                    this.numberList = [];
                     for (let i = 0; i < pagingInfo; i++) {
                         this.numberList.push(i)
                     }

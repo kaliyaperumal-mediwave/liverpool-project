@@ -65,6 +65,7 @@
     </div>
 
     <div class="d-flex text-center py-md-3 py-2">
+        {% raw %}
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto" id="searchBar">
             <div class="input-group home-primary-content-bg">
                 <span class="input-group-prepend">
@@ -77,8 +78,13 @@
                 <input id="searchTxt" v-model="filterObj.searchTxt"
                     class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                     placeholder="Search your apps" id="example-search-input" />
+                <button @click="getSearchData(undefined)" type="button" class="search-btn-set btn "><span id="doSearchReferral"
+                        class="">Search
+                    </span></button>
             </div>
         </div>
+        {% endraw %}
+
     </div>
 
     <div class="d-flex text-center py-md-3 py-2">
@@ -91,27 +97,28 @@
 
     <template>
         {% raw %}
-        <div class="overflow-auto">
+        <div v-if="paginationObj.totalPages > 0" class="overflow-auto">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                  <li class="page-item" @click="getSearchData('prev')"><a class="page-link">Previous</a></li>
-                  <div v-for="(numObj, index) in numberList" :key="index" @click="getSearchData(index+1)">
-                    <li  class="page-item" ></li><a class="page-link">{{index+1}}</a></li>
-                  </div>
-                  <li class="page-item"  @click="getSearchData('next')"><a class="page-link">Next</a></li>
+                    <li class="page-item" @click="getSearchData('prev')"><a class="page-link">Previous</a></li>
+                    <div v-for="(numObj, index) in numberList" :key="index" @click="getSearchData(index+1)">
+                        <li class="page-item"></li><a class="page-link">{{index+1}}</a></li>
+                    </div>
+                    <li class="page-item" @click="getSearchData('next')"><a class="page-link">Next</a></li>
                 </ul>
-              </nav>
+            </nav>
         </div>
         {% endraw %}
 
-      </template>
+    </template>
 
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
 
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
                 {% raw %}
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div v-if="subCategoryList.length > 0"
+                    class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Category</label>
                     <div class="select-customize-drop plain-select">
                         <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
@@ -143,7 +150,8 @@
                     <label style="font-weight: bold;" for="">Capability</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
-                        <select class="selectMultipleBE" title="Choose one of the following..." id="capabilitiesDropdown" multiple="multiple">
+                        <select class="selectMultipleBE" title="Choose one of the following..."
+                            id="capabilitiesDropdown" multiple="multiple">
                             <option v-for="(capabilityObj, index) in capabilityList" :value="capabilityObj.id">
                                 {{ capabilityObj.capabilityName }}</option>
                         </select>
@@ -210,7 +218,8 @@
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
             <div class="row justify-content-center justify-content-sm-start">
                 {% raw %}
-                <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4" v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
+                <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
+                    v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
                     <a :href="'/orcha?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
                         <div class="w-100 position-relative">
                             <div class="bg-white card-container-small">
@@ -253,9 +262,12 @@
             </div>
         </div>
     </div>
-    <script  type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script type="application/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script  type="application/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <script type="application/javascript"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="application/javascript"
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script type="application/javascript"
+        src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 </div>
 
 {% raw %}
