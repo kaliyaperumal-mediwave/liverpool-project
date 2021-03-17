@@ -21,29 +21,29 @@ $(document).ready(function () {
             searchQuery: null,
             selectedCapabilitiesList: [],
             filteredAppsList: [],
-            paginationObj:{
-                totalItems:"",
+            paginationObj: {
+                totalItems: "",
                 totalPages: "",
                 currentPage: "",
                 itemsPerPage: ""
             },
-            numberList:[],
+            numberList: [],
         },
 
         beforeMount: function () {
-            $('#loader').show();
+            //$('#loader').show();
         },
 
         mounted: function () {
-            $('#loader').hide();
+           // $('#loader').hide();
             this.getFilterDataDropdown();
-            this.getSearchData(1);
+            this.getSearchData(undefined);
             var _self = this;
             $(".selectMultipleBE").change(function (e) {
-                _self.getSearchData(1);
+                _self.getSearchData(undefined);
             });
 
-           // this.numberList = ["1","2","3"]
+            // this.numberList = ["1","2","3"]
 
             // var categorySelect = document.getElementsByClassName('categoryS');
             // var elem = categorySelect[0].children[0];
@@ -55,9 +55,10 @@ $(document).ready(function () {
 
         methods: {
             getFilterDataDropdown: function (appId) {
+                $('#loader').show();
                 var _self = this;
                 var successData = apiCallGet('get', '/getFilterData/', API_URI);
-                console.log(successData)
+                $('#loader').hide();
                 if (successData && Object.keys(successData)) {
                     _self.capabilityList = successData.data.capability_payload;
                     _self.designedForList = successData.data.designedFor_payload;
@@ -68,8 +69,8 @@ $(document).ready(function () {
                 }
             },
 
-            getSearchData: function (numObj) {
-                alert(7);
+            getSearchData: function (page) {
+                $('#loader').show();
                 let filter = {};
                 let selectedCapabilitiesList = [];
                 let selectedDesignedForList = [];
@@ -114,6 +115,17 @@ $(document).ready(function () {
                 if ($("#searchTxt").val()) {
                     filter.keyword = $("#searchTxt").val();
                 }
+                if(page=="prev")
+                {
+                    filter.pageNum = Number(this.paginationObj.currentPage) - 1;
+                }
+                else if(page=="next")
+                {
+                    filter.pageNum = Number(this.paginationObj.currentPage) + 1;
+                }
+                else if (page) {
+                    filter.pageNum = page
+                }
 
                 console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
@@ -129,7 +141,7 @@ $(document).ready(function () {
                     var pagingInfo = successData.data.result.pagingInfo.totalPages;
                     var obj = {};
                     for (let i = 0; i < pagingInfo; i++) {
-                      this.numberList.push(i) 
+                        this.numberList.push(i)
                     }
                 }
                 else {

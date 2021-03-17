@@ -94,11 +94,11 @@
         <div class="overflow-auto">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                  <li class="page-item" @click="getSearchData(numObj)"><a class="page-link">Previous</a></li>
-                  <div v-for="(numObj, index) in numberList" :key="index" @click="getSearchData(numObj)">
-                    <li  class="page-item" ></li><a class="page-link">{{numObj}}</a></li>
+                  <li class="page-item" @click="getSearchData('prev')"><a class="page-link">Previous</a></li>
+                  <div v-for="(numObj, index) in numberList" :key="index" @click="getSearchData(index+1)">
+                    <li  class="page-item" ></li><a class="page-link">{{index+1}}</a></li>
                   </div>
-                  <li class="page-item"><a class="page-link">Next</a></li>
+                  <li class="page-item"  @click="getSearchData('next')"><a class="page-link">Next</a></li>
                 </ul>
               </nav>
         </div>
@@ -115,7 +115,7 @@
                     <label style="font-weight: bold;" for="">Category</label>
                     <div class="select-customize-drop plain-select">
                         <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.subCategory" class=" selectpicker" @change="getSearchData(1)">
+                            v-model="filterObj.subCategory" class=" selectpicker" @change="getSearchData(undefined)">
                             <option class='option-text' value="">Function Features
                             </option>
                             <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
@@ -130,7 +130,7 @@
                     <label style="font-weight: bold;" for="">Country</label>
                     <span class="select-customize-drop plain-select">
                         <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.country" class=" selectpicker" @change="getSearchData(1)">
+                            v-model="filterObj.country" class=" selectpicker" @change="getSearchData(undefined)">
                             <option class='option-text' value="">Country of origin
                             <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
                                 :value="countryObj.id">{{countryObj.countryName}}</option>
