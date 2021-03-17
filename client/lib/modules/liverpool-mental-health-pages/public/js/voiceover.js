@@ -1,28 +1,36 @@
 $(document).ready(function () {
-    var togglePause = false;
+    debugger
     var ssu = new SpeechSynthesisUtterance();
+    if (localStorage.getItem('voiceOver') == 'on') {
+        $('#c730ed34-ce14-4df1-8718-6346cd050c2b').show();
+    } else if (localStorage.getItem('voiceOver') == 'off') {
+        $('#c730ed34-ce14-4df1-8718-6346cd050c2b').addClass('d-none');
+    }
     var title = $('#voiceOverTitle').text();
     title = title.trim();
     var description = $('#voiceOverDescription').text();
     description = description.trim();
-    $('#togglePlayIcon').on('click', function (e) {
 
-        if ($(this).hasClass('fa fa-play-circle-o')) {
-            $(this).removeClass('fa fa-play-circle-o').addClass('fa fa-pause-circle-o');
-            wrapper();
-        } else if ($(this).hasClass('fa fa-pause-circle-o')) {
-            window.speechSynthesis.cancel();
-            $(this).removeClass('fa fa-pause-circle-o').addClass('fa fa-play-circle-o');
-            $('#togglePlay').text('Pause');
-        } else {
-            $(this).removeClass('fa fa-pause-circle-o').addClass('fa fa-play-circle-o');
-            $('#togglePlay').text('Play');
-        }
-
+    $('#playButton').on('click', function (e) {
+        $('#stopButton').removeClass('active-border');
+        document.getElementById('playButton').classList.remove('active-border');
+        document.getElementById('stopButton').classList.add('active-border')
+        document.getElementById('stopButton').style.opacity = 1;
+        document.getElementById('stopButton').removeAttribute('disabled');
+        document.getElementById('playButton').setAttribute('disabled', true);
+        wrapper();
     });
 
+    $('#stopButton').on('click', function (e) {
+        document.getElementById('playButton').classList.add('active-border');
+        document.getElementById('stopButton').classList.remove('active-border')
+        document.getElementById('stopButton').setAttribute('disabled', true);
+        document.getElementById('stopButton').style.opacity = 0.4;
+        document.getElementById('playButton').removeAttribute('disabled');
+        wrapper(true);
+    });
 
-    async function wrapper() {
+    async function wrapper(stopFlag) {
         var text = description;
         var result = text.match(/[^\.!\?]+[\.!\?]+/g);
         var ssu = new SpeechSynthesisUtterance();
@@ -32,12 +40,20 @@ $(document).ready(function () {
             ssu.lang = "en-US";
             await new Promise(function (resolve) {
                 ssu.onend = resolve;
-                window.speechSynthesis.cancel();
-                window.speechSynthesis.speak(ssu);
-
+                if (stopFlag) {
+                    ssu.text = ""
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(ssu);
+                    $('#togglePlayIcon').removeClass('fa-stop-circle-o').addClass('fa fa-play-circle-o');
+                    $('#togglePlay').text('Play')
+                    return false;
+                } else {
+                    window.speechSynthesis.cancel();
+                    window.speechSynthesis.speak(ssu);
+                }
             });
+
         }
-        $('#togglePlayIcon').removeClass('fa fa-pause-circle-o').addClass('fa fa-play-circle-o');
     }
 
     // var awaitVoices = new Promise(function (done) {
@@ -68,5 +84,10 @@ $(document).ready(function () {
     //         $('#togglePlay').text('Pause');
     //     });
     // }
+
+    $(window).on('beforeunload', function () {
+        window.speechSynthesis.pause();
+        wrapper(true)
+    });
 
 });
