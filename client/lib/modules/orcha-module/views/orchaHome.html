@@ -7,11 +7,7 @@
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" /> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script> -->
+
 
 
 {% endblock %}
@@ -133,7 +129,7 @@
                 {% endraw %}
 
                 {% raw %}
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div v-if = "countryList.length > 0" class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Country</label>
                     <span class="select-customize-drop plain-select">
                         <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
@@ -146,7 +142,7 @@
                 {% endraw %}
 
                 {% raw %}
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div v-if = "capabilityList.length > 0"  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Capability</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
@@ -160,7 +156,7 @@
                 {% endraw %}
 
                 {% raw %}
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div v-if = "designedForList.length > 0"  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Designed for</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
@@ -176,7 +172,7 @@
 
 
                 {% raw %}
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div v-if = "costList.length > 0"  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Cost</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
@@ -189,7 +185,7 @@
                 {% endraw %}
 
                 {% raw %}
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div  v-if = "platformList.length > 0" class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Platform</label>
                     <div class="select-customize-drop plain-select">
                         <select id="platformSelect" v-model="filterObj.platform"
