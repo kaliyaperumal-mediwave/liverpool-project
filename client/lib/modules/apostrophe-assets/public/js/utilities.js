@@ -405,6 +405,16 @@ $(document).ready(function () {
                 boundary: 'window'
             }
         );
+
+        $('#capabilitiesDropdown').multiselect({
+            includeSelectAllOption: false,
+        });
+        $('#designedForDropdown').multiselect({
+            includeSelectAllOption: false,
+        });
+        $('#costDropdown').multiselect({
+            includeSelectAllOption: false,
+        });
     })
 })
 
