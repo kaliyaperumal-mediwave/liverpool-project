@@ -1,4 +1,4 @@
-var API_URI = "/modules/check-referral-module";
+var API_URI = "/modules/liverpool-orcha-module";
 $(document).ready(function () {
     var app = new Vue({
         el: '#orchaDetailPage',
@@ -18,20 +18,20 @@ $(document).ready(function () {
         mounted: function () {
             this.paramValues = getUrlVars(location.href);
             console.log(getUrlVars(location.href))
-            // this.getAppsDetail(this.paramValues.app_id);
-            // setTimeout(function () {
-            //     $('#loader').hide();
-            // }, 1000);
-            // try {
-            //     if(document.getElementById('resources') && document.getElementById('resources').value) {
-            //         this.resources = JSON.parse(document.getElementById('resources').value);
-            //     } else {
-            //         this.resources = [];
-            //     }
-            // } catch (error) {
-            //     console.log(error);
-            //     $('#loader').hide();
-            // }
+            this.getAppsDetail(this.paramValues.app_id);
+            setTimeout(function () {
+                $('#loader').hide();
+            }, 1000);
+            try {
+                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                    this.resources = JSON.parse(document.getElementById('resources').value);
+                } else {
+                    this.resources = [];
+                }
+            } catch (error) {
+                console.log(error);
+                $('#loader').hide();
+            }
         },
 
         methods: {
