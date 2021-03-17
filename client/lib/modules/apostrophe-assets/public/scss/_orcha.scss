@@ -23,6 +23,13 @@
   text-overflow: ellipsis;
   text-align: start;
 }
+.select-customize-drop .filter-option {
+    width: 93%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+  }
 .select-customize-drop .btn-group {
   width: 100%;
 }

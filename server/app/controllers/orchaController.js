@@ -87,6 +87,8 @@ exports.getFilterDropDwnData = async (ctx) => {
 
 
 exports.getSearchData = async (ctx) => {
+    var appLengthFlag = false;
+
     try {
         console.log('-----------getFiltersAndApps-----------', ctx.request.body);
         let app_body = {
@@ -123,9 +125,22 @@ exports.getSearchData = async (ctx) => {
         if (ctx.request.body.keyword) {
             app_body.searchTerm = ctx.request.body.keyword;
         }
+        if (ctx.request.body.pageNum) {
+            app_body.pageNumber = ctx.request.body.pageNum
+        }
+
         console.log(app_body)
         var appData = await get_apps(app_body, ctx.response.body.orchaToken)
-
+         appLengthFlag = !appLengthFlag ? appData.result.items.length ? true : false : appLengthFlag;
+        
+        if (appLengthFlag) {
+            appData.result.pagingInfo = {
+              totalItems: appData.result.totalCount,
+              totalPages: Math.round(appData.result.totalCount / app_body.pageSize),
+              currentPage: parseInt(app_body.pageNumber),
+              itemsPerPage: app_body.pageSize
+            }
+          }
         ctx.res.ok({
             data: appData
         })
@@ -159,28 +174,28 @@ async function get_data(ctx, url) {
 /* GET apps from orcha */
 async function get_apps(data, token) {
     try {
-      console.log('---data----', data);
-      var option = {
-        method: 'POST',
-        url: config.orcha_api + 'Review/SearchPagedReviews',
-        data: data,
-        headers: {
-          'authorization': 'Bearer ' + token,
-        },
-      };
-      return await axios(option)
-        .then(apps => {
-          return apps.data;
-        })
-        .catch(function (err) {
-          console.log(err, "err=====1");
-          // return ctx.res.badRequest({
-          //   message: 'Failed to fetch data',
-          // });
-          return null
-        });
-  
+        console.log('---data----', data);
+        var option = {
+            method: 'POST',
+            url: config.orcha_api + 'Review/SearchPagedReviews',
+            data: data,
+            headers: {
+                'authorization': 'Bearer ' + token,
+            },
+        };
+        return await axios(option)
+            .then(apps => {
+                return apps.data;
+            })
+            .catch(function (err) {
+                console.log(err, "err=====1");
+                // return ctx.res.badRequest({
+                //   message: 'Failed to fetch data',
+                // });
+                return null
+            });
+
     } catch (e) {
-      console.log("\n\n\n error", e)
+        console.log("\n\n\n error", e)
     }
-  }
+}
