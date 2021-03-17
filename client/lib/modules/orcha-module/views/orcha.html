@@ -7,53 +7,10 @@
 <div id="orchaDetailPage">
 
     <div class="top-arrow-container pd-container" id="searchBar">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a  class="previous-link"><i
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="/orcha/orchahome" class="previous-link"><i
                     class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
 
             <div class="resource_text pb-sm-0 pt-0">Apps</div>
-        </div>
-        <input hidden id="resources" value="">
-        <div class="input-group home-primary-content-bg">
-            <span class="input-group-prepend">
-                <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
-                    <span style="color: #023047 !important;">
-                        <i class="fal fa-search font-23"></i>
-                    </span>
-                </div>
-            </span>
-            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
-                 placeholder="Search your app" id="example-search-input">
-        </div>
-        <div id="hideserachblock" class="d-none">
-            {% raw %}
-            <!-- Search functionality start-->
-            <!-- <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
-                ”</div> -->
-            <div  class="search-wrap primary-search-radius">
-                <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                    <template >
-                        <div  class="border-bottom-primary card-body px-2 px-md-4">
-                            <a >
-                                <div class="d-flex align-items-center">
-                                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-
-                                    <p class="question-font my-0 mx-2 mx-md-4">
-                                    </p>
-                                    <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
-                                        <li></li>
-                                    </ul>
-                                </div>
-                            </a>
-                        </div>
-                    </template>
-                    <template >
-                        <p class="home-header-secondary py-3 pl-4">No results found</p>
-                    </template>
-                </div>
-            </div>
-
-            <!-- Search functionality end-->
-            {% endraw %}
         </div>
         <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
             <h5 class="font-weight-bold">
@@ -244,52 +201,68 @@
                         </div>
                     </div>
                     <div id="collapseGallery" class="collapse" aria-labelledby="headingGallery">
-                        <!-- <div class="card app-heading">
-                            <div class="card-header app" id="headingFour">
-                                <h2 class="mb-0 po-rel">
-                                <h6 class="btn btn-link tite" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour"> Gallery 
-                                    <div class="re-acc"> 
-                                        <i class="fa fa-chevron-down"></i>
-                                    </div> 
-                                </h6>
-                            </h2>
+                        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite">
+                            <div v-for="screenshot in appObj.screenshots" class="w-100">
+                                <div class="bg-white card-container-small">
+                                    <div class="container-top-set">
+                                        <div class="inside-cover-set">
+                                            <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="collapseFour" class="collapse show" aria-labelledby="headingFour" data-parent="#accordionExample">
-                            <div class="orcha-rec-slide orcha-popup"> 
+                        </div> -->
+                        <div class="d-flex text-center py-md-2 py-0">
+                            <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
+                                <div class="swiper-container swiper-container-initialized swiper-container-horizontal text-left">
+                                    <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
+                                        <a  v-for="screenshot in appObj.screenshots"  class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
+                                            data-swiper-slide-index="0" role="group" aria-label="1 / 6">
+                                            <div class="questionText">
+                                                <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+                                        aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                                    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button"
+                                        aria-label="Previous slide" aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                                    <div class="swiper-scrollbar"></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="orcha-rec-slide orcha-popup"> 
                             <div id="slider" class="swiper-container view-app-slider"> 
-                            <div class="swiper-wrapper">
-                                gallery +  
-                                <div class="swiper-slide view-slider">
+                            <div class="swiper-wrapper"> 
+                                <div v-for="screenshot in appObj.screenshots" class="swiper-slide view-slider">
                                     <div class="card-body ">
-                                        <img class="width-slide">
+                                        <img class="width-slide" :src="screenshot">
                                     </div>
                                 </div> 
                             </div>
-                            <div class="swiper-pagination grye-bull">
-                              </div>
-                              </div>
-                              <div class="swiper-button-prev orcha app-pre"></div>
-                              <div class="swiper-button-next orcha app-next"></div>
-                              <div class="swiper-scrollbar" style="opacity: 0; transition-duration: 400ms;">
-                                <div class="swiper-scrollbar-drag" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; width: 0px;"></div>
-                                </div></div></div> 
-                                <div class="hr-line-track m-b-25"></div> </div> -->
+                            <div class="swiper-pagination grye-bull"></div>
+                        </div>
+                        <div class="swiper-button-prev orcha app-pre"></div>
+                        <div class="swiper-button-next orcha app-next"></div>
+                        <div class="swiper-scrollbar" style="opacity: 0; transition-duration: 400ms;">
+                            <div class="swiper-scrollbar-drag" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; width: 0px;"></div>
+                        </div> -->
                     </div>
                 </div>
                 <hr class="dropdown-divider my-3" />
 
                 <div class="py-4 text-left d-flex">
                     <a :href="appObj.smallAppCardInfo.downloadLink" target="_blank">
-                        <button type="button" class="btn-download px-md-4 py-1 px-3 mx-auto w-100"><span
-                                class="btn-quaternary-text">DOWNLOAD
-                            </span></button>
+                        <button type="button" class="btn-download px-md-4 py-1 px-3 mx-auto w-100">
+                            <span class="btn-quaternary-text">DOWNLOAD</span>
+                        </button>
                     </a>
                 </div>
             </div>
         </div>
+
         {% endraw %}
-
-
     </div>
 </div>
 {% endblock %}
