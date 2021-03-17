@@ -26,7 +26,8 @@ $(document).ready(function () {
                 totalPages: "",
                 currentPage: "",
                 itemsPerPage: ""
-            }
+            },
+            numberList:[],
         },
 
         beforeMount: function () {
@@ -36,11 +37,13 @@ $(document).ready(function () {
         mounted: function () {
             $('#loader').hide();
             this.getFilterDataDropdown();
-            this.getSearchData();
+            this.getSearchData(1);
             var _self = this;
             $(".selectMultipleBE").change(function (e) {
-                _self.getSearchData();
+                _self.getSearchData(1);
             });
+
+           // this.numberList = ["1","2","3"]
 
             // var categorySelect = document.getElementsByClassName('categoryS');
             // var elem = categorySelect[0].children[0];
@@ -65,9 +68,8 @@ $(document).ready(function () {
                 }
             },
 
-            getSearchData: function () {
-                //$('#loader').show();
-                debugger
+            getSearchData: function (numObj) {
+                alert(7);
                 let filter = {};
                 let selectedCapabilitiesList = [];
                 let selectedDesignedForList = [];
@@ -116,13 +118,23 @@ $(document).ready(function () {
                 console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 $('#loader').hide();
+                console.log(successData)
                 if (successData && Object.keys(successData) && successData.data != null) {
                     this.filteredAppsList = successData.data.result.items
+                    this.paginationObj.totalItems = successData.data.result.pagingInfo.totalItems;
+                    this.paginationObj.totalPages = successData.data.result.pagingInfo.totalPages;
+                    this.paginationObj.currentPage = successData.data.result.pagingInfo.currentPage;
+                    this.paginationObj.itemsPerPage = successData.data.result.pagingInfo.itemsPerPage;
+
+                    var pagingInfo = successData.data.result.pagingInfo.totalPages;
+                    var obj = {};
+                    for (let i = 0; i < pagingInfo; i++) {
+                      this.numberList.push(i) 
+                    }
                 }
                 else {
                     this.filteredAppsList = [];
                 }
-                console.log(this.filteredAppsList);
             }
         }
     })
