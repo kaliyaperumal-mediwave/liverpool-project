@@ -74,7 +74,8 @@
                         </span>
                     </div>
                 </span>
-                <input id="searchTxt" v-model = "filterObj.searchTxt" class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                <input id="searchTxt" v-model="filterObj.searchTxt"
+                    class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                     placeholder="Search your apps" id="example-search-input" />
             </div>
         </div>
@@ -90,15 +91,16 @@
 
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-            
+
             <div class="pt-4 pb-2 row mx-0 w-100 justify-content- align-items-center">
                 {% raw %}
                 <div class="input-group px-2 col-6 col-sm-4 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">capability</label>
 
                     <div class="select-customize-drop plain-select">
-                        <select id="multiple-cancer" data-live-search="true" multiple="multiple">
-                            <option  v-for="(capabilityObj, index) in capabilityList" value="Breast Cancer">{{ capabilityObj.capabilityName }}</option>
+                        <select id="multiple-cancer" multiple="multiple">
+                            <option v-for="(capabilityObj, index) in capabilityList" value="Breast Cancer">{{
+                                capabilityObj.capabilityName }}</option>
                         </select>
                     </div>
                 </div>
@@ -117,15 +119,20 @@
                 {% raw %}
                 <div>
                     <label style="font-weight: bold;" for="">Category</label>
-                    <span class="plain-select">
-                        <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.subCategory" class=" selectpicker" @change="getSearchData($event)">
-                            <option class='option-text' value="">Function Features
-                            </option>
-                            <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
-                                :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
+                    <div class="select-customize-drop plain-select">
+                        <select id="category_list" data-live-search="true" v-model="filterObj.subCategory"
+                            class=" selectpicker" @change="getSearchData($event)">
+                            <!-- <option class='option-text' value="">Function Features
+                            </option> -->
+                            <option value="cheese">Cheese</option>
+                            <option value="tomatoes">Tomatoes</option>
+                            <option value="mozarella">Mozzarella</option>
+                            <option value="mushrooms">Mushrooms</option>
+                            <option value="pepperoni">Pepperoni</option>
+                            <!-- <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
+                                :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option> -->
                         </select>
-                    </span>
+                    </div>
                 </div>
                 {% endraw %}
 
@@ -265,7 +272,8 @@
             <div class="swiper-container swiper-container-initialized swiper-container-horizontal text-left">
                 <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
                     {% raw %}
-                    <a  v-for="(filteredAppsObj, index) in filteredAppsList" :key="index"  class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
+                    <a v-for="(filteredAppsObj, index) in filteredAppsList" :key="index"
+                        class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
                         data-swiper-slide-index="0" role="group" aria-label="1 / 6"
                         style="width: 246.667px; margin-right: 30px">
                         <div class="w-100 position-relative">
@@ -618,6 +626,9 @@
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 </div>
 
 {% raw %}
