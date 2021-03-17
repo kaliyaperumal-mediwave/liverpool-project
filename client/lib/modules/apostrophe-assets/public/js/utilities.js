@@ -415,6 +415,7 @@ $(document).ready(function () {
         $('#costDropdown').multiselect({
             includeSelectAllOption: false,
         });
+
     })
 })
 
