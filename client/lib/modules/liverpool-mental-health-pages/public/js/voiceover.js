@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    debugger
     var ssu = new SpeechSynthesisUtterance();
     if (localStorage.getItem('voiceOver') == 'on') {
         $('#c730ed34-ce14-4df1-8718-6346cd050c2b').show();
@@ -44,8 +43,6 @@ $(document).ready(function () {
                     ssu.text = ""
                     window.speechSynthesis.cancel();
                     window.speechSynthesis.speak(ssu);
-                    $('#togglePlayIcon').removeClass('fa-stop-circle-o').addClass('fa fa-play-circle-o');
-                    $('#togglePlay').text('Play')
                     return false;
                 } else {
                     window.speechSynthesis.cancel();
