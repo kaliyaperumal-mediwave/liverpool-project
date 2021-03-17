@@ -13,12 +13,11 @@ $(document).ready(function () {
             showAppContent: false
         },
         beforeMount: function () {
-           // $('#loader').show();
+           $('#loader').show();
         },
 
         mounted: function () {
             this.paramValues = getUrlVars(location.href);
-            // console.log(getUrlVars(location.href))
             this.getAppsDetail(this.paramValues.app_id);
             // setTimeout(function () {
             //     $('#loader').hide();
@@ -30,18 +29,14 @@ $(document).ready(function () {
                     this.resources = [];
                 }
             } catch (error) {
-                console.log(error);
-                $('#loader').hide();
+                // $('#loader').hide();
             }
         },
 
         methods: {
             getAppsDetail: function (appId) {
-                //console.log(appId)
                 var successData = apiCallGet('get', '/getApp/'+appId, API_URI);
-                // console.log(successData)
                 this.appObj = JSON.parse(JSON.stringify(successData.data.result));
-                console.log(this.appObj);
                 this.appObj.categoryName = this.appObj.subCategories && this.appObj.subCategories.length ? this.appObj.subCategories.join(', ') : '';
                 this.appObj.review_date = moment(this.appObj.reviewDate).format("DD/MM/YYYY");
                 this.appObj.release_date = moment(this.appObj.releaseDate).format("DD/MM/YYYY");
@@ -49,22 +44,19 @@ $(document).ready(function () {
                 this.appObj.data_privacy_score = parseInt(this.appObj.smallAppCardInfo.dataPrivacyScore);
                 this.appObj.clinical_assurance_score = parseInt(this.appObj.smallAppCardInfo.clinicalAssuranceScore);
                 this.appObj.user_experience_score = parseInt(this.appObj.smallAppCardInfo.userExperienceScore);
-                if(this.appObj.screenshots && this.appObj.screenshots.length && this.appObj.screenshots[0] != "") {
-                    console.log(this.appObj.screenshots);
+                if(!this.appObj.screenshots || (this.appObj.screenshots && this.appObj.screenshots.length && this.appObj.screenshots[0] == "")) {
+                    this.appObj.screenshots = [];
                 }
                 this.showAppContent = true;
                 $('#loader').hide();
             },
             filterApps: function () {
-                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 this.searchQueryToLower = this.searchQuery.toLowerCase();
                 if (this.searchQueryToLower) {
                     this.filteredData = [];
                     this.showSearchResults = true;
                     let self = this;
-                   // console.log(self.resources)
                     return self.resources.filter(function (item) {
-                        // TODO: add description and other content after CMS
                         if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
                             self.filteredData.push(item);
                         }
