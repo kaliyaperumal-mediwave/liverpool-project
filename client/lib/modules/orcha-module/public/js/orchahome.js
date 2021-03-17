@@ -20,7 +20,13 @@ $(document).ready(function () {
             },
             searchQuery: null,
             selectedCapabilitiesList: [],
-            filteredAppsList: []
+            filteredAppsList: [],
+            paginationObj:{
+                totalItems:"",
+                totalPages: "",
+                currentPage: "",
+                itemsPerPage: ""
+            }
         },
 
         beforeMount: function () {

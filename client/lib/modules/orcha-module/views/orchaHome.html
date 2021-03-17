@@ -89,6 +89,18 @@
         </div>
     </div>
 
+    <template>
+        <div class="overflow-auto">
+          <b-pagination
+            v-model="currentPage"
+            :total-rows="rows"
+            :per-page="perPage"
+            aria-controls="my-table"
+          ></b-pagination>
+          <p class="mt-3">Current Page: {{ currentPage }}</p>
+        </div>
+      </template>
+
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
 
