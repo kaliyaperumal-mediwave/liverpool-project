@@ -404,7 +404,22 @@ $(document).ready(function () {
                 container: 'body',
                 boundary: 'window'
             }
-        )
+        );
+        if(document.getElementById('capabilitiesDropdown')) {
+            $('#capabilitiesDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
+        if(document.getElementById('designedForDropdown')) {
+            $('#designedForDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
+        if(document.getElementById('costDropdown')) {
+            $('#costDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
     })
 })
 

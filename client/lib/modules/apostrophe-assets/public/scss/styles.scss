@@ -11,6 +11,7 @@
 @import "calendar";
 @import "radio";
 @import "checkbox";
+@import "orcha";
 @import "button";
 @import "inputs";
 @import "modal";
@@ -597,6 +598,7 @@ a {
 
 .progress-bg {
   @include set-bgOnly($quaternary-color);
+  border-radius: 10px;
 }
 
 /* Auth Pages style end */
@@ -3405,6 +3407,54 @@ div.collapse-container.collapsing {
 .f-16::first-letter {
   text-transform: capitalize;
 }
+.percentage-container {
+  background-color: #b2bf04;
+  color: #023047;
+  font-size: 28px;
+  font-weight: bold;
+  height: 88px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.text_inside_play-store-orcha {
+  margin-bottom: 28px;
+  padding: 22px;
+  background-color: #fafafa;
+  color: #023047;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: 16px;
+}
+.seemore {
+  color: #023047;
+  font-size: 16px;
+  font-weight: bold;
+}
+.titleQuestion {
+  font-size: 16px;
+  color: #023047;
+  padding-right: 8px;
+}
+.progressOrcha {
+  background: #d5d5d5 0% 0% no-repeat padding-box !important;
+  display: flex;
+  height: 1rem;
+  overflow: hidden;
+  line-height: 0;
+  font-size: 0.75rem;
+  border-radius: 15px !important;
+}
+.search-btn-set {
+  margin: auto auto auto 10px !important;
+  width: 74px;
+  height: 41px;
+  display: flex !important;
+  align-items: center;
+}
+.search-btn-set span {
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
 .play-button {
   font-weight: bold !important;
   border-radius: 5px !important;
@@ -3413,7 +3463,6 @@ div.collapse-container.collapsing {
     background-color: #9e202c82 !important;
   }
 }
-
 .stop-button {
   background: #c50719 !important;
   font-weight: bold !important;

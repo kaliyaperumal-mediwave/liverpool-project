@@ -1,0 +1,268 @@
+{% extends "layout.html" %}
+{% block extraBody %}
+<script src="/modules/orcha-module/js/orcha.js"></script>
+{% endblock %}
+{% block main%}
+
+<div id="orchaDetailPage" v-cloak>
+
+    <div class="top-arrow-container pd-container" id="searchBar">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="/orcha/orchahome" class="previous-link"><i
+                    class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
+
+            <div class="resource_text pb-sm-0 pt-0">Apps</div>
+        </div>
+        <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
+            <h5 class="font-weight-bold">
+                On this page, you can access a range of useful websites and apps
+            </h5>
+        </div>
+        {% raw %}
+        <div v-if="showAppContent">
+            <div class="percentage-container d-flex justify-content-center align-items-center">
+                {{ appObj.smallAppCardInfo.score }}%
+            </div>
+            <div class="text_inside_play-store-orcha">
+
+                
+                <div class='d-flex'>
+                    <div class="">
+                        <img class="panda-img" :src="appObj.smallAppCardInfo.thumbnail">
+                    </div>
+                    <div class="title-cont-top">
+                        <div class="hearder-cont-h1">
+                            {{ appObj.smallAppCardInfo.appName }}
+                        </div>
+                        <div class="d-flex">
+                            <div class="para-cont-p font-weight-lighter pr-2">
+                                PublisherName :
+                            </div>
+                            <div class="para-cont-p ">
+                                {{ appObj.smallAppCardInfo.publisherName }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="py-2 ">
+                    <div class="hearder-cont-h1 ">
+                        Description
+                    </div>
+                </div>
+                {{ appObj.smallAppCardInfo.description }}
+                <!-- <div>
+                    <a class="seemore">See more...</a>
+                </div> -->
+                <hr class="dropdown-divider my-3" />
+
+                <div class="justify-content-between align-items-center" id="headingAppDetails">
+                    <div class="d-flex pt-2 pb-2 w-100">
+                        <div class="flexGrow">
+                            <div class="hearder-cont-h1">
+                                App details
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" data-target="#collapseAppDetails" @click="toggleArrow($event)" role="button"
+                                    aria-expanded="true" aria-controls="collapseAppDetails"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div id="collapseAppDetails" class="collapse" aria-labelledby="headingAppDetails">
+                        <div class="justify-content-between align-items-center">
+                            <div class="d-flex my-2">
+                                <div class="titleQuestion">
+                                    Category:
+                                </div>
+                                <div class="seemore">
+                                    {{ appObj.categoryName }}
+                                </div>
+                            </div>
+                            <div class="d-flex my-2">
+                                <div class="titleQuestion">
+                                    Reviewed on:
+                                </div>
+                                <div class="seemore">
+                                    {{ appObj.review_date }}
+                                </div>
+                            </div>
+                            <div class="d-flex my-2">
+                                <div class="titleQuestion">
+                                    Released:
+                                </div>
+                                <div class="seemore">
+                                    {{ appObj.release_date }}
+                                </div>
+                            </div>
+                            <div class="d-flex my-2">
+                                <div class="titleQuestion">
+                                    Version:
+                                </div>
+                                <div class="seemore">
+                                    {{ appObj.smallAppCardInfo.version}}
+                                </div>
+                            </div>
+                            <div class="d-flex my-2">
+                                <div class="titleQuestion">
+                                    Size:
+                                </div>
+                                <div class="seemore">
+                                    {{ appObj.file_size }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="dropdown-divider my-3" />
+                <div class="justify-content-between align-items-center" id="headingSummary">
+                    <div class="d-flex pt-2 pb-2 w-100">
+                        <div class="flexGrow">
+                            <div class="hearder-cont-h1">
+                                Summary
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" data-target="#collapseSummary" @click="toggleArrow($event)" role="button"
+                                    aria-expanded="true" aria-controls="collapseSummary"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div id="collapseSummary" class="collapse" aria-labelledby="headingSummary">
+                        <div class="justify-content-between align-items-center">
+                            <div class="d-flex my-2">
+                                <div class="seemore flexGrow">
+                                    Data Privacy:
+                                </div>
+                                <div class="titleQuestion">
+                                    {{ appObj.data_privacy_score }}%
+                                </div>
+                            </div>
+                            <div class="progress-radius progressOrcha my-3">
+                                <div class="progress-bg progress-bar" role="progressbar"
+                                :style="{ width: appObj.data_privacy_score + '%' }" aria-valuenow="75" aria-valuemin="0"
+                                  aria-valuemax="100">
+                                  <span class="link-text"></span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex my-2">
+                                <div class="seemore flexGrow">
+                                    Clinical Assurance:
+                                </div>
+                                <div class="titleQuestion">
+                                    {{ appObj.clinical_assurance_score }}%
+                                </div>
+                            </div>
+                            <div class="progress-radius progressOrcha my-3">
+                                <div class="progress-bg progress-bar" role="progressbar"
+                                :style="{ width: appObj.clinical_assurance_score + '%' }" aria-valuenow="75" aria-valuemin="0"
+                                  aria-valuemax="100">
+                                  <span class="link-text"></span>
+                                </div>
+                            </div>
+
+                            <div class="d-flex my-2">
+                                <div class="seemore flexGrow">
+                                    User Experience:
+                                </div>
+                                <div class="titleQuestion">
+                                    {{ appObj.user_experience_score }}%
+                                </div>
+                            </div>
+                            <div class="progress-radius progressOrcha my-3">
+                                <div class="progress-bg progress-bar" role="progressbar"
+                                :style="{ width: appObj.user_experience_score + '%' }" aria-valuenow="75" aria-valuemin="0"
+                                  aria-valuemax="100">
+                                  <span class="link-text"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="dropdown-divider my-3" />
+                <div class="justify-content-between align-items-center" id="headingGallery">
+                    <div class="d-flex pt-2 pb-2 w-100">
+                        <div class="flexGrow">
+                            <div class="hearder-cont-h1">
+                                Gallery
+                            </div>
+                        </div>
+                        <div>
+                            <span style="color: #D6D8D8;">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" data-target="#collapseGallery" @click="toggleArrow($event)" role="button"
+                                    aria-expanded="true" aria-controls="collapseGallery"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div id="collapseGallery" class="collapse" aria-labelledby="headingGallery">
+                        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite">
+                            <div v-for="screenshot in appObj.screenshots" class="w-100">
+                                <div class="bg-white card-container-small">
+                                    <div class="container-top-set">
+                                        <div class="inside-cover-set">
+                                            <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="d-flex text-center py-md-2 py-0">
+                            <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
+                                <div class="swiper-container swiper-container-initialized swiper-container-horizontal text-left">
+                                    <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
+                                        <a  v-for="screenshot in appObj.screenshots"  class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
+                                            data-swiper-slide-index="0" role="group" aria-label="1 / 6">
+                                            <div class="questionText">
+                                                <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+                                        aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                                    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button"
+                                        aria-label="Previous slide" aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                                    <div class="swiper-scrollbar"></div>
+                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="orcha-rec-slide orcha-popup"> 
+                            <div id="slider" class="swiper-container view-app-slider"> 
+                            <div class="swiper-wrapper"> 
+                                <div v-for="screenshot in appObj.screenshots" class="swiper-slide view-slider">
+                                    <div class="card-body ">
+                                        <img class="width-slide" :src="screenshot">
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="swiper-pagination grye-bull"></div>
+                        </div>
+                        <div class="swiper-button-prev orcha app-pre"></div>
+                        <div class="swiper-button-next orcha app-next"></div>
+                        <div class="swiper-scrollbar" style="opacity: 0; transition-duration: 400ms;">
+                            <div class="swiper-scrollbar-drag" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; width: 0px;"></div>
+                        </div> -->
+                    </div>
+                </div>
+                <hr class="dropdown-divider my-3" />
+
+                <div class="py-4 text-left d-flex">
+                    <a :href="appObj.smallAppCardInfo.downloadLink" target="_blank">
+                        <button type="button" class="btn-download px-md-4 py-1 px-3 mx-auto w-100">
+                            <span class="btn-quaternary-text">DOWNLOAD</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% endraw %}
+    </div>
+</div>
+{% endblock %}
