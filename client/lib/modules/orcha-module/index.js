@@ -6,8 +6,8 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.orcha);
-      self.dispatch('/orchahome', self.orchaHome);
+      self.dispatch('/',self.middleware.checkCommonPageAuth, self.orcha);
+      self.dispatch('/orchahome',self.middleware.checkCommonPageAuth, self.orchaHome);
     };
     require('../../middleware')(self, options);
 
