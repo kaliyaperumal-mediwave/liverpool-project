@@ -41,6 +41,7 @@
   max-height: 320px;
   width: 250px;
   overflow: auto;
+  z-index: 10;
 }
 .select-customize-drop .btn-group .multiselect-container li:hover {
   background: #e9e9ea;
