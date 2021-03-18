@@ -850,11 +850,10 @@ $(document).ready(function () {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
                                     this.apiRequest(this.elgibilityObj, role);
-
                                 } else {
-                                    this.hasEmailInvalidError = true;
+                                    scrollToInvalidInput();
+                                    return false;
                                 }
-
                             } else {
                                 $('#loader').show();
                                 this.apiRequest(this.elgibilityObj, role);
