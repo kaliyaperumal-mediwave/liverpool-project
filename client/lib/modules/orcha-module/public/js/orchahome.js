@@ -70,7 +70,15 @@ $(document).ready(function () {
                     _self.countryList = successData.data.country_payload;
                 }
             },
-
+            scrollXAndY: function (page) {
+                debugger
+                if (page == "prev") {
+                    document.getElementById('paginationDiv').scrollLeft -= 230;
+                }
+                else if (page == "next") {
+                    document.getElementById('paginationDiv').scrollLeft += 230;
+                }
+            },
             getSearchData: function (page) {
                 $('#loader').show();
                 let filter = {};
@@ -127,13 +135,16 @@ $(document).ready(function () {
                     filter.pageNum = page
                 }
 
-                console.log(filter);
+                //pagination
+                var pagId= Number(this.paginationObj.currentPage) - 1;
+                document.getElementById(pagId).classList.add("selectedClass")
+               // console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 setTimeout(function () {
                     $('#loader').hide();
                 }, 1000);
               
-                console.log(successData)
+                ///console.log(successData)
                 if (successData && Object.keys(successData) && successData.data != null) {
                     this.filteredAppsList = successData.data.result.items
                     this.paginationObj.totalItems = successData.data.result.pagingInfo.totalItems;
