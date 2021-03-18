@@ -845,7 +845,8 @@ div.radio.switcher label {
 .select-customize-drop .btn-group .multiselect-container {
   max-height: 320px;
   width: 250px;
-  overflow: auto; }
+  overflow: auto;
+  z-index: 10; }
 
 .select-customize-drop .btn-group .multiselect-container li:hover {
   background: #e9e9ea; }
@@ -875,12 +876,33 @@ div.radio.switcher label {
   width: 300px;
   overflow: auto;
   display: flex; }
+  @media (min-width: 1200px) {
+    .index-scroller {
+      width: 520px; } }
 
 #paginationDiv::-webkit-scrollbar {
   width: 0px; }
 
 .selectedClass {
-  background-color: aquamarine !important; }
+  background-color: #ffc107 !important; }
+
+.imageOnOrcha {
+  width: 70px;
+  display: flex; }
+  @media (min-width: 1200px) and (max-width: 1499.98px) {
+    .imageOnOrcha {
+      width: 53px; } }
+
+.imageTextOrcha {
+  width: calc(100% - 85px); }
+  @media (min-width: 1200px) and (max-width: 1499.98px) {
+    .imageTextOrcha {
+      width: calc(100% - 55px); } }
+
+.custom-slider-orcha {
+  height: auto !important;
+  width: 60% !important;
+  padding: 10px; }
 
 /* Button Global classes */
 .btn {
@@ -4594,7 +4616,8 @@ div.collapse-container.collapsing {
   color: #023047;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
-  font-size: 16px; }
+  font-size: 16px;
+  word-break: break-word; }
 
 .seemore {
   color: #023047;

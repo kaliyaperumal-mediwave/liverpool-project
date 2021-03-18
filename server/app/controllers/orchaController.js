@@ -93,7 +93,7 @@ exports.getSearchData = async (ctx) => {
         let app_body = {
             searchTerm: "",
             pageNumber: 1,
-            pageSize: 20,
+            pageSize: 12,
             platformId: "",
             subCategoryId: "",
             costIds: [],
