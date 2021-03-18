@@ -88,9 +88,8 @@ exports.getFilterDropDwnData = async (ctx) => {
 
 exports.getSearchData = async (ctx) => {
     var appLengthFlag = false;
-
     try {
-        console.log('-----------getFiltersAndApps-----------', ctx.request.body);
+       // console.log('-----------getFiltersAndApps-----------', ctx.request.body);
         let app_body = {
             searchTerm: "",
             pageNumber: 1,
@@ -128,21 +127,29 @@ exports.getSearchData = async (ctx) => {
         if (ctx.request.body.pageNum) {
             app_body.pageNumber = ctx.request.body.pageNum
         }
-
-        console.log(app_body)
         var appData = await get_apps(app_body, ctx.response.body.orchaToken)
-         appLengthFlag = !appLengthFlag ? appData.result.items.length ? true : false : appLengthFlag;
+       // console.log("appData : "+appData)
+        if(appData!="null")
+        {
+            appLengthFlag = !appLengthFlag ? appData.result.items.length ? true : false : appLengthFlag;
         
-        if (appLengthFlag) {
-            appData.result.pagingInfo = {
-              totalItems: appData.result.totalCount,
-              totalPages: Math.round(appData.result.totalCount / app_body.pageSize),
-              currentPage: parseInt(app_body.pageNumber),
-              itemsPerPage: app_body.pageSize
-            }
-          }
+            if (appLengthFlag) {
+                appData.result.pagingInfo = {
+                  totalItems: appData.result.totalCount,
+                  totalPages: Math.round(appData.result.totalCount / app_body.pageSize),
+                  currentPage: parseInt(app_body.pageNumber),
+                  itemsPerPage: app_body.pageSize
+                }
+              }
+        }
+        else
+        {
+
+        }
+
         ctx.res.ok({
-            data: appData
+            data: appData,
+           
         })
 
     } catch (e) {

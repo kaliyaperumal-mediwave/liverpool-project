@@ -113,36 +113,56 @@
 
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
                 {% raw %}
-                <div v-if="subCategoryList.length > 0"
+                <div
                     class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Category</label>
-                    <div class="select-customize-drop plain-select">
+                    <!-- <div class="select-customize-drop plain-select">
                         <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.subCategory" class=" selectpicker" @change="getSearchData(undefined)">
+                            v-model="filterObj.subCategory" class="selectpicker">
                             <option class='option-text' value="">Function Features
                             </option>
                             <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
                                 :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
                         </select>
+                    </div> -->
+
+                    <div class="select-customize-drop plain-select">
+                        <select id="category_list" v-model="filterObj.subCategory"
+                            class="custom-select form-control input-bg-form-control btn"
+                            @change="getSearchData($event)">
+                            <option class='option-text' value="">Category
+                            </option>
+                            <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
+                                :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
+                        </select>
                     </div>
+
                 </div>
                 {% endraw %}
 
                 {% raw %}
-                <div v-if = "countryList.length > 0" class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Country</label>
                     <span class="select-customize-drop plain-select">
-                        <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
+                        <!-- <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
                             v-model="filterObj.country" class=" selectpicker" @change="getSearchData(undefined)">
                             <option class='option-text' value="">Country of origin
                             <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
                                 :value="countryObj.id">{{countryObj.countryName}}</option>
-                        </select>
+                        </select> -->
+                        <select id="countrySelect" v-model="filterObj.country"
+                        class="custom-select form-control input-bg-form-control btn"
+                        @change="getSearchData($event)">
+                        <option class='option-text' value="">Country of origin
+                        </option>
+                        <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
+                            :value="countryObj.id">{{countryObj.countryName}}</option>
+                    </select>
                 </div>
                 {% endraw %}
 
                 {% raw %}
-                <div v-if = "capabilityList.length > 0"  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Capability</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
@@ -156,7 +176,7 @@
                 {% endraw %}
 
                 {% raw %}
-                <div v-if = "designedForList.length > 0"  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Designed for</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
@@ -172,7 +192,7 @@
 
 
                 {% raw %}
-                <div v-if = "costList.length > 0"  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Cost</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
@@ -214,7 +234,7 @@
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
             <div class="row justify-content-center justify-content-sm-start">
                 {% raw %}
-                <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
+                <div v-if = "filteredAppsList.length > 0" class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
                     v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
                     <a :href="'/orcha?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
                         <div class="w-100 position-relative">
@@ -253,6 +273,13 @@
                             </div>
                         </div>
                     </a>
+                </div>
+                <div  v-if = "filteredAppsList.length < 1" class="d-flex text-center py-md-3 py-2">
+                    <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+                        <div class="home-primary-content m-0 py-2 px-2 text-left">
+                            No record found.
+                        </div>
+                    </div>
                 </div>
                 {% endraw %}
             </div>
