@@ -4498,3 +4498,18 @@ div.collapse-container.collapsing {
 
 .f-16::first-letter {
   text-transform: capitalize; }
+
+.play-button {
+  font-weight: bold !important;
+  border-radius: 5px !important;
+  background: #3e6d1b !important; }
+  .play-button .btn-primary:disabled {
+    background-color: #9e202c82 !important; }
+
+.stop-button {
+  background: #c50719 !important;
+  font-weight: bold !important;
+  border-radius: 5px !important; }
+
+.active-border {
+  border: 1px solid #212529 !important; }

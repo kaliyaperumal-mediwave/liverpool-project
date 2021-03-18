@@ -7,7 +7,7 @@
 
 {% block main %}
 
-<div id="themePage">
+<div id="voiceOverPage">
 
     <!-- Loader start -->
     <div class="overlay" id="loader">
@@ -109,8 +109,9 @@
                         <span class="slider round"></span>
                     </label> -->
                     <div class="checkbox switcher">
-                        <label for="test">
-                            <input type="checkbox" @change="changeTheme($event)" id="test" value="" v-model="theme">
+                        <label for="switchVoice">
+                            <input type="checkbox" @change="setVoiceOver($event)" v-model="voiceOverData"
+                                id="switchVoice" value="">
                             <span><small></small></span>
                             <!-- <small>Light switch</small> -->
                         </label>
@@ -119,6 +120,25 @@
             </div>
         </div>
     </div>
+
+    <!--Change Voice over Succuss Modal Start -->
+    <div class="modal fade" id="voiceOverSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="themeSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 class="logout-font mt-3 text-center">Voice over turned on successfully</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Change Voice over Succuss Modal End -->
 
     {% include "../../shared-referal-module/views/searchReferral.html" %}
     {% include "../../shared-referal-module/views/company.html" %}
