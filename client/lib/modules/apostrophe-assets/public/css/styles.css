@@ -875,12 +875,22 @@ div.radio.switcher label {
   width: 300px;
   overflow: auto;
   display: flex; }
+  @media (min-width: 1200px) {
+    .index-scroller {
+      width: 520px; } }
 
 #paginationDiv::-webkit-scrollbar {
   width: 0px; }
 
 .selectedClass {
-  background-color: aquamarine !important; }
+  background-color: #ffc107 !important; }
+
+.imageOnOrcha {
+  width: 70px;
+  display: flex; }
+  @media (min-width: 1200px) and (max-width: 1499.98px) {
+    .imageOnOrcha {
+      width: 53px; } }
 
 /* Button Global classes */
 .btn {

@@ -37,7 +37,7 @@ $(document).ready(function () {
         mounted: function () {
             // $('#loader').hide();
             this.getFilterDataDropdown();
-            this.getSearchData(undefined);
+            this.getSearchData(undefined, undefined);
             var _self = this;
             $(".selectMultipleBE").change(function (e) {
                 _self.getSearchData(undefined);
@@ -78,7 +78,7 @@ $(document).ready(function () {
                     document.getElementById('paginationDiv').scrollLeft += 230;
                 }
             },
-            getSearchData: function (page) {
+            getSearchData: function (e, page) {
                 $('#loader').show();
                 let filter = {};
                 let selectedCapabilitiesList = [];
@@ -135,17 +135,27 @@ $(document).ready(function () {
                 }
 
                 //pagination
-                // var pagId= Number(this.paginationObj.currentPage) - 1;
-                // if(pagId>0)
-                // {
-                //     document.getElementById("pageIndex"+pagId).classList.add("selectedClass")
-                // }
-               // console.log(filter);
+                var pagId = Number(this.paginationObj.currentPage);
+                if (pagId > 0) {
+                    var paginationAllData = Array.from(document.getElementsByClassName('uniqueLinkSet'));
+                    var pageId = e.target.id;
+                    console.log(paginationAllData, pageId);
+                    paginationAllData.map(function (it) {
+                        if (it.id == pageId) {
+                            it.classList.add("selectedClass");
+                        } else {
+                            it.classList.remove("selectedClass");
+                        }
+                    })
+
+                    //  document.getElementById("pageIndex" + pagId).classList.add("selectedClass")
+                }
+                 console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 setTimeout(function () {
                     $('#loader').hide();
                 }, 1000);
-              
+
                 ///console.log(successData)
                 if (successData && Object.keys(successData) && successData.data != null) {
                     this.filteredAppsList = successData.data.result.items
@@ -158,6 +168,13 @@ $(document).ready(function () {
                     for (let i = 0; i < pagingInfo; i++) {
                         this.numberList.push(i)
                     }
+
+                    setTimeout(function () {
+                        if(pagId==0) {
+                            console.log(document.getElementById("pageIndex0"))
+                            document.getElementById("pageIndex0").classList.add("selectedClass")
+                        }
+                    }, 1000);
                 }
                 else {
                     this.filteredAppsList = [];
