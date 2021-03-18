@@ -71,20 +71,26 @@
   width: 300px;
   overflow: auto;
   display: flex;
-  @include xl-screen{
-      width: 520px;
+  @include xl-screen {
+    width: 520px;
   }
 }
 #paginationDiv::-webkit-scrollbar {
   width: 0px;
 }
-.selectedClass{
-    background-color: #ffc107 !important;
+.selectedClass {
+  background-color: #ffc107 !important;
 }
-.imageOnOrcha{
-    width: 70px;
-    display: flex;
-    @include lg-secondary{
-        width: 53px;
-    }
+.imageOnOrcha {
+  width: 70px;
+  display: flex;
+  @include lg-secondary {
+    width: 53px;
+  }
+}
+.imageTextOrcha {
+  width: calc(100% - 85px);
+  @include lg-secondary {
+    width: calc(100% - 55px);
+  }
 }
