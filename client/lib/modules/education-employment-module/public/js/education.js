@@ -12,7 +12,8 @@ $(document).ready(function () {
                 attendedInfo: '',
                 haveSocialWorker: '',
                 socialWorkName: '',
-                socialWorkContact: ''
+                socialWorkContact: '',
+                referral_progress: 60
             },
             yourAreIn: [{
                 id: 'c1035a21-07a4-407f-a8d0-dcc0e70c6e07',
@@ -300,6 +301,7 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data.child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data.child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
+                    Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
                 else if (this.userRole == "parent") {
                     if (data[0].parent[0].child_education_place) {
@@ -321,6 +323,7 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
+                    Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
                 else if (this.userRole == "professional") {
                     if (data[0].professional[0].child_education_place) {
@@ -341,6 +344,7 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
+                    Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
             },
 

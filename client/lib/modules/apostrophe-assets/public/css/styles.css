@@ -4625,3 +4625,18 @@ div.collapse-container.collapsing {
 .search-btn-set span {
   font-size: 16px !important;
   font-weight: bold !important; }
+
+.play-button {
+  font-weight: bold !important;
+  border-radius: 5px !important;
+  background: #3e6d1b !important; }
+  .play-button .btn-primary:disabled {
+    background-color: #9e202c82 !important; }
+
+.stop-button {
+  background: #c50719 !important;
+  font-weight: bold !important;
+  border-radius: 5px !important; }
+
+.active-border {
+  border: 1px solid #212529 !important; }
