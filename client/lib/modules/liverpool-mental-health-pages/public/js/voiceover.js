@@ -1,8 +1,10 @@
 $(document).ready(function () {
     var ssu = new SpeechSynthesisUtterance();
-    if (localStorage.getItem('voiceOver') == 'on') {
+    if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'on') {
         $('#c730ed34-ce14-4df1-8718-6346cd050c2b').show();
-    } else if (localStorage.getItem('voiceOver') == 'off') {
+    } else if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'off') {
+        $('#c730ed34-ce14-4df1-8718-6346cd050c2b').addClass('d-none');
+    } else {
         $('#c730ed34-ce14-4df1-8718-6346cd050c2b').addClass('d-none');
     }
     var title = $('#voiceOverTitle').text();

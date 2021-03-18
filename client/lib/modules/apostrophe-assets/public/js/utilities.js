@@ -304,6 +304,9 @@ function setLoaderStyle() {
     element[0].classList.add('body-bg');
     body.classList.add('net');
     body.classList.add('default');
+    if (!localStorage.getItem('voiceOver')) {
+        localStorage.setItem('voiceOver', 'off');
+    }
 }
 
 //common function to make first letter capital
@@ -405,17 +408,17 @@ $(document).ready(function () {
                 boundary: 'window'
             }
         );
-        if(document.getElementById('capabilitiesDropdown')) {
+        if (document.getElementById('capabilitiesDropdown')) {
             $('#capabilitiesDropdown').multiselect({
                 includeSelectAllOption: false,
             });
         }
-        if(document.getElementById('designedForDropdown')) {
+        if (document.getElementById('designedForDropdown')) {
             $('#designedForDropdown').multiselect({
                 includeSelectAllOption: false,
             });
         }
-        if(document.getElementById('costDropdown')) {
+        if (document.getElementById('costDropdown')) {
             $('#costDropdown').multiselect({
                 includeSelectAllOption: false,
             });
