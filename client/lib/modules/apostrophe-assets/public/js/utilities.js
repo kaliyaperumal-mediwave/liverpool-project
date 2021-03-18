@@ -420,6 +420,24 @@ $(document).ready(function () {
                 includeSelectAllOption: false,
             });
         }
+        // searchable dropdown for  orcha page
+        if(document.getElementById('category_list')) {
+            $('#category_list').multiselect({
+                includeSelectAllOption: false,
+                multiple: false,
+                enableFiltering: true ,
+                enableCaseInsensitiveFiltering: true
+            });
+        }
+
+        if(document.getElementById('countrySelect')) {
+            $('#countrySelect').multiselect({
+                includeSelectAllOption: false,
+                multiple: false,
+                enableFiltering: true ,
+                enableCaseInsensitiveFiltering: true
+            });
+        }
     })
 })
 

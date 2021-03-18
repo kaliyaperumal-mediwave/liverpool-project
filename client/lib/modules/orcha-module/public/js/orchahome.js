@@ -31,26 +31,22 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            //$('#loader').show();
+            $('#loader').show();
         },
 
         mounted: function () {
             // $('#loader').hide();
             this.getFilterDataDropdown();
-            this.getSearchData(undefined);
+            this.getSearchData();
             var _self = this;
             $(".selectMultipleBE").change(function (e) {
                 _self.getSearchData(undefined);
             });
 
-            // this.numberList = ["1","2","3"]
+            $('.selectpicker').change(function (e) {
+                _self.getSearchData();
+            });
 
-            // var categorySelect = document.getElementsByClassName('categoryS');
-            // var elem = categorySelect[0].children[0];
-
-            // $('#category_list').change(function (e) {
-            //     _self.getSearchData();
-            // });
         },
 
         methods: {
@@ -84,10 +80,14 @@ $(document).ready(function () {
                 let selectedCapabilitiesList = [];
                 let selectedDesignedForList = [];
                 let selectedCostList = [];
+                var selectedCountry = [];
+                var selectedCategory = [];
                 //mulit-select search with checkbox
                 var capabilityValue = $("#capabilitiesDropdown").val();
                 var designedForValue = $("#designedForDropdown").val();
                 var costValue = $("#costDropdown").val();
+                var countryValue=$("#countrySelect").val();
+                var categoryValue=$("#category_list").val();
 
                 if (capabilityValue != null) {
                     selectedCapabilitiesList.push(capabilityValue);
@@ -112,11 +112,22 @@ $(document).ready(function () {
                     filter.cost = selectedCostList[0];
                 }
                 //single search - searchable drop down.
-                if ($("#countrySelect").val()) {
-                    filter.countryOfOrigin = $("#countrySelect").val();
+
+                if (countryValue != null) {
+                    selectedCountry.push(countryValue);
                 }
+                if (selectedCountry && selectedCountry.length > 0) {
+                    filter.country = selectedCountry;
+                }
+                if (categoryValue != null) {
+                    selectedCategory.push(categoryValue);
+                }
+                if (selectedCategory && selectedCategory.length > 0) {
+                    filter.subCategory = selectedCategory;
+                }
+
                 if ($("#category_list").val()) {
-                    filter.categories = $("#category_list").val();
+                    filter.subCategory = $("#category_list").val();
                 }
                 if ($("#platformSelect").val()) {
                     filter.platform = $("#platformSelect").val();
@@ -138,15 +149,15 @@ $(document).ready(function () {
                 // var pagId= Number(this.paginationObj.currentPage) - 1;
                 // if(pagId>0)
                 // {
-                //     document.getElementById("pageIndex"+pagId).classList.add("selectedClass")
+                //     document.getElementById("pageIndex"+1).classList.add("selectedClass")
                 // }
-               // console.log(filter);
+                console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 setTimeout(function () {
                     $('#loader').hide();
                 }, 1000);
-              
-                ///console.log(successData)
+
+                console.log(successData)
                 if (successData && Object.keys(successData) && successData.data != null) {
                     this.filteredAppsList = successData.data.result.items
                     this.paginationObj.totalItems = successData.data.result.pagingInfo.totalItems;

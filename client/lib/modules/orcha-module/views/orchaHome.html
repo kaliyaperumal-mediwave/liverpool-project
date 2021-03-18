@@ -71,13 +71,13 @@
                         </span>
                     </div>
                 </span>
-                <input id="searchTxt" v-model="filterObj.searchTxt"
+                <input @keyup.enter="getSearchData(undefined)" id="searchTxt" v-model="filterObj.searchTxt"
                     class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                     placeholder="Search your apps" id="example-search-input" />
 
             </div>
-            <button @click="getSearchData(undefined)" type="button" class="search-btn-set btn "><span
-                    id="doSearchReferral" class="">Search
+            <button  @click="getSearchData(undefined)" type="button" class="search-btn-set btn "><span
+                    id="doSearch" class="">Search
                 </span></button>
         </div>
         {% endraw %}
@@ -100,16 +100,14 @@
                 <div
                     class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Category</label>
-                    <!-- <div class="select-customize-drop plain-select">
+                    <div class="select-customize-drop plain-select">
                         <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.subCategory" class="selectpicker">
-                            <option class='option-text' value="">Function Features
-                            </option>
+                            v-model="filterObj.subCategory" class="selectMultipleBE">
                             <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
                                 :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
                         </select>
-                    </div> -->
-
+                    </div>
+<!-- 
                     <div class="select-customize-drop plain-select">
                         <select id="category_list" v-model="filterObj.subCategory"
                             class="custom-select form-control input-bg-form-control btn"
@@ -119,7 +117,7 @@
                             <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
                                 :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
                         </select>
-                    </div>
+                    </div> -->
 
                 </div>
                 {% endraw %}
@@ -128,20 +126,19 @@
                 <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Country</label>
                     <span class="select-customize-drop plain-select">
-                        <!-- <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.country" class=" selectpicker" @change="getSearchData(undefined)">
-                            <option class='option-text' value="">Country of origin
+                        <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
+                            v-model="filterObj.country" class="selectMultipleBE" @change="getSearchData(undefined)">
                             <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
                                 :value="countryObj.id">{{countryObj.countryName}}</option>
-                        </select> -->
-                        <select id="countrySelect" v-model="filterObj.country"
+                        </select>
+                        <!-- <select id="countrySelect" v-model="filterObj.country"
                         class="custom-select form-control input-bg-form-control btn"
                         @change="getSearchData($event)">
                         <option class='option-text' value="">Country of origin
                         </option>
                         <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
                             :value="countryObj.id">{{countryObj.countryName}}</option>
-                    </select>
+                    </select> -->
                 </div>
                 {% endraw %}
 
@@ -292,9 +289,7 @@
             {% endraw %}
         </template>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+  
 </div>
 
 {% raw %}
