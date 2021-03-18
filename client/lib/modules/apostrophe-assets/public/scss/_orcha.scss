@@ -24,12 +24,12 @@
   text-align: start;
 }
 .select-customize-drop .filter-option {
-    width: 93%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: start;
-  }
+  width: 93%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
+}
 .select-customize-drop .btn-group {
   width: 100%;
 }
@@ -66,4 +66,15 @@
 .select-customize-drop .btn-group .show .dropdown-menu li:hover {
   background: #e9e9ea;
   cursor: pointer;
+}
+.index-scroller {
+  width: 300px;
+  overflow: auto;
+  display: flex;
+}
+#paginationDiv::-webkit-scrollbar {
+  width: 0px;
+}
+.selectedClass{
+    background-color: aquamarine !important;
 }

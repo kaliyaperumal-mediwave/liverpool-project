@@ -871,6 +871,17 @@ div.radio.switcher label {
   background: #e9e9ea;
   cursor: pointer; }
 
+.index-scroller {
+  width: 300px;
+  overflow: auto;
+  display: flex; }
+
+#paginationDiv::-webkit-scrollbar {
+  width: 0px; }
+
+.selectedClass {
+  background-color: aquamarine !important; }
+
 /* Button Global classes */
 .btn {
   box-shadow: 0px 3px 6px #00000029 !important;
@@ -4605,12 +4616,12 @@ div.collapse-container.collapsing {
   border-radius: 15px !important; }
 
 .search-btn-set {
-  margin: auto 7px auto auto !important;
-  width: 69px;
-  height: 31px;
+  margin: auto auto auto 10px !important;
+  width: 74px;
+  height: 41px;
   display: flex !important;
   align-items: center; }
 
 .search-btn-set span {
-  font-size: 14px !important;
+  font-size: 16px !important;
   font-weight: bold !important; }

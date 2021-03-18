@@ -62,7 +62,7 @@
 
     <div class="d-flex text-center py-md-3 py-2">
         {% raw %}
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto" id="searchBar">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
             <div class="input-group home-primary-content-bg">
                 <span class="input-group-prepend">
                     <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
@@ -74,10 +74,11 @@
                 <input id="searchTxt" v-model="filterObj.searchTxt"
                     class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                     placeholder="Search your apps" id="example-search-input" />
-                <button @click="getSearchData(undefined)" type="button" class="search-btn-set btn "><span id="doSearchReferral"
-                        class="">Search
-                    </span></button>
+
             </div>
+            <button @click="getSearchData(undefined)" type="button" class="search-btn-set btn "><span
+                    id="doSearchReferral" class="">Search
+                </span></button>
         </div>
         {% endraw %}
 
@@ -90,23 +91,6 @@
             </div>
         </div>
     </div>
-
-    <template>
-        {% raw %}
-        <div v-if="paginationObj.totalPages > 0" class="overflow-auto">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item" @click="getSearchData('prev')"><a class="page-link">Previous</a></li>
-                    <div v-for="(numObj, index) in numberList" :key="index" @click="getSearchData(index+1)">
-                        <li class="page-item"></li><a class="page-link">{{index+1}}</a></li>
-                    </div>
-                    <li class="page-item" @click="getSearchData('next')"><a class="page-link">Next</a></li>
-                </ul>
-            </nav>
-        </div>
-        {% endraw %}
-
-    </template>
 
     <div class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
@@ -205,7 +189,8 @@
                 {% endraw %}
 
                 {% raw %}
-                <div  v-if = "platformList.length > 0" class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div v-if="platformList.length > 0"
+                    class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Platform</label>
                     <div class="select-customize-drop plain-select">
                         <select id="platformSelect" v-model="filterObj.platform"
@@ -285,12 +270,31 @@
             </div>
         </div>
     </div>
-    <script type="application/javascript"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script type="application/javascript"
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script type="application/javascript"
-        src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto justify-content-center d-flex">
+        <template>
+            {% raw %}
+            <div v-if="paginationObj.totalPages > 0" class="overflow-auto">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item" @click="scrollXAndY('prev')"><a class="page-link">
+                                << </a>
+                        </li>
+                        <div id="paginationDiv" class="index-scroller">
+                            <div v-for="(numObj, index) in numberList" :key="index" @click="getSearchData(index+1)">
+                                <li class="page-item"></li><a :id="'pageIndex'+index" class="page-link">{{index+1}}</a>
+                                </li>
+                            </div>
+                        </div>
+                        <li class="page-item" @click="scrollXAndY('next')"><a class="page-link"> >> </a></li>
+                    </ul>
+                </nav>
+            </div>
+            {% endraw %}
+        </template>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 </div>
 
 {% raw %}
