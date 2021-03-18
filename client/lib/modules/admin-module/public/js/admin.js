@@ -1,5 +1,7 @@
 var API_URI = "/modules/admin-module";
 $(document).ready(function () {
+  $('#uniqueLogo').hide();
+  $('#footer-placement').hide()
   var vueApp = new Vue({
     el: '#admin',
     data: {

@@ -60,8 +60,8 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           </div>
           <div v-if="showSearchResults" class="search-wrap primary-search-radius">
             <div class="primary-search-radius card cursor-pointer card-set-container-bg">
-              <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                <a :href=" item.custom_url ? 'item.custom_url' : 'item._url' ">
+              <div v-for="item in filteredData" class="card-body px-2 px-md-4">
+                <a :href=" item.custom_url ? item.custom_url : item._url ">
                   <div class="d-flex align-items-center">
                     <!-- <img
                       src="/modules/my-apostrophe-assets/img/placeholder.svg"
