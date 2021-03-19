@@ -92,7 +92,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
                   referralRes.data.data[i].referral_provider,
-                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\")' class='btn-pdf'>Send</button></div>"
+                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf'>Send</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -187,9 +187,14 @@ function toArrayBuffer(buf) {
   return ab;
 }
 
-function openSendPopup(uuid, role, refCode) {
-  $('#sendProviderModal').modal('show');
-  document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+function openSendPopup(uuid, role, refCode, referral_provider) {
+  if(referral_provider) {
+    $('#referralAlreadySent').modal('show');
+    document.getElementById('sentMsg').innerHTML = "This referral already "  + referral_provider;
+  } else {
+    $('#sendProviderModal').modal('show');
+    document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+  }
 }
 
 function sendPdf(uuid, role, refCode) {
@@ -202,4 +207,9 @@ function sendPdf(uuid, role, refCode) {
   else {
     $('#sendProviderModal').modal('hide');
   }
+}
+
+function closeAlreadySentPopup()
+{
+  $('#referralAlreadySent').modal('hide');
 }
