@@ -40,7 +40,9 @@ $(document).ready(function () {
             this.getSearchData(undefined, undefined);
             var _self = this;
             $(".selectMultipleBE").change(function (e) {
+                debugger
                 _self.getSearchData(undefined);
+                $(".selectMultipleBE").removeClass('open')
             });
 
             $('.selectpicker').change(function (e) {
@@ -51,12 +53,8 @@ $(document).ready(function () {
 
         methods: {
             getFilterDataDropdown: function (appId) {
-                $('#loader').show();
                 var _self = this;
                 var successData = apiCallGet('get', '/getFilterData/', API_URI);
-                setTimeout(function () {
-                    $('#loader').hide();
-                }, 1000);
                 if (successData && Object.keys(successData)) {
                     _self.capabilityList = successData.data.capability_payload;
                     _self.designedForList = successData.data.designedFor_payload;
@@ -64,6 +62,8 @@ $(document).ready(function () {
                     _self.platformList = successData.data.platform_payload;
                     _self.costList = successData.data.cost_payload;
                     _self.countryList = successData.data.country_payload;
+                } else {
+                    $('#loader').hide();
                 }
             },
             scrollXAndY: function (page) {
@@ -74,8 +74,16 @@ $(document).ready(function () {
                     document.getElementById('paginationDiv').scrollLeft += 230;
                 }
             },
+            handleError: function (e) {
+                debugger
+                console.log(e.target);
+                e.target.src = "/modules/my-apostrophe-assets/img/errorImg.svg";
+                e.target.style.height = 50;
+                e.target.style.width = 50;
+            },
+
             getSearchData: function (e, page) {
-                $('#loader').show();
+               // $('#loader').show();
                 let filter = {};
                 let selectedCapabilitiesList = [];
                 let selectedDesignedForList = [];
@@ -147,10 +155,6 @@ $(document).ready(function () {
 
                 // //console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
-                setTimeout(function () {
-                    $('#loader').hide();
-                }, 1000);
-
                 //console.log(successData)
                 if (successData && Object.keys(successData) && successData.data != null) {
                     this.paginationObj.totalItems = "";
@@ -190,13 +194,14 @@ $(document).ready(function () {
                         if (pagId == 1 && e == undefined) {
                             document.getElementById("pageIndex0").classList.add("selectedClass")
                         }
-                    }, 1000);
+                        $('#loader').hide();
+                    }, 1500);
                 }
                 else {
                     this.filteredAppsList = [];
                 }
             },
-            reload: function() {
+            reload: function () {
                 window.location.reload();
             }
         }
