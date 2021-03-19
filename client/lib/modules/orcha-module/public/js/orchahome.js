@@ -86,8 +86,8 @@ $(document).ready(function () {
                 var capabilityValue = $("#capabilitiesDropdown").val();
                 var designedForValue = $("#designedForDropdown").val();
                 var costValue = $("#costDropdown").val();
-                var countryValue=$("#countrySelect").val();
-                var categoryValue=$("#category_list").val();
+                var countryValue = $("#countrySelect").val();
+                var categoryValue = $("#category_list").val();
 
                 if (capabilityValue != null) {
                     selectedCapabilitiesList.push(capabilityValue);
@@ -145,43 +145,49 @@ $(document).ready(function () {
                     filter.pageNum = page
                 }
 
-                //pagination
-                var pagId = Number(this.paginationObj.currentPage);
-                if (pagId > 0) {
-                    var paginationAllData = Array.from(document.getElementsByClassName('uniqueLinkSet'));
-                    var pageId = e.target.id;
-                    console.log(paginationAllData, pageId);
-                    paginationAllData.map(function (it) {
-                        if (it.id == pageId) {
-                            it.classList.add("selectedClass");
-                        } else {
-                            it.classList.remove("selectedClass");
-                        }
-                    })
-
-                    //  document.getElementById("pageIndex" + pagId).classList.add("selectedClass")
-                }
-                // console.log(filter);
+                // //console.log(filter);
                 var successData = apiCallPost('post', '/getSearchData/', filter);
                 setTimeout(function () {
                     $('#loader').hide();
                 }, 1000);
 
-                ///console.log(successData)
+                //console.log(successData)
                 if (successData && Object.keys(successData) && successData.data != null) {
+                    this.paginationObj.totalItems = "";
+                    this.paginationObj.totalPages = "";
+                    this.paginationObj.currentPage = "";
+                    this.paginationObj.itemsPerPage = "";
                     this.filteredAppsList = successData.data.result.items
-                    this.paginationObj.totalItems = successData.data.result.pagingInfo.totalItems;
-                    this.paginationObj.totalPages = successData.data.result.pagingInfo.totalPages;
-                    this.paginationObj.currentPage = successData.data.result.pagingInfo.currentPage;
-                    this.paginationObj.itemsPerPage = successData.data.result.pagingInfo.itemsPerPage;
-                    var pagingInfo = successData.data.result.pagingInfo.totalPages;
+                    if (successData.data.result.items.length > 0) {
+                        this.paginationObj.totalItems = successData.data.result.pagingInfo.totalItems;
+                        this.paginationObj.totalPages = successData.data.result.pagingInfo.totalPages;
+                        this.paginationObj.currentPage = successData.data.result.pagingInfo.currentPage;
+                        this.paginationObj.itemsPerPage = successData.data.result.pagingInfo.itemsPerPage;
+                        var pagingInfo = successData.data.result.pagingInfo.totalPages;
+                    }
+
                     this.numberList = [];
                     for (let i = 0; i < pagingInfo; i++) {
                         this.numberList.push(i)
                     }
-
+                    //pagination
+                    var pagId = Number(this.paginationObj.currentPage);
                     setTimeout(function () {
-                        if(pagId==0) {
+                        if (pagId > 0 && e != undefined) {
+                            var paginationAllData = Array.from(document.getElementsByClassName('uniqueLinkSet'));
+                            var pageId = e.target.id;
+                            //console.log(paginationAllData, pageId);
+                            paginationAllData.map(function (it) {
+                                if (it.id == pageId) {
+                                    it.classList.add("selectedClass");
+                                } else {
+                                    it.classList.remove("selectedClass");
+                                }
+                            })
+
+                            //  document.getElementById("pageIndex" + pagId).classList.add("selectedClass")
+                        }
+                        if (pagId == 1 && e == undefined) {
                             document.getElementById("pageIndex0").classList.add("selectedClass")
                         }
                     }, 1000);
@@ -189,6 +195,9 @@ $(document).ready(function () {
                 else {
                     this.filteredAppsList = [];
                 }
+            },
+            reload: function() {
+                window.location.reload();
             }
         }
     })

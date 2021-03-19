@@ -18,7 +18,7 @@
 {% endblock %}
 {% block main %}
 
-<div id="orchaHomePage" v-cloak>
+<div id="orchaHomePage">
     <!-- Loader start -->
     <div class="overlay" id="loader">
         <div class="overlay__inner">
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="d-flex text-center py-md-3 py-2">
+    <div v-cloak  class="d-flex text-center py-md-3 py-2">
         {% raw %}
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
             <div class="input-group home-primary-content-bg">
@@ -76,20 +76,20 @@
                         </span>
                     </div>
                 </span>
-                <input @keyup.enter="getSearchData(undefined)" id="searchTxt" v-model="filterObj.searchTxt"
+                <input @keyup.enter="getSearchData(undefined,undefined)" id="searchTxt" v-model="filterObj.searchTxt"
                     class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
                     placeholder="Search your apps" id="example-search-input" />
 
             </div>
-            <button  @click="getSearchData(undefined)" type="button" class="search-btn-set btn "><span
-                    id="doSearch" class="">Search
+            <button @click="getSearchData(undefined,undefined)" type="button" class="search-btn-set btn "><span id="doSearch"
+                    class="">Search
                 </span></button>
         </div>
         {% endraw %}
 
     </div>
 
-    <div class="d-flex text-center py-md-3 py-2">
+    <div v-cloak class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="home-primary-content m-0 py-2 px-2 text-left">
                 Here are apps for you based on your health and wellbeing information
@@ -97,13 +97,12 @@
         </div>
     </div>
 
-    <div class="d-flex text-center py-md-3 py-2">
+    <div v-cloak class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
 
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
                 {% raw %}
-                <div
-                    class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Category</label>
                     <div class="select-customize-drop plain-select">
                         <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
@@ -112,7 +111,7 @@
                                 :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
                         </select>
                     </div>
-<!-- 
+                    <!-- 
                     <div class="select-customize-drop plain-select">
                         <select id="category_list" v-model="filterObj.subCategory"
                             class="custom-select form-control input-bg-form-control btn"
@@ -132,7 +131,7 @@
                     <label style="font-weight: bold;" for="">Country</label>
                     <span class="select-customize-drop plain-select">
                         <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
-                            v-model="filterObj.country" class="selectMultipleBE" @change="getSearchData(undefined)">
+                            v-model="filterObj.country" class="selectMultipleBE">
                             <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
                                 :value="countryObj.id">{{countryObj.countryName}}</option>
                         </select>
@@ -148,7 +147,7 @@
                 {% endraw %}
 
                 {% raw %}
-                <div  class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <label style="font-weight: bold;" for="">Capability</label>
                     <div class="select-customize-drop plain-select">
                         <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
@@ -197,7 +196,7 @@
                     <div class="select-customize-drop plain-select">
                         <select id="platformSelect" v-model="filterObj.platform"
                             class="custom-select form-control input-bg-form-control btn"
-                            @change="getSearchData($event)">
+                            @change="getSearchData(undefined,undefined)">
                             <option class='option-text' value="">Platform
                             </option>
                             <option v-for="(platformObj, index) in platformList" :key="index" class='option-text'
@@ -207,21 +206,23 @@
                 </div>
                 {% endraw %}
             </div>
-            <!-- <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a>Hide Filters</a></u></p> -->
+            {% raw %}
+            <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a @click="reload()">Clear Filters</a></u></p>
+            {% endraw %}    
         </div>
     </div>
-    <div class="d-flex pt-2 pb-2">
+    <div v-cloak class="d-flex pt-2 pb-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto">
             <h3 class="authorization-font pt-3 pb-2 mb-0">Recommended for you</h3>
             <p class="option-font">Our system has picked these app for you based on your health and wellbeing</p>
         </div>
     </div>
 
-    <div class="d-flex text-center py-md-2 py-0">
+    <div v-cloak class="d-flex text-center py-md-2 py-0">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
             <div class="row justify-content-center justify-content-sm-start">
                 {% raw %}
-                <div v-if = "filteredAppsList.length > 0" class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
+                <div v-if="filteredAppsList.length > 0" class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
                     v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
                     <a :href="'/orcha?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
                         <div class="w-100 position-relative">
@@ -230,7 +231,8 @@
                                     <div class="inside-cover-only-brand" style="height: 100px;">
                                         <div class="row p-0 m-0">
                                             <div class="p-0 m-0">
-                                                <img :src="filteredAppsObj.thumbnail" class="imageOnOrcha border-radius-10" />
+                                                <img :src="filteredAppsObj.thumbnail"
+                                                    class="imageOnOrcha border-radius-10" />
                                             </div>
                                             <div class="pl-3 m-0 d-flex pl-0 py-0 pr-0 imageTextOrcha">
                                                 <div class="questionText ellipse-text-large-card">
@@ -261,7 +263,7 @@
                         </div>
                     </a>
                 </div>
-                <div  v-if = "filteredAppsList.length < 1" class="d-flex text-center py-md-3 py-2">
+                <div v-if="filteredAppsList.length < 1" class="d-flex text-center py-md-3 py-2">
                     <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
                         <div class="home-primary-content m-0 py-2 px-2 text-left">
                             No record found.
@@ -272,7 +274,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto justify-content-center d-flex mt-4">
+    <div v-cloak class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto justify-content-center d-flex mt-4">
         <template>
             {% raw %}
             <div v-if="paginationObj.totalPages > 0" class="overflow-auto">
@@ -282,8 +284,10 @@
                                 << </a>
                         </li>
                         <div id="paginationDiv" class="index-scroller">
-                            <div v-for="(numObj, index) in numberList" :key="index" @click="getSearchData($event,index+1)">
-                                <li class="page-item"></li><a :id="'pageIndex'+index" class="page-link uniqueLinkSet">{{index+1}}</a>
+                            <div v-for="(numObj, index) in numberList" :key="index"
+                                @click="getSearchData($event,index+1)">
+                                <li class="page-item"></li><a :id="'pageIndex'+index"
+                                    class="page-link uniqueLinkSet">{{index+1}}</a>
                                 </li>
                             </div>
                         </div>
@@ -294,9 +298,8 @@
             {% endraw %}
         </template>
     </div>
-  
-</div>
 
+</div>
 {% raw %}
 
 {% endblock %}
