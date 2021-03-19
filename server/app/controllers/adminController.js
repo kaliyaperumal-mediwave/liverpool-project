@@ -77,17 +77,14 @@ exports.getReferral = ctx => {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
-                    if(refObj.referral_provider==null)
-                    {
+                    if(refObj.referral_provider==null) {
                         refObj.referral_provider = "Pending"
-                    }
-                    else
-                    {
+                    } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.name,
+                        name: refObj.name + refObj.lastname,
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name + refObj.referrer_lastname,
@@ -124,12 +121,9 @@ exports.getReferral = ctx => {
                 // without search
             } else {
                 _.forEach(referrals, function (refObj, index) {
-                    if(refObj.referral_provider==null)
-                    {
+                    if(refObj.referral_provider==null) {
                         refObj.referral_provider = "Pending"
-                    }
-                    else
-                    {
+                    } else {
                         refObj.referral_provider = refObj.referral_provider
                     }
                     var referralObj = {
@@ -176,7 +170,7 @@ exports.getReferral = ctx => {
                 })
             );
         } catch (error) {
-            //console.log()(error);
+            console.log()(error);
             reject(
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             );
