@@ -1087,6 +1087,8 @@ div.radio.switcher label {
 
 body {
   font-family: "century-gothic" !important; }
+  body .multiselect {
+    font-family: "century-gothic" !important; }
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
