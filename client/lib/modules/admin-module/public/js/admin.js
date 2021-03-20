@@ -107,7 +107,7 @@ $(document).ready(function () {
         if (checked) {
           this.referral_ids.push(id);
         } else {
-          this.referral_ids.splice(this.referral_ids.findIndex(uuid => uuid == id), 1);
+          this.referral_ids.pop(id);
         }
       },
 
