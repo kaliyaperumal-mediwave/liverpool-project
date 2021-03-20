@@ -201,50 +201,24 @@
                         </div>
                     </div>
                     <div id="collapseGallery" class="collapse" aria-labelledby="headingGallery">
-                        <!-- <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf" aria-live="polite">
-                            <div v-for="screenshot in appObj.screenshots" class="w-100">
-                                <div class="bg-white card-container-small">
-                                    <div class="container-top-set">
-                                        <div class="inside-cover-set">
-                                            <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="d-flex text-center py-md-2 py-0">
+                        <p v-if="appObj.screenshots.length == 0">No image found</p>
+                        <div v-if="appObj.screenshots.length != 0" class="d-flex text-center py-md-2 py-0">
                             <div class=" mx-auto w-100 d-flex overflow-auto">
                                
-                                        <a  v-for="screenshot in appObj.screenshots"  class="swiper-slide custom-slider-orcha text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
-                                            data-swiper-slide-index="0" role="group" aria-label="1 / 6">
-                                            <div class="questionText">
-                                                <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
-                                            </div>
-                                        </a>
-                                    <!-- <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
-                                        aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
-                                    <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button"
-                                        aria-label="Previous slide" aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
-                                    <div class="swiper-scrollbar"></div>
-                                    <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span> -->
-                            </div>
-                        </div>
-                        <!-- <div class="orcha-rec-slide orcha-popup"> 
-                            <div id="slider" class="swiper-container view-app-slider"> 
-                            <div class="swiper-wrapper"> 
-                                <div v-for="screenshot in appObj.screenshots" class="swiper-slide view-slider">
-                                    <div class="card-body ">
-                                        <img class="width-slide" :src="screenshot">
+                                <a  v-for="screenshot in appObj.screenshots"  class="swiper-slide custom-slider-orcha text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
+                                    data-swiper-slide-index="0" role="group" aria-label="1 / 6">
+                                    <div class="questionText">
+                                        <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
                                     </div>
-                                </div> 
+                                </a>
+                                <!-- <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
+                                    aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                                <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button"
+                                    aria-label="Previous slide" aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                                <div class="swiper-scrollbar"></div>
+                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span> -->
                             </div>
-                            <div class="swiper-pagination grye-bull"></div>
                         </div>
-                        <div class="swiper-button-prev orcha app-pre"></div>
-                        <div class="swiper-button-next orcha app-next"></div>
-                        <div class="swiper-scrollbar" style="opacity: 0; transition-duration: 400ms;">
-                            <div class="swiper-scrollbar-drag" style="transform: translate3d(0px, 0px, 0px); transition-duration: 0ms; width: 0px;"></div>
-                        </div> -->
                     </div>
                 </div>
                 <hr class="dropdown-divider my-3" />
