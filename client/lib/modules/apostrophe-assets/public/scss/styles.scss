@@ -21,6 +21,10 @@
 body {
   font-family: "century-gothic" !important;
 
+  .multiselect {
+    font-family: "century-gothic" !important;
+  }
+  
   input::-ms-clear,
   input::-ms-reveal {
     display: none;
