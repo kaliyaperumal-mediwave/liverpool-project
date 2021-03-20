@@ -73,7 +73,7 @@ $(document).ready(function () {
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
-              //console.log()(referralRes);
+           //   console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -188,7 +188,8 @@ function toArrayBuffer(buf) {
 }
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
-  if(referral_provider) {
+  console.log(referral_provider)
+  if(referral_provider!="Pending") {
     $('#referralAlreadySent').modal('show');
     document.getElementById('sentMsg').innerHTML = "This referral already "  + referral_provider;
   } else {

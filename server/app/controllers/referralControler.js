@@ -4,6 +4,7 @@ const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
 const email = require('../utils/email');
 const Op = require('sequelize').Op;
+const adminCtrl = require('./adminController');
 exports.eligibility = ctx => {
   console.log(ctx.request.body)
   const user = ctx.orm().Referral;
@@ -1246,34 +1247,34 @@ exports.profession = ctx => {
       //       { id: result.id }
       //   }
       // ).then((updateResult) => {
-        return user.update(
-          {
-            child_profession: ctx.request.body.educAndEmpData.position,
-            child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
-            child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
-            child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
+      return user.update(
+        {
+          child_profession: ctx.request.body.educAndEmpData.position,
+          child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
+          child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
+          child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
 
-            child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
-            child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
-            child_socialworker_lastname: ctx.request.body.educAndEmpData.socialWorkLastName,
-            child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
-            referral_progress: ctx.request.body.educAndEmpData.referral_progress
-          },
-          {
-            where:
-              { id: result.id }
-          }
-        ).then((result) => {
+          child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
+          child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
+          child_socialworker_lastname: ctx.request.body.educAndEmpData.socialWorkLastName,
+          child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
+          referral_progress: ctx.request.body.educAndEmpData.referral_progress
+        },
+        {
+          where:
+            { id: result.id }
+        }
+      ).then((result) => {
 
-          const responseData = {
-            userid: ctx.request.body.userid,
-            status: "ok",
-            role: ctx.request.body.role
-          }
-          return ctx.body = responseData;
-        }).catch((error) => {
-          sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
       // })
       //   .catch((error) => {
       //     sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -2249,14 +2250,18 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
+  var provider;
   console.log('\nSave Review Payload == ', ctx.request.body);
+  if (ctx.request.body.referral_provider) {
+    provider = "Sent to " + ctx.request.body.referral_provider
+  }
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({
       referral_progress: 100,
       referral_complete_status: "completed",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
-      referral_provider: "Sent to " + ctx.request.body.referral_provider
+      //referral_provider: provider
     },
       {
         where:
@@ -2271,7 +2276,35 @@ exports.saveReview = ctx => {
           role: ctx.request.body.role,
           refNo: uniqueNo
         }
-        return ctx.body = responseData;
+
+        if(ctx.request.body.referral_provider !="" && ctx.request.body.role=='professional')
+        {
+          ctx.query.selectedProvider = ctx.request.body.referral_provider;
+          ctx.query.refCode = uniqueNo;
+          ctx.query.refID = ctx.request.body.userid;
+          ctx.query.refRole = "Professional";
+          return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+            return user.update({
+              referral_provider: "Sent to " + ctx.query.selectedProvider
+            },
+              {
+                where:
+                  { uuid: ctx.request.body.userid }
+              }
+            ).then((result) => {
+              return ctx.body = responseData;
+            }).catch(error => {
+              //console.log()(error);
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }
+        else
+        {
+          return ctx.body = responseData;
+        }
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
@@ -2297,14 +2330,14 @@ const genetrateUniqueCode = (ctx) => new Promise(async (resolve, reject) => {
         reference_code: uniqueNo,
       },
     });
-    if(user_response) {
+    if (user_response) {
       uniqueNo = uniqid().toUpperCase();
       console.log('\n2. Reference Code - ', uniqueNo);
       uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
       console.log(uniqueNo);
     }
     resolve(uniqueNo);
-  } catch(error) {
+  } catch (error) {
     reject(error);
   }
 });

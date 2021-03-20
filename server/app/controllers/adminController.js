@@ -377,10 +377,14 @@ exports.downloadReferral = async ctx => {
 }
 
 exports.sendReferral = async ctx => {
+    console.log("ctx.request.body.referralData");
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
+    //console.log("referralData",ctx.request.body.referralData);
+    //console.log("emailToProvider" ,ctx.request.body.emailToProvider);
+    //console.log("refCode",ctx.request.body.refCode);
     try {
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //console.log()(sendReferralStatus)
@@ -411,8 +415,8 @@ exports.sendReferral = async ctx => {
 }
 
 function getRefData(refID, refRole, ctx) {
-    //console.log()(refID)
-    //console.log()(refRole)
+    console.log("refID", refID)
+    console.log("refRole",refRole)
     const user = ctx.orm().Referral;
     const referral = ctx.orm().Reason
     if (refRole == "Child") {
