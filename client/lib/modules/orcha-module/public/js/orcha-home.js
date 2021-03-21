@@ -1,10 +1,10 @@
 var API_URI = "/modules/orcha-module";
 $(document).ready(function () {
-
     var app = new Vue({
         el: '#orchaNewHomePage',
         components: {
-            Multiselect: window.VueMultiselect.default
+            Multiselect: window.VueMultiselect.default,
+            paginate: VuejsPaginate
         },
         data: {
             categoryValue: null,
@@ -19,7 +19,19 @@ $(document).ready(function () {
             capabilityList: [],
             designedForList: [],
             costList: [],
-            platformList: []
+            platformList: [],
+            filteredAppsList: [],
+            payloadData: {
+                subCategory: '',
+                country: [],
+                capabilities: [],
+                designedFor: [],
+                cost: [],
+                platform: ''
+            },
+            currentPage: 0,
+            perPage: 10,
+            totalItems: 50
         },
 
         beforeMount: function () {
@@ -46,15 +58,80 @@ $(document).ready(function () {
                 }
             },
 
-            selectOptions: function (e) {
+            selectOptions: function (e, type) {
+                console.log(e);
+                if (type == 'category') {
+                    this.payloadData.subCategory = e.id;
+                }
+                if (type == 'country') {
+                    this.payloadData.country = [e.id];
+                }
+                if (type == 'capability') {
+                    this.payloadData.capabilities.push(e.id);
+                }
+                if (type == 'designedFor') {
+                    this.payloadData.designedFor.push(e.id);
+                }
+                if (type == 'cost') {
+                    this.payloadData.cost.push(e.id);
+                }
+                if (type == 'platform') {
+                    this.payloadData.platform = e.id;
+                }
+                console.log('capabilities', this.payloadData)
+            },
+
+            getOrchaAppsData: function (payload) {
+                var successData = apiCallPost('post', '/getSearchData/', payload);
+                console.log(successData);
+                this.filteredAppsList = successData.data.result.items
+            },
+
+            removeOptions: function (option, type) {
                 debugger
+                console.log("Removed", option);
+                if (type == 'category') {
+                    this.payloadData.subCategory = '';
+                }
+                if (type == 'country') {
+                    this.payloadData.country = [];
+                }
+                if (type == 'capability') {
+                    if (this.payloadData.capabilities.indexOf(option.id) != 1) {
+                        var index = this.payloadData.capabilities.indexOf(option.id);
+                        this.payloadData.capabilities.splice(index, 1);
+                    }
+                }
+                if (type == 'designedFor') {
+                    if (this.payloadData.designedFor.indexOf(option.id) != 1) {
+                        var index = this.payloadData.designedFor.indexOf(option.id);
+                        this.payloadData.designedFor.splice(index, 1);
+                    }
+                }
+                if (type == 'cost') {
+                    if (this.payloadData.cost.indexOf(option.id) != 1) {
+                        var index = this.payloadData.cost.indexOf(option.id);
+                        this.payloadData.cost.splice(index, 1);
+                    }
+                }
+                if (type == 'platform') {
+                    this.payloadData.platform = '';
+                }
+
+                console.log(this.payloadData);
+
+            },
+
+            prev: function (e) {
                 console.log(e);
             },
 
-            removeOptions: function (option) {
-                debugger
-                console.log("Removed", option);
+            next: function (e) {
+                console.log(e);
+            },
 
+            clickCallback: function (e) {
+                console.log(e);
             }
         }
     })

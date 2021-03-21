@@ -1089,6 +1089,10 @@ body {
   font-family: "century-gothic" !important; }
   body .multiselect {
     font-family: "century-gothic" !important; }
+  body .pagination {
+    font-family: "century-gothic" !important; }
+  body .b-pagination {
+    font-family: "century-gothic" !important; }
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
