@@ -4,9 +4,10 @@ $(document).ready(function () {
         el: '#orchaNewHomePage',
         components: {
             Multiselect: window.VueMultiselect.default,
-            paginate: VuejsPaginate
+            //paginate: VuejsPaginate
         },
         data: {
+            searchText: '',
             categoryValue: null,
             countryValue: null,
             capabilityValue: null,
@@ -29,17 +30,20 @@ $(document).ready(function () {
                 cost: [],
                 platform: ''
             },
-            currentPage: 0,
-            perPage: 10,
-            totalItems: 50
+            paginationData: {
+                currentPage: null,
+                perPage: null,
+                totalItems: null
+            }
+
         },
 
         beforeMount: function () {
-            $('#loader').show();
+            $('#orchaLoader').show();
         },
         mounted: function () {
             this.getAllDataForDropdown();
-            $('#loader').hide();
+            $('#orchaLoader').hide();
         },
 
         methods: {
@@ -53,12 +57,16 @@ $(document).ready(function () {
                     this.designedForList = successData.data.designedFor_payload;
                     this.costList = successData.data.cost_payload;
                     this.platformList = successData.data.platform_payload;
+                    var emptyPayload = {};
+                    this.getOrchaAppsData(emptyPayload);
+
                 } else {
-                    $('#loader').hide();
+                    $('#orchaLoader').hide();
                 }
             },
 
             selectOptions: function (e, type) {
+                $('#orchaLoader').show();
                 console.log(e);
                 if (type == 'category') {
                     this.payloadData.subCategory = e.id;
@@ -78,18 +86,39 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = e.id;
                 }
-                console.log('capabilities', this.payloadData)
+                console.log('capabilities', this.payloadData);
+                this.getOrchaAppsData(this.payloadData)
             },
 
             getOrchaAppsData: function (payload) {
                 var successData = apiCallPost('post', '/getSearchData/', payload);
-                console.log(successData);
-                this.filteredAppsList = successData.data.result.items
+                if (successData && Object.keys(successData)) {
+                    console.log(successData);
+                    if (successData.data.result.items.length) {
+                        this.filteredAppsList = successData.data.result.items;
+                    } else {
+                        this.filteredAppsList = [];
+                    }
+                    if (successData.data.result.pagingInfo) {
+                        this.paginationData.currentPage = successData.data.result.pagingInfo.currentPage;
+                        this.paginationData.perPage = successData.data.result.pagingInfo.itemsPerPage;
+                        this.paginationData.totalItems = successData.data.result.pagingInfo.totalItems;
+                    } else {
+                        this.paginationData.currentPage = null;
+                        this.paginationData.perPage = null;
+                        this.paginationData.totalItems = null;
+                    }
+
+                    $('#orchaLoader').hide();
+
+                } else {
+                    $('#orchaLoader').hide();
+                }
+
             },
 
             removeOptions: function (option, type) {
-                debugger
-                console.log("Removed", option);
+                $('#orchaLoader').show();
                 if (type == 'category') {
                     this.payloadData.subCategory = '';
                 }
@@ -119,20 +148,32 @@ $(document).ready(function () {
                 }
 
                 console.log(this.payloadData);
+                this.getOrchaAppsData(this.payloadData)
 
             },
 
-            prev: function (e) {
-                console.log(e);
+            handleError: function (e) {
+                console.log(e.target);
+                e.target.src = "/modules/my-apostrophe-assets/img/noimg.svg";
+                e.target.style.height = 50;
+                e.target.style.width = 50;
             },
 
-            next: function (e) {
-                console.log(e);
+            searchOrchPage: function () {
+                $('#orchaLoader').show();
+                var searchPayload = {
+                    keyword: this.searchText
+                }
+                this.getOrchaAppsData(searchPayload)
             },
 
-            clickCallback: function (e) {
-                console.log(e);
-            }
+            updatePage: function (page) {
+                $('#orchaLoader').show();
+                var pagePayload = {
+                    pageNum: page
+                }
+                this.getOrchaAppsData(pagePayload)
+            },
         }
     })
 });

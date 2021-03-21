@@ -13,13 +13,14 @@
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
 <!-- CDN for search select and Multiselect checkbox End-->
 
+<!-- CDN for Pagination Start-->
 <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
 <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+<!-- CDN for Pagination Start -->
 
 
 <!-- CDN for Pagination Start-->
-<!-- <script src="https://unpkg.com/vuejs-paginate@latest"></script> -->
-<script src="https://unpkg.com/vuejs-paginate@0.9.0"></script>
+<!-- <script src="https://unpkg.com/vuejs-paginate@0.9.0"></script> -->
 <!-- CDN for Pagination Start -->
 
 
@@ -28,7 +29,7 @@
 
 <div id="orchaNewHomePage">
     <!-- Loader start -->
-    <div class="overlay" id="loader">
+    <div class="overlay" id="orchaLoader">
         <div class="overlay__inner">
             <div class="overlay__content">
                 <div class="lds-spinner">
@@ -71,11 +72,10 @@
                         </span>
                     </div>
                 </span>
-                <input id="searchTxt" class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                <input id="searchTxt" v-model="searchText" class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text"
                     placeholder="Search your apps" id="example-search-input" />
-
             </div>
-            <button type="button" class="search-btn-set btn "><span id="doSearch" class="">Search
+            <button type="button" class="search-btn-set btn" @click="searchOrchPage()"><span id="doSearch" class="">Search
                 </span></button>
         </div>
         {% endraw %}
@@ -182,11 +182,11 @@
         </div>
     </div>
 
-    <!-- <div v-cloak class="d-flex text-center py-md-2 py-0">
+    <div v-cloak v-if="filteredAppsList.length > 0" class="d-flex text-center py-md-2 py-0">
+        {% raw %}
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
             <div class="row justify-content-center justify-content-sm-start">
-                {% raw %}
-                <div v-if="filteredAppsList.length > 0" class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
+                <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
                     v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
                     <a :href="'/orcha?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
                         <div class="w-100 position-relative">
@@ -233,53 +233,35 @@
                         </div>
                     </a>
                 </div>
-                <div v-if="filteredAppsList.length < 1" class="d-flex text-center py-md-3 py-2">
-                    <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
-                        <div class="home-primary-content m-0 py-2 px-2 text-left">
-                            No record found.
-                        </div>
-                    </div>
-                </div>
-                {% endraw %}
             </div>
         </div>
-    </div> -->
+        {% endraw %}
+    </div>
 
-    <!-- <div v-cloak class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto justify-content-center d-flex mt-4">
-        <template>
-            {% raw %}
-            <div v-if="paginationObj.totalPages > 0" class="overflow-auto">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item" @click="scrollXAndY('prev')"><a class="page-link">
-                                << </a>
-                        </li>
-                        <div id="paginationDiv" class="index-scroller">
-                            <div v-for="(numObj, index) in numberList" :key="index"
-                                @click="getSearchData($event,index+1)">
-                                <li class="page-item"></li><a :id="'pageIndex'+index"
-                                    class="page-link uniqueLinkSet">{{index+1}}</a>
-                                </li>
-                            </div>
-                        </div>
-                        <li class="page-item" @click="scrollXAndY('next')"><a class="page-link"> >> </a></li>
-                    </ul>
-                </nav>
-            </div>
-            {% endraw %}
-        </template>
-    </div> -->
-
-    <!-- <paginate :page-count="20" :click-handler="clickCallback" :container-class="'pagination'">
-    </paginate> -->
-    <div v-cloak class="d-flex pt-2 pb-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto">
-            <div class="row w-100 mx-auto">
-                <b-pagination :total-rows="totalItems" v-model="currentPage" :per-page="perPage" first-text="First"
-                    prev-text="Prev" next-text="Next" last-text="Last"></b-pagination>
+    {% raw %}
+    <div v-if="!filteredAppsList.length" class="d-flex text-center py-2" v-cloak>
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 mx-auto px-2 px-md-0">
+            <div class="search-wrap primary-search-radius">
+                <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                    <p class="home-header-secondary py-3 pl-4">
+                        No results found
+                    </p>
+                </div>
             </div>
         </div>
     </div>
+    {% endraw %}
+
+    <!-- <paginate :page-count="20" :click-handler="clickCallback" :container-class="'pagination'">
+    </paginate> -->
+
+    {% raw %}
+    <div v-if="filteredAppsList.length" class="mt-4 mb-0">
+        <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
+            :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
+            @change="updatePage(paginationData.currentPage)"></b-pagination>
+    </div>
+    {% endraw %}
 
 </div>
 {% raw %}

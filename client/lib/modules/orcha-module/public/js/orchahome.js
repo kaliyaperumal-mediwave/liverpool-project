@@ -40,7 +40,6 @@ $(document).ready(function () {
             this.getSearchData(undefined, undefined);
             var _self = this;
             $(".selectMultipleBE").change(function (e) {
-                debugger
                 _self.getSearchData(undefined);
                 $(".selectMultipleBE").removeClass('open')
             });
@@ -75,7 +74,6 @@ $(document).ready(function () {
                 }
             },
             handleError: function (e) {
-                debugger
                 console.log(e.target);
                 e.target.src = "/modules/my-apostrophe-assets/img/errorImg.svg";
                 e.target.style.height = 50;
