@@ -175,7 +175,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         {
             toAddress = config.iaptus_email
         }
-        else if (ctx.request.body.emailToProvider == "Other")
+        else
         {
             toAddress = config.other_email
         }
