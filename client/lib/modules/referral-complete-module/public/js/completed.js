@@ -23,7 +23,6 @@ $(document).ready(function () {
             showVisibilityConfirmPassword: false,
             sendObj: {},
             showSignUpForm: true,
-            isEmailRequired: false,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/,
         },
@@ -49,13 +48,11 @@ $(document).ready(function () {
                         Vue.set(this.refSignUpData, "email", successData[0][this.refSignUpData.role + '_email']);
                         Vue.set(this.refSignUpData, "first_name", successData[0][this.refSignUpData.role + '_firstname']);
                         Vue.set(this.refSignUpData, "last_name", successData[0][this.refSignUpData.role + '_lastname']);
-                        if (successData[0][this.refSignUpData.role + '_email']) {
-                            document.getElementById('refEmail').setAttribute('readonly', true);
-                            this.isEmailRequired = true;
-                        } else {
-                            document.getElementById('refEmail').removeAttribute('readonly');
-                            this.isEmailRequired = false;
-                        }
+                        // if (successData[0][this.refSignUpData.role + '_email']) {
+                        //     this.isEmailRequired = true;
+                        // } else {
+                        //     this.isEmailRequired = false;
+                        // }
                         $('#loader').hide();
                     } else {
                         $('#loader').hide();
@@ -86,7 +83,6 @@ $(document).ready(function () {
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
                         console.log("logi flag ", _self.loginFlag)
-                        // _self.sendMail(_self.sendObj);
                         _self.getSignUpData();
                         $('#loader').hide();
                     },
@@ -101,7 +97,7 @@ $(document).ready(function () {
             noLoginSignUp: function () {
                 let formData = this.refSignUpData;
                 this.isFormSubmitted = true;
-                if ((!this.isEmailRequired || (this.isEmailRequired && formData.email && this.emailRegex.test(formData.email))) && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && (formData.password === formData.confirm_password)) {
+                if ((formData.email && this.emailRegex.test(formData.email)) && formData.password && this.passwordRegex.test(formData.password) && formData.confirm_password && this.passwordRegex.test(formData.confirm_password) && (formData.password === formData.confirm_password)) {
                     $('#loader').show();
                     formData.reference_code = this.reference_code;
                     var successData = apiCallPost('post', '/doCreateAcc', formData);

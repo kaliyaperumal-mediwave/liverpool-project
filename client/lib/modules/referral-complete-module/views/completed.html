@@ -65,6 +65,10 @@
                             v-bind:class="{ 'd-block': (isFormSubmitted && !refSignUpData.email),'invalid-fields':!refSignUpData.email }">
                             You must provide an email.
                         </div>
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && refSignUpData.email && !emailRegex.test(refSignUpData.email)),'invalid-fields':(refSignUpData.email && !emailRegex.test(refSignUpData.email)) }">
+                            You must provide a valid email.
+                        </div>
                     </div>
 
                     <div class="readOnly-class form-group py-2 m-0">
