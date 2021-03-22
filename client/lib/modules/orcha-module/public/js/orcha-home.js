@@ -82,7 +82,7 @@ $(document).ready(function () {
 
             selectOptions: function (e, type) {
                 $('#orchaLoader').show();
-                console.log(e);
+                //console.log(e);
                 if (type == 'category') {
                     this.payloadData.subCategory = e.id;
                 }
@@ -101,14 +101,15 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = e.id;
                 }
-                console.log('capabilities', this.payloadData);
+               // this.payloadData.pageNum = undefined;
                 this.getOrchaAppsData(this.payloadData)
             },
 
             getOrchaAppsData: function (payload) {
+                console.log(payload)
                 var successData = apiCallPost('post', '/getSearchData/', payload);
                 if (successData && Object.keys(successData)) {
-                    console.log(successData);
+                    console.log(successData.data.result)
                     if (successData.data.result.items.length) {
                         this.filteredAppsList = successData.data.result.items;
                     } else {
@@ -191,12 +192,20 @@ $(document).ready(function () {
 
             updatePage: function (page) {
                 $('#orchaLoader').show();
+               
                 var pagePayload = {
-                    pageNum: page
+                    pageNum: page,
+                    // subCategory: this.payloadData.subCategory,
+                    // country:this.payloadData.country,
+                    // capabilities:this.payloadData.capabilities,
+                    // designedFor:this.payloadData.designedFor,
+                    // cost:this.payloadData.cost,
+                    // platform:this.payloadData.platform
                 }
+                this.payloadData.pageNum = page
                 //this.payloadData.pageNum = page;
-                //this.getOrchaAppsData(this.payloadData);
-                this.getOrchaAppsData(pagePayload);
+                this.getOrchaAppsData(this.payloadData);
+               // this.getOrchaAppsData(payloadData);
             },
         }
     })
