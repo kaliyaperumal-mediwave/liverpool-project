@@ -175,11 +175,18 @@ $(document).ready(function () {
             },
 
             searchOrchPage: function () {
-                $('#orchaLoader').show();
-                var searchPayload = {
-                    keyword: this.searchText
+                if (this.searchText) {
+                    $('#orchaLoader').show();
+                    var searchPayload = {
+                        keyword: this.searchText
+                    }
+                    this.getOrchaAppsData(searchPayload);
+                } else {
+                    document.getElementById("searchTxt").focus();
+                    document.getElementById("searchTxt").select();
+
                 }
-                this.getOrchaAppsData(searchPayload)
+
             },
 
             updatePage: function (page) {
