@@ -73,7 +73,7 @@ $(document).ready(function () {
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
-           //   console.log(referralRes);
+              //   console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -163,7 +163,6 @@ $(document).ready(function () {
 });
 
 function viewPdf(uuid, role) {
-  debugger
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
@@ -180,7 +179,6 @@ function viewPdf(uuid, role) {
 }
 
 function toArrayBuffer(buf) {
-  debugger
   var ab = new ArrayBuffer(buf.length);
   var view = new Uint8Array(ab);
   for (var i = 0; i < buf.length; ++i) {
@@ -191,9 +189,9 @@ function toArrayBuffer(buf) {
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
   console.log(referral_provider)
-  if(referral_provider!="Pending") {
+  if (referral_provider != "Pending") {
     $('#referralAlreadySent').modal('show');
-    document.getElementById('sentMsg').innerHTML = "This referral already "  + referral_provider;
+    document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
   } else {
     $('#sendProviderModal').modal('show');
     document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
@@ -212,7 +210,6 @@ function sendPdf(uuid, role, refCode) {
   }
 }
 
-function closeAlreadySentPopup()
-{
+function closeAlreadySentPopup() {
   $('#referralAlreadySent').modal('hide');
 }
