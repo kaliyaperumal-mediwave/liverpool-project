@@ -76,14 +76,14 @@
                     class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text"
                     placeholder="Search your apps" id="example-search-input" />
             </div>
-            <!-- <button type="button" class="search-btn-set btn" @click="searchOrchPage()"><span id="doSearch"
+            <button type="button" class="search-btn-set btn" @click="searchOrchPage()"><span id="doSearch"
                     class="">Search
-                </span></button> -->
+                </span></button>
         </div>
         {% endraw %}
     </div>
 
-    <div v-cloak class="d-flex text-center py-2">
+    <!-- <div v-cloak class="d-flex text-center py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto" id="searchBar">
             <div class="text-center">
                 <button type="button" id="secondary" @click="searchOrchPage()"
@@ -92,7 +92,7 @@
                     </span></button>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
@@ -107,8 +107,7 @@
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
 
                 <!-- Orcha Category Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-6 mb-3">
-                    <label class="option-font">Category</label>
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <multiselect v-model="categoryValue" :options="categoryList" placeholder="Category"
                         label="subCategoryName" track-by="id" @select="selectOptions($event,'category')"
                         @remove="removeOptions($event,'category')">
@@ -117,8 +116,7 @@
                 <!-- Orcha Category Select End-->
 
                 <!-- Orcha Country Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-6 mb-3">
-                    <label class="option-font">Country</label>
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <multiselect v-model="countryValue" :options="countryList" placeholder="Country" label="countryName"
                         track-by="id" @select="selectOptions($event,'country')"
                         @remove="removeOptions($event,'country')">
@@ -127,8 +125,7 @@
                 <!-- Orcha Country Select End-->
 
                 <!-- Orcha Capability Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-6 mb-3">
-                    <label class="option-font">Capability</label>
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-6 mb-3">
                     <multiselect v-model="capabilityValue" tag-placeholder="" placeholder="Capability"
                         :close-on-select="false" label="capabilityName" track-by="id" :options="capabilityList"
                         :multiple="true" :taggable="true" @select="selectOptions($event,'capability')"
@@ -136,36 +133,6 @@
                     </multiselect>
                 </div>
                 <!-- Orcha Capability Select End-->
-
-                <!-- Orcha Designed For Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-6 mb-3">
-                    <label class="option-font">Designed for</label>
-                    <multiselect v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
-                        :close-on-select="false" label="designedForName" track-by="id" :options="designedForList"
-                        :multiple="true" :taggable="true" @select="selectOptions($event,'designedFor')"
-                        @remove="removeOptions($event)">
-                    </multiselect>
-                </div>
-                <!-- Orcha Designed For Select End-->
-
-                <!-- Orcha Cost Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-6 mb-3">
-                    <label class="option-font">Cost</label>
-                    <multiselect v-model="costValue" tag-placeholder="" placeholder="Cost" :close-on-select="false"
-                        label="costName" track-by="id" :options="costList" :multiple="true" :taggable="true"
-                        @select="selectOptions($event)" @remove="removeOptions($event,'cost')">
-                    </multiselect>
-                </div>
-                <!-- Orcha Cost Select End-->
-
-                <!-- Orcha Platform Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-6 mb-3">
-                    <label class="option-font">Platform</label>
-                    <multiselect v-model="platformValue" :options="platformList" placeholder="Platform"
-                        label="platformName" track-by="id" @select="selectOptions($event,'platform')"
-                        @remove="removeOptions($event,'platform')"></multiselect>
-                </div>
-                <!-- Orcha Platform Select End-->
 
                 <!-- Orcha checkbox dummy with Select Start-->
                 <!-- <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-5 mb-3">
@@ -183,9 +150,45 @@
                 </div> -->
                 <!-- Orcha checkbox dummy with Select End-->
             </div>
-            <span class="badge badge-pill badge-warning cursor-pointer px-3 py-2 link-text"
+
+            <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
+                <!-- Orcha Designed For Select Start-->
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                    <multiselect v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
+                        :close-on-select="false" label="designedForName" track-by="id" :options="designedForList"
+                        :multiple="true" :taggable="true" @select="selectOptions($event,'designedFor')"
+                        @remove="removeOptions($event)">
+                    </multiselect>
+                </div>
+                <!-- Orcha Designed For Select End-->
+
+                <!-- Orcha Cost Select Start-->
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-5 mb-3">
+                    <multiselect v-model="costValue" tag-placeholder="" placeholder="Cost" :close-on-select="false"
+                        label="costName" track-by="id" :options="costList" :multiple="true" :taggable="true"
+                        @select="selectOptions($event)" @remove="removeOptions($event,'cost')">
+                    </multiselect>
+                </div>
+                <!-- Orcha Cost Select End-->
+
+                <!-- Orcha Platform Select Start-->
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <multiselect v-model="platformValue" :options="platformList" placeholder="Platform"
+                        :show-labels="false" label="platformName" track-by="id"
+                        @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
+                    </multiselect>
+                </div>
+                <!-- Orcha Platform Select End-->
+            </div>
+
+            <div id="primarySmallButton">
+                <button class="btn btn-primary btn-text btm-small-primary px-3" @click="resetFilters()" id="playButton"
+                    role="button">Clear filter</button>
+            </div>
+
+            <!-- <span class="badge badge-pill badge-warning cursor-pointer px-3 py-2 link-text"
                 @click="resetFilters()">Clear filter <i class="fa fa-times-circle" aria-hidden="true"></i>
-            </span>
+            </span> -->
             <!-- <p class="link-text cursor-pointer m-0" @click="resetFilters()">Clear filter</p> -->
         </div>
     </div>
