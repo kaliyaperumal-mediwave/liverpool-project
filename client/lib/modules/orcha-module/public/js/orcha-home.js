@@ -76,6 +76,7 @@ $(document).ready(function () {
                 this.costValue = null;
                 this.platformValue = null;
                 this.checkBoxTest = null;
+                document.getElementById('clearFilterButton').setAttribute('disabled', true);
                 var emptyPayload = {};
                 this.getOrchaAppsData(emptyPayload);
             },
@@ -101,7 +102,8 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = e.id;
                 }
-               // this.payloadData.pageNum = undefined;
+                // this.payloadData.pageNum = undefined;
+                document.getElementById('clearFilterButton').removeAttribute('disabled');
                 this.getOrchaAppsData(this.payloadData)
             },
 
@@ -124,7 +126,6 @@ $(document).ready(function () {
                         this.paginationData.perPage = null;
                         this.paginationData.totalItems = null;
                     }
-
                     $('#orchaLoader').hide();
 
                 } else {
@@ -162,10 +163,17 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = '';
                 }
-
                 console.log(this.payloadData);
                 this.getOrchaAppsData(this.payloadData)
 
+            },
+
+            setClearDisable: function () {
+                // if (!this.categoryValue && !this.countryValue && !this.capabilityValue && !this.designedForValue && !this.costValue && !this.platformValue) {
+                //     debugger
+                //     document.getElementById('clearFilterButton').setAttribute('disabled', true);
+
+                // }
             },
 
             handleError: function (e) {
@@ -192,20 +200,13 @@ $(document).ready(function () {
 
             updatePage: function (page) {
                 $('#orchaLoader').show();
-               
-                var pagePayload = {
-                    pageNum: page,
-                    // subCategory: this.payloadData.subCategory,
-                    // country:this.payloadData.country,
-                    // capabilities:this.payloadData.capabilities,
-                    // designedFor:this.payloadData.designedFor,
-                    // cost:this.payloadData.cost,
-                    // platform:this.payloadData.platform
-                }
+                // var pagePayload = {
+                //     pageNum: page,
+                // }
                 this.payloadData.pageNum = page
                 //this.payloadData.pageNum = page;
                 this.getOrchaAppsData(this.payloadData);
-               // this.getOrchaAppsData(payloadData);
+                // this.getOrchaAppsData(payloadData);
             },
         }
     })
