@@ -107,48 +107,35 @@
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
 
                 <!-- Orcha Category Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="categoryValue" :options="categoryList" placeholder="Category"
                         label="subCategoryName" track-by="id" @select="selectOptions($event,'category')"
-                        @remove="removeOptions($event,'category')" @close="setClearDisable()">
+                        @remove="removeOptions($event,'category')">
                     </multiselect>
                 </div>
                 <!-- Orcha Category Select End-->
 
                 <!-- Orcha Country Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="countryValue" :options="countryList" placeholder="Country" label="countryName"
                         track-by="id" @select="selectOptions($event,'country')"
-                        @remove="removeOptions($event,'country')" @close="setClearDisable()">
+                        @remove="removeOptions($event,'country')">
                     </multiselect>
                 </div>
                 <!-- Orcha Country Select End-->
 
                 <!-- Orcha Capability Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-6 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="capabilityValue" tag-placeholder="" placeholder="Capability"
                         :close-on-select="false" label="capabilityName" track-by="id" :options="capabilityList"
                         :multiple="true" :taggable="true" @select="selectOptions($event,'capability')"
-                        @remove="removeOptions($event)" @close="setClearDisable()">
+                        @remove="removeOptions($event)">
+                        <template slot="selection" slot-scope="{ values, search, isOpen }"><span
+                                class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
+                                options selected</span></template>
                     </multiselect>
                 </div>
                 <!-- Orcha Capability Select End-->
-
-                <!-- Orcha checkbox dummy with Select Start-->
-                <!-- <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-5 mb-3">
-                    <label class="option-font">Capability</label>
-                    <multiselect label="capabilityName" track-by="id" select-Label="" selected-Label=""
-                        deselect-Label="" v-model="checkBoxTest" :options="capabilityList" :multiple="true"
-                        :close-on-select="false" @select=onSelect($event) @remove=onRemove($event)>
-                        <span class="select-checkbox-label" slot="option" slot-scope="scope"
-                            @click.self="select(scope.option)">
-                            {{ scope.option.capabilityName }}
-                            <input class="select-checkbox-" type="checkbox" v-model="scope.option.checked"
-                                @focus.prevent />
-                        </span>
-                    </multiselect>
-                </div> -->
-                <!-- Orcha checkbox dummy with Select End-->
             </div>
 
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
@@ -156,18 +143,18 @@
                 <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
                         :close-on-select="false" label="designedForName" track-by="id" :options="designedForList"
-                        :multiple="true" :taggable="true" @select="selectOptions($event,'designedFor')"
-                        @remove="removeOptions($event)" @close="setClearDisable()">
+                        :multiple="true" :taggable="true" :limit="1" @select="selectOptions($event,'designedFor')"
+                        @remove="removeOptions($event)">
                     </multiselect>
                 </div>
                 <!-- Orcha Designed For Select End-->
 
                 <!-- Orcha Cost Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-5 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="costValue" tag-placeholder="" placeholder="Cost" :close-on-select="false"
-                        label="costName" track-by="id" :options="costList" :multiple="true" :taggable="true"
-                        @select="selectOptions($event)" @remove="removeOptions($event,'cost')"
-                        @close="setClearDisable()">
+                        label="costName" track-by="id" :options="costList" :multiple="true" :clear-on-select="false"
+                        :limit="1" :preserve-search="true" @select="selectOptions($event)"
+                        @remove="removeOptions($event,'cost')">
                     </multiselect>
                 </div>
                 <!-- Orcha Cost Select End-->
@@ -176,15 +163,14 @@
                 <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
                     <multiselect v-model="platformValue" :options="platformList" placeholder="Platform"
                         :show-labels="false" label="platformName" track-by="id"
-                        @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')"
-                        @close="setClearDisable()">
+                        @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
                     </multiselect>
                 </div>
                 <!-- Orcha Platform Select End-->
             </div>
 
             <div id="primarySmallButton">
-                <button class="btn btn-primary btn-text btm-small-primary px-3" disabled @click="resetFilters()"
+                <button class="btn btn-primary btn-text btm-small-primary px-3" @click="resetFilters()"
                     id="clearFilterButton" role="button">Clear filter</button>
             </div>
 
@@ -247,7 +233,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start pl-3 pb-2">
                                     <span style="text-decoration: underline !important"
-                                        class="link-text cursor-pointer">More info</span>
+                                        class="orcha-link cursor-pointer">More info</span>
                                 </div>
                             </div>
                         </div>
@@ -276,7 +262,7 @@
     </paginate> -->
 
     {% raw %}
-    <div v-if="filteredAppsList.length" class="mt-4 mb-0">
+    <div v-if="filteredAppsList.length" class="mt-4 mb-0 px-2 px-md-0">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
             :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
             @input="updatePage(paginationData.currentPage)">
