@@ -689,6 +689,10 @@ a {
   }
 }
 
+.orcha-link {
+  @include set-titleStyles($hint-font-size, bold, $primary-color);
+}
+
 /* Auth Pages  style end */
 
 /* Urgent Help style start */
@@ -1551,7 +1555,7 @@ a {
   z-index: 1032;
   transition: left 0.25s ease;
   background-color: #023047;
-  @include ssm-dec-screen{
+  @include ssm-dec-screen {
     width: 320px;
   }
 }
