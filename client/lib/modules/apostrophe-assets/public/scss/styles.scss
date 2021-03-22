@@ -21,6 +21,41 @@
 body {
   font-family: "century-gothic" !important;
 
+  .multiselect {
+    font-family: "century-gothic" !important;
+    color: #023047;
+    border: 1px solid #023047;
+    border-radius: 3px;
+  }
+  .multiselect__select:before {
+    border-color: #023047 transparent transparent !important;
+  }
+
+  .multiselect__tag {
+    background: #023047;
+  }
+
+  .multiselect__tag-icon:focus,
+  .multiselect__tag-icon:hover {
+    background: #023047 !important;
+  }
+
+  .pagination {
+    font-family: "century-gothic" !important;
+  }
+  .page-item.active .page-link {
+    background-color: #023047 !important;
+    border-color: #023047 !important;
+  }
+
+  .badge-warning {
+    background-color: $tertiary-color !important;
+  }
+
+  .b-pagination {
+    font-family: "century-gothic" !important;
+  }
+
   input::-ms-clear,
   input::-ms-reveal {
     display: none;
@@ -934,6 +969,18 @@ a {
 
 .btn-txt {
   @include set-titleStyles($button-font-size, bold, $primary-color);
+}
+
+#primarySmallButton {
+  .btn {
+    background: $tertiary-color !important;
+  }
+  .btm-small-primary {
+    font-weight: bold !important;
+    border-radius: 10px !important;
+    background: $tertiary-color !important;
+    color: $primary-color !important;
+  }
 }
 
 .btn-secondary-text {

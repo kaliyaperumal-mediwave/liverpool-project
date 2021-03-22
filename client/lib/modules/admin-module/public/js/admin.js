@@ -163,6 +163,7 @@ $(document).ready(function () {
 });
 
 function viewPdf(uuid, role) {
+  debugger
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
@@ -172,13 +173,14 @@ function viewPdf(uuid, role) {
   // var fileName = "test.pdf";
   //link.download = fileName;
   link.click();
-  setTimeout(function () {
-    $('#loader').hide();
-  }, 1000);
+  // setTimeout(function () {
+  //   $('#loader').hide();
+  // }, 1000);
   //link.click();
 }
 
 function toArrayBuffer(buf) {
+  debugger
   var ab = new ArrayBuffer(buf.length);
   var view = new Uint8Array(ab);
   for (var i = 0; i < buf.length; ++i) {

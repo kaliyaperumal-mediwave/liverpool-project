@@ -1093,6 +1093,27 @@ div.dataTables_wrapper div.dataTables_paginate {
 
 body {
   font-family: "century-gothic" !important; }
+  body .multiselect {
+    font-family: "century-gothic" !important;
+    color: #023047;
+    border: 1px solid #023047;
+    border-radius: 3px; }
+  body .multiselect__select:before {
+    border-color: #023047 transparent transparent !important; }
+  body .multiselect__tag {
+    background: #023047; }
+  body .multiselect__tag-icon:focus,
+  body .multiselect__tag-icon:hover {
+    background: #023047 !important; }
+  body .pagination {
+    font-family: "century-gothic" !important; }
+  body .page-item.active .page-link {
+    background-color: #023047 !important;
+    border-color: #023047 !important; }
+  body .badge-warning {
+    background-color: #ffb703 !important; }
+  body .b-pagination {
+    font-family: "century-gothic" !important; }
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
@@ -2013,6 +2034,15 @@ a {
   font-size: 26px;
   font-weight: bold;
   color: #023047; }
+
+#primarySmallButton .btn {
+  background: #ffb703 !important; }
+
+#primarySmallButton .btm-small-primary {
+  font-weight: bold !important;
+  border-radius: 10px !important;
+  background: #ffb703 !important;
+  color: #023047 !important; }
 
 .btn-secondary-text {
   font-size: 26px;
