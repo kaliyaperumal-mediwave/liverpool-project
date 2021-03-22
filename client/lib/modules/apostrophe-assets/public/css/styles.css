@@ -1091,6 +1091,11 @@ body {
     font-family: "century-gothic" !important; }
   body .pagination {
     font-family: "century-gothic" !important; }
+  body .page-item.active .page-link {
+    background-color: #023047 !important;
+    border-color: #023047 !important; }
+  body .badge-warning {
+    background-color: #ffb703 !important; }
   body .b-pagination {
     font-family: "century-gothic" !important; }
   body input::-ms-clear,

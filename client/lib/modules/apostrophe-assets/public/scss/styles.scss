@@ -28,6 +28,14 @@ body {
   .pagination {
     font-family: "century-gothic" !important;
   }
+  .page-item.active .page-link {
+    background-color: #023047 !important;
+    border-color: #023047 !important;
+  }
+
+  .badge-warning {
+    background-color: $tertiary-color !important;
+  }
 
   .b-pagination {
     font-family: "century-gothic" !important;

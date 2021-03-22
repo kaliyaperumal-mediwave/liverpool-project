@@ -28,12 +28,13 @@ $(document).ready(function () {
                 capabilities: [],
                 designedFor: [],
                 cost: [],
-                platform: ''
+                platform: '',
+                pageNum: undefined
             },
             paginationData: {
                 currentPage: null,
                 perPage: null,
-                totalItems: null
+                totalItems: null,
             }
 
         },
@@ -63,6 +64,20 @@ $(document).ready(function () {
                 } else {
                     $('#orchaLoader').hide();
                 }
+            },
+
+            resetFilters: function () {
+                $('#orchaLoader').show();
+                this.searchText = '';
+                this.categoryValue = null;
+                this.countryValue = null;
+                this.capabilityValue = null;
+                this.designedForValue = null;
+                this.costValue = null;
+                this.platformValue = null;
+                this.checkBoxTest = null;
+                var emptyPayload = {};
+                this.getOrchaAppsData(emptyPayload);
             },
 
             selectOptions: function (e, type) {
@@ -172,7 +187,9 @@ $(document).ready(function () {
                 var pagePayload = {
                     pageNum: page
                 }
-                this.getOrchaAppsData(pagePayload)
+                //this.payloadData.pageNum = page;
+                //this.getOrchaAppsData(this.payloadData);
+                this.getOrchaAppsData(pagePayload);
             },
         }
     })

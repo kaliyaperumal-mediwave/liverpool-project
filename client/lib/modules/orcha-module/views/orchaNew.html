@@ -72,14 +72,26 @@
                         </span>
                     </div>
                 </span>
-                <input id="searchTxt" v-model="searchText" class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text"
+                <input id="searchTxt" v-model="searchText"
+                    class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text"
                     placeholder="Search your apps" id="example-search-input" />
             </div>
-            <button type="button" class="search-btn-set btn" @click="searchOrchPage()"><span id="doSearch" class="">Search
-                </span></button>
+            <!-- <button type="button" class="search-btn-set btn" @click="searchOrchPage()"><span id="doSearch"
+                    class="">Search
+                </span></button> -->
         </div>
         {% endraw %}
+    </div>
 
+    <div v-cloak class="d-flex text-center py-2">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto" id="searchBar">
+            <div class="text-center">
+                <button type="button" id="secondary" class="btn px-md-4 py-1 px-3 mx-auto w-h-sub "><span
+                        class="btn-quaternary-text">
+                        Search
+                    </span></button>
+            </div>
+        </div>
     </div>
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
@@ -170,8 +182,11 @@
                     </multiselect>
                 </div> -->
                 <!-- Orcha checkbox dummy with Select End-->
-
             </div>
+            <span class="badge badge-pill badge-warning cursor-pointer px-3 py-2 link-text"
+                @click="resetFilters()">Clear filter <i class="fa fa-times-circle" aria-hidden="true"></i>
+            </span>
+            <!-- <p class="link-text cursor-pointer m-0" @click="resetFilters()">Clear filter</p> -->
         </div>
     </div>
 
@@ -259,7 +274,8 @@
     <div v-if="filteredAppsList.length" class="mt-4 mb-0">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
             :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
-            @change="updatePage(paginationData.currentPage)"></b-pagination>
+            @change="updatePage(paginationData.currentPage)">
+        </b-pagination>
     </div>
     {% endraw %}
 
