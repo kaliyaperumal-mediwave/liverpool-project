@@ -279,7 +279,7 @@
     <div v-if="filteredAppsList.length" class="mt-4 mb-0">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
             :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
-            @change="updatePage(paginationData.currentPage)">
+            @input="updatePage(paginationData.currentPage)">
         </b-pagination>
     </div>
     {% endraw %}
