@@ -1551,6 +1551,9 @@ a {
   z-index: 1032;
   transition: left 0.25s ease;
   background-color: #023047;
+  @include ssm-dec-screen{
+    width: 320px;
+  }
 }
 
 #side-drawer-void {

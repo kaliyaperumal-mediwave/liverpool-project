@@ -51,7 +51,7 @@ $(document).ready(function () {
             getAllDataForDropdown: function () {
                 var successData = apiCallGet('get', '/getFilterData/', API_URI);
                 if (successData && Object.keys(successData)) {
-                    console.log(successData);
+                    //console.log(successData);
                     this.categoryList = successData.data.subCategory_payload;
                     this.countryList = successData.data.country_payload;
                     this.capabilityList = successData.data.capability_payload;
@@ -76,6 +76,7 @@ $(document).ready(function () {
                 this.costValue = null;
                 this.platformValue = null;
                 this.checkBoxTest = null;
+                document.getElementById('clearFilterButton').setAttribute('disabled', true);
                 var emptyPayload = {};
                 this.payloadData = {};
                 this.getOrchaAppsData(emptyPayload);
@@ -102,14 +103,16 @@ $(document).ready(function () {
                     this.payloadData.platform = e.id;
                 }
                 this.payloadData.pageNum = undefined;
+                // this.payloadData.pageNum = undefined;
+                document.getElementById('clearFilterButton').removeAttribute('disabled');
                 this.getOrchaAppsData(this.payloadData)
             },
 
             getOrchaAppsData: function (payload) {
-                console.log(payload)
+                //console.log(payload)
                 var successData = apiCallPost('post', '/getSearchData/', payload);
                 if (successData && Object.keys(successData)) {
-                    console.log(successData.data.result)
+                   // console.log(successData.data.result)
                     if (successData.data.result.items.length) {
                         this.filteredAppsList = successData.data.result.items;
                     } else {
@@ -124,7 +127,6 @@ $(document).ready(function () {
                         this.paginationData.perPage = null;
                         this.paginationData.totalItems = null;
                     }
-
                     $('#orchaLoader').hide();
 
                 } else {
@@ -162,14 +164,21 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = '';
                 }
-
-               // console.log(this.payloadData);
+                //console.log(this.payloadData);
                 this.getOrchaAppsData(this.payloadData)
 
             },
 
+            setClearDisable: function () {
+                // if (!this.categoryValue && !this.countryValue && !this.capabilityValue && !this.designedForValue && !this.costValue && !this.platformValue) {
+                //     debugger
+                //     document.getElementById('clearFilterButton').setAttribute('disabled', true);
+
+                // }
+            },
+
             handleError: function (e) {
-                console.log(e.target);
+               // console.log(e.target);
                 e.target.src = "/modules/my-apostrophe-assets/img/noimg.svg";
                 e.target.style.height = 50;
                 e.target.style.width = 50;
@@ -192,7 +201,7 @@ $(document).ready(function () {
 
             updatePage: function (page) {
                 $('#orchaLoader').show();
-               console.log(page);
+               //console.log(page);
                 var pagePayload = {
                     pageNum: page,
                     // subCategory: this.payloadData.subCategory,
@@ -205,7 +214,7 @@ $(document).ready(function () {
                 this.payloadData.pageNum = page
                 //this.payloadData.pageNum = page;
                 this.getOrchaAppsData(this.payloadData);
-               // this.getOrchaAppsData(payloadData);
+                // this.getOrchaAppsData(payloadData);
             },
         }
     })
