@@ -504,7 +504,13 @@ div.radio.switcher label {
   font-weight: 600;
   font-size: 17px;
   box-shadow: 0px 3px 6px #00000029;
-  margin: 0px 10px 0px 0px; }
+  margin: 0px 10px 0px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+div.dataTables_wrapper div.dataTables_paginate {
+  display: flex; }
 
 .middleContainer:after {
   content: "";
@@ -1087,17 +1093,6 @@ div.radio.switcher label {
 
 body {
   font-family: "century-gothic" !important; }
-  body .multiselect {
-    font-family: "century-gothic" !important; }
-  body .pagination {
-    font-family: "century-gothic" !important; }
-  body .page-item.active .page-link {
-    background-color: #023047 !important;
-    border-color: #023047 !important; }
-  body .badge-warning {
-    background-color: #ffb703 !important; }
-  body .b-pagination {
-    font-family: "century-gothic" !important; }
   body input::-ms-clear,
   body input::-ms-reveal {
     display: none; }
@@ -2555,6 +2550,9 @@ a {
   z-index: 1032;
   transition: left 0.25s ease;
   background-color: #023047; }
+  @media (min-width: 320px) and (max-width: 374px) {
+    #side-drawer {
+      width: 320px; } }
 
 #side-drawer-void {
   height: 100%;

@@ -21,26 +21,6 @@
 body {
   font-family: "century-gothic" !important;
 
-  .multiselect {
-    font-family: "century-gothic" !important;
-  }
-
-  .pagination {
-    font-family: "century-gothic" !important;
-  }
-  .page-item.active .page-link {
-    background-color: #023047 !important;
-    border-color: #023047 !important;
-  }
-
-  .badge-warning {
-    background-color: $tertiary-color !important;
-  }
-
-  .b-pagination {
-    font-family: "century-gothic" !important;
-  }
-
   input::-ms-clear,
   input::-ms-reveal {
     display: none;
@@ -1524,6 +1504,9 @@ a {
   z-index: 1032;
   transition: left 0.25s ease;
   background-color: #023047;
+  @include ssm-dec-screen{
+    width: 320px;
+  }
 }
 
 #side-drawer-void {
