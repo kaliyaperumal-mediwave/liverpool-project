@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div v-cloak  class="d-flex text-center py-md-3 py-2">
+    <div v-cloak class="d-flex text-center py-md-3 py-2">
         {% raw %}
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
             <div class="input-group home-primary-content-bg">
@@ -81,8 +81,8 @@
                     placeholder="Search your apps" id="example-search-input" />
 
             </div>
-            <button @click="getSearchData(undefined,undefined)" type="button" class="search-btn-set btn "><span id="doSearch"
-                    class="">Search
+            <button @click="getSearchData(undefined,undefined)" type="button" class="search-btn-set btn "><span
+                    id="doSearch" class="">Search
                 </span></button>
         </div>
         {% endraw %}
@@ -208,7 +208,7 @@
             </div>
             {% raw %}
             <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a @click="reload()">Clear Filters</a></u></p>
-            {% endraw %}    
+            {% endraw %}
         </div>
     </div>
     <div v-cloak class="d-flex pt-2 pb-2">
@@ -232,7 +232,8 @@
                                         <div class="row p-0 m-0">
                                             <div class="p-0 m-0">
                                                 <img :src="filteredAppsObj.thumbnail"
-                                                    class="imageOnOrcha border-radius-10" />
+                                                    class="imageOnOrcha border-radius-10"
+                                                    @error="handleError($event)" />
                                             </div>
                                             <div class="pl-3 m-0 d-flex pl-0 py-0 pr-0 imageTextOrcha">
                                                 <div class="questionText ellipse-text-large-card">
@@ -240,7 +241,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img src="/modules/my-apostrophe-assets/img/android.svg" width="80" height="60"
+                                        <img v-show="filteredAppsObj.platform!='iOS'" src="/modules/my-apostrophe-assets/img/android.svg" width="80" height="60"
+                                            class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
+
+                                        <img v-show="filteredAppsObj.platform=='iOS'"  src="/modules/my-apostrophe-assets/img/ios.svg" width="89" height="69"
                                             class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
 
                                     </div>

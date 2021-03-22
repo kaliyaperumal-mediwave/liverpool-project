@@ -20,7 +20,7 @@ module.exports = {
     };
 
     self.orchaHome = function (req, callback) {
-      return self.sendPage(req, self.renderer('orchaHome', {
+      return self.sendPage(req, self.renderer('orchaNew', {
         showHeader: true,
         home: true,
         hideRefButton: true,

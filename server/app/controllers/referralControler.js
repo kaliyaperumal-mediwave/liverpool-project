@@ -4,10 +4,11 @@ const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const reponseMessages = require('../middlewares/responseMessage');
 const email = require('../utils/email');
 const Op = require('sequelize').Op;
+const adminCtrl = require('./adminController');
 exports.eligibility = ctx => {
-  console.log(ctx.request.body)
+  //console.log(ctx.request.body)
   const user = ctx.orm().Referral;
-  console.log(ctx.request.decryptedUser)
+  //console.log(ctx.request.decryptedUser)
   if (ctx.request.body.role == "child") {
     //checking update operation or not
     if (ctx.request.body.editFlag != null) {
@@ -38,7 +39,7 @@ exports.eligibility = ctx => {
     else {
       //for logined user
       if (ctx.request.decryptedUser != undefined) {
-        //console.log(ctx.request.body)
+        ////console.log(ctx.request.body)
         return user.create({
           need_interpreter: ctx.request.body.interpreter,
           child_dob: ctx.request.body.child_Dob,
@@ -60,7 +61,7 @@ exports.eligibility = ctx => {
           }
           return ctx.body = responseData;
         }).catch((error) => {
-          console.log(error)
+          //console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }
@@ -86,7 +87,7 @@ exports.eligibility = ctx => {
           }
           return ctx.body = responseData;
         }).catch((error) => {
-          console.log(error)
+          //console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }
@@ -336,16 +337,16 @@ exports.eligibility = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
-              //console.log(error);
+              ////console.log(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
 
           }).catch((error) => {
-            // console.log(error);
+            // //console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {
-          console.log(error);
+          //console.log(error);
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }
@@ -356,7 +357,7 @@ exports.eligibility = ctx => {
 
 exports.fetchEligibility = ctx => {
 
-  console.log(ctx.query)
+  //console.log(ctx.query)
   const user = ctx.orm().Referral;
   if (ctx.query.role == "child") {
     return user.findOne({
@@ -606,7 +607,7 @@ exports.about = ctx => {
               attributes: ['id', 'uuid']
             }).then((userResult) => {
 
-              console.log(userResult.id + "====>" + userResult.uuid);
+              //console.log(userResult.id + "====>" + userResult.uuid);
               return user.create({
                 parent_firstname: ctx.request.body.aboutData.parentFirstName,
                 parent_lastname: ctx.request.body.aboutData.parentLastName,
@@ -665,7 +666,7 @@ exports.about = ctx => {
         },
       }).then((userResult) => {
         var childId = userResult[0].parent[0].ChildParents.parentId
-        console.log(ctx.request.body.allHouseHoldMembers)
+        //console.log(ctx.request.body.allHouseHoldMembers)
         return user.update(
           {
             child_firstname: ctx.request.body.aboutData.childFirstName,
@@ -733,9 +734,9 @@ exports.about = ctx => {
   }
 
   else if (ctx.request.body.role == "professional") {
-    //  console.log(ctx.request.body)
+    //  //console.log(ctx.request.body)
     if (ctx.request.body.editFlag != null) {
-      //   console.log(ctx.request.body)
+      //   //console.log(ctx.request.body)
       // return ctx.body = ctx.request.body;
       return user.findOne({
         where: {
@@ -953,7 +954,7 @@ exports.about = ctx => {
 
 
 exports.fetchAbout = ctx => {
-  console.log("fetchAbout")
+  //console.log("fetchAbout")
   const user = ctx.orm().Referral;
   if (ctx.request.body.role == "child") {
     return user.findOne({
@@ -1041,7 +1042,7 @@ exports.fetchAbout = ctx => {
         var parentIdNew = childResult[0].professional[0].child_parent[0].id;
         //  var parentId = Number(childResult[0].professional[0].ChildProfessional.professionalId) + 2
         // return ctx.body = childResult;
-        console.log(parentId)
+        //console.log(parentId)
         return user.findAll({
           include: [
             {
@@ -1080,7 +1081,7 @@ exports.profession = ctx => {
 
   if (ctx.request.body.role == "professional") {
     const user = ctx.orm().Referral;
-    console.log(ctx.request.body)
+    //console.log(ctx.request.body)
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1109,7 +1110,7 @@ exports.profession = ctx => {
           },
         }).then((userResult) => {
 
-          console.log(userResult[0].professional[0].ChildProfessional.professionalId)
+          //console.log(userResult[0].professional[0].ChildProfessional.professionalId)
 
           var childId = userResult[0].professional[0].ChildProfessional.professionalId
 
@@ -1180,8 +1181,8 @@ exports.profession = ctx => {
           id: result.id,
         },
       }).then((userResult) => {
-        //  console.log(userResult);
-        console.log(userResult[0].parent[0].ChildParents.parentId)
+        //  //console.log(userResult);
+        //console.log(userResult[0].parent[0].ChildParents.parentId)
         var childId = userResult[0].parent[0].ChildParents.parentId
 
         return user.update(
@@ -1246,34 +1247,34 @@ exports.profession = ctx => {
       //       { id: result.id }
       //   }
       // ).then((updateResult) => {
-        return user.update(
-          {
-            child_profession: ctx.request.body.educAndEmpData.position,
-            child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
-            child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
-            child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
+      return user.update(
+        {
+          child_profession: ctx.request.body.educAndEmpData.position,
+          child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
+          child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
+          child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
 
-            child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
-            child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
-            child_socialworker_lastname: ctx.request.body.educAndEmpData.socialWorkLastName,
-            child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
-            referral_progress: ctx.request.body.educAndEmpData.referral_progress
-          },
-          {
-            where:
-              { id: result.id }
-          }
-        ).then((result) => {
+          child_socialworker: ctx.request.body.educAndEmpData.haveSocialWorker,
+          child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
+          child_socialworker_lastname: ctx.request.body.educAndEmpData.socialWorkLastName,
+          child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
+          referral_progress: ctx.request.body.educAndEmpData.referral_progress
+        },
+        {
+          where:
+            { id: result.id }
+        }
+      ).then((result) => {
 
-          const responseData = {
-            userid: ctx.request.body.userid,
-            status: "ok",
-            role: ctx.request.body.role
-          }
-          return ctx.body = responseData;
-        }).catch((error) => {
-          sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
+        const responseData = {
+          userid: ctx.request.body.userid,
+          status: "ok",
+          role: ctx.request.body.role
+        }
+        return ctx.body = responseData;
+      }).catch((error) => {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+      });
       // })
       //   .catch((error) => {
       //     sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1322,9 +1323,9 @@ exports.fetchProfession = ctx => {
           id: result.id,
         },
       }).then((userResult) => {
-        //  console.log(userResult);
+        //  //console.log(userResult);
         return ctx.body = userResult;
-        console.log(userResult[0].parent[0].ChildParents.parentId)
+        //console.log(userResult[0].parent[0].ChildParents.parentId)
         var childId = userResult[0].parent[0].ChildParents.parentId
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1354,7 +1355,7 @@ exports.fetchProfession = ctx => {
           id: result.id,
         },
       }).then((userResult) => {
-        //  console.log(userResult);
+        //  //console.log(userResult);
         return ctx.body = userResult;
 
       }).catch((error) => {
@@ -1373,7 +1374,7 @@ exports.saveReferal = ctx => {
   const user = ctx.orm().Referral;
   const referral = ctx.orm().Reason
 
-  console.log(ctx.request.body)
+  //console.log(ctx.request.body)
   if (ctx.request.body.role == "professional") {
 
     if (ctx.request.body.editFlag != null) {
@@ -1449,7 +1450,7 @@ exports.saveReferal = ctx => {
             },
           }).then((userResult) => {
 
-            //  console.log(userResult[0].professional[0].ChildProfessional.professionalId)
+            //  //console.log(userResult[0].professional[0].ChildProfessional.professionalId)
 
             var childId = userResult[0].professional[0].ChildProfessional.professionalId
 
@@ -1588,8 +1589,8 @@ exports.saveReferal = ctx => {
               id: result.id,
             },
           }).then((userResult) => {
-            //  console.log(userResult);
-            //console.log("---------?"+userResult[0].parent[0].ChildParents.parentId)
+            //  //console.log(userResult);
+            ////console.log("---------?"+userResult[0].parent[0].ChildParents.parentId)
             var childId = userResult[0].parent[0].ChildParents.parentId
             return referral.create(
               {
@@ -1627,7 +1628,7 @@ exports.saveReferal = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
-              console.log(error)
+              //console.log(error)
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
 
@@ -1781,7 +1782,7 @@ exports.fetchReferral = ctx => {
     },
     attributes: ['id', 'uuid']
   }).then((fetchResult) => {
-    console.log(fetchResult)
+    //console.log(fetchResult)
     return user.findAll({
       include: [
         {
@@ -1803,7 +1804,7 @@ exports.fetchReferral = ctx => {
           },
 
         }).then((referralResult) => {
-          console.log(referralResult)
+          //console.log(referralResult)
           return ctx.body = referralResult;
         }).catch((error) => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1816,9 +1817,9 @@ exports.fetchReferral = ctx => {
         }
         return ctx.body = responseData;
       }
-      //  console.log(userResult[0].referral_reason[0].id)
+      //  //console.log(userResult[0].referral_reason[0].id)
     }).catch((error) => {
-      console.log(error);
+      //console.log(error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
 
@@ -1876,7 +1877,7 @@ exports.fetchReview = ctx => {
         }).then((educationObj) => {
 
 
-          console.log(aboutObj)
+          //console.log(aboutObj)
           const section2Obj = {
             child_id: aboutObj.id,
             child_NHS: aboutObj.child_NHS,
@@ -1915,17 +1916,17 @@ exports.fetchReview = ctx => {
           return ctx.body = responseData;
 
         }).catch((error) => {
-          console.log("1")
-          console.log(error)
+          //console.log("1")
+          //console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }).catch((error) => {
-        console.log("2")
+        //console.log("2")
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
     }).catch((error) => {
-      console.log(error)
+      //console.log(error)
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
@@ -1999,7 +2000,7 @@ exports.fetchReview = ctx => {
               attributes: ['id']
             }).then((referralResult) => {
 
-              console.log(aboutObj)
+              //console.log(aboutObj)
 
               const section1Obj = {
                 child_id: elgibilityObj[0].parent[0].id,
@@ -2078,7 +2079,7 @@ exports.fetchReview = ctx => {
   }
   else if (ctx.query.role == "professional") {
 
-    console.log("uuid" + ctx.query.user_id,)
+    //console.log("uuid" + ctx.query.user_id,)
     return user.findOne({
 
       where: {
@@ -2104,8 +2105,8 @@ exports.fetchReview = ctx => {
         //return ctx.body = elgibilityObj.professional[0].child_parent[0];
         var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
         var childId = Number(elgibilityObj.professional[0].ChildProfessional.professionalId) + 2
-        console.log(childIdNew);
-        console.log(childId);
+        //console.log(childIdNew);
+        //console.log(childId);
 
         //  var childId = elgibilityObj[0].professional[0].ChildProfessional.UserId
         //  var parentId = Number(userResult[0].professional[0].ChildProfessional.professionalId) + 2
@@ -2232,7 +2233,7 @@ exports.fetchReview = ctx => {
           });
         })
           .catch((error) => {
-            console.log(error)
+            //console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
       })
@@ -2240,7 +2241,7 @@ exports.fetchReview = ctx => {
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }).catch((error) => {
-      console.log(error);
+      //console.log(error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
@@ -2249,14 +2250,18 @@ exports.fetchReview = ctx => {
 
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
-  console.log('\nSave Review Payload == ', ctx.request.body);
+  var provider;
+  //console.log('\nSave Review Payload == ', ctx.request.body);
+  if (ctx.request.body.referral_provider) {
+    provider = "Sent to " + ctx.request.body.referral_provider
+  }
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({
       referral_progress: 100,
       referral_complete_status: "completed",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
-      referral_provider: "Sent to " + ctx.request.body.referral_provider
+      //referral_provider: provider
     },
       {
         where:
@@ -2271,16 +2276,44 @@ exports.saveReview = ctx => {
           role: ctx.request.body.role,
           refNo: uniqueNo
         }
-        return ctx.body = responseData;
+
+        if(ctx.request.body.referral_provider !="" && ctx.request.body.role=='professional')
+        {
+          ctx.query.selectedProvider = ctx.request.body.referral_provider;
+          ctx.query.refCode = uniqueNo;
+          ctx.query.refID = ctx.request.body.userid;
+          ctx.query.refRole = "Professional";
+          return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+            return user.update({
+              referral_provider: "Sent to " + ctx.query.selectedProvider
+            },
+              {
+                where:
+                  { uuid: ctx.request.body.userid }
+              }
+            ).then((result) => {
+              return ctx.body = responseData;
+            }).catch(error => {
+              ////console.log()(error);
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+          }).catch((error) => {
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          });
+        }
+        else
+        {
+          return ctx.body = responseData;
+        }
       }).catch((error) => {
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }).catch((error) => {
-      console.log('\n\n\nERROR - update code: ', error);
+      //console.log('\n\n\nERROR - update code: ', error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }).catch((error) => {
-    console.log('\n\n\nERROR - check code: ', error);
+    //console.log('\n\n\nERROR - check code: ', error);
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   });
 }
@@ -2289,22 +2322,22 @@ const genetrateUniqueCode = (ctx) => new Promise(async (resolve, reject) => {
   try {
     const user = ctx.orm().Referral;
     var uniqueNo = uniqid().toUpperCase();
-    console.log('\n1. Reference Code - ', uniqueNo);
+    //console.log('\n1. Reference Code - ', uniqueNo);
     uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
-    console.log(uniqueNo);
+    //console.log(uniqueNo);
     let user_response = user.findOne({
       where: {
         reference_code: uniqueNo,
       },
     });
-    if(user_response) {
+    if (user_response) {
       uniqueNo = uniqid().toUpperCase();
-      console.log('\n2. Reference Code - ', uniqueNo);
+      //console.log('\n2. Reference Code - ', uniqueNo);
       uniqueNo = uniqueNo.substr(uniqueNo.length - 12);
-      console.log(uniqueNo);
+      //console.log(uniqueNo);
     }
     resolve(uniqueNo);
-  } catch(error) {
+  } catch (error) {
     reject(error);
   }
 });
@@ -2476,7 +2509,7 @@ exports.updateSec4Info = ctx => {
           message: reponseMessages[1001]
         });
       }).catch((error) => {
-        console.log(error)
+        //console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }).catch((error) => {
@@ -2540,7 +2573,7 @@ exports.updateEligibilityInfo = ctx => {
 //for login user
 
 exports.getIncompleteReferral = ctx => {
-  console.log("===>", ctx.request.decryptedUser)
+  //console.log("===>", ctx.request.decryptedUser)
   const userReferral = ctx.orm().Referral;
   const refId = [];
   const childDataId = [];
@@ -2559,7 +2592,7 @@ exports.getIncompleteReferral = ctx => {
       (user) => {
         refId.push(user.dataValues.id)
       })
-    // console.log(refId)
+    // //console.log(refId)
     if (ctx.request.decryptedUser.role == "child") {
       return userReferral.findAll({
         where: {
@@ -2590,12 +2623,12 @@ exports.getIncompleteReferral = ctx => {
             data: aboutObj,
           });
         }).catch((error) => {
-          console.log("2")
+          //console.log("2")
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
       }).catch((error) => {
-        console.log(error)
+        //console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }
@@ -2676,13 +2709,13 @@ exports.getIncompleteReferral = ctx => {
       });
     }
   }).catch((error) => {
-    console.log(error)
+    //console.log(error)
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   })
 }
 exports.getUserReferral = ctx => {
-  console.log("==getUserReferral=>", ctx.request.decryptedUser);
-  console.log(ctx.query.reqCode);
+  //console.log("==getUserReferral=>", ctx.request.decryptedUser);
+  //console.log(ctx.query.reqCode);
   const ref = ctx.orm().Referral;
   var query = {
     referral_progress: {
@@ -2702,7 +2735,7 @@ exports.getUserReferral = ctx => {
 
     let finalObj = {}
     result.forEach((games, index) => {
-      //console.log(games.createdAt)
+      ////console.log(games.createdAt)
       const date = convertDate(games.createdAt)
       result[index].date = date;
       if (finalObj[date]) {
@@ -2727,8 +2760,8 @@ function convertDate(date) {
 
 exports.getReferalByCode = ctx => {
 
-  console.log("==getReferalByCode=>", ctx.request.decryptedUser);
-  console.log(ctx.query.reqCode);
+  //console.log("==getReferalByCode=>", ctx.request.decryptedUser);
+  //console.log(ctx.query.reqCode);
 
   const ref = ctx.orm().Referral;
   if (!ctx.request.decryptedUser) //checking login user or not.for logged user we must fetch referrals made by them. 
@@ -2744,7 +2777,7 @@ exports.getReferalByCode = ctx => {
         ['createdAt', 'DESC'],
       ],
     }).then((result) => {
-      console.log(result);
+      //console.log(result);
       return ctx.body = result
     }).catch((error) => {
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -2764,7 +2797,7 @@ exports.getReferalByCode = ctx => {
         ['createdAt', 'DESC'],
       ],
     }).then((result) => {
-      console.log(result);
+      //console.log(result);
       return ctx.body = result
     }).catch((error) => {
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -2783,7 +2816,7 @@ exports.searchReferalByCode = ctx => {
         referral_complete_status: 'completed'
       },
     }).then((result) => {
-      console.log(result);
+      //console.log(result);
       return ctx.body = result
     }).catch((error) => {
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -2797,7 +2830,7 @@ exports.searchReferalByCode = ctx => {
         referral_complete_status: 'completed'
       },
     }).then((result) => {
-      console.log(result);
+      //console.log(result);
       return ctx.body = result
     }).catch((error) => {
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
