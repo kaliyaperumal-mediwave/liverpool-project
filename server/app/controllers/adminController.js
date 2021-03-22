@@ -84,7 +84,7 @@ exports.getReferral = ctx => {
                     }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.name + refObj.lastname,
+                        name: refObj.name +" "+ refObj.lastname,
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name + refObj.referrer_lastname,
@@ -128,7 +128,7 @@ exports.getReferral = ctx => {
                     }
                     var referralObj = {
                         uuid: refObj.uuid,
-                        name: refObj.name + refObj.lastname,
+                        name: refObj.name +" "+ refObj.lastname,
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name + refObj.referrer_lastname,

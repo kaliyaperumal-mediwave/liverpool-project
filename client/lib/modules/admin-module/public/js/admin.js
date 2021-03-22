@@ -73,7 +73,7 @@ $(document).ready(function () {
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
-           //   console.log(referralRes);
+              //   console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -172,9 +172,9 @@ function viewPdf(uuid, role) {
   // var fileName = "test.pdf";
   //link.download = fileName;
   link.click();
-  setTimeout(function () {
-    $('#loader').hide();
-  }, 1000);
+  // setTimeout(function () {
+  //   $('#loader').hide();
+  // }, 1000);
   //link.click();
 }
 
@@ -189,9 +189,9 @@ function toArrayBuffer(buf) {
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
   console.log(referral_provider)
-  if(referral_provider!="Pending") {
+  if (referral_provider != "Pending") {
     $('#referralAlreadySent').modal('show');
-    document.getElementById('sentMsg').innerHTML = "This referral already "  + referral_provider;
+    document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
   } else {
     $('#sendProviderModal').modal('show');
     document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
@@ -210,7 +210,6 @@ function sendPdf(uuid, role, refCode) {
   }
 }
 
-function closeAlreadySentPopup()
-{
+function closeAlreadySentPopup() {
   $('#referralAlreadySent').modal('hide');
 }

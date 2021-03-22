@@ -23,6 +23,21 @@ body {
 
   .multiselect {
     font-family: "century-gothic" !important;
+    color: #023047;
+    border: 1px solid #023047;
+    border-radius: 3px;
+  }
+  .multiselect__select:before {
+    border-color: #023047 transparent transparent !important;
+  }
+
+  .multiselect__tag {
+    background: #023047;
+  }
+
+  .multiselect__tag-icon:focus,
+  .multiselect__tag-icon:hover {
+    background: #023047 !important;
   }
 
   .pagination {
@@ -956,6 +971,18 @@ a {
   @include set-titleStyles($button-font-size, bold, $primary-color);
 }
 
+#primarySmallButton {
+  .btn {
+    background: $tertiary-color !important;
+  }
+  .btm-small-primary {
+    font-weight: bold !important;
+    border-radius: 10px !important;
+    background: $tertiary-color !important;
+    color: $primary-color !important;
+  }
+}
+
 .btn-secondary-text {
   @include set-titleStyles($button-font-size, bold, $primary-color);
 }
@@ -1524,6 +1551,9 @@ a {
   z-index: 1032;
   transition: left 0.25s ease;
   background-color: #023047;
+  @include ssm-dec-screen{
+    width: 320px;
+  }
 }
 
 #side-drawer-void {
