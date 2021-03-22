@@ -77,12 +77,12 @@ $(document).ready(function () {
                 this.platformValue = null;
                 this.checkBoxTest = null;
                 var emptyPayload = {};
+                this.payloadData = {};
                 this.getOrchaAppsData(emptyPayload);
             },
 
             selectOptions: function (e, type) {
                 $('#orchaLoader').show();
-                //console.log(e);
                 if (type == 'category') {
                     this.payloadData.subCategory = e.id;
                 }
@@ -101,7 +101,7 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = e.id;
                 }
-               // this.payloadData.pageNum = undefined;
+                this.payloadData.pageNum = undefined;
                 this.getOrchaAppsData(this.payloadData)
             },
 
@@ -163,7 +163,7 @@ $(document).ready(function () {
                     this.payloadData.platform = '';
                 }
 
-                console.log(this.payloadData);
+               // console.log(this.payloadData);
                 this.getOrchaAppsData(this.payloadData)
 
             },
@@ -192,7 +192,7 @@ $(document).ready(function () {
 
             updatePage: function (page) {
                 $('#orchaLoader').show();
-               
+               console.log(page);
                 var pagePayload = {
                     pageNum: page,
                     // subCategory: this.payloadData.subCategory,
