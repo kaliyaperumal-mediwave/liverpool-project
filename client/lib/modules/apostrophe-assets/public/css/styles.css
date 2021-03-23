@@ -1107,7 +1107,8 @@ body {
   body .multiselect__select:before {
     border-color: #023047 transparent transparent !important; }
   body .multiselect__tag {
-    background: #023047; }
+    background: #023047;
+    width: 110px !important; }
   body .multiselect__tag-icon:focus,
   body .multiselect__tag-icon:hover {
     background: #023047 !important; }
