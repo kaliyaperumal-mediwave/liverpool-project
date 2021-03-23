@@ -19,18 +19,9 @@ $(document).ready(function () {
         mounted: function () {
             this.paramValues = getUrlVars(location.href);
             this.getAppsDetail(this.paramValues.app_id);
-            // setTimeout(function () {
-            //     $('#loader').hide();
-            // }, 1000);
-            try {
-                if(document.getElementById('resources') && document.getElementById('resources').value) {
-                    this.resources = JSON.parse(document.getElementById('resources').value);
-                } else {
-                    this.resources = [];
-                }
-            } catch (error) {
-                // $('#loader').hide();
-            }
+            setTimeout(function () {
+                $('#loader').hide();
+            }, 1000);
         },
 
         methods: {
@@ -49,6 +40,7 @@ $(document).ready(function () {
                 }
                 this.showAppContent = true;
                 $('#loader').hide();
+              //  console.log(this.appObj)
             },
             filterApps: function () {
                 this.searchQueryToLower = this.searchQuery.toLowerCase();
