@@ -16,6 +16,7 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
+            this.resetForm();
             $('#loader').show();
         },
 
@@ -48,6 +49,8 @@ $(document).ready(function () {
         methods: {
 
             submitLogin: function () {
+                document.getElementById('secondary').setAttribute('disabled', true);
+                document.getElementById('secondary').style.opacity = 0.5;
                 var formData = this.loginObject;
                 this.isFormSubmitted = true;
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
@@ -55,15 +58,20 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/doLogin', formData);
                     if (successData && Object.keys(successData)) {
                         // this.resetForm(this, "loginObject");
-                        this.resetForm();
                         this.tokenVariable = successData;
+                        document.getElementById('secondary').removeAttribute('disabled');
+                        document.getElementById('secondary').style.opacity = 1;
                         $('#loader').hide();
                         location.href = "/dashboard";
                         // $('#logInSuccess').modal('show');
                     } else {
+                        document.getElementById('secondary').style.opacity = 1;
+                        document.getElementById('secondary').removeAttribute('disabled');
                         $('#loader').hide();
                     }
                 } else {
+                    document.getElementById('secondary').style.opacity = 1;
+                    document.getElementById('secondary').removeAttribute('disabled');
                     return false;
                 }
             },

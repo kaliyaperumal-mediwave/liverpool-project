@@ -512,6 +512,12 @@ div.radio.switcher label {
 div.dataTables_wrapper div.dataTables_paginate {
   display: flex; }
 
+.submit-btn-admin button {
+  border: 1px solid #112F45 !important;
+  box-shadow: 0px 3px 6px #00000029 !important;
+  color: #112F45 !important;
+  height: 40px !important; }
+
 .middleContainer:after {
   content: "";
   display: block; }
@@ -1101,7 +1107,8 @@ body {
   body .multiselect__select:before {
     border-color: #023047 transparent transparent !important; }
   body .multiselect__tag {
-    background: #023047; }
+    background: #023047;
+    width: 110px !important; }
   body .multiselect__tag-icon:focus,
   body .multiselect__tag-icon:hover {
     background: #023047 !important; }
@@ -4707,3 +4714,7 @@ div.collapse-container.collapsing {
 
 .active-border {
   border: 1px solid #212529 !important; }
+
+.common-fa-fa {
+  font-weight: 600 !important;
+  color: #023047 !important; }

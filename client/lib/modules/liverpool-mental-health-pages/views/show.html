@@ -88,11 +88,11 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
         </div>
       </div>
       <div id="voiceOver" class="text_inside_return card-set-container-bg home-primary-content-bg">
-        <div class="d-flex w-100 align-items-center">
-          <div class="read-cont-h1 flex-grow-1" id="voiceOverTitle">{{ piece.title }}</div>
-          <div id="c730ed34-ce14-4df1-8718-6346cd050c2b">
-            <button class="btn btn-primary play-button mr-2 px-3" id="playButton" role="button">Play</button>
-            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-3" disabled id="stopButton"
+        <div class="d-flex w-100 align-items-center ">
+          <div class="read-cont-h1 col-6 col-lg-9 p-0" id="voiceOverTitle">{{ piece.title }}</div>
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-flex" id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playButton" role="button">Play</button>
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3" disabled id="stopButton"
               role="button">Stop</button>
           </div>
         

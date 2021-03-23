@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $("#loader").addClass("d-none");
+    $("#loader").addClass("d-none");
     var API_URI = "/modules/dashboard-module";
     $("#doSearchReferral").click(function (event) {
         if (!$('#toSearchRefCode').val().trim()) {
@@ -33,4 +33,9 @@ $(document).ready(function () {
     $("#toSearchRefCode").on('input', function () {
         $("#dispErrMsg").html("");
     });
+
+    $(".imageSet").error(function () {
+        $(this).unbind("error").attr("src", "/modules/my-apostrophe-assets/img/no-img.svg");
+    });
+
 });

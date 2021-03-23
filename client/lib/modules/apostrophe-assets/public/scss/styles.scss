@@ -33,6 +33,7 @@ body {
 
   .multiselect__tag {
     background: #023047;
+    width: 110px !important;
   }
 
   .multiselect__tag-icon:focus,
@@ -3525,4 +3526,8 @@ div.collapse-container.collapsing {
 }
 .active-border {
   border: 1px solid #212529 !important;
+}
+.common-fa-fa {
+  font-weight: 600 !important;
+  color: #023047 !important;
 }
