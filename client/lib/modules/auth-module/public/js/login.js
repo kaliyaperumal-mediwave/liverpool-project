@@ -21,8 +21,7 @@ $(document).ready(function () {
 
         mounted: function () {
             console.log(document.getElementById('sessionExp').innerHTML)
-            if(document.getElementById('sessionExp').innerHTML=="true")
-            {
+            if (document.getElementById('sessionExp').innerHTML == "true") {
                 $.ajax({
                     url: API_URI + "/setSessionExpFalse/false",
                     type: 'get',
@@ -59,7 +58,8 @@ $(document).ready(function () {
                         this.resetForm();
                         this.tokenVariable = successData;
                         $('#loader').hide();
-                        $('#logInSuccess').modal('show');
+                        location.href = "/dashboard";
+                        // $('#logInSuccess').modal('show');
                     } else {
                         $('#loader').hide();
                     }
@@ -90,10 +90,10 @@ $(document).ready(function () {
                 this.loginObject.password = '';
             },
 
-            gotoDashboard: function (token) {
-                $('#logInSuccess').modal('hide');
-                location.href = "/dashboard";
-            }
+            // gotoDashboard: function (token) {
+            //     $('#logInSuccess').modal('hide');
+            //     location.href = "/dashboard";
+            // }
 
         }
     })
