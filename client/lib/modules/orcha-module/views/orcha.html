@@ -4,7 +4,7 @@
 {% endblock %}
 {% block main%}
 
-<div id="orchaDetailPage" >
+<div id="orchaDetailPage">
     <!-- Loader start -->
     <div class="overlay" id="loader">
         <div class="overlay__inner">
@@ -34,6 +34,54 @@
             <div v-if="showAppContent" class="resource_text pb-sm-0 pt-0"> {{ appObj.smallAppCardInfo.appName }}</div>
             {% endraw %}
         </div>
+        {% if data.bckBtn != '/orcha/orchahome'%}
+        <input hidden id="resources" value="{{data.searchApps|dump}}">
+        <div class="input-group home-primary-content-bg">
+            <span class="input-group-prepend">
+                <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
+                    <span style="color: #023047 !important;">
+                        <i class="fal fa-search font-23"></i>
+                    </span>
+                </div>
+            </span>
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                v-model="searchQuery" placeholder="Search your app" id="example-search-input" @input="filterApps()">
+        </div>
+        {% endif %}
+        <div id="hideserachblock" class="d-none">
+            {% raw %}
+            <!-- Search functionality start-->
+            <div v-if="showSearchResults" class="resource_search_text my-3">Search results for “what is
+                {{searchQuery}}?”</div>
+            <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+                <div class="primary-search-radius home-primary-content-bg cursor-pointer">
+                    <template v-if="filteredData.length">
+                        <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                            <a :href=" item.custom_url ? item.custom_url : item._url ">
+                                <div class="d-flex align-items-center">
+                                    <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
+                                    class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
+                                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+
+                                    <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                    </p>
+                                    <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
+                                        <li>{{item.platform}}</li>
+                                    </ul>
+                                </div>
+                            </a>
+                        </div>
+                    </template>
+                    <template v-if="!filteredData.length">
+                        <p class="home-header-secondary py-3 pl-4">No results found</p>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Search functionality end-->
+            {% endraw %}
+        </div>
+
         <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
             <h5 class="font-weight-bold">
                 On this page, you can access a range of useful websites and apps
@@ -273,9 +321,9 @@
                 {% for orchaApps in data.orchaApps %}
                 {% if orchaApps.id != data.currentApp %}
                 <div class="col-4 col-md-2 padding-set-equal">
-                    <a class="text-decoration-none" href="/downloads?app_id={{orchaApps.id}}">
+                    <a class="text-decoration-none" href="/orcha?app_id={{orchaApps.id}}">
                         <div class="img-cont-app position-relative">
-                            <img class="panda-img" src="{{orchaApps.thumbnail}}" />
+                            <img class="panda-img" @error="handleError($event)" src="{{orchaApps.thumbnail}}" />
                             {% if orchaApps.platform == 'Android' %}
                             <img src="/modules/my-apostrophe-assets/img/android.svg" width="60" height="40"
                                 class="cursor-pointer img-pos" alt="">
@@ -283,6 +331,10 @@
                             {% if orchaApps.platform == 'iOS' %}
                             <img src="/modules/my-apostrophe-assets/img/ios.svg" width="60" height="40"
                                 class="cursor-pointer img-pos" alt="">
+                            {% endif %}
+                            {% if orchaApps.platform == 'Web App' %}
+                            <img src="/modules/my-apostrophe-assets/img/web.svg" width="60" height="40"
+                              class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
                             {% endif %}
                         </div>
                         <div class="text-cont-app text-container-wrap py-2">
