@@ -1,10 +1,4 @@
 {% extends "layout.html" %}
-<script>
-    $(document).on("click", "a.previous-link", function () {
-        parent.history.back();
-        return false;
-    });
-</script>
 {% block extraBody %}
 <script src="/modules/orcha-module/js/orcha-home.js"></script>
 
@@ -52,7 +46,7 @@
     <!-- Loader end -->
     <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-0">
         <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mx-auto">
-            <a href="" class="previous-link">
+            <a href="{{ data.logoPath }}" class="previous-link">
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
             <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">
@@ -128,8 +122,8 @@
                 <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="capabilityValue" tag-placeholder="" placeholder="Capability"
                         :close-on-select="false" label="capabilityName" track-by="id" :options="capabilityList"
-                        :multiple="true" :taggable="true" @select="selectOptions($event,'capability')"
-                        @remove="removeOptions($event)">
+                        :multiple="true" :limit="1" :taggable="true" @select="selectOptions($event,'capability')"
+                        @remove="removeOptions($event,'capability')">
                         <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                 class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
                                 options selected</span></template>
@@ -144,7 +138,7 @@
                     <multiselect v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
                         :close-on-select="false" label="designedForName" track-by="id" :options="designedForList"
                         :multiple="true" :taggable="true" :limit="1" @select="selectOptions($event,'designedFor')"
-                        @remove="removeOptions($event)">
+                        @remove="removeOptions($event,'designedFor')">
                     </multiselect>
                 </div>
                 <!-- Orcha Designed For Select End-->
