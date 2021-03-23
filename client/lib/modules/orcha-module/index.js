@@ -12,14 +12,18 @@ module.exports = {
     require('../../middleware')(self, options);
 
     self.orcha = function (req, callback) {
+     // console.log(req.session.resUrl)
+     req.data.orchaApps = req.session.orchaApps;
       return self.sendPage(req, self.renderer('orcha', {
         showHeader: true,
         home: true,
         hideRefButton: true,
+        bckBtn:req.session.resUrl
       }));
     };
 
     self.orchaHome = function (req, callback) {
+      req.session.resUrl = "/orcha/orchahome";
       return self.sendPage(req, self.renderer('orchaNew', {
         showHeader: true,
         home: true,

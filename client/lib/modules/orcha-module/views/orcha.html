@@ -4,13 +4,35 @@
 {% endblock %}
 {% block main%}
 
-<div id="orchaDetailPage" v-cloak>
-
-    <div class="top-arrow-container pd-container" id="searchBar">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="/orcha/orchahome" class="previous-link"><i
+<div id="orchaDetailPage" >
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div v-cloak class="top-arrow-container pd-container" id="searchBar">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="{{data.bckBtn}}" class="previous-link"><i
                     class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
-
-            <div class="resource_text pb-sm-0 pt-0">Apps</div>
+            {% raw %}
+            <div v-if="showAppContent" class="resource_text pb-sm-0 pt-0"> {{ appObj.smallAppCardInfo.appName }}</div>
+            {% endraw %}
         </div>
         <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
             <h5 class="font-weight-bold">
@@ -24,7 +46,7 @@
             </div>
             <div class="text_inside_play-store-orcha">
 
-                
+
                 <div class='d-flex'>
                     <div class="">
                         <img class="panda-img" :src="appObj.smallAppCardInfo.thumbnail">
@@ -64,8 +86,9 @@
                         <div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
-                                    data-toggle="collapse" data-target="#collapseAppDetails" @click="toggleArrow($event)" role="button"
-                                    aria-expanded="true" aria-controls="collapseAppDetails"></i>
+                                    data-toggle="collapse" data-target="#collapseAppDetails"
+                                    @click="toggleArrow($event)" role="button" aria-expanded="true"
+                                    aria-controls="collapseAppDetails"></i>
                             </span>
                         </div>
                     </div>
@@ -126,8 +149,8 @@
                         <div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
-                                    data-toggle="collapse" data-target="#collapseSummary" @click="toggleArrow($event)" role="button"
-                                    aria-expanded="true" aria-controls="collapseSummary"></i>
+                                    data-toggle="collapse" data-target="#collapseSummary" @click="toggleArrow($event)"
+                                    role="button" aria-expanded="true" aria-controls="collapseSummary"></i>
                             </span>
                         </div>
                     </div>
@@ -144,9 +167,9 @@
                             </div>
                             <div class="progress-radius progressOrcha my-3">
                                 <div class="progress-bg progress-bar" role="progressbar"
-                                :style="{ width: appObj.data_privacy_score + '%' }" aria-valuenow="75" aria-valuemin="0"
-                                  aria-valuemax="100">
-                                  <span class="link-text"></span>
+                                    :style="{ width: appObj.data_privacy_score + '%' }" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    <span class="link-text"></span>
                                 </div>
                             </div>
 
@@ -160,9 +183,9 @@
                             </div>
                             <div class="progress-radius progressOrcha my-3">
                                 <div class="progress-bg progress-bar" role="progressbar"
-                                :style="{ width: appObj.clinical_assurance_score + '%' }" aria-valuenow="75" aria-valuemin="0"
-                                  aria-valuemax="100">
-                                  <span class="link-text"></span>
+                                    :style="{ width: appObj.clinical_assurance_score + '%' }" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    <span class="link-text"></span>
                                 </div>
                             </div>
 
@@ -176,9 +199,9 @@
                             </div>
                             <div class="progress-radius progressOrcha my-3">
                                 <div class="progress-bg progress-bar" role="progressbar"
-                                :style="{ width: appObj.user_experience_score + '%' }" aria-valuenow="75" aria-valuemin="0"
-                                  aria-valuemax="100">
-                                  <span class="link-text"></span>
+                                    :style="{ width: appObj.user_experience_score + '%' }" aria-valuenow="75"
+                                    aria-valuemin="0" aria-valuemax="100">
+                                    <span class="link-text"></span>
                                 </div>
                             </div>
                         </div>
@@ -195,8 +218,8 @@
                         <div>
                             <span style="color: #D6D8D8;">
                                 <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
-                                    data-toggle="collapse" data-target="#collapseGallery" @click="toggleArrow($event)" role="button"
-                                    aria-expanded="true" aria-controls="collapseGallery"></i>
+                                    data-toggle="collapse" data-target="#collapseGallery" @click="toggleArrow($event)"
+                                    role="button" aria-expanded="true" aria-controls="collapseGallery"></i>
                             </span>
                         </div>
                     </div>
@@ -204,11 +227,12 @@
                         <p v-if="appObj.screenshots.length == 0">No image found</p>
                         <div v-if="appObj.screenshots.length != 0" class="d-flex text-center py-md-2 py-0">
                             <div class=" mx-auto w-100 d-flex overflow-auto">
-                               
-                                <a  v-for="screenshot in appObj.screenshots"  class="swiper-slide custom-slider-orcha text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
+
+                                <a v-for="screenshot in appObj.screenshots"
+                                    class="swiper-slide custom-slider-orcha text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
                                     data-swiper-slide-index="0" role="group" aria-label="1 / 6">
                                     <div class="questionText">
-                                        <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot" >
+                                        <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot">
                                     </div>
                                 </a>
                                 <!-- <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
@@ -234,6 +258,53 @@
         </div>
 
         {% endraw %}
+
+        {% if data.bckBtn != '/orcha/orchahome'%}
+
+        {% if data .orchaApps and data.orchaApps.length > 1 %}
+        <div class="selectSource">
+            More apps to download
+        </div>
+        {% endif %}
+
+        {% if data .orchaApps and data.orchaApps.length > 1 %}
+        <div class="large-toggle-cont">
+            <div class="row mr-0 ml-0 w-100">
+                {% for orchaApps in data.orchaApps %}
+                {% if orchaApps.id != data.currentApp %}
+                <div class="col-4 col-md-2 padding-set-equal">
+                    <a class="text-decoration-none" href="/downloads?app_id={{orchaApps.id}}">
+                        <div class="img-cont-app position-relative">
+                            <img class="panda-img" src="{{orchaApps.thumbnail}}" />
+                            {% if orchaApps.platform == 'Android' %}
+                            <img src="/modules/my-apostrophe-assets/img/android.svg" width="60" height="40"
+                                class="cursor-pointer img-pos" alt="">
+                            {% endif %}
+                            {% if orchaApps.platform == 'iOS' %}
+                            <img src="/modules/my-apostrophe-assets/img/ios.svg" width="60" height="40"
+                                class="cursor-pointer img-pos" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="text-cont-app text-container-wrap py-2">
+                            {{orchaApps.appName}}
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if data .orchaApps and data.orchaApps.length == 1 %}
+        <div class="large-toggle-cont">
+            <div class="row mr-0 ml-0 w-100 text-center py-3">
+                No apps found
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}
