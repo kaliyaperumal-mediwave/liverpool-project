@@ -172,9 +172,9 @@ function viewPdf(uuid, role) {
   // var fileName = "test.pdf";
   //link.download = fileName;
   link.click();
-  // setTimeout(function () {
-  //   $('#loader').hide();
-  // }, 1000);
+  setTimeout(function () {
+    $('#loader').hide();
+  }, 1000);
   //link.click();
 }
 
