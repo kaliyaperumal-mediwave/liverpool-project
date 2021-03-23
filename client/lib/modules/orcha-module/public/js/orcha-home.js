@@ -173,7 +173,7 @@ $(document).ready(function () {
             },
 
             handleError: function (e) {
-                e.target.src = "/modules/my-apostrophe-assets/img/noimg.svg";
+                e.target.src = "/modules/my-apostrophe-assets/img/no-img.svg";
                 e.target.style.height = 50;
                 e.target.style.width = 50;
             },
