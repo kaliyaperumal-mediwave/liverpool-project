@@ -62,7 +62,7 @@
                                 v-bind:placeholder="sec2dynamicLabel.firstNamePlacLabel">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -83,7 +83,7 @@
                                 v-bind:placeholder="sec2dynamicLabel.lastNamePlacLabel">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -104,7 +104,7 @@
                                 v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.childEmail">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -125,7 +125,7 @@
                                 v-model="aboutObj.childContactNumber">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-25">
-                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -152,7 +152,7 @@
                                 aria-label="location" v-model="aboutObj.childAddress">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childAddress),
@@ -319,7 +319,7 @@
                                     <div>
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#houseHoldModal" @click="patchHouseHold(item)">
-                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            <i class="fa common-fa-fa fa-pencil fa-2x" aria-hidden="true">
                                             </i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
@@ -337,7 +337,7 @@
 
                     <button data-toggle="modal" data-target="#houseHoldModal" type="button" @click="resetModal('add')"
                         class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
-                            members <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            members <i class="fa common-fa-fa fa-plus-circle" aria-hidden="true"></i>
                         </span></button>
                 </div>
                 <!-- Add HouseHold Members end -->
@@ -456,7 +456,7 @@
                                 v-model="aboutObj.parentFirstName">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
@@ -480,7 +480,7 @@
                                 v-model="aboutObj.parentLastName">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
@@ -549,7 +549,7 @@
                                     v-model="aboutFormData.parentCarerFirstName">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text px-3 font-23">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -578,7 +578,7 @@
                                     v-model="aboutFormData.parentCarerLastName">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text px-3 font-23">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -713,7 +713,7 @@
                                     aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
                                 <div class="input-group-append">
                                     <span class="input-group-text px-3">
-                                        <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -828,7 +828,7 @@
                 aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
                 aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -854,7 +854,7 @@
      aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
      aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && !aboutObj.nhsNumber && !aboutFormData.emailAddress) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -880,7 +880,7 @@
    aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
    aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail && !aboutObj.nhsNumber && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -906,7 +906,7 @@
       aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
       aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutFormData.emailAddress) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -924,7 +924,7 @@
 aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
 aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)  && !aboutObj.nhsNumber) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -950,7 +950,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
  aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
  aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail  && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -960,7 +960,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                 aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
                                 aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ( (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -968,7 +968,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                         v-if="!aboutObj.childFirstName || !aboutObj.childLastName || !aboutObj.childContactNumber  || !aboutObj.childAddress || !aboutObj.sendPost || !aboutObj.childGender ||
                     !aboutObj.childIdentity || !aboutObj.childCareAdult || !aboutObj.parentFirstName || !aboutObj.parentLastName ||  !aboutFormData.relationshipToYou || !aboutFormData.contactNumber ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -980,7 +980,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                 (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) && aboutFormData.relationshipToYou && aboutFormData.contactNumber  && 
                             phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -989,7 +989,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                         aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
                         aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -999,7 +999,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                         aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) &&
                        ((aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)) && (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -1008,7 +1008,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                 aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName && aboutFormData.relationshipToYou && (aboutFormData.contactNumber  &&  !phoneRegex.test(aboutFormData.contactNumber)) && 
                            (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
 
@@ -1018,7 +1018,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
             aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) &&
            ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
                                         <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                            <i class="fa common-fa-fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </template>
                                 </p>
@@ -1438,7 +1438,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                             :config="options" :wrap="dateWrap"></date-picker>
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                     </div>
@@ -1456,7 +1456,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                             id="educLocation" v-model="houseHoldData.profession">
                                         <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-25">
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                     </div>
