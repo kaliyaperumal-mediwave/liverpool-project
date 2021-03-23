@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { registerValidation, loginValidation, forgotPasswordValidation, resetPasswordValidation, resetEmailValidation, changeEmailValidation, changePasswordValidation, feedbackValidation } = require('../validation/user');
+const { referralRegisterValidation, registerValidation, loginValidation, forgotPasswordValidation, resetPasswordValidation, resetEmailValidation, changeEmailValidation, changePasswordValidation, feedbackValidation } = require('../validation/user');
 const sequalizeErrorHandler = require('../middlewares/errorHandler');
 const email = require('../utils/email');
 var moment = require("moment");
@@ -94,15 +94,37 @@ exports.login = async (ctx) => {
                     },{
                         where:
                           {  email: userResult.email, }
-                      }).then((sessionResult) => {
-                          console.log("----------------------------------update session ----------------------------------------------------")
-                        const sendUserResult = {
+                      }).then(async (sessionResult) => {
+                        console.log("----------------------------------update session ----------------------------------------------------");
+                        var sendUserResult = {
                             loginId: userResult.uuid,
                             first_name: userResult.first_name,
                             last_name: userResult.last_name,
                             email: userResult.email,
                             role: userResult.user_role,
                             token: token
+                        }
+                        if(userResult.user_role === 'professional') {
+                            const Referral = ctx.orm().Referral;
+                            const prof_referral = await Referral.findOne({
+                                where: {
+                                    login_id: userResult.uuid,
+                                    referral_complete_status: 'completed'
+                                },
+                                order: [
+                                    ['id', 'asc']
+                                ]
+                            });
+                            if(prof_referral) {
+                                sendUserResult.prof_data = {
+                                    first_name: prof_referral.professional_firstname,
+                                    last_name: prof_referral.professional_lastname,
+                                    email: prof_referral.professional_email ? prof_referral.professional_email : '',
+                                    contact_number: prof_referral.professional_contact_number ? prof_referral.professional_contact_number : '',
+                                    profession: prof_referral.professional_profession ? prof_referral.professional_profession : '',
+                                    address: prof_referral.professional_address ? prof_referral.professional_address : ''
+                                };
+                            }
                         }
                         const sendResponseData = {
                             sendUserResult: sendUserResult,
@@ -483,3 +505,93 @@ exports.verifyToken = async (ctx) => {
         });
     }
 };
+
+exports.referralSignup = async (ctx) => {
+    const { error } = referralRegisterValidation(ctx.request.body);
+    if (error) {
+        return ctx.res.badRequest({
+            message: error.details[0].message,
+        });
+    } else {
+        const user = ctx.orm().User;
+        const email = await user.findOne({
+            where: {
+                email: ctx.request.body.email,
+            },
+        });
+        if (email != null) {
+            return ctx.res.badRequest({
+                message: reponseMessages[1003],
+            });
+        }
+        const hashedPassword = await bcrypt.hash(ctx.request.body.password, saltRounds)
+        const userEmail = (ctx.request.body.email).toLowerCase();
+        return user.create({
+            first_name: ctx.request.body.first_name,
+            last_name: ctx.request.body.last_name,
+            email: userEmail,
+            password: hashedPassword,
+            user_role: ctx.request.body.role,
+        }).then((result) => {
+            const payload = { email: result.email, id: result.uuid, role: result.user_role };
+            const secret = process.env.JWT_SECRET;
+            const token = jwt.sign(payload, secret);
+            
+            return user.update({
+                session_token: token,
+                session_token_expiry: new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
+            },{
+                where: {  email: result.email
+                }
+            }).then((sessionResult) => {
+                const Referral = ctx.orm().Referral;
+                return Referral.update(
+                    {
+                        login_id: result.uuid,
+                    },
+                    { where: {  reference_code: ctx.request.body.reference_code }
+                }).then(async (referralResult) => {
+                    console.log("----------------------------------update referral ----------------------------------------------------")
+                    var sendSignupResult = {
+                        data: result,
+                        token: token
+                    }
+                    if(result.user_role === 'professional') {
+                        const prof_referral = await Referral.findOne({
+                            where: {
+                                login_id: result.uuid,
+                                referral_complete_status: 'completed'
+                            },
+                            order: [
+                                ['id', 'asc']
+                            ]
+                        });
+                        if(prof_referral) {
+                            sendSignupResult.prof_data = {
+                                first_name: prof_referral.professional_firstname,
+                                last_name: prof_referral.professional_lastname,
+                                email: prof_referral.professional_email ? prof_referral.professional_email : '',
+                                contact_number: prof_referral.professional_contact_number ? prof_referral.professional_contact_number : '',
+                                profession: prof_referral.professional_profession ? prof_referral.professional_profession : '',
+                                address: prof_referral.professional_address ? prof_referral.professional_address : ''
+                            };
+                        }
+                    }
+                    return ctx.res.ok({
+                        status: "success",
+                        message: reponseMessages[1005],
+                        data: sendSignupResult,
+                    });
+                }).catch((error) => {
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                })
+            }).catch((error) => {
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            })
+        }).catch((error) => {
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+
+    }
+}

@@ -152,6 +152,17 @@ $(document).ready(function () {
                             ////console.log(error.responseJSON.message)
                         }
                     });
+                } else {
+                    if(this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
+                        var profData = document.getElementById('prof_data').innerHTML;
+                        profData = JSON.parse(profData);
+                        Vue.set(this.elgibilityObj, "profFirstName", profData.first_name);
+                        Vue.set(this.elgibilityObj, "proflastName", profData.last_name);
+                        Vue.set(this.elgibilityObj, "profEmail", profData.email);
+                        Vue.set(this.elgibilityObj, "profContactNumber", profData.contact_number);
+                        Vue.set(this.elgibilityObj, "profAddress", profData.address);
+                        Vue.set(this.elgibilityObj, "profProfession", profData.profession);
+                    }
                 }
             },
             setValues: function (data) {
@@ -839,11 +850,10 @@ $(document).ready(function () {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
                                     this.apiRequest(this.elgibilityObj, role);
-
                                 } else {
-                                    this.hasEmailInvalidError = true;
+                                    scrollToInvalidInput();
+                                    return false;
                                 }
-
                             } else {
                                 $('#loader').show();
                                 this.apiRequest(this.elgibilityObj, role);

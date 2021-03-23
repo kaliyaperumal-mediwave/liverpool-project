@@ -534,7 +534,7 @@
                         </div>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" class="form-control gpLocation input-bg-form-control"
+                            <input type="text" class="form-control gpLocation input-bg-form-control" inputmode="search"
                                 @input="getAddress($event)" placeholder="Start typing to search" id="gpLocation"
                                 aria-label="location" v-model="elgibilityObj.regGpTxt"
                                 v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
@@ -686,7 +686,7 @@
                         </label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profEmail"
+                            <input type="text" v-model="elgibilityObj.profEmail" inputmode="email"
                                 @input="onVaueChange($event,'email','elgibilityObj','profEmail')"
                                 placeholder="Enter your email address" class="form-control input-bg-form-control"
                                 id="emailAddress">
@@ -709,7 +709,7 @@
                     <div class="form-group">
                         <label for="contact" class="question-font">Enter your contact number</label>
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profContactNumber"
+                            <input type="text" v-model="elgibilityObj.profContactNumber" inputmode="tel"
                                 @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
                                 placeholder="Enter your contact number" class="form-control input-bg-form-control"
                                 id="contact">
@@ -733,7 +733,7 @@
                         <label for="yourAddress" class="question-font">Your address</label>
                         {% raw %}
                         <div class="input-group">
-                            <input type="text" v-model="elgibilityObj.profAddress"
+                            <input type="text" v-model="elgibilityObj.profAddress" inputmode="search"
                                 @input="onVaueChange($event,'yourAddress','elgibilityObj','profAddress')"
                                 placeholder="Enter your address" class="form-control input-bg-form-control"
                                 id="txtProfessionalAddress">
@@ -956,9 +956,9 @@
                             with?</label>
                         <div class="input-group">
                             <input type="text" class="form-control gpProfLocation input-bg-form-control"
-                                v-model="elgibilityObj.regProfGpTxt" placeholder="Start typing to search"
-                                @input="getProfAddress($event)" id="gpProfLocation" aria-label="location"
-                                v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
+                                inputmode="search" v-model="elgibilityObj.regProfGpTxt"
+                                placeholder="Start typing to search" @input="getProfAddress($event)" id="gpProfLocation"
+                                aria-label="location" v-on:keypress.enter.prevent="gpSubmit()" autocomplete="off">
                             <div id="showInputLoader" class="icon-container d-none">
                                 <i class="inputLoader"></i>
                             </div>
@@ -1020,7 +1020,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && !elgibilityObj.profEmail"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1033,12 +1033,23 @@
                                 continue
                                 with this
                                 referral.</p>
-                            <!-- <p class="question-font text-center m-0 pb-2">You are
+                        </div>
+                    </div>
+                </div>
+
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail))"
+                    class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
+                        <div class="">
+                            <p class="text-center m-0 py-2">
+                                <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                            </p>
+                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: You are
                                 eligible
                                 to
                                 continue
                                 with this
-                                referral.</p> -->
+                                referral.</p>
                         </div>
                     </div>
                 </div>
@@ -1046,7 +1057,7 @@
             </form>
             {% endraw %}
             <template
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession) && elgibilityObj.profChildDob!=null">
+                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null">
                 <div class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">

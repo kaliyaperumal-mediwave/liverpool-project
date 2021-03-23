@@ -19,7 +19,8 @@ $(document).ready(function () {
                 childEthnicity: "",
                 childCareAdult: "",
                 parentFirstName: "",
-                parentLastName:""
+                parentLastName:"",
+                referral_progress: 40 
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -193,6 +194,8 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
                         Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
                         Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
+                        Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
+                        Vue.set(this.aboutObj, "referral_progress", data.referral_progress == 20 ? 40 : data.referral_progress);
                     }
 
                 }
@@ -228,6 +231,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                         this.allHouseHoldMembers = data[0].parent[0].household_member;
+                        Vue.set(this.aboutObj, "referral_progress", data[0].referral_progress == 20 ? 40 : data[0].referral_progress);
                     }
                 }
 
@@ -265,6 +269,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                         Vue.set(this.aboutFormData, "parentUUID", data[0].uuid);
+                        Vue.set(this.aboutObj, "referral_progress", data[0].prof_referral_progress == 20 ? 40 : data[0].prof_referral_progress);
                     }
                 }
             },

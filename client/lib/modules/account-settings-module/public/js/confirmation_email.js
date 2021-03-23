@@ -21,11 +21,7 @@ $(document).ready(function () {
             if (successData && Object.keys(successData)) {
                 console.log(successData, "successData");
                 $('#loader').hide();
-                if (false || !!document.documentMode) {
-                    this.message = successData.message;
-                } else {
-                    this.message = successData.message;
-                }
+                this.message = successData.message;
 
             } else {
                 $('#loader').hide();
@@ -33,7 +29,7 @@ $(document).ready(function () {
         },
 
         methods: {
-            
+
             logOut: function () {
                 window.location.href = window.location.origin + '/users/login';
                 //window.location.href = "/logout";

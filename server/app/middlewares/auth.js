@@ -8,7 +8,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
         const { Orcha } = ctx.orm();
         ctx.response.body = ctx.response.body ? ctx.response.body : {};
         await Orcha.findOne().then(async (orchaTokens) => {
-            if (!orchaTokens.auth_token) {
+            if (!orchaTokens || !orchaTokens.auth_token) {
                 var data = {
                     "username": config.orcha_user,
                     "password": config.orcha_pass
@@ -32,7 +32,6 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                         return next().then(() => {
                             resolve();
                         });
-
                     }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
                 }).catch((error) => {
                     ctx.res.internalServerError({

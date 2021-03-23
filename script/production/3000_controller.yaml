@@ -55,7 +55,14 @@ spec:
           value: $PHR_LIVERPOOL_SSL
         - name: TO_EMAIL
           value: $PHR_LIVERPOOL_TO_EMAIL
-        
+        - name: YPAS_EMAIL 
+          value: $PHR_LIVERPOOL_TO_YPAS_EMAIL 
+        - name: VENUS_EMAIL
+          value: $PHR_LIVERPOOL_TO_VENUS_EMAIL
+        - name: IAPTUS_EMAIL
+          value: $PHR_LIVERPOOL_TO_IAPTUS_EMAIL
+        - name: OTHER_EMAIL
+          value: $PHR_LIVERPOOL_TO_OTHER_EMAIL
         ports:
         - containerPort: 3001
 ---

@@ -1,0 +1,309 @@
+{% extends "layout.html" %}
+<script>
+    $(document).on("click", "a.previous-link", function () {
+        parent.history.back();
+        return false;
+    });
+</script>
+{% block extraBody %}
+<script src="/modules/orcha-module/js/orchahome.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+
+
+
+{% endblock %}
+{% block main %}
+
+<div id="orchaHomePage">
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+    <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-0">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mx-auto">
+            <a href="" class="previous-link">
+                <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
+            </a>
+            <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">
+                Orcha
+                <!-- {{
+                apos.area(data.page, 'feedbackTitle', {
+                widgets: {
+                'apostrophe-rich-text': {
+                toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
+                styles: [
+                { name: 'Heading', element: 'h2' },
+                { name: 'Paragraph', element: 'p' }
+                ]
+                }
+                }
+                })
+                }} -->
+            </div>
+        </div>
+    </div>
+
+    <div v-cloak class="d-flex text-center py-md-3 py-2">
+        {% raw %}
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
+            <div class="input-group home-primary-content-bg">
+                <span class="input-group-prepend">
+                    <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
+                        <span style="color: #023047 !important">
+                            <i class="fal fa-search font-23 ham-icon"></i>
+                        </span>
+                    </div>
+                </span>
+                <input @keyup.enter="getSearchData(undefined,undefined)" id="searchTxt" v-model="filterObj.searchTxt"
+                    class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+                    placeholder="Search your apps" id="example-search-input" />
+
+            </div>
+            <button @click="getSearchData(undefined,undefined)" type="button" class="search-btn-set btn "><span
+                    id="doSearch" class="">Search
+                </span></button>
+        </div>
+        {% endraw %}
+
+    </div>
+
+    <div v-cloak class="d-flex text-center py-md-3 py-2">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+            <div class="home-primary-content m-0 py-2 px-2 text-left">
+                Here are apps for you based on your health and wellbeing information
+            </div>
+        </div>
+    </div>
+
+    <div v-cloak class="d-flex text-center py-md-3 py-2">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+
+            <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
+                {% raw %}
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Category</label>
+                    <div class="select-customize-drop plain-select">
+                        <select id="category_list" data-live-search="true" data-live-search-style="startsWith"
+                            v-model="filterObj.subCategory" class="selectMultipleBE">
+                            <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
+                                :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
+                        </select>
+                    </div>
+                    <!-- 
+                    <div class="select-customize-drop plain-select">
+                        <select id="category_list" v-model="filterObj.subCategory"
+                            class="custom-select form-control input-bg-form-control btn"
+                            @change="getSearchData($event)">
+                            <option class='option-text' value="">Category
+                            </option>
+                            <option v-for="(subCategoryObj, index) in subCategoryList" :key="index" class='option-text'
+                                :value="subCategoryObj.id">{{subCategoryObj.subCategoryName}}</option>
+                        </select>
+                    </div> -->
+
+                </div>
+                {% endraw %}
+
+                {% raw %}
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Country</label>
+                    <span class="select-customize-drop plain-select">
+                        <select id="countrySelect" data-live-search="true" data-live-search-style="startsWith"
+                            v-model="filterObj.country" class="selectMultipleBE">
+                            <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
+                                :value="countryObj.id">{{countryObj.countryName}}</option>
+                        </select>
+                        <!-- <select id="countrySelect" v-model="filterObj.country"
+                        class="custom-select form-control input-bg-form-control btn"
+                        @change="getSearchData($event)">
+                        <option class='option-text' value="">Country of origin
+                        </option>
+                        <option v-for="(countryObj, index) in countryList" :key="index" class='option-text'
+                            :value="countryObj.id">{{countryObj.countryName}}</option>
+                    </select> -->
+                </div>
+                {% endraw %}
+
+                {% raw %}
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Capability</label>
+                    <div class="select-customize-drop plain-select">
+                        <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                        <select class="selectMultipleBE" title="Choose one of the following..."
+                            id="capabilitiesDropdown" multiple="multiple">
+                            <option v-for="(capabilityObj, index) in capabilityList" :value="capabilityObj.id">
+                                {{ capabilityObj.capabilityName }}</option>
+                        </select>
+                    </div>
+                </div>
+                {% endraw %}
+
+                {% raw %}
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Designed for</label>
+                    <div class="select-customize-drop plain-select">
+                        <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                        <select class="selectMultipleBE" id="designedForDropdown" data-live-search="true"
+                            multiple="multiple">
+                            <option v-for="(designedForObj, index) in designedForList" :value="designedForObj.id">
+                                {{ designedForObj.designedForName }}</option>
+                        </select>
+                    </div>
+                </div>
+                {% endraw %}
+
+
+
+                {% raw %}
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Cost</label>
+                    <div class="select-customize-drop plain-select">
+                        <!-- Note: selectMultipleBE is used in JS file to get selected value and its not design related class -->
+                        <select class="selectMultipleBE" id="costDropdown" data-live-search="true" multiple="multiple">
+                            <option v-for="(costObj, index) in costList" :value="costObj.id">{{ costObj.costName }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                {% endraw %}
+
+                {% raw %}
+                <div v-if="platformList.length > 0"
+                    class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                    <label style="font-weight: bold;" for="">Platform</label>
+                    <div class="select-customize-drop plain-select">
+                        <select id="platformSelect" v-model="filterObj.platform"
+                            class="custom-select form-control input-bg-form-control btn"
+                            @change="getSearchData(undefined,undefined)">
+                            <option class='option-text' value="">Platform
+                            </option>
+                            <option v-for="(platformObj, index) in platformList" :key="index" class='option-text'
+                                :value="platformObj.id">{{platformObj.platformName}}</option>
+                        </select>
+                    </div>
+                </div>
+                {% endraw %}
+            </div>
+            {% raw %}
+            <p class="option-font text-left m-0 px-2 cursor-pointer"><u><a @click="reload()">Clear Filters</a></u></p>
+            {% endraw %}
+        </div>
+    </div>
+    <div v-cloak class="d-flex pt-2 pb-2">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto">
+            <h3 class="authorization-font pt-3 pb-2 mb-0">Recommended for you</h3>
+            <p class="option-font">Our system has picked these app for you based on your health and wellbeing</p>
+        </div>
+    </div>
+
+    <div v-cloak class="d-flex text-center py-md-2 py-0">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-0 px-1 mx-auto">
+            <div class="row justify-content-center justify-content-sm-start">
+                {% raw %}
+                <div v-if="filteredAppsList.length > 0" class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
+                    v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
+                    <a :href="'/orcha?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
+                        <div class="w-100 position-relative">
+                            <div class="bg-white card-container-small">
+                                <div class="container-top-set">
+                                    <div class="inside-cover-only-brand" style="height: 100px;">
+                                        <div class="row p-0 m-0">
+                                            <div class="p-0 m-0">
+                                                <img :src="filteredAppsObj.thumbnail"
+                                                    class="imageOnOrcha border-radius-10"
+                                                    @error="handleError($event)" />
+                                            </div>
+                                            <div class="pl-3 m-0 d-flex pl-0 py-0 pr-0 imageTextOrcha">
+                                                <div class="questionText ellipse-text-large-card">
+                                                    {{filteredAppsObj.appName}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img v-show="filteredAppsObj.platform!='iOS'" src="/modules/my-apostrophe-assets/img/android.svg" width="80" height="60"
+                                            class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
+
+                                        <img v-show="filteredAppsObj.platform=='iOS'"  src="/modules/my-apostrophe-assets/img/ios.svg" width="89" height="69"
+                                            class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
+
+                                    </div>
+                                </div>
+                                <div class="container-bottom-set">
+                                    <div class="questionText wrap-contain-app">
+                                        {{filteredAppsObj.description}}
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-end">
+                                    <div class="circle mr-3 font-bold d-flex align-items-center justify-content-center">
+                                        {{filteredAppsObj.score}}
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-start pl-3 pb-2">
+                                    <span style="text-decoration: underline !important"
+                                        class="link-text cursor-pointer">More info</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div v-if="filteredAppsList.length < 1" class="d-flex text-center py-md-3 py-2">
+                    <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+                        <div class="home-primary-content m-0 py-2 px-2 text-left">
+                            No record found.
+                        </div>
+                    </div>
+                </div>
+                {% endraw %}
+            </div>
+        </div>
+    </div>
+    <div v-cloak class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto justify-content-center d-flex mt-4">
+        <template>
+            {% raw %}
+            <div v-if="paginationObj.totalPages > 0" class="overflow-auto">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item" @click="scrollXAndY('prev')"><a class="page-link">
+                                << </a>
+                        </li>
+                        <div id="paginationDiv" class="index-scroller">
+                            <div v-for="(numObj, index) in numberList" :key="index"
+                                @click="getSearchData($event,index+1)">
+                                <li class="page-item"></li><a :id="'pageIndex'+index"
+                                    class="page-link uniqueLinkSet">{{index+1}}</a>
+                                </li>
+                            </div>
+                        </div>
+                        <li class="page-item" @click="scrollXAndY('next')"><a class="page-link"> >> </a></li>
+                    </ul>
+                </nav>
+            </div>
+            {% endraw %}
+        </template>
+    </div>
+
+</div>
+{% raw %}
+
+{% endblock %}

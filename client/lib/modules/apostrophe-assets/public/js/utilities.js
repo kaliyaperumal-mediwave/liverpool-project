@@ -177,8 +177,12 @@ function apiCallPost(reqType, endPoint, payload) {
         },
         error: function (error) {
             $('#loader').removeClass('d-block').addClass('d-none');
-            if (error) {
-                showError(error.responseJSON.message, error.status);
+            if (endPoint == '/resetEmail') {
+                return;
+            } else {
+                if (error) {
+                    showError(error.responseJSON.message, error.status);
+                }
             }
         }
     });
@@ -300,6 +304,9 @@ function setLoaderStyle() {
     element[0].classList.add('body-bg');
     body.classList.add('net');
     body.classList.add('default');
+    if (!localStorage.getItem('voiceOver')) {
+        localStorage.setItem('voiceOver', 'off');
+    }
 }
 
 //common function to make first letter capital
@@ -359,10 +366,10 @@ function setTextSize() {
         var inc = Number(textSize) - Number(currentTextSize);
         $('p,h1,h2,h3,h4,h5,label,span,button,input,a').each(function (res) {
             var fontsize = parseInt($(this).css('font-size'));
-            var setLineHeight = Number(fontsize + inc) + 4;
             var newFontsize = (fontsize + inc) + 'px';
             $(this).css('font-size', newFontsize);
-            //$(this).css('line-height', setLineHeight + 'px');
+            // var setLineHeight = Number(fontsize + inc) + 4;
+            // $('p,h1,h2,h3,h4,h5').css('line-height', setLineHeight + 'px');
         });
         currentTextSize = textSize;
     }
@@ -400,7 +407,40 @@ $(document).ready(function () {
                 container: 'body',
                 boundary: 'window'
             }
-        )
+        );
+        if (document.getElementById('capabilitiesDropdown')) {
+            $('#capabilitiesDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
+        if (document.getElementById('designedForDropdown')) {
+            $('#designedForDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
+        if (document.getElementById('costDropdown')) {
+            $('#costDropdown').multiselect({
+                includeSelectAllOption: false,
+            });
+        }
+        // searchable dropdown for  orcha page
+        if(document.getElementById('category_list')) {
+            $('#category_list').multiselect({
+                includeSelectAllOption: false,
+                multiple: false,
+                enableFiltering: true ,
+                enableCaseInsensitiveFiltering: true
+            });
+        }
+
+        if(document.getElementById('countrySelect')) {
+            $('#countrySelect').multiselect({
+                includeSelectAllOption: false,
+                multiple: false,
+                enableFiltering: true ,
+                enableCaseInsensitiveFiltering: true
+            });
+        }
     })
 })
 

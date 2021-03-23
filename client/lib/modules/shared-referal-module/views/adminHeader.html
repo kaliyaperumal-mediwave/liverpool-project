@@ -1,0 +1,62 @@
+<div id="heightTopSet" class="headerTop">
+    <nav class="header-bg header-set-height">
+        <div class="row mx-0 w-100 justify-content-between align-center">
+            <div class="butLogo-cont">
+                <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
+                    data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fal fa-bars font-30 d-none d-md-block d-lg-block d-xl-block ham-icon"
+                        aria-hidden="true"></i>
+                    <i class="fal fa-bars font-30 d-none d-sm-block d-md-none ham-icon" aria-hidden="true"></i>
+                    <i class="fal fa-bars font-30 d-block d-sm-none ham-icon" aria-hidden="true"></i>
+                </button>
+                <div class="logo">
+                    <!-- LOGO -->
+                    <a href="{{ data.logoPath }}" class="text-decoration-none">
+                        <div class="logo-bg" style="height: 35px !important;">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <a href="{{ data.navigateMkeRfrl }}">
+                <button class="button-referral">
+                    Go to platform
+                </button>
+            </a>
+
+        </div>
+        <!-- left drawer -->
+        <div id="side-drawer" class="position-fixed overflow-auto">
+            <div class="mb-3 padding-set">
+                <!-- Side Drawer Title -->
+                <div class="header-slider d-flex align-items-center ">
+                    <!-- <div class="slider-header">LOGO</div> -->
+                    <a href="/" class="text-decoration-none headlogo slider-header"><img
+                            src="/modules/my-apostrophe-assets/img/Logo_white.svg"></a>
+
+                    <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
+                        aria-hidden="true"></i>
+                </div>
+                <!-- Side Drawer content -->
+                <div class="slider-container">
+                    <div class="inside-cont-slider cursor-pointer">
+                        <a href="{{ data.logoPath }}" class="text-decoration-none">Home</a>
+                    </div>
+                    <div class="inside-cont-slider cursor-pointer">
+                        <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Referrals</a>
+                    </div>
+                    <div class="inside-cont-slider cursor-pointer">
+                        <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Inbox</a>
+                    </div>
+                    <div class="inside-cont-slider cursor-pointer">
+                        <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Appointments</a>
+                    </div>
+                    <div class="inside-cont-slider cursor-pointer">
+                        <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="side-drawer-void" class="position-fixed d-none cursor-pointer" onclick="closeSideDrawer()"></div>
+    </nav>
+</div>

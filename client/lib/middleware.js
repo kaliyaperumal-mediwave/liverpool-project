@@ -9,17 +9,18 @@ module.exports = function (self, options) {
           .then((data) => {
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
-            req.data.logoPath = "/dashboard"
-            req.data.aboutPage = "/pages/about"
-            req.data.termPage = "/pages/terms"
-            req.data.privacyPage = "/pages/privacy"
-            req.data.feedbackPage = "/pages/feedback"
-            req.data.contactPage = "/pages/contact"
-            req.data.navigateViewRfrl = "/viewreferrals"
-            req.data.urgentHelpPage = "/pages/urgent-help"
-            req.data.mentalHeathPage = "/mental-health"
-            req.data.resourcesPage = "/resources"
-            req.data.navigateMkeRfrl = "/make-referral"
+            req.data.logoPath = "/dashboard";
+            req.data.aboutPage = "/pages/about";
+            req.data.termPage = "/pages/terms";
+            req.data.privacyPage = "/pages/privacy";
+            req.data.feedbackPage = "/pages/feedback";
+            req.data.contactPage = "/pages/contact";
+            req.data.navigateViewRfrl = "/viewreferrals";
+            req.data.urgentHelpPage = "/pages/urgent-help";
+            req.data.mentalHeathPage = "/mental-health";
+            req.data.resourcesPage = "/resources";
+            req.data.orchaPage = "/orcha/orchahome";
+            req.data.navigateMkeRfrl = "/make-referral";
             req.data.mentalHealth_peoplePage = "mental-health/people";
             req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
@@ -36,7 +37,7 @@ module.exports = function (self, options) {
     },
 
     checkCommonPageAuth: function (req, res, next) {
-      req.res.header('Cache-Control', 'no-cache, no-store'); 
+      req.res.header('Cache-Control', 'no-cache, no-store');
       console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
@@ -47,16 +48,18 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
+      req.data.orchaPage = "/orcha/orchahome";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
-      if (req.session.auth_token) {   
+      if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
             req.data.uuid = req.session.uuid;
+            req.data.prof_data = req.session.prof_data;
             req.data.logoPath = "/dashboard"
             req.data.showLogout = true;
             return next();
@@ -69,6 +72,7 @@ module.exports = function (self, options) {
         req.data.logoPath = "/";
         req.data.showLogout = false;
         req.data.loginId = "";
+        req.data.prof_data = "";
         req.data.uuid = req.session.uuid;
         req.data.userRole = req.session.user_role;
         return next();
@@ -87,6 +91,7 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
+      req.data.orchaPage = "/orcha/orchahome";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
@@ -94,9 +99,10 @@ module.exports = function (self, options) {
       console.log(req.session.auth_token)
       if (req.session.auth_token) {
         self.verifyToken(req)
-        .then((data) => {
+          .then((data) => {
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
+            req.data.prof_data = req.session.prof_data;
             delete req.session.uuid;
             req.data.uuid = "";
             req.data.logoPath = "/dashboard"
@@ -113,6 +119,7 @@ module.exports = function (self, options) {
         req.data.loginId = "";
         delete req.session.uuid;
         delete req.session.user_role;
+        delete req.session.prof_data;
         req.data.uuid = "";
         req.data.userRole = "";
         return next();
@@ -295,6 +302,7 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
+      req.data.orchaPage = "/orcha/orchahome";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
@@ -305,6 +313,7 @@ module.exports = function (self, options) {
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
             req.data.uuid = req.session.uuid;
+            req.data.prof_data = req.session.prof_data;
             req.data.logoPath = "/dashboard"
             req.data.showLogout = true;
             return resolve(req);
@@ -318,6 +327,7 @@ module.exports = function (self, options) {
         req.data.showLogout = false;
         req.data.loginId = "";
         req.data.uuid = req.session.uuid;
+        req.data.prof_data = req.session.prof_data;
         req.data.userRole = req.session.user_role;
         return resolve(req);
       }
@@ -344,11 +354,12 @@ module.exports = function (self, options) {
       self.middleware.get(req, url).then((data) => {
         return resolve(data);
       }).catch((error) => {
-        console.log("verify tokn")
+        console.log("verify tokn");
         delete req.session.uuid;
         delete req.session.user_role;
         delete req.session.auth_token;
         delete req.session.loginFlag;
+        delete req.session.prof_data;
        // req.session.sessionExp = true;
         return reject(error);
       });

@@ -7,9 +7,9 @@ const nodemailerSendgrid = require('nodemailer-sendgrid');
 require("dotenv").config();
 const sgMail = require('@sendgrid/mail');
 const logger = require('../logger');
-var pdf = require('html-pdf');
+const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
-
+const reponseMessages = require('../middlewares/responseMessage');
 let Transport;
 
 Transport = nodemailer.createTransport(
@@ -160,39 +160,44 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 });
 
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
+    var toAddress;
     try {
-        var pdfObj = {
-            ratings: "2.5",
-            comments: "test",
+        console.log( ctx.request.body.emailToProvider)
+        if(ctx.request.body.emailToProvider == "YPAS")
+        {
+            toAddress = config.ypas_email
         }
-        const template = fs.readFileSync(path.join(`${__dirname}/./templates/referralSendTemplate.html`), 'utf8');
+        else if (ctx.request.body.emailToProvider == "Venus")
+        {
+            toAddress = config.venus_email
+        }
+        else if (ctx.request.body.emailToProvider == "IAPTUS")
+        {
+            toAddress = config.iaptus_email
+        }
+        else
+        {
+            toAddress = config.other_email
+        }
+        const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
-            body: pdfObj,
+            refCode: ctx.request.body.refCode,
         });
-        var opt = {
-            format: 'A4',
-            orientation: 'portrait',
-            header: {
-                "height": "5mm"
-            },
-            footer: {
-                "height": "5mm"
-            }
-        };
-        pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {
-//return ctx.body = buffer;
-            if (buffer) {
+
+        return pdf.generatePdf(ctx).then((sendReferralStatus) => {
+            console.log(sendReferralStatus)
+            if (sendReferralStatus) {
                 const data = {
                     from: config.email_from_address,
-                    to: "thiru@mindwaveventures.com",
+                    to: toAddress,
                     subject: 'LIVERPOOL CAMHS - Referral Details',
-                    html: htmlTemplate,
                     attachments: [{
-                        filename: `test.pdf`,
-                        content: buffer,
+                        filename: ctx.request.body.refCode,
+                        content: sendReferralStatus,
                         contentType: 'application/pdf'
-                    }]
+                    }],
+                    html: htmlTemplate,
                 };
 
                 Transport.sendMail(data, (err, res) => {
@@ -211,10 +216,14 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                     }
                 });
             }
+
+        }).catch(error => {
+            console.log(error);
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
-        return resolve(ctx.res.internalServerError({
-            data: 'Failed to sent mail',
-        }));
+        console.log(e);
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
+
 });

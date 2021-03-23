@@ -1,8 +1,9 @@
 var API_URI = "/modules/admin-module";
 $(document).ready(function () {
+  $('#uniqueLogo').hide();
+  $('#footer-placement').hide()
   var vueApp = new Vue({
     el: '#admin',
-
     data: {
       searchTxt: "",
       toggle: true,
@@ -47,7 +48,7 @@ $(document).ready(function () {
         var _self = this;
         $('#example').DataTable({
           destroy: true,
-          processing: true,
+          processing: false,
           serverSide: true,
           columnDefs: [
             { targets: 0, orderable: false },
@@ -72,7 +73,7 @@ $(document).ready(function () {
             dataFilter: function (referralRes) {
 
               referralRes = jQuery.parseJSON(referralRes);
-              console.log(referralRes);
+              //   console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -90,19 +91,8 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
-                  '<div class="input-group height-set-admin-select">' +
-                  '<span class="plain-select">' +
-                  '<select class="custom-select form-control " name="legalCare">' +
-                  '<option value="Nothing" selected>Nothing</option>' +
-                  '<option value="Accepted">Accepted</option>' +
-                  '<option value="Forwarded to partner agency">Forwarded to partner agency</option>' +
-                  '<option value="Duplicate referral">Duplicate referral</option>' +
-                  '<option value="Rejected referral">Rejected referral</option>' +
-                  '<option value="Referral to community paeds required instead">Referral to community paeds required instead</option>' +
-                  '<option value="Referral to other team ">Referral to other team</option>' +
-                  '</select>' +
-                  '</span>' +
-                  '</div>'
+                  referralRes.data.data[i].referral_provider,
+                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf'>Send</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -117,7 +107,7 @@ $(document).ready(function () {
         if (checked) {
           this.referral_ids.push(id);
         } else {
-          this.referral_ids.splice(this.referral_ids.findIndex(uuid => uuid == id), 1);
+          this.referral_ids.pop(id);
         }
       },
 
@@ -152,29 +142,16 @@ $(document).ready(function () {
         this.successMessage = '';
       },
 
-      // loadData:function (){
-      // this.pageLimit= 15;
-      // this.pageNum= 2;
-      // var successData = apiCallGet('get', '/referral?offset=' + this.pageNum + '&limit=' + this.pageLimit, API_URI);
-      // //var successData = apiCallGet('get', '/referral', API_URI);
-      // console.log(successData)
-      // if (successData && Object.keys(successData).length) {
-      //   var $table = $('#table')
-      //   console.log($table)
-      //   $table.bootstrapTable('load', successData.data)
-      // }
-      // }
-      fetchAllRef:function ()
-      {
-        var successData = apiCallGet('get', '/getAllreferral',API_URI);
-        $('#loader').hide();
-        console.log(successData)
+      closeMailSuccessPopup: function () {
+        $('#example').DataTable().ajax.reload();
+        $('#mailSentSuccess').modal('hide');
       },
-      sendAttachment:function()
-      {
-        var successData = apiCallGet('get', '/sendAttachment', API_URI);
-        console.log(successData)
-      }
+
+      fetchAllRef: function () {
+        var successData = apiCallGet('get', '/getAllreferral', API_URI);
+        $('#loader').hide();
+        //console.log()(successData)
+      },
     },
 
   })
@@ -184,3 +161,55 @@ $(document).ready(function () {
   });
 
 });
+
+function viewPdf(uuid, role) {
+  $('#loader').show();
+  var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+  var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+  var link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.target = '_blank'
+  // var fileName = "test.pdf";
+  //link.download = fileName;
+  link.click();
+  setTimeout(function () {
+    $('#loader').hide();
+  }, 1000);
+  //link.click();
+}
+
+function toArrayBuffer(buf) {
+  var ab = new ArrayBuffer(buf.length);
+  var view = new Uint8Array(ab);
+  for (var i = 0; i < buf.length; ++i) {
+    view[i] = buf[i];
+  }
+  return ab;
+}
+
+function openSendPopup(uuid, role, refCode, referral_provider) {
+  console.log(referral_provider)
+  if (referral_provider != "Pending") {
+    $('#referralAlreadySent').modal('show');
+    document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
+  } else {
+    $('#sendProviderModal').modal('show');
+    document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+  }
+}
+
+function sendPdf(uuid, role, refCode) {
+  var selectedProvider = document.getElementById('SelectedProvider').value;
+  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
+  if (successData && Object.keys(successData)) {
+    $('#sendProviderModal').modal('hide');
+    $('#mailSentSuccess').modal('show');
+  }
+  else {
+    $('#sendProviderModal').modal('hide');
+  }
+}
+
+function closeAlreadySentPopup() {
+  $('#referralAlreadySent').modal('hide');
+}

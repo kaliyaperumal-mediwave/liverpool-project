@@ -1,6 +1,6 @@
-{% extends "layout.html" %}
-{% block extraBody %}
-<!-- {% extends 'apostrophe-templates:layout.html' %} -->
+{% extends "layout.html" %} {% block extraBody %}
+
+
 <script src="/modules/admin-module/js/admin.js"></script>
 <!-- Bootstrap min -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
@@ -10,7 +10,7 @@
 <script src="https://cdn.datatables.net/plug-ins/1.10.22/sorting/date-uk.js"></script>
 {% endblock %}
 {% block main%}
-
+{% include "../../shared-referal-module/views/adminHeader.html" %}
 <div id="admin">
     {% raw %}
     <!-- navbar start -->
@@ -57,7 +57,7 @@
 
     <div class="admin-mid-contain w-100">
         <div class="row w-100 mr-0 ml-0">
-            <div id="admin-slider" class="admin-slider-left">
+            <div id="admin-slider" class="admin-slider-left d-none">
                 <div class="slider-inside-contain w-100">
                     <div class="padding-set-admin">
                         <div class="logo-bg" style="height: 35px !important;">
@@ -74,7 +74,7 @@
                 </div>
             </div>
             <div id="admin-rest" class="admin-contain-right">
-                <div id="toggle-cont" class="admin-toggle-menu" @click="openToggle(toggle)">
+                <div id="toggle-cont" class="admin-toggle-menu d-none" @click="openToggle(toggle)">
                     <div class="class-menu-hide"> menu</div> <i id="admin-arrow-left"
                         class="far fa-long-arrow-right  pl-2 pr-1"></i>
                 </div>
@@ -120,15 +120,16 @@
                     <table id="example" class="table table-striped table-bordered w-100">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th><b>Name</b></th>
-                                <th><b>DOB</b></th>
-                                <th><b>Unique code</b></th>
-                                <th><b>Referrer</b></th>
-                                <th><b>GP Location</b></th>
-                                <th><b>Referrer type</b></th>
-                                <th><b>Date</b></th>
-                                <th><b>Status</b></th>
+                                <th class="icon-display-none"></th>
+                                <th>Name</th>
+                                <th>DOB</th>
+                                <th>Unique code</th>
+                                <th>Referrer</th>
+                                <th>GP Location</th>
+                                <th>Referrer type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -156,7 +157,82 @@
             </div>
         </div>
     </div>
-    {% endraw %}
+    <!-- Send popup Start -->
+    <div class="modal fade" id="sendProviderModal" tabindex="-1" role="dialog" aria-labelledby="sendProviderModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="logout-font mt-3">Select Provider?</h5>
+                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="input-group w-100">
+                        <span class="plain-select">
+                            <select id="SelectedProvider" class="custom-select form-control input-bg-form-control">
+                                <option class='option-text' value="YPAS">YPAS
+                                </option>
+                                <option class='option-text' value="Venus">Venus
+                                </option>
+                                <option class='option-text' value="IAPTUS">IAPTUS</option>
+                                <option class='option-text' value="Other">Other
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn px-md-4 w-25" id="sendRef">
+                        <span class="btn-modal-text">Send
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Send popup End -->
+
+    <!-- Mail Succuss Modal Start -->
+    <div class="modal fade" id="mailSentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+     role="dialog" aria-labelledby="mailSentSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" @click="closeMailSuccessPopup()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 id="successMsg" class="logout-font mt-3 text-center">Referral sent successfully.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+     <!-- Login Succuss Modal End -->
+      <!-- Referral already sent popup -->
+    <div class="modal fade" id="referralAlreadySent" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    role="dialog" aria-labelledby="referralAlreadySentLabel" aria-hidden="true">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+           <div class="modal-content modal-bg login-safe-pd">
+               <span aria-hidden="true" class="modal-close" onclick="closeAlreadySentPopup()">
+                   <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+               </span>
+               <div class="modal-header justify-content-center model-text-pd text">
+                   <p class="text-center m-0 py-2">
+                       <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                   </p>
+                   <h5 id="sentMsg" class="logout-font mt-3 text-center"></h5>
+               </div>
+           </div>
+       </div>
+   </div>
+    <!-- Login Succuss Modal End -->
+
+</div>
+{% endraw %}
 </div>
 
 {% endblock %}

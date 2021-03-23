@@ -11,9 +11,10 @@ module.exports = {
     require('../../middleware')(self, options);
     self.role = function (req, callback) {
       console.log("dfafa")
-      console.log("user_role" ,req.session.user_role)
-      console.log("uuid" ,req.session.uuid)
-      console.log("---",req.session.frm_ref_home)
+      console.log("user_role" ,req.session.user_role);
+      console.log("uuid" ,req.session.uuid);
+      console.log("---",req.session.frm_ref_home);
+      console.log("Professional_data", req.session.prof_data);
       if(!req.session.frm_ref_home)
       {
         return req.res.redirect("/")

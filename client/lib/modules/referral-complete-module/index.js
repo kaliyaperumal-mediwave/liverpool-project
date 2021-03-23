@@ -51,5 +51,34 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
+
+    self.route('get', 'getReferalByCode/:reqCode', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getReferalByCode?reqCode=' + req.params.reqCode;
+      console.log("------- URL --------", url);
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
+    require('../../middleware')(self, options);
+    self.route('post', 'doCreateAcc', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/referralSignup';
+      self.middleware.post(req, res, url, req.body).then((data) => {
+        if (data) {
+          req.session.email = data.data.email
+          req.session.auth_token = data.data.token;
+          req.session.user_role = data.data.data.user_role;
+          req.session.loginFlag = "true";
+          req.session.prof_data = data.data.prof_data ? JSON.stringify(data.data.prof_data) : '';
+          req.session.reload(function () { });
+        }
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
   }
 }

@@ -1,0 +1,102 @@
+.select-customize-drop {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+.select-customize-drop .btn-group .btn {
+  background: #e8edee 0% 0% no-repeat padding-box !important;
+  height: 48px;
+  border-radius: 0% !important;
+  width: 100%;
+  .caret {
+    display: none;
+  }
+}
+.select-customize-drop .btn-group .btn::after {
+  display: none;
+}
+.select-customize-drop .multiselect-selected-text {
+  width: 93%;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
+}
+.select-customize-drop .filter-option {
+  width: 93%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: start;
+}
+.select-customize-drop .btn-group {
+  width: 100%;
+}
+.select-customize-drop .multiselect-container > li > a > label {
+  padding: 6px 14px 6px 12px !important;
+  margin-bottom: 0px;
+}
+.select-customize-drop .btn-group .multiselect-container {
+  max-height: 320px;
+  width: 250px;
+  overflow: auto;
+  z-index: 10;
+}
+.select-customize-drop .btn-group .multiselect-container li:hover {
+  background: #e9e9ea;
+}
+.select-customize-drop .btn-group .multiselect-container .active {
+  background: #e9e9ea;
+}
+.select-customize-drop .btn-group .show .dropdown-menu {
+  display: block;
+  position: static;
+  width: 100%;
+}
+.select-customize-drop .btn-group .show .dropdown-menu .hide {
+  display: none;
+}
+.select-customize-drop .btn-group .show .dropdown-menu li {
+  padding: 2px 12px;
+  a {
+    width: 100%;
+    display: flex;
+  }
+}
+.select-customize-drop .btn-group .show .dropdown-menu li:hover {
+  background: #e9e9ea;
+  cursor: pointer;
+}
+.index-scroller {
+  width: 300px;
+  overflow: auto;
+  display: flex;
+  @include xl-screen {
+    width: 520px;
+  }
+}
+#paginationDiv::-webkit-scrollbar {
+  width: 0px;
+}
+.selectedClass {
+  background-color: #ffc107 !important;
+}
+.imageOnOrcha {
+  width: 70px;
+  display: flex;
+  @include lg-secondary {
+    width: 53px;
+  }
+}
+.imageTextOrcha {
+  width: calc(100% - 85px);
+  @include lg-secondary {
+    width: calc(100% - 55px);
+  }
+}
+.custom-slider-orcha{
+    height: auto !important;
+    width: 60% !important;
+    padding: 10px;
+}
