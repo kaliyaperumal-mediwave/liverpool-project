@@ -185,7 +185,8 @@
             <div class="row justify-content-center justify-content-sm-start">
                 <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
                     v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
-                    <a :href="'apps/details?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
+                    <a :href="'apps/details?app_id='+filteredAppsObj.id" class="d-flex m-auto"
+                        style="margin-right: 30px;">
                         <div class="w-100 position-relative">
                             <div class="bg-white card-container-small">
                                 <div class="container-top-set">
@@ -256,7 +257,7 @@
     </paginate> -->
 
     {% raw %}
-    <div v-if="filteredAppsList.length" class="mt-4 mb-0 px-2 px-md-0" id="orchaPagination">
+    <div v-if="paginationData.totalItems > 12" class="mt-4 mb-0 px-2 px-md-0" id="orchaPagination">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
             :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
             @input="updatePage(paginationData.currentPage)">
