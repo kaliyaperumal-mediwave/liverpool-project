@@ -27,15 +27,34 @@ body {
     border: 1px solid #023047;
     border-radius: 3px;
   }
+
+  .multiselect__single {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .multiselect__select:before {
     border-color: #023047 transparent transparent !important;
   }
 
   .multiselect__tag {
     background: #023047;
-    width: 110px !important;
+    width: 100px !important;
+    margin-right: 5px !important;
+    @include lg-secondary {
+      margin: 0px !important;
+      width: 47% !important;
+    }
   }
-
+  .multiselect__strong {
+    @include lg-secondary {
+      font-size: 12px;
+    }
+  }
+  .multiselect__tags {
+    padding: 8px 25px 0 4px !important;
+  }
   .multiselect__tag-icon:focus,
   .multiselect__tag-icon:hover {
     background: #023047 !important;

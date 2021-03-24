@@ -32,26 +32,6 @@ $(document).ready(function () {
                 'Child Protection Plan',
                 'Other Carer'
             ],
-            mockData: [
-                {
-                    "id": "191afd2b-7d38-4486-b8e3-292d10961ad0",
-                    "dob": "10/01/2021",
-                    "mode": "add",
-                    "name": "Rajkumar",
-                    "randomName": "asdasgdg",
-                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
-                    "relationShip": "Parent"
-                },
-                {
-                    "id": "191afd2b-7d38-4486-b8e3-489897897hj",
-                    "dob": "15/01/2021",
-                    "mode": "add",
-                    "name": "RaMkumar",
-                    "randomName": "87cudfjk",
-                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
-                    "relationShip": "Parent"
-                }
-            ],
             allSectionData: [],
             section1Data: {},
             section2Data: {},
@@ -74,15 +54,13 @@ $(document).ready(function () {
             isSection3Submitted: false,
             isSection4Submitted: false,
             showSec1: false,
-            digArray: [],
-            disableSection1Button: false,
             showLoader: false,
             nameForOthers: "",
             addMoreOrg: false,
+            ageFlag: null
         },
 
         // beforeCreate: function () {
-        //     debugger
         //     let spinner = document.querySelector("#loader")
         //     if (spinner.classList.contains("blurred")) {
         //         spinner.classList.remove("blurred");
@@ -142,6 +120,7 @@ $(document).ready(function () {
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
+                        _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
 
                         if (_self.section4Data.other_reasons_referral) {
@@ -420,7 +399,6 @@ $(document).ready(function () {
             },
 
             updateInfo: function (e, toUpdateObj, endpoint) {
-                //  debugger
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
@@ -624,8 +602,18 @@ $(document).ready(function () {
 
                 }
 
-            }
+            },
 
+            calculateAge: function (birthDate) {
+                birthDate = new Date(birthDate);
+                otherDate = new Date();
+                var years = (otherDate.getFullYear() - birthDate.getFullYear());
+                if (otherDate.getMonth() < birthDate.getMonth() ||
+                    otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
+                    years--;
+                }
+                return years;
+            },
         }
     })
 
