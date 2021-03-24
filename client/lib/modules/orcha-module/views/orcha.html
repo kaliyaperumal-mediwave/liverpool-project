@@ -308,7 +308,7 @@
 
         {% endraw %}
 
-        {% if data.bckBtn != '/orcha/orchahome'%}
+        {% if data.bckBtn != '/apps'%}
 
         {% if data .orchaApps and data.orchaApps.length > 1 %}
         <div class="selectSource">
@@ -322,7 +322,7 @@
                 {% for orchaApps in data.orchaApps %}
                 {% if orchaApps.id != data.currentApp %}
                 <div class="col-4 col-md-2 padding-set-equal">
-                    <a class="text-decoration-none" href="/orcha?app_id={{orchaApps.id}}">
+                    <a class="text-decoration-none" href="/apps/details?app_id={{orchaApps.id}}">
                         <div class="img-cont-app position-relative">
                             <img class="panda-img" @error="handleError($event)" src="{{orchaApps.thumbnail}}" />
                             {% if orchaApps.platform == 'Android' %}
