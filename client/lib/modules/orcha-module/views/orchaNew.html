@@ -50,7 +50,7 @@
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
             <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">
-                Orcha
+                Apps
             </div>
         </div>
     </div>
@@ -130,9 +130,7 @@
                     </multiselect>
                 </div>
                 <!-- Orcha Capability Select End-->
-            </div>
 
-            <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
                 <!-- Orcha Designed For Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
@@ -154,7 +152,7 @@
                 <!-- Orcha Cost Select End-->
 
                 <!-- Orcha Platform Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
                     <multiselect v-model="platformValue" :options="platformList" placeholder="Platform"
                         :show-labels="false" label="platformName" track-by="id"
                         @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
@@ -167,7 +165,6 @@
                 <button class="btn btn-primary btn-text btm-small-primary px-3" @click="resetFilters()"
                     id="clearFilterButton" role="button">Clear filter</button>
             </div>
-
             <!-- <span class="badge badge-pill badge-warning cursor-pointer px-3 py-2 link-text"
                 @click="resetFilters()">Clear filter <i class="fa fa-times-circle" aria-hidden="true"></i>
             </span> -->
@@ -205,7 +202,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img v-show="filteredAppsObj.platform!='iOS'"
+                                        <img v-show="filteredAppsObj.platform =='Android'"
                                             src="/modules/my-apostrophe-assets/img/android.svg" width="80" height="60"
                                             class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
 
@@ -213,6 +210,9 @@
                                             src="/modules/my-apostrophe-assets/img/ios.svg" width="89" height="69"
                                             class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
 
+                                        <img v-show="filteredAppsObj.platform=='Web App'"
+                                            src="/modules/my-apostrophe-assets/img/web.svg" width="89" height="69"
+                                            class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
                                     </div>
                                 </div>
                                 <div class="container-bottom-set">
@@ -256,7 +256,7 @@
     </paginate> -->
 
     {% raw %}
-    <div v-if="filteredAppsList.length" class="mt-4 mb-0 px-2 px-md-0">
+    <div v-if="filteredAppsList.length" class="mt-4 mb-0 px-2 px-md-0" id="orchaPagination">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
             :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
             @input="updatePage(paginationData.currentPage)">

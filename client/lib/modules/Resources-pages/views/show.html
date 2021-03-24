@@ -197,6 +197,10 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
                     <img src="/modules/my-apostrophe-assets/img/ios.svg" width="89" height="69"
                       class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
                     {% endif %}
+                    {% if orchaApps.platform == 'Web App' %}
+                    <img src="/modules/my-apostrophe-assets/img/web.svg" width="89" height="69"
+                      class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
+                    {% endif %}
                   </div>
                 </div>
                 <div class="container-bottom-set">

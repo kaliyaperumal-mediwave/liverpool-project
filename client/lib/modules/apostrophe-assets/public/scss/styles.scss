@@ -33,6 +33,7 @@ body {
 
   .multiselect__tag {
     background: #023047;
+    width: 110px !important;
   }
 
   .multiselect__tag-icon:focus,
@@ -43,14 +44,17 @@ body {
   .pagination {
     font-family: "century-gothic" !important;
   }
-  .page-item.active .page-link {
-    background-color: #023047 !important;
-    border-color: #023047 !important;
+
+  #orchaPagination {
+    .page-item.active .page-link {
+      background-color: #023047 !important;
+      border-color: #023047 !important;
+    }
   }
 
-  .badge-warning {
-    background-color: $tertiary-color !important;
-  }
+  // .badge-warning {
+  //   background-color: $tertiary-color !important;
+  // }
 
   .b-pagination {
     font-family: "century-gothic" !important;
@@ -3525,4 +3529,8 @@ div.collapse-container.collapsing {
 }
 .active-border {
   border: 1px solid #212529 !important;
+}
+.common-fa-fa {
+  font-weight: 600 !important;
+  color: #023047 !important;
 }
