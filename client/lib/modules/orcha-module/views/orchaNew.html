@@ -256,7 +256,7 @@
     </paginate> -->
 
     {% raw %}
-    <div v-if="filteredAppsList.length" class="mt-4 mb-0 px-2 px-md-0">
+    <div v-if="filteredAppsList.length" class="mt-4 mb-0 px-2 px-md-0" id="orchaPagination">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
             :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
             @input="updatePage(paginationData.currentPage)">
