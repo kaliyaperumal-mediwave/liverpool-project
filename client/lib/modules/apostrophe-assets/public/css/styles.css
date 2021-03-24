@@ -1104,11 +1104,25 @@ body {
     color: #023047;
     border: 1px solid #023047;
     border-radius: 3px; }
+  body .multiselect__single {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   body .multiselect__select:before {
     border-color: #023047 transparent transparent !important; }
   body .multiselect__tag {
     background: #023047;
-    width: 110px !important; }
+    width: 100px !important;
+    margin-right: 5px !important; }
+    @media (min-width: 1200px) and (max-width: 1499.98px) {
+      body .multiselect__tag {
+        margin: 0px !important;
+        width: 47% !important; } }
+  @media (min-width: 1200px) and (max-width: 1499.98px) {
+    body .multiselect__strong {
+      font-size: 12px; } }
+  body .multiselect__tags {
+    padding: 8px 23px 0 4px !important; }
   body .multiselect__tag-icon:focus,
   body .multiselect__tag-icon:hover {
     background: #023047 !important; }
