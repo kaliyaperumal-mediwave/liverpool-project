@@ -22,6 +22,9 @@ $(document).ready(function () {
 
         mounted: function () {
             console.log(document.getElementById('sessionExp').innerHTML)
+            var loginButton = document.getElementById('secondary');
+            loginButton.removeAttribute('disabled');
+            loginButton.style.opacity = 1;
             if (document.getElementById('sessionExp').innerHTML == "true") {
                 $.ajax({
                     url: API_URI + "/setSessionExpFalse/false",
@@ -59,8 +62,6 @@ $(document).ready(function () {
                     if (successData && Object.keys(successData)) {
                         // this.resetForm(this, "loginObject");
                         this.tokenVariable = successData;
-                        document.getElementById('secondary').removeAttribute('disabled');
-                        document.getElementById('secondary').style.opacity = 1;
                         $('#loader').hide();
                         location.href = "/dashboard";
                         // $('#logInSuccess').modal('show');

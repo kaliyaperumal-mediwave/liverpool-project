@@ -3,9 +3,9 @@ $(document).ready(function () {
     if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'on') {
         $('#c730ed34-ce14-4df1-8718-6346cd050c2b').show();
     } else if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'off') {
-        $('#c730ed34-ce14-4df1-8718-6346cd050c2b').addClass('d-none');
+        $('#c730ed34-ce14-4df1-8718-6346cd050c2b').removeClass('d-flex').addClass('d-none');
     } else {
-        $('#c730ed34-ce14-4df1-8718-6346cd050c2b').addClass('d-none');
+        $('#c730ed34-ce14-4df1-8718-6346cd050c2b').removeClass('d-flex').addClass('d-none');
     }
     var title = $('#voiceOverTitle').text();
     title = title.trim();
