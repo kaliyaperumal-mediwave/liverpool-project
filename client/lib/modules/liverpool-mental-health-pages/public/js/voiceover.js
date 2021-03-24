@@ -11,7 +11,7 @@ $(document).ready(function () {
     title = title.trim();
     var description = $('#voiceOverDescription').text();
     description = description.trim();
-
+    // optimisation needed
     $('#playButton').on('click', function (e) {
         $('#stopButton').removeClass('active-border');
         document.getElementById('playButton').classList.remove('active-border');
@@ -19,6 +19,8 @@ $(document).ready(function () {
         document.getElementById('stopButton').style.opacity = 1;
         document.getElementById('stopButton').removeAttribute('disabled');
         document.getElementById('playButton').setAttribute('disabled', true);
+        document.getElementById('playButton').classList.add('d-none');
+        document.getElementById('pauseButton').classList.remove('d-none')
         wrapper();
     });
 
@@ -28,65 +30,88 @@ $(document).ready(function () {
         document.getElementById('stopButton').setAttribute('disabled', true);
         document.getElementById('stopButton').style.opacity = 0.4;
         document.getElementById('playButton').removeAttribute('disabled');
+        document.getElementById('resumeButton').classList.add('d-none');
+        document.getElementById('pauseButton').classList.add('d-none');
+        document.getElementById('playButton').classList.remove('d-none');
         wrapper(true);
     });
 
-    async function wrapper(stopFlag) {
-        var text = description;
-        var result = text.match(/[^\.!\?]+[\.!\?]+/g);
-        var ssu = new SpeechSynthesisUtterance();
-        for (var i = 0; i < result.length; i++) {
-            sentence = result[i];
-            ssu.text = sentence;
-            ssu.lang = "en-US";
-            await new Promise(function (resolve) {
-                ssu.onend = resolve;
-                if (stopFlag) {
-                    ssu.text = ""
-                    window.speechSynthesis.cancel();
-                    window.speechSynthesis.speak(ssu);
-                    return false;
-                } else {
-                    window.speechSynthesis.cancel();
-                    window.speechSynthesis.speak(ssu);
-                }
-            });
-
-        }
-    }
-
-    // var awaitVoices = new Promise(function (done) {
-    //     return speechSynthesis.onvoiceschanged = done
-    // });
-
-    // function synthVoice(text) {
-    //     const awaitVoices = new Promise(resolve =>
-    //         window.speechSynthesis.onvoiceschanged = resolve)
-    //         .then(() => {
-    //             const synth = window.speechSynthesis;
-    //             var voices = synth.getVoices();
-    //             console.log(voices)
-    //             const utterance = new SpeechSynthesisUtterance();
-    //             utterance.voice = voices[3];
-    //             utterance.text = text;
-    //             synth.speak(utterance);
-    //         });
-    // }
-
-
-    // function listVoices() {
-    //     awaitVoices.then(function () {
-    //         var msg = new SpeechSynthesisUtterance(title)
-    //         let voices = speechSynthesis.getVoices();
-    //         msg.voice = voices[1];
-    //         window.speechSynthesis.speak(msg)
-    //         $('#togglePlay').text('Pause');
-    //     });
-    // }
-
-    $(window).on('beforeunload', function () {
+    $('#pauseButton').on('click', function (e) {
+        document.getElementById('resumeButton').classList.remove('d-none');
+        document.getElementById('pauseButton').classList.add('d-none')
+        document.getElementById('stopButton').classList.add('active-border')
+        document.getElementById('stopButton').style.opacity = 1;
+        document.getElementById('stopButton').removeAttribute('disabled');
         window.speechSynthesis.pause();
-        wrapper(true)
+
     });
+    $('#resumeButton').on('click', function (e) {
+        document.getElementById('resumeButton').classList.add('d-none');
+        document.getElementById('pauseButton').classList.remove('d-none');
+        document.getElementById('stopButton').classList.add('active-border')
+        document.getElementById('stopButton').style.opacity = 1;
+        document.getElementById('stopButton').removeAttribute('disabled');
+        window.speechSynthesis.resume();
+    });
+    var ssu = new SpeechSynthesisUtterance();
+    function wrapper(stopFlag) {
+        if (stopFlag) {
+            ssu.text = ""
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(ssu);
+            return false;
+        }
+        ssu.text = description;
+        ssu.lang = "en-US";
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(ssu);
+    }
+    ssu.onend = function (e) {
+        console.log('2 Finished in ' + e.elapsedTime + ' seconds.');
+        document.getElementById('playButton').classList.add('active-border');
+        document.getElementById('stopButton').classList.remove('active-border')
+        document.getElementById('stopButton').setAttribute('disabled', true);
+        document.getElementById('stopButton').style.opacity = 0.4;
+        document.getElementById('playButton').removeAttribute('disabled');
+        document.getElementById('playButton').classList.remove('d-none');
+        document.getElementById('pauseButton').classList.add('d-none');
+    };
+    // ssu.onend = function (e) {
+    //     console.log('Finished in ' + e.elapsedTime + ' seconds.');
+    // };
+    // async function wrapper(stopFlag) {
+    //     console.log("called========");
+    //     var text = description;
+    //     var result = text.match(/[^\.!\?]+[\.!\?]+/g);
+    //     console.log(result.length, "result.length");
+    //     for (var i = 0; i < result.length; i++) {
+    //         sentence = result[i];
+    //         ssu.text = sentence;
+    //         ssu.lang = "en-US";
+    //         await new Promise(function (resolve) {
+    //             if (stopFlag) {
+    //                 ssu.text = ""
+    //                 window.speechSynthesis.cancel();
+    //                 window.speechSynthesis.speak(ssu);
+    //                 return false;
+    //             } else {
+    //                 window.speechSynthesis.cancel();
+    //                 window.speechSynthesis.speak(ssu);
+    //             }
+    //         });
+
+    //     }
+    // }
+
+
+    // $(window).on('beforeunload', function () {
+    //     console.log(" page end");
+    //     ssu.text = ""
+    //     window.speechSynthesis.cancel();
+    //     window.speechSynthesis.speak(ssu);
+    //     return false;
+    //     // window.speechSynthesis.pause();
+    //     // wrapper(true)
+    // });
 
 });
