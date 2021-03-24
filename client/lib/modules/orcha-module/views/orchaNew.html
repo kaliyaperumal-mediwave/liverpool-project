@@ -45,7 +45,7 @@
     </div>
     <!-- Loader end -->
     <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-0">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mx-auto">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 px-1 mx-auto">
             <a href="{{ data.logoPath }}" class="previous-link">
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
@@ -57,7 +57,7 @@
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
         {% raw %}
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
             <div class="input-group home-primary-content-bg">
                 <span class="input-group-prepend">
                     <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
@@ -89,7 +89,7 @@
     </div> -->
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="home-primary-content m-0 py-2 px-2 text-left">
                 Here are apps for you based on your health and wellbeing information
             </div>
@@ -97,11 +97,11 @@
     </div>
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
 
                 <!-- Orcha Category Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="categoryValue" :options="categoryList" placeholder="Category"
                         label="subCategoryName" track-by="id" @select="selectOptions($event,'category')"
                         @remove="removeOptions($event,'category')">
@@ -110,7 +110,7 @@
                 <!-- Orcha Category Select End-->
 
                 <!-- Orcha Country Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="countryValue" :options="countryList" placeholder="Country" label="countryName"
                         track-by="id" @select="selectOptions($event,'country')"
                         @remove="removeOptions($event,'country')">
@@ -119,20 +119,20 @@
                 <!-- Orcha Country Select End-->
 
                 <!-- Orcha Capability Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="capabilityValue" tag-placeholder="" placeholder="Capability"
                         :close-on-select="false" label="capabilityName" track-by="id" :options="capabilityList"
                         :multiple="true" :limit="1" :taggable="true" @select="selectOptions($event,'capability')"
                         @remove="removeOptions($event,'capability')">
-                        <template slot="selection" slot-scope="{ values, search, isOpen }"><span
-                                class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }}
-                                options selected</span></template>
+                        <!-- <template slot="selection" slot-scope="{ values, search, isOpen }"><span
+                                class="multiselect__single">{{ values.length }}
+                                options selected</span></template> -->
                     </multiselect>
                 </div>
                 <!-- Orcha Capability Select End-->
 
                 <!-- Orcha Designed For Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
                         :close-on-select="false" label="designedForName" track-by="id" :options="designedForList"
                         :multiple="true" :taggable="true" :limit="1" @select="selectOptions($event,'designedFor')"
@@ -142,7 +142,7 @@
                 <!-- Orcha Designed For Select End-->
 
                 <!-- Orcha Cost Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="costValue" tag-placeholder="" placeholder="Cost" :close-on-select="false"
                         label="costName" track-by="id" :options="costList" :multiple="true" :clear-on-select="false"
                         :limit="1" :preserve-search="true" @select="selectOptions($event)"
@@ -152,7 +152,7 @@
                 <!-- Orcha Cost Select End-->
 
                 <!-- Orcha Platform Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="platformValue" :options="platformList" placeholder="Platform"
                         :show-labels="false" label="platformName" track-by="id"
                         @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
@@ -185,7 +185,8 @@
             <div class="row justify-content-center justify-content-sm-start">
                 <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
                     v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
-                    <a :href="'apps/details?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
+                    <a :href="'apps/details?app_id='+filteredAppsObj.id" class="d-flex m-auto"
+                        style="margin-right: 30px;">
                         <div class="w-100 position-relative">
                             <div class="bg-white card-container-small">
                                 <div class="container-top-set">
