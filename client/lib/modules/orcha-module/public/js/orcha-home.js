@@ -78,7 +78,16 @@ $(document).ready(function () {
                 this.checkBoxTest = null;
                 // document.getElementById('clearFilterButton').setAttribute('disabled', true);
                 var emptyPayload = {};
-                this.payloadData = {};
+                var payloadData = {
+                    subCategory: '',
+                    country: [],
+                    capabilities: [],
+                    designedFor: [],
+                    cost: [],
+                    platform: '',
+                    pageNum: undefined
+                };
+                this.payloadData = payloadData;
                 this.getOrchaAppsData(emptyPayload);
             },
 
@@ -115,6 +124,7 @@ $(document).ready(function () {
             },
 
             getOrchaAppsData: function (payload) {
+                $('#orchaLoader').show();
                 var successData = apiCallPost('post', '/getSearchData/', payload);
                 if (successData && Object.keys(successData)) {
                     if (successData.data.result.items.length) {
@@ -168,6 +178,7 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = '';
                 }
+                this.payloadData.pageNum = "";
                 this.getOrchaAppsData(this.payloadData)
 
             },
