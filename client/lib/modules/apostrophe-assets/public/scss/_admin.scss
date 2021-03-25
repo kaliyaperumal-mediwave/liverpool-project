@@ -310,12 +310,18 @@
   align-items: center;
   justify-content: center;
 }
-div.dataTables_wrapper div.dataTables_paginate{
+div.dataTables_wrapper div.dataTables_paginate {
   display: flex;
+  ul {
+    margin-left: auto !important;
+    @include sm-dec-screen {
+      margin: 10px auto auto auto !important;
+    }
+  }
 }
-.submit-btn-admin button{
-  border:1px solid #112F45 !important;
+.submit-btn-admin button {
+  border: 1px solid #112f45 !important;
   box-shadow: 0px 3px 6px #00000029 !important;
-  color: #112F45 !important;
+  color: #112f45 !important;
   height: 40px !important;
 }
