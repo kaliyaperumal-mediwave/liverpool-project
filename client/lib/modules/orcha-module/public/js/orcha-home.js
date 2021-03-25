@@ -87,6 +87,7 @@ $(document).ready(function () {
                     platform: '',
                     pageNum: undefined
                 };
+                document.getElementById('clearFilterButton').setAttribute('disabled', true);
                 this.payloadData = payloadData;
                 this.getOrchaAppsData(emptyPayload);
             },
@@ -119,6 +120,7 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = e.id;
                 }
+                document.getElementById('clearFilterButton').removeAttribute('disabled');
                 this.payloadData.pageNum = undefined;
                 this.getOrchaAppsData(this.payloadData)
             },
@@ -177,6 +179,12 @@ $(document).ready(function () {
                 }
                 if (type == 'platform') {
                     this.payloadData.platform = '';
+                }
+                if (!this.payloadData.subCategory && !this.payloadData.country.length && !this.payloadData.capabilities.length && !this.payloadData.designedFor.length &&
+                    !this.payloadData.cost.length && !this.payloadData.platform) {
+                    document.getElementById('clearFilterButton').setAttribute('disabled', true);
+                } else {
+                    document.getElementById('clearFilterButton').removeAttribute('disabled');
                 }
                 this.payloadData.pageNum = "";
                 this.getOrchaAppsData(this.payloadData)

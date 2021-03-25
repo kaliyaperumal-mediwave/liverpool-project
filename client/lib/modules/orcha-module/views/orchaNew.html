@@ -162,8 +162,10 @@
             </div>
 
             <div id="primarySmallButton">
-                <button class="btn btn-primary btn-text btm-small-primary px-3" @click="resetFilters()"
-                    id="clearFilterButton" role="button">Clear filter</button>
+                <button class="btn btn-primary btn-text btm-small-primary px-3" @click="resetFilters()" disabled
+                    id="clearFilterButton" role="button">Clear filter <i class="fa fa-times-circle"
+                        aria-hidden="true"></i>
+                </button>
             </div>
             <!-- <span class="badge badge-pill badge-warning cursor-pointer px-3 py-2 link-text"
                 @click="resetFilters()">Clear filter <i class="fa fa-times-circle" aria-hidden="true"></i>
