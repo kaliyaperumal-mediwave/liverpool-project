@@ -1131,6 +1131,8 @@ body {
   body #orchaPagination .page-item.active .page-link {
     background-color: #023047 !important;
     border-color: #023047 !important; }
+  body .multiselect__input, body .multiselect__single {
+    width: 100% !important; }
   body .b-pagination {
     font-family: "century-gothic" !important; }
   body input::-ms-clear,
