@@ -43,7 +43,6 @@
                 @input="getReferalByCode($event)">
         </div>
         <div class="dropdown d-flex justify-content-end align-items-center ">
-
             <button class=" custom-select-icon" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 Sort by
@@ -116,11 +115,11 @@
             <div class="recent_referrals">
                 Recent referrals
             </div>
-            <div class="recent_content">
+            <div v-if="viewReferralArray.length" class="recent_content">
                 A list of your most recent referrals
             </div>
             <hr class="dropdown-divider" />
-            <p v-if="viewReferralArray.length == 0">No referrals found</p>
+            <p v-if="viewReferralArray.length == 0" class="m-0">No referrals found</p>
             <div v-for="(referrals, index) in viewReferralArray.slice(0, 1)"
                 class="justify-content-between align-items-center" id="headingOne">
                 <div class="d-flex pt-2 pb-2 w-100">
@@ -193,11 +192,11 @@
             <div class="recent_referrals">
                 Past referrals
             </div>
-            <div class="recent_content">
+            <div v-if="viewReferralArray.length > 1" class="recent_content">
                 A list of your past referrals
             </div>
             <hr class="dropdown-divider" />
-            <p v-if="viewReferralArray.length <= 1">No referrals found</p>
+            <p v-if="viewReferralArray.length <= 1" class="m-0">No referrals found</p>
             <div v-for="(referrals, index) in viewReferralArray" v-if="index > 0"
                 class="justify-content-between align-items-center" id="headingOne">
                 <!-- {{referrals.date}}
