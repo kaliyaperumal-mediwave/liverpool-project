@@ -1136,7 +1136,8 @@ body {
   body #orchaPagination .page-item.active .page-link {
     background-color: #023047 !important;
     border-color: #023047 !important; }
-  body .multiselect__input, body .multiselect__single {
+  body .multiselect__input,
+  body .multiselect__single {
     width: 100% !important; }
   body .b-pagination {
     font-family: "century-gothic" !important; }
@@ -1386,6 +1387,11 @@ a {
 
 .ham-icon {
   color: #023047; }
+
+.ham-icon-header {
+  color: #023047;
+  background: #54b7e6 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
 
 .toggleColor-primaryColor {
   color: #023047; }
@@ -2520,8 +2526,11 @@ a {
   width: 100px;
   height: 25px;
   align-items: center;
-  display: grid;
+  margin-top: 14px;
   margin-left: 38px; }
+  @media (max-width: 1023px) {
+    .logo {
+      margin-top: 0px; } }
 
 .butLogo-cont {
   display: flex;
@@ -3945,6 +3954,11 @@ body .ui-widget .ui-menu-item {
 .off .ham-icon {
   color: #023047; }
 
+.off .ham-icon-header {
+  color: #023047;
+  background: #54b7e6 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
+
 .off .selectSource {
   color: #023047; }
 
@@ -4257,6 +4271,11 @@ body .ui-widget .ui-menu-item {
 
 .on .ham-icon {
   color: #fafafa; }
+
+.on .ham-icon-header {
+  color: #fafafa;
+  background: #353940 0% 0% no-repeat padding-box !important;
+  opacity: 1; }
 
 .on .selectSource {
   color: #fafafa; }
@@ -4710,9 +4729,7 @@ div.collapse-container.collapsing {
 
 .search-btn-set {
   margin: auto auto auto 10px !important;
-  width: 74px;
   height: 41px;
-  display: flex !important;
   align-items: center; }
 
 .search-btn-set span {
