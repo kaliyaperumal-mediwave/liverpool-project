@@ -1500,7 +1500,7 @@ a {
   align-items: center;
   margin-top: 14px;
   margin-left: 38px;
-  @include md-dec-screen{
+  @include md-dec-screen {
     margin-top: 0px;
   }
 }
@@ -3546,9 +3546,7 @@ div.collapse-container.collapsing {
 }
 .search-btn-set {
   margin: auto auto auto 10px !important;
-  width: 74px;
   height: 41px;
-  display: flex !important;
   align-items: center;
 }
 .search-btn-set span {

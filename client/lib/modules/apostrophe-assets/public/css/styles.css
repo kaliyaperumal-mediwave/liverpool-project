@@ -4729,9 +4729,7 @@ div.collapse-container.collapsing {
 
 .search-btn-set {
   margin: auto auto auto 10px !important;
-  width: 74px;
   height: 41px;
-  display: flex !important;
   align-items: center; }
 
 .search-btn-set span {
