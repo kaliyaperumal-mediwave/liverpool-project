@@ -71,6 +71,10 @@ body {
     }
   }
 
+  .multiselect__input, .multiselect__single{
+    width: 100% !important;
+  }
+
   // .badge-warning {
   //   background-color: $tertiary-color !important;
   // }

@@ -478,6 +478,7 @@ function logOut() {
         type: "get",
         dataType: 'json',
         async: false,
+        cache: false,
         contentType: 'application/json',
         success: function (res) {
             $('#logoutModal').modal('hide');
