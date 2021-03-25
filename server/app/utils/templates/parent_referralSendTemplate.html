@@ -8,7 +8,7 @@
     <style>
         .labelTitle {
             font-size: 14px;
-            text-transform: capitalize;
+            /* text-transform: capitalize; */
         }
 
         .text-container {
@@ -59,67 +59,67 @@
         <div>
             <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
                 Eligibility</h5>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            I am a:
-                        </label>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        I am a:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.role %>
                     </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.role %>
-                        </div>
-                        <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
+                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Interpreter needed:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.need_interpreter %>
                     </div>
                 </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Interpreter needed:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section1.need_interpreter %>
-                        </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Child's D.O.B:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.child_dob %>
                     </div>
                 </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Child's D.O.B:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.child_dob %>
-                        </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Consent given:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.consent_child %>
                     </div>
                 </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Consent given:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section1.consent_child %>
-                        </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        GP:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.registerd_gp %>
                     </div>
                 </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            GP:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section1.registerd_gp %>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
@@ -128,7 +128,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        NHS Number:
+                        NHS number:
                     </label>
                 </div>
                 <div class="label-set">
@@ -152,7 +152,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        last name:
+                        Last name:
                     </label>
                 </div>
                 <div class="label-set">
@@ -176,7 +176,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Contact Number:
+                        Contact number:
                     </label>
                 </div>
                 <div class="label-set">
@@ -260,7 +260,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        cares for an adult:
+                        Cares for an adult:
                     </label>
                 </div>
                 <div class="label-set">
@@ -320,7 +320,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Parent contact Number
+                        Parent contact number
                     </label>
                 </div>
                 <div class="label-set">
@@ -356,7 +356,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        the child's legal care status:
+                        The child's legal care status:
                     </label>
                 </div>
                 <div class="label-set">
@@ -419,11 +419,11 @@
                     </div>
                 </div>
             </div>
-            <% if(body.section3.child_socialworker=='yes') {%>
+            <% if(body.section3.child_socialworker=='yes' ) {%>
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
-                            Social Worker first name:
+                            Social worker first name:
                         </label>
                     </div>
                     <div class="label-set">
@@ -435,7 +435,7 @@
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
-                            Social Worker last name:
+                            Social worker last name:
                         </label>
                     </div>
                     <div class="label-set">
@@ -447,7 +447,7 @@
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
-                            Social Worker number:
+                            Social worker number:
                         </label>
                     </div>
                     <div class="label-set">
