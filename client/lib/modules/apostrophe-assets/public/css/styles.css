@@ -1122,7 +1122,7 @@ body {
     body .multiselect__strong {
       font-size: 12px; } }
   body .multiselect__tags {
-    padding: 8px 23px 0 4px !important; }
+    padding: 8px 25px 0 4px !important; }
   body .multiselect__tag-icon:focus,
   body .multiselect__tag-icon:hover {
     background: #023047 !important; }
