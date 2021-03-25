@@ -1,5 +1,7 @@
 $(document).ready(function () {
     var ssu = new SpeechSynthesisUtterance();
+    var myEvent = window.attachEvent || window.addEventListener;
+    var chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload';
     if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'on') {
         $('#c730ed34-ce14-4df1-8718-6346cd050c2b').show();
     } else if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'off') {
@@ -114,4 +116,7 @@ $(document).ready(function () {
     //     // wrapper(true)
     // });
 
+    myEvent(chkevent, function (e) {
+        window.speechSynthesis.cancel();
+    });
 });
