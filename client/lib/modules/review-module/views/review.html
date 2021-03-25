@@ -80,6 +80,151 @@
                                 </div>
                                 <!-- Your Info End -->
 
+                                <!-- Professional Info Start -->
+                                <template v-if="userRole == 'professional'">
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddressSec5">
+                                            First name:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control"
+                                                    type="text" placeholder="Enter first name"
+                                                    @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_name')"
+                                                    v-model="section1Data.professional_name" id="profAddressSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_name),
+                                                    'invalid-fields':!section1Data.professional_name }">
+                                                    You must provide a first name.
+                                                </small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
+                                            Last name:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control"
+                                                    type="text" placeholder="Enter last name"
+                                                    @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_lastname')"
+                                                    v-model="section1Data.professional_lastname" id="profLastNameSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_lastname),
+                                                    'invalid-fields':!section1Data.professional_lastname }">
+                                                    You must provide a last name.
+                                                </small>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="profEmailSec5">
+                                            Email:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control"
+                                                    type="text" inputmode="email" @keypress="preventWhiteSpaces($event)"
+                                                    placeholder="Enter email"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_email')"
+                                                    v-model="section1Data.professional_email" id="profEmailSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_email && !emailRegex.test(section1Data.professional_email)),'invalid-fields':(section1Data.professional_email && !emailRegex.test(section1Data.professional_email)) }">
+                                                You must provide a valid email.
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
+                                            for="profContactSec5">
+                                            Contact number:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control input-bg-form-control" type="text"
+                                                    placeholder="Enter contact number"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_contact_number')"
+                                                    inputmode="tel" v-model="section1Data.professional_contact_number"
+                                                    id="profContactSec5">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_contact_number),
+                                                'invalid-fields':!section1Data.professional_contact_number }">
+                                                You must provide a number.
+                                            </small>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)),
+                                                'invalid-fields':(section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)) }">
+                                                You must provide a valid number.
+                                            </small>
+                                        </div>
+                                        </p>
+                                    </div>
+
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddress1Sec5">
+                                            Address:
+                                        </label>
+                                        <textarea
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.professional_address"
+                                            id="profAddress1Sec5">
+                                                </textarea>
+                                    </div>
+
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profNameSec5">
+                                            Profession:
+                                        </label>
+                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control"
+                                                    type="text" placeholder="Enter your profession"
+                                                    @keypress="preventWhiteSpaces($event)"
+                                                    @input="onDetectChange($event,'sect1','section1Data','professional_profession')"
+                                                    v-model="section1Data.professional_profession"
+                                                    id="profProfessionSec5">
+                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_profession),
+                                                    'invalid-fields':!section1Data.professional_profession }">
+                                                    You must provide your profession.
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </template>
+                                <!-- Professional Info End -->
+
                                 <!-- Interpreter Needed Start -->
                                 <div v-if="userRole == 'child' || userRole == 'parent'"
                                     class="readOnly-class py-2 w-100 mx-0 row align-items-center">
@@ -189,151 +334,6 @@
                                 </template>
                                 <!-- Professional -->
                                 <!-- Consent Given End -->
-
-                                <!-- Professional Info Start -->
-                                <template v-if="userRole == 'professional'">
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddressSec5">
-                                            First name:
-                                        </label>
-                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <div class="input-group">
-                                                <input class="form-control text-capitalize input-bg-form-control"
-                                                    type="text" placeholder="Enter first name"
-                                                    @keypress="preventWhiteSpaces($event)"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_name')"
-                                                    v-model="section1Data.professional_name" id="profAddressSec5">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-user-circle"
-                                                            aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_name),
-                                                'invalid-fields':!section1Data.professional_name }">
-                                                    You must provide a first name.
-                                                </small>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
-                                            Last name:
-                                        </label>
-                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <div class="input-group">
-                                                <input class="form-control text-capitalize input-bg-form-control"
-                                                    type="text" placeholder="Enter last name"
-                                                    @keypress="preventWhiteSpaces($event)"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_lastname')"
-                                                    v-model="section1Data.professional_lastname" id="profLastNameSec5">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-user-circle"
-                                                            aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_lastname),
-                                                'invalid-fields':!section1Data.professional_lastname }">
-                                                    You must provide a last name.
-                                                </small>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
-                                            for="profEmailSec5">
-                                            Email:
-                                        </label>
-                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <div class="input-group">
-                                                <input class="form-control text-capitalize input-bg-form-control"
-                                                    type="text" inputmode="email" @keypress="preventWhiteSpaces($event)"
-                                                    placeholder="Enter email"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_email')"
-                                                    v-model="section1Data.professional_email" id="profEmailSec5">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <small class="invalid-feedback d-none"
-                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_email && !emailRegex.test(section1Data.professional_email)),'invalid-fields':(section1Data.professional_email && !emailRegex.test(section1Data.professional_email)) }">
-                                                You must provide a valid email.
-                                            </small>
-                                        </div>
-                                    </div>
-
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
-                                            for="profContactSec5">
-                                            Contact number:
-                                        </label>
-                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <div class="input-group">
-                                                <input class="form-control input-bg-form-control" type="text"
-                                                    placeholder="Enter contact number"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_contact_number')"
-                                                    inputmode="tel" v-model="section1Data.professional_contact_number"
-                                                    id="profContactSec5">
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text font-23">
-                                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_contact_number),
-                                            'invalid-fields':!section1Data.professional_contact_number }">
-                                                You must provide a number.
-                                            </small>
-                                            <small class="invalid-feedback d-none"
-                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)),
-                                            'invalid-fields':(section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)) }">
-                                                You must provide a valid number.
-                                            </small>
-                                        </div>
-                                        </p>
-                                    </div>
-
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddress1Sec5">
-                                            Address:
-                                        </label>
-                                        <textarea
-                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.professional_address"
-                                            id="profAddress1Sec5">
-                                            </textarea>
-                                    </div>
-
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profNameSec5">
-                                            Profession:
-                                        </label>
-                                        <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <div class="input-group">
-                                                <input class="form-control text-capitalize input-bg-form-control"
-                                                    type="text" placeholder="Enter your profession"
-                                                    @keypress="preventWhiteSpaces($event)"
-                                                    @input="onDetectChange($event,'sect1','section1Data','professional_profession')"
-                                                    v-model="section1Data.professional_profession"
-                                                    id="profProfessionSec5">
-                                                <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_profession),
-                                                'invalid-fields':!section1Data.professional_profession }">
-                                                    You must provide your profession.
-                                                </small>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </template>
-                                <!-- Professional Info End -->
 
                                 <!-- Gp Start -->
                                 <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">

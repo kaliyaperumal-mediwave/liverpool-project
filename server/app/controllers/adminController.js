@@ -845,13 +845,14 @@ function getRefData(refID, refRole, ctx) {
                                 section1: section1Obj,
                                 section2: section2Obj,
                                 child_dob: convertDate(elgibilityObj.professional[0].child_dob),
+                                child_age:calculateAge(elgibilityObj.professional[0].child_dob),
                                 section3: edu_empObj[0].professional[0],
                                 section4: referralResult.referral_reason[0],
                                 section4LocalService:displayServicesPdf,
                                 status: "ok",
                                 role: refRole
                             }
-                           // console.log(responseData)
+                          //  console.log(responseData)
                             return ctx.body = responseData;
                         }).catch((error) => {
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -881,4 +882,15 @@ function convertDate(date) {
     var mmChars = mm.split('');
     var ddChars = dd.split('');
     return (ddChars[1] ? dd : "0" + ddChars[0]) + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + yyyy;
+}
+
+function calculateAge(birthDate) {
+    birthDate = new Date(birthDate);
+    otherDate = new Date();
+    var years = (otherDate.getFullYear() - birthDate.getFullYear());
+    if (otherDate.getMonth() < birthDate.getMonth() ||
+        otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
+        years--;
+    }
+    return years;
 }
