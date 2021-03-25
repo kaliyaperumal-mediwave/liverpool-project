@@ -20,7 +20,7 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/change_email', self.middleware.checkAuth,self.changeEmail);
       self.dispatch('/change_password',self.middleware.checkAuth, self.changePassword);
-      self.dispatch('/confirmation_email',self.middleware.checkCommonPageAuth, self.confirmationEmail);
+      self.dispatch('/confirmation_email',self.middleware.clearSessionReferral, self.confirmationEmail);
     };
 
     self.changeEmail = function (req, callback) {
@@ -41,8 +41,8 @@ module.exports = {
 
     self.confirmationEmail = function (req, callback) {
       return self.sendPage(req, self.renderer('confirmation_email', {
-        showHeader: true,
-        hideRefButton: true,
+        showHeader: false,
+        hideRefButton: false,
       }));
     };
 
