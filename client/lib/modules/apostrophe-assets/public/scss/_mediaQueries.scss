@@ -82,3 +82,8 @@
     @content;
   }
 }
+@mixin md-dec-screen {
+  @media (max-width: 1023px) {
+    @content;
+  }
+}
