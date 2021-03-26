@@ -76,14 +76,14 @@ endblock %} {% block extraHead %}
   $(document).ready(function () {
     $('#example-search-input').val('');
 
-    $('body').on('keypress', function () {
-      if ($('.bodyclass').hasClass('apos-active-blackout')) {
-        $(".loadaddclass").addClass("d-none");
-      }
-      else {
-        $(".overlay").addClass("d-none");
-      }
-    });
+    // $('body').on('keypress', function () {
+    //   if ($('.bodyclass').hasClass('apos-active-blackout')) {
+    //     $(".loadaddclass").addClass("d-none");
+    //   }
+    //   else {
+    //     $(".overlay").addClass("d-none");
+    //   }
+    // });
 
     $('#hideserachblock').removeClass('d-none');
   });
