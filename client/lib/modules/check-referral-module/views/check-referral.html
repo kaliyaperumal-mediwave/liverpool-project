@@ -43,7 +43,7 @@
                 @input="getReferalByCode($event)">
         </div>
         <div class="dropdown d-flex justify-content-end align-items-center ">
-            <button class=" custom-select-icon" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            <button class=" custom-select-icon auth-font" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 Sort by
                 <i class="fas fa-caret-down"></i> </button>
@@ -57,7 +57,7 @@
         </div>
         <div>
             <!-- v-show="getStringLength(viewReferralObj.searchTxt) > 2" -->
-            <div v-show="getStringLength(viewReferralObj.searchTxt) > 0" class="recent_content">
+            <div v-show="getStringLength(viewReferralObj.searchTxt) > 0" class="resource_search_text">
                 <b>Search result for "{{viewReferralObj.searchTxt}}"</b>
                 <div v-for="(refObj, index1) in searchReferrals" class="justify-content-between align-items-center"
                     id="headingTwo">
@@ -97,8 +97,8 @@
             </div>
         </div>
         <div v-show="getStringLength(viewReferralObj.searchTxt) > 0 && searchReferrals.length == 0"
-            class="recent_content not-found">
-            <b>No results found</b>
+            class="primary-search-radius home-primary-content-bg cursor-pointer">
+            <p class="resource_search_text p-3 d-flex justify-content-center">No results found</p>
         </div>
         <div v-if="getStringLength(viewReferralObj.searchTxt) < 1 && viewReferralObj.loginUserFlag=='true'"
             class='d-flex progress-container'>
