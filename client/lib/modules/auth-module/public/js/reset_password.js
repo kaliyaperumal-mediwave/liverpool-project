@@ -52,9 +52,9 @@ $(document).ready(function () {
                 var formData = this.resetPasswordData;
                 this.isFormSubmitted = true;
                 if ((formData.new_password && this.passwordRegex.test(formData.new_password)) && (formData.confirm_password && this.passwordRegex.test(formData.confirm_password)) && (formData.new_password === formData.confirm_password)) {
-                    console.log('payload', formData);
+                    //console.log('payload', formData);
                     formData.token = getQueryStringValue("token");
-                    console.log('payload', formData);
+                    //console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/resetPassword', formData);
                     if (successData && Object.keys(successData)) {

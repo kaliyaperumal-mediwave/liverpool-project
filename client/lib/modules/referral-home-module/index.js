@@ -23,10 +23,10 @@ module.exports = {
 
     //set session to use in role module to maintain session logout
     self.route('get', 'setSessionRefHome/:fromHome', function (req, res) {
-      console.log("Role index");
-      console.log(req.params.fromHome)
+      //console.log("Role index");
+      //console.log(req.params.fromHome)
       req.session.frm_ref_home = "Y";
-      console.log(req.session.frm_ref_home)
+      //console.log(req.session.frm_ref_home)
       return res.send({data: {success:"true",message:"session ref_home set"}});
     });
   }

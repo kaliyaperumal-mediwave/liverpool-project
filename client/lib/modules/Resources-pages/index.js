@@ -18,7 +18,7 @@ module.exports = {
 
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      console.log("orcha load Dis");
+     // console.log("orcha load Dis");
       self.dispatch("/", self.middleware.checkCommonPageAuth, self.orcha);
     };
 
@@ -170,7 +170,7 @@ module.exports = {
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function (req, callback) {
       require("../../middleware")(self, options);
-      console.log("index==========tst");
+      //console.log("index==========tst");
       self
         .checkCommonPageAuth(req)
         .then(async (req, res) => {
@@ -237,7 +237,7 @@ module.exports = {
     };
 
     self.orcha = function (req, callback) {
-      console.log("orcha load");
+     // console.log("orcha load");
     };
   },
 };

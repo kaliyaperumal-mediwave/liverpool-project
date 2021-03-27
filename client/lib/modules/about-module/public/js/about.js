@@ -151,7 +151,7 @@ $(document).ready(function () {
                     this.patchValue(successData);
                     $('#loader').hide();
                 } else {
-                    console.error('error')
+                    //console.error('error')
                     $('#loader').hide();
                 }
             },
@@ -366,7 +366,7 @@ $(document).ready(function () {
                     }
                 } else {
                     $('#loader').hide();
-                    console.log('empty response')
+                   // console.log('empty response')
                 }
             },
 

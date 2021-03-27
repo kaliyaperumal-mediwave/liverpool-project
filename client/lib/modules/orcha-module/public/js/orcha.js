@@ -30,7 +30,7 @@ $(document).ready(function () {
                     this.resources = [];
                 }
             } catch (error) {
-                console.log(error);
+                //console.log(error);
                 $('#loader').hide();
             }
         },
@@ -52,7 +52,7 @@ $(document).ready(function () {
                 }
                 this.showAppContent = true;
                 $('#loader').hide();
-                //  console.log(this.appObj)
+                //  //console.log(this.appObj)
             },
 
             handleError: function (e) {
