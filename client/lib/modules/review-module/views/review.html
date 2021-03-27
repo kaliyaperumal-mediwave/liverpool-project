@@ -419,6 +419,18 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
+                                            <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="maritalStatus">
+                                                        <option selected="selected" value="Mr">Mr</option>
+                                                        <option value="Miss">Miss</option>
+                                                        <option value="Ms">Ms</option>
+                                                        <option value="Mrs">Mrs</option>
+                                                        <option value="Mx">Mx</option>
+                                                    </select>
+                                                </span>
+                                            </div>
                                             <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_name')"
                                                 placeholder="Enter first name" type="text"

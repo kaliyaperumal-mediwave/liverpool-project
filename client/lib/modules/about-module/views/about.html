@@ -56,6 +56,18 @@
                     <div class="form-group py-2 my-2">
                         <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
+                            <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="maritalStatus">
+                                        <option selected="selected" value="Mr">Mr</option>
+                                        <option value="Miss">Miss</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Mrs">Mrs</option>
+                                        <option value="Mx">Mx</option>
+                                    </select>
+                                </span>
+                            </div>
                             <input type="text" class="form-control input-bg-form-control"
                                 v-model="aboutObj.childFirstName" id="childFirstName"
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
@@ -77,6 +89,18 @@
                     <div class="form-group py-2 my-2">
                         <label for="childLastName" class="question-font">{{sec2dynamicLabel.lastNameLabel}}</label>
                         <div class="input-group">
+                            <!-- <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="maritalStatus">
+                                        <option selected="selected" value="Mr.">Mr</option>
+                                        <option value="Miss.">Miss</option>
+                                        <option value="Ms.">Ms</option>
+                                        <option value="Mrs.">Mrs</option>
+                                        <option value="Mx">Mx</option>
+                                    </select>
+                                </span>
+                            </div> -->
                             <input type="text" class="form-control input-bg-form-control"
                                 v-model="aboutObj.childLastName" id="childLastName"
                                 @input="trimWhiteSpace($event,'aboutObj','childLastName')"
@@ -738,7 +762,8 @@
                                         </option>
                                         <option class='option-text' value="Care of Parent">Care of Parent
                                         </option>
-                                        <option class='option-text' value="Care of Local Authority (Liverpool)">Care of
+                                        <option class='option-text' value="Care of Local Authority (Liverpool)">Care
+                                            of
                                             Local Authority
                                             (Liverpool)
                                         </option>
@@ -749,16 +774,19 @@
                                         <option class='option-text' value="Care of Local Authority (Other)">Care of
                                             Local Authority (Other)
                                         </option>
-                                        <option class='option-text' value="Section 20 Voluntary">Section 20 Voluntary
+                                        <option class='option-text' value="Section 20 Voluntary">Section 20
+                                            Voluntary
                                         </option>
                                         <option class='option-text' value="Accommodated">Accommodated
                                         </option>
                                         <option class='option-text' value="Full Care Order">Full Care Order</option>
                                         <option class='option-text' value="Interim Care Order">Interim Care Order
                                         </option>
-                                        <option class='option-text' value="Care Order places at home">Care Order places
+                                        <option class='option-text' value="Care Order places at home">Care Order
+                                            places
                                             at home</option>
-                                        <option class='option-text' value="Child Protection Plan">Child Protection Plan
+                                        <option class='option-text' value="Child Protection Plan">Child Protection
+                                            Plan
                                         </option>
                                         <option class='option-text' value="Other Carer">Other Carer</option>
                                     </select>
@@ -1376,7 +1404,8 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
 
                                 <!-- Household first name start -->
                                 <div class="form-group">
-                                    <label for="houseHoldName" inputmode="text" class="question-font">First name</label>
+                                    <label for="houseHoldName" inputmode="text" class="question-font">First
+                                        name</label>
                                     <div class="input-group" id="dobAboutCal">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="houseHoldData.name"
@@ -1435,7 +1464,8 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                         <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
                                             @dp-show="setCalendarHeight($event)"
                                             @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
-                                            :config="options" :wrap="dateWrap"></date-picker>
+                                            :config="options" :wrap="dateWrap">
+                                        </date-picker>
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
