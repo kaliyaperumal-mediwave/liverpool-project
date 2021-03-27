@@ -165,7 +165,6 @@ $(document).ready(function () {
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
                 //console.log(data)
-                debugger
                 this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
@@ -300,7 +299,6 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
-                debugger
                 this.isFormSubmitted = true;
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.contactNumber && formData.relationshipToYou &&
