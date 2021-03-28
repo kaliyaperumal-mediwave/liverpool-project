@@ -53,7 +53,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data)
+       // console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
@@ -68,7 +68,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data)
+       // console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

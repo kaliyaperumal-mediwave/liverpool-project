@@ -422,7 +422,7 @@
                                             <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select">
                                                     <select class="custom-select form-control input-bg-form-control"
-                                                        v-model="maritalStatus">
+                                                        v-model="section2Data.child_name_title"  @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
                                                         <option selected="selected" value="Mr">Mr</option>
                                                         <option value="Miss">Miss</option>
                                                         <option value="Ms">Ms</option>

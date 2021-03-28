@@ -489,6 +489,7 @@ exports.about = ctx => {
               {
                 child_firstname: ctx.request.body.aboutData.childFirstName,
                 child_lastname: ctx.request.body.aboutData.childLastName,
+                child_name_title: ctx.request.body.aboutData.childNameTitle,
                 child_NHS: ctx.request.body.aboutData.nhsNumber,
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -581,6 +582,7 @@ exports.about = ctx => {
             {
               child_firstname: ctx.request.body.aboutData.childFirstName,
               child_lastname: ctx.request.body.aboutData.childLastName,
+              child_name_title: ctx.request.body.aboutData.childNameTitle,
               child_NHS: ctx.request.body.aboutData.nhsNumber,
               child_email: ctx.request.body.aboutData.childEmail,
               child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -671,6 +673,7 @@ exports.about = ctx => {
           {
             child_firstname: ctx.request.body.aboutData.childFirstName,
             child_lastname: ctx.request.body.aboutData.childLastName,
+            child_name_title: ctx.request.body.aboutData.childNameTitle,
             child_NHS: ctx.request.body.aboutData.nhsNumber,
             child_email: ctx.request.body.aboutData.childEmail,
             child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -693,6 +696,7 @@ exports.about = ctx => {
           return user.update({
             parent_firstname: ctx.request.body.aboutData.parentFirstName,
             parent_lastname: ctx.request.body.aboutData.parentLastName,
+            child_name_title: ctx.request.body.aboutData.childNameTitle,
             parential_responsibility: ctx.request.body.aboutData.parentialResponsibility,
             responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
             responsibility_parent_lastname: ctx.request.body.aboutData.parentCarerLastName,
@@ -770,6 +774,7 @@ exports.about = ctx => {
               {
                 child_firstname: ctx.request.body.aboutData.childFirstName,
                 child_lastname: ctx.request.body.aboutData.childLastName,
+                child_name_title: ctx.request.body.aboutData.childNameTitle,
                 child_NHS: ctx.request.body.aboutData.nhsNumber,
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -885,6 +890,7 @@ exports.about = ctx => {
               {
                 child_firstname: ctx.request.body.aboutData.childFirstName,
                 child_lastname: ctx.request.body.aboutData.childLastName,
+                child_name_title: ctx.request.body.aboutData.childNameTitle,
                 child_NHS: ctx.request.body.aboutData.nhsNumber,
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
@@ -1860,7 +1866,7 @@ exports.fetchReview = ctx => {
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
+        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname','child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1883,6 +1889,7 @@ exports.fetchReview = ctx => {
             child_NHS: aboutObj.child_NHS,
             child_name: aboutObj.child_firstname,
             child_lastname: aboutObj.child_lastname,
+            child_name_title:aboutObj.child_name_title,
             child_email: aboutObj.child_email,
             child_contact_number: aboutObj.child_contact_number,
             child_address: aboutObj.child_address,
@@ -1961,7 +1968,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
+              attributes: ['id', 'child_NHS', 'child_firstname','child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
             },
           ],
           where: {
@@ -2016,6 +2023,7 @@ exports.fetchReview = ctx => {
                 child_NHS: aboutObj[0].parent[0].child_NHS,
                 child_name: aboutObj[0].parent[0].child_firstname,
                 child_lastname: aboutObj[0].parent[0].child_lastname,
+                child_name_title: aboutObj[0].parent[0].child_name_title,
                 child_email: aboutObj[0].parent[0].child_email,
                 child_contact_number: aboutObj[0].parent[0].child_contact_number,
                 child_address: aboutObj[0].parent[0].child_address,
@@ -2117,7 +2125,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
+              attributes: ['id', 'child_NHS', 'child_firstname','child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member']
             },
           ],
           where: {
@@ -2176,6 +2184,7 @@ exports.fetchReview = ctx => {
                 child_NHS: aboutObj[0].parent[0].child_NHS,
                 child_name: aboutObj[0].parent[0].child_firstname,
                 child_lastname: aboutObj[0].parent[0].child_lastname,
+                child_name_title: aboutObj[0].parent[0].child_name_title,
                 child_email: aboutObj[0].parent[0].child_email,
                 child_contact_number: aboutObj[0].parent[0].child_contact_number,
                 child_address: aboutObj[0].parent[0].child_address,
@@ -2369,6 +2378,7 @@ exports.updateAboutInfo = ctx => {
     child_gender_birth: ctx.request.body.section2Data.child_gender_birth,
     child_firstname: ctx.request.body.section2Data.child_name,
     child_lastname: ctx.request.body.section2Data.child_lastname,
+    child_name_title:ctx.request.body.section2Data.child_name_title,
     child_sexual_orientation: ctx.request.body.section2Data.child_sexual_orientation,
   },
     {

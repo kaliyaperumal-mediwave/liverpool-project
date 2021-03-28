@@ -21,7 +21,8 @@ $(document).ready(function () {
                 childCareAdult: "",
                 parentFirstName: "",
                 parentLastName: "",
-                referral_progress: 40
+                referral_progress: 40,
+                childNameTitle: "Mr"
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -164,22 +165,24 @@ $(document).ready(function () {
 
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
-                //console.log(data)
+                console.log(data)
                 this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data.child_NHS);
-                        if (data.child_firstname && data.child_firstname.split('.').length == 2) {
-                            var maritalStatusOfFname = data.child_firstname.split('.');
-                            var firstName = maritalStatusOfFname[1].toString();
-                            Vue.set(this, "maritalStatus", maritalStatusOfFname[0]);
-                            Vue.set(this.aboutObj, "childFirstName", firstName);
-                        } else {
-                            Vue.set(this.aboutObj, "childFirstName", data.child_firstname);
-                        }
+                        // if (data.child_firstname && data.child_firstname.split('.').length == 2) {
+                        //     var maritalStatusOfFname = data.child_firstname.split('.');
+                        //     var firstName = maritalStatusOfFname[1].toString();
+                        //     Vue.set(this, "maritalStatus", maritalStatusOfFname[0]);
+                        //     Vue.set(this.aboutObj, "childFirstName", firstName);
+                        // } else {
+                        //     Vue.set(this.aboutObj, "childFirstName", data.child_firstname);
+                        // }
+
                         Vue.set(this.aboutObj, "childFirstName", data.child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data.child_lastname);
+                        Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
                         Vue.set(this.aboutObj, "childEmail", data.child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data.child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data.child_address);
@@ -213,15 +216,17 @@ $(document).ready(function () {
                     if (data[0].parent[0].child_firstname != null) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
-                        if (data[0].parent[0].child_firstname && data[0].parent[0].child_firstname.split('.').length == 2) {
-                            var maritalStatusOfFname = data[0].parent[0].child_firstname.split('.');
-                            var firstName = maritalStatusOfFname[1].toString();
-                            Vue.set(this, "maritalStatus", maritalStatusOfFname[0]);
-                            Vue.set(this.aboutObj, "childFirstName", firstName);
-                        } else {
-                            Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
-                        }
+                        // if (data[0].parent[0].child_firstname && data[0].parent[0].child_firstname.split('.').length == 2) {
+                        //     var maritalStatusOfFname = data[0].parent[0].child_firstname.split('.');
+                        //     var firstName = maritalStatusOfFname[1].toString();
+                        //     Vue.set(this, "maritalStatus", maritalStatusOfFname[0]);
+                        //     Vue.set(this.aboutObj, "childFirstName", firstName);
+                        // } else {
+                        //     Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
+                        // }
+                        Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
+                        Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
@@ -255,15 +260,17 @@ $(document).ready(function () {
                     if (data[0] != undefined && data[0].parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
-                        if (data[0].parent[0].child_firstname && data[0].parent[0].child_firstname.split('.').length == 2) {
-                            var maritalStatusOfFname = data[0].parent[0].child_firstname.split('.');
-                            var firstName = maritalStatusOfFname[1].toString();
-                            Vue.set(this, "maritalStatus", maritalStatusOfFname[0]);
-                            Vue.set(this.aboutObj, "childFirstName", firstName);
-                        } else {
-                            Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
-                        }
+                        // if (data[0].parent[0].child_firstname && data[0].parent[0].child_firstname.split('.').length == 2) {
+                        //     var maritalStatusOfFname = data[0].parent[0].child_firstname.split('.');
+                        //     var firstName = maritalStatusOfFname[1].toString();
+                        //     Vue.set(this, "maritalStatus", maritalStatusOfFname[0]);
+                        //     Vue.set(this.aboutObj, "childFirstName", firstName);
+                        // } else {
+                        //     Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
+                        // }
+                        Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
+                        Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
@@ -328,7 +335,7 @@ $(document).ready(function () {
                     } else {
                         this.payloadData.userMode = 'add';
                     }
-                    this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
+                   // this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
                     // var lastName = this.maritalStatus + '' + this.payloadData.aboutData.childLastName;
                     this.upsertAboutYouForm(this.payloadData);
 

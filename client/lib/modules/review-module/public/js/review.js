@@ -10,7 +10,6 @@ $(document).ready(function () {
         el: '#review-form',
         data: {
             isToggled: true,
-            maritalStatus: 'Mr',
             userId: '',
             userMode: '',
             userRole: '',
