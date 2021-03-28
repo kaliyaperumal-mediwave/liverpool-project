@@ -16,7 +16,7 @@ module.exports = {
       }
       return self.sendPage(req, self.renderer('completed', {
         showHeader: true,
-        headerContent: "The referral has been made to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",
+        headerContent: "The referral has been made to Children’s and Young Person’s Sefton & Liverpool Mental Health Services",
         headerDescription: '',
         backContent: '',
         home: false,
