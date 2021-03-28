@@ -30,6 +30,7 @@ $(document).ready(function () {
                 disabilityOrDifficulty: '',
                 accessService: '',
                 listService: '',
+                otherEatingDifficulties:'',
             },
             dependent: [
                 // {
@@ -415,7 +416,7 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "support", data.referral_type);
                     Vue.set(this.referralData, "covid", data.is_covid);
 
-                    //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
+                    Vue.set(this.referralData, "otherEatingDifficulties", data.other_eating_difficulties);
                     Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
                     Vue.set(this.referralData, "height", data.height);
                     Vue.set(this.referralData, "weight", data.weight);

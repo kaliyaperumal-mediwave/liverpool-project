@@ -1395,6 +1395,7 @@ exports.saveReferal = ctx => {
           food_fluid_intake: ctx.request.body.referralData.dailyIntakes,
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
+          other_eating_difficulties:ctx.request.body.referralData.otherEatingDifficulties,
 
           //   mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           //  diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
@@ -1471,7 +1472,7 @@ exports.saveReferal = ctx => {
                 food_fluid_intake: ctx.request.body.referralData.dailyIntakes,
                 height: ctx.request.body.referralData.height,
                 weight: ctx.request.body.referralData.weight,
-
+                other_eating_difficulties:ctx.request.body.referralData.otherEatingDifficulties,
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1535,7 +1536,7 @@ exports.saveReferal = ctx => {
           food_fluid_intake: ctx.request.body.referralData.dailyIntakes,
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
-
+          other_eating_difficulties:ctx.request.body.referralData.otherEatingDifficulties,
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1609,7 +1610,7 @@ exports.saveReferal = ctx => {
                 food_fluid_intake: ctx.request.body.referralData.dailyIntakes,
                 height: ctx.request.body.referralData.height,
                 weight: ctx.request.body.referralData.weight,
-
+                other_eating_difficulties:ctx.request.body.referralData.otherEatingDifficulties,
                 // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
                 // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
                 // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1666,7 +1667,7 @@ exports.saveReferal = ctx => {
           food_fluid_intake: ctx.request.body.referralData.dailyIntakes,
           height: ctx.request.body.referralData.height,
           weight: ctx.request.body.referralData.weight,
-
+          other_eating_difficulties:ctx.request.body.referralData.otherEatingDifficulties,
           // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
           // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
           // diagnosis_other: ctx.request.body.referralData.diagnosisOther,
@@ -1726,7 +1727,7 @@ exports.saveReferal = ctx => {
               food_fluid_intake: ctx.request.body.referralData.dailyIntakes,
               height: ctx.request.body.referralData.height,
               weight: ctx.request.body.referralData.weight,
-
+              other_eating_difficulties:ctx.request.body.referralData.otherEatingDifficulties,
 
               // mental_health_diagnosis: ctx.request.body.referralData.diagnosis,
               // diagnosis: ctx.request.body.diagnosisList,//--------------------diagnosis list for both mental and eating
