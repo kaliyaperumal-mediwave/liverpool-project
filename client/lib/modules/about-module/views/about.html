@@ -143,6 +143,16 @@
                     <div class="form-group py-2 my-2">
                         <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
                         <div class="input-group">
+                            <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="contactMode">
+                                        <option selected="selected" value="mobile">Mobile</option>
+                                        <option value="landline">Landline</option>
+
+                                    </select>
+                                </span>
+                            </div>
                             <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
                                 @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
@@ -944,6 +954,13 @@
       aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
       aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)  && !aboutObj.nhsNumber) ">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+<<<<<<< Updated upstream
+=======
+                                        <p class="question-font text-center m-0 py-2">
+                                            Another section finished. Lets move on to education / employment & support
+                                            needs
+                                        </p>
+>>>>>>> Stashed changes
                                     </template>
 
                                     <!-- For child and parent email Optional for no error state-->
