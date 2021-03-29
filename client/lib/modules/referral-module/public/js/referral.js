@@ -82,7 +82,7 @@ $(document).ready(function () {
                 { id: '6d31681e-a9b9-4cbe-a7e1-26bcbd17d9c3', value: 'Fear of being fat' },
                 { id: '14568ba7-78b0-4bca-aed3-560bdba83060', value: 'Increased preoccupation with weight and shape' },
                 { id: '73257df0-9c00-4125-8238-fe096bac4253', value: 'Excessive exercising' },
-                { id: '4714dbea-340d-42c5-a183-d54e9522aadb', value: 'Bingeing/ Purging' },
+                { id: '4714dbea-340d-42c5-a183-d54e9522aadb', value: 'Binging/ Purging' },
                 { id: '48443ca2-47a0-4a8f-be63-59324c509558', value: 'Recent excessive loss of weight' },
                 { id: 'fb8c41e3-922e-4332-867a-d67e2bb292fc', value: 'Blackouts' },
                 { id: '4ca2d04b-b507-4ef9-ba82-323f4ff665ac', value: 'Dizziness' },
@@ -90,7 +90,7 @@ $(document).ready(function () {
                 { id: '68066f83-1aca-45f4-97ee-84da1485d02b', value: 'Low mood' },
                 { id: '3b568128-10a1-4e5a-a2e5-9fa4a0163de5', value: 'Anxiety' },
                 { id: '33cd1600-037f-45d6-a226-1d093d821cb5', value: 'Obsessive behaviour or thoughts' },
-                { id: 'ad07ea21-e0c4-488b-b6b0-2e39046fbb92', value: 'Amenorrhoea' },
+                { id: 'ad07ea21-e0c4-488b-b6b0-2e39046fbb92', value: 'Loss of periods' },
             ],
             reasonForReferralList: [
                 { id: '4bc26bf2-d79b-4b83-912f-e83300efb10e', value: 'Trouble concentrating' },
