@@ -131,16 +131,6 @@
                     <div class="form-group py-2 my-2">
                         <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
                         <div class="input-group">
-                            <div class="input-group-prepend cursor-pointer">
-                                <span class="plain-select">
-                                    <select class="custom-select form-control input-bg-form-control"
-                                        v-model="contactMode">
-                                        <option selected="selected" value="mobile">Mobile</option>
-                                        <option value="landline">Landline</option>
-
-                                    </select>
-                                </span>
-                            </div>
                             <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
                                 @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
@@ -760,8 +750,7 @@
                                         </option>
                                         <option class='option-text' value="Care of Parent">Care of Parent
                                         </option>
-                                        <option class='option-text' value="Care of Local Authority (Liverpool)">Care
-                                            of
+                                        <option class='option-text' value="Care of Local Authority (Liverpool)">Care of
                                             Local Authority
                                             (Liverpool)
                                         </option>
@@ -772,19 +761,16 @@
                                         <option class='option-text' value="Care of Local Authority (Other)">Care of
                                             Local Authority (Other)
                                         </option>
-                                        <option class='option-text' value="Section 20 Voluntary">Section 20
-                                            Voluntary
+                                        <option class='option-text' value="Section 20 Voluntary">Section 20 Voluntary
                                         </option>
                                         <option class='option-text' value="Accommodated">Accommodated
                                         </option>
                                         <option class='option-text' value="Full Care Order">Full Care Order</option>
                                         <option class='option-text' value="Interim Care Order">Interim Care Order
                                         </option>
-                                        <option class='option-text' value="Care Order places at home">Care Order
-                                            places
+                                        <option class='option-text' value="Care Order places at home">Care Order places
                                             at home</option>
-                                        <option class='option-text' value="Child Protection Plan">Child Protection
-                                            Plan
+                                        <option class='option-text' value="Child Protection Plan">Child Protection Plan
                                         </option>
                                         <option class='option-text' value="Other Carer">Other Carer</option>
                                     </select>
@@ -801,6 +787,7 @@
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
+
                                     <template v-if="
                                         (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
                                         || !aboutObj.childFirstName
@@ -848,108 +835,155 @@
 
                             </div>
                         </div>
-                        <div class="invalid-feedback d-none"
-                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name) }">
-                            Please provide a first name.
-                        </div>
                     </div>
-                    <!-- Household first name end -->
+                    <div class="text-center py-4">
+                        <a>
+                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                    class="btn-secondary-text">SAVE &
+                                    CONTINUE</span></button>
+                        </a>
+                    </div>
+                </template>
+                <!-- Dynamic Toaster Scenario 1 end -->
 
-                    <!-- Household last name start -->
-                    <div class="form-group">
-                        <label for="houseHoldLastName" inputmode="text" class="question-font">Last
-                            name</label>
-                        <div class="input-group" id="dobAboutCal">
-                            <input type="text" class="form-control input-bg-form-control"
-                                v-model="houseHoldData.lastName"
-                                @input="trimWhiteSpace($event,'houseHoldData','lastName')" id="houseHoldLastName"
-                                placeholder="Enter last name">
-                            <div class="input-group-append cursor-pointer">
-                                <span class="input-group-text input-group-secondary-text px-3 font-23">
-                                    <i aria-hidden="true" class="fa fa-user-circle"></i>
-                                </span>
+                <!-- Add HouseHold Modal Start -->
+                <div class="modal fade" id="houseHoldModal" tabindex="-1" role="dialog" aria-labelledby="houseHoldLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content modal-bg">
+                            <div class="modal-header justify-content-center">
+                                <template v-if="houseHoldData.mode == 'update'">
+                                    <h5 class="question-header-font" id="houseHoldLabel">Edit household member</h5>
+                                </template>
+                                <template v-else-if="houseHoldData.mode == ''">
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
+                                    </span>
+                                </template>
+                                <template v-else>
+                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
+                                </template>
+                                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                            </div>
+                            <div class="modal-body py-1 px-4">
+
+                                <!-- Household first name start -->
+                                <div class="form-group">
+                                    <label for="houseHoldName" inputmode="text" class="question-font">First name</label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.name"
+                                            @input="trimWhiteSpace($event,'houseHoldData','name')" id="houseHoldName"
+                                            placeholder="Enter first name">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i aria-hidden="true" class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name) }">
+                                        Please provide a first name.
+                                    </div>
+                                </div>
+                                <!-- Household first name end -->
+
+                                <!-- Household last name start -->
+                                <div class="form-group">
+                                    <label for="houseHoldLastName" inputmode="text" class="question-font">Last
+                                        name</label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.lastName"
+                                            @input="trimWhiteSpace($event,'houseHoldData','lastName')"
+                                            id="houseHoldLastName" placeholder="Enter last name">
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i aria-hidden="true" class="fa fa-user-circle"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName) }">
+                                        Please provide a last name.
+                                    </div>
+                                </div>
+                                <!-- Household name end -->
+
+                                <!-- Household Relationship start -->
+                                <div class="form-group">
+                                    <label for="relationship" class="question-font">Relationship -
+                                        <b>optional</b></label>
+                                    <input type="text" inputmode="text" v-model="houseHoldData.relationShip"
+                                        @input="trimWhiteSpace($event,'houseHoldData','relationShip')"
+                                        class="form-control input-bg-form-control" id="relationship"
+                                        placeholder="Enter relationship with CYP">
+                                </div>
+                                <!-- Household Relationship end -->
+
+                                <!-- Household D.O.B start -->
+                                <div class="form-group">
+                                    <label for="dob" class="question-font">Date of birth -<b>optional</b></label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
+                                            @dp-show="setCalendarHeight($event)"
+                                            @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
+                                            :config="options" :wrap="dateWrap"></date-picker>
+                                        <div class="input-group-append cursor-pointer">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-23">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Household D.O.B end -->
+
+                                <!-- Household School/College/Employment start -->
+                                <div class="form-group" v-show="getAge(houseHoldData.dob) < 19 ">
+                                    <label for="educLocation" inputmode="search"
+                                        class="question-font">School/College/Employment-<b>optional</b></label>
+                                    <div class="input-group">
+                                        <input type="search" class="form-control input-bg-form-control"
+                                            placeholder="Start typing to search"
+                                            @input="trimWhiteSpace($event,'houseHoldData','profession')"
+                                            id="educLocation" v-model="houseHoldData.profession">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text input-group-secondary-text px-3 font-25">
+                                                <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Household School/College/Employment end -->
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn px-md-4 w-50" id="closeModalRaj"
+                                        @click="upsertHouseHold()">
+                                        <template v-if="houseHoldData.mode == 'update'">
+                                            <span class="btn-modal-text">UPDATE
+                                            </span>
+                                        </template>
+                                        <template v-else-if="houseHoldData.mode == ''">
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                        <template v-else>
+                                            <span class="btn-modal-text">ADD
+                                            </span>
+                                        </template>
+                                    </button>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="invalid-feedback d-none"
-                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName) }">
-                            Please provide a last name.
-                        </div>
                     </div>
-                    <!-- Household name end -->
-
-                    <!-- Household Relationship start -->
-                    <div class="form-group">
-                        <label for="relationship" class="question-font">Relationship -
-                            <b>optional</b></label>
-                        <input type="text" inputmode="text" v-model="houseHoldData.relationShip"
-                            @input="trimWhiteSpace($event,'houseHoldData','relationShip')"
-                            class="form-control input-bg-form-control" id="relationship"
-                            placeholder="Enter relationship with CYP">
-                    </div>
-                    <!-- Household Relationship end -->
-
-                    <!-- Household D.O.B start -->
-                    <div class="form-group">
-                        <label for="dob" class="question-font">Date of birth -<b>optional</b></label>
-                        <div class="input-group" id="dobAboutCal">
-                            <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
-                                @dp-show="setCalendarHeight($event)" @dp-hide="resetAge($event,houseHoldData.dob)"
-                                v-model="houseHoldData.dob" :config="options" :wrap="dateWrap">
-                            </date-picker>
-                            <div class="input-group-append cursor-pointer">
-                                <span class="input-group-text input-group-secondary-text px-3 font-23">
-                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Household D.O.B end -->
-
-                    <!-- Household School/College/Employment start -->
-                    <div class="form-group" v-show="getAge(houseHoldData.dob) < 19 ">
-                        <label for="educLocation" inputmode="search"
-                            class="question-font">School/College/Employment-<b>optional</b></label>
-                        <div class="input-group">
-                            <input type="search" class="form-control input-bg-form-control"
-                                placeholder="Start typing to search"
-                                @input="trimWhiteSpace($event,'houseHoldData','profession')" id="educLocation"
-                                v-model="houseHoldData.profession">
-                            <div class="input-group-append">
-                                <span class="input-group-text input-group-secondary-text px-3 font-25">
-                                    <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Household School/College/Employment end -->
-
-                    <div class="modal-footer">
-                        <button type="submit" class="btn px-md-4 w-50" id="closeModalRaj" @click="upsertHouseHold()">
-                            <template v-if="houseHoldData.mode == 'update'">
-                                <span class="btn-modal-text">UPDATE
-                                </span>
-                            </template>
-                            <template v-else-if="houseHoldData.mode == ''">
-                                <span class="btn-modal-text">ADD
-                                </span>
-                            </template>
-                            <template v-else>
-                                <span class="btn-modal-text">ADD
-                                </span>
-                            </template>
-                        </button>
-                    </div>
+                </div>
+                <!-- Add HouseHold Modal End -->
 
             </div>
         </div>
+
+        {% endraw %}
     </div>
-</div>
-<!-- Add HouseHold Modal End -->
-
-</div>
-</div>
-
-{% endraw %}
-</div>
 </div>
 {% endblock %}

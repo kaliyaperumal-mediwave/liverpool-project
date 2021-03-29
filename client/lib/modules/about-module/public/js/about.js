@@ -173,7 +173,12 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "nhsNumber", data.child_NHS);
                         Vue.set(this.aboutObj, "childFirstName", data.child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data.child_lastname);
-                        Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
+                        if (data.child_name_title) {
+                            Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
+                        } else {
+                            Vue.set(this.aboutObj, "childNameTitle", 'Mr');
+
+                        }
                         Vue.set(this.aboutObj, "childEmail", data.child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data.child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data.child_address);
@@ -209,7 +214,13 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
-                        Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        if (data[0].parent[0].child_name_title) {
+                            Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        } else {
+                            Vue.set(this.aboutObj, "childNameTitle", 'Mr');
+
+                        }
+                        //Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
@@ -245,7 +256,13 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
-                        Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        if (data[0].parent[0].child_name_title) {
+                            Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        } else {
+                            Vue.set(this.aboutObj, "childNameTitle", 'Mr');
+
+                        }
+                        // Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
                         Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);

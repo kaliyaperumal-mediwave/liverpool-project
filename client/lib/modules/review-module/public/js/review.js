@@ -105,7 +105,6 @@ $(document).ready(function () {
 
             //Get Request to get all section's data
             getAllSectionData: function (payloadData) {
-                // //console.log()
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
@@ -114,7 +113,6 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        //console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -123,6 +121,7 @@ $(document).ready(function () {
                         _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
 
+                        //Other Reasons for making referral
                         if (_self.section4Data.other_reasons_referral) {
                             if (Array.isArray(_self.section4Data.reason_for_referral)) {
                                 _self.section4Data.reason_for_referral.push(_self.section4Data.other_reasons_referral);
@@ -130,6 +129,16 @@ $(document).ready(function () {
                                 _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral + _self.section4Data.other_reasons_referral;
                             }
                         }
+
+                        //Other Reasons for eating difficulties
+                        if (_self.section4Data.other_eating_difficulties) {
+                            if (Array.isArray(_self.section4Data.eating_disorder_difficulties)) {
+                                _self.section4Data.eating_disorder_difficulties.push(_self.section4Data.other_eating_difficulties);
+                            } else {
+                                _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties + _self.section4Data.other_eating_difficulties;
+                            }
+                        }
+
                         if (_self.section4Data.reason_for_referral) {
                             _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
                         }
@@ -427,7 +436,6 @@ $(document).ready(function () {
                             scrollToInvalidInput();
                             return false;
                         }
-
                         this.payloadData.section2Data = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
@@ -579,6 +587,10 @@ $(document).ready(function () {
                 else if (section == 4) {
                     if (data.other_reasons_referral != null) {
                         data.reason_for_referral.push(data.other_reasons_referral);
+                    }
+
+                    if (data.other_eating_difficulties != null) {
+                        data.eating_disorder_difficulties.push(data.other_eating_difficulties);
                     }
 
                     data.reason_for_referral = data.reason_for_referral.toString();
