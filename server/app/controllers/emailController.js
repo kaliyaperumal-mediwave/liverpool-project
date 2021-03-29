@@ -11,7 +11,7 @@ exports.sendReferralConfirmation = ctx => {
 
     if(ctx.request.decryptedUser!=undefined)
     {
-        console.log(ctx.request.decryptedUser.email)
+        //console.log(ctx.request.decryptedUser.email)
         const data = {
             from: 'info@mindwaveventures.com',
             //to: req.body.email,
@@ -21,11 +21,11 @@ exports.sendReferralConfirmation = ctx => {
         };
         mailService.sendMail(data, (err, emailres,ctx) => {
             if (err) {
-                console.log(err);
+                //console.log(err);
             }  
             else
             {
-                //console.log(emailres)
+                ////console.log(emailres)
             }
         });
         const sendResponseData={

@@ -82,12 +82,12 @@ $(document).ready(function () {
                     success: function (data) {
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
-                        console.log("logi flag ", _self.loginFlag)
+                        //console.log("logi flag ", _self.loginFlag)
                         _self.getSignUpData();
                         $('#loader').hide();
                     },
                     error: function (error) {
-                        console.log('Something went Wrong', error);
+                        //console.log('Something went Wrong', error);
                         $('#loader').hide();
                         showError(error.responseJSON.message, error.status);
                     }
@@ -123,10 +123,10 @@ $(document).ready(function () {
             //         contentType: 'application/json',
             //         data: JSON.stringify(payLoadObj),
             //         success: function (data) {
-            //             console.log("EmailSent")
+            //             //console.log("EmailSent")
             //         },
             //         error: function (error) {
-            //             console.log('Something went Wrong', error);
+            //             //console.log('Something went Wrong', error);
             //             showError(error.responseJSON.message, error.status);
             //         }
             //     });

@@ -23,6 +23,7 @@ $(document).ready(function () {
                 dailyIntakes: '',
                 height: '',
                 weight: '',
+                otherEatingDifficulties: '',
                 otherReasonsReferral: '',
                 referralInfo: '',
                 hasAnythingInfo: '',
@@ -191,8 +192,12 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier === 'eatingDisorder') {
                     if (!this.eatingDifficulties.length) {
-                        resetValues(event.target.form, this, 'referralData');
-                        this.reasonForReferral = [];
+                        if (optionsName.otherEatingDifficulties === '') {
+                            resetValues(event.target.form, this, 'referralData');
+                            this.reasonForReferral = [];
+                        }
+                        // resetValues(event.target.form, this, 'referralData');
+                        // this.reasonForReferral = [];
                     }
                 }
                 else if (questionIdentifier === 'listReasonsForReferral') {
@@ -234,9 +239,12 @@ $(document).ready(function () {
             onValueEnter: function (event, condition) {
                 if (event.target.value && !event.target.value.replace(/ /g, "").length) {
                     if (condition == "intake") {
-                        this.referralData.dailyIntakes = event.target.value.trim()
+                        this.referralData.dailyIntakes = event.target.value.trim();
                     } else if (condition == "other") {
-                        this.referralData.otherReasonsReferral = event.target.value.trim()
+                        this.referralData.otherReasonsReferral = event.target.value.trim();
+                    }
+                    else if (condition == "otherEating") {
+                        this.referralData.otherEatingDifficulties = event.target.value.trim();
                     }
                     return false;
                 }
@@ -247,7 +255,14 @@ $(document).ready(function () {
                             resetValues(event.target.form, this, 'referralData');
                         }
                     }
-                } else if (questionIdentifier === 'briefOutlineInfo') {
+                } else if (questionIdentifier === 'eatingDisorder') {
+                    if (!event.target.value) {
+                        if (!this.eatingDifficulties.length) {
+                            resetValues(event.target.form, this, 'referralData');
+                        }
+                    }
+                }
+                else if (questionIdentifier === 'briefOutlineInfo') {
                     if (!event.target.value) {
                         resetValues(event.target.form, this, 'referralData');
                         this.reasonForReferral = [];
@@ -265,7 +280,7 @@ $(document).ready(function () {
                     this.patchValue(successData);
                     $('#loader').hide();
                 } else {
-                    console.error('error');
+                    //console.error('error');
                     $('#loader').hide();
 
                 }
@@ -274,6 +289,7 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
+                debugger
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
                 if (formData.referralInfo) {
@@ -294,6 +310,7 @@ $(document).ready(function () {
                         this.payloadData.userMode = 'add';
                     }
                     $('#loader').show();
+                    debugger
                     this.upsertReferralForm(this.payloadData);
 
                 } else {
@@ -393,7 +410,7 @@ $(document).ready(function () {
                     this.storeDeleteData = null;
                 } else {
                     $('#loader').hide();
-                    console.log('empty response')
+                    //console.log('empty response')
                 }
             },
 
@@ -415,7 +432,7 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "support", data.referral_type);
                     Vue.set(this.referralData, "covid", data.is_covid);
 
-                    //Vue.set(this.referralData, "eatingDifficulties", data.eating_disorder_difficulties);
+                    Vue.set(this.referralData, "otherEatingDifficulties", data.other_eating_difficulties);
                     Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
                     Vue.set(this.referralData, "height", data.height);
                     Vue.set(this.referralData, "weight", data.weight);

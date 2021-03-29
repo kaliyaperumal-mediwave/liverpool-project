@@ -21,7 +21,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            console.log(document.getElementById('sessionExp').innerHTML)
+            //console.log(document.getElementById('sessionExp').innerHTML)
             var loginButton = document.getElementById('secondary');
             loginButton.removeAttribute('disabled');
             loginButton.style.opacity = 1;
@@ -36,7 +36,7 @@ $(document).ready(function () {
                         showError('Session expired');
                     },
                     error: function (error) {
-                        console.log(error)
+                       // console.log(error)
                         showError(error.responseJSON.message, error.status);
                     }
                 })

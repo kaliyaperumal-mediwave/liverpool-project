@@ -56,6 +56,18 @@
                     <div class="form-group py-2 my-2">
                         <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
+                            <!-- <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="aboutObj.childNameTitle">
+                                        <option selected="selected" value="Mr">Mr</option>
+                                        <option value="Miss">Miss</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Mrs">Mrs</option>
+                                        <option value="Mx">Mx</option>
+                                    </select>
+                                </span>
+                            </div> -->
                             <input type="text" class="form-control input-bg-form-control"
                                 v-model="aboutObj.childFirstName" id="childFirstName"
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
@@ -816,7 +828,8 @@
                                     <template v-else>
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                         <p class="question-font text-center m-0 py-2">
-                                            Another section finished. Lets move on to education / employment & support needs
+                                            Another section finished. Lets move on to education / employment & support
+                                            needs
                                         </p>
                                     </template>
 

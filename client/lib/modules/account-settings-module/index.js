@@ -60,10 +60,10 @@ module.exports = {
 
     self.route('post', 'changeEmail', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/changeEmail';
-      console.log("changeEmailchangeEmailchangeEmail",url);
+     // console.log("changeEmailchangeEmailchangeEmail",url);
 
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data)
+        //console.log(data)
         //req.session.destroy();
         return res.send(data);
       }).catch((error) => {
@@ -73,9 +73,9 @@ module.exports = {
     });
     self.route('post', 'resetEmail', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/resetEmail';
-      console.log(req.body, "req.body=========");
+   //   console.log(req.body, "req.body=========");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data)
+      //  console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

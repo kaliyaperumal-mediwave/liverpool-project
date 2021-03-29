@@ -31,7 +31,7 @@ $(document).ready(function () {
                 var formData = this.changePasswordData;
                 this.isFormSubmitted = true;
                 if ((formData.oldPassword && this.passwordRegex.test(formData.oldPassword)) && (formData.newPassword && this.passwordRegex.test(formData.newPassword))) {
-                    console.log('payload', formData);
+                   // console.log('payload', formData);
                     $('#loader').show();
                     var successData = apiCallPost('post', '/changePassword', formData);
                     if (successData && Object.keys(successData)) {
