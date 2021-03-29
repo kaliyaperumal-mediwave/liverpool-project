@@ -3067,6 +3067,21 @@ $color-scheme: (
     .resource_search_text {
       color: $secondary;
     }
+    .recent_content{
+      color: $secondary;
+    }
+    .themeText{
+      color: $secondary;
+    }
+    .collapse-title{
+      color: $secondary;
+    }
+    .collapse-para{
+      color:$secondary
+    }
+    .collapse-container{
+      background-color: $input-form-color;
+    }
     .content-secondary-header-text {
       color: $togglePrimary;
       h3 {
