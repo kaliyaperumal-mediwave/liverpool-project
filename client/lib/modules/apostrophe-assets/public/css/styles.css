@@ -2807,15 +2807,15 @@ select.selectIcon {
 
 .recent_referrals {
   color: #023047;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
   padding-bottom: 8px; }
   @media (min-width: 1200px) {
     .recent_referrals {
-      font-size: 26px; } }
+      font-size: 20px; } }
   @media (min-width: 1900px) {
     .recent_referrals {
-      font-size: 30px; } }
+      font-size: 20px; } }
 
 .recent_content {
   font-size: 14px;
@@ -3744,6 +3744,12 @@ body .ui-widget .ui-menu-item {
 .off .home-primary-content-bg {
   background: #ffffff 0% 0% no-repeat padding-box; }
 
+.off .text_blog {
+  background: #ffffff 0% 0% no-repeat padding-box; }
+
+.off .recent_referrals {
+  color: #023047; }
+
 .off .card-set-container-bg {
   background: #ffffff 0% 0% no-repeat padding-box;
   color: #023047; }
@@ -3844,6 +3850,9 @@ body .ui-widget .ui-menu-item {
 .off .bg-set-on-card {
   background: #ffffff; }
 
+.off .bg-values {
+  background: #ffffff; }
+
 .off .footer-content {
   color: #023047; }
 
@@ -3886,6 +3895,18 @@ body .ui-widget .ui-menu-item {
 
 .off .auth-font {
   color: #023047; }
+
+.off .dropdown.d-flex.justify-content-end.align-items-center.show * {
+  color: #023047 !important; }
+
+.off .list-set-form {
+  color: #023047;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #023047 !important; }
+
+.off .list-set-form1 {
+  color: #023047;
+  background-color: #ffffff !important; }
 
 .off .auth-link {
   color: #023047 !important; }
@@ -4062,6 +4083,12 @@ body .ui-widget .ui-menu-item {
 .on .home-primary-content-bg {
   background: #353638 0% 0% no-repeat padding-box; }
 
+.on .text_blog {
+  background: #353638 0% 0% no-repeat padding-box; }
+
+.on .recent_referrals {
+  color: #fafafa; }
+
 .on .card-set-container-bg {
   background: #353638 0% 0% no-repeat padding-box;
   color: #fafafa; }
@@ -4162,6 +4189,9 @@ body .ui-widget .ui-menu-item {
 .on .bg-set-on-card {
   background: #535454; }
 
+.on .bg-values {
+  background: #353638; }
+
 .on .footer-content {
   color: #fafafa; }
 
@@ -4204,6 +4234,18 @@ body .ui-widget .ui-menu-item {
 
 .on .auth-font {
   color: #fafafa; }
+
+.on .dropdown.d-flex.justify-content-end.align-items-center.show * {
+  color: #fafafa !important; }
+
+.on .list-set-form {
+  color: #fafafa;
+  background-color: #353638 !important;
+  border-bottom: 1px solid #fafafa !important; }
+
+.on .list-set-form1 {
+  color: #fafafa;
+  background-color: #353638 !important; }
 
 .on .auth-link {
   color: #ffffff !important; }
