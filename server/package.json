@@ -9,7 +9,7 @@
   },
   "main": "app",
   "scripts": {
-    "start": "sequelize db:migrate && nodemon app",
+    "start": "nodemon app",
     "dev": "NODE_ENV=development nodemon --quiet | pino-pretty -c -l -t",
     "docs": "docsify serve docs",
     "lint": "eslint app test",
