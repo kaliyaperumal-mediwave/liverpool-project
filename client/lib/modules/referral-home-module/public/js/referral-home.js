@@ -26,7 +26,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        console.log("-------------------------------success block");
+                        //console.log("-------------------------------success block");
                        location.href = "/role";
                       // window.top.location= "/role";
                        // parent.location.href = "/role";
@@ -36,7 +36,7 @@ $(document).ready(function () {
                     }
                     },
                     error: function (error) {
-                        console.log(error)
+                        //console.log(error)
                         showError(error.responseJSON.message, error.status);
                     }
                 })

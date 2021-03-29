@@ -2,13 +2,13 @@ var axios = require('axios');
 const config = require('../config');
 const _ = require('lodash');
 
-console.log(config.orcha_api)
+//console.log(config.orcha_api)
 
-console.log(config.orcha_user)
+//console.log(config.orcha_user)
 
-console.log(config.orcha_pass)
+//console.log(config.orcha_pass)
 exports.getAllApps = ctx => new Promise((resolve, reject) => {
-    console.log(ctx.request.body)
+    //console.log(ctx.request.body)
     var data = {
         "searchTerm": ctx.request.body.searchCategory,
         "pageNumber": 1,
@@ -27,7 +27,7 @@ exports.getAllApps = ctx => new Promise((resolve, reject) => {
         data: data
     };
     axios(config_api).then(function (apps) {
-        console.log(apps.data)
+        //console.log(apps.data)
         ctx.res.ok({
             data: apps.data
         });
@@ -42,8 +42,8 @@ exports.getAllApps = ctx => new Promise((resolve, reject) => {
 })
 
 exports.getApp = ctx => new Promise((resolve, reject) => {
-    console.log("orcha app");
-    console.log(ctx.query.app_id);
+    //console.log("orcha app");
+    //console.log(ctx.query.app_id);
     var config_api = {
         method: 'get',
         url: config.orcha_api + 'Review/GetReview?reviewId=' + ctx.query.app_id,
@@ -89,7 +89,7 @@ exports.getFilterDropDwnData = async (ctx) => {
 exports.getSearchData = async (ctx) => {
     var appLengthFlag = false;
     try {
-       // console.log('-----------getFiltersAndApps-----------', ctx.request.body);
+       // //console.log('-----------getFiltersAndApps-----------', ctx.request.body);
         let app_body = {
             searchTerm: "",
             pageNumber: 1,
@@ -128,7 +128,7 @@ exports.getSearchData = async (ctx) => {
             app_body.pageNumber = ctx.request.body.pageNum
         }
         var appData = await get_apps(app_body, ctx.response.body.orchaToken)
-       // console.log("appData : "+appData)
+       // //console.log("appData : "+appData)
         if(appData!="null")
         {
             appLengthFlag = !appLengthFlag ? appData.result.items.length ? true : false : appLengthFlag;
@@ -153,7 +153,7 @@ exports.getSearchData = async (ctx) => {
         })
 
     } catch (e) {
-        console.log("\n\n\n error", e)
+        //console.log("\n\n\n error", e)
     }
 }
 
@@ -174,14 +174,14 @@ async function get_data(ctx, url) {
         });
 
     } catch (e) {
-        console.log("\n\n\n error", e)
+        //console.log("\n\n\n error", e)
     }
 }
 
 /* GET apps from orcha */
 async function get_apps(data, token) {
     try {
-        console.log('---data----', data);
+        //console.log('---data----', data);
         var option = {
             method: 'POST',
             url: config.orcha_api + 'Review/SearchPagedReviews',
@@ -195,7 +195,7 @@ async function get_apps(data, token) {
                 return apps.data;
             })
             .catch(function (err) {
-                console.log(err, "err=====1");
+                //console.log(err, "err=====1");
                 // return ctx.res.badRequest({
                 //   message: 'Failed to fetch data',
                 // });
@@ -203,6 +203,6 @@ async function get_apps(data, token) {
             });
 
     } catch (e) {
-        console.log("\n\n\n error", e)
+        //console.log("\n\n\n error", e)
     }
 }

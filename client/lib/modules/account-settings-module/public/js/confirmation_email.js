@@ -20,7 +20,7 @@ $(document).ready(function () {
             }
             var successData = apiCallPost('post', '/resetEmail', formData);
             if (successData && Object.keys(successData)) {
-                console.log(successData, "successData");
+              //  console.log(successData, "successData");
                 $('#loader').hide();
                 this.message = successData.message;
 

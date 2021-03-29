@@ -49,7 +49,7 @@ exports.signup = async (ctx) => {
                 where:
                   {  email: result.email, }
               }).then((sessionResult) => {
-                  console.log("----------------------------------update session ----------------------------------------------------")
+                  //console.log("----------------------------------update session ----------------------------------------------------")
                   const sendSignupResult = {
                     data: result,
                     token: token
@@ -63,7 +63,7 @@ exports.signup = async (ctx) => {
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             })
         }).catch((error) => {
-            console.log(error)
+            //console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
@@ -95,7 +95,7 @@ exports.login = async (ctx) => {
                         where:
                           {  email: userResult.email, }
                       }).then(async (sessionResult) => {
-                        console.log("----------------------------------update session ----------------------------------------------------");
+                        //console.log("----------------------------------update session ----------------------------------------------------");
                         var sendUserResult = {
                             loginId: userResult.uuid,
                             first_name: userResult.first_name,
@@ -189,7 +189,7 @@ exports.changePassword = async (ctx) => {
                                     message: reponseMessages[1001],
                                 }));
                             }).catch((err) => {
-                                console.log(err, "err");
+                                //console.log(err, "err");
                                 reject(ctx.res.unauthorizedError({
                                     message: reponseMessages[1007],
                                 }))
@@ -208,7 +208,7 @@ exports.changePassword = async (ctx) => {
             return ctx.res.unauthorizedError({
                 message: reponseMessages[1007],
             });
-        }).catch(error => { sequalizeErrorHandler.handleSequalizeError(ctx, error); console.log(error, "errorghj") });
+        }).catch(error => { sequalizeErrorHandler.handleSequalizeError(ctx, error); });
     } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
@@ -217,7 +217,7 @@ exports.changePassword = async (ctx) => {
 exports.changeEmail = async (ctx) => {
     const { error } = changeEmailValidation(ctx.request.body);
     if (error) {
-        console.log(error, "error");
+        //console.log(error, "error");
         return ctx.body = error;
     }
 
@@ -230,7 +230,7 @@ exports.changeEmail = async (ctx) => {
                 email: ctx.request.body.newEmail,
             }
         }).then((user) => {
-            console.log(user);
+            //console.log(user);
             if (!user) {
                 return User.findOne({
                     where: {
@@ -247,17 +247,17 @@ exports.changeEmail = async (ctx) => {
                             ctx.request.body.email_verification_token = token;
                             ctx.request.body.email = ctx.request.decryptedUser.email;
                             let emailStatus = await email.sendChangeMail(ctx);
-                        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+                        }).catch(error => { sequalizeErrorHandler.handleSequalizeError(ctx, error) });
                     }
                     return ctx.res.badRequest({
                         message: reponseMessages[1002],
                     });
-                }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+                }).catch(error => {  sequalizeErrorHandler.handleSequalizeError(ctx, error) });
             }
             return ctx.res.badRequest({
                 message: reponseMessages[1012],
             });
-        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+        }).catch(error => { sequalizeErrorHandler.handleSequalizeError(ctx, error) });
 
 
 
@@ -288,11 +288,11 @@ exports.forgotPassword = async (ctx) => {
                 }).then(async () => {
                     ctx.request.body.password_verification_token = token;
                     let emailStatus = await email.sendForgotPasswordMail(ctx);
-                    console.log(emailStatus, "emailStatus=====");
+                    //console.log(emailStatus, "emailStatus=====");
                     return ctx.res.ok({
                         message: reponseMessages[1008],
                     });
-                }).catch(error => { console.log(error, "errorerror"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+                }).catch(error => {  sequalizeErrorHandler.handleSequalizeError(ctx, error) });
             }
             return ctx.res.ok({
                 message: reponseMessages[1013],
@@ -308,7 +308,7 @@ exports.forgotPassword = async (ctx) => {
 exports.resetPassword = (ctx) => {
     const { error } = resetPasswordValidation(ctx.request.body);
     if (error) {
-        console.log("error", error);
+        //console.log("error", error);
         return ctx.body = error;
     }
     try {
@@ -343,7 +343,7 @@ exports.resetPassword = (ctx) => {
                                     message: reponseMessages[1010],
                                 }));
 
-                            }).catch(error => { console.log(error, "errorerror"); reject(sequalizeErrorHandler.handleSequalizeError(ctx, error)) });
+                            }).catch(error => { reject(sequalizeErrorHandler.handleSequalizeError(ctx, error)) });
                         });
                     } else {
                         resolve(ctx.res.ok({
@@ -355,7 +355,7 @@ exports.resetPassword = (ctx) => {
             return ctx.res.badRequest({
                 message: reponseMessages[1028],
             });
-        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+        }).catch(error => {  sequalizeErrorHandler.handleSequalizeError(ctx, error) });
     } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
@@ -389,21 +389,21 @@ exports.resetEmail = (ctx) => {
                         resolve(ctx.res.ok({
                             message: reponseMessages[1001],
                         }));
-                    }).catch(error => { console.log(error, "error"); reject(sequalizeErrorHandler.handleSequalizeError(ctx, error)) });
+                    }).catch(error => {  reject(sequalizeErrorHandler.handleSequalizeError(ctx, error)) });
                 });
             }
             return ctx.res.badRequest({
                 message: reponseMessages[1009],
             });
-        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+        }).catch(error => { sequalizeErrorHandler.handleSequalizeError(ctx, error) });
     } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 };
 
 exports.logOut = (ctx) => {
-    //console.log("ctx" + ctx.request.decryptedUser.email)
-    console.log(ctx.request.decryptedUser)
+    ////console.log("ctx" + ctx.request.decryptedUser.email)
+    //console.log(ctx.request.decryptedUser)
     const user = ctx.orm().User;
     return user.update({
         session_token: "",
@@ -444,7 +444,7 @@ exports.verifyPasswordToken = (ctx) => {
                     message: reponseMessages[1009]
                 });
             }
-        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+        }).catch(error => {  sequalizeErrorHandler.handleSequalizeError(ctx, error) });
     } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
@@ -453,7 +453,7 @@ exports.verifyPasswordToken = (ctx) => {
 exports.sendFeedback = (ctx) => {
     const { error } = feedbackValidation(ctx.request.body);
     if (error) {
-        console.log(error);
+        //console.log(error);
         return ctx.body = error;
     }
     try {
@@ -462,7 +462,7 @@ exports.sendFeedback = (ctx) => {
                 message: reponseMessages[1014],
             });
         }).catch(error => {
-            console.log(error, "error");
+            //console.log(error, "error");
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
@@ -551,7 +551,7 @@ exports.referralSignup = async (ctx) => {
                     },
                     { where: {  reference_code: ctx.request.body.reference_code }
                 }).then(async (referralResult) => {
-                    console.log("----------------------------------update referral ----------------------------------------------------")
+                    //console.log("----------------------------------update referral ----------------------------------------------------")
                     var sendSignupResult = {
                         data: result,
                         token: token
@@ -589,7 +589,7 @@ exports.referralSignup = async (ctx) => {
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             })
         }).catch((error) => {
-            console.log(error)
+            //console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 

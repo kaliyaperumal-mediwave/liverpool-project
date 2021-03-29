@@ -12,14 +12,12 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.about);
     };
     self.about = function (req, callback) {
-      console.log("role:->:  " +req.session.user_role )
       if(!req.session.user_role)
       {
         return req.res.redirect("/")
       }
       const getParamsData = req.url.substring(req.url.indexOf("?") + 1);
       var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
-      console.log(!base64Matcher.test(getParamsData))
       let labels;
       let decryptedUrl;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
@@ -55,7 +53,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data)
+       // console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
@@ -70,7 +68,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data)
+       // console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

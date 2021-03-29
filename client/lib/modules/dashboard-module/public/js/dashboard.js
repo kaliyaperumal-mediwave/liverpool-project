@@ -32,7 +32,7 @@ $(document).ready(function () {
                     this.resources = [];
                 }
             } catch (error) {
-                //console.log(error);
+                ////console.log(error);
                 $('#loader').hide();
             }
             
@@ -56,7 +56,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                      //  console.log(data)
+                      //  //console.log(data)
                         _self.incompleteReferral = data;
                     },
                     error: function (error) {
@@ -69,7 +69,7 @@ $(document).ready(function () {
             },
 
             filterPieces: function () {
-                // console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
+                // //console.log(this.searchQuery, "this.searchQuerythis.searchQuery");
                 this.searchQueryToLower = this.searchQuery.toLowerCase();
                 if (this.searchQueryToLower) {
                     this.filteredData = [];

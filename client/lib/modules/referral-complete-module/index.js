@@ -54,7 +54,7 @@ module.exports = {
 
     self.route('get', 'getReferalByCode/:reqCode', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getReferalByCode?reqCode=' + req.params.reqCode;
-      console.log("------- URL --------", url);
+      //console.log("------- URL --------", url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

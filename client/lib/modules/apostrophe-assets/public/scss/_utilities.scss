@@ -63,7 +63,7 @@
 
 //set dynamic font size font size
 @mixin set-dynamicFont($size, $subValue) {
-  font-size: $size - $subValue !important;
+  font-size: $size - $subValue;
 }
 
 //set dynamic line height

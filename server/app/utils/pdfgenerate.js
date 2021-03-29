@@ -7,7 +7,7 @@ const config = require('../config');
 exports.generatePdf = async ctx => new Promise((resolve, reject) => {
     var template;
     try {
-        console.log(ctx.request.body.referralData)
+        //console.log(ctx.request.body.referralData)
         if(ctx.request.body.referralData.role == "Child")
         {
              template = fs.readFileSync(path.join(`${__dirname}/./templates/child_referralSendTemplate.html`), 'utf8');
@@ -41,7 +41,7 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
             resolve(ctx.body = buffer);
         });
     } catch (e) {
-        console.log(e)
+        //console.log(e)
         return resolve(ctx.res.internalServerError({
             data: 'Failed to sent mail',
         }));
