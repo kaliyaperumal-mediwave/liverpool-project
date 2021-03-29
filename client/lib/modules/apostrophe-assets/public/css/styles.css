@@ -656,7 +656,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   z-index: 448 !important; }
   @media (min-width: 320px) and (max-width: 374px) {
     .bootstrap-datetimepicker-widget.dropdown-menu {
-      width: 246px !important; } }
+      width: 230px !important; } }
 
 .bootstrap-datetimepicker-widget th {
   border-radius: 0px !important; }
