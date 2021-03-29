@@ -39,7 +39,7 @@ module.exports = function modelUser(sequelize, types) {
     // provide_information: {
     //   type: types.TEXT
     // },
-    registerd_gp: {
+    registered_gp: {
       type: types.TEXT
     },
     contact_parent: {
@@ -93,7 +93,7 @@ module.exports = function modelUser(sequelize, types) {
     child_care_adult: {
       type: types.TEXT
     },
-    parential_responsibility: {
+    parental_responsibility: {
       type: types.TEXT
     },
 

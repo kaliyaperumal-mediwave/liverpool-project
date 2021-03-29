@@ -42,7 +42,10 @@ $(document).ready(function () {
                 contact_parent_camhs: '',
                 reason_contact_parent_camhs: '',
                 gpNotCovered: false,
-                gpNotCoveredProf: false
+                gpNotCoveredProf: false,
+                profDirectService:'',
+                liverpoolService:'',
+                seftonService:''
             },
             date: null,
             dateWrap: true,
@@ -181,7 +184,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
                     Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
-                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
+                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -193,7 +196,7 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
-                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
+                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -209,7 +212,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
-                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
+                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
                     this.elgibilityObj.editFlag = "editFlag";
@@ -258,6 +261,10 @@ $(document).ready(function () {
                 else if (questionIdentifier == "parentConcernSelect" && optionValue == "no") {
                     this.resetValues(event.target.form);
                     this.elgibilityObj.parentConcernInformation = optionValue;
+                }
+                else if (questionIdentifier == "directServices") {
+                    this.resetValues(event.target.form);
+                    this.elgibilityObj.profDirectService = optionValue;
                 }
             },
 
@@ -843,7 +850,7 @@ $(document).ready(function () {
                 var role = this.elgibilityObj.role;
                 //console.log(this.elgibilityObj);
                 if (role === 'professional') {
-                    this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
+                    this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
                     if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.elgibilityObj.profAddress && this.elgibilityObj.profProfession ) {
                         if (nameRegex.test(this.elgibilityObj.profFirstName) && nameRegex.test(this.elgibilityObj.proflastName) && phoneRegex.test(this.elgibilityObj.profContactNumber) ) {
                             if (this.elgibilityObj.profEmail) {
@@ -903,11 +910,11 @@ $(document).ready(function () {
                         return false;
                     }
                 } else if (role === 'parent') {
-                    this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
+                    this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
                 else if (role === 'child') {
-                    this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
+                    this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
             },

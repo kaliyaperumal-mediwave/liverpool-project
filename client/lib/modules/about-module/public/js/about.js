@@ -195,9 +195,9 @@ $(document).ready(function () {
                         this.allHouseHoldMembers = data.household_member;
                         Vue.set(this.aboutObj, "parentFirstName", data.parent[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data.parent[0].parent_lastname);
-                        Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parential_responsibility);
+                        Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parental_responsibility);
                         //  ue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
-                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parential_responsibility)
+                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
@@ -241,8 +241,8 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
                         //Vue.set(this.aboutObj, "parentContactName", data[0].responsibility_parent_firstname);
                         this.allHouseHoldMembers = data[0].household_member;
-                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
-                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
+                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
+                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
@@ -288,8 +288,8 @@ $(document).ready(function () {
                         }
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
-                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
-                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
+                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
+                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
