@@ -98,7 +98,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
         <div class="read-cont-h1">{{ piece.title }}</div>
         <div class="read-cont-p">
         {{apos.area(piece,'subtitle')}}</div>
-        <div class="font-weight-light">
+        <div class="font-weight-light list-inside">
         {{apos.area(piece,'text')}}</div>
         {% if apos.images.first(piece.thumbnail) %} {% set img =
         apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
