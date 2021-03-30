@@ -245,6 +245,8 @@ exports.eligibility = ctx => {
                 professional_profession: ctx.request.body.profProfession,
                 consent_parent: ctx.request.body.contactProfParent,
                 consent_child: ctx.request.body.parentConcernInformation,
+                service_location: ctx.request.body.profDirectService,
+                selected_service: ctx.request.body.selectedService,
               },
                 {
                   where:
@@ -275,6 +277,8 @@ exports.eligibility = ctx => {
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_address: ctx.request.body.profAddress,
             professional_profession: ctx.request.body.profProfession,
+            service_location: ctx.request.body.profDirectService,
+            selected_service: ctx.request.body.selectedService,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
@@ -318,6 +322,8 @@ exports.eligibility = ctx => {
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_address: ctx.request.body.profAddress,
             professional_profession: ctx.request.body.profProfession,
+            service_location: ctx.request.body.profDirectService,
+            selected_service: ctx.request.body.selectedService,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,
@@ -2109,7 +2115,7 @@ exports.fetchReview = ctx => {
         where: {
           id: userObj.id,
         },
-        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession']
+        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession','service_location','selected_service']
       }).then((elgibilityObj) => {
         //return ctx.body = elgibilityObj.professional[0].child_parent[0];
         var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -2178,6 +2184,8 @@ exports.fetchReview = ctx => {
                 professional_contact_number: elgibilityObj.professional_contact_number,
                 professional_address: elgibilityObj.professional_address,
                 professional_profession: elgibilityObj.professional_profession,
+                service_location: elgibilityObj.service_location,
+                selected_service: elgibilityObj.selected_service,
 
               }
               const section2Obj = {

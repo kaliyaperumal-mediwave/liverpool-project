@@ -195,6 +195,12 @@ module.exports = function modelUser(sequelize, types) {
     child_name_title: {
       type: types.TEXT
     },
+    service_location: {
+      type: types.TEXT
+    },
+    selected_service: {
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });

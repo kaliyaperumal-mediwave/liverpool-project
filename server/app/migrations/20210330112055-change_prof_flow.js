@@ -10,20 +10,20 @@ module.exports = {
      */
     queryInterface.addColumn(
       'referrals', // table name
-      'professional_address', // new field name
+      'service_location', // new field name
       {
         type: Sequelize.TEXT,
         allowNull: true,
       },
     ),
-      queryInterface.addColumn(
-        'referrals', // table name
-        'professional_profession', // new field name
-        {
-          type: Sequelize.TEXT,
-          allowNull: true,
-        },
-      )
+    queryInterface.addColumn(
+      'referrals', // table name
+      'selected_service', // new field name
+      {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      },
+    )
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -33,7 +33,7 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    queryInterface.removeColumn('referrals', 'professional_address')
-    queryInterface.removeColumn('referrals', 'professional_profession')
+    queryInterface.removeColumn('referrals', 'service_location'),
+    queryInterface.removeColumn('referrals', 'selected_service')
   }
 };

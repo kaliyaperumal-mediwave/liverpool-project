@@ -82,6 +82,26 @@
 
                                 <!-- Professional Info Start -->
                                 <div v-if="userRole == 'professional'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                           Service location:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.service_location"
+                                            id="serviceLocation">
+                                    </div>
+
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                           Selected service:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.selected_service"
+                                            id="selectedService">
+                                    </div>
+
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddressSec5">
                                             First name:
@@ -422,7 +442,8 @@
                                             <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select">
                                                     <select class="custom-select form-control input-bg-form-control"
-                                                        v-model="section2Data.child_name_title"  @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
+                                                        v-model="section2Data.child_name_title"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
                                                         <option selected="selected" value="Mr">Mr</option>
                                                         <option value="Miss">Miss</option>
                                                         <option value="Ms">Ms</option>
