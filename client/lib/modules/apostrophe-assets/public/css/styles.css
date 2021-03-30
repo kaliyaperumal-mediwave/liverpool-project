@@ -4837,3 +4837,6 @@ div.collapse-container.collapsing {
 .common-fa-fa {
   font-weight: 600 !important;
   color: #023047 !important; }
+
+.list-inside ul li {
+  list-style: inside; }
