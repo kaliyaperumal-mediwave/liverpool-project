@@ -1,0 +1,230 @@
+{% extends "layout.html" %} {% block extraBody %}
+
+
+<script src="/modules/admin-module/js/admin-referral-archive.js"></script>
+<!-- Bootstrap min -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.22/sorting/date-uk.js"></script>
+{% endblock %}
+{% block main%}
+{% include "../../shared-referal-module/views/adminHeader.html" %}
+<div id="admin-referral-archive">
+    {% raw %}
+    <!-- navbar start -->
+    <!-- <nav class="header-bg header-set-height">
+        <div class="row mx-0 w-100 justify-content-between align-center">
+            <div class="butLogo-cont">
+                <div class="logo">
+                    <a href="/admin" class="text-decoration-none"><img
+                            src="/modules/my-apostrophe-assets/img/liverpool.svg" /></a>
+                </div>
+            </div>
+
+            <a href="">
+                <button class="button-referral">
+                    Go to platform
+                </button>
+            </a>
+        </div>
+    </nav> -->
+    <!-- navbar end -->
+
+    <!-- Loader start -->
+    <div class="overlay" id="loader">
+        <div class="overlay__inner">
+            <div class="overlay__content">
+                <div class="lds-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Loader end -->
+
+    <div class="admin-mid-contain w-100">
+        <div class="row w-100 mr-0 ml-0">
+            <div id="admin-slider" class="admin-slider-left d-none">
+                <div class="slider-inside-contain w-100">
+                    <div class="padding-set-admin">
+                        <div class="logo-bg" style="height: 35px !important;">
+                        </div>
+                        <!-- <div class="admin-logo-icon">
+                            <img src="/modules/my-apostrophe-assets/img/liverpool.svg" />
+                        </div> -->
+                    </div>
+                    <div class="text-slider-fix">Home</div>
+                    <div class="text-slider-fix">Referrals</div>
+                    <div class="text-slider-fix">Inbox</div>
+                    <div class="text-slider-fix">Appointments</div>
+                    <div class="text-slider-fix">Log out</div>
+                </div>
+            </div>
+            <div id="admin-rest" class="admin-contain-right">
+                <div id="toggle-cont" class="admin-toggle-menu d-none" @click="openToggle(toggle)">
+                    <div class="class-menu-hide"> menu</div> <i id="admin-arrow-left"
+                        class="far fa-long-arrow-right  pl-2 pr-1"></i>
+                </div>
+                <!-- <div id="searchBar">
+                    <div class="input-group">
+                        <span class="input-group-prepend">
+                            <div class="searchIconColor   border-right-0 height-44 ">
+                                <span style="color: #023047 !important;">
+                                    <i class="fal fa-search font-23"></i>
+                                </span>
+                            </div>
+                        </span>
+                        <input class="height-44  border-0 form-control py-2 searchSetColor" type="search"
+                            placeholder="Search referral" v-model="searchTxt"
+                            @input="search()" id="example-search-input">
+                    </div>
+                </div> -->
+
+                <div>
+                    <div>
+                        <h2 class="admin-referral-primary mb-2 mb-md-3 ">Archive</h2>
+                        <p class="admin-inside-text my-2 my-md-3"></p>
+                    </div>
+                </div>
+                <div class="button-cont-admin row">
+                    <div class="py-2 set-div-width mx-auto d-flex align-center justify-content-center">
+                        <button type="button" class="btn-delete-admin" @click="unArchive()">
+                            UnArchive
+                        </button>
+                    </div>
+                </div>
+                <div id="scroll-style-admin" class="custom-table-nested pb-3">
+                    <table id="example" class="table table-striped table-bordered w-100">
+                        <thead>
+                            <tr>
+                                <th class="icon-display-none"></th>
+                                <th>Name</th>
+                                <th>DOB</th>
+                                <th>Unique code</th>
+                                <th>Referrer</th>
+                                <th>GP Location</th>
+                                <th>Referrer type</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <!-- Login Succuss Modal Start -->
+                    <div class="modal fade" id="deletedSuccess" data-backdrop="static" data-keyboard="false"
+                        tabindex="-1" role="dialog" aria-labelledby="deletedSuccessLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-bg login-safe-pd">
+                                <span aria-hidden="true" class="modal-close" @click="closeModal()">
+                                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                                </span>
+                                <div class="modal-header justify-content-center model-text-pd text">
+                                    <p class="text-center m-0 py-2">
+                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                    </p>
+                                    <h5 class="logout-font mt-3 text-center">{{ successMessage }}</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Login Succuss Modal End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Send popup Start -->
+    <div class="modal fade" id="sendProviderModal" tabindex="-1" role="dialog" aria-labelledby="sendProviderModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="logout-font mt-3">Select Provider?</h5>
+                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="px-sm-5 px-4 py-2">
+                    <div class="input-group w-100">
+                        <span class="plain-select">
+                            <select style="background: #fff !important;" id="SelectedProvider"
+                                class="custom-select form-control input-bg-form-control height-44">
+                                <option class='option-text' value="YPAS">YPAS
+                                </option>
+                                <option class='option-text' value="Venus">Venus
+                                </option>
+                                <option class='option-text' value="IAPTUS">IAPTUS</option>
+                                <option class='option-text' value="Other">Other
+                                </option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer submit-btn-admin">
+                    <button type="submit" class="btn mb-3 px-md-4 w-50 d-flex align-center justify-content-center"
+                        style="background-color: #219EBC !important;" id="sendRef">
+                        <span class="btn-modal-text">Send
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Send popup End -->
+
+    <!-- Mail Succuss Modal Start -->
+    <div class="modal fade" id="mailSentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="mailSentSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" @click="closeMailSuccessPopup()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 id="successMsg" class="logout-font mt-3 text-center">Referral sent successfully.</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Succuss Modal End -->
+    <!-- Referral already sent popup -->
+    <div class="modal fade" id="referralAlreadySent" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="referralAlreadySentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" onclick="closeAlreadySentPopup()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 id="sentMsg" class="logout-font mt-3 text-center"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Succuss Modal End -->
+
+</div>
+{% endraw %}
+</div>
+
+{% endblock %}

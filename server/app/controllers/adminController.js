@@ -178,6 +178,168 @@ exports.getReferral = ctx => {
     });
 }
 
+
+exports.getArchived = ctx => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
+            const referralModel = ctx.orm().Referral;
+
+            // sorting
+            var order = [];
+            if (ctx.query && ctx.query.orderBy) {
+                if (ctx.query.orderBy == '1') order.push([sequelize.literal('name'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '2') order.push([sequelize.literal('dob'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '3') order.push(['reference_code', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '7') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+            }
+
+            var referrals = await referralModel.findAll({
+                attributes: [
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt','referral_provider',
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
+                ],
+                where: {
+                    reference_code: {
+                        [sequelize.Op.ne]: null
+                    },
+                    referral_complete_status: 'archived'
+                },
+                include: [
+                    {
+                        model: referralModel,
+                        as: 'parent',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'professional',
+                        attributes: [
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                        ]
+                    },
+                ],
+                order: order
+            });
+
+            referrals = JSON.parse(JSON.stringify(referrals));
+            var totalReferrals = referrals.length;
+            var filteredReferrals = referrals.length;
+            // with search
+            if (ctx.query.searchValue) {
+                ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
+                let filter_referrals = [];
+                _.forEach(referrals, function (refObj, index) {
+                    if(refObj.referral_provider==null) {
+                        refObj.referral_provider = "Archived"
+                    } else {
+                        refObj.referral_provider = refObj.referral_provider
+                    }
+                    var referralObj = {
+                        uuid: refObj.uuid,
+                        name: refObj.name +" "+ refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        reference_code: refObj.reference_code,
+                        referrer: refObj.referrer_name +" "+  refObj.referrer_lastname,
+                        gp_location: '',
+                        referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        referral_provider: refObj.referral_provider
+                    }
+                    if (refObj.gp_location) {
+                        var splitLocation = refObj.gp_location.split(',');
+                        if (splitLocation.length > 1) {
+                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[0].type;
+                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[1].type;
+                            }
+                        }
+                    }
+                    //////console.log()(referralObj)
+                    if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.reference_code.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referrer.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referral_provider.toLowerCase()).includes(ctx.query.searchValue)
+                    ) {
+                        filter_referrals.push(referralObj);
+                    }
+                });
+                filteredReferrals = filter_referrals.length;
+                referrals = filter_referrals;
+                // without search
+            } else {
+                _.forEach(referrals, function (refObj, index) {
+                    if(refObj.referral_provider==null) {
+                        refObj.referral_provider = "Archived"
+                    } else {
+                        refObj.referral_provider = refObj.referral_provider
+                    }
+                    var referralObj = {
+                        uuid: refObj.uuid,
+                        name: refObj.name +" "+ refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        reference_code: refObj.reference_code,
+                        referrer: refObj.referrer_name +" "+  refObj.referrer_lastname,
+                        gp_location: 'Liverpool',
+                        referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        referral_provider: refObj.referral_provider
+                    }
+                    if (refObj.gp_location) {
+                        var splitLocation = refObj.gp_location.split(',');
+                        if (splitLocation.length > 1) {
+                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                // Liverpool
+                                referralObj.gp_location = gpCodes[0].type;
+                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                // Sefton
+                                referralObj.gp_location = gpCodes[1].type;
+                            }
+                        }
+                    }
+                    referrals[index] = referralObj;
+                });
+            }
+
+            if (ctx.query && ctx.query.orderBy == '5') {
+                referrals = _.orderBy(referrals, 'gp_location', ctx.query.orderType);
+            }
+
+            // pagination
+            referrals = referrals.slice((Number(ctx.query.offset) - 1) * Number(ctx.query.limit), Number(ctx.query.offset) * Number(ctx.query.limit));
+
+            resolve(
+                ctx.res.ok({
+                    data: {
+                        totalReferrals: totalReferrals,
+                        filteredReferrals: filteredReferrals,
+                        data: referrals
+                    }
+                })
+            );
+        } catch (error) {
+            ////console.log()(error);
+            reject(
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            );
+        }
+    });
+}
+
+
 exports.updateReferral = ctx => {
     return new Promise(async (resolve, reject) => {
         try {

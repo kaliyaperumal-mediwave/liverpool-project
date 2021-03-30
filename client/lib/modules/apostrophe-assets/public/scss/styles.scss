@@ -1889,7 +1889,6 @@ select.selectIcon {
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  background-color: #fafafa;
   margin-top: 30px;
 }
 .text-complete {
@@ -2791,7 +2790,8 @@ $color-scheme: (
       url("/modules/my-apostrophe-assets/img/placeholder.svg"),
       #fafafa,
       #112f45,
-      #e8edee
+      #e8edee,
+      #dedede
     )
     (
       on,
@@ -2811,7 +2811,8 @@ $color-scheme: (
       url("/modules/my-apostrophe-assets/img/placeholder_white.svg"),
       #535454,
       #fafafa,
-      #656767
+      #656767,
+      #535454
     )
 );
 @mixin theme(
@@ -2832,7 +2833,8 @@ $color-scheme: (
   $bg-place,
   $admin-bg-color,
   $border-color,
-  $admin-btn-bg-color
+  $admin-btn-bg-color,
+  $admin-select-tab
 ) {
   .#{$name} {
     .body-bg {
@@ -2843,10 +2845,13 @@ $color-scheme: (
     .home-primary-content-bg {
       background: $primary 0% 0% no-repeat padding-box;
     }
-    .text_blog{
+    .text_blog {
       background: $primary 0% 0% no-repeat padding-box;
     }
-    .recent_referrals{
+    .card-bg-set {
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .recent_referrals {
       color: $secondary;
     }
     .card-set-container-bg {
@@ -2858,6 +2863,9 @@ $color-scheme: (
     }
     .main-content-area {
       background: $primary 0% 0% no-repeat padding-box;
+    }
+    .text-complete-active {
+      background: $admin-select-tab !important;
     }
     .last-content-area {
       background: $primary 0% 0% no-repeat padding-box;
@@ -2954,7 +2962,7 @@ $color-scheme: (
     .bg-set-on-card {
       background: $card-bg-color;
     }
-    .bg-values{
+    .bg-values {
       background: $primary;
     }
     .footer-content {
@@ -3001,15 +3009,15 @@ $color-scheme: (
     .auth-font {
       color: $secondary;
     }
-    .dropdown.d-flex.justify-content-end.align-items-center.show *{
+    .dropdown.d-flex.justify-content-end.align-items-center.show * {
       color: $secondary !important;
     }
-    .list-set-form{
+    .list-set-form {
       color: $secondary;
       background-color: $primary !important;
       border-bottom: 1px solid $secondary !important;
     }
-    .list-set-form1{
+    .list-set-form1 {
       color: $secondary;
       background-color: $primary !important;
     }
@@ -3067,19 +3075,19 @@ $color-scheme: (
     .resource_search_text {
       color: $secondary;
     }
-    .recent_content{
+    .recent_content {
       color: $secondary;
     }
-    .themeText{
+    .themeText {
       color: $secondary;
     }
-    .collapse-title{
+    .collapse-title {
       color: $secondary;
     }
-    .collapse-para{
-      color:$secondary
+    .collapse-para {
+      color: $secondary;
     }
-    .collapse-container{
+    .collapse-container {
       background-color: $input-form-color;
     }
     .content-secondary-header-text {
@@ -3168,8 +3176,8 @@ $color-scheme: (
 @each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
   $primary-input-color, $secondary-input-color, $search-bar-color, $background,
   $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color,
-  $admin-btn-bg-color in $color-scheme
+  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color,
+  $admin-select-tab in $color-scheme
 {
   @include theme(
     $name,
@@ -3189,7 +3197,8 @@ $color-scheme: (
     $bg-place,
     $admin-bg-color,
     $border-color,
-    $admin-btn-bg-color
+    $admin-btn-bg-color,
+    $admin-select-tab
   );
 }
 
