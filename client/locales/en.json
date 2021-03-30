@@ -153,5 +153,6 @@
 	"Search About the people...": "Search About the people...",
 	"Save About the people": "Save About the people",
 	"Sub Title": "Sub Title",
-	"OrchaModule": "OrchaModule"
+	"OrchaModule": "OrchaModule",
+	"You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?": "You may be editing that document in another tab or window.\nIf you take control, you could lose work in that tab or window.\nDo you want to take control?"
 }

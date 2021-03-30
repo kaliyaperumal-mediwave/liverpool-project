@@ -1785,14 +1785,14 @@ select.selectIcon {
 }
 .recent_referrals {
   color: #023047;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
   padding-bottom: 8px;
   @include xl-screen {
-    font-size: 26px;
+    font-size: 20px;
   }
   @include xxl-screen {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 .recent_content {
@@ -2843,6 +2843,12 @@ $color-scheme: (
     .home-primary-content-bg {
       background: $primary 0% 0% no-repeat padding-box;
     }
+    .text_blog{
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .recent_referrals{
+      color: $secondary;
+    }
     .card-set-container-bg {
       background: $primary 0% 0% no-repeat padding-box;
       color: $secondary;
@@ -2948,6 +2954,9 @@ $color-scheme: (
     .bg-set-on-card {
       background: $card-bg-color;
     }
+    .bg-values{
+      background: $primary;
+    }
     .footer-content {
       color: $secondary;
     }
@@ -2991,6 +3000,18 @@ $color-scheme: (
     }
     .auth-font {
       color: $secondary;
+    }
+    .dropdown.d-flex.justify-content-end.align-items-center.show *{
+      color: $secondary !important;
+    }
+    .list-set-form{
+      color: $secondary;
+      background-color: $primary !important;
+      border-bottom: 1px solid $secondary !important;
+    }
+    .list-set-form1{
+      color: $secondary;
+      background-color: $primary !important;
     }
     .auth-link {
       color: $togglePrimary !important;
@@ -3045,6 +3066,21 @@ $color-scheme: (
     }
     .resource_search_text {
       color: $secondary;
+    }
+    .recent_content{
+      color: $secondary;
+    }
+    .themeText{
+      color: $secondary;
+    }
+    .collapse-title{
+      color: $secondary;
+    }
+    .collapse-para{
+      color:$secondary
+    }
+    .collapse-container{
+      background-color: $input-form-color;
     }
     .content-secondary-header-text {
       color: $togglePrimary;

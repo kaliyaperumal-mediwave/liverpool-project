@@ -155,13 +155,16 @@
                                     </label>
                                 </div>
                                 <div class="set-width-calc">
-                                    <label class="text-label-hide option-font" v-bind:for="item.id">
-                                        {{ item.value }}
-                                    </label>
-                                    <img src="/modules/my-apostrophe-assets/img/5.svg"
-                                        class="px-lg-3 px-2 cursor-pointer"
-                                        v-bind:class="{ 'd-block': item.id == '4714dbea-340d-42c5-a183-d54e9522aadb' }"
-                                        alt="">
+                                    <div class="d-flex align-items-center">
+                                        <label class="text-label-hide option-font" v-bind:for="item.id">
+                                            {{ item.value }}
+                                        </label>
+                                        <img src="/modules/my-apostrophe-assets/img/5.svg"
+                                            class="px-lg-3 px-2 cursor-pointer mb-2" data-toggle="modal"
+                                            data-target="#mentalConsentModal"
+                                            v-bind:class="{ 'd-block': item.id == '4714dbea-340d-42c5-a183-d54e9522aadb', 'd-none': item.id != '4714dbea-340d-42c5-a183-d54e9522aadb' }"
+                                            alt="">
+                                    </div>
                                 </div>
                             </div>
                         </div>

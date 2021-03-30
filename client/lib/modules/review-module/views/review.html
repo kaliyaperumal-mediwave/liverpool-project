@@ -81,7 +81,7 @@
                                 <!-- Your Info End -->
 
                                 <!-- Professional Info Start -->
-                                <template v-if="userRole == 'professional'">
+                                <div v-if="userRole == 'professional'">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddressSec5">
                                             First name:
@@ -222,7 +222,7 @@
                                         </div>
                                     </div>
 
-                                </template>
+                                </div>
                                 <!-- Professional Info End -->
 
                                 <!-- Interpreter Needed Start -->
@@ -240,7 +240,7 @@
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Contact Carer -->
-                                <template
+                                <div
                                     v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
                                     <div v-if="userRole == 'child'"
                                         class="readOnly-class py-2 w-100 mx-0 row align-items-center">
@@ -251,7 +251,7 @@
                                             readonly type="text" v-model="section1Data.contact_parent"
                                             id="parentOrCarerSec5">
                                     </div>
-                                </template>
+                                </div>
                                 <!-- Interpreter Needed End -->
 
                                 <!-- Child's DOB Start -->
@@ -266,7 +266,7 @@
 
                                 <!-- Consent Given Start -->
                                 <!-- Child and Parent -->
-                                <template v-if="userRole == 'child' || userRole == 'parent'">
+                                <div v-if="userRole == 'child' || userRole == 'parent'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
                                             Consent given:
@@ -276,11 +276,11 @@
                                             readonly type="text" v-model="section1Data.consent_child"
                                             id="consentGivenSec5">
                                     </div>
-                                </template>
+                                </div>
                                 <!-- Child and Parent -->
 
                                 <!-- Child -->
-                                <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
+                                <div v-if="userRole == 'child' && section1Data.contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
                                             Contact parent or carer:
@@ -290,11 +290,11 @@
                                             readonly type="text" v-model="section1Data.contact_parent_camhs"
                                             id="canReasonCamhs">
                                     </div>
-                                </template>
+                                </div>
                                 <!-- Child and Parent -->
 
                                 <!-- Child -->
-                                <template
+                                <div
                                     v-if="userRole == 'child' && section1Data.contact_parent_camhs && section1Data.reason_contact_parent_camhs">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
@@ -305,11 +305,11 @@
                                             readonly type="text" v-model="section1Data.reason_contact_parent_camhs"
                                             id="reasonCamhs">
                                     </div>
-                                </template>
+                                </div>
                                 <!-- Child and Parent -->
 
                                 <!-- Professional -->
-                                <template v-if="userRole == 'professional'">
+                                <div v-if="userRole == 'professional'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenChild">
                                             Consent given by child:
@@ -331,7 +331,7 @@
                                             id="consentGivenPar">
                                     </div>
 
-                                </template>
+                                </div>
                                 <!-- Professional -->
                                 <!-- Consent Given End -->
 
@@ -818,7 +818,7 @@
                                     </div> -->
                                 </div>
 
-                                <template v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
+                                <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarrerAdd5">
                                             Parent/carer's address:
@@ -831,7 +831,7 @@
                                             </textarea>
                                         </div>
                                     </div>
-                                </template>
+                                </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
@@ -1015,7 +1015,7 @@
                                     </div> -->
                                 </div>
 
-                                <template v-if="section3Data.child_socialworker == 'yes'">
+                                <div v-if="section3Data.child_socialworker == 'yes'">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0"
                                             for="socialworkerNameSec5">
@@ -1075,7 +1075,7 @@
                                         </div>
                                     </div>
 
-                                </template>
+                                </div>
 
                                 <div class="text-center py-4">
                                     <button @click="updateInfo($event,section3Data,'/user/updateSec3Info')" disabled
@@ -1145,7 +1145,7 @@
                                     </div>
                                 </div>
 
-                                <template v-if="section4Data.eating_disorder_difficulties">
+                                <div v-if="section4Data.eating_disorder_difficulties">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                             Main eating disorder difficulties
@@ -1156,9 +1156,9 @@
                                             v-model="section4Data.eating_disorder_difficulties"
                                             readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
                                     </div>
-                                </template>
+                                </div>
 
-                                <template v-if="section4Data.eating_disorder_difficulties">
+                                <div v-if="section4Data.eating_disorder_difficulties">
                                     <div class=" py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
                                             Height
@@ -1170,9 +1170,9 @@
                                                 @input="onDetectChange($event,'sect4','section4Data', 'height')">
                                         </div>
                                     </div>
-                                </template>
+                                </div>
 
-                                <template v-if="section4Data.eating_disorder_difficulties">
+                                <div v-if="section4Data.eating_disorder_difficulties">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="weightSect5">
                                             Weight
@@ -1184,7 +1184,7 @@
                                                 @input="onDetectChange($event,'sect4','section4Data', 'weight')">
                                         </div>
                                     </div>
-                                </template>
+                                </div>
 
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
@@ -1427,7 +1427,7 @@
                             <label for="sendRefDirOther" class="form-check-label option-font d-flex align-items-center">
                                 Other</label>
                         </div>
-                        <template v-if="addMoreOrg">
+                        <div v-if="addMoreOrg">
                             <div class="form-group pt-4 pb-0 m-0 w-75">
                                 <label for="whereToSend" class="question-font mb-3">Enter the name of where you want to
                                     send
@@ -1440,7 +1440,7 @@
                                 v-bind:class="{ 'd-block': (isFormSubmitted && sendRef =='Other' && !nameForOthers), 'invalid-fields':(isFormSubmitted && sendRef =='Other' && !nameForOthers)}">
                                 You must provide an answer.
                             </div>
-                        </template>
+                        </div>
 
                     </div>
                     <div class="invalid-feedback d-none m-0 px-3 py-2"
