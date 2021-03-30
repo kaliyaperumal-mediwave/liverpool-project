@@ -15,8 +15,9 @@ $(document).ready(function () {
     var description = $('#voiceOverDescription').text();
     description = description.trim();
     // optimisation needed
-    
-    document.getElementById('resumeButton').classList.add('d-none');
+    // $("#playButton").hide();
+
+    // document.getElementById('resumeButton').classList.add('d-none');
     // document.getElementById('playButton').classList.add('active-border');
     $('#playButton').on('click', function (e) {
         $('#stopButton').removeClass('active-border');
@@ -27,7 +28,8 @@ $(document).ready(function () {
         document.getElementById('playButton').setAttribute('disabled', true);
         document.getElementById('playButton').classList.add('d-none');
         document.getElementById('pauseButton').classList.remove('d-none')
-        $("#playButton").hide();
+
+        // $("#playButton").hide();
         wrapper();
     });
 
@@ -41,6 +43,7 @@ $(document).ready(function () {
         document.getElementById('pauseButton').classList.add('d-none');
         document.getElementById('playButton').classList.remove('d-none');
         $("#playButton").show();
+        // $("#playButton").hide();
 
         wrapper(true);
     });
@@ -51,6 +54,8 @@ $(document).ready(function () {
         document.getElementById('stopButton').classList.add('active-border')
         document.getElementById('stopButton').style.opacity = 1;
         document.getElementById('stopButton').removeAttribute('disabled');
+        $("#playButton").hide();
+
         window.speechSynthesis.pause();
 
     });
@@ -60,6 +65,8 @@ $(document).ready(function () {
         document.getElementById('stopButton').classList.add('active-border')
         document.getElementById('stopButton').style.opacity = 1;
         document.getElementById('stopButton').removeAttribute('disabled');
+        $("#playButton").hide();
+
         window.speechSynthesis.resume();
     });
     var ssu = new SpeechSynthesisUtterance();
