@@ -2910,7 +2910,6 @@ select.selectIcon {
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  background-color: #fafafa;
   margin-top: 30px; }
 
 .text-complete {
@@ -3747,6 +3746,9 @@ body .ui-widget .ui-menu-item {
 .off .text_blog {
   background: #ffffff 0% 0% no-repeat padding-box; }
 
+.off .card-bg-set {
+  background: #ffffff 0% 0% no-repeat padding-box; }
+
 .off .recent_referrals {
   color: #023047; }
 
@@ -3759,6 +3761,9 @@ body .ui-widget .ui-menu-item {
 
 .off .main-content-area {
   background: #ffffff 0% 0% no-repeat padding-box; }
+
+.off .text-complete-active {
+  background: #dedede !important; }
 
 .off .last-content-area {
   background: #ffffff 0% 0% no-repeat padding-box; }
@@ -4101,6 +4106,9 @@ body .ui-widget .ui-menu-item {
 .on .text_blog {
   background: #353638 0% 0% no-repeat padding-box; }
 
+.on .card-bg-set {
+  background: #353638 0% 0% no-repeat padding-box; }
+
 .on .recent_referrals {
   color: #fafafa; }
 
@@ -4113,6 +4121,9 @@ body .ui-widget .ui-menu-item {
 
 .on .main-content-area {
   background: #353638 0% 0% no-repeat padding-box; }
+
+.on .text-complete-active {
+  background: #535454 !important; }
 
 .on .last-content-area {
   background: #353638 0% 0% no-repeat padding-box; }
