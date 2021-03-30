@@ -2218,7 +2218,7 @@ a {
   opacity: 1; }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat;
   background-size: cover !important;
   height: 100%; }
 
@@ -3736,7 +3736,7 @@ body .ui-widget .ui-menu-item {
 
 /*  Dark theme Start */
 .off .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat !important;
   background-size: cover !important;
   height: 100%; }
 
@@ -4096,7 +4096,7 @@ body .ui-widget .ui-menu-item {
   background: #ffffff; }
 
 .on .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop_dark.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop_dark.svg") no-repeat !important;
   background-size: cover !important;
   height: 100%; }
 

@@ -1153,7 +1153,7 @@ a {
 
 .body-bg {
   background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat fixed;
+    no-repeat ;
   background-size: cover !important;
   height: 100%;
 }
@@ -2838,7 +2838,7 @@ $color-scheme: (
 ) {
   .#{$name} {
     .body-bg {
-      background: #8ecae6 $background no-repeat fixed !important;
+      background: #8ecae6 $background no-repeat !important;
       background-size: cover !important;
       height: 100%;
     }
