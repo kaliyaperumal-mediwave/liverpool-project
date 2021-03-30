@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     var ssu = new SpeechSynthesisUtterance();
     var myEvent = window.attachEvent || window.addEventListener;
@@ -14,6 +15,9 @@ $(document).ready(function () {
     var description = $('#voiceOverDescription').text();
     description = description.trim();
     // optimisation needed
+    
+    document.getElementById('resumeButton').classList.add('d-none');
+    // document.getElementById('playButton').classList.add('active-border');
     $('#playButton').on('click', function (e) {
         $('#stopButton').removeClass('active-border');
         document.getElementById('playButton').classList.remove('active-border');
@@ -23,6 +27,7 @@ $(document).ready(function () {
         document.getElementById('playButton').setAttribute('disabled', true);
         document.getElementById('playButton').classList.add('d-none');
         document.getElementById('pauseButton').classList.remove('d-none')
+        $("#playButton").hide();
         wrapper();
     });
 
@@ -35,6 +40,8 @@ $(document).ready(function () {
         document.getElementById('resumeButton').classList.add('d-none');
         document.getElementById('pauseButton').classList.add('d-none');
         document.getElementById('playButton').classList.remove('d-none');
+        $("#playButton").show();
+
         wrapper(true);
     });
 

@@ -4,6 +4,10 @@
 
 <script>
   $(document).on("click", "a.previous-link", function () {
+    // document.getElementById('resumeButton').classList.add('d-none');
+    // document.getElementById('playButton').classList.add('active-border');
+
+
     parent.history.back();
     return false;
   });
@@ -96,6 +100,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
               role="button">Pause</button>
             <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none" id="resumeButton"
               role="button">Resume</button>
+
             <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3" disabled
               id="stopButton" role="button">Stop</button>
           </div>
