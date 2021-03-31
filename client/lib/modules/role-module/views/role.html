@@ -936,7 +936,7 @@
             <!-- calender start-->
             <form id="profChildDob-form" data-options="profChildDobForm"></form>
             {% raw %}
-            <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService)"
+            <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'noService')"
                 class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <p class="question-font">What is the child / young person’s date of birth?</p>
 
