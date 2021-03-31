@@ -872,7 +872,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: userObj.id,
                 },
-                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession']
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession','service_location','selected_service']
             }).then((elgibilityObj) => {
                 //return ctx.body = elgibilityObj.professional[0].child_parent[0];
                 var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -941,6 +941,8 @@ function getRefData(refID, refRole, ctx) {
                                 professional_contact_number: elgibilityObj.professional_contact_number,
                                 professional_address: elgibilityObj.professional_address,
                                 professional_profession: elgibilityObj.professional_profession,
+                                service_location: elgibilityObj.service_location,
+                                selected_service: elgibilityObj.selected_service,
 
                             }
                             const section2Obj = {

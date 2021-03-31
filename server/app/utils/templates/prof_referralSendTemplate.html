@@ -75,6 +75,32 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
+                        Service location:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.service_location %>
+                    </div>
+                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Selected service:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.selected_service %>
+                    </div>
+                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
                         First name:
                     </label>
                 </div>
@@ -169,31 +195,31 @@
                 </div>
             </div>
             <% if(body.child_age < 15) {%>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Consent given by parent:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section1.consent_parent %>
-                        </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Consent given by parent:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.consent_parent %>
                     </div>
                 </div>
-                <% } %>
-                    <div class="text-container">
-                        <div class="label-set">
-                            <label class="labelTitle">
-                                GP:
-                            </label>
-                        </div>
-                        <div class="label-set">
-                            <div class="duplicate_text">
-                                <%= body.section1.registered_gp %>
-                            </div>
-                        </div>
+            </div>
+            <% } %>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        GP:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.registered_gp %>
                     </div>
+                </div>
+            </div>
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
