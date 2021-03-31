@@ -201,7 +201,6 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
                         Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
                         Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
-                        Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
                         Vue.set(this.aboutObj, "referral_progress", data.referral_progress == 20 ? 40 : data.referral_progress);
                     }
 
