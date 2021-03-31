@@ -82,6 +82,26 @@
 
                                 <!-- Professional Info Start -->
                                 <div v-if="userRole == 'professional'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                           Service location:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.service_location"
+                                            id="serviceLocation">
+                                    </div>
+
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                           Selected service:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.selected_service"
+                                            id="selectedService">
+                                    </div>
+
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddressSec5">
                                             First name:
@@ -342,7 +362,7 @@
                                     </label>
                                     <textarea
                                         class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section1Data.registerd_gp" id="gpLoc">
+                                        readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
                                         </textarea>
                                 </div>
                                 <!-- Gp End -->
@@ -422,7 +442,8 @@
                                             <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select">
                                                     <select class="custom-select form-control input-bg-form-control"
-                                                        v-model="section2Data.child_name_title"  @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
+                                                        v-model="section2Data.child_name_title"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
                                                         <option selected="selected" value="Mr">Mr</option>
                                                         <option value="Miss">Miss</option>
                                                         <option value="Ms">Ms</option>
@@ -725,7 +746,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control  text-capitalize" readonly type="text"
                                             @input="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.parential_responsibility" id="parResp">
+                                            v-model="section2Data.parental_responsibility" id="parResp">
                                     </div>
                                 </div>
 
@@ -1344,7 +1365,7 @@
                 <!-- Contact preferences Start -->
 
                 <!--Select a provider Start -->
-                <div v-if="userRole === 'professional'" class="py-3">
+                <!-- <div v-if="userRole === 'professional'" class="py-3">
                     <h2 class="py-2 px-3 mb-2 question-header-font">
                         Do you want to select a provider to receive this referral?
                     </h2>
@@ -1368,14 +1389,14 @@
                         v-bind:class="{ 'd-block': (isFormSubmitted && !selectProvider), 'invalid-fields':!selectProvider}">
                         You must provide an answer.
                     </div>
-                </div>
+                </div> -->
                 <!--Select a provider end -->
 
                 <!-- Provider List Start-->
-                <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3">
-                    <h2 class="py-2 px-3 mb-2 question-header-font">
+                <!-- <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3"> -->
+                    <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
                         Please select Provider:
-                    </h2>
+                    </h2> -->
                     <!-- <div class="py-2 px-3 m-0 review-header-font">
                         {{ apos.area(data.page, 'review_contact', {
                         widgets: {
@@ -1402,7 +1423,7 @@
                         }
                         }) }}
                     </div> -->
-                    <div class="px-3 m-0 question-header-font">
+                    <!-- <div class="px-3 m-0 question-header-font">
                         <div class="form-check pt-3 pl-0">
                             <input type="radio" class="form-check-input" @change="changeProvider($event)" id="YPAS"
                                 value="YPAS" v-model="sendRef">
@@ -1442,12 +1463,12 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div class="invalid-feedback d-none m-0 px-3 py-2"
+                    </div> -->
+                    <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
                         You must provide an answer.
                     </div>
-                </div>
+                </div> -->
                 <!-- Provider List End-->
 
 

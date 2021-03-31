@@ -37,10 +37,10 @@ exports.getReferral = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt','referral_provider',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt','referral_provider',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
@@ -55,14 +55,14 @@ exports.getReferral = ctx => {
                     {
                         model: referralModel,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp',
                         ]
                     },
                     {
                         model: referralModel,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp',
                         ]
                     },
                 ],
@@ -178,6 +178,168 @@ exports.getReferral = ctx => {
     });
 }
 
+
+exports.getArchived = ctx => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
+            const referralModel = ctx.orm().Referral;
+
+            // sorting
+            var order = [];
+            if (ctx.query && ctx.query.orderBy) {
+                if (ctx.query.orderBy == '1') order.push([sequelize.literal('name'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '2') order.push([sequelize.literal('dob'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '3') order.push(['reference_code', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '7') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+            }
+
+            var referrals = await referralModel.findAll({
+                attributes: [
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt','referral_provider',
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
+                    [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
+                ],
+                where: {
+                    reference_code: {
+                        [sequelize.Op.ne]: null
+                    },
+                    referral_complete_status: 'archived'
+                },
+                include: [
+                    {
+                        model: referralModel,
+                        as: 'parent',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                        ]
+                    },
+                    {
+                        model: referralModel,
+                        as: 'professional',
+                        attributes: [
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                        ]
+                    },
+                ],
+                order: order
+            });
+
+            referrals = JSON.parse(JSON.stringify(referrals));
+            var totalReferrals = referrals.length;
+            var filteredReferrals = referrals.length;
+            // with search
+            if (ctx.query.searchValue) {
+                ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
+                let filter_referrals = [];
+                _.forEach(referrals, function (refObj, index) {
+                    if(refObj.referral_provider==null) {
+                        refObj.referral_provider = "Archived"
+                    } else {
+                        refObj.referral_provider = refObj.referral_provider
+                    }
+                    var referralObj = {
+                        uuid: refObj.uuid,
+                        name: refObj.name +" "+ refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        reference_code: refObj.reference_code,
+                        referrer: refObj.referrer_name +" "+  refObj.referrer_lastname,
+                        gp_location: '',
+                        referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        referral_provider: refObj.referral_provider
+                    }
+                    if (refObj.gp_location) {
+                        var splitLocation = refObj.gp_location.split(',');
+                        if (splitLocation.length > 1) {
+                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[0].type;
+                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                referralObj.gp_location = gpCodes[1].type;
+                            }
+                        }
+                    }
+                    //////console.log()(referralObj)
+                    if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.reference_code.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referrer.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.referral_provider.toLowerCase()).includes(ctx.query.searchValue)
+                    ) {
+                        filter_referrals.push(referralObj);
+                    }
+                });
+                filteredReferrals = filter_referrals.length;
+                referrals = filter_referrals;
+                // without search
+            } else {
+                _.forEach(referrals, function (refObj, index) {
+                    if(refObj.referral_provider==null) {
+                        refObj.referral_provider = "Archived"
+                    } else {
+                        refObj.referral_provider = refObj.referral_provider
+                    }
+                    var referralObj = {
+                        uuid: refObj.uuid,
+                        name: refObj.name +" "+ refObj.lastname,
+                        dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
+                        reference_code: refObj.reference_code,
+                        referrer: refObj.referrer_name +" "+  refObj.referrer_lastname,
+                        gp_location: 'Liverpool',
+                        referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                        date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        referral_provider: refObj.referral_provider
+                    }
+                    if (refObj.gp_location) {
+                        var splitLocation = refObj.gp_location.split(',');
+                        if (splitLocation.length > 1) {
+                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                // Liverpool
+                                referralObj.gp_location = gpCodes[0].type;
+                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                                // Sefton
+                                referralObj.gp_location = gpCodes[1].type;
+                            }
+                        }
+                    }
+                    referrals[index] = referralObj;
+                });
+            }
+
+            if (ctx.query && ctx.query.orderBy == '5') {
+                referrals = _.orderBy(referrals, 'gp_location', ctx.query.orderType);
+            }
+
+            // pagination
+            referrals = referrals.slice((Number(ctx.query.offset) - 1) * Number(ctx.query.limit), Number(ctx.query.offset) * Number(ctx.query.limit));
+
+            resolve(
+                ctx.res.ok({
+                    data: {
+                        totalReferrals: totalReferrals,
+                        filteredReferrals: filteredReferrals,
+                        data: referrals
+                    }
+                })
+            );
+        } catch (error) {
+            ////console.log()(error);
+            reject(
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            );
+        }
+    });
+}
+
+
 exports.updateReferral = ctx => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -262,7 +424,7 @@ exports.getAllReferral = ctx => {
             user_role: 'child'
         },
         attributes: [
-            'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt', 'child_name',
+            'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'child_name',
             [sequelize.fn('CONCAT', sequelize.col('child_name'),), 'referrer_name'],
         ],
     }).then((childResult) => {
@@ -285,7 +447,7 @@ exports.getAllReferral = ctx => {
                 'id', 'uuid', 'reference_code', 'user_role', 'updatedAt', ['parent_name', 'referrer_name'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_name'),), 'child_name'],
                 [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'),), 'child_dob'],
-                [sequelize.fn('CONCAT', sequelize.col('parent.registerd_gp'),), 'registerd_gp'],
+                [sequelize.fn('CONCAT', sequelize.col('parent.registered_gp'),), 'registered_gp'],
             ],
         }).then((parentResult) => {
             // childArray = childResult;
@@ -308,7 +470,7 @@ exports.getAllReferral = ctx => {
                     'id', 'uuid', 'reference_code', 'user_role', 'updatedAt', ['professional_name', 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('professional.child_name'),), 'child_name'],
                     [sequelize.fn('CONCAT', sequelize.col('professional.child_dob'),), 'child_dob'],
-                    [sequelize.fn('CONCAT', sequelize.col('professional.registerd_gp'),), 'registerd_gp'],
+                    [sequelize.fn('CONCAT', sequelize.col('professional.registered_gp'),), 'registered_gp'],
                 ],
             }).then((professionalResult) => {
                 professionalArray = professionalResult
@@ -325,16 +487,16 @@ exports.getAllReferral = ctx => {
                     obj.referrer = resultArray[i].referrer_name;
                     obj.referrer_type = resultArray[i].user_role;
                     obj.date = resultArray[i].updatedAt
-                    if (resultArray[i].registerd_gp) {
-                        var splitLocation = resultArray[i].registerd_gp.split(',');
+                    if (resultArray[i].registered_gp) {
+                        var splitLocation = resultArray[i].registered_gp.split(',');
                         if (splitLocation.length > 1) {
                             if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                                obj.registerd_gp = gpCodes[0].type;
+                                obj.registered_gp = gpCodes[0].type;
                             } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
-                                obj.registerd_gp = gpCodes[1].type;
+                                obj.registered_gp = gpCodes[1].type;
                             }
                             else {
-                                obj.registerd_gp = "thiru";
+                                obj.registered_gp = "thiru";
                             }
                         }
                     }
@@ -424,7 +586,7 @@ function getRefData(refID, refRole, ctx) {
             where: {
                 uuid: refID,
             },
-            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registerd_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs']
+            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs']
         }).then((eligibilityObj) => {
 
             return user.findOne({
@@ -432,7 +594,7 @@ function getRefData(refID, refRole, ctx) {
                     {
                         model: ctx.orm().Referral,
                         as: 'parent',
-                        attributes: ['id', 'parent_firstname', 'parent_lastname', 'parential_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+                        attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
                     },
                 ],
                 where: {
@@ -471,7 +633,7 @@ function getRefData(refID, refRole, ctx) {
                         parent_id: aboutObj.parent[0].id,
                         parent_name: aboutObj.parent[0].parent_firstname,
                         parent_lastname: aboutObj.parent[0].parent_lastname,
-                        parential_responsibility: aboutObj.parent[0].parential_responsibility,
+                        parental_responsibility: aboutObj.parent[0].parental_responsibility,
                         child_parent_relationship: aboutObj.parent[0].child_parent_relationship,
                         parent_contact_number: aboutObj.parent[0].parent_contact_number,
                         parent_email: aboutObj.parent[0].parent_email,
@@ -536,7 +698,7 @@ function getRefData(refID, refRole, ctx) {
                         model: ctx.orm().Referral,
                         nested: true,
                         as: 'parent',
-                        attributes: ['id', 'child_dob', 'registerd_gp']
+                        attributes: ['id', 'child_dob', 'registered_gp']
                     },
                 ],
                 where: {
@@ -559,7 +721,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: elgibilityObj[0].id,
                     },
-                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parential_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
                 }).then((aboutObj) => {
                     return user.findAll({
                         include: [
@@ -597,7 +759,7 @@ function getRefData(refID, refRole, ctx) {
                             const section1Obj = {
                                 child_id: elgibilityObj[0].parent[0].id,
                                 child_dob: elgibilityObj[0].parent[0].child_dob,
-                                registerd_gp: elgibilityObj[0].parent[0].registerd_gp,
+                                registered_gp: elgibilityObj[0].parent[0].registered_gp,
                                 parent_id: elgibilityObj[0].id,
                                 consent_child: elgibilityObj[0].consent_child,
                                 consent_parent: elgibilityObj[0].consent_parent,
@@ -621,7 +783,7 @@ function getRefData(refID, refRole, ctx) {
                                 parent_id: aboutObj[0].id,
                                 parent_name: aboutObj[0].parent_firstname,
                                 parent_lastname: aboutObj[0].parent_lastname,
-                                parential_responsibility: aboutObj[0].parential_responsibility,
+                                parental_responsibility: aboutObj[0].parental_responsibility,
                                 child_parent_relationship: aboutObj[0].child_parent_relationship,
                                 parent_contact_number: aboutObj[0].parent_contact_number,
                                 parent_email: aboutObj[0].parent_email,
@@ -701,7 +863,7 @@ function getRefData(refID, refRole, ctx) {
                 include: [{
                     model: ctx.orm().Referral,
                     as: 'professional',
-                    attributes: ['id', 'child_dob', 'registerd_gp'],
+                    attributes: ['id', 'child_dob', 'registered_gp'],
                     include: [{
                         model: ctx.orm().Referral,
                         as: 'child_parent',
@@ -710,7 +872,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: userObj.id,
                 },
-                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession']
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession','service_location','selected_service']
             }).then((elgibilityObj) => {
                 //return ctx.body = elgibilityObj.professional[0].child_parent[0];
                 var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -733,7 +895,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: childIdNew,
                     },
-                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parential_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
                 }).then((aboutObj) => {
 
                     return user.findAll({
@@ -769,7 +931,7 @@ function getRefData(refID, refRole, ctx) {
                             const section1Obj = {
                                 child_id: elgibilityObj.professional[0].id,
                                 child_dob:elgibilityObj.professional[0].child_dob,
-                                registerd_gp: elgibilityObj.professional[0].registerd_gp,
+                                registered_gp: elgibilityObj.professional[0].registered_gp,
                                 professional_id: elgibilityObj.id,
                                 consent_child: elgibilityObj.consent_child,
                                 consent_parent: elgibilityObj.consent_parent,
@@ -779,6 +941,8 @@ function getRefData(refID, refRole, ctx) {
                                 professional_contact_number: elgibilityObj.professional_contact_number,
                                 professional_address: elgibilityObj.professional_address,
                                 professional_profession: elgibilityObj.professional_profession,
+                                service_location: elgibilityObj.service_location,
+                                selected_service: elgibilityObj.selected_service,
 
                             }
                             const section2Obj = {
@@ -799,7 +963,7 @@ function getRefData(refID, refRole, ctx) {
                                 parent_id: aboutObj[0].id,
                                 parent_name: aboutObj[0].parent_firstname,
                                 parent_lastname: aboutObj[0].parent_lastname,
-                                parential_responsibility: aboutObj[0].parential_responsibility,
+                                parental_responsibility: aboutObj[0].parental_responsibility,
                                 child_parent_relationship: aboutObj[0].child_parent_relationship,
                                 parent_contact_number: aboutObj[0].parent_contact_number,
                                 parent_email: aboutObj[0].parent_email,

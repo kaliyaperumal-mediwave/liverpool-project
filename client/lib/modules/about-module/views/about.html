@@ -56,7 +56,7 @@
                     <div class="form-group py-2 my-2">
                         <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
-                            <!-- <div class="input-group-prepend cursor-pointer">
+                            <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select">
                                     <select class="custom-select form-control input-bg-form-control"
                                         v-model="aboutObj.childNameTitle">
@@ -67,7 +67,7 @@
                                         <option value="Mx">Mx</option>
                                     </select>
                                 </span>
-                            </div> -->
+                            </div>
                             <input type="text" class="form-control input-bg-form-control"
                                 v-model="aboutObj.childFirstName" id="childFirstName"
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
@@ -131,6 +131,15 @@
                     <div class="form-group py-2 my-2">
                         <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
                         <div class="input-group">
+                            <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="aboutObj.childNameTitle">
+                                        <option selected="selected" value="Mr">Mobile</option>
+                                        <option value="Miss">Landline</option>
+                                    </select>
+                                </span>
+                            </div>
                             <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
                                 @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
@@ -606,7 +615,7 @@
 
 
                 <template
-                    v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
+                    v-show="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
                     <!-- Parent or Carer Relationship Start -->
                     <form id="parentOrCarerRelation-form" data-options="relationshipToYou">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
@@ -813,9 +822,8 @@
                                                 || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
                                                 || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
                                             ))
-                                        || (aboutFormData.sameHouse == 'no' && (
-                                            aboutFormData.parentOrCarrerAddress && !emailRegex.test(aboutFormData.parentOrCarrerAddress)
-                                            ))
+                                        || !aboutFormData.sameHouse
+                                        || !aboutFormData.legalCareStatus
                                     ">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>

@@ -34,7 +34,7 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
               },
             border: {
                 "top": "1in",            // default is 0, units: mm, cm, in, px
-                "bottom": "1in",
+                "bottom": "0.5in",
               },
         };
         pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {

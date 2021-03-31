@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
     var ssu = new SpeechSynthesisUtterance();
     var myEvent = window.attachEvent || window.addEventListener;
@@ -14,6 +15,10 @@ $(document).ready(function () {
     var description = $('#voiceOverDescription').text();
     description = description.trim();
     // optimisation needed
+    // $("#playButton").hide();
+
+    // document.getElementById('resumeButton').classList.add('d-none');
+    // document.getElementById('playButton').classList.add('active-border');
     $('#playButton').on('click', function (e) {
         $('#stopButton').removeClass('active-border');
         document.getElementById('playButton').classList.remove('active-border');
@@ -23,6 +28,8 @@ $(document).ready(function () {
         document.getElementById('playButton').setAttribute('disabled', true);
         document.getElementById('playButton').classList.add('d-none');
         document.getElementById('pauseButton').classList.remove('d-none')
+
+        // $("#playButton").hide();
         wrapper();
     });
 
@@ -35,6 +42,9 @@ $(document).ready(function () {
         document.getElementById('resumeButton').classList.add('d-none');
         document.getElementById('pauseButton').classList.add('d-none');
         document.getElementById('playButton').classList.remove('d-none');
+        $("#playButton").show();
+        // $("#playButton").hide();
+
         wrapper(true);
     });
 
@@ -44,6 +54,8 @@ $(document).ready(function () {
         document.getElementById('stopButton').classList.add('active-border')
         document.getElementById('stopButton').style.opacity = 1;
         document.getElementById('stopButton').removeAttribute('disabled');
+        $("#playButton").hide();
+
         window.speechSynthesis.pause();
 
     });
@@ -53,6 +65,8 @@ $(document).ready(function () {
         document.getElementById('stopButton').classList.add('active-border')
         document.getElementById('stopButton').style.opacity = 1;
         document.getElementById('stopButton').removeAttribute('disabled');
+        $("#playButton").hide();
+
         window.speechSynthesis.resume();
     });
     var ssu = new SpeechSynthesisUtterance();
@@ -119,4 +133,20 @@ $(document).ready(function () {
     myEvent(voiceAttachEvent, function (e) {
         window.speechSynthesis.cancel();
     });
+
+
+
+if($('.checkEmpty').is(':visible')){
+  $(".replaceClass").addClass('col-6 col-lg-9');
+  $(".replaceClass").removeClass('col-12');
+  $(".checkEmpty").show();
+}else{
+var replace =  $(".replaceClass");
+  $(".replaceClass").removeClass('col-6 col-lg-9');
+  $(".replaceClass").addClass('col-12');
+  $(".checkEmpty").hide();
+}
+
+
+
 });

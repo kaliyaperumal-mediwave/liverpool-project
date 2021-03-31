@@ -43,7 +43,7 @@ $(document).ready(function () {
             prevSection4Data: {},
             payloadData: {},
             contactPref: [],
-            selectProvider: '',
+            selectProvider: 'No',
             sendRef: '',
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
