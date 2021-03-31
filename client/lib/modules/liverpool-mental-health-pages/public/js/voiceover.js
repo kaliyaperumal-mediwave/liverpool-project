@@ -133,4 +133,20 @@ $(document).ready(function () {
     myEvent(voiceAttachEvent, function (e) {
         window.speechSynthesis.cancel();
     });
+
+
+
+if($('.checkEmpty').is(':visible')){
+  $(".replaceClass").addClass('col-6 col-lg-9');
+  $(".replaceClass").removeClass('col-12');
+  $(".checkEmpty").show();
+}else{
+var replace =  $(".replaceClass");
+  $(".replaceClass").removeClass('col-6 col-lg-9');
+  $(".replaceClass").addClass('col-12');
+  $(".checkEmpty").hide();
+}
+
+
+
 });
