@@ -56,7 +56,7 @@
                     <div class="form-group py-2 my-2">
                         <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
-                            <!-- <div class="input-group-prepend cursor-pointer">
+                            <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select">
                                     <select class="custom-select form-control input-bg-form-control"
                                         v-model="aboutObj.childNameTitle">
@@ -67,7 +67,7 @@
                                         <option value="Mx">Mx</option>
                                     </select>
                                 </span>
-                            </div> -->
+                            </div>
                             <input type="text" class="form-control input-bg-form-control"
                                 v-model="aboutObj.childFirstName" id="childFirstName"
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
@@ -131,6 +131,15 @@
                     <div class="form-group py-2 my-2">
                         <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
                         <div class="input-group">
+                            <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="aboutObj.childNameTitle">
+                                        <option selected="selected" value="Mr">Mobile</option>
+                                        <option value="Miss">Landline</option>
+                                    </select>
+                                </span>
+                            </div>
                             <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
                                 @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
