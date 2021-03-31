@@ -247,6 +247,7 @@ exports.eligibility = ctx => {
                 consent_child: ctx.request.body.parentConcernInformation,
                 service_location: ctx.request.body.profDirectService,
                 selected_service: ctx.request.body.selectedService,
+                referral_provider: "Sent to " + ctx.request.body.selectedService
               },
                 {
                   where:
@@ -279,6 +280,7 @@ exports.eligibility = ctx => {
             professional_profession: ctx.request.body.profProfession,
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
+            referral_provider: "Sent to " + ctx.request.body.selectedService,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
@@ -324,6 +326,7 @@ exports.eligibility = ctx => {
             professional_profession: ctx.request.body.profProfession,
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
+            referral_provider: "Sent to " + ctx.request.body.selectedService,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,

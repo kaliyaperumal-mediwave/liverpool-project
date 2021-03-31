@@ -1365,7 +1365,7 @@
                 <!-- Contact preferences Start -->
 
                 <!--Select a provider Start -->
-                <div v-if="userRole === 'professional'" class="py-3">
+                <!-- <div v-if="userRole === 'professional'" class="py-3">
                     <h2 class="py-2 px-3 mb-2 question-header-font">
                         Do you want to select a provider to receive this referral?
                     </h2>
@@ -1389,14 +1389,14 @@
                         v-bind:class="{ 'd-block': (isFormSubmitted && !selectProvider), 'invalid-fields':!selectProvider}">
                         You must provide an answer.
                     </div>
-                </div>
+                </div> -->
                 <!--Select a provider end -->
 
                 <!-- Provider List Start-->
-                <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3">
-                    <h2 class="py-2 px-3 mb-2 question-header-font">
+                <!-- <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3"> -->
+                    <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
                         Please select Provider:
-                    </h2>
+                    </h2> -->
                     <!-- <div class="py-2 px-3 m-0 review-header-font">
                         {{ apos.area(data.page, 'review_contact', {
                         widgets: {
@@ -1423,7 +1423,7 @@
                         }
                         }) }}
                     </div> -->
-                    <div class="px-3 m-0 question-header-font">
+                    <!-- <div class="px-3 m-0 question-header-font">
                         <div class="form-check pt-3 pl-0">
                             <input type="radio" class="form-check-input" @change="changeProvider($event)" id="YPAS"
                                 value="YPAS" v-model="sendRef">
@@ -1463,12 +1463,12 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div class="invalid-feedback d-none m-0 px-3 py-2"
+                    </div> -->
+                    <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
                         You must provide an answer.
                     </div>
-                </div>
+                </div> -->
                 <!-- Provider List End-->
 
 
