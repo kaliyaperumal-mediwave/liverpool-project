@@ -102,11 +102,11 @@
         </div>
         <div v-if="getStringLength(viewReferralObj.searchTxt) < 1 && viewReferralObj.loginUserFlag=='true'"
             class='d-flex progress-container'>
-            <div @click="fetchReferrals('completed')" class=" col-6 text-center text-complete cursor-pointer"
+            <div @click="fetchReferrals('completed')" class=" col-6 card-bg-set themeText text-center text-complete cursor-pointer"
                 v-bind:class="{'text-complete-active':!activeState}">
                 Completed
             </div>
-            <div @click="fetchReferrals('incomplete')" class="col-6 text-center text-not-complete cursor-pointer"
+            <div @click="fetchReferrals('incomplete')" class="col-6 card-bg-set text-center themeText text-not-complete cursor-pointer"
                 v-bind:class="{'text-complete-active':activeState}">
                 Not completed
             </div>

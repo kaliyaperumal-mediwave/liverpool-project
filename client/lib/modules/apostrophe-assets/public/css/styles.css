@@ -2218,7 +2218,7 @@ a {
   opacity: 1; }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat;
   background-size: cover !important;
   height: 100%; }
 
@@ -2910,7 +2910,6 @@ select.selectIcon {
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  background-color: #fafafa;
   margin-top: 30px; }
 
 .text-complete {
@@ -3737,7 +3736,7 @@ body .ui-widget .ui-menu-item {
 
 /*  Dark theme Start */
 .off .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat !important;
   background-size: cover !important;
   height: 100%; }
 
@@ -3745,6 +3744,9 @@ body .ui-widget .ui-menu-item {
   background: #ffffff 0% 0% no-repeat padding-box; }
 
 .off .text_blog {
+  background: #ffffff 0% 0% no-repeat padding-box; }
+
+.off .card-bg-set {
   background: #ffffff 0% 0% no-repeat padding-box; }
 
 .off .recent_referrals {
@@ -3759,6 +3761,9 @@ body .ui-widget .ui-menu-item {
 
 .off .main-content-area {
   background: #ffffff 0% 0% no-repeat padding-box; }
+
+.off .text-complete-active {
+  background: #dedede !important; }
 
 .off .last-content-area {
   background: #ffffff 0% 0% no-repeat padding-box; }
@@ -4091,7 +4096,7 @@ body .ui-widget .ui-menu-item {
   background: #ffffff; }
 
 .on .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop_dark.svg") no-repeat fixed !important;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/desktop_dark.svg") no-repeat !important;
   background-size: cover !important;
   height: 100%; }
 
@@ -4099,6 +4104,9 @@ body .ui-widget .ui-menu-item {
   background: #353638 0% 0% no-repeat padding-box; }
 
 .on .text_blog {
+  background: #353638 0% 0% no-repeat padding-box; }
+
+.on .card-bg-set {
   background: #353638 0% 0% no-repeat padding-box; }
 
 .on .recent_referrals {
@@ -4113,6 +4121,9 @@ body .ui-widget .ui-menu-item {
 
 .on .main-content-area {
   background: #353638 0% 0% no-repeat padding-box; }
+
+.on .text-complete-active {
+  background: #535454 !important; }
 
 .on .last-content-area {
   background: #353638 0% 0% no-repeat padding-box; }
@@ -4826,3 +4837,6 @@ div.collapse-container.collapsing {
 .common-fa-fa {
   font-weight: 600 !important;
   color: #023047 !important; }
+
+.list-inside ul li {
+  list-style: inside; }
