@@ -9,6 +9,11 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var isIE = false || !!document.documentMode;
+            if (isIE) {
+                $('#hideVoiceOverPage').removeClass().addClass('d-block');
+                $('#showVoicePage').removeClass().addClass('d-none');
+            }
             var switchElem = document.getElementById('switchVoice');
             if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'on') {
                 switchElem.value = localStorage.getItem('voiceOver');
