@@ -53,8 +53,18 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
               </span>
             </div>
           </span>
-          <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search" v-model="searchQuery"
-            placeholder="Search your person " id="example-search-input" @input="filterPieces()" />
+          <!-- <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search" v-model="searchQuery"
+            placeholder="Search your person " id="example-search-input" @input="filterPieces()" /> -->
+            <div class="search-wrapper">
+
+            <form class="wid-80">
+            <input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
+            placeholder="Search your person"
+            id="example-search-input"
+            @input="filterPieces()"  />
+            <button class="close-icon" type="reset"></button>
+            </form>
+            </div>
         </div>
         <div id="hideserachblock" class="d-none">
           {% raw %}
