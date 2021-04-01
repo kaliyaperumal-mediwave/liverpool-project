@@ -289,7 +289,6 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
-                debugger
                 this.isFormSubmitted = true;
                 var formData = this.referralData;
                 if (formData.referralInfo) {
@@ -310,7 +309,6 @@ $(document).ready(function () {
                         this.payloadData.userMode = 'add';
                     }
                     $('#loader').show();
-                    debugger
                     this.upsertReferralForm(this.payloadData);
 
                 } else {

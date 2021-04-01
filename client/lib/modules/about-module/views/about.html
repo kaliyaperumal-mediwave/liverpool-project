@@ -52,11 +52,37 @@
                     </div>
                     <!-- child NHS Number End-->
 
+                    <!-- child title Start-->
+                    <div class="form-group py-2 mt-0 mb-2">
+                        <label class="question-font">{{sec2dynamicLabel.childTitleLabel}}
+                        </label>
+                        <div class="input-group">
+                            <span class="plain-select">
+                                <select class="custom-select form-control input-bg-form-control"
+                                    v-model="aboutObj.childNameTitle" name="childNameTitle">
+                                    <option class='option-text' value="" disabled selected>
+                                        {{sec2dynamicLabel.childTitlePlaceHoldTitle}}
+                                    </option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Mx">Mx</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childNameTitle),'invalid-fields':!aboutObj.childNameTitle }">
+                            You must provide an answer to this question to continue.
+                        </div>
+                    </div>
+                    <!-- child title end-->
+
                     <!-- child first name Start-->
                     <div class="form-group py-2 my-2">
                         <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
-                            <div class="input-group-prepend cursor-pointer">
+                            <!-- <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select">
                                     <select class="custom-select form-control input-bg-form-control"
                                         v-model="aboutObj.childNameTitle">
@@ -67,7 +93,7 @@
                                         <option value="Mx">Mx</option>
                                     </select>
                                 </span>
-                            </div>
+                            </div> -->
                             <input type="text" class="form-control input-bg-form-control"
                                 v-model="aboutObj.childFirstName" id="childFirstName"
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
@@ -134,9 +160,9 @@
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select">
                                     <select class="custom-select form-control input-bg-form-control"
-                                        v-model="aboutObj.childNameTitle">
-                                        <option selected="selected" value="Mr">Mobile</option>
-                                        <option value="Miss">Landline</option>
+                                        v-model="aboutObj.contactMode">
+                                        <option selected="selected" value="mobile">Mobile</option>
+                                        <option value="landline">Landline</option>
                                     </select>
                                 </span>
                             </div>
@@ -261,6 +287,42 @@
                     </div>
                 </div>
                 <!-- Gender Identification End -->
+
+                <!-- Sex identification Start -->
+                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">{{sec2dynamicLabel.sexAssignedLabel}}
+                        </p>
+                        <!-- <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt=""
+                            data-toggle="modal" data-target="#genderIdentity"> -->
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" value="Male" id="sexAssignedMale"
+                            name="sexAssigned" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="sexAssignedMale">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="sexAssigned" value="Female"
+                            id="sexAssignedFem" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="sexAssignedFem">
+                            Female
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="sexAssigned" value="Prefer not to say"
+                            id="genderNotSay" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="genderNotSay">
+                            Prefer not to say
+                        </label>
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.sexAssignedAtBirth),
+                        'invalid-fields':!aboutObj.sexAssignedAtBirth }">
+                        You must provide an answer to this question to continue.
+                    </div>
+                </div>
+                <!-- Sex identification End -->
 
                 <!-- support content modal start -->
                 <div class="modal fade" id="genderIdentity" tabindex="-1" role="dialog" aria-hidden="true">
@@ -825,6 +887,8 @@
                                             ))
                                         || !aboutFormData.sameHouse
                                         || !aboutFormData.legalCareStatus
+                                        || !aboutObj.sexAssignedAtBirth
+                                        || !aboutObj.childNameTitle
                                     ">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
