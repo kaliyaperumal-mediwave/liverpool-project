@@ -34,11 +34,15 @@ $(document).ready(function () {
                         this.filteredData = [];
                         this.showSearchResults = true;
                         var self = this;
+                        console.log('------------self.resources.filter----------',self.resources.filter);
                         return self.resources.filter(function (item) {
                             // TODO: add description and other content after CMS
                             // if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
                             //     self.filteredData.push(item);
                             // }
+                            console.log('------item.Topic-------',item.Topic);
+                            console.log('------item.Topic.toLowerCase()-------',item.Topic.toLowerCase());
+
                             if (item.Topic.toLowerCase() == 'watch') {
                                 if (!!~item.SubTitle.toLowerCase().indexOf(self.searchQueryToLower)) {
                                     self.filteredData.push(item);
