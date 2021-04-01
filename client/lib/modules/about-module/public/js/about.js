@@ -35,6 +35,13 @@ $(document).ready(function () {
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
             },
+            addressData: {
+                addressLine1: "",
+                addressLine2: "",
+                city: "",
+                county: "",
+                postCode: ""
+            },
             dateWrap: true,
             options: {
                 // format: 'YYYY/MM/DD',
@@ -57,6 +64,7 @@ $(document).ready(function () {
             allHouseHoldMembers: [],
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
+            isAddressFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -292,6 +300,12 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "referral_progress", data[0].prof_referral_progress == 20 ? 40 : data[0].prof_referral_progress);
                     }
                 }
+            },
+
+            //Getting Manual Address
+            getManualAddress: function () {
+                debugger
+                $('#addressModal').modal('show')
             },
 
             //Form Submission of Section-4(Referral) with validation logic
