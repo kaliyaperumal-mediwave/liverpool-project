@@ -34,32 +34,33 @@ $(document).ready(function () {
                         this.filteredData = [];
                         this.showSearchResults = true;
                         var self = this;
+                        console.log('-------------',this.searchQueryToLower);
                         return self.resources.filter(function (item) {
                             // TODO: add description and other content after CMS
                             // if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
                             //     self.filteredData.push(item);
                             // }
-                            if (item.Topic.toLowerCase() == 'watch') {
+                            if (item.Topic && item.Topic.toLowerCase() == 'watch') {
                                 if (!!~item.SubTitle.toLowerCase().indexOf(self.searchQueryToLower)) {
                                     self.filteredData.push(item);
                                 }
                             }
-                            else if (item.Topic.toLowerCase() == 'read') {
+                            else if (item.Topic && item.Topic.toLowerCase() == 'read') {
                                 if (!!~item.read_topic.toLowerCase().indexOf(self.searchQueryToLower)) {
                                     self.filteredData.push(item);
                                 }
                             }
-                            else if (item.Topic.toLowerCase() == 'games') {
+                            else if (item.Topic && item.Topic.toLowerCase() == 'games') {
                                 if (!!~item.games_title.toLowerCase().indexOf(self.searchQueryToLower)) {
                                     self.filteredData.push(item);
                                 }
                             }
-                            else if (item.Topic.toLowerCase() == 'events') {
+                            else if (item.Topic && item.Topic.toLowerCase() == 'events') {
                                 if (!!~item.eventsTopic.toLowerCase().indexOf(self.searchQueryToLower)) {
                                     self.filteredData.push(item);
                                 }
                             }
-                            else if (item.Topic.toLowerCase() == 'partneragencies') {
+                            else if ( item.Topic && item.Topic.toLowerCase() == 'partneragencies') {
                                 if (!!~item.partnerAgencies.toLowerCase().indexOf(self.searchQueryToLower)) {
                                     self.filteredData.push(item);
                                 }
@@ -106,9 +107,12 @@ $(document).ready(function () {
                         //             self.filteredData.push(item);
                         //         }
                         //     }
+                        console.log('--------self.filteredData----------',self.filteredData);
                             return self.filteredData
                         })
                     } else {
+                      console.log('-------else error----');
+
                         this.showSearchResults = false;
                         return this.filteredData = [];
                     }
