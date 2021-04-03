@@ -113,6 +113,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
+                        console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;

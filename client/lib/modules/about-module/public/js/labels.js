@@ -7,6 +7,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     houseHoldAddMemberLabel: "",
     carerLabel: "",
     nhsLabel: "",
+    childTitleLabel: "",
+    childTitlePlaceHoldTitle: "",
     nhsPlaceLabel: "",
     fullNameLabel: "",
     fullNamePlacLabel: "",
@@ -20,6 +22,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     genderLabel: "",
     genderPlacLabel: "",
     identityLabel: "",
+    sexAssignedLabel: "",
     sexOrientLabel: "",
     sexOrientPlacLabel: "",
     ethincityLabel: "",
@@ -60,6 +63,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.houseHoldAddMemberLabel = "Add your household members";
     section2Labels.carerLabel = "Your parent/carer details";
     section2Labels.nhsLabel = "Your NHS number";
+    section2Labels.childTitleLabel = "What is your title?";
+    section2Labels.childTitlePlaceHoldTitle = "Select your title"
     section2Labels.nhsPlaceLabel = "Enter your 10 digit NHS number";
     section2Labels.fullNameLabel = "Your full name";
     section2Labels.fullNamePlacLabel = "Enter your first and last name";
@@ -74,6 +79,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.genderPlacLabel = "Enter your gender";
     section2Labels.identityLabel =
       "Do you identify with the gender you were assigned at birth?";
+    section2Labels.sexAssignedLabel = "What sex were you assigned at birth?";
     section2Labels.sexOrientLabel = "Your sexual orientation";
     section2Labels.sexOrientPlacLabel =
       "Enter your sexual orientation (e.g. straight, pan, bi etc.)";
@@ -127,6 +133,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.houseHoldAddMemberLabel = "Add your child's household members";
     section2Labels.carerLabel = "Your details";
     section2Labels.nhsLabel = "Your child's NHS number";
+    section2Labels.childTitleLabel = "What is your child/young person's title?";
+    section2Labels.childTitlePlaceHoldTitle = "Select your child/young person's title"
     section2Labels.nhsPlaceLabel = "Enter your child's 10 digit NHS number";
     section2Labels.fullNameLabel = "Your child's full name";
     section2Labels.fullNamePlacLabel =
@@ -142,6 +150,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.genderPlacLabel = "Enter your child's gender";
     section2Labels.identityLabel =
       "Does your child identify with the gender you were assigned at birth?";
+    section2Labels.sexAssignedLabel = "What sex was your child/young person assigned at birth?";
     section2Labels.sexOrientLabel = "Your child's sexual orientation";
     section2Labels.sexOrientPlacLabel =
       "Enter your child's sexual orientation (e.g. straight, pan, bi etc.)";
@@ -208,6 +217,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.houseHoldAddMemberLabel = "Add child/young person's household members";
     section2Labels.carerLabel = "Child/Young person's parent/carer details";
     section2Labels.nhsLabel = "The child/young person's NHS number";
+    section2Labels.childTitleLabel = "What is the child/young person's title?";
+    section2Labels.childTitlePlaceHoldTitle = "Select the child/young person's title"
     section2Labels.nhsPlaceLabel =
       "Enter child/young person's your 10 digit NHS number";
     section2Labels.fullNameLabel = "The child / young person’s full name";
@@ -226,6 +237,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.genderPlacLabel = "Enter the child / young person’s gender";
     section2Labels.identityLabel =
       "Does the child / young person identify with the gender they were assigned at birth?";
+    section2Labels.sexAssignedLabel = "What sex was the child/young person assigned at birth?";
     section2Labels.sexOrientLabel =
       "The child /young person's sexual orientation";
     section2Labels.sexOrientPlacLabel =
