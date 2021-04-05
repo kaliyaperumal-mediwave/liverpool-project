@@ -3693,3 +3693,6 @@ div.collapse-container.collapsing {
 // input[type="search"]::-webkit-search-results-decoration {
 //   display: none;
 // }
+.page-link:focus{
+  box-shadow: none !important;
+}

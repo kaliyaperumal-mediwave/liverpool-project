@@ -4898,3 +4898,6 @@ div.collapse-container.collapsing {
 
 .border-bottom-primary.card-body.px-2.px-md-4 {
   height: 70px !important; }
+
+.page-link:focus {
+  box-shadow: none !important; }
