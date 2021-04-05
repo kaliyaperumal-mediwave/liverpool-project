@@ -34,7 +34,6 @@ $(document).ready(function () {
                         this.filteredData = [];
                         this.showSearchResults = true;
                         var self = this;
-                        console.log('-------------',this.searchQueryToLower);
                         return self.resources.filter(function (item) {
                             // TODO: add description and other content after CMS
                             // if (!!~item.title.toLowerCase().indexOf(self.searchQueryToLower)) {
@@ -107,13 +106,12 @@ $(document).ready(function () {
                         //             self.filteredData.push(item);
                         //         }
                         //     }
-                        console.log('--------self.filteredData----------',self.filteredData);
                             return self.filteredData
                         })
                     } else {
-                      console.log('-------else error----');
 
                         this.showSearchResults = false;
+                          // return self.filteredData
                         return this.filteredData = [];
                     }
                 },

@@ -4895,3 +4895,6 @@ div.collapse-container.collapsing {
 
 .wid-80 {
   width: 80%; }
+
+.border-bottom-primary.card-body.px-2.px-md-4 {
+  height: 70px !important; }
