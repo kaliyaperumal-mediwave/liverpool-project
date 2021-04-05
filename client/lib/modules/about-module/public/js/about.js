@@ -367,6 +367,38 @@ $(document).ready(function () {
                 }
             },
 
+            //Adding and Updating a address logic
+            upsertAddress: function () {
+                this.isAddressFormSubmitted = true;
+                var addressForm = this.addressData;
+                if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
+                    if (addressForm.mode === 'update') {
+
+
+                    } else {
+                        addressForm.id = uuidV4();
+                        addressForm.mode = 'add';
+                    }
+                    this.resetModalValues();
+
+                } else {
+                    return;
+                }
+
+            },
+
+            //Patching the HouseHold logic
+            patchAddress: function (address) {
+                var addressForm = this.addressData;
+                addressForm.addressLine1 = address.addressLine1;
+                addressForm.addressLine2 = address.addressLine2;
+                addressForm.city = address.city;
+                addressForm.county = address.county;
+                addressForm.postCode = address.postCode;
+                addressForm.id = address.id;
+                addressForm.mode = 'update';
+            },
+
             //Adding and Updating a HouseHold logic
             upsertHouseHold: function () {
                 this.isHouseHoldFormSubmitted = true;
