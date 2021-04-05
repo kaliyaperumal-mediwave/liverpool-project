@@ -943,6 +943,10 @@ a {
   @include set-titleStyles($support-header-font-size, bold, $primary-color);
 }
 
+.referral-feedback {
+  @include set-titleStyles($support-header-font-size, bold, $primary-color);
+}
+
 .completed-toast-header {
   @include set-titleStyles($secondary-font-size, bold, $primary-color);
   @include xs-screen {
@@ -2852,6 +2856,9 @@ $color-scheme: (
       background: $primary 0% 0% no-repeat padding-box;
     }
     .recent_referrals {
+      color: $secondary;
+    }
+    .referral-feedback {
       color: $secondary;
     }
     .close-icon:after{
