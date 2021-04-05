@@ -382,6 +382,7 @@ $(document).ready(function () {
                                                             app.elgibilityObj.gpSchool = "";
                                                         }
                                                         else {
+                                                            app.elgibilityObj.gpSchool = '';
                                                             app.elgibilityObj.submitForm = "true";
                                                         }
 

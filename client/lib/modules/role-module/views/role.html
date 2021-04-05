@@ -662,13 +662,13 @@
             <form id="submitFormTrue-form2" data-options="submitForm">
                 <!-- <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4"> -->
-                <div v-show="(elgibilityObj.role=='parent' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || 
+                <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) || 
 
-                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs) ||
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
                 
-                (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes') ||
+                (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
                 
-                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3)"
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -694,10 +694,13 @@
             {% endraw %}
             <!-- toster-container start -->
 
-            <div v-show="(elgibilityObj.role=='parent' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3) ||
-             (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs) || 
-             (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes') || 
-             (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3)"
+            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) || 
+
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
+                
+                (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
+                
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                 class="text-center py-4">
                 <a>
                     <button v-on:click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
