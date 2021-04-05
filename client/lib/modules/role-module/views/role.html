@@ -736,7 +736,7 @@
 
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="directServices"
-                            v-model="elgibilityObj.profDirectService" id="noServiceSelect" value="noService"
+                            v-model="elgibilityObj.profDirectService" id="noServiceSelect" value="I do not want to select a service"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="noServiceSelect">
                             I do not want to select a service
@@ -841,7 +841,7 @@
 
 
             <form id="professionalInfo-form" data-options="professionalForm">
-                <div v-show="elgibilityObj.role === 'professional' && (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'noService')"
+                <div v-show="elgibilityObj.role === 'professional' && (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
                         <label for="firstName" class="question-font">Your first name</label>
@@ -978,7 +978,7 @@
             <!-- calender start-->
             <form id="profChildDob-form" data-options="profChildDobForm"></form>
             {% raw %}
-            <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'noService')"
+            <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                 class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                 <p class="question-font">What is the child / young person’s date of birth?</p>
 

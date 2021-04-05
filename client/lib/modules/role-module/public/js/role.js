@@ -175,7 +175,7 @@ $(document).ready(function () {
                 //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-                // //console.log(data)
+                console.log(data)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -186,6 +186,14 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
+                    if(data.gp_school)
+                    {
+                        Vue.set(this.elgibilityObj, "gpSchool",data.gp_school);
+                       //Vue.set(this.elgibilityObj, "gpNotCovered",true);
+                        this.elgibilityObj.gpNotCovered = true;
+                    }
+                   
+
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -371,6 +379,7 @@ $(document).ready(function () {
                                                             _self.gpFlag = true;
                                                             app.elgibilityObj.submitForm = "true";
                                                             app.elgibilityObj.gpErrMsg = "";
+                                                            app.elgibilityObj.gpSchool = "";
                                                         }
                                                         else {
                                                             app.elgibilityObj.submitForm = "true";

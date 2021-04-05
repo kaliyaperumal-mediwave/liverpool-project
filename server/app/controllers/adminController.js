@@ -544,10 +544,11 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-    //////console.log("referralData",ctx.request.body.referralData);
-    //////console.log("emailToProvider" ,ctx.request.body.emailToProvider);
-    //////console.log("refCode",ctx.request.body.refCode);
+     console.log("referralData",ctx.request.body.referralData);
+    // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
+    // console.log("refCode",ctx.request.body.refCode);
     try {
+        console.log("trye")
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //////console.log()(sendReferralStatus)
             const referralModel = ctx.orm().Referral;
@@ -577,11 +578,9 @@ exports.sendReferral = async ctx => {
 }
 
 function getRefData(refID, refRole, ctx) {
-    ////console.log("refID", refID)
-    ////console.log("refRole",refRole)
     const user = ctx.orm().Referral;
     const referral = ctx.orm().Reason
-    if (refRole == "Child") {
+    if (refRole == "Child" ||refRole == "child" ) {
         return user.findOne({
             where: {
                 uuid: refID,

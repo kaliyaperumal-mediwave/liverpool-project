@@ -83,7 +83,7 @@
                                 <!-- Professional Info Start -->
                                 <div v-if="userRole == 'professional'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="serviceLocation">
                                            Service location:
                                         </label>
                                         <input
@@ -92,8 +92,8 @@
                                             id="serviceLocation">
                                     </div>
 
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                    <div  v-if="section1Data.service_location!='I do not want to select a service'"  class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="selectedService">
                                            Selected service:
                                         </label>
                                         <input
@@ -365,6 +365,15 @@
                                         readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
                                         </textarea>
                                 </div>
+                                <div v-if="section1Data.gp_school != ''" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                        Child School:
+                                    </label>
+                                    <textarea
+                                        class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                        readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
+                                        </textarea>
+                                </div>
                                 <!-- Gp End -->
 
                             </div>
@@ -432,6 +441,28 @@
                                 </div>
                                 <!-- NHS Number End -->
 
+                                <!-- Child's title Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
+                                        Title:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select
+                                                class="custom-select h-50px custom-select h-50px  input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','child_name_title')"
+                                                v-model="section2Data.child_name_title">
+                                                <option value="Mr">Mr</option>
+                                                <option value="Miss">Miss</option>
+                                                <option value="Ms">Ms</option>
+                                                <option value="Mrs">Mrs</option>
+                                                <option value="Mx">Mx</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Child's title End -->
+
                                 <!-- Full name Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameSec5">
@@ -439,7 +470,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
-                                            <div class="input-group-prepend cursor-pointer">
+                                            <!-- <div class="input-group-prepend cursor-pointer">
                                                 <span class="plain-select">
                                                     <select class="custom-select form-control input-bg-form-control"
                                                         v-model="section2Data.child_name_title"
@@ -451,7 +482,7 @@
                                                         <option value="Mx">Mx</option>
                                                     </select>
                                                 </span>
-                                            </div>
+                                            </div> -->
                                             <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_name')"
                                                 placeholder="Enter first name" type="text"
@@ -520,7 +551,21 @@
                                     </div>
                                 </div>
                                 <!-- Email End -->
-
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Contact type:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.contact_type"
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
@@ -608,6 +653,24 @@
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="No">No</option>
                                                 <option class='option-text' value="Unsure">Unsure</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Sex at birth:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.sex_at_birth"
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option class='option-text' value="Male">Male</option>
+                                                <option class='option-text' value="Female">Female</option>
+                                                <option class='option-text' value="Prefer not to say">Prefer not to say
+                                                </option>
                                             </select>
                                         </span>
                                     </div>
@@ -1394,10 +1457,10 @@
 
                 <!-- Provider List Start-->
                 <!-- <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3"> -->
-                    <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
+                <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
                         Please select Provider:
                     </h2> -->
-                    <!-- <div class="py-2 px-3 m-0 review-header-font">
+                <!-- <div class="py-2 px-3 m-0 review-header-font">
                         {{ apos.area(data.page, 'review_contact', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -1410,7 +1473,7 @@
                         }
                         }) }}
                     </div> -->
-                    <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
                         {{ apos.area(data.page, 'review_contactSub', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -1423,7 +1486,7 @@
                         }
                         }) }}
                     </div> -->
-                    <!-- <div class="px-3 m-0 question-header-font">
+                <!-- <div class="px-3 m-0 question-header-font">
                         <div class="form-check pt-3 pl-0">
                             <input type="radio" class="form-check-input" @change="changeProvider($event)" id="YPAS"
                                 value="YPAS" v-model="sendRef">
@@ -1464,7 +1527,7 @@
                         </div>
 
                     </div> -->
-                    <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
+                <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
                         You must provide an answer.
                     </div>

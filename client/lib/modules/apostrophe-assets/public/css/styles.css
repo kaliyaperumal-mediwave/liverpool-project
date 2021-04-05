@@ -3752,6 +3752,9 @@ body .ui-widget .ui-menu-item {
 .off .recent_referrals {
   color: #023047; }
 
+.off .close-icon:after {
+  color: #023047; }
+
 .off .card-set-container-bg {
   background: #ffffff 0% 0% no-repeat padding-box;
   color: #023047; }
@@ -4110,6 +4113,9 @@ body .ui-widget .ui-menu-item {
   background: #353638 0% 0% no-repeat padding-box; }
 
 .on .recent_referrals {
+  color: #fafafa; }
+
+.on .close-icon:after {
   color: #fafafa; }
 
 .on .card-set-container-bg {
@@ -4840,3 +4846,53 @@ div.collapse-container.collapsing {
 
 .list-inside ul li {
   list-style: inside; }
+
+.search-box, .close-icon, .search-wrapper {
+  position: relative; }
+
+.search-wrapper {
+  display: contents; }
+
+.search-box {
+  width: 80%;
+  border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px; }
+
+.search-box:focus {
+  box-shadow: 0 0 15px 5px #b0e0ee;
+  border: 2px solid #bebede; }
+
+.close-icon {
+  border: 1px solid transparent;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+  display: contents; }
+
+.close-icon:after {
+  content: "X";
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: transparent;
+  z-index: 1;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 2px;
+  text-align: center;
+  color: #025ec5;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer; }
+
+.search-box:not(:valid) ~ .close-icon {
+  display: none; }
+
+.wid-80 {
+  width: 80%; }

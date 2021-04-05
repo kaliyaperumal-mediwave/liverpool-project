@@ -113,6 +113,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
+                        console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -188,6 +189,24 @@ $(document).ready(function () {
                 if (this.userRole == 'child' || this.userRole == 'parent') {
                     if (this.contactPref.length) {
                         this.payloadData.referral_provider = "";
+                        this.payloadData.gp_school = this.section1Data.gp_school;
+                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        //console.log(successData);
+                        if (Object.keys(successData)) {
+                           location.href = "/acknowledge";
+                            this.isFormSubmitted = false;
+                        } else {
+                            //console.log('empty response')
+                        }
+                    } else {
+                        scrollToInvalidInput();
+                        return false;
+                    }
+
+                }
+                else if(this.userRole == 'professional'){
+                    if (this.contactPref.length) {
+                        this.payloadData.referral_provider =this.section1Data.selected_service;
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         //console.log(successData);
                         if (Object.keys(successData)) {
@@ -200,56 +219,56 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-
-                } else {
-                    if (this.contactPref.length && this.selectProvider && this.selectProvider == 'No') {
-                        this.payloadData.referral_provider = "";
-                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        //console.log(successData);
-                        if (Object.keys(successData)) {
-                            location.href = "/acknowledge";
-                            this.isFormSubmitted = false;
-                        } else {
-                            //console.log('empty response')
-                        }
-                    } else if (this.contactPref.length && this.selectProvider && this.selectProvider == 'Yes') {
-                        if (this.sendRef && (this.sendRef == 'YPAS' || this.sendRef == 'Venus' || this.sendRef == 'IAPTUS')) {
-                            this.payloadData.referral_provider = this.sendRef;
-                            var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                            if (Object.keys(successData)) {
-                                location.href = "/acknowledge";
-                                this.isFormSubmitted = false;
-                            } else {
-                                //console.log('empty response')
-                            }
-
-                        } else if (this.sendRef && this.sendRef == 'Other') {
-                            if (this.nameForOthers) {
-                                this.payloadData.referral_provider = this.nameForOthers;
-                                var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                                if (Object.keys(successData)) {
-                                    location.href = "/acknowledge";
-                                    this.isFormSubmitted = false;
-                                } else {
-                                    //console.log('empty response')
-                                }
-                            } else {
-                                scrollToInvalidInput();
-                                return false;
-                            }
-
-                        } else {
-                            scrollToInvalidInput();
-                            return false;
-                        }
-
-                    }
-                    else {
-                        scrollToInvalidInput();
-                        return false;
-                    }
-
                 }
+                //  else {
+                //     if (this.contactPref.length && this.selectProvider && this.selectProvider == 'No') {
+                //         this.payloadData.referral_provider = "";
+                //         var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                //         //console.log(successData);
+                //         if (Object.keys(successData)) {
+                //             location.href = "/acknowledge";
+                //             this.isFormSubmitted = false;
+                //         } else {
+                //             //console.log('empty response')
+                //         }
+                //     } else if (this.contactPref.length && this.selectProvider && this.selectProvider == 'Yes') {
+                //         if (this.sendRef && (this.sendRef == 'YPAS' || this.sendRef == 'Venus' || this.sendRef == 'IAPTUS')) {
+                //             this.payloadData.referral_provider = this.sendRef;
+                //             var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                //             if (Object.keys(successData)) {
+                //                 location.href = "/acknowledge";
+                //                 this.isFormSubmitted = false;
+                //             } else {
+                //                 //console.log('empty response')
+                //             }
+
+                //         } else if (this.sendRef && this.sendRef == 'Other') {
+                //             if (this.nameForOthers) {
+                //                 this.payloadData.referral_provider = this.nameForOthers;
+                //                 var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                //                 if (Object.keys(successData)) {
+                //                     location.href = "/acknowledge";
+                //                     this.isFormSubmitted = false;
+                //                 } else {
+                //                     //console.log('empty response')
+                //                 }
+                //             } else {
+                //                 scrollToInvalidInput();
+                //                 return false;
+                //             }
+
+                //         } else {
+                //             scrollToInvalidInput();
+                //             return false;
+                //         }
+
+                //     }
+                //     else {
+                //         scrollToInvalidInput();
+                //         return false;
+                //     }
+
+                // }
 
             },
 
