@@ -2291,16 +2291,15 @@ exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
   var provider;
   ////console.log('\nSave Review Payload == ', ctx.request.body);
-  if (ctx.request.body.referral_provider) {
-    provider = "Sent to " + ctx.request.body.referral_provider
-  }
+  console.log("fdadfafafafafda " + ctx.request.body.referral_provide)
+
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({
       referral_progress: 100,
       referral_complete_status: "completed",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
-      //referral_provider: provider
+      referral_provider: "Pending"
     },
       {
         where:
@@ -2317,6 +2316,7 @@ exports.saveReview = ctx => {
         }
 
         if (ctx.request.body.referral_provider != "" && ctx.request.body.role == 'professional') {
+          // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
           ctx.query.selectedProvider = ctx.request.body.referral_provider;
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
