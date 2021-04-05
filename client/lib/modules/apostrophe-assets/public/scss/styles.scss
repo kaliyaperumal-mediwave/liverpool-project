@@ -1496,9 +1496,8 @@ a {
 }
 .logo {
   width: 100px;
-  height: 25px;
+  height: 50px;
   align-items: center;
-  margin-top: 14px;
   margin-left: 38px;
   @include md-dec-screen {
     margin-top: 0px;
@@ -2041,7 +2040,7 @@ select.selectIcon {
   }
   .logo {
     width: 140px;
-    height: 50px;
+    height: 54px;
   }
   .footer-container {
     height: fit-content;
