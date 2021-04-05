@@ -92,7 +92,7 @@
                                             id="serviceLocation">
                                     </div>
 
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <div  v-if="section1Data.service_location!='I do not want to select a service'"  class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="selectedService">
                                            Selected service:
                                         </label>
