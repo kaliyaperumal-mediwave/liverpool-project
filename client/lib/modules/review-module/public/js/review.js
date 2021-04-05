@@ -189,10 +189,11 @@ $(document).ready(function () {
                 if (this.userRole == 'child' || this.userRole == 'parent') {
                     if (this.contactPref.length) {
                         this.payloadData.referral_provider = "";
+                        this.payloadData.gp_school = this.section1Data.gp_school;
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         //console.log(successData);
                         if (Object.keys(successData)) {
-                            location.href = "/acknowledge";
+                           location.href = "/acknowledge";
                             this.isFormSubmitted = false;
                         } else {
                             //console.log('empty response')

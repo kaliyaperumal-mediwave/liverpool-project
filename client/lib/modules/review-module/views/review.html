@@ -365,6 +365,15 @@
                                         readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
                                         </textarea>
                                 </div>
+                                <div v-if="section1Data.gp_school != ''" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                        Child School:
+                                    </label>
+                                    <textarea
+                                        class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                        readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
+                                        </textarea>
+                                </div>
                                 <!-- Gp End -->
 
                             </div>
@@ -549,7 +558,8 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
                                             <select v-model="section2Data.contact_type"
-                                                class="custom-select h-50px text-capitalize input-bg-form-control"  @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
                                                 <option selected="selected" value="mobile">Mobile</option>
                                                 <option value="landline">Landline</option>
                                             </select>
@@ -655,7 +665,8 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
                                             <select v-model="section2Data.sex_at_birth"
-                                                class="custom-select h-50px text-capitalize input-bg-form-control" @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
                                                 <option class='option-text' value="Male">Male</option>
                                                 <option class='option-text' value="Female">Female</option>
                                                 <option class='option-text' value="Prefer not to say">Prefer not to say

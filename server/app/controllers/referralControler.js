@@ -19,7 +19,8 @@ exports.eligibility = ctx => {
         consent_child: ctx.request.body.isInformation,
         registered_gp: ctx.request.body.registered_gp,
         contact_parent_camhs: ctx.request.body.contact_parent_camhs,
-        reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs
+        reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+        gp_school: ctx.request.body.gpSchool
       },
         {
           where:
@@ -50,6 +51,7 @@ exports.eligibility = ctx => {
           login_id: ctx.request.decryptedUser.id,
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+          gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
@@ -76,6 +78,7 @@ exports.eligibility = ctx => {
           user_role: ctx.request.body.role,
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+          gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
@@ -1874,7 +1877,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.query.user_id,
       },
-      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs']
+      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs','gp_school']
     }).then((eligibilityObj) => {
 
       return user.findOne({
@@ -2291,13 +2294,12 @@ exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
   var provider;
   ////console.log('\nSave Review Payload == ', ctx.request.body);
-  if (ctx.request.body.referral_provider) {
-    provider = "Sent to " + ctx.request.body.referral_provider
-  }
+
+  console.log(ctx.request.body)
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({
       referral_progress: 100,
-      referral_complete_status: "completed",
+      referral_complete_status: "incompleted",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
       //referral_provider: provider
@@ -2316,14 +2318,14 @@ exports.saveReview = ctx => {
           refNo: uniqueNo
         }
 
-        if (ctx.request.body.referral_provider != "" && ctx.request.body.role == 'professional') {
-          ctx.query.selectedProvider = ctx.request.body.referral_provider;
+        if (ctx.request.body.role != 'professional'  && ctx.request.body.gp_school) {
+          ctx.query.selectedProvider = "MHST";
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
-          ctx.query.refRole = "Professional";
+          ctx.query.refRole = ctx.request.body.role;
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
-              referral_provider: "Sent to " + ctx.query.selectedProvider
+              referral_provider: "Sent to MHST" 
             },
               {
                 where:
