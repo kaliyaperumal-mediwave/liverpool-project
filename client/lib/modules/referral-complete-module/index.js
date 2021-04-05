@@ -10,8 +10,7 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.completed);
     };
     self.completed = function (req, callback) {
-      if(!req.session.user_role)
-      {
+      if (!req.session.user_role) {
         return req.res.redirect("/")
       }
       return self.sendPage(req, self.renderer('completed', {
@@ -74,6 +73,17 @@ module.exports = {
           req.session.prof_data = data.data.prof_data ? JSON.stringify(data.data.prof_data) : '';
           req.session.reload(function () { });
         }
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+    self.route('post', 'feedback', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/feedback';
+      // console.log(req.body, "req.body=========");
+      self.middleware.post(req, res, url, req.body).then((data) => {
+        // console.log(data);
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
