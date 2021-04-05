@@ -188,8 +188,14 @@ $(document).ready(function () {
                 this.payloadData.contactPreference = this.contactPref;
                 if (this.userRole == 'child' || this.userRole == 'parent') {
                     if (this.contactPref.length) {
-                        this.payloadData.referral_provider = "";
-                        this.payloadData.gp_school = this.section1Data.gp_school;
+                        if(!this.payloadData.gp_school)
+                        {
+                            this.payloadData.referral_provider = "MHST";
+                        }
+                        else
+                        {
+                            this.payloadData.referral_provider = "";
+                        }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         //console.log(successData);
                         if (Object.keys(successData)) {

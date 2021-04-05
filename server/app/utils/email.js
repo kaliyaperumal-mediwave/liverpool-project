@@ -117,6 +117,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
             }
         });
     } catch (e) {
+        console.log(e)
         return resolve(ctx.res.internalServerError({
             data: 'Failed to sent feedback mail',
         }));

@@ -166,7 +166,6 @@ $(document).ready(function () {
 
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
-                console.log(data)
                 this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
@@ -188,11 +187,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childSexualOrientation", data.child_sexual_orientation);
                         Vue.set(this.aboutObj, "childEthnicity", data.child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
-                        if(data[0].parent[0].contact_type!=null)
+                        if(data.contact_type!=null)
                         {
-                            Vue.set(this.aboutObj, "contactMode", data.contact_type.contact_type);
+                            Vue.set(this.aboutObj, "contactMode", data.contact_type);
                         }
-                        if(data[0].parent[0].sex_at_birth!=null)
+                        if(data.sex_at_birth!=null)
                         {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth",data.sex_at_birth);
                         }

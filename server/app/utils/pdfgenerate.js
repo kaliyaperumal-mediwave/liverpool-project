@@ -11,7 +11,7 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
         {
              template = fs.readFileSync(path.join(`${__dirname}/./templates/child_referralSendTemplate.html`), 'utf8');
         }
-        else if(ctx.request.body.referralData.role == "Parent")
+        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent")
         {
             template = fs.readFileSync(path.join(`${__dirname}/./templates/parent_referralSendTemplate.html`), 'utf8');
         }

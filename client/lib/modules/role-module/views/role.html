@@ -662,7 +662,7 @@
             <form id="submitFormTrue-form2" data-options="submitForm">
                 <!-- <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4"> -->
-                <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) || 
+            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
 
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
                 
@@ -694,7 +694,7 @@
             {% endraw %}
             <!-- toster-container start -->
 
-            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) || 
+            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
 
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
                 
@@ -1254,7 +1254,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && !elgibilityObj.profEmail &&  (elgibilityObj.gpSchool=='Liverpool' || elgibilityObj.gpSchool=='Sefton')"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1271,7 +1271,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) &&  (elgibilityObj.gpSchool=='Liverpool' || elgibilityObj.gpSchool=='Sefton'))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1291,7 +1291,7 @@
             </form>
             {% endraw %}
             <template
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null">
+                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || (!elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null">
                 <div class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -1309,7 +1309,7 @@
                 </div>
             </template>
 
-            <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt &&  (elgibilityObj.gpSchool=='Liverpool' || elgibilityObj.gpSchool=='Sefton')"
+            <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
                 class="text-center py-4">
                 <a>
                     <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span

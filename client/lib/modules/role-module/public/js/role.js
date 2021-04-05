@@ -206,6 +206,12 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contactParent", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
+                    if(data[0].parent[0].gp_school)
+                    {
+                        Vue.set(this.elgibilityObj, "gpSchool",data[0].parent[0].gp_school);
+                       //Vue.set(this.elgibilityObj, "gpNotCovered",true);
+                        this.elgibilityObj.gpNotCovered = true;
+                    }
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }

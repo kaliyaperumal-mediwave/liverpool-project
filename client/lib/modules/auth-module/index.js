@@ -49,6 +49,7 @@ module.exports = {
       return self.sendPage(req, self.renderer('sign_up', {
         showHeader: true,
         home: true,
+        hideRefButton: true,
       }));
     };
 
