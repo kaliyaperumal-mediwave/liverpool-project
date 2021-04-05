@@ -1496,9 +1496,8 @@ a {
 }
 .logo {
   width: 100px;
-  height: 25px;
+  height: 50px;
   align-items: center;
-  margin-top: 14px;
   margin-left: 38px;
   @include md-dec-screen {
     margin-top: 0px;
@@ -2041,7 +2040,7 @@ select.selectIcon {
   }
   .logo {
     width: 140px;
-    height: 50px;
+    height: 54px;
   }
   .footer-container {
     height: fit-content;
@@ -3685,3 +3684,12 @@ div.collapse-container.collapsing {
 .wid-80{
   width: 80%;
 }
+.border-bottom-primary.card-body.px-2.px-md-4{
+  height: 70px !important;
+}
+// input[type="search"]::-webkit-search-decoration,
+// input[type="search"]::-webkit-search-cancel-button,
+// input[type="search"]::-webkit-search-results-button,
+// input[type="search"]::-webkit-search-results-decoration {
+//   display: none;
+// }

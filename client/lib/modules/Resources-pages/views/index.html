@@ -1,9 +1,9 @@
-{% extends 'apostrophe-templates:layout.html' %} {% block extraBody %}
+{% extends 'layout.html' %} {% block extraBody %}
+<script src="/modules/home-module/js/home.js"></script>
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
-{% endblock %} {% set user_data = data.user_data %} {% set rolesIds =
-data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
+{% endblock %} {% block main %} {% include
 "../../shared-referal-module/views/header.html" %}
-<div class="loadaddclass">
+<div class="loadaddclass" id="landing-page">
   <!-- Loader start -->
   <div class="overlay" id="loader">
     <div class="overlay__inner">
@@ -27,42 +27,32 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
   </div>
   <!-- Loader end -->
   <div id="resources_user" class="main-min-height">
-    <div class="top-arrow-container pd-container " id="searchBar">
+    <div class="top-arrow-container pd-container" id="searchBar">
       <!-- <a href="{{ data.logoPath }}" class="text-decoration-none">
             <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" />
         </a> -->
       <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3">
-        <a href="{{ data.logoPath }}"
-          ><i
-            class="fal fa-long-arrow-left fa-2x ham-icon "
-          ></i
-        ></a>
-        <div class="resource_text pb-sm-2 pt-2 ">
-          Resources
-        </div>
+        <a href="{{ data.logoPath }}"><i class="fal fa-long-arrow-left fa-2x ham-icon"></i></a>
+        <div class="resource_text pb-sm-2 pt-2">Resources</div>
       </div>
 
+      <!-- <div class="d-flex text-center py-2 my-2 py-md-3 my-md-2">
+          <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 mx-auto" id="searchBar"> -->
+
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
-      <div id="filter_content">
+      <!-- <p hidden>{{data.piecesArray|dump}}</p> -->
+      <div>
         <div class="input-group home-primary-content-bg">
           <span class="input-group-prepend">
-            <div
-              class="home-primarySearch-bg input-group-text border-right-0 height-44"
-            >
+            <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
               <span style="color: #023047 !important">
                 <i class="fal fa-search font-23"></i>
               </span>
             </div>
           </span>
-          <!-- <input
-            class="height-44 home-primarySearch-bg border-0 form-control py-2"
-            type="search"
-            v-model="searchQuery"
-            placeholder="Search your resource"
-            id="example-search-input"
-            @input="filterPieces()"
-          /> -->
-          <div class="search-wrapper">
+          <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
+            placeholder="Search your resource" id="example-search-input" @input="filterPieces()" />
+          <!-- <div class="search-wrapper">
 
           <form class="wid-80">
   	<input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
@@ -71,8 +61,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
     @input="filterPieces()"  />
   		<button class="close-icon" type="reset"></button>
   	</form>
-        </div>
-
+        </div> -->
         </div>
 
         <div id="hideserachblock" class="d-none">
@@ -81,40 +70,32 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           <div v-if="showSearchResults" class="resource_search_text my-3">
             Search results for “what is {{searchQuery}}?”
           </div>
-          <div
-            v-if="showSearchResults"
-            class="search-wrap primary-search-radius"
-          >
-            <div
-              class="primary-search-radius card cursor-pointer card-set-container-bg"
-            >
-              <div
-                v-for="item in filteredData"
-                class="border-bottom-primary card-body px-2 px-md-4"
-              >
-                <a :href=" item.custom_url ? item.custom_url : item._url">
-                  <div class="d-flex align-items-center">
-                    <!-- <img
+          <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+            <div class="primary-search-radius card cursor-pointer card-set-container-bg">
+              <div v-if="filteredData.length">
+                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                  <a :href=" item.custom_url ? item.custom_url : item._url">
+                    <div class="d-flex align-items-center">
+                      <!-- <img
                       src="/modules/my-apostrophe-assets/img/placeholder.svg"
                       width="50"
                       height="30"
                       class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
                       alt=""
                     /> -->
-                    <div
-                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"
-                    ></div>
-                    <p class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}}
-                    </p>
-                    <ul
-                      class="my-0 link-text mx-2 mx-md-4"
-                      style="list-style: inside !important"
-                    >
-                      <li>{{item.Topic}}</li>
-                    </ul>
-                  </div>
-                </a>
+                      <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+                      <p class="question-font my-0 mx-2 mx-md-4">
+                        {{item.title}}
+                      </p>
+                      <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important">
+                        <li>{{item.Topic}}</li>
+                      </ul>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div v-if="!filteredData.length">
+                <p class="resource_search_text py-3">No records found</p>
               </div>
             </div>
           </div>
@@ -123,6 +104,8 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           {% endraw %}
         </div>
       </div>
+      <!-- </div>
+  </div> -->
       <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
         <h5 class="font-weight-bold">
           Sometimes it’s hard to make sense of how you’re feeling, your thoughts
@@ -142,10 +125,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
             <div class="midTextRange">{{ piece.title }}</div>
             {% if apos.images.first(piece.thumbnail) %} {% set img =
             apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
-            <img
-              class="border-radius-10"
-              src="{{ apos.attachments.url(img, { size: 'max' }) }}"
-            />
+            <img class="border-radius-10" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
             {% endif %}
           </div>
         </a>
