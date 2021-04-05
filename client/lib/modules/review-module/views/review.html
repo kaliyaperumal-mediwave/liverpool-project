@@ -83,7 +83,7 @@
                                 <!-- Professional Info Start -->
                                 <div v-if="userRole == 'professional'">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="serviceLocation">
                                             Service location:
                                         </label>
                                         <input
@@ -92,8 +92,9 @@
                                             id="serviceLocation">
                                     </div>
 
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                    <div v-if="section1Data.service_location!='I do not want to select a service'"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="selectedService">
                                             Selected service:
                                         </label>
                                         <input
@@ -542,7 +543,21 @@
                                     </div>
                                 </div>
                                 <!-- Email End -->
-
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Contact type:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.contact_type"
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
@@ -641,7 +656,9 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select class="custom-select h-50px text-capitalize input-bg-form-control">
+                                            <select v-model="section2Data.sex_at_birth"
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
                                                 <option class='option-text' value="Male">Male</option>
                                                 <option class='option-text' value="Female">Female</option>
                                                 <option class='option-text' value="Prefer not to say">Prefer not to say

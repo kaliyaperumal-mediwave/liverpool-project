@@ -2524,9 +2524,8 @@ a {
 
 .logo {
   width: 100px;
-  height: 25px;
+  height: 50px;
   align-items: center;
-  margin-top: 14px;
   margin-left: 38px; }
   @media (max-width: 1023px) {
     .logo {
@@ -3041,7 +3040,7 @@ select.selectIcon {
     min-height: 700px; }
   .logo {
     width: 140px;
-    height: 50px; }
+    height: 54px; }
   .footer-container {
     height: fit-content; }
   .fontHeader {
