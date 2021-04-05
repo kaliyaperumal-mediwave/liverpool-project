@@ -2293,16 +2293,13 @@ exports.fetchReview = ctx => {
 exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
   var provider;
-  ////console.log('\nSave Review Payload == ', ctx.request.body);
-
-  console.log(ctx.request.body)
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({
       referral_progress: 100,
       referral_complete_status: "incompleted",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
-      //referral_provider: provider
+      referral_provider: "Pending"
     },
       {
         where:
@@ -2320,6 +2317,11 @@ exports.saveReview = ctx => {
 
         if (ctx.request.body.role != 'professional'  && ctx.request.body.gp_school) {
           ctx.query.selectedProvider = "MHST";
+        }
+        if(ctx.request.body.referral_provider !="" && ctx.request.body.role=='professional')
+        {
+         // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
+          ctx.query.selectedProvider = ctx.request.body.referral_provider;
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
@@ -2345,6 +2347,7 @@ exports.saveReview = ctx => {
           return ctx.body = responseData;
         }
       }).catch((error) => {
+        ////console.log('\n\n\nERROR - check code: ', error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }).catch((error) => {
