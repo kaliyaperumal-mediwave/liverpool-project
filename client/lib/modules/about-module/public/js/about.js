@@ -172,8 +172,7 @@ $(document).ready(function () {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data.child_NHS);
-                        if(data.child_name_title!=null)
-                        {
+                        if (data.child_name_title != null) {
                             Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
                         }
                         Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
@@ -188,13 +187,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childSexualOrientation", data.child_sexual_orientation);
                         Vue.set(this.aboutObj, "childEthnicity", data.child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
-                        if(data[0].parent[0].contact_type!=null)
-                        {
-                            Vue.set(this.aboutObj, "contactMode", data.contact_type.contact_type);
+                        if (data.contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data.contact_type);
                         }
-                        if(data[0].parent[0].sex_at_birth!=null)
-                        {
-                            Vue.set(this.aboutObj, "sexAssignedAtBirth",data.sex_at_birth);
+                        if (data.sex_at_birth != null) {
+                            Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
                         }
                         // Vue.set(this.aboutObj, "contactMode", data.contact_type);
                         // Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
@@ -221,8 +218,7 @@ $(document).ready(function () {
                     if (data[0].parent[0].child_firstname != null) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
-                        if(data[0].parent[0].child_name_title!=null)
-                        {
+                        if (data[0].parent[0].child_name_title != null) {
                             Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         }
                         //Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
@@ -238,12 +234,10 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
-                        if(data[0].parent[0].contact_type!=null)
-                        {
+                        if (data[0].parent[0].contact_type != null) {
                             Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
                         }
-                        if(data[0].parent[0].sex_at_birth!=null)
-                        {
+                        if (data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         }
                         // Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
@@ -271,8 +265,7 @@ $(document).ready(function () {
                     if (data[0] != undefined && data[0].parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
-                        if(data[0].parent[0].child_name_title!=null)
-                        {
+                        if (data[0].parent[0].child_name_title != null) {
                             Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         }
                         //Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
@@ -287,16 +280,14 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childSexualOrientation", data[0].parent[0].child_sexual_orientation);
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
-                        if(data[0].parent[0].contact_type!=null)
-                        {
+                        if (data[0].parent[0].contact_type != null) {
                             Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
                         }
-                        
-                        if(!data[0].parent[0].sex_at_birth!=null)
-                        {
+
+                        if (!data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         }
-                       
+
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
                             this.allHouseHoldMembers = data[0].parent[0].household_member;
