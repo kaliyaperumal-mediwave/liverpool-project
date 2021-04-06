@@ -168,7 +168,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         {
             toAddress = config.ypas_email
         }
-        else if (ctx.request.body.emailToProvider == "Venus")
+        else if (ctx.request.body.emailToProvider == "Venus") 
         {
             toAddress = config.venus_email
         }

@@ -864,7 +864,7 @@ function getRefData(refID, refRole, ctx) {
                 include: [{
                     model: ctx.orm().Referral,
                     as: 'professional',
-                    attributes: ['id', 'child_dob', 'registered_gp'],
+                    attributes: ['id', 'child_dob', 'registered_gp','gp_school'],
                     include: [{
                         model: ctx.orm().Referral,
                         as: 'child_parent',
@@ -933,6 +933,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_id: elgibilityObj.professional[0].id,
                                 child_dob:elgibilityObj.professional[0].child_dob,
                                 registered_gp: elgibilityObj.professional[0].registered_gp,
+                                gp_school: elgibilityObj.professional[0].gp_school,
                                 professional_id: elgibilityObj.id,
                                 consent_child: elgibilityObj.consent_child,
                                 consent_parent: elgibilityObj.consent_parent,

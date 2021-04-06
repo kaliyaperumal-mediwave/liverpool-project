@@ -276,6 +276,7 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          gp_school: ctx.request.body.gpSchool,
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -323,6 +324,7 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          gp_school: ctx.request.body.gpSchool,
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -2135,7 +2137,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional',
-          attributes: ['id', 'child_dob', 'registered_gp'],
+          attributes: ['id', 'child_dob', 'registered_gp','gp_school'],
           include: [{
             model: ctx.orm().Referral,
             as: 'child_parent',
@@ -2204,6 +2206,7 @@ exports.fetchReview = ctx => {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
                 registered_gp: elgibilityObj.professional[0].registered_gp,
+                gp_school:elgibilityObj.professional[0].gp_school,
                 professional_id: elgibilityObj.id,
                 consent_child: elgibilityObj.consent_child,
                 consent_parent: elgibilityObj.consent_parent,

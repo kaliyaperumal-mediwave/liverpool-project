@@ -113,7 +113,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        console.log(data)
+                        //console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -212,7 +212,14 @@ $(document).ready(function () {
                 }
                 else if(this.userRole == 'professional'){
                     if (this.contactPref.length) {
-                        this.payloadData.referral_provider =this.section1Data.selected_service;
+                        if(this.section1Data.gp_school!="")
+                        {
+                            this.payloadData.referral_provider ="MHST";
+                        }
+                        else
+                        {
+                            this.payloadData.referral_provider =this.section1Data.selected_service;
+                        }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         //console.log(successData);
                         if (Object.keys(successData)) {
