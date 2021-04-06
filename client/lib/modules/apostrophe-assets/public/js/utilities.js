@@ -55,6 +55,39 @@ function commonToggleVisibility(context, element, visibility) {
     }
 };
 
+//Common Function to entering manual address
+function manualAddressLogic(context, object) {
+    console.log(context, object);
+    context['isAddressFormSubmitted'] = true;
+    var addressForm = context[object];
+    if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
+        if (addressForm.mode === 'update') {
+            delete addressForm.mode;
+        } else {
+            addressForm.id = uuidV4();
+            addressForm.mode = 'add';
+        }
+        $('#addressModal').modal('hide');
+        context.resetModalValues();
+
+    } else {
+        return;
+    }
+
+};
+
+//Patching the manual address logic
+function patchManualAddress(context, object, address) {
+    var addressForm = context[object];
+    addressForm.addressLine1 = address.addressLine1;
+    addressForm.addressLine2 = address.addressLine2;
+    addressForm.city = address.city;
+    addressForm.county = address.county;
+    addressForm.postCode = address.postCode;
+    addressForm.id = address.id;
+    addressForm.mode = 'update';
+};
+
 
 //Common Delete Logic for Service and HouseHold Modal
 function deleteLogic(arr, value, context, section) {

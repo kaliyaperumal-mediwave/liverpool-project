@@ -210,6 +210,32 @@
                         <p class="link-text text-right mb-0 mt-2 cursor-pointer" @click="getManualAddress()"><u>Enter
                                 manually</u></p>
                     </div>
+
+                    <div v-if="isAddressFormSubmitted && Object.keys(addressData).length">
+                        <label class="question-font"> Manual Address</label>
+                        <div class="card text-left mb-2">
+                            <div class="card-body text-capitalize bg-set-on-card">
+                                <div class="d-flex align-items-center justify-content-between my-1">
+                                    <h3 class="link-text">{{addressData.addressLine1}}</h3>
+                                    <div>
+                                        <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#addressModal" @click="patchAddress(addressData)">
+                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            </i>
+                                        </span>
+                                        <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
+                                                data-target="#deleteModalAbout" @click="openDeleteModal(item)"
+                                                class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <h3 class="link-text">{{addressData.addressLine2}}</h3>
+                                <h3 class="link-text">{{addressData.city}}</h3>
+                                <h3 class="link-text">{{addressData.county}}</h3>
+                                <h3 class="link-text">{{addressData.postCode}}</h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--child address End-->
 
@@ -925,19 +951,19 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
-                                <h5 class="question-header-font" id="houseHoldLabel">Address</h5>
-                                <!-- <template v-if="houseHoldData.mode == 'update'">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Edit household member</h5>
-                                </template> -->
-                                <!-- <template v-else-if="houseHoldData.mode == ''">
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
-                                    </span>
-                                </template>
-                                <template v-else>
-                                    <h5 class="question-header-font" id="houseHoldLabel">Add household member</h5>
-                                </template> -->
+                                <h5 v-if="addressData.mode == 'update'" class="question-header-font"
+                                    id="houseHoldLabel">Edit address</h5>
+                                <h5 v-if="!Object.keys(addressData).length" class="question-header-font"
+                                    id="houseHoldLabel">Add
+                                    address</h5>
+                                <h5 v-if="addressData.mode == 'add'" class="question-header-font" id="houseHoldLabel">
+                                    Add address</h5>
+                                <h5 v-if="!addressData.mode == 'update'" class="question-header-font"
+                                    id="houseHoldLabel">
+                                    Add address</h5>
+
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
-                                        class="fal fa-times fa-2x cursor-pointer"></i></i>
+                                      @click="resetAddressValue()"  class="fal fa-times fa-2x cursor-pointer"></i></i>
                             </div>
                             <div class="modal-body py-1 px-4">
 
@@ -965,13 +991,13 @@
 
                                 <!-- Address Line2 start -->
                                 <div class="form-group">
-                                    <label for="addressline1" inputmode="text" class="question-font">Address
+                                    <label for="addressline2" inputmode="text" class="question-font">Address
                                         line2 -<b> optional</b></label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressData','addressLine2')"
-                                            id="addressline1" placeholder="Enter address line2">
+                                            id="addressline2" placeholder="Enter address line2">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -983,11 +1009,11 @@
 
                                 <!-- City start-->
                                 <div class="form-group">
-                                    <label for="addressline1" inputmode="text" class="question-font">City</label>
+                                    <label for="cityInfo" inputmode="text" class="question-font">City</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.city"
-                                            @input="trimWhiteSpace($event,'addressData','city')" id="addressline1"
+                                            @input="trimWhiteSpace($event,'addressData','city')" id="cityInfo"
                                             placeholder="Enter city">
                                         <!-- <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
@@ -1042,12 +1068,12 @@
                                 <!-- Postcode end -->
 
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn px-md-4 w-50" @click="upsertHouseHold()">
-                                        <template v-if="houseHoldData.mode == 'update'">
+                                    <button type="submit" class="btn px-md-4 w-50" @click="upsertAddress()">
+                                        <template v-if="addressData.mode == 'update'">
                                             <span class="btn-modal-text">UPDATE
                                             </span>
                                         </template>
-                                        <template v-else-if="houseHoldData.mode == ''">
+                                        <template v-else-if="addressData.mode == ''">
                                             <span class="btn-modal-text">ADD
                                             </span>
                                         </template>

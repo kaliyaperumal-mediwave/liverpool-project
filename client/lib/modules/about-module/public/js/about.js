@@ -37,11 +37,11 @@ $(document).ready(function () {
                 legalCareStatus: ""
             },
             addressData: {
-                addressLine1: "",
-                addressLine2: "",
-                city: "",
-                county: "",
-                postCode: ""
+                // addressLine1: "",
+                // addressLine2: "",
+                // city: "",
+                // county: "",
+                // postCode: ""
             },
             dateWrap: true,
             options: {
@@ -322,8 +322,8 @@ $(document).ready(function () {
 
             //Getting Manual Address
             getManualAddress: function () {
-                debugger
-                $('#addressModal').modal('show')
+                $('#addressModal').modal('show');
+                this.resetAddressModalValues();
             },
 
             //Form Submission of Section-4(Referral) with validation logic
@@ -401,17 +401,18 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
+                // manualAddressLogic(this, 'addressData');
                 this.isAddressFormSubmitted = true;
                 var addressForm = this.addressData;
                 if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
                     if (addressForm.mode === 'update') {
-
-
+                        delete addressForm.mode;
                     } else {
                         addressForm.id = uuidV4();
                         addressForm.mode = 'add';
                     }
-                    this.resetModalValues();
+                    $('#addressModal').modal('hide');
+                    // this.resetAddressModalValues();
 
                 } else {
                     return;
@@ -421,6 +422,7 @@ $(document).ready(function () {
 
             //Patching the HouseHold logic
             patchAddress: function (address) {
+                // patchManualAddress(this, 'addressData', address);
                 var addressForm = this.addressData;
                 addressForm.addressLine1 = address.addressLine1;
                 addressForm.addressLine2 = address.addressLine2;
@@ -509,6 +511,18 @@ $(document).ready(function () {
                 this.houseHoldData.mode = '';
             },
 
+            //Resetting the modal values of service data
+            resetAddressModalValues: function () {
+                this.isAddressFormSubmitted = false;
+                this.addressData = {};
+                // this.addressData.addressLine1 = '';
+                // this.addressData.addressLine2 = '';
+                // this.addressData.city = '';
+                // this.addressData.county = '';
+                // this.addressData.postCode = '';
+                // this.addressData.mode = '';
+            },
+
             resetModal: function (type) {
                 if (type === 'add') {
                     this.resetModalValues();
@@ -518,6 +532,20 @@ $(document).ready(function () {
 
                     } else {
                         this.resetModalValues();
+                    }
+                }
+            },
+
+            resetAddressValue: function () {
+                debugger
+                if (this.addressData.mode && this.addressData.mode === 'add') {
+                    this.resetAddressModalValues();
+                } else if (this.addressData.mode && this.addressData.mode === 'update') {
+                    if (this.addressData.mode === 'update') {
+                        return true;
+
+                    } else {
+                        this.resetAddressModalValues();
                     }
                 }
             },
