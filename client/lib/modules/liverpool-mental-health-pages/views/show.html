@@ -53,9 +53,9 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
               </span>
             </div>
           </span>
-          <!-- <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search" v-model="searchQuery"
-            placeholder="Search your person " id="example-search-input" @input="filterPieces()" /> -->
-            <div class="search-wrapper">
+          <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
+            placeholder="Search your person " id="example-search-input" @input="filterPieces()" />
+          <!-- <div class="search-wrapper">
 
             <form class="wid-80">
             <input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
@@ -64,7 +64,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
             @input="filterPieces()"  />
             <button class="close-icon" type="reset"></button>
             </form>
-            </div>
+            </div> -->
         </div>
         <div id="hideserachblock" class="d-none">
           {% raw %}
@@ -104,7 +104,8 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
       <div id="voiceOver" class="text_inside_return card-set-container-bg home-primary-content-bg">
         <div class="d-flex w-100 align-items-center ">
           <div class="read-cont-h1 col-6 col-lg-9 p-0 replaceClass" id="voiceOverTitle">{{ piece.title }}</div>
-          <div class="p-0 col-6 col-lg-3 justify-content-end d-flex checkEmpty" id="c730ed34-ce14-4df1-8718-6346cd050c2b">
+          <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
+            id="c730ed34-ce14-4df1-8718-6346cd050c2b">
             <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playButton" role="button">Play</button>
             <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none" id="pauseButton"
               role="button">Pause</button>

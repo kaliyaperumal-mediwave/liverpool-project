@@ -6,7 +6,7 @@ $(document).ready(function () {
         var myEvent = window.attachEvent || window.addEventListener;
         var voiceAttachEvent = window.attachEvent ? 'onbeforeunload' : 'beforeunload';
         if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'on') {
-            $('#c730ed34-ce14-4df1-8718-6346cd050c2b').show();
+            $('#c730ed34-ce14-4df1-8718-6346cd050c2b').removeClass('d-none').addClass('d-flex');
         } else if (localStorage.getItem('voiceOver') && localStorage.getItem('voiceOver') == 'off') {
             $('#c730ed34-ce14-4df1-8718-6346cd050c2b').removeClass('d-flex').addClass('d-none');
         } else {
@@ -85,7 +85,6 @@ $(document).ready(function () {
             window.speechSynthesis.speak(ssu);
         }
         ssu.onend = function (e) {
-            console.log('2 Finished in ' + e.elapsedTime + ' seconds.');
             document.getElementById('playButton').classList.add('active-border');
             document.getElementById('stopButton').classList.remove('active-border')
             document.getElementById('stopButton').setAttribute('disabled', true);
@@ -133,6 +132,14 @@ $(document).ready(function () {
         // });
 
         myEvent(voiceAttachEvent, function (e) {
+            window.speechSynthesis.cancel();
+        });
+
+        var isOnIOS = navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPhone/i);
+        var eventName = isOnIOS ? "pagehide" : "beforeunload";
+
+        window.addEventListener(eventName, function (event) {
+            console.log(eventName, "eventNameeventName");
             window.speechSynthesis.cancel();
         });
 

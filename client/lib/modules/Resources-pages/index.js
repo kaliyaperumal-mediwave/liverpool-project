@@ -231,7 +231,7 @@ module.exports = {
             Events,
             PartnerAgencies
           );
-          console.log('---------piecesArray-------',piecesArray);
+        
           req.data.piecesArray = piecesArray;
           return beforeIndex(req, callback);
         })

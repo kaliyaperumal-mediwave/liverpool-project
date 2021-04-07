@@ -14,10 +14,16 @@ $(document).ready(function () {
                 confirm_password: '',
                 reference_code: '',
             },
+            refFeedbackData: {
+                comments: '',
+                ratings: '',
+            },
+            feedbackMessage: '',
             paramValues: [],
             reference_code: '',
             loginFlag: '',
             mailId: '',
+            isFeedBackFormSubmitted: false,
             isFormSubmitted: false,
             showVisibilityPassword: false,
             showVisibilityConfirmPassword: false,
@@ -32,7 +38,8 @@ $(document).ready(function () {
 
         mounted: function () {
             this.paramValues = getParameter(location.href)
-            this.loginFlag = document.getElementById('uRole').innerHTML; // hide in layout.html
+            this.loginFlag = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
+            //this.resetForm();
             this.getRefNo();
         },
 
@@ -48,17 +55,36 @@ $(document).ready(function () {
                         Vue.set(this.refSignUpData, "email", successData[0][this.refSignUpData.role + '_email']);
                         Vue.set(this.refSignUpData, "first_name", successData[0][this.refSignUpData.role + '_firstname']);
                         Vue.set(this.refSignUpData, "last_name", successData[0][this.refSignUpData.role + '_lastname']);
-                        // if (successData[0][this.refSignUpData.role + '_email']) {
-                        //     this.isEmailRequired = true;
-                        // } else {
-                        //     this.isEmailRequired = false;
-                        // }
                         $('#loader').hide();
                     } else {
                         $('#loader').hide();
                     }
                 } else {
                     this.showSignUpForm = false;
+                }
+            },
+
+            //Function to send feedback for referral form
+            sendReferralFeedback: function () {
+                this.isFeedBackFormSubmitted = true;
+                if (this.refFeedbackData.ratings && this.refFeedbackData.comments) {
+                    $('#aa6a4e36-a655-4ebe-b072-2cb4d1a1f642').modal('hide');
+                    $('#loader').show();
+                    var feedbackObj = JSON.parse(JSON.stringify(this.refFeedbackData));
+                    var successData = apiCallPost('post', '/feedback', feedbackObj);
+                    if (successData && Object.keys(successData)) {
+                        $('#loader').hide();
+                        this.feedbackMessage = successData.message;
+                        $('#refFeedbackSuccess').modal('show');
+                        this.resetForm();
+
+                    } else {
+                        $('#loader').hide();
+                        this.feedbackMessage = 'something went wrong pleasse try again';
+                    }
+                } else {
+                    scrollToInvalidInput();
+                    return false;
                 }
             },
 
@@ -87,7 +113,6 @@ $(document).ready(function () {
                         $('#loader').hide();
                     },
                     error: function (error) {
-                        //console.log('Something went Wrong', error);
                         $('#loader').hide();
                         showError(error.responseJSON.message, error.status);
                     }
@@ -114,23 +139,15 @@ $(document).ready(function () {
                 }
             },
 
-            // sendMail: function (payLoadObj) {
-            //     var _self = this;
-            //     $.ajax({
-            //         url: API_URI + "/sendConfirmationMail",
-            //         type: 'post',
-            //         dataType: 'json',
-            //         contentType: 'application/json',
-            //         data: JSON.stringify(payLoadObj),
-            //         success: function (data) {
-            //             //console.log("EmailSent")
-            //         },
-            //         error: function (error) {
-            //             //console.log('Something went Wrong', error);
-            //             showError(error.responseJSON.message, error.status);
-            //         }
-            //     });
-            // },
+            closeModal: function () {
+                this.resetForm();
+            },
+
+            resetForm: function () {
+                this.isFeedBackFormSubmitted = "";
+                this.refFeedbackData.comments = "";
+                this.refFeedbackData.ratings = "";
+            },
 
             gotoDashboard: function (token) {
                 $('#signInSuccess').modal('hide');
