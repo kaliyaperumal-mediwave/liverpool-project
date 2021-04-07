@@ -570,8 +570,10 @@
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
 
                     <div class="form-group">
-                        <label v-show="elgibilityObj.role=='child'" for="gpSchool" class="question-font">Where do you go to school?</label>
-                        <label v-show="elgibilityObj.role=='parent'" for="gpSchool" class="question-font">Where does your child go to school?</label>
+                        <label v-show="elgibilityObj.role=='child'" for="gpSchool" class="question-font">Where do you go
+                            to school?</label>
+                        <label v-show="elgibilityObj.role=='parent'" for="gpSchool" class="question-font">Where does
+                            your child go to school?</label>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
                                 v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
@@ -582,7 +584,7 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
-                            v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton"
+                                v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton"
                                 @change="onChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="seftonSchool">
                                 Sefton
@@ -590,7 +592,7 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
-                            v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither"
+                                v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither"
                                 @change="onChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="schoolNeither">
                                 Neither
@@ -625,44 +627,44 @@
             {% endraw %}
             <!-- toster-gp school start -->
 
-              <!-- gp school start -->
-              {% raw %}
-              <form id="gpNoService" data-options="gpNoService">
-                  <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpSchool == 'Neither') || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpSchool == 'Neither')"
-                      class="px-4 py-4">
-                       <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
-                          <div class="px-2 py-2">
-                              <p class="text-center m-0 py-2">
-                                  <span style="color:#023087 ;">
-                                      <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
-                                          data-target="#consentModal" aria-hidden="true"></i>
-                                  </span>
-                              </p>
-                              <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
-                                  service.</p>
-  
-                              <p class="link-text cursor-pointer text-center m-0 py-2"> <a
-                                      href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
-                                      target="_blank">
-                                      Find a service local to me
-                                  </a></p>
-  
-                              <p class="link-text cursor-pointer text-center m-0 py-2"
-                                  v-on:click="changePrevAns('gpSchool','gpLocation')"> Change my previous
-                                  answer </p>
-                          </div>
-                      </div> 
-                  </div>
-              </form>
-              {% endraw %}
-              <!-- toster-gp school start -->
+            <!-- gp school start -->
+            {% raw %}
+            <form id="gpNoService" data-options="gpNoService">
+                <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpSchool == 'Neither') || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpSchool == 'Neither')"
+                    class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <span style="color:#023087 ;">
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
+                                service.</p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
+                                    target="_blank">
+                                    Find a service local to me
+                                </a></p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"
+                                v-on:click="changePrevAns('gpSchool','gpLocation')"> Change my previous
+                                answer </p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% endraw %}
+            <!-- toster-gp school start -->
 
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form2" data-options="submitForm">
                 <!-- <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4"> -->
-            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
+                <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
 
                 (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
                 
@@ -718,7 +720,8 @@
                 <div v-show="elgibilityObj.role == 'professional'"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
-                        <p class="question-font m-0">Do you want to refer directly to a service in Liverpool or Sefton?</p>
+                        <p class="question-font m-0">Do you want to refer directly to a service in Liverpool or Sefton?
+                        </p>
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="directServices"
@@ -739,8 +742,8 @@
 
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="directServices"
-                            v-model="elgibilityObj.profDirectService" id="noServiceSelect" value="I do not want to select a service"
-                            @change="onChange($event)">
+                            v-model="elgibilityObj.profDirectService" id="noServiceSelect"
+                            value="I do not want to select a service" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="noServiceSelect">
                             I do not want to select a service
                         </label>
@@ -756,16 +759,15 @@
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="alderLiverpool" value="Alder Hey/Liverpool CAMHS"
-                            @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="alderLiverpool"
+                            value="Alder Hey/Liverpool CAMHS" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="alderLiverpool">
                             Alder Hey/Liverpool CAMHS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="ypas" value="YPAS"
-                            @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="ypas" value="YPAS" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="ypas">
                             YPAS
                         </label>
@@ -813,8 +815,7 @@
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="venus" value="Venus"
-                            @change="onChange($event)">
+                            v-model="elgibilityObj.seftonService" id="venus" value="Venus" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="venus">
                             Venus
                         </label>
@@ -1209,7 +1210,7 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
-                            v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton"
+                                v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton"
                                 @change="onChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="seftonSchool">
                                 Sefton
@@ -1217,7 +1218,7 @@
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
-                            v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither"
+                                v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither"
                                 @change="onChange($event)">
                             <label class="form-check-label option-font d-flex align-items-center" for="schoolNeither">
                                 Neither
@@ -1254,7 +1255,7 @@
             <form id="gpNoServiceProf" data-options="gpNoService">
                 <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true && elgibilityObj.gpSchool == 'Neither')"
                     class="px-4 py-4">
-                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <span style="color:#023087 ;">
@@ -1275,7 +1276,7 @@
                                 v-on:click="changePrevAns('gpSchool','gpLocation')"> Change my previous
                                 answer </p>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </form>
             {% endraw %}
@@ -1318,8 +1319,8 @@
                 <!-- toster-container start -->
             </form>
             {% endraw %}
-            <template
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || (!elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'" >
+            <div
+                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
                 <div class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -1335,10 +1336,29 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </div>
+
+            <!-- <div
+                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || !elgibilityObj.profEmail ) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
+                <div class="px-4 py-4">
+                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <span style="color:#DD3939 !important">
+                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <p class="question-font text-center text-danger m-0 py-2">You have missed out a section on
+                                this
+                                page.Please re-check your answer.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
 
             <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
-            class="text-center py-4">
+                class="text-center py-4">
                 <a>
                     <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
                             class="btn-secondary-text">SAVE &
