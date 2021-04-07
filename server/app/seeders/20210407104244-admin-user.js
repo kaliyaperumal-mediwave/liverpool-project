@@ -6,6 +6,7 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const hashedPassword = await bcrypt.hash('Admin#123', saltRounds);
+
     return queryInterface.bulkInsert('users', [{
       first_name: 'Admin',
       last_name: 'User',
