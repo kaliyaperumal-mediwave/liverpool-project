@@ -165,17 +165,27 @@ $(document).ready(function () {
 function viewPdf(uuid, role) {
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+  console.log(successData)
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-  // download(blob, "strFileName.pdf", "application/pdf");
-  // $('#loader').hide();
-  // return;
-  var link = document.createElement('a');
-  link.href = window.URL.createObjectURL(blob);
-  link.target = '_blank'
-  link.click();
-  setTimeout(function () {
+  var isIE = false || !!document.documentMode;
+  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  download(blob, "strFileName.pdf", "application/pdf");
+  $('#loader').hide();
+  if(!isIE && !isSafari)
+  {
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.target = '_blank'
+    link.click();
+    setTimeout(function () {
+      $('#loader').hide();
+    }, 1000);
+  }
+  else
+  {
+    download(blob, uuid+".pdf", "application/pdf");
     $('#loader').hide();
-  }, 1000);
+  }
   //link.click();
 }
 

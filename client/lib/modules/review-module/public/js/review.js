@@ -188,7 +188,7 @@ $(document).ready(function () {
                 this.payloadData.contactPreference = this.contactPref;
                 if (this.userRole == 'child' || this.userRole == 'parent') {
                     if (this.contactPref.length) {
-                        if(!this.payloadData.gp_school)
+                        if(this.section1Data.gp_school !="")
                         {
                             this.payloadData.referral_provider = "MHST";
                         }
@@ -196,14 +196,12 @@ $(document).ready(function () {
                         {
                             this.payloadData.referral_provider = "";
                         }
-                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        //console.log(successData);
-                        if (Object.keys(successData)) {
-                           location.href = "/acknowledge";
-                            this.isFormSubmitted = false;
-                        } else {
-                            //console.log('empty response')
-                        }
+                        // var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        // if (Object.keys(successData)) {
+                        //    location.href = "/acknowledge";
+                        //     this.isFormSubmitted = false;
+                        // } else {
+                        // }
                     } else {
                         scrollToInvalidInput();
                         return false;
@@ -220,14 +218,12 @@ $(document).ready(function () {
                         {
                             this.payloadData.referral_provider =this.section1Data.selected_service;
                         }
-                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        //console.log(successData);
-                        if (Object.keys(successData)) {
-                            location.href = "/acknowledge";
-                            this.isFormSubmitted = false;
-                        } else {
-                            //console.log('empty response')
-                        }
+                        // var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        // if (Object.keys(successData)) {
+                        //     location.href = "/acknowledge";
+                        //     this.isFormSubmitted = false;
+                        // } else {
+                        // }
                     } else {
                         scrollToInvalidInput();
                         return false;
