@@ -62,7 +62,6 @@ $(document).ready(function () {
             allHouseHoldMembers: [],
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
-            isAddressFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -109,15 +108,19 @@ $(document).ready(function () {
                 var childAddress;
                 var houseHoldAddress;
                 var parentAddress;
+
                 childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                     types: ['geocode'],
                 });
+
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
                     types: ['establishment'],
                 });
+
                 parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
                     types: ['geocode'],
                 });
+
                 google.maps.event.addListener(childAddress, 'place_changed', function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
                     // const selectedPlace = google.maps.event.getPlace();
@@ -125,9 +128,11 @@ $(document).ready(function () {
                     // document.getElementById('navigateiside').innerHTML = selectedPlace.adr_address;
                     // document.getElementById('navigateiside').innerHTML = _self.aboutObj.childAddres;
                 });
+
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
+
                 google.maps.event.addListener(parentAddress, 'place_changed', function () {
                     _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
                 });
@@ -274,9 +279,11 @@ $(document).ready(function () {
                         if (data[0].parent[0].contact_type != null) {
                             Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
                         }
+
                         if (!data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         }
+
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
                             this.allHouseHoldMembers = data[0].parent[0].household_member;
@@ -549,7 +556,6 @@ $(document).ready(function () {
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
             },
-
             resetAge: function (event, date) {
                 if (this.getAge(date) > 19) {
                     this.houseHoldData.profession = "";

@@ -240,7 +240,7 @@
                 <!--child address End-->
 
                 <!-- Post Section Start-->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <p class="question-font m-0">{{sec2dynamicLabel.postLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="no" value="No" name="sendPost"
@@ -264,7 +264,7 @@
                 <!-- Post Section End-->
 
                 <!-- Gender Section Start -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
                         <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}}</label>
                         <input type="text" class="form-control input-bg-form-control" id="genderChoose"
@@ -279,7 +279,7 @@
                 <!-- Gender Section End -->
 
                 <!-- Gender Identification Start -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">{{sec2dynamicLabel.identityLabel}}
                         </p>
@@ -315,7 +315,7 @@
                 <!-- Gender Identification End -->
 
                 <!-- Sex identification Start -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">{{sec2dynamicLabel.sexAssignedLabel}}
                         </p>
@@ -388,7 +388,7 @@
                 <!-- support content modal end -->
 
                 <!-- child sexual orientation - optional Start -->
-                <div class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="sexual" class="question-font">{{sec2dynamicLabel.sexOrientLabel}} -
                             <b>optional</b></label>
@@ -401,7 +401,7 @@
                 <!-- child sexual orientation - optional End -->
 
                 <!-- child ethnicity - optional Start -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}} -
                             <b>optional</label>
@@ -415,11 +415,12 @@
                 <!-- Your household Start -->
 
                 <!-- Add HouseHold Members start -->
-                <h2 class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <h2
+                    class="px-2 px-lg-0 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto ">
                     {{sec2dynamicLabel.houseHoldLabel}}
                 </h2>
 
-                <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <label class="question-font"> {{sec2dynamicLabel.houseHoldAddMemberLabel}}</label>
                     <template v-if="checkArrayLength(allHouseHoldMembers)">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
@@ -484,7 +485,7 @@
                 </div>
                 <!-- Delete Modal End -->
 
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <p class="question-font m-0">{{sec2dynamicLabel.careAdultLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="careNo" value="No" name="childCareAdult"
@@ -553,10 +554,10 @@
                 <!-- support content modal end -->
 
                 <!-- Your parent / carer Start -->
-                <h2 class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <h2 class="px-2 px-lg-0 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     {{sec2dynamicLabel.carerLabel}}</h2>
                 <!-- Your parent / carer firstname Start -->
-                <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 pt-3 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group my-2">
                         <label for="carerFirstname" class="question-font">
                             {{sec2dynamicLabel.yourFirstNameLabel}}</label>
@@ -580,7 +581,7 @@
                 <!-- Your parent / carer firstname end -->
 
                 <!-- Your parent / carer lastname Start -->
-                <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 pt-3 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group my-2">
                         <label for="parentLastName" class="question-font">
                             {{sec2dynamicLabel.yourLastNameLabel}}</label>
@@ -606,7 +607,7 @@
 
                 <!-- Parental Responsibility start -->
                 <form id="parentResy-form" data-options="parentialResponsibility">
-                    <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <p class="question-font m-0">{{sec2dynamicLabel.parentalResLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
@@ -632,7 +633,7 @@
 
                 <!-- Parental Responsibility Toaster container start-->
                 <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -648,7 +649,7 @@
                 <!-- Parent or Carer First Name Start -->
                 <form id="parentOrCarerFirstName-form" data-options="parentCarerFirstName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
-                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerFirstNameLabel}}</label>
@@ -677,7 +678,7 @@
                 <!-- Parent or Carer end Name Start -->
                 <form id="parentOrCarerLastName-form" data-options="parentCarerLastName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
-                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerLastNameLabel}}</label>
@@ -708,7 +709,7 @@
                     v-show="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
                     <!-- Parent or Carer Relationship Start -->
                     <form id="parentOrCarerRelation-form" data-options="relationshipToYou">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="relationshipYou"
                                     class="question-font">{{sec2dynamicLabel.relationShipLabel}}</label>
@@ -728,11 +729,19 @@
 
                     <!-- Parent or Carer Contact Start -->
                     <form id="parentOrCarerContact-form" data-options="contactNumber">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="parentOrCarcontactNumber1"
                                     class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
                                 <div class="input-group">
+                                    <div class="input-group-prepend cursor-pointer">
+                                        <span class="plain-select custom-mobile-place">
+                                            <select class="custom-select form-control input-bg-form-control">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
                                     <input type="text" class="form-control input-bg-form-control"
                                         id="parentOrCarcontactNumber1" inputmode="tel"
                                         @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
@@ -759,7 +768,7 @@
 
                     <!-- Parent or Carer Email Start -->
                     <form id="parentOrCarerEmail-form" data-options="emailAddress">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="emailAddress" class="question-font">{{sec2dynamicLabel.guardEmailLabel}}
                                     - <b>optional</label>
@@ -787,7 +796,7 @@
                 <!-- Live In Same House Start -->
                 <form id="sameHouse-form" data-options="sameHouse">
                     <div v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'"
-                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <p class="question-font m-0">{{sec2dynamicLabel.sameHouseLabel}}
                         </p>
                         <div class="form-check pt-3 pb-1 pl-0">
@@ -812,7 +821,7 @@
                 <!-- Parent Or carer's Address Start-->
                 <form id="guardAddress-form" data-options="parentOrCarrerAddress">
                     <div v-show="aboutFormData.sameHouse=='no'"
-                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="gpParentorCarerLocation" class="question-font">{{sec2dynamicLabel.guardAddress}}
                                 - <b>optional</b></label>
@@ -835,7 +844,7 @@
                 <!-- Legal care Status Start -->
                 <form id="legalCare-form" data-options="legalCareStatus">
                     <div v-if="aboutFormData.sameHouse =='yes' || aboutFormData.sameHouse =='no'"
-                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 mt-0 mb-2">
                             <label class="question-font">{{sec2dynamicLabel.legalCareLabel}}
                             </label>
@@ -882,7 +891,7 @@
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <template v-if="aboutFormData.legalCareStatus">
                     <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
 

@@ -915,6 +915,15 @@
                     <div class="form-group">
                         <label for="contact" class="question-font">Enter your contact number</label>
                         <div class="input-group">
+                            <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select custom-mobile-place">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        >
+                                        <option selected="selected" value="mobile">Mobile</option>
+                                        <option value="landline">Landline</option>
+                                    </select>
+                                </span>
+                            </div>
                             <input type="text" v-model="elgibilityObj.profContactNumber" inputmode="tel"
                                 @input="onVaueChange($event,'contact','elgibilityObj','profContactNumber')"
                                 placeholder="Enter your contact number" class="form-control input-bg-form-control"
