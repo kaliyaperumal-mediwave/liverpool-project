@@ -453,7 +453,7 @@ exports.verifyPasswordToken = (ctx) => {
 exports.sendFeedback = (ctx) => {
     const { error } = feedbackValidation(ctx.request.body);
     if (error) {
-        //console.log(error);
+        console.log(error);
         return ctx.body = error;
     }
     try {
@@ -462,10 +462,11 @@ exports.sendFeedback = (ctx) => {
                 message: reponseMessages[1014],
             });
         }).catch(error => {
-            //console.log(error, "error");
+            console.log(error, "error");
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
+        console.log(e)
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 };

@@ -19,7 +19,8 @@ exports.eligibility = ctx => {
         consent_child: ctx.request.body.isInformation,
         registered_gp: ctx.request.body.registered_gp,
         contact_parent_camhs: ctx.request.body.contact_parent_camhs,
-        reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs
+        reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+        gp_school: ctx.request.body.gpSchool
       },
         {
           where:
@@ -50,6 +51,7 @@ exports.eligibility = ctx => {
           login_id: ctx.request.decryptedUser.id,
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+          gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
@@ -76,6 +78,7 @@ exports.eligibility = ctx => {
           user_role: ctx.request.body.role,
           contact_parent_camhs: ctx.request.body.contact_parent_camhs,
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
+          gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
           referral_complete_status: 'incomplete'
         }).then((childUserInfo) => {
@@ -120,6 +123,7 @@ exports.eligibility = ctx => {
           return user.update({
             child_dob: ctx.request.body.child_Dob,
             registered_gp: ctx.request.body.registered_gp,
+            gp_school: ctx.request.body.gpSchool,
           },
             {
               where:
@@ -155,6 +159,7 @@ exports.eligibility = ctx => {
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
             referral_complete_status: 'incomplete',
+            gp_school: ctx.request.body.gpSchool,
             login_id: ctx.request.decryptedUser.id,
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -183,6 +188,7 @@ exports.eligibility = ctx => {
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
+            gp_school: ctx.request.body.gpSchool,
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -231,6 +237,7 @@ exports.eligibility = ctx => {
           return user.update({
             child_dob: ctx.request.body.prof_ChildDob,
             registered_gp: ctx.request.body.profregistered_gp,
+            gp_school: ctx.request.body.gpSchool,
           },
             {
               where:
@@ -269,6 +276,7 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          gp_school: ctx.request.body.gpSchool,
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -281,6 +289,7 @@ exports.eligibility = ctx => {
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
             referral_provider: "Sent to " + ctx.request.body.selectedService,
+            gp_school: ctx.request.body.gpSchool,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
@@ -315,6 +324,7 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
+          gp_school: ctx.request.body.gpSchool,
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -327,6 +337,7 @@ exports.eligibility = ctx => {
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
             referral_provider: "Sent to " + ctx.request.body.selectedService,
+            gp_school: ctx.request.body.gpSchool,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,
@@ -1874,7 +1885,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.query.user_id,
       },
-      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs']
+      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs','gp_school']
     }).then((eligibilityObj) => {
 
       return user.findOne({
@@ -1975,7 +1986,7 @@ exports.fetchReview = ctx => {
             model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
-            attributes: ['id', 'child_dob', 'registered_gp']
+            attributes: ['id', 'child_dob', 'registered_gp','gp_school']
           },
         ],
         where: {
@@ -2041,6 +2052,7 @@ exports.fetchReview = ctx => {
                 consent_child: elgibilityObj[0].consent_child,
                 consent_parent: elgibilityObj[0].consent_parent,
                 need_interpreter: elgibilityObj[0].need_interpreter,
+                gp_school:elgibilityObj[0].parent[0].gp_school
               }
               const section2Obj = {
                 child_id: aboutObj[0].parent[0].id,
@@ -2125,7 +2137,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional',
-          attributes: ['id', 'child_dob', 'registered_gp'],
+          attributes: ['id', 'child_dob', 'registered_gp','gp_school'],
           include: [{
             model: ctx.orm().Referral,
             as: 'child_parent',
@@ -2194,6 +2206,7 @@ exports.fetchReview = ctx => {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
                 registered_gp: elgibilityObj.professional[0].registered_gp,
+                gp_school:elgibilityObj.professional[0].gp_school,
                 professional_id: elgibilityObj.id,
                 consent_child: elgibilityObj.consent_child,
                 consent_parent: elgibilityObj.consent_parent,
@@ -2315,15 +2328,19 @@ exports.saveReview = ctx => {
           refNo: uniqueNo
         }
 
-        if (ctx.request.body.referral_provider != "" && ctx.request.body.role == 'professional') {
-          // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
+        // if (ctx.request.body.role != 'professional'  && ctx.request.body.gp_school) {
+        //   ctx.query.selectedProvider = "MHST";
+        // }
+        if(ctx.request.body.referral_provider !="")
+        {
+         // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
           ctx.query.selectedProvider = ctx.request.body.referral_provider;
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
-          ctx.query.refRole = "Professional";
+          ctx.query.refRole = ctx.request.body.role;
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
-              referral_provider: "Sent to " + ctx.query.selectedProvider
+              referral_provider: "Sent to " + ctx.request.body.referral_provider 
             },
               {
                 where:
@@ -2343,6 +2360,7 @@ exports.saveReview = ctx => {
           return ctx.body = responseData;
         }
       }).catch((error) => {
+        ////console.log('\n\n\nERROR - check code: ', error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }).catch((error) => {

@@ -72,6 +72,7 @@ exports.getReferral = ctx => {
             referrals = JSON.parse(JSON.stringify(referrals));
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
+            console.log(filteredReferrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
@@ -544,10 +545,11 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-    //////console.log("referralData",ctx.request.body.referralData);
-    //////console.log("emailToProvider" ,ctx.request.body.emailToProvider);
-    //////console.log("refCode",ctx.request.body.refCode);
+     console.log("referralData",ctx.request.body.referralData);
+    // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
+    // console.log("refCode",ctx.request.body.refCode);
     try {
+        console.log("trye")
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //////console.log()(sendReferralStatus)
             const referralModel = ctx.orm().Referral;
@@ -577,16 +579,14 @@ exports.sendReferral = async ctx => {
 }
 
 function getRefData(refID, refRole, ctx) {
-    ////console.log("refID", refID)
-    ////console.log("refRole",refRole)
     const user = ctx.orm().Referral;
     const referral = ctx.orm().Reason
-    if (refRole == "Child") {
+    if (refRole == "Child" ||refRole == "child" ) {
         return user.findOne({
             where: {
                 uuid: refID,
             },
-            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs']
+            attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs','gp_school']
         }).then((eligibilityObj) => {
 
             return user.findOne({
@@ -685,7 +685,7 @@ function getRefData(refID, refRole, ctx) {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
-    else if (refRole == "Parent") {
+    else if (refRole == "Parent" ||refRole == "parent") {
         return user.findOne({
             where: {
                 uuid: refID,
@@ -698,7 +698,7 @@ function getRefData(refID, refRole, ctx) {
                         model: ctx.orm().Referral,
                         nested: true,
                         as: 'parent',
-                        attributes: ['id', 'child_dob', 'registered_gp']
+                        attributes: ['id', 'child_dob', 'registered_gp', 'gp_school']
                     },
                 ],
                 where: {
@@ -764,6 +764,7 @@ function getRefData(refID, refRole, ctx) {
                                 consent_child: elgibilityObj[0].consent_child,
                                 consent_parent: elgibilityObj[0].consent_parent,
                                 need_interpreter: elgibilityObj[0].need_interpreter,
+                                gp_school: elgibilityObj[0].parent[0].gp_school,
                             }
                             const section2Obj = {
                                 child_id: aboutObj[0].parent[0].id,
@@ -851,7 +852,7 @@ function getRefData(refID, refRole, ctx) {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }
-    else if (refRole == "Professional") {
+    else if (refRole == "Professional" ||refRole == "professional") {
         return user.findOne({
 
             where: {
@@ -863,7 +864,7 @@ function getRefData(refID, refRole, ctx) {
                 include: [{
                     model: ctx.orm().Referral,
                     as: 'professional',
-                    attributes: ['id', 'child_dob', 'registered_gp'],
+                    attributes: ['id', 'child_dob', 'registered_gp','gp_school'],
                     include: [{
                         model: ctx.orm().Referral,
                         as: 'child_parent',
@@ -932,6 +933,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_id: elgibilityObj.professional[0].id,
                                 child_dob:elgibilityObj.professional[0].child_dob,
                                 registered_gp: elgibilityObj.professional[0].registered_gp,
+                                gp_school: elgibilityObj.professional[0].gp_school,
                                 professional_id: elgibilityObj.id,
                                 consent_child: elgibilityObj.consent_child,
                                 consent_parent: elgibilityObj.consent_parent,

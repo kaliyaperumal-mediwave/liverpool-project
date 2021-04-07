@@ -563,12 +563,42 @@
             </form>
             <!--GP Location End -->
 
-            <!-- toster-container start -->
+            <!-- gp school start -->
             {% raw %}
-            <form id="gpNotCovered" data-options="gpNotCovered">
+            <form id="gpNotCovered" data-options="gpSchool">
                 <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
-                    class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+
+                    <div class="form-group">
+                        <label v-show="elgibilityObj.role=='child'" for="gpSchool" class="question-font">Where do you go to school?</label>
+                        <label v-show="elgibilityObj.role=='parent'" for="gpSchool" class="question-font">Where does your child go to school?</label>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                                v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
+                                @change="onChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="liverpoolSchool">
+                                Liverpool
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                            v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton"
+                                @change="onChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="seftonSchool">
+                                Sefton
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                            v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither"
+                                @change="onChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="schoolNeither">
+                                Neither
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <span style="color:#023087 ;">
@@ -589,18 +619,56 @@
                                 v-on:click="changePrevAns('regGpTxt','gpLocation')"> Change my previous
                                 answer </p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             {% endraw %}
-            <!-- toster-container start -->
+            <!-- toster-gp school start -->
+
+              <!-- gp school start -->
+              {% raw %}
+              <form id="gpNoService" data-options="gpNoService">
+                  <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpSchool == 'Neither') || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpSchool == 'Neither')"
+                      class="px-4 py-4">
+                       <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                          <div class="px-2 py-2">
+                              <p class="text-center m-0 py-2">
+                                  <span style="color:#023087 ;">
+                                      <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                          data-target="#consentModal" aria-hidden="true"></i>
+                                  </span>
+                              </p>
+                              <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
+                                  service.</p>
+  
+                              <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                                      href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
+                                      target="_blank">
+                                      Find a service local to me
+                                  </a></p>
+  
+                              <p class="link-text cursor-pointer text-center m-0 py-2"
+                                  v-on:click="changePrevAns('gpSchool','gpLocation')"> Change my previous
+                                  answer </p>
+                          </div>
+                      </div> 
+                  </div>
+              </form>
+              {% endraw %}
+              <!-- toster-gp school start -->
 
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form2" data-options="submitForm">
                 <!-- <div v-show="(elgibilityObj.role == 'child' || elgibilityObj.role=='parent') &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt"
                     class="px-4 py-4"> -->
-                <div v-show="(elgibilityObj.role=='parent' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt) || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.reason_contact_parent_camhs) || (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.belowAgeLimit == 'yes') || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt)"
+            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
+
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
+                
+                (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
+                
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -626,7 +694,13 @@
             {% endraw %}
             <!-- toster-container start -->
 
-            <div v-show="(elgibilityObj.role=='parent' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt) || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.reason_contact_parent_camhs) || (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt && elgibilityObj.belowAgeLimit == 'yes') || (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && elgibilityObj.regGpTxt)"
+            <div v-show="(elgibilityObj.role=='parent' &&  (elgibilityObj.submitForm == 'true') && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')) ) || 
+
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'yes' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.reason_contact_parent_camhs  && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == ''))) ||
+                
+                (elgibilityObj.role=='child' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.belowAgeLimit == 'yes'  &&  (elgibilityObj.gpNotCovered=='true' && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton')) || (elgibilityObj.gpNotCovered=='false' && elgibilityObj.gpSchool == '') ) ||
+                
+                (elgibilityObj.role=='child' &&  elgibilityObj.contact_parent_camhs == 'no' &&  elgibilityObj.submitForm == 'true' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && (elgibilityObj.gpNotCovered==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCovered==false && elgibilityObj.gpSchool == '')))"
                 class="text-center py-4">
                 <a>
                     <button v-on:click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
@@ -1117,12 +1191,41 @@
             {% endraw %}
             <!--GP Location End -->
 
-            <!-- toster-container start -->
+            <!-- prof gp school start -->
             {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
-                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && (elgibilityObj.profFirstName && elgibilityObj.profContactNumber) &&  getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
-                    class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
+                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+
+                    <div class="form-group">
+                        <label for="gpSchool" class="question-font">Where the child / young person go to school?</label>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                                v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
+                                @change="onChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="liverpoolSchool">
+                                Liverpool
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                            v-model="elgibilityObj.gpSchool" id="seftonSchool" value="Sefton"
+                                @change="onChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="seftonSchool">
+                                Sefton
+                            </label>
+                        </div>
+                        <div class="form-check py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="gpAttendSchool"
+                            v-model="elgibilityObj.gpSchool" id="schoolNeither" value="Neither"
+                                @change="onChange($event)">
+                            <label class="form-check-label option-font d-flex align-items-center" for="schoolNeither">
+                                Neither
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <span style="color:#023087 ;">
@@ -1142,16 +1245,44 @@
                                 v-on:click="changePrevAns('regProfGpTxt','gpProfLocation')"> Change my previous
                                 answer </p>
                         </div>
-                    </div>
+                    </div> -->
+                </div>
+            </form>
+            {% endraw %}
+            <!-- prof gp school -->
+            {% raw %}
+            <form id="gpNoServiceProf" data-options="gpNoService">
+                <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true && elgibilityObj.gpSchool == 'Neither')"
+                    class="px-4 py-4">
+                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
+                                <span style="color:#023087 ;">
+                                    <i class="fas fa-info-circle fa-2x cursor-pointer" data-toggle="modal"
+                                        data-target="#consentModal" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
+                                service.</p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
+                                    target="_blank">
+                                    Find a service local to me
+                                </a></p>
+
+                            <p class="link-text cursor-pointer text-center m-0 py-2"
+                                v-on:click="changePrevAns('gpSchool','gpLocation')"> Change my previous
+                                answer </p>
+                        </div>
+                    </div> 
                 </div>
             </form>
             {% endraw %}
             <!-- toster-container start -->
-
-            <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && !elgibilityObj.profEmail"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1168,7 +1299,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && elgibilityObj.profAddress && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-4">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1188,7 +1319,7 @@
             </form>
             {% endraw %}
             <template
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null">
+                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || !elgibilityObj.profAddress || !elgibilityObj.profProfession || (!elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'" >
                 <div class="px-4 py-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -1206,8 +1337,8 @@
                 </div>
             </template>
 
-            <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt"
-                class="text-center py-4">
+            <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
+            class="text-center py-4">
                 <a>
                     <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
                             class="btn-secondary-text">SAVE &
