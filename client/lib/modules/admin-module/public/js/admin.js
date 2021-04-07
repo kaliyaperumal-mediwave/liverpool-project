@@ -166,11 +166,12 @@ function viewPdf(uuid, role) {
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+  // download(blob, "strFileName.pdf", "application/pdf");
+  // $('#loader').hide();
+  // return;
   var link = document.createElement('a');
   link.href = window.URL.createObjectURL(blob);
   link.target = '_blank'
-  // var fileName = "test.pdf";
-  //link.download = fileName;
   link.click();
   setTimeout(function () {
     $('#loader').hide();

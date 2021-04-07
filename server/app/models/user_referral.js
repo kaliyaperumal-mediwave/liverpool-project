@@ -210,6 +210,9 @@ module.exports = function modelUser(sequelize, types) {
     sex_at_birth: {
       type: types.TEXT
     },
+    gp_school: {
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });

@@ -45,7 +45,8 @@ $(document).ready(function () {
                 gpNotCoveredProf: false,
                 profDirectService: '',
                 liverpoolService: '',
-                seftonService: ''
+                seftonService: '',
+                gpSchool: ''
             },
             date: null,
             dateWrap: true,
@@ -174,7 +175,7 @@ $(document).ready(function () {
                 //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
-                // //console.log(data)
+                console.log(data)
                 if (roleType == "child") {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data.need_interpreter);
@@ -185,6 +186,13 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
+                    if (data.gp_school) {
+                        Vue.set(this.elgibilityObj, "gpSchool", data.gp_school);
+                        //Vue.set(this.elgibilityObj, "gpNotCovered",true);
+                        this.elgibilityObj.gpNotCovered = true;
+                    }
+
+
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -197,6 +205,11 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contactParent", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
+                    if (data[0].parent[0].gp_school) {
+                        Vue.set(this.elgibilityObj, "gpSchool", data[0].parent[0].gp_school);
+                        //Vue.set(this.elgibilityObj, "gpNotCovered",true);
+                        this.elgibilityObj.gpNotCovered = true;
+                    }
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.editFlag = "editFlag";
                 }
@@ -207,7 +220,7 @@ $(document).ready(function () {
                     if (data[0].service_location == 'liverpool') {
                         Vue.set(this.elgibilityObj, "liverpoolService", data[0].selected_service);
                     }
-                    else{
+                    else {
                         Vue.set(this.elgibilityObj, "seftonService", data[0].selected_service);
                     }
                     Vue.set(this.elgibilityObj, "profFirstName", data[0].professional_firstname);
@@ -220,7 +233,13 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
-                Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
+                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
+                    if (data[0].professional[0].gp_school) {
+                        Vue.set(this.elgibilityObj, "gpSchool", data[0].professional[0].gp_school);
+                        Vue.set(this.elgibilityObj, "gpNotCoveredProf", true);
+
+                    }
+
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
                     this.elgibilityObj.editFlag = "editFlag";
@@ -322,7 +341,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCovered = false;
-                    app.elgibilityObj.submitForm = "false";
+                    app.elgibilityObj.submitForm = "true";
                     if (searchTxt.length > 2) {
                         var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
                         $('#showInputLoaderProf').removeClass("d-none").addClass("d-block");
@@ -370,9 +389,11 @@ $(document).ready(function () {
                                                             _self.gpFlag = true;
                                                             app.elgibilityObj.submitForm = "true";
                                                             app.elgibilityObj.gpErrMsg = "";
+                                                            app.elgibilityObj.gpSchool = "";
                                                         }
                                                         else {
-                                                            app.elgibilityObj.submitForm = "false";
+                                                            app.elgibilityObj.gpSchool = '';
+                                                            app.elgibilityObj.submitForm = "true";
                                                         }
 
                                                     },
@@ -420,7 +441,8 @@ $(document).ready(function () {
                                                     app.elgibilityObj.gpErrMsg = "";
                                                 }
                                                 else {
-                                                    app.elgibilityObj.submitForm = "false";
+                                                    app.elgibilityObj.gpSchool = '';
+                                                    app.elgibilityObj.submitForm = "true";
                                                 }
                                             },
                                             close: function () {
@@ -444,6 +466,7 @@ $(document).ready(function () {
                     }
                     else {
                         app.elgibilityObj.gpErrMsg = '';
+                        app.elgibilityObj.gpSchool = "";
                         app.elgibilityObj.submitForm = "false";
                         $("#gpLocation").autocomplete({
                             source: [],
@@ -524,7 +547,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCoveredProf = false;
-                    app.elgibilityObj.submitProfForm = "false";
+                    app.elgibilityObj.submitProfForm = "true";
                     if (searchTxt.length > 2) {
                         $('#showInputLoader').removeClass("d-none").addClass("d-block");
                         $('#addOpacity').css('opacity', '0.2');
@@ -575,7 +598,8 @@ $(document).ready(function () {
                                                             app.elgibilityObj.gpErrMsg = "";
                                                         }
                                                         else {
-                                                            app.elgibilityObj.submitProfForm = "false";
+                                                            app.elgibilityObj.submitProfForm = "true";
+                                                            app.elgibilityObj.gpSchool = '';
                                                             app.elgibilityObj.gpErrMsg = "";
                                                         }
 
@@ -622,7 +646,8 @@ $(document).ready(function () {
                                                         app.elgibilityObj.gpErrMsg = "";
                                                     }
                                                     else {
-                                                        app.elgibilityObj.submitProfForm = "false";
+                                                        app.elgibilityObj.submitProfForm = "true";
+                                                        app.elgibilityObj.gpSchool = '';
                                                         app.elgibilityObj.gpErrMsg = "";
                                                     }
                                                 },
@@ -644,6 +669,7 @@ $(document).ready(function () {
 
                     } else {
                         app.elgibilityObj.gpErrMsg = '';
+                        app.elgibilityObj.gpSchool = "";
                         app.elgibilityObj.submitProfForm = "false";
                         $("#gpProfLocation").autocomplete({
                             source: [],
@@ -1186,7 +1212,7 @@ $(document).ready(function () {
             changePrevAns: function (attributeValue, inputId) {
 
                 this.elgibilityObj[attributeValue] = "";
-                document.getElementById(inputId).focus();
+                //document.getElementById(inputId).focus();
             }
 
         }

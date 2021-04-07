@@ -117,6 +117,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
             }
         });
     } catch (e) {
+        console.log(e)
         return resolve(ctx.res.internalServerError({
             data: 'Failed to sent feedback mail',
         }));
@@ -162,12 +163,12 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
     try {
-        //console.log( ctx.request.body.emailToProvider)
+        console.log( ctx.request.body.emailToProvider)
         if(ctx.request.body.emailToProvider == "YPAS")
         {
             toAddress = config.ypas_email
         }
-        else if (ctx.request.body.emailToProvider == "Venus")
+        else if (ctx.request.body.emailToProvider == "Venus") 
         {
             toAddress = config.venus_email
         }
@@ -186,7 +187,6 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         });
 
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
-            //console.log(sendReferralStatus)
             if (sendReferralStatus) {
                 const data = {
                     from: config.email_from_address,
@@ -218,7 +218,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             }
 
         }).catch(error => {
-            //console.log(error);
+            console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
