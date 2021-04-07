@@ -55,9 +55,14 @@ $(document).ready(function () {
                 profession: '',
                 lastName: ''
             },
+            manualAddressArray: [],
+            addressData: {
+
+            },
             allHouseHoldMembers: [],
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
+            isAddressFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -338,6 +343,75 @@ $(document).ready(function () {
                     return true;
                 } else {
                     return false;
+                }
+            },
+
+
+            // Getting Manual Address
+            getManualAddress: function () {
+                $('#addressModal').modal('show');
+                this.resetAddressModalValues();
+            },
+
+            //Adding and Updating a address logic
+            upsertAddress: function () {
+                // manualAddressLogic(this, 'addressData');
+                this.isAddressFormSubmitted = true;
+                var addressForm = this.addressData;
+                if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
+                    if (addressForm.mode === 'update') {
+                        this.manualAddressArray = [];
+                        delete addressForm.mode;
+                        this.manualAddressArray.push(addressForm);
+                    } else {
+                        addressForm.id = uuidV4();
+                        addressForm.mode = 'add';
+                        this.manualAddressArray.push(addressForm);
+                    }
+                    $('#addressModal').modal('hide');
+                    // this.resetAddressModalValues();
+                } else {
+                    return;
+                }
+            },
+
+            //Patching the HouseHold logic
+            patchAddress: function (address) {
+                debugger
+                // patchManualAddress(this, 'addressData', address);
+                this.manualAddressArray = [];
+                var addressForm = this.addressData;
+                addressForm.addressLine1 = address.addressLine1;
+                addressForm.addressLine2 = address.addressLine2;
+                addressForm.city = address.city;
+                addressForm.county = address.county;
+                addressForm.postCode = address.postCode;
+                addressForm.id = address.id;
+                addressForm.mode = 'update';
+                this.manualAddressArray.push(addressForm);
+            },
+
+            //Resetting the modal values of service data
+            resetAddressModalValues: function () {
+                this.isAddressFormSubmitted = false;
+                this.addressData = {};
+                // this.addressData.addressLine1 = '';
+                // this.addressData.addressLine2 = '';
+                // this.addressData.city = '';
+                // this.addressData.county = '';
+                // this.addressData.postCode = '';
+                // this.addressData.mode = '';
+            },
+            resetAddressValue: function () {
+                debugger
+                if (this.addressData.mode && this.addressData.mode === 'add') {
+                    this.resetAddressModalValues();
+                } else if (this.addressData.mode && this.addressData.mode === 'update') {
+                    if (this.addressData.mode === 'update') {
+                        return true;
+                    } else {
+                        this.resetAddressModalValues();
+                    }
                 }
             },
 
