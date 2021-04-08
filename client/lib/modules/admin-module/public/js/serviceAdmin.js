@@ -47,6 +47,10 @@ $(document).ready(function () {
             fetchReferral: function () {
                 var _self = this;
                 $('#example').DataTable({
+                    select: {
+                        style: 'os',
+                        selector: 'td:first-child'
+                    },
                     destroy: true,
                     processing: false,
                     serverSide: true,
@@ -61,13 +65,17 @@ $(document).ready(function () {
                         { targets: 8, orderable: false },
                     ],
                     order: [[7, 'desc']],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'csv'
+                    ],
                     language: {
                         searchPlaceholder: 'Search referral',
                         emptyTable: 'No referrals to displays',
                         zeroRecords: 'No matching referrals found'
                     },
                     ajax: {
-                        url: '/modules/admin-module/getArchived',
+                        url: '/modules/admin-module/referral',
                         // url: '/modules/admin-module/getAllreferral',
                         type: 'GET',
                         dataFilter: function (referralRes) {
@@ -198,18 +206,15 @@ function toArrayBuffer(buf) {
 }
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
-    console.log(referral_provider)
-    if (referral_provider != "Pending") {
-        $('#referralAlreadySent').modal('show');
-        document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
-    } else {
-        $('#sendProviderModal').modal('show');
-        document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
-    }
+    $('#sendProviderModal').modal('show');
+    $("#SelectedProvider option[value='"+referral_provider+"']").remove();
+    document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\',\'' + referral_provider + '\')');
 }
 
-function sendPdf(uuid, role, refCode) {
-    var selectedProvider = document.getElementById('SelectedProvider').value;
+function sendPdf(uuid, role, refCode, selectedProvider) {
+    // console.log('/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
+    // return false;
+    // var selectedProvider = document.getElementById('SelectedProvider').value;
     var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
         $('#sendProviderModal').modal('hide');

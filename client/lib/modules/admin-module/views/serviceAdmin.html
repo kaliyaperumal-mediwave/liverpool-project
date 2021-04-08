@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block extraBody %}
 
 
-<script src="/modules/admin-module/js/admin.js"></script>
+<script src="/modules/admin-module/js/serviceAdmin.js"></script>
 <!-- Bootstrap min -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet">
 <link href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -9,6 +9,9 @@
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.22/sorting/date-uk.js"></script>
 <script src="/modules/my-apostrophe-assets/js/download.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 {% endblock %}
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
@@ -100,23 +103,6 @@
                         <p class="admin-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
                     </div>
                 </div>
-                <div class="button-cont-admin row">
-                    <div class="py-2 set-div-width d-flex align-center justify-content-center">
-                        <button type="button" class="btn-delete-admin" @click="deleteReferral()">
-                            Delete
-                        </button>
-                    </div>
-                    <div class="py-2 set-div-width d-flex align-center justify-content-center">
-                        <button type="button" class="btn-archive-admin" @click="archiveReferral()">
-                            Archive
-                        </button>
-                    </div>
-                    <div class=" py-2 set-div-width d-flex align-center justify-content-center">
-                        <button @click="sendAttachment()" type="button" class="btn-archive-admin">
-                            Export
-                        </button>
-                    </div>
-                </div>
                 <div id="scroll-style-admin" class="custom-table-nested pb-3">
                     <table id="example" class="table table-striped table-bordered w-100">
                         <thead>
@@ -179,6 +165,7 @@
                                 <option class='option-text' value="Venus">Venus
                                 </option>
                                 <option class='option-text' value="IAPTUS">IAPTUS</option>
+                                <option class='option-text' value="MHST">MHST</option>
                                 <option class='option-text' value="Other">Other
                                 </option>
                             </select>

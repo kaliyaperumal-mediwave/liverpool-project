@@ -47,6 +47,10 @@ $(document).ready(function () {
             fetchReferral: function () {
                 var _self = this;
                 $('#example').DataTable({
+                    select: {
+                        style:    'os',
+                        selector: 'td:first-child'
+                    },
                     destroy: true,
                     processing: false,
                     serverSide: true,
@@ -59,6 +63,10 @@ $(document).ready(function () {
                         { targets: 6, orderable: true },
                         { targets: 7, orderable: true, type: 'date-uk' },
                         { targets: 8, orderable: false },
+                    ],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'csv'
                     ],
                     order: [[7, 'desc']],
                     language: {

@@ -47,6 +47,10 @@ $(document).ready(function () {
       fetchReferral: function () {
         var _self = this;
         $('#example').DataTable({
+           select: {
+            style:    'os',
+            selector: 'td:first-child'
+          },
           destroy: true,
           processing: false,
           serverSide: true,
@@ -61,6 +65,10 @@ $(document).ready(function () {
             { targets: 8, orderable: false },
           ],
           order: [[7, 'desc']],
+          dom: 'Bfrtip',
+          buttons: [
+              'csv'
+          ],
           language: {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
@@ -83,7 +91,7 @@ $(document).ready(function () {
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
                 json.data.push([
-                  "<input type='checkbox' class='tableCheckbox' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
+                  "<input type='checkbox' class='select-checkbox' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
                   referralRes.data.data[i].dob,
                   referralRes.data.data[i].reference_code,
