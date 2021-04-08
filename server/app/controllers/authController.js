@@ -80,7 +80,7 @@ exports.login = async (ctx) => {
             where: {
                 email: userEmail,
             },
-            attributes: ['uuid', 'first_name', 'last_name', 'password', 'email', 'user_role']
+            attributes: ['uuid', 'first_name', 'last_name', 'password', 'email', 'user_role', 'service_type']
         }).then(async (userResult) => {
             if (userResult) {
                 const checkPassword = await bcrypt.compare(ctx.request.body.password, userResult.password)
@@ -125,6 +125,9 @@ exports.login = async (ctx) => {
                                     address: prof_referral.professional_address ? prof_referral.professional_address : ''
                                 };
                             }
+                        }
+                        if(userResult.user_role === 'service_admin') {
+                            sendUserResult.service_admin_type = userResult.service_type;
                         }
                         const sendResponseData = {
                             sendUserResult: sendUserResult,
