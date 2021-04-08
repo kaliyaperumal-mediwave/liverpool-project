@@ -32,6 +32,7 @@ $(document).ready(function () {
                 'Child Protection Plan',
                 'Other Carer'
             ],
+            contact_person: '',
             allSectionData: [],
             section1Data: {},
             section2Data: {},
@@ -186,21 +187,23 @@ $(document).ready(function () {
             save: function () {
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
+                this.payloadData.contact_person = this.contact_person;
                 if (this.userRole == 'child' || this.userRole == 'parent') {
-                    if (this.contactPref.length) {
-                        if(this.section1Data.gp_school !="")
-                        {
+                    if (this.contact_person && this.contactPref.length) {
+                        $('#loader').show();
+                        if (this.section1Data.gp_school != "") {
                             this.payloadData.referral_provider = "MHST";
                         }
-                        else
-                        {
+                        else {
                             this.payloadData.referral_provider = "";
                         }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         if (Object.keys(successData)) {
-                           location.href = "/acknowledge";
+                            location.href = "/acknowledge";
                             this.isFormSubmitted = false;
+                            $('#loader').hide();
                         } else {
+                            $('#loader').hide();
                         }
                     } else {
                         scrollToInvalidInput();
@@ -208,21 +211,21 @@ $(document).ready(function () {
                     }
 
                 }
-                else if(this.userRole == 'professional'){
-                    if (this.contactPref.length) {
-                        if(this.section1Data.gp_school!="")
-                        {
-                            this.payloadData.referral_provider ="MHST";
+                else if (this.userRole == 'professional') {
+                    if (this.contact_person && this.contactPref.length) {
+                        $('#loader').show();
+                        if (this.section1Data.gp_school != "") {
+                            this.payloadData.referral_provider = "MHST";
                         }
-                        else
-                        {
-                            this.payloadData.referral_provider =this.section1Data.selected_service;
+                        else {
+                            this.payloadData.referral_provider = this.section1Data.selected_service;
                         }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         if (Object.keys(successData)) {
                             location.href = "/acknowledge";
                             this.isFormSubmitted = false;
                         } else {
+                            $('#loader').hide();
                         }
                     } else {
                         scrollToInvalidInput();

@@ -12,7 +12,7 @@ const messageCodes = {
   1011: "Your old password doesn't match",
   1012: 'That email is taken. Try another.',
   1013: 'User not registered at Liverpool CAMHS ',
-  1014: 'Thank you for your valuable feedback!',
+  1014: 'Thanks for your feedback!',
   1015: 'Deleted successfully.',
   1016: 'Data not found.',
   1017: 'Referral details sent'
