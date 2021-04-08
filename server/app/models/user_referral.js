@@ -219,8 +219,6 @@ module.exports = function modelUser(sequelize, types) {
     professional_manual_address: {
       type: types.JSONB
     },
-
-
     child_education_manual_address: {
       type: types.JSONB
     },

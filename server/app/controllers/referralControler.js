@@ -517,7 +517,7 @@ exports.about = ctx => {
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
                 child_address: ctx.request.body.aboutData.childAddress,
-                manual_address: ctx.request.body.aboutData.child_manual_address,
+                child_manual_address: ctx.request.body.aboutData.child_child_manual_address,
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.childGender,
                 child_gender_birth: ctx.request.body.aboutData.childIdentity,
@@ -526,7 +526,7 @@ exports.about = ctx => {
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
-                contact_type: ctx.request.body.aboutData.contactMode,
+                child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
               },
               {
@@ -543,6 +543,7 @@ exports.about = ctx => {
                   responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
                   responsibility_parent_lastname: ctx.request.body.aboutData.parentCarerLastName,
                   child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
+                  parent_contact_type: ctx.request.body.aboutData.parentContactMode,
                   parent_contact_number: ctx.request.body.aboutData.contactNumber,
                   parent_email: ctx.request.body.aboutData.emailAddress,
                   parent_same_house: ctx.request.body.aboutData.sameHouse,
@@ -613,7 +614,7 @@ exports.about = ctx => {
               child_email: ctx.request.body.aboutData.childEmail,
               child_contact_number: ctx.request.body.aboutData.childContactNumber,
               child_address: ctx.request.body.aboutData.childAddress,
-              manual_address: ctx.request.body.aboutData.child_manual_address,
+              child_manual_address: ctx.request.body.aboutData.child_child_manual_address,
               can_send_post: ctx.request.body.aboutData.sendPost,
               child_gender: ctx.request.body.aboutData.childGender,
               child_gender_birth: ctx.request.body.aboutData.childIdentity,
@@ -622,7 +623,7 @@ exports.about = ctx => {
               household_member: ctx.request.body.allHouseHoldMembers,
               child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
               child_care_adult: ctx.request.body.aboutData.childCareAdult,
-              contact_type: ctx.request.body.aboutData.contactMode,
+              child_contact_type: ctx.request.body.aboutData.contactMode,
               sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
             },
             {
@@ -647,6 +648,7 @@ exports.about = ctx => {
                 responsibility_parent_lastname: ctx.request.body.aboutData.parentCarerLastName,
                 child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
                 parent_contact_number: ctx.request.body.aboutData.contactNumber,
+                parent_contact_type: ctx.request.body.aboutData.parentContactMode,
                 parent_email: ctx.request.body.aboutData.emailAddress,
                 parent_same_house: ctx.request.body.aboutData.sameHouse,
                 parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
@@ -707,7 +709,7 @@ exports.about = ctx => {
             child_email: ctx.request.body.aboutData.childEmail,
             child_contact_number: ctx.request.body.aboutData.childContactNumber,
             child_address: ctx.request.body.aboutData.childAddress,
-            manual_address: ctx.request.body.aboutData.child_manual_address,
+            child_manual_address: ctx.request.body.aboutData.child_child_manual_address,
             can_send_post: ctx.request.body.aboutData.sendPost,
             child_gender: ctx.request.body.aboutData.childGender,
             child_gender_birth: ctx.request.body.aboutData.childIdentity,
@@ -717,7 +719,7 @@ exports.about = ctx => {
             household_member: ctx.request.body.allHouseHoldMembers,
             child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
             child_care_adult: ctx.request.body.aboutData.childCareAdult,
-            contact_type: ctx.request.body.aboutData.contactMode,
+            child_contact_type: ctx.request.body.aboutData.contactMode,
             sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
           },
           {
@@ -734,6 +736,7 @@ exports.about = ctx => {
             responsibility_parent_lastname: ctx.request.body.aboutData.parentCarerLastName,
             child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
             parent_contact_number: ctx.request.body.aboutData.contactNumber,
+            parent_contact_type: ctx.request.body.aboutData.parentContactMode,
             parent_email: ctx.request.body.aboutData.emailAddress,
             parent_same_house: ctx.request.body.aboutData.sameHouse,
             parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
@@ -811,7 +814,7 @@ exports.about = ctx => {
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
                 child_address: ctx.request.body.aboutData.childAddress,
-                manual_address: ctx.request.body.aboutData.child_manual_address,
+                child_manual_address: ctx.request.body.aboutData.child_child_manual_address,
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.childGender,
                 child_gender_birth: ctx.request.body.aboutData.childIdentity,
@@ -821,7 +824,7 @@ exports.about = ctx => {
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
-                contact_type: ctx.request.body.aboutData.contactMode,
+                child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
               },
               {
@@ -845,6 +848,7 @@ exports.about = ctx => {
                   responsibility_parent_lastname: ctx.request.body.aboutData.parentCarerLastName,
                   child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
                   parent_contact_number: ctx.request.body.aboutData.contactNumber,
+                  parent_contact_type: ctx.request.body.aboutData.parentContactMode,
                   parent_email: ctx.request.body.aboutData.emailAddress,
                   parent_same_house: ctx.request.body.aboutData.sameHouse,
                   parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
@@ -930,7 +934,7 @@ exports.about = ctx => {
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
                 child_address: ctx.request.body.aboutData.childAddress,
-                manual_address: ctx.request.body.aboutData.child_manual_address,
+                child_manual_address: ctx.request.body.aboutData.child_child_manual_address,
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.childGender,
                 child_gender_birth: ctx.request.body.aboutData.childIdentity,
@@ -939,7 +943,7 @@ exports.about = ctx => {
                 household_member: ctx.request.body.allHouseHoldMembers,
                 child_household_profession: ctx.request.body.aboutData.houseHoldProfession,
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
-                contact_type: ctx.request.body.aboutData.contactMode,
+                child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
               },
               {
@@ -954,6 +958,7 @@ exports.about = ctx => {
                 responsibility_parent_firstname: ctx.request.body.aboutData.parentCarerFirstName,
                 responsibility_parent_lastname: ctx.request.body.aboutData.parentCarerLastName,
                 child_parent_relationship: ctx.request.body.aboutData.relationshipToYou,
+                parent_contact_type: ctx.request.body.aboutData.parentContactMode,
                 parent_contact_number: ctx.request.body.aboutData.contactNumber,
                 parent_email: ctx.request.body.aboutData.emailAddress,
                 parent_same_house: ctx.request.body.aboutData.sameHouse,
@@ -2011,7 +2016,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'contact_type', 'sex_at_birth']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth']
             },
           ],
           where: {
@@ -2078,7 +2083,7 @@ exports.fetchReview = ctx => {
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
                 household_member: aboutObj[0].parent[0].household_member,
-                contact_type: aboutObj[0].parent[0].contact_type,
+                contact_type: aboutObj[0].parent[0].child_care_adult,
                 sex_at_birth: aboutObj[0].parent[0].sex_at_birth,
                 parent_id: aboutObj[0].id,
                 parent_name: aboutObj[0].parent_firstname,
@@ -2171,7 +2176,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'contact_type', 'sex_at_birth']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth']
             },
           ],
           where: {
@@ -2244,7 +2249,7 @@ exports.fetchReview = ctx => {
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
                 household_member: aboutObj[0].parent[0].household_member,
-                contact_type: aboutObj[0].parent[0].contact_type,
+                contact_type: aboutObj[0].parent[0].child_contact_type,
                 sex_at_birth: aboutObj[0].parent[0].sex_at_birth,
                 parent_id: aboutObj[0].id,
                 parent_name: aboutObj[0].parent_firstname,
@@ -2283,24 +2288,27 @@ exports.fetchReview = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
-
+             console.log(error)
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
 
           }).catch((error) => {
-
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         })
           .catch((error) => {
+            console.log(error)
             ////console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
       })
         .catch((error) => {
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     }).catch((error) => {
+      console.log(error)
       ////console.log(error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
