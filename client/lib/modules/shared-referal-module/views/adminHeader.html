@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
 <div id="heightTopSet" class="headerTop">
     <nav class="header-bg header-set-height">
         <div class="row mx-0 w-100 justify-content-between align-center">
@@ -38,15 +40,23 @@
                         aria-hidden="true"></i>
                 </div>
                 <!-- Side Drawer content -->
+                
                 <div class="slider-container">
+                    {% if data.superAdmin %}
+                        <div class="inside-cont-slider cursor-pointer">
+                            <a href="admin" class="text-decoration-none">Referrals</a>
+                        </div>
+                        <div class="inside-cont-slider cursor-pointer">
+                            <a href="admin/archive" class="text-decoration-none">Archive</a>
+                        </div>
+                    {% else %}
+                        <div class="inside-cont-slider cursor-pointer">
+                            <a href="serviceAdmin" class="text-decoration-none">Referrals</a>
+                        </div>
+                    {% endif %}
+
                     <div class="inside-cont-slider cursor-pointer">
-                        <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Referrals</a>
-                    </div>
-                    <div class="inside-cont-slider cursor-pointer">
-                        <a href="admin/archive" class="text-decoration-none">Archive</a>
-                    </div>
-                    <div class="inside-cont-slider cursor-pointer">
-                        <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Log out</a>
+                        <a href="javascript:void(0)" onclick="logOut()" class="text-decoration-none"> Log out</a>
                     </div>
                 </div>
             </div>
