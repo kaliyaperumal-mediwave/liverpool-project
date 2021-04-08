@@ -196,12 +196,12 @@ $(document).ready(function () {
                         {
                             this.payloadData.referral_provider = "";
                         }
-                        // var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        // if (Object.keys(successData)) {
-                        //    location.href = "/acknowledge";
-                        //     this.isFormSubmitted = false;
-                        // } else {
-                        // }
+                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        if (Object.keys(successData)) {
+                           location.href = "/acknowledge";
+                            this.isFormSubmitted = false;
+                        } else {
+                        }
                     } else {
                         scrollToInvalidInput();
                         return false;
@@ -218,12 +218,12 @@ $(document).ready(function () {
                         {
                             this.payloadData.referral_provider =this.section1Data.selected_service;
                         }
-                        // var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        // if (Object.keys(successData)) {
-                        //     location.href = "/acknowledge";
-                        //     this.isFormSubmitted = false;
-                        // } else {
-                        // }
+                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        if (Object.keys(successData)) {
+                            location.href = "/acknowledge";
+                            this.isFormSubmitted = false;
+                        } else {
+                        }
                     } else {
                         scrollToInvalidInput();
                         return false;

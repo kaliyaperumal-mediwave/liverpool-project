@@ -169,8 +169,6 @@ function viewPdf(uuid, role) {
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
   var isIE = false || !!document.documentMode;
   var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-  download(blob, "strFileName.pdf", "application/pdf");
-  $('#loader').hide();
   if(!isIE && !isSafari)
   {
     var link = document.createElement('a');
