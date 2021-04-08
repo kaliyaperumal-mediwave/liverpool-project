@@ -19,6 +19,7 @@ const gpCodes = [
 ]
 
 exports.getReferral = ctx => {
+    // console.log('ctx-----------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
             //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
@@ -26,6 +27,17 @@ exports.getReferral = ctx => {
 
             // sorting
             var order = [];
+            var query = {
+                reference_code: {
+                    [sequelize.Op.ne]: null
+                },
+                referral_complete_status: 'completed'
+            }
+
+            if(ctx.request.decryptedUser && ctx.request.decryptedUser.service_type){
+                query.referral_provider = ctx.request.decryptedUser.service_type;
+            }
+
             if (ctx.query && ctx.query.orderBy) {
                 if (ctx.query.orderBy == '1') order.push([sequelize.literal('name'), ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '2') order.push([sequelize.literal('dob'), ctx.query.orderType.toUpperCase()]);
@@ -45,12 +57,7 @@ exports.getReferral = ctx => {
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
                 ],
-                where: {
-                    reference_code: {
-                        [sequelize.Op.ne]: null
-                    },
-                    referral_complete_status: 'completed'
-                },
+                where: query,
                 include: [
                     {
                         model: referralModel,
