@@ -1893,7 +1893,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.query.user_id,
       },
-      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs','gp_school']
+      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs', 'gp_school']
     }).then((eligibilityObj) => {
 
       return user.findOne({
@@ -1994,7 +1994,7 @@ exports.fetchReview = ctx => {
             model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
-            attributes: ['id', 'child_dob', 'registered_gp','gp_school']
+            attributes: ['id', 'child_dob', 'registered_gp', 'gp_school']
           },
         ],
         where: {
@@ -2060,7 +2060,7 @@ exports.fetchReview = ctx => {
                 consent_child: elgibilityObj[0].consent_child,
                 consent_parent: elgibilityObj[0].consent_parent,
                 need_interpreter: elgibilityObj[0].need_interpreter,
-                gp_school:elgibilityObj[0].parent[0].gp_school
+                gp_school: elgibilityObj[0].parent[0].gp_school
               }
               const section2Obj = {
                 child_id: aboutObj[0].parent[0].id,
@@ -2145,7 +2145,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional',
-          attributes: ['id', 'child_dob', 'registered_gp','gp_school'],
+          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school'],
           include: [{
             model: ctx.orm().Referral,
             as: 'child_parent',
@@ -2214,7 +2214,7 @@ exports.fetchReview = ctx => {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
                 registered_gp: elgibilityObj.professional[0].registered_gp,
-                gp_school:elgibilityObj.professional[0].gp_school,
+                gp_school: elgibilityObj.professional[0].gp_school,
                 professional_id: elgibilityObj.id,
                 consent_child: elgibilityObj.consent_child,
                 consent_parent: elgibilityObj.consent_parent,
@@ -2320,6 +2320,7 @@ exports.saveReview = ctx => {
       referral_complete_status: "completed",
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
+      contact_person: ctx.request.body.contact_person,
       referral_provider: "Pending"
     },
       {
@@ -2339,16 +2340,15 @@ exports.saveReview = ctx => {
         // if (ctx.request.body.role != 'professional'  && ctx.request.body.gp_school) {
         //   ctx.query.selectedProvider = "MHST";
         // }
-        if(ctx.request.body.referral_provider !="")
-        {
-         // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
+        if (ctx.request.body.referral_provider != "") {
+          // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
           ctx.query.selectedProvider = ctx.request.body.referral_provider;
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
-              referral_provider: "Sent to " + ctx.request.body.referral_provider 
+              referral_provider: "Sent to " + ctx.request.body.referral_provider
             },
               {
                 where:
