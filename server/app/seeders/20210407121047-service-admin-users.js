@@ -14,7 +14,7 @@ module.exports = {
         email: 'selvakumar+ypas@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'ypas',
+        service_type: 'YPAS',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -25,7 +25,7 @@ module.exports = {
         email: 'selvakumar+venus@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'venus',
+        service_type: 'Venus',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -36,7 +36,7 @@ module.exports = {
         email: 'selvakumar+iaptus@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'iaptus',
+        service_type: 'IAPTUS',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -47,7 +47,18 @@ module.exports = {
         email: 'selvakumar+others@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'others',
+        service_type: 'Other',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'MHST',
+        uuid: uuidv4(),
+        email: 'selvakumar+mhst@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'MHST',
         createdAt: new Date(),
         updatedAt: new Date()
       }
