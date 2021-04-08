@@ -80,117 +80,28 @@
                                 </div>
                                 <!-- Your Info End -->
 
-                                <!-- Interpreter Needed Start -->
-                                <div v-if="userRole == 'child' || userRole == 'parent'"
-                                    class="readOnly-class py-2 w-100 mx-0 row align-items-center">
-                                    <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
-                                        Interpreter needed:
-                                    </label>
-                                    <input
-                                        class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" data-toggle="popover" data-trigger="focus"
-                                        data-placement="bottom" data-content="My popover content."
-                                        v-model="section1Data.need_interpreter" id="InterpreterNeed">
-                                </div>
-                                <!-- Interpreter Needed End -->
-
-                                <!-- Contact Carer -->
-                                <template
-                                    v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
-                                    <div v-if="userRole == 'child'"
-                                        class="readOnly-class py-2 w-100 mx-0 row align-items-center">
-                                        <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
-                                            Contact parent or carer:
-                                        </label>
-                                        <input class="form-control  text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.contact_parent"
-                                            id="parentOrCarerSec5">
-                                    </div>
-                                </template>
-                                <!-- Interpreter Needed End -->
-
-                                <!-- Child's DOB Start -->
-                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobChilds">
-                                        Child's D.O.B:
-                                    </label>
-                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
-                                        v-model="section1Data.child_dob" id="dobChilds">
-                                </div>
-                                <!-- Child's DOB Start -->
-
-                                <!-- Consent Given Start -->
-                                <!-- Child and Parent -->
-                                <template v-if="userRole == 'child' || userRole == 'parent'">
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
-                                            Consent given:
-                                        </label>
-                                        <input
-                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.consent_child"
-                                            id="consentGivenSec5">
-                                    </div>
-                                </template>
-                                <!-- Child and Parent -->
-
-                                <!-- Child -->
-                                <template v-if="userRole == 'child' && section1Data.contact_parent_camhs">
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
-                                            Contact parent or carer:
-                                        </label>
-                                        <input
-                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.contact_parent_camhs"
-                                            id="canReasonCamhs">
-                                    </div>
-                                </template>
-                                <!-- Child and Parent -->
-
-                                <!-- Child -->
-                                <template
-                                    v-if="userRole == 'child' && section1Data.contact_parent_camhs && section1Data.reason_contact_parent_camhs">
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
-                                            Reason for no contact:
-                                        </label>
-                                        <input
-                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.reason_contact_parent_camhs"
-                                            id="reasonCamhs">
-                                    </div>
-                                </template>
-                                <!-- Child and Parent -->
-
-                                <!-- Professional -->
-                                <template v-if="userRole == 'professional'">
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenChild">
-                                            Consent given by child:
-                                        </label>
-                                        <input
-                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.consent_child"
-                                            id="consentGivenChild">
-                                    </div>
-
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
-                                            Consent given by parent:
-                                        </label>
-                                        <input
-                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.consent_parent"
-                                            id="consentGivenPar">
-                                    </div>
-
-                                </template>
-                                <!-- Professional -->
-                                <!-- Consent Given End -->
-
                                 <!-- Professional Info Start -->
-                                <template v-if="userRole == 'professional'">
+                                <div v-if="userRole == 'professional'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="serviceLocation">
+                                           Service location:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.service_location"
+                                            id="serviceLocation">
+                                    </div>
+
+                                    <div  v-if="section1Data.service_location!='I do not want to select a service'"  class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="selectedService">
+                                           Selected service:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.selected_service"
+                                            id="selectedService">
+                                    </div>
+
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddressSec5">
                                             First name:
@@ -204,11 +115,12 @@
                                                     v-model="section1Data.professional_name" id="profAddressSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                                 <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_name),
-                                                'invalid-fields':!section1Data.professional_name }">
+                                                    'invalid-fields':!section1Data.professional_name }">
                                                     You must provide a first name.
                                                 </small>
                                             </div>
@@ -229,11 +141,12 @@
                                                     v-model="section1Data.professional_lastname" id="profLastNameSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                                 <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_lastname),
-                                                'invalid-fields':!section1Data.professional_lastname }">
+                                                    'invalid-fields':!section1Data.professional_lastname }">
                                                     You must provide a last name.
                                                 </small>
                                             </div>
@@ -256,7 +169,7 @@
                                                     v-model="section1Data.professional_email" id="profEmailSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                             </div>
@@ -281,17 +194,17 @@
                                                     id="profContactSec5">
                                                 <div class="input-group-append">
                                                     <span class="input-group-text font-23">
-                                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
                                                     </span>
                                                 </div>
                                             </div>
                                             <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_contact_number),
-                                            'invalid-fields':!section1Data.professional_contact_number }">
+                                                'invalid-fields':!section1Data.professional_contact_number }">
                                                 You must provide a number.
                                             </small>
                                             <small class="invalid-feedback d-none"
                                                 v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)),
-                                            'invalid-fields':(section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)) }">
+                                                'invalid-fields':(section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)) }">
                                                 You must provide a valid number.
                                             </small>
                                         </div>
@@ -306,7 +219,7 @@
                                             class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="section1Data.professional_address"
                                             id="profAddress1Sec5">
-                                            </textarea>
+                                                </textarea>
                                     </div>
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
@@ -322,15 +235,125 @@
                                                     v-model="section1Data.professional_profession"
                                                     id="profProfessionSec5">
                                                 <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection1Submitted && !section1Data.professional_profession),
-                                                'invalid-fields':!section1Data.professional_profession }">
+                                                    'invalid-fields':!section1Data.professional_profession }">
                                                     You must provide your profession.
                                                 </small>
                                             </div>
                                         </div>
                                     </div>
 
-                                </template>
+                                </div>
                                 <!-- Professional Info End -->
+
+                                <!-- Interpreter Needed Start -->
+                                <div v-if="userRole == 'child' || userRole == 'parent'"
+                                    class="readOnly-class py-2 w-100 mx-0 row align-items-center">
+                                    <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
+                                        Interpreter needed:
+                                    </label>
+                                    <input
+                                        class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                        readonly type="text" data-toggle="popover" data-trigger="focus"
+                                        data-placement="bottom" data-content="My popover content."
+                                        v-model="section1Data.need_interpreter" id="InterpreterNeed">
+                                </div>
+                                <!-- Interpreter Needed End -->
+
+                                <!-- Contact Carer -->
+                                <div
+                                    v-if="(userRole == 'child') && (section1Data.contact_parent!='' &&  section1Data.contact_parent_camhs=='')">
+                                    <div v-if="userRole == 'child'"
+                                        class="readOnly-class py-2 w-100 mx-0 row align-items-center">
+                                        <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
+                                            Contact parent or carer:
+                                        </label>
+                                        <input class="form-control  text-capitalize col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.contact_parent"
+                                            id="parentOrCarerSec5">
+                                    </div>
+                                </div>
+                                <!-- Interpreter Needed End -->
+
+                                <!-- Child's DOB Start -->
+                                <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="dobChilds">
+                                        Child's D.O.B:
+                                    </label>
+                                    <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
+                                        v-model="section1Data.child_dob" id="dobChilds">
+                                </div>
+                                <!-- Child's DOB Start -->
+
+                                <!-- Consent Given Start -->
+                                <!-- Child and Parent -->
+                                <div v-if="userRole == 'child' || userRole == 'parent'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
+                                            Consent given:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.consent_child"
+                                            id="consentGivenSec5">
+                                    </div>
+                                </div>
+                                <!-- Child and Parent -->
+
+                                <!-- Child -->
+                                <div v-if="userRole == 'child' && section1Data.contact_parent_camhs">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
+                                            Contact parent or carer:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.contact_parent_camhs"
+                                            id="canReasonCamhs">
+                                    </div>
+                                </div>
+                                <!-- Child and Parent -->
+
+                                <!-- Child -->
+                                <div
+                                    v-if="userRole == 'child' && section1Data.contact_parent_camhs && section1Data.reason_contact_parent_camhs">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="reasonCamhs">
+                                            Reason for no contact:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.reason_contact_parent_camhs"
+                                            id="reasonCamhs">
+                                    </div>
+                                </div>
+                                <!-- Child and Parent -->
+
+                                <!-- Professional -->
+                                <div v-if="userRole == 'professional'">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenChild">
+                                            Consent given by child:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.consent_child"
+                                            id="consentGivenChild">
+                                    </div>
+
+                                    <div v-if="ageFlag < 15"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
+                                            Consent given by parent:
+                                        </label>
+                                        <input
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="section1Data.consent_parent"
+                                            id="consentGivenPar">
+                                    </div>
+
+                                </div>
+                                <!-- Professional -->
+                                <!-- Consent Given End -->
 
                                 <!-- Gp Start -->
                                 <div class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
@@ -339,7 +362,16 @@
                                     </label>
                                     <textarea
                                         class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section1Data.registerd_gp" id="gpLoc">
+                                        readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
+                                        </textarea>
+                                </div>
+                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
+                                        Child School:
+                                    </label>
+                                    <textarea
+                                        class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                        readonly type="text" v-model="section1Data.gp_school" id="gpLoc">
                                         </textarea>
                                 </div>
                                 <!-- Gp End -->
@@ -409,6 +441,28 @@
                                 </div>
                                 <!-- NHS Number End -->
 
+                                <!-- Child's title Start -->
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
+                                        Title:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select
+                                                class="custom-select h-50px custom-select h-50px  input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','child_name_title')"
+                                                v-model="section2Data.child_name_title">
+                                                <option value="Mr">Mr</option>
+                                                <option value="Miss">Miss</option>
+                                                <option value="Ms">Ms</option>
+                                                <option value="Mrs">Mrs</option>
+                                                <option value="Mx">Mx</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- Child's title End -->
+
                                 <!-- Full name Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameSec5">
@@ -416,13 +470,26 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
+                                            <!-- <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="section2Data.child_name_title"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_name_title')">
+                                                        <option selected="selected" value="Mr">Mr</option>
+                                                        <option value="Miss">Miss</option>
+                                                        <option value="Ms">Ms</option>
+                                                        <option value="Mrs">Mrs</option>
+                                                        <option value="Mx">Mx</option>
+                                                    </select>
+                                                </span>
+                                            </div> -->
                                             <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_name')"
                                                 placeholder="Enter first name" type="text"
                                                 v-model="section2Data.child_name" id="nameSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
-                                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -447,7 +514,7 @@
                                                 v-model="section2Data.child_lastname" id="nameSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
-                                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -472,7 +539,7 @@
                                                 v-model="section2Data.child_email" id="emailSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
-                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -484,7 +551,21 @@
                                     </div>
                                 </div>
                                 <!-- Email End -->
-
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Contact type:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.contact_type"
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
@@ -498,7 +579,7 @@
                                                 v-model="section2Data.child_contact_number" id="cont">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
-                                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -572,6 +653,24 @@
                                                 <option class='option-text' value="Yes">Yes</option>
                                                 <option class='option-text' value="No">No</option>
                                                 <option class='option-text' value="Unsure">Unsure</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Sex at birth:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.sex_at_birth"
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option class='option-text' value="Male">Male</option>
+                                                <option class='option-text' value="Female">Female</option>
+                                                <option class='option-text' value="Prefer not to say">Prefer not to say
+                                                </option>
                                             </select>
                                         </span>
                                     </div>
@@ -710,7 +809,7 @@
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <input class="form-control  text-capitalize" readonly type="text"
                                             @input="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.parential_responsibility" id="parResp">
+                                            v-model="section2Data.parental_responsibility" id="parResp">
                                     </div>
                                 </div>
 
@@ -742,7 +841,7 @@
                                                 v-model="section2Data.parent_contact_number" id="contSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
-                                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -770,7 +869,7 @@
                                                 v-model="section2Data.parent_email" id="emailparentSec5">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
-                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
                                                 </span>
                                             </div>
                                         </div>
@@ -803,7 +902,7 @@
                                     </div> -->
                                 </div>
 
-                                <template v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
+                                <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parCarrerAdd5">
                                             Parent/carer's address:
@@ -816,7 +915,7 @@
                                             </textarea>
                                         </div>
                                     </div>
-                                </template>
+                                </div>
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
@@ -1000,7 +1099,7 @@
                                     </div> -->
                                 </div>
 
-                                <template v-if="section3Data.child_socialworker == 'yes'">
+                                <div v-if="section3Data.child_socialworker == 'yes'">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0"
                                             for="socialworkerNameSec5">
@@ -1060,7 +1159,7 @@
                                         </div>
                                     </div>
 
-                                </template>
+                                </div>
 
                                 <div class="text-center py-4">
                                     <button @click="updateInfo($event,section3Data,'/user/updateSec3Info')" disabled
@@ -1130,7 +1229,7 @@
                                     </div>
                                 </div>
 
-                                <template v-if="section4Data.eating_disorder_difficulties">
+                                <div v-if="section4Data.eating_disorder_difficulties">
                                     <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0">
                                             Main eating disorder difficulties
@@ -1141,9 +1240,22 @@
                                             v-model="section4Data.eating_disorder_difficulties"
                                             readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
                                     </div>
-                                </template>
+                                </div>
 
-                                <template v-if="section4Data.eating_disorder_difficulties">
+                                <div v-if="section4Data.food_fluid_intake">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                           Food/fluid intake
+                                        </label>
+                                        <textarea
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                            name="infoTextAreas" id="textFood" rows="3"
+                                            v-model="section4Data.food_fluid_intake"
+                                            readonly>{{section4Data.food_fluid_intake}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="section4Data.eating_disorder_difficulties">
                                     <div class=" py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="heightSect5">
                                             Height
@@ -1155,9 +1267,9 @@
                                                 @input="onDetectChange($event,'sect4','section4Data', 'height')">
                                         </div>
                                     </div>
-                                </template>
+                                </div>
 
-                                <template v-if="section4Data.eating_disorder_difficulties">
+                                <div v-if="section4Data.eating_disorder_difficulties">
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="weightSect5">
                                             Weight
@@ -1169,7 +1281,7 @@
                                                 @input="onDetectChange($event,'sect4','section4Data', 'weight')">
                                         </div>
                                     </div>
-                                </template>
+                                </div>
 
                                 <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0">
@@ -1329,7 +1441,7 @@
                 <!-- Contact preferences Start -->
 
                 <!--Select a provider Start -->
-                <div v-if="userRole === 'professional'" class="py-3">
+                <!-- <div v-if="userRole === 'professional'" class="py-3">
                     <h2 class="py-2 px-3 mb-2 question-header-font">
                         Do you want to select a provider to receive this referral?
                     </h2>
@@ -1353,15 +1465,15 @@
                         v-bind:class="{ 'd-block': (isFormSubmitted && !selectProvider), 'invalid-fields':!selectProvider}">
                         You must provide an answer.
                     </div>
-                </div>
+                </div> -->
                 <!--Select a provider end -->
 
                 <!-- Provider List Start-->
-                <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3">
-                    <h2 class="py-2 px-3 mb-2 question-header-font">
+                <!-- <div v-if="(userRole === 'professional' && selectProvider == 'Yes')" id="providerList" class="py-3"> -->
+                <!-- <h2 class="py-2 px-3 mb-2 question-header-font">
                         Please select Provider:
-                    </h2>
-                    <!-- <div class="py-2 px-3 m-0 review-header-font">
+                    </h2> -->
+                <!-- <div class="py-2 px-3 m-0 review-header-font">
                         {{ apos.area(data.page, 'review_contact', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -1374,7 +1486,7 @@
                         }
                         }) }}
                     </div> -->
-                    <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
+                <!-- <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
                         {{ apos.area(data.page, 'review_contactSub', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -1387,7 +1499,7 @@
                         }
                         }) }}
                     </div> -->
-                    <div class="px-3 m-0 question-header-font">
+                <!-- <div class="px-3 m-0 question-header-font">
                         <div class="form-check pt-3 pl-0">
                             <input type="radio" class="form-check-input" @change="changeProvider($event)" id="YPAS"
                                 value="YPAS" v-model="sendRef">
@@ -1412,7 +1524,7 @@
                             <label for="sendRefDirOther" class="form-check-label option-font d-flex align-items-center">
                                 Other</label>
                         </div>
-                        <template v-if="addMoreOrg">
+                        <div v-if="addMoreOrg">
                             <div class="form-group pt-4 pb-0 m-0 w-75">
                                 <label for="whereToSend" class="question-font mb-3">Enter the name of where you want to
                                     send
@@ -1425,14 +1537,14 @@
                                 v-bind:class="{ 'd-block': (isFormSubmitted && sendRef =='Other' && !nameForOthers), 'invalid-fields':(isFormSubmitted && sendRef =='Other' && !nameForOthers)}">
                                 You must provide an answer.
                             </div>
-                        </template>
+                        </div>
 
-                    </div>
-                    <div class="invalid-feedback d-none m-0 px-3 py-2"
+                    </div> -->
+                <!-- <div class="invalid-feedback d-none m-0 px-3 py-2"
                         v-bind:class="{ 'd-block': (isFormSubmitted && !sendRef.length), 'invalid-fields':!sendRef.length}">
                         You must provide an answer.
                     </div>
-                </div>
+                </div> -->
                 <!-- Provider List End-->
 
 

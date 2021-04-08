@@ -7,25 +7,28 @@ $(document).ready(function () {
             labelToDisplay: "",
             aboutObj: {
                 nhsNumber: "",
+                childNameTitle: "",
                 childFirstName: "",
-                childLastName:"",
+                childLastName: "",
                 childEmail: "",
+                contactMode: "mobile",
                 childContactNumber: "",
                 childAddress: "",
                 sendPost: "",
                 childGender: "",
                 childIdentity: "",
+                sexAssignedAtBirth: "",
                 childSexualOrientation: "",
                 childEthnicity: "",
                 childCareAdult: "",
                 parentFirstName: "",
-                parentLastName:"",
-                referral_progress: 40 
+                parentLastName: "",
+                referral_progress: 40,
             },
             aboutFormData: {
                 parentialResponsibility: "",
                 parentCarerFirstName: "",
-                parentCarerLastName:"",
+                parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
                 emailAddress: "",
@@ -50,7 +53,7 @@ $(document).ready(function () {
                 relationShip: '',
                 dob: '',
                 profession: '',
-                lastName:''
+                lastName: ''
             },
             allHouseHoldMembers: [],
             isFormSubmitted: false,
@@ -150,7 +153,7 @@ $(document).ready(function () {
                     this.patchValue(successData);
                     $('#loader').hide();
                 } else {
-                    console.error('error')
+                    //console.error('error')
                     $('#loader').hide();
                 }
             },
@@ -163,12 +166,15 @@ $(document).ready(function () {
 
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
-                //console.log(data)
                 this.userRole = document.getElementById('uRole').innerHTML;
                 if (this.userRole == "child") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data.child_NHS);
+                        if (data.child_name_title != null) {
+                            Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
+                        }
+                        Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
                         Vue.set(this.aboutObj, "childFirstName", data.child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data.child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data.child_email);
@@ -180,30 +186,40 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childSexualOrientation", data.child_sexual_orientation);
                         Vue.set(this.aboutObj, "childEthnicity", data.child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
+                        if (data.contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data.contact_type);
+                        }
+                        if (data.sex_at_birth != null) {
+                            Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
+                        }
+                        // Vue.set(this.aboutObj, "contactMode", data.contact_type);
+                        // Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
                         this.allHouseHoldMembers = data.household_member;
                         Vue.set(this.aboutObj, "parentFirstName", data.parent[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data.parent[0].parent_lastname);
-                        Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parential_responsibility);
+                        Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parental_responsibility);
                         //  ue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
-                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parential_responsibility)
-                        Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname); 
-                        Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname); 
+                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parental_responsibility)
+                        Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname);
+                        Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
                         Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
                         Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
                         Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
-                        Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
                         Vue.set(this.aboutObj, "referral_progress", data.referral_progress == 20 ? 40 : data.referral_progress);
                     }
 
                 }
                 else if (this.userRole == "parent") {
-
                     if (data[0].parent[0].child_firstname != null) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
+                        if (data[0].parent[0].child_name_title != null) {
+                            Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        }
+                        //Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
@@ -216,14 +232,22 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
+                        if (data[0].parent[0].contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
+                        }
+                        if (data[0].parent[0].sex_at_birth != null) {
+                            Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
+                        }
+                        // Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
+                        // Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
                         //Vue.set(this.aboutObj, "parentContactName", data[0].responsibility_parent_firstname);
                         this.allHouseHoldMembers = data[0].household_member;
-                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
-                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
+                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
+                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
-                        Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname); 
+                        Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
@@ -239,6 +263,10 @@ $(document).ready(function () {
                     if (data[0] != undefined && data[0].parent[0] != undefined) {
                         this.editPatchFlag = true;
                         Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
+                        if (data[0].parent[0].child_name_title != null) {
+                            Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        }
+                        //Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
@@ -250,6 +278,14 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childSexualOrientation", data[0].parent[0].child_sexual_orientation);
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
+                        if (data[0].parent[0].contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
+                        }
+
+                        if (!data[0].parent[0].sex_at_birth != null) {
+                            Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
+                        }
+
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
                             this.allHouseHoldMembers = data[0].parent[0].household_member;
@@ -258,10 +294,10 @@ $(document).ready(function () {
                         }
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
-                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parential_responsibility);
-                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parential_responsibility)
+                        Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
+                        this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
-                        Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname); 
+                        Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
@@ -278,9 +314,9 @@ $(document).ready(function () {
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
-                if (formData.contactNumber && formData.relationshipToYou &&
+                if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
-                    formData.childIdentity && formData.sendPost && formData.childAddress && formData.childFirstName && formData.childLastName && formData.childContactNumber
+                    formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childAddress && formData.childFirstName && formData.childLastName && formData.childContactNumber
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
 
@@ -305,6 +341,8 @@ $(document).ready(function () {
                     } else {
                         this.payloadData.userMode = 'add';
                     }
+                    // this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
+                    // var lastName = this.maritalStatus + '' + this.payloadData.aboutData.childLastName;
                     this.upsertAboutYouForm(this.payloadData);
 
                 } else {
@@ -341,7 +379,7 @@ $(document).ready(function () {
                     }
                 } else {
                     $('#loader').hide();
-                    console.log('empty response')
+                    // console.log('empty response')
                 }
             },
 

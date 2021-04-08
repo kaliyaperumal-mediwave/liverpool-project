@@ -424,20 +424,20 @@ $(document).ready(function () {
             });
         }
         // searchable dropdown for  orcha page
-        if(document.getElementById('category_list')) {
+        if (document.getElementById('category_list')) {
             $('#category_list').multiselect({
                 includeSelectAllOption: false,
                 multiple: false,
-                enableFiltering: true ,
+                enableFiltering: true,
                 enableCaseInsensitiveFiltering: true
             });
         }
 
-        if(document.getElementById('countrySelect')) {
+        if (document.getElementById('countrySelect')) {
             $('#countrySelect').multiselect({
                 includeSelectAllOption: false,
                 multiple: false,
-                enableFiltering: true ,
+                enableFiltering: true,
                 enableCaseInsensitiveFiltering: true
             });
         }
@@ -478,6 +478,7 @@ function logOut() {
         type: "get",
         dataType: 'json',
         async: false,
+        cache: false,
         contentType: 'application/json',
         success: function (res) {
             $('#logoutModal').modal('hide');

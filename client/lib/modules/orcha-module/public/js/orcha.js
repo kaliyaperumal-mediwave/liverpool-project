@@ -4,38 +4,41 @@ $(document).ready(function () {
         el: '#orchaDetailPage',
         data: {
             paramValues: {},
-            appObj:{},
+            appObj: {},
             searchQuery: null,
             filteredData: [],
             showSearchResults: false,
             resources: [],
-            searchQueryToLower:null,
+            searchQueryToLower: null,
             showAppContent: false
         },
         beforeMount: function () {
-           $('#loader').show();
+            $('#loader').show();
         },
 
         mounted: function () {
             this.paramValues = getUrlVars(location.href);
             this.getAppsDetail(this.paramValues.app_id);
-            // setTimeout(function () {
-            //     $('#loader').hide();
-            // }, 1000);
+            setTimeout(function () {
+                $('#loader').hide();
+            }, 1000);
+
             try {
-                if(document.getElementById('resources') && document.getElementById('resources').value) {
+                if (document.getElementById('resources') && document.getElementById('resources').value) {
                     this.resources = JSON.parse(document.getElementById('resources').value);
                 } else {
                     this.resources = [];
                 }
             } catch (error) {
-                // $('#loader').hide();
+                //console.log(error);
+                $('#loader').hide();
             }
         },
 
         methods: {
+
             getAppsDetail: function (appId) {
-                var successData = apiCallGet('get', '/getApp/'+appId, API_URI);
+                var successData = apiCallGet('get', '/getApp/' + appId, API_URI);
                 this.appObj = JSON.parse(JSON.stringify(successData.data.result));
                 this.appObj.categoryName = this.appObj.subCategories && this.appObj.subCategories.length ? this.appObj.subCategories.join(', ') : '';
                 this.appObj.review_date = moment(this.appObj.reviewDate).format("DD/MM/YYYY");
@@ -44,12 +47,20 @@ $(document).ready(function () {
                 this.appObj.data_privacy_score = parseInt(this.appObj.smallAppCardInfo.dataPrivacyScore);
                 this.appObj.clinical_assurance_score = parseInt(this.appObj.smallAppCardInfo.clinicalAssuranceScore);
                 this.appObj.user_experience_score = parseInt(this.appObj.smallAppCardInfo.userExperienceScore);
-                if(!this.appObj.screenshots || (this.appObj.screenshots && this.appObj.screenshots.length && this.appObj.screenshots[0] == "")) {
+                if (!this.appObj.screenshots || (this.appObj.screenshots && this.appObj.screenshots.length && this.appObj.screenshots[0] == "")) {
                     this.appObj.screenshots = [];
                 }
                 this.showAppContent = true;
                 $('#loader').hide();
+                //  //console.log(this.appObj)
             },
+
+            handleError: function (e) {
+                e.target.src = "/modules/my-apostrophe-assets/img/no-img.svg";
+                e.target.style.height = 50;
+                e.target.style.width = 50;
+            },
+
             filterApps: function () {
                 this.searchQueryToLower = this.searchQuery.toLowerCase();
                 if (this.searchQueryToLower) {
@@ -67,6 +78,7 @@ $(document).ready(function () {
                     return this.filteredData = [];
                 }
             },
+
             toggleArrow: function (e, section, allData) {
                 var ele = e.target;
                 var elemId = e.target.id;

@@ -43,7 +43,7 @@ $(document).ready(function () {
                     error: function (err) {
                         $('#piecesLoader').hide();
                         // document.getElementById('bebd7580-30a2-4ba6-9c36-1687d292d5da').style.pointerEvents = 'apply';
-                        console.log(err)
+                        //console.log(err)
                     },
                 })
             },

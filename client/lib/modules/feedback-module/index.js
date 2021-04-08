@@ -21,9 +21,9 @@ module.exports = {
 
     self.route('post', 'feedback', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/feedback';
-      console.log(req.body, "req.body=========");
+     // console.log(req.body, "req.body=========");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        console.log(data);
+       // console.log(data);
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

@@ -62,6 +62,8 @@ router.put('/admin/referral', adminController.updateReferral);
 router.get('/admin/getAllreferral', adminController.getAllReferral);
 router.get('/admin/downloadReferral', adminController.downloadReferral);
 router.get('/admin/sendReferral', adminController.sendReferral);
+router.get('/admin/getArchived', adminController.getArchived);
+
 
 //orcha
 router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);

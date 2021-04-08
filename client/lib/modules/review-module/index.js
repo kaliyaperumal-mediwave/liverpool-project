@@ -48,7 +48,7 @@ module.exports = {
     self.route('get', 'fetchReview/:userid', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchReview?user_id=' + req.params.userid;
       console.log("-------");
-      console.log(req.params.userid);
+      //console.log(req.params.userid);
       console.log(url);
       console.log("-------");
       self.middleware.get(req, url).then((data) => {

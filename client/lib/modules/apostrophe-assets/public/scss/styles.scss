@@ -27,14 +27,34 @@ body {
     border: 1px solid #023047;
     border-radius: 3px;
   }
+
+  .multiselect__single {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .multiselect__select:before {
     border-color: #023047 transparent transparent !important;
   }
 
   .multiselect__tag {
     background: #023047;
+    width: 100px !important;
+    margin-right: 5px !important;
+    @include lg-secondary {
+      margin: 0px !important;
+      width: 47% !important;
+    }
   }
-
+  .multiselect__strong {
+    @include lg-secondary {
+      font-size: 12px;
+    }
+  }
+  .multiselect__tags {
+    padding: 8px 25px 0 4px !important;
+  }
   .multiselect__tag-icon:focus,
   .multiselect__tag-icon:hover {
     background: #023047 !important;
@@ -43,14 +63,22 @@ body {
   .pagination {
     font-family: "century-gothic" !important;
   }
-  .page-item.active .page-link {
-    background-color: #023047 !important;
-    border-color: #023047 !important;
+
+  #orchaPagination {
+    .page-item.active .page-link {
+      background-color: #023047 !important;
+      border-color: #023047 !important;
+    }
   }
 
-  .badge-warning {
-    background-color: $tertiary-color !important;
+  .multiselect__input,
+  .multiselect__single {
+    width: 100% !important;
   }
+
+  // .badge-warning {
+  //   background-color: $tertiary-color !important;
+  // }
 
   .b-pagination {
     font-family: "century-gothic" !important;
@@ -277,12 +305,17 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
+    30px;
   background-size: contain;
 }
 
 .ham-icon {
   color: $primary-color;
+}
+.ham-icon-header {
+  color: $primary-color;
+  @include set-background($header-color, 1);
 }
 .toggleColor-primaryColor {
   color: $primary-color;
@@ -357,7 +390,8 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
+    fixed !important;
   background-size: cover !important;
 }
 
@@ -689,6 +723,10 @@ a {
   }
 }
 
+.orcha-link {
+  @include set-titleStyles($hint-font-size, bold, $primary-color);
+}
+
 /* Auth Pages  style end */
 
 /* Urgent Help style start */
@@ -905,6 +943,10 @@ a {
   @include set-titleStyles($support-header-font-size, bold, $primary-color);
 }
 
+.referral-feedback {
+  @include set-titleStyles($support-header-font-size, bold, $primary-color);
+}
+
 .completed-toast-header {
   @include set-titleStyles($secondary-font-size, bold, $primary-color);
   @include xs-screen {
@@ -1114,7 +1156,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat fixed;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat ;
   background-size: cover !important;
   height: 100%;
 }
@@ -1142,7 +1185,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -1456,10 +1500,12 @@ a {
 }
 .logo {
   width: 100px;
-  height: 25px;
+  height: 50px;
   align-items: center;
-  display: grid;
   margin-left: 38px;
+  @include md-dec-screen {
+    margin-top: 0px;
+  }
 }
 .butLogo-cont {
   display: flex;
@@ -1498,7 +1544,7 @@ a {
 }
 .header-slider {
   height: 70px;
-  padding: 0px 15px;
+  padding: 0px 4px;
 }
 .padding-set {
   padding: 0px 25px;
@@ -1551,7 +1597,7 @@ a {
   z-index: 1032;
   transition: left 0.25s ease;
   background-color: #023047;
-  @include ssm-dec-screen{
+  @include ssm-dec-screen {
     width: 320px;
   }
 }
@@ -1742,14 +1788,14 @@ select.selectIcon {
 }
 .recent_referrals {
   color: #023047;
-  font-size: 22px;
+  font-size: 18px;
   font-weight: bold;
   padding-bottom: 8px;
   @include xl-screen {
-    font-size: 26px;
+    font-size: 20px;
   }
   @include xxl-screen {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 .recent_content {
@@ -1846,7 +1892,6 @@ select.selectIcon {
   border-radius: 10px;
   align-items: center;
   justify-content: center;
-  background-color: #fafafa;
   margin-top: 30px;
 }
 .text-complete {
@@ -1999,7 +2044,7 @@ select.selectIcon {
   }
   .logo {
     width: 140px;
-    height: 50px;
+    height: 54px;
   }
   .footer-container {
     height: fit-content;
@@ -2748,7 +2793,8 @@ $color-scheme: (
       url("/modules/my-apostrophe-assets/img/placeholder.svg"),
       #fafafa,
       #112f45,
-      #e8edee
+      #e8edee,
+      #dedede
     )
     (
       on,
@@ -2768,7 +2814,8 @@ $color-scheme: (
       url("/modules/my-apostrophe-assets/img/placeholder_white.svg"),
       #535454,
       #fafafa,
-      #656767
+      #656767,
+      #535454
     )
 );
 @mixin theme(
@@ -2789,16 +2836,33 @@ $color-scheme: (
   $bg-place,
   $admin-bg-color,
   $border-color,
-  $admin-btn-bg-color
+  $admin-btn-bg-color,
+  $admin-select-tab
 ) {
   .#{$name} {
+
     .body-bg {
-      background: #8ecae6 $background no-repeat fixed !important;
+      background: #8ecae6 $background no-repeat !important;
       background-size: cover !important;
       height: 100%;
     }
     .home-primary-content-bg {
       background: $primary 0% 0% no-repeat padding-box;
+    }
+    .text_blog {
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .card-bg-set {
+      background: $primary 0% 0% no-repeat padding-box;
+    }
+    .recent_referrals {
+      color: $secondary;
+    }
+    .referral-feedback {
+      color: $secondary;
+    }
+    .close-icon:after{
+      color: $secondary;
     }
     .card-set-container-bg {
       background: $primary 0% 0% no-repeat padding-box;
@@ -2809,6 +2873,9 @@ $color-scheme: (
     }
     .main-content-area {
       background: $primary 0% 0% no-repeat padding-box;
+    }
+    .text-complete-active {
+      background: $admin-select-tab !important;
     }
     .last-content-area {
       background: $primary 0% 0% no-repeat padding-box;
@@ -2905,6 +2972,9 @@ $color-scheme: (
     .bg-set-on-card {
       background: $card-bg-color;
     }
+    .bg-values {
+      background: $primary;
+    }
     .footer-content {
       color: $secondary;
     }
@@ -2948,6 +3018,18 @@ $color-scheme: (
     }
     .auth-font {
       color: $secondary;
+    }
+    .dropdown.d-flex.justify-content-end.align-items-center.show * {
+      color: $secondary !important;
+    }
+    .list-set-form {
+      color: $secondary;
+      background-color: $primary !important;
+      border-bottom: 1px solid $secondary !important;
+    }
+    .list-set-form1 {
+      color: $secondary;
+      background-color: $primary !important;
     }
     .auth-link {
       color: $togglePrimary !important;
@@ -3003,6 +3085,21 @@ $color-scheme: (
     .resource_search_text {
       color: $secondary;
     }
+    .recent_content {
+      color: $secondary;
+    }
+    .themeText {
+      color: $secondary;
+    }
+    .collapse-title {
+      color: $secondary;
+    }
+    .collapse-para {
+      color: $secondary;
+    }
+    .collapse-container {
+      background-color: $input-form-color;
+    }
     .content-secondary-header-text {
       color: $togglePrimary;
       h3 {
@@ -3025,6 +3122,10 @@ $color-scheme: (
     }
     .ham-icon {
       color: $secondary;
+    }
+    .ham-icon-header {
+      color: $secondary;
+      @include set-background($header-color, 1);
     }
     .selectSource {
       color: $secondary;
@@ -3082,9 +3183,11 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
+  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color,
+  $admin-select-tab in $color-scheme
 {
   @include theme(
     $name,
@@ -3104,7 +3207,8 @@ $color-scheme: (
     $bg-place,
     $admin-bg-color,
     $border-color,
-    $admin-btn-bg-color
+    $admin-btn-bg-color,
+    $admin-select-tab
   );
 }
 
@@ -3341,6 +3445,7 @@ $color-scheme: (
 i.fa.fa-map-marker {
   font-weight: 600;
   color: #023047;
+  font-size: 30px;
 }
 .p-16 {
   padding: 16px !important;
@@ -3497,9 +3602,7 @@ div.collapse-container.collapsing {
 }
 .search-btn-set {
   margin: auto auto auto 10px !important;
-  width: 74px;
   height: 41px;
-  display: flex !important;
   align-items: center;
 }
 .search-btn-set span {
@@ -3521,4 +3624,92 @@ div.collapse-container.collapsing {
 }
 .active-border {
   border: 1px solid #212529 !important;
+}
+.common-fa-fa {
+  font-weight: 600 !important;
+  color: #023047 !important;
+}
+.list-inside ul li {
+  list-style: inside;
+}
+// input[type="search"]#example-search-input:focus::-webkit-search-cancel-button{
+//   // color: #fff !important;
+//   height: 10px;
+//  width: 10px;
+//  background: red;
+// }
+.search-box,.close-icon,.search-wrapper {
+	position: relative;
+	// padding: 10px;
+}
+.search-wrapper {
+	// width: 500px;
+  display: contents;
+	// margin: auto;
+	// margin-top: 50px;
+}
+.search-box {
+	width: 80%;
+	border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px;
+}
+.search-box:focus {
+	box-shadow: 0 0 15px 5px #b0e0ee;
+	border: 2px solid #bebede;
+}
+.close-icon {
+	border:1px solid transparent;
+	background-color: transparent;
+	display: inline-block;
+	vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+  display: contents;
+}
+.close-icon:after {
+  content: "X";
+      display: block;
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      background-color: transparent;
+      z-index: 1;
+      right: 10px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      padding: 2px;
+      text-align: center;
+      color: #025ec5;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+}
+.search-box:not(:valid) ~ .close-icon {
+	display: none;
+}
+.wid-80{
+  width: 80%;
+}
+.border-bottom-primary.card-body.px-2.px-md-4{
+  height: 70px !important;
+}
+// input[type="search"]::-webkit-search-decoration,
+// input[type="search"]::-webkit-search-cancel-button,
+// input[type="search"]::-webkit-search-results-button,
+// input[type="search"]::-webkit-search-results-decoration {
+//   display: none;
+// }
+.page-link:focus{
+  box-shadow: none !important;
+}
+.custom-mobile-place .custom-select{
+  padding: 10px 22px 10px 10px !important;
+  @include xs-sm-screen{
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 75px;
+  }
 }

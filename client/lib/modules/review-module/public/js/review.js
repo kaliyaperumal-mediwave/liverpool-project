@@ -32,26 +32,6 @@ $(document).ready(function () {
                 'Child Protection Plan',
                 'Other Carer'
             ],
-            mockData: [
-                {
-                    "id": "191afd2b-7d38-4486-b8e3-292d10961ad0",
-                    "dob": "10/01/2021",
-                    "mode": "add",
-                    "name": "Rajkumar",
-                    "randomName": "asdasgdg",
-                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
-                    "relationShip": "Parent"
-                },
-                {
-                    "id": "191afd2b-7d38-4486-b8e3-489897897hj",
-                    "dob": "15/01/2021",
-                    "mode": "add",
-                    "name": "RaMkumar",
-                    "randomName": "87cudfjk",
-                    "profession": "DDRC SRL Diagnostics Pvt.Ltd., Near Mary Queen Church, Ark Building, N.H. Road, Panampilly Nagar, Vandanam, Kerala 682036, India",
-                    "relationShip": "Parent"
-                }
-            ],
             allSectionData: [],
             section1Data: {},
             section2Data: {},
@@ -63,7 +43,7 @@ $(document).ready(function () {
             prevSection4Data: {},
             payloadData: {},
             contactPref: [],
-            selectProvider: '',
+            selectProvider: 'No',
             sendRef: '',
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
@@ -74,15 +54,13 @@ $(document).ready(function () {
             isSection3Submitted: false,
             isSection4Submitted: false,
             showSec1: false,
-            digArray: [],
-            disableSection1Button: false,
             showLoader: false,
             nameForOthers: "",
             addMoreOrg: false,
+            ageFlag: null
         },
 
         // beforeCreate: function () {
-        //     debugger
         //     let spinner = document.querySelector("#loader")
         //     if (spinner.classList.contains("blurred")) {
         //         spinner.classList.remove("blurred");
@@ -119,7 +97,7 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
-            //  console.log(this.payloadData);
+            //  //console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
 
         },
@@ -127,7 +105,6 @@ $(document).ready(function () {
 
             //Get Request to get all section's data
             getAllSectionData: function (payloadData) {
-                // console.log()
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/fetchReview/" + payloadData.userid + "&role=" + payloadData.role,
@@ -136,14 +113,16 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        console.log(data)
+                        //console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
                         _self.section3Data = data.section3;
                         _self.section4Data = data.section4;
+                        _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
 
+                        //Other Reasons for making referral
                         if (_self.section4Data.other_reasons_referral) {
                             if (Array.isArray(_self.section4Data.reason_for_referral)) {
                                 _self.section4Data.reason_for_referral.push(_self.section4Data.other_reasons_referral);
@@ -151,6 +130,16 @@ $(document).ready(function () {
                                 _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral + _self.section4Data.other_reasons_referral;
                             }
                         }
+
+                        //Other Reasons for eating difficulties
+                        if (_self.section4Data.other_eating_difficulties) {
+                            if (Array.isArray(_self.section4Data.eating_disorder_difficulties)) {
+                                _self.section4Data.eating_disorder_difficulties.push(_self.section4Data.other_eating_difficulties);
+                            } else {
+                                _self.section4Data.eating_disorder_difficulties = _self.section4Data.eating_disorder_difficulties + _self.section4Data.other_eating_difficulties;
+                            }
+                        }
+
                         if (_self.section4Data.reason_for_referral) {
                             _self.section4Data.reason_for_referral = _self.section4Data.reason_for_referral.toString();
                         }
@@ -179,7 +168,7 @@ $(document).ready(function () {
                     },
                     error: function (error) {
                         $('#loader').hide();
-                        console.log('Something went Wrong', error)
+                        //console.log('Something went Wrong', error)
                         showError(error.responseJSON.message, error.status);
                     }
                 });
@@ -199,69 +188,96 @@ $(document).ready(function () {
                 this.payloadData.contactPreference = this.contactPref;
                 if (this.userRole == 'child' || this.userRole == 'parent') {
                     if (this.contactPref.length) {
-                        this.payloadData.referral_provider = "";
+                        if(this.section1Data.gp_school !="")
+                        {
+                            this.payloadData.referral_provider = "MHST";
+                        }
+                        else
+                        {
+                            this.payloadData.referral_provider = "";
+                        }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        console.log(successData);
                         if (Object.keys(successData)) {
-                            location.href = "/acknowledge";
+                           location.href = "/acknowledge";
                             this.isFormSubmitted = false;
                         } else {
-                            console.log('empty response')
                         }
                     } else {
                         scrollToInvalidInput();
                         return false;
                     }
 
-                } else {
-                    if (this.contactPref.length && this.selectProvider && this.selectProvider == 'No') {
-                        this.payloadData.referral_provider = "";
+                }
+                else if(this.userRole == 'professional'){
+                    if (this.contactPref.length) {
+                        if(this.section1Data.gp_school!="")
+                        {
+                            this.payloadData.referral_provider ="MHST";
+                        }
+                        else
+                        {
+                            this.payloadData.referral_provider =this.section1Data.selected_service;
+                        }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        console.log(successData);
                         if (Object.keys(successData)) {
                             location.href = "/acknowledge";
                             this.isFormSubmitted = false;
                         } else {
-                            console.log('empty response')
                         }
-                    } else if (this.contactPref.length && this.selectProvider && this.selectProvider == 'Yes') {
-                        if (this.sendRef && (this.sendRef == 'YPAS' || this.sendRef == 'Venus' || this.sendRef == 'IAPTUS')) {
-                            this.payloadData.referral_provider = this.sendRef;
-                            var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                            if (Object.keys(successData)) {
-                                location.href = "/acknowledge";
-                                this.isFormSubmitted = false;
-                            } else {
-                                console.log('empty response')
-                            }
-
-                        } else if (this.sendRef && this.sendRef == 'Other') {
-                            if (this.nameForOthers) {
-                                this.payloadData.referral_provider = this.nameForOthers;
-                                var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                                if (Object.keys(successData)) {
-                                    location.href = "/acknowledge";
-                                    this.isFormSubmitted = false;
-                                } else {
-                                    console.log('empty response')
-                                }
-                            } else {
-                                scrollToInvalidInput();
-                                return false;
-                            }
-
-                        } else {
-                            scrollToInvalidInput();
-                            return false;
-                        }
-
-                    }
-                    else {
+                    } else {
                         scrollToInvalidInput();
                         return false;
                     }
-
                 }
+                //  else {
+                //     if (this.contactPref.length && this.selectProvider && this.selectProvider == 'No') {
+                //         this.payloadData.referral_provider = "";
+                //         var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                //         //console.log(successData);
+                //         if (Object.keys(successData)) {
+                //             location.href = "/acknowledge";
+                //             this.isFormSubmitted = false;
+                //         } else {
+                //             //console.log('empty response')
+                //         }
+                //     } else if (this.contactPref.length && this.selectProvider && this.selectProvider == 'Yes') {
+                //         if (this.sendRef && (this.sendRef == 'YPAS' || this.sendRef == 'Venus' || this.sendRef == 'IAPTUS')) {
+                //             this.payloadData.referral_provider = this.sendRef;
+                //             var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                //             if (Object.keys(successData)) {
+                //                 location.href = "/acknowledge";
+                //                 this.isFormSubmitted = false;
+                //             } else {
+                //                 //console.log('empty response')
+                //             }
+
+                //         } else if (this.sendRef && this.sendRef == 'Other') {
+                //             if (this.nameForOthers) {
+                //                 this.payloadData.referral_provider = this.nameForOthers;
+                //                 var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                //                 if (Object.keys(successData)) {
+                //                     location.href = "/acknowledge";
+                //                     this.isFormSubmitted = false;
+                //                 } else {
+                //                     //console.log('empty response')
+                //                 }
+                //             } else {
+                //                 scrollToInvalidInput();
+                //                 return false;
+                //             }
+
+                //         } else {
+                //             scrollToInvalidInput();
+                //             return false;
+                //         }
+
+                //     }
+                //     else {
+                //         scrollToInvalidInput();
+                //         return false;
+                //     }
+
+                // }
 
             },
 
@@ -367,13 +383,13 @@ $(document).ready(function () {
                     data: JSON.stringify(updateObj),
                     success: function (data) {
                         alert("Your Reference Number" + data.refNo);
-                        console.log(data);
+                        //console.log(data);
                     },
                 });
             },
 
             onValueChange: function (e) {
-                console.log(e);
+                //console.log(e);
                 var buttonElem = document.querySelector('#sect2');
                 if (JSON.stringify(this.prevSection2Data) === JSON.stringify(this.section2Data)) {
                     buttonElem.disabled = true;
@@ -420,7 +436,6 @@ $(document).ready(function () {
             },
 
             updateInfo: function (e, toUpdateObj, endpoint) {
-                //  debugger
                 var formData = toUpdateObj;
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
@@ -449,7 +464,6 @@ $(document).ready(function () {
                             scrollToInvalidInput();
                             return false;
                         }
-
                         this.payloadData.section2Data = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
@@ -581,7 +595,7 @@ $(document).ready(function () {
             },
 
             resetFormSubmitted: function (section, data) {
-                console.log(data);
+                //console.log(data);
                 if (section == 1) {
                     this.isSection1Submitted = false;
                     this.section1Data = data;
@@ -601,6 +615,10 @@ $(document).ready(function () {
                 else if (section == 4) {
                     if (data.other_reasons_referral != null) {
                         data.reason_for_referral.push(data.other_reasons_referral);
+                    }
+
+                    if (data.other_eating_difficulties != null) {
+                        data.eating_disorder_difficulties.push(data.other_eating_difficulties);
                     }
 
                     data.reason_for_referral = data.reason_for_referral.toString();
@@ -624,8 +642,18 @@ $(document).ready(function () {
 
                 }
 
-            }
+            },
 
+            calculateAge: function (birthDate) {
+                birthDate = new Date(birthDate);
+                otherDate = new Date();
+                var years = (otherDate.getFullYear() - birthDate.getFullYear());
+                if (otherDate.getMonth() < birthDate.getMonth() ||
+                    otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
+                    years--;
+                }
+                return years;
+            },
         }
     })
 

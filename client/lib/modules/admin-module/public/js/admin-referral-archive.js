@@ -4,7 +4,7 @@ $(document).ready(function () {
   $("#footer-placement").hide();
   $.fn.dataTable.ext.errMode = "none";
   var vueApp = new Vue({
-    el: "#admin",
+    el: "#admin-referral-archive",
     data: {
       searchTxt: "",
       toggle: true,
@@ -58,7 +58,7 @@ $(document).ready(function () {
 
       fetchReferral: function () {
         var _self = this;
-        $("#adminReferral").DataTable({
+        $("#example").DataTable({
           destroy: true,
           processing: false,
           serverSide: true,
@@ -73,8 +73,12 @@ $(document).ready(function () {
             { targets: 8, orderable: false },
           ],
           order: [[7, "desc"]],
+          language: {
+            searchPlaceholder: "Search referral",
+            emptyTable: "No archived referrals to displays",
+          },
           ajax: {
-            url: "/modules/admin-module/referral",
+            url: "/modules/admin-module/getArchived",
             // url: '/modules/admin-module/getAllreferral',
             type: "GET",
             dataFilter: function (referralRes) {
@@ -122,10 +126,6 @@ $(document).ready(function () {
               return JSON.stringify(json);
             },
           },
-          language: {
-            searchPlaceholder: "Search referral",
-            emptyTable: "No referrals to displays",
-          },
         });
         this.referral_ids = [];
         $("#loader").hide();
@@ -164,20 +164,33 @@ $(document).ready(function () {
           });
           $("#loader").hide();
           if (successData && Object.keys(successData)) {
-            this.successMessage = "Referrals archived successfully .";
+            this.successMessage = "Referrals archived successfully.";
             $("#deletedSuccess").modal("show");
           }
         }
       },
-
+      unArchive: function () {
+        if (this.referral_ids.length) {
+          $("#loader").show();
+          var successData = apiCallPut("put", "/referral", {
+            referral_id: this.referral_ids,
+            status: "completed",
+          });
+          $("#loader").hide();
+          if (successData && Object.keys(successData)) {
+            this.successMessage = "Referrals unarchive successfully.";
+            $("#deletedSuccess").modal("show");
+          }
+        }
+      },
       closeModal: function () {
-        $("#adminReferral").DataTable().ajax.reload();
+        $("#example").DataTable().ajax.reload();
         $("#deletedSuccess").modal("hide");
         this.successMessage = "";
       },
 
       closeMailSuccessPopup: function () {
-        $("#adminReferral").DataTable().ajax.reload();
+        $("#example").DataTable().ajax.reload();
         $("#mailSentSuccess").modal("hide");
       },
 
@@ -195,27 +208,24 @@ $(document).ready(function () {
 });
 
 function viewPdf(uuid, role) {
-  $('#loader').show();
-  var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
-  console.log(successData)
-  var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-  var isIE = false || !!document.documentMode;
-  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-  if(!isIE && !isSafari)
-  {
-    var link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.target = '_blank'
-    link.click();
-    setTimeout(function () {
-      $('#loader').hide();
-    }, 1000);
-  }
-  else
-  {
-    download(blob, uuid+".pdf", "application/pdf");
-    $('#loader').hide();
-  }
+  $("#loader").show();
+  var successData = apiCallGet(
+    "get",
+    "/downloadReferral/" + uuid + "/" + role,
+    API_URI
+  );
+  var blob = new Blob([this.toArrayBuffer(successData.data.data)], {
+    type: "application/pdf",
+  });
+  var link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.target = "_blank";
+  // var fileName = "test.pdf";
+  //link.download = fileName;
+  link.click();
+  setTimeout(function () {
+    $("#loader").hide();
+  }, 1000);
   //link.click();
 }
 

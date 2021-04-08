@@ -98,7 +98,7 @@
                                     v-model="educAndEmpData.attendedInfo">
                                 <div class="input-group-append">
                                     <span class="input-group-text p-16">
-                                        <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-map-marker fa-2x" aria-hidden="true"></i>
                                     </span>
                                 </div>
                                 <div class="invalid-feedback d-none"
@@ -218,7 +218,7 @@
                                     v-model="educAndEmpData.socialWorkName">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text px-3 font-23">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -245,7 +245,7 @@
                                     v-model="educAndEmpData.socialWorkLastName">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text px-3 font-23">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -267,13 +267,22 @@
                             <label for="contactWorker" class="question-font">{{dynamicLabels.socialWorkerContactLabel}}
                                 (if you know it)</label>
                             <div class="input-group">
+                                <div class="input-group-prepend cursor-pointer">
+                                    <span class="plain-select custom-mobile-place">
+                                        <select class="custom-select form-control input-bg-form-control"
+                                            >
+                                            <option selected="selected" value="mobile">Mobile</option>
+                                            <option value="landline">Landline</option>
+                                        </select>
+                                    </span>
+                                </div>
                                 <input type="text" class="form-control input-bg-form-control" id="contactWorker"
                                     inputmode="tel" @input="trimWhiteSpace($event,'educAndEmpData','socialWorkContact')"
                                     placeholder="Enter social worker's phone number"
                                     v-model="educAndEmpData.socialWorkContact">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text px-3 font-25">
-                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>

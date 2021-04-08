@@ -50,8 +50,18 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
               </span>
             </div>
           </span>
-          <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search" v-model="searchQuery"
+          <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
             placeholder="Search your resource" id="example-search-input" @input="filterPieces()" />
+            <!-- <div class="search-wrapper">
+
+              <form class="wid-80">
+              <input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
+              placeholder="Search your resource"
+              id="example-search-input"
+              @input="filterPieces()"  />
+              <button class="close-icon" type="reset"></button>
+              </form>
+              </div> -->
         </div>
         <div id="hideserachblock" class="d-none">
           {% raw %}
@@ -173,7 +183,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
             style="transform: translate3d(-553.333px, 0px, 0px); transition-duration: 0ms;"> -->
         <div class="swiper-wrapper mb-4" id="swiper-wrapper-1047c5a2bc9fc980" aria-live="polite">
           {% for orchaApps in data.orchaApps %}
-          <a href="/downloads?app_id={{orchaApps.id}}"
+          <a href="/apps/details?app_id={{orchaApps.id}}"
             class="swiper-slide text-decoration-none bg-no border-radius-10 swiper-slide-duplicate swiper-slide-duplicate-active"
             data-swiper-slide-index="0" role="group" aria-label="1 / 6" style="width: 246.667px; margin-right: 30px">
             <div class="w-100 position-relative">
@@ -197,6 +207,10 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
                     <img src="/modules/my-apostrophe-assets/img/ios.svg" width="89" height="69"
                       class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
                     {% endif %}
+                    {% if orchaApps.platform == 'Web App' %}
+                    <img src="/modules/my-apostrophe-assets/img/web.svg" width="89" height="69"
+                      class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
+                    {% endif %}
                   </div>
                 </div>
                 <div class="container-bottom-set">
@@ -210,7 +224,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
                   </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-start pl-3 pb-2">
-                  <span style="text-decoration: underline !important" class="link-text cursor-pointer">More info</span>
+                  <span style="text-decoration: underline !important" class="orcha-link cursor-pointer">More info</span>
                 </div>
               </div>
             </div>

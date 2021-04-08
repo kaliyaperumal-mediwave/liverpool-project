@@ -18,7 +18,7 @@ module.exports = {
 
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      console.log("orcha load Dis");
+     // console.log("orcha load Dis");
       self.dispatch("/", self.middleware.checkCommonPageAuth, self.orcha);
     };
 
@@ -170,13 +170,14 @@ module.exports = {
     var beforeIndex = self.beforeIndex;
     self.beforeIndex = function (req, callback) {
       require("../../middleware")(self, options);
-      console.log("index==========tst");
+      //console.log("index==========tst");
       self
         .checkCommonPageAuth(req)
         .then(async (req, res) => {
           var Resources = await self.apos.modules["Resources-pages"].pieces
             .find(req, {})
             .toArray();
+            console.log('--------------resource data ---------',Resources);
           var ThingsToWatchArray = await self.apos.modules[
             "liverpool-watch-pages"
           ].pieces
@@ -230,14 +231,17 @@ module.exports = {
             Events,
             PartnerAgencies
           );
+        
           req.data.piecesArray = piecesArray;
           return beforeIndex(req, callback);
         })
-        .catch(() => {});
+        .catch((error) => {
+          console.log('error---------------------', error);
+        });
     };
 
     self.orcha = function (req, callback) {
-      console.log("orcha load");
+     // console.log("orcha load");
     };
   },
 };

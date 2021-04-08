@@ -8,6 +8,7 @@
     <style>
         .labelTitle {
             font-size: 14px;
+            /* text-transform: capitalize; */
         }
 
         .text-container {
@@ -74,37 +75,27 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Child's D.O.B:
+                        Service location:
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.child_dob %>
+                        <%= body.section1.service_location %>
                     </div>
+                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Consent given by child:
+                        Selected service:
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section1.consent_child %>
+                        <%= body.section1.selected_service %>
                     </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Consent given by parent:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section1.consent_parent %>
-                    </div>
+                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
                 </div>
             </div>
             <div class="text-container">
@@ -182,15 +173,67 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
+                        Child's D.O.B:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.child_dob %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Consent given by child:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.consent_child %>
+                    </div>
+                </div>
+            </div>
+            <% if(body.child_age < 15) {%>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Consent given by parent:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.consent_parent %>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
                         GP:
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section1.registerd_gp %>
+                        <%= body.section1.registered_gp %>
                     </div>
                 </div>
             </div>
+            <% if(body.section1.gp_school!='' ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Child school:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.gp_school %>
+                        </div>
+                    </div>
+                </div>
+                <% } %> 
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
@@ -199,7 +242,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        NHS Number:
+                        NHS number:
                     </label>
                 </div>
                 <div class="label-set">
@@ -223,7 +266,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        last name:
+                        Last name:
                     </label>
                 </div>
                 <div class="label-set">
@@ -247,7 +290,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Contact Number:
+                        Contact number:
                     </label>
                 </div>
                 <div class="label-set">
@@ -331,7 +374,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        cares for an adult:
+                        Cares for an adult:
                     </label>
                 </div>
                 <div class="label-set">
@@ -373,7 +416,7 @@
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section2.parential_responsibility %>
+                        <%= body.section2.parental_responsibility %>
                     </div>
                 </div>
             </div>
@@ -392,7 +435,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Parent contact Number
+                        Parent contact number
                     </label>
                 </div>
                 <div class="label-set">
@@ -428,7 +471,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        the child's legal care status:
+                        The child's legal care status:
                     </label>
                 </div>
                 <div class="label-set">

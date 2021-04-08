@@ -32,12 +32,12 @@
         </div>
         <!-- Loader end -->
 
-        <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto">
+        <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-7 col-xl-6 mx-auto">
             <div class="py-4" v-cloak>
-                <h2 class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <h2 class="px-2 px-lg-0 py-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     {{sec2dynamicLabel.aboutYouLabel}}</h2>
 
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
 
                     <!-- child NHS Number Start-->
                     <div class="form-group py-2 my-2">
@@ -52,17 +52,55 @@
                     </div>
                     <!-- child NHS Number End-->
 
+                    <!-- child title Start-->
+                    <div class="form-group py-2 mt-0 mb-2">
+                        <label class="question-font">{{sec2dynamicLabel.childTitleLabel}}
+                        </label>
+                        <div class="input-group">
+                            <span class="plain-select">
+                                <select class="custom-select form-control input-bg-form-control"
+                                    v-model="aboutObj.childNameTitle" name="childNameTitle">
+                                    <option class='option-text' value="" disabled selected>
+                                        {{sec2dynamicLabel.childTitlePlaceHoldTitle}}
+                                    </option>
+                                    <option value="Mr">Mr</option>
+                                    <option value="Miss">Miss</option>
+                                    <option value="Ms">Ms</option>
+                                    <option value="Mrs">Mrs</option>
+                                    <option value="Mx">Mx</option>
+                                </select>
+                            </span>
+                        </div>
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childNameTitle),'invalid-fields':!aboutObj.childNameTitle }">
+                            You must provide an answer to this question to continue.
+                        </div>
+                    </div>
+                    <!-- child title end-->
+
                     <!-- child first name Start-->
                     <div class="form-group py-2 my-2">
                         <label for="childFirstName" class="question-font">{{sec2dynamicLabel.firstNameLabel}}</label>
                         <div class="input-group">
+                            <!-- <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="aboutObj.childNameTitle">
+                                        <option selected="selected" value="Mr">Mr</option>
+                                        <option value="Miss">Miss</option>
+                                        <option value="Ms">Ms</option>
+                                        <option value="Mrs">Mrs</option>
+                                        <option value="Mx">Mx</option>
+                                    </select>
+                                </span>
+                            </div> -->
                             <input type="text" class="form-control input-bg-form-control"
                                 v-model="aboutObj.childFirstName" id="childFirstName"
                                 @input="trimWhiteSpace($event,'aboutObj','childFirstName')"
                                 v-bind:placeholder="sec2dynamicLabel.firstNamePlacLabel">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -83,7 +121,7 @@
                                 v-bind:placeholder="sec2dynamicLabel.lastNamePlacLabel">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -104,7 +142,7 @@
                                 v-bind:placeholder="sec2dynamicLabel.emailPlacLabel" v-model="aboutObj.childEmail">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-envelope" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -119,13 +157,22 @@
                     <div class="form-group py-2 my-2">
                         <label for="contact" class="question-font">{{sec2dynamicLabel.contactLabel}}</label>
                         <div class="input-group">
+                            <div class="input-group-prepend cursor-pointer">
+                                <span class="plain-select custom-mobile-place">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        v-model="aboutObj.contactMode">
+                                        <option selected="selected" value="mobile">Mobile</option>
+                                        <option value="landline">Landline</option>
+                                    </select>
+                                </span>
+                            </div>
                             <input type="text" class="form-control input-bg-form-control" id="contact" inputmode="tel"
                                 @input="trimWhiteSpace($event,'aboutObj','childContactNumber')"
                                 v-bind:placeholder="sec2dynamicLabel.contactPlacLabel"
                                 v-model="aboutObj.childContactNumber">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3 font-25">
-                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none"
@@ -152,7 +199,7 @@
                                 aria-label="location" v-model="aboutObj.childAddress">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3">
-                                    <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
                                 </span>
                             </div>
                             <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childAddress),
@@ -165,7 +212,7 @@
                 <!--child address End-->
 
                 <!-- Post Section Start-->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <p class="question-font m-0">{{sec2dynamicLabel.postLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="no" value="No" name="sendPost"
@@ -189,7 +236,7 @@
                 <!-- Post Section End-->
 
                 <!-- Gender Section Start -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group py-2 my-2">
                         <label for="genderChoose" class="question-font">{{sec2dynamicLabel.genderLabel}}</label>
                         <input type="text" class="form-control input-bg-form-control" id="genderChoose"
@@ -204,7 +251,7 @@
                 <!-- Gender Section End -->
 
                 <!-- Gender Identification Start -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">{{sec2dynamicLabel.identityLabel}}
                         </p>
@@ -238,6 +285,42 @@
                     </div>
                 </div>
                 <!-- Gender Identification End -->
+
+                <!-- Sex identification Start -->
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                    <div class="d-flex align-items-start">
+                        <p class="question-font m-0">{{sec2dynamicLabel.sexAssignedLabel}}
+                        </p>
+                        <!-- <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer" alt=""
+                            data-toggle="modal" data-target="#genderIdentity"> -->
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" value="Male" id="sexAssignedMale"
+                            name="sexAssigned" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="sexAssignedMale">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="sexAssigned" value="Female"
+                            id="sexAssignedFem" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="sexAssignedFem">
+                            Female
+                        </label>
+                    </div>
+                    <div class="form-check py-2 pl-0">
+                        <input class="form-check-input" type="radio" name="sexAssigned" value="Prefer not to say"
+                            id="genderNotSay" v-model="aboutObj.sexAssignedAtBirth">
+                        <label class="form-check-label option-font d-flex align-items-center" for="genderNotSay">
+                            Prefer not to say
+                        </label>
+                    </div>
+                    <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.sexAssignedAtBirth),
+                        'invalid-fields':!aboutObj.sexAssignedAtBirth }">
+                        You must provide an answer to this question to continue.
+                    </div>
+                </div>
+                <!-- Sex identification End -->
 
                 <!-- support content modal start -->
                 <div class="modal fade" id="genderIdentity" tabindex="-1" role="dialog" aria-hidden="true">
@@ -277,7 +360,7 @@
                 <!-- support content modal end -->
 
                 <!-- child sexual orientation - optional Start -->
-                <div class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="sexual" class="question-font">{{sec2dynamicLabel.sexOrientLabel}} -
                             <b>optional</b></label>
@@ -290,7 +373,7 @@
                 <!-- child sexual orientation - optional End -->
 
                 <!-- child ethnicity - optional Start -->
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group m-0">
                         <label for="ethnicity" class="question-font">{{sec2dynamicLabel.ethincityLabel}} -
                             <b>optional</label>
@@ -304,11 +387,12 @@
                 <!-- Your household Start -->
 
                 <!-- Add HouseHold Members start -->
-                <h2 class="px-4 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <h2
+                    class="px-2 px-lg-0 pt-4 pb-2 m-0 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto ">
                     {{sec2dynamicLabel.houseHoldLabel}}
                 </h2>
 
-                <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <label class="question-font"> {{sec2dynamicLabel.houseHoldAddMemberLabel}}</label>
                     <template v-if="checkArrayLength(allHouseHoldMembers)">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
@@ -337,7 +421,7 @@
 
                     <button data-toggle="modal" data-target="#houseHoldModal" type="button" @click="resetModal('add')"
                         class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
-                            members <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                            members <i class="fa common-fa-fa fa-plus-circle" aria-hidden="true"></i>
                         </span></button>
                 </div>
                 <!-- Add HouseHold Members end -->
@@ -348,7 +432,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content modal-bg">
                             <div class="modal-header justify-content-center">
-                                <h5 class="question-header-font" id="deleteModalLabel">Delete household</h5>
+                                <h5 class="question-header-font" id="deleteModalLabel">Delete household member</h5>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
                                         class="fal fa-times fa-2x cursor-pointer"></i></i>
                             </div>
@@ -373,7 +457,7 @@
                 </div>
                 <!-- Delete Modal End -->
 
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <p class="question-font m-0">{{sec2dynamicLabel.careAdultLabel}}</p>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" id="careNo" value="No" name="childCareAdult"
@@ -442,10 +526,10 @@
                 <!-- support content modal end -->
 
                 <!-- Your parent / carer Start -->
-                <h2 class="px-4 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <h2 class="px-2 px-lg-0 pt-3 pb-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     {{sec2dynamicLabel.carerLabel}}</h2>
                 <!-- Your parent / carer firstname Start -->
-                <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 pt-3 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group my-2">
                         <label for="carerFirstname" class="question-font">
                             {{sec2dynamicLabel.yourFirstNameLabel}}</label>
@@ -456,7 +540,7 @@
                                 v-model="aboutObj.parentFirstName">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
@@ -469,7 +553,7 @@
                 <!-- Your parent / carer firstname end -->
 
                 <!-- Your parent / carer lastname Start -->
-                <div class="px-4 pt-3 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-2 px-lg-0 pt-3 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group my-2">
                         <label for="parentLastName" class="question-font">
                             {{sec2dynamicLabel.yourLastNameLabel}}</label>
@@ -480,7 +564,7 @@
                                 v-model="aboutObj.parentLastName">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3 font-23">
-                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                 </span>
                             </div>
                         </div>
@@ -495,7 +579,7 @@
 
                 <!-- Parental Responsibility start -->
                 <form id="parentResy-form" data-options="parentialResponsibility">
-                    <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <p class="question-font m-0">{{sec2dynamicLabel.parentalResLabel}}</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" id="responsibilityNo" value="no"
@@ -520,8 +604,8 @@
                 <!-- Parental Responsibility end -->
 
                 <!-- Parental Responsibility Toaster container start-->
-                <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-4 py-4">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                <div v-if="aboutFormData.parentialResponsibility == 'no'" class="px-2 px-lg-0 py-4">
+                    <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
@@ -537,7 +621,7 @@
                 <!-- Parent or Carer First Name Start -->
                 <form id="parentOrCarerFirstName-form" data-options="parentCarerFirstName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
-                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerFirstNameLabel}}</label>
@@ -549,7 +633,7 @@
                                     v-model="aboutFormData.parentCarerFirstName">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text px-3 font-23">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -566,7 +650,7 @@
                 <!-- Parent or Carer end Name Start -->
                 <form id="parentOrCarerLastName-form" data-options="parentCarerLastName">
                     <div v-if="aboutFormData.parentialResponsibility == 'no'"
-                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 my-2">
                             <label for="contactNumber"
                                 class="question-font">{{sec2dynamicLabel.parentOrCarerLastNameLabel}}</label>
@@ -578,7 +662,7 @@
                                     v-model="aboutFormData.parentCarerLastName">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text px-3 font-23">
-                                        <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -593,11 +677,11 @@
                 <!-- Parent or Carer end Name End -->
 
 
-                <template
-                    v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
+                <div
+                    v-show="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'">
                     <!-- Parent or Carer Relationship Start -->
                     <form id="parentOrCarerRelation-form" data-options="relationshipToYou">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="relationshipYou"
                                     class="question-font">{{sec2dynamicLabel.relationShipLabel}}</label>
@@ -612,17 +696,24 @@
                                 </div>
                             </div>
                         </div>
-
                     </form>
                     <!-- Parent or Carer Relationship  End -->
 
                     <!-- Parent or Carer Contact Start -->
                     <form id="parentOrCarerContact-form" data-options="contactNumber">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="parentOrCarcontactNumber1"
                                     class="question-font">{{sec2dynamicLabel.guardContactLabel}}</label>
                                 <div class="input-group">
+                                    <div class="input-group-prepend cursor-pointer">
+                                        <span class="plain-select custom-mobile-place">
+                                            <select class="custom-select form-control input-bg-form-control">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
+                                    </div>
                                     <input type="text" class="form-control input-bg-form-control"
                                         id="parentOrCarcontactNumber1" inputmode="tel"
                                         @input="trimWhiteSpace($event,'aboutFormData','contactNumber')"
@@ -649,7 +740,7 @@
 
                     <!-- Parent or Carer Email Start -->
                     <form id="parentOrCarerEmail-form" data-options="emailAddress">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        <div class="px-2 px-lg-0 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                             <div class="form-group py-2 mt-0 mb-2">
                                 <label for="emailAddress" class="question-font">{{sec2dynamicLabel.guardEmailLabel}}
                                     - <b>optional</label>
@@ -672,12 +763,12 @@
                         </div>
                     </form>
                     <!-- Parent or Carer Email End -->
-                </template>
+                </div>
 
                 <!-- Live In Same House Start -->
                 <form id="sameHouse-form" data-options="sameHouse">
                     <div v-if="aboutFormData.parentialResponsibility == 'yes' || aboutFormData.parentialResponsibility == 'no'"
-                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <p class="question-font m-0">{{sec2dynamicLabel.sameHouseLabel}}
                         </p>
                         <div class="form-check pt-3 pb-1 pl-0">
@@ -702,7 +793,7 @@
                 <!-- Parent Or carer's Address Start-->
                 <form id="guardAddress-form" data-options="parentOrCarrerAddress">
                     <div v-show="aboutFormData.sameHouse=='no'"
-                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="gpParentorCarerLocation" class="question-font">{{sec2dynamicLabel.guardAddress}}
                                 - <b>optional</b></label>
@@ -713,7 +804,7 @@
                                     aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
                                 <div class="input-group-append">
                                     <span class="input-group-text px-3">
-                                        <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i>
+                                        <i class="fa common-fa-fa fa-map-marker " aria-hidden="true"></i>
                                     </span>
                                 </div>
                             </div>
@@ -725,7 +816,7 @@
                 <!-- Legal care Status Start -->
                 <form id="legalCare-form" data-options="legalCareStatus">
                     <div v-if="aboutFormData.sameHouse =='yes' || aboutFormData.sameHouse =='no'"
-                        class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                        class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 mt-0 mb-2">
                             <label class="question-font">{{sec2dynamicLabel.legalCareLabel}}
                             </label>
@@ -771,574 +862,56 @@
 
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <template v-if="aboutFormData.legalCareStatus">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                    <div class="px-2 px-lg-0 py-4">
+                        <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
 
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                                        aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                                    aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                                    aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName && aboutFormData.relationshipToYou && aboutFormData.contactNumber  && 
-                                phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                                aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                                aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ((aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)) && (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                            aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                            aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) &&
-                           ((aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)) && (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For Nhs Optional -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                    aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                    aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For Nhs Optional for no -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                  aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' &&   aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-                  aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For Nhs Optional for no error state-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-                aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
+                                    <template v-if="
+                                        (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
+                                        || !aboutObj.childFirstName
+                                        || !aboutObj.childLastName
+                                        || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
+                                        || (!aboutObj.childContactNumber || (aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)))
+                                        || !aboutObj.childAddress
+                                        || !aboutObj.sendPost
+                                        || !aboutObj.childGender
+                                        || !aboutObj.childIdentity
+                                        || !aboutObj.childCareAdult
+                                        || !aboutObj.parentFirstName
+                                        || !aboutObj.parentLastName
+                                        || (aboutFormData.parentialResponsibility =='yes' && (
+                                                !aboutFormData.relationshipToYou
+                                                || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
+                                                || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
+                                            ))
+                                        || (aboutFormData.parentialResponsibility =='no' && (
+                                                !aboutFormData.parentCarerFirstName
+                                                || !aboutFormData.parentCarerLastName
+                                                || ! aboutFormData.relationshipToYou
+                                                || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
+                                                || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
+                                            ))
+                                        || !aboutFormData.sameHouse
+                                        || !aboutFormData.legalCareStatus
+                                        || !aboutObj.sexAssignedAtBirth
+                                        || !aboutObj.childNameTitle
+                                    ">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
+                                        <p class="question-font text-center text-danger m-0 py-2">
+                                            You have missed out a section on this page
+                                        </p>
                                     </template>
 
-                                    <!-- For child email Optional -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                  aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                  aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && !aboutObj.nhsNumber && !aboutFormData.emailAddress) ">
+                                    <template v-else>
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                        <p class="question-font text-center m-0 py-2">
+                                            Another section finished. Lets move on to education / employment & support
+                                            needs
+                                        </p>
                                     </template>
-
-                                    <!-- For child email Optional for no -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-       aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-       aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && !aboutObj.nhsNumber && !aboutFormData.emailAddress) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For child email Optional for no error state-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-     aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-     aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && !aboutObj.nhsNumber && !aboutFormData.emailAddress) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <!-- For parent email Optional -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                 aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                 aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail && !aboutObj.nhsNumber && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For parent email Optional for no -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-     aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-     aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail && !aboutObj.nhsNumber && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For parent email Optional for no error state-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-   aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-   aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail && !aboutObj.nhsNumber && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <!-- For nhs and child email Optional -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-        aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutFormData.emailAddress) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For nhs and child email Optional for no-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-      aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-      aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutFormData.emailAddress) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For nhs and child email Optional for no error state-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-      aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-      aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutFormData.emailAddress) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <!-- For child and parent email Optional -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-      aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-      aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)  && !aboutObj.nhsNumber) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For child and parent email Optional for no error state-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)  && !aboutObj.nhsNumber) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <!-- For nhs and parent email Optional -->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-      aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-      aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail  && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For nhs and parent email Optional for no-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-   aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-   aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail  && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-
-                                    <!-- For nhs and parent email Optional for no error state-->
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
- aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
- aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail  && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                                aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                                aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ( (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <template
-                                        v-if="!aboutObj.childFirstName || !aboutObj.childLastName || !aboutObj.childContactNumber  || !aboutObj.childAddress || !aboutObj.sendPost || !aboutObj.childGender ||
-                    !aboutObj.childIdentity || !aboutObj.childCareAdult || !aboutObj.parentFirstName || !aboutObj.parentLastName ||  !aboutFormData.relationshipToYou || !aboutFormData.contactNumber ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <!-- no scenerio -->
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                                aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                                (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) && aboutFormData.relationshipToYou && aboutFormData.contactNumber  && 
-                            phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-                        aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                        aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) &&
-                       ((aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)) && (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <template v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                                aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                                aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName && aboutFormData.relationshipToYou && (aboutFormData.contactNumber  &&  !phoneRegex.test(aboutFormData.contactNumber)) && 
-                           (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <template
-                                        v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-            aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-            aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) &&
-           ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                </p>
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                                aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                                aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                            aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                            aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName && aboutFormData.relationshipToYou && aboutFormData.contactNumber  && 
-                        phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                            aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                            aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ((aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)) && (aboutFormData.emailAddress &&  emailRegex.test(aboutFormData.emailAddress))) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                    aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                    aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) &&
-                   ((aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)) && (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For Nhs Options -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                        aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For Nhs Optional for no -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-            aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-            aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For Nhs Optional for no error state-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-           aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-           aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-
-                                <!-- For child email Optional -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-             aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-             aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && !aboutObj.nhsNumber && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For child email Optional for no -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-           aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-           aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && !aboutObj.nhsNumber && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For child email Optional for no error state-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && !aboutObj.nhsNumber && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-
-                                <!-- For parent email Optional -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-           aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-           aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail && !aboutObj.nhsNumber && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For parent email Optional for no -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-         aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-         aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail && !aboutObj.nhsNumber && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For parent email Optional for no error state-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail && !aboutObj.nhsNumber && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-                                <!-- For nhs and child email Optional -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-            aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-            aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For nhs and child email Optional for no-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-          aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-          aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For nhs and child email Optional for no error state-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
- aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
- aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-                                <!-- For child and parent email Optional -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)  && !aboutObj.nhsNumber) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For child and parent email Optional for no-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)  && !aboutObj.nhsNumber) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For child and parent email Optional for no error state-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)  && !aboutObj.nhsNumber) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-                                <!-- For nhs and parent email Optional -->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-          aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-          aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail  && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For nhs and parent email Optional for no-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-       aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-       aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail  && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                    <p class="question-font text-center m-0 py-2">Another section finished. Lets
-                                        move on to
-                                        education / employment & support needs</p>
-                                </template>
-
-                                <!-- For nhs and parent email Optional for no error state-->
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) &&
-aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.childEmail  && aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber) && aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='yes' && 
-                        aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&
-                        aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber) && ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                        (!aboutFormData.parentCarerFirstName || !aboutFormData.parentCarerLastName) && aboutFormData.relationshipToYou && aboutFormData.contactNumber  && 
-                    phoneRegex.test(aboutFormData.contactNumber) && (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) &&
-               ((aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)) && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)) && (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-                                <template v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-                        aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-                        aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName && aboutFormData.relationshipToYou && (aboutFormData.contactNumber  &&  !phoneRegex.test(aboutFormData.contactNumber)) && 
-                   (!aboutObj.nhsNumber && !aboutObj.childEmail && !aboutFormData.emailAddress) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-
-                                <template
-                                    v-if="aboutObj.childFirstName && aboutObj.childLastName && aboutObj.childContactNumber &&  phoneRegex.test(aboutObj.childContactNumber) && aboutObj.childAddress && aboutObj.sendPost && aboutObj.childGender &&
-            aboutObj.childIdentity && aboutObj.childCareAdult && aboutObj.parentFirstName && aboutObj.parentLastName && aboutFormData.parentialResponsibility =='no' && 
-            aboutFormData.parentCarerFirstName && aboutFormData.parentCarerLastName &&  aboutFormData.relationshipToYou && (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) &&
-           ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)) || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail)) || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))) ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-
-
-
-                                <template
-                                    v-if="!aboutObj.childFirstName || !aboutObj.childLastName || !aboutObj.childContactNumber  || !aboutObj.childAddress || !aboutObj.sendPost || !aboutObj.childGender ||
-                    !aboutObj.childIdentity || !aboutObj.childCareAdult || !aboutObj.parentFirstName || !aboutObj.parentLastName ||  !aboutFormData.relationshipToYou || !aboutFormData.contactNumber ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
 
                             </div>
                         </div>
@@ -1447,7 +1020,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
 
                                 <!-- Household School/College/Employment start -->
                                 <div class="form-group" v-show="getAge(houseHoldData.dob) < 19 ">
-                                    <label for="educLocation" inputmode="search"
+                                    <label for="educLocation" style="word-break: break-word;" inputmode="search"
                                         class="question-font">School/College/Employment-<b>optional</b></label>
                                     <div class="input-group">
                                         <input type="search" class="form-control input-bg-form-control"
@@ -1456,7 +1029,7 @@ aboutFormData.relationshipToYou && aboutFormData.contactNumber && phoneRegex.tes
                                             id="educLocation" v-model="houseHoldData.profession">
                                         <div class="input-group-append">
                                             <span class="input-group-text input-group-secondary-text px-3 font-25">
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
                                             </span>
                                         </div>
                                     </div>

@@ -108,7 +108,7 @@ endblock %} {% block extraHead %}
     </a>
 
     {% if data.showLogout %}
-    <h3 data-toggle="modal" data-target="#logoutModal" class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer">
+    <h3 class="urgent-help-text mx-3 mx-md-4 my-0 py-2 cursor-pointer" onclick="logOut()">
       Logout</h3>
     {% endif %}
 
@@ -120,14 +120,14 @@ endblock %} {% block extraHead %}
         <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
           data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
           aria-label="Toggle navigation">
-          <i class="fal fa-bars font-30 d-none d-md-block d-lg-block d-xl-block ham-icon" aria-hidden="true"></i>
-          <i class="fal fa-bars font-30 d-none d-sm-block d-md-none ham-icon" aria-hidden="true"></i>
-          <i class="fal fa-bars font-30 d-block d-sm-none ham-icon" aria-hidden="true"></i>
+          <i class="fal fa-bars font-30 d-none d-md-block d-lg-block d-xl-block ham-icon-header" aria-hidden="true"></i>
+          <i class="fal fa-bars font-30 d-none d-sm-block d-md-none ham-icon-header" aria-hidden="true"></i>
+          <i class="fal fa-bars font-30 d-block d-sm-none ham-icon-header" aria-hidden="true"></i>
         </button>
         <div class="logo">
           <!-- LOGO -->
           <a href="{{ data.logoPath }}" class="text-decoration-none">
-            <div class="logo-bg" style="height: 35px !important;">
+            <div class="logo-bg" style="height: 54px !important;">
 
             </div>
             <!-- <img src="/modules/my-apostrophe-assets/img/liverpool.svg" /> -->
@@ -156,7 +156,7 @@ endblock %} {% block extraHead %}
         <div class="header-slider d-flex align-items-center ">
           <!-- <div class="slider-header">LOGO</div> -->
           <a href="/" class="text-decoration-none headlogo slider-header"><img
-              src="/modules/my-apostrophe-assets/img/Logo_white.svg"></a>
+             width="95" src="/modules/my-apostrophe-assets/img/liverpool_dark.svg"></a>
 
           <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
             aria-hidden="true"></i>
@@ -186,7 +186,7 @@ endblock %} {% block extraHead %}
             <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Urgent help</a>
           </div>
           <div class="inside-cont-slider cursor-pointer">
-            <a href="{{ data.orchaPage }}" class="text-decoration-none">Orcha</a>
+            <a href="{{ data.orchaPage }}" class="text-decoration-none">Apps</a>
           </div>
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Resources</a>
@@ -304,7 +304,7 @@ endblock %} {% block extraHead %}
 {% else %}
 <a href="/" id="uniqueLogo">
   <img src="/modules/my-apostrophe-assets/img/liverpool.svg" id="logoBgHome"
-    class="px-4 mb-5 mb-md-0 px-md-5 mt-5 mb-0 mb-lg-2 mb-xl-2 height-50 cursor-pointer">
+    class="px-4 mb-5 mb-md-0 px-md-5 mt-4 mb-0 mb-lg-2 mb-xl-2 height-50 cursor-pointer">
   <!-- <div class="logo-bg-home mb-5 mb-0 mb-lg-2 mb-xl-2 cursor-pointer" style="height: 40px !important;">
   </div> -->
 </a>
@@ -353,7 +353,7 @@ endblock %} {% block extraHead %}
     <!-- Loader end -->
 
     <!-- Delete Modal Start -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+    <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bg">
@@ -375,7 +375,7 @@ endblock %} {% block extraHead %}
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Delete Modal End -->
 
     <!-- Error Modal Start -->
@@ -416,7 +416,6 @@ endblock %} {% block extraHead %}
 <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
 <p id="sessionExp">{{data.sessionExp}}</p>
 <div class="footer-bg set-bottom-padding">
-  <p class="d-none" id="uRole">{{data.showLogout}}</p>
   <!-- <div id="footer-placement" class="footer-bg footer set-bottom-padding">
     <div class="footer-container">
       <div>

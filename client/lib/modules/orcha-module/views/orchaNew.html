@@ -1,10 +1,4 @@
 {% extends "layout.html" %}
-<script>
-    $(document).on("click", "a.previous-link", function () {
-        parent.history.back();
-        return false;
-    });
-</script>
 {% block extraBody %}
 <script src="/modules/orcha-module/js/orcha-home.js"></script>
 
@@ -51,19 +45,19 @@
     </div>
     <!-- Loader end -->
     <div class="d-flex text-left mt-xl-4 mt-lg-4 mt-md-4 mt-4 mb-0">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mx-auto">
-            <a href="" class="previous-link">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 px-1 mx-auto">
+            <a href="{{ data.logoPath }}" class="previous-link">
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
-            <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">
-                Orcha
+            <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1 home-header-primary">
+              <h2>Apps</h2> 
             </div>
         </div>
     </div>
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
         {% raw %}
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 px-md-1 px-0 mx-auto d-flex" id="searchBar">
             <div class="input-group home-primary-content-bg">
                 <span class="input-group-prepend">
                     <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
@@ -95,99 +89,86 @@
     </div> -->
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="home-primary-content m-0 py-2 px-2 text-left">
-                Here are apps for you based on your health and wellbeing information
+                <h3 class="p-0 text-left font-weight-bold home-primary-content">
+                    Here are apps for you based on your health and wellbeing information
+                </h3>
             </div>
         </div>
     </div>
 
     <div v-cloak class="d-flex text-center py-md-3 py-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
+        <div class="col-md-9 col-lg-7 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
 
                 <!-- Orcha Category Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="categoryValue" :options="categoryList" placeholder="Category"
                         label="subCategoryName" track-by="id" @select="selectOptions($event,'category')"
-                        @remove="removeOptions($event,'category')" @close="setClearDisable()">
+                        @remove="removeOptions($event,'category')">
                     </multiselect>
                 </div>
                 <!-- Orcha Category Select End-->
 
                 <!-- Orcha Country Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <!-- <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="countryValue" :options="countryList" placeholder="Country" label="countryName"
                         track-by="id" @select="selectOptions($event,'country')"
-                        @remove="removeOptions($event,'country')" @close="setClearDisable()">
+                        @remove="removeOptions($event,'country')">
                     </multiselect>
-                </div>
+                </div> -->
                 <!-- Orcha Country Select End-->
 
                 <!-- Orcha Capability Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-6 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="capabilityValue" tag-placeholder="" placeholder="Capability"
                         :close-on-select="false" label="capabilityName" track-by="id" :options="capabilityList"
-                        :multiple="true" :taggable="true" @select="selectOptions($event,'capability')"
-                        @remove="removeOptions($event)" @close="setClearDisable()">
+                        :multiple="true" :limit="1" :taggable="true" @select="selectOptions($event,'capability')"
+                        @remove="removeOptions($event,'capability')">
+                        <!-- <template slot="selection" slot-scope="{ values, search, isOpen }"><span
+                                class="multiselect__single">{{ values.length }}
+                                options selected</span></template> -->
                     </multiselect>
                 </div>
                 <!-- Orcha Capability Select End-->
 
-                <!-- Orcha checkbox dummy with Select Start-->
-                <!-- <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-5 col-xl-5 mb-3">
-                    <label class="option-font">Capability</label>
-                    <multiselect label="capabilityName" track-by="id" select-Label="" selected-Label=""
-                        deselect-Label="" v-model="checkBoxTest" :options="capabilityList" :multiple="true"
-                        :close-on-select="false" @select=onSelect($event) @remove=onRemove($event)>
-                        <span class="select-checkbox-label" slot="option" slot-scope="scope"
-                            @click.self="select(scope.option)">
-                            {{ scope.option.capabilityName }}
-                            <input class="select-checkbox-" type="checkbox" v-model="scope.option.checked"
-                                @focus.prevent />
-                        </span>
-                    </multiselect>
-                </div> -->
-                <!-- Orcha checkbox dummy with Select End-->
-            </div>
-
-            <div class="pb-2 pt-2 row mx-0 w-100 justify-content- align-items-center">
                 <!-- Orcha Designed For Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
                         :close-on-select="false" label="designedForName" track-by="id" :options="designedForList"
-                        :multiple="true" :taggable="true" @select="selectOptions($event,'designedFor')"
-                        @remove="removeOptions($event)" @close="setClearDisable()">
+                        :multiple="true" :taggable="true" :limit="1" @select="selectOptions($event,'designedFor')"
+                        @remove="removeOptions($event,'designedFor')">
                     </multiselect>
                 </div>
                 <!-- Orcha Designed For Select End-->
 
                 <!-- Orcha Cost Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-5 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="costValue" tag-placeholder="" placeholder="Cost" :close-on-select="false"
-                        label="costName" track-by="id" :options="costList" :multiple="true" :taggable="true"
-                        @select="selectOptions($event)" @remove="removeOptions($event,'cost')"
-                        @close="setClearDisable()">
+                        label="costName" track-by="id" :options="costList" :multiple="true" :clear-on-select="false"
+                        :limit="1" :preserve-search="true" @select="selectOptions($event)"
+                        @remove="removeOptions($event,'cost')">
                     </multiselect>
                 </div>
                 <!-- Orcha Cost Select End-->
 
                 <!-- Orcha Platform Select Start-->
-                <div class="input-group px-2 col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3">
+                <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
                     <multiselect v-model="platformValue" :options="platformList" placeholder="Platform"
                         :show-labels="false" label="platformName" track-by="id"
-                        @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')"
-                        @close="setClearDisable()">
+                        @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
                     </multiselect>
                 </div>
                 <!-- Orcha Platform Select End-->
             </div>
 
             <div id="primarySmallButton">
-                <button class="btn btn-primary btn-text btm-small-primary px-3" disabled @click="resetFilters()"
-                    id="clearFilterButton" role="button">Clear filter</button>
+                <button class="btn btn-primary btn-text btm-small-primary px-3" @click="resetFilters()" disabled
+                    id="clearFilterButton" role="button">Clear filter <i class="fa fa-times-circle"
+                        aria-hidden="true"></i>
+                </button>
             </div>
-
             <!-- <span class="badge badge-pill badge-warning cursor-pointer px-3 py-2 link-text"
                 @click="resetFilters()">Clear filter <i class="fa fa-times-circle" aria-hidden="true"></i>
             </span> -->
@@ -208,7 +189,8 @@
             <div class="row justify-content-center justify-content-sm-start">
                 <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
                     v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
-                    <a :href="'/orcha?app_id='+filteredAppsObj.id" class="d-flex m-auto" style="margin-right: 30px;">
+                    <a :href="'apps/details?app_id='+filteredAppsObj.id" class="d-flex m-auto"
+                        style="margin-right: 30px;">
                         <div class="w-100 position-relative">
                             <div class="bg-white card-container-small">
                                 <div class="container-top-set">
@@ -225,7 +207,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img v-show="filteredAppsObj.platform!='iOS'"
+                                        <img v-show="filteredAppsObj.platform =='Android'"
                                             src="/modules/my-apostrophe-assets/img/android.svg" width="80" height="60"
                                             class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
 
@@ -233,6 +215,9 @@
                                             src="/modules/my-apostrophe-assets/img/ios.svg" width="89" height="69"
                                             class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
 
+                                        <img v-show="filteredAppsObj.platform=='Web App'"
+                                            src="/modules/my-apostrophe-assets/img/web.svg" width="89" height="69"
+                                            class="px-1 px-md-2 cursor-pointer img-pos" alt="" />
                                     </div>
                                 </div>
                                 <div class="container-bottom-set">
@@ -247,7 +232,7 @@
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start pl-3 pb-2">
                                     <span style="text-decoration: underline !important"
-                                        class="link-text cursor-pointer">More info</span>
+                                        class="orcha-link cursor-pointer">More info</span>
                                 </div>
                             </div>
                         </div>
@@ -276,7 +261,7 @@
     </paginate> -->
 
     {% raw %}
-    <div v-if="filteredAppsList.length" class="mt-4 mb-0">
+    <div v-if="paginationData.totalItems > 12" class="mt-4 mb-0 px-2 px-md-0" id="orchaPagination">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
             :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
             @input="updatePage(paginationData.currentPage)">

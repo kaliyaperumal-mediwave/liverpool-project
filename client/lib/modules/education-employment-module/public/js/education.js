@@ -256,7 +256,7 @@ $(document).ready(function () {
 
                 } else {
                     $('#loaderEduc').hide();
-                    console.log('empty response')
+                    //console.log('empty response')
                 }
             },
 
@@ -270,7 +270,7 @@ $(document).ready(function () {
                     this.patchValue(successData);
                 } else {
                     $('#loaderEduc').hide();
-                    console.log('empty response')
+                    //console.log('empty response')
                 }
 
             },
