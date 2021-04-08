@@ -19,6 +19,7 @@ $(document).ready(function () {
                 aboutLabel: "",
                 referralLabel: ""
             },
+            contact_person: '',
             legalStatusArray: [
                 'Care of Parent',
                 'Care of Local Authority(Liverpool)',
@@ -60,17 +61,7 @@ $(document).ready(function () {
             ageFlag: null
         },
 
-        // beforeCreate: function () {
-        //     let spinner = document.querySelector("#loader")
-        //     if (spinner.classList.contains("blurred")) {
-        //         spinner.classList.remove("blurred");
-        //     } else {
-        //         spinner.classList.add("blurred")
-        //     }
-        //     $('#loader').show();
-        // },
         beforeMount: function () {
-            // this.blurMe();
             $('#loader').show();
         },
 
@@ -97,7 +88,6 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
-            //  //console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
 
         },
@@ -113,7 +103,6 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        //console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -186,19 +175,19 @@ $(document).ready(function () {
             save: function () {
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
+                this.payloadData.contact_person = this.contact_person;
                 if (this.userRole == 'child' || this.userRole == 'parent') {
                     if (this.contactPref.length) {
                         if(this.section1Data.gp_school !="" && this.section1Data.gp_school !=null)
                         {
                             this.payloadData.referral_provider = "MHST";
                         }
-                        else
-                        {
+                        else {
                             this.payloadData.referral_provider = "";
                         }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         if (Object.keys(successData)) {
-                           location.href = "/acknowledge";
+                            location.href = "/acknowledge";
                             this.isFormSubmitted = false;
                         } else {
                         }
@@ -214,10 +203,9 @@ $(document).ready(function () {
                         {
                             this.payloadData.referral_provider ="MHST";
                         }
-                        else
-                        {
-                            this.payloadData.referral_provider =this.section1Data.selected_service;
-                        }
+                        else {
+                            this.payloadData.referral_provider = this.section1Data.selected_service;
+``                        }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         if (Object.keys(successData)) {
                             location.href = "/acknowledge";
