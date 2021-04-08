@@ -2106,20 +2106,25 @@ exports.fetchReview = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
+              console.log(error)
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
           }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
       }).catch((error) => {
+        console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
     }).catch((error) => {
+      console.log(error)
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
