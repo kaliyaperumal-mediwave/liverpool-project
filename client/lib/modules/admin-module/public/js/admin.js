@@ -19,10 +19,12 @@ $(document).ready(function () {
     },
 
     beforeMount: function () {
+      localStorage.setItem('theme','light')
       $("#loader").show();
     },
 
     mounted: function () {
+      localStorage.setItem('theme','light')
       // this.fetchAllRef();
       this.fetchReferral();
     },
