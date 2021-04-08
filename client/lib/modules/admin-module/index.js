@@ -6,22 +6,25 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.admin);
+      self.dispatch('/', self.middleware.checkCommonPageAuth, self.admin);
       self.dispatch('/archive', self.middleware.checkCommonPageAuth, self.archive);
-      self.dispatch('/serviceAdmin', self.middleware.checkCommonPageAuth, self.archive);
+      self.dispatch('/serviceAdmin', self.middleware.checkCommonPageAuth, self.serviceAdmin);
     };
     self.archive = function (req, callback) {
       return self.sendPage(req, self.renderer('admin-referral-archive', {
+        superAdmin: true,
       }));
     };
     self.serviceAdmin = function (req, callback) {
       return self.sendPage(req, self.renderer('serviceAdmin', {
+        superAdmin: false,
       }));
     };
     require('../../middleware')(self, options);
 
     self.admin = function (req, callback) {
       return self.sendPage(req, self.renderer('admin', {
+        superAdmin: true,
       }));
     };
 
