@@ -36,6 +36,7 @@ $(document).ready(function () {
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
             },
+            prevAddressData: null,
             dateWrap: true,
             options: {
                 // format: 'YYYY/MM/DD',
@@ -57,9 +58,14 @@ $(document).ready(function () {
             },
             manualAddressArray: [],
             addressData: {
-
+                addressLine1: '',
+                addressLine2: '',
+                city: '',
+                country: '',
+                postCode: ''
             },
             allHouseHoldMembers: [],
+            isAddressFormSubmitted: false,
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
@@ -362,59 +368,43 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                // manualAddressLogic(this, 'addressData');
-                this.isAddressFormSubmitted = true;
-                var addressForm = this.addressData;
-                if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
-                    if (addressForm.mode === 'update') {
-                        this.manualAddressArray = [];
-                        delete addressForm.mode;
-                        this.manualAddressArray.push(addressForm);
-                    } else {
-                        addressForm.id = uuidV4();
-                        addressForm.mode = 'add';
-                        this.manualAddressArray.push(addressForm);
-                    }
-                    $('#addressModal').modal('hide');
-                    // this.resetAddressModalValues();
-                } else {
-                    return;
-                }
+                manualAddressLogic(this, 'addressData');
+                this.aboutObj.childAddress = "";
+                document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
+                document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
+                document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
+                document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
             },
 
             //Patching the HouseHold logic
             patchAddress: function (address) {
-                debugger
-                // patchManualAddress(this, 'addressData', address);
-                this.manualAddressArray = [];
-                var addressForm = this.addressData;
-                addressForm.addressLine1 = address.addressLine1;
-                addressForm.addressLine2 = address.addressLine2;
-                addressForm.city = address.city;
-                addressForm.county = address.county;
-                addressForm.postCode = address.postCode;
-                addressForm.id = address.id;
-                addressForm.mode = 'update';
-                this.manualAddressArray.push(addressForm);
+                patchManualAddress(this, 'addressData', address);
+                this.prevAddressData = JSON.parse(JSON.stringify(this.manualAddressArray));
             },
 
             //Resetting the modal values of service data
             resetAddressModalValues: function () {
                 this.isAddressFormSubmitted = false;
-                this.addressData = {};
-                // this.addressData.addressLine1 = '';
-                // this.addressData.addressLine2 = '';
-                // this.addressData.city = '';
-                // this.addressData.county = '';
-                // this.addressData.postCode = '';
-                // this.addressData.mode = '';
+                this.addressData.addressLine1 = '';
+                this.addressData.addressLine2 = '';
+                this.addressData.city = '';
+                this.addressData.country = '';
+                this.addressData.postCode = '';
+                this.addressData.mode = '';
             },
-            resetAddressValue: function () {
-                debugger
+
+            resetAddressValue: function (data) {
                 if (this.addressData.mode && this.addressData.mode === 'add') {
                     this.resetAddressModalValues();
                 } else if (this.addressData.mode && this.addressData.mode === 'update') {
+                    var prevAddressObj = convertArrayToObj(this.prevAddressData);
                     if (this.addressData.mode === 'update') {
+                        if (_.isEqual(this.addressData, prevAddressObj)) {
+                            this.addressData = this.addressData;
+                        } else {
+                            this.manualAddressArray = [];
+                            this.manualAddressArray.push(prevAddressObj);
+                        }
                         return true;
                     } else {
                         this.resetAddressModalValues();
@@ -507,6 +497,11 @@ $(document).ready(function () {
                 modal.setAttribute("data-dismiss", "modal");
             },
 
+            //Delete service logic
+            deleteManualAddress: function (data) {
+                deleteLogic(this.manualAddressArray, data, this, 'manualAddressArray');
+            },
+
             //Resetting the modal values of service data
             resetModalValues: function () {
                 this.isHouseHoldFormSubmitted = false;
@@ -556,6 +551,7 @@ $(document).ready(function () {
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
             },
+
             resetAge: function (event, date) {
                 if (this.getAge(date) > 19) {
                     this.houseHoldData.profession = "";
