@@ -83,6 +83,7 @@ exports.login = async (ctx) => {
             attributes: ['uuid', 'first_name', 'last_name', 'password', 'email', 'user_role', 'service_type']
         }).then(async (userResult) => {
             if (userResult) {
+                console.log(userResult);
                 const checkPassword = await bcrypt.compare(ctx.request.body.password, userResult.password)
                 if (checkPassword) {
                     const payload = { email: userResult.email, id: userResult.uuid, role: userResult.user_role };
@@ -96,13 +97,16 @@ exports.login = async (ctx) => {
                           {  email: userResult.email, }
                       }).then(async (sessionResult) => {
                         //console.log("----------------------------------update session ----------------------------------------------------");
-                        var sendUserResult = {
+                        let sendUserResult = {
                             loginId: userResult.uuid,
                             first_name: userResult.first_name,
                             last_name: userResult.last_name,
                             email: userResult.email,
                             role: userResult.user_role,
-                            token: token
+                            token: token,
+                        }
+                        if(userResult.user_role === 'service_admin') {
+                            sendUserResult.service_admin_type = userResult.service_type;
                         }
                         if(userResult.user_role === 'professional') {
                             const Referral = ctx.orm().Referral;
@@ -126,11 +130,8 @@ exports.login = async (ctx) => {
                                 };
                             }
                         }
-                        if(userResult.user_role === 'service_admin') {
-                            sendUserResult.service_admin_type = userResult.service_type;
-                        }
                         const sendResponseData = {
-                            sendUserResult: sendUserResult,
+                            sendUserResult
                         }
                         return ctx.res.ok({
                             status: "success",
