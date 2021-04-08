@@ -219,6 +219,9 @@ module.exports = function modelUser(sequelize, types) {
     professional_contact_type: {
       type: types.TEXT
     },
+    contact_person: {
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });
