@@ -248,13 +248,14 @@ exports.eligibility = ctx => {
                 professional_lastname: ctx.request.body.proflastName,
                 professional_email: ctx.request.body.profEmail,
                 professional_contact_number: ctx.request.body.profContactNumber,
+                professional_contact_type: ctx.request.body.professional_contact_type,
                 professional_address: ctx.request.body.profAddress,
                 professional_profession: ctx.request.body.profProfession,
                 consent_parent: ctx.request.body.contactProfParent,
                 consent_child: ctx.request.body.parentConcernInformation,
                 service_location: ctx.request.body.profDirectService,
                 selected_service: ctx.request.body.selectedService,
-                referral_provider: "Sent to " + ctx.request.body.selectedService
+                referral_provider: ctx.request.body.selectedService
               },
                 {
                   where:
@@ -283,12 +284,13 @@ exports.eligibility = ctx => {
             professional_firstname: ctx.request.body.profFirstName,
             professional_lastname: ctx.request.body.proflastName,
             professional_email: ctx.request.body.profEmail,
+            professional_contact_type: ctx.request.body.professional_contact_type,
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_address: ctx.request.body.profAddress,
             professional_profession: ctx.request.body.profProfession,
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
-            referral_provider: "Sent to " + ctx.request.body.selectedService,
+            referral_provider: ctx.request.body.selectedService,
             gp_school: ctx.request.body.gpSchool,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
@@ -332,6 +334,7 @@ exports.eligibility = ctx => {
             professional_lastname: ctx.request.body.proflastName,
             professional_email: ctx.request.body.profEmail,
             professional_contact_number: ctx.request.body.profContactNumber,
+            professional_contact_type: ctx.request.body.professional_contact_type,
             professional_address: ctx.request.body.profAddress,
             professional_profession: ctx.request.body.profProfession,
             service_location: ctx.request.body.profDirectService,
