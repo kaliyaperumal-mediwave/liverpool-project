@@ -365,7 +365,7 @@
                                         readonly type="text" v-model="section1Data.registered_gp" id="gpLoc">
                                         </textarea>
                                 </div>
-                                <div v-if="section1Data.gp_school != ''" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="section1Data.gp_school != '' && section1Data.gp_school !=null" class="readOnly-class  py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="gpLoc">
                                         Child School:
                                     </label>
@@ -1239,6 +1239,19 @@
                                             name="infoTextAreas" id="textInf0red" rows="3"
                                             v-model="section4Data.eating_disorder_difficulties"
                                             readonly>{{section4Data.eating_disorder_difficulties}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="section4Data.food_fluid_intake">
+                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                           Food/fluid intake
+                                        </label>
+                                        <textarea
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11 h-50"
+                                            name="infoTextAreas" id="textFood" rows="3"
+                                            v-model="section4Data.food_fluid_intake"
+                                            readonly>{{section4Data.food_fluid_intake}}</textarea>
                                     </div>
                                 </div>
 
