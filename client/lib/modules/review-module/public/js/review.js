@@ -191,7 +191,7 @@ $(document).ready(function () {
                 if (this.userRole == 'child' || this.userRole == 'parent') {
                     if (this.contact_person && this.contactPref.length) {
                         $('#loader').show();
-                        if (this.section1Data.gp_school != "") {
+                        if (this.section1Data.gp_school != "" && this.section1Data.gp_school !=null) {
                             this.payloadData.referral_provider = "MHST";
                         }
                         else {
@@ -214,7 +214,7 @@ $(document).ready(function () {
                 else if (this.userRole == 'professional') {
                     if (this.contact_person && this.contactPref.length) {
                         $('#loader').show();
-                        if (this.section1Data.gp_school != "") {
+                        if (this.section1Data.gp_school != "" || this.section1Data.gp_school !=null) {
                             this.payloadData.referral_provider = "MHST";
                         }
                         else {
