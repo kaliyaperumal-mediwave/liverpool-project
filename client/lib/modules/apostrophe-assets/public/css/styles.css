@@ -1158,8 +1158,6 @@ body {
   @media (min-width: 1200px) and (max-width: 1499.98px) {
     body .col-xl-6 {
       max-width: 60% !important; } }
-  body select option {
-    text-transform: capitalize !important; }
   body .h-75px {
     height: 75px !important; }
   body input {
@@ -3759,7 +3757,8 @@ body .ui-widget .ui-menu-item {
 .off .recent_referrals {
   color: #023047; }
 
-.off .inputLoader::after, .off .inputLoader::before {
+.off .inputLoader::after,
+.off .inputLoader::before {
   border-color: #023047 #023047 transparent transparent; }
 
 .off .inputLoader::after {
@@ -4131,7 +4130,8 @@ body .ui-widget .ui-menu-item {
 .on .recent_referrals {
   color: #fafafa; }
 
-.on .inputLoader::after, .on .inputLoader::before {
+.on .inputLoader::after,
+.on .inputLoader::before {
   border-color: #fafafa #fafafa transparent transparent; }
 
 .on .inputLoader::after {
@@ -4873,7 +4873,9 @@ div.collapse-container.collapsing {
 .list-inside ul li {
   list-style: inside; }
 
-.search-box, .close-icon, .search-wrapper {
+.search-box,
+.close-icon,
+.search-wrapper {
   position: relative; }
 
 .search-wrapper {
