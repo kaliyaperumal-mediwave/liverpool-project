@@ -2,7 +2,6 @@
 $(document).ready(function () {
     var userPlatform = getMobileOperatingSystem();
     if (userPlatform == 'Android') {
-        alert(userPlatform);
         var ssu = new SpeechSynthesisUtterance();
         var myEvent = window.attachEvent || window.addEventListener;
         $('#c730ed34-ce14-4df1-8718-6346cd050c2b').removeClass('d-flex').addClass('d-none');
