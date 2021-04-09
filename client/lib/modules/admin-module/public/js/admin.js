@@ -58,6 +58,12 @@ $(document).ready(function () {
 
       fetchReferral: function () {
         var _self = this;
+
+        var exportOptions = {
+          columns: ':visible:not(.not-exported)',
+          rows: '.selected'
+        }
+        
         $('#adminReferral').DataTable({
            select: {
             style:    'os',
