@@ -1,10 +1,9 @@
 var API_URI = "/modules/admin-module";
 $(document).ready(function () {
-  $("#uniqueLogo").hide();
-  $("#footer-placement").hide();
-  $.fn.dataTable.ext.errMode = "none";
+  $('#uniqueLogo').hide();
+  $('#footer-placement').hide()
   var vueApp = new Vue({
-    el: "#admin",
+    el: '#admin',
     data: {
       searchTxt: "",
       toggle: true,
@@ -13,13 +12,14 @@ $(document).ready(function () {
       pageNum: 1,
       referral_ids: [],
       dataSet: [],
-      successMessage: "",
+      successMessage: '',
       draw: 1,
       searchRefObj: {},
+      SelectedProviderType: 'Liverpool'
     },
 
     beforeMount: function () {
-      $("#loader").show();
+      $('#loader').show();
     },
 
     mounted: function () {
@@ -31,96 +31,66 @@ $(document).ready(function () {
       openToggle: function (toggle) {
         if (toggle) {
           this.toggle = false;
-          document.getElementById("admin-slider").style.display = "block";
-          document
-            .getElementById("admin-rest")
-            .classList.add("added-js-slider");
-          document
-            .getElementById("admin-arrow-left")
-            .classList.add("rotate-icon");
-          document
-            .getElementById("toggle-cont")
-            .classList.add("toggle-extra-css");
-        } else {
+          document.getElementById('admin-slider').style.display = "block";
+          document.getElementById('admin-rest').classList.add("added-js-slider")
+          document.getElementById('admin-arrow-left').classList.add("rotate-icon")
+          document.getElementById('toggle-cont').classList.add("toggle-extra-css")
+        }
+        else {
           this.toggle = true;
-          document.getElementById("admin-slider").style.display = "none";
-          document
-            .getElementById("admin-rest")
-            .classList.remove("added-js-slider");
-          document
-            .getElementById("admin-arrow-left")
-            .classList.remove("rotate-icon");
-          document
-            .getElementById("toggle-cont")
-            .classList.remove("toggle-extra-css");
+          document.getElementById('admin-slider').style.display = "none";
+          document.getElementById('admin-rest').classList.remove("added-js-slider")
+          document.getElementById('admin-arrow-left').classList.remove("rotate-icon")
+          document.getElementById('toggle-cont').classList.remove("toggle-extra-css")
         }
       },
 
       fetchReferral: function () {
         var _self = this;
-
-        var exportOptions = {
-          columns: ':visible:not(.not-exported)',
-          rows: '.selected'
-        }
-        
         $('#adminReferral').DataTable({
-           select: {
-            style:    'os',
-            selector: 'td:first-child'
-          },
           destroy: true,
           processing: false,
           serverSide: true,
           columnDefs: [
-            {
-              orderable: false,
-              className: 'select-checkbox',
-              targets: 0,
-            } ,
+            { targets: 0, orderable: false },
             { targets: 1, orderable: true },
-            { targets: 2, orderable: true, type: "date-uk" },
+            { targets: 2, orderable: true, type: 'date-uk' },
             { targets: 4, orderable: true },
             { targets: 5, orderable: true },
             { targets: 6, orderable: true },
-            { targets: 7, orderable: true, type: "date-uk" },
-            { targets: 8, orderable: false },
+            { targets: 7, orderable: false, type: 'date-uk' },
+            { targets: 8, orderable: true },
+            { targets: 9, orderable: false },
           ],
+          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
           order: [[7, 'desc']],
-          dom: 'Bfrtip',
-          buttons: [
-              'selectAll',
-              'selectNone',
-              {   extend: 'collection',
-                  text: 'Export Selected',
-                  buttons: ['csv',],
-                  exportOptions: {
-                      rows: { selected: true }
-                  }
-              }
-          ],
           language: {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
             zeroRecords: 'No matching referrals found'
           },
+          dom: 'Bfrtip',
+          buttons: [
+              'csv'
+          ],
           ajax: {
-            url: "/modules/admin-module/referral",
+            url: '/modules/admin-module/referral',
             // url: '/modules/admin-module/getAllreferral',
-            type: "GET",
+            type: 'GET',
             dataFilter: function (referralRes) {
+
               referralRes = jQuery.parseJSON(referralRes);
               //   console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
                 recordsTotal: referralRes.data.totalReferrals,
-                recordsFiltered: referralRes.data.filteredReferrals,
+                recordsFiltered: referralRes.data.filteredReferrals
               };
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
                 json.data.push([
-                  referralRes.data.data[i].uuid,
+                  "<input type='checkbox' class='tableCheckbox' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
                   referralRes.data.data[i].dob,
                   referralRes.data.data[i].reference_code,
@@ -129,31 +99,15 @@ $(document).ready(function () {
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
                   referralRes.data.data[i].referral_provider,
-                  "<div class='d-flex'><button  onclick='viewPdf(\"" +
-                    referralRes.data.data[i].uuid +
-                    '","' +
-                    referralRes.data.data[i].referrer_type +
-                    "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" +
-                    referralRes.data.data[i].uuid +
-                    '","' +
-                    referralRes.data.data[i].referrer_type +
-                    '" ,"' +
-                    referralRes.data.data[i].reference_code +
-                    '","' +
-                    referralRes.data.data[i].referral_provider +
-                    "\")' class='btn-pdf'>Send</button></div>",
+                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf'>Send</button></div>"
                 ]);
               }
               return JSON.stringify(json);
-            },
-          },
-          language: {
-            searchPlaceholder: "Search referral",
-            emptyTable: "No referrals to displays",
-          },
+            }
+          }
         });
         this.referral_ids = [];
-        $("#loader").hide();
+        $('#loader').hide();
       },
 
       selectcheck: function (checked, id) {
@@ -166,80 +120,72 @@ $(document).ready(function () {
 
       deleteReferral: function () {
         if (this.referral_ids.length) {
-          $("#loader").show();
-          var successData = apiCallPut("put", "/referral", {
-            referral_id: this.referral_ids,
-            status: "deleted",
-          });
-          $("#loader").hide();
+          $('#loader').show();
+          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
+          $('#loader').hide();
           if (successData && Object.keys(successData)) {
-            this.successMessage = "Referrals deleted successfully .";
+            this.successMessage = 'Referrals deleted successfully .'
             this.fetchReferral();
-            $("#deletedSuccess").modal("show");
+            $('#deletedSuccess').modal('show');
           }
         }
       },
 
       archiveReferral: function () {
         if (this.referral_ids.length) {
-          $("#loader").show();
-          var successData = apiCallPut("put", "/referral", {
-            referral_id: this.referral_ids,
-            status: "archived",
-          });
-          $("#loader").hide();
+          $('#loader').show();
+          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
+          $('#loader').hide();
           if (successData && Object.keys(successData)) {
-            this.successMessage = "Referrals archived successfully .";
-            $("#deletedSuccess").modal("show");
+            this.successMessage = 'Referrals archived successfully .';
+            this.fetchReferral();
+            $('#deletedSuccess').modal('show');
           }
         }
       },
 
       closeModal: function () {
-        $("#adminReferral").DataTable().ajax.reload();
-        $("#deletedSuccess").modal("hide");
-        this.successMessage = "";
+        $('#example').DataTable().ajax.reload();
+        $('#deletedSuccess').modal('hide');
+        this.successMessage = '';
       },
 
       closeMailSuccessPopup: function () {
-        $("#adminReferral").DataTable().ajax.reload();
-        $("#mailSentSuccess").modal("hide");
+        $('#example').DataTable().ajax.reload();
+        $('#mailSentSuccess').modal('hide');
       },
 
       fetchAllRef: function () {
-        var successData = apiCallGet("get", "/getAllreferral", API_URI);
-        $("#loader").hide();
+        var successData = apiCallGet('get', '/getAllreferral', API_URI);
+        $('#loader').hide();
         //console.log()(successData)
       },
-    },
-  });
 
-  $(document).on("change", ".tableCheckbox", function (e) {
+      
+    },
+
+  })
+
+  $(document).on('change', '.tableCheckbox', function (e) {
     vueApp.selectcheck(e.target.checked, e.target.id);
   });
+
 });
 
 function viewPdf(uuid, role) {
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-  var isIE = false || !!document.documentMode;
-  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-  if(!isIE && !isSafari)
-  {
-    var link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.target = '_blank'
-    link.click();
-    setTimeout(function () {
-      $('#loader').hide();
-    }, 1000);
-  }
-  else
-  {
-    download(blob, uuid+".pdf", "application/pdf");
+  // download(blob, "strFileName.pdf", "application/pdf");
+  // $('#loader').hide();
+  // return;
+  var link = document.createElement('a');
+  link.href = window.URL.createObjectURL(blob);
+  link.target = '_blank'
+  link.click();
+  setTimeout(function () {
     $('#loader').hide();
-  }
+  }, 1000);
   //link.click();
 }
 
@@ -253,44 +199,28 @@ function toArrayBuffer(buf) {
 }
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
-  console.log(referral_provider);
+  console.log(referral_provider)
   if (referral_provider != "Pending") {
-    $("#referralAlreadySent").modal("show");
-    document.getElementById("sentMsg").innerHTML =
-      "This referral already " + referral_provider;
+    $('#referralAlreadySent').modal('show');
+    document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
   } else {
-    $("#sendProviderModal").modal("show");
-    document
-      .getElementById("sendRef")
-      .setAttribute(
-        "onclick",
-        "sendPdf('" + uuid + "','" + role + "','" + refCode + "')"
-      );
+    $('#sendProviderModal').modal('show');
+    document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
   }
 }
 
 function sendPdf(uuid, role, refCode) {
-  var selectedProvider = document.getElementById("SelectedProvider").value;
-  var successData = apiCallGet(
-    "get",
-    "/sendReferral/" +
-      uuid +
-      "/" +
-      role +
-      "/" +
-      selectedProvider +
-      "/" +
-      refCode,
-    API_URI
-  );
+  var selectedProvider = document.getElementById('SelectedProvider').value;
+  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
   if (successData && Object.keys(successData)) {
-    $("#sendProviderModal").modal("hide");
-    $("#mailSentSuccess").modal("show");
-  } else {
-    $("#sendProviderModal").modal("hide");
+    $('#sendProviderModal').modal('hide');
+    $('#mailSentSuccess').modal('show');
+  }
+  else {
+    $('#sendProviderModal').modal('hide');
   }
 }
 
 function closeAlreadySentPopup() {
-  $("#referralAlreadySent").modal("hide");
+  $('#referralAlreadySent').modal('hide');
 }
