@@ -1,6 +1,5 @@
 module.exports = function modelUser(sequelize, types) {
   const Referral = sequelize.define('Referral', {
-
     uuid: {
       type: types.UUID,
       defaultValue: types.UUIDV4,
@@ -20,7 +19,6 @@ module.exports = function modelUser(sequelize, types) {
     user_role: {
       type: types.TEXT
     },
-
     child_firstname: {
       type: types.TEXT
     },
@@ -96,11 +94,9 @@ module.exports = function modelUser(sequelize, types) {
     parental_responsibility: {
       type: types.TEXT
     },
-
     responsibility_parent_firstname: {
       type: types.TEXT
     },
-
     child_parent_relationship: {
       type: types.TEXT
     },
@@ -119,7 +115,6 @@ module.exports = function modelUser(sequelize, types) {
     legal_care_status: {
       type: types.TEXT
     },
-
     //-----------
     child_profession: {
       type: types.TEXT
@@ -127,22 +122,18 @@ module.exports = function modelUser(sequelize, types) {
     child_education_place: {
       type: types.TEXT
     },
-
     child_EHCP: {
       type: types.TEXT
     },
     child_EHAT: {
       type: types.TEXT
     },
-
     child_socialworker: {
       type: types.TEXT
     },
-
     child_socialworker_firstname: {
       type: types.TEXT
     },
-
     child_socialworker_contact: {
       type: types.TEXT
     },
@@ -207,10 +198,19 @@ module.exports = function modelUser(sequelize, types) {
     child_manual_address: {
       type: types.JSONB
     },
-    sex_at_birth: {
+    professional_manual_address: {
+      type: types.JSONB
+    },
+    child_education_manual_address: {
+      type: types.JSONB
+    },
+    parent_contact_type: {
       type: types.TEXT
     },
-    gp_school: {
+    professional_contact_type: {
+      type: types.TEXT
+    },
+    contact_person: {
       type: types.TEXT
     },
     parent_manual_address: {
@@ -232,40 +232,31 @@ module.exports = function modelUser(sequelize, types) {
   }, {
     tableName: 'referrals',
   });
-
   Referral.belongsToMany(sequelize.models.Type, {
     as: 'type',
     through: 'UserType',
   });
-
   Referral.belongsToMany(sequelize.models.Reason, {
     as: 'referral_reason',
     through: 'UserReferralReason',
   });
-
   Referral.belongsToMany(Referral, {
     as: 'parent',
     through: 'ChildParents',
   });
-
   Referral.belongsToMany(Referral, {
     as: 'professional',
     through: 'ChildProfessional',
   });
-
   Referral.belongsToMany(Referral, {
     as: 'child_parent',
     through: 'ChildParents',
     foreignKey: 'parentId',
   });
-  
   Referral.belongsToMany(Referral, {
     as: 'child_professional',
     through: 'ChildProfessional',
     foreignKey: 'professionalId'
   });
-
-
-
   return Referral;
 };

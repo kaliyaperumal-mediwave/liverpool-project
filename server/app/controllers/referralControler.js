@@ -2122,20 +2122,25 @@ exports.fetchReview = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
+              console.log(error)
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
           }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
       }).catch((error) => {
+        console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
     }).catch((error) => {
+      console.log(error)
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
@@ -2325,7 +2330,7 @@ exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
   var provider;
   ////console.log('\nSave Review Payload == ', ctx.request.body);
-  console.log("fdadfafafafafda " + ctx.request.body.referral_provide)
+  console.log("fdadfafafafafda " + ctx.request.body.contact_person)
 
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({

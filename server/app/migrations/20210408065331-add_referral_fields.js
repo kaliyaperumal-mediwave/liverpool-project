@@ -14,7 +14,6 @@ module.exports = {
         allowNull: true,
       },
     ),
-
       queryInterface.addColumn(
         'referrals', // table name
         'professional_manual_address', // new field name
@@ -23,7 +22,6 @@ module.exports = {
           allowNull: true,
         },
       ),
-
       queryInterface.addColumn(
         'referrals', // table name
         'child_education_manual_address', // new field name
@@ -77,7 +75,6 @@ module.exports = {
     queryInterface.removeColumn('referrals', 'professional_manual_address');
     queryInterface.removeColumn('referrals', 'child_education_manual_address');
     queryInterface.removeColumn('referrals', 'contact_person');
-
     queryInterface.removeColumn('referrals', 'parent_contact_type');
     queryInterface.removeColumn('referrals', 'professional_contact_type');
   }
