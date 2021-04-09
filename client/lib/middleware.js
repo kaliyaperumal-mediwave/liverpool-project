@@ -1,5 +1,4 @@
 const request = require('request-promise');
-
 module.exports = function (self, options) {
   self.middleware = {
 
@@ -66,6 +65,42 @@ module.exports = function (self, options) {
           })
           .catch((error) => {
             return req.res.redirect("/users/login");
+          });
+      }
+      else {
+        req.data.logoPath = "/";
+        req.data.showLogout = false;
+        req.data.loginId = "";
+        req.data.prof_data = "";
+        req.data.uuid = req.session.uuid;
+        req.data.userRole = req.session.user_role;
+        return next();
+      }
+    },
+
+    checkAdminPageAuth: function (req, res, next) {
+      req.res.header('Cache-Control', 'no-cache, no-store');
+      //console.log("----------------checkCommonPageAuth-----------------------");
+     
+      if (req.session.auth_token) {
+        self.verifyToken(req)
+          .then((data) => {
+            if(req.session.user_role === 'admin'){
+              console.log('role----------------------', req.session.user_role);
+              req.data.loginId = req.session.loginIdUrl;
+              req.data.userRole = req.session.user_role;
+              req.data.uuid = req.session.uuid;
+              req.data.prof_data = req.session.prof_data;
+              req.data.logoPath = "/admin"
+              req.data.showLogout = true;
+              return next();
+            } else {
+              console.log('accress restricted to role----------------------', req.session.user_role);
+              logOut();
+            }
+          })
+          .catch((error) => {
+            return req.res.redirect("/dashboard");
           });
       }
       else {

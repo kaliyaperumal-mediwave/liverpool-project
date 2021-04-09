@@ -6,7 +6,7 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.middleware.checkCommonPageAuth, self.admin);
+      self.dispatch('/', self.middleware.checkAdminPageAuth, self.admin);
       self.dispatch('/archive', self.middleware.checkCommonPageAuth, self.archive);
       self.dispatch('/serviceAdmin', self.middleware.checkCommonPageAuth, self.serviceAdmin);
     };
