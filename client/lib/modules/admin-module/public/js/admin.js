@@ -58,7 +58,7 @@ $(document).ready(function () {
 
       fetchReferral: function () {
         var _self = this;
-        $('#example').DataTable({
+        $('#adminReferral').DataTable({
            select: {
             style:    'os',
             selector: 'td:first-child'
@@ -67,7 +67,11 @@ $(document).ready(function () {
           processing: false,
           serverSide: true,
           columnDefs: [
-            { targets: 0, orderable: false },
+            {
+              orderable: false,
+              className: 'select-checkbox',
+              targets: 0,
+            } ,
             { targets: 1, orderable: true },
             { targets: 2, orderable: true, type: "date-uk" },
             { targets: 4, orderable: true },
@@ -79,7 +83,15 @@ $(document).ready(function () {
           order: [[7, 'desc']],
           dom: 'Bfrtip',
           buttons: [
-              'csv'
+              'selectAll',
+              'selectNone',
+              {   extend: 'collection',
+                  text: 'Export Selected',
+                  buttons: ['csv',],
+                  exportOptions: {
+                      rows: { selected: true }
+                  }
+              }
           ],
           language: {
             searchPlaceholder: 'Search referral',
@@ -102,13 +114,7 @@ $(document).ready(function () {
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
                 json.data.push([
-                  "<input type='checkbox' class='tableCheckbox' id='" +
-                    referralRes.data.data[i].uuid +
-                    "' name='" +
-                    referralRes.data.data[i].uuid +
-                    "' value='" +
-                    referralRes.data.data[i].uuid +
-                    "'>",
+                  referralRes.data.data[i].uuid,
                   referralRes.data.data[i].name,
                   referralRes.data.data[i].dob,
                   referralRes.data.data[i].reference_code,

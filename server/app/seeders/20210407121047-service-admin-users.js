@@ -71,7 +71,8 @@ module.exports = {
         'selvakumar+ypas@mindwaveventures.com',
         'selvakumar+others@mindwaveventures.com',
         'selvakumar+iaptus@mindwaveventures.com',
-        'selvakumar+venus@mindwaveventures.com'
+        'selvakumar+venus@mindwaveventures.com',
+        'selvakumar+mhst@mindwaveventures.com'
       ],
     });
     /**
