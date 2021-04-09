@@ -109,9 +109,9 @@ body {
     }
   }
 
-  select option {
-    text-transform: capitalize !important;
-  }
+  // select option {
+  //   text-transform: capitalize !important;
+  // }
 
   .h-75px {
     @include set-dynamicHeight(75px);
@@ -305,8 +305,7 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
-    30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
   background-size: contain;
 }
 
@@ -390,8 +389,7 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
-    fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
   background-size: cover !important;
 }
 
@@ -1156,8 +1154,7 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
-    no-repeat ;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat;
   background-size: cover !important;
   height: 100%;
 }
@@ -1185,8 +1182,7 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
-    fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
   background-size: cover;
 }
 
@@ -2843,7 +2839,6 @@ $color-scheme: (
   $loader-bg-color
 ) {
   .#{$name} {
-
     .body-bg {
       background: #8ecae6 $background no-repeat !important;
       background-size: cover !important;
@@ -2861,16 +2856,17 @@ $color-scheme: (
     .recent_referrals {
       color: $secondary;
     }
-    .inputLoader::after, .inputLoader::before{
+    .inputLoader::after,
+    .inputLoader::before {
       border-color: $secondary $secondary transparent transparent;
     }
-    .inputLoader::after{
+    .inputLoader::after {
       background: $loader-bg-color;
     }
     .referral-feedback {
       color: $secondary;
     }
-    .close-icon:after{
+    .close-icon:after {
       color: $secondary;
     }
     .card-set-container-bg {
@@ -3192,11 +3188,9 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
-  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
-  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color,
-  $admin-select-tab,$loader-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
+  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color, $admin-select-tab, $loader-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -3648,61 +3642,63 @@ div.collapse-container.collapsing {
 //  width: 10px;
 //  background: red;
 // }
-.search-box,.close-icon,.search-wrapper {
-	position: relative;
-	// padding: 10px;
+.search-box,
+.close-icon,
+.search-wrapper {
+  position: relative;
+  // padding: 10px;
 }
 .search-wrapper {
-	// width: 500px;
+  // width: 500px;
   display: contents;
-	// margin: auto;
-	// margin-top: 50px;
+  // margin: auto;
+  // margin-top: 50px;
 }
 .search-box {
-	width: 80%;
-	border: 1px solid #ccc;
+  width: 80%;
+  border: 1px solid #ccc;
   outline: 0;
   border-radius: 15px;
 }
 .search-box:focus {
-	box-shadow: 0 0 15px 5px #b0e0ee;
-	border: 2px solid #bebede;
+  box-shadow: 0 0 15px 5px #b0e0ee;
+  border: 2px solid #bebede;
 }
 .close-icon {
-	border:1px solid transparent;
-	background-color: transparent;
-	display: inline-block;
-	vertical-align: middle;
+  border: 1px solid transparent;
+  background-color: transparent;
+  display: inline-block;
+  vertical-align: middle;
   outline: 0;
   cursor: pointer;
   display: contents;
 }
 .close-icon:after {
   content: "X";
-      display: block;
-      width: 20px;
-      height: 20px;
-      position: absolute;
-      background-color: transparent;
-      z-index: 1;
-      right: 10px;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-      padding: 2px;
-      text-align: center;
-      color: #025ec5;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
+  display: block;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background-color: transparent;
+  z-index: 1;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  padding: 2px;
+  text-align: center;
+  color: #025ec5;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
 }
 .search-box:not(:valid) ~ .close-icon {
-	display: none;
+  display: none;
 }
-.wid-80{
+.wid-80 {
   width: 80%;
 }
-.border-bottom-primary.card-body.px-2.px-md-4{
+.border-bottom-primary.card-body.px-2.px-md-4 {
   height: 70px !important;
 }
 // input[type="search"]::-webkit-search-decoration,
@@ -3711,12 +3707,12 @@ div.collapse-container.collapsing {
 // input[type="search"]::-webkit-search-results-decoration {
 //   display: none;
 // }
-.page-link:focus{
+.page-link:focus {
   box-shadow: none !important;
 }
-.custom-mobile-place .custom-select{
+.custom-mobile-place .custom-select {
   padding: 10px 22px 10px 10px !important;
-  @include xs-sm-screen{
+  @include xs-sm-screen {
     white-space: nowrap !important;
     overflow: hidden !important;
     text-overflow: ellipsis !important;
