@@ -198,6 +198,15 @@ module.exports = function modelUser(sequelize, types) {
     child_manual_address: {
       type: types.JSONB
     },
+    sex_at_birth: {
+      type: types.TEXT
+    },
+    gp_school: {
+      type: types.TEXT
+    },
+    parent_manual_address: {
+      type: types.JSONB
+    },
     professional_manual_address: {
       type: types.JSONB
     },
