@@ -15,6 +15,17 @@ $(document).ready(function () {
                 socialWorkContact: '',
                 referral_progress: 60
             },
+            prevAddressData: null,
+            educationManualAddressData: [],
+            addressData: {
+                school: '',
+                addressLine1: '',
+                addressLine2: '',
+                city: '',
+                country: '',
+                postCode: ''
+            },
+            isAddressFormSubmitted: false,
             yourAreIn: [{
                 id: 'c1035a21-07a4-407f-a8d0-dcc0e70c6e07',
                 value: 'Education'
@@ -72,6 +83,78 @@ $(document).ready(function () {
                         _self.mapsEntered = false;
                     }
                 });
+            },
+
+            getManualAddress: function (e) {
+                console.log(e);
+                $('#educationModal').modal('show');
+            },
+
+            // Getting Manual Address
+            getManualAddress: function () {
+                $('#educationModal').modal('show');
+                this.resetAddressModalValues();
+            },
+
+            //Adding and Updating a address logic
+            upsertAddress: function () {
+                manualAddressLogic(this, 'addressData', 'educationManualAddressData');
+                this.educAndEmpData.attendedInfo = "";
+                document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.pointerEvents = "none";
+                document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.opacity = 0.7;
+                document.getElementById('c4238c48-4dd6-405c-b3d9-cda7f17bdcb8').style.pointerEvents = "none";
+                document.getElementById('c4238c48-4dd6-405c-b3d9-cda7f17bdcb8').style.opacity = 0.5;
+            },
+
+            //Patching the HouseHold logic
+            patchAddress: function (address) {
+                patchManualAddress(this, 'addressData', address, 'educationManualAddressData');
+                this.prevAddressData = JSON.parse(JSON.stringify(this.educationManualAddressData));
+            },
+
+            //Resetting the modal values of service data
+            resetAddressModalValues: function () {
+                this.isAddressFormSubmitted = false;
+                this.addressData.addressLine1 = '';
+                this.addressData.addressLine2 = '';
+                this.addressData.city = '';
+                this.addressData.country = '';
+                this.addressData.postCode = '';
+                this.addressData.mode = '';
+            },
+
+            //Delete service logic
+            deleteSect3ManualAddress: function () {
+                deleteLogicManualAddress(this.educationManualAddressData, this.addressData, this, 'educationManualAddressData',
+                    '2df66d79-a41a-4c4e-acee-171c39fe26f5', 'c4238c48-4dd6-405c-b3d9-cda7f17bdcb8');
+                $('#deleteAddressModal').modal('hide');
+            },
+
+            checkArrayLength: function (arr) {
+                if (arr && Array.from(arr).length) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
+            resetAddressValue: function (data) {
+                if (this.addressData.mode && this.addressData.mode === 'add') {
+                    this.resetAddressModalValues();
+                } else if (this.addressData.mode && this.addressData.mode === 'update') {
+                    var prevAddressObj = convertArrayToObj(this.prevAddressData);
+                    if (this.addressData.mode === 'update') {
+                        if (_.isEqual(this.addressData, prevAddressObj)) {
+                            this.addressData = this.addressData;
+                        } else {
+                            this.educationManualAddressData = [];
+                            this.educationManualAddressData.push(prevAddressObj);
+                        }
+                        return true;
+                    } else {
+                        this.resetAddressModalValues();
+                    }
+                }
             },
 
             onOptionChange: function (event) {

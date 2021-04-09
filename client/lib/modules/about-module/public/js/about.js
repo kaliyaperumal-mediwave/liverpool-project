@@ -368,7 +368,7 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                manualAddressLogic(this, 'addressData');
+                manualAddressLogic(this, 'addressData', 'manualAddressArray');
                 this.aboutObj.childAddress = "";
                 document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
                 document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
@@ -378,7 +378,7 @@ $(document).ready(function () {
 
             //Patching the HouseHold logic
             patchAddress: function (address) {
-                patchManualAddress(this, 'addressData', address);
+                patchManualAddress(this, 'addressData', address, 'manualAddressArray');
                 this.prevAddressData = JSON.parse(JSON.stringify(this.manualAddressArray));
             },
 
@@ -498,8 +498,10 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            deleteManualAddress: function (data) {
-                deleteLogic(this.manualAddressArray, data, this, 'manualAddressArray');
+            deleteManualAddress: function () {
+                deleteLogicManualAddress(this.manualAddressArray, this.addressData, this, 'manualAddressArray',
+                    'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
+                $('#deleteAddressModal').modal('hide');
             },
 
             //Resetting the modal values of service data
