@@ -41,10 +41,9 @@
                 <i class="fal fa-search font-23 ham-icon"></i>
               </div>
             </span>
-            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text"
-              v-model="searchQuery" placeholder="Search your resource" id="example-search-input"
-              @input="filterPieces()" />
-              <!-- <div class="search-wrapper">
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
+              placeholder="Search your resource" id="example-search-input" @input="filterPieces()" />
+            <!-- <div class="search-wrapper">
 
               <form class="wid-80">
               <input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
@@ -96,60 +95,65 @@
     </div>
     <div class="d-flex text-center py-2">
       <div class="col-md-8 col-lg-6 col-xl-6 col-11 py-3 py-md-4 mx-auto home-primary-content-bg home-primary-content">
-        <h3 class="home-primary-content m-0 pt-md-0 pt-1 px-2 text-left">
+        <h4 class="home-primary-content m-0 pt-md-0 pt-1 px-2 text-left">
           Sefton & Liverpool CAMHS services aim to promote the mental health and
           wellbeing of all children, young people, families and carers.
-        </h3>
-        <h3 class="mb-1 pt-1 pt-md-2 px-2 text-left font-weight-bold home-primary-content">
+        </h4>
+        <h4 class="mb-1 pt-1 pt-md-2 px-2 text-left font-weight-bold home-primary-content">
           This platform provides you with useful resources to support mental health and wellbeing for children and young
           people. It also allows young people 14 and over, parents / carers and professionals to make referrals to
           Sefton & Liverpool CAMHS services.
-        </h3>
+        </h4>
       </div>
     </div>
   </div>
   <div class="d-flex py-0 mt-md-4 pb-1 mt-3">
-    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 pb-2 mx-auto">
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 pb-2 mx-auto">
       <div class="d-flex justify-content-center">
-        <div class="col-md-6 col-lg-6 p-0 mr-3 mr-md-4 cursor-pointer home-primary-content-bg"
-          @click="navigatePage('/make-referral')">
-          <div class="text-center py-5">
-            <img src="/modules/my-apostrophe-assets/img/MakeAReferral2.svg" class="px-3 image-height" alt="" />
-          </div>
-          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-            <span class="home-secondary-content pr-2 px-md-3">Make a referral</span>
+        <div class="col-md-6 col-lg-6 p-0 cursor-pointer pr-2" @click="navigatePage('/make-referral')">
+          <div class="home-primary-content-bg">
+            <div class="text-center py-5">
+              <img src="/modules/my-apostrophe-assets/img/MakeAReferral2.svg" class="px-3 image-height" alt="" />
+            </div>
+            <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+              <span class="home-secondary-content pr-2 px-md-3">Make a referral</span>
+            </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-6 p-0 cursor-pointer home-primary-content-bg"
-          @click="navigatePage('/pages/urgent-help')">
-          <div class="text-center py-5">
-            <img src="/modules/my-apostrophe-assets/img/UrgentHelp.svg" class="px-3 image-height" alt="" />
-          </div>
-          <div class="text-right text-md-right py-1 py-1 sub-header-bg home-card-radius">
-            <span class="home-secondary-content pr-2 px-md-3">Urgent help</span>
+        <div class="col-md-6 col-lg-6 p-0 cursor-pointer pl-2" @click="navigatePage('/pages/urgent-help')">
+          <div class="home-primary-content-bg">
+            <div class="text-center py-5">
+              <img src="/modules/my-apostrophe-assets/img/UrgentHelp.svg" class="px-3 image-height" alt="" />
+            </div>
+            <div class="text-right text-md-right py-1 py-1 sub-header-bg home-card-radius">
+              <span class="home-secondary-content pr-2 px-md-3">Urgent help</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="d-flex py-2">
-    <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 py-2 mx-auto">
+    <div class="col-md-8 col-lg-6 col-xl-6 col-11 p-0 pb-2 mx-auto">
       <div class="d-flex justify-content-center">
-        <div class="col-md-6 col-lg-6 mr-3 mr-md-4 p-0 cursor-pointer home-primary-content-bg"
-          @click="navigatePage('/users/login')">
-          <div class="text-center py-5">
-            <img src="/modules/my-apostrophe-assets/img/Login.svg" class="px-3 image-height" alt="" />
-          </div>
-          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-            <span class="home-secondary-content pr-2 px-md-3">Login / Sign up</span>
+        <div class="col-md-6 col-lg-6 p-0 cursor-pointer pr-2" @click="navigatePage('/users/login')">
+          <div class="home-primary-content-bg">
+            <div class="text-center py-5">
+              <img src="/modules/my-apostrophe-assets/img/Login.svg" class="px-3 image-height" alt="" />
+            </div>
+            <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+              <span class="home-secondary-content pr-2 px-md-3">Login / Sign up</span>
+            </div>
           </div>
         </div>
-        <div class="col-md-6 col-lg-6 cursor-pointer p-0 home-primary-content-bg" @click="navigatePage('/resources')">
-          <div class="text-center py-5">
-            <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height" alt="" />
-          </div>
-          <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
-            <span class="home-secondary-content pr-2 px-md-3">Resources</span>
+        <div class="col-md-6 col-lg-6 p-0 cursor-pointer pl-2" @click="navigatePage('/resources')">
+          <div class="home-primary-content-bg">
+            <div class="text-center py-5">
+              <img src="/modules/my-apostrophe-assets/img/Resources.svg" class="px-3 image-height" alt="" />
+            </div>
+            <div class="text-right text-md-right py-1 sub-header-bg home-card-radius">
+              <span class="home-secondary-content pr-2 px-md-3">Resources</span>
+            </div>
           </div>
         </div>
       </div>

@@ -80,7 +80,7 @@ module.exports = {
       });
     });
     self.route('post', 'feedback', function (req, res) {
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/feedback';
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/refFeedback';
       // console.log(req.body, "req.body=========");
       self.middleware.post(req, res, url, req.body).then((data) => {
         // console.log(data);

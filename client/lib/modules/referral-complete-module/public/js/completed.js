@@ -67,7 +67,7 @@ $(document).ready(function () {
             //Function to send feedback for referral form
             sendReferralFeedback: function () {
                 this.isFeedBackFormSubmitted = true;
-                if (this.refFeedbackData.ratings && this.refFeedbackData.comments) {
+                if (this.refFeedbackData.ratings) {
                     $('#aa6a4e36-a655-4ebe-b072-2cb4d1a1f642').modal('hide');
                     $('#loader').show();
                     var feedbackObj = JSON.parse(JSON.stringify(this.refFeedbackData));

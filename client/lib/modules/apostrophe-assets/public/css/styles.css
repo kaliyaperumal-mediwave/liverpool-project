@@ -944,7 +944,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   color: #023047; }
   @media (max-width: 575.98px) {
     .btn-quaternary-text {
-      font-size: 19px; } }
+      font-size: 17px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .btn-quaternary-text {
       font-size: 20px; } }
@@ -1581,7 +1581,7 @@ a {
       .home-primary-content h3 {
         font-size: 20px; } }
   .home-primary-content h4 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     color: #023047;
     margin-bottom: 0px; }
@@ -3759,6 +3759,12 @@ body .ui-widget .ui-menu-item {
 .off .recent_referrals {
   color: #023047; }
 
+.off .inputLoader::after, .off .inputLoader::before {
+  border-color: #023047 #023047 transparent transparent; }
+
+.off .inputLoader::after {
+  background: transparent; }
+
 .off .referral-feedback {
   color: #023047; }
 
@@ -4124,6 +4130,12 @@ body .ui-widget .ui-menu-item {
 
 .on .recent_referrals {
   color: #fafafa; }
+
+.on .inputLoader::after, .on .inputLoader::before {
+  border-color: #fafafa #fafafa transparent transparent; }
+
+.on .inputLoader::after {
+  background: #353638; }
 
 .on .referral-feedback {
   color: #fafafa; }
