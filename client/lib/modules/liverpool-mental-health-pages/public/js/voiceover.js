@@ -24,7 +24,7 @@ $(document).ready(function () {
             document.getElementById('stopAndroidButton').style.opacity = 1;
             document.getElementById('stopAndroidButton').removeAttribute('disabled');
             document.getElementById('playAndroidButton').setAttribute('disabled', true);
-            document.getElementById('playAndroidButton').classList.add('d-none');
+            //document.getElementById('playAndroidButton').classList.add('d-none');
             wrapper();
         });
 
