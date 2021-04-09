@@ -503,7 +503,7 @@ a {
     }
   }
   h4 {
-    @include set-titleStyles($tertiary-mdFont-size, bold, $primary-color);
+    @include set-titleStyles($quaternary-font-size, bold, $primary-color);
     margin-bottom: 0px;
     @include xs-screen {
       font-size: 16px;
@@ -1544,7 +1544,7 @@ a {
 }
 .header-slider {
   height: 70px;
-  padding: 0px 15px;
+  padding: 0px 4px;
 }
 .padding-set {
   padding: 0px 25px;
@@ -2794,7 +2794,8 @@ $color-scheme: (
       #fafafa,
       #112f45,
       #e8edee,
-      #dedede
+      #dedede,
+      transparent
     )
     (
       on,
@@ -2815,7 +2816,8 @@ $color-scheme: (
       #535454,
       #fafafa,
       #656767,
-      #535454
+      #535454,
+      #353638
     )
 );
 @mixin theme(
@@ -2837,7 +2839,8 @@ $color-scheme: (
   $admin-bg-color,
   $border-color,
   $admin-btn-bg-color,
-  $admin-select-tab
+  $admin-select-tab,
+  $loader-bg-color
 ) {
   .#{$name} {
 
@@ -2857,6 +2860,12 @@ $color-scheme: (
     }
     .recent_referrals {
       color: $secondary;
+    }
+    .inputLoader::after, .inputLoader::before{
+      border-color: $secondary $secondary transparent transparent;
+    }
+    .inputLoader::after{
+      background: $loader-bg-color;
     }
     .referral-feedback {
       color: $secondary;
@@ -3187,7 +3196,7 @@ $color-scheme: (
   $primary-input-color, $secondary-input-color, $search-bar-color, $background,
   $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
   $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color,
-  $admin-select-tab in $color-scheme
+  $admin-select-tab,$loader-bg-color in $color-scheme
 {
   @include theme(
     $name,
@@ -3208,7 +3217,8 @@ $color-scheme: (
     $admin-bg-color,
     $border-color,
     $admin-btn-bg-color,
-    $admin-select-tab
+    $admin-select-tab,
+    $loader-bg-color
   );
 }
 
@@ -3445,6 +3455,7 @@ $color-scheme: (
 i.fa.fa-map-marker {
   font-weight: 600;
   color: #023047;
+  font-size: 30px;
 }
 .p-16 {
   padding: 16px !important;
@@ -3702,4 +3713,13 @@ div.collapse-container.collapsing {
 // }
 .page-link:focus{
   box-shadow: none !important;
+}
+.custom-mobile-place .custom-select{
+  padding: 10px 22px 10px 10px !important;
+  @include xs-sm-screen{
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 75px;
+  }
 }

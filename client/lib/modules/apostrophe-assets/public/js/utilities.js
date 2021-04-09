@@ -55,6 +55,44 @@ function commonToggleVisibility(context, element, visibility) {
     }
 };
 
+//Common Function to entering manual address
+function manualAddressLogic(context, object) {
+    console.log(context, object);
+    context['isAddressFormSubmitted'] = true;
+    var addressForm = context[object];
+    if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
+        if (addressForm.mode === 'update') {
+            context.manualAddressArray = [];
+            delete addressForm.mode;
+            context.manualAddressArray.push(addressForm);
+        } else {
+            addressForm.id = uuidV4();
+            addressForm.mode = 'add';
+            context.manualAddressArray.push(addressForm);
+        }
+        $('#addressModal').modal('hide');
+        context.resetModalValues();
+
+    } else {
+        return;
+    }
+
+};
+
+//Patching the manual address logic
+function patchManualAddress(context, object, address) {
+    context.manualAddressArray = [];
+    var addressForm = context[object];
+    addressForm.addressLine1 = address.addressLine1;
+    addressForm.addressLine2 = address.addressLine2;
+    addressForm.city = address.city;
+    addressForm.country = address.country;
+    addressForm.postCode = address.postCode;
+    addressForm.id = address.id;
+    addressForm.mode = 'update';
+    context.manualAddressArray.push(addressForm);
+};
+
 
 //Common Delete Logic for Service and HouseHold Modal
 function deleteLogic(arr, value, context, section) {
@@ -66,6 +104,27 @@ function deleteLogic(arr, value, context, section) {
         }
     });
     context[section].splice(index, 1);
+};
+
+//Common Delete Logic for manual address
+function deleteLogicManualAddress(arr, value, context, section) {
+    var index;
+    arr.some(function (e, i) {
+        if (e.id == value.id) {
+            index = i;
+            return true;
+        }
+    });
+    context[section].splice(index, 1);
+};
+
+//Common Function to convert an array to an object
+function convertArrayToObj(arr) {
+    var obj = arr.reduce(function (acc, cur, i) {
+        acc[i] = cur;
+        return acc;
+    }, {});
+    return obj['0'];
 };
 
 //Common Modal for API error messages
