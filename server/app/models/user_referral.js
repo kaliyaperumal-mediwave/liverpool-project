@@ -192,12 +192,12 @@ module.exports = function modelUser(sequelize, types) {
     selected_service: {
       type: types.TEXT
     },
-    // child_contact_type: {
-    //   type: types.TEXT
-    // },
-    // child_manual_address: {
-    //   type: types.JSONB
-    // },
+    child_contact_type: {
+      type: types.TEXT
+    },
+    child_manual_address: {
+      type: types.JSONB
+    },
     sex_at_birth: {
       type: types.TEXT
     },
@@ -220,6 +220,25 @@ module.exports = function modelUser(sequelize, types) {
       type: types.TEXT
     },
     contact_person: {
+      type: types.TEXT
+    },
+    parent_manual_address: {
+      type: types.JSONB
+    },
+    professional_manual_address: {
+      type: types.JSONB
+    },
+    child_education_manual_address: {
+      type: types.JSONB
+    },
+
+    parent_contact_type: {
+      type: types.TEXT
+    },
+    professional_contact_type: {
+      type: types.TEXT
+    },
+    child_socialworker_contact_type: { 
       type: types.TEXT
     },
   }, {

@@ -471,8 +471,8 @@ div.radio.switcher label {
 .custom-table-nested > div > div + div {
   overflow: auto; }
 
-.custom-table-nested > div > div {
-  overflow: auto; }
+/* .custom-table-nested > div > div {
+  overflow: auto; } */
 
 .custom-table-nested .custom-select {
   padding: 0px 20px;

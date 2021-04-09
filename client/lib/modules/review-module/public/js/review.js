@@ -19,6 +19,7 @@ $(document).ready(function () {
                 aboutLabel: "",
                 referralLabel: ""
             },
+            contact_person: '',
             legalStatusArray: [
                 'Care of Parent',
                 'Care of Local Authority(Liverpool)',
@@ -61,17 +62,7 @@ $(document).ready(function () {
             ageFlag: null
         },
 
-        // beforeCreate: function () {
-        //     let spinner = document.querySelector("#loader")
-        //     if (spinner.classList.contains("blurred")) {
-        //         spinner.classList.remove("blurred");
-        //     } else {
-        //         spinner.classList.add("blurred")
-        //     }
-        //     $('#loader').show();
-        // },
         beforeMount: function () {
-            // this.blurMe();
             $('#loader').show();
         },
 
@@ -98,7 +89,6 @@ $(document).ready(function () {
             this.userId = document.getElementById('uUid').innerHTML;
             this.payloadData.userid = this.userId;
             this.payloadData.role = this.userRole;
-            //  //console.log(this.payloadData);
             this.getAllSectionData(this.payloadData);
 
         },
@@ -114,7 +104,6 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        //console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;

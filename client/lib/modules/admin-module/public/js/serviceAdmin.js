@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#uniqueLogo').hide();
     $('#footer-placement').hide()
     var vueApp = new Vue({
-        el: '#admin-referral-archive',
+        el: '#serviceAdmin',
         data: {
             searchTxt: "",
             toggle: true,
@@ -47,33 +47,35 @@ $(document).ready(function () {
             fetchReferral: function () {
                 var _self = this;
                 $('#example').DataTable({
+                    select: {
+                        style: 'os',
+                        selector: 'td:first-child'
+                    },
                     destroy: true,
                     processing: false,
                     serverSide: true,
                     columnDefs: [
-                      { targets: 0, orderable: false },
-                      { targets: 1, orderable: true },
-                      { targets: 2, orderable: true, type: 'date-uk' },
-                      { targets: 4, orderable: true },
-                      { targets: 5, orderable: true },
-                      { targets: 6, orderable: true },
-                      { targets: 7, orderable: false, type: 'date-uk' },
-                      { targets: 8, orderable: true },
-                      { targets: 9, orderable: false },
+                        { targets: 0, orderable: false },
+                        { targets: 1, orderable: true },
+                        { targets: 2, orderable: true, type: 'date-uk' },
+                        { targets: 4, orderable: true },
+                        { targets: 5, orderable: true },
+                        { targets: 6, orderable: true },
+                        { targets: 7, orderable: true, type: 'date-uk' },
+                        { targets: 8, orderable: false },
                     ],
-                    lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
                     order: [[7, 'desc']],
-                    language: {
-                      searchPlaceholder: 'Search referral',
-                      emptyTable: 'No referrals to displays',
-                      zeroRecords: 'No matching referrals found'
-                    },
                     dom: 'Bfrtip',
                     buttons: [
                         'csv'
                     ],
+                    language: {
+                        searchPlaceholder: 'Search referral',
+                        emptyTable: 'No referrals to displays',
+                        zeroRecords: 'No matching referrals found'
+                    },
                     ajax: {
-                        url: '/modules/admin-module/getArchived',
+                        url: '/modules/admin-module/referral',
                         // url: '/modules/admin-module/getAllreferral',
                         type: 'GET',
                         dataFilter: function (referralRes) {
@@ -179,19 +181,28 @@ $(document).ready(function () {
 });
 
 function viewPdf(uuid, role) {
-    $('#loader').show();
-    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
-    var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+  $('#loader').show();
+  var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+  console.log(successData)
+  var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+  var isIE = false || !!document.documentMode;
+  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  if(!isIE && !isSafari)
+  {
     var link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     link.target = '_blank'
-    // var fileName = "test.pdf";
-    //link.download = fileName;
     link.click();
     setTimeout(function () {
-        $('#loader').hide();
+      $('#loader').hide();
     }, 1000);
-    //link.click();
+  }
+  else
+  {
+    download(blob, uuid+".pdf", "application/pdf");
+    $('#loader').hide();
+  }
+  //link.click();
 }
 
 function toArrayBuffer(buf) {
@@ -204,18 +215,15 @@ function toArrayBuffer(buf) {
 }
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
-    console.log(referral_provider)
-    if (referral_provider != "Pending") {
-        $('#referralAlreadySent').modal('show');
-        document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
-    } else {
-        $('#sendProviderModal').modal('show');
-        document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
-    }
+    $('#sendProviderModal').modal('show');
+    $("#SelectedProvider option[value='"+referral_provider+"']").remove();
+    document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\',\'' + referral_provider + '\')');
 }
 
-function sendPdf(uuid, role, refCode) {
-    var selectedProvider = document.getElementById('SelectedProvider').value;
+function sendPdf(uuid, role, refCode, selectedProvider) {
+    // console.log('/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
+    // return false;
+    // var selectedProvider = document.getElementById('SelectedProvider').value;
     var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
         $('#sendProviderModal').modal('hide');

@@ -54,6 +54,9 @@ module.exports = function modelType(sequelize, types) {
     session_token_expiry: {
       type: types.DATE,
     },
+    service_type: {
+      type: types.TEXT,
+    },
   }, {
     tableName: 'users',
   });

@@ -2,12 +2,10 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+    //Adding manual address field to save manual address
+    queryInterface.renameColumn('referrals', 'manual_address', 'child_manual_address');
+    queryInterface.renameColumn('referrals', 'contact_type', 'child_contact_type');
+
     queryInterface.addColumn(
       'referrals', // table name
       'parent_manual_address', // new field name
@@ -58,6 +56,8 @@ module.exports = {
           allowNull: true,
         },
       )
+      
+
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -67,8 +67,10 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
+
     queryInterface.renameColumn('referrals', 'child_manual_address', 'manual_address');
     queryInterface.renameColumn('referrals', 'child_contact_type', 'contact_type');
+
     queryInterface.removeColumn('referrals', 'parent_manual_address');
     queryInterface.removeColumn('referrals', 'professional_manual_address');
     queryInterface.removeColumn('referrals', 'child_education_manual_address');

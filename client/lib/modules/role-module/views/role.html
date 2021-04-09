@@ -569,11 +569,11 @@
                 <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
 
-                    <div class="form-group">
-                        <label v-show="elgibilityObj.role=='child'" for="gpSchool" class="question-font">Where do you go
-                            to school?</label>
-                        <label v-show="elgibilityObj.role=='parent'" for="gpSchool" class="question-font">Where does
-                            your child go to school?</label>
+                    <div class="form-group question-font">
+                        <p v-show="elgibilityObj.role=='child'" for="gpSchool">Where do you go
+                            to school?</p>
+                        <p v-show="elgibilityObj.role=='parent'" for="gpSchool">Where does
+                            your child go to school?</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
                                 v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
@@ -917,7 +917,8 @@
                         <div class="input-group">
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select custom-mobile-place">
-                                    <select class="custom-select form-control input-bg-form-control">
+                                    <select v-model="elgibilityObj.professional_contact_type"  class="custom-select form-control input-bg-form-control"
+                                        >
                                         <option selected="selected" value="mobile">Mobile</option>
                                         <option value="landline">Landline</option>
                                     </select>

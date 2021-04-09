@@ -19,6 +19,7 @@ const gpCodes = [
 ]
 
 exports.getReferral = ctx => {
+    // console.log('ctx-----------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
             //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
@@ -26,6 +27,17 @@ exports.getReferral = ctx => {
 
             // sorting
             var order = [];
+            var query = {
+                reference_code: {
+                    [sequelize.Op.ne]: null
+                },
+                referral_complete_status: 'completed'
+            }
+
+            if(ctx.request.decryptedUser && ctx.request.decryptedUser.service_type){
+                query.referral_provider = ctx.request.decryptedUser.service_type;
+            }
+
             if (ctx.query && ctx.query.orderBy) {
                 if (ctx.query.orderBy == '1') order.push([sequelize.literal('name'), ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '2') order.push([sequelize.literal('dob'), ctx.query.orderType.toUpperCase()]);
@@ -45,12 +57,7 @@ exports.getReferral = ctx => {
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
                 ],
-                where: {
-                    reference_code: {
-                        [sequelize.Op.ne]: null
-                    },
-                    referral_complete_status: 'completed'
-                },
+                where: query,
                 include: [
                     {
                         model: referralModel,
@@ -89,7 +96,7 @@ exports.getReferral = ctx => {
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name +" "+  refObj.referrer_lastname,
-                        gp_location: '',
+                        gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
                         referral_provider: refObj.referral_provider
@@ -133,7 +140,7 @@ exports.getReferral = ctx => {
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name +" "+  refObj.referrer_lastname,
-                        gp_location: 'Liverpool',
+                        gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
                         referral_provider: refObj.referral_provider
@@ -199,10 +206,10 @@ exports.getArchived = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registerd_gp', 'updatedAt','referral_provider',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt','referral_provider',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.registerd_gp'), sequelize.col('parent.registerd_gp'), sequelize.col('professional.registerd_gp')), 'gp_location'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
@@ -217,14 +224,14 @@ exports.getArchived = ctx => {
                     {
                         model: referralModel,
                         as: 'parent',
-                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp',
                         ]
                     },
                     {
                         model: referralModel,
                         as: 'professional',
                         attributes: [
-                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registerd_gp',
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp',
                         ]
                     },
                 ],
