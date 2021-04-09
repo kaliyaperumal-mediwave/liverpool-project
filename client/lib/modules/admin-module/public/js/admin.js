@@ -200,13 +200,13 @@ function toArrayBuffer(buf) {
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
   console.log(referral_provider)
-  if (referral_provider != "Pending") {
-    $('#referralAlreadySent').modal('show');
-    document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
-  } else {
+  // if (referral_provider != "Pending") {
+  //   $('#referralAlreadySent').modal('show');
+  //   document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
+  // } else {
     $('#sendProviderModal').modal('show');
     document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
-  }
+  // }
 }
 
 function sendPdf(uuid, role, refCode) {
