@@ -368,7 +368,7 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                manualAddressLogic(this, 'addressData', 'manualAddressArray');
+                manualAddressLogic(this, 'addressData', 'manualAddressArray', 'addressModal');
                 this.aboutObj.childAddress = "";
                 document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
                 document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;

@@ -56,7 +56,7 @@ function commonToggleVisibility(context, element, visibility) {
 };
 
 //Common Function to entering manual address
-function manualAddressLogic(context, object, arr) {
+function manualAddressLogic(context, object, arr, modal) {
     console.log(context, object);
     context['isAddressFormSubmitted'] = true;
     var addressForm = context[object];
@@ -70,7 +70,7 @@ function manualAddressLogic(context, object, arr) {
             addressForm.mode = 'add';
             context[arr].push(addressForm);
         }
-        $('#addressModal').modal('hide');
+        $('#' + modal).modal('hide');
         //context.resetModalValues();
 
     } else {

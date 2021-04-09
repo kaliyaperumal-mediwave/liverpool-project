@@ -98,7 +98,7 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                manualAddressLogic(this, 'addressData', 'educationManualAddressData');
+                manualAddressLogic(this, 'addressData', 'educationManualAddressData','educationModal');
                 this.educAndEmpData.attendedInfo = "";
                 document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.pointerEvents = "none";
                 document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.opacity = 0.7;
@@ -127,7 +127,7 @@ $(document).ready(function () {
             deleteSect3ManualAddress: function () {
                 deleteLogicManualAddress(this.educationManualAddressData, this.addressData, this, 'educationManualAddressData',
                     '2df66d79-a41a-4c4e-acee-171c39fe26f5', 'c4238c48-4dd6-405c-b3d9-cda7f17bdcb8');
-                $('#deleteAddressModal').modal('hide');
+                $('#deleteAddressSect3Modal').modal('hide');
             },
 
             checkArrayLength: function (arr) {
