@@ -357,7 +357,7 @@ $(document).ready(function () {
                     }
                     // this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
                     // var lastName = this.maritalStatus + '' + this.payloadData.aboutData.childLastName;
-                    this.payloadData.aboutData = this.parentContactMode;
+                   // this.payloadData.aboutData = this.parentContactMode;
                     this.upsertAboutYouForm(this.payloadData);
                 } else {
                     scrollToInvalidInput();
