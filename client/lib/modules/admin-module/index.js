@@ -8,9 +8,14 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.admin);
       self.dispatch('/archive', self.middleware.checkCommonPageAuth, self.archive);
+      self.dispatch('/serviceAdmin', self.middleware.checkCommonPageAuth, self.archive);
     };
     self.archive = function (req, callback) {
       return self.sendPage(req, self.renderer('admin-referral-archive', {
+      }));
+    };
+    self.serviceAdmin = function (req, callback) {
+      return self.sendPage(req, self.renderer('serviceAdmin', {
       }));
     };
     require('../../middleware')(self, options);

@@ -180,6 +180,21 @@
                                             </small>
                                         </div>
                                     </div>
+                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                            Contact type:
+                                        </label>
+                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                            <span class="plain-select">
+                                                <select v-model="section1Data.professional_contact_type"
+                                                    class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                    @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                    <option selected="selected" value="mobile">Mobile</option>
+                                                    <option value="landline">Landline</option>
+                                                </select>
+                                            </span>
+                                        </div>
+                                    </div>
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
@@ -467,7 +482,7 @@
 
                                 <!-- Full name Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
-                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameSec5">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="nameSecLast">
                                         First name:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
@@ -488,7 +503,7 @@
                                             <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_name')"
                                                 placeholder="Enter first name" type="text"
-                                                v-model="section2Data.child_name" id="nameSec5">
+                                                v-model="section2Data.child_name" id="nameSecLast">
                                             <div class="input-group-append">
                                                 <span class="input-group-text font-23">
                                                     <i class="fa common-fa-fa fa-user-circle" aria-hidden="true"></i>
@@ -559,7 +574,7 @@
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <span class="plain-select">
-                                            <select v-model="section2Data.contact_type"
+                                            <select v-model="section2Data.child_contact_type"
                                                 class="custom-select h-50px text-capitalize input-bg-form-control"
                                                 @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
                                                 <option selected="selected" value="mobile">Mobile</option>
@@ -828,6 +843,22 @@
                                     'invalid-fields':!section2Data.child_parent_relationship }">
                                             You must provide an answer.
                                         </small>
+                                    </div>
+                                </div>
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
+                                        Your Contact type:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <span class="plain-select">
+                                            <select v-model="section2Data.parent_contact_type"
+                                                class="custom-select h-50px text-capitalize input-bg-form-control"
+                                                @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
+                                                <option selected="selected" value="mobile">Mobile</option>
+                                                <option value="landline">Landline</option>
+                                            </select>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -1397,7 +1428,6 @@
                         }
                         }) }}
                     </div>
-
                     <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
                         Who would you like us to contact about the progress of the referral?
                     </div>

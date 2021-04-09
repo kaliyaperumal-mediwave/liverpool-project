@@ -59,10 +59,13 @@ $(document).ready(function () {
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
+
+
                     if (successData && Object.keys(successData)) {
                         // this.resetForm(this, "loginObject");
                         this.tokenVariable = successData;
                         $('#loader').hide();
+                        if(successData.data.sendUserResult.role === 'admin') { console.log('Logging in as admin...........'); location.href = "/admin"; return false; }
                         location.href = "/dashboard";
                         // $('#logInSuccess').modal('show');
                     } else {
