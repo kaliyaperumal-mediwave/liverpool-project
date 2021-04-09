@@ -1906,13 +1906,13 @@ exports.fetchReview = ctx => {
           {
             model: ctx.orm().Referral,
             as: 'parent',
-            attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+            attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status','parent_contact_type']
           },
         ],
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'contact_type', 'sex_at_birth']
+        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1946,7 +1946,7 @@ exports.fetchReview = ctx => {
             child_ethnicity: aboutObj.child_ethnicity,
             child_care_adult: aboutObj.child_care_adult,
             household_member: aboutObj.household_member,
-            contact_type: aboutObj.contact_type,
+            child_contact_type: aboutObj.child_contact_type,
             sex_at_birth: aboutObj.sex_at_birth,
             parent_id: aboutObj.parent[0].id,
             parent_name: aboutObj.parent[0].parent_firstname,
@@ -1957,6 +1957,7 @@ exports.fetchReview = ctx => {
             parent_email: aboutObj.parent[0].parent_email,
             parent_same_house: aboutObj.parent[0].parent_same_house,
             parent_address: aboutObj.parent[0].parent_address,
+            parent_contact_type: aboutObj.parent[0].parent_contact_type,
             legal_care_status: aboutObj.parent[0].legal_care_status,
           }
           const responseData = {
@@ -2022,7 +2023,7 @@ exports.fetchReview = ctx => {
           where: {
             id: elgibilityObj[0].id,
           },
-          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status','parent_contact_type']
         }).then((aboutObj) => {
           return user.findAll({
             include: [
@@ -2075,6 +2076,7 @@ exports.fetchReview = ctx => {
                 child_name_title: aboutObj[0].parent[0].child_name_title,
                 child_email: aboutObj[0].parent[0].child_email,
                 child_contact_number: aboutObj[0].parent[0].child_contact_number,
+                child_contact_type: aboutObj[0].parent[0].child_contact_type,
                 child_address: aboutObj[0].parent[0].child_address,
                 can_send_post: aboutObj[0].parent[0].can_send_post,
                 child_gender: aboutObj[0].parent[0].child_gender,
@@ -2094,6 +2096,7 @@ exports.fetchReview = ctx => {
                 parent_email: aboutObj[0].parent_email,
                 parent_same_house: aboutObj[0].parent_same_house,
                 parent_address: aboutObj[0].parent_address,
+                parent_contact_type:aboutObj[0].parent_contact_type,
                 legal_care_status: aboutObj[0].legal_care_status,
               }
 
@@ -2119,20 +2122,25 @@ exports.fetchReview = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
+              console.log(error)
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
           }).catch((error) => {
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
       }).catch((error) => {
+        console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
     }).catch((error) => {
+      console.log(error)
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
@@ -2159,7 +2167,7 @@ exports.fetchReview = ctx => {
         where: {
           id: userObj.id,
         },
-        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service']
+        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service','professional_contact_type']
       }).then((elgibilityObj) => {
         //return ctx.body = elgibilityObj.professional[0].child_parent[0];
         var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -2182,7 +2190,7 @@ exports.fetchReview = ctx => {
           where: {
             id: childIdNew,
           },
-          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status']
+          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status','parent_contact_type']
         }).then((aboutObj) => {
 
           return user.findAll({
@@ -2226,6 +2234,7 @@ exports.fetchReview = ctx => {
                 professional_name: elgibilityObj.professional_firstname,
                 professional_lastname: elgibilityObj.professional_lastname,
                 professional_email: elgibilityObj.professional_email,
+                professional_contact_type : elgibilityObj.professional_contact_type,
                 professional_contact_number: elgibilityObj.professional_contact_number,
                 professional_address: elgibilityObj.professional_address,
                 professional_profession: elgibilityObj.professional_profession,
@@ -2256,6 +2265,7 @@ exports.fetchReview = ctx => {
                 parent_lastname: aboutObj[0].parent_lastname,
                 parental_responsibility: aboutObj[0].parental_responsibility,
                 child_parent_relationship: aboutObj[0].child_parent_relationship,
+                parent_contact_type: aboutObj[0].parent_contact_type,
                 parent_contact_number: aboutObj[0].parent_contact_number,
                 parent_email: aboutObj[0].parent_email,
                 parent_same_house: aboutObj[0].parent_same_house,
@@ -2320,7 +2330,7 @@ exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
   var provider;
   ////console.log('\nSave Review Payload == ', ctx.request.body);
-  console.log("fdadfafafafafda " + ctx.request.body.referral_provide)
+  console.log("fdadfafafafafda " + ctx.request.body.contact_person)
 
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({

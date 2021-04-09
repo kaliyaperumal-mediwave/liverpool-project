@@ -222,7 +222,6 @@ $(document).ready(function () {
 function viewPdf(uuid, role) {
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
-  console.log(successData)
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
   var isIE = false || !!document.documentMode;
   var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
