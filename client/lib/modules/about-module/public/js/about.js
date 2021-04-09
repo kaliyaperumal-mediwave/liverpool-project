@@ -31,12 +31,13 @@ $(document).ready(function () {
                 parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
-                parentContactMode: "mobile",
+                // parentContactMode: "mobile",
                 emailAddress: "",
                 sameHouse: "",
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
             },
+            parentContactMode: "mobile",
             prevAddressData: null,
             dateWrap: true,
             options: {
@@ -356,6 +357,7 @@ $(document).ready(function () {
                     }
                     // this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
                     // var lastName = this.maritalStatus + '' + this.payloadData.aboutData.childLastName;
+                    this.payloadData.aboutData = this.parentContactMode;
                     this.upsertAboutYouForm(this.payloadData);
                 } else {
                     scrollToInvalidInput();
@@ -374,12 +376,12 @@ $(document).ready(function () {
 
             // Getting Manual Address
             getManualAddress: function (modelId) {
-                if(modelId === 'bdeb1825-c05e-4949-974e-93514d3a85b4'){
+                if (modelId === 'bdeb1825-c05e-4949-974e-93514d3a85b4') {
                     $('#addressModal').modal('show');
                     this.resetAddressModalValues();
                 }
-                else if(modelId ==='ab0ea3ad-43c5-4f21-a449-e8087707654b'){
-                    $('#addressParentModal').modal('show'); 
+                else if (modelId === 'ab0ea3ad-43c5-4f21-a449-e8087707654b') {
+                    $('#addressParentModal').modal('show');
                     this.resetAddressParentModalValues();
                 }
             },

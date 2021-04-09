@@ -180,7 +180,7 @@
                                             </small>
                                         </div>
                                     </div>
-                                    <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <!-- <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
                                             Contact type:
                                         </label>
@@ -194,15 +194,25 @@
                                                 </select>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
                                             for="profContactSec5">
-                                            Contact number:
+                                            Professional's contact number:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
+                                                <div class="input-group-prepend cursor-pointer">
+                                                    <span class="plain-select custom-mobile-place">
+                                                        <select class="custom-select form-control input-bg-form-control"
+                                                            v-model="section1Data.professional_contact_type"
+                                                            @change="onDetectChange($event,'sect2','section1Data','professional_contact_type')">
+                                                            <option selected="selected" value="mobile">Mobile</option>
+                                                            <option value="landline">Landline</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
                                                 <input class="form-control input-bg-form-control" type="text"
                                                     placeholder="Enter contact number"
                                                     @input="onDetectChange($event,'sect1','section1Data','professional_contact_number')"
@@ -568,7 +578,8 @@
                                     </div>
                                 </div>
                                 <!-- Email End -->
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
                                         Contact type:
                                     </label>
@@ -582,14 +593,24 @@
                                             </select>
                                         </span>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="cont">
-                                        Contact Number:
+                                        Child's contact Number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
+                                            <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select custom-mobile-place">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="section2Data.child_contact_type"
+                                                        @change="onDetectChange($event,'sect2','section2Data','child_contact_type')">
+                                                        <option selected="selected" value="mobile">Mobile</option>
+                                                        <option value="landline">Landline</option>
+                                                    </select>
+                                                </span>
+                                            </div>
                                             <input class="form-control text-capitalize input-bg-form-control"
                                                 @input="onDetectChange($event,'sect2','section2Data','child_contact_number')"
                                                 placeholder="Enter contact number" inputmode="tel" type="text"
@@ -846,7 +867,7 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
                                         Your Contact type:
                                     </label>
@@ -860,14 +881,24 @@
                                             </select>
                                         </span>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="contSec5">
-                                        Your Contact Number:
+                                        Parent's contact Number:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <div class="input-group">
+                                            <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select custom-mobile-place">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="section2Data.parent_contact_type"
+                                                        @change="onDetectChange($event,'sect2','section2Data','parent_contact_type')">
+                                                        <option selected="selected" value="mobile">Mobile</option>
+                                                        <option value="landline">Landline</option>
+                                                    </select>
+                                                </span>
+                                            </div>
                                             <input class="form-control input-bg-form-control" type="text"
                                                 inputmode="tel" placeholder="Enter contact number"
                                                 @input="onDetectChange($event,'sect2','section2Data','parent_contact_number')"
@@ -1139,11 +1170,19 @@
                                             Social Worker first name:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control text-capitalize input-bg-form-control"
-                                                type="text" placeholder="Enter social worker first name"
-                                                v-model="section3Data.child_socialworker_firstname"
-                                                id="socialworkerNameSec5"
-                                                @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_firstname')">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control"
+                                                    type="text" placeholder="Enter social worker first name"
+                                                    v-model="section3Data.child_socialworker_firstname"
+                                                    id="socialworkerNameSec5"
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_firstname')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_firstname),
                                                 'invalid-fields':!section3Data.child_socialworker_firstname }">
                                                 You must provide a first name.
@@ -1157,11 +1196,19 @@
                                             Social Worker last name:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control text-capitalize input-bg-form-control"
-                                                type="text" placeholder="Enter social worker last name"
-                                                v-model="section3Data.child_socialworker_lastname"
-                                                id="socialworkerLastNameSec5"
-                                                @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_lastname')">
+                                            <div class="input-group">
+                                                <input class="form-control text-capitalize input-bg-form-control"
+                                                    type="text" placeholder="Enter social worker last name"
+                                                    v-model="section3Data.child_socialworker_lastname"
+                                                    id="socialworkerLastNameSec5"
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_lastname')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-user-circle"
+                                                            aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_lastname),
                                                 'invalid-fields':!section3Data.child_socialworker_lastname }">
                                                 You must provide a last name.
@@ -1175,11 +1222,28 @@
                                             Social Worker number:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <input class="form-control input-bg-form-control" type="text"
-                                                inputmode="tel" placeholder="Enter social worker number"
-                                                v-model="section3Data.child_socialworker_contact"
-                                                id="socialworkerNumSec5"
-                                                @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_contact')">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend cursor-pointer">
+                                                    <span class="plain-select custom-mobile-place">
+                                                        <select class="custom-select form-control input-bg-form-control"
+                                                            v-model="section3Data.child_socialworker_contact_type"
+                                                            @change="onDetectChange($event,'sect2','section3Data','child_socialworker_contact_type')">
+                                                            <option selected="selected" value="mobile">Mobile</option>
+                                                            <option value="landline">Landline</option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                                <input class="form-control input-bg-form-control" type="text"
+                                                    inputmode="tel" placeholder="Enter social worker number"
+                                                    v-model="section3Data.child_socialworker_contact"
+                                                    id="socialworkerNumSec5"
+                                                    @input="onDetectChange($event,'sect3','section3Data', 'child_socialworker_contact')">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text font-23">
+                                                        <i class="fa common-fa-fa fa-phone" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
                                             <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_contact),
                                                 'invalid-fields':!section3Data.child_socialworker_contact }">
                                                 You must provide a number.
@@ -1191,7 +1255,6 @@
                                             </small>
                                         </div>
                                     </div>
-
                                 </div>
 
                                 <div class="text-center py-4">

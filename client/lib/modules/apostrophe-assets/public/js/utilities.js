@@ -108,7 +108,6 @@ function deleteLogic(arr, value, context, section) {
 
 //Common Delete Logic for manual address
 function deleteLogicManualAddress(arr, value, context, section, textId, inputId) {
-    debugger
     var index;
     arr.some(function (e, i) {
         if (e.id == value.id) {

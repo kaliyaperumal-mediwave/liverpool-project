@@ -28,6 +28,14 @@ $(document).ready(function () {
                 value: 'Neither'
 
             }],
+            educationManualAddressData: [],
+            addressData: {
+                addressLine1: '',
+                addressLine2: '',
+                city: '',
+                country: '',
+                postCode: ''
+            },
             currentSection: 'education',
             userRole: '',
             userId: '',
@@ -36,6 +44,7 @@ $(document).ready(function () {
             educationAddress: '',
             mapsEntered: false,
             isFormSubmitted: false,
+            isAddressFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
             aboutYourSelf: [],
             showInstitution: false
@@ -88,7 +97,7 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                manualAddressLogic(this, 'addressData', 'educationManualAddressData','educationModal');
+                manualAddressLogic(this, 'addressData', 'educationManualAddressData', 'educationModal');
                 this.educAndEmpData.attendedInfo = "";
                 document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.pointerEvents = "none";
                 document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.opacity = 0.7;
@@ -378,7 +387,12 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data.child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
                     // Vue.set(this.educAndEmpData, "socialWorkContactType", data.child_socialworker_contact_type);
-                    this.socialWorkContactType = data.child_socialworker_contact_type;
+                    if (data.child_socialworker_contact_type) {
+                        Vue.set(this, "socialWorkContactType", data.child_socialworker_contact_type);
+                    } else {
+                        Vue.set(this, "socialWorkContactType", 'mobile');
+                    }
+                    // this.socialWorkContactType = data.child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
                 else if (this.userRole == "parent") {
@@ -402,7 +416,12 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
                     //Vue.set(this.educAndEmpData, "socialWorkContactType", data[0].parent[0].child_socialworker_contact_type);
-                    this.socialWorkContactType = data[0].professional[0].child_socialworker_contact_type;
+                    if (data[0].parent[0].child_socialworker_contact_type) {
+                        Vue.set(this, "socialWorkContactType", data[0].parent[0].child_socialworker_contact_type);
+                    } else {
+                        Vue.set(this, "socialWorkContactType", 'mobile');
+                    }
+                    // this.socialWorkContactType = data[0].parent[0].child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
                 else if (this.userRole == "professional") {
@@ -425,7 +444,12 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
                     //  Vue.set(this.educAndEmpData, "socialWorkContactType", data[0].professional[0].child_socialworker_contact_type);
-                    this.socialWorkContactType = data[0].professional[0].child_socialworker_contact_type;
+                    if (data[0].professional[0].child_socialworker_contact_type) {
+                        Vue.set(this, "socialWorkContactType", data[0].professional[0].child_socialworker_contact_type);
+                    } else {
+                        Vue.set(this, "socialWorkContactType", 'mobile');
+                    }
+                    //this.socialWorkContactType = data[0].professional[0].child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
             },
