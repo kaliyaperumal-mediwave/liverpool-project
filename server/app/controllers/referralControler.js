@@ -2445,7 +2445,6 @@ exports.getRefNo = ctx => {
 }
 exports.updateAboutInfo = ctx => {
   const user = ctx.orm().Referral;
-  console.log(ctx.request.body.section2Data)
   return user.update({
     can_send_post: ctx.request.body.section2Data.can_send_post,
     child_NHS: ctx.request.body.section2Data.child_NHS,
@@ -2453,6 +2452,7 @@ exports.updateAboutInfo = ctx => {
     child_care_adult: ctx.request.body.section2Data.child_care_adult,
 
     child_contact_number: ctx.request.body.section2Data.child_contact_number,
+    child_contact_type: ctx.request.body.section2Data.child_contact_type,
     child_email: ctx.request.body.section2Data.child_email,
     child_ethnicity: ctx.request.body.section2Data.child_ethnicity,
     child_gender: ctx.request.body.section2Data.child_gender,
@@ -2476,6 +2476,7 @@ exports.updateAboutInfo = ctx => {
         {
           legal_care_status: ctx.request.body.section2Data.legal_care_status,
           parent_address: ctx.request.body.section2Data.parent_address,
+          parent_contact_type: ctx.request.body.section2Data.parent_contact_type,
           parent_contact_number: ctx.request.body.section2Data.parent_contact_number,
           parent_email: ctx.request.body.section2Data.parent_email,
           parent_firstname: ctx.request.body.section2Data.parent_name,
@@ -2495,14 +2496,14 @@ exports.updateAboutInfo = ctx => {
           where: {
             id: ctx.request.body.section2Data.child_id,
           },
-          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'contact_type', 'sex_at_birth']
+          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth']
         }).then((childResult) => {
 
           return user.findOne({
             where: {
               id: ctx.request.body.section2Data.parent_id,
             },
-            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_firstname', 'parent_lastname', , 'parent_same_house', 'parental_responsibility', 'child_parent_relationship']
+            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_firstname', 'parent_lastname', , 'parent_same_house', 'parental_responsibility', 'child_parent_relationship','parent_contact_type']
           }).then((parentResult) => {
 
             const section2Obj = {
@@ -2521,13 +2522,14 @@ exports.updateAboutInfo = ctx => {
               child_care_adult: childResult.child_care_adult,
               household_member: childResult.household_member,
               child_name_title: childResult.child_name_title,
-              contact_type: childResult.contact_type,
+              child_contact_type: childResult.child_contact_type,
               sex_at_birth: childResult.sex_at_birth,
               parent_id: parentResult.id,
               parent_name: parentResult.parent_firstname,
               parent_lastname: parentResult.parent_lastname,
               parental_responsibility: parentResult.parental_responsibility,
               child_parent_relationship: parentResult.child_parent_relationship,
+              parent_contact_type: parentResult.parent_contact_type,
               parent_contact_number: parentResult.parent_contact_number,
               parent_email: parentResult.parent_email,
               parent_same_house: parentResult.parent_same_house,
@@ -2565,6 +2567,7 @@ exports.updateSec3Info = ctx => {
     child_socialworker_contact: ctx.request.body.section3Data.child_socialworker_contact,
     child_socialworker_firstname: ctx.request.body.section3Data.child_socialworker_firstname,
     child_socialworker_lastname: ctx.request.body.section3Data.child_socialworker_lastname,
+    child_socialworker_contact_type: ctx.request.body.section3Data.child_socialworker_contact_type,
   },
     {
       where: {
@@ -2575,7 +2578,7 @@ exports.updateSec3Info = ctx => {
         where: {
           id: ctx.request.body.section3Data.child_id,
         },
-        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname']
+        attributes: [['id', 'child_id'], 'uuid', 'child_EHAT', 'child_EHCP', 'child_education_place', 'child_profession', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname','child_socialworker_contact_type']
       }).then((eduResult) => {
         return ctx.res.ok({
           data: eduResult,
@@ -2631,7 +2634,8 @@ exports.updateEligibilityInfo = ctx => {
     professional_lastname: ctx.request.body.section1Data.professional_lastname,
     professional_email: ctx.request.body.section1Data.professional_email,
     professional_contact_number: ctx.request.body.section1Data.professional_contact_number,
-    professional_profession: ctx.request.body.section1Data.professional_profession
+    professional_profession: ctx.request.body.section1Data.professional_profession,
+    professional_contact_type:ctx.request.body.section1Data.professional_contact_type
   },
     {
       where: {
@@ -2648,7 +2652,7 @@ exports.updateEligibilityInfo = ctx => {
           where: {
             id: ctx.request.body.section1Data.professional_id,
           },
-          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address']
+          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address','professional_contact_type']
         }).then((professionalObj) => {
           const section1Obj = {
             child_id: ctx.request.body.section1Data.child_id,
@@ -2661,6 +2665,7 @@ exports.updateEligibilityInfo = ctx => {
             professional_lastname: professionalObj.professional_lastname,
             professional_email: professionalObj.professional_email,
             professional_contact_number: professionalObj.professional_contact_number,
+            professional_contact_type: professionalObj.professional_contact_type,
             professional_address: professionalObj.professional_address,
             professional_profession: professionalObj.professional_profession,
           }
