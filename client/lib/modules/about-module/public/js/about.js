@@ -31,11 +31,13 @@ $(document).ready(function () {
                 parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
+                parentContactMode: "mobile",
                 emailAddress: "",
                 sameHouse: "",
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
             },
+            prevAddressData: null,
             dateWrap: true,
             options: {
                 // format: 'YYYY/MM/DD',
@@ -55,7 +57,16 @@ $(document).ready(function () {
                 profession: '',
                 lastName: ''
             },
+            manualAddressArray: [],
+            addressData: {
+                addressLine1: '',
+                addressLine2: '',
+                city: '',
+                country: '',
+                postCode: ''
+            },
             allHouseHoldMembers: [],
+            isAddressFormSubmitted: false,
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
@@ -65,7 +76,6 @@ $(document).ready(function () {
             userMode: '',
             userId: '',
             payloadData: {},
-
             currentSection: 'about',
             childDob: "",
             showBelowAge: "",
@@ -81,7 +91,6 @@ $(document).ready(function () {
             storeDeleteData: null,
             dateFmt: ''
         },
-
         beforeMount: function () {
             $('#loader').show();
         },
@@ -96,7 +105,6 @@ $(document).ready(function () {
             this.initMaps();
             $('#loader').hide();
         },
-
 
         methods: {
 
@@ -163,7 +171,6 @@ $(document).ready(function () {
                 preventWhiteSpaces(event, this, obj, key)
             },
 
-
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
                 this.userRole = document.getElementById('uRole').innerHTML;
@@ -210,7 +217,6 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "legalCareStatus", data.parent[0].legal_care_status);
                         Vue.set(this.aboutObj, "referral_progress", data.referral_progress == 20 ? 40 : data.referral_progress);
                     }
-
                 }
                 else if (this.userRole == "parent") {
                     if (data[0].parent[0].child_firstname != null) {
@@ -258,7 +264,6 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "referral_progress", data[0].referral_progress == 20 ? 40 : data[0].referral_progress);
                     }
                 }
-
                 else if (this.userRole == "professional") {
                     if (data[0] != undefined && data[0].parent[0] != undefined) {
                         this.editPatchFlag = true;
@@ -319,14 +324,12 @@ $(document).ready(function () {
                     formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childAddress && formData.childFirstName && formData.childLastName && formData.childContactNumber
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
-
                     if ((formData.parentialResponsibility == 'no' && !formData.parentCarerFirstName && !formData.parentCarerLastName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
                         || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
                         || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
                         scrollToInvalidInput();
                         return false;
                     }
-
                     $('#loader').show();
                     this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = document.getElementById('uRole').innerHTML;
@@ -335,7 +338,6 @@ $(document).ready(function () {
                     if (this.editPatchFlag) {
                         this.payloadData.editFlag = this.editPatchFlag
                     }
-
                     if (this.userMode === 'edit') {
                         this.payloadData.userMode = 'edit';
                     } else {
@@ -344,12 +346,10 @@ $(document).ready(function () {
                     // this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
                     // var lastName = this.maritalStatus + '' + this.payloadData.aboutData.childLastName;
                     this.upsertAboutYouForm(this.payloadData);
-
                 } else {
                     scrollToInvalidInput();
                     return false;
                 }
-
             },
 
             checkArrayLength: function (arr) {
@@ -357,6 +357,59 @@ $(document).ready(function () {
                     return true;
                 } else {
                     return false;
+                }
+            },
+
+
+            // Getting Manual Address
+            getManualAddress: function () {
+                $('#addressModal').modal('show');
+                this.resetAddressModalValues();
+            },
+
+            //Adding and Updating a address logic
+            upsertAddress: function () {
+                manualAddressLogic(this, 'addressData');
+                this.aboutObj.childAddress = "";
+                document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
+                document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
+                document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
+                document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
+            },
+
+            //Patching the HouseHold logic
+            patchAddress: function (address) {
+                patchManualAddress(this, 'addressData', address);
+                this.prevAddressData = JSON.parse(JSON.stringify(this.manualAddressArray));
+            },
+
+            //Resetting the modal values of service data
+            resetAddressModalValues: function () {
+                this.isAddressFormSubmitted = false;
+                this.addressData.addressLine1 = '';
+                this.addressData.addressLine2 = '';
+                this.addressData.city = '';
+                this.addressData.country = '';
+                this.addressData.postCode = '';
+                this.addressData.mode = '';
+            },
+
+            resetAddressValue: function (data) {
+                if (this.addressData.mode && this.addressData.mode === 'add') {
+                    this.resetAddressModalValues();
+                } else if (this.addressData.mode && this.addressData.mode === 'update') {
+                    var prevAddressObj = convertArrayToObj(this.prevAddressData);
+                    if (this.addressData.mode === 'update') {
+                        if (_.isEqual(this.addressData, prevAddressObj)) {
+                            this.addressData = this.addressData;
+                        } else {
+                            this.manualAddressArray = [];
+                            this.manualAddressArray.push(prevAddressObj);
+                        }
+                        return true;
+                    } else {
+                        this.resetAddressModalValues();
+                    }
                 }
             },
 
@@ -401,7 +454,6 @@ $(document).ready(function () {
                                 return it;
                             }
                         });
-
                     } else {
                         houseHoldForm.id = uuidV4();
                         houseHoldForm.mode = 'add';
@@ -409,12 +461,10 @@ $(document).ready(function () {
                     }
                     this.resetModalValues();
                     modal.setAttribute("data-dismiss", "modal");
-
                 } else {
                     modal.removeAttribute("data-dismiss", "modal");
                     return;
                 }
-
             },
 
             //Patching the service logic
@@ -433,7 +483,6 @@ $(document).ready(function () {
                     } else {
                         delete i.mode;
                     }
-
                 });
             },
 
@@ -442,12 +491,16 @@ $(document).ready(function () {
                 this.storeDeleteData = service;
             },
 
-
             //Delete service logic
             deleteHouseHold: function (member) {
                 var modal = document.getElementById('closeModalDeleteAbout');
                 deleteLogic(this.allHouseHoldMembers, member, this, 'allHouseHoldMembers')
                 modal.setAttribute("data-dismiss", "modal");
+            },
+
+            //Delete service logic
+            deleteManualAddress: function (data) {
+                deleteLogic(this.manualAddressArray, data, this, 'manualAddressArray');
             },
 
             //Resetting the modal values of service data
@@ -467,7 +520,6 @@ $(document).ready(function () {
                 } else {
                     if (this.serviceData.mode === 'update') {
                         return true;
-
                     } else {
                         this.resetModalValues();
                     }
@@ -500,6 +552,7 @@ $(document).ready(function () {
                 var dob = document.getElementsByClassName('bootstrap-datetimepicker-widget');
                 dob[0].style.width = '' + dynamicHeight + 'px';
             },
+
             resetAge: function (event, date) {
                 if (this.getAge(date) > 19) {
                     this.houseHoldData.profession = "";
@@ -528,7 +581,6 @@ $(document).ready(function () {
                     var yyyy = date.getFullYear().toString();
                     var mm = (date.getMonth() + 1).toString();
                     var dd = date.getDate().toString();
-
                     var mmChars = mm.split('');
                     var ddChars = dd.split('');
                     var showDate = (ddChars[1] ? dd : "0" + ddChars[0]) + '/' + (mmChars[1] ? mm : "0" + mmChars[0]) + '/' + yyyy
@@ -536,6 +588,5 @@ $(document).ready(function () {
                 }
             },
         }
-
     })
 });

@@ -944,7 +944,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   color: #023047; }
   @media (max-width: 575.98px) {
     .btn-quaternary-text {
-      font-size: 19px; } }
+      font-size: 17px; } }
   @media (min-width: 576px) and (max-width: 767.98px) {
     .btn-quaternary-text {
       font-size: 20px; } }
@@ -1581,7 +1581,7 @@ a {
       .home-primary-content h3 {
         font-size: 20px; } }
   .home-primary-content h4 {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: bold;
     color: #023047;
     margin-bottom: 0px; }
@@ -2574,7 +2574,7 @@ a {
 
 .header-slider {
   height: 70px;
-  padding: 0px 15px; }
+  padding: 0px 4px; }
 
 .padding-set {
   padding: 0px 25px; }
@@ -3759,6 +3759,12 @@ body .ui-widget .ui-menu-item {
 .off .recent_referrals {
   color: #023047; }
 
+.off .inputLoader::after, .off .inputLoader::before {
+  border-color: #023047 #023047 transparent transparent; }
+
+.off .inputLoader::after {
+  background: transparent; }
+
 .off .referral-feedback {
   color: #023047; }
 
@@ -4124,6 +4130,12 @@ body .ui-widget .ui-menu-item {
 
 .on .recent_referrals {
   color: #fafafa; }
+
+.on .inputLoader::after, .on .inputLoader::before {
+  border-color: #fafafa #fafafa transparent transparent; }
+
+.on .inputLoader::after {
+  background: #353638; }
 
 .on .referral-feedback {
   color: #fafafa; }
@@ -4685,7 +4697,8 @@ body .ui-widget .ui-menu-item {
 
 i.fa.fa-map-marker {
   font-weight: 600;
-  color: #023047; }
+  color: #023047;
+  font-size: 30px; }
 
 .p-16 {
   padding: 16px !important; }
@@ -4915,3 +4928,12 @@ div.collapse-container.collapsing {
 
 .page-link:focus {
   box-shadow: none !important; }
+
+.custom-mobile-place .custom-select {
+  padding: 10px 22px 10px 10px !important; }
+  @media (min-width: 320px) and (max-width: 575.98px) {
+    .custom-mobile-place .custom-select {
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      width: 75px; } }

@@ -46,7 +46,8 @@ $(document).ready(function () {
                 profDirectService: '',
                 liverpoolService: '',
                 seftonService: '',
-                gpSchool: ''
+                gpSchool: '',
+                professional_contact_type:"mobile"
             },
             date: null,
             dateWrap: true,
@@ -226,6 +227,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "profFirstName", data[0].professional_firstname);
                     Vue.set(this.elgibilityObj, "proflastName", data[0].professional_lastname);
                     Vue.set(this.elgibilityObj, "profEmail", data[0].professional_email);
+                    Vue.set(this.elgibilityObj, "professional_contact_type", data[0].professional_contact_type);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)

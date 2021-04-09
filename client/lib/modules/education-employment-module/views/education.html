@@ -267,6 +267,15 @@
                             <label for="contactWorker" class="question-font">{{dynamicLabels.socialWorkerContactLabel}}
                                 (if you know it)</label>
                             <div class="input-group">
+                                <div class="input-group-prepend cursor-pointer">
+                                    <span class="plain-select custom-mobile-place">
+                                        <select class="custom-select form-control input-bg-form-control"
+                                            >
+                                            <option selected="selected" value="mobile">Mobile</option>
+                                            <option value="landline">Landline</option>
+                                        </select>
+                                    </span>
+                                </div>
                                 <input type="text" class="form-control input-bg-form-control" id="contactWorker"
                                     inputmode="tel" @input="trimWhiteSpace($event,'educAndEmpData','socialWorkContact')"
                                     placeholder="Enter social worker's phone number"
