@@ -1132,7 +1132,7 @@ exports.profession = ctx => {
 
   if (ctx.request.body.role == "professional") {
     const user = ctx.orm().Referral;
-    ////console.log(ctx.request.body)
+    console.log(ctx.request.body)
     return user.findOne({
       where: {
         uuid: ctx.request.body.userid,
@@ -1176,6 +1176,7 @@ exports.profession = ctx => {
               child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
               child_socialworker_lastname: ctx.request.body.educAndEmpData.socialWorkLastName,
               child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
+              child_socialworker_contact_type: ctx.request.body.educAndEmpData.socialWorkContactType,
               //user_section: 3
             },
             {
@@ -1195,15 +1196,19 @@ exports.profession = ctx => {
               }
               return ctx.body = responseData;
             }).catch((error) => {
+              console.log(error);
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
           }).catch((error) => {
+            console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
           });
         }).catch((error) => {
+          console.log(error);
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }).catch((error) => {
+        console.log(error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
@@ -1247,6 +1252,7 @@ exports.profession = ctx => {
             child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
             child_socialworker_lastname: ctx.request.body.educAndEmpData.socialWorkLastName,
             child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
+            child_socialworker_contact_type: ctx.request.body.educAndEmpData.socialWorkContactType,
 
           },
           {
@@ -1309,7 +1315,8 @@ exports.profession = ctx => {
           child_socialworker_firstname: ctx.request.body.educAndEmpData.socialWorkName,
           child_socialworker_lastname: ctx.request.body.educAndEmpData.socialWorkLastName,
           child_socialworker_contact: ctx.request.body.educAndEmpData.socialWorkContact,
-          referral_progress: ctx.request.body.educAndEmpData.referral_progress
+          referral_progress: ctx.request.body.educAndEmpData.referral_progress,
+          child_socialworker_contact_type: ctx.request.body.educAndEmpData.socialWorkContactType
         },
         {
           where:
@@ -1925,7 +1932,7 @@ exports.fetchReview = ctx => {
           where: {
             id: eligibilityObj.id,
           },
-          attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact']
+          attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact','child_socialworker_contact_type']
         }).then((educationObj) => {
 
 
@@ -2032,7 +2039,7 @@ exports.fetchReview = ctx => {
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'parent',
-                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname']
+                attributes: ['id', 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_contact', 'child_socialworker_firstname', 'child_socialworker_lastname','child_socialworker_contact_type']
               },
             ],
             where: {
@@ -2110,6 +2117,7 @@ exports.fetchReview = ctx => {
                 child_socialworker_firstname: edu_empObj[0].parent[0].child_socialworker_firstname,
                 child_socialworker_lastname: edu_empObj[0].parent[0].child_socialworker_lastname,
                 child_socialworker_contact: edu_empObj[0].parent[0].child_socialworker_contact,
+                child_socialworker_contact_type: edu_empObj[0].parent[0].child_socialworker_contact_type,
               }
               const responseData = {
                 userid: ctx.request.body.userid,
@@ -2200,7 +2208,7 @@ exports.fetchReview = ctx => {
                 model: ctx.orm().Referral,
                 nested: true,
                 as: 'professional',
-                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact']
+                attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact','child_socialworker_contact_type']
               },
             ],
             where: {
@@ -2284,6 +2292,7 @@ exports.fetchReview = ctx => {
                 child_socialworker_firstname: edu_empObj[0].professional[0].child_firstname,
                 child_socialworker_lastname: edu_empObj[0].professional[0].child_lastname,
                 child_socialworker_contact: edu_empObj[0].professional[0].child_socialworker_contact,
+                child_socialworker_contact_type: edu_empObj[0].professional[0].child_socialworker_contact_type,
               }
 
               //  return ctx.body = section1Obj;
