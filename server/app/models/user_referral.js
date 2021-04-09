@@ -238,6 +238,9 @@ module.exports = function modelUser(sequelize, types) {
     professional_contact_type: {
       type: types.TEXT
     },
+    child_socialworker_contact_type: { 
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });

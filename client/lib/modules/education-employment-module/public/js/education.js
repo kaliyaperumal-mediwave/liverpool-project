@@ -13,19 +13,9 @@ $(document).ready(function () {
                 haveSocialWorker: '',
                 socialWorkName: '',
                 socialWorkContact: '',
-                referral_progress: 60
+                referral_progress: 60,
             },
-            prevAddressData: null,
-            educationManualAddressData: [],
-            addressData: {
-                school: '',
-                addressLine1: '',
-                addressLine2: '',
-                city: '',
-                country: '',
-                postCode: ''
-            },
-            isAddressFormSubmitted: false,
+            socialWorkContactType: 'mobile',
             yourAreIn: [{
                 id: 'c1035a21-07a4-407f-a8d0-dcc0e70c6e07',
                 value: 'Education'
@@ -209,6 +199,9 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
+                if (this.educAndEmpData.haveSocialWorker === 'yes') {
+                    this.educAndEmpData.socialWorkContactType = this.socialWorkContactType;
+                }
                 var formData = this.educAndEmpData;
                 this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
                 this.payloadData.role = this.userRole;
@@ -384,6 +377,8 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data.child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data.child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
+                    // Vue.set(this.educAndEmpData, "socialWorkContactType", data.child_socialworker_contact_type);
+                    this.socialWorkContactType = data.child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
                 else if (this.userRole == "parent") {
@@ -406,6 +401,8 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
+                    //Vue.set(this.educAndEmpData, "socialWorkContactType", data[0].parent[0].child_socialworker_contact_type);
+                    this.socialWorkContactType = data[0].professional[0].child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
                 else if (this.userRole == "professional") {
@@ -427,6 +424,8 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
+                    //  Vue.set(this.educAndEmpData, "socialWorkContactType", data[0].professional[0].child_socialworker_contact_type);
+                    this.socialWorkContactType = data[0].professional[0].child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
             },

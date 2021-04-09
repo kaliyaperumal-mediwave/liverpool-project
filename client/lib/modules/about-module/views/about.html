@@ -783,7 +783,8 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend cursor-pointer">
                                         <span class="plain-select custom-mobile-place">
-                                            <select   v-model="aboutFormData.parentContactMode" class="custom-select form-control input-bg-form-control">
+                                            <select v-model="aboutFormData.parentContactMode"
+                                                class="custom-select form-control input-bg-form-control">
                                                 <option selected="selected" value="mobile">Mobile</option>
                                                 <option value="landline">Landline</option>
                                             </select>
@@ -940,13 +941,13 @@
                 <!-- Legal care Status Start -->
 
                 <!-- Dynamic Toaster Scenario 1 start -->
-                <template v-if="aboutFormData.legalCareStatus">
+                <div v-if="aboutFormData.legalCareStatus">
                     <div class="px-2 px-lg-0 py-4">
                         <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <p class="text-center m-0 py-2">
 
-                                    <template v-if="
+                                <div v-if="
                                         (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
                                         || !aboutObj.childFirstName
                                         || !aboutObj.childLastName
@@ -976,21 +977,24 @@
                                         || !aboutObj.sexAssignedAtBirth
                                         || !aboutObj.childNameTitle
                                     ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                        <p class="question-font text-center text-danger m-0 py-2">
-                                            You have missed out a section on this page
-                                        </p>
-                                    </template>
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                    <p class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a section on this page
+                                    </p>
+                                </div>
 
-                                    <template v-else>
+                                <div v-else>
+                                    <div class="text-center">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                        <p class="question-font text-center m-0 py-2">
-                                            Another section finished. Lets move on to education / employment & support
-                                            needs
-                                        </p>
-                                    </template>
+
+                                    </div>
+                                    <p class="question-font text-center m-0 py-2">
+                                        Another section finished. Lets move on to education / employment & support
+                                        needs
+                                    </p>
+                                </div>
 
                             </div>
                         </div>
@@ -1002,7 +1006,7 @@
                                     CONTINUE</span></button>
                         </a>
                     </div>
-                </template>
+                </div>
                 <!-- Dynamic Toaster Scenario 1 end -->
 
                 <!-- Add Manual address Modal Start -->

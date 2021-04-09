@@ -218,6 +218,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
+                        Vue.set(this.aboutFormData, "parentContactMode", data.parent[0].parent_contact_type);
                         Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
@@ -246,8 +247,8 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
-                        if (data[0].parent[0].contact_type != null) {
-                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
+                        if (data[0].parent[0].child_contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].child_contact_type);
                         }
                         if (data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
@@ -263,6 +264,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
+                        Vue.set(this.aboutFormData, "parentContactMode", data[0].parent_contact_type);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
@@ -291,8 +293,8 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childSexualOrientation", data[0].parent[0].child_sexual_orientation);
                         Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
                         Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
-                        if (data[0].parent[0].contact_type != null) {
-                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
+                        if (data[0].parent[0].child_contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].child_contact_type);
                         }
 
                         if (!data[0].parent[0].sex_at_birth != null) {
@@ -312,6 +314,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
+                        Vue.set(this.aboutFormData, "parentContactMode", data[0].parent_contact_type);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
