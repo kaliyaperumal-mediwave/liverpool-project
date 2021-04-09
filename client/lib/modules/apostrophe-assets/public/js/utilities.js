@@ -56,22 +56,22 @@ function commonToggleVisibility(context, element, visibility) {
 };
 
 //Common Function to entering manual address
-function manualAddressLogic(context, object) {
+function manualAddressLogic(context, object, arr, modal) {
     console.log(context, object);
     context['isAddressFormSubmitted'] = true;
     var addressForm = context[object];
     if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
         if (addressForm.mode === 'update') {
-            context.manualAddressArray = [];
+            context[arr] = [];
             delete addressForm.mode;
-            context.manualAddressArray.push(addressForm);
+            context[arr].push(addressForm);
         } else {
             addressForm.id = uuidV4();
             addressForm.mode = 'add';
-            context.manualAddressArray.push(addressForm);
+            context[arr].push(addressForm);
         }
-        $('#addressModal').modal('hide');
-        context.resetModalValues();
+        $('#' + modal).modal('hide');
+        //context.resetModalValues();
 
     } else {
         return;
@@ -80,8 +80,8 @@ function manualAddressLogic(context, object) {
 };
 
 //Patching the manual address logic
-function patchManualAddress(context, object, address) {
-    context.manualAddressArray = [];
+function patchManualAddress(context, object, address, arr) {
+    context[arr] = [];
     var addressForm = context[object];
     addressForm.addressLine1 = address.addressLine1;
     addressForm.addressLine2 = address.addressLine2;
@@ -90,7 +90,7 @@ function patchManualAddress(context, object, address) {
     addressForm.postCode = address.postCode;
     addressForm.id = address.id;
     addressForm.mode = 'update';
-    context.manualAddressArray.push(addressForm);
+    context[arr].push(addressForm);
 };
 
 
@@ -107,7 +107,8 @@ function deleteLogic(arr, value, context, section) {
 };
 
 //Common Delete Logic for manual address
-function deleteLogicManualAddress(arr, value, context, section) {
+function deleteLogicManualAddress(arr, value, context, section, textId, inputId) {
+    debugger
     var index;
     arr.some(function (e, i) {
         if (e.id == value.id) {
@@ -116,6 +117,10 @@ function deleteLogicManualAddress(arr, value, context, section) {
         }
     });
     context[section].splice(index, 1);
+    document.getElementById(textId).style.pointerEvents = "auto";
+    document.getElementById(textId).style.opacity = 1;
+    document.getElementById(inputId).style.pointerEvents = "auto";
+    document.getElementById(inputId).style.opacity = 1;
 };
 
 //Common Function to convert an array to an object

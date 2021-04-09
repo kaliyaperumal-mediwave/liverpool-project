@@ -65,6 +65,14 @@ $(document).ready(function () {
                 country: '',
                 postCode: ''
             },
+            manualAddressParentArray: [],
+            addressParentData: {
+                addressLine1: '',
+                addressLine2: '',
+                city: '',
+                country: '',
+                postCode: ''
+            },
             allHouseHoldMembers: [],
             isAddressFormSubmitted: false,
             isFormSubmitted: false,
@@ -362,14 +370,20 @@ $(document).ready(function () {
 
 
             // Getting Manual Address
-            getManualAddress: function () {
-                $('#addressModal').modal('show');
-                this.resetAddressModalValues();
+            getManualAddress: function (modelId) {
+                if(modelId === 'bdeb1825-c05e-4949-974e-93514d3a85b4'){
+                    $('#addressModal').modal('show');
+                    this.resetAddressModalValues();
+                }
+                else if(modelId ==='ab0ea3ad-43c5-4f21-a449-e8087707654b'){
+                    $('#addressParentModal').modal('show'); 
+                    this.resetAddressParentModalValues();
+                }
             },
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                manualAddressLogic(this, 'addressData');
+                manualAddressLogic(this, 'addressData', 'manualAddressArray', 'addressModal');
                 this.aboutObj.childAddress = "";
                 document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
                 document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
@@ -379,7 +393,7 @@ $(document).ready(function () {
 
             //Patching the HouseHold logic
             patchAddress: function (address) {
-                patchManualAddress(this, 'addressData', address);
+                patchManualAddress(this, 'addressData', address, 'manualAddressArray');
                 this.prevAddressData = JSON.parse(JSON.stringify(this.manualAddressArray));
             },
 
@@ -392,6 +406,16 @@ $(document).ready(function () {
                 this.addressData.country = '';
                 this.addressData.postCode = '';
                 this.addressData.mode = '';
+            },
+            //Resetting the modal values of address model data
+            resetAddressParentModalValues: function () {
+                this.isAddressFormSubmitted = false;
+                this.addressParentData.addressLine1 = '';
+                this.addressParentData.addressLine2 = '';
+                this.addressParentData.city = '';
+                this.addressParentData.country = '';
+                this.addressParentData.postCode = '';
+                this.addressParentData.mode = '';
             },
 
             resetAddressValue: function (data) {
@@ -499,8 +523,10 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            deleteManualAddress: function (data) {
-                deleteLogic(this.manualAddressArray, data, this, 'manualAddressArray');
+            deleteManualAddress: function () {
+                deleteLogicManualAddress(this.manualAddressArray, this.addressData, this, 'manualAddressArray',
+                    'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
+                $('#deleteAddressModal').modal('hide');
             },
 
             //Resetting the modal values of service data
