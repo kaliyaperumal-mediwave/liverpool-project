@@ -101,7 +101,7 @@ function manualAddressLogic(context, object, arr, modal, isOrganization) {
 function patchManualAddress(context, object, address, arr) {
     context[arr] = [];
     var addressForm = context[object];
-    if (addressForm.school) {
+    if (address.school) {
         addressForm.school = address.school;
     }
     addressForm.addressLine1 = address.addressLine1;
