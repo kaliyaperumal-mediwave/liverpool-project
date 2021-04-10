@@ -136,7 +136,7 @@ $(document).ready(function () {
                 this.addressData.mode = '';
             },
 
-            //Delete service logic
+            //Delete manual address logic
             deleteSect3ManualAddress: function () {
                 deleteLogicManualAddress(this.educationManualAddressData, this.addressData, this, 'educationManualAddressData',
                     '2df66d79-a41a-4c4e-acee-171c39fe26f5', 'c4238c48-4dd6-405c-b3d9-cda7f17bdcb8');
@@ -151,7 +151,7 @@ $(document).ready(function () {
                 }
             },
 
-            resetAddressValue: function (data) {
+            resetAddressValue: function () {
                 if (this.addressData.mode && this.addressData.mode === 'add') {
                     this.resetAddressModalValues();
                 } else if (this.addressData.mode && this.addressData.mode === 'update') {

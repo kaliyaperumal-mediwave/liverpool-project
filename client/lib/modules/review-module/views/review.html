@@ -199,7 +199,7 @@
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
                                             for="profContactSec5">
-                                            Professional's contact number:
+                                            Contact number:
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
@@ -237,7 +237,8 @@
                                         </p>
                                     </div>
 
-                                    <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <div v-if="section1Data.professional_address"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profAddress1Sec5">
                                             Address:
                                         </label>
@@ -246,6 +247,17 @@
                                             readonly type="text" v-model="section1Data.professional_address"
                                             id="profAddress1Sec5">
                                                 </textarea>
+                                    </div>
+
+                                    <div v-if="checkArrayLength(section1Data.professional_manual_address)"
+                                        class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                        <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                            Address:
+                                        </label>
+                                        <textarea
+                                            class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            readonly type="text" v-model="showManualAddressForRole">
+                                            </textarea>
                                     </div>
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">

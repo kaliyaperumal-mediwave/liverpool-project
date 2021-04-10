@@ -138,12 +138,11 @@
                                 <h3 class="link-text">{{item.addressLine1}}</h3>
                                 <h3 class="link-text">{{item.addressLine2}}</h3>
                                 <h3 class="link-text">{{item.city}}</h3>
-                                <h3 class="link-text">{{item.county}}</h3>
+                                <h3 class="link-text">{{item.country}}</h3>
                                 <h3 class="link-text">{{item.postCode}}</h3>
                             </div>
                         </div>
                     </div>
-
                 </template>
 
                 <!-- Delete Modal Start -->
@@ -711,7 +710,7 @@
                                     <h5 class="question-header-font">Add address</h5>
                                 </template>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
-                                    <i @click="resetAddressValue(addressData)"
+                                    <i @click="resetAddressValue()"
                                         class="fal fa-times fa-2x cursor-pointer"></i>
                                 </span>
                             </div>

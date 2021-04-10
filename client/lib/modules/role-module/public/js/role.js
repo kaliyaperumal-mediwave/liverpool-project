@@ -49,6 +49,14 @@ $(document).ready(function () {
                 gpSchool: '',
                 professional_contact_type: "mobile"
             },
+            professionalManualAddress: [],
+            addressData: {
+                addressLine1: '',
+                addressLine2: '',
+                city: '',
+                country: '',
+                postCode: ''
+            },
             date: null,
             dateWrap: true,
             showInputLoader: false,
@@ -68,6 +76,7 @@ $(document).ready(function () {
             hasContactInvalidError: false,
             hasEmailInvalidError: false,
             isSubmitted: false,
+            isAddressFormSubmitted: false,
             edFlag: false,
             sendObj: {},
             maxDate: "",
@@ -83,7 +92,7 @@ $(document).ready(function () {
             gpFlag: false,
             date: '',
             dateFmt: '',
-             phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /^[0-9,-]{10,15}$|^$/,
             //phoneRegex: /^(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
         },
@@ -234,6 +243,10 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
+                    if (data[0].professional_manual_address && data[0].professional_manual_address.length) {
+                        Vue.set(this, "professionalManualAddress", data[0].professional_manual_address);
+                        this.setReadonlyState(true);
+                    }
                     Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
                     Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
@@ -249,6 +262,87 @@ $(document).ready(function () {
                 }
                 //this.elgibilityObj.editFlag = "true";
 
+            },
+
+            // Getting Manual Address
+            getManualAddress: function () {
+                $('#roleManualAddressModal').modal('show');
+                this.resetAddressModalValues();
+            },
+
+            //Adding and Updating a address logic
+            upsertAddress: function () {
+                manualAddressLogic(this, 'addressData', 'professionalManualAddress', 'roleManualAddressModal', false);
+                this.elgibilityObj.profAddress = "";
+                document.getElementById('3ef3160e-50f7-43de-9a6a-842512adad96').style.pointerEvents = "none";
+                document.getElementById('3ef3160e-50f7-43de-9a6a-842512adad96').style.opacity = 0.7;
+                document.getElementById('c80236ab-b7d6-4ae8-9c0d-89c24c3c763a').style.pointerEvents = "none";
+                document.getElementById('c80236ab-b7d6-4ae8-9c0d-89c24c3c763a').style.opacity = 0.5;
+            },
+
+            setReadonlyState: function (iDisabled) {
+                var textEle = document.getElementById('3ef3160e-50f7-43de-9a6a-842512adad96');
+                var buttElem = document.getElementById('c80236ab-b7d6-4ae8-9c0d-89c24c3c763a')
+                if (iDisabled) {
+                    textEle.style.pointerEvents = "none";
+                    textEle.style.opacity = 0.7;
+                    buttElem.style.pointerEvents = "none";
+                    buttElem.style.opacity = 0.5;
+                } else {
+                    textEle.style.pointerEvents = "auto";
+                    textEle.style.opacity = 1;
+                    buttElem.style.pointerEvents = "auto";
+                    buttElem.style.opacity = 1;
+                }
+
+            },
+
+            //Patching the HouseHold logic
+            patchAddress: function (address) {
+                patchManualAddress(this, 'addressData', address, 'professionalManualAddress');
+                this.prevAddressData = JSON.parse(JSON.stringify(this.professionalManualAddress));
+            },
+
+            //Delete manual address logic
+            deleteSect3ManualAddress: function () {
+                deleteLogicManualAddress(this.professionalManualAddress, this.addressData, this, 'professionalManualAddress',
+                    '3ef3160e-50f7-43de-9a6a-842512adad96', 'c80236ab-b7d6-4ae8-9c0d-89c24c3c763a');
+                $('#deleteAddressSect1Modal').modal('hide');
+            },
+
+            //Resetting the modal values of service data
+            resetAddressModalValues: function () {
+                this.isAddressFormSubmitted = false;
+                this.addressData.addressLine1 = '';
+                this.addressData.addressLine2 = '';
+                this.addressData.city = '';
+                this.addressData.country = '';
+                this.addressData.postCode = '';
+                this.addressData.mode = '';
+            },
+
+            resetAddressValue: function () {
+                if (this.addressData.mode && this.addressData.mode === 'add') {
+                    this.resetAddressModalValues();
+                } else if (this.addressData.mode && this.addressData.mode === 'update') {
+                    var prevAddressObj = convertArrayToObj(this.prevAddressData);
+                    if (this.addressData.mode === 'update') {
+                        if (_.isEqual(this.addressData, prevAddressObj)) {
+                            this.addressData = this.addressData;
+                        } else {
+                            this.professionalManualAddress = [];
+                            this.professionalManualAddress.push(prevAddressObj);
+                        }
+                        return true;
+                    } else {
+                        this.resetAddressModalValues();
+                    }
+                }
+            },
+
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
             },
 
             onChange: function (event) {
@@ -297,10 +391,14 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier == "directServices") {
                     this.resetValues(event.target.form);
+                    this.professionalManualAddress = [];
+                    this.setReadonlyState(false);
                     this.elgibilityObj.profDirectService = optionValue;
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
+                    this.professionalManualAddress = [];
+                    this.setReadonlyState(false);
                     this.elgibilityObj.profChildDob = "";
                     //this.elgibilityObj.profDirectService = optionValue;
                 }
@@ -888,16 +986,14 @@ $(document).ready(function () {
 
             save: function () {
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
-                var phoneRegex = /^[0-9,-]{10,15}$|^$/;
-                var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
                 var role = this.elgibilityObj.role;
-                //console.log(this.elgibilityObj);
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.elgibilityObj.profAddress && this.elgibilityObj.profProfession) {
-                        if (nameRegex.test(this.elgibilityObj.profFirstName) && nameRegex.test(this.elgibilityObj.proflastName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.phoneRegex.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                        if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
+                            this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
@@ -912,45 +1008,10 @@ $(document).ready(function () {
                             }
                         }
                         else {
-                            if (!nameRegex.test(this.elgibilityObj.profFirstName)) {
-                                this.hasNameInvalidError = true;
-                            } else {
-                                this.hasNameInvalidError = false;
-                            }
-                            if (!phoneRegex.test(this.elgibilityObj.profContactNumber)) {
-                                this.hasContactInvalidError = true;
-                            } else {
-                                this.hasContactInvalidError = false;
-                            }
-                            if (this.elgibilityObj.profEmail) {
-                                if (!emailRegex.test(this.elgibilityObj.profEmail)) {
-                                    this.hasEmailInvalidError = true;
-                                }
-                            }
                             scrollToInvalidInput();
                             return false;
                         }
                     } else {
-                        if (!this.elgibilityObj.profFirstName) {
-                            this.hasNameReqError = true;
-                        } else {
-                            this.hasNameReqError = false;
-                        }
-                        if (!this.elgibilityObj.profContactNumber) {
-                            this.hasContactReqError = true;
-                        } else {
-                            this.hasContactReqError = false;
-                        }
-                        if (this.elgibilityObj.profEmail) {
-                            if (!emailRegex.test(this.elgibilityObj.profEmail)) {
-                                this.hasEmailInvalidError = true;
-                            }
-                        }
-                        if (!this.elgibilityObj.profAddress) {
-                            this.hasNameReqError = true;
-                        } else {
-                            this.hasNameReqError = false;
-                        }
                         scrollToInvalidInput();
                         return false;
                     }
