@@ -2284,7 +2284,7 @@ exports.fetchReview = ctx => {
                 child_ethnicity: aboutObj[0].parent[0].child_ethnicity,
                 child_care_adult: aboutObj[0].parent[0].child_care_adult,
                 household_member: aboutObj[0].parent[0].household_member,
-                contact_type: aboutObj[0].parent[0].child_contact_type,
+                child_contact_type: aboutObj[0].parent[0].child_contact_type,
                 sex_at_birth: aboutObj[0].parent[0].sex_at_birth,
                 parent_id: aboutObj[0].id,
                 parent_name: aboutObj[0].parent_firstname,
