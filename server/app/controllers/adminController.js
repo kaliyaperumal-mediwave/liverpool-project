@@ -561,7 +561,7 @@ exports.sendReferral = async ctx => {
             //////console.log()(sendReferralStatus)
             const referralModel = ctx.orm().Referral;
             return referralModel.update({
-                referral_provider: "Sent to " + ctx.query.selectedProvider
+                referral_provider: ctx.query.selectedProvider
               },
                 {
                   where:

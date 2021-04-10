@@ -342,7 +342,7 @@ exports.eligibility = ctx => {
             professional_profession: ctx.request.body.profProfession,
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
-            referral_provider: "Sent to " + ctx.request.body.selectedService,
+            referral_provider: ctx.request.body.selectedService,
             gp_school: ctx.request.body.gpSchool,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
@@ -2395,7 +2395,7 @@ exports.saveReview = ctx => {
           ctx.query.refRole = ctx.request.body.role;
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
-              referral_provider: "Sent to " + ctx.request.body.referral_provider
+              referral_provider:ctx.request.body.referral_provider
             },
               {
                 where:
