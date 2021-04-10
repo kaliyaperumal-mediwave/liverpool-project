@@ -3314,19 +3314,19 @@ $color-scheme: (
 }
 
 .fa-chevron-circle-down:before {
-  content: "\f107" !important;
-  color: black;
-  background: #d4d4d4;
-  border-radius: 100%;
-  padding: 3px 7px 0px 7px;
-  font-weight: 500;
-}
-.fa-chevron-circle-up:before {
   content: "\f106" !important;
   color: black;
   background: #d4d4d4;
   border-radius: 100%;
   padding: 0px 7px 2px 7px;
+  font-weight: 500;
+}
+.fa-chevron-circle-up:before {
+  content: "\f107" !important;
+  color: black;
+  background: #d4d4d4;
+  border-radius: 100%;
+  padding: 3px 7px 0px 7px;
   font-weight: 500;
 }
 .dropdown-custom {
