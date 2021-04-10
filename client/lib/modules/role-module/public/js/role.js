@@ -47,7 +47,7 @@ $(document).ready(function () {
                 liverpoolService: '',
                 seftonService: '',
                 gpSchool: '',
-                professional_contact_type:"mobile"
+                professional_contact_type: "mobile"
             },
             date: null,
             dateWrap: true,
@@ -83,7 +83,8 @@ $(document).ready(function () {
             gpFlag: false,
             date: '',
             dateFmt: '',
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+             phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            //phoneRegex: /^(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
         },
 
