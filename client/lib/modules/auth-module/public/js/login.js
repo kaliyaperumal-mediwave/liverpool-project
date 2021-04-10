@@ -66,7 +66,6 @@ $(document).ready(function () {
                         $('#loader').hide();
                         if(successData.data.sendUserResult.role === 'admin' || successData.data.sendUserResult.role === 'service_admin') { 
                             localStorage.setItem('theme', 'light');
-                            console.log(`Logging in as ${successData.data.sendUserResult.role}...........`); 
                             if(successData.data.sendUserResult.role === 'admin'){
                                 location.href = "/admin";
                             } else {
