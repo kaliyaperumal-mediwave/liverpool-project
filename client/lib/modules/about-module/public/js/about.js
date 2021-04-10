@@ -355,9 +355,6 @@ $(document).ready(function () {
                     } else {
                         this.payloadData.userMode = 'add';
                     }
-                    // this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
-                    // var lastName = this.maritalStatus + '' + this.payloadData.aboutData.childLastName;
-                   // this.payloadData.aboutData = this.parentContactMode;
                     this.upsertAboutYouForm(this.payloadData);
                 } else {
                     scrollToInvalidInput();
