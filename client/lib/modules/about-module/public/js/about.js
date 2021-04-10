@@ -31,13 +31,13 @@ $(document).ready(function () {
                 parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
-                // parentContactMode: "mobile",
+                 parentContactMode: "mobile",
                 emailAddress: "",
                 sameHouse: "",
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
             },
-            parentContactMode: "mobile",
+            //parentContactMode: "mobile",
             prevAddressData: null,
             dateWrap: true,
             options: {

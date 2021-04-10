@@ -1097,7 +1097,7 @@
                                     </div> -->
                                 </div>
 
-                                <div v-if="section3Data.child_profession == 'education' && section3Data.child_education_place"
+                                <div v-if="section3Data.child_education_place"
                                     class="py-3 readOnly-class w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="childEducationPlace">
                                         School/college:
@@ -1107,6 +1107,18 @@
                                             v-model="section3Data.child_education_place" id="childEducationPlace"
                                             @input="onDetectChange($event,'sect3')">
                                 </textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="checkArrayLength(section3Data.child_education_manual_address)"
+                                    class="py-3 readOnly-class w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        School/college:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea class="form-control text-capitalize input-bg-form-control" type="text"
+                                            readonly v-model="showManualAddress">
+                            </textarea>
                                     </div>
                                 </div>
 

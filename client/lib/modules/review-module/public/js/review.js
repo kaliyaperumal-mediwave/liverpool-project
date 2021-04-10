@@ -45,6 +45,7 @@ $(document).ready(function () {
             prevSection4Data: {},
             payloadData: {},
             contactPref: [],
+            showManualAddress: "",
             selectProvider: 'No',
             sendRef: '',
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
@@ -111,6 +112,13 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
+
+                        if (_self.section3Data.child_education_manual_address && _self.section3Data.child_education_manual_address.length) {
+                            var getObj = convertArrayToObj(_self.section3Data.child_education_manual_address);
+                            delete getObj.id;
+                            delete getObj.mode;
+                            _self.showManualAddress = dynamicSeparator(getObj, ',')
+                        }
 
                         //Other Reasons for making referral
                         if (_self.section4Data.other_reasons_referral) {
