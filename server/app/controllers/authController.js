@@ -126,7 +126,8 @@ exports.login = async (ctx) => {
                                     email: prof_referral.professional_email ? prof_referral.professional_email : '',
                                     contact_number: prof_referral.professional_contact_number ? prof_referral.professional_contact_number : '',
                                     profession: prof_referral.professional_profession ? prof_referral.professional_profession : '',
-                                    address: prof_referral.professional_address ? prof_referral.professional_address : ''
+                                    address: prof_referral.professional_address ? prof_referral.professional_address : '',
+                                    professional_manual_address: prof_referral.professional_manual_address ? prof_referral.professional_manual_address : '',
                                 };
                             }
                         }
