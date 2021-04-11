@@ -230,7 +230,9 @@ function sendPdf(uuid, role, refCode, selectedProvider) {
     // console.log('/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
     // return false;
     // var selectedProvider = document.getElementById('SelectedProvider').value;
-    var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
+    // alert($( "#SelectedProvider" ).val());
+    var referral_provider = $( "#SelectedProvider" ).val();
+    var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + referral_provider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
         $('#sendProviderModal').modal('hide');
         $('#mailSentSuccess').modal('show');

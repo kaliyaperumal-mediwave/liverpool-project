@@ -160,13 +160,7 @@ module.exports = function (self, options) {
           });
       }
       else {
-        req.data.logoPath = "/";
-        req.data.showLogout = false;
-        req.data.loginId = "";
-        req.data.prof_data = "";
-        req.data.uuid = req.session.uuid;
-        req.data.userRole = req.session.user_role;
-        return next();
+        return req.res.redirect("/users/login");
       }
     },
 
@@ -189,13 +183,7 @@ module.exports = function (self, options) {
           });
       }
       else {
-        req.data.logoPath = "/";
-        req.data.showLogout = false;
-        req.data.loginId = "";
-        req.data.prof_data = "";
-        req.data.uuid = req.session.uuid;
-        req.data.userRole = req.session.user_role;
-        return next();
+        return req.res.redirect("/users/login");
       }
     },
 
