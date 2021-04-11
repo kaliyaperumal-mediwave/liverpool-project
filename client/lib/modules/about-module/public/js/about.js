@@ -31,7 +31,7 @@ $(document).ready(function () {
                 parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
-                 parentContactMode: "mobile",
+                parentContactMode: "mobile",
                 emailAddress: "",
                 sameHouse: "",
                 parentOrCarrerAddress: "",
