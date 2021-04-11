@@ -46,7 +46,8 @@ $(document).ready(function () {
             mapsEntered: false,
             isFormSubmitted: false,
             isAddressFormSubmitted: false,
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            // phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             aboutYourSelf: [],
             showInstitution: false
         },
@@ -229,7 +230,6 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
-                debugger
                 this.isFormSubmitted = true;
                 if (this.educAndEmpData.haveSocialWorker === 'yes') {
                     this.educAndEmpData.socialWorkContactType = this.socialWorkContactType;

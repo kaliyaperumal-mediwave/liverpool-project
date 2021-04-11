@@ -646,13 +646,26 @@
                                     </div>
                                 </div>
 
-                                <div class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                <div v-if="section2Data.child_address"
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
                                         Address:
                                     </label>
                                     <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                         <textarea readonly class="form-control text-capitalize input-bg-form-control"
                                             type="text" v-model="section2Data.child_address" id="addressSect5">
+                                </textarea>
+                                    </div>
+                                </div>
+
+                                <div v-if="checkArrayLength(section2Data.child_manual_address)"
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="addressSect5">
+                                        Address:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea readonly class="form-control text-capitalize input-bg-form-control"
+                                            type="text" v-model="showChildManualAddressSection2" id="addressSect5">
                                 </textarea>
                                     </div>
                                 </div>
@@ -964,18 +977,6 @@
                                     <input
                                         class="form-control text-capitalize input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                         readonly type="text" v-model="section2Data.parent_same_house">
-                                    <!-- <div class="col-md-4 col-12 px-0">
-                                        <select disabled class="custom-select h-50px text-capitalize input-bg-form-control"
-                                            @change="onDetectChange($event,'sect2')"
-                                            v-model="section2Data.parent_same_house">
-                                            <option class='option-text' selected>
-                                                {{section2Data.parent_same_house}}</option>
-                                            <option class='option-text' v-if="section2Data.parent_same_house == 'no'" value="yes">Yes
-                                            </option>
-                                            <option class='option-text' v-if="section2Data.parent_same_house == 'yes'" value="no">no
-                                            </option>
-                                        </select>
-                                    </div> -->
                                 </div>
 
                                 <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
@@ -990,6 +991,18 @@
                                                 v-model="section2Data.parent_address" id="parCarrerAdd5">
                                             </textarea>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="section2Data.parent_same_house == 'no' && !section2Data.parent_address && checkArrayLength(section2Data.parent_manual_address)"
+                                    class="readOnly-class py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0">
+                                        Address:
+                                    </label>
+                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea readonly class="form-control text-capitalize input-bg-form-control"
+                                            type="text" v-model="showParentManualAddressSection2">
+                            </textarea>
                                     </div>
                                 </div>
 
