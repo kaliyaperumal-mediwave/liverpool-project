@@ -47,6 +47,12 @@ $(document).ready(function () {
 
             fetchReferral: function () {
                 var _self = this;
+
+                $('th').on("click", function (event) {
+                    if($(event.target).is("div"))
+                        event.stopImmediatePropagation();
+                  });
+                  
                 $('#example').DataTable({
                     select: {
                         style: 'os',
