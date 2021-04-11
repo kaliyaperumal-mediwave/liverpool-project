@@ -1064,6 +1064,16 @@ function getRefData(refID, refRole, ctx) {
                                 }
                             }
 
+                            console.log(section3Obj.child_education_manual_address[0])
+
+                            if(section1Obj.professional_manual_address[0]!=null){
+                                section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1+','+  section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + ''  + section1Obj.professional_manual_address[0].postCode
+                            }
+
+                            if(section3Obj.child_education_manual_address[0]!=null){
+                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
+                            }
+
 
 
                             const responseData = {
@@ -1078,7 +1088,7 @@ function getRefData(refID, refRole, ctx) {
                                 status: "ok",
                                 role: refRole
                             }
-                            //  //console.log(responseData)
+                        //console.log(responseData)
                             return ctx.body = responseData;
                         }).catch((error) => {
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)

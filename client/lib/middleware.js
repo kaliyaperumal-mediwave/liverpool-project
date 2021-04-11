@@ -24,6 +24,12 @@ module.exports = function (self, options) {
             req.data.mentalHealth_peoplePage = "mental-health/people";
             req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
+
+            if(req.session.user_role === 'service_admin'){
+              return req.res.redirect("/admin/serviceAdmin")
+            } else if(req.session.user_role === 'admin'){
+              return req.res.redirect("/admin")
+            }
             return next();
           })
           .catch((error) => {
@@ -53,9 +59,17 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
+
+            if(req.session.user_role === 'service_admin'){
+              return req.res.redirect("/admin/serviceAdmin")
+            } else if(req.session.user_role === 'admin'){
+              return req.res.redirect("/admin")
+            }
+
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
             req.data.uuid = req.session.uuid;
@@ -125,6 +139,54 @@ module.exports = function (self, options) {
         return next();
       }
     },
+
+    checkAdminAuth: function (req, res, next) {
+      if (req.session.auth_token) {
+        self.verifyToken(req)
+          .then((data) => {
+            req.data.logoPath = "/admin";
+            req.data.referral = "/admin";
+            req.data.archive = "/admin/archive";
+            if(req.session.user_role === 'service_admin'){
+              return req.res.redirect("/admin/serviceAdmin")
+            } else if(req.session.user_role === 'admin'){
+              return next();
+            } else {
+              return req.res.redirect("/dashboard")
+            }
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
+      }
+      else {
+        return req.res.redirect("/users/login");
+      }
+    },
+
+    checkServiceAdminAuth: function (req, res, next) {
+      if (req.session.auth_token) {
+        self.verifyToken(req)
+          .then((data) => {
+            req.data.logoPath = "/admin/serviceAdmin";
+            req.data.archive = "/admin/serviceAdmin";
+            if(req.session.user_role === 'service_admin'){
+              return next();
+            } else if(req.session.user_role === 'admin'){
+              return req.res.redirect("/admin")
+            } else {
+              return req.res.redirect("/dashboard")
+            }
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
+      }
+      else {
+        return req.res.redirect("/users/login");
+      }
+    },
+
     post: function (req, res, url, body) {
       //console.log("post method")
       return new Promise((resolve, reject) => {

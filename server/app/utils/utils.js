@@ -15,8 +15,8 @@ module.exports = {
         result = jwt.verify(token, process.env.JWT_SECRET);
         // Let's pass back the decoded token to the request object
         ctx.request.decryptedUser = result;
-        console.log("checkatuh")
-        console.log(ctx.request.decryptedUser)
+        // console.log("checkatuh")
+        // console.log(ctx.request.decryptedUser)
         return user.findOne({
           where: {
               email: result.email,

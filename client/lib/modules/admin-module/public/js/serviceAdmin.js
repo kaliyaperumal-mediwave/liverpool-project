@@ -14,7 +14,8 @@ $(document).ready(function () {
             dataSet: [],
             successMessage: '',
             draw: 1,
-            searchRefObj: {}
+            searchRefObj: {},
+            SelectedProviderType: 'Liverpool'
         },
 
         beforeMount: function () {
@@ -46,6 +47,11 @@ $(document).ready(function () {
 
             fetchReferral: function () {
                 var _self = this;
+
+                $('th').on("click", function (event) {
+                    if($(event.target).is("div"))
+                        event.stopImmediatePropagation();
+                  });
                 $('#example').DataTable({
                     select: {
                         style: 'os',
@@ -65,10 +71,10 @@ $(document).ready(function () {
                         { targets: 8, orderable: false },
                     ],
                     order: [[7, 'desc']],
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'csv'
-                    ],
+                    // dom: 'Bfrtip',
+                    // buttons: [
+                    //     'csv'
+                    // ],
                     language: {
                         searchPlaceholder: 'Search referral',
                         emptyTable: 'No referrals to displays',
@@ -224,7 +230,9 @@ function sendPdf(uuid, role, refCode, selectedProvider) {
     // console.log('/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
     // return false;
     // var selectedProvider = document.getElementById('SelectedProvider').value;
-    var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
+    // alert($( "#SelectedProvider" ).val());
+    var referral_provider = $( "#SelectedProvider" ).val();
+    var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + referral_provider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
         $('#sendProviderModal').modal('hide');
         $('#mailSentSuccess').modal('show');

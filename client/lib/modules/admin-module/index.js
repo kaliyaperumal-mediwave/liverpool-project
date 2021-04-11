@@ -6,9 +6,9 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.middleware.checkCommonPageAuth, self.admin);
-      self.dispatch('/archive', self.middleware.checkCommonPageAuth, self.archive);
-      self.dispatch('/serviceAdmin', self.middleware.checkCommonPageAuth, self.serviceAdmin);
+      self.dispatch('/', self.middleware.checkAdminAuth, self.admin);
+      self.dispatch('/archive', self.middleware.checkAdminAuth, self.archive);
+      self.dispatch('/serviceAdmin', self.middleware.checkServiceAdminAuth, self.serviceAdmin);
     };
     self.archive = function (req, callback) {
       return self.sendPage(req, self.renderer('admin-referral-archive', {
