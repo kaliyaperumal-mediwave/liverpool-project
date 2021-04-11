@@ -14,7 +14,8 @@ $(document).ready(function () {
             dataSet: [],
             successMessage: '',
             draw: 1,
-            searchRefObj: {}
+            searchRefObj: {},
+            SelectedProviderType: 'Liverpool'
         },
 
         beforeMount: function () {
