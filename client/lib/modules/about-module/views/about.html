@@ -190,8 +190,8 @@
                                     <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
                                 </span>
                             </div>
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.childAddress),
-                                'invalid-fields':!aboutObj.childAddress }">
+                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),
+                                'invalid-fields':!aboutObj.childAddress && !childManualAddress.length }">
                                 You must provide an address.
                             </div>
                         </div>

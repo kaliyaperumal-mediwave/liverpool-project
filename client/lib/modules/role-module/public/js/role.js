@@ -92,8 +92,8 @@ $(document).ready(function () {
             gpFlag: false,
             date: '',
             dateFmt: '',
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
-            //phoneRegex: /^(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)$/,
+            //phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
         },
 
@@ -171,7 +171,7 @@ $(document).ready(function () {
                     if (this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
                         var profData = document.getElementById('prof_data').innerHTML;
                         profData = JSON.parse(profData);
-                      //  console.log(profData.professional_manual_address);
+                        //  console.log(profData.professional_manual_address);
                         Vue.set(this.elgibilityObj, "profFirstName", profData.first_name);
                         Vue.set(this.elgibilityObj, "proflastName", profData.last_name);
                         Vue.set(this.elgibilityObj, "profEmail", profData.email);
@@ -397,13 +397,13 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier == "directServices") {
                     this.resetValues(event.target.form);
-                   // this.professionalManualAddress = [];
+                    // this.professionalManualAddress = [];
                     this.setReadonlyState(false);
                     this.elgibilityObj.profDirectService = optionValue;
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
-                 //   this.professionalManualAddress = [];
+                    //   this.professionalManualAddress = [];
                     this.setReadonlyState(false);
                     this.elgibilityObj.profChildDob = "";
                     //this.elgibilityObj.profDirectService = optionValue;
@@ -932,7 +932,7 @@ $(document).ready(function () {
                     return false;
                 }
                 if (this.isSubmitted) {
-                    var phoneRegex = /^[0-9,-]{10,15}$|^$/;
+                    var phoneRegex = /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                     var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                     if (type === 'firstName') {
