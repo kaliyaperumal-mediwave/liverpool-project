@@ -38,7 +38,8 @@ $(document).ready(function () {
                 legalCareStatus: ""
             },
             //parentContactMode: "mobile",
-            prevAddressData: null,
+            prevChildAddressData: null,
+            prevParentAddressData: null,
             dateWrap: true,
             options: {
                 // format: 'YYYY/MM/DD',
@@ -58,7 +59,7 @@ $(document).ready(function () {
                 profession: '',
                 lastName: ''
             },
-            manualAddressArray: [],
+            childManualAddress: [],
             addressData: {
                 addressLine1: '',
                 addressLine2: '',
@@ -66,7 +67,7 @@ $(document).ready(function () {
                 country: '',
                 postCode: ''
             },
-            manualAddressParentArray: [],
+            parentManualAddress: [],
             addressParentData: {
                 addressLine1: '',
                 addressLine2: '',
@@ -76,10 +77,11 @@ $(document).ready(function () {
             },
             allHouseHoldMembers: [],
             isAddressFormSubmitted: false,
+            isAddressFormParentSubmitted: false,
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
-            //phoneRegex: /^(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)$/,
+            //phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
             userRole: '',
@@ -157,6 +159,11 @@ $(document).ready(function () {
 
             onOptionChange: function (event) {
                 var optionsName = this.aboutFormData;
+                var questionFormIdentifier = event.target.name;
+                if (questionFormIdentifier == 'parentialResponsibility' || questionFormIdentifier == 'liveInSameHouse') {
+                    this.parentManualAddress = [];
+                    this.setReadonlyState(false, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
+                }
                 this.sec2dynamicLabel = getDynamicLabels(this.userRole, optionsName.parentialResponsibility)
                 resetValues(event.target.form, this, 'aboutFormData');
             },
@@ -288,6 +295,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
+                        if (data[0].parent[0].child_manual_address && data[0].parent[0].child_manual_address.length) {
+                            Vue.set(this, "childManualAddress", data[0].parent[0].child_manual_address);
+                            this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
+
+                        }
                         Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
                         Vue.set(this.aboutObj, "sendPost", data[0].parent[0].can_send_post);
                         Vue.set(this.aboutObj, "childGender", data[0].parent[0].child_gender);
@@ -320,6 +332,10 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
+                        if (!data[0].parent_address && data[0].parent_manual_address && data[0].parent_manual_address.length) {
+                            Vue.set(this, "parentManualAddress", data[0].parent_manual_address);
+                            this.setReadonlyState(true, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
+                        }
                         Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                         Vue.set(this.aboutFormData, "parentUUID", data[0].uuid);
@@ -334,29 +350,37 @@ $(document).ready(function () {
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
-                    formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childAddress && formData.childFirstName && formData.childLastName && formData.childContactNumber
+                    formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
-                    if ((formData.parentialResponsibility == 'no' && !formData.parentCarerFirstName && !formData.parentCarerLastName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                        || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
-                        || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
+                    if (formData.childAddress || this.childManualAddress.length) {
+                        if ((formData.parentialResponsibility == 'no' && !formData.parentCarerFirstName && !formData.parentCarerLastName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+                        $('#loader').show();
+                        this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
+                        this.payloadData.role = document.getElementById('uRole').innerHTML;
+                        this.payloadData.userid = document.getElementById('uUid').innerHTML
+                        this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
+                        if (this.editPatchFlag) {
+                            this.payloadData.editFlag = this.editPatchFlag
+                        }
+                        if (this.userMode === 'edit') {
+                            this.payloadData.userMode = 'edit';
+                        } else {
+                            this.payloadData.userMode = 'add';
+                        }
+                        this.payloadData.aboutData.childManualAddress = this.childManualAddress;
+                        this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
+                        this.upsertAboutYouForm(this.payloadData);
+                    } else {
                         scrollToInvalidInput();
                         return false;
                     }
-                    $('#loader').show();
-                    this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
-                    this.payloadData.role = document.getElementById('uRole').innerHTML;
-                    this.payloadData.userid = document.getElementById('uUid').innerHTML
-                    this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                    if (this.editPatchFlag) {
-                        this.payloadData.editFlag = this.editPatchFlag
-                    }
-                    if (this.userMode === 'edit') {
-                        this.payloadData.userMode = 'edit';
-                    } else {
-                        this.payloadData.userMode = 'add';
-                    }
-                    this.upsertAboutYouForm(this.payloadData);
+
                 } else {
                     scrollToInvalidInput();
                     return false;
@@ -376,32 +400,105 @@ $(document).ready(function () {
             getManualAddress: function (modelId) {
                 if (modelId === 'bdeb1825-c05e-4949-974e-93514d3a85b4') {
                     $('#addressModal').modal('show');
-                    this.resetAddressModalValues();
+                    this.resetChildAddressModalValues();
                 }
                 else if (modelId === 'ab0ea3ad-43c5-4f21-a449-e8087707654b') {
                     $('#addressParentModal').modal('show');
-                    this.resetAddressParentModalValues();
+                    this.resetParentAddressModalValues();
                 }
             },
 
             //Adding and Updating a address logic
-            upsertAddress: function () {
-                manualAddressLogic(this, 'addressData', 'manualAddressArray', 'addressModal');
-                this.aboutObj.childAddress = "";
-                document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
-                document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
-                document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
-                document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
+            upsertAddress: function (role) {
+                if (role == 'child') {
+                    manualAddressLogic(this, 'addressData', 'childManualAddress', 'addressModal', false);
+                    this.aboutObj.childAddress = "";
+                    document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
+                    document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
+                    document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
+                    document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
+                } else if (role == 'parent') {
+                    manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false);
+                    this.aboutFormData.parentOrCarrerAddress = "";
+                    document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.pointerEvents = "none";
+                    document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.opacity = 0.7;
+                    document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.pointerEvents = "none";
+                    document.getElementById('e97aa97c-34b6-4874-b2d0-b29c194dfdd2').style.opacity = 0.5;
+                }
+
+            },
+
+            setReadonlyState: function (isDisabled, text, inputGroup) {
+                var textEle = document.getElementById(text);
+                var buttElem = document.getElementById(inputGroup)
+                if (isDisabled) {
+                    textEle.style.pointerEvents = "none";
+                    textEle.style.opacity = 0.7;
+                    buttElem.style.pointerEvents = "none";
+                    buttElem.style.opacity = 0.5;
+                } else {
+                    textEle.style.pointerEvents = "auto";
+                    textEle.style.opacity = 1;
+                    buttElem.style.pointerEvents = "auto";
+                    buttElem.style.opacity = 1;
+                }
+
             },
 
             //Patching the HouseHold logic
-            patchAddress: function (address) {
-                patchManualAddress(this, 'addressData', address, 'manualAddressArray');
-                this.prevAddressData = JSON.parse(JSON.stringify(this.manualAddressArray));
+            patchAddress: function (address, role) {
+                if (role == 'child') {
+                    patchManualAddress(this, 'addressData', address, 'childManualAddress');
+                    this.prevChildAddressData = JSON.parse(JSON.stringify(this.childManualAddress));
+                } else if (role == 'parent') {
+                    patchManualAddress(this, 'addressParentData', address, 'parentManualAddress');
+                    this.prevParentAddressData = JSON.parse(JSON.stringify(this.parentManualAddress));
+                }
+
+            },
+
+            //reset child address value
+            resetChildAddressValue: function (data) {
+                if (this.addressData.mode && this.addressData.mode === 'add') {
+                    this.resetChildAddressModalValues();
+                } else if (this.addressData.mode && this.addressData.mode === 'update') {
+                    var prevChildAddressObj = convertArrayToObj(this.prevChildAddressData);
+                    if (this.addressData.mode === 'update') {
+                        if (_.isEqual(this.addressData, prevChildAddressObj)) {
+                            this.addressData = this.addressData;
+                        } else {
+                            this.childManualAddress = [];
+                            this.childManualAddress.push(prevChildAddressObj);
+                        }
+                        return true;
+                    } else {
+                        this.resetChildAddressModalValues();
+                    }
+                }
+            },
+
+            //reset child address value
+            resetParentAddressValue: function (data) {
+                if (this.addressParentData.mode && this.addressParentData.mode === 'add') {
+                    this.resetChildAddressModalValues();
+                } else if (this.addressParentData.mode && this.addressParentData.mode === 'update') {
+                    var prevParentAddressObj = convertArrayToObj(this.prevParentAddressObj);
+                    if (this.addressParentData.mode === 'update') {
+                        if (_.isEqual(this.addressParentData, prevParentAddressObj)) {
+                            this.addressParentData = this.addressParentData;
+                        } else {
+                            this.parentManualAddress = [];
+                            this.parentManualAddress.push(prevParentAddressObj);
+                        }
+                        return true;
+                    } else {
+                        this.resetParentAddressModalValues();
+                    }
+                }
             },
 
             //Resetting the modal values of service data
-            resetAddressModalValues: function () {
+            resetChildAddressModalValues: function () {
                 this.isAddressFormSubmitted = false;
                 this.addressData.addressLine1 = '';
                 this.addressData.addressLine2 = '';
@@ -410,8 +507,9 @@ $(document).ready(function () {
                 this.addressData.postCode = '';
                 this.addressData.mode = '';
             },
+
             //Resetting the modal values of address model data
-            resetAddressParentModalValues: function () {
+            resetParentAddressModalValues: function () {
                 this.isAddressFormSubmitted = false;
                 this.addressParentData.addressLine1 = '';
                 this.addressParentData.addressLine2 = '';
@@ -421,24 +519,7 @@ $(document).ready(function () {
                 this.addressParentData.mode = '';
             },
 
-            resetAddressValue: function (data) {
-                if (this.addressData.mode && this.addressData.mode === 'add') {
-                    this.resetAddressModalValues();
-                } else if (this.addressData.mode && this.addressData.mode === 'update') {
-                    var prevAddressObj = convertArrayToObj(this.prevAddressData);
-                    if (this.addressData.mode === 'update') {
-                        if (_.isEqual(this.addressData, prevAddressObj)) {
-                            this.addressData = this.addressData;
-                        } else {
-                            this.manualAddressArray = [];
-                            this.manualAddressArray.push(prevAddressObj);
-                        }
-                        return true;
-                    } else {
-                        this.resetAddressModalValues();
-                    }
-                }
-            },
+
 
             //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
@@ -526,10 +607,17 @@ $(document).ready(function () {
             },
 
             //Delete service logic
-            deleteManualAddress: function () {
-                deleteLogicManualAddress(this.manualAddressArray, this.addressData, this, 'manualAddressArray',
-                    'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
-                $('#deleteAddressModal').modal('hide');
+            deleteManualAddress: function (role) {
+                if (role == 'child') {
+                    deleteLogicManualAddress(this.childManualAddress, this.addressData, this, 'childManualAddress',
+                        'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
+                    $('#deleteChildAddressModal').modal('hide');
+                } else if (role == 'parent') {
+                    deleteLogicManualAddress(this.parentManualAddress, this.addressParentData, this, 'parentManualAddress',
+                        'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
+                    $('#deleteParentAddressModal').modal('hide');
+                }
+
             },
 
             //Resetting the modal values of service data

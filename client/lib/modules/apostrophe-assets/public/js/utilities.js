@@ -58,6 +58,9 @@ function commonToggleVisibility(context, element, visibility) {
 //Common Function to entering manual address
 function manualAddressLogic(context, object, arr, modal, isOrganization) {
     console.log(context, object);
+    if (context['isAddressFormParentSubmitted']) {
+        context['isAddressFormParentSubmitted'] = true;
+    }
     context['isAddressFormSubmitted'] = true;
     var addressForm = context[object];
     if (isOrganization) {

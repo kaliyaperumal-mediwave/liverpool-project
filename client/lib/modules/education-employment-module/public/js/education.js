@@ -229,7 +229,6 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
-                debugger
                 this.isFormSubmitted = true;
                 if (this.educAndEmpData.haveSocialWorker === 'yes') {
                     this.educAndEmpData.socialWorkContactType = this.socialWorkContactType;

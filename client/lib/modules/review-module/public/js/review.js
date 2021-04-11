@@ -46,6 +46,8 @@ $(document).ready(function () {
             payloadData: {},
             contactPref: [],
             showManualAddress: "",
+            showChildManualAddressSection2: "",
+            showParentManualAddressSection2: "",
             showManualAddressForRole: "",
             selectProvider: 'No',
             sendRef: '',
@@ -113,6 +115,20 @@ $(document).ready(function () {
                         _self.section4Data = data.section4;
                         _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
+
+                        if (_self.section2Data.child_manual_address && _self.section2Data.child_manual_address.length) {
+                            var getObjSect2Child = convertArrayToObj(_self.section2Data.child_manual_address);
+                            delete getObjSect2Child.id;
+                            delete getObjSect2Child.mode;
+                            _self.showChildManualAddressSection2 = dynamicSeparator(getObjSect2Child, ',')
+                        }
+
+                        if (_self.section2Data.parent_manual_address && _self.section2Data.parent_manual_address.length) {
+                            var getObjSect2Parent = convertArrayToObj(_self.section2Data.parent_manual_address);
+                            delete getObjSect2Parent.id;
+                            delete getObjSect2Parent.mode;
+                            _self.showParentManualAddressSection2 = dynamicSeparator(getObjSect2Parent, ',')
+                        }
 
                         if (_self.section1Data.professional_manual_address && _self.section1Data.professional_manual_address.length) {
                             var getObj1 = convertArrayToObj(_self.section1Data.professional_manual_address);
