@@ -47,7 +47,13 @@ $(document).ready(function () {
 
       fetchReferral: function () {
         var _self = this;
-        $('#adminReferral').DataTable({
+        
+        $('th').on("click", function (event) {
+          if($(event.target).is("div"))
+              event.stopImmediatePropagation();
+        });
+
+        var table = $('#adminReferral').DataTable({
           destroy: true,
           processing: false,
           serverSide: true,
@@ -106,6 +112,7 @@ $(document).ready(function () {
             }
           }
         });
+
         this.referral_ids = [];
         $('#loader').hide();
       },

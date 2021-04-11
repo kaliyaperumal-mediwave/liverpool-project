@@ -14,7 +14,8 @@ $(document).ready(function () {
             dataSet: [],
             successMessage: '',
             draw: 1,
-            searchRefObj: {}
+            searchRefObj: {},
+            SelectedProviderType: 'Liverpool'
         },
 
         beforeMount: function () {
@@ -46,6 +47,11 @@ $(document).ready(function () {
 
             fetchReferral: function () {
                 var _self = this;
+
+                $('th').on("click", function (event) {
+                    if($(event.target).is("div"))
+                        event.stopImmediatePropagation();
+                  });
                 $('#example').DataTable({
                     select: {
                         style: 'os',
@@ -65,10 +71,10 @@ $(document).ready(function () {
                         { targets: 8, orderable: false },
                     ],
                     order: [[7, 'desc']],
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'csv'
-                    ],
+                    // dom: 'Bfrtip',
+                    // buttons: [
+                    //     'csv'
+                    // ],
                     language: {
                         searchPlaceholder: 'Search referral',
                         emptyTable: 'No referrals to displays',
