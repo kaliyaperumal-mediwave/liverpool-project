@@ -56,33 +56,54 @@ function commonToggleVisibility(context, element, visibility) {
 };
 
 //Common Function to entering manual address
-function manualAddressLogic(context, object, arr, modal) {
+function manualAddressLogic(context, object, arr, modal, isOrganization) {
     console.log(context, object);
     context['isAddressFormSubmitted'] = true;
     var addressForm = context[object];
-    if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1) {
-        if (addressForm.mode === 'update') {
-            context[arr] = [];
-            delete addressForm.mode;
-            context[arr].push(addressForm);
+    if (isOrganization) {
+        if (addressForm.school && addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode) {
+            if (addressForm.mode === 'update') {
+                context[arr] = [];
+                delete addressForm.mode;
+                context[arr].push(addressForm);
+            } else {
+                addressForm.id = uuidV4();
+                addressForm.mode = 'add';
+                context[arr].push(addressForm);
+            }
+            $('#' + modal).modal('hide');
+            //context.resetModalValues();
+
         } else {
-            addressForm.id = uuidV4();
-            addressForm.mode = 'add';
-            context[arr].push(addressForm);
+            return;
         }
-        $('#' + modal).modal('hide');
-        //context.resetModalValues();
-
     } else {
-        return;
-    }
+        if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode) {
+            if (addressForm.mode === 'update') {
+                context[arr] = [];
+                delete addressForm.mode;
+                context[arr].push(addressForm);
+            } else {
+                addressForm.id = uuidV4();
+                addressForm.mode = 'add';
+                context[arr].push(addressForm);
+            }
+            $('#' + modal).modal('hide');
+            //context.resetModalValues();
 
+        } else {
+            return;
+        }
+    }
 };
 
 //Patching the manual address logic
 function patchManualAddress(context, object, address, arr) {
     context[arr] = [];
     var addressForm = context[object];
+    if (address.school) {
+        addressForm.school = address.school;
+    }
     addressForm.addressLine1 = address.addressLine1;
     addressForm.addressLine2 = address.addressLine2;
     addressForm.city = address.city;
@@ -108,7 +129,6 @@ function deleteLogic(arr, value, context, section) {
 
 //Common Delete Logic for manual address
 function deleteLogicManualAddress(arr, value, context, section, textId, inputId) {
-    debugger
     var index;
     arr.some(function (e, i) {
         if (e.id == value.id) {
@@ -131,6 +151,18 @@ function convertArrayToObj(arr) {
     }, {});
     return obj['0'];
 };
+
+//function toCSV(obj, separator) {
+function dynamicSeparator(obj, separator) {
+    var arr = [];
+    for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            arr.push(obj[key]);
+        }
+    }
+
+    return arr.join(separator || ",");
+}
 
 //Common Modal for API error messages
 function showError(content, statusCode) {

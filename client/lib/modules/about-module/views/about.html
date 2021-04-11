@@ -195,10 +195,10 @@
                                 You must provide an address.
                             </div>
                         </div>
-                        <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                        <!-- <p class="link-text text-right mb-0 mt-2 cursor-pointer"
                             id="bdeb1825-c05e-4949-974e-93514d3a85b4"
                             @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
-                                manually</u></p>
+                                manually</u></p> -->
                     </div>
 
                     <!-- <div v-if="isAddressFormSubmitted && Object.keys(addressData).length">
@@ -835,10 +835,7 @@
                                     'invalid-fields':(aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress)) }">
                                     You must provide a valid email.
                                 </div>
-                                <p class="link-text text-right mb-0 mt-2 cursor-pointer"
-                                    id="ab0ea3ad-43c5-4f21-a449-e8087707654b"
-                                    @click="getManualAddress('ab0ea3ad-43c5-4f21-a449-e8087707654b')"><u>Enter
-                                        manually</u></p>
+
                             </div>
                         </div>
                     </form>
@@ -888,6 +885,10 @@
                                     </span>
                                 </div>
                             </div>
+                            <!-- <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                id="ab0ea3ad-43c5-4f21-a449-e8087707654b"
+                                @click="getManualAddress('ab0ea3ad-43c5-4f21-a449-e8087707654b')"><u>Enter
+                                    manually</u></p> -->
                         </div>
                     </div>
                 </form>
@@ -977,9 +978,11 @@
                                         || !aboutObj.sexAssignedAtBirth
                                         || !aboutObj.childNameTitle
                                     ">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
+                                    <div class="text-center">
+                                        <span style="color:#DD3939 !important">
+                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
                                     <p class="question-font text-center text-danger m-0 py-2">
                                         You have missed out a section on this page
                                     </p>
@@ -988,7 +991,6 @@
                                 <div v-else>
                                     <div class="text-center">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-
                                     </div>
                                     <p class="question-font text-center m-0 py-2">
                                         Another section finished. Lets move on to education / employment & support
@@ -1263,8 +1265,8 @@
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressParentData.postCode"
-                                            @input="trimWhiteSpace($event,'addressParentData','postCode')" id="postCodeAdd"
-                                            placeholder="Enter postcode">
+                                            @input="trimWhiteSpace($event,'addressParentData','postCode')"
+                                            id="postCodeAdd" placeholder="Enter postcode">
                                         <!-- <div class="input-group-append cursor-pointer">
                           <span class="input-group-text input-group-secondary-text px-3 font-23">
                               <i class="fa fa-address-card-o" aria-hidden="true"></i>

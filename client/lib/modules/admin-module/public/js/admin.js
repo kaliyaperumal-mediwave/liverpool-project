@@ -98,7 +98,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
-                  referralRes.data.data[i].referral_provider,
+                  referralRes.data.data[i].referral_provider != 'Pending'? 'Sent to ' + referralRes.data.data[i].referral_provider : referralRes.data.data[i].referral_provider,
                   "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf'>Send</button></div>"
                 ]);
               }
@@ -175,17 +175,25 @@ $(document).ready(function () {
 function viewPdf(uuid, role) {
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+  console.log(successData)
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-  // download(blob, "strFileName.pdf", "application/pdf");
-  // $('#loader').hide();
-  // return;
-  var link = document.createElement('a');
-  link.href = window.URL.createObjectURL(blob);
-  link.target = '_blank'
-  link.click();
-  setTimeout(function () {
+  var isIE = false || !!document.documentMode;
+  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  if(!isIE && !isSafari)
+  {
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.target = '_blank'
+    link.click();
+    setTimeout(function () {
+      $('#loader').hide();
+    }, 1000);
+  }
+  else
+  {
+    download(blob, uuid+".pdf", "application/pdf");
     $('#loader').hide();
-  }, 1000);
+  }
   //link.click();
 }
 

@@ -37,6 +37,7 @@ $(document).ready(function () {
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
             },
+            //parentContactMode: "mobile",
             prevAddressData: null,
             dateWrap: true,
             options: {
@@ -78,6 +79,7 @@ $(document).ready(function () {
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
             phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            //phoneRegex: /^(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)$/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
             userRole: '',
@@ -354,8 +356,6 @@ $(document).ready(function () {
                     } else {
                         this.payloadData.userMode = 'add';
                     }
-                    // this.payloadData.aboutData.childFirstName = this.maritalStatus + '.' + this.payloadData.aboutData.childFirstName;
-                    // var lastName = this.maritalStatus + '' + this.payloadData.aboutData.childLastName;
                     this.upsertAboutYouForm(this.payloadData);
                 } else {
                     scrollToInvalidInput();
@@ -374,12 +374,12 @@ $(document).ready(function () {
 
             // Getting Manual Address
             getManualAddress: function (modelId) {
-                if(modelId === 'bdeb1825-c05e-4949-974e-93514d3a85b4'){
+                if (modelId === 'bdeb1825-c05e-4949-974e-93514d3a85b4') {
                     $('#addressModal').modal('show');
                     this.resetAddressModalValues();
                 }
-                else if(modelId ==='ab0ea3ad-43c5-4f21-a449-e8087707654b'){
-                    $('#addressParentModal').modal('show'); 
+                else if (modelId === 'ab0ea3ad-43c5-4f21-a449-e8087707654b') {
+                    $('#addressParentModal').modal('show');
                     this.resetAddressParentModalValues();
                 }
             },
