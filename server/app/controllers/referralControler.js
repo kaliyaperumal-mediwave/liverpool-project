@@ -152,6 +152,7 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.child_Dob,
           registered_gp: ctx.request.body.registered_gp,
+          gp_school: ctx.request.body.gpSchool,
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -159,7 +160,6 @@ exports.eligibility = ctx => {
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
             referral_complete_status: 'incomplete',
-            gp_school: ctx.request.body.gpSchool,
             login_id: ctx.request.decryptedUser.id,
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -182,13 +182,13 @@ exports.eligibility = ctx => {
         return user.create({
           child_dob: ctx.request.body.child_Dob,
           registered_gp: ctx.request.body.registered_gp,
+          gp_school: ctx.request.body.gpSchool,
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
             need_interpreter: ctx.request.body.interpreter,
             consent_child: ctx.request.body.isInformation,
             user_role: ctx.request.body.role,
-            gp_school: ctx.request.body.gpSchool,
             referral_complete_status: 'incomplete',
             referral_progress: 20
           }).then((parentUserInfo) => {
@@ -293,7 +293,6 @@ exports.eligibility = ctx => {
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
             referral_provider: ctx.request.body.selectedService,
-            gp_school: ctx.request.body.gpSchool,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             login_id: ctx.request.decryptedUser.id,
@@ -343,7 +342,6 @@ exports.eligibility = ctx => {
             service_location: ctx.request.body.profDirectService,
             selected_service: ctx.request.body.selectedService,
             referral_provider: ctx.request.body.selectedService,
-            gp_school: ctx.request.body.gpSchool,
             consent_parent: ctx.request.body.contactProfParent,
             consent_child: ctx.request.body.parentConcernInformation,
             user_role: ctx.request.body.role,

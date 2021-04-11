@@ -171,12 +171,18 @@ $(document).ready(function () {
                     if (this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
                         var profData = document.getElementById('prof_data').innerHTML;
                         profData = JSON.parse(profData);
+                      //  console.log(profData.professional_manual_address);
                         Vue.set(this.elgibilityObj, "profFirstName", profData.first_name);
                         Vue.set(this.elgibilityObj, "proflastName", profData.last_name);
                         Vue.set(this.elgibilityObj, "profEmail", profData.email);
                         Vue.set(this.elgibilityObj, "profContactNumber", profData.contact_number);
                         Vue.set(this.elgibilityObj, "profAddress", profData.address);
                         Vue.set(this.elgibilityObj, "profProfession", profData.profession);
+
+                        if (profData.professional_manual_address && profData.professional_manual_address.length) {
+                            Vue.set(this, "professionalManualAddress", profData.professional_manual_address);
+                            this.setReadonlyState(true);
+                        }
                     }
                 }
             },
@@ -225,7 +231,7 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
-                    console.log(data[0])
+                    //console.log(data[0])
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -350,13 +356,13 @@ $(document).ready(function () {
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
                     this.resetValues(event.target.form);
-                    this.elgibilityObj.profFirstName = "";
-                    this.elgibilityObj.profEmail = "";
-                    this.elgibilityObj.profContactNumber = "";
-                    this.elgibilityObj.profChildDob = "";
-                    this.elgibilityObj.proflastName = "";
-                    this.elgibilityObj.profAddress = "";
-                    this.elgibilityObj.profProfession = "";
+                    // this.elgibilityObj.profFirstName = "";
+                    // this.elgibilityObj.profEmail = "";
+                    // this.elgibilityObj.profContactNumber = "";
+                    // this.elgibilityObj.profChildDob = "";
+                    // this.elgibilityObj.proflastName = "";
+                    // this.elgibilityObj.profAddress = "";
+                    // this.elgibilityObj.profProfession = "";
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
@@ -391,13 +397,13 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier == "directServices") {
                     this.resetValues(event.target.form);
-                    this.professionalManualAddress = [];
+                   // this.professionalManualAddress = [];
                     this.setReadonlyState(false);
                     this.elgibilityObj.profDirectService = optionValue;
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
-                    this.professionalManualAddress = [];
+                 //   this.professionalManualAddress = [];
                     this.setReadonlyState(false);
                     this.elgibilityObj.profChildDob = "";
                     //this.elgibilityObj.profDirectService = optionValue;
