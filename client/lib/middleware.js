@@ -175,7 +175,7 @@ module.exports = function (self, options) {
         self.verifyToken(req)
           .then((data) => {
             req.data.logoPath = "/admin/serviceAdmin";
-            req.data.archive = "/admin/archive";
+            req.data.archive = "/admin/serviceAdmin";
             if(req.session.user_role === 'service_admin'){
               return next();
             } else if(req.session.user_role === 'admin'){

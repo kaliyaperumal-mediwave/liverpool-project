@@ -52,7 +52,6 @@ $(document).ready(function () {
                     if($(event.target).is("div"))
                         event.stopImmediatePropagation();
                   });
-                  
                 $('#example').DataTable({
                     select: {
                         style: 'os',
