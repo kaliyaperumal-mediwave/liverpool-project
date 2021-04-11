@@ -20,11 +20,11 @@
                     </a>
                 </div>
             </div>
-            <a target="_blank" href="/">
+            <!-- <a target="_blank" href="/">
                 <button class="button-referral">
                     Go to platform
                 </button>
-            </a>
+            </a> -->
 
         </div>
         <!-- left drawer -->
@@ -33,7 +33,7 @@
                 <!-- Side Drawer Title -->
                 <div class="header-slider d-flex align-items-center ">
                     <!-- <div class="slider-header">LOGO</div> -->
-                    <a href="/" class="text-decoration-none headlogo slider-header">
+                    <a href="{{ data.logoPath }}" class="text-decoration-none headlogo slider-header">
                         <img width="95" src="/modules/my-apostrophe-assets/img/liverpool_dark.svg">
                     </a>
                     <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
@@ -44,14 +44,14 @@
                 <div class="slider-container">
                     {% if data.superAdmin %}
                         <div class="inside-cont-slider cursor-pointer">
-                            <a href="admin" class="text-decoration-none">Referrals</a>
+                            <a href="{{ data.referral }}" class="text-decoration-none">View referrals</a>
                         </div>
                         <div class="inside-cont-slider cursor-pointer">
-                            <a href="admin/archive" class="text-decoration-none">Archive</a>
+                            <a href="{{ data.archive }}" class="text-decoration-none">View archive referrals</a>
                         </div>
                     {% else %}
                         <div class="inside-cont-slider cursor-pointer">
-                            <a href="serviceAdmin" class="text-decoration-none">Referrals</a>
+                            <a href="{{ data.archive }}" class="text-decoration-none">View referrals</a>
                         </div>
                     {% endif %}
 
