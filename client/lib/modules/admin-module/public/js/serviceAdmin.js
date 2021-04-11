@@ -65,10 +65,10 @@ $(document).ready(function () {
                         { targets: 8, orderable: false },
                     ],
                     order: [[7, 'desc']],
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'csv'
-                    ],
+                    // dom: 'Bfrtip',
+                    // buttons: [
+                    //     'csv'
+                    // ],
                     language: {
                         searchPlaceholder: 'Search referral',
                         emptyTable: 'No referrals to displays',

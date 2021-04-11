@@ -20,11 +20,11 @@
                     </a>
                 </div>
             </div>
-            <a target="_blank" href="/">
+            <!-- <a target="_blank" href="/">
                 <button class="button-referral">
                     Go to platform
                 </button>
-            </a>
+            </a> -->
 
         </div>
         <!-- left drawer -->
@@ -44,14 +44,14 @@
                 <div class="slider-container">
                     {% if data.superAdmin %}
                         <div class="inside-cont-slider cursor-pointer">
-                            <a href="admin" class="text-decoration-none">Referrals</a>
+                            <a href="{{ data.referral }}" class="text-decoration-none">Referrals</a>
                         </div>
                         <div class="inside-cont-slider cursor-pointer">
-                            <a href="admin/archive" class="text-decoration-none">Archive</a>
+                            <a href="{{ data.archive }}" class="text-decoration-none">Archive</a>
                         </div>
                     {% else %}
                         <div class="inside-cont-slider cursor-pointer">
-                            <a href="serviceAdmin" class="text-decoration-none">Referrals</a>
+                            <a href="{{ data.archive }}" class="text-decoration-none">Referrals</a>
                         </div>
                     {% endif %}
 
