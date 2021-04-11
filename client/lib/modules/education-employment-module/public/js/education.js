@@ -229,6 +229,7 @@ $(document).ready(function () {
 
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
+                debugger
                 this.isFormSubmitted = true;
                 if (this.educAndEmpData.haveSocialWorker === 'yes') {
                     this.educAndEmpData.socialWorkContactType = this.socialWorkContactType;
@@ -392,6 +393,10 @@ $(document).ready(function () {
             //Patching the value logic
             patchValue: function (data) {
                 if (this.userRole == "child") {
+                    if (data.child_education_manual_address && data.child_education_manual_address.length) {
+                        Vue.set(this, "educationManualAddressData", data.child_education_manual_address);
+                        this.setReadonlyState(true);
+                    }
                     if (data.child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data.child_education_place);
                     }
@@ -420,6 +425,10 @@ $(document).ready(function () {
                     Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
                 else if (this.userRole == "parent") {
+                    if (data[0].parent[0].child_education_manual_address && data[0].parent[0].child_education_manual_address.length) {
+                        Vue.set(this, "educationManualAddressData", data[0].parent[0].child_education_manual_address);
+                        this.setReadonlyState(true);
+                    }
                     if (data[0].parent[0].child_education_place) {
                         Vue.set(this.educAndEmpData, "attendedInfo", data[0].parent[0].child_education_place);
                     }
