@@ -3751,3 +3751,6 @@ div.collapse-container.collapsing {
   display: -webkit-inline-box;
   overflow: auto;
 }
+.capitalize-first-letter::first-letter{
+text-transform: uppercase i !important;
+}
