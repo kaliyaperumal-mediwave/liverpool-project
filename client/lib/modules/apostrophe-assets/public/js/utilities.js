@@ -563,7 +563,11 @@ $(document).ready(function () {
                 enableCaseInsensitiveFiltering: true
             });
         }
-    })
+    });
+    //Setting First Letter capitalize;
+    String.prototype.capitalize = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    };
 })
 
 //window resize function
