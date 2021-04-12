@@ -1525,11 +1525,12 @@
                         }) }}
                     </div>
                     <div class="review-header-font px-3 col-xl-10 col-lg-6 col-sm-12 col-12">
-                        Who would you like us to contact about the progress of the referral?
+                        <p class="m-0"> Who would you like us to contact about the progress of the referral?</p>
+
                     </div>
 
                     <div class="px-3 m-0 question-header-font">
-                        <template v-if="userRole == 'child'">
+                        <div v-if="userRole == 'child'">
                             <div class="form-check pt-3 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToMe" value="Me"
                                     v-model="contact_person">
@@ -1537,7 +1538,7 @@
                                     Me
                                 </label>
                             </div>
-                            <div class="form-check pt-3 pb-1 pl-0">
+                            <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToParCarer" value="My parent/carer"
                                     v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
@@ -1545,9 +1546,9 @@
                                     My parent/carer
                                 </label>
                             </div>
-                        </template>
+                        </div>
 
-                        <template v-if="userRole == 'parent'">
+                        <div v-if="userRole == 'parent'">
                             <div class="form-check pt-3 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToMe" value="Me"
                                     v-model="contact_person">
@@ -1555,7 +1556,7 @@
                                     Me
                                 </label>
                             </div>
-                            <div class="form-check pt-3 pb-1 pl-0">
+                            <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToParCarer"
                                     value="My child/ young person" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
@@ -1563,9 +1564,9 @@
                                     My child/ young person
                                 </label>
                             </div>
-                        </template>
+                        </div>
 
-                        <template v-if="userRole == 'professional'">
+                        <div v-if="userRole == 'professional'">
                             <div class="form-check pt-3 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToMe"
                                     value="The child/young person" v-model="contact_person">
@@ -1573,7 +1574,7 @@
                                     The child/young person
                                 </label>
                             </div>
-                            <div class="form-check pt-3 pb-1 pl-0">
+                            <div class="form-check pt-2 pb-1 pl-0">
                                 <input class="form-check-input" type="radio" id="sendToParCarer"
                                     value="Their parent/carer" v-model="contact_person">
                                 <label class="form-check-label option-font d-flex align-items-center"
@@ -1581,7 +1582,7 @@
                                     Their parent/carer
                                 </label>
                             </div>
-                        </template>
+                        </div>
 
                     </div>
                     <div class="invalid-feedback d-none m-0 px-3"
@@ -1604,7 +1605,7 @@
                             }) }}
                         </div>
                         <div class="px-3 m-0 question-header-font">
-                            <div class="custom-form-group pt-3 mb-2 pl-0">
+                            <div class="custom-form-group pt-2 mb-2 pl-0">
                                 <input type="checkbox" id="Post" name="contactPreference" value="post"
                                     v-model="contactPref">
                                 <label for="Post" class="option-font d-flex align-items-center">
