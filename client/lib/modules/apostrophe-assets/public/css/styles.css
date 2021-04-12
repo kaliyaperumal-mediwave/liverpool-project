@@ -4999,3 +4999,6 @@ div.collapse-container.collapsing {
 .customize-table-pagination ul {
   display: -webkit-inline-box;
   overflow: auto; }
+
+.capitalize-first-letter::first-letter {
+  text-transform: uppercase i !important; }
