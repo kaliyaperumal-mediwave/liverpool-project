@@ -835,6 +835,10 @@
                                         v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
                                         Please provide a postcode.
                                     </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormSubmitted && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                        Please provide a valid postcode.
+                                    </div>
                                 </div>
                                 <!-- Postcode end -->
 

@@ -81,6 +81,7 @@ $(document).ready(function () {
             isFormSubmitted: false,
             isHouseHoldFormSubmitted: false,
             //phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -231,7 +232,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
-                        Vue.set(this, "parentContactMode", data.parent[0].parent_contact_type);
+                        if (data.parent[0].parent_contact_type) {
+                            Vue.set(this, "parentContactMode", data.parent[0].parent_contact_type);
+                        } else {
+                            Vue.set(this, "parentContactMode", 'mobile');
+                        }
                         Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
@@ -285,7 +290,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
-                        Vue.set(this, "parentContactMode", data[0].parent_contact_type);
+                        if (data[0].parent_contact_type) {
+                            Vue.set(this, "parentContactMode", data[0].parent_contact_type);
+                        } else {
+                            Vue.set(this, "parentContactMode", 'mobile');
+                        }
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
@@ -343,7 +352,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
-                        Vue.set(this, "parentContactMode", data[0].parent_contact_type);
+                        if (data[0].parent_contact_type) {
+                            Vue.set(this, "parentContactMode", data[0].parent_contact_type);
+                        } else {
+                            Vue.set(this, "parentContactMode", 'mobile');
+                        }
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);

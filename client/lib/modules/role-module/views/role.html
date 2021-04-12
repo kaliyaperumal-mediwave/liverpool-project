@@ -1092,11 +1092,6 @@
                                     <input type="text" class="form-control input-bg-form-control"
                                         v-model="addressData.city" @input="trimWhiteSpace($event,'addressData','city')"
                                         id="cityInfo" placeholder="Enter city">
-                                    <!-- <div class="input-group-append cursor-pointer">
-                          <span class="input-group-text input-group-secondary-text px-3 font-23">
-                              <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                          </span>
-                      </div> -->
                                 </div>
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.city) }">
@@ -1131,15 +1126,14 @@
                                         v-model="addressData.postCode"
                                         @input="trimWhiteSpace($event,'addressData','postCode')" id="postCodeAdd"
                                         placeholder="Enter postcode">
-                                    <!-- <div class="input-group-append cursor-pointer">
-                          <span class="input-group-text input-group-secondary-text px-3 font-23">
-                              <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                          </span>
-                      </div> -->
                                 </div>
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
                                     Please provide a postcode.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': ( isAddressFormSubmitted && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                    Please provide a valid postcode.
                                 </div>
                             </div>
                             <!-- Postcode end -->

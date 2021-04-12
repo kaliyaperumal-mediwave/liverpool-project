@@ -57,14 +57,15 @@ function commonToggleVisibility(context, element, visibility) {
 
 //Common Function to entering manual address
 function manualAddressLogic(context, object, arr, modal, isOrganization) {
+    var postCodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/;
     console.log(context, object);
-    if (context['isAddressFormParentSubmitted']) {
-        context['isAddressFormParentSubmitted'] = true;
+    if (!context.isAddressFormParentSubmitted) {
+        context.isAddressFormParentSubmitted = true;
     }
     context['isAddressFormSubmitted'] = true;
     var addressForm = context[object];
     if (isOrganization) {
-        if (addressForm.school && addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode) {
+        if (addressForm.school && addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode && postCodeRegex.test(addressForm.postCode)) {
             if (addressForm.mode === 'update') {
                 context[arr] = [];
                 delete addressForm.mode;
@@ -81,7 +82,7 @@ function manualAddressLogic(context, object, arr, modal, isOrganization) {
             return;
         }
     } else {
-        if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode) {
+        if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode && postCodeRegex.test(addressForm.postCode)) {
             if (addressForm.mode === 'update') {
                 context[arr] = [];
                 delete addressForm.mode;
