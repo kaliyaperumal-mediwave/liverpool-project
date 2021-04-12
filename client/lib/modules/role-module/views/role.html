@@ -774,8 +774,7 @@
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST"
-                            @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="MHST">
                             Mental Health Support Team
                         </label>
@@ -967,7 +966,7 @@
                                 manually</u></p>
                         {% endraw %}
                         {% raw %}
-                        <template v-show="professionalManualAddress.length">
+                        <div v-show="professionalManualAddress.length">
                             <div class="py-4">
                                 <label class="question-font">Manual address</label>
                                 <div class="card text-left mb-2" v-for="(item, index) in professionalManualAddress"
@@ -994,7 +993,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </template>
+                        </div>
                         {% endraw %}
                     </div>
 
