@@ -341,7 +341,7 @@
                             }
                             }) }}
                         </div>
-                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer img-class"
+                        <img src="/modules/my-apostrophe-assets/img/5.svg" class="px-3 cursor-pointer"
                             data-toggle="modal" data-target="#consentModal" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
@@ -419,7 +419,7 @@
                                       }
                                     }) }} -->
                             </p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text"
                                     href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
                                     Tell me more about consent
                                     <!-- {{ apos.area(data.page, 'referral1_telConsent', {
@@ -643,7 +643,7 @@
                             <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
                                 service.</p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text"
                                     href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
                                     target="_blank">
                                     Find a service local to me
@@ -774,8 +774,7 @@
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST"
-                            @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="MHST">
                             Mental Health Support Team
                         </label>
@@ -967,7 +966,7 @@
                                 manually</u></p>
                         {% endraw %}
                         {% raw %}
-                        <template v-show="professionalManualAddress.length">
+                        <div v-show="professionalManualAddress.length">
                             <div class="py-4">
                                 <label class="question-font">Manual address</label>
                                 <div class="card text-left mb-2" v-for="(item, index) in professionalManualAddress"
@@ -994,7 +993,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </template>
+                        </div>
                         {% endraw %}
                     </div>
 
@@ -1093,11 +1092,6 @@
                                     <input type="text" class="form-control input-bg-form-control"
                                         v-model="addressData.city" @input="trimWhiteSpace($event,'addressData','city')"
                                         id="cityInfo" placeholder="Enter city">
-                                    <!-- <div class="input-group-append cursor-pointer">
-                          <span class="input-group-text input-group-secondary-text px-3 font-23">
-                              <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                          </span>
-                      </div> -->
                                 </div>
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.city) }">
@@ -1132,15 +1126,14 @@
                                         v-model="addressData.postCode"
                                         @input="trimWhiteSpace($event,'addressData','postCode')" id="postCodeAdd"
                                         placeholder="Enter postcode">
-                                    <!-- <div class="input-group-append cursor-pointer">
-                          <span class="input-group-text input-group-secondary-text px-3 font-23">
-                              <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                          </span>
-                      </div> -->
                                 </div>
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
                                     Please provide a postcode.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': ( isAddressFormSubmitted && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                    Please provide a valid postcode.
                                 </div>
                             </div>
                             <!-- Postcode end -->
@@ -1231,7 +1224,7 @@
                             use information that you provide, and share it with other CAMHS partners so that we can help
                             them?</p>
                         <img src="/modules/my-apostrophe-assets/img/5.svg" data-toggle="modal"
-                            data-target="#consentModal" class="px-3 cursor-pointer img-class" alt="">
+                            data-target="#consentModal" class="px-3 cursor-pointer" alt="">
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="contactProfParent"
@@ -1301,7 +1294,7 @@
                             to continue</p>
                         <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your answer above if
                             you are willing to provide consent.</p>
-                        <p class="link-text cursor-pointer text-center m-0 py-2"><a
+                        <p class="link-text cursor-pointer text-center m-0 py-2"><a class="link-text"
                                 href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
                                 Tell me more about consent
                             </a></p>
@@ -1361,7 +1354,7 @@
                             <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your answer above
                                 if
                                 you are willing to provide consent.</p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"><a
+                            <p class="link-text cursor-pointer text-center m-0 py-2"><a class="link-text"
                                     href="https://www.nhs.uk/conditions/consent-to-treatment/children/" target="_blank">
                                     Tell me more about consent
                                 </a></p>
@@ -1486,7 +1479,7 @@
                             <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
                                 service.</p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a class="link-text"
                                     href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
                                     target="_blank">
                                     Find a service local to me

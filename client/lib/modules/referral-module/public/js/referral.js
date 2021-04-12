@@ -55,6 +55,7 @@ $(document).ready(function () {
                 profFirstName: null,
                 profLastName: null,
                 contact: null,
+                contactMode: 'mobile'
             },
             currentSection: 'referral',
             // phoneRegex: /^[0-9,-]{10,15}$|^$/,
@@ -518,6 +519,7 @@ $(document).ready(function () {
                 serviceForm.profLastName = service.profLastName;
                 serviceForm.contact = service.contact;
                 serviceForm.id = service.id;
+                serviceForm.contactMode = service.contactMode;
                 serviceForm.mode = 'update';
                 this.allAvailableService.map(function (i) {
                     if (i.id === service.id) {
@@ -547,6 +549,7 @@ $(document).ready(function () {
                 this.serviceData.profFirstName = '';
                 this.serviceData.profLastName = '';
                 this.serviceData.contact = '';
+                //this.serviceData.contactMode = '';
                 this.serviceData.mode = '';
             },
 

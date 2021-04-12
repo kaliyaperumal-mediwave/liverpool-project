@@ -121,28 +121,34 @@ $(document).ready(function () {
                             var getObjSect2Child = convertArrayToObj(_self.section2Data.child_manual_address);
                             delete getObjSect2Child.id;
                             delete getObjSect2Child.mode;
-                            _self.showChildManualAddressSection2 = dynamicSeparator(getObjSect2Child, ',')
+                            _self.showChildManualAddressSection2 = dynamicSeparator(getObjSect2Child, ',');
+                            _self.showChildManualAddressSection2 = _self.showChildManualAddressSection2 + '.';
                         }
 
                         if (_self.section2Data.parent_manual_address && _self.section2Data.parent_manual_address.length) {
                             var getObjSect2Parent = convertArrayToObj(_self.section2Data.parent_manual_address);
                             delete getObjSect2Parent.id;
                             delete getObjSect2Parent.mode;
-                            _self.showParentManualAddressSection2 = dynamicSeparator(getObjSect2Parent, ',')
+                            _self.showParentManualAddressSection2 = dynamicSeparator(getObjSect2Parent, ',');
+                            _self.showParentManualAddressSection2 = _self.showParentManualAddressSection2 + '.';
+
                         }
 
                         if (_self.section1Data.professional_manual_address && _self.section1Data.professional_manual_address.length) {
                             var getObj1 = convertArrayToObj(_self.section1Data.professional_manual_address);
                             delete getObj1.id;
                             delete getObj1.mode;
-                            _self.showManualAddressForRole = dynamicSeparator(getObj1, ',')
+                            _self.showManualAddressForRole = dynamicSeparator(getObj1, ',');
+                            _self.showManualAddressForRole = _self.showManualAddressForRole + '.';
                         }
 
                         if (_self.section3Data.child_education_manual_address && _self.section3Data.child_education_manual_address.length) {
                             var getObj = convertArrayToObj(_self.section3Data.child_education_manual_address);
                             delete getObj.id;
                             delete getObj.mode;
-                            _self.showManualAddress = dynamicSeparator(getObj, ',')
+                            _self.showManualAddress = dynamicSeparator(getObj, ',');
+                            _self.showManualAddress = _self.showManualAddress + '.';
+
                         }
 
                         //Other Reasons for making referral
