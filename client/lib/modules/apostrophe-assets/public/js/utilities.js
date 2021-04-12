@@ -58,7 +58,7 @@ function commonToggleVisibility(context, element, visibility) {
 //Common Function to entering manual address
 function manualAddressLogic(context, object, arr, modal, isOrganization) {
     var postCodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/;
-    console.log(context, object);
+    //var prevParentAddressData = JSON.parse(JSON.stringify(context.parentManualAddress));
     if (!context.isAddressFormParentSubmitted) {
         context.isAddressFormParentSubmitted = true;
     }
@@ -76,9 +76,10 @@ function manualAddressLogic(context, object, arr, modal, isOrganization) {
                 context[arr].push(addressForm);
             }
             $('#' + modal).modal('hide');
-            //context.resetModalValues();
+            context.resetModalValues();
 
         } else {
+            //context.parentManualAddress = prevParentAddressData;
             return;
         }
     } else {
@@ -96,6 +97,7 @@ function manualAddressLogic(context, object, arr, modal, isOrganization) {
             //context.resetModalValues();
 
         } else {
+            // context.parentManualAddress = prevParentAddressData;
             return;
         }
     }
@@ -157,13 +159,23 @@ function convertArrayToObj(arr) {
 };
 
 //function toCSV(obj, separator) {
-function dynamicSeparator(obj, separator) {
+function dynamicSeparator(obj, separator, isOrganization) {
     var arr = [];
     var temp2 = Object.keys(obj).sort();
+
     for (var i = 0; i < temp2.length; i++) {
         if (obj[temp2[i]].length) {
             arr.push(obj[temp2[i]]);
         }
+    }
+
+    if (isOrganization) {
+        if (arr.indexOf(obj['school']) != -1) {
+            var index = arr.indexOf(obj['school']);
+            arr.splice(index, 1);
+            arr.unshift(obj['school']);
+        }
+
     }
 
     return arr.join(separator || ",");

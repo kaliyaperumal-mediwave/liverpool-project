@@ -449,7 +449,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCovered = false;
-                    app.elgibilityObj.submitForm = "true";
+                    //app.elgibilityObj.submitForm = "true";
                     if (searchTxt.length > 2) {
                         var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
                         $('#showInputLoaderProf').removeClass("d-none").addClass("d-block");
@@ -573,7 +573,7 @@ $(document).ready(function () {
 
                     }
                     else {
-                        app.elgibilityObj.gpErrMsg = '';
+                        app.elgibilityObj.gpErrMsg = 'Please enter valid GP address or postcode';
                         app.elgibilityObj.gpSchool = "";
                         app.elgibilityObj.submitForm = "false";
                         $("#gpLocation").autocomplete({
@@ -655,7 +655,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCoveredProf = false;
-                    app.elgibilityObj.submitProfForm = "true";
+                    //app.elgibilityObj.submitProfForm = "true";
                     if (searchTxt.length > 2) {
                         $('#showInputLoader').removeClass("d-none").addClass("d-block");
                         $('#addOpacity').css('opacity', '0.2');
@@ -685,7 +685,7 @@ $(document).ready(function () {
                                                 _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                             }
                                             if (_self.gpProfListName.length == 0) {
-                                                app.elgibilityObj.gpErrMsg = "";
+                                                app.elgibilityObj.gpErrMsg = "Please enter valid GP address or postcode";
                                                 // app.elgibilityObj.gpErrLinkProf = "https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157";
                                                 $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                                 $('#addOpacity').css('opacity', '1');
@@ -776,7 +776,7 @@ $(document).ready(function () {
                         })
 
                     } else {
-                        app.elgibilityObj.gpErrMsg = '';
+                        app.elgibilityObj.gpErrMsg = 'Please enter valid GP address or postcode';
                         app.elgibilityObj.gpSchool = "";
                         app.elgibilityObj.submitProfForm = "false";
                         $("#gpProfLocation").autocomplete({

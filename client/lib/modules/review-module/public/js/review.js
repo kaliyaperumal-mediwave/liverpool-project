@@ -146,7 +146,7 @@ $(document).ready(function () {
                             var getObj = convertArrayToObj(_self.section3Data.child_education_manual_address);
                             delete getObj.id;
                             delete getObj.mode;
-                            _self.showManualAddress = dynamicSeparator(getObj, ',');
+                            _self.showManualAddress = dynamicSeparator(getObj, ',',true);
                             _self.showManualAddress = _self.showManualAddress + '.';
 
                         }

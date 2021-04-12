@@ -50,7 +50,7 @@
                 <i class="fal fa-long-arrow-left fa-2x ham-icon"></i>
             </a>
             <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1 home-header-primary">
-              <h2>Apps</h2> 
+                <h2>Apps</h2>
             </div>
         </div>
     </div>
@@ -104,9 +104,10 @@
 
                 <!-- Orcha Category Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect v-model="categoryValue" showLabels='false' :options="categoryList" placeholder="Category"
-                        label="subCategoryName" track-by="id" @select="selectOptions($event,'category')"
-                        @remove="removeOptions($event,'category')" class="custom-dropbox-hover">
+                    <multiselect v-model="categoryValue" showLabels='false' :options="categoryList"
+                        placeholder="Category" label="subCategoryName" track-by="id"
+                        @select="selectOptions($event,'category')" @remove="removeOptions($event,'category')"
+                        class="custom-dropbox-hover">
                     </multiselect>
                 </div>
                 <!-- Orcha Category Select End-->
@@ -122,10 +123,10 @@
 
                 <!-- Orcha Capability Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="capabilityValue" tag-placeholder="" placeholder="Capability"
-                        :close-on-select="false" label="capabilityName" track-by="id" :options="capabilityList"
-                        :multiple="true" :limit="1" :taggable="true" @select="selectOptions($event,'capability')"
-                        @remove="removeOptions($event,'capability')">
+                    <multiselect class="custom-dropbox-hover" v-model="capabilityValue" tag-placeholder=""
+                        placeholder="Capability" :close-on-select="false" label="capabilityName" track-by="id"
+                        :options="capabilityList" :multiple="true" :limit="1" :taggable="true"
+                        @select="selectOptions($event,'capability')" @remove="removeOptions($event,'capability')">
                         <!-- <template slot="selection" slot-scope="{ values, search, isOpen }"><span
                                 class="multiselect__single">{{ values.length }}
                                 options selected</span></template> -->
@@ -135,19 +136,19 @@
 
                 <!-- Orcha Designed For Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="designedForValue" tag-placeholder="" placeholder="Designed for"
-                        :close-on-select="false" label="designedForName" track-by="id" :options="designedForList"
-                        :multiple="true" :taggable="true" :limit="1" @select="selectOptions($event,'designedFor')"
-                        @remove="removeOptions($event,'designedFor')">
+                    <multiselect class="custom-dropbox-hover" v-model="designedForValue" tag-placeholder=""
+                        placeholder="Designed for" :close-on-select="false" label="designedForName" track-by="id"
+                        :options="designedForList" :multiple="true" :taggable="true" :limit="1"
+                        @select="selectOptions($event,'designedFor')" @remove="removeOptions($event,'designedFor')">
                     </multiselect>
                 </div>
                 <!-- Orcha Designed For Select End-->
 
                 <!-- Orcha Cost Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="costValue" tag-placeholder="" placeholder="Cost" :close-on-select="false"
-                        label="costName" track-by="id" :options="costList" :multiple="true" :clear-on-select="false"
-                        :limit="1" :preserve-search="true" @select="selectOptions($event)"
+                    <multiselect class="custom-dropbox-hover" v-model="costValue" tag-placeholder="" placeholder="Cost"
+                        :close-on-select="false" label="costName" track-by="id" :options="costList" :multiple="true"
+                        :clear-on-select="false" :limit="1" :preserve-search="true" @select="selectOptions($event)"
                         @remove="removeOptions($event,'cost')">
                     </multiselect>
                 </div>
@@ -155,8 +156,8 @@
 
                 <!-- Orcha Platform Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect  class="custom-dropbox-hover" v-model="platformValue" :options="platformList" placeholder="Platform"
-                        :show-labels="false" label="platformName" track-by="id"
+                    <multiselect class="custom-dropbox-hover" v-model="platformValue" :options="platformList"
+                        placeholder="Platform" :show-labels="false" label="platformName" track-by="id"
                         @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
                     </multiselect>
                 </div>
@@ -261,10 +262,11 @@
     </paginate> -->
 
     {% raw %}
-    <div v-if="paginationData.totalItems > 12" class="mt-4 mb-0 px-2 px-md-0 d-flex overflow-auto justify-content-center align-items-center customize-table-pagination" id="orchaPagination">
+    <div v-if="paginationData.totalItems > 12"
+        class="mt-4 mb-0 px-2 px-md-0 d-flex overflow-auto justify-content-center align-items-center customize-table-pagination"
+        id="orchaPagination">
         <b-pagination :total-rows="paginationData.totalItems" align="center" pills v-model="paginationData.currentPage"
-            :per-page="paginationData.perPage" first-text="First" prev-text="Prev" next-text="Next" last-text="Last"
-            @input="updatePage(paginationData.currentPage)">
+            :per-page="paginationData.perPage" @input="updatePage(paginationData.currentPage)">
         </b-pagination>
     </div>
     {% endraw %}
