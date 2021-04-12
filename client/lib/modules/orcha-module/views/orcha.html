@@ -145,7 +145,7 @@
                         </div>
                         <div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer w-35"
                                     data-toggle="collapse" data-target="#collapseAppDetails"
                                     @click="toggleArrow($event)" role="button" aria-expanded="true"
                                     aria-controls="collapseAppDetails"></i>
@@ -208,7 +208,7 @@
                         </div>
                         <div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer w-35"
                                     data-toggle="collapse" data-target="#collapseSummary" @click="toggleArrow($event)"
                                     role="button" aria-expanded="true" aria-controls="collapseSummary"></i>
                             </span>
@@ -277,7 +277,7 @@
                         </div>
                         <div>
                             <span style="color: #D6D8D8;">
-                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                <i class="fas fa-chevron-circle-up fa-2x res_fontz arrowClass cursor-pointer w-35"
                                     data-toggle="collapse" data-target="#collapseGallery" @click="toggleArrow($event)"
                                     role="button" aria-expanded="true" aria-controls="collapseGallery"></i>
                             </span>
@@ -286,7 +286,7 @@
                     <div id="collapseGallery" class="collapse" aria-labelledby="headingGallery">
                         <p v-if="appObj.screenshots.length == 0">No image found</p>
                         <div v-if="appObj.screenshots.length != 0" class="d-flex text-center py-md-2 py-0">
-                            <div class=" mx-auto w-100 d-flex overflow-auto">
+                            <div class=" mx-auto w-100 d-flex overflow-auto" id='style-scroll'>
 
                                 <a v-for="screenshot in appObj.screenshots"
                                     class="swiper-slide custom-slider-orcha text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
