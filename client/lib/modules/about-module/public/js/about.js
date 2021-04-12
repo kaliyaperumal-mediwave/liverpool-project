@@ -163,6 +163,7 @@ $(document).ready(function () {
                 var questionFormIdentifier = event.target.name;
                 if (questionFormIdentifier == 'parentialResponsibility' || questionFormIdentifier == 'liveInSameHouse') {
                     this.parentManualAddress = [];
+                    this.isAddressFormParentSubmitted = false;
                     this.setReadonlyState(false, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
                 }
                 this.sec2dynamicLabel = getDynamicLabels(this.userRole, optionsName.parentialResponsibility)

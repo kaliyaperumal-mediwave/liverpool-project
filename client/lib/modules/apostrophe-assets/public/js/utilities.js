@@ -157,13 +157,23 @@ function convertArrayToObj(arr) {
 };
 
 //function toCSV(obj, separator) {
-function dynamicSeparator(obj, separator) {
+function dynamicSeparator(obj, separator, isOrganization) {
     var arr = [];
     var temp2 = Object.keys(obj).sort();
+
     for (var i = 0; i < temp2.length; i++) {
         if (obj[temp2[i]].length) {
             arr.push(obj[temp2[i]]);
         }
+    }
+
+    if (isOrganization) {
+        if (arr.indexOf(obj['school']) != -1) {
+            var index = arr.indexOf(obj['school']);
+            arr.splice(index, 1);
+            arr.unshift(obj['school']);
+        }
+
     }
 
     return arr.join(separator || ",");
