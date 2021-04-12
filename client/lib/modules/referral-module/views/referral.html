@@ -86,8 +86,9 @@
                             <label class="form-check-label option-font d-flex align-items-center" for="mental">
                                 Mental health
                             </label>
-                            <img src="/modules/my-apostrophe-assets/img/5.svg" height="30" class="px-lg-3 px-2 cursor-pointer"
-                                data-toggle="modal" data-target="#mentalConsentModal" alt="">
+                            <img src="/modules/my-apostrophe-assets/img/5.svg" height="30"
+                                class="px-lg-3 px-2 cursor-pointer" data-toggle="modal"
+                                data-target="#mentalConsentModal" alt="">
                         </div>
                         <div class="form-check py-2 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
@@ -438,7 +439,7 @@
                                         </div>
                                     </div>
                                     <h3 class="link-text">{{item.profFirstName}} {{item.profLastName}}</h3>
-                                    <h3 class="link-text">{{item.contact}}</h3>
+                                    <h3 class="link-text">{{item.contactMode}} - {{item.contact}}</h3>
                                 </div>
                             </div>
                         </template>
@@ -523,6 +524,15 @@
                                             number for
                                             professional - <b>optional</b></label>
                                         <div class="input-group">
+                                            <div class="input-group-prepend cursor-pointer">
+                                                <span class="plain-select custom-mobile-place">
+                                                    <select class="custom-select form-control input-bg-form-control"
+                                                        v-model="serviceData.contactMode">
+                                                        <option selected="selected" value="mobile">Mobile</option>
+                                                        <option value="landline">Landline</option>
+                                                    </select>
+                                                </span>
+                                            </div>
                                             <input type="text" class="form-control input-bg-form-control"
                                                 inputmode="tel" v-model="serviceData.contact"
                                                 @input="trimWhiteSpace($event,'serviceData','contact')"

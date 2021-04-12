@@ -201,7 +201,7 @@
                                 manually</u></p>
                     </div>
 
-                    <template v-if="checkArrayLength(childManualAddress)">
+                    <div v-if="checkArrayLength(childManualAddress)">
                         <label class="question-font">
                             Manual Address</label>
                         <div class="card text-left mb-2" v-for="(item, index) in childManualAddress" :key="index">
@@ -222,11 +222,11 @@
                                 </div>
                                 <h3 class="link-text">{{item.addressLine2}}</h3>
                                 <h3 class="link-text">{{item.city}}</h3>
-                                <h3 class="link-text">{{item.county}}</h3>
+                                <h3 class="link-text">{{item.country}}</h3>
                                 <h3 class="link-text">{{item.postCode}}</h3>
                             </div>
                         </div>
-                    </template>
+                    </div>
 
                 </div>
                 <!--child address End-->
@@ -634,7 +634,7 @@
                 <!-- Your parent / carer firstname end -->
 
                 <!-- Your parent / carer lastname Start -->
-                <div class="px-2 px-lg-0 pt-3 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                <div class="px-2 px-lg-0 pb-2 col-xl-6 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     <div class="form-group my-2">
                         <label for="parentLastName" class="question-font">
                             {{sec2dynamicLabel.yourLastNameLabel}}</label>
@@ -789,7 +789,7 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend cursor-pointer">
                                         <span class="plain-select custom-mobile-place">
-                                            <select v-model="aboutFormData.parentContactMode"
+                                            <select v-model="parentContactMode"
                                                 class="custom-select form-control input-bg-form-control">
                                                 <option selected="selected" value="mobile">Mobile</option>
                                                 <option value="landline">Landline</option>
@@ -900,7 +900,7 @@
                 </form>
                 <!-- Parent Or carer's Address End-->
 
-                <template v-if="checkArrayLength(parentManualAddress)">
+                <div v-if="checkArrayLength(parentManualAddress)">
                     <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <label class="question-font">
                             Manual Address -<b>optional</b></label>
@@ -922,12 +922,12 @@
                                 </div>
                                 <h3 class="link-text">{{item.addressLine2}}</h3>
                                 <h3 class="link-text">{{item.city}}</h3>
-                                <h3 class="link-text">{{item.county}}</h3>
+                                <h3 class="link-text">{{item.country}}</h3>
                                 <h3 class="link-text">{{item.postCode}}</h3>
                             </div>
                         </div>
                     </div>
-                </template>
+                </div>
 
                 <!-- Legal care Status Start -->
                 <form id="legalCare-form" data-options="legalCareStatus">
@@ -1132,13 +1132,13 @@
 
                                 <!-- Country start-->
                                 <div class="form-group">
-                                    <label for="countyAdd" inputmode="text" class="question-font">County -<b>
+                                    <label for="countryAdd" inputmode="text" class="question-font">Country -<b>
                                             optional</b></label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
-                                            v-model="addressData.county"
-                                            @input="trimWhiteSpace($event,'addressData','county')" id="countyAdd"
-                                            placeholder="Enter county">
+                                            v-model="addressData.country"
+                                            @input="trimWhiteSpace($event,'addressData','country')" id="countryAdd"
+                                            placeholder="Enter country">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
@@ -1165,6 +1165,11 @@
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
                                         Please provide a postcode.
+                                    </div>
+
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                        Please provide a valid postcode.
                                     </div>
                                 </div>
                                 <!-- Postcode end -->
@@ -1273,13 +1278,13 @@
 
                                 <!-- Country start-->
                                 <div class="form-group">
-                                    <label for="countyAdd" inputmode="text" class="question-font">County -<b>
+                                    <label for="countryAdd" inputmode="text" class="question-font">County -<b>
                                             optional</b></label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
-                                            v-model="addressParentData.county"
-                                            @input="trimWhiteSpace($event,'addressParentData','county')" id="countyAdd"
-                                            placeholder="Enter county">
+                                            v-model="addressParentData.country"
+                                            @input="trimWhiteSpace($event,'addressParentData','country')"
+                                            id="countryAdd" placeholder="Enter country">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-globe" aria-hidden="true"></i>
@@ -1299,8 +1304,12 @@
                                             id="postCodeAdd" placeholder="Enter postcode">
                                     </div>
                                     <div class="invalid-feedback d-none"
-                                        v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted  && !addressParentData.postCode) }">
+                                        v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted && !addressParentData.postCode) }">
                                         Please provide a postcode.
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted && (addressParentData.postCode && !postCodeRegex.test(addressParentData.postCode))) }">
+                                        Please provide a valid postcode.
                                     </div>
                                 </div>
                                 <!-- Postcode end -->

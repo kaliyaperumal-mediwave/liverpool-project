@@ -774,8 +774,7 @@
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST"
-                            @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="MHST">
                             Mental Health Support Team
                         </label>
@@ -967,7 +966,7 @@
                                 manually</u></p>
                         {% endraw %}
                         {% raw %}
-                        <template v-show="professionalManualAddress.length">
+                        <div v-show="professionalManualAddress.length">
                             <div class="py-4">
                                 <label class="question-font">Manual address</label>
                                 <div class="card text-left mb-2" v-for="(item, index) in professionalManualAddress"
@@ -994,7 +993,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </template>
+                        </div>
                         {% endraw %}
                     </div>
 
@@ -1093,11 +1092,6 @@
                                     <input type="text" class="form-control input-bg-form-control"
                                         v-model="addressData.city" @input="trimWhiteSpace($event,'addressData','city')"
                                         id="cityInfo" placeholder="Enter city">
-                                    <!-- <div class="input-group-append cursor-pointer">
-                          <span class="input-group-text input-group-secondary-text px-3 font-23">
-                              <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                          </span>
-                      </div> -->
                                 </div>
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.city) }">
@@ -1132,15 +1126,14 @@
                                         v-model="addressData.postCode"
                                         @input="trimWhiteSpace($event,'addressData','postCode')" id="postCodeAdd"
                                         placeholder="Enter postcode">
-                                    <!-- <div class="input-group-append cursor-pointer">
-                          <span class="input-group-text input-group-secondary-text px-3 font-23">
-                              <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                          </span>
-                      </div> -->
                                 </div>
                                 <div class="invalid-feedback d-none"
                                     v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
                                     Please provide a postcode.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': ( isAddressFormSubmitted && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                    Please provide a valid postcode.
                                 </div>
                             </div>
                             <!-- Postcode end -->

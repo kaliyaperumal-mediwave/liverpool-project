@@ -359,6 +359,23 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section2.household_member.length>0 ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Household member:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%  for (i = 0; i < body.section2.household_member.length; i++){ %>
+                            <%= body.section2.household_member[i].name %> <%= body.section2.household_member[i].lastName %>
+                            <br>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -473,6 +490,20 @@
                                 </div>
                             </div>
                         </div>
+                        <% if(body.section2.parent_address!=''){ %>
+                            <div class="text-container">
+                                <div class="label-set">
+                                    <label class="labelTitle">
+                                        Parent address:
+                                    </label>
+                                </div>
+                                <div class="label-set">
+                                    <div class="duplicate_text">
+                                        <%= body.section2.parent_address %>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                         <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
