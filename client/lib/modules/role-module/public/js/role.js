@@ -448,7 +448,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCovered = false;
-                    app.elgibilityObj.submitForm = "true";
+                    //app.elgibilityObj.submitForm = "true";
                     if (searchTxt.length > 2) {
                         var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
                         $('#showInputLoaderProf').removeClass("d-none").addClass("d-block");
@@ -654,7 +654,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCoveredProf = false;
-                    app.elgibilityObj.submitProfForm = "true";
+                    //app.elgibilityObj.submitProfForm = "true";
                     if (searchTxt.length > 2) {
                         $('#showInputLoader').removeClass("d-none").addClass("d-block");
                         $('#addOpacity').css('opacity', '0.2');
