@@ -467,6 +467,7 @@
                                 </p>
                                 <template
                                     v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
@@ -475,6 +476,7 @@
 
                                 <template
                                     v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
@@ -482,6 +484,7 @@
                                 </template>
 
                                 <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
@@ -490,6 +493,7 @@
 
                                 <template
                                     v-if="!showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
@@ -502,7 +506,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page
+                                        page.
                                     </p>
                                 </template>
 
@@ -511,7 +515,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page
+                                        page.
                                     </p>
                                 </template>
 
@@ -520,7 +524,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page
+                                        page.
                                     </p>
                                 </template>
 
@@ -529,7 +533,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page
+                                        page.
                                     </p>
                                 </template>
 
@@ -538,7 +542,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page
+                                        page.
                                     </p>
                                 </template>
 
@@ -547,7 +551,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page
+                                        page.
                                     </p>
                                 </template>
 
@@ -556,7 +560,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page
+                                        page.
                                     </p>
                                 </template>
                                 <!-- <template v-if="showInstitution && educAndEmpData.attendedInfo">
@@ -663,7 +667,7 @@
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request1.</p>
+                                        your referral request.</p>
                                 </template>
                                 <template
                                     v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
@@ -671,13 +675,13 @@
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request2.</p>
+                                        your referral request.</p>
                                 </template>
                                 <template
                                     v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on this
-                                        page1.</p>
+                                        page.</p>
                                 </template>
                             </div>
                         </div>
