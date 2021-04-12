@@ -115,7 +115,7 @@
                 <!-- Which school / college / university / do you attend? End  -->
 
 
-                <template v-if="checkArrayLength(educationManualAddressData)">
+                <div v-if="checkArrayLength(educationManualAddressData)">
                     <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <label class="question-font">Manual address</label>
                         <div class="card text-left mb-2" v-for="(item, index) in educationManualAddressData"
@@ -143,7 +143,7 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </div>
 
                 <!-- Delete Modal Start -->
                 <div class="modal fade" id="deleteAddressSect3Modal" tabindex="-1" role="dialog"

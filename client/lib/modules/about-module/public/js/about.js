@@ -31,13 +31,13 @@ $(document).ready(function () {
                 parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
-                parentContactMode: "mobile",
+                // parentContactMode: "mobile",
                 emailAddress: "",
                 sameHouse: "",
                 parentOrCarrerAddress: "",
                 legalCareStatus: ""
             },
-            //parentContactMode: "mobile",
+            parentContactMode: "mobile",
             prevChildAddressData: null,
             prevParentAddressData: null,
             dateWrap: true,
@@ -231,7 +231,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
-                        Vue.set(this.aboutFormData, "parentContactMode", data.parent[0].parent_contact_type);
+                        Vue.set(this, "parentContactMode", data.parent[0].parent_contact_type);
                         Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
@@ -285,7 +285,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
-                        Vue.set(this.aboutFormData, "parentContactMode", data[0].parent_contact_type);
+                        Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
@@ -343,7 +343,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
                         Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
-                        Vue.set(this.aboutFormData, "parentContactMode", data[0].parent_contact_type);
+                        Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
@@ -388,6 +388,7 @@ $(document).ready(function () {
                         } else {
                             this.payloadData.userMode = 'add';
                         }
+                        this.payloadData.aboutData.parentContactMode = this.parentContactMode;
                         this.payloadData.aboutData.childManualAddress = this.childManualAddress;
                         this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
                         this.upsertAboutYouForm(this.payloadData);

@@ -158,9 +158,10 @@ function convertArrayToObj(arr) {
 //function toCSV(obj, separator) {
 function dynamicSeparator(obj, separator) {
     var arr = [];
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            arr.push(obj[key]);
+    var temp2 = Object.keys(obj).sort();
+    for (var i = 0; i < temp2.length; i++) {
+        if (obj[temp2[i]].length) {
+            arr.push(obj[temp2[i]]);
         }
     }
 
