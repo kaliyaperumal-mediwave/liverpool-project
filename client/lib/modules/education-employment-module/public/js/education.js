@@ -95,7 +95,7 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                manualAddressLogic(this, 'addressData', 'educationManualAddressData', 'educationModal', true);
+                manualAddressLogic(this, 'addressData', 'educationManualAddressData', 'educationModal', true, 'child');
                 this.educAndEmpData.attendedInfo = "";
                 document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.pointerEvents = "none";
                 document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.opacity = 0.7;
@@ -164,11 +164,15 @@ $(document).ready(function () {
                         } else {
                             this.educationManualAddressData = [];
                             this.educationManualAddressData.push(prevAddressObj);
+                            this.isAddressFormSubmitted = false;
                         }
                         return true;
                     } else {
                         this.resetAddressModalValues();
                     }
+                } else {
+                    this.isAddressFormSubmitted = false;
+                    this.setReadonlyState(false);
                 }
             },
 
