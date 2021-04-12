@@ -322,7 +322,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                       Child Address:
+                        Address:
                     </label>
                 </div>
                 <div class="label-set">
@@ -426,7 +426,9 @@
                     <div class="duplicate_text">
                         <%  for (i = 0; i < body.section2.household_member.length; i++){ %>
                         <%= body.section2.household_member[i].name %> <%= body.section2.household_member[i].lastName %>
-                        <br>
+                        <%= body.section2.household_member[i].name %> <%= body.section2.household_member[i].lastName %>
+                        <%= body.section2.household_member[i].name %> <%= body.section2.household_member[i].lastName %>
+                        <%= body.section2.household_member[i].name %> <%= body.section2.household_member[i].lastName %>
                         <% } %>
                     </div>
                 </div>
@@ -519,18 +521,6 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Parent address:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parent_address %>
-                    </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
                         The child's legal care status:
                     </label>
                 </div>
@@ -559,11 +549,10 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        School/college:
+                        School/college::
                     </label>
                 </div>
                 <div class="label-set">
