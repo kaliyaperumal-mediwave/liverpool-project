@@ -115,7 +115,7 @@
                 <!-- Which school / college / university / do you attend? End  -->
 
 
-                <template v-if="checkArrayLength(educationManualAddressData)">
+                <div v-if="checkArrayLength(educationManualAddressData)">
                     <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <label class="question-font">Manual address</label>
                         <div class="card text-left mb-2" v-for="(item, index) in educationManualAddressData"
@@ -143,7 +143,7 @@
                             </div>
                         </div>
                     </div>
-                </template>
+                </div>
 
                 <!-- Delete Modal Start -->
                 <div class="modal fade" id="deleteAddressSect3Modal" tabindex="-1" role="dialog"
@@ -467,33 +467,37 @@
                                 </p>
                                 <template
                                     v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request.1</p>
+                                        your referral request.</p>
                                 </template>
 
                                 <template
                                     v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request.2</p>
+                                        your referral request.</p>
                                 </template>
 
                                 <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request.3</p>
+                                        your referral request.</p>
                                 </template>
 
                                 <template
                                     v-if="!showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request.4</p>
+                                        your referral request.</p>
                                 </template>
 
 
@@ -502,7 +506,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page 1
+                                        page.
                                     </p>
                                 </template>
 
@@ -511,7 +515,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page 2
+                                        page.
                                     </p>
                                 </template>
 
@@ -520,7 +524,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page 3
+                                        page.
                                     </p>
                                 </template>
 
@@ -529,7 +533,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page 4
+                                        page.
                                     </p>
                                 </template>
 
@@ -538,7 +542,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page 5
+                                        page.
                                     </p>
                                 </template>
 
@@ -547,7 +551,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page 5
+                                        page.
                                     </p>
                                 </template>
 
@@ -556,7 +560,7 @@
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on
                                         this
-                                        page 5
+                                        page.
                                     </p>
                                 </template>
                                 <!-- <template v-if="showInstitution && educAndEmpData.attendedInfo">
@@ -663,7 +667,7 @@
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request1.</p>
+                                        your referral request.</p>
                                 </template>
                                 <template
                                     v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
@@ -671,13 +675,13 @@
                                     <p class="question-font text-center m-0 pb-2">Next section: the
                                         reasons
                                         for
-                                        your referral request2.</p>
+                                        your referral request.</p>
                                 </template>
                                 <template
                                     v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
                                     <p class="question-font text-center text-danger m-0 py-2">You have missed out a
                                         section on this
-                                        page1.</p>
+                                        page.</p>
                                 </template>
                             </div>
                         </div>
@@ -710,8 +714,7 @@
                                     <h5 class="question-header-font">Add address</h5>
                                 </template>
                                 <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
-                                    <i @click="resetAddressValue()"
-                                        class="fal fa-times fa-2x cursor-pointer"></i>
+                                    <i @click="resetAddressValue()" class="fal fa-times fa-2x cursor-pointer"></i>
                                 </span>
                             </div>
                             <div class="modal-body py-1 px-4">
@@ -835,6 +838,10 @@
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': ( isAddressFormSubmitted  && !addressData.postCode) }">
                                         Please provide a postcode.
+                                    </div>
+                                    <div class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': ( isAddressFormSubmitted && (addressData.postCode && !postCodeRegex.test(addressData.postCode))) }">
+                                        Please provide a valid postcode.
                                     </div>
                                 </div>
                                 <!-- Postcode end -->

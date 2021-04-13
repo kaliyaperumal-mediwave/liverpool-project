@@ -55,9 +55,11 @@ $(document).ready(function () {
                 profFirstName: null,
                 profLastName: null,
                 contact: null,
+                contactMode: 'mobile'
             },
             currentSection: 'referral',
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            // phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             dynamicLabels: {},
             isFormSubmitted: false,
             serviceOthers: [],
@@ -517,6 +519,7 @@ $(document).ready(function () {
                 serviceForm.profLastName = service.profLastName;
                 serviceForm.contact = service.contact;
                 serviceForm.id = service.id;
+                serviceForm.contactMode = service.contactMode;
                 serviceForm.mode = 'update';
                 this.allAvailableService.map(function (i) {
                     if (i.id === service.id) {
@@ -546,6 +549,7 @@ $(document).ready(function () {
                 this.serviceData.profFirstName = '';
                 this.serviceData.profLastName = '';
                 this.serviceData.contact = '';
+                //this.serviceData.contactMode = '';
                 this.serviceData.mode = '';
             },
 

@@ -56,20 +56,36 @@ function commonToggleVisibility(context, element, visibility) {
 };
 
 //Common Function to entering manual address
-function manualAddressLogic(context, object, arr, modal, isOrganization) {
-    console.log(context, object);
+function manualAddressLogic(context, object, arr, modal, isOrganization, role) {
+    var postCodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/;
+    //var prevParentAddressData = JSON.parse(JSON.stringify(context.parentManualAddress));
+    if (!context.isAddressFormParentSubmitted) {
+        context.isAddressFormParentSubmitted = true;
+    }
     context['isAddressFormSubmitted'] = true;
     var addressForm = context[object];
     if (isOrganization) {
-        if (addressForm.school && addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode) {
+        if (addressForm.school && addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode && postCodeRegex.test(addressForm.postCode)) {
             if (addressForm.mode === 'update') {
                 context[arr] = [];
                 delete addressForm.mode;
                 context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
             } else {
                 addressForm.id = uuidV4();
                 addressForm.mode = 'add';
                 context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
             }
             $('#' + modal).modal('hide');
             //context.resetModalValues();
@@ -78,20 +94,33 @@ function manualAddressLogic(context, object, arr, modal, isOrganization) {
             return;
         }
     } else {
-        if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode) {
+        if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode && postCodeRegex.test(addressForm.postCode)) {
             if (addressForm.mode === 'update') {
                 context[arr] = [];
                 delete addressForm.mode;
                 context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
             } else {
                 addressForm.id = uuidV4();
                 addressForm.mode = 'add';
                 context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
             }
             $('#' + modal).modal('hide');
             //context.resetModalValues();
 
         } else {
+            // context.parentManualAddress = prevParentAddressData;
             return;
         }
     }
@@ -153,12 +182,23 @@ function convertArrayToObj(arr) {
 };
 
 //function toCSV(obj, separator) {
-function dynamicSeparator(obj, separator) {
+function dynamicSeparator(obj, separator, isOrganization) {
     var arr = [];
-    for (var key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            arr.push(obj[key]);
+    var temp2 = Object.keys(obj).sort();
+
+    for (var i = 0; i < temp2.length; i++) {
+        if (obj[temp2[i]].length) {
+            arr.push(obj[temp2[i]]);
         }
+    }
+
+    if (isOrganization) {
+        if (arr.indexOf(obj['school']) != -1) {
+            var index = arr.indexOf(obj['school']);
+            arr.splice(index, 1);
+            arr.unshift(obj['school']);
+        }
+
     }
 
     return arr.join(separator || ",");
@@ -560,7 +600,11 @@ $(document).ready(function () {
                 enableCaseInsensitiveFiltering: true
             });
         }
-    })
+    });
+    //Setting First Letter capitalize;
+    String.prototype.capitalize = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    };
 })
 
 //window resize function

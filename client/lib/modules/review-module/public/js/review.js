@@ -46,10 +46,13 @@ $(document).ready(function () {
             payloadData: {},
             contactPref: [],
             showManualAddress: "",
+            showChildManualAddressSection2: "",
+            showParentManualAddressSection2: "",
             showManualAddressForRole: "",
             selectProvider: 'No',
             sendRef: '',
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            // phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
             isFormSubmitted: false,
@@ -114,18 +117,38 @@ $(document).ready(function () {
                         _self.ageFlag = _self.calculateAge(data.section1.child_dob);
                         _self.section1Data.child_dob = _self.convertDate(data.section1.child_dob);
 
+                        if (_self.section2Data.child_manual_address && _self.section2Data.child_manual_address.length) {
+                            var getObjSect2Child = convertArrayToObj(_self.section2Data.child_manual_address);
+                            delete getObjSect2Child.id;
+                            delete getObjSect2Child.mode;
+                            _self.showChildManualAddressSection2 = dynamicSeparator(getObjSect2Child, ',');
+                            _self.showChildManualAddressSection2 = _self.showChildManualAddressSection2 + '.';
+                        }
+
+                        if (_self.section2Data.parent_manual_address && _self.section2Data.parent_manual_address.length) {
+                            var getObjSect2Parent = convertArrayToObj(_self.section2Data.parent_manual_address);
+                            delete getObjSect2Parent.id;
+                            delete getObjSect2Parent.mode;
+                            _self.showParentManualAddressSection2 = dynamicSeparator(getObjSect2Parent, ',');
+                            _self.showParentManualAddressSection2 = _self.showParentManualAddressSection2 + '.';
+
+                        }
+
                         if (_self.section1Data.professional_manual_address && _self.section1Data.professional_manual_address.length) {
                             var getObj1 = convertArrayToObj(_self.section1Data.professional_manual_address);
                             delete getObj1.id;
                             delete getObj1.mode;
-                            _self.showManualAddressForRole = dynamicSeparator(getObj1, ',')
+                            _self.showManualAddressForRole = dynamicSeparator(getObj1, ',');
+                            _self.showManualAddressForRole = _self.showManualAddressForRole + '.';
                         }
 
                         if (_self.section3Data.child_education_manual_address && _self.section3Data.child_education_manual_address.length) {
                             var getObj = convertArrayToObj(_self.section3Data.child_education_manual_address);
                             delete getObj.id;
                             delete getObj.mode;
-                            _self.showManualAddress = dynamicSeparator(getObj, ',')
+                            _self.showManualAddress = dynamicSeparator(getObj, ',',true);
+                            _self.showManualAddress = _self.showManualAddress + '.';
+
                         }
 
                         //Other Reasons for making referral

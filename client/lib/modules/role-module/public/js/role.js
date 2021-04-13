@@ -92,8 +92,9 @@ $(document).ready(function () {
             gpFlag: false,
             date: '',
             dateFmt: '',
-            phoneRegex: /^[0-9,-]{10,15}$|^$/,
-            //phoneRegex: /^(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)$/,
+            //phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
+            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
         },
 
@@ -171,7 +172,7 @@ $(document).ready(function () {
                     if (this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
                         var profData = document.getElementById('prof_data').innerHTML;
                         profData = JSON.parse(profData);
-                      //  console.log(profData.professional_manual_address);
+                        //  console.log(profData.professional_manual_address);
                         Vue.set(this.elgibilityObj, "profFirstName", profData.first_name);
                         Vue.set(this.elgibilityObj, "proflastName", profData.last_name);
                         Vue.set(this.elgibilityObj, "profEmail", profData.email);
@@ -278,7 +279,7 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function () {
-                manualAddressLogic(this, 'addressData', 'professionalManualAddress', 'roleManualAddressModal', false);
+                manualAddressLogic(this, 'addressData', 'professionalManualAddress', 'roleManualAddressModal', false, 'child');
                 this.elgibilityObj.profAddress = "";
                 document.getElementById('3ef3160e-50f7-43de-9a6a-842512adad96').style.pointerEvents = "none";
                 document.getElementById('3ef3160e-50f7-43de-9a6a-842512adad96').style.opacity = 0.7;
@@ -338,11 +339,15 @@ $(document).ready(function () {
                         } else {
                             this.professionalManualAddress = [];
                             this.professionalManualAddress.push(prevAddressObj);
+                            this.isAddressFormSubmitted = false;
                         }
                         return true;
                     } else {
                         this.resetAddressModalValues();
                     }
+                } else {
+                    this.isAddressFormSubmitted = false;
+                    this.setReadonlyState(false);
                 }
             },
 
@@ -397,13 +402,13 @@ $(document).ready(function () {
                 }
                 else if (questionIdentifier == "directServices") {
                     this.resetValues(event.target.form);
-                   // this.professionalManualAddress = [];
+                    // this.professionalManualAddress = [];
                     this.setReadonlyState(false);
                     this.elgibilityObj.profDirectService = optionValue;
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
-                 //   this.professionalManualAddress = [];
+                    //   this.professionalManualAddress = [];
                     this.setReadonlyState(false);
                     this.elgibilityObj.profChildDob = "";
                     //this.elgibilityObj.profDirectService = optionValue;
@@ -448,7 +453,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCovered = false;
-                    app.elgibilityObj.submitForm = "true";
+                    //app.elgibilityObj.submitForm = "true";
                     if (searchTxt.length > 2) {
                         var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
                         $('#showInputLoaderProf').removeClass("d-none").addClass("d-block");
@@ -572,7 +577,7 @@ $(document).ready(function () {
 
                     }
                     else {
-                        app.elgibilityObj.gpErrMsg = '';
+                        app.elgibilityObj.gpErrMsg = 'Please enter valid GP address or postcode';
                         app.elgibilityObj.gpSchool = "";
                         app.elgibilityObj.submitForm = "false";
                         $("#gpLocation").autocomplete({
@@ -654,7 +659,7 @@ $(document).ready(function () {
                     var _self = this;
                     var searchTxt = e.target.value;
                     app.elgibilityObj.gpNotCoveredProf = false;
-                    app.elgibilityObj.submitProfForm = "true";
+                    //app.elgibilityObj.submitProfForm = "true";
                     if (searchTxt.length > 2) {
                         $('#showInputLoader').removeClass("d-none").addClass("d-block");
                         $('#addOpacity').css('opacity', '0.2');
@@ -684,7 +689,7 @@ $(document).ready(function () {
                                                 _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
                                             }
                                             if (_self.gpProfListName.length == 0) {
-                                                app.elgibilityObj.gpErrMsg = "";
+                                                app.elgibilityObj.gpErrMsg = "Please enter valid GP address or postcode";
                                                 // app.elgibilityObj.gpErrLinkProf = "https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157";
                                                 $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                                 $('#addOpacity').css('opacity', '1');
@@ -775,7 +780,7 @@ $(document).ready(function () {
                         })
 
                     } else {
-                        app.elgibilityObj.gpErrMsg = '';
+                        app.elgibilityObj.gpErrMsg = 'Please enter valid GP address or postcode';
                         app.elgibilityObj.gpSchool = "";
                         app.elgibilityObj.submitProfForm = "false";
                         $("#gpProfLocation").autocomplete({
@@ -932,7 +937,7 @@ $(document).ready(function () {
                     return false;
                 }
                 if (this.isSubmitted) {
-                    var phoneRegex = /^[0-9,-]{10,15}$|^$/;
+                    var phoneRegex = /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/;
                     var nameRegex = new RegExp(/^[a-zA-Z0-9 ]{1,50}$/);
                     var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                     if (type === 'firstName') {
