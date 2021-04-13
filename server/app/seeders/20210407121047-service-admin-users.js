@@ -61,6 +61,61 @@ module.exports = {
         service_type: 'MHST',
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'Alder Hey - Sefton CAMHS',
+        uuid: uuidv4(),
+        email: 'selvakumar+seftoncamhs@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'Alder Hey - Sefton CAMHS',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'Parenting 2000',
+        uuid: uuidv4(),
+        email: 'selvakumar+parenting2000@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'Parenting 2000',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'Wellbeing Clinics',
+        uuid: uuidv4(),
+        email: 'selvakumar+wellbeingclinics@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'Wellbeing Clinics',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'Seedlings',
+        uuid: uuidv4(),
+        email: 'selvakumar+seedlings@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'Seedlings',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'Liverpool CAMHS',
+        uuid: uuidv4(),
+        email: 'selvakumar+liverpoolcamhs@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'Alder Hey - Liverpool CAMHS',
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ], {});
   },
@@ -72,7 +127,12 @@ module.exports = {
         'selvakumar+others@mindwaveventures.com',
         'selvakumar+iaptus@mindwaveventures.com',
         'selvakumar+venus@mindwaveventures.com',
-        'selvakumar+mhst@mindwaveventures.com'
+        'selvakumar+mhst@mindwaveventures.com',
+        'selvakumar+seedlings@mindwaveventures.com',
+        'selvakumar+wellbeingclinics@mindwaveventures.com',
+        'selvakumar+parenting2000@mindwaveventures.com',
+        'selvakumar+seftoncamhs@mindwaveventures.com',
+        'selvakumar+liverpoolcamhs@mindwaveventures.com'
       ],
     });
     /**

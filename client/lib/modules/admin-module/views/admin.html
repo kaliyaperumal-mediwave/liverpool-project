@@ -8,7 +8,6 @@
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.22/sorting/date-uk.js"></script>
-<script src="/modules/my-apostrophe-assets/js/download.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
@@ -116,8 +115,8 @@
                         </button>
                     </div>
                     <div class=" py-2 set-div-width d-flex align-center justify-content-center">
-                        <button @click="sendAttachment()" type="button" class="btn-archive-admin">
-                            Export
+                        <button type="button" id="ExportReporttoExcel" class="btn-archive-admin">
+                            Download CSV
                         </button>
                     </div>
                 </div>
@@ -192,7 +191,7 @@
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey - Liverpool CAMHS">Alder Hey/Liverpool CAMHS</option>
+                                    <option class='option-text' value="Alder Hey - Liverpool CAMHS">Alder Hey - Liverpool CAMHS</option>
                                     <option class='option-text' value="YPAS">YPAS</option>
                                     <option class='option-text' value="MHST">Mental Health Support Team</option>
                                     <option class='option-text' value="Seedlings">Seedlings</option>
@@ -209,7 +208,7 @@
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey - Sefton CAMHS">Alder Hey/Sefton CAMHS</option>
+                                    <option class='option-text' value="Alder Hey - Sefton CAMHS">Alder Hey - Sefton CAMHS</option>
                                     <option class='option-text' value="Venus">Venus</option>
                                     <option class='option-text' value="Parenting 2000">Parenting 2000</option>
                                     <option class='option-text' value="MHST">Mental Health Support Team</option>
