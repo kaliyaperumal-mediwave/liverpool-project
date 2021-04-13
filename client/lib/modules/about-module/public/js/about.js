@@ -441,14 +441,14 @@ $(document).ready(function () {
             //Adding and Updating a address logic
             upsertAddress: function (role) {
                 if (role == 'child') {
-                    manualAddressLogic(this, 'addressData', 'childManualAddress', 'addressModal', false);
+                    manualAddressLogic(this, 'addressData', 'childManualAddress', 'addressModal', false, role);
                     this.aboutObj.childAddress = "";
                     document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
                     document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
                     document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
                     document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.opacity = 0.5;
                 } else if (role == 'parent') {
-                    manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false);
+                    manualAddressLogic(this, 'addressParentData', 'parentManualAddress', 'addressParentModal', false, role);
                     this.aboutFormData.parentOrCarrerAddress = "";
                     document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.pointerEvents = "none";
                     document.getElementById('ab0ea3ad-43c5-4f21-a449-e8087707654b').style.opacity = 0.7;
@@ -504,16 +504,18 @@ $(document).ready(function () {
                     } else {
                         this.resetChildAddressModalValues();
                     }
+                } else {
+                    this.isAddressFormSubmitted = false;
+                    this.setReadonlyState(false, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                 }
             },
 
             //reset child address value
             resetParentAddressValue: function (data) {
-                debugger
                 if (this.addressParentData.mode && this.addressParentData.mode === 'add') {
                     this.resetChildAddressModalValues();
                 } else if (this.addressParentData.mode && this.addressParentData.mode === 'update') {
-                    var prevParentAddressObj = convertArrayToObj(this.prevParentAddressObj);
+                    var prevParentAddressObj = convertArrayToObj(this.prevParentAddressData);
                     if (this.addressParentData.mode === 'update') {
                         if (_.isEqual(this.addressParentData, prevParentAddressObj)) {
                             this.addressParentData = this.addressParentData;
