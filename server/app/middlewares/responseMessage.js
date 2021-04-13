@@ -15,6 +15,8 @@ const messageCodes = {
   1014: 'Thanks for your feedback!',
   1015: 'Deleted successfully.',
   1016: 'Data not found.',
-  1017: 'Referral details sent'
+  1017: 'Referral details sent',
+  1018: 'Unauthorized Access!',
+  1019: 'Invalid role for the user.'
 };
 module.exports = messageCodes;

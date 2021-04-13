@@ -5,6 +5,7 @@ const authController = require('./controllers/authController');
 const emailController = require('./controllers/emailController');
 const adminController = require('./controllers/adminController');
 const orchaController = require('./controllers/orchaController');
+const userController = require('./controllers/userController');
 const validateToken = require('./utils/utils').validateToken;
 //const commonAuth = require('./utils/utils').commonAuth;
 const auth = require('./middlewares/auth');
@@ -58,13 +59,14 @@ router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken
 router.post('/user/feedback', validateToken, authController.sendFeedback);
 router.post('/user/refFeedback', validateToken, authController.sendReferralFeedback);
 
+router.post('/addUser', validateToken, userController.addAdminUsers);
 
 router.get('/admin/referral', validateToken, adminController.getReferral);
-router.put('/admin/referral', adminController.updateReferral);
-router.get('/admin/getAllreferral', adminController.getAllReferral);
-router.get('/admin/downloadReferral', adminController.downloadReferral);
-router.get('/admin/sendReferral', adminController.sendReferral);
-router.get('/admin/getArchived', adminController.getArchived);
+router.put('/admin/referral',validateToken, adminController.updateReferral);
+router.get('/admin/getAllreferral',validateToken, adminController.getAllReferral);
+router.get('/admin/downloadReferral',validateToken, adminController.downloadReferral);
+router.get('/admin/sendReferral',validateToken, adminController.sendReferral);
+router.get('/admin/getArchived',validateToken, adminController.getArchived);
 
 
 //orcha

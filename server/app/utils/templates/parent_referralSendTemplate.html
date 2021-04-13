@@ -7,15 +7,16 @@
     </style>
     <style>
         .labelTitle {
-            font-size: 14px;
-            /* text-transform: capitalize; */
+            font-size: 10px;
+            line-height: 16px;
         }
 
         .text-container {
             display: flex;
             align-items: center;
-            padding: 8px 0px;
+            padding: 2px 0px;
             display: -webkit-flex;
+            page-break-inside: avoid;
         }
 
         .label-set {
@@ -23,9 +24,8 @@
         }
 
         .duplicate_text {
-            /* background: #e8edee 0% 0% no-repeat padding-box !important; */
-            /* color: #8f979e !important; */
-            font-size: 14px;
+
+            font-size: 10px;
             padding: .375rem .75rem;
             font-weight: 400;
             border-radius: 2px !important;
@@ -33,36 +33,43 @@
             width: 200px;
             align-items: center;
             word-break: break-word;
-            margin-top: -4px;
+            line-height: 16px;
         }
 
-        .input-text {
-            /* background: #e8edee 0% 0% no-repeat padding-box !important; */
-            /* color: #8f979e !important; */
-            font-size: 16px;
+        .duplicate_text::first-letter {
+            text-transform: uppercase !important;
+        }
+
+        .email_text {
+            font-size: 10px;
             padding: .375rem .75rem;
             font-weight: 400;
-            line-height: 1.5;
-            width: 100%;
             border-radius: 2px !important;
-            opacity: 1 !important;
-            border-color: white !important;
-            border: none !important;
-            height: 36px !important;
+            min-height: 20px !important;
+            width: 200px;
+            align-items: center;
+            word-break: break-word;
+            text-transform: lowercase !important;
+            line-height: 16px;
         }
 
         .empty {
             margin: 10px;
+        }
+
+        .title_top {
+            font-size: 16px;
+            margin: 0px 0px 14px 0px;
         }
     </style>
 </head>
 
 <body style="font-family: 'Century Gothic', sans-serif !important;">
     <div style="padding: 0px 68px;">
-        <h2>Summary of your referral</h2>
-        <div style="border-top: 2px solid #b4b8ba"></div>
+        <h2 class="title_top">Summary of referral</h2>
+        <div style="border-top: 1px solid #b4b8ba"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Eligibility</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -74,7 +81,6 @@
                     <div class="duplicate_text">
                         <%= body.role %>
                     </div>
-                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
                 </div>
             </div>
             <div class="text-container">
@@ -113,8 +119,7 @@
                     </div>
                 </div>
             </div>
-            <label class="empty">
-            </label>
+
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -142,9 +147,9 @@
                 </div>
                 <% } %>
         </div>
-        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 About you</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -201,7 +206,7 @@
                     </label>
                 </div>
                 <div class="label-set">
-                    <div class="duplicate_text">
+                    <div class="email_text">
                         <%= body.section2.child_email %>
                     </div>
                 </div>
@@ -323,129 +328,130 @@
                     </div>
                     <div class="label-set">
                         <div class="duplicate_text">
-                            <%  for (i = 0; i < body.section2.household_member.length; i++){ %>
-                            <%= body.section2.household_member[i].name %> <%= body.section2.household_member[i].lastName %>
-                            <br>
-                            <% } %>
+                            <% for (i=0; i < body.section2.household_member.length; i++){ %>
+                                <%= body.section2.household_member[i].name %>
+                                    <%= body.section2.household_member[i].lastName %>
+                                        <br>
+                                        <% } %>
                         </div>
                     </div>
                 </div>
                 <% } %>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Parent / carer’s first name:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parent_name %>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Parent / carer’s first name:
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="duplicate_text">
+                                <%= body.section2.parent_name %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Parent / carer’s last name:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parent_lastname %>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Parent / carer’s last name:
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="duplicate_text">
+                                <%= body.section2.parent_lastname %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Have a parental responsibility:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parental_responsibility %>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Have a parental responsibility:
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="duplicate_text">
+                                <%= body.section2.parental_responsibility %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Relationship:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.child_parent_relationship %>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Relationship:
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="duplicate_text">
+                                <%= body.section2.child_parent_relationship %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Parent contact number
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parent_contact_type %> - <%= body.section2.parent_contact_number %>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Parent contact number
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="duplicate_text">
+                                <%= body.section2.parent_contact_type %> - <%= body.section2.parent_contact_number %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Parent email address:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parent_email %>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Parent email address:
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="email_text">
+                                <%= body.section2.parent_email %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Lives in same house:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parent_same_house %>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Lives in same house:
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="duplicate_text">
+                                <%= body.section2.parent_same_house %>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <% if(body.section2.parent_address!=''){ %>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Parent address:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.parent_address %>
-                    </div>
-                </div>
-            </div>
-            <% } %>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        The child's legal care status:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section2.legal_care_status %>
-                    </div>
-                </div>
-            </div>
+                    <% if(body.section2.parent_address!='' ){ %>
+                        <div class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Parent address:
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section2.parent_address %>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <div class="text-container">
+                                <div class="label-set">
+                                    <label class="labelTitle">
+                                        The child's legal care status:
+                                    </label>
+                                </div>
+                                <div class="label-set">
+                                    <div class="duplicate_text">
+                                        <%= body.section2.legal_care_status %>
+                                    </div>
+                                </div>
+                            </div>
 
         </div>
-        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Support needs</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -547,9 +553,9 @@
                 </div>
                 <% } %>
         </div>
-        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Your reason for referral</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -605,7 +611,7 @@
                         </div>
 
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Food/fluid intake
@@ -619,7 +625,7 @@
                         </div>
 
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Height
@@ -632,7 +638,7 @@
                             </div>
                         </div>
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Weight
@@ -645,7 +651,7 @@
                             </div>
                         </div>
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Main reason for making referral
@@ -724,10 +730,10 @@
                             </div>
                             <%}%>
 
-                                <div style="border-top: 1px solid #b4b8ba;margin:24px 0px 0px 0px"></div>
+                                <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         </div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Contact Details</h5>
             <div class="text-container">
                 <div class="label-set">
