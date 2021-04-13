@@ -31,7 +31,6 @@ $(document).ready(function () {
                 parentCarerLastName: "",
                 relationshipToYou: "",
                 contactNumber: "",
-                // parentContactMode: "mobile",
                 emailAddress: "",
                 sameHouse: "",
                 parentOrCarrerAddress: "",
@@ -42,7 +41,6 @@ $(document).ready(function () {
             prevParentAddressData: null,
             dateWrap: true,
             options: {
-                // format: 'YYYY/MM/DD',
                 format: 'DD/MM/YYYY',
                 dayViewHeaderFormat: 'MMMM YYYY',
                 useCurrent: false,
@@ -50,14 +48,22 @@ $(document).ready(function () {
                 minDate: new Date(1950, 10, 25),
                 maxDate: moment().endOf('day').add(1, 'sec'),
             },
-            sendObj: {},
             sec2dynamicLabel: {},
             houseHoldData: {
                 name: '',
+                lastName: '',
                 relationShip: '',
                 dob: '',
                 profession: '',
-                lastName: ''
+                manualAddress: {
+                    profession: '',
+                    addressLine1: '',
+                    addressLine2: '',
+                    city: '',
+                    country: '',
+                    postCode: ''
+
+                }
             },
             childManualAddress: [],
             addressData: {
@@ -76,6 +82,7 @@ $(document).ready(function () {
                 postCode: ''
             },
             allHouseHoldMembers: [],
+            showManualAddressHouseHold: false,
             isAddressFormSubmitted: false,
             isAddressFormParentSubmitted: false,
             isFormSubmitted: false,
@@ -87,18 +94,8 @@ $(document).ready(function () {
             nhsRegex: /^[0-9]{10}$/,
             userRole: '',
             userMode: '',
-            userId: '',
             payloadData: {},
             currentSection: 'about',
-            childDob: "",
-            showBelowAge: "",
-            submitForm: "",
-            selectedChildAddress: "",
-            selectedParentAddress: "",
-            empClgSchool: "",
-            saveAndCont: "",
-            headerToDisplay: "",
-            edFlag: false,
             paramValues: [],
             editPatchFlag: false,
             storeDeleteData: null,
@@ -109,10 +106,8 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            var _self = this;
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
-            this.userId = document.getElementById('uUid').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.fetchSavedData();
             this.initMaps();
@@ -143,10 +138,6 @@ $(document).ready(function () {
 
                 google.maps.event.addListener(childAddress, 'place_changed', function () {
                     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
-                    // const selectedPlace = google.maps.event.getPlace();
-                    // console.log(selectedPlace);
-                    // document.getElementById('navigateiside').innerHTML = selectedPlace.adr_address;
-                    // document.getElementById('navigateiside').innerHTML = _self.aboutObj.childAddres;
                 });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
@@ -158,6 +149,7 @@ $(document).ready(function () {
                 });
             },
 
+            //Reset and Question Flow Logic
             onOptionChange: function (event) {
                 var optionsName = this.aboutFormData;
                 var questionFormIdentifier = event.target.name;
@@ -180,7 +172,6 @@ $(document).ready(function () {
                     this.patchValue(successData);
                     $('#loader').hide();
                 } else {
-                    //console.error('error')
                     $('#loader').hide();
                 }
             },
@@ -222,13 +213,10 @@ $(document).ready(function () {
                         if (data.sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
                         }
-                        // Vue.set(this.aboutObj, "contactMode", data.contact_type);
-                        // Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
                         this.allHouseHoldMembers = data.household_member;
                         Vue.set(this.aboutObj, "parentFirstName", data.parent[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data.parent[0].parent_lastname);
                         Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parental_responsibility);
-                        //  ue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname);
@@ -257,7 +245,6 @@ $(document).ready(function () {
                         if (data[0].parent[0].child_name_title != null) {
                             Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         }
-                        //Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
@@ -280,11 +267,8 @@ $(document).ready(function () {
                         if (data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         }
-                        // Vue.set(this.aboutObj, "contactMode", data[0].parent[0].contact_type);
-                        // Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
-                        //Vue.set(this.aboutObj, "parentContactName", data[0].responsibility_parent_firstname);
                         this.allHouseHoldMembers = data[0].household_member;
                         Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
@@ -316,7 +300,6 @@ $(document).ready(function () {
                         if (data[0].parent[0].child_name_title != null) {
                             Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         }
-                        //Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
                         Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
@@ -417,6 +400,7 @@ $(document).ready(function () {
                 }
             },
 
+            //Function to check array length
             checkArrayLength: function (arr) {
                 if (arr && Array.from(arr).length) {
                     return true;
@@ -424,7 +408,6 @@ $(document).ready(function () {
                     return false;
                 }
             },
-
 
             // Getting Manual Address
             getManualAddress: function (modelId) {
@@ -458,6 +441,7 @@ $(document).ready(function () {
 
             },
 
+            //Setting Read only state for Manual Address Logic
             setReadonlyState: function (isDisabled, text, inputGroup) {
                 var textEle = document.getElementById(text);
                 var buttElem = document.getElementById(inputGroup)
@@ -510,8 +494,8 @@ $(document).ready(function () {
                 }
             },
 
-            //reset child address value
-            resetParentAddressValue: function (data) {
+            //reset parent address value
+            resetParentAddressValue: function () {
                 if (this.addressParentData.mode && this.addressParentData.mode === 'add') {
                     this.resetChildAddressModalValues();
                 } else if (this.addressParentData.mode && this.addressParentData.mode === 'update') {
@@ -555,8 +539,6 @@ $(document).ready(function () {
                 this.addressParentData.mode = '';
             },
 
-
-
             //Section 2(About You) Save and Service call with navigation Logic
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
@@ -576,7 +558,6 @@ $(document).ready(function () {
                     }
                 } else {
                     $('#loader').hide();
-                    // console.log('empty response')
                 }
             },
 
@@ -678,19 +659,6 @@ $(document).ready(function () {
                     } else {
                         this.resetModalValues();
                     }
-                }
-            },
-
-            //Back to previous page
-            backToRole: function () {
-                backToPreviousPage('/role?', this.userId, this.userRole)
-            },
-
-            //Clearing date values from inpt
-            clearDate: function (e) {
-                if (e.keyCode == 8 || e.keyCode == 46) {
-                    $('#houseHoldDate').datepicker('setDate', null);
-                    this.houseHoldData.dob = "";
                 }
             },
 

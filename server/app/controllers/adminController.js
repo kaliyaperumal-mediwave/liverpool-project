@@ -79,7 +79,7 @@ exports.getReferral = ctx => {
             referrals = JSON.parse(JSON.stringify(referrals));
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            console.log(filteredReferrals);
+            // console.log(filteredReferrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
@@ -556,7 +556,6 @@ exports.sendReferral = async ctx => {
     // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
     // console.log("refCode",ctx.request.body.refCode);
     try {
-        console.log("trye")
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //////console.log()(sendReferralStatus)
             const referralModel = ctx.orm().Referral;
@@ -898,7 +897,7 @@ function getRefData(refID, refRole, ctx) {
                                 status: "ok",
                                 role: refRole
                             }
-                            console.log(responseData)
+                            // console.log(responseData)
                             return responseData;
                         }).catch((error) => {
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1093,21 +1092,21 @@ function getRefData(refID, refRole, ctx) {
 
                            // console.log(section3Obj)
 
-                            // if(section2Obj.child_manual_address!=null && section2Obj.child_manual_address[0]!=null ){
-                            //     section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1+','+  section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ''  + section2Obj.child_manual_address[0].postCode
-                            // }
+                            if(section2Obj.child_manual_address!=null && section2Obj.child_manual_address[0]!=null ){
+                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1+','+  section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ''  + section2Obj.child_manual_address[0].postCode
+                            }
 
-                            // if(section2Obj.parent_manual_address!=null && section2Obj.parent_manual_address[0]!=null ){
-                            //     section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
-                            // }
+                            if(section2Obj.parent_manual_address!=null && section2Obj.parent_manual_address[0]!=null ){
+                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
+                            }
 
-                            // if(section1Obj.professional_manual_address!=null && section1Obj.professional_manual_address[0]!=null ){
-                            //     section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1+','+  section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + ''  + section1Obj.professional_manual_address[0].postCode
-                            // }
+                            if(section1Obj.professional_manual_address!=null && section1Obj.professional_manual_address[0]!=null ){
+                                section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1+','+  section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + ''  + section1Obj.professional_manual_address[0].postCode
+                            }
 
-                            // if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
-                            //     section3Obj.child_education_place = section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
-                            // }
+                            if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
+                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
+                            }
                             
                             const responseData = {
                                 userid: refID,

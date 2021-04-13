@@ -11,22 +11,29 @@ const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
 let Transport;
+let mailService;
 //Sndgrid disabled on SMTP requirement
-Transport = nodemailer.createTransport(
-    nodemailerSendgrid({
-        apiKey: config.sendgrid_api_key
-    })
-);
-// const Transport = nodemailer.createTransport({
-//     host: process.env.EMAIL_HOST,
-//     port: process.env.EMAIL_PORT,
-//     secure: process.env.EMAIL_SECURE, // use TLS
-//     ignoreTLS: true,
-//     auth: {
-//         user: process.env.EMAIL_AUTH_USERNAME,
-//         pass: process.env.EMAIL_AUTH_PASSWORD
-//     }
-// });
+if (config.use_sendgrid == 'true') {
+    console.log("use send grid")
+    Transport = nodemailer.createTransport(
+        nodemailerSendgrid({
+            apiKey: process.env.SENDGRID_API_KEY
+        })
+    );
+}
+else {
+    console.log("use smtp")
+    Transport = nodemailer.createTransport({
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
+        secure: process.env.EMAIL_SECURE, // use TLS
+        ignoreTLS: true,
+        auth: {
+            user: process.env.EMAIL_AUTH_USERNAME,
+            pass: process.env.EMAIL_AUTH_PASSWORD
+        }
+    });
+}
 
 exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
     try {
@@ -173,21 +180,17 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
     try {
-        console.log("fdafas"+ ctx.request.body.emailToProvider)
-        if(ctx.request.body.emailToProvider == "YPAS")
-        {
+        console.log("fdafas" + ctx.request.body.emailToProvider)
+        if (ctx.request.body.emailToProvider == "YPAS") {
             toAddress = config.ypas_email
         }
-        else if (ctx.request.body.emailToProvider == "Venus") 
-        {
+        else if (ctx.request.body.emailToProvider == "Venus") {
             toAddress = config.venus_email
         }
-        else if (ctx.request.body.emailToProvider == "IAPTUS")
-        {
+        else if (ctx.request.body.emailToProvider == "IAPTUS") {
             toAddress = config.iaptus_email
         }
-        else
-        {
+        else {
             toAddress = config.other_email
         }
         const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
