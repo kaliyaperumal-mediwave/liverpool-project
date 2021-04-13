@@ -14,7 +14,8 @@ $(document).ready(function () {
       dataSet: [],
       successMessage: '',
       draw: 1,
-      searchRefObj: {}
+      searchRefObj: {},
+      SelectedProviderType: 'Liverpool'
     },
 
     beforeMount: function () {
@@ -46,26 +47,58 @@ $(document).ready(function () {
 
       fetchReferral: function () {
         var _self = this;
-        $('#example').DataTable({
+        
+        // $('#adminReferral tbody').on( 'click', 'tr', function () {
+        //   var newIndex = table.row(this).index();
+        //   var selectedIndex = $('#selectedRow').val();
+        //   alert(selectedIndex);
+        //   // if (selectedIndex == newIndex) {
+        //   //     $('#selectedRow').val('');
+        //   // }
+        //   // else {
+        //   //     $('#selectedRow').val(newIndex);
+        //   // }
+        // });
+
+        $('th').on("click", function (event) {
+          if($(event.target).is("div"))
+              event.stopImmediatePropagation();
+        });
+
+        var table = $('#adminReferral').DataTable({
+          dom: 'lBfrtip',
+          select: {
+            style: 'multi',
+            selector: 'td:first-child'
+          },
           destroy: true,
           processing: false,
           serverSide: true,
           columnDefs: [
-            { targets: 0, orderable: false },
+            {
+              orderable: false,
+              className: 'select-checkbox',
+              targets: 0
+            },
             { targets: 1, orderable: true },
             { targets: 2, orderable: true, type: 'date-uk' },
             { targets: 4, orderable: true },
             { targets: 5, orderable: true },
             { targets: 6, orderable: true },
-            { targets: 7, orderable: true, type: 'date-uk' },
-            { targets: 8, orderable: false },
+            { targets: 7, orderable: false, type: 'date-uk' },
+            { targets: 8, orderable: true },
+            { targets: 9, orderable: false },
           ],
+          lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],
           order: [[7, 'desc']],
           language: {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
             zeroRecords: 'No matching referrals found'
           },
+          buttons: [
+            { extend: 'csv', text: 'Export as CSV' }
+          ],
           ajax: {
             url: '/modules/admin-module/referral',
             // url: '/modules/admin-module/getAllreferral',
@@ -91,7 +124,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
-                  referralRes.data.data[i].referral_provider,
+                  referralRes.data.data[i].referral_provider != 'Pending'? 'Sent to ' + referralRes.data.data[i].referral_provider : referralRes.data.data[i].referral_provider,
                   "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf'>Send</button></div>"
                 ]);
               }
@@ -99,6 +132,29 @@ $(document).ready(function () {
             }
           }
         });
+
+        $("#ExportReporttoExcel").on("click", function () {
+          table.button('.buttons-csv').trigger();
+        });
+
+        // $('#adminReferral tbody').on('click', 'td', function () {
+        //   var value = $(this).find('[type=checkbox]').val();
+        //   if ($(this).find('[type=checkbox]').prop('checked') == true) {
+        //     $(this).find('[type=checkbox]').prop('checked', false);
+        //     console.log('False Value', value);
+        //     if (value) {
+        //       $( "#"+value ).trigger( "click" );
+        //     }
+      
+        //   } else {
+        //     $(this).find('[type=checkbox]').prop('checked', true);
+        //     console.log('True Value', value);
+        //     if (value) {
+        //       $( "#"+value ).trigger( "click" );
+        //     }
+        //   }
+        // });
+
         this.referral_ids = [];
         $('#loader').hide();
       },
@@ -109,6 +165,7 @@ $(document).ready(function () {
         } else {
           this.referral_ids.pop(id);
         }
+        console.log('referral_ids', this.referral_ids);
       },
 
       deleteReferral: function () {
@@ -131,6 +188,7 @@ $(document).ready(function () {
           $('#loader').hide();
           if (successData && Object.keys(successData)) {
             this.successMessage = 'Referrals archived successfully .';
+            this.fetchReferral();
             $('#deletedSuccess').modal('show');
           }
         }
@@ -152,6 +210,8 @@ $(document).ready(function () {
         $('#loader').hide();
         //console.log()(successData)
       },
+
+      
     },
 
   })
@@ -165,16 +225,25 @@ $(document).ready(function () {
 function viewPdf(uuid, role) {
   $('#loader').show();
   var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+  console.log(successData)
   var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-  var link = document.createElement('a');
-  link.href = window.URL.createObjectURL(blob);
-  link.target = '_blank'
-  // var fileName = "test.pdf";
-  //link.download = fileName;
-  link.click();
-  setTimeout(function () {
+  var isIE = false || !!document.documentMode;
+  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+  if(!isIE && !isSafari)
+  {
+    var link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.target = '_blank'
+    link.click();
+    setTimeout(function () {
+      $('#loader').hide();
+    }, 1000);
+  }
+  else
+  {
+    download(blob, uuid+".pdf", "application/pdf");
     $('#loader').hide();
-  }, 1000);
+  }
   //link.click();
 }
 
@@ -189,19 +258,21 @@ function toArrayBuffer(buf) {
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
   console.log(referral_provider)
-  if (referral_provider != "Pending") {
-    $('#referralAlreadySent').modal('show');
-    document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
-  } else {
+  // if (referral_provider != "Pending") {
+  //   $('#referralAlreadySent').modal('show');
+  //   document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
+  // } else {
     $('#sendProviderModal').modal('show');
     document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
-  }
+  // }
 }
 
 function sendPdf(uuid, role, refCode) {
+  
   var selectedProvider = document.getElementById('SelectedProvider').value;
   var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
   if (successData && Object.keys(successData)) {
+    debugger;
     $('#sendProviderModal').modal('hide');
     $('#mailSentSuccess').modal('show');
   }

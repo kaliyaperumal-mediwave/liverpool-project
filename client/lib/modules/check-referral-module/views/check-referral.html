@@ -30,7 +30,7 @@
     <!-- Loader end -->
     {% raw %}
     <div id="searchBar" class="top-arrow-container">
-        <div class="input-group">
+        <div class="input-group home-primary-content-bg">
             <span class="input-group-prepend">
                 <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
                     <span style="color: #023047 !important;">
@@ -38,13 +38,12 @@
                     </span>
                 </div>
             </span>
-            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="search"
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text"
                 placeholder="Search your resource" id="example-search-input" v-model="viewReferralObj.searchTxt"
                 @input="getReferalByCode($event)">
         </div>
         <div class="dropdown d-flex justify-content-end align-items-center ">
-
-            <button class=" custom-select-icon" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            <button class=" custom-select-icon auth-font" style="background: none !important;" type="button" id="dropdownMenu2" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 Sort by
                 <i class="fas fa-caret-down"></i> </button>
@@ -58,7 +57,7 @@
         </div>
         <div>
             <!-- v-show="getStringLength(viewReferralObj.searchTxt) > 2" -->
-            <div v-show="getStringLength(viewReferralObj.searchTxt) > 0" class="recent_content">
+            <div v-show="getStringLength(viewReferralObj.searchTxt) > 0" class="resource_search_text">
                 <b>Search result for "{{viewReferralObj.searchTxt}}"</b>
                 <div v-for="(refObj, index1) in searchReferrals" class="justify-content-between align-items-center"
                     id="headingTwo">
@@ -98,16 +97,16 @@
             </div>
         </div>
         <div v-show="getStringLength(viewReferralObj.searchTxt) > 0 && searchReferrals.length == 0"
-            class="recent_content not-found">
-            <b>No results found</b>
+            class="primary-search-radius home-primary-content-bg cursor-pointer">
+            <p class="resource_search_text p-3 d-flex justify-content-center">No results found</p>
         </div>
         <div v-if="getStringLength(viewReferralObj.searchTxt) < 1 && viewReferralObj.loginUserFlag=='true'"
             class='d-flex progress-container'>
-            <div @click="fetchReferrals('completed')" class=" col-6 text-center text-complete cursor-pointer"
+            <div @click="fetchReferrals('completed')" class=" col-6 card-bg-set themeText text-center text-complete cursor-pointer"
                 v-bind:class="{'text-complete-active':!activeState}">
                 Completed
             </div>
-            <div @click="fetchReferrals('incomplete')" class="col-6 text-center text-not-complete cursor-pointer"
+            <div @click="fetchReferrals('incomplete')" class="col-6 card-bg-set text-center themeText text-not-complete cursor-pointer"
                 v-bind:class="{'text-complete-active':activeState}">
                 Not completed
             </div>
@@ -116,15 +115,15 @@
             <div class="recent_referrals">
                 Recent referrals
             </div>
-            <div class="recent_content">
+            <div v-if="viewReferralArray.length" class="recent_content">
                 A list of your most recent referrals
             </div>
             <hr class="dropdown-divider" />
-            <p v-if="viewReferralArray.length == 0">No referrals found</p>
+            <p v-if="viewReferralArray.length == 0" class="m-0 recent_referrals">No referrals found</p>
             <div v-for="(referrals, index) in viewReferralArray.slice(0, 1)"
                 class="justify-content-between align-items-center" id="headingOne">
                 <div class="d-flex pt-2 pb-2 w-100">
-                    <div class="flexGrow">
+                    <div class="flexGrow themeText">
                         {{referrals.date}}
                     </div>
                     <div>
@@ -193,11 +192,11 @@
             <div class="recent_referrals">
                 Past referrals
             </div>
-            <div class="recent_content">
+            <div v-if="viewReferralArray.length > 1" class="recent_content">
                 A list of your past referrals
             </div>
             <hr class="dropdown-divider" />
-            <p v-if="viewReferralArray.length <= 1">No referrals found</p>
+            <p v-if="viewReferralArray.length <= 1" class="m-0 recent_referrals">No referrals found</p>
             <div v-for="(referrals, index) in viewReferralArray" v-if="index > 0"
                 class="justify-content-between align-items-center" id="headingOne">
                 <!-- {{referrals.date}}
@@ -208,7 +207,7 @@
                 </span> -->
 
                 <div class="d-flex pt-2 pb-2 w-100">
-                    <div class="flexGrow">
+                    <div class="flexGrow themeText">
                         {{referrals.date}}
                     </div>
                     <div>

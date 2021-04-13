@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
 <div id="heightTopSet" class="headerTop">
     <nav class="header-bg header-set-height">
         <div class="row mx-0 w-100 justify-content-between align-center">
@@ -5,24 +7,24 @@
                 <button class="button-toggle" onclick="openSideDrawer()" type="button" data-toggle="collapse"
                     data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fal fa-bars font-30 d-none d-md-block d-lg-block d-xl-block ham-icon"
+                    <i class="fal fa-bars font-30 d-none d-md-block d-lg-block d-xl-block ham-icon-header"
                         aria-hidden="true"></i>
-                    <i class="fal fa-bars font-30 d-none d-sm-block d-md-none ham-icon" aria-hidden="true"></i>
-                    <i class="fal fa-bars font-30 d-block d-sm-none ham-icon" aria-hidden="true"></i>
+                    <i class="fal fa-bars font-30 d-none d-sm-block d-md-none ham-icon-header" aria-hidden="true"></i>
+                    <i class="fal fa-bars font-30 d-block d-sm-none ham-icon-header" aria-hidden="true"></i>
                 </button>
                 <div class="logo">
                     <!-- LOGO -->
                     <a href="{{ data.logoPath }}" class="text-decoration-none">
-                        <div class="logo-bg" style="height: 35px !important;">
+                        <div class="logo-bg" style="height: 54px !important;">
                         </div>
                     </a>
                 </div>
             </div>
-            <a href="{{ data.navigateMkeRfrl }}">
+            <!-- <a target="_blank" href="/">
                 <button class="button-referral">
                     Go to platform
                 </button>
-            </a>
+            </a> -->
 
         </div>
         <!-- left drawer -->
@@ -31,28 +33,30 @@
                 <!-- Side Drawer Title -->
                 <div class="header-slider d-flex align-items-center ">
                     <!-- <div class="slider-header">LOGO</div> -->
-                    <a href="/" class="text-decoration-none headlogo slider-header"><img
-                            src="/modules/my-apostrophe-assets/img/Logo_white.svg"></a>
-
+                    <a href="{{ data.logoPath }}" class="text-decoration-none headlogo slider-header">
+                        <img width="95" src="/modules/my-apostrophe-assets/img/liverpool_dark.svg">
+                    </a>
                     <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
                         aria-hidden="true"></i>
                 </div>
                 <!-- Side Drawer content -->
+                
                 <div class="slider-container">
+                    {% if data.superAdmin %}
+                        <div class="inside-cont-slider cursor-pointer">
+                            <a href="{{ data.referral }}" class="text-decoration-none">View referrals</a>
+                        </div>
+                        <div class="inside-cont-slider cursor-pointer">
+                            <a href="{{ data.archive }}" class="text-decoration-none">View archive referrals</a>
+                        </div>
+                    {% else %}
+                        <div class="inside-cont-slider cursor-pointer">
+                            <a href="{{ data.archive }}" class="text-decoration-none">View referrals</a>
+                        </div>
+                    {% endif %}
+
                     <div class="inside-cont-slider cursor-pointer">
-                        <a href="{{ data.logoPath }}" class="text-decoration-none">Home</a>
-                    </div>
-                    <div class="inside-cont-slider cursor-pointer">
-                        <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Referrals</a>
-                    </div>
-                    <div class="inside-cont-slider cursor-pointer">
-                        <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Inbox</a>
-                    </div>
-                    <div class="inside-cont-slider cursor-pointer">
-                        <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Appointments</a>
-                    </div>
-                    <div class="inside-cont-slider cursor-pointer">
-                        <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Log out</a>
+                        <a href="javascript:void(0)" onclick="logOut()" class="text-decoration-none"> Log out</a>
                     </div>
                 </div>
             </div>

@@ -32,7 +32,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                         return next().then(() => {
                             resolve();
                         });
-                    }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+                    }).catch(error => {  sequalizeErrorHandler.handleSequalizeError(ctx, error) });
                 }).catch((error) => {
                     ctx.res.internalServerError({
                         message: 'gdfgsgfg',
@@ -74,7 +74,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                             return next().then(() => {
                                 resolve();
                             });
-                        }).catch(error => { console.log(error, "error"); sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+                        }).catch(error => { sequalizeErrorHandler.handleSequalizeError(ctx, error) });
                     }).catch((error) => {
                         ctx.res.internalServerError({
                             message: 'gdfgsgfg',
@@ -84,7 +84,7 @@ module.exports.checkOrchaToken = (ctx, next) => new Promise(async (resolve) => {
                 }
             }
         }).catch((err) => {
-            console.log(err)
+            //console.log(err)
             return_unauthorizedError(ctx);
             return next();
         });

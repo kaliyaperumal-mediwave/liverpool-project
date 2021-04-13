@@ -8,6 +8,10 @@
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.22/sorting/date-uk.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+
 {% endblock %}
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
@@ -60,7 +64,7 @@
             <div id="admin-slider" class="admin-slider-left d-none">
                 <div class="slider-inside-contain w-100">
                     <div class="padding-set-admin">
-                        <div class="logo-bg" style="height: 35px !important;">
+                        <div class="logo-bg" style="height: 54px !important;">
                         </div>
                         <!-- <div class="admin-logo-icon">
                             <img src="/modules/my-apostrophe-assets/img/liverpool.svg" />
@@ -111,24 +115,24 @@
                         </button>
                     </div>
                     <div class=" py-2 set-div-width d-flex align-center justify-content-center">
-                        <button @click="sendAttachment()" type="button" class="btn-archive-admin">
-                            Export
+                        <button type="button" id="ExportReporttoExcel" class="btn-archive-admin">
+                            Download CSV
                         </button>
                     </div>
                 </div>
                 <div id="scroll-style-admin" class="custom-table-nested pb-3">
-                    <table id="example" class="table table-striped table-bordered w-100">
+                    <table id="adminReferral" class="table table-striped table-bordered w-100">
                         <thead>
                             <tr>
                                 <th class="icon-display-none"></th>
-                                <th>Name</th>
-                                <th>DOB</th>
-                                <th>Unique code</th>
-                                <th>Referrer</th>
-                                <th>GP Location</th>
-                                <th>Referrer type</th>
-                                <th>Date</th>
-                                <th>Status</th>
+                                <th><div>Name</div></th>
+                                <th><div>DOB</div></th>
+                                <th><div>Unique code</div></th>
+                                <th><div>Referrer</div></th>
+                                <th><div>GP Location</div></th>
+                                <th><div>Referrer type</div></th>
+                                <th><div>Date</div></th>
+                                <th><div>Status</div></th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -168,23 +172,56 @@
                         <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                <div class="px-sm-5 px-4 py-2">
                     <div class="input-group w-100">
                         <span class="plain-select">
-                            <select id="SelectedProvider" class="custom-select form-control input-bg-form-control">
-                                <option class='option-text' value="YPAS">YPAS
+                            <select style="background: #fff !important;" v-model="SelectedProviderType" id="SelectedProviderType"
+                                class="custom-select form-control input-bg-form-control height-44">
+                                <option class='option-text' value="Liverpool">Liverpool
                                 </option>
-                                <option class='option-text' value="Venus">Venus
-                                </option>
-                                <option class='option-text' value="IAPTUS">IAPTUS</option>
-                                <option class='option-text' value="Other">Other
+                                <option class='option-text' value="Sefton">Sefton
                                 </option>
                             </select>
                         </span>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn px-md-4 w-25" id="sendRef">
+                <div v-if="SelectedProviderType === 'Liverpool'">
+                    <div class="px-sm-5 px-4 py-2">
+                        <div class="input-group w-100">
+                            <span class="plain-select">
+                                <select style="background: #fff !important;" id="SelectedProvider"
+                                    class="custom-select form-control input-bg-form-control height-44">
+                                    <option class='option-text' value="Alder Hey - Liverpool CAMHS">Alder Hey - Liverpool CAMHS</option>
+                                    <option class='option-text' value="YPAS">YPAS</option>
+                                    <option class='option-text' value="MHST">Mental Health Support Team</option>
+                                    <option class='option-text' value="Seedlings">Seedlings</option>
+                                    <option class='option-text' value="Wellbeing Clinics">Wellbeing Clinics</option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div v-if="SelectedProviderType === 'Sefton'">
+                    <div class="px-sm-5 px-4 py-2">
+                        <div class="input-group w-100">
+                            <span class="plain-select">
+                                <select style="background: #fff !important;" id="SelectedProvider"
+                                    class="custom-select form-control input-bg-form-control height-44">
+                                    <option class='option-text' value="Alder Hey - Sefton CAMHS">Alder Hey - Sefton CAMHS</option>
+                                    <option class='option-text' value="Venus">Venus</option>
+                                    <option class='option-text' value="Parenting 2000">Parenting 2000</option>
+                                    <option class='option-text' value="MHST">Mental Health Support Team</option>
+                                    </option>
+                                </select>
+                            </span>
+                        </div>
+                    </div>
+                </div> 
+                
+                <div class="modal-footer submit-btn-admin">
+                    <button type="submit" class="btn mb-3 px-md-4 w-50 d-flex align-center justify-content-center"
+                        style="background-color: #219EBC !important;" id="sendRef">
                         <span class="btn-modal-text">Send
                         </span>
                     </button>
@@ -196,7 +233,7 @@
 
     <!-- Mail Succuss Modal Start -->
     <div class="modal fade" id="mailSentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     role="dialog" aria-labelledby="mailSentSuccessLabel" aria-hidden="true">
+        role="dialog" aria-labelledby="mailSentSuccessLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-bg login-safe-pd">
                 <span aria-hidden="true" class="modal-close" @click="closeMailSuccessPopup()">
@@ -211,24 +248,24 @@
             </div>
         </div>
     </div>
-     <!-- Login Succuss Modal End -->
-      <!-- Referral already sent popup -->
+    <!-- Login Succuss Modal End -->
+    <!-- Referral already sent popup -->
     <div class="modal fade" id="referralAlreadySent" data-backdrop="static" data-keyboard="false" tabindex="-1"
-    role="dialog" aria-labelledby="referralAlreadySentLabel" aria-hidden="true">
-       <div class="modal-dialog modal-dialog-centered" role="document">
-           <div class="modal-content modal-bg login-safe-pd">
-               <span aria-hidden="true" class="modal-close" onclick="closeAlreadySentPopup()">
-                   <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
-               </span>
-               <div class="modal-header justify-content-center model-text-pd text">
-                   <p class="text-center m-0 py-2">
-                       <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                   </p>
-                   <h5 id="sentMsg" class="logout-font mt-3 text-center"></h5>
-               </div>
-           </div>
-       </div>
-   </div>
+        role="dialog" aria-labelledby="referralAlreadySentLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" onclick="closeAlreadySentPopup()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 id="sentMsg" class="logout-font mt-3 text-center"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Login Succuss Modal End -->
 
 </div>

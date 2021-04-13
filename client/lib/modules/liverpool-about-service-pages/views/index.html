@@ -67,12 +67,22 @@
               </span>
               <input
                 class="height-44 home-primarySearch-bg border-0 form-control py-2"
-                type="search"
+                type="text"
                 v-model="searchQuery"
                 placeholder="Search your resource"
                 id="example-search-input"
                 @input="filterPieces()"
               />
+              <!-- <div class="search-wrapper">
+
+              <form class="wid-80">
+              <input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
+              placeholder="Search your resource"
+              id="example-search-input"
+              @input="filterPieces()"  />
+              <button class="close-icon" type="reset"></button>
+              </form>
+              </div> -->
             </div>
             <div id="hideserachblock" class="d-none">
               {% raw %}
@@ -93,7 +103,7 @@
                       class="border-bottom-primary card-body px-2 px-md-4"
                     >
                       <a
-                        :href="item.custom_url ? 'item.custom_url' : 'item._url' "
+                        :href="item.custom_url ? item.custom_url : item._url"
                       >
                         <div class="d-flex align-items-center">
                           <!-- <img

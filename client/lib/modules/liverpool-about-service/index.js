@@ -20,15 +20,26 @@ module.exports = {
     {
       name: 'subtitle',
       label: 'Sub Title',
-      type: 'string',
-      required: true
+      type: "area",
+      options: {
+        widgets: {
+          "apostrophe-rich-text": {
+            toolbar: ["Bold", "Italic", "Link", "Unlink","BulletedList"],
+          },
+        },
+      },
     },
     {
       name: 'text',
       label: 'Text',
-      type: 'string',
-      required: true,
-      textarea: true
+      type: "area",
+      options: {
+        widgets: {
+          "apostrophe-rich-text": {
+            toolbar: ["Bold", "Italic", "Link", "Unlink","BulletedList"],
+          },
+        },
+      },
     },
     {
     name: 'thumbnail',

@@ -19,11 +19,17 @@ module.exports = function (self, options) {
             req.data.urgentHelpPage = "/pages/urgent-help";
             req.data.mentalHeathPage = "/mental-health";
             req.data.resourcesPage = "/resources";
-            req.data.orchaPage = "/orcha/orchahome";
+            req.data.orchaPage = "/apps";
             req.data.navigateMkeRfrl = "/make-referral";
             req.data.mentalHealth_peoplePage = "mental-health/people";
             req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
+
+            if(req.session.user_role === 'service_admin'){
+              return req.res.redirect("/admin/serviceAdmin")
+            } else if(req.session.user_role === 'admin'){
+              return req.res.redirect("/admin")
+            }
             return next();
           })
           .catch((error) => {
@@ -38,7 +44,7 @@ module.exports = function (self, options) {
 
     checkCommonPageAuth: function (req, res, next) {
       req.res.header('Cache-Control', 'no-cache, no-store');
-      console.log("----------------checkCommonPageAuth-----------------------");
+      //console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";
@@ -48,14 +54,22 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
-      req.data.orchaPage = "/orcha/orchahome";
+      req.data.orchaPage = "/apps";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
+
+            if(req.session.user_role === 'service_admin'){
+              return req.res.redirect("/admin/serviceAdmin")
+            } else if(req.session.user_role === 'admin'){
+              return req.res.redirect("/admin")
+            }
+
             req.data.loginId = req.session.loginIdUrl;
             req.data.userRole = req.session.user_role;
             req.data.uuid = req.session.uuid;
@@ -91,12 +105,12 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
-      req.data.orchaPage = "/orcha/orchahome";
+      req.data.orchaPage = "/apps";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
-      console.log(req.session.auth_token)
+      //console.log(req.session.auth_token)
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
@@ -125,8 +139,56 @@ module.exports = function (self, options) {
         return next();
       }
     },
+
+    checkAdminAuth: function (req, res, next) {
+      if (req.session.auth_token) {
+        self.verifyToken(req)
+          .then((data) => {
+            req.data.logoPath = "/admin";
+            req.data.referral = "/admin";
+            req.data.archive = "/admin/archive";
+            if(req.session.user_role === 'service_admin'){
+              return req.res.redirect("/admin/serviceAdmin")
+            } else if(req.session.user_role === 'admin'){
+              return next();
+            } else {
+              return req.res.redirect("/dashboard")
+            }
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
+      }
+      else {
+        return req.res.redirect("/users/login");
+      }
+    },
+
+    checkServiceAdminAuth: function (req, res, next) {
+      if (req.session.auth_token) {
+        self.verifyToken(req)
+          .then((data) => {
+            req.data.logoPath = "/admin/serviceAdmin";
+            req.data.archive = "/admin/serviceAdmin";
+            if(req.session.user_role === 'service_admin'){
+              return next();
+            } else if(req.session.user_role === 'admin'){
+              return req.res.redirect("/admin")
+            } else {
+              return req.res.redirect("/dashboard")
+            }
+          })
+          .catch((error) => {
+            return req.res.redirect("/users/login");
+          });
+      }
+      else {
+        return req.res.redirect("/users/login");
+      }
+    },
+
     post: function (req, res, url, body) {
-      console.log("post method")
+      //console.log("post method")
       return new Promise((resolve, reject) => {
         let options = {
           method: 'POST',
@@ -261,20 +323,20 @@ module.exports = function (self, options) {
   };
 
   self.checkCommonPageAuth = function (req) {
-    // console.log("----------------self.checkCommonPageAuth-----------------------",req.session);
+    // //console.log("----------------self.checkCommonPageAuth-----------------------",req.session);
     // return new Promise((resolve, reject) => {
     //   if (req.session.aposBlessings || !req.session.auth_token) {
-    //     console.log('-------------no-user----------------');
+    //     //console.log('-------------no-user----------------');
     //     req.data.user_data = {};
     //     req.data.rolesIds = [];
     //     resolve(req);
     //   } else {
-    //     console.log('--------user exist-------',self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module'));
-    //     console.log('--------user exist-------',self.apos.PATH.getOption(req, 'authentication-path'));
+    //     //console.log('--------user exist-------',self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module'));
+    //     //console.log('--------user exist-------',self.apos.PATH.getOption(req, 'authentication-path'));
     //     let url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + self.apos.PATH.getOption(req, 'authentication-path') + '/apostropheAuth';
-    //     console.log('---------------',url);
+    //     //console.log('---------------',url);
     //     self.middleware.get(req, url).then((data) => {
-    //       console.log('-------res--------',data);
+    //       //console.log('-------res--------',data);
     //       req.data.user_data = data.data;
     //       var rolesIds = [];
     //       for (let i = 0; i < data.data.roles.length; i++) {
@@ -283,7 +345,7 @@ module.exports = function (self, options) {
     //       req.data.rolesIds = rolesIds;
     //       resolve(req);
     //     }).catch((e) => {
-    //       console.log('------------error-------',e);
+    //       //console.log('------------error-------',e);
     //       req.data.user_data = {};
     //       req.data.rolesIds = [];
     //       resolve(req);
@@ -292,7 +354,7 @@ module.exports = function (self, options) {
     // });
     return new Promise((resolve, reject) => {
       req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
-      console.log("----------------checkCommonPageAuth-----------------------");
+      //console.log("----------------checkCommonPageAuth-----------------------");
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";
@@ -302,7 +364,7 @@ module.exports = function (self, options) {
       req.data.urgentHelpPage = "/pages/urgent-help";
       req.data.mentalHeathPage = "/mental-health";
       req.data.resourcesPage = "/resources";
-      req.data.orchaPage = "/orcha/orchahome";
+      req.data.orchaPage = "/apps";
       req.data.navigateMkeRfrl = "/make-referral";
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
@@ -354,7 +416,7 @@ module.exports = function (self, options) {
       self.middleware.get(req, url).then((data) => {
         return resolve(data);
       }).catch((error) => {
-        console.log("verify tokn");
+        //console.log("verify tokn");
         delete req.session.uuid;
         delete req.session.user_role;
         delete req.session.auth_token;

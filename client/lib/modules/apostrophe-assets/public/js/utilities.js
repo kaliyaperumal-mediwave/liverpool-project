@@ -55,6 +55,94 @@ function commonToggleVisibility(context, element, visibility) {
     }
 };
 
+//Common Function to entering manual address
+function manualAddressLogic(context, object, arr, modal, isOrganization, role) {
+    var postCodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/;
+    //var prevParentAddressData = JSON.parse(JSON.stringify(context.parentManualAddress));
+    if (!context.isAddressFormParentSubmitted) {
+        context.isAddressFormParentSubmitted = true;
+    }
+    context['isAddressFormSubmitted'] = true;
+    var addressForm = context[object];
+    if (isOrganization) {
+        if (addressForm.school && addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode && postCodeRegex.test(addressForm.postCode)) {
+            if (addressForm.mode === 'update') {
+                context[arr] = [];
+                delete addressForm.mode;
+                context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
+            } else {
+                addressForm.id = uuidV4();
+                addressForm.mode = 'add';
+                context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
+            }
+            $('#' + modal).modal('hide');
+            //context.resetModalValues();
+
+        } else {
+            return;
+        }
+    } else {
+        if (addressForm.addressLine1 && addressForm.city && addressForm.addressLine1 && addressForm.postCode && postCodeRegex.test(addressForm.postCode)) {
+            if (addressForm.mode === 'update') {
+                context[arr] = [];
+                delete addressForm.mode;
+                context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
+            } else {
+                addressForm.id = uuidV4();
+                addressForm.mode = 'add';
+                context[arr].push(addressForm);
+                if (role == 'child') {
+                    context.isAddressFormSubmitted = false;
+                }
+                if (role == 'parent') {
+                    context.isAddressFormParentSubmitted = false;
+                }
+            }
+            $('#' + modal).modal('hide');
+            //context.resetModalValues();
+
+        } else {
+            // context.parentManualAddress = prevParentAddressData;
+            return;
+        }
+    }
+};
+
+//Patching the manual address logic
+function patchManualAddress(context, object, address, arr) {
+    context[arr] = [];
+    var addressForm = context[object];
+    if (address.school) {
+        addressForm.school = address.school;
+    }
+    addressForm.addressLine1 = address.addressLine1;
+    addressForm.addressLine2 = address.addressLine2;
+    addressForm.city = address.city;
+    addressForm.country = address.country;
+    addressForm.postCode = address.postCode;
+    addressForm.id = address.id;
+    addressForm.mode = 'update';
+    context[arr].push(addressForm);
+};
+
 
 //Common Delete Logic for Service and HouseHold Modal
 function deleteLogic(arr, value, context, section) {
@@ -67,6 +155,54 @@ function deleteLogic(arr, value, context, section) {
     });
     context[section].splice(index, 1);
 };
+
+//Common Delete Logic for manual address
+function deleteLogicManualAddress(arr, value, context, section, textId, inputId) {
+    var index;
+    arr.some(function (e, i) {
+        if (e.id == value.id) {
+            index = i;
+            return true;
+        }
+    });
+    context[section].splice(index, 1);
+    document.getElementById(textId).style.pointerEvents = "auto";
+    document.getElementById(textId).style.opacity = 1;
+    document.getElementById(inputId).style.pointerEvents = "auto";
+    document.getElementById(inputId).style.opacity = 1;
+};
+
+//Common Function to convert an array to an object
+function convertArrayToObj(arr) {
+    var obj = arr.reduce(function (acc, cur, i) {
+        acc[i] = cur;
+        return acc;
+    }, {});
+    return obj['0'];
+};
+
+//function toCSV(obj, separator) {
+function dynamicSeparator(obj, separator, isOrganization) {
+    var arr = [];
+    var temp2 = Object.keys(obj).sort();
+
+    for (var i = 0; i < temp2.length; i++) {
+        if (obj[temp2[i]].length) {
+            arr.push(obj[temp2[i]]);
+        }
+    }
+
+    if (isOrganization) {
+        if (arr.indexOf(obj['school']) != -1) {
+            var index = arr.indexOf(obj['school']);
+            arr.splice(index, 1);
+            arr.unshift(obj['school']);
+        }
+
+    }
+
+    return arr.join(separator || ",");
+}
 
 //Common Modal for API error messages
 function showError(content, statusCode) {
@@ -236,6 +372,29 @@ function apiCallPut(reqType, endPoint, payload) {
         });
     return response
 };
+
+//Determine the mobile operating system.
+// This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'
+
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+    }
+
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+
+    return "unknown";
+}
 
 //Function to trim white spaces for an object and array
 function trimObj(obj) {
@@ -424,24 +583,28 @@ $(document).ready(function () {
             });
         }
         // searchable dropdown for  orcha page
-        if(document.getElementById('category_list')) {
+        if (document.getElementById('category_list')) {
             $('#category_list').multiselect({
                 includeSelectAllOption: false,
                 multiple: false,
-                enableFiltering: true ,
+                enableFiltering: true,
                 enableCaseInsensitiveFiltering: true
             });
         }
 
-        if(document.getElementById('countrySelect')) {
+        if (document.getElementById('countrySelect')) {
             $('#countrySelect').multiselect({
                 includeSelectAllOption: false,
                 multiple: false,
-                enableFiltering: true ,
+                enableFiltering: true,
                 enableCaseInsensitiveFiltering: true
             });
         }
-    })
+    });
+    //Setting First Letter capitalize;
+    String.prototype.capitalize = function () {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    };
 })
 
 //window resize function
@@ -478,6 +641,7 @@ function logOut() {
         type: "get",
         dataType: 'json',
         async: false,
+        cache: false,
         contentType: 'application/json',
         success: function (res) {
             $('#logoutModal').modal('hide');

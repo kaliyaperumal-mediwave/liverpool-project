@@ -13,7 +13,7 @@ module.exports = {
     self.refHome = function (req, callback) {
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('referral-home', {
-        headerContent: "Make a referral to Children’s and Young Person’s Liverpool & Sefton Mental Health Services",
+        headerContent: "Make a referral to Children’s and Young Person’s Sefton & Liverpool Mental Health Services",
         headerDescription: '',
         backContent: '',
         home: true,
@@ -23,10 +23,10 @@ module.exports = {
 
     //set session to use in role module to maintain session logout
     self.route('get', 'setSessionRefHome/:fromHome', function (req, res) {
-      console.log("Role index");
-      console.log(req.params.fromHome)
+      //console.log("Role index");
+      //console.log(req.params.fromHome)
       req.session.frm_ref_home = "Y";
-      console.log(req.session.frm_ref_home)
+      //console.log(req.session.frm_ref_home)
       return res.send({data: {success:"true",message:"session ref_home set"}});
     });
   }

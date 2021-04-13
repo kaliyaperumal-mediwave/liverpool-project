@@ -112,7 +112,7 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data.contact_parent);
                     Vue.set(this.elgibilityObj, "isInformation", data.consent_child);
-                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registerd_gp));
+                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
                     $('input[name=role]').attr("disabled", true);
                     //   this.getGP();
                 }
@@ -124,7 +124,7 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data.child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactParent", data[0].contact_parent);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
-                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registerd_gp, roleType));
+                    Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     //  this.getGP();
                 }
@@ -137,7 +137,7 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
-                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registerd_gp, roleType));
+                    Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
                     $('input[name=role]').attr("disabled", true);
                     this.elgibilityObj.submitProfForm = "true";
                     //  this.getProfGP();
@@ -276,7 +276,7 @@ $(document).ready(function () {
                 // console.log("selectTxt");
                 var _self = this;
                 var selectFlag = false;
-                this.elgibilityObj.registerd_gp = {};
+                this.elgibilityObj.registered_gp = {};
                 $(".gpLocation").on("autocompleteselect", function (event, ui) {
                     //    console.log(ui.item.label);
                     if (e.target.value === '') {
@@ -300,7 +300,7 @@ $(document).ready(function () {
             getProfAddress: function (e) {
                 var _self = this;
                 var selectFlag = false;
-                //  this.elgibilityObj.registerd_gp = {};
+                //  this.elgibilityObj.registered_gp = {};
                 $(".gpProfLocation").on("autocompleteselect", function (event, ui) {
                     //   console.log(ui.item.label);
                     if (e.target.value === '') {
@@ -481,7 +481,7 @@ $(document).ready(function () {
             },
 
             save: function () {
-                // this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
+                // this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                 //   this.elgibilityObj.editFlag = this.getUrlVars()["edt"];
                 //  this.elgibilityObj.uuid = this.getUrlVars()["userid"];
                 //  this.elgibilityObj.editFlag = this.getUrlVars()['edt'];
@@ -492,7 +492,7 @@ $(document).ready(function () {
                 console.log(this.elgibilityObj.role);
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
-                    this.elgibilityObj.profRegisterd_gp = this.elgibilityObj.regProfGpTxt;
+                    this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
                     if (this.elgibilityObj.profName && this.elgibilityObj.profContactNumber) {
                         if (nameRegex.test(this.elgibilityObj.profName) && phoneRegex.test(this.elgibilityObj.profContactNumber)) {
                             if (this.elgibilityObj.profEmail) {
@@ -544,11 +544,11 @@ $(document).ready(function () {
                         window.scrollTo(0, 0)
                     }
                 } else if (role === 'parent') {
-                    this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
+                    this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
                 else if (role === 'child') {
-                    this.elgibilityObj.registerd_gp = this.elgibilityObj.regGpTxt;
+                    this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
             },

@@ -6,20 +6,25 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/',self.middleware.checkCommonPageAuth, self.orcha);
-      self.dispatch('/orchahome',self.middleware.checkCommonPageAuth, self.orchaHome);
+      self.dispatch('/details',self.middleware.checkCommonPageAuth, self.orcha);
+      self.dispatch('/',self.middleware.checkCommonPageAuth, self.orchaHome);
     };
     require('../../middleware')(self, options);
 
     self.orcha = function (req, callback) {
+     // console.log(req.session.resUrl)
+     req.data.orchaApps = req.session.orchaApps;
+     //req.data.orchaApps = req.session.orchaApps;
       return self.sendPage(req, self.renderer('orcha', {
         showHeader: true,
         home: true,
         hideRefButton: true,
+        bckBtn:req.session.resUrl
       }));
     };
 
     self.orchaHome = function (req, callback) {
+      req.session.resUrl = "/apps";
       return self.sendPage(req, self.renderer('orchaNew', {
         showHeader: true,
         home: true,

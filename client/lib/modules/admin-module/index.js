@@ -6,12 +6,25 @@ module.exports = {
   },
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
-      self.dispatch('/', self.admin);
+      self.dispatch('/', self.middleware.checkAdminAuth, self.admin);
+      self.dispatch('/archive', self.middleware.checkAdminAuth, self.archive);
+      self.dispatch('/serviceAdmin', self.middleware.checkServiceAdminAuth, self.serviceAdmin);
+    };
+    self.archive = function (req, callback) {
+      return self.sendPage(req, self.renderer('admin-referral-archive', {
+        superAdmin: true,
+      }));
+    };
+    self.serviceAdmin = function (req, callback) {
+      return self.sendPage(req, self.renderer('serviceAdmin', {
+        superAdmin: false,
+      }));
     };
     require('../../middleware')(self, options);
 
     self.admin = function (req, callback) {
       return self.sendPage(req, self.renderer('admin', {
+        superAdmin: true,
       }));
     };
 
@@ -71,6 +84,20 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       })
     });
+
+    self.route('get', 'getArchived', function (req, res) {
+      // console.log('\n\nget referral queries-----------------------------------------\n', req.query, '\n\n');
+       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/getArchived?offset=' + (parseInt(req.query.start)/parseInt(req.query['length']) + 1) +'&limit=' + req.query['length'];
+       if(req.query.search && req.query.search.value) {
+         url += '&searchValue=' + req.query.search.value;
+       }
+       url += '&orderBy=' + req.query.order[0].column + '&orderType=' + req.query.order[0].dir;
+       self.middleware.get(req, url).then((data) => {
+         return res.send(data);
+       }).catch((error) => {
+         return res.status(error.statusCode).send(error.error);
+       });
+     });
 
     self.route('get', 'sendReferral/:refID/:refRole/:selectedProvider/:refCode', function (req, res) {
       console.log("get all referal")

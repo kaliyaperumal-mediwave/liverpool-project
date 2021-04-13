@@ -29,10 +29,15 @@
         </div>
     </div>
     <!-- Loader end -->
-    <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto" v-cloak>
-        <div class="px-4 py-4">
+    <div class="secondary-content-area col-md-9 col-sm-11 col-11 col-lg-6 col-xl-6 mx-auto" v-cloak>
+        <div class="px-4 py-3 py-md-4">
+            <!-- <i class="fa fa-commenting-o px-1" aria-hidden="true"></i> -->
+            <p class="referral-feedback col-md-8 mx-auto text-center m-0 cursor-pointer py-3 py-md-4"
+                data-toggle="modal" data-target="#aa6a4e36-a655-4ebe-b072-2cb4d1a1f642"><u>Send your
+                    feedback</u>
+            </p>
             <div class="col-md-8 col-sm-12 col-12 mx-auto toster-container">
-                <div class="px-2 py-2 mt-md-5 mt-4">
+                <div class="px-2 py-2 mt-md-3 mt-4">
                     <p class="text-center m-0 py-2">
                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                     </p>
@@ -40,18 +45,17 @@
                     <h3 class="completed-toast-header text-center m-0 py-2">{{reference_code}}</h3>
                 </div>
             </div>
-            <p v-if="loginFlag=='true'" class="completed-toast-text col-md-8 mx-auto text-left m-0 py-2">We have sent
+            <p v-if="loginFlag=='true'" class="referral-feedback col-md-8 mx-auto text-center m-0 py-2">We have sent
                 you a confirmation email.
             </p>
         </div>
 
+
         <div v-if="showSignUpForm" class="py-4">
-            <div class="px-4 py-2 col-md-8 col-sm-12 col-12 mx-auto">
+            <div class="px-1 px-sm-2 py-2 col-md-10 col-sm-12 col-12 mx-auto">
                 <div class="py-3">
-                    <h2 class="home-header-secondary  pb-3">Would you like to create an account as this will allow you
-                        to
-                        fully
-                        view your referral in the future?</h2>
+                    <h2 class="home-header-secondary  pb-3">Create an account for easy access to your referral
+                        information</h2>
                     <h2 class="home-header-secondary">Setting up your password</h2>
                     <span class="content-text ">Choose a password to create an account</span>
                 </div>
@@ -155,7 +159,7 @@
 
                 <div class="py-4 text-center mb-2 mb-md-3">
                     <button type="button" @click="noLoginSignUp()"
-                        class="btn px-md-4 py-2 py-md-1 px-3 col-md-8 col-lg-10 col-xl-10 col-sm-9 col-9">
+                        class="btn px-md-4 py-2 py-md-1 px-1 px-sm-3 col-md-8 col-lg-10 col-xl-10 col-sm-9 col-9">
                         <span class="btn-quaternary-text">CREATE ACCOUNT
                         </span>
                     </button>
@@ -165,7 +169,7 @@
         </div>
 
 
-        <div class="px-4 py-2 col-md-8 col-sm-12 col-12 mx-auto">
+        <div class="px-1 px-sm-2 py-2 py-md-4 col-md-10 col-sm-12 col-12 mx-auto">
             <h2 class="my-2 question-header-font">
                 What next?</h2>
             <p class="py-2 content-text">
@@ -199,6 +203,124 @@
             </div>
         </div>
         <!-- SignUp Success Modal End -->
+
+        <!-- Referral Feedback Modal Start -->
+        <div class="modal fade" id="aa6a4e36-a655-4ebe-b072-2cb4d1a1f642" tabindex="-1" role="dialog"
+            aria-labelledby="feedBackLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content modal-bg">
+                    <div class="modal-header pt-4 pb-0 justify-content-center">
+                        <h5 class="completed-toast-text" id="houseHoldLabel">Feedback</h5>
+                        <span aria-hidden="true" class="modal-close" data-dismiss="modal" @click="closeModal()"
+                            aria-label="Close">
+                            <i class="fal fa-times fa-2x cursor-pointer"></i>
+                        </span>
+                    </div>
+                    <div class="modal-body px-2 px-md-4 py-2">
+                        <div class="d-flex text-center py-md-4 py-xl-3 py-lg-3 py-2">
+                            <div
+                                class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 py-2 py-md-4 mx-auto home-primary-content-bg">
+                                <h3 class="referral-feedback m-0 py-2 px-2 text-left">
+                                    How satisfied are you with the referral process?
+                                </h3>
+                                <fieldset id="feedBackStars" class="rating m-0 float-left">
+                                    <input v-model="refFeedbackData.ratings" type="radio" id="5star" name="rating"
+                                        value="5" />
+                                    <label class="full m-0" for="5star"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="4halfstar" name="rating"
+                                        value="4.5" />
+                                    <label class="half" for="4halfstar"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="4star" name="rating"
+                                        value="4" />
+                                    <label class="full m-0" for="4star"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="3halfstar" name="rating"
+                                        value="3.5" />
+                                    <label class="half" for="3halfstar"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="3star" name="rating"
+                                        value="3" />
+                                    <label class="full m-0" for="3star"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="2halfstar" name="rating"
+                                        value="2.5" />
+                                    <label class="half" for="2halfstar"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="2star" name="rating"
+                                        value="2" />
+                                    <label class="full m-0" for="2star"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="1halfstar" name="rating"
+                                        value="1.5" />
+                                    <label class="half" for="1halfstar"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="1star" name="rating"
+                                        value="1" />
+                                    <label class="full m-0" for="1star"></label>
+
+                                    <input type="radio" v-model="refFeedbackData.ratings" id="halfstar" name="rating"
+                                        value="0.5" />
+                                    <label class="half" for="halfstar"></label>
+                                </fieldset>
+                                <div class="invalid-feedback d-none m-0 float-left text-left px-2"
+                                    v-bind:class="{ 'd-block':(isFeedBackFormSubmitted && !refFeedbackData.ratings),'invalid-fields':!refFeedbackData.ratings }">
+                                    You must provide rating.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex text-center py-md-4 py-xl-3 py-lg-3 py-2">
+                            <div
+                                class="col-md-11 col-lg-11 col-xl-12 col-12 px-2 py-2 py-md-4 mx-auto home-primary-content-bg">
+                                <div class="form-group text-left px-1 px-md-3">
+                                    <label for="feedback" class="referral-feedback m-0 py-2 px-2 text-left">Is there any
+                                        other feedback you would like to provide? - <b>optional</b></label>
+                                    <textarea class="h-100 p-4 form-control my-1 my-md-3 input-bg-form-control"
+                                        id="feedback" v-model="refFeedbackData.comments"
+                                        @input="trimWhiteSpace($event,'refFeedbackData','comments')"
+                                        placeholder="You can submit your feedback here" rows="4"></textarea>
+                                    <!-- <div class="invalid-feedback m-0 d-none float-left text-left px-2 py-1"
+                                        v-bind:class="{ 'd-block':(isFeedBackFormSubmitted && !refFeedbackData.comments),'invalid-fields':!refFeedbackData.comments }">
+                                        You must provide comment.
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn px-md-4 w-50" id="closeModalRaj"
+                                @click="sendReferralFeedback()">
+                                <span class="btn-modal-text">SUBMIT
+                                </span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Referral Feedback Modal End -->
+
+        <!-- Change Password Succuss Modal Start -->
+        <div class="modal fade" id="refFeedbackSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            role="dialog" aria-labelledby="refFeedbackSuccessLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content modal-bg login-safe-pd">
+                    <span aria-hidden="true" class="modal-close" data-dismiss="modal">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                    <div class="modal-header justify-content-center model-text-pd text">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <h5 class="logout-font mt-3 text-center"> {{ feedbackMessage }} </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Change Email Succuss Modal End -->
+
     </div>
     {% endraw %}
 </div>

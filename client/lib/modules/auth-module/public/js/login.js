@@ -16,13 +16,16 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
+            this.resetForm();
             $('#loader').show();
         },
 
         mounted: function () {
-            console.log(document.getElementById('sessionExp').innerHTML)
-            if(document.getElementById('sessionExp').innerHTML=="true")
-            {
+            //console.log(document.getElementById('sessionExp').innerHTML)
+            var loginButton = document.getElementById('secondary');
+            loginButton.removeAttribute('disabled');
+            loginButton.style.opacity = 1;
+            if (document.getElementById('sessionExp').innerHTML == "true") {
                 $.ajax({
                     url: API_URI + "/setSessionExpFalse/false",
                     type: 'get',
@@ -33,7 +36,7 @@ $(document).ready(function () {
                         showError('Session expired');
                     },
                     error: function (error) {
-                        console.log(error)
+                        // console.log(error)
                         showError(error.responseJSON.message, error.status);
                     }
                 })
@@ -49,21 +52,43 @@ $(document).ready(function () {
         methods: {
 
             submitLogin: function () {
+                document.getElementById('secondary').setAttribute('disabled', true);
+                document.getElementById('secondary').style.opacity = 0.5;
                 var formData = this.loginObject;
                 this.isFormSubmitted = true;
                 if ((formData.email && formData.password && this.emailRegex.test(formData.email) && this.passwordRegex.test(formData.password))) {
                     $('#loader').show();
                     var successData = apiCallPost('post', '/doLogin', formData);
+
                     if (successData && Object.keys(successData)) {
                         // this.resetForm(this, "loginObject");
-                        this.resetForm();
                         this.tokenVariable = successData;
                         $('#loader').hide();
-                        $('#logInSuccess').modal('show');
+                        if (successData.data.sendUserResult.role === 'admin' || successData.data.sendUserResult.role === 'service_admin') {
+                            localStorage.setItem('theme', 'light');
+                            if (successData.data.sendUserResult.role === 'admin') {
+                                location.href = "/admin";
+                            } else {
+                                location.href = "/admin/serviceAdmin";
+                            }
+                            return false;
+                        }
+                        if (successData.data.sendUserResult.role === 'service_admin') {
+                            localStorage.setItem('theme', 'light');
+                            console.log('Logging in as admin...........');
+                            location.href = "/admin";
+                            return false;
+                        }
+                        location.href = "/dashboard";
+                        // $('#logInSuccess').modal('show');
                     } else {
+                        document.getElementById('secondary').style.opacity = 1;
+                        document.getElementById('secondary').removeAttribute('disabled');
                         $('#loader').hide();
                     }
                 } else {
+                    document.getElementById('secondary').style.opacity = 1;
+                    document.getElementById('secondary').removeAttribute('disabled');
                     return false;
                 }
             },
@@ -90,10 +115,10 @@ $(document).ready(function () {
                 this.loginObject.password = '';
             },
 
-            gotoDashboard: function (token) {
-                $('#logInSuccess').modal('hide');
-                location.href = "/dashboard";
-            }
+            // gotoDashboard: function (token) {
+            //     $('#logInSuccess').modal('hide');
+            //     location.href = "/dashboard";
+            // }
 
         }
     })

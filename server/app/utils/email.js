@@ -10,13 +10,23 @@ const logger = require('../logger');
 const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
-let Transport;
-
-Transport = nodemailer.createTransport(
-    nodemailerSendgrid({
-        apiKey: config.sendgrid_api_key
-    })
-);
+// let Transport;
+// Sndgrid disabled on SMTP requirement
+// Transport = nodemailer.createTransport(
+//     nodemailerSendgrid({
+//         apiKey: config.sendgrid_api_key
+//     })
+// );
+const Transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    secure: process.env.EMAIL_SECURE, // use TLS
+    ignoreTLS: true,
+    auth: {
+        user: process.env.EMAIL_AUTH_USERNAME,
+        pass: process.env.EMAIL_AUTH_PASSWORD
+    }
+});
 
 exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
     try {
@@ -117,6 +127,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
             }
         });
     } catch (e) {
+        console.log(e)
         return resolve(ctx.res.internalServerError({
             data: 'Failed to sent feedback mail',
         }));
@@ -167,7 +178,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         {
             toAddress = config.ypas_email
         }
-        else if (ctx.request.body.emailToProvider == "Venus")
+        else if (ctx.request.body.emailToProvider == "Venus") 
         {
             toAddress = config.venus_email
         }
@@ -186,7 +197,6 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         });
 
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
-            console.log(sendReferralStatus)
             if (sendReferralStatus) {
                 const data = {
                     from: config.email_from_address,
@@ -222,7 +232,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
-        console.log(e);
+        //console.log(e);
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 

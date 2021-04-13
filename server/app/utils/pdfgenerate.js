@@ -7,12 +7,11 @@ const config = require('../config');
 exports.generatePdf = async ctx => new Promise((resolve, reject) => {
     var template;
     try {
-        console.log(ctx.request.body.referralData)
-        if(ctx.request.body.referralData.role == "Child")
+        if(ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child")
         {
              template = fs.readFileSync(path.join(`${__dirname}/./templates/child_referralSendTemplate.html`), 'utf8');
         }
-        else if(ctx.request.body.referralData.role == "Parent")
+        else if(ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent")
         {
             template = fs.readFileSync(path.join(`${__dirname}/./templates/parent_referralSendTemplate.html`), 'utf8');
         }
@@ -34,7 +33,7 @@ exports.generatePdf = async ctx => new Promise((resolve, reject) => {
               },
             border: {
                 "top": "1in",            // default is 0, units: mm, cm, in, px
-                "bottom": "1in",
+                "bottom": "0.5in",
               },
         };
         pdf.create(htmlTemplate, opt).toBuffer(function (err, buffer) {

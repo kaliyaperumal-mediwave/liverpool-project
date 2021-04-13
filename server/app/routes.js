@@ -56,16 +56,20 @@ router.post('/user/resetPassword', authController.resetPassword);
 router.post('/user/resetEmail', authController.resetEmail);
 router.get('/user/resetPassword/verifyToken', authController.verifyPasswordToken);
 router.post('/user/feedback', validateToken, authController.sendFeedback);
+router.post('/user/refFeedback', validateToken, authController.sendReferralFeedback);
 
-router.get('/admin/referral', adminController.getReferral);
+
+router.get('/admin/referral', validateToken, adminController.getReferral);
 router.put('/admin/referral', adminController.updateReferral);
 router.get('/admin/getAllreferral', adminController.getAllReferral);
 router.get('/admin/downloadReferral', adminController.downloadReferral);
 router.get('/admin/sendReferral', adminController.sendReferral);
+router.get('/admin/getArchived', adminController.getArchived);
+
 
 //orcha
-router.post('/orcha/getAllApps',auth.checkOrchaToken, orchaController.getAllApps);
-router.get('/orcha/getApp/',auth.checkOrchaToken, orchaController.getApp);
-router.get('/orcha/getFilterData/',auth.checkOrchaToken, orchaController.getFilterDropDwnData);
-router.post('/orcha/getSearchData/',auth.checkOrchaToken, orchaController.getSearchData);
+router.post('/orcha/getAllApps', auth.checkOrchaToken, orchaController.getAllApps);
+router.get('/orcha/getApp/', auth.checkOrchaToken, orchaController.getApp);
+router.get('/orcha/getFilterData/', auth.checkOrchaToken, orchaController.getFilterDropDwnData);
+router.post('/orcha/getSearchData/', auth.checkOrchaToken, orchaController.getSearchData);
 module.exports = router;

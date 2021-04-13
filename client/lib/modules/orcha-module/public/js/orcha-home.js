@@ -78,7 +78,17 @@ $(document).ready(function () {
                 this.checkBoxTest = null;
                 // document.getElementById('clearFilterButton').setAttribute('disabled', true);
                 var emptyPayload = {};
-                this.payloadData = {};
+                var payloadData = {
+                    subCategory: '',
+                    country: [],
+                    capabilities: [],
+                    designedFor: [],
+                    cost: [],
+                    platform: '',
+                    pageNum: undefined
+                };
+                document.getElementById('clearFilterButton').setAttribute('disabled', true);
+                this.payloadData = payloadData;
                 this.getOrchaAppsData(emptyPayload);
             },
 
@@ -110,11 +120,13 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = e.id;
                 }
+                document.getElementById('clearFilterButton').removeAttribute('disabled');
                 this.payloadData.pageNum = undefined;
                 this.getOrchaAppsData(this.payloadData)
             },
 
             getOrchaAppsData: function (payload) {
+                $('#orchaLoader').show();
                 var successData = apiCallPost('post', '/getSearchData/', payload);
                 if (successData && Object.keys(successData)) {
                     if (successData.data.result.items.length) {
@@ -168,12 +180,19 @@ $(document).ready(function () {
                 if (type == 'platform') {
                     this.payloadData.platform = '';
                 }
+                if (!this.payloadData.subCategory && !this.payloadData.country.length && !this.payloadData.capabilities.length && !this.payloadData.designedFor.length &&
+                    !this.payloadData.cost.length && !this.payloadData.platform) {
+                    document.getElementById('clearFilterButton').setAttribute('disabled', true);
+                } else {
+                    document.getElementById('clearFilterButton').removeAttribute('disabled');
+                }
+                this.payloadData.pageNum = "";
                 this.getOrchaAppsData(this.payloadData)
 
             },
 
             handleError: function (e) {
-                e.target.src = "/modules/my-apostrophe-assets/img/noimg.svg";
+                e.target.src = "/modules/my-apostrophe-assets/img/no-img.svg";
                 e.target.style.height = 50;
                 e.target.style.width = 50;
             },

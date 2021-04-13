@@ -8,6 +8,7 @@
     <style>
         .labelTitle {
             font-size: 14px;
+            /* text-transform: capitalize; */
         }
 
         .text-container {
@@ -22,8 +23,8 @@
         }
 
         .duplicate_text {
-            background: #e8edee 0% 0% no-repeat padding-box !important;
-            color: #8f979e !important;
+            /* background: #e8edee 0% 0% no-repeat padding-box !important; */
+            /* color: #8f979e !important; */
             font-size: 14px;
             padding: .375rem .75rem;
             font-weight: 400;
@@ -32,11 +33,12 @@
             width: 200px;
             align-items: center;
             word-break: break-word;
+            margin-top: -4px;
         }
 
         .input-text {
-            background: #e8edee 0% 0% no-repeat padding-box !important;
-            color: #8f979e !important;
+            /* background: #e8edee 0% 0% no-repeat padding-box !important; */
+            /* color: #8f979e !important; */
             font-size: 16px;
             padding: .375rem .75rem;
             font-weight: 400;
@@ -48,6 +50,10 @@
             border: none !important;
             height: 36px !important;
         }
+
+        .empty {
+            margin: 10px;
+        }
     </style>
 </head>
 
@@ -58,67 +64,83 @@
         <div>
             <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
                 Eligibility</h5>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        I am a:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.role %>
+                    </div>
+                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Interpreter needed:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.need_interpreter %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Child's D.O.B:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.child_dob %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Consent given:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.consent_child %>
+                    </div>
+                </div>
+            </div>
+            <label class="empty">
+            </label>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        GP:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section1.registered_gp %>
+                    </div>
+                </div>
+            </div>
+            <% if(body.section1.gp_school!='' ){ %>
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
-                            I am a:
+                            Child school:
                         </label>
                     </div>
                     <div class="label-set">
                         <div class="duplicate_text">
-                            <%= body.role %>
-                        </div>
-                        <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
-                    </div>
-                </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Interpreter needed:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section1.need_interpreter %>
+                            <%= body.section1.gp_school %>
                         </div>
                     </div>
                 </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Child's D.O.B:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.child_dob %>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Consent given:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section1.consent_child %>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            GP:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section1.registerd_gp %>
-                        </div>
-                    </div>
-                </div>
+                <% } %>
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         <div>
@@ -127,12 +149,24 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        NHS Number:
+                        NHS number:
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
                         <%= body.section2.child_NHS %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        Title:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section2.child_name_title %>
                     </div>
                 </div>
             </div>
@@ -151,7 +185,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        last name:
+                        Last name:
                     </label>
                 </div>
                 <div class="label-set">
@@ -175,12 +209,12 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Contact Number:
+                        Contact number:
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section2.child_contact_number %>
+                        <%= body.section2.child_contact_type %> - <%= body.section2.child_contact_number %>
                     </div>
                 </div>
             </div>
@@ -223,6 +257,18 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
+                        Sex at birth:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section2.sex_at_birth %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
                         Identifies with gender of birth:
                     </label>
                 </div>
@@ -259,7 +305,7 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        cares for an adult:
+                        Cares for an adult:
                     </label>
                 </div>
                 <div class="label-set">
@@ -268,6 +314,23 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section2.household_member.length>0 ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Household member:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%  for (i = 0; i < body.section2.household_member.length; i++){ %>
+                            <%= body.section2.household_member[i].name %> <%= body.section2.household_member[i].lastName %>
+                            <br>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -300,7 +363,7 @@
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section2.parential_responsibility %>
+                        <%= body.section2.parental_responsibility %>
                     </div>
                 </div>
             </div>
@@ -319,12 +382,12 @@
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Parent contact Number
+                        Parent contact number
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section2.parent_contact_number %>
+                        <%= body.section2.parent_contact_type %> - <%= body.section2.parent_contact_number %>
                     </div>
                 </div>
             </div>
@@ -352,10 +415,24 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section2.parent_address!=''){ %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        the child's legal care status:
+                        Parent address:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section2.parent_address %>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        The child's legal care status:
                     </label>
                 </div>
                 <div class="label-set">
@@ -379,6 +456,18 @@
                 <div class="label-set">
                     <div class="duplicate_text">
                         <%= body.section3.child_profession %>
+                    </div>
+                </div>
+            </div>
+            <div class="text-container">
+                <div class="label-set">
+                    <label class="labelTitle">
+                        School/college:
+                    </label>
+                </div>
+                <div class="label-set">
+                    <div class="duplicate_text">
+                        <%= body.section3.child_education_place %>
                     </div>
                 </div>
             </div>
@@ -418,11 +507,11 @@
                     </div>
                 </div>
             </div>
-            <% if(body.section3.child_socialworker=='yes') {%>
+            <% if(body.section3.child_socialworker=='yes' ) {%>
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
-                            Social Worker first name:
+                            Social worker first name:
                         </label>
                     </div>
                     <div class="label-set">
@@ -434,7 +523,7 @@
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
-                            Social Worker last name:
+                            Social worker last name:
                         </label>
                     </div>
                     <div class="label-set">
@@ -446,12 +535,13 @@
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
-                            Social Worker number:
+                            Social worker number:
                         </label>
                     </div>
                     <div class="label-set">
                         <div class="duplicate_text">
-                            <%= body.section3.child_socialworker_contact %>
+                            <%= body.section3.child_socialworker_contact_type %> - <%=
+                                    body.section3.child_socialworker_contact %>
                         </div>
                     </div>
                 </div>
@@ -473,92 +563,196 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section1.contact_parent_camhs!='' && body.section1.reason_contact_parent_camhs!='' ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Covid related?
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section4.is_covid %>
+                        </div>
+                    </div>
+                </div>
+                <%}else {%>
+                    <div class="text-container">
+                        <div class="label-set">
+                            <label class="labelTitle">
+                                Covid related?
+                            </label>
+                        </div>
+                        <div class="label-set">
+                            <div class="duplicate_text">
+                                <%= body.section4.is_covid %>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
+
+                        <div class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Main eating disorder difficultie:
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.eating_disorder_difficulties %>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="padding-top: 15px" class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Food/fluid intake
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.food_fluid_intake %>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div style="padding-top: 15px" class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Height
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.height %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="padding-top: 15px" class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Weight
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.weight %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="padding-top: 15px" class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Main reason for making referral
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.reason_for_referral %>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Info about issue:
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.referral_issues %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Has anything helped?
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.has_anything_helped %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Triggers:
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.any_particular_trigger %>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-container">
+                            <div class="label-set">
+                                <label class="labelTitle">
+                                    Disabilities / difficulties:
+                                </label>
+                            </div>
+                            <div class="label-set">
+                                <div class="duplicate_text">
+                                    <%= body.section4.disabilities %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <% if(body.section4.section4LocalService!=undefined) { %>
+                            <div class="text-container">
+                                <div class="label-set">
+                                    <label class="labelTitle">
+                                        Accessed services:
+                                    </label>
+                                </div>
+                                <div class="label-set">
+                                    <div class="duplicate_text">
+                                        <%= body.section4LocalService %>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+
+                                <div style="border-top: 1px solid #b4b8ba;margin:24px 0px 0px 0px"></div>
+        </div>
+        <div>
+            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+                Contact Details</h5>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Covid related?
+                        Contact person:
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section4.is_covid %>
+                        <%= body.section2.contact_person %>
                     </div>
                 </div>
             </div>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
-                        Main reason for making referral
+                        Contact through:
                     </label>
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
-                        <%= body.section4.reason_for_referral %>
+                        <%= body.section2.contact_preferences %>
                     </div>
                 </div>
             </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Info about issue:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section4.referral_issues %>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div style="padding-top: 20px;" class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Has anything helped?
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section4.has_anything_helped %>
-                    </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Triggers:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section4.any_particular_trigger %>
-                    </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Disabilities / difficulties:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section4.disabilities %>
-                    </div>
-                </div>
-            </div>
-            <div class="text-container">
-                <div class="label-set">
-                    <label class="labelTitle">
-                        Accessed services:
-                    </label>
-                </div>
-                <div class="label-set">
-                    <div class="duplicate_text">
-                        <%= body.section4LocalService %>
-                    </div>
-                </div>
-            </div>
-            <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
         </div>
     </div>
 </body>
