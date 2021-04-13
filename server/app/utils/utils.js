@@ -23,8 +23,6 @@ module.exports = {
           },
           attributes: ['email', 'session_token','session_token_expiry', 'service_type', 'user_role']
         }).then(async (userResult) => {
-
-          console.log('userResult--------------', userResult);
             if(userResult.session_token!=null && userResult.session_token==token){
               if(userResult.user_role === 'service_admin'){
                 let resultWithServiceType = {...result};
