@@ -14,7 +14,8 @@ $(document).ready(function () {
             dataSet: [],
             successMessage: '',
             draw: 1,
-            searchRefObj: {}
+            searchRefObj: {},
+            SelectedProviderType: 'Liverpool'
         },
 
         beforeMount: function () {
@@ -182,6 +183,10 @@ $(document).ready(function () {
         vueApp.selectcheck(e.target.checked, e.target.id);
     });
 
+    $(document).on('change', '.reload', function () {
+        console.log('Datatables reload');
+        vueApp.fetchReferral();
+    });
 });
 
 function viewPdf(uuid, role) {
@@ -219,20 +224,21 @@ function toArrayBuffer(buf) {
 }
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
-    console.log(referral_provider)
-    if (referral_provider != "Pending") {
-        $('#referralAlreadySent').modal('show');
-        document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
-    } else {
+    // console.log(referral_provider)
+    // if (referral_provider != "Pending") {
+    //     $('#referralAlreadySent').modal('show');
+    //     document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
+    // } else {
         $('#sendProviderModal').modal('show');
         document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
-    }
+    // }
 }
 
 function sendPdf(uuid, role, refCode) {
     var selectedProvider = document.getElementById('SelectedProvider').value;
     var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
+        $('.reload').trigger('click');
         $('#sendProviderModal').modal('hide');
         $('#mailSentSuccess').modal('show');
     }
