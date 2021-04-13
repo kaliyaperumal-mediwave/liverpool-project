@@ -1277,10 +1277,10 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_contact),
+                                            <!-- <small class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isSection3Submitted && !section3Data.child_socialworker_contact),
                                                 'invalid-fields':!section3Data.child_socialworker_contact }">
                                                 You must provide a number.
-                                            </small>
+                                            </small> -->
                                             <small class="invalid-feedback d-none"
                                                 v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && !phoneRegex.test(section3Data.child_socialworker_contact)),
                                                 'invalid-fields':(section3Data.child_socialworker_contact && !phoneRegex.test(section3Data.child_socialworker_contact)) }">
