@@ -547,12 +547,12 @@ exports.downloadReferral = async ctx => {
 }
 
 exports.sendReferral = async ctx => {
-    ////console.log("ctx.request.body.referralData");
+    console.log("ctx.request.body.referralData",ctx.query.refID+ ',' +ctx.query.refRole);
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-    console.log("referralData", ctx.request.body.referralData);
+   // console.log("referralData", ctx.request.body.referralData);
     // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
     // console.log("refCode",ctx.request.body.refCode);
     try {

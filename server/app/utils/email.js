@@ -10,23 +10,23 @@ const logger = require('../logger');
 const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
-// let Transport;
-// Sndgrid disabled on SMTP requirement
-// Transport = nodemailer.createTransport(
-//     nodemailerSendgrid({
-//         apiKey: config.sendgrid_api_key
-//     })
-// );
-const Transport = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
-    secure: process.env.EMAIL_SECURE, // use TLS
-    ignoreTLS: true,
-    auth: {
-        user: process.env.EMAIL_AUTH_USERNAME,
-        pass: process.env.EMAIL_AUTH_PASSWORD
-    }
-});
+let Transport;
+//Sndgrid disabled on SMTP requirement
+Transport = nodemailer.createTransport(
+    nodemailerSendgrid({
+        apiKey: config.sendgrid_api_key
+    })
+);
+// const Transport = nodemailer.createTransport({
+//     host: process.env.EMAIL_HOST,
+//     port: process.env.EMAIL_PORT,
+//     secure: process.env.EMAIL_SECURE, // use TLS
+//     ignoreTLS: true,
+//     auth: {
+//         user: process.env.EMAIL_AUTH_USERNAME,
+//         pass: process.env.EMAIL_AUTH_PASSWORD
+//     }
+// });
 
 exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
     try {
@@ -173,7 +173,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
     try {
-        console.log( ctx.request.body.emailToProvider)
+        console.log("fdafas"+ ctx.request.body.emailToProvider)
         if(ctx.request.body.emailToProvider == "YPAS")
         {
             toAddress = config.ypas_email
