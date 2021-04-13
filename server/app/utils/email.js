@@ -10,7 +10,7 @@ const logger = require('../logger');
 const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
-let Transport;
+// let Transport;
 // Sndgrid disabled on SMTP requirement
 // Transport = nodemailer.createTransport(
 //     nodemailerSendgrid({

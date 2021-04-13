@@ -554,6 +554,18 @@ div.dataTables_wrapper div.dataTables_paginate {
 #adminReferral_wrapper {
   overflow: auto; }
 
+div.dt-buttons {
+  display: none; }
+
+.tableCheckbox {
+  display: none; }
+
+table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+  border: 1px solid #8e8e8e; }
+
+table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+  margin-top: 0px; }
+
 .middleContainer:after {
   content: "";
   display: block; }
