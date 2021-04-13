@@ -2184,6 +2184,7 @@ a {
       .question-font h2 {
         font-size: 20px; } }
   .question-font p {
+    margin-bottom: 0px;
     font-size: 22px;
     font-weight: normal;
     color: #023047; }
@@ -5001,4 +5002,4 @@ div.collapse-container.collapsing {
   color: #252728; }
 
 .capitalize-first-letter::first-letter {
-  text-transform: uppercase i !important; }
+  text-transform: uppercase !important; }
