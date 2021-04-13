@@ -11,7 +11,11 @@ const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
 let Transport;
+<<<<<<< HEAD
 // Sndgrid disabled on SMTP requirement
+=======
+//Sndgrid disabled on SMTP requirement
+>>>>>>> dev
 Transport = nodemailer.createTransport(
     nodemailerSendgrid({
         apiKey: config.sendgrid_api_key
@@ -173,7 +177,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
     try {
-        console.log( ctx.request.body.emailToProvider)
+        console.log("fdafas"+ ctx.request.body.emailToProvider)
         if(ctx.request.body.emailToProvider == "YPAS")
         {
             toAddress = config.ypas_email
