@@ -1,5 +1,6 @@
 var API_URI = "/modules/admin-module";
 $(document).ready(function () {
+  
   $('#uniqueLogo').hide();
   $('#footer-placement').hide()
   var vueApp = new Vue({
@@ -47,18 +48,6 @@ $(document).ready(function () {
 
       fetchReferral: function () {
         var _self = this;
-        
-        // $('#adminReferral tbody').on( 'click', 'tr', function () {
-        //   var newIndex = table.row(this).index();
-        //   var selectedIndex = $('#selectedRow').val();
-        //   alert(selectedIndex);
-        //   // if (selectedIndex == newIndex) {
-        //   //     $('#selectedRow').val('');
-        //   // }
-        //   // else {
-        //   //     $('#selectedRow').val(newIndex);
-        //   // }
-        // });
 
         $('th').on("click", function (event) {
           if($(event.target).is("div"))
@@ -67,19 +56,16 @@ $(document).ready(function () {
 
         var table = $('#adminReferral').DataTable({
           dom: 'lBfrtip',
-          select: {
-            style: 'multi',
-            selector: 'td:first-child'
-          },
+          select: true,
           destroy: true,
           processing: false,
           serverSide: true,
+          select: {
+            style: 'multi',
+            selector: 'td:first-child .idcheck'
+          },
           columnDefs: [
-            {
-              orderable: false,
-              className: 'select-checkbox',
-              targets: 0
-            },
+            { targets: 0, orderable: false },
             { targets: 1, orderable: true },
             { targets: 2, orderable: true, type: 'date-uk' },
             { targets: 4, orderable: true },
@@ -89,7 +75,7 @@ $(document).ready(function () {
             { targets: 8, orderable: true },
             { targets: 9, orderable: false },
           ],
-          lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],
+          lengthMenu: [[50, 100, 250, -1], [50, 100, 250, "All"]],
           order: [[7, 'desc']],
           language: {
             searchPlaceholder: 'Search referral',
@@ -97,7 +83,13 @@ $(document).ready(function () {
             zeroRecords: 'No matching referrals found'
           },
           buttons: [
-            { extend: 'csv', text: 'Export as CSV' }
+            { extend: 'csv',
+              text: 'Export as CSV', 
+              title: 'Referrals Data export',
+              exportOptions: {
+                columns: [ 1, 2, 3, 4, 5 , 6, 7, 8 ]
+              }
+            }
           ],
           ajax: {
             url: '/modules/admin-module/referral',
@@ -116,7 +108,7 @@ $(document).ready(function () {
               _self.draw += 1;
               for (var i = 0; i < referralRes.data.data.length; i++) {
                 json.data.push([
-                  "<input type='checkbox' class='tableCheckbox' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
+                  "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                   referralRes.data.data[i].name,
                   referralRes.data.data[i].dob,
                   referralRes.data.data[i].reference_code,
@@ -125,7 +117,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
                   referralRes.data.data[i].referral_provider != 'Pending'? 'Sent to ' + referralRes.data.data[i].referral_provider : referralRes.data.data[i].referral_provider,
-                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf'>Send</button></div>"
+                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -137,24 +129,6 @@ $(document).ready(function () {
           table.button('.buttons-csv').trigger();
         });
 
-        // $('#adminReferral tbody').on('click', 'td', function () {
-        //   var value = $(this).find('[type=checkbox]').val();
-        //   if ($(this).find('[type=checkbox]').prop('checked') == true) {
-        //     $(this).find('[type=checkbox]').prop('checked', false);
-        //     console.log('False Value', value);
-        //     if (value) {
-        //       $( "#"+value ).trigger( "click" );
-        //     }
-      
-        //   } else {
-        //     $(this).find('[type=checkbox]').prop('checked', true);
-        //     console.log('True Value', value);
-        //     if (value) {
-        //       $( "#"+value ).trigger( "click" );
-        //     }
-        //   }
-        // });
-
         this.referral_ids = [];
         $('#loader').hide();
       },
@@ -165,7 +139,7 @@ $(document).ready(function () {
         } else {
           this.referral_ids.pop(id);
         }
-        console.log('referral_ids', this.referral_ids);
+        // console.log(this.referral_ids);
       },
 
       deleteReferral: function () {
@@ -211,13 +185,17 @@ $(document).ready(function () {
         //console.log()(successData)
       },
 
-      
     },
 
   })
 
-  $(document).on('change', '.tableCheckbox', function (e) {
+  $(document).on('change', '.idcheck', function (e) {
     vueApp.selectcheck(e.target.checked, e.target.id);
+  });
+  
+  $(document).on('change', '.reload', function () {
+      console.log('Datatables reload');
+      vueApp.fetchReferral();
   });
 
 });
@@ -256,29 +234,22 @@ function toArrayBuffer(buf) {
   return ab;
 }
 
-function openSendPopup(uuid, role, refCode, referral_provider) {
-  console.log(referral_provider)
-  // if (referral_provider != "Pending") {
-  //   $('#referralAlreadySent').modal('show');
-  //   document.getElementById('sentMsg').innerHTML = "This referral already " + referral_provider;
-  // } else {
-    $('#sendProviderModal').modal('show');
-    document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
-  // }
-}
-
 function sendPdf(uuid, role, refCode) {
-  
   var selectedProvider = document.getElementById('SelectedProvider').value;
   var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
   if (successData && Object.keys(successData)) {
-    debugger;
+    $('.reload').trigger('click');
     $('#sendProviderModal').modal('hide');
     $('#mailSentSuccess').modal('show');
   }
   else {
     $('#sendProviderModal').modal('hide');
   }
+}
+
+function openSendPopup(uuid, role, refCode, referral_provider) {
+  $('#sendProviderModal').modal('show');
+  document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
 }
 
 function closeAlreadySentPopup() {
