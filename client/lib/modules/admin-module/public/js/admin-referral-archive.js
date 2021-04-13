@@ -53,7 +53,11 @@ $(document).ready(function () {
                         event.stopImmediatePropagation();
                   });
                   
-                $('#example').DataTable({
+                $('#adminReferral').DataTable({
+                    select: {
+                        style: 'multi',
+                        selector: 'td:first-child .idcheck'
+                    },
                     destroy: true,
                     processing: false,
                     serverSide: true,
@@ -96,7 +100,7 @@ $(document).ready(function () {
                             _self.draw += 1;
                             for (var i = 0; i < referralRes.data.data.length; i++) {
                                 json.data.push([
-                                    "<input type='checkbox' class='tableCheckbox' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
+                                    "<input type='checkbox' class='idcheck' id='" + referralRes.data.data[i].uuid + "' name='" + referralRes.data.data[i].uuid + "' value='" + referralRes.data.data[i].uuid + "'>",
                                     referralRes.data.data[i].name,
                                     referralRes.data.data[i].dob,
                                     referralRes.data.data[i].reference_code,
@@ -154,6 +158,7 @@ $(document).ready(function () {
                     var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'completed' });
                     $('#loader').hide();
                     if (successData && Object.keys(successData)) {
+                        this.fetchReferral();
                         this.successMessage = 'Referrals unarchive successfully.';
                         $('#deletedSuccess').modal('show');
                     }
@@ -179,7 +184,7 @@ $(document).ready(function () {
 
     })
 
-    $(document).on('change', '.tableCheckbox', function (e) {
+    $(document).on('change', '.idcheck', function (e) {
         vueApp.selectcheck(e.target.checked, e.target.id);
     });
 

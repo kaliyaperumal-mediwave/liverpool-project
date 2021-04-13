@@ -79,7 +79,7 @@ exports.getReferral = ctx => {
             referrals = JSON.parse(JSON.stringify(referrals));
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            console.log(filteredReferrals);
+            // console.log(filteredReferrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
@@ -556,7 +556,6 @@ exports.sendReferral = async ctx => {
     // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
     // console.log("refCode",ctx.request.body.refCode);
     try {
-        console.log("trye")
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //////console.log()(sendReferralStatus)
             const referralModel = ctx.orm().Referral;
@@ -898,7 +897,7 @@ function getRefData(refID, refRole, ctx) {
                                 status: "ok",
                                 role: refRole
                             }
-                            console.log(responseData)
+                            // console.log(responseData)
                             return responseData;
                         }).catch((error) => {
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)

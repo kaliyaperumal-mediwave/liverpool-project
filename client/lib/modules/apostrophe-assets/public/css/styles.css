@@ -557,9 +557,6 @@ div.dataTables_wrapper div.dataTables_paginate {
 div.dt-buttons {
   display: none; }
 
-.tableCheckbox {
-  display: none; }
-
 table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
   border: 1px solid #8e8e8e; }
 
