@@ -63,6 +63,8 @@ spec:
           value: $PHR_LIVERPOOL_TO_IAPTUS_EMAIL
         - name: OTHER_EMAIL
           value: $PHR_LIVERPOOL_TO_OTHER_EMAIL
+        - name: USE_SENDGRID
+          value: $PHR_LIVERPOOL_USE_SENDGRID
         ports:
         - containerPort: 3001
 ---
