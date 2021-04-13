@@ -7,15 +7,16 @@
     </style>
     <style>
         .labelTitle {
-            font-size: 14px;
-            /* text-transform: capitalize; */
+            font-size: 10px;
+            line-height: 16px;
         }
 
         .text-container {
             display: flex;
             align-items: center;
-            padding: 8px 0px;
+            padding: 2px 0px;
             display: -webkit-flex;
+            page-break-inside: avoid;
         }
 
         .label-set {
@@ -23,9 +24,8 @@
         }
 
         .duplicate_text {
-            /* background: #e8edee 0% 0% no-repeat padding-box !important; */
-            /* color: #8f979e !important; */
-            font-size: 14px;
+
+            font-size: 10px;
             padding: .375rem .75rem;
             font-weight: 400;
             border-radius: 2px !important;
@@ -33,7 +33,7 @@
             width: 200px;
             align-items: center;
             word-break: break-word;
-            margin-top: -4px;
+            line-height: 16px;
         }
 
         .duplicate_text::first-letter {
@@ -41,7 +41,7 @@
         }
 
         .email_text {
-            font-size: 14px;
+            font-size: 10px;
             padding: .375rem .75rem;
             font-weight: 400;
             border-radius: 2px !important;
@@ -49,37 +49,27 @@
             width: 200px;
             align-items: center;
             word-break: break-word;
-            margin-top: -4px;
             text-transform: lowercase !important;
-        }
-
-        .input-text {
-            /* background: #e8edee 0% 0% no-repeat padding-box !important; */
-            /* color: #8f979e !important; */
-            font-size: 16px;
-            padding: .375rem .75rem;
-            font-weight: 400;
-            line-height: 1.5;
-            width: 100%;
-            border-radius: 2px !important;
-            opacity: 1 !important;
-            border-color: white !important;
-            border: none !important;
-            height: 36px !important;
+            line-height: 16px;
         }
 
         .empty {
             margin: 10px;
+        }
+
+        .title_top {
+            font-size: 16px;
+            margin: 0px 0px 14px 0px;
         }
     </style>
 </head>
 
 <body style="font-family: 'Century Gothic', sans-serif !important;">
     <div style="padding: 0px 68px;">
-        <h2>Summary of your referral</h2>
-        <div style="border-top: 2px solid #b4b8ba"></div>
+        <h2 class="title_top">Summary of referral</h2>
+        <div style="border-top: 1px solid #b4b8ba"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Eligibility</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -91,7 +81,6 @@
                     <div class="duplicate_text">
                         <%= body.role %>
                     </div>
-                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
                 </div>
             </div>
             <div class="text-container">
@@ -104,7 +93,6 @@
                     <div class="duplicate_text">
                         <%= body.section1.service_location %>
                     </div>
-                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
                 </div>
             </div>
             <div class="text-container">
@@ -117,7 +105,6 @@
                     <div class="duplicate_text">
                         <%= body.section1.selected_service %>
                     </div>
-                    <!-- <input value = '<%= body.role %>' type="text" class="input-text" id="iamA"> -->
                 </div>
             </div>
             <div class="text-container">
@@ -177,6 +164,7 @@
                 </div>
                 <div class="label-set">
                     <div class="duplicate_text">
+
                         <%= body.section1.professional_address %>
                     </div>
                 </div>
@@ -231,8 +219,6 @@
                     </div>
                 </div>
                 <% } %>
-                    <label class="empty">
-                    </label>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -260,9 +246,9 @@
                         </div>
                         <% } %>
         </div>
-        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 About you</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -560,10 +546,9 @@
                     </div>
 
         </div>
-        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
-        <br>
+        <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Support needs</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -577,7 +562,6 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -614,7 +598,6 @@
                     </div>
                 </div>
             </div>
-            <br>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -667,9 +650,9 @@
                 </div>
                 <% } %>
         </div>
-        <div style="border-top: 1px solid #b4b8ba;margin:24px 0px"></div>
+        <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Your reason for referral</h5>
             <div class="text-container">
                 <div class="label-set">
@@ -725,7 +708,7 @@
                         </div>
 
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Food/fluid intake
@@ -739,7 +722,7 @@
                         </div>
 
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Height
@@ -752,7 +735,7 @@
                             </div>
                         </div>
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Weight
@@ -765,7 +748,7 @@
                             </div>
                         </div>
 
-                        <div style="padding-top: 15px" class="text-container">
+                        <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
                                     Main reason for making referral
@@ -844,10 +827,10 @@
                             </div>
                             <%}%>
 
-                                <div style="border-top: 1px solid #b4b8ba;margin:24px 0px 0px 0px"></div>
+                                <div style="border-top: 1px solid #b4b8ba;margin:10px 0px "></div>
         </div>
         <div>
-            <h5 style="font-size: 16px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 16px 0px;">
+            <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 Contact Details</h5>
             <div class="text-container">
                 <div class="label-set">
