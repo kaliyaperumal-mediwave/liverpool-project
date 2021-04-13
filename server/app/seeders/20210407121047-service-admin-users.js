@@ -64,12 +64,12 @@ module.exports = {
       },
       {
         first_name: 'Service Admin',
-        last_name: 'Alder Hey/Sefton CAMHS',
+        last_name: 'Alder Hey - Sefton CAMHS',
         uuid: uuidv4(),
         email: 'selvakumar+seftoncamhs@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'Alder Hey/Sefton CAMHS',
+        service_type: 'Alder Hey - Sefton CAMHS',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -113,7 +113,7 @@ module.exports = {
         email: 'selvakumar+liverpoolcamhs@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'Alder Hey/Liverpool CAMHS',
+        service_type: 'Alder Hey - Liverpool CAMHS',
         createdAt: new Date(),
         updatedAt: new Date()
       }
