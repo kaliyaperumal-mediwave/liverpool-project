@@ -1081,6 +1081,7 @@ a {
   }
 
   p {
+    margin-bottom: 0px;
     @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
     @include xs-screen {
       font-size: 18px;

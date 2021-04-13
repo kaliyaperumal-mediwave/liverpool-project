@@ -2187,6 +2187,7 @@ a {
       .question-font h2 {
         font-size: 20px; } }
   .question-font p {
+    margin-bottom: 0px;
     font-size: 22px;
     font-weight: normal;
     color: #023047; }
