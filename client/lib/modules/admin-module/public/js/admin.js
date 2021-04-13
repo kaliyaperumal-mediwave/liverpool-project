@@ -48,17 +48,38 @@ $(document).ready(function () {
       fetchReferral: function () {
         var _self = this;
         
+        // $('#adminReferral tbody').on( 'click', 'tr', function () {
+        //   var newIndex = table.row(this).index();
+        //   var selectedIndex = $('#selectedRow').val();
+        //   alert(selectedIndex);
+        //   // if (selectedIndex == newIndex) {
+        //   //     $('#selectedRow').val('');
+        //   // }
+        //   // else {
+        //   //     $('#selectedRow').val(newIndex);
+        //   // }
+        // });
+
         $('th').on("click", function (event) {
           if($(event.target).is("div"))
               event.stopImmediatePropagation();
         });
 
         var table = $('#adminReferral').DataTable({
+          dom: 'lBfrtip',
+          select: {
+            style: 'multi',
+            selector: 'td:first-child'
+          },
           destroy: true,
           processing: false,
           serverSide: true,
           columnDefs: [
-            { targets: 0, orderable: false },
+            {
+              orderable: false,
+              className: 'select-checkbox',
+              targets: 0
+            },
             { targets: 1, orderable: true },
             { targets: 2, orderable: true, type: 'date-uk' },
             { targets: 4, orderable: true },
@@ -68,16 +89,15 @@ $(document).ready(function () {
             { targets: 8, orderable: true },
             { targets: 9, orderable: false },
           ],
-          lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+          lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],
           order: [[7, 'desc']],
           language: {
             searchPlaceholder: 'Search referral',
             emptyTable: 'No referrals to displays',
             zeroRecords: 'No matching referrals found'
           },
-          dom: 'Bfrtip',
           buttons: [
-              'csv'
+            { extend: 'csv', text: 'Export as CSV' }
           ],
           ajax: {
             url: '/modules/admin-module/referral',
@@ -113,6 +133,28 @@ $(document).ready(function () {
           }
         });
 
+        $("#ExportReporttoExcel").on("click", function () {
+          table.button('.buttons-csv').trigger();
+        });
+
+        // $('#adminReferral tbody').on('click', 'td', function () {
+        //   var value = $(this).find('[type=checkbox]').val();
+        //   if ($(this).find('[type=checkbox]').prop('checked') == true) {
+        //     $(this).find('[type=checkbox]').prop('checked', false);
+        //     console.log('False Value', value);
+        //     if (value) {
+        //       $( "#"+value ).trigger( "click" );
+        //     }
+      
+        //   } else {
+        //     $(this).find('[type=checkbox]').prop('checked', true);
+        //     console.log('True Value', value);
+        //     if (value) {
+        //       $( "#"+value ).trigger( "click" );
+        //     }
+        //   }
+        // });
+
         this.referral_ids = [];
         $('#loader').hide();
       },
@@ -123,6 +165,7 @@ $(document).ready(function () {
         } else {
           this.referral_ids.pop(id);
         }
+        console.log('referral_ids', this.referral_ids);
       },
 
       deleteReferral: function () {
@@ -225,9 +268,11 @@ function openSendPopup(uuid, role, refCode, referral_provider) {
 }
 
 function sendPdf(uuid, role, refCode) {
+  
   var selectedProvider = document.getElementById('SelectedProvider').value;
   var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
   if (successData && Object.keys(successData)) {
+    debugger;
     $('#sendProviderModal').modal('hide');
     $('#mailSentSuccess').modal('show');
   }
