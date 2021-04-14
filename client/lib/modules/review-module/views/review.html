@@ -86,10 +86,10 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="serviceLocation">
                                             Service location:
                                         </label>
-                                        <input
-                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.service_location"
-                                            id="serviceLocation">
+                                        <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.service_location" id="serviceLocation">
+                                        </div>
                                     </div>
 
                                     <div v-if="section1Data.service_location!='I do not want to select a service'"
@@ -162,8 +162,9 @@
                                         </label>
                                         <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
                                             <div class="input-group">
-                                                <input class="form-control    input-bg-form-control" type="text"
-                                                    inputmode="email" @keypress="preventWhiteSpaces($event)"
+                                                <input
+                                                    class="form-control capitalize-first-letter input-bg-form-control"
+                                                    type="text" inputmode="email" @keypress="preventWhiteSpaces($event)"
                                                     placeholder="Enter email"
                                                     @input="onDetectChange($event,'sect1','section1Data','professional_email')"
                                                     v-model="section1Data.professional_email" id="profEmailSec5">
@@ -179,21 +180,6 @@
                                             </small>
                                         </div>
                                     </div>
-                                    <!-- <div class="py-3 w-100 mx-0 row align-items-center">
-                                        <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
-                                            Contact type:
-                                        </label>
-                                        <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                            <span class="plain-select">
-                                                <select v-model="section1Data.professional_contact_type"
-                                                    class="custom-select h-50px    input-bg-form-control"
-                                                    @change="onDetectChange($event,'sect2','section2Data','sex_at_birth')">
-                                                    <option selected="selected" value="mobile">Mobile</option>
-                                                    <option value="landline">Landline</option>
-                                                </select>
-                                            </span>
-                                        </div>
-                                    </div> -->
 
                                     <div class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font question-font pr-2 col-12 col-md-4 pl-0"
@@ -242,7 +228,7 @@
                                             Address:
                                         </label>
                                         <textarea
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="section1Data.professional_address"
                                             id="profAddress1Sec5">
                                                 </textarea>
@@ -254,7 +240,7 @@
                                             Address:
                                         </label>
                                         <textarea
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
+                                            class="form-control input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
                                             readonly type="text" v-model="showManualAddressForRole">
                                             </textarea>
                                     </div>
@@ -288,11 +274,12 @@
                                     <label class="question-font col-12 col-md-4 pl-0" for="InterpreterNeed">
                                         Interpreter needed:
                                     </label>
-                                    <input
-                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" data-toggle="popover" data-trigger="focus"
-                                        data-placement="bottom" data-content="My popover content."
-                                        v-model="section1Data.need_interpreter" id="InterpreterNeed">
+                                    <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                        <input class="form-control input-bg-form-control" readonly type="text"
+                                            data-toggle="popover" data-trigger="focus" data-placement="bottom"
+                                            data-content="My popover content." v-model="section1Data.need_interpreter"
+                                            id="InterpreterNeed">
+                                    </div>
                                 </div>
                                 <!-- Interpreter Needed End -->
 
@@ -327,10 +314,10 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenSec5">
                                             Consent given:
                                         </label>
-                                        <input
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.consent_child"
-                                            id="consentGivenSec5">
+                                        <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control " readonly type="text"
+                                                v-model="section1Data.consent_child" id="consentGivenSec5">
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Child and Parent -->
@@ -370,10 +357,10 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenChild">
                                             Consent given by child:
                                         </label>
-                                        <input
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.consent_child"
-                                            id="consentGivenChild">
+                                        <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.consent_child" id="consentGivenChild">
+                                        </div>
                                     </div>
 
                                     <div v-if="ageFlag < 15"
@@ -381,10 +368,10 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="consentGivenPar">
                                             Consent given by parent:
                                         </label>
-                                        <input
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.consent_parent"
-                                            id="consentGivenPar">
+                                        <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.consent_parent" id="consentGivenPar">
+                                        </div>
                                     </div>
 
                                 </div>
@@ -690,8 +677,8 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="genderSect5">
                                         Gender:
                                     </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control    input-bg-form-control" type="text"
+                                    <div class="capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control input-bg-form-control" type="text"
                                             @input="onDetectChange($event,'sect2','section2Data','child_gender')"
                                             placeholder="Enter gender" v-model="section2Data.child_gender"
                                             id="genderSect5">
@@ -866,8 +853,8 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="parResp">
                                         Have parental responsibility:
                                     </label>
-                                    <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
-                                        <input class="form-control    " readonly type="text"
+                                    <div class="col-md-6 capitalize-first-letter col-lg-6 col-xl-5 col-11 px-0">
+                                        <input class="form-control" readonly type="text"
                                             @input="onDetectChange($event,'sect2')"
                                             v-model="section2Data.parental_responsibility" id="parResp">
                                     </div>
@@ -971,9 +958,10 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
                                         Lives in same house:
                                     </label>
-                                    <input
-                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section2Data.parent_same_house">
+                                    <div class="p-0 capitalize-first-letter col-md-6 col-lg-6 col-xl-5 col-11">
+                                        <input class="form-control input-bg-form-control" readonly type="text"
+                                            v-model="section2Data.parent_same_house">
+                                    </div>
                                 </div>
 
                                 <div v-if="section2Data.parent_same_house == 'no' && section2Data.parent_address">
@@ -1180,20 +1168,10 @@
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="isSocialSent5">
                                         Social worker:
                                     </label>
-                                    <input
-                                        class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                        readonly type="text" v-model="section3Data.child_socialworker">
-                                    <!-- <div class="col-md-4 col-12 px-0">
-                                        <select disabled class="custom-select h-50px    input-bg-form-control"
+                                    <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                        <input class="form-control input-bg-form-control" readonly type="text"
                                             v-model="section3Data.child_socialworker">
-                                            <option class='option-text' selected>
-                                                {{section3Data.child_socialworker}}</option>
-                                            <option class='option-text' v-if="section3Data.child_socialworker != 'yes'" value="yes">Yes
-                                            </option>
-                                            <option class='option-text' v-if="section3Data.child_socialworker != 'no'" value="no">no
-                                            </option>
-                                        </select>
-                                    </div> -->
+                                    </div>
                                 </div>
 
                                 <div v-if="section3Data.child_socialworker == 'yes'">

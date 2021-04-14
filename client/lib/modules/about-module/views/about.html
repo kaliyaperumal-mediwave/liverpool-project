@@ -1428,7 +1428,8 @@
                                     <label for="dob" class="question-font">Date of birth -<b>optional</b></label>
                                     <div class="input-group" id="dobAboutCal">
                                         <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
-                                            @dp-show="setCalendarHeight($event)" @dp-change="toggleHouseHoldManualAddress($event)"
+                                            @dp-show="setCalendarHeight($event)"
+                                            @dp-change="toggleHouseHoldManualAddress($event)"
                                             @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
                                             :config="options" :wrap="dateWrap"></date-picker>
                                         <div class="input-group-append cursor-pointer">
@@ -1468,8 +1469,8 @@
                                 <div v-if="showManualAddressHouseHold">
                                     <!-- Household School/College/Employment start-->
                                     <div class="form-group" v-show="getAge(houseHoldData.dob) < 19">
-                                        <label for="school" inputmode="text" class="question-font">Name of school /
-                                            college/ university</label>
+                                        <label for="school" inputmode="text"
+                                            class="question-font">School/College/Employment</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.profession" id="school"
@@ -1587,7 +1588,7 @@
                                                 </span>
                                             </p>
                                             <p class="question-font text-center text-danger m-0 py-2">
-                                                You have missed out a section on this form
+                                                You have missed out a question on this form.
                                             </p>
                                         </div>
                                     </div>
