@@ -1311,6 +1311,8 @@ body {
     height: 112px !important; }
   body .h-300 {
     height: 300px !important; }
+  body .capitalize-first-letter::first-letter {
+    text-transform: uppercase !important; }
   body .font-23 {
     font-size: 20px; }
   body .font-25 {
@@ -5006,5 +5008,5 @@ div.collapse-container.collapsing {
 .customize-table-pagination .page-link:hover {
   color: #252728; }
 
-.capitalize-first-letter::first-letter {
+.capitalize-first-letter-letter::first-letter {
   text-transform: uppercase !important; }

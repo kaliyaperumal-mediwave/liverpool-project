@@ -76,10 +76,6 @@ body {
     width: 100% !important;
   }
 
-  // .badge-warning {
-  //   background-color: $tertiary-color !important;
-  // }
-
   .b-pagination {
     font-family: "century-gothic" !important;
   }
@@ -168,6 +164,10 @@ body {
 
   .h-300 {
     height: 300px !important;
+  }
+
+  .capitalize-first-letter::first-letter {
+    text-transform: uppercase !important;
   }
 
   .font-23 {
@@ -3752,6 +3752,6 @@ div.collapse-container.collapsing {
 .customize-table-pagination .page-link:hover {
   color: #252728;
 }
-.capitalize-first-letter::first-letter {
+.capitalize-first-letter-letter::first-letter {
   text-transform: uppercase !important;
 }
