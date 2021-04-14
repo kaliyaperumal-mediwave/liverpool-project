@@ -291,8 +291,10 @@
                                         <label class="question-font col-12 col-md-4 pl-0" for="parentOrCarerSec5">
                                             Contact parent or carer:
                                         </label>
-                                        <input class="form-control     col-md-6 col-lg-6 col-xl-5 col-11" readonly
-                                            type="text" v-model="section1Data.contact_parent" id="parentOrCarerSec5">
+                                        <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control" readonly type="text"
+                                                v-model="section1Data.contact_parent" id="parentOrCarerSec5">
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Interpreter Needed End -->
@@ -328,10 +330,10 @@
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="canReasonCamhs">
                                             Contact parent or carer:
                                         </label>
-                                        <input
-                                            class="form-control    input-bg-form-control col-md-6 col-lg-6 col-xl-5 col-11"
-                                            readonly type="text" v-model="section1Data.contact_parent_camhs"
-                                            id="canReasonCamhs">
+                                        <div class="capitalize-first-letter p-0 col-md-6 col-lg-6 col-xl-5 col-11">
+                                            <input class="form-control input-bg-form-control" readonly type="text"
+                                                v-model="section1Data.contact_parent_camhs" id="canReasonCamhs">
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Child and Parent -->
