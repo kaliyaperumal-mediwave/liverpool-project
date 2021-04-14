@@ -2275,6 +2275,11 @@ a {
   opacity: 1;
   border-radius: 24px; }
 
+.toster-container-white {
+  background: #fafafa 0% 0% no-repeat padding-box !important;
+  opacity: 1;
+  border-radius: 24px; }
+
 .modal-bg {
   background: #ffb703 0% 0% no-repeat padding-box !important;
   opacity: 1;

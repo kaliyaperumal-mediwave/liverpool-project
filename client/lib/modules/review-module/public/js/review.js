@@ -146,7 +146,7 @@ $(document).ready(function () {
                             var getObj = convertArrayToObj(_self.section3Data.child_education_manual_address);
                             delete getObj.id;
                             delete getObj.mode;
-                            _self.showManualAddress = dynamicSeparator(getObj, ',',true);
+                            _self.showManualAddress = dynamicSeparator(getObj, ',', true);
                             _self.showManualAddress = _self.showManualAddress + '.';
 
                         }
@@ -260,56 +260,6 @@ $(document).ready(function () {
                         return false;
                     }
                 }
-                //  else {
-                //     if (this.contactPref.length && this.selectProvider && this.selectProvider == 'No') {
-                //         this.payloadData.referral_provider = "";
-                //         var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                //         //console.log(successData);
-                //         if (Object.keys(successData)) {
-                //             location.href = "/acknowledge";
-                //             this.isFormSubmitted = false;
-                //         } else {
-                //             //console.log('empty response')
-                //         }
-                //     } else if (this.contactPref.length && this.selectProvider && this.selectProvider == 'Yes') {
-                //         if (this.sendRef && (this.sendRef == 'YPAS' || this.sendRef == 'Venus' || this.sendRef == 'IAPTUS')) {
-                //             this.payloadData.referral_provider = this.sendRef;
-                //             var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                //             if (Object.keys(successData)) {
-                //                 location.href = "/acknowledge";
-                //                 this.isFormSubmitted = false;
-                //             } else {
-                //                 //console.log('empty response')
-                //             }
-
-                //         } else if (this.sendRef && this.sendRef == 'Other') {
-                //             if (this.nameForOthers) {
-                //                 this.payloadData.referral_provider = this.nameForOthers;
-                //                 var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                //                 if (Object.keys(successData)) {
-                //                     location.href = "/acknowledge";
-                //                     this.isFormSubmitted = false;
-                //                 } else {
-                //                     //console.log('empty response')
-                //                 }
-                //             } else {
-                //                 scrollToInvalidInput();
-                //                 return false;
-                //             }
-
-                //         } else {
-                //             scrollToInvalidInput();
-                //             return false;
-                //         }
-
-                //     }
-                //     else {
-                //         scrollToInvalidInput();
-                //         return false;
-                //     }
-
-                // }
-
             },
 
             changeProvider: function (e) {
@@ -438,30 +388,30 @@ $(document).ready(function () {
                 var buttonElem = document.querySelector('#' + toSection);
                 if (toSection == "sect1") {
                     if (JSON.stringify(this.prevSection1Data) === JSON.stringify(this.section1Data)) {
-                        buttonElem.disabled = true;
+                        buttonElem.setAttribute('disabled', true);
                     } else {
-                        buttonElem.disabled = false;
+                        buttonElem.removeAttribute('disabled');
                     }
                 }
                 else if (toSection == "sect2") {
                     if (JSON.stringify(this.prevSection2Data) === JSON.stringify(this.section2Data)) {
-                        buttonElem.disabled = true;
+                        buttonElem.setAttribute('disabled', true);
                     } else {
-                        buttonElem.disabled = false;
+                        buttonElem.removeAttribute('disabled');
                     }
                 }
                 else if (toSection == "sect3") {
                     if (JSON.stringify(this.prevSection3Data) === JSON.stringify(this.section3Data)) {
-                        buttonElem.disabled = true;
+                        buttonElem.setAttribute('disabled', true);
                     } else {
-                        buttonElem.disabled = false;
+                        buttonElem.removeAttribute('disabled');
                     }
                 }
                 else if (toSection == "sect4") {
                     if (JSON.stringify(this.prevSection4Data) === JSON.stringify(this.section4Data)) {
-                        buttonElem.disabled = true;
+                        buttonElem.setAttribute('disabled', true);
                     } else {
-                        buttonElem.disabled = false;
+                        buttonElem.removeAttribute('disabled');
                     }
                 }
             },
