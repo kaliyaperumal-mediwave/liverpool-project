@@ -1169,6 +1169,11 @@ a {
   border-radius: 24px;
 }
 
+.toster-container-white {
+  @include set-background($secondary-color, 1);
+  border-radius: 24px;
+}
+
 .modal-bg {
   @include set-background($tertiary-color, 1);
   border-radius: 24px !important;

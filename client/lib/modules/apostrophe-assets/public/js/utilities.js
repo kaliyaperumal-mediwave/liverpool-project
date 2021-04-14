@@ -58,7 +58,6 @@ function commonToggleVisibility(context, element, visibility) {
 //Common Function to entering manual address
 function manualAddressLogic(context, object, arr, modal, isOrganization, role) {
     var postCodeRegex = /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/;
-    //var prevParentAddressData = JSON.parse(JSON.stringify(context.parentManualAddress));
     if (!context.isAddressFormParentSubmitted) {
         context.isAddressFormParentSubmitted = true;
     }
@@ -88,7 +87,6 @@ function manualAddressLogic(context, object, arr, modal, isOrganization, role) {
                 }
             }
             $('#' + modal).modal('hide');
-            //context.resetModalValues();
 
         } else {
             return;
@@ -120,7 +118,6 @@ function manualAddressLogic(context, object, arr, modal, isOrganization, role) {
             //context.resetModalValues();
 
         } else {
-            // context.parentManualAddress = prevParentAddressData;
             return;
         }
     }
