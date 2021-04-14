@@ -216,6 +216,7 @@ $(document).ready(function () {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data.sex_at_birth);
                         }
                         this.allHouseHoldMembers = data.household_member;
+                        this.prevHouseHoldData = data.household_member;
                         Vue.set(this.aboutObj, "parentFirstName", data.parent[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data.parent[0].parent_lastname);
                         Vue.set(this.aboutFormData, "parentialResponsibility", data.parent[0].parental_responsibility);
@@ -272,6 +273,7 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
                         this.allHouseHoldMembers = data[0].household_member;
+                        this.prevHouseHoldData = data[0].household_member;
                         Vue.set(this.aboutFormData, "parentialResponsibility", data[0].parental_responsibility);
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
@@ -292,6 +294,7 @@ $(document).ready(function () {
                         }
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                         this.allHouseHoldMembers = data[0].parent[0].household_member;
+                        this.prevHouseHoldData = data[0].parent[0].household_member;
                         Vue.set(this.aboutObj, "referral_progress", data[0].referral_progress == 20 ? 40 : data[0].referral_progress);
                     }
                 }
@@ -328,8 +331,10 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
                             this.allHouseHoldMembers = data[0].parent[0].household_member;
+                            this.prevHouseHoldData = data[0].parent[0].household_member;
                         } else {
                             this.allHouseHoldMembers = [];
+                            this.prevHouseHoldData = [];
                         }
                         Vue.set(this.aboutObj, "parentFirstName", data[0].parent_firstname);
                         Vue.set(this.aboutObj, "parentLastName", data[0].parent_lastname);
