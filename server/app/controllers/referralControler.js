@@ -2974,3 +2974,33 @@ exports.searchReferalByCode = ctx => {
   }
 
 }
+
+exports.getProfReferral = async (ctx) => {
+  try {
+    const { Referral } = ctx.orm();
+    const prof_data = await Referral.findOne({
+      where: {
+        login_id: ctx.request.decryptedUser.id,
+        referral_complete_status: 'completed',
+      },
+      order: [
+        ['id', 'asc']
+      ]
+    });
+    if(prof_data) {
+      return ctx.body = { data: {
+          first_name: prof_data.professional_firstname,
+          last_name: prof_data.professional_lastname,
+          email: prof_data.professional_email ? prof_data.professional_email : '',
+          contact_number: prof_data.professional_contact_number ? prof_data.professional_contact_number : '',
+          profession: prof_data.professional_profession ? prof_data.professional_profession : '',
+          address: prof_data.professional_address ? prof_data.professional_address : '',
+          professional_manual_address: prof_data.professional_manual_address ? prof_data.professional_manual_address : '',
+        }
+      }
+    }
+    return ctx.body = {data: {}};
+  } catch(e) {
+    return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+  }
+}
