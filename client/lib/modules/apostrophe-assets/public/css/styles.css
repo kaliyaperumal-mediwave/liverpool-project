@@ -3815,6 +3815,24 @@ body .ui-widget .ui-menu-item {
 .off .close-icon:after {
   color: #023047; }
 
+.off .themeSetDark .multiselect__select::before {
+  border-color: #023047 transparent transparent !important; }
+
+.off .themeSetDark {
+  color: #023047 !important; }
+
+.off .themeSetDark .multiselect__input {
+  background-color: #e8edee; }
+
+.off .themeSetDark .multiselect__tags {
+  background-color: #e8edee; }
+
+.off .themeSetDark .multiselect__content-wrapper {
+  background-color: #e8edee; }
+
+.off .themeSetDark .multiselect__tags .multiselect__single {
+  background-color: #e8edee; }
+
 .off .card-set-container-bg {
   background: #ffffff 0% 0% no-repeat padding-box;
   color: #023047; }
@@ -4187,6 +4205,24 @@ body .ui-widget .ui-menu-item {
 
 .on .close-icon:after {
   color: #fafafa; }
+
+.on .themeSetDark .multiselect__select::before {
+  border-color: #fafafa transparent transparent !important; }
+
+.on .themeSetDark {
+  color: #fafafa !important; }
+
+.on .themeSetDark .multiselect__input {
+  background-color: #535454; }
+
+.on .themeSetDark .multiselect__tags {
+  background-color: #535454; }
+
+.on .themeSetDark .multiselect__content-wrapper {
+  background-color: #535454; }
+
+.on .themeSetDark .multiselect__tags .multiselect__single {
+  background-color: #535454; }
 
 .on .card-set-container-bg {
   background: #353638 0% 0% no-repeat padding-box;

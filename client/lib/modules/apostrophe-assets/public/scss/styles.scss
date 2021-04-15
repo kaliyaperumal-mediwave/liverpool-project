@@ -305,7 +305,8 @@ a {
 }
 
 .logo-bg-home {
-  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat 30px;
+  background: url("/modules/my-apostrophe-assets/img/liverpool.svg") no-repeat
+    30px;
   background-size: contain;
 }
 
@@ -389,7 +390,8 @@ a {
 /*Logo Height style End */
 
 .slider-bg {
-  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat fixed !important;
+  background: #8ecae6 url(/modules/my-apostrophe-assets/img/line.svg) no-repeat
+    fixed !important;
   background-size: cover !important;
 }
 
@@ -1155,7 +1157,8 @@ a {
 }
 
 .body-bg {
-  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg") no-repeat;
+  background: #8ecae6 url("/modules/my-apostrophe-assets/img/main.svg")
+    no-repeat;
   background-size: cover !important;
   height: 100%;
 }
@@ -1188,7 +1191,8 @@ a {
   width: 100%;
 }
 .main-content-bg {
-  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat fixed;
+  background: url("/modules/my-apostrophe-assets/img/desktop.svg") no-repeat
+    fixed;
   background-size: cover;
 }
 
@@ -2875,6 +2879,24 @@ $color-scheme: (
     .close-icon:after {
       color: $secondary;
     }
+    .themeSetDark .multiselect__select::before {
+      border-color: $secondary transparent transparent !important;
+    }
+    .themeSetDark {
+      color: $secondary !important;
+    }
+    .themeSetDark .multiselect__input {
+      background-color: $input-form-color;
+    }
+    .themeSetDark .multiselect__tags {
+      background-color: $input-form-color;
+    }
+    .themeSetDark .multiselect__content-wrapper{
+      background-color: $input-form-color;
+    }
+    .themeSetDark .multiselect__tags .multiselect__single {
+      background-color: $input-form-color;
+    }
     .card-set-container-bg {
       background: $primary 0% 0% no-repeat padding-box;
       color: $secondary;
@@ -3194,9 +3216,11 @@ $color-scheme: (
     background: $primary;
   }
 }
-@each $name, $primary, $secondary, $header-color, $placeholderTheme-color, $primary-input-color, $secondary-input-color,
-  $search-bar-color, $background, $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
-  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color, $admin-select-tab, $loader-bg-color in $color-scheme
+@each $name, $primary, $secondary, $header-color, $placeholderTheme-color,
+  $primary-input-color, $secondary-input-color, $search-bar-color, $background,
+  $bgLogo, $togglePrimary, $input-form-color, $card-bg-color, $footer-bg-color,
+  $bg-place, $admin-bg-color, $border-color, $admin-btn-bg-color,
+  $admin-select-tab, $loader-bg-color in $color-scheme
 {
   @include theme(
     $name,

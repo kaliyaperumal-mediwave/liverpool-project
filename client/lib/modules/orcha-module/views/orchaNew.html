@@ -104,10 +104,10 @@
 
                 <!-- Orcha Category Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect v-model="categoryValue" showLabels='false' :options="categoryList"
+                    <multiselect v-model="categoryValue" :options="categoryList"
                         placeholder="Category" label="subCategoryName" track-by="id"
                         @select="selectOptions($event,'category')" @remove="removeOptions($event,'category')"
-                        class="custom-dropbox-hover">
+                        class="custom-dropbox-hover themeSetDark">
                     </multiselect>
                 </div>
                 <!-- Orcha Category Select End-->
@@ -123,7 +123,7 @@
 
                 <!-- Orcha Capability Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="capabilityValue" tag-placeholder=""
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="capabilityValue" tag-placeholder=""
                         placeholder="Capability" :close-on-select="false" label="capabilityName" track-by="id"
                         :options="capabilityList" :multiple="true" :limit="1" :taggable="true"
                         @select="selectOptions($event,'capability')" @remove="removeOptions($event,'capability')">
@@ -136,7 +136,7 @@
 
                 <!-- Orcha Designed For Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="designedForValue" tag-placeholder=""
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="designedForValue" tag-placeholder=""
                         placeholder="Designed for" :close-on-select="false" label="designedForName" track-by="id"
                         :options="designedForList" :multiple="true" :taggable="true" :limit="1"
                         @select="selectOptions($event,'designedFor')" @remove="removeOptions($event,'designedFor')">
@@ -146,7 +146,7 @@
 
                 <!-- Orcha Cost Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="costValue" tag-placeholder="" placeholder="Cost"
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="costValue" tag-placeholder="" placeholder="Cost"
                         :close-on-select="false" label="costName" track-by="id" :options="costList" :multiple="true"
                         :clear-on-select="false" :limit="1" :preserve-search="true" @select="selectOptions($event)"
                         @remove="removeOptions($event,'cost')">
@@ -156,7 +156,7 @@
 
                 <!-- Orcha Platform Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="platformValue" :options="platformList"
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="platformValue" :options="platformList"
                         placeholder="Platform" :show-labels="false" label="platformName" track-by="id"
                         @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
                     </multiselect>
