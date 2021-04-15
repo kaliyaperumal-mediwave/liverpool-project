@@ -23,11 +23,18 @@ module.exports = {
 
     //set session to use in role module to maintain session logout
     self.route('get', 'setSessionRefHome/:fromHome', function (req, res) {
-      //console.log("Role index");
-      //console.log(req.params.fromHome)
-      req.session.frm_ref_home = "Y";
-      //console.log(req.session.frm_ref_home)
-      return res.send({data: {success:"true",message:"session ref_home set"}});
+      req.session.frm_ref_home = 'Y';
+      if(req.session && req.session.loginFlag == 'true' && req.session.user_role == 'professional' && !req.session.prof_data) {
+        var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/profReferral';
+        self.middleware.get(req, url).then((data) => {
+          req.session.prof_data = Object.keys(data.data).length ? JSON.stringify(data.data) : '';
+          return res.send({data: {success:'true',message:'session ref_home set'}});
+        }).catch((error) => {
+          return res.status(error.statusCode).send(error.error);
+        });
+      } else {
+        return res.send({data: {success:'true',message:'session ref_home set'}});
+      }
     });
   }
 }
