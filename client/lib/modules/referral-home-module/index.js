@@ -24,7 +24,7 @@ module.exports = {
     //set session to use in role module to maintain session logout
     self.route('get', 'setSessionRefHome/:fromHome', function (req, res) {
       req.session.frm_ref_home = 'Y';
-      if(req.session && req.session.loginFlag == 'true' && req.session.user_role == 'professional' && !req.session.prof_data) {
+      if(req.session && req.session.loginFlag == 'true' && req.session.user_role == 'professional') {
         var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/profReferral';
         self.middleware.get(req, url).then((data) => {
           req.session.prof_data = Object.keys(data.data).length ? JSON.stringify(data.data) : '';
