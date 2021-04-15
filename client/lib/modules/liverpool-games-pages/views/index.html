@@ -86,7 +86,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
             >
               <div
                 v-for="item in filteredData"
-                class="border-bottom-primary card-body px-2 px-md-4"
+                class="border-bottom-primary card-body px-2 py-3"
               >
                 <a :href="item.custom_url ? 'item.custom_url' : 'item._url' ">
                   <div class="d-flex align-items-center">
@@ -97,13 +97,13 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                       class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
                       alt=""
                     /> -->
-                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
+                    <!-- <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div> -->
 
-                    <p class="question-font my-0 mx-2 mx-md-4">
+                    <p class="question-font my-0 mx-2 mx-md-4 ellipse-text-dropdown">
                       {{item.title}}
                     </p>
                     <ul
-                      class="my-0 link-text mx-2 mx-md-4"
+                      class="my-0 link-text mx-2 fixedWidthSetLI"
                       style="list-style: inside !important"
                     >
                       <li>{{item.Topic}}</li>
@@ -126,7 +126,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
 
       {% for piece in data.pieces %} {% if loop.index == 1 %}
       <a class="text_inside_video text-decoration-none">
-        <div class="large-toggle-cont no-padding">
+        <div class="large-toggle-cont no-padding card-set-container-bg">
           {% if apos.images.first(piece.thumbnail) %} {% set img =
           apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
           <img
@@ -151,7 +151,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
         href="{{ piece._parentUrl }}?piece_id={{ piece._id }}"
         class="text-decoration-none"
       >
-        <div class="large-toggle-cont no-padding">
+        <div class="large-toggle-cont no-padding card-set-container-bg">
           <div class="video-title-top">{{ piece.title }}</div>
           {% if apos.images.first(piece.thumbnail) %} {% set img =
           apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}

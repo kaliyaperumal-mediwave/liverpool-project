@@ -12,15 +12,16 @@ sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
 let mailService;
 // Sendgrid disabled on SMTP requirement
-if (process.env.USE_SENDGRID === true) {
+if (process.env.USE_SENDGRID == 'true') {
+    console.log('Sendgrid is active for mails.');
     mailService = nodemailer.createTransport(
        nodemailerSendgrid({
            apiKey: process.env.SENDGRID_API_KEY
        })
    );
-}
-else {
-   mailService = nodemailer.createTransport({
+} else {
+    console.log('SMTP is active for mails.');
+    mailService = nodemailer.createTransport({
        host: process.env.EMAIL_HOST,
        port: process.env.EMAIL_PORT,
        secure: process.env.EMAIL_SECURE, // use TLS
@@ -195,7 +196,6 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         htmlTemplate = htmlTemplate({
             refCode: ctx.request.body.refCode,
         });
-
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
                 const data = {
@@ -211,12 +211,12 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                 };
 
                 mailService.sendMail(data, (err, res) => {
+                    
                     if (!err && res) {
                         ctx.res.ok({
                             data: 'mail Successfully sent',
                         });
                         resolve();
-
                     } else {
                         logger.error('Mail error', err);
                         ctx.res.internalServerError({
@@ -232,8 +232,9 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
-        //console.log(e);
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 
 });
+
+
