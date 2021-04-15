@@ -465,7 +465,7 @@ $(document).ready(function () {
                             async: false,
                             success: function (response) {
                                 _self.gpListName = [];
-                                app.elgibilityObj.gpErrMsg = "";
+                                //app.elgibilityObj.gpErrMsg = "";
                                 _self.gpListShow = response.Organisations;
                                 if (response.Organisations.length <= 0) {
                                     var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
@@ -475,7 +475,7 @@ $(document).ready(function () {
                                         async: false,
                                         success: function (response) {
                                             _self.gpListName = [];
-                                            app.elgibilityObj.gpErrMsg = "";
+                                            //app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // //console.log(_self.gpListShow[i].PostCode)
@@ -672,7 +672,7 @@ $(document).ready(function () {
                             success: function (response) {
                                 _self.gpListShow = [];
                                 _self.gpProfListName = [];
-                                app.elgibilityObj.gpErrMsg = "";
+                                //app.elgibilityObj.gpErrMsg = "";
                                 _self.gpListShow = response.Organisations;
                                 if (response.Organisations.length <= 0) {
                                     var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
@@ -683,7 +683,7 @@ $(document).ready(function () {
                                         success: function (response) {
                                             _self.gpListShow = [];
                                             _self.gpProfListName = [];
-                                            app.elgibilityObj.gpErrMsg = "";
+                                           // app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
@@ -696,7 +696,7 @@ $(document).ready(function () {
                                                 $('#addOpacity').css('opacity', '1');
                                             }
                                             else {
-                                                app.elgibilityObj.gpErrLinkProf = "";
+                                                //app.elgibilityObj.gpErrLinkProf = "";
                                                 payload = _self.remove_duplicates(_self.gpProfListName);
                                                 $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                                 $('#addOpacity').css('opacity', '1');
