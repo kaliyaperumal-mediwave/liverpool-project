@@ -1,3 +1,4 @@
+
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -63,6 +64,18 @@ spec:
           value: $PHR_LIVERPOOL_TO_IAPTUS_EMAIL
         - name: OTHER_EMAIL
           value: $PHR_LIVERPOOL_TO_OTHER_EMAIL
+        - name: USE_SENDGRID
+          value: $PHR_LIVERPOOL_USE_SENDGRID
+        - name: EMAIL_HOST
+          value: $PHR_LIVERPOOL_EMAIL_HOST
+        - name: EMAIL_PORT
+          value: $PHR_LIVERPOOL_EMAIL_PORT
+        - name: EMAIL_SECURE
+          value: $PHR_LIVERPOOL_EMAIL_SECURE
+        - name: EMAIL_AUTH_USERNAME
+          value: $PHR_LIVERPOOL_EMAIL_AUTH_USERNAME
+        - name: EMAIL_AUTH_PASSWORD
+          value: $PHR_LIVERPOOL_EMAIL_AUTH_PASSWORD
         ports:
         - containerPort: 3001
 ---
