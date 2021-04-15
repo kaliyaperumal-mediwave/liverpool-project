@@ -2925,6 +2925,9 @@ $color-scheme: (
     .secondary-content-area {
       background: $primary 0% 0% no-repeat padding-box;
     }
+    .border-bottom-primary{
+      border-bottom:1px solid $secondary !important;
+    }
     .authorization-font {
       color: $secondary;
     }
@@ -3307,6 +3310,12 @@ $color-scheme: (
   overflow: hidden;
   max-height: 3.6em;
   line-height: 1.8em;
+}
+.ellipse-text-dropdown {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 83%;
 }
 
 // slider arrow
@@ -3753,7 +3762,7 @@ div.collapse-container.collapsing {
   width: 80%;
 }
 .border-bottom-primary.card-body.px-2.px-md-4 {
-  height: 70px !important;
+  // height: 70px !important;
 }
 // input[type="search"]::-webkit-search-decoration,
 // input[type="search"]::-webkit-search-cancel-button,
@@ -3787,4 +3796,10 @@ div.collapse-container.collapsing {
 }
 .capitalize-first-letter-letter::first-letter {
   text-transform: uppercase !important;
+}
+.fixedWidthSetLI{
+  width: 144px;
+  @include sm-inc-screen{
+    width: 154px;
+  }
 }
