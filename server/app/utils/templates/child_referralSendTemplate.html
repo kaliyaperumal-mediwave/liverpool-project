@@ -194,6 +194,7 @@
         <div>
             <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 About you</h5>
+                <% if(body.section2.child_NHS!='' ){ %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -206,6 +207,7 @@
                     </div>
                 </div>
             </div>
+            <% } %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -242,6 +244,7 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section2.child_email!='' ){ %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -254,6 +257,7 @@
                     </div>
                 </div>
             </div>
+            <% } %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -474,6 +478,7 @@
                                 </div>
                             </div>
                             <% }%>
+                            <% if(body.section2.parent_email!='' ){ %>
                                 <div class="text-container">
                                     <div class="label-set">
                                         <label class="labelTitle">
@@ -486,6 +491,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                <% }%>
                                 <div class="text-container">
                                     <div class="label-set">
                                         <label class="labelTitle">
@@ -621,6 +627,7 @@
                                     </div>
                                 </div>
                                 <% }%>
+                                <% if(body.section3.child_socialworker_contact !='' ) {%>
                                     <div class="text-container">
                                         <div class="label-set">
                                             <label class="labelTitle">
@@ -634,6 +641,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <% }%>
                                     <div style="border-top: 1px solid #b4b8ba;margin:px 0px"></div>
         </div>
         <div>
