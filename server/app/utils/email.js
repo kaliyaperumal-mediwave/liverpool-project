@@ -10,29 +10,26 @@ const logger = require('../logger');
 const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
-let Transport;
 let mailService;
-//Sndgrid disabled on SMTP requirement
-if (config.use_sendgrid == 'true') {
-    console.log("use send grid")
-    Transport = nodemailer.createTransport(
-        nodemailerSendgrid({
-            apiKey: process.env.SENDGRID_API_KEY
-        })
-    );
+// Sendgrid disabled on SMTP requirement
+if (process.env.USE_SENDGRID === true) {
+    mailService = nodemailer.createTransport(
+       nodemailerSendgrid({
+           apiKey: process.env.SENDGRID_API_KEY
+       })
+   );
 }
 else {
-    console.log("use smtp")
-    Transport = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: process.env.EMAIL_PORT,
-        secure: process.env.EMAIL_SECURE, // use TLS
-        ignoreTLS: true,
-        auth: {
-            user: process.env.EMAIL_AUTH_USERNAME,
-            pass: process.env.EMAIL_AUTH_PASSWORD
-        }
-    });
+   mailService = nodemailer.createTransport({
+       host: process.env.EMAIL_HOST,
+       port: process.env.EMAIL_PORT,
+       secure: process.env.EMAIL_SECURE, // use TLS
+       ignoreTLS: true,
+       auth: {
+           user: process.env.EMAIL_AUTH_USERNAME,
+           pass: process.env.EMAIL_AUTH_PASSWORD
+       }
+   });
 }
 
 exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
@@ -48,7 +45,7 @@ exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
             subject: 'LIVERPOOL CAMHS - Password Reset Instructions',
             html: htmlTemplate,
         };
-        Transport.sendMail(data, (err, res) => {
+        mailService.sendMail(data, (err, res) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
@@ -82,7 +79,7 @@ exports.sendChangeMail = async ctx => new Promise((resolve, reject) => {
             subject: 'LIVERPOOL CAMHS - Email Reset Instructions',
             html: htmlTemplate,
         };
-        Transport.sendMail(data, (err, res) => {
+        mailService.sendMail(data, (err, res) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
@@ -119,7 +116,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
             subject: 'LIVERPOOL CAMHS - Feedback',
             html: htmlTemplate,
         };
-        Transport.sendMail(data, (err, res) => {
+        mailService.sendMail(data, (err, res) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
@@ -150,7 +147,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
                 subject: 'Referral Confirmation',
                 html: '<p> Your referral code is <strong>' + ctx.request.body.ref_code + '</strong><p>',
             };
-            Transport.sendMail(data, (err, res) => {
+            mailService.sendMail(data, (err, res) => {
                 if (!err && res) {
                     logger.info(res);
                     ctx.res.ok({
@@ -213,7 +210,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                     html: htmlTemplate,
                 };
 
-                Transport.sendMail(data, (err, res) => {
+                mailService.sendMail(data, (err, res) => {
                     if (!err && res) {
                         ctx.res.ok({
                             data: 'mail Successfully sent',
