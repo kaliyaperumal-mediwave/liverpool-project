@@ -3837,6 +3837,15 @@ body .ui-widget .ui-menu-item {
   background: #ffffff 0% 0% no-repeat padding-box;
   color: #023047; }
 
+.off .video-title-top {
+  color: #023047; }
+
+.off .video-para-bottom a {
+  color: #023047 !important; }
+
+.off .text-secondary-theme a {
+  color: #023047 !important; }
+
 .off .home-primarySearch-bg {
   background: #ffffff 0% 0% no-repeat padding-box !important; }
 
@@ -4227,6 +4236,15 @@ body .ui-widget .ui-menu-item {
 .on .card-set-container-bg {
   background: #353638 0% 0% no-repeat padding-box;
   color: #fafafa; }
+
+.on .video-title-top {
+  color: #fafafa; }
+
+.on .video-para-bottom a {
+  color: #fafafa !important; }
+
+.on .text-secondary-theme a {
+  color: #fafafa !important; }
 
 .on .home-primarySearch-bg {
   background: #353638 0% 0% no-repeat padding-box !important; }

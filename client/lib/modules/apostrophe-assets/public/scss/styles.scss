@@ -2901,6 +2901,15 @@ $color-scheme: (
       background: $primary 0% 0% no-repeat padding-box;
       color: $secondary;
     }
+    .video-title-top{
+      color: $secondary;
+    }
+    .video-para-bottom a{
+      color: $secondary !important;
+    }
+    .text-secondary-theme a{
+      color:$secondary !important
+    }
     .home-primarySearch-bg {
       background: $primary 0% 0% no-repeat padding-box !important;
     }

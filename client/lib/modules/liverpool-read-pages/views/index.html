@@ -141,7 +141,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           <div class="read-cont-h1">{{ piece.title }}</div>
           <div class="read-cont-p">{{ piece.read_topic }}</div>
           <div class="text-break">{{ piece.text }}</div>
-          <div class="text-underlined">{{apos.area(piece,'link')}}</div>
+          <div class="text-underlined text-secondary-theme">{{apos.area(piece,'link')}}</div>
           <div class="read-cont-p p-0">{{apos.area(piece,'by_author')}}</div>
           <!-- <div class="video-placed-ago px-0 ">
                     {{ piece.uploadTime }}
@@ -156,7 +156,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
         href="{{ piece._parentUrl }}?piece_id={{ piece._id }}"
         class="text-decoration-none"
       >
-        <div class="large-toggle-cont no-padding">
+        <div class="large-toggle-cont no-padding card-set-container-bg">
           <div class="video-title-top">{{ piece.read_topic }}</div>
           {% if apos.images.first(piece.thumbnail) %} {% set img =
           apos.images.first(piece.thumbnail) %} {% endif %}

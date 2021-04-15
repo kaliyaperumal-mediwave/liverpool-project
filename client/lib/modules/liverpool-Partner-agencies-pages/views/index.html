@@ -126,7 +126,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
       {% for piece in data.pieces %} {% if loop.index == 1 %}
 
       <a class="text_inside_video text-decoration-none">
-        <div class="large-toggle-cont no-padding">
+        <div class="large-toggle-cont no-padding card-set-container-bg">
           {% if apos.images.first(piece.thumbnail) %} {% set img =
           apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
           <img
@@ -152,7 +152,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
         href="{{ piece._parentUrl }}?piece_id={{ piece._id }}"
         class="text-decoration-none"
       >
-        <div class="large-toggle-cont no-padding">
+        <div class="large-toggle-cont no-padding card-set-container-bg">
           <div class="video-title-top">{{ piece.title }}</div>
           {% if apos.images.first(piece.thumbnail) %} {% set img =
           apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
