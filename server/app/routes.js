@@ -48,6 +48,8 @@ router.get('/referral/getUserReferral/', validateToken, referralControler.getUse
 router.get('/referral/getReferalByCode/', validateToken, referralControler.getReferalByCode);
 router.get('/referral/searchReferalByCode/', validateToken, referralControler.searchReferalByCode);
 
+router.get('/referral/profReferral', validateToken, referralControler.getProfReferral);
+
 router.post('/referral/sendConfirmationMail/', validateToken, emailController.sendReferralConfirmation);
 
 router.post('/user/changePassword', validateToken, authController.changePassword);
