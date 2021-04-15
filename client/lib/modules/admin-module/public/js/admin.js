@@ -127,6 +127,11 @@ $(document).ready(function () {
 
         $("#ExportReporttoExcel").on("click", function () {
           table.button('.buttons-csv').trigger();
+          table.rows().deselect();
+          $('.idcheck').removeAttr('checked');
+          this.referral_ids = [];
+
+          console.log(this.referral_ids);
         });
 
         this.referral_ids = [];
@@ -139,7 +144,10 @@ $(document).ready(function () {
         } else {
           this.referral_ids.pop(id);
         }
-        // console.log(this.referral_ids);
+      },
+
+      resetReferral: function () {
+        this.referral_ids = [];
       },
 
       deleteReferral: function () {
@@ -190,13 +198,18 @@ $(document).ready(function () {
   })
 
   $(document).on('change', '.idcheck', function (e) {
-    vueApp.selectcheck(e.target.checked, e.target.id);
+    vueApp.selectcheck(e.target.checked, e.target.value);
   });
   
   $(document).on('change', '.reload', function () {
       console.log('Datatables reload');
       vueApp.fetchReferral();
   });
+
+  $(document).on('click', '#ExportReporttoExcel', function () {
+     vueApp.resetReferral();
+  });
+  
 
 });
 
