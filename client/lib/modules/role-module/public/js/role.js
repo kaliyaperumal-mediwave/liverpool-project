@@ -179,6 +179,7 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "profContactNumber", profData.contact_number);
                         Vue.set(this.elgibilityObj, "profAddress", profData.address);
                         Vue.set(this.elgibilityObj, "profProfession", profData.profession);
+                        Vue.set(this.elgibilityObj, "professional_contact_type", profData.professional_contact_type);
 
                         if (profData.professional_manual_address && profData.professional_manual_address.length) {
                             Vue.set(this, "professionalManualAddress", profData.professional_manual_address);
@@ -464,7 +465,7 @@ $(document).ready(function () {
                             async: false,
                             success: function (response) {
                                 _self.gpListName = [];
-                                app.elgibilityObj.gpErrMsg = "";
+                                //app.elgibilityObj.gpErrMsg = "";
                                 _self.gpListShow = response.Organisations;
                                 if (response.Organisations.length <= 0) {
                                     var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
@@ -474,7 +475,7 @@ $(document).ready(function () {
                                         async: false,
                                         success: function (response) {
                                             _self.gpListName = [];
-                                            app.elgibilityObj.gpErrMsg = "";
+                                            //app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // //console.log(_self.gpListShow[i].PostCode)
@@ -671,7 +672,7 @@ $(document).ready(function () {
                             success: function (response) {
                                 _self.gpListShow = [];
                                 _self.gpProfListName = [];
-                                app.elgibilityObj.gpErrMsg = "";
+                                //app.elgibilityObj.gpErrMsg = "";
                                 _self.gpListShow = response.Organisations;
                                 if (response.Organisations.length <= 0) {
                                     var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
@@ -682,7 +683,7 @@ $(document).ready(function () {
                                         success: function (response) {
                                             _self.gpListShow = [];
                                             _self.gpProfListName = [];
-                                            app.elgibilityObj.gpErrMsg = "";
+                                           // app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
@@ -695,7 +696,7 @@ $(document).ready(function () {
                                                 $('#addOpacity').css('opacity', '1');
                                             }
                                             else {
-                                                app.elgibilityObj.gpErrLinkProf = "";
+                                                //app.elgibilityObj.gpErrLinkProf = "";
                                                 payload = _self.remove_duplicates(_self.gpProfListName);
                                                 $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                                 $('#addOpacity').css('opacity', '1');

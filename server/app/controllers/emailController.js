@@ -4,7 +4,7 @@ const P = require('pino');
 let mailService;
 
 // Sndgrid disabled on SMTP requirement
-if (process.env.USE_SENDGRID == 'true') {
+if (process.env.USE_SENDGRID === true) {
      mailService = nodemailer.createTransport(
         nodemailerSendgrid({
             apiKey: process.env.SENDGRID_API_KEY
@@ -12,7 +12,7 @@ if (process.env.USE_SENDGRID == 'true') {
     );
 }
 else {
-     mailService = nodemailer.createTransport({
+    mailService = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
         secure: process.env.EMAIL_SECURE, // use TLS
@@ -27,10 +27,11 @@ else {
 
 exports.sendReferralConfirmation = ctx => {
 
+    console.log(typeof(process.env.USE_SENDGRID ));
     if (ctx.request.decryptedUser != undefined) {
         //console.log(ctx.request.decryptedUser.email)
         const data = {
-            from: 'info@mindwaveventures.com',
+            from: process.env.EMAIL_FROM,
             //to: req.body.email,
             to: ctx.request.decryptedUser.email,
             subject: 'Referral Confirmation',

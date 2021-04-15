@@ -547,11 +547,11 @@
                                 </span>
                             </div>
                         </div>
-                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3 && !elgibilityObj.gpErrMsg"
+                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3"
                             class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="emailHelp" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="emailHelp" v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrMsg" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                         <small v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrLink"
                             id="gpErrLink" class="form-text text-muted">Unfortunately, this location is not covered by
                             our service.
@@ -1389,11 +1389,11 @@
                             </div>
                         </div>
                         <small id="gpInfoMessage"
-                            v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3 && !elgibilityObj.gpErrMsg"
+                            v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3"
                             class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="gpErrorMessage" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="gpErrorMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg"  class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                         <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
                             id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
                             by
