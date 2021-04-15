@@ -42,8 +42,6 @@ $(document).ready(function () {
             userId: '',
             payloadData: {},
             dynamicLabels: {},
-            educationAddress: '',
-            mapsEntered: false,
             isFormSubmitted: false,
             isAddressFormSubmitted: false,
             // phoneRegex: /^[0-9,-]{10,15}$|^$/,
@@ -77,21 +75,10 @@ $(document).ready(function () {
                     types: ['establishment'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
-                    _self.educationAddress = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
-                    if (_self.educationAddress) {
-                        _self.mapsEntered = true;
-                        _self.educAndEmpData.attendedInfo = _self.educationAddress;
-                    } else {
-                        _self.mapsEntered = false;
-                    }
+                    _self.educAndEmpData.attendedInfo = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
                 });
             },
 
-            // Getting Manual Address
-            getManualAddress: function () {
-                $('#educationModal').modal('show');
-                this.resetAddressModalValues();
-            },
 
             //Adding and Updating a address logic
             upsertAddress: function () {
@@ -101,6 +88,13 @@ $(document).ready(function () {
                 document.getElementById('2df66d79-a41a-4c4e-acee-171c39fe26f5').style.opacity = 0.7;
                 document.getElementById('c4238c48-4dd6-405c-b3d9-cda7f17bdcb8').style.pointerEvents = "none";
                 document.getElementById('c4238c48-4dd6-405c-b3d9-cda7f17bdcb8').style.opacity = 0.5;
+            },
+
+
+            // Getting Manual Address
+            getManualAddress: function () {
+                $('#educationModal').modal('show');
+                this.resetAddressModalValues();
             },
 
             setReadonlyState: function (iDisabled) {
@@ -371,7 +365,6 @@ $(document).ready(function () {
 
                 } else {
                     $('#loaderEduc').hide();
-                    //console.log('empty response')
                 }
             },
 
@@ -385,7 +378,6 @@ $(document).ready(function () {
                     this.patchValue(successData);
                 } else {
                     $('#loaderEduc').hide();
-                    //console.log('empty response')
                 }
 
             },
@@ -413,20 +405,17 @@ $(document).ready(function () {
                         }
                         this.aboutYourSelf = convertArray;
                     }
-                    //Vue.set(this.educAndEmpData, "position", data.child_profession);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data.child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data.child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data.child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data.child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data.child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data.child_socialworker_contact);
-                    // Vue.set(this.educAndEmpData, "socialWorkContactType", data.child_socialworker_contact_type);
                     if (data.child_socialworker_contact_type) {
                         Vue.set(this, "socialWorkContactType", data.child_socialworker_contact_type);
                     } else {
                         Vue.set(this, "socialWorkContactType", 'mobile');
                     }
-                    // this.socialWorkContactType = data.child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data.referral_progress == 40 ? 60 : data.referral_progress);
                 }
                 else if (this.userRole == "parent") {
@@ -445,21 +434,17 @@ $(document).ready(function () {
                         }
                         this.aboutYourSelf = convertArray;
                     }
-                    // Vue.set(this.educAndEmpData, "position", data[0].parent[0].child_profession);
-                    //   Vue.set(this.educAndEmpData,"childEducationPlace",data[0].parent[0].child_education_place);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].parent[0].child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].parent[0].child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].parent[0].child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].parent[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].parent[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].parent[0].child_socialworker_contact);
-                    //Vue.set(this.educAndEmpData, "socialWorkContactType", data[0].parent[0].child_socialworker_contact_type);
                     if (data[0].parent[0].child_socialworker_contact_type) {
                         Vue.set(this, "socialWorkContactType", data[0].parent[0].child_socialworker_contact_type);
                     } else {
                         Vue.set(this, "socialWorkContactType", 'mobile');
                     }
-                    // this.socialWorkContactType = data[0].parent[0].child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
                 else if (this.userRole == "professional") {
@@ -478,20 +463,17 @@ $(document).ready(function () {
                         }
                         this.aboutYourSelf = convertArray;
                     }
-                    //Vue.set(this.educAndEmpData, "position", data[0].professional[0].child_profession);
                     Vue.set(this.educAndEmpData, "haveEhcpPlan", data[0].professional[0].child_EHCP);
                     Vue.set(this.educAndEmpData, "haveEhat", data[0].professional[0].child_EHAT);
                     Vue.set(this.educAndEmpData, "haveSocialWorker", data[0].professional[0].child_socialworker);
                     Vue.set(this.educAndEmpData, "socialWorkName", data[0].professional[0].child_socialworker_firstname);
                     Vue.set(this.educAndEmpData, "socialWorkLastName", data[0].professional[0].child_socialworker_lastname);
                     Vue.set(this.educAndEmpData, "socialWorkContact", data[0].professional[0].child_socialworker_contact);
-                    //  Vue.set(this.educAndEmpData, "socialWorkContactType", data[0].professional[0].child_socialworker_contact_type);
                     if (data[0].professional[0].child_socialworker_contact_type) {
                         Vue.set(this, "socialWorkContactType", data[0].professional[0].child_socialworker_contact_type);
                     } else {
                         Vue.set(this, "socialWorkContactType", 'mobile');
                     }
-                    //this.socialWorkContactType = data[0].professional[0].child_socialworker_contact_type;
                     Vue.set(this.educAndEmpData, "referral_progress", data[0].referral_progress == 40 ? 60 : data[0].referral_progress);
                 }
             },
