@@ -21,6 +21,7 @@ const configs = {
     venus_email: process.env.VENUS_EMAIL  ,
     iaptus_email: process.env.IAPTUS_EMAIL,
     other_email: process.env.OTHER_EMAIL,
+    use_sendgrid: process.env.USE_SENDGRID,
 
     orm: {
       name: 'orm',

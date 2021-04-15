@@ -79,7 +79,7 @@ exports.getReferral = ctx => {
             referrals = JSON.parse(JSON.stringify(referrals));
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            console.log(filteredReferrals);
+            // console.log(filteredReferrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
@@ -556,7 +556,6 @@ exports.sendReferral = async ctx => {
     // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
     // console.log("refCode",ctx.request.body.refCode);
     try {
-        console.log("trye")
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //////console.log()(sendReferralStatus)
             const referralModel = ctx.orm().Referral;
@@ -660,6 +659,7 @@ function getRefData(refID, refRole, ctx) {
                     if (educationObj.referral_reason[0].local_services) {
                         if (educationObj.referral_reason[0].local_services.indexOf('Other') == -1) {
                             educationObj.referral_reason[0].local_services = educationObj.referral_reason[0].local_services
+                            displayServicesPdf = educationObj.referral_reason[0].local_services;
                         } else {
                             var index = educationObj.referral_reason[0].local_services.indexOf('Other');
                             educationObj.referral_reason[0].local_services.splice(index, 1);
@@ -856,6 +856,7 @@ function getRefData(refID, refRole, ctx) {
                             if (referralResult.referral_reason[0].local_services) {
                                 if (referralResult.referral_reason[0].local_services.indexOf('Other') == -1) {
                                     referralResult.referral_reason[0].local_services = referralResult.referral_reason[0].local_services
+                                    displayServicesPdf = referralResult.referral_reason[0].local_services;
                                 } else {
                                     var index = referralResult.referral_reason[0].local_services.indexOf('Other');
                                     referralResult.referral_reason[0].local_services.splice(index, 1);
@@ -898,7 +899,6 @@ function getRefData(refID, refRole, ctx) {
                                 status: "ok",
                                 role: refRole
                             }
-                            console.log(responseData)
                             return responseData;
                         }).catch((error) => {
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1060,8 +1060,8 @@ function getRefData(refID, refRole, ctx) {
                                 child_EHAT: edu_empObj[0].professional[0].child_EHAT,
                                 child_socialworker: edu_empObj[0].professional[0].child_socialworker,
                                 child_socialworker_name: edu_empObj[0].professional[0].child_socialworker_name,
-                                child_socialworker_firstname: edu_empObj[0].professional[0].child_firstname,
-                                child_socialworker_lastname: edu_empObj[0].professional[0].child_lastname,
+                                child_socialworker_firstname: edu_empObj[0].professional[0].child_socialworker_firstname,
+                                child_socialworker_lastname: edu_empObj[0].professional[0].child_socialworker_lastname,
                                 child_socialworker_contact: edu_empObj[0].professional[0].child_socialworker_contact,
                                 child_socialworker_contact_type: edu_empObj[0].professional[0].child_socialworker_contact_type,
                             }
@@ -1071,7 +1071,8 @@ function getRefData(refID, refRole, ctx) {
                             var displayServicesPdf;
                             if (referralResult.referral_reason[0].local_services) {
                                 if (referralResult.referral_reason[0].local_services.indexOf('Other') == -1) {
-                                    referralResult.referral_reason[0].local_services = referralResult.referral_reason[0].local_services
+                                    referralResult.referral_reason[0].local_services = referralResult.referral_reason[0].local_services;
+                                    displayServicesPdf = referralResult.referral_reason[0].local_services;
                                 } else {
                                     var index = referralResult.referral_reason[0].local_services.indexOf('Other');
                                     referralResult.referral_reason[0].local_services.splice(index, 1);
@@ -1090,24 +1091,22 @@ function getRefData(refID, refRole, ctx) {
                                     referralResult.referral_reason[0].eating_disorder_difficulties = referralResult.referral_reason[0].eating_disorder_difficulties + _referralResult.referral_reason[0].other_eating_difficulties;
                                 }
                             }
+                            
+                            if(section2Obj.child_manual_address!=null && section2Obj.child_manual_address[0]!=null ){
+                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1+','+  section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ''  + section2Obj.child_manual_address[0].postCode
+                            }
 
-                           // console.log(section3Obj)
+                            if(section2Obj.parent_manual_address!=null && section2Obj.parent_manual_address[0]!=null ){
+                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
+                            }
 
-                            // if(section2Obj.child_manual_address!=null && section2Obj.child_manual_address[0]!=null ){
-                            //     section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1+','+  section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ''  + section2Obj.child_manual_address[0].postCode
-                            // }
+                            if(section1Obj.professional_manual_address!=null && section1Obj.professional_manual_address[0]!=null ){
+                                section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1+','+  section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + ''  + section1Obj.professional_manual_address[0].postCode
+                            }
 
-                            // if(section2Obj.parent_manual_address!=null && section2Obj.parent_manual_address[0]!=null ){
-                            //     section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
-                            // }
-
-                            // if(section1Obj.professional_manual_address!=null && section1Obj.professional_manual_address[0]!=null ){
-                            //     section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1+','+  section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + ''  + section1Obj.professional_manual_address[0].postCode
-                            // }
-
-                            // if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
-                            //     section3Obj.child_education_place = section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
-                            // }
+                            if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
+                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
+                            }
                             
                             const responseData = {
                                 userid: refID,
@@ -1121,7 +1120,6 @@ function getRefData(refID, refRole, ctx) {
                                 status: "ok",
                                 role: refRole
                             }
-                        //console.log(responseData)
                             return ctx.body = responseData;
                         }).catch((error) => {
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)

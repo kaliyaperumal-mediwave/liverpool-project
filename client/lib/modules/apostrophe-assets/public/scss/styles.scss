@@ -76,10 +76,6 @@ body {
     width: 100% !important;
   }
 
-  // .badge-warning {
-  //   background-color: $tertiary-color !important;
-  // }
-
   .b-pagination {
     font-family: "century-gothic" !important;
   }
@@ -168,6 +164,10 @@ body {
 
   .h-300 {
     height: 300px !important;
+  }
+
+  .capitalize-first-letter::first-letter {
+    text-transform: uppercase !important;
   }
 
   .font-23 {
@@ -1081,6 +1081,7 @@ a {
   }
 
   p {
+    margin-bottom: 0px;
     @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
     @include xs-screen {
       font-size: 18px;
@@ -1165,6 +1166,11 @@ a {
 
 .toster-container {
   @include set-background($tertiary-color, 1);
+  border-radius: 24px;
+}
+
+.toster-container-white {
+  @include set-background($secondary-color, 1);
   border-radius: 24px;
 }
 
@@ -3746,6 +3752,6 @@ div.collapse-container.collapsing {
 .customize-table-pagination .page-link:hover {
   color: #252728;
 }
-.capitalize-first-letter::first-letter {
-  text-transform: uppercase i !important;
+.capitalize-first-letter-letter::first-letter {
+  text-transform: uppercase !important;
 }
