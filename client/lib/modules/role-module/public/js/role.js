@@ -179,6 +179,7 @@ $(document).ready(function () {
                         Vue.set(this.elgibilityObj, "profContactNumber", profData.contact_number);
                         Vue.set(this.elgibilityObj, "profAddress", profData.address);
                         Vue.set(this.elgibilityObj, "profProfession", profData.profession);
+                        Vue.set(this.elgibilityObj, "professional_contact_type", profData.professional_contact_type);
 
                         if (profData.professional_manual_address && profData.professional_manual_address.length) {
                             Vue.set(this, "professionalManualAddress", profData.professional_manual_address);
