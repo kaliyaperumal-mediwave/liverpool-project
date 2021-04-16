@@ -14,7 +14,8 @@ module.exports = {
     require('../../middleware')(self, options);
     self.orcha = function (req, callback) {
       req.data.orchaApps = req.session.orchaApps;
-     if(req.session.resUrl!='/orcha/orchahome')
+      console.log(req.session.resUrl)
+     if(req.session.resUrl!='/apps?b3JjaGFCYWNr')
      {
       var appsName=[];
       var appTitle = {};
