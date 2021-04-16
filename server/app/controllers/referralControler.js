@@ -2996,7 +2996,7 @@ exports.getProfReferral = async (ctx) => {
           profession: prof_data.professional_profession ? prof_data.professional_profession : '',
           address: prof_data.professional_address ? prof_data.professional_address : '',
           professional_manual_address: prof_data.professional_manual_address ? prof_data.professional_manual_address : '',
-          professional_contact_type:prof_data.professional_contact_type?prof_data.professional_contact_type:''
+          professional_contact_type:prof_data.professional_contact_type?prof_data.professional_contact_type:'mobile'
         }
       }
     }

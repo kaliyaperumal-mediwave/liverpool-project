@@ -7,6 +7,10 @@ does not have access to an Apostrophe page or piece.') }} {% endif %} {%
 endblock %} {% block extraHead %}
 
 <!-- Latest compiled and minified CSS -->
+<!-- this is used for jsonparse conversion in ios -->
+<meta name="format-detection" content="telephone=no">
+
+
 
 <!--Font Family Cdn-->
 <link rel="stylesheet" href="https://use.typekit.net/htu8woz.css" />
@@ -415,6 +419,7 @@ endblock %} {% block extraHead %}
 <!-- Dont remove this line. it is used in check a referral page -->
 <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
 <p id="sessionExp">{{data.sessionExp}}</p>
+
 <div class="footer-bg set-bottom-padding">
   <!-- <div id="footer-placement" class="footer-bg footer set-bottom-padding">
     <div class="footer-container">

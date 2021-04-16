@@ -106,7 +106,14 @@ $(document).ready(function () {
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
             var disableProfessional = document.getElementById('96dda9ca-9328-47e8-ac1a-8cdc972df4d0').lastElementChild;
-
+            var profData = document.getElementById('prof_data').innerHTML;
+            // try{
+            //     profData = JSON.parse(JSON.stringify(profData));
+            //     alert(profData)
+            // }
+            // catch(e){
+            //     alert(e)
+            // }
             var userRole = document.getElementById('uRole').innerHTML;
             if (userRole) {
                 this.elgibilityObj.role = userRole;
@@ -171,18 +178,25 @@ $(document).ready(function () {
                 } else {
                     if (this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
                         var profData = document.getElementById('prof_data').innerHTML;
-                        profData = JSON.parse(profData);
+                       var profData1;
+                        try{
+                            profData1 = JSON.parse(profData);
+                            //alert(profData1)
+                        }
+                        catch(e){
+                           // alert(e)
+                        }
                         //  console.log(profData.professional_manual_address);
-                        Vue.set(this.elgibilityObj, "profFirstName", profData.first_name);
-                        Vue.set(this.elgibilityObj, "proflastName", profData.last_name);
-                        Vue.set(this.elgibilityObj, "profEmail", profData.email);
-                        Vue.set(this.elgibilityObj, "profContactNumber", profData.contact_number);
-                        Vue.set(this.elgibilityObj, "profAddress", profData.address);
-                        Vue.set(this.elgibilityObj, "profProfession", profData.profession);
-                        Vue.set(this.elgibilityObj, "professional_contact_type", profData.professional_contact_type);
+                        Vue.set(this.elgibilityObj, "profFirstName", profData1.first_name);
+                        Vue.set(this.elgibilityObj, "proflastName", profData1.last_name);
+                        Vue.set(this.elgibilityObj, "profEmail", profData1.email);
+                        Vue.set(this.elgibilityObj, "profContactNumber", profData1.contact_number);
+                        Vue.set(this.elgibilityObj, "profAddress", profData1.address);
+                        Vue.set(this.elgibilityObj, "profProfession", profData1.profession);
+                        Vue.set(this.elgibilityObj, "professional_contact_type", profData1.professional_contact_type);
 
-                        if (profData.professional_manual_address && profData.professional_manual_address.length) {
-                            Vue.set(this, "professionalManualAddress", profData.professional_manual_address);
+                        if (profData1.professional_manual_address && profData1.professional_manual_address.length) {
+                            Vue.set(this, "professionalManualAddress", profData1.professional_manual_address);
                             this.setReadonlyState(true);
                         }
                     }
