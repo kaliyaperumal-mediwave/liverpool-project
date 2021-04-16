@@ -63,36 +63,28 @@
             <div v-if="showSearchResults" class="resource_search_text my-3">
               Search results for “what is {{searchQuery}}?”
             </div>
+
             <div v-if="showSearchResults" class="search-wrap primary-search-radius">
               <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                <template v-if="filteredData.length">
-                  <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                <div v-if="filteredData.length">
+                  <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 py-3">
                     <a :href="item.custom_url ? item.custom_url : item._url ">
                       <div class="d-flex align-items-center">
-                        <!-- <img
-                          src="/modules/my-apostrophe-assets/img/placeholder.svg"
-                          width="50"
-                          height="30"
-                          class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
-                          alt=""
-                        /> -->
-                        <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-
-                        <p class="question-font my-0 mx-2 mx-md-4">
+                        <p class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
                           {{item.title}}
                         </p>
-                        <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important">
+                        <ul class="my-0 link-text mx-2 fixedWidthSetLI" style="list-style: inside !important">
                           <li>{{item.Topic}}</li>
                         </ul>
                       </div>
                     </a>
                   </div>
-                </template>
-                <template v-if="!filteredData.length">
+                </div>
+                <div v-if="!filteredData.length">
                   <p class="home-header-secondary py-3 pl-4">
                     No results found
                   </p>
-                </template>
+                </div>
               </div>
             </div>
 

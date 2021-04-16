@@ -104,10 +104,9 @@
 
                 <!-- Orcha Category Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect v-model="categoryValue" :options="categoryList"
-                        placeholder="Category" label="subCategoryName" track-by="id"
-                        @select="selectOptions($event,'category')" @remove="removeOptions($event,'category')"
-                        class="custom-dropbox-hover themeSetDark">
+                    <multiselect v-model="categoryValue" :options="categoryList" placeholder="Category"
+                        label="subCategoryName" track-by="id" @select="selectOptions($event,'category')"
+                        @remove="removeOptions($event,'category')" class="custom-dropbox-hover themeSetDark">
                     </multiselect>
                 </div>
                 <!-- Orcha Category Select End-->
@@ -146,19 +145,20 @@
 
                 <!-- Orcha Cost Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="costValue" tag-placeholder="" placeholder="Cost"
-                        :close-on-select="false" label="costName" track-by="id" :options="costList" :multiple="true"
-                        :clear-on-select="false" :limit="1" :preserve-search="true" @select="selectOptions($event)"
-                        @remove="removeOptions($event,'cost')">
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="costValue" tag-placeholder=""
+                        placeholder="Cost" :close-on-select="false" label="costName" track-by="id" :options="costList"
+                        :multiple="true" :clear-on-select="false" :limit="1" :preserve-search="true"
+                        @select="selectOptions($event)" @remove="removeOptions($event,'cost')">
                     </multiselect>
                 </div>
                 <!-- Orcha Cost Select End-->
 
                 <!-- Orcha Platform Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="platformValue" :options="platformList"
-                        placeholder="Platform" :show-labels="false" label="platformName" track-by="id"
-                        @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="platformValue"
+                        :options="platformList" placeholder="Platform" :show-labels="false" label="platformName"
+                        track-by="id" @select="selectOptions($event,'platform')"
+                        @remove="removeOptions($event,'platform')">
                     </multiselect>
                 </div>
                 <!-- Orcha Platform Select End-->

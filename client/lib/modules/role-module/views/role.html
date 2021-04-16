@@ -547,11 +547,12 @@
                                 </span>
                             </div>
                         </div>
-                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3"
-                            class="form-text text-muted">You must
+                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3" class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="emailHelp" v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrMsg" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="emailHelp"
+                            v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                         <small v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrLink"
                             id="gpErrLink" class="form-text text-muted">Unfortunately, this location is not covered by
                             our service.
@@ -1388,12 +1389,13 @@
                                 </span>
                             </div>
                         </div>
-                        <small id="gpInfoMessage"
-                            v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3"
+                        <small id="gpInfoMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3"
                             class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="gpErrorMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg"  class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="gpErrorMessage"
+                            v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                         <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
                             id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
                             by
@@ -1410,10 +1412,10 @@
             {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
                 <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
-                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-
+                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="gpSchool" class="question-font">Where the child / young person go to school?</label>
+                        <label for="gpSchool" class="question-font mb-1">Where the child / young person go to
+                            school?</label>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
                                 v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
@@ -1439,28 +1441,6 @@
                             </label>
                         </div>
                     </div>
-
-                    <!-- <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <span style="color:#023087 ;">
-                                    <i class="fas fa-info-circle common-fa-fa fa-2x cursor-pointer" data-toggle="modal"
-                                        data-target="#consentModal" aria-hidden="true"></i>
-                                </span>
-                            </p>
-                            <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
-                                service.</p>
-
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
-                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
-                                    target="_blank">
-                                    Find a service local to me
-                                </a></p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"
-                                v-on:click="changePrevAns('regProfGpTxt','gpProfLocation')"> Change my previous
-                                answer </p>
-                        </div>
-                    </div> -->
                 </div>
             </form>
             {% endraw %}
