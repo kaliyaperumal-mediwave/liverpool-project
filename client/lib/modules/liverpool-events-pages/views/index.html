@@ -71,29 +71,23 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           </div>
           <div v-if="showSearchResults" class="search-wrap primary-search-radius">
             <div class="primary-search-radius card cursor-pointer card-set-container-bg">
-              <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 py-3">
-                <a :href=" [item.custom_url ? `${item.custom_url}` : `${item._url}`] ">
-                  <div class="d-flex align-items-center">
-                    <!-- <img
-                      src="/modules/my-apostrophe-assets/img/placeholder.svg"
-                      width="50"
-                      height="30"
-                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
-                      alt=""
-                    /> -->
-                    <!-- <div
-                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"
-                    ></div> -->
+              <div v-if="filteredData.length">
+                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 py-3">
+                  <a :href=" [item.custom_url ? `${item.custom_url}` : `${item._url}`] ">
+                    <div class="d-flex align-items-center">
+                      <p class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                        {{item.title}} {{item.custom_url}}
+                      </p>
 
-                    <p class="question-font my-0 mx-2 mx-md-4 ellipse-text-dropdown">
-                      {{item.title}} {{item.custom_url}}
-                    </p>
-
-                    <ul class="my-0 link-text mx-2 fixedWidthSetLI" style="list-style: inside !important">
-                      <li>{{item.Topic}}</li>
-                    </ul>
-                  </div>
-                </a>
+                      <ul class="my-0 link-text mx-2 fixedWidthSetLI" style="list-style: inside !important">
+                        <li>{{item.Topic}}</li>
+                      </ul>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div v-if="!filteredData.length">
+                <p class="home-header-secondary py-3 pl-4">No results found</p>
               </div>
             </div>
           </div>
