@@ -369,7 +369,6 @@ $(document).ready(function () {
             },
 
             onChange: function (event) {
-                debugger
                 console.log('manual array', this.professionalManualAddress);
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value;
