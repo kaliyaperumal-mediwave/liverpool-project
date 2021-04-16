@@ -34,31 +34,23 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
   <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container pd-container " id="searchBar">
       <!-- <a href="" class="previous-link"> <img src='/modules/my-apostrophe-assets/img/Back.svg' class="leftArrow cursor-pointer" /></a> -->
-      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="" class="previous-link"
-        ><i class="fal fa-long-arrow-left fa-2x ham-icon"></i
-      ></a>
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="" class="previous-link"><i
+            class="fal fa-long-arrow-left fa-2x ham-icon"></i></a>
 
-      <div class="resource_text pb-sm-0 pt-2">Videos</div></div>
+        <div class="resource_text pb-sm-0 pt-2">Videos</div>
+      </div>
       <input hidden id="resources" value="{{data.piecesArray|dump}}" />
       <div id="filter_content">
         <div class="input-group home-primary-content-bg">
           <span class="input-group-prepend">
-            <div
-              class="home-primarySearch-bg input-group-text border-right-0 height-44"
-            >
+            <div class="home-primarySearch-bg input-group-text border-right-0 height-44">
               <span style="color: #023047 !important">
                 <i class="fal fa-search font-23"></i>
               </span>
             </div>
           </span>
-          <input
-            class="height-44 home-primarySearch-bg border-0 form-control py-2"
-            type="text"
-            v-model="searchQuery"
-            placeholder="Search your resource"
-            id="example-search-input"
-            @input="filterPieces()"
-          />
+          <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
+            placeholder="Search your resource" id="example-search-input" @input="filterPieces()" />
           <!-- <div class="search-wrapper">
 
               <form class="wid-80">
@@ -76,17 +68,9 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
           <div v-if="showSearchResults" class="resource_search_text my-3">
             Search results for “what is {{searchQuery}}?”
           </div>
-          <div
-            v-if="showSearchResults"
-            class="search-wrap primary-search-radius"
-          >
-            <div
-              class="primary-search-radius card cursor-pointer card-set-container-bg"
-            >
-              <div
-                v-for="item in filteredData"
-                class="border-bottom-primary card-body px-2 py-3"
-              >
+          <div v-if="showSearchResults" class="search-wrap primary-search-radius">
+            <div class="primary-search-radius card cursor-pointer card-set-container-bg">
+              <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 py-3">
                 <a :href=" item.custom_url ? item.custom_url : item._url">
                   <div class="d-flex align-items-center">
                     <!-- <img
@@ -101,10 +85,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
                     <p class="question-font my-0 mx-2 mx-md-4 ellipse-text-dropdown">
                       {{item.title}}
                     </p>
-                    <ul
-                      class="my-0 link-text mx-2 fixedWidthSetLI"
-                      style="list-style: inside !important"
-                    >
+                    <ul class="my-0 link-text mx-2 fixedWidthSetLI" style="list-style: inside !important">
                       <li>{{item.Topic}}</li>
                     </ul>
                   </div>
@@ -118,7 +99,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
       </div>
       <div class="text_inside_cont card-set-container-bg home-primary-content-bg">
         <h5 class="font-weight-bold">
-        Here are different videos currently used across the platform
+          Here are different videos currently used across the platform
         </h5>
       </div>
 
@@ -126,15 +107,9 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
 
       <div class="text_inside_video text-decoration-none">
         <div class="large-toggle-cont no-padding card-set-container-bg">
-          <iframe
-            class="img-placeholder m-b-min-8"
-            width="100%"
-            height="315"
-            src="{{ piece.video }}"
-            frameborder="0"
+          <iframe class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+            allowfullscreen></iframe>
           <div class="body-cont-set card-set-container-bg">
             <div class="read-cont-h1">{{ piece.title }}</div>
             <div class="read-cont-p">{{ piece.SubTitle }}</div>
@@ -150,21 +125,12 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% block main %} {% include
       <div class="selectSource">More to read</div>
       {% endif %} {% else %}
 
-      <a
-        href="{{ piece._parentUrl }}?piece_id={{ piece._id }}"
-        class="text-decoration-none"
-      >
+      <a href="{{ piece._parentUrl }}?piece_id={{ piece._id }}" class="text-decoration-none">
         <div class="large-toggle-cont no-padding card-set-container-bg">
           <div class="video-title-top">{{ piece.title }}</div>
-          <iframe
-            class="img-placeholder m-b-min-8"
-            width="100%"
-            height="315"
-            src="{{ piece.video }}"
-            frameborder="0"
+          <iframe class="img-placeholder m-b-min-8" width="100%" height="315" src="{{ piece.video }}" frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
+            allowfullscreen></iframe>
           <div class="body-cont-set card-set-container-bg">
             <div class="read-cont-p">{{ piece.SubTitle }}</div>
             <div class="text-break ellipse-text-large">
