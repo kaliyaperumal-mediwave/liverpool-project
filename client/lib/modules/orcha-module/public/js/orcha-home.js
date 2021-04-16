@@ -43,8 +43,9 @@ $(document).ready(function () {
             $('#orchaLoader').show();
         },
         mounted: function () {
+            //console.log(JSON.parse(localStorage.getItem("orFilData")));
             this.getAllDataForDropdown();
-            $('#orchaLoader').hide();
+            $('#orchaLoader').hide();            
         },
 
         methods: {
@@ -58,7 +59,19 @@ $(document).ready(function () {
                     this.designedForList = successData.data.designedFor_payload;
                     this.costList = successData.data.cost_payload;
                     this.platformList = successData.data.platform_payload;
+
+                    this.paramValues = getParameter(location.href);
                     var emptyPayload = {};
+                    if(this.paramValues != undefined && this.paramValues[0]=="orchaBack")
+                    {
+                        emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
+                        this.options.find
+                        console.log(emptyPayload)
+                    }
+                    else
+                    {
+                        emptyPayload = {};
+                    }
                     this.getOrchaAppsData(emptyPayload);
 
                 } else {
@@ -127,6 +140,8 @@ $(document).ready(function () {
 
             getOrchaAppsData: function (payload) {
                 $('#orchaLoader').show();
+                console.log(payload)
+                localStorage.setItem("orFilData", JSON.stringify(payload));
                 var successData = apiCallPost('post', '/getSearchData/', payload);
                 if (successData && Object.keys(successData)) {
                     if (successData.data.result.items.length) {

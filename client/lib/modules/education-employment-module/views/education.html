@@ -517,59 +517,99 @@
                 <!-- Dynamic Toaster start Scenario 1 End-->
 
                 <!-- Dynamic Toaster start Scenario 2 Start-->
-                <template v-if="educAndEmpData.haveSocialWorker == 'no'">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <p class="text-center m-0 py-2">
-                                    <template
-                                        v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                </p>
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
-                                <template
-                                    v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on this
-                                        page.</p>
-                                </template>
+                <div class="px-4 py-4">
+                    <div v-if="educAndEmpData.haveSocialWorker == 'no'"
+                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 pt-2 pb-1">
+                                <img v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                <img v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+
+                                <span
+                                    v-if="isFormSubmitted && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    style="color:#DD3939 !important">
+                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <div
+                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="isFormSubmitted && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on this
+                                    page.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center py-4">
-                        <a>
-                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-secondary-text">SAVE &
-                                    CONTINUE</span></button>
-                        </a>
+                </div>
+
+                <div class="px-4 py-4">
+                    <div v-if="educAndEmpData.haveSocialWorker == 'no'"
+                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 pt-2 pb-1">
+                                <img v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                <img v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+
+                                <span
+                                    v-if="isFormSubmitted && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    style="color:#DD3939 !important">
+                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <div
+                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="isFormSubmitted && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on this
+                                    page.</p>
+                            </div>
+                        </div>
                     </div>
-                </template>
+                </div>
+
+
+
+                <div v-if="educAndEmpData.haveSocialWorker == 'no'" class="text-center py-4">
+                    <a>
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </a>
+                </div>
                 <!-- Dynamic Toaster start Scenario 2 End-->
 
 
