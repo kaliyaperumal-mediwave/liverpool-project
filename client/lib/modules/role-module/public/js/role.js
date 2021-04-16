@@ -189,9 +189,6 @@ $(document).ready(function () {
                 }
             },
             setValues: function (data) {
-                //console.log(data)
-                //console.log("length " + data.length)
-                //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
                 console.log(data)
@@ -358,9 +355,13 @@ $(document).ready(function () {
             },
 
             onChange: function (event) {
+                debugger
+                console.log('manual array', this.professionalManualAddress);
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
+                    this.professionalManualAddress = [];
+                    this.setReadonlyState(false);
                     this.resetValues(event.target.form);
                     // this.elgibilityObj.profFirstName = "";
                     // this.elgibilityObj.profEmail = "";
@@ -381,7 +382,6 @@ $(document).ready(function () {
                     this.elgibilityObj.contactParent = optionValue;
                 }
                 else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
-                    //console.log(event.target.form)
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contact_parent_camhs = optionValue;
                 }
@@ -402,17 +402,22 @@ $(document).ready(function () {
                     this.elgibilityObj.parentConcernInformation = optionValue;
                 }
                 else if (questionIdentifier == "directServices") {
+                    if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
+                        this.setReadonlyState(true);
+                    } else {
+                        this.setReadonlyState(false);
+                    }
                     this.resetValues(event.target.form);
-                    // this.professionalManualAddress = [];
-                    this.setReadonlyState(false);
                     this.elgibilityObj.profDirectService = optionValue;
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
-                    //   this.professionalManualAddress = [];
-                    this.setReadonlyState(false);
+                    if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
+                        this.setReadonlyState(true);
+                    } else {
+                        this.setReadonlyState(false);
+                    }
                     this.elgibilityObj.profChildDob = "";
-                    //this.elgibilityObj.profDirectService = optionValue;
                 }
             },
 
@@ -683,7 +688,7 @@ $(document).ready(function () {
                                         success: function (response) {
                                             _self.gpListShow = [];
                                             _self.gpProfListName = [];
-                                           // app.elgibilityObj.gpErrMsg = "";
+                                            // app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
