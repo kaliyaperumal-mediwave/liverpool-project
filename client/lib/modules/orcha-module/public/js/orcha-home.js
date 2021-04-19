@@ -65,7 +65,6 @@ $(document).ready(function () {
                     if(this.paramValues != undefined && this.paramValues[0]=="orchaBack")
                     {
                         emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
-                        this.options.find
                         console.log(emptyPayload)
                     }
                     else
