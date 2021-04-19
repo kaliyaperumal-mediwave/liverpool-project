@@ -613,7 +613,7 @@ function resize() {
     if (middleContent) {
         if (header) {
             middleContent.style.paddingTop = header.offsetHeight + 'px';
-            //middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
+            // middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
         }
     }
 }

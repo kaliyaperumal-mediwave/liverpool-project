@@ -16,7 +16,8 @@ $(document).ready(function () {
       successMessage: '',
       draw: 1,
       searchRefObj: {},
-      SelectedProviderType: 'Liverpool'
+      SelectedProviderType: 'Liverpool',
+      loading: false
     },
 
     beforeMount: function () {
@@ -71,11 +72,11 @@ $(document).ready(function () {
             { targets: 4, orderable: true },
             { targets: 5, orderable: true },
             { targets: 6, orderable: true },
-            { targets: 7, orderable: false, type: 'date-uk' },
+            { targets: 7, orderable: true, type: 'date-uk' },
             { targets: 8, orderable: true },
             { targets: 9, orderable: false },
           ],
-          lengthMenu: [[50, 100, 250, -1], [50, 100, 250, "All"]],
+          lengthMenu: [[10, 50, 100, 250, -1], [10, 50, 100, 250, "All"]],
           order: [[7, 'desc']],
           language: {
             searchPlaceholder: 'Search referral',
@@ -153,26 +154,39 @@ $(document).ready(function () {
       deleteReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
-          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
-          $('#loader').hide();
-          if (successData && Object.keys(successData)) {
-            this.successMessage = 'Referrals deleted successfully .'
-            this.fetchReferral();
-            $('#deletedSuccess').modal('show');
-          }
+          setTimeout(() => {
+            var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
+            if (successData && Object.keys(successData)) {
+              this.successMessage = 'Referrals deleted successfully .'
+              this.fetchReferral();
+              $('#deletedSuccess').modal('show');
+              setTimeout(() => {
+                $('#loader').hide();
+              }, 500);
+            } else {
+              $('#loader').hide();
+            }
+          }, 500);
+         
         }
       },
 
       archiveReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
-          var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
-          $('#loader').hide();
-          if (successData && Object.keys(successData)) {
-            this.successMessage = 'Referrals archived successfully .';
-            this.fetchReferral();
-            $('#deletedSuccess').modal('show');
-          }
+          setTimeout(() => {
+            var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
+            if (successData && Object.keys(successData)) {
+              this.successMessage = 'Referrals archived successfully .';
+              this.fetchReferral();
+              $('#deletedSuccess').modal('show');
+              setTimeout(() => {
+                $('#loader').hide();
+              }, 500);
+            } else {
+              $('#loader').hide();
+            }
+          }, 500);
         }
       },
 
@@ -215,27 +229,29 @@ $(document).ready(function () {
 
 function viewPdf(uuid, role) {
   $('#loader').show();
-  var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
-  console.log(successData)
-  var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-  var isIE = false || !!document.documentMode;
-  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-  if(!isIE && !isSafari)
-  {
-    var link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.target = '_blank'
-    link.click();
-    setTimeout(function () {
-      $('#loader').hide();
-    }, 1000);
-  }
-  else
-  {
-    download(blob, uuid+".pdf", "application/pdf");
-    $('#loader').hide();
-  }
-  //link.click();
+  setTimeout(() => {
+    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+    var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+    var isIE = false || !!document.documentMode;
+    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+    if(!isIE && !isSafari)
+    {
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.target = '_blank'
+      link.click();
+      setTimeout(function () {
+        $('#loader').hide();
+      }, 500);
+    }
+    else
+    {
+      download(blob, uuid+".pdf", "application/pdf");
+      setTimeout(function () {
+        $('#loader').hide();
+      }, 500);
+    }
+  }, 500);
 }
 
 function toArrayBuffer(buf) {
@@ -248,16 +264,25 @@ function toArrayBuffer(buf) {
 }
 
 function sendPdf(uuid, role, refCode) {
-  var selectedProvider = document.getElementById('SelectedProvider').value;
-  var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
-  if (successData && Object.keys(successData)) {
-    $('.reload').trigger('click');
-    $('#sendProviderModal').modal('hide');
-    $('#mailSentSuccess').modal('show');
-  }
-  else {
-    $('#sendProviderModal').modal('hide');
-  }
+  $('#loader').show();
+  setTimeout(() => {
+    var selectedProvider = document.getElementById('SelectedProvider').value;
+    var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
+    if (successData && Object.keys(successData)) {
+      $('.reload').trigger('click');
+      $('#sendProviderModal').modal('hide');
+      $('#mailSentSuccess').modal('show');
+      setTimeout(function () {
+        $('#loader').hide();
+      }, 500);
+    }
+    else {
+      setTimeout(function () {
+        $('#loader').hide();
+      }, 500);
+      $('#sendProviderModal').modal('hide');
+    }
+  }, 500);
 }
 
 function openSendPopup(uuid, role, refCode, referral_provider) {

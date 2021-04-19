@@ -961,6 +961,17 @@ table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select
   width: 60% !important;
   padding: 10px; }
 
+.customize-table-pagination .b-pagination-pills .page-item .page-link {
+  border-radius: 100% !important;
+  margin-left: 0.25rem;
+  line-height: 1;
+  padding: 0px 0px 3px 2px !important;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 /* Button Global classes */
 .btn {
   box-shadow: 0px 3px 6px #00000029 !important;
@@ -1813,7 +1824,7 @@ a {
       font-size: 15px; } }
 
 .orcha-link {
-  font-size: 17px;
+  font-size: 15px;
   font-weight: bold;
   color: #023047; }
 
@@ -2233,6 +2244,7 @@ a {
       .review-header-font h2 {
         font-size: 19px; } }
   .review-header-font p {
+    margin-bottom: 0px !important;
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
@@ -3281,7 +3293,7 @@ body .ui-widget .ui-menu-item {
   padding: 18px; }
 
 .wrap-contain-app {
-  height: 60px;
+  height: 71px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -3310,7 +3322,8 @@ body .ui-widget .ui-menu-item {
   color: #023047;
   font-weight: bold;
   padding-bottom: 4px;
-  text-align: left; }
+  text-align: left;
+  line-height: 24px; }
 
 .answerText {
   font-size: 14px;
@@ -3819,7 +3832,8 @@ body .ui-widget .ui-menu-item {
   border-color: #023047 transparent transparent !important; }
 
 .off .themeSetDark {
-  color: #023047 !important; }
+  color: #023047 !important;
+  background-color: #e8edee; }
 
 .off .themeSetDark .multiselect__input {
   background-color: #e8edee; }
@@ -4222,7 +4236,8 @@ body .ui-widget .ui-menu-item {
   border-color: #fafafa transparent transparent !important; }
 
 .on .themeSetDark {
-  color: #fafafa !important; }
+  color: #fafafa !important;
+  background-color: #535454; }
 
 .on .themeSetDark .multiselect__input {
   background-color: #535454; }
@@ -4714,6 +4729,16 @@ body .ui-widget .ui-menu-item {
   p.referral-inside-text.my-2.my-md-3 {
     font-size: 16px !important; } }
 
+#side-drawer::-webkit-scrollbar-track {
+  background-color: #e2e2e2; }
+
+#side-drawer::-webkit-scrollbar {
+  height: 10px;
+  width: 10px; }
+
+#side-drawer::-webkit-scrollbar-thumb {
+  background-color: #707070 !important; }
+
 #style-7::-webkit-scrollbar-track {
   background-color: #f5f5f5;
   border-radius: 10px; }
@@ -4783,11 +4808,12 @@ body .ui-widget .ui-menu-item {
   text-align: left;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  height: 42px;
+  height: 71px;
   color: #11214b;
   opacity: 1;
   margin-bottom: 0px;
-  padding-bottom: 0; }
+  padding-bottom: 0;
+  line-height: 24px; }
 
 .read-cont-h1 p:hover {
   text-decoration: none !important; }
