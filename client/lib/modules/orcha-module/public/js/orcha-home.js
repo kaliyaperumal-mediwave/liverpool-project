@@ -35,7 +35,10 @@ $(document).ready(function () {
                 currentPage: null,
                 perPage: null,
                 totalItems: null,
-            }
+            },
+            patchCategory: [],
+            patchDesignedFor: [],
+            patchCost: [],
 
         },
 
@@ -45,7 +48,7 @@ $(document).ready(function () {
         mounted: function () {
             //console.log(JSON.parse(localStorage.getItem("orFilData")));
             this.getAllDataForDropdown();
-            $('#orchaLoader').hide();            
+            $('#orchaLoader').hide();
         },
 
         methods: {
@@ -61,11 +64,40 @@ $(document).ready(function () {
                     this.platformList = successData.data.platform_payload;
 
                     this.paramValues = getParameter(location.href);
-                    var emptyPayload = {};
+                   // var emptyPayload = {};
+
+                    emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
+                    console.log(emptyPayload)
                     if(this.paramValues != undefined && this.paramValues[0]=="orchaBack")
                     {
                         emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
-                        console.log(emptyPayload)
+                        if(emptyPayload.capabilities.length>0)
+                        {
+                            for (i = 0; i < emptyPayload.capabilities.length; i++) {
+                                this.patchCategory.push(this.capabilityList.find(capabilityList => capabilityList.id === (emptyPayload.capabilities[i])));
+                            }
+                            this.capabilityValue = this.patchCategory;
+                        }
+
+                        if(emptyPayload.designedFor.length>0)
+                        {
+                            for (i = 0; i < emptyPayload.designedFor.length; i++) {
+                                this.patchDesignedFor.push(this.designedForList.find(designedForList => designedForList.id === (emptyPayload.designedFor[i])));
+                            }
+                            this.designedForValue = this.patchDesignedFor;
+                        }
+
+                        if(emptyPayload.cost.length>0)
+                        {
+                            for (i = 0; i < emptyPayload.cost.length; i++) {
+                                this.patchCost.push(this.costList.find(costList => costList.id === (emptyPayload.cost[i])));
+                            }
+                            this.costValue = this.patchCost;
+                        }
+
+                        this.categoryValue = this.categoryList.find(categoryList => categoryList.id === emptyPayload.subCategory);
+                        this.platformValue = this.platformList.find(platformList => platformList.id === emptyPayload.platform);
+                        document.getElementById('clearFilterButton').removeAttribute('disabled');
                     }
                     else
                     {
