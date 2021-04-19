@@ -95,8 +95,19 @@
     width: calc(100% - 55px);
   }
 }
-.custom-slider-orcha{
-    height: auto !important;
-    width: 60% !important;
-    padding: 10px;
+.custom-slider-orcha {
+  height: auto !important;
+  width: 60% !important;
+  padding: 10px;
+}
+.customize-table-pagination .b-pagination-pills .page-item .page-link {
+  border-radius: 100% !important;
+  margin-left: 0.25rem;
+  line-height: 1;
+  padding: 0px 0px 3px 2px !important;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -2881,6 +2881,7 @@ $color-scheme: (
     }
     .themeSetDark {
       color: $secondary !important;
+      background-color: $input-form-color;
     }
     .themeSetDark .multiselect__input {
       background-color: $input-form-color;

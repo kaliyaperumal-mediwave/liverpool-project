@@ -961,6 +961,17 @@ table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select
   width: 60% !important;
   padding: 10px; }
 
+.customize-table-pagination .b-pagination-pills .page-item .page-link {
+  border-radius: 100% !important;
+  margin-left: 0.25rem;
+  line-height: 1;
+  padding: 0px 0px 3px 2px !important;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
 /* Button Global classes */
 .btn {
   box-shadow: 0px 3px 6px #00000029 !important;
@@ -3820,7 +3831,8 @@ body .ui-widget .ui-menu-item {
   border-color: #023047 transparent transparent !important; }
 
 .off .themeSetDark {
-  color: #023047 !important; }
+  color: #023047 !important;
+  background-color: #e8edee; }
 
 .off .themeSetDark .multiselect__input {
   background-color: #e8edee; }
@@ -4223,7 +4235,8 @@ body .ui-widget .ui-menu-item {
   border-color: #fafafa transparent transparent !important; }
 
 .on .themeSetDark {
-  color: #fafafa !important; }
+  color: #fafafa !important;
+  background-color: #535454; }
 
 .on .themeSetDark .multiselect__input {
   background-color: #535454; }
