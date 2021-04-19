@@ -298,7 +298,6 @@
                 </form>
                 <!-- Social Worker Last Name Form End -->
 
-                ]
                 <!-- Social Worker Contact Start -->
                 <form id="socialWorkerContact-info" data-options="socialWorkContact">
                     <div v-show="educAndEmpData.haveSocialWorker =='yes'"
@@ -518,59 +517,55 @@
                 <!-- Dynamic Toaster start Scenario 1 End-->
 
                 <!-- Dynamic Toaster start Scenario 2 Start-->
-                <template v-if="educAndEmpData.haveSocialWorker == 'no'">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <p class="text-center m-0 py-2">
-                                    <template
-                                        v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                </p>
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
-                                <template
-                                    v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on this
-                                        page.</p>
-                                </template>
+                <div class="px-4 py-4">
+                    <div v-if="educAndEmpData.haveSocialWorker == 'no'"
+                        class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 pt-2 pb-1">
+                                <img v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                <img v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+
+                                <span
+                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    style="color:#DD3939 !important">
+                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <div
+                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the 1
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the 1
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on this
+                                    page.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center py-4">
-                        <a>
-                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-secondary-text">SAVE &
-                                    CONTINUE</span></button>
-                        </a>
-                    </div>
-                </template>
+                </div>
+
+                <div v-if="educAndEmpData.haveSocialWorker == 'no'" class="text-center py-4">
+                    <a>
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </a>
+                </div>
                 <!-- Dynamic Toaster start Scenario 2 End-->
 
 
@@ -760,12 +755,12 @@
                                 <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
                                     <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
                                         An Education, Health and Care Plan (EHCP) outlines any special educational needs
-                                        a child has, and the provision a local authority must put in place to help them.
+                                        a child has, and the provision a local authority must put in place to help them
                                     </h3>
                                     <h3 class="support-modal-content-text text-left py-2"> If your school is supportive
                                         and knowledgeable about special needs, they may start off the process for you.
                                         But you can request one yourself, simply by contacting your local authority’s
-                                        special educational needs department and requesting an assessment for an EHCP.
+                                        special educational needs department and requesting an assessment for an EHCP
                                     </h3>
                                     <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                                         <a href="http://search3.openobjects.com/kb5/liverpool/fsd/service.page?id=aR_ebr58DtU"
@@ -802,12 +797,12 @@
                                     <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
                                         An Early Help Assessment Tool (EHAT) is a tool used for gathering information
                                         and a standard approach in assessment for the identification of Early Help
-                                        needs.
+                                        needs
                                     </h3>
                                     <h3 class="support-modal-content-text text-left py-2">
                                         The EHAT helps practitioners to gather and understand information about the
                                         needs and strengths of children and the family. This is based on discussions
-                                        with children and their family and other practitioners as appropriate.
+                                        with children and their family and other practitioners as appropriate
                                     </h3>
                                     <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                                         <a href="https://ehd.liverpool.gov.uk/kb5/liverpool/fsd/service.page?id=BgW2Z1nz7Bc"
