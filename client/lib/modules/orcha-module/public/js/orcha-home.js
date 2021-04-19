@@ -64,11 +64,13 @@ $(document).ready(function () {
                     this.platformList = successData.data.platform_payload;
 
                     this.paramValues = getParameter(location.href);
-                   // var emptyPayload = {};
+                    // var emptyPayload = {};
 
                     emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
-                    console.log(emptyPayload)
-                    if(this.paramValues != undefined && this.paramValues[0]=="orchaBack")
+                   // console.log("isEmptyObj : "+ this.isEmptyObj(emptyPayload))
+                    var isEmpty = this.isEmptyObj(emptyPayload)
+
+                    if(!isEmpty)
                     {
                         emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
                         if(emptyPayload.capabilities.length>0)
@@ -132,6 +134,7 @@ $(document).ready(function () {
                     pageNum: undefined
                 };
                 document.getElementById('clearFilterButton').setAttribute('disabled', true);
+                localStorage.removeItem("orFilData");
                 this.payloadData = payloadData;
                 this.getOrchaAppsData(emptyPayload);
             },
@@ -171,7 +174,7 @@ $(document).ready(function () {
 
             getOrchaAppsData: function (payload) {
                 $('#orchaLoader').show();
-                console.log(payload)
+                //console.log(payload)
                 localStorage.setItem("orFilData", JSON.stringify(payload));
                 var successData = apiCallPost('post', '/getSearchData/', payload);
                 if (successData && Object.keys(successData)) {
@@ -275,6 +278,15 @@ $(document).ready(function () {
                 this.getOrchaAppsData(this.payloadData);
                 // this.getOrchaAppsData(payloadData);
             },
+
+            isEmptyObj: function (obj) {
+                var isEmpty = true;
+                for (x in obj) {
+                    isEmpty = false;
+                    break;
+                }
+                return isEmpty;
+            }
         }
     })
 });

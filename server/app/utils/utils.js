@@ -34,7 +34,7 @@ module.exports = {
             else
             {
               return ctx.res.unauthorizedError({
-                message: 'Session Expired .',
+                message: 'Session Expired',
               });
             }
         })
