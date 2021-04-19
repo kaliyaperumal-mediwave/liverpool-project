@@ -577,20 +577,12 @@ table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select
 .set-mid-padding {
   padding-bottom: 96px; }
 
-@media (min-width: 1200px) {
-  .middleContainer {
-    padding-top: 102px; } }
-
 @media (max-width: 1200px) {
   .middleContainer {
     min-height: 100vh;
-    margin-bottom: -81px;
-    padding-top: 111px; }
+    margin-bottom: -81px; }
   .set-mid-padding {
     padding-bottom: 80px; } }
-
-.removepadding.middleContainer {
-  padding: 0 !important; }
 
 .slider-stats {
   background: url(/modules/my-apostrophe-assets/img/line.png) no-repeat 62px center/68% 4px; }
@@ -2252,6 +2244,7 @@ a {
       .review-header-font h2 {
         font-size: 19px; } }
   .review-header-font p {
+    margin-bottom: 0px !important;
     font-size: 22px;
     font-weight: bold;
     color: #023047; }
