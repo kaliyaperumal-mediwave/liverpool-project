@@ -137,7 +137,7 @@
                     <multiselect class="custom-dropbox-hover themeSetDark" v-model="costValue" tag-placeholder=""
                         placeholder="Cost" :close-on-select="false" label="costName" track-by="id" :options="costList"
                         :multiple="true" :clear-on-select="false" :limit="1" :preserve-search="true"
-                        @select="selectOptions($event)" @remove="removeOptions($event,'cost')">
+                        @select="selectOptions($event,'cost')" @remove="removeOptions($event,'cost')">
                     </multiselect>
                 </div>
                 <!-- Orcha Cost Select End-->
