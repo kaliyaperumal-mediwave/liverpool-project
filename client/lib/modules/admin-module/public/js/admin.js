@@ -156,7 +156,6 @@ $(document).ready(function () {
           $('#loader').show();
           setTimeout(() => {
             var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
-            $('#loader').hide();
             if (successData && Object.keys(successData)) {
               this.successMessage = 'Referrals deleted successfully .'
               this.fetchReferral();
@@ -284,7 +283,6 @@ function sendPdf(uuid, role, refCode) {
       $('#sendProviderModal').modal('hide');
     }
   }, 500);
-  
 }
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
