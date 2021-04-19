@@ -325,7 +325,12 @@ endblock %} {% block extraHead %}
   })();
 </script>
 
+{{superAdmin}}
+{% if data.showHeader or data.adminPanel %}
 <div id='middleCont' class="middleContainer">
+{% else %}
+  <div id='middleCont' class="removepadding middleContainer">
+{% endif %}
   <div class="set-mid-padding">
 
     <!-- {#

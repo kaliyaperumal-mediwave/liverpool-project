@@ -68,7 +68,7 @@ $(document).ready(function () {
                       { targets: 4, orderable: true },
                       { targets: 5, orderable: true },
                       { targets: 6, orderable: true },
-                      { targets: 7, orderable: false, type: 'date-uk' },
+                      { targets: 7, orderable: true, type: 'date-uk' },
                       { targets: 8, orderable: true },
                       { targets: 9, orderable: false },
                     ],
