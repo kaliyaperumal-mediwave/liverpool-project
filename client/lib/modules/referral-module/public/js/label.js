@@ -4,6 +4,7 @@ function getDynamicLabels(currentLocation) {
     supportNeedsLabel: "",
     diagnosisLabel: "",
     symptomsOrSupportLabel: "",
+    briefOutlineLabel: "",
     referralLabel: "",
     historyLabel: "",
     referralSubLabel: "",
@@ -20,6 +21,7 @@ function getDynamicLabels(currentLocation) {
   if (currentLocation === "child") {
     allLabels.supportNeedsLabel = "What are your support needs?";
     allLabels.diagnosisLabel = "Do you have a mental health diagnosis?";
+    allLabels.briefOutlineLabel = "your";
     allLabels.historyLabel = "Your history";
     allLabels.symptomsOrSupportLabel =
       "Do you have any other symptoms or support needs you would like to discuss?";
@@ -44,6 +46,7 @@ function getDynamicLabels(currentLocation) {
       "Have you accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
   } else if (currentLocation === "parent") {
     allLabels.supportNeedsLabel = "What are the support needs of your child?";
+    allLabels.briefOutlineLabel = "your child's";
     allLabels.diagnosisLabel =
       "Does your child have a mental health diagnosis?";
     allLabels.historyLabel = "The child/young person's history";
@@ -70,6 +73,7 @@ function getDynamicLabels(currentLocation) {
     allLabels.listServiceLabel =
       "Have they accessed any of the following services? (Select all options that are relevant) or select 'Other' to add your service.";
   } else if (currentLocation === "professional") {
+    allLabels.briefOutlineLabel = "the child/young person's";
     allLabels.supportNeedsLabel =
       "What are the support needs of the child/young person?";
     allLabels.historyLabel = "The child/young person's history";
