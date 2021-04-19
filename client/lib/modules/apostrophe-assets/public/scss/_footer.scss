@@ -13,12 +13,22 @@
   .set-mid-padding{
     padding-bottom: 96px;
   }
+
+  @media (min-width: 1200px) {
+    .middleContainer {
+      padding-top: 102px;
+    }
+  }
   @media (max-width: 1200px) {
-    .middleContainer{
+    .middleContainer {
       min-height: 100vh;
       margin-bottom: -81px;
+      padding-top: 111px;
+    }
+    .set-mid-padding{
+      padding-bottom:80px;
+    }
   }
-  .set-mid-padding{
-    padding-bottom:80px;
-  }
+  .removepadding.middleContainer {
+    padding: 0 !important;
   }

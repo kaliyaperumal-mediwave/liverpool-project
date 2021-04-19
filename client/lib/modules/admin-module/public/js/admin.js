@@ -75,7 +75,7 @@ $(document).ready(function () {
             { targets: 8, orderable: true },
             { targets: 9, orderable: false },
           ],
-          lengthMenu: [[50, 100, 250, -1], [50, 100, 250, "All"]],
+          lengthMenu: [[10, 50, 100, 250, -1], [10, 50, 100, 250, "All"]],
           order: [[7, 'desc']],
           language: {
             searchPlaceholder: 'Search referral',
