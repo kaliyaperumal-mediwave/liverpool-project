@@ -13,11 +13,13 @@ module.exports = {
     self.archive = function (req, callback) {
       return self.sendPage(req, self.renderer('admin-referral-archive', {
         superAdmin: true,
+        adminPanel: true
       }));
     };
     self.serviceAdmin = function (req, callback) {
       return self.sendPage(req, self.renderer('serviceAdmin', {
         superAdmin: false,
+        adminPanel: true
       }));
     };
     require('../../middleware')(self, options);
@@ -25,6 +27,7 @@ module.exports = {
     self.admin = function (req, callback) {
       return self.sendPage(req, self.renderer('admin', {
         superAdmin: true,
+        adminPanel: true
       }));
     };
 
