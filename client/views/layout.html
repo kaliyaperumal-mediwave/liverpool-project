@@ -189,8 +189,8 @@ endblock %} {% block extraHead %}
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Urgent help</a>
           </div>
-          <div class="inside-cont-slider cursor-pointer">
-            <a href="{{ data.orchaPage }}" class="text-decoration-none">Apps</a>
+          <div class="inside-cont-slider cursor-pointer"  onclick="openApps()">
+            <a  class="text-decoration-none">Apps</a>
           </div>
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Resources</a>
@@ -325,7 +325,12 @@ endblock %} {% block extraHead %}
   })();
 </script>
 
+{{superAdmin}}
+{% if data.showHeader or data.adminPanel %}
 <div id='middleCont' class="middleContainer">
+{% else %}
+  <div id='middleCont' class="removepadding middleContainer">
+{% endif %}
   <div class="set-mid-padding">
 
     <!-- {#

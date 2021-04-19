@@ -132,7 +132,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listDiagnosis" v-model="diagnosisList"
                                 v-bind:value="item.value" @change="onOptionChange($event,item)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -188,7 +188,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listProblems" v-bind:value="item.value"
                                 v-model="problemsList" v-bind:checked="item.isActive" @change="onOptionChange($event)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -201,8 +201,9 @@
                         class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="proOthers" class="question-font">Other</label>
-                            <textarea class="h-112 form-control input-bg-form-control" name="listProblems" id="proOthers"
-                                v-model="referralData.problemsOther" @keyup="onValueEnter($event)" rows="4"></textarea>
+                            <textarea class="h-112 form-control input-bg-form-control" name="listProblems"
+                                id="proOthers" v-model="referralData.problemsOther" @keyup="onValueEnter($event)"
+                                rows="4"></textarea>
                         </div>
                     </div>
                 </form>
@@ -214,8 +215,8 @@
                         class="px-4 py-3 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group">
                             <label for="textInfo1" class="question-font">{{dynamicLabels.referralLabel}}</label>
-                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo1"
-                                v-model="referralData.referralInfo"
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas"
+                                id="textInfo1" v-model="referralData.referralInfo"
                                 v-bind:placeholder="dynamicLabels.referralPlaceHolder" rows="7"></textarea>
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block':(isFormSubmitted && !referralData.referralInfo),'invalid-fields':!referralData.referralInfo }">
@@ -232,8 +233,8 @@
                         class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-1">
                             <label for="textInfo2" class="question-font">Has anything helped?</label>
-                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo2"
-                                v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas"
+                                id="textInfo2" v-bind:placeholder="dynamicLabels.anythingHelpedPlaceHolder"
                                 v-model="referralData.hasAnythingInfo" rows="7"></textarea>
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block': (isFormSubmitted && !referralData.hasAnythingInfo),'invalid-fields':!referralData.hasAnythingInfo }">
@@ -250,8 +251,8 @@
                         class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group py-1">
                             <label for="textInfo3" class="question-font">{{dynamicLabels.triggersLabel}}</label>
-                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas" id="textInfo3"
-                                v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
+                            <textarea class="h-112 form-control input-bg-form-control" name="infoTextAreas"
+                                id="textInfo3" v-bind:placeholder="dynamicLabels.triggersPlaceHolder"
                                 v-model="referralData.triggerInfo" rows="7"></textarea>
                             <div class="invalid-feedback d-none"
                                 v-bind:class="{ 'd-block':  (isFormSubmitted && !referralData.triggerInfo) ,'invalid-fields':!referralData.triggerInfo}">
@@ -273,7 +274,8 @@
                             <div class="form-group m-0">
                                 <label for="disability"
                                     class="question-font">{{dynamicLabels.disabilitiesLabel}}</label>
-                                <textarea class="h-112 form-control input-bg-form-control" name="disabilitiesandDifficulty" id="disability"
+                                <textarea class="h-112 form-control input-bg-form-control"
+                                    name="disabilitiesandDifficulty" id="disability"
                                     v-bind:placeholder="dynamicLabels.disabilitiesPlaceHolder"
                                     v-model="referralData.disabilityOrDifficulty" rows="7"></textarea>
                                 <div class="invalid-feedback d-none"
@@ -319,7 +321,7 @@
                             <input type="checkbox" v-bind:id="item.id" name="listService" v-bind:value="item.value"
                                 v-model="accessList" @change="onOptionChange($event)">
                             <label v-bind:for="item.id" class="option-font d-flex align-items-center">
-                                {{ item.value  }}</label>
+                                {{ item.value }}</label>
                         </div>
                     </div>
                 </form>
@@ -395,8 +397,9 @@
                                 <form id="add-service-form">
                                     <div class="form-group">
                                         <label for="service-name" class="question-font">Name of service</label>
-                                        <input type="text" class="form-control input-bg-form-control" v-model="serviceData.name"
-                                            id="service-name" placeholder="Enter the name of the service you have used">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="serviceData.name" id="service-name"
+                                            placeholder="Enter the name of the service you have used">
                                         <div class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.name) }">
                                             You must provide the name of the service.
@@ -405,8 +408,9 @@
                                     <div class="form-group">
                                         <label for="profAtService" class="question-font">Name of professional at
                                             service</label>
-                                        <input type="text" v-model="serviceData.professional" class="form-control input-bg-form-control"
-                                            id="profAtService" placeholder="Enter the name of who you worked with">
+                                        <input type="text" v-model="serviceData.professional"
+                                            class="form-control input-bg-form-control" id="profAtService"
+                                            placeholder="Enter the name of who you worked with">
                                         <div class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block':( hasSubmittedServiceForm && !serviceData.professional) }">
                                             You must provide the name of a professional at the service.
@@ -416,8 +420,9 @@
                                         <label for="contactNumber" class="question-font">Contact
                                             number for
                                             professional</label>
-                                        <input type="text" class="form-control input-bg-form-control" v-model="serviceData.contact"
-                                            id="contactNumber" placeholder="Enter a phone number for the professional">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="serviceData.contact" id="contactNumber"
+                                            placeholder="Enter a phone number for the professional">
                                         <div class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': ( hasSubmittedServiceForm && !serviceData.contact) }">
                                             You must provide the 11 digit contact number.
@@ -622,14 +627,14 @@
                                         aria-label="Close"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
                                 </div>
                                 <h3 class="px-4 py-4 pb-2 support-modal-header-text text-center">
-                                    Mental health is a broad term covering many different conditions.</h3>
+                                    Mental health is a broad term covering many different conditions</h3>
                                 <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
                                     <h3 class="support-modal-content-text text-left py-2"> Mental health problems can
                                         affect
                                         the way you
                                         think, feel and behave. They range from common mental health problems (such as
                                         depression and anxiety) to more rare problems (such as schizophrenia and bipolar
-                                        disorder).
+                                        disorder)
                                     </h3>
                                     <h3 class="support-modal-content-text text-left py-2"> Depending on which mental
                                         health
@@ -637,17 +642,18 @@
                                         have, people may feel tired, sad, helpless, angry or agitated all the time. They
                                         might make irrational decisions such as spending too much money, having
                                         inappropriate relationships, or they might feel like life just isn’t worth
-                                        living.
+                                        living
                                     </h3>
                                     <h3 class="support-modal-content-text text-left py-2"> Mental health can also cause
                                         physical symptoms,
                                         for example, fatigue, bed wetting or
-                                        outbursts of anger.
+                                        outbursts of anger
                                     </h3>
-                                    <p class="support-modal-link-text cursor-pointer text-left m-0 py-2">  <a href="/mental-health">> Find out
-                                        more
-                                        about mental
-                                        health</a> </p>
+                                    <p class="support-modal-link-text cursor-pointer text-left m-0 py-2"> <a
+                                            href="/mental-health">> Find out
+                                            more
+                                            about mental
+                                            health</a> </p>
                                 </div>
                             </div>
                         </div>

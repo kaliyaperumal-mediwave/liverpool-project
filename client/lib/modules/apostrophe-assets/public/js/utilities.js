@@ -613,7 +613,7 @@ function resize() {
     if (middleContent) {
         if (header) {
             middleContent.style.paddingTop = header.offsetHeight + 'px';
-            //middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
+            middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
         }
     }
 }
@@ -656,11 +656,11 @@ function logOut() {
     return response
 }
 
-window.onload = function (e) {
-    if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
-        document.getElementById("middleCont").style.paddingTop = document.querySelector('#heightTopSet').offsetHeight + 'px';
-    }
-}
+// window.onload = function (e) {
+//     if (document.getElementById('heightTopSet') && document.getElementById("middleCont")) {
+//         document.getElementById("middleCont").style.paddingTop = document.querySelector('#heightTopSet').offsetHeight + 'px';
+//     }
+// }
 
 
 // When the user scrolls down 20px from the top of the document, show the button
@@ -682,4 +682,9 @@ function scrollFunction() {
 function topFunction() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+function openApps() {
+    localStorage.removeItem("orFilData");
+    location.href = window.location.origin + '/apps';
 }
