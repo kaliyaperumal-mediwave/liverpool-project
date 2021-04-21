@@ -284,7 +284,7 @@
                     <div id="collapseGallery" class="collapse" aria-labelledby="headingGallery">
                         <p v-if="appObj.screenshots.length == 0">No image found</p>
                         <div v-if="appObj.screenshots.length != 0" class=" py-md-2 py-0">
-                            <div class=" mx-auto w-100 d-flex overflow-auto" id='style-scroll'>
+                            <!-- <div class=" mx-auto w-100 d-flex overflow-auto" id='style-scroll'>
                                 <a v-for="screenshot in appObj.screenshots"
                                     class="swiper-slide custom-slider-orcha text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
                                     data-swiper-slide-index="0" role="group" aria-label="1 / 6">
@@ -292,8 +292,8 @@
                                         <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot">
                                     </div>
                                 </a>
-                            </div>
-                            <!-- <div class="swiper-container set-space-padding top-slider-cont-max">
+                            </div> -->
+                            <div class="swiper-container set-space-padding top-slider-cont-max">
                                 <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf"
                                     aria-live="polite">
                                     <a v-for="screenshot in appObj.screenshots"
@@ -312,7 +312,7 @@
                                     aria-label="Previous slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
                                 <div class="swiper-scrollbar"></div>
                                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
