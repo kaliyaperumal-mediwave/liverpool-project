@@ -466,6 +466,9 @@ $(document).ready(function () {
                     }
                 }
                 else if (endpoint == "/user/updateSec3Info") {
+                    debugger
+                    var beforeSaveElem = document.getElementById('beforeSave');
+                    var afterSaveElem = document.getElementById('afterSave');
                     this.isSection3Submitted = true;
                     if (formData.child_socialworker == 'yes' && formData.child_socialworker_name == "") {
                         scrollToInvalidInput();
@@ -475,6 +478,8 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
+                    $('#loader').show();
+                    beforeSaveElem.textContent = "Saving..."
                     this.payloadData.section3Data = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
@@ -519,6 +524,8 @@ $(document).ready(function () {
             },
 
             upsertInforForm: function (payload, section, id) {
+                var beforeSaveElem = document.getElementById('beforeSave');
+                var afterSaveElem = document.getElementById('afterSave');
                 var endPoint = '/updateInfo';
                 var _self = this;
                 var buttonElem = document.getElementById(id);
@@ -531,14 +538,17 @@ $(document).ready(function () {
                     data: JSON.stringify(payload),
                     cache: false,
                     success: function (res) {
-                        _self.showLoader = true;
+                        beforeSaveElem.textContent = "Save";
                         buttonElem.disabled = true;
-                        // $(document.body).css('pointer-events', 'none');
-                        setTimeout(function () {
-                            _self.showLoader = false;
-                            _self.resetFormSubmitted(section, res.data);
-                            //  $(document.body).css('pointer-events', 'all');
-                        }, 3000);
+                        _self.resetFormSubmitted(section, res.data);
+                        $('#loader').hide();
+
+                        // _self.showLoader = true;
+                        // buttonElem.disabled = true;
+                        // setTimeout(function () {
+                        //     _self.showLoader = false;
+                        //     _self.resetFormSubmitted(section, res.data);
+                        // }, 3000);
 
                     },
                     error: function (error) {
