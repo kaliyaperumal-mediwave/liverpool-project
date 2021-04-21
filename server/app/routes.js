@@ -2,7 +2,7 @@
 const Router = require('koa-router');
 const referralControler = require('./controllers/referralControler');
 const authController = require('./controllers/authController');
-const emailController = require('./controllers/emailController');
+// const emailController = require('./controllers/emailController');
 const adminController = require('./controllers/adminController');
 const orchaController = require('./controllers/orchaController');
 const userController = require('./controllers/userController');
@@ -50,7 +50,7 @@ router.get('/referral/searchReferalByCode/', validateToken, referralControler.se
 
 router.get('/referral/profReferral', validateToken, referralControler.getProfReferral);
 
-router.post('/referral/sendConfirmationMail/', validateToken, emailController.sendReferralConfirmation);
+// router.post('/referral/sendConfirmationMail/', validateToken, emailController.sendReferralConfirmation);
 
 router.post('/user/changePassword', validateToken, authController.changePassword);
 router.post('/user/changeEmail', validateToken, authController.changeEmail);

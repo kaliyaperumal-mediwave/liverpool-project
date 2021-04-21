@@ -29,7 +29,7 @@
     </div>
     <!-- Loader end -->
     <div v-cloak class="top-arrow-container pd-container" id="searchBar">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3"><a href="{{data.bckBtn}}" class="previous-link"><i
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-0 mb-sm-3"><a href="{{data.bckBtn}}" class="previous-link"><i
                     class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
             {% raw %}
             <div v-if="showAppContent" class="resource_text pb-sm-0 pt-0"> {{ appObj.smallAppCardInfo.appName }}</div>
@@ -45,9 +45,9 @@
                     </span>
                 </div>
             </span>
-            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text"
-                v-model="searchQuery" placeholder="Search your app" id="example-search-input" @input="filterApps()">
-                <!-- <div class="search-wrapper">
+            <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
+                placeholder="Search your app" id="example-search-input" @input="filterApps()">
+            <!-- <div class="search-wrapper">
 
               <form class="wid-80">
               <input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
@@ -66,26 +66,24 @@
                 {{searchQuery}}?”</div>
             <div v-if="showSearchResults" class="search-wrap primary-search-radius">
                 <div class="primary-search-radius home-primary-content-bg cursor-pointer">
-                    <template v-if="filteredData.length">
-                        <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                    <div v-if="filteredData.length">
+                        <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 py-3">
                             <a :href=" item.custom_url ? item.custom_url : item._url ">
                                 <div class="d-flex align-items-center">
-                                    <!-- <img src="/modules/my-apostrophe-assets/img/placeholder.svg" width="50" height="30"
-                                    class="px-1 px-md-2 cursor-pointer toggle-img-placehold" alt=""> -->
-                                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-
-                                    <p class="question-font my-0 mx-2 mx-md-4"> {{item.title}}
+                                    <p class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                                        {{item.title}}
                                     </p>
-                                    <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important;">
+                                    <ul class="my-0 link-text mx-2 fixedWidthSetLI"
+                                        style="list-style: inside !important;">
                                         <li>{{item.platform}}</li>
                                     </ul>
                                 </div>
                             </a>
                         </div>
-                    </template>
-                    <template v-if="!filteredData.length">
+                    </div>
+                    <div v-if="!filteredData.length">
                         <p class="home-header-secondary py-3 pl-4">No results found</p>
-                    </template>
+                    </div>
                 </div>
             </div>
 
@@ -285,9 +283,8 @@
                     </div>
                     <div id="collapseGallery" class="collapse" aria-labelledby="headingGallery">
                         <p v-if="appObj.screenshots.length == 0">No image found</p>
-                        <div v-if="appObj.screenshots.length != 0" class="d-flex text-center py-md-2 py-0">
-                            <div class=" mx-auto w-100 d-flex overflow-auto" id='style-scroll'>
-
+                        <div v-if="appObj.screenshots.length != 0" class=" py-md-2 py-0">
+                            <!-- <div class=" mx-auto w-100 d-flex overflow-auto" id='style-scroll'>
                                 <a v-for="screenshot in appObj.screenshots"
                                     class="swiper-slide custom-slider-orcha text-decoration-none bg-no border-radius-10 swiper-slide-duplicate mb-3 swiper-slide-duplicate-active"
                                     data-swiper-slide-index="0" role="group" aria-label="1 / 6">
@@ -295,12 +292,26 @@
                                         <img class="img-placeholder m-b-min-8" style="width: 100%" :src="screenshot">
                                     </div>
                                 </a>
-                                <!-- <div class="swiper-button-next custom-control-next" tabindex="0" role="button" aria-label="Next slide"
-                                    aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                            </div> -->
+                            <div class="swiper-container set-space-padding top-slider-cont-max">
+                                <div class="swiper-wrapper mb-4" id="swiper-wrapper-0010109b9815fb10cbf"
+                                    aria-live="polite">
+                                    <a v-for="screenshot in appObj.screenshots"
+                                        class="swiper-slide bg-no border-radius-10 swiper-slide-next swiper-slide-duplicate-prev text-decoration-none"
+                                        data-swiper-slide-index="1" role="group"
+                                        style="width: 246.667px; margin-right: 30px">
+                                        <div class="questionText">
+                                            <img class="img-placeholder m-b-min-8" style="width: 100%"
+                                                :src="screenshot">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="swiper-button-next custom-control-next" tabindex="0" role="button"
+                                    aria-label="Next slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
                                 <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button"
-                                    aria-label="Previous slide" aria-controls="swiper-wrapper-1047c5a2bc9fc980"></div>
+                                    aria-label="Previous slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
                                 <div class="swiper-scrollbar"></div>
-                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span> -->
+                                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                             </div>
                         </div>
                     </div>

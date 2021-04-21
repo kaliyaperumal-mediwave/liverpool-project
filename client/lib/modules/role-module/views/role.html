@@ -28,7 +28,7 @@
     </div>
     <!-- Loader end -->
     <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-8 col-xl-6 mx-auto">
-        <div id="role-form" class="py-4">
+        <div id="role-form" class="py-4" v-cloak>
             <form id="type-form" data-options="role">
                 <div class="px-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="question-font m-0">
@@ -547,11 +547,12 @@
                                 </span>
                             </div>
                         </div>
-                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3 && !elgibilityObj.gpErrMsg"
-                            class="form-text text-muted">You must
+                        <small v-if="getStringLength(elgibilityObj.regGpTxt) < 3" class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="emailHelp" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="emailHelp"
+                            v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                         <small v-if="getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpErrLink"
                             id="gpErrLink" class="form-text text-muted">Unfortunately, this location is not covered by
                             our service.
@@ -760,9 +761,9 @@
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="alderLiverpool"
-                            value="Alder Hey - Liverpool CAMHS" @change="onChange($event)">
+                            value="Alder Hey – Liverpool CAMHS & EDYS" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="alderLiverpool">
-                            Alder Hey - Liverpool CAMHS
+                            Alder Hey – Liverpool CAMHS & EDYS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -776,7 +777,7 @@
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="MHST">
-                            Mental Health Support Team
+                            Mental Health Support Team (only school professionals can refer)
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -784,7 +785,7 @@
                             v-model="elgibilityObj.liverpoolService" id="seedings" value="Seedlings"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="seedings">
-                            Seedlings
+                            Seedlings (only school professionals – primary)
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -792,7 +793,7 @@
                             v-model="elgibilityObj.liverpoolService" id="wellbeingClinics" value="Wellbeing Clinics"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="wellbeingClinics">
-                            Wellbeing Clinics
+                            Wellbeing Clinics (only school professionals – secondary)
                         </label>
                     </div>
                 </div>
@@ -806,10 +807,10 @@
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="alderSefton" value="Alder Hey - Sefton CAMHS"
+                            v-model="elgibilityObj.seftonService" id="alderSefton" value="Alder Hey – Sefton CAMHS & EDYS"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="alderSefton">
-                            Alder Hey - Sefton CAMHS
+                            Alder Hey – Sefton CAMHS & EDYS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -827,12 +828,12 @@
                             Parenting 2000
                         </label>
                     </div>
-                    <div class="form-check py-2 pl-0">
+                    <div class="form-check py-3 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
                             v-model="elgibilityObj.seftonService" id="seftonMHST" value="MHST"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="seftonMHST">
-                            Mental Health Support Team
+                            Mental Health Support Team (only school professionals – currently in pilot phase with specific schools)
                         </label>
                     </div>
                 </div>
@@ -1048,12 +1049,12 @@
                             <!-- Address Line1 start-->
                             <div class="form-group">
                                 <label for="addressline1" inputmode="text" class="question-font">Address
-                                    line1</label>
+                                    line 1</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control"
                                         v-model="addressData.addressLine1"
                                         @input="trimWhiteSpace($event,'addressData','addressLine1')" id="addressline1"
-                                        placeholder="Enter address line1">
+                                        placeholder="Enter address line 1">
                                     <div class="input-group-append cursor-pointer">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1070,12 +1071,12 @@
                             <!-- Address Line2 start -->
                             <div class="form-group">
                                 <label for="addressline2" inputmode="text" class="question-font">Address
-                                    line2 -<b> optional</b></label>
+                                    line 2 -<b> optional</b></label>
                                 <div class="input-group">
                                     <input type="text" class="form-control input-bg-form-control"
                                         v-model="addressData.addressLine2"
                                         @input="trimWhiteSpace($event,'addressData','addressLine2')" id="addressline2"
-                                        placeholder="Enter address line2">
+                                         placeholder="Enter address line 2">
                                     <div class="input-group-append cursor-pointer">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1388,12 +1389,13 @@
                                 </span>
                             </div>
                         </div>
-                        <small id="gpInfoMessage"
-                            v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3 && !elgibilityObj.gpErrMsg"
+                        <small id="gpInfoMessage" v-if="getStringLength(elgibilityObj.regProfGpTxt) < 3"
                             class="form-text text-muted">You must
                             enter 3 characters to start
                             search</small>
-                        <small id="gpErrorMessage" class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
+                        <small id="gpErrorMessage"
+                            v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrMsg"
+                            class="form-text text-muted">{{elgibilityObj.gpErrMsg}}</small>
                         <small v-if="getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpErrLinkProf"
                             id="gpErrLinkProf" class="form-text text-muted">Unfortunately, this location is not covered
                             by
@@ -1410,10 +1412,10 @@
             {% raw %}
             <form id="gpNotCoveredProf" data-options="gpNotCoveredProf">
                 <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
-                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
-
+                    class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="gpSchool" class="question-font">Where the child / young person go to school?</label>
+                        <label for="gpSchool" class="question-font mb-1">Where the child / young person go to
+                            school?</label>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
                                 v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
@@ -1439,28 +1441,6 @@
                             </label>
                         </div>
                     </div>
-
-                    <!-- <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <span style="color:#023087 ;">
-                                    <i class="fas fa-info-circle common-fa-fa fa-2x cursor-pointer" data-toggle="modal"
-                                        data-target="#consentModal" aria-hidden="true"></i>
-                                </span>
-                            </p>
-                            <p class="question-font text-center m-0 py-2"> Unfortunately, this area not covered by our
-                                service.</p>
-
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> <a
-                                    href="https://www.nhs.uk/Service-Search/other-services/Child%20and%20adolescent%20mental%20health%20services%20(CAMHS)/LocationSearch/2157"
-                                    target="_blank">
-                                    Find a service local to me
-                                </a></p>
-                            <p class="link-text cursor-pointer text-center m-0 py-2"
-                                v-on:click="changePrevAns('regProfGpTxt','gpProfLocation')"> Change my previous
-                                answer </p>
-                        </div>
-                    </div> -->
                 </div>
             </form>
             {% endraw %}
@@ -1564,7 +1544,6 @@
         </div>
     </div>
 
-
     <!-- Modal Start -->
     <div class="modal fade" id="consentModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1583,36 +1562,18 @@
                             gives
                             permission to another person to do something. Consent means agreeing to an action based on
                             your knowledge of what that action involves, its likely consequences and having the option
-                            of saying no. The absence of no does not mean yes.
+                            of saying no. The absence of no does not mean yes
+                            Consent is when one person agrees to or
+                            gives
+                            permission to another person to do something. Consent means agreeing to an action based on
+                            your knowledge of what that action involves, its likely consequences and having the option
+                            of saying no. The absence of no does not mean yes
                         </h3>
-                        <!-- <div class="support-modal-content-text text-left py-4">
-                          {{ apos.area(data.page, 'consentPerson', {
-                                widgets: {
-                                  'apostrophe-rich-text': {
-                                    toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                    styles: [
-                                      { name: 'Heading', element: 'h3' }
-                                    ]
-                                  }
-                                }
-                              }) }}</div> -->
                         <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                             <a href="https://www.nhs.uk/conditions/consent-to-treatment/ " target="_blank">
                                 Learn more about consent
                             </a>
                         </p>
-                        <!-- <div class="support-modal-link-text cursor-pointer text-center m-0 py-2">  {{ apos.area(data.page, 'consentPerson', {
-                                  widgets: {
-                                    'apostrophe-rich-text': {
-                                      toolbar: [ 'Styles', 'Bold', 'Italic', 'Link', 'Unlink' ],
-                                      styles: [
-                                        { name: 'Heading', element: 'h3' }
-                                      ]
-                                    }
-                                  }
-                                }) }}
-                                </div> -->
-
                     </div>
                 </div>
             </div>

@@ -52,14 +52,16 @@ $(document).ready(function () {
                     if($(event.target).is("div"))
                         event.stopImmediatePropagation();
                   });
-                $('#example').DataTable({
-                    select: {
-                        style: 'os',
-                        selector: 'td:first-child'
-                    },
+                $('#adminReferral').DataTable({
+                    dom: 'lBfrtip',
+                    select: true,
                     destroy: true,
                     processing: false,
                     serverSide: true,
+                    select: {
+                        style: 'multi',
+                        selector: 'td:first-child .idcheck'
+                    },
                     columnDefs: [
                         { targets: 0, orderable: false },
                         { targets: 1, orderable: true },
@@ -68,18 +70,25 @@ $(document).ready(function () {
                         { targets: 5, orderable: true },
                         { targets: 6, orderable: true },
                         { targets: 7, orderable: true, type: 'date-uk' },
-                        { targets: 8, orderable: false },
+                        { targets: 8, orderable: true },
+                        { targets: 9, orderable: false },
                     ],
+                    lengthMenu: [[10, 50, 100, 250, -1], [10, 50, 100, 250, "All"]],
                     order: [[7, 'desc']],
-                    // dom: 'Bfrtip',
-                    // buttons: [
-                    //     'csv'
-                    // ],
                     language: {
                         searchPlaceholder: 'Search referral',
                         emptyTable: 'No referrals to displays',
                         zeroRecords: 'No matching referrals found'
                     },
+                    buttons: [
+                        { extend: 'csv',
+                        text: 'Export as CSV', 
+                        title: 'Referrals Data export',
+                        exportOptions: {
+                            columns: [ 1, 2, 3, 4, 5 , 6, 7, 8 ]
+                        }
+                        }
+                    ],
                     ajax: {
                         url: '/modules/admin-module/referral',
                         // url: '/modules/admin-module/getAllreferral',
@@ -131,7 +140,7 @@ $(document).ready(function () {
                     var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
                     $('#loader').hide();
                     if (successData && Object.keys(successData)) {
-                        this.successMessage = 'Referrals deleted successfully .'
+                        this.successMessage = 'Referrals deleted successfully'
                         this.fetchReferral();
                         $('#deletedSuccess').modal('show');
                     }
@@ -144,7 +153,7 @@ $(document).ready(function () {
                     var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
                     $('#loader').hide();
                     if (successData && Object.keys(successData)) {
-                        this.successMessage = 'Referrals archived successfully.';
+                        this.successMessage = 'Referrals archived successfully';
                         $('#deletedSuccess').modal('show');
                     }
                 }
@@ -155,7 +164,7 @@ $(document).ready(function () {
                     var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'completed' });
                     $('#loader').hide();
                     if (successData && Object.keys(successData)) {
-                        this.successMessage = 'Referrals unarchive successfully.';
+                        this.successMessage = 'Referrals unarchive successfully';
                         $('#deletedSuccess').modal('show');
                     }
                 }

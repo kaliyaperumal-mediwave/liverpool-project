@@ -106,7 +106,14 @@ $(document).ready(function () {
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
             var disableProfessional = document.getElementById('96dda9ca-9328-47e8-ac1a-8cdc972df4d0').lastElementChild;
-
+            var profData = document.getElementById('prof_data').innerHTML;
+            // try{
+            //     profData = JSON.parse(JSON.stringify(profData));
+            //     alert(profData)
+            // }
+            // catch(e){
+            //     alert(e)
+            // }
             var userRole = document.getElementById('uRole').innerHTML;
             if (userRole) {
                 this.elgibilityObj.role = userRole;
@@ -171,26 +178,31 @@ $(document).ready(function () {
                 } else {
                     if (this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
                         var profData = document.getElementById('prof_data').innerHTML;
-                        profData = JSON.parse(profData);
+                        var profData1;
+                        try {
+                            profData1 = JSON.parse(profData);
+                            //alert(profData1)
+                        }
+                        catch (e) {
+                            // alert(e)
+                        }
                         //  console.log(profData.professional_manual_address);
-                        Vue.set(this.elgibilityObj, "profFirstName", profData.first_name);
-                        Vue.set(this.elgibilityObj, "proflastName", profData.last_name);
-                        Vue.set(this.elgibilityObj, "profEmail", profData.email);
-                        Vue.set(this.elgibilityObj, "profContactNumber", profData.contact_number);
-                        Vue.set(this.elgibilityObj, "profAddress", profData.address);
-                        Vue.set(this.elgibilityObj, "profProfession", profData.profession);
+                        Vue.set(this.elgibilityObj, "profFirstName", profData1.first_name);
+                        Vue.set(this.elgibilityObj, "proflastName", profData1.last_name);
+                        Vue.set(this.elgibilityObj, "profEmail", profData1.email);
+                        Vue.set(this.elgibilityObj, "profContactNumber", profData1.contact_number);
+                        Vue.set(this.elgibilityObj, "profAddress", profData1.address);
+                        Vue.set(this.elgibilityObj, "profProfession", profData1.profession);
+                        Vue.set(this.elgibilityObj, "professional_contact_type", profData1.professional_contact_type);
 
-                        if (profData.professional_manual_address && profData.professional_manual_address.length) {
-                            Vue.set(this, "professionalManualAddress", profData.professional_manual_address);
+                        if (profData1.professional_manual_address && profData1.professional_manual_address.length) {
+                            Vue.set(this, "professionalManualAddress", profData1.professional_manual_address);
                             this.setReadonlyState(true);
                         }
                     }
                 }
             },
             setValues: function (data) {
-                //console.log(data)
-                //console.log("length " + data.length)
-                //this.elgibilityObj.editFlag = data.length;
                 var roleType = document.getElementById('uRole').innerHTML;
                 this.patchFlag = true;
                 console.log(data)
@@ -357,9 +369,12 @@ $(document).ready(function () {
             },
 
             onChange: function (event) {
+                console.log('manual array', this.professionalManualAddress);
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
+                    this.professionalManualAddress = [];
+                    this.setReadonlyState(false);
                     this.resetValues(event.target.form);
                     // this.elgibilityObj.profFirstName = "";
                     // this.elgibilityObj.profEmail = "";
@@ -380,7 +395,6 @@ $(document).ready(function () {
                     this.elgibilityObj.contactParent = optionValue;
                 }
                 else if (questionIdentifier == "reasonParentContact" && optionValue == "no") {
-                    //console.log(event.target.form)
                     this.resetValues(event.target.form);
                     this.elgibilityObj.contact_parent_camhs = optionValue;
                 }
@@ -401,17 +415,22 @@ $(document).ready(function () {
                     this.elgibilityObj.parentConcernInformation = optionValue;
                 }
                 else if (questionIdentifier == "directServices") {
+                    if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
+                        this.setReadonlyState(true);
+                    } else {
+                        this.setReadonlyState(false);
+                    }
                     this.resetValues(event.target.form);
-                    // this.professionalManualAddress = [];
-                    this.setReadonlyState(false);
                     this.elgibilityObj.profDirectService = optionValue;
                 }
                 else if (questionIdentifier == "liverpoolService" || questionIdentifier == "seftonService") {
                     this.resetValues(event.target.form);
-                    //   this.professionalManualAddress = [];
-                    this.setReadonlyState(false);
+                    if (!this.elgibilityObj.profAddress && this.professionalManualAddress.length) {
+                        this.setReadonlyState(true);
+                    } else {
+                        this.setReadonlyState(false);
+                    }
                     this.elgibilityObj.profChildDob = "";
-                    //this.elgibilityObj.profDirectService = optionValue;
                 }
             },
 
@@ -464,7 +483,7 @@ $(document).ready(function () {
                             async: false,
                             success: function (response) {
                                 _self.gpListName = [];
-                                app.elgibilityObj.gpErrMsg = "";
+                                //app.elgibilityObj.gpErrMsg = "";
                                 _self.gpListShow = response.Organisations;
                                 if (response.Organisations.length <= 0) {
                                     var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
@@ -474,7 +493,7 @@ $(document).ready(function () {
                                         async: false,
                                         success: function (response) {
                                             _self.gpListName = [];
-                                            app.elgibilityObj.gpErrMsg = "";
+                                            //app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // //console.log(_self.gpListShow[i].PostCode)
@@ -505,6 +524,7 @@ $(document).ready(function () {
                                                         }
                                                         else {
                                                             app.elgibilityObj.gpSchool = '';
+                                                            app.elgibilityObj.gpErrMsg = "";
                                                             app.elgibilityObj.submitForm = "true";
                                                         }
 
@@ -553,7 +573,8 @@ $(document).ready(function () {
                                                     app.elgibilityObj.gpErrMsg = "";
                                                 }
                                                 else {
-                                                    app.elgibilityObj.gpSchool = '';
+                                                    app.elgibilityObj.gpErrMsg = "";
+                                                    app.elgibilityObj.gpSchool = "";
                                                     app.elgibilityObj.submitForm = "true";
                                                 }
                                             },
@@ -671,7 +692,7 @@ $(document).ready(function () {
                             success: function (response) {
                                 _self.gpListShow = [];
                                 _self.gpProfListName = [];
-                                app.elgibilityObj.gpErrMsg = "";
+                                //app.elgibilityObj.gpErrMsg = "";
                                 _self.gpListShow = response.Organisations;
                                 if (response.Organisations.length <= 0) {
                                     var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
@@ -682,7 +703,7 @@ $(document).ready(function () {
                                         success: function (response) {
                                             _self.gpListShow = [];
                                             _self.gpProfListName = [];
-                                            app.elgibilityObj.gpErrMsg = "";
+                                            // app.elgibilityObj.gpErrMsg = "";
                                             _self.gpListShow = response.Organisations;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
@@ -695,7 +716,7 @@ $(document).ready(function () {
                                                 $('#addOpacity').css('opacity', '1');
                                             }
                                             else {
-                                                app.elgibilityObj.gpErrLinkProf = "";
+                                                //app.elgibilityObj.gpErrLinkProf = "";
                                                 payload = _self.remove_duplicates(_self.gpProfListName);
                                                 $('#showInputLoader').removeClass("d-block").addClass("d-none");
                                                 $('#addOpacity').css('opacity', '1');

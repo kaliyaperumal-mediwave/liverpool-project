@@ -77,17 +77,6 @@
         {% endraw %}
     </div>
 
-    <!-- <div v-cloak class="d-flex text-center py-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-md-1 px-0 mx-auto" id="searchBar">
-            <div class="text-center">
-                <button type="button" id="secondary" @click="searchOrchPage()"
-                    class="btn px-md-4 py-1 px-3 mx-auto w-h-sub "><span class="btn-quaternary-text">
-                        Search
-                    </span></button>
-            </div>
-        </div>
-    </div> -->
-
     <div v-cloak class="d-flex text-center py-md-3 py-2">
         <div class="col-md-9 col-lg-7 col-xl-6 col-11 py-2 py-md-4 mx-auto home-primary-content-bg">
             <div class="home-primary-content m-0 py-2 px-2 text-left">
@@ -104,10 +93,9 @@
 
                 <!-- Orcha Category Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect v-model="categoryValue" showLabels='false' :options="categoryList"
-                        placeholder="Category" label="subCategoryName" track-by="id"
-                        @select="selectOptions($event,'category')" @remove="removeOptions($event,'category')"
-                        class="custom-dropbox-hover">
+                    <multiselect v-model="categoryValue" :options="categoryList" placeholder="Category"
+                        label="subCategoryName" track-by="id" @select="selectOptions($event,'category')"
+                        @remove="removeOptions($event,'category')" class="custom-dropbox-hover themeSetDark">
                     </multiselect>
                 </div>
                 <!-- Orcha Category Select End-->
@@ -123,7 +111,7 @@
 
                 <!-- Orcha Capability Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="capabilityValue" tag-placeholder=""
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="capabilityValue" tag-placeholder=""
                         placeholder="Capability" :close-on-select="false" label="capabilityName" track-by="id"
                         :options="capabilityList" :multiple="true" :limit="1" :taggable="true"
                         @select="selectOptions($event,'capability')" @remove="removeOptions($event,'capability')">
@@ -136,7 +124,7 @@
 
                 <!-- Orcha Designed For Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="designedForValue" tag-placeholder=""
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="designedForValue" tag-placeholder=""
                         placeholder="Designed for" :close-on-select="false" label="designedForName" track-by="id"
                         :options="designedForList" :multiple="true" :taggable="true" :limit="1"
                         @select="selectOptions($event,'designedFor')" @remove="removeOptions($event,'designedFor')">
@@ -146,25 +134,26 @@
 
                 <!-- Orcha Cost Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="costValue" tag-placeholder="" placeholder="Cost"
-                        :close-on-select="false" label="costName" track-by="id" :options="costList" :multiple="true"
-                        :clear-on-select="false" :limit="1" :preserve-search="true" @select="selectOptions($event)"
-                        @remove="removeOptions($event,'cost')">
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="costValue" tag-placeholder=""
+                        placeholder="Cost" :close-on-select="false" label="costName" track-by="id" :options="costList"
+                        :multiple="true" :clear-on-select="false" :limit="1" :preserve-search="true"
+                        @select="selectOptions($event,'cost')" @remove="removeOptions($event,'cost')">
                     </multiselect>
                 </div>
                 <!-- Orcha Cost Select End-->
 
                 <!-- Orcha Platform Select Start-->
                 <div class="input-group px-2 col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-3">
-                    <multiselect class="custom-dropbox-hover" v-model="platformValue" :options="platformList"
-                        placeholder="Platform" :show-labels="false" label="platformName" track-by="id"
-                        @select="selectOptions($event,'platform')" @remove="removeOptions($event,'platform')">
+                    <multiselect class="custom-dropbox-hover themeSetDark" v-model="platformValue"
+                        :options="platformList" placeholder="Platform" :show-labels="false" label="platformName"
+                        track-by="id" @select="selectOptions($event,'platform')"
+                        @remove="removeOptions($event,'platform')">
                     </multiselect>
                 </div>
                 <!-- Orcha Platform Select End-->
             </div>
 
-            <div id="primarySmallButton">
+            <div id="primarySmallButton" class="pb-2 pb-md-0">
                 <button class="btn btn-primary btn-text btm-small-primary px-3" @click="resetFilters()" disabled
                     id="clearFilterButton" role="button">Clear filter <i class="fa fa-times-circle"
                         aria-hidden="true"></i>
@@ -178,7 +167,7 @@
     </div>
 
     <div v-cloak class="d-flex pt-2 pb-2">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 px-md-0 mx-auto">
+        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-0 px-md-0 mx-auto">
             <h3 class="authorization-font pt-3 pb-2 mb-0">Recommended for you</h3>
             <p class="option-font">Our system has picked these app for you based on your health and wellbeing</p>
         </div>
@@ -190,7 +179,7 @@
             <div class="row justify-content-center justify-content-sm-start">
                 <div class="col-10  col-sm-6 col-md-6 col-lg-6 col-xl-4 mb-4"
                     v-for="(filteredAppsObj, index) in filteredAppsList" :key="index">
-                    <a :href="'apps/details?app_id='+filteredAppsObj.id" class="d-flex m-auto"
+                    <a :href="'apps/details?app_id='+filteredAppsObj.id" class="d-flex m-auto text-decoration-none"
                         style="margin-right: 30px;">
                         <div class="w-100 position-relative">
                             <div class="bg-white card-container-small">
@@ -204,7 +193,9 @@
                                             </div>
                                             <div class="pl-3 m-0 d-flex pl-0 py-0 pr-0 imageTextOrcha">
                                                 <div class="questionText ellipse-text-large-card">
-                                                    {{filteredAppsObj.appName}}
+                                                    <p>
+                                                        {{filteredAppsObj.appName}}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -223,12 +214,17 @@
                                 </div>
                                 <div class="container-bottom-set">
                                     <div class="questionText wrap-contain-app">
-                                        {{filteredAppsObj.description}}
+                                        <p>
+                                            {{filteredAppsObj.description}}
+
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-end">
                                     <div class="circle mr-3 font-bold d-flex align-items-center justify-content-center">
-                                        {{filteredAppsObj.score}}
+                                        <p class="m-auto">
+                                            {{filteredAppsObj.score}}
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-start pl-3 pb-2">

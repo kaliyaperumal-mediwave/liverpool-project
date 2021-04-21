@@ -613,7 +613,7 @@ function resize() {
     if (middleContent) {
         if (header) {
             middleContent.style.paddingTop = header.offsetHeight + 'px';
-            //middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
+            // middleContent.style.paddingTop = middleContent.offsetHeight + 'px';
         }
     }
 }
@@ -666,6 +666,12 @@ window.onload = function (e) {
 // When the user scrolls down 20px from the top of the document, show the button
 //window.onscroll = function () { scrollFunction() };
 
+window.onscroll = function () { hideGoogleMapZIndex() };
+
+function hideGoogleMapZIndex() {
+    $(".pac-container").css({ "display": "none" });
+}
+
 function scrollFunction() {
     //Get the button:
     var gotoTopButton = document.getElementById("myBtn");
@@ -682,4 +688,9 @@ function scrollFunction() {
 function topFunction() {
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+
+function openApps() {
+    localStorage.removeItem("orFilData");
+    location.href = window.location.origin + '/apps';
 }

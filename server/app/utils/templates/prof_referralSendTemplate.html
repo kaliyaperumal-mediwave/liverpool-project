@@ -36,9 +36,9 @@
             line-height: 16px;
         }
 
-        .duplicate_text::first-letter {
+        /* .duplicate_text::first-letter {
             text-transform: uppercase !important;
-        }
+        } */
 
         .email_text {
             font-size: 10px;
@@ -542,7 +542,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-container">
+                    <!-- <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
                                 The child's legal care status:
@@ -553,7 +553,7 @@
                                 <%= body.section2.legal_care_status %>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
         </div>
         <div style="border-top: 1px solid #b4b8ba;margin:10px 0px"></div>
@@ -836,7 +836,7 @@
                             </div>
                         </div>
                         <%}%>
-                        <% if(body.section4LocalService!=undefined) { %>
+                        <% if(body.section4LocalService!=undefined && body.section4LocalService!='') { %>
                             <div class="text-container">
                                 <div class="label-set">
                                     <label class="labelTitle">

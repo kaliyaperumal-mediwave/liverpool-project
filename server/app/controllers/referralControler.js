@@ -2245,6 +2245,10 @@ exports.fetchReview = ctx => {
               },
               attributes: ['id']
             }).then((referralResult) => {
+              if(elgibilityObj.selected_service == 'MHST')
+              {
+                elgibilityObj.selected_service = 'Mental Health Support Team'
+              }
               const section1Obj = {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
@@ -2996,6 +3000,7 @@ exports.getProfReferral = async (ctx) => {
           profession: prof_data.professional_profession ? prof_data.professional_profession : '',
           address: prof_data.professional_address ? prof_data.professional_address : '',
           professional_manual_address: prof_data.professional_manual_address ? prof_data.professional_manual_address : '',
+          professional_contact_type:prof_data.professional_contact_type?prof_data.professional_contact_type:'mobile'
         }
       }
     }

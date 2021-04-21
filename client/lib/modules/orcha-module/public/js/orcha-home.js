@@ -35,7 +35,10 @@ $(document).ready(function () {
                 currentPage: null,
                 perPage: null,
                 totalItems: null,
-            }
+            },
+            patchCategory: [],
+            patchDesignedFor: [],
+            patchCost: [],
 
         },
 
@@ -43,6 +46,7 @@ $(document).ready(function () {
             $('#orchaLoader').show();
         },
         mounted: function () {
+            //console.log(JSON.parse(localStorage.getItem("orFilData")));
             this.getAllDataForDropdown();
             $('#orchaLoader').hide();
         },
@@ -58,7 +62,49 @@ $(document).ready(function () {
                     this.designedForList = successData.data.designedFor_payload;
                     this.costList = successData.data.cost_payload;
                     this.platformList = successData.data.platform_payload;
-                    var emptyPayload = {};
+
+                    this.paramValues = getParameter(location.href);
+                    // var emptyPayload = {};
+
+                    emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
+                   // console.log("isEmptyObj : "+ this.isEmptyObj(emptyPayload))
+                    var isEmpty = this.isEmptyObj(emptyPayload)
+
+                    if(!isEmpty)
+                    {
+                        emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
+                        if(emptyPayload.capabilities.length>0)
+                        {
+                            for (i = 0; i < emptyPayload.capabilities.length; i++) {
+                                this.patchCategory.push(this.capabilityList.find(capabilityList => capabilityList.id === (emptyPayload.capabilities[i])));
+                            }
+                            this.capabilityValue = this.patchCategory;
+                        }
+
+                        if(emptyPayload.designedFor.length>0)
+                        {
+                            for (i = 0; i < emptyPayload.designedFor.length; i++) {
+                                this.patchDesignedFor.push(this.designedForList.find(designedForList => designedForList.id === (emptyPayload.designedFor[i])));
+                            }
+                            this.designedForValue = this.patchDesignedFor;
+                        }
+
+                        if(emptyPayload.cost.length>0)
+                        {
+                            for (i = 0; i < emptyPayload.cost.length; i++) {
+                                this.patchCost.push(this.costList.find(costList => costList.id === (emptyPayload.cost[i])));
+                            }
+                            this.costValue = this.patchCost;
+                        }
+
+                        this.categoryValue = this.categoryList.find(categoryList => categoryList.id === emptyPayload.subCategory);
+                        this.platformValue = this.platformList.find(platformList => platformList.id === emptyPayload.platform);
+                        document.getElementById('clearFilterButton').removeAttribute('disabled');
+                    }
+                    else
+                    {
+                        emptyPayload = {};
+                    }
                     this.getOrchaAppsData(emptyPayload);
 
                 } else {
@@ -88,6 +134,7 @@ $(document).ready(function () {
                     pageNum: undefined
                 };
                 document.getElementById('clearFilterButton').setAttribute('disabled', true);
+                localStorage.removeItem("orFilData");
                 this.payloadData = payloadData;
                 this.getOrchaAppsData(emptyPayload);
             },
@@ -127,6 +174,8 @@ $(document).ready(function () {
 
             getOrchaAppsData: function (payload) {
                 $('#orchaLoader').show();
+                //console.log(payload)
+                localStorage.setItem("orFilData", JSON.stringify(payload));
                 var successData = apiCallPost('post', '/getSearchData/', payload);
                 if (successData && Object.keys(successData)) {
                     if (successData.data.result.items.length) {
@@ -229,6 +278,15 @@ $(document).ready(function () {
                 this.getOrchaAppsData(this.payloadData);
                 // this.getOrchaAppsData(payloadData);
             },
+
+            isEmptyObj: function (obj) {
+                var isEmpty = true;
+                for (x in obj) {
+                    isEmpty = false;
+                    break;
+                }
+                return isEmpty;
+            }
         }
     })
 });

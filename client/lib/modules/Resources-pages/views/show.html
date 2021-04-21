@@ -35,7 +35,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
     <div class="top-arrow-container pd-container" id="searchBar">
       <!-- <a href="/resources" class="">
       <img src="/modules/my-apostrophe-assets/img/Back.svg" class="leftArrow cursor-pointer" /></a> -->
-      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-sm-3">
+      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-0 mb-sm-3">
         <a href="/resources"><i class="fal fa-long-arrow-left fa-2x ham-icon"></i></a>
 
         <div class="resource_text pb-sm-2 pt-2">{{ piece.title }}</div>
@@ -52,7 +52,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           </span>
           <input class="height-44 home-primarySearch-bg border-0 form-control py-2" type="text" v-model="searchQuery"
             placeholder="Search your resource" id="example-search-input" @input="filterPieces()" />
-            <!-- <div class="search-wrapper">
+          <!-- <div class="search-wrapper">
 
               <form class="wid-80">
               <input type="text" name="focus" required class="search-box height-44 home-primarySearch-bg border-0 form-control py-2" v-model="searchQuery"
@@ -71,41 +71,43 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           </div>
           <div v-if="showSearchResults" class="search-wrap primary-search-radius">
             <div class="primary-search-radius card cursor-pointer card-set-container-bg">
-              <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
-                <a :href=" item.custom_url ? item.custom_url : item._url ">
-                  <div class="d-flex align-items-center">
-                    <!-- <img
-                      src="/modules/my-apostrophe-assets/img/placeholder.svg"
-                      width="50"
-                      height="30"
-                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
-                      alt=""
-                    /> -->
-                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-
-                    <p v-if="item.Topic=='Watch'" class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}} - {{item.SubTitle}}
-                    </p>
-                    <p v-if="item.Topic=='Read'" class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}} - {{item.read_topic}}
-                    </p>
-                    <p v-if="item.Topic=='Games'" class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}} - {{item.games_title}}
-                    </p>
-                    <p v-if="item.Topic=='Events'" class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}} - {{item.eventsTopic}}
-                    </p>
-                    <p v-if="item.Topic=='PartnerAgencies'" class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}} - {{item.partnerAgencies}}
-                    </p>
-                    <p v-if="item.Topic=='Downloads'" class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}} - {{item.platform}}
-                    </p>
-                    <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important">
-                      <li>{{item.Topic}}</li>
-                    </ul>
-                  </div>
-                </a>
+              <div v-if="filteredData.length">
+                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 py-3">
+                  <a :href=" item.custom_url ? item.custom_url : item._url ">
+                    <div class="d-flex align-items-center">
+                      <p v-if="item.Topic=='Watch'"
+                        class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                        {{item.title}} - {{item.SubTitle}}
+                      </p>
+                      <p v-if="item.Topic=='Read'"
+                        class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                        {{item.title}} - {{item.read_topic}}
+                      </p>
+                      <p v-if="item.Topic=='Games'"
+                        class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                        {{item.title}} - {{item.games_title}}
+                      </p>
+                      <p v-if="item.Topic=='Events'"
+                        class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                        {{item.title}} - {{item.eventsTopic}}
+                      </p>
+                      <p v-if="item.Topic=='PartnerAgencies'"
+                        class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                        {{item.title}} - {{item.partnerAgencies}}
+                      </p>
+                      <p v-if="item.Topic=='Downloads'"
+                        class="question-font text-left my-0 mx-2 mx-md-4 ellipse-text-dropdown">
+                        {{item.title}} - {{item.platform}}
+                      </p>
+                      <ul class="my-0 link-text mx-2 fixedWidthSetLI" style="list-style: inside !important">
+                        <li>{{item.Topic}}</li>
+                      </ul>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="text-center" v-if="!filteredData.length">
+                <p class="resource_search_text py-3 mb-0">No records found</p>
               </div>
             </div>
           </div>

@@ -10,20 +10,18 @@ const logger = require('../logger');
 const pdf = require('../utils/pdfgenerate');
 sgMail.setApiKey(config.sendgrid_api_key);
 const reponseMessages = require('../middlewares/responseMessage');
-let Transport;
 let mailService;
-//Sndgrid disabled on SMTP requirement
-if (config.use_sendgrid == 'true') {
-    console.log("use send grid")
-    Transport = nodemailer.createTransport(
+// Sendgrid disabled on SMTP requirement
+if (process.env.USE_SENDGRID == 'true') {
+    console.log('Sendgrid is active for mails.');
+    mailService = nodemailer.createTransport(
         nodemailerSendgrid({
             apiKey: process.env.SENDGRID_API_KEY
         })
     );
-}
-else {
-    console.log("use smtp")
-    Transport = nodemailer.createTransport({
+} else {
+    console.log('SMTP is active for mails.');
+    mailService = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
         secure: process.env.EMAIL_SECURE, // use TLS
@@ -48,7 +46,7 @@ exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
             subject: 'LIVERPOOL CAMHS - Password Reset Instructions',
             html: htmlTemplate,
         };
-        Transport.sendMail(data, (err, res) => {
+        mailService.sendMail(data, (err, res) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
@@ -82,7 +80,7 @@ exports.sendChangeMail = async ctx => new Promise((resolve, reject) => {
             subject: 'LIVERPOOL CAMHS - Email Reset Instructions',
             html: htmlTemplate,
         };
-        Transport.sendMail(data, (err, res) => {
+        mailService.sendMail(data, (err, res) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
@@ -119,7 +117,7 @@ exports.sendFeedbackMail = async ctx => new Promise((resolve, reject) => {
             subject: 'LIVERPOOL CAMHS - Feedback',
             html: htmlTemplate,
         };
-        Transport.sendMail(data, (err, res) => {
+        mailService.sendMail(data, (err, res) => {
             if (!err && res) {
                 logger.info(res);
                 ctx.res.ok({
@@ -150,7 +148,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
                 subject: 'Referral Confirmation',
                 html: '<p> Your referral code is <strong>' + ctx.request.body.ref_code + '</strong><p>',
             };
-            Transport.sendMail(data, (err, res) => {
+            mailService.sendMail(data, (err, res) => {
                 if (!err && res) {
                     logger.info(res);
                     ctx.res.ok({
@@ -180,25 +178,27 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
     try {
-        console.log("fdafas" + ctx.request.body.emailToProvider)
         if (ctx.request.body.emailToProvider == "YPAS") {
             toAddress = config.ypas_email
-        }
-        else if (ctx.request.body.emailToProvider == "Venus") {
+        } else if (ctx.request.body.emailToProvider == "Venus") {
             toAddress = config.venus_email
-        }
-        else if (ctx.request.body.emailToProvider == "IAPTUS") {
+        } else if (ctx.request.body.emailToProvider == "MHST") {
+            toAddress = config.mhst_email
+        } else if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
+            toAddress = config.alder_hey_email
+        } else if (ctx.request.body.emailToProvider == "Parenting 2000") {
+            toAddress = config.parenting_email
+        } else if (ctx.request.body.emailToProvider == "IAPTUS") {
             toAddress = config.iaptus_email
-        }
-        else {
+        } else {
             toAddress = config.other_email
         }
+        console.log('toAddress----------', toAddress);
         const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
             refCode: ctx.request.body.refCode,
         });
-
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
                 const data = {
@@ -213,13 +213,13 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                     html: htmlTemplate,
                 };
 
-                Transport.sendMail(data, (err, res) => {
+                mailService.sendMail(data, (err, res) => {
+
                     if (!err && res) {
                         ctx.res.ok({
                             data: 'mail Successfully sent',
                         });
                         resolve();
-
                     } else {
                         logger.error('Mail error', err);
                         ctx.res.internalServerError({
@@ -235,8 +235,9 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
-        //console.log(e);
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 
 });
+
+

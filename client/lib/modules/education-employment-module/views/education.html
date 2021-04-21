@@ -33,35 +33,8 @@
             <!-- Loader end -->
 
             <div class="py-2" v-cloak>
-                <!-- About Your Self Start-->
-                <!-- <form id="position-form" data-options="position">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">{{dynamicLabels.postionLabel}}</p>
-                        <div class="form-check pt-3 pb-1 pl-0">
-                            <input class="form-check-input" type="radio" name="currentPosition" id="education"
-                                value="education" @change="onOptionChange($event)" v-model="educAndEmpData.position">
-                            <label class="form-check-label option-font d-flex align-items-center" for="education">
-                                Education
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input class="form-check-input" type="radio" name="currentPosition" id="employment"
-                                value="employment" @change="onOptionChange($event)" v-model="educAndEmpData.position">
-                            <label class="form-check-label option-font d-flex align-items-center" for="employment">
-                                Employment
-                            </label>
-                        </div>
-                        <div class="form-check py-2 pl-0">
-                            <input @change="onOptionChange($event)" class="form-check-input" type="radio"
-                                name="currentPosition" id="neither" value="neither" v-model="educAndEmpData.position">
-                            <label class="form-check-label option-font d-flex align-items-center" for="neither">
-                                Neither
-                            </label>
-                        </div>
-                    </div>
-                </form> -->
-                <!-- About Your Self End-->
 
+                <!-- About Your Self Start-->
                 <form id="position-form" data-options="position">
                     <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.postionLabel}}</p>
@@ -83,7 +56,7 @@
                         </div>
                     </div>
                 </form>
-
+                <!-- About Your Self End-->
 
                 <!-- Which school / college / university / do you attend? Start  -->
                 <form id="attended-form" data-options="attendedInfo">
@@ -91,7 +64,7 @@
                         <div class="form-group mb-1" id="c4238c48-4dd6-405c-b3d9-cda7f17bdcb8">
                             <label for="attendedLocation" class="question-font">{{dynamicLabels.locationLabel}}</label>
                             <div class="input-group">
-                                <input type="search" class="form-control input-bg-form-control" inputmode="search"
+                                <input type="text" class="form-control input-bg-form-control" inputmode="search"
                                     placeholder="Start typing to search"
                                     @input="trimWhiteSpace($event,'educAndEmpData','attendedInfo')"
                                     id="attendedLocation" aria-label="location" name="educationLocation"
@@ -114,7 +87,7 @@
                 </form>
                 <!-- Which school / college / university / do you attend? End  -->
 
-
+                <!-- show manual address template logic ui start-->
                 <div v-if="checkArrayLength(educationManualAddressData)">
                     <div class="px-4 py-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <label class="question-font">Manual address</label>
@@ -144,8 +117,9 @@
                         </div>
                     </div>
                 </div>
+                <!-- show manual address template logic ui end -->
 
-                <!-- Delete Modal Start -->
+                <!-- Delete Address confirmation Modal Start -->
                 <div class="modal fade" id="deleteAddressSect3Modal" tabindex="-1" role="dialog"
                     aria-labelledby="deleteAddresModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -173,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Delete Modal End -->
+                <!-- Delete Address confirmation Modal Start -->
 
                 <!-- Education or HealthCare Plan Start-->
                 <form id="EHCP-form" data-options="haveEhcpPlan">
@@ -267,8 +241,8 @@
                 </form>
                 <!-- Have a Social Worker Start-->
 
-                <!-- Social Worker Name Form Start -->
-                <form id="socialWorkerName-info" data-options="socialWorkName">
+                <!-- Social Worker First Name Form Start -->
+                <form id="socialWorkerFName-info" data-options="socialWorkName">
                     <div v-show="educAndEmpData.haveSocialWorker =='yes'"
                         class="px-4 pt-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group m-0">
@@ -293,9 +267,10 @@
                         </div>
                     </div>
                 </form>
+                <!-- Social Worker Fast Name Form End -->
 
-
-                <form id="socialWorkerName-info" data-options="socialWorkLastName">
+                <!-- Social Worker Last Name Form Start -->
+                <form id="socialWorkerLName-info" data-options="socialWorkLastName">
                     <div v-show="educAndEmpData.haveSocialWorker =='yes'"
                         class="px-4 pt-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <div class="form-group m-0">
@@ -321,8 +296,7 @@
                         </div>
                     </div>
                 </form>
-
-                <!-- Social Worker Name End -->
+                <!-- Social Worker Last Name Form End -->
 
                 <!-- Social Worker Contact Start -->
                 <form id="socialWorkerContact-info" data-options="socialWorkContact">
@@ -366,334 +340,229 @@
                 <!-- Social Worker Contact End -->
 
                 <!-- Dynamic Toaster start Scenario 1 Start-->
-                <template v-if="educAndEmpData.haveSocialWorker == 'yes'">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <!-- <p>{{educationManualAddressData.length}}</p> -->
-                                <p class="text-center m-0 py-2">
-                                    <template
-                                        v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="!showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                    <template
-                                        v-if="!showInstitution && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <template
-                                        v-if="showInstitution && (educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <template
-                                        v-if="showInstitution && (!educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-
-                                    <!-- <template
-                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && !showInstitution && !educAndEmpData.attendedInfo">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && showInstitution && educAndEmpData.attendedInfo">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && showInstitution && !educAndEmpData.attendedInfo">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && educAndEmpData.attendedInfo && (!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                    <template
-                                        v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && showInstitution && !educAndEmpData.attendedInfo">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                    <template
-                                        v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && !showInstitution && !educAndEmpData.attendedInfo ">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template> -->
-                                </p>
+                <div class="px-4 py-4" v-if="educAndEmpData.haveSocialWorker == 'yes'">
+                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 py-2">
                                 <template
                                     v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                 </template>
-
                                 <template
                                     v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                 </template>
-
-                                <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
-
                                 <template
                                     v-if="!showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                 </template>
-
-
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page.
-                                    </p>
+                                <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                 </template>
-
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page.
-                                    </p>
-                                </template>
-
                                 <template
                                     v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page.
-                                    </p>
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
                                 </template>
-
                                 <template
                                     v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page.
-                                    </p>
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
                                 </template>
-
+                                <template
+                                    v-if="showInstitution && (educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </template>
                                 <template
                                     v-if="!showInstitution && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page.
-                                    </p>
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </template>
+                                <template
+                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
                                 </template>
 
                                 <template
                                     v-if="showInstitution && (educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page.
-                                    </p>
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
                                 </template>
 
                                 <template
                                     v-if="showInstitution && (!educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page.
-                                    </p>
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
                                 </template>
-                                <!-- <template v-if="showInstitution && educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template> -->
-                                <!-- <template
-                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && !showInstitution && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
+                            </p>
+                            <template
+                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
+                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </template>
 
-                                <template
-                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact)  && showInstitution && educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
+                            <template
+                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </template>
 
-                                <template
-                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && showInstitution && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-                                <template
-                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && educAndEmpData.attendedInfo && phoneRegex.test(educAndEmpData.socialWorkContact) && !showInstitution && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-                                <template
-                                    v-if="educAndEmpData.socialWorkName && educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact) && showInstitution && !educAndEmpData.attendedInfo">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-                                <template
-                                    v-if="(!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact)) && !showInstitution && !educAndEmpData.attendedInfo ">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template>
-                                <template
-                                    v-if="showInstitution && educAndEmpData.attendedInfo && (!educAndEmpData.socialWorkName || !educAndEmpData.socialWorkContact || !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on
-                                        this
-                                        page
-                                    </p>
-                                </template> -->
-                            </div>
+                            <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
+                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </template>
+
+                            <template
+                                v-if="!showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </template>
+
+
+                            <template
+                                v-if="showInstitution && (educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on
+                                    this
+                                    page.
+                                </p>
+                            </template>
+
+                            <template
+                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on
+                                    this
+                                    page.
+                                </p>
+                            </template>
+
+                            <template
+                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on
+                                    this
+                                    page.
+                                </p>
+                            </template>
+
+                            <template
+                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on
+                                    this
+                                    page.
+                                </p>
+                            </template>
+
+                            <template
+                                v-if="!showInstitution && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on
+                                    this
+                                    page.
+                                </p>
+                            </template>
+
+                            <template
+                                v-if="showInstitution && (educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on
+                                    this
+                                    page.
+                                </p>
+                            </template>
+
+                            <template
+                                v-if="showInstitution && (!educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on
+                                    this
+                                    page.
+                                </p>
+                            </template>
                         </div>
                     </div>
-                    <div class="text-center py-4">
-                        <a>
-                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-secondary-text">SAVE &
-                                    CONTINUE</span></button>
-                        </a>
-                    </div>
-                </template>
+                </div>
+                <div class="text-center py-4" v-if="educAndEmpData.haveSocialWorker == 'yes'">
+                    <a>
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </a>
+                </div>
                 <!-- Dynamic Toaster start Scenario 1 End-->
 
                 <!-- Dynamic Toaster start Scenario 2 Start-->
-                <template v-if="educAndEmpData.haveSocialWorker == 'no'">
-                    <div class="px-4 py-4">
-                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <p class="text-center m-0 py-2">
-                                    <template
-                                        v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                    </template>
-                                    <template
-                                        v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </template>
-                                </p>
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
-                                <template
-                                    v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                    <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                    <p class="question-font text-center m-0 pb-2">Next section: the
-                                        reasons
-                                        for
-                                        your referral request.</p>
-                                </template>
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
-                                    <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                        section on this
-                                        page.</p>
-                                </template>
+                <div class="px-4 py-4" v-if="educAndEmpData.haveSocialWorker == 'no'">
+                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                        <div class="px-2 py-2">
+                            <p class="text-center m-0 pt-2 pb-1">
+                                <img v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                <img v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+
+                                <span
+                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)"
+                                    style="color:#DD3939 !important">
+                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                </span>
+                            </p>
+                            <div
+                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the 1
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="!showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: the 1
+                                    reasons
+                                    for
+                                    your referral request.</p>
+                            </div>
+                            <div
+                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
+                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
+                                    section on this
+                                    page.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="text-center py-4">
-                        <a>
-                            <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                    class="btn-secondary-text">SAVE &
-                                    CONTINUE</span></button>
-                        </a>
-                    </div>
-                </template>
+                </div>
+
+                <div v-if="educAndEmpData.haveSocialWorker == 'no'" class="text-center py-4">
+                    <a>
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </a>
+                </div>
                 <!-- Dynamic Toaster start Scenario 2 End-->
 
 
@@ -727,7 +596,7 @@
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.school"
                                             @input="trimWhiteSpace($event,'addressData','school')" id="school"
-                                            placeholder="Enter address line1">
+                                            placeholder="Enter address line 1">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -744,12 +613,12 @@
                                 <!-- Address Line1 start-->
                                 <div class="form-group">
                                     <label for="addressline1" inputmode="text" class="question-font">Address
-                                        line1</label>
+                                        line 1</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.addressLine1"
                                             @input="trimWhiteSpace($event,'addressData','addressLine1')"
-                                            id="addressline1" placeholder="Enter address line1">
+                                            id="addressline1" placeholder="Enter address line 1">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -766,12 +635,12 @@
                                 <!-- Address Line2 start -->
                                 <div class="form-group">
                                     <label for="addressline2" inputmode="text" class="question-font">Address
-                                        line2 -<b> optional</b></label>
+                                        line 2 -<b> optional</b></label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressData','addressLine2')"
-                                            id="addressline2" placeholder="Enter address line2">
+                                            id="addressline2"  placeholder="Enter address line 2">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -883,12 +752,12 @@
                                 <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
                                     <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
                                         An Education, Health and Care Plan (EHCP) outlines any special educational needs
-                                        a child has, and the provision a local authority must put in place to help them.
+                                        a child has, and the provision a local authority must put in place to help them
                                     </h3>
                                     <h3 class="support-modal-content-text text-left py-2"> If your school is supportive
                                         and knowledgeable about special needs, they may start off the process for you.
                                         But you can request one yourself, simply by contacting your local authority’s
-                                        special educational needs department and requesting an assessment for an EHCP.
+                                        special educational needs department and requesting an assessment for an EHCP
                                     </h3>
                                     <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                                         <a href="http://search3.openobjects.com/kb5/liverpool/fsd/service.page?id=aR_ebr58DtU"
@@ -925,12 +794,12 @@
                                     <h3 class="px-4 pt-4 pb-2 support-modal-header-text text-center">
                                         An Early Help Assessment Tool (EHAT) is a tool used for gathering information
                                         and a standard approach in assessment for the identification of Early Help
-                                        needs.
+                                        needs
                                     </h3>
                                     <h3 class="support-modal-content-text text-left py-2">
                                         The EHAT helps practitioners to gather and understand information about the
                                         needs and strengths of children and the family. This is based on discussions
-                                        with children and their family and other practitioners as appropriate.
+                                        with children and their family and other practitioners as appropriate
                                     </h3>
                                     <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                                         <a href="https://ehd.liverpool.gov.uk/kb5/liverpool/fsd/service.page?id=BgW2Z1nz7Bc"

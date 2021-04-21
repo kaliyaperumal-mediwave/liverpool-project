@@ -7,6 +7,10 @@ does not have access to an Apostrophe page or piece.') }} {% endif %} {%
 endblock %} {% block extraHead %}
 
 <!-- Latest compiled and minified CSS -->
+<!-- this is used for jsonparse conversion in ios -->
+<meta name="format-detection" content="telephone=no">
+
+
 
 <!--Font Family Cdn-->
 <link rel="stylesheet" href="https://use.typekit.net/htu8woz.css" />
@@ -185,8 +189,8 @@ endblock %} {% block extraHead %}
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Urgent help</a>
           </div>
-          <div class="inside-cont-slider cursor-pointer">
-            <a href="{{ data.orchaPage }}" class="text-decoration-none">Apps</a>
+          <div class="inside-cont-slider cursor-pointer"  onclick="openApps()">
+            <a  class="text-decoration-none">Apps</a>
           </div>
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Resources</a>
@@ -321,7 +325,12 @@ endblock %} {% block extraHead %}
   })();
 </script>
 
+{{superAdmin}}
+{% if data.showHeader or data.adminPanel %}
 <div id='middleCont' class="middleContainer">
+{% else %}
+  <div id='middleCont' class="removepadding middleContainer">
+{% endif %}
   <div class="set-mid-padding">
 
     <!-- {#
@@ -415,6 +424,7 @@ endblock %} {% block extraHead %}
 <!-- Dont remove this line. it is used in check a referral page -->
 <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
 <p id="sessionExp">{{data.sessionExp}}</p>
+
 <div class="footer-bg set-bottom-padding">
   <!-- <div id="footer-placement" class="footer-bg footer set-bottom-padding">
     <div class="footer-container">

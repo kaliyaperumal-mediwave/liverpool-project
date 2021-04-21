@@ -30,7 +30,7 @@
         </div>
         <!-- Loader end -->
         <div class="secondary-content-area  col-sm-10 col-11 col-lg-8 col-md-9 col-xl-6 mx-auto responsepy" v-cloak>
-            <div class="p-2 p-sm-3 p-md-3 p-lg-3 p-xl-4">
+            <div class="px-2 py-4">
                 <div class="review-header-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
                     'review_referral', {
                     widgets: {
@@ -992,7 +992,8 @@
                                     </div>
                                 </div>
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div v-if="section2Data.legal_care_status"
+                                    class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font pr-2 col-12 col-md-4 pl-0" for="LIVE">
                                         The child's legal care status:
                                     </label>
@@ -1035,7 +1036,7 @@
                                             </select>
                                         </span>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="text-center pt-4 pb-2">
                                     <button @click="updateInfo($event,section2Data,'/user/updateAboutInfo')" disabled
@@ -1727,7 +1728,7 @@
 
 
                 <!-- Send Start -->
-                <div id="send" class="py-4">
+                <div id="send" class="pt-4 pb-3 pt-md-4 pb-md-4">
                     <!-- <h2 class="py-2 px-3 m-0 question-header-font">
                         Send
                     </h2>
@@ -1751,7 +1752,7 @@
                         }) }}</div>
                 </div>
                 <!-- Send End -->
-                <div class="text-center py-4">
+                <div class="text-center pt-2 pb-1">
                     <a>
                         <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
                                 class="btn-secondary-text">ACCEPT &

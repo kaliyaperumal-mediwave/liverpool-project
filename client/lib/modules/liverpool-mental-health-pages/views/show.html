@@ -39,7 +39,7 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
   </div>
   <div id="resources_user" class="main-min-height">
     <div class="top-arrow-container pd-container" id="searchBar">
-      <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-1 mb-2"> <a href="" class="previous-link"><i
+      <div class="col-md-12 col-lg-12 col-xl-12 col-12 mb-2"> <a href="" class="previous-link"><i
             class="fal fa-long-arrow-left fa-2x ham-icon"></i></a>
         <div class="home-header-primary m-0 pt-1 pt-md-2 pb-1">{{ piece.title }}</div>
       </div>
@@ -74,26 +74,22 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           </div>
           <div v-if="showSearchResults" class="search-wrap primary-search-radius">
             <div class="primary-search-radius card cursor-pointer card-set-container-bg">
-              <div v-for="item in filteredData" class="card-body px-2 px-md-4">
-                <a :href=" item.custom_url ? item.custom_url : item._url ">
-                  <div class="d-flex align-items-center">
-                    <!-- <img
-                      src="/modules/my-apostrophe-assets/img/placeholder.svg"
-                      width="50"
-                      height="30"
-                      class="px-1 px-md-2 cursor-pointer toggle-img-placehold"
-                      alt=""
-                    /> -->
-                    <div class="px-1 px-md-2 cursor-pointer toggle-img-placehold bg-place"></div>
-
-                    <p class="question-font my-0 mx-2 mx-md-4">
-                      {{item.title}}
-                    </p>
-                    <ul class="my-0 link-text mx-2 mx-md-4" style="list-style: inside !important">
-                      <li>{{item.Topic}}</li>
-                    </ul>
-                  </div>
-                </a>
+              <div v-if="filteredData.length">
+                <div v-for="item in filteredData" class="border-bottom-primary card-body px-2 px-md-4">
+                  <a :href=" item.custom_url ? item.custom_url : item._url ">
+                    <div class="d-flex align-items-center">
+                      <p class="question-font my-0 mx-2 mx-md-4 text-left ellipse-text-dropdown">
+                        {{item.title}}
+                      </p>
+                      <ul class="my-0 link-text mx-2 fixedWidthSetLI" style="list-style: inside !important">
+                        <li>{{item.Topic}}</li>
+                      </ul>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="text-center" v-if="!filteredData.length">
+                <p class="resource_search_text py-3 mb-0">No records found</p>
               </div>
             </div>
           </div>
@@ -106,20 +102,20 @@ data.rolesIds %} {% set sluglist = data.sluglist %} {% set piece = data.piece %}
           <div class="read-cont-h1 col-6 col-lg-9 p-0 replaceClass" id="voiceOverTitle">{{ piece.title }}</div>
           <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty"
             id="c730ed34-ce14-4df1-8718-6346cd050c2b">
-            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playButton" role="button">Play</button>
-            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none" id="pauseButton"
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 border-0" id="playButton" role="button">Play</button>
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="pauseButton"
               role="button">Pause</button>
-            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none" id="resumeButton"
+            <button class="btn btn-primary play-button mr-2 px-2 px-sm-3 d-none border-0" id="resumeButton"
               role="button">Resume</button>
 
-            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3" disabled
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
               id="stopButton" role="button">Stop</button>
           </div>
 
           <div class="p-0 col-6 col-lg-3 justify-content-end d-none checkEmpty" id="androidContainer">
             <button class="btn btn-primary play-button mr-2 px-2 px-sm-3" id="playAndroidButton"
               role="button">Play</button>
-            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3" disabled
+            <button style="opacity: 0.4 !important;" class="btn btn-primary stop-button px-2 px-sm-3 border-0" disabled
               id="stopAndroidButton" role="button">Stop</button>
           </div>
 

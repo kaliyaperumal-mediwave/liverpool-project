@@ -74,8 +74,11 @@
                                     <div class="collapse-title">
                                         Status
                                     </div>
-                                    <div class="collapse-para">
-                                        Pending
+                                    <div  v-if="refObj.referral_provider == 'Pending' " class="collapse-para">
+                                        {{refObj.referral_provider}}
+                                    </div>
+                                    <div  v-if="refObj.referral_provider != 'Pending' " class="collapse-para">
+                                        Sent to {{refObj.referral_provider}}
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Code
@@ -162,8 +165,14 @@
                                         <div class="collapse-title">
                                             Status
                                         </div>
-                                        <div class="collapse-para">
-                                            Pending
+                                        <div  v-if="viewReferralObj.referralType == 'completed' && refObj.referral_provider == 'Pending' " class="collapse-para">
+                                            {{refObj.referral_provider}}
+                                        </div>
+                                        <div  v-if="viewReferralObj.referralType == 'completed' && refObj.referral_provider != 'Pending' " class="collapse-para">
+                                            Sent to {{refObj.referral_provider}}
+                                        </div>
+                                        <div  v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-para">
+                                            Not completed
                                         </div>
                                         <div v-show="viewReferralObj.referralType == 'completed'"
                                             class="collapse-title">
@@ -240,8 +249,14 @@
                                         <div class="collapse-title">
                                             Status
                                         </div>
-                                        <div class="collapse-para">
-                                            Pending
+                                        <div  v-if="viewReferralObj.referralType == 'completed' && refObj.referral_provider == 'Pending' " class="collapse-para">
+                                            {{refObj.referral_provider}}
+                                        </div>
+                                        <div  v-if="viewReferralObj.referralType == 'completed' && refObj.referral_provider != 'Pending' " class="collapse-para">
+                                            Sent to {{refObj.referral_provider}}
+                                        </div>
+                                        <div  v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-para">
+                                            Not completed
                                         </div>
                                         <div v-show="viewReferralObj.referralType == 'completed'"
                                             class="collapse-title">
