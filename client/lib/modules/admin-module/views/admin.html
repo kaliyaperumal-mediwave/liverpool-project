@@ -192,7 +192,7 @@
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey – Liverpool CAMHS & EDYS">Alder Hey – Liverpool CAMHS & EDYS</option>
+                                    <option class='option-text' value="Alder Hey – Liverpool CAMHS - EDYS">Alder Hey – Liverpool CAMHS & EDYS</option>
                                     <option class='option-text' value="YPAS">YPAS</option>
                                     <option class='option-text' value="MHST">Mental Health Support Team</option>
                                     <option class='option-text' value="Seedlings">Seedlings</option>
@@ -209,7 +209,7 @@
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey – Sefton CAMHS & EDYS">Alder Hey – Sefton CAMHS & EDYS</option>
+                                    <option class='option-text' value="Alder Hey – Sefton CAMHS - EDYS">Alder Hey – Sefton CAMHS & EDYS</option>
                                     <option class='option-text' value="Venus">Venus</option>
                                     <option class='option-text' value="Parenting 2000">Parenting 2000</option>
                                     <option class='option-text' value="MHST">Mental Health Support Team</option>
@@ -232,6 +232,48 @@
     </div>
     <!-- Send popup End -->
 
+    <!-- Status popup -->
+    <div class="modal fade" id="changeStatusModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="logout-font mt-3">Change status</h5>
+                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="px-sm-5 px-4 py-2">
+                    <div class="input-group w-100">
+                        <span class="plain-select">
+                            <select style="background: #fff !important;" v-model="SelectedProviderStatus" id="SelectedProviderStatus"
+                                class="custom-select form-control input-bg-form-control height-44">
+                                <option class='option-text' value="Nothing" selected>Nothing</option>
+                                <option class='option-text' value="Accepted">Accepted</option>
+                                <option class='option-text' value="Duplicate referral">Duplicate referral</option>
+                                <option class='option-text' value="Rejected referral">Rejected referral</option>
+                                <option class='option-text' value="Referral to community paeds required instead">Referral to community paeds required instead</option>
+                                <option class='option-text' value="Referral to other team">Referral to other team</option>
+                            </select>
+                        </span>
+                    </div>
+                </div>
+                <div class="px-sm-5 px-4 py-2" v-if="SelectedProviderStatus === 'Referral to other team'">
+                    <div class="input-group w-100">
+                        <input type="text" class="form-control" placeholder="" value="">
+                    </div>
+                </div>
+                <div class="modal-footer submit-btn-admin">
+                    <button type="submit" class="btn mb-3 px-md-4 w-50 d-flex align-center justify-content-center"
+                        style="background-color: #219EBC !important;" id="updateStatus">
+                        <span class="btn-modal-text">Update Status</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Send popup End -->
+
     <!-- Mail Succuss Modal Start -->
     <div class="modal fade" id="mailSentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
         role="dialog" aria-labelledby="mailSentSuccessLabel" aria-hidden="true">
@@ -244,7 +286,25 @@
                     <p class="text-center m-0 py-2">
                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                     </p>
-                    <h5 id="successMsg" class="logout-font mt-3 text-center">Referral sent successfully.</h5>
+                    <h5 id="successMsg" class="logout-font mt-3 text-center">Referral sent successfully</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Succuss Modal End -->
+    <!-- Mail Succuss Modal Start -->
+    <div class="modal fade" id="statusUpdatedSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="statusUpdatedSuccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" @click="closeUpdateSuccessPopup()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <p class="text-center m-0 py-2">
+                        <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                    </p>
+                    <h5 id="successMsg" class="logout-font mt-3 text-center">Status Updated</h5>
                 </div>
             </div>
         </div>

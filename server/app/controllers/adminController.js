@@ -553,9 +553,10 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-   // console.log("referralData", ctx.request.body.referralData);
+    // console.log("referralData", ctx.request.body.referralData);
     // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
     // console.log("refCode",ctx.request.body.refCode);
+    // return false;
     try {
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //////console.log()(sendReferralStatus)
@@ -1143,6 +1144,32 @@ function getRefData(refID, refRole, ctx) {
     }
 }
 
+exports.referralStatusUpdate = async (ctx) => {
+
+    try {
+        const referralModel = ctx.orm().Referral;
+
+        const updatereferral = await referralModel.update(
+            {referral_provider: ctx.request.body.status},
+            {where: { uuid: ctx.request.body.referral_id }}
+        );
+
+        if(updatereferral){
+            console.log('Update status success.......');
+            ctx.res.ok({
+                message: reponseMessages[1001]
+            })
+        } else {
+            ctx.res.ok({
+                message: reponseMessages[1002]
+            })
+        }
+    } catch (error) {
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    }
+
+}
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -1166,3 +1193,4 @@ function calculateAge(birthDate) {
     }
     return years;
 }
+
