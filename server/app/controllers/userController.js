@@ -16,12 +16,12 @@ exports.addAdminUsers = async(ctx) => {
         }
 
         const serviceAdminroles = [
-            'Alder Hey - Liverpool CAMHS',
+            'Alder Hey – Liverpool CAMHS & EDYS',
             'YPAS',
             'MHST',
             'Seedlings',
             'Wellbeing Clinics',
-            'Alder Hey - Sefton CAMHS',
+            'Alder Hey – Sefton CAMHS & EDYS',
             'Venus',
             'Parenting 2000',
             'Other'

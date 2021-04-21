@@ -941,7 +941,7 @@
                 </div>
 
                 <!-- Legal care Status Start -->
-                <form id="legalCare-form" data-options="legalCareStatus">
+                <!-- <form id="legalCare-form" data-options="legalCareStatus">
                     <div v-if="aboutFormData.sameHouse =='yes' || aboutFormData.sameHouse =='no'"
                         class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 mt-0 mb-2">
@@ -984,11 +984,11 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <!-- Legal care Status Start -->
 
                 <!-- Dynamic Toaster Scenario 1 start -->
-                <div v-if="aboutFormData.legalCareStatus">
+                <div v-if="aboutFormData.sameHouse">
                     <div class="px-2 px-lg-0 py-4">
                         <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -1020,7 +1020,6 @@
                                                 || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
                                             ))
                                         || !aboutFormData.sameHouse
-                                        || !aboutFormData.legalCareStatus
                                         || !aboutObj.sexAssignedAtBirth
                                         || !aboutObj.childNameTitle
                                     ">
