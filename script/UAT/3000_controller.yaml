@@ -22,7 +22,7 @@ spec:
         image: ${PHR_REGISTRY}/$PHR_LIVERPOOL_NAMESPACE-phr:v${BUILD_NUMBER}
         env:
         - name: APP_PORT
-          value: ‘3001’
+          value: 3001
         - name: APP_NAME
           value: liverpool-phr
         - name: NODE_ENV
