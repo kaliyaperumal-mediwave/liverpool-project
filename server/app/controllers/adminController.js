@@ -45,6 +45,7 @@ exports.getReferral = ctx => {
                 else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '7') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '8') order.push(['referral_provider', ctx.query.orderType.toUpperCase()]);
             }
 
             var referrals = await referralModel.findAll({
