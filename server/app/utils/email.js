@@ -178,19 +178,22 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
     try {
-        console.log("fdafas" + ctx.request.body.emailToProvider)
         if (ctx.request.body.emailToProvider == "YPAS") {
             toAddress = config.ypas_email
-        }
-        else if (ctx.request.body.emailToProvider == "Venus") {
+        } else if (ctx.request.body.emailToProvider == "Venus") {
             toAddress = config.venus_email
-        }
-        else if (ctx.request.body.emailToProvider == "IAPTUS") {
+        } else if (ctx.request.body.emailToProvider == "MHST") {
+            toAddress = config.mhst_email
+        } else if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS") {
+            toAddress = config.alder_hey_email
+        } else if (ctx.request.body.emailToProvider == "Parenting 2000") {
+            toAddress = config.parenting_email
+        } else if (ctx.request.body.emailToProvider == "IAPTUS") {
             toAddress = config.iaptus_email
-        }
-        else {
+        } else {
             toAddress = config.other_email
         }
+        console.log('toAddress----------', toAddress);
         const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
         let htmlTemplate = _.template(template);
         htmlTemplate = htmlTemplate({
