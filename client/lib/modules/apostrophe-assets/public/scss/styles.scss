@@ -3827,5 +3827,6 @@ div.collapse-container.collapsing {
 height: 40px !important;
 @include sm-inc-screen{
   height: auto !important;
+  min-height: 40px !important;
 }
 }
