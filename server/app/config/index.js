@@ -18,9 +18,12 @@ const configs = {
     orcha_pass: process.env.ORCHA_PASS,
     //Provider Email address to send completed referrals. 
     ypas_email: process.env.YPAS_EMAIL,
-    venus_email: process.env.VENUS_EMAIL  ,
+    venus_email: process.env.VENUS_EMAIL,
     iaptus_email: process.env.IAPTUS_EMAIL,
     other_email: process.env.OTHER_EMAIL,
+    mhst_email: process.env.MHST_EMAIL,
+    alder_hey_email: process.env.ALDER_HEY_FORMS_EMAIL,
+    parenting_email: process.env.PARENTING_EMAIL,
     use_sendgrid: process.env.USE_SENDGRID,
 
     orm: {
