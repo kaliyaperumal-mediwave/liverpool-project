@@ -15,22 +15,22 @@ let mailService;
 if (process.env.USE_SENDGRID == 'true') {
     console.log('Sendgrid is active for mails.');
     mailService = nodemailer.createTransport(
-       nodemailerSendgrid({
-           apiKey: process.env.SENDGRID_API_KEY
-       })
-   );
+        nodemailerSendgrid({
+            apiKey: process.env.SENDGRID_API_KEY
+        })
+    );
 } else {
     console.log('SMTP is active for mails.');
     mailService = nodemailer.createTransport({
-       host: process.env.EMAIL_HOST,
-       port: process.env.EMAIL_PORT,
-       secure: process.env.EMAIL_SECURE, // use TLS
-       ignoreTLS: true,
-       auth: {
-           user: process.env.EMAIL_AUTH_USERNAME,
-           pass: process.env.EMAIL_AUTH_PASSWORD
-       }
-   });
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
+        secure: process.env.EMAIL_SECURE, // use TLS
+        ignoreTLS: true,
+        auth: {
+            user: process.env.EMAIL_AUTH_USERNAME,
+            pass: process.env.EMAIL_AUTH_PASSWORD
+        }
+    });
 }
 
 exports.sendForgotPasswordMail = async ctx => new Promise((resolve, reject) => {
@@ -184,7 +184,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.venus_email
         } else if (ctx.request.body.emailToProvider == "MHST") {
             toAddress = config.mhst_email
-        } else if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS") {
+        } else if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
             toAddress = config.alder_hey_email
         } else if (ctx.request.body.emailToProvider == "Parenting 2000") {
             toAddress = config.parenting_email
@@ -214,7 +214,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                 };
 
                 mailService.sendMail(data, (err, res) => {
-                    
+
                     if (!err && res) {
                         ctx.res.ok({
                             data: 'mail Successfully sent',
