@@ -178,13 +178,13 @@ $(document).ready(function () {
                 } else {
                     if (this.sendObj.role && this.sendObj.role == 'professional' && document.getElementById('prof_data').innerHTML) {
                         var profData = document.getElementById('prof_data').innerHTML;
-                       var profData1;
-                        try{
+                        var profData1;
+                        try {
                             profData1 = JSON.parse(profData);
                             //alert(profData1)
                         }
-                        catch(e){
-                           // alert(e)
+                        catch (e) {
+                            // alert(e)
                         }
                         //  console.log(profData.professional_manual_address);
                         Vue.set(this.elgibilityObj, "profFirstName", profData1.first_name);
@@ -524,6 +524,7 @@ $(document).ready(function () {
                                                         }
                                                         else {
                                                             app.elgibilityObj.gpSchool = '';
+                                                            app.elgibilityObj.gpErrMsg = "";
                                                             app.elgibilityObj.submitForm = "true";
                                                         }
 
@@ -572,7 +573,8 @@ $(document).ready(function () {
                                                     app.elgibilityObj.gpErrMsg = "";
                                                 }
                                                 else {
-                                                    app.elgibilityObj.gpSchool = '';
+                                                    app.elgibilityObj.gpErrMsg = "";
+                                                    app.elgibilityObj.gpSchool = "";
                                                     app.elgibilityObj.submitForm = "true";
                                                 }
                                             },
