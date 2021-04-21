@@ -75,6 +75,12 @@ spec:
           value: $PHR_LIVERPOOL_EMAIL_AUTH_USERNAME
         - name: EMAIL_AUTH_PASSWORD
           value: $PHR_LIVERPOOL_EMAIL_AUTH_PASSWORD
+        - name: ALDER_HEY_FORMS_EMAIL
+          value: $PHR_LIVERPOOL_TO_ALDER_HEY_FORMS_EMAIL
+        - name: MHST_EMAIL
+          value: $PHR_LIVERPOOL_TO_MHST_EMAIL
+        - name: PARENTING_EMAIL
+          value: $PHR_LIVERPOOL_TO_PARENTING_EMAIL
         ports:
         - containerPort: 3001
 ---
