@@ -761,9 +761,9 @@
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="alderLiverpool"
-                            value="Alder Hey - Liverpool CAMHS" @change="onChange($event)">
+                            value="Alder Hey – Liverpool CAMHS & EDYS" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="alderLiverpool">
-                            Alder Hey - Liverpool CAMHS
+                            Alder Hey – Liverpool CAMHS & EDYS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -777,7 +777,7 @@
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST" @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="MHST">
-                            Mental Health Support Team
+                            Mental Health Support Team (only school professionals can refer)
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -785,7 +785,7 @@
                             v-model="elgibilityObj.liverpoolService" id="seedings" value="Seedlings"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="seedings">
-                            Seedlings
+                            Seedlings (only school professionals – primary)
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -793,7 +793,7 @@
                             v-model="elgibilityObj.liverpoolService" id="wellbeingClinics" value="Wellbeing Clinics"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="wellbeingClinics">
-                            Wellbeing Clinics
+                            Wellbeing Clinics (only school professionals – secondary)
                         </label>
                     </div>
                 </div>
@@ -807,10 +807,10 @@
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="alderSefton" value="Alder Hey - Sefton CAMHS"
+                            v-model="elgibilityObj.seftonService" id="alderSefton" value="Alder Hey – Sefton CAMHS & EDYS"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="alderSefton">
-                            Alder Hey - Sefton CAMHS
+                            Alder Hey – Sefton CAMHS & EDYS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
@@ -828,12 +828,12 @@
                             Parenting 2000
                         </label>
                     </div>
-                    <div class="form-check py-2 pl-0">
+                    <div class="form-check py-3 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
                             v-model="elgibilityObj.seftonService" id="seftonMHST" value="MHST"
                             @change="onChange($event)">
                         <label class="form-check-label option-font d-flex align-items-center" for="seftonMHST">
-                            Mental Health Support Team
+                            Mental Health Support Team (only school professionals – currently in pilot phase with specific schools)
                         </label>
                     </div>
                 </div>

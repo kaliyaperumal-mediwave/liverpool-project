@@ -941,7 +941,7 @@
                 </div>
 
                 <!-- Legal care Status Start -->
-                <form id="legalCare-form" data-options="legalCareStatus">
+                <!-- <form id="legalCare-form" data-options="legalCareStatus">
                     <div v-if="aboutFormData.sameHouse =='yes' || aboutFormData.sameHouse =='no'"
                         class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 mt-0 mb-2">
@@ -984,11 +984,11 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> -->
                 <!-- Legal care Status Start -->
 
                 <!-- Dynamic Toaster Scenario 1 start -->
-                <div v-if="aboutFormData.legalCareStatus">
+                <div v-if="aboutFormData.sameHouse">
                     <div class="px-2 px-lg-0 py-4">
                         <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -1020,7 +1020,6 @@
                                                 || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
                                             ))
                                         || !aboutFormData.sameHouse
-                                        || !aboutFormData.legalCareStatus
                                         || !aboutObj.sexAssignedAtBirth
                                         || !aboutObj.childNameTitle
                                     ">
@@ -1110,7 +1109,7 @@
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressData','addressLine2')"
-                                            id="addressline2"  placeholder="Enter address line 2">
+                                            id="addressline2" placeholder="Enter address line 2">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1260,7 +1259,7 @@
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressParentData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressParentData','addressLine2')"
-                                            id="addressline2"  placeholder="Enter address line 2">
+                                            id="addressline2" placeholder="Enter address line 2">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1425,7 +1424,7 @@
 
                                 <!-- Household D.O.B start -->
                                 <div class="form-group">
-                                    <label for="dob" class="question-font">Date of birth -<b>optional</b></label>
+                                    <label for="dob" class="question-font">Date of birth - <b>optional</b></label>
                                     <div class="input-group" id="dobAboutCal">
                                         <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
                                             @dp-show="setCalendarHeight($event)"
@@ -1517,7 +1516,7 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.addressLine2" id="addressline2"
-                                                 placeholder="Enter address line 2">
+                                                placeholder="Enter address line 2">
                                             <div class="input-group-append cursor-pointer">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>

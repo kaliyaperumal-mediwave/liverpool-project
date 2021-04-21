@@ -2245,6 +2245,10 @@ exports.fetchReview = ctx => {
               },
               attributes: ['id']
             }).then((referralResult) => {
+              if(elgibilityObj.selected_service == 'MHST')
+              {
+                elgibilityObj.selected_service = 'Mental Health Support Team'
+              }
               const section1Obj = {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
