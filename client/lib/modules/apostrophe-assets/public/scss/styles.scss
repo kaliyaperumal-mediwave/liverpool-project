@@ -988,7 +988,7 @@ a {
 }
 
 .support-modal-header-text {
-  @include set-titleStyles($support-header-font-size, bold, $modal-text-color);
+  @include set-titleStyles($support-header-font-size, bold, $primary-color);
 }
 
 .support-modal-link-text {
