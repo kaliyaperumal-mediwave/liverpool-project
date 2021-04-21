@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // to make the slider visible
     $("div.swiper-wrapper").css("visibility", "visible");
     var swiper = new Swiper('.swiper-container', {
@@ -6,7 +6,7 @@ $(document).ready(function() {
         loop: false,
         loopedSlides: 0,
         slidesPerView: '3',
-        slidesOffsetAfter:0,
+        slidesOffsetAfter: 0,
         spaceBetween: 30,
         grabCursor: true,
 
@@ -16,7 +16,8 @@ $(document).ready(function() {
         },
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev',
-        scrollbar: '.swiper-scrollbar',
+        //scrollbar: '.swiper-scrollbar',
+
         breakpoints: {
             1024: {
                 spaceBetween: 30,
