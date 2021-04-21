@@ -666,6 +666,12 @@ window.onload = function (e) {
 // When the user scrolls down 20px from the top of the document, show the button
 //window.onscroll = function () { scrollFunction() };
 
+window.onscroll = function () { hideGoogleMapZIndex() };
+
+function hideGoogleMapZIndex() {
+    $(".pac-container").css({ "display": "none" });
+}
+
 function scrollFunction() {
     //Get the button:
     var gotoTopButton = document.getElementById("myBtn");

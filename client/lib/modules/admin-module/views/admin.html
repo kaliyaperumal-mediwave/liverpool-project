@@ -125,14 +125,30 @@
                         <thead>
                             <tr>
                                 <th class="icon-display-none"></th>
-                                <th><div>Name</div></th>
-                                <th><div>DOB</div></th>
-                                <th><div>Unique code</div></th>
-                                <th><div>Referrer</div></th>
-                                <th><div>GP location</div></th>
-                                <th><div>Referrer type</div></th>
-                                <th><div>Date</div></th>
-                                <th><div>Status</div></th>
+                                <th>
+                                    <div>Name</div>
+                                </th>
+                                <th>
+                                    <div>DOB</div>
+                                </th>
+                                <th>
+                                    <div>Unique code</div>
+                                </th>
+                                <th>
+                                    <div>Referrer</div>
+                                </th>
+                                <th>
+                                    <div>GP location</div>
+                                </th>
+                                <th>
+                                    <div>Referrer type</div>
+                                </th>
+                                <th>
+                                    <div>Date</div>
+                                </th>
+                                <th>
+                                    <div>Status</div>
+                                </th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -176,7 +192,8 @@
                 <div class="px-sm-5 px-4 py-2">
                     <div class="input-group w-100">
                         <span class="plain-select">
-                            <select style="background: #fff !important;" v-model="SelectedProviderType" id="SelectedProviderType"
+                            <select style="background: #fff !important;" v-model="SelectedProviderType"
+                                id="SelectedProviderType"
                                 class="custom-select form-control input-bg-form-control height-44">
                                 <option class='option-text' value="Liverpool">Liverpool
                                 </option>
@@ -192,7 +209,8 @@
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey – Liverpool CAMHS - EDYS">Alder Hey – Liverpool CAMHS & EDYS</option>
+                                    <option class='option-text' value="Alder Hey - Liverpool CAMHS - EDYS">Alder Hey -
+                                        Liverpool CAMHS - EDYS </option>
                                     <option class='option-text' value="YPAS">YPAS</option>
                                     <option class='option-text' value="MHST">Mental Health Support Team</option>
                                     <option class='option-text' value="Seedlings">Seedlings</option>
@@ -202,14 +220,15 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div v-if="SelectedProviderType === 'Sefton'">
                     <div class="px-sm-5 px-4 py-2">
                         <div class="input-group w-100">
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey – Sefton CAMHS - EDYS">Alder Hey – Sefton CAMHS & EDYS</option>
+                                    <option class='option-text' value="Alder Hey - Sefton CAMHS - EDYS">Alder Hey -
+                                        Sefton CAMHS - EDYS</option>
                                     <option class='option-text' value="Venus">Venus</option>
                                     <option class='option-text' value="Parenting 2000">Parenting 2000</option>
                                     <option class='option-text' value="MHST">Mental Health Support Team</option>
@@ -218,8 +237,8 @@
                             </span>
                         </div>
                     </div>
-                </div> 
-                
+                </div>
+
                 <div class="modal-footer submit-btn-admin">
                     <button type="submit" class="btn mb-3 px-md-4 w-50 d-flex align-center justify-content-center"
                         style="background-color: #219EBC !important;" id="sendRef">
