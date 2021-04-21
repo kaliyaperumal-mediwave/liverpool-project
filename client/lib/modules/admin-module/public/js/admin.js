@@ -1,6 +1,5 @@
 var API_URI = "/modules/admin-module";
 $(document).ready(function () {
-  
   $('#uniqueLogo').hide();
   $('#footer-placement').hide()
   var vueApp = new Vue({
@@ -19,16 +18,13 @@ $(document).ready(function () {
       SelectedProviderType: 'Liverpool',
       loading: false
     },
-
     beforeMount: function () {
       $('#loader').show();
     },
-
     mounted: function () {
       // this.fetchAllRef();
       this.fetchReferral();
     },
-
     methods: {
       openToggle: function (toggle) {
         if (toggle) {
@@ -46,15 +42,12 @@ $(document).ready(function () {
           document.getElementById('toggle-cont').classList.remove("toggle-extra-css")
         }
       },
-
       fetchReferral: function () {
         var _self = this;
-
         $('th').on("click", function (event) {
           if($(event.target).is("div"))
               event.stopImmediatePropagation();
         });
-
         var table = $('#adminReferral').DataTable({
           dom: 'lBfrtip',
           select: true,
@@ -97,7 +90,6 @@ $(document).ready(function () {
             // url: '/modules/admin-module/getAllreferral',
             type: 'GET',
             dataFilter: function (referralRes) {
-
               referralRes = jQuery.parseJSON(referralRes);
               //   console.log(referralRes);
               var json = {
@@ -125,20 +117,16 @@ $(document).ready(function () {
             }
           }
         });
-
         $("#ExportReporttoExcel").on("click", function () {
           table.button('.buttons-csv').trigger();
           table.rows().deselect();
           $('.idcheck').removeAttr('checked');
           this.referral_ids = [];
-
           console.log(this.referral_ids);
         });
-
         this.referral_ids = [];
         $('#loader').hide();
       },
-
       selectcheck: function (checked, id) {
         if (checked) {
           this.referral_ids.push(id);
@@ -146,11 +134,9 @@ $(document).ready(function () {
           this.referral_ids.pop(id);
         }
       },
-
       resetReferral: function () {
         this.referral_ids = [];
       },
-
       deleteReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
@@ -167,10 +153,8 @@ $(document).ready(function () {
               $('#loader').hide();
             }
           }, 500);
-         
         }
       },
-
       archiveReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
@@ -189,44 +173,33 @@ $(document).ready(function () {
           }, 500);
         }
       },
-
       closeModal: function () {
         $('#example').DataTable().ajax.reload();
         $('#deletedSuccess').modal('hide');
         this.successMessage = '';
       },
-
       closeMailSuccessPopup: function () {
         $('#example').DataTable().ajax.reload();
         $('#mailSentSuccess').modal('hide');
       },
-
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').hide();
         //console.log()(successData)
       },
-
     },
-
   })
-
   $(document).on('change', '.idcheck', function (e) {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
-  
   $(document).on('change', '.reload', function () {
       console.log('Datatables reload');
       vueApp.fetchReferral();
   });
-
   $(document).on('click', '#ExportReporttoExcel', function () {
      vueApp.resetReferral();
   });
-  
-
 });
-
 function viewPdf(uuid, role) {
   $('#loader').show();
   setTimeout(() => {
@@ -253,7 +226,6 @@ function viewPdf(uuid, role) {
     }
   }, 500);
 }
-
 function toArrayBuffer(buf) {
   var ab = new ArrayBuffer(buf.length);
   var view = new Uint8Array(ab);
@@ -262,7 +234,6 @@ function toArrayBuffer(buf) {
   }
   return ab;
 }
-
 function sendPdf(uuid, role, refCode) {
   $('#loader').show();
   setTimeout(() => {
@@ -284,12 +255,10 @@ function sendPdf(uuid, role, refCode) {
     }
   }, 500);
 }
-
 function openSendPopup(uuid, role, refCode, referral_provider) {
   $('#sendProviderModal').modal('show');
   document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
 }
-
 function closeAlreadySentPopup() {
   $('#referralAlreadySent').modal('hide');
 }
