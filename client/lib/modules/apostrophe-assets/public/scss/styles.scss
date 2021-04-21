@@ -1589,9 +1589,17 @@ a {
 .collapse-body {
   color: #033047;
   font-size: 14px;
-  padding: 8px 16px;
   border-bottom: 1px solid #112f45;
 }
+.collapse-body .inside-cont-slider{
+padding:16px 32px !important;
+}
+// .collapse-body .inside-cont-slider:hover{
+//   background: #dee1e4;
+// }
+// .inside-cont-slider:hover{
+//   background: #dee1e4;
+// }
 #side-drawer {
   height: 100vh;
   width: 336px;
@@ -3814,4 +3822,10 @@ div.collapse-container.collapsing {
   @include sm-inc-screen {
     width: 154px;
   }
+}
+.heightSetLabel{
+height: 40px !important;
+@include sm-inc-screen{
+  height: auto !important;
+}
 }
