@@ -65,6 +65,7 @@ router.post('/addUser', validateToken, userController.addAdminUsers);
 
 router.get('/admin/referral', validateToken, adminController.getReferral);
 router.put('/admin/referral',validateToken, adminController.updateReferral);
+router.put('/admin/referralStatusUpdate',validateToken, adminController.referralStatusUpdate);
 router.get('/admin/getAllreferral',validateToken, adminController.getAllReferral);
 router.get('/admin/downloadReferral',validateToken, adminController.downloadReferral);
 router.get('/admin/sendReferral',validateToken, adminController.sendReferral);
