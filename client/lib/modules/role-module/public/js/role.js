@@ -92,6 +92,7 @@ $(document).ready(function () {
             gpFlag: false,
             date: '',
             dateFmt: '',
+            addressList: [],
             //phoneRegex: /^[0-9,-]{10,15}$|^$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
@@ -136,20 +137,22 @@ $(document).ready(function () {
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
-            this.initMaps();
+            //this.initMaps();
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
         },
 
         methods: {
             initMaps: function () {
-                var _self = this;
-                professionalAddress = new google.maps.places.Autocomplete((document.getElementById('txtProfessionalAddress')), {
-                    types: ['geocode'],
-                });
-                google.maps.event.addListener(professionalAddress, 'place_changed', function () {
-                    _self.elgibilityObj.profAddress = professionalAddress.getPlace().formatted_address;
-                });
+                var availableTutorials  =  [
+                    "ActionScript",
+                    "Bootstrap",
+                    "C",
+                    "C++",
+                 ];
+                 $( "#automplete-1" ).autocomplete({
+                    source: availableTutorials
+                 });
             },
             fetchSavedData: function () {
                 this.sendObj.uuid = document.getElementById('uUid').innerHTML;
@@ -1309,8 +1312,78 @@ $(document).ready(function () {
 
                 this.elgibilityObj[attributeValue] = "";
                 //document.getElementById(inputId).focus();
-            }
+            },
 
+            getAddressPostcode: function (e) {
+                var searchPostCode = e.target.value;
+               // console.log(this.getStringLength(searchPostCode))
+                if(searchPostCode.length);
+                {
+                    var _self = this;
+                    var addressApi ="https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode="+searchPostCode+"&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                           console.log(data.Summaries)
+                           for (i = 0; i < data.Summaries.length; i++) {
+                            // //console.log(_self.gpListShow[i].PostCode)
+                            // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
+                            _self.addressList.push(data.Summaries[i].StreetAddress);
+                        }
+                       // var addList=[];
+                        addList = _self.addressList
+                        console.log(addList)
+                        var availableTutorials  =  [
+                            "ActionScript",
+                            "Bootstrap",
+                            "C",
+                            "C++",
+                         ];
+                           $("#txtProfessionalAddress").autocomplete({
+                            source: availableTutorials,
+                            select: function (event, ui) {
+                                //     //console.log(app.elgibilityObj.gpNotCovered)
+                            },
+                            close: function () {
+
+                            }
+                        });
+                        },
+                        error: function (error) {
+                            $('#loader').hide();
+                        }
+                    });
+                }
+                return; 
+                $("#txtProfessionalAddress").autocomplete({
+                    source: nameData,
+                    select: function (event, ui) {
+                        //     //console.log(app.elgibilityObj.gpNotCovered)
+                        _self.elgibilityObj.regGpTxt = ui.item.value;
+                        app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
+                        if (!app.elgibilityObj.gpNotCovered) {
+                            _self.gpFlag = true;
+                            app.elgibilityObj.submitForm = "true";
+                            app.elgibilityObj.gpErrMsg = "";
+                        }
+                        else {
+                            app.elgibilityObj.gpErrMsg = "";
+                            app.elgibilityObj.gpSchool = "";
+                            app.elgibilityObj.submitForm = "true";
+                        }
+                    },
+                    close: function () {
+                        _self.gpFlag = true;
+                    }
+                });
+            }
         }
     })
 
