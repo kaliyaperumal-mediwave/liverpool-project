@@ -500,8 +500,6 @@ div.radio.switcher label {
   display: none !important; }
 
 .btn-pdf {
-  width: 60px;
-  height: 40px;
   border-radius: 6px;
   background: #fdb732;
   border: none;
@@ -557,10 +555,12 @@ div.dataTables_wrapper div.dataTables_paginate {
 div.dt-buttons {
   display: none; }
 
-table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
   border: 1px solid #8e8e8e; }
 
-table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
   margin-top: 0px; }
 
 .middleContainer:after {
