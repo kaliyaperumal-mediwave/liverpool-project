@@ -996,7 +996,7 @@
                     || !aboutObj.childLastName
                     || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
                     || (!aboutObj.childContactNumber || (aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)))
-                    || (!aboutObj.childAddress && !childManualAddress.length)
+                    || (!aboutObj.childAddress || (!aboutObj.childAddress && !childManualAddress.length))
                     || !aboutObj.sendPost
                     || !aboutObj.childGender
                     || !aboutObj.childIdentity
@@ -1041,6 +1041,7 @@
                     && aboutObj.childLastName
                     && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
                     && (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber))
+                    && (aboutObj.childAddress || (!aboutObj.childAddress && childManualAddress.length))
                     && aboutObj.sendPost
                     && aboutObj.childGender
                     && aboutObj.childIdentity
