@@ -416,8 +416,10 @@ $(document).ready(function () {
                 }
             },
 
-            updateInfo: function (e, toUpdateObj, endpoint) {
+            updateInfo: function (e, toUpdateObj, endpoint, saveButtonId) {
+                debugger
                 var formData = toUpdateObj;
+                var beforeSaveElem = $('#' + saveButtonId);
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
                     if (formData.child_name && formData.child_lastname && formData.child_contact_number &&
@@ -445,20 +447,17 @@ $(document).ready(function () {
                             scrollToInvalidInput();
                             return false;
                         }
+                        beforeSaveElem.text("Saving...");
                         this.payloadData.section2Data = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
                         this.payloadData.endPoint = endpoint
-                        // if (this.editPatchFlag) {
-                        //     this.payloadData.editFlag = this.paramValues[2]
-                        // }
-
                         if (this.userMode === 'edit') {
                             this.payloadData.userMode = 'edit';
                         } else {
                             this.payloadData.userMode = 'add';
                         }
-                        this.upsertInforForm(this.payloadData, 2, e.currentTarget.id);
+                        this.upsertInforForm(this.payloadData, 2, e.currentTarget.id, beforeSaveElem);
 
                     } else {
                         scrollToInvalidInput();
@@ -466,10 +465,6 @@ $(document).ready(function () {
                     }
                 }
                 else if (endpoint == "/user/updateSec3Info") {
-                    debugger
-                   // var beforeSaveElem = document.getElementById('beforeSave');
-                   var beforeSaveElem = $('#beforeSave');
-                    var afterSaveElem = document.getElementById('afterSave');
                     this.isSection3Submitted = true;
                     if (formData.child_socialworker == 'yes' && formData.child_socialworker_name == "") {
                         scrollToInvalidInput();
@@ -479,14 +474,12 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-                    $('#loader').show();
-                   // beforeSaveElem.textContent = "Saving..."
                     beforeSaveElem.text("Saving...");
                     this.payloadData.section3Data = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.endPoint = endpoint
-                    this.upsertInforForm(this.payloadData, 3, e.currentTarget.id);
+                    this.upsertInforForm(this.payloadData, 3, e.currentTarget.id, beforeSaveElem);
                 }
                 else if (endpoint == "/user/updateSec4Info") {
                     this.isSection4Submitted = true;
@@ -494,14 +487,14 @@ $(document).ready(function () {
                         scrollToInvalidInput();
                         return false;
                     }
-
+                    beforeSaveElem.text("Saving...");
                     this.payloadData.section4Data = JSON.parse(JSON.stringify(formData));
                     delete this.payloadData.section4Data.reason_for_referral;
                     delete this.payloadData.section4Data.eating_disorder_difficulties;
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
                     this.payloadData.endPoint = endpoint;
-                    this.upsertInforForm(this.payloadData, 4, e.currentTarget.id);
+                    this.upsertInforForm(this.payloadData, 4, e.currentTarget.id, beforeSaveElem);
                 }
                 else if (endpoint == "/user/updateEligibilityInfo") {
                     this.isSection1Submitted = true;
@@ -511,11 +504,12 @@ $(document).ready(function () {
                             scrollToInvalidInput();
                             return false;
                         }
+                        beforeSaveElem.text("Saving...");
                         this.payloadData.section1Data = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = this.userRole;
                         this.payloadData.userid = this.userId;
                         this.payloadData.endPoint = endpoint;
-                        this.upsertInforForm(this.payloadData, 1, e.currentTarget.id);
+                        this.upsertInforForm(this.payloadData, 1, e.currentTarget.id, beforeSaveElem);
 
                     } else {
                         scrollToInvalidInput();
@@ -525,10 +519,9 @@ $(document).ready(function () {
 
             },
 
-            upsertInforForm: function (payload, section, id) {
-               // var beforeSaveElem = document.getElementById('beforeSave');
-               var beforeSaveElem = $('#beforeSave');
-                var afterSaveElem = document.getElementById('afterSave');
+            upsertInforForm: function (payload, section, id, saveElemId) {
+                // var beforeSaveElem = document.getElementById('beforeSave');
+                //var beforeSaveElem = $('#beforeSave');
                 var endPoint = '/updateInfo';
                 var _self = this;
                 var buttonElem = document.getElementById(id);
@@ -541,11 +534,9 @@ $(document).ready(function () {
                     cache: false,
                     success: function (res) {
                         //beforeSaveElem.textContent = "Save";
-                        beforeSaveElem.text("Save");
+                        saveElemId.text("Save");
                         buttonElem.disabled = true;
                         _self.resetFormSubmitted(section, res.data);
-                        $('#loader').hide();
-
                         // _self.showLoader = true;
                         // buttonElem.disabled = true;
                         // setTimeout(function () {
@@ -555,11 +546,16 @@ $(document).ready(function () {
 
                     },
                     error: function (error) {
-                        _self.showLoader = true;
+                        saveElemId.text("Save");
                         buttonElem.disabled = true;
-                        setTimeout(function () {
-                            _self.showLoader = false;
-                        }, 3000);
+                        if (error) {
+                            showError(error.responseJSON.message, error.status);
+                        }
+                        // _self.showLoader = true;
+                        // buttonElem.disabled = true;
+                        // setTimeout(function () {
+                        //     _self.showLoader = false;
+                        // }, 3000);
                     }
                 });
             },
