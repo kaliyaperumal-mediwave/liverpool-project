@@ -101,7 +101,8 @@ $(document).ready(function () {
             paramValues: [],
             editPatchFlag: false,
             storeDeleteData: null,
-            dateFmt: ''
+            dateFmt: '',
+            addressList: [],
         },
         beforeMount: function () {
             $('#loader').show();
@@ -112,7 +113,7 @@ $(document).ready(function () {
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.fetchSavedData();
-            this.initMaps();
+          //  this.initMaps();
             $('#loader').hide();
         },
 
@@ -126,9 +127,9 @@ $(document).ready(function () {
                 var houseHoldAddress;
                 var parentAddress;
 
-                childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
-                    types: ['geocode'],
-                });
+                // childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
+                //     types: ['geocode'],
+                // });
 
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
                     types: ['establishment'],
@@ -864,6 +865,67 @@ $(document).ready(function () {
                     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 }
             },
+
+            getAddressPostcode: function (e) {
+                var searchPostCode = e.target.value;
+                // console.log(this.getStringLength(searchPostCode))
+                if (searchPostCode.length > 6);
+                {
+                    console.log(e.target.name)
+                    self.addressList = [];
+                    var _self = this;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + searchPostCode + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            console.log(data.Summaries)
+                            for (i = 0; i < data.Summaries.length; i++) {
+                                _self.addressList.push(data.Summaries[i].StreetAddress);
+                            }
+                            // var addList=[];
+                            addList = _self.addressList
+                            console.log(addList)
+                            if (addList.length > 0) {
+                                if(e.target.name=="childPostCode")
+                                {
+                                    console.log("childPostCode")
+                                    $("#txtChildAddress").autocomplete({
+                                        source: addList,
+                                        select: function (event, ui) {
+                                            console.log(event)
+                                        },
+                                        close: function () {
+    
+                                        }
+                                    });
+                                }
+                                else if(e.target.name=="childPostCode")
+                                {
+                                    console.log("gpParentorCarerLocation")
+                                    $("#gpParentorCarerLocation").autocomplete({
+                                        source: addList,
+                                        select: function (event, ui) {
+                                            console.log(event)
+                                        },
+                                        close: function () {
+    
+                                        }
+                                    });
+                                }
+                            }
+                        },
+                        error: function (error) {
+                        }
+                    });
+                }
+            }
         }
     })
 });

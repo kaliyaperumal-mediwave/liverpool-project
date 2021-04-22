@@ -183,7 +183,7 @@
                         <div class="input-group" id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
                             <input type="text" class="form-control input-bg-form-control" inputmode="search"
                                 placeholder="Start typing to search"
-                                @input="trimWhiteSpace($event,'aboutObj','childAddress')" id="txtChildAddress"
+                                @input="getAddressPostcode($event)" id="txtChildAddress" name="childPostCode"
                                 aria-label="location" v-model="aboutObj.childAddress">
                             <div class="input-group-append">
                                 <span class="input-group-text px-3">
@@ -893,7 +893,7 @@
                                 - <b>optional</b></label>
                             <div class="input-group" id="e97aa97c-34b6-4874-b2d0-b29c194dfdd2">
                                 <input type="text" class="form-control input-bg-form-control" inputmode="search"
-                                    @input="trimWhiteSpace($event,'aboutFormData','parentOrCarrerAddress')"
+                                    @input="getAddressPostcode($event)"  name="parentPostCode"
                                     v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
                                     aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
                                 <div class="input-group-append">

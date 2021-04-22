@@ -144,15 +144,15 @@ $(document).ready(function () {
 
         methods: {
             initMaps: function () {
-                var availableTutorials  =  [
+                var availableTutorials = [
                     "ActionScript",
                     "Bootstrap",
                     "C",
                     "C++",
-                 ];
-                 $( "#automplete-1" ).autocomplete({
+                ];
+                $("#automplete-1").autocomplete({
                     source: availableTutorials
-                 });
+                });
             },
             fetchSavedData: function () {
                 this.sendObj.uuid = document.getElementById('uUid').innerHTML;
@@ -1316,11 +1316,11 @@ $(document).ready(function () {
 
             getAddressPostcode: function (e) {
                 var searchPostCode = e.target.value;
-               // console.log(this.getStringLength(searchPostCode))
-                if(searchPostCode.length);
+                // console.log(this.getStringLength(searchPostCode))
+                if (searchPostCode.length > 6);
                 {
                     var _self = this;
-                    var addressApi ="https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode="+searchPostCode+"&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + searchPostCode + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
@@ -1331,58 +1331,29 @@ $(document).ready(function () {
                             "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
                         },
                         success: function (data) {
-                           console.log(data.Summaries)
-                           for (i = 0; i < data.Summaries.length; i++) {
-                            // //console.log(_self.gpListShow[i].PostCode)
-                            // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                            _self.addressList.push(data.Summaries[i].StreetAddress);
-                        }
-                       // var addList=[];
-                        addList = _self.addressList
-                        console.log(addList)
-                        var availableTutorials  =  [
-                            "ActionScript",
-                            "Bootstrap",
-                            "C",
-                            "C++",
-                         ];
-                           $("#txtProfessionalAddress").autocomplete({
-                            source: availableTutorials,
-                            select: function (event, ui) {
-                                //     //console.log(app.elgibilityObj.gpNotCovered)
-                            },
-                            close: function () {
-
+                            console.log(data.Summaries)
+                            for (i = 0; i < data.Summaries.length; i++) {
+                                _self.addressList.push(data.Summaries[i].StreetAddress);
                             }
-                        });
+                            // var addList=[];
+                            addList = _self.addressList
+                            console.log(addList)
+                            if (addList > 0) {
+                                $("#postCodeAddress").autocomplete({
+                                    source: addList,
+                                    select: function (event, ui) {
+                                        console.log(event)
+                                    },
+                                    close: function () {
+
+                                    }
+                                });
+                            }
                         },
                         error: function (error) {
-                            $('#loader').hide();
                         }
                     });
                 }
-                return; 
-                $("#txtProfessionalAddress").autocomplete({
-                    source: nameData,
-                    select: function (event, ui) {
-                        //     //console.log(app.elgibilityObj.gpNotCovered)
-                        _self.elgibilityObj.regGpTxt = ui.item.value;
-                        app.elgibilityObj.gpNotCovered = _self.validatePostCode(_self.elgibilityObj.regGpTxt.substring(_self.elgibilityObj.regGpTxt.indexOf(',') + 1, _self.elgibilityObj.regGpTxt.length))
-                        if (!app.elgibilityObj.gpNotCovered) {
-                            _self.gpFlag = true;
-                            app.elgibilityObj.submitForm = "true";
-                            app.elgibilityObj.gpErrMsg = "";
-                        }
-                        else {
-                            app.elgibilityObj.gpErrMsg = "";
-                            app.elgibilityObj.gpSchool = "";
-                            app.elgibilityObj.submitForm = "true";
-                        }
-                    },
-                    close: function () {
-                        _self.gpFlag = true;
-                    }
-                });
             }
         }
     })
