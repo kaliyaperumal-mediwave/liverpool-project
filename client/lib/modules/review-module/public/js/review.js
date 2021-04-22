@@ -467,7 +467,8 @@ $(document).ready(function () {
                 }
                 else if (endpoint == "/user/updateSec3Info") {
                     debugger
-                    var beforeSaveElem = document.getElementById('beforeSave');
+                   // var beforeSaveElem = document.getElementById('beforeSave');
+                   var beforeSaveElem = $('#beforeSave');
                     var afterSaveElem = document.getElementById('afterSave');
                     this.isSection3Submitted = true;
                     if (formData.child_socialworker == 'yes' && formData.child_socialworker_name == "") {
@@ -479,7 +480,8 @@ $(document).ready(function () {
                         return false;
                     }
                     $('#loader').show();
-                    beforeSaveElem.textContent = "Saving..."
+                   // beforeSaveElem.textContent = "Saving..."
+                    beforeSaveElem.text("Saving...");
                     this.payloadData.section3Data = JSON.parse(JSON.stringify(formData));
                     this.payloadData.role = this.userRole;
                     this.payloadData.userid = this.userId;
@@ -524,7 +526,8 @@ $(document).ready(function () {
             },
 
             upsertInforForm: function (payload, section, id) {
-                var beforeSaveElem = document.getElementById('beforeSave');
+               // var beforeSaveElem = document.getElementById('beforeSave');
+               var beforeSaveElem = $('#beforeSave');
                 var afterSaveElem = document.getElementById('afterSave');
                 var endPoint = '/updateInfo';
                 var _self = this;
@@ -533,12 +536,12 @@ $(document).ready(function () {
                     url: API_URI + endPoint,
                     type: 'put',
                     dataType: 'json',
-                    async: false,
                     contentType: 'application/json',
                     data: JSON.stringify(payload),
                     cache: false,
                     success: function (res) {
-                        beforeSaveElem.textContent = "Save";
+                        //beforeSaveElem.textContent = "Save";
+                        beforeSaveElem.text("Save");
                         buttonElem.disabled = true;
                         _self.resetFormSubmitted(section, res.data);
                         $('#loader').hide();
