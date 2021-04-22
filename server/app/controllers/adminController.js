@@ -50,7 +50,7 @@ exports.getReferral = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'referral_provider',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'referral_provider', 'referral_provider_other',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
@@ -100,7 +100,8 @@ exports.getReferral = ctx => {
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
-                        referral_provider: refObj.referral_provider
+                        referral_provider: refObj.referral_provider,
+                        referral_provider_other: refObj.referral_provider_other
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
@@ -144,7 +145,8 @@ exports.getReferral = ctx => {
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
-                        referral_provider: refObj.referral_provider
+                        referral_provider: refObj.referral_provider,
+                        referral_provider_other: refObj.referral_provider_other
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
@@ -1149,8 +1151,18 @@ exports.referralStatusUpdate = async (ctx) => {
     try {
         const referralModel = ctx.orm().Referral;
 
+        let updateValue = {
+            referral_provider: ctx.request.body.status
+        }
+
+        if(ctx.request.body.status === 'Referral to other team'){
+            updateValue.referral_provider_other = ctx.request.body.other;
+        }
+
+        console.log(updateValue);
+        // return false;
         const updatereferral = await referralModel.update(
-            {referral_provider: ctx.request.body.status},
+            updateValue,
             {where: { uuid: ctx.request.body.referral_id }}
         );
 
