@@ -413,8 +413,8 @@
                 </h2>
 
                 <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
-                    <label class="question-font"> {{sec2dynamicLabel.houseHoldAddMemberLabel}}</label>
-                    <template v-if="checkArrayLength(allHouseHoldMembers)">
+                    <label class="question-font"> {{sec2dynamicLabel.houseHoldAddMemberLabel}} - <b>optional</b></label>
+                    <div v-if="checkArrayLength(allHouseHoldMembers)">
                         <div class="card text-left mb-2" v-for="(item, index) in allHouseHoldMembers" :key="index">
                             <div class="card-body text-capitalize bg-set-on-card">
                                 <div class="d-flex align-items-center justify-content-between my-1">
@@ -448,10 +448,10 @@
                                 </h3>
                             </div>
                         </div>
-                    </template>
+                    </div>
 
                     <button data-toggle="modal" data-target="#houseHoldModal" type="button" @click="resetModal('add')"
-                        class="btn px-md-4 py-1 px-3"><span class="btn-terirary-text">Add
+                        class="btn px-md-4 py-2 px-3"><span class="btn-terirary-text">Add
                             members <i class="fa common-fa-fa fa-plus-circle" aria-hidden="true"></i>
                         </span></button>
                 </div>
@@ -989,41 +989,39 @@
 
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <div v-if="aboutFormData.sameHouse">
-                    <div class="px-2 px-lg-0 py-4">
+                    <div class="px-2 px-lg-0 py-4" v-if="isFormSubmitted &&
+                    (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
+                    || !aboutObj.childFirstName
+                    || !aboutObj.childLastName
+                    || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
+                    || (!aboutObj.childContactNumber || (aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)))
+                    || (!aboutObj.childAddress && !childManualAddress.length)
+                    || !aboutObj.sendPost
+                    || !aboutObj.childGender
+                    || !aboutObj.childIdentity
+                    || !aboutObj.childCareAdult
+                    || !aboutObj.parentFirstName
+                    || !aboutObj.parentLastName
+                    || (aboutFormData.parentialResponsibility =='yes' && (
+                            !aboutFormData.relationshipToYou
+                            || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
+                            || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
+                        ))
+                    || (aboutFormData.parentialResponsibility =='no' && (
+                            !aboutFormData.parentCarerFirstName
+                            || !aboutFormData.parentCarerLastName
+                            || ! aboutFormData.relationshipToYou
+                            || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
+                            || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
+                        ))
+                    || !aboutFormData.sameHouse
+                    || !aboutObj.sexAssignedAtBirth
+                    || !aboutObj.childNameTitle
+                ">
                         <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
-                                <p class="text-center m-0 py-2">
-
-                                <div v-if="
-                                        (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
-                                        || !aboutObj.childFirstName
-                                        || !aboutObj.childLastName
-                                        || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
-                                        || (!aboutObj.childContactNumber || (aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)))
-                                        || (!aboutObj.childAddress && !childManualAddress.length)
-                                        || !aboutObj.sendPost
-                                        || !aboutObj.childGender
-                                        || !aboutObj.childIdentity
-                                        || !aboutObj.childCareAdult
-                                        || !aboutObj.parentFirstName
-                                        || !aboutObj.parentLastName
-                                        || (aboutFormData.parentialResponsibility =='yes' && (
-                                                !aboutFormData.relationshipToYou
-                                                || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
-                                                || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
-                                            ))
-                                        || (aboutFormData.parentialResponsibility =='no' && (
-                                                !aboutFormData.parentCarerFirstName
-                                                || !aboutFormData.parentCarerLastName
-                                                || ! aboutFormData.relationshipToYou
-                                                || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
-                                                || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
-                                            ))
-                                        || !aboutFormData.sameHouse
-                                        || !aboutObj.sexAssignedAtBirth
-                                        || !aboutObj.childNameTitle
-                                    ">
-                                    <div class="text-center">
+                                <div>
+                                    <div class="text-center m-0 py-2">
                                         <span style="color:#DD3939 !important">
                                             <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
                                         </span>
@@ -1032,9 +1030,44 @@
                                         You have missed out a section on this page
                                     </p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                <div v-else>
-                                    <div class="text-center">
+                    <div class="px-2 px-lg-0 py-4" v-if="
+                    (!aboutObj.nhsNumber || (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)))
+                    && aboutObj.childFirstName
+                    && aboutObj.childLastName
+                    && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
+                    && (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber))
+                    && aboutObj.sendPost
+                    && aboutObj.childGender
+                    && aboutObj.childIdentity
+                    && aboutObj.childCareAdult
+                    && aboutObj.parentFirstName
+                    && aboutObj.parentLastName
+                    && (
+                            (aboutFormData.parentialResponsibility =='yes' && (
+                                aboutFormData.relationshipToYou
+                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
+                            ))
+                        || (aboutFormData.parentialResponsibility =='no' && (
+                                aboutFormData.parentCarerFirstName
+                                && aboutFormData.parentCarerLastName
+                                && aboutFormData.relationshipToYou
+                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
+                            ))
+                        )
+                    && aboutFormData.sameHouse
+                    && aboutObj.sexAssignedAtBirth
+                    && aboutObj.childNameTitle
+                ">
+                        <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div>
+                                    <div class="text-center m-0 py-2">
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </div>
                                     <p class="question-font text-center m-0 py-2">
@@ -1042,10 +1075,10 @@
                                         needs
                                     </p>
                                 </div>
-
                             </div>
                         </div>
                     </div>
+
                     <div class="text-center py-4">
                         <a>
                             <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
@@ -1473,7 +1506,7 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control input-bg-form-control"
                                                 v-model="houseHoldData.manualAddress.profession" id="school"
-                                                placeholder="Enter address line 1">
+                                                placeholder="Enter school/college/employment">
                                             <div class="input-group-append cursor-pointer">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
