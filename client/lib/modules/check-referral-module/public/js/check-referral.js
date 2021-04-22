@@ -81,6 +81,39 @@ $(document).ready(function () {
                         _self.viewReferralArray = [];
                         _self.referralDateArray = [];
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
+                            if(referralType=='completed')
+                            {
+                               if(_self.displayReferrals[i].referral_provider=='Accepted')
+                               {
+                                var refStatus = _self.displayReferrals[i].referral_provider
+                                refStatus= "Alder hey have accepted your referral they will be in contact"
+                                _self.displayReferrals[i].referral_provider = refStatus
+                               }
+                               else if( _self.displayReferrals[i].referral_provider == "Pending")
+                               {
+                                var refStatus = _self.displayReferrals[i].referral_provider
+                                refStatus= "Your referral has been sent successfully and will be reviewed shortly"
+                                _self.displayReferrals[i].referral_provider = refStatus
+                               }
+                               else if( _self.displayReferrals[i].referral_provider == "Duplicate Referral")
+                               {
+                                var refStatus = _self.displayReferrals[i].referral_provider
+                                refStatus= "We have already had a referral which has been accepted thank you for this extra information"
+                                _self.displayReferrals[i].referral_provider = refStatus
+                               }
+                               else if( _self.displayReferrals[i].referral_provider == "Rejected Referral")
+                               {
+                                var refStatus = _self.displayReferrals[i].referral_provider
+                                refStatus= "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful "
+                                _self.displayReferrals[i].referral_provider = refStatus
+                               }
+                               else
+                               {
+                                 var refStatus = _self.displayReferrals[i].referral_provider
+                                 refStatus= "Your referral has been forwarded to " + refStatus + " they will be in contact"
+                                 _self.displayReferrals[i].referral_provider = refStatus
+                               }
+                            }
                             var date = _self.convertDate(_self.displayReferrals[i].createdAt);
                             // var date = _self.displayReferrals[i].createdAt;
                             obj = {

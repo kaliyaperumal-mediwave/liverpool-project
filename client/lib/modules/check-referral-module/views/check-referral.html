@@ -78,7 +78,7 @@
                                         {{refObj.referral_provider}}
                                     </div>
                                     <div  v-if="refObj.referral_provider != 'Pending' " class="collapse-para">
-                                        Sent to {{refObj.referral_provider}}
+                                        {{refObj.referral_provider}}
                                     </div>
                                     <div v-show="viewReferralObj.referralType == 'completed'" class="collapse-title">
                                         Code
@@ -169,7 +169,7 @@
                                             {{refObj.referral_provider}}
                                         </div>
                                         <div  v-if="viewReferralObj.referralType == 'completed' && refObj.referral_provider != 'Pending' " class="collapse-para">
-                                            Sent to {{refObj.referral_provider}}
+                                            {{refObj.referral_provider}}
                                         </div>
                                         <div  v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-para">
                                             Not completed
@@ -253,7 +253,7 @@
                                             {{refObj.referral_provider}}
                                         </div>
                                         <div  v-if="viewReferralObj.referralType == 'completed' && refObj.referral_provider != 'Pending' " class="collapse-para">
-                                            Sent to {{refObj.referral_provider}}
+                                            {{refObj.referral_provider}}
                                         </div>
                                         <div  v-if="viewReferralObj.referralType == 'incomplete'" class="collapse-para">
                                             Not completed
