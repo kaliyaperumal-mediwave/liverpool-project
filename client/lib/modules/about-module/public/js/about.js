@@ -111,6 +111,7 @@ $(document).ready(function () {
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            this.isFormSubmitted = false;
             this.fetchSavedData();
             this.initMaps();
             $('#loader').hide();
@@ -373,9 +374,9 @@ $(document).ready(function () {
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
                     if (formData.childAddress || this.childManualAddress.length) {
-                        if ((formData.parentialResponsibility == 'no' && !formData.parentCarerFirstName && !formData.parentCarerLastName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                        if (formData.parentialResponsibility == 'no' && (!formData.parentCarerFirstName || !formData.parentCarerLastName || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
                             || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
-                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
+                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
@@ -550,6 +551,7 @@ $(document).ready(function () {
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
+
                     $('#loader').hide();
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
