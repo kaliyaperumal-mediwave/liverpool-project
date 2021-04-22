@@ -110,7 +110,7 @@ $(document).ready(function () {
                                else if( _self.displayReferrals[i].referral_provider == "Referral to Community Paeds required instead") // 6
                                {
                                 var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Thank you for your referral. At this time we feel the community Paediatrics team can support you more appropriately. You will need to complete this referral form please cick here to download"
+                                refStatus= "Thank you for your referral. At this time we feel the community Paediatrics team can support you more appropriately"
                                 _self.displayReferrals[i].referral_provider = refStatus
                                }
                                else if( _self.displayReferrals[i].referral_provider == "Referral to other team") // 7
@@ -239,6 +239,51 @@ $(document).ready(function () {
                         contentType: 'application/json',
                         success: function (data) {
                             _self.searchReferrals = data
+                            
+                               if(_self.searchReferrals[0].referral_provider=='Accepted') //2
+                               {
+                                var refStatus = _self.searchReferrals[0].referral_provider
+                                refStatus= "Alder hey have accepted your referral they will be in contact"
+                                _self.searchReferrals[0].referral_provider = refStatus
+                               }
+                               else if( _self.searchReferrals[0].referral_provider == "Pending") // 1
+                               {
+                                var refStatus = _self.searchReferrals[0].referral_provider
+                                refStatus= "Your referral has been sent successfully and will be reviewed shortly"
+                                _self.searchReferrals[0].referral_provider = refStatus
+                               }
+                               else if( _self.searchReferrals[0].referral_provider == "Duplicate referral") //4
+                               {
+                                var refStatus = _self.searchReferrals[0].referral_provider
+                                refStatus= "We have already had a referral which has been accepted thank you for this extra information"
+                                _self.searchReferrals[0].referral_provider = refStatus
+                               }
+                               else if( _self.searchReferrals[0].referral_provider == "Rejected referral") // 5
+                               {
+                                var refStatus = _self.searchReferrals[0].referral_provider
+                                refStatus= "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful "
+                                _self.searchReferrals[0].referral_provider = refStatus
+                               }
+                               else if( _self.searchReferrals[0].referral_provider == "Referral to Community Paeds required instead") // 6
+                               {
+                                var refStatus = _self.searchReferrals[0].referral_provider
+                                refStatus= "Thank you for your referral. At this time we feel the community Paediatrics team can support you more appropriately"
+                                _self.searchReferrals[0].referral_provider = refStatus
+                               }
+                               else if( _self.searchReferrals[0].referral_provider == "Referral to other team") // 7
+                               {
+                                var refStatus = _self.searchReferrals[0].referral_provider
+                                refStatus= "Your referral has been passed on to " +  referral_provider
+                                _self.searchReferrals[0].referral_provider = refStatus
+                               }
+                               else //3
+                               {
+                                 var refStatus = _self.searchReferrals[0].referral_provider
+                                 refStatus= "Your referral has been forwarded to " + refStatus + " they will be in contact"
+                                 _self.searchReferrals[0].referral_provider = refStatus
+                               }
+                            
+
                             //console.log(data)
                         },
                         error: function (error) {
