@@ -1035,30 +1035,31 @@
                     </div>
 
                     <div class="px-2 px-lg-0 py-4" v-if="
-                    (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber))
+                    (!aboutObj.nhsNumber || (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)))
                     && aboutObj.childFirstName
                     && aboutObj.childLastName
-                    && (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail))
-                    && (!aboutObj.childContactNumber || (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber)))
-                    && (aboutObj.childAddress && childManualAddress.length)
+                    && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
+                    && (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber))
                     && aboutObj.sendPost
                     && aboutObj.childGender
                     && aboutObj.childIdentity
                     && aboutObj.childCareAdult
                     && aboutObj.parentFirstName
                     && aboutObj.parentLastName
-                    && (aboutFormData.parentialResponsibility =='yes' && (
-                            aboutFormData.relationshipToYou
-                            || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber)))
-                            || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))
-                        ))
-                    && (aboutFormData.parentialResponsibility =='no' && (
-                            aboutFormData.parentCarerFirstName
-                            && aboutFormData.parentCarerLastName
-                            && aboutFormData.relationshipToYou
-                            && (!aboutFormData.contactNumber || (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber)))
-                            && (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress))
-                        ))
+                    && (
+                            (aboutFormData.parentialResponsibility =='yes' && (
+                                aboutFormData.relationshipToYou
+                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
+                            ))
+                        || (aboutFormData.parentialResponsibility =='no' && (
+                                aboutFormData.parentCarerFirstName
+                                && aboutFormData.parentCarerLastName
+                                && aboutFormData.relationshipToYou
+                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
+                            ))
+                        )
                     && aboutFormData.sameHouse
                     && aboutObj.sexAssignedAtBirth
                     && aboutObj.childNameTitle
