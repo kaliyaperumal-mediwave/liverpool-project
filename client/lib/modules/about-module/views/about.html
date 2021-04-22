@@ -989,8 +989,9 @@
 
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <div v-if="aboutFormData.sameHouse">
-                    <div class="px-2 px-lg-0 py-4" v-if="isFormSubmitted &&
-                    (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
+                    <div class="px-2 px-lg-0 py-4" v-if="
+                    isFormSubmitted &&
+                    ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
                     || !aboutObj.childFirstName
                     || !aboutObj.childLastName
                     || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
@@ -1016,7 +1017,7 @@
                         ))
                     || !aboutFormData.sameHouse
                     || !aboutObj.sexAssignedAtBirth
-                    || !aboutObj.childNameTitle
+                    || !aboutObj.childNameTitle)
                 ">
                         <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
