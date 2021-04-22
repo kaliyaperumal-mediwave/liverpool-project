@@ -2526,7 +2526,7 @@ exports.updateAboutInfo = ctx => {
             where: {
               id: ctx.request.body.section2Data.parent_id,
             },
-            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_firstname', 'parent_lastname', , 'parent_same_house', 'parental_responsibility', 'child_parent_relationship', 'parent_contact_type', 'parent_manual_address']
+            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_firstname', 'parent_lastname', 'parent_same_house', 'parental_responsibility', 'child_parent_relationship', 'parent_contact_type', 'parent_manual_address']
           }).then((parentResult) => {
 
             const section2Obj = {
