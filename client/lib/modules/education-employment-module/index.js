@@ -37,11 +37,11 @@ module.exports = {
 
       return self.sendPage(req, self.renderer('education', {
         headerContent: "Section 3 of 5: Education / employment & support needs",
-        headerDescription: "",
+        headerDescription: "We also need details about school & employment",
         backContent: '/about?' + decryptedUrl,
         home: false,
         showHeader: true,
-        completed: true,
+        //completed: true,
         hideRefButton: false,
       }));
     };
