@@ -758,25 +758,26 @@
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Please select a service:</p>
                     </div>
-                    <div class="form-check pt-3 pb-1 pl-0">
+                    <div class="form-check pt-3 pb-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="alderLiverpool"
                             value="Alder Hey – Liverpool CAMHS & EDYS" @change="onChange($event)">
-                        <label class="form-check-label h-auto option-font d-flex align-items-center" for="alderLiverpool">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderLiverpool">
                             Alder Hey – Liverpool CAMHS & EDYS
                         </label>
                     </div>
-                    <div class="form-check py-2 pl-0">
+                    <div class="form-check py-2 pb-md-3 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="ypas" value="YPAS" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="ypas">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="ypas">
                             YPAS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST" @change="onChange($event)">
-                        <label class="form-check-label h-auto option-font d-flex align-items-center" for="MHST">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="MHST">
                             Mental Health Support Team (only school professionals can refer)
                         </label>
                     </div>
@@ -784,7 +785,8 @@
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="seedings" value="Seedlings"
                             @change="onChange($event)">
-                        <label class="form-check-label h-auto option-font d-flex align-items-center" for="seedings">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="seedings">
                             Seedlings (only school professionals – primary)
                         </label>
                     </div>
@@ -792,7 +794,8 @@
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="wellbeingClinics" value="Wellbeing Clinics"
                             @change="onChange($event)">
-                        <label class="form-check-label h-auto option-font d-flex align-items-center" for="wellbeingClinics">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="wellbeingClinics">
                             Wellbeing Clinics (only school professionals – secondary)
                         </label>
                     </div>
@@ -807,16 +810,18 @@
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="alderSefton" value="Alder Hey – Sefton CAMHS & EDYS"
-                            @change="onChange($event)">
-                        <label class="form-check-label h-auto option-font d-flex align-items-center" for="alderSefton">
+                            v-model="elgibilityObj.seftonService" id="alderSefton"
+                            value="Alder Hey – Sefton CAMHS & EDYS" @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderSefton">
                             Alder Hey – Sefton CAMHS & EDYS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
                             v-model="elgibilityObj.seftonService" id="venus" value="Venus" @change="onChange($event)">
-                        <label class="form-check-label option-font d-flex align-items-center" for="venus">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="venus">
                             Venus
                         </label>
                     </div>
@@ -824,7 +829,8 @@
                         <input class="form-check-input" type="radio" name="seftonService"
                             v-model="elgibilityObj.seftonService" id="parenting2000" value="Parenting 2000"
                             @change="onChange($event)">
-                        <label class="form-check-label h-auto option-font d-flex align-items-center" for="parenting2000">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="parenting2000">
                             Parenting 2000
                         </label>
                     </div>
@@ -832,8 +838,10 @@
                         <input class="form-check-input" type="radio" name="seftonService"
                             v-model="elgibilityObj.seftonService" id="seftonMHST" value="MHST"
                             @change="onChange($event)">
-                        <label class="form-check-label h-auto option-font d-flex align-items-center" for="seftonMHST">
-                            Mental Health Support Team (only school professionals – currently in pilot phase with specific schools)
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="seftonMHST">
+                            Mental Health Support Team (only school professionals – currently in pilot phase with
+                            specific schools)
                         </label>
                     </div>
                 </div>
@@ -1076,7 +1084,7 @@
                                     <input type="text" class="form-control input-bg-form-control"
                                         v-model="addressData.addressLine2"
                                         @input="trimWhiteSpace($event,'addressData','addressLine2')" id="addressline2"
-                                         placeholder="Enter address line 2">
+                                        placeholder="Enter address line 2">
                                     <div class="input-group-append cursor-pointer">
                                         <span class="input-group-text input-group-secondary-text px-3 font-23">
                                             <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1514,7 +1522,7 @@
             </form>
             {% endraw %}
             <div
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
+                v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
                 <div class="px-4 py-2 py-lg-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
