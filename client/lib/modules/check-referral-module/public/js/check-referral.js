@@ -83,10 +83,10 @@ $(document).ready(function () {
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
                             if(referralType=='completed')
                             {
-                               if(_self.displayReferrals[i].referral_provider=='Accepted') //2
+                               if(_self.displayReferrals[i].referral_provider=='Accepted - Alder Hey') //2
                                {
                                 var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Alder hey have accepted your referral they will be in contact"
+                                refStatus= "Alder hey have accepted your referral and they will be in contact"
                                 _self.displayReferrals[i].referral_provider = refStatus
                                }
                                else if( _self.displayReferrals[i].referral_provider == "Pending") // 1
@@ -104,7 +104,7 @@ $(document).ready(function () {
                                else if( _self.displayReferrals[i].referral_provider == "Rejected referral") // 5
                                {
                                 var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful "
+                                refStatus= "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful resources"
                                 _self.displayReferrals[i].referral_provider = refStatus
                                }
                                else if( _self.displayReferrals[i].referral_provider == "Referral to Community Paeds required instead") // 6
@@ -116,7 +116,7 @@ $(document).ready(function () {
                                else if( _self.displayReferrals[i].referral_provider == "Referral to other team") // 7
                                {
                                 var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Your referral has been passed on to " +  referral_provider
+                                refStatus= "Your referral has been passed on to " +  _self.displayReferrals[i].referral_provider_other
                                 _self.displayReferrals[i].referral_provider = refStatus
                                }
                                else //3
