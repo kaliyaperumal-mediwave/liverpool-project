@@ -241,7 +241,7 @@ $(document).ready(function () {
                             if (_self.searchReferrals[0].referral_provider == 'Accepted') //2
                             {
                                 var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus = "Alder hey have accepted your referral they will be in contact"
+                                refStatus = "Alder Hey have accepted your referral they will be in contact"
                                 _self.searchReferrals[0].referral_provider = refStatus
                             }
                             else if (_self.searchReferrals[0].referral_provider == "Pending" || _self.searchReferrals[0].referral_provider == "Nothing") // 1
