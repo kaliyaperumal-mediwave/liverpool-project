@@ -417,7 +417,6 @@ $(document).ready(function () {
             },
 
             updateInfo: function (e, toUpdateObj, endpoint, saveButtonId) {
-                debugger
                 var formData = toUpdateObj;
                 var beforeSaveElem = $('#' + saveButtonId);
                 if (endpoint == "/user/updateAboutInfo") {
