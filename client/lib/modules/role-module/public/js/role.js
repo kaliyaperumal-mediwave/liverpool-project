@@ -1332,11 +1332,13 @@ $(document).ready(function () {
                         },
                         success: function (data) {
                             console.log(data.Summaries)
+                            _self.addressList = [];
                             for (i = 0; i < data.Summaries.length; i++) {
-                                _self.addressList.push(data.Summaries[i].StreetAddress);
+                                console.log(data.Summaries[i].StreetAddress+','+searchPostCode)
+                                _self.addressList.push(data.Summaries[i].StreetAddress+','+searchPostCode);
                             }
                             // var addList=[];
-                            addList = _self.addressList
+                            addList = _self.addressList;
                             console.log(addList)
                             if (addList > 0) {
                                 $("#postCodeAddress").autocomplete({
