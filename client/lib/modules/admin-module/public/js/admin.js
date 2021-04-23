@@ -47,8 +47,8 @@ $(document).ready(function () {
       fetchReferral: function () {
         var _self = this;
         $('th').on("click", function (event) {
-          if($(event.target).is("div"))
-              event.stopImmediatePropagation();
+          if ($(event.target).is("div"))
+            event.stopImmediatePropagation();
         });
         var table = $('#adminReferral').DataTable({
           dom: 'lBfrtip',
@@ -68,8 +68,8 @@ $(document).ready(function () {
             { targets: 5, orderable: true },
             { targets: 6, orderable: true },
             { targets: 7, orderable: true, type: 'date-uk' },
-            { 
-              targets: 8, 
+            {
+              targets: 8,
               orderable: true,
               render: function (data, type, i) {
                 console.log(data);
@@ -86,11 +86,12 @@ $(document).ready(function () {
             zeroRecords: 'No matching referrals found'
           },
           buttons: [
-            { extend: 'csv',
-              text: 'Export as CSV', 
+            {
+              extend: 'csv',
+              text: 'Export as CSV',
               title: 'Referrals Data export',
               exportOptions: {
-                columns: [ 1, 2, 3, 4, 5 , 6, 7, 8 ]
+                columns: [1, 2, 3, 4, 5, 6, 7, 8]
               }
             }
           ],
@@ -206,22 +207,22 @@ $(document).ready(function () {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
   $(document).on('change', '.reload', function () {
-      console.log('Datatables reload');
-      vueApp.fetchReferral();
+    console.log('Datatables reload');
+    vueApp.fetchReferral();
   });
   $(document).on('click', '#ExportReporttoExcel', function () {
-     vueApp.resetReferral();
+    vueApp.resetReferral();
   });
 });
 function viewPdf(uuid, role) {
   $('#loader').show();
-  setTimeout(() => {
+  setTimeout(function () {
     var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
     if (successData && Object.keys(successData)) {
       var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
       var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-      if(!isIE && !isSafari){
+      if (!isIE && !isSafari) {
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.target = '_blank'
@@ -230,7 +231,7 @@ function viewPdf(uuid, role) {
           $('#loader').hide();
         }, 500);
       } else {
-        download(blob, uuid+".pdf", "application/pdf");
+        download(blob, uuid + ".pdf", "application/pdf");
         setTimeout(function () {
           $('#loader').hide();
         }, 500);
@@ -239,9 +240,9 @@ function viewPdf(uuid, role) {
   }, 500);
 }
 
-function changeStatus(uuid, value, other_value){
+function changeStatus(uuid, value, other_value) {
   console.log('Status button clicked');
-  if(value === 'Referral to other team' && other_value!= null){
+  if (value === 'Referral to other team' && other_value != null) {
     $('#SelectedProviderStatus').val(other_value);
   } else {
     $('#SelectedProviderStatus').val('');
@@ -254,17 +255,17 @@ function changeStatus(uuid, value, other_value){
   }, 500);
 }
 
-function updateStatus(uuid){
+function updateStatus(uuid) {
   var status = $('#SelectedProviderStatus').val();
   var postData = {
     referral_id: uuid,
     status
   }
-  if(status === 'Referral to other team'){
+  if (status === 'Referral to other team') {
     postData.other = $('#statusOther').val();
   }
 
-  if(status && uuid){
+  if (status && uuid) {
     $('#loader').show();
     setTimeout(() => {
       var successData = apiCallPut('put', '/referralStatusUpdate', postData);
@@ -284,7 +285,7 @@ function updateStatus(uuid){
         $('#deletedSuccess').modal('hide');
       }
     }, 500);
-    
+
   }
 }
 
