@@ -300,7 +300,7 @@ function toArrayBuffer(buf) {
 }
 function sendPdf(uuid, role, refCode) {
   $('#loader').show();
-  setTimeout(() => {
+  setTimeout(function () {
     var selectedProvider = document.getElementById('SelectedProvider').value;
     var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
