@@ -608,7 +608,7 @@
                 <!-- Delete Modal End -->
 
                 <!-- Dynamic Toaster start Scenario 1-->
-                <template v-if="accessList.length && !showAddOtherService">
+                <!-- <template v-if="accessList.length && !showAddOtherService">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -623,12 +623,8 @@
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </template>
                                 <template v-else>
@@ -647,11 +643,54 @@
                                     CONTINUE</span></button>
                         </a>
                     </div>
-                </template>
+                </template> -->
+
+                <div v-if="accessList.length && !showAddOtherService">
+                    <div class="px-4 py-4" v-if="referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </div>
+                                <div v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="text-center py-4">
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </div>
+                </div>
+
                 <!-- Dynamic Toaster end -->
 
+
                 <!-- Dynamic Toaster start Scenario 2-->
-                <template v-if="referralData.accessService == 'no'">
+                <!-- <template v-if="referralData.accessService == 'no'">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -666,12 +705,8 @@
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </template>
                                 <template v-else>
@@ -691,11 +726,54 @@
                                     CONTINUE</span></button>
                         </a>
                     </div>
-                </template>
+                </template> -->
+
+                <div v-if="referralData.accessService == 'no'">
+                    <div class="px-4 py-4" v-if="referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </div>
+                                <div v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="text-center py-4">
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Toaster start Scenario 2-->
 
 
                 <!-- Dynamic Toaster start Scenario 3-->
-                <template v-if="allAvailableService.length">
+                <!-- <template v-if="allAvailableService.length">
                     <div class="px-4 py-4">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
@@ -710,12 +788,8 @@
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </template>
                                 <template v-else>
@@ -734,7 +808,48 @@
                                     CONTINUE</span></button>
                         </a>
                     </div>
-                </template>
+                </template> -->
+
+                <div v-if="allAvailableService.length">
+                    <div class="px-4 py-4" v-if="referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                                </div>
+                                <div v-if="referralData.referralInfo">
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                        <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
+                            <div class="px-2 py-2">
+                                <div class="text-center m-0 py-2">
+                                    <span style="color:#DD3939 !important">
+                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <p style="color: #DD3939;" class="question-font text-center text-danger m-0 py-2">
+                                        You have missed out a
+                                        section on this
+                                        page
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="text-center py-4">
+                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                                class="btn-secondary-text">SAVE &
+                                CONTINUE</span></button>
+                    </div>
+                </div>
                 <!-- Dynamic Toaster end Scenario 3-->
 
                 <!-- support content for binging and purging modal start -->

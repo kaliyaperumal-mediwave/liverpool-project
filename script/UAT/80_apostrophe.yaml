@@ -24,7 +24,7 @@ spec:
         - name: NODE_ENV
           value: development
         - name: PORT
-          value: '80'
+          value: 80
         - name: MONGO_STRING
           value: $PHR_LIVERPOOL_MONGO_STRING
         - name: SERVICE_PHR

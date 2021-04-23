@@ -21,6 +21,15 @@
 body {
   font-family: "century-gothic" !important;
 
+  // select:invalid,
+  // select option[value=""] {
+  //   color: #495057;
+  // }
+
+  // [hidden] {
+  //   display: none;
+  // }
+
   .multiselect {
     font-family: "century-gothic" !important;
     color: #023047;
@@ -104,10 +113,6 @@ body {
       max-width: 60% !important;
     }
   }
-
-  // select option {
-  //   text-transform: capitalize !important;
-  // }
 
   .h-75px {
     @include set-dynamicHeight(75px);
@@ -1589,9 +1594,17 @@ a {
 .collapse-body {
   color: #033047;
   font-size: 14px;
-  padding: 8px 16px;
   border-bottom: 1px solid #112f45;
 }
+.collapse-body .inside-cont-slider {
+  padding: 16px 32px !important;
+}
+// .collapse-body .inside-cont-slider:hover{
+//   background: #dee1e4;
+// }
+// .inside-cont-slider:hover{
+//   background: #dee1e4;
+// }
 #side-drawer {
   height: 100vh;
   width: 336px;
@@ -3813,5 +3826,12 @@ div.collapse-container.collapsing {
   width: 144px;
   @include sm-inc-screen {
     width: 154px;
+  }
+}
+.heightSetLabel {
+  height: 40px !important;
+  @include sm-inc-screen {
+    height: auto !important;
+    min-height: 40px !important;
   }
 }
