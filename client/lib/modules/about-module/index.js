@@ -12,8 +12,7 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.about);
     };
     self.about = function (req, callback) {
-      if(!req.session.user_role)
-      {
+      if (!req.session.user_role) {
         return req.res.redirect("/")
       }
       const getParamsData = req.url.substring(req.url.indexOf("?") + 1);
@@ -37,7 +36,7 @@ module.exports = {
       req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('about', {
         headerContent: labels,
-        headerDescription: "Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
+        headerDescription: "Now we need some personal details, such as name & contact details",
         backContent: '/role?' + decryptedUrl,
         home: false,
         showHeader: true,
@@ -53,7 +52,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-       // console.log(data)
+        // console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
@@ -68,7 +67,7 @@ module.exports = {
       console.log(url);
       console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
-       // console.log(data)
+        // console.log(data)
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)
