@@ -5105,3 +5105,17 @@ div.collapse-container.collapsing {
   @media (min-width: 768px) {
     .fixedWidthSetLI {
       width: 154px; } }
+    
+.multiselect__option--highlight {
+  background: #ffb703 !important;
+  outline: none;
+  color: #033047 !important;
+}
+.multiselect__option--highlight:after {
+    background: #ffb703 !important;
+    color: #033047 !important;
+}
+
+.plain-select::after {
+  z-index: 1 !important;
+}
