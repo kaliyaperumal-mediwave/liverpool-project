@@ -300,7 +300,7 @@ $(document).ready(function () {
             searchReferalByCode: function (searchCode) {
                 var _self = this;
                console.log(searchCode)
-               var searchCodeUpperCase = searchCode.touppercase()
+               var searchCodeUpperCase = searchCode.toUpperCase()
                 $.ajax({
                     url: API_URI + "/searchReferalByCode/" + searchCode,
                     type: 'get',
