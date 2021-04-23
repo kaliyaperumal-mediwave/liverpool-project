@@ -243,7 +243,7 @@ $(document).ready(function () {
                                if(_self.searchReferrals[0].referral_provider=='Accepted') //2
                                {
                                 var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "Alder hey have accepted your referral they will be in contact"
+                                refStatus= "Alder Hey have accepted your referral they will be in contact"
                                 _self.searchReferrals[0].referral_provider = refStatus
                                }
                                else if( _self.searchReferrals[0].referral_provider == "Pending" ||  _self.searchReferrals[0].referral_provider == "Nothing") // 1
@@ -255,7 +255,7 @@ $(document).ready(function () {
                                else if( _self.searchReferrals[0].referral_provider == "Duplicate referral") //4
                                {
                                 var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "We have already had a referral which has been accepted thank you for this extra information"
+                                refStatus= "We have already had a referral which is accepted. Thank you for this extra information."
                                 _self.searchReferrals[0].referral_provider = refStatus
                                }
                                else if( _self.searchReferrals[0].referral_provider == "Rejected referral") // 5
@@ -267,7 +267,7 @@ $(document).ready(function () {
                                else if( _self.searchReferrals[0].referral_provider == "Referral to Community Paeds required instead") // 6
                                {
                                 var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "Thank you for your referral. At this time we feel the community Paediatrics team can support you more appropriately"
+                                refStatus= "Thank you for your referral. At this time, we feel the community Paedriatics team can support you more appropriately."
                                 _self.searchReferrals[0].referral_provider = refStatus
                                }
                                else if( _self.searchReferrals[0].referral_provider == "Referral to other team") // 7
