@@ -1,9 +1,15 @@
 var API_URI = "/modules/about-module";
 $(document).ready(function () {
     Vue.component('date-picker', VueBootstrapDatetimePicker);
+    Vue.component('vue-multiselect', window.VueMultiselect.default)
     var app = new Vue({
         el: '#about-form',
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            // options: [],
+            optionsProxy: [],
+            selectedResources: [],
+            addressOptions: [],
             labelToDisplay: "",
             aboutObj: {
                 nhsNumber: "",
@@ -113,7 +119,7 @@ $(document).ready(function () {
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.fetchSavedData();
-          //  this.initMaps();
+            //  this.initMaps();
             $('#loader').hide();
         },
 
@@ -866,15 +872,23 @@ $(document).ready(function () {
                 }
             },
 
-            getAddressPostcode: function (e) {
-                var searchPostCode = e.target.value;
-                // console.log(this.getStringLength(searchPostCode))
-                if (searchPostCode.length > 6);
+            customLabel(option) {
+                return option
+            },
+            updateSelected(value) {
+                value.forEach((resource) => {
+                    this.selectedResources.push(resource)
+                })
+
+                this.optionsProxy = []
+            },
+            cdnRequest(value) {
+                console.log("value=====", value);
+                this.addressOptions = []
+                if (value.length > 6);
                 {
-                    console.log(e.target.name)
-                    self.addressList = [];
                     var _self = this;
-                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + searchPostCode + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
                         url: addressApi,
                         type: 'get',
@@ -885,47 +899,32 @@ $(document).ready(function () {
                             "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
                         },
                         success: function (data) {
-                            console.log(data.Summaries)
+                            console.log(data)
                             for (i = 0; i < data.Summaries.length; i++) {
-                                _self.addressList.push(data.Summaries[i].StreetAddress);
+                                _self.addressList.push(data.Summaries[i].StreetAddress + ', ' + value);
                             }
-                            // var addList=[];
-                            addList = _self.addressList
-                            console.log(addList)
-                            if (addList.length > 0) {
-                                if(e.target.name=="childPostCode")
-                                {
-                                    console.log("childPostCode")
-                                    $("#txtChildAddress").autocomplete({
-                                        source: addList,
-                                        select: function (event, ui) {
-                                            console.log(event)
-                                        },
-                                        close: function () {
-    
-                                        }
-                                    });
-                                }
-                                else if(e.target.name=="childPostCode")
-                                {
-                                    console.log("gpParentorCarerLocation")
-                                    $("#gpParentorCarerLocation").autocomplete({
-                                        source: addList,
-                                        select: function (event, ui) {
-                                            console.log(event)
-                                        },
-                                        close: function () {
-    
-                                        }
-                                    });
-                                }
-                            }
+
+                            console.log(_self.addressList, "addListaddListaddList")
+                            _self.addressOptions = _self.addressList
                         },
                         error: function (error) {
+
                         }
                     });
                 }
+
+            },
+            searchQuery(value) {
+                // GET
+                this.cdnRequest(value)
+            },
+            removeDependency(index) {
+                this.selectedResources.splice(index, 1)
             }
         }
     })
 });
+
+
+
+

@@ -3,6 +3,10 @@
 {% block extraBody %}
 <script src="/modules/about-module/js/labels.js"></script>
 <script src="/modules/about-module/js/about.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 {% endblock %}
 {% block main %}
 <div id="about-form">
@@ -180,21 +184,11 @@
                     <div class="form-group py-2 my-2">
                         <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
                                 {{sec2dynamicLabel.addressLabel}}</label></div>
-                        <div class="input-group" id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
-                            <input type="text" class="form-control input-bg-form-control" inputmode="search"
-                                placeholder="Start typing to search"
-                                @input="getAddressPostcode($event)" id="txtChildAddress" name="childPostCode"
-                                aria-label="location" v-model="aboutObj.childAddress">
-                            <div class="input-group-append">
-                                <span class="input-group-text px-3">
-                                    <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),
-                                'invalid-fields':!aboutObj.childAddress && !childManualAddress.length }">
-                                You must provide an address.
-                            </div>
-                        </div>
+                        <multiselect :options="addressOptions" v-model="optionsProxy" @input="updateSelected"
+                            @search-change="searchQuery" :searchable="true" :close-on-select="true" placeholder="Search"
+                            :custom-label="customLabel" :loading="showLoadingSpinner">
+                        </multiselect>
+
                         <p class="link-text text-right mb-0 mt-2 cursor-pointer"
                             id="bdeb1825-c05e-4949-974e-93514d3a85b4"
                             @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
@@ -893,7 +887,7 @@
                                 - <b>optional</b></label>
                             <div class="input-group" id="e97aa97c-34b6-4874-b2d0-b29c194dfdd2">
                                 <input type="text" class="form-control input-bg-form-control" inputmode="search"
-                                    @input="getAddressPostcode($event)"  name="parentPostCode"
+                                    @input="getAddressPostcode($event)" name="parentPostCode"
                                     v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
                                     aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
                                 <div class="input-group-append">
