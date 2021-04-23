@@ -3,11 +3,15 @@ var API_URI = "/modules/role-module";
 $(document).ready(function () {
 
     Vue.component('date-picker', VueBootstrapDatetimePicker);
+    Vue.component('vue-multiselect', window.VueMultiselect.default)
     var _self = this;
     var app = new Vue({
         el: '#role-form',
-
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            optionsProxy: [],
+            selectedResources: [],
+            addressOptions: [],
             gpListShow: [],
             elgibilityObj: {
                 role: '',
@@ -1356,6 +1360,55 @@ $(document).ready(function () {
                         }
                     });
                 }
+            },
+
+            customLabel(option) {
+                return option
+            },
+            updateSelected(value) {
+                value.forEach((resource) => {
+                    this.selectedResources.push(resource)
+                })
+
+                this.optionsProxy = []
+            },
+            cdnRequest(value) {
+                console.log("value=====", value);
+                this.addressOptions = []
+                if (value.length > 6);
+                {
+                    var _self = this;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            console.log(data)
+                            for (i = 0; i < data.Summaries.length; i++) {
+                                _self.addressList.push(data.Summaries[i].Place+', '+data.Summaries[i].StreetAddress + ', ' + value);
+                            }
+                            _self.addressOptions = _self.addressList
+                        },
+                        error: function (error) {
+
+                        }
+                    });
+                }
+
+            },
+            searchQuery(value) {
+                // GET
+                this.cdnRequest(value)
+            },
+            
+            removeDependency(index) {
+                this.selectedResources.splice(index, 1)
             }
         }
     })

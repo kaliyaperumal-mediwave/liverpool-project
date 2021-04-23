@@ -901,10 +901,8 @@ $(document).ready(function () {
                         success: function (data) {
                             console.log(data)
                             for (i = 0; i < data.Summaries.length; i++) {
-                                _self.addressList.push(data.Summaries[i].StreetAddress + ', ' + value);
+                                _self.addressList.push(data.Summaries[i].Place+', '+data.Summaries[i].StreetAddress + ', ' + value);
                             }
-
-                            console.log(_self.addressList, "addListaddListaddList")
                             _self.addressOptions = _self.addressList
                         },
                         error: function (error) {
@@ -918,6 +916,7 @@ $(document).ready(function () {
                 // GET
                 this.cdnRequest(value)
             },
+            
             removeDependency(index) {
                 this.selectedResources.splice(index, 1)
             }

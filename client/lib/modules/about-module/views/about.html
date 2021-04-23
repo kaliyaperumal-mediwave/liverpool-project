@@ -184,7 +184,7 @@
                     <div class="form-group py-2 my-2">
                         <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
                                 {{sec2dynamicLabel.addressLabel}}</label></div>
-                        <multiselect :options="addressOptions" v-model="optionsProxy" @input="updateSelected"
+                        <multiselect :options="addressOptions" v-model="aboutObj.childAddress" @input="updateSelected"
                             @search-change="searchQuery" :searchable="true" :close-on-select="true" placeholder="Search"
                             :custom-label="customLabel" :loading="showLoadingSpinner">
                         </multiselect>
@@ -886,15 +886,22 @@
                             <label for="gpParentorCarerLocation" class="question-font">{{sec2dynamicLabel.guardAddress}}
                                 - <b>optional</b></label>
                             <div class="input-group" id="e97aa97c-34b6-4874-b2d0-b29c194dfdd2">
-                                <input type="text" class="form-control input-bg-form-control" inputmode="search"
+                                <!-- <input type="text" class="form-control input-bg-form-control" inputmode="search"
                                     @input="getAddressPostcode($event)" name="parentPostCode"
                                     v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
-                                    aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
-                                <div class="input-group-append">
+                                    aria-label="location" v-model="aboutFormData.parentOrCarrerAddress"> -->
+
+                                <multiselect :options="addressOptions" v-model="aboutFormData.parentOrCarrerAddress"
+                                    @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                    :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                    :loading="showLoadingSpinner">
+                                </multiselect>
+
+                                <!-- <div class="input-group-append">
                                     <span class="input-group-text px-3">
                                         <i class="fa common-fa-fa fa-map-marker " aria-hidden="true"></i>
                                     </span>
-                                </div>
+                                </div> -->
                             </div>
                             <p class="link-text text-right mb-0 mt-2 cursor-pointer"
                                 id="ab0ea3ad-43c5-4f21-a449-e8087707654b"
