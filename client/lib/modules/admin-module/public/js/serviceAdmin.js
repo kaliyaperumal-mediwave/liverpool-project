@@ -49,9 +49,9 @@ $(document).ready(function () {
                 var _self = this;
 
                 $('th').on("click", function (event) {
-                    if($(event.target).is("div"))
+                    if ($(event.target).is("div"))
                         event.stopImmediatePropagation();
-                  });
+                });
                 $('#adminReferral').DataTable({
                     dom: 'lBfrtip',
                     select: true,
@@ -81,12 +81,13 @@ $(document).ready(function () {
                         zeroRecords: 'No matching referrals found'
                     },
                     buttons: [
-                        { extend: 'csv',
-                        text: 'Export as CSV', 
-                        title: 'Referrals Data export',
-                        exportOptions: {
-                            columns: [ 1, 2, 3, 4, 5 , 6, 7, 8 ]
-                        }
+                        {
+                            extend: 'csv',
+                            text: 'Export as CSV',
+                            title: 'Referrals Data export',
+                            exportOptions: {
+                                columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                            }
                         }
                     ],
                     ajax: {
@@ -114,7 +115,7 @@ $(document).ready(function () {
                                     referralRes.data.data[i].gp_location,
                                     referralRes.data.data[i].referrer_type,
                                     referralRes.data.data[i].date,
-                                    referralRes.data.data[i].referral_provider != 'Pending'? 'Sent to ' + referralRes.data.data[i].referral_provider : referralRes.data.data[i].referral_provider,
+                                    referralRes.data.data[i].referral_provider === 'Pending' ? 'Nothing' : referralRes.data.data[i].referral_provider,
                                     "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf'>Send</button></div>"
                                 ]);
                             }
@@ -196,29 +197,29 @@ $(document).ready(function () {
 });
 
 function viewPdf(uuid, role) {
-  $('#loader').show();
-  setTimeout(() => {
-    var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
-    if (successData && Object.keys(successData)) {
-      var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-      var isIE = false || !!document.documentMode;
-      var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-      if(!isIE && !isSafari){
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        link.target = '_blank'
-        link.click();
-        setTimeout(function () {
-          $('#loader').hide();
-        }, 500);
-      } else {
-        download(blob, uuid+".pdf", "application/pdf");
-        setTimeout(function () {
-          $('#loader').hide();
-        }, 500);
-      }
-    }
-  }, 500);
+    $('#loader').show();
+    setTimeout(function () {
+        var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
+        if (successData && Object.keys(successData)) {
+            var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+            var isIE = false || !!document.documentMode;
+            var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+            if (!isIE && !isSafari) {
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.target = '_blank'
+                link.click();
+                setTimeout(function () {
+                    $('#loader').hide();
+                }, 500);
+            } else {
+                download(blob, uuid + ".pdf", "application/pdf");
+                setTimeout(function () {
+                    $('#loader').hide();
+                }, 500);
+            }
+        }
+    }, 500);
 }
 
 function toArrayBuffer(buf) {
@@ -232,7 +233,7 @@ function toArrayBuffer(buf) {
 
 function openSendPopup(uuid, role, refCode, referral_provider) {
     $('#sendProviderModal').modal('show');
-    $("#SelectedProvider option[value='"+referral_provider+"']").remove();
+    $("#SelectedProvider option[value='" + referral_provider + "']").remove();
     document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\',\'' + referral_provider + '\')');
 }
 
@@ -241,7 +242,7 @@ function sendPdf(uuid, role, refCode, selectedProvider) {
     // return false;
     // var selectedProvider = document.getElementById('SelectedProvider').value;
     // alert($( "#SelectedProvider" ).val());
-    var referral_provider = $( "#SelectedProvider" ).val();
+    var referral_provider = $("#SelectedProvider").val();
     var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + referral_provider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
         $('#sendProviderModal').modal('hide');

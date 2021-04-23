@@ -246,7 +246,7 @@ $(document).ready(function () {
                                 refStatus= "Alder hey have accepted your referral they will be in contact"
                                 _self.searchReferrals[0].referral_provider = refStatus
                                }
-                               else if( _self.searchReferrals[0].referral_provider == "Pending") // 1
+                               else if( _self.searchReferrals[0].referral_provider == "Pending" ||  _self.searchReferrals[0].referral_provider == "Nothing") // 1
                                {
                                 var refStatus = _self.searchReferrals[0].referral_provider
                                 refStatus= "Your referral has been sent successfully and will be reviewed shortly"
@@ -300,7 +300,7 @@ $(document).ready(function () {
             searchReferalByCode: function (searchCode) {
                 var _self = this;
                console.log(searchCode)
-               var searchCodeUpperCase = searchCode.touppercase()
+               var searchCodeUpperCase = searchCode.toUpperCase()
                 $.ajax({
                     url: API_URI + "/searchReferalByCode/" + searchCode,
                     type: 'get',
