@@ -72,7 +72,6 @@ $(document).ready(function () {
               targets: 8, 
               orderable: true,
               render: function (data, type, i) {
-                console.log(data);
                 return data;
               }
             },
