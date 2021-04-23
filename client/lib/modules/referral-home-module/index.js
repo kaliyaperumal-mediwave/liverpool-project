@@ -13,7 +13,7 @@ module.exports = {
     self.refHome = function (req, callback) {
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('referral-home', {
-        headerContent: "Make a referral to Children’s and Young Person’s Sefton & Liverpool Mental Health Services",
+        headerContent: "Make a referral to children and young people's mental health services in Sefton & Liverpool",
         headerDescription: '',
         backContent: '',
         home: true,

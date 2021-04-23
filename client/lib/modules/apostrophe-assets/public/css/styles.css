@@ -500,8 +500,6 @@ div.radio.switcher label {
   display: none !important; }
 
 .btn-pdf {
-  width: 60px;
-  height: 40px;
   border-radius: 6px;
   background: #fdb732;
   border: none;
@@ -557,10 +555,12 @@ div.dataTables_wrapper div.dataTables_paginate {
 div.dt-buttons {
   display: none; }
 
-table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
   border: 1px solid #8e8e8e; }
 
-table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
   margin-top: 0px; }
 
 .middleContainer:after {
@@ -2671,8 +2671,10 @@ a {
 .collapse-body {
   color: #033047;
   font-size: 14px;
-  padding: 8px 16px;
   border-bottom: 1px solid #112f45; }
+
+.collapse-body .inside-cont-slider {
+  padding: 16px 32px !important; }
 
 #side-drawer {
   height: 100vh;
@@ -5119,3 +5121,10 @@ div.collapse-container.collapsing {
 .plain-select::after {
   z-index: 1 !important;
 }
+
+.heightSetLabel {
+  height: 40px !important; }
+  @media (min-width: 768px) {
+    .heightSetLabel {
+      height: auto !important;
+      min-height: 40px !important; } }

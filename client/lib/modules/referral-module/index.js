@@ -12,8 +12,7 @@ module.exports = {
       self.dispatch('/', self.middleware.checkCommonPageAuth, self.referral);
     };
     self.referral = function (req, callback) {
-      if(!req.session.user_role)
-      {
+      if (!req.session.user_role) {
         return req.res.redirect("/")
       }
       let labels;
@@ -47,7 +46,7 @@ module.exports = {
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('referral', {
         headerContent: labels,
-        headerDescription: " Before we get too far, let’s check that you or the child / young person is eligible to refer into this service.",
+        headerDescription: "The most important part - why are you making a referral today?",
         backContent: '/education?' + decryptedUrl,
         home: false,
         showHeader: true,

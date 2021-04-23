@@ -74,8 +74,6 @@
                                         I am a:
                                     </label>
                                     <input class="form-control col-md-6 col-lg-6 col-xl-5 col-11" readonly type="text"
-                                        data-container="body" data-toggle="popover" data-trigger="focus"
-                                        data-placement="top" data-content="Go to that section to edit"
                                         v-model="yourInfo" id="iamA">
                                 </div>
                                 <!-- Your Info End -->
@@ -405,18 +403,15 @@
                             </div>
 
                             <div class="text-center py-4">
-                                <button @click="updateInfo($event,section1Data,'/user/updateEligibilityInfo')" disabled
-                                    id="sect1" type="button" class="btn px-md-4 py-1 px-3">
-                                    <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                <button
+                                    @click="updateInfo($event,section1Data,'/user/updateEligibilityInfo','beforeSaveSection1')"
+                                    disabled id="sect1" type="button" class="btn px-md-4 py-1 px-3">
+                                    <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                         <span class="spinner-border spinner-border-sm" role="status"
                                             aria-hidden="true"></span>
                                         <span class="link-text px-2">Saving Section 1...</span>
-                                    </div>
-                                    <span v-if="!showLoader" class="btn-secondary-text">Save</span>
-                                    <!-- <div class="btn-secondary-text py-2 d-flex align-items-center">
-                                        <i class="d-none fa fa-spinner fa-spin px-2"></i>
-                                        <span id="beforeSaving" class="btn-secondary-text">Save</span>
                                     </div> -->
+                                    <span id="beforeSaveSection1" class="btn-secondary-text">Save</span>
                                 </button>
                             </div>
 
@@ -1039,18 +1034,15 @@
                                 </div> -->
 
                                 <div class="text-center pt-4 pb-2">
-                                    <button @click="updateInfo($event,section2Data,'/user/updateAboutInfo')" disabled
-                                        id="sect2" type="button" class="btn px-md-4 py-1 px-3">
-                                        <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                    <button
+                                        @click="updateInfo($event,section2Data,'/user/updateAboutInfo','beforeSaveSection2')"
+                                        disabled id="sect2" type="button" class="btn px-md-4 py-1 px-3">
+                                        <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
                                             <span class="link-text px-2">Saving Section 2...</span>
-                                        </div>
-                                        <span v-if="!showLoader" class="btn-secondary-text">Save</span>
-                                        <!-- <div class="btn-secondary-text py-2 d-flex align-items-center">
-                                            <i class="d-none fa fa-spinner fa-spin px-2" id="afterSaving"></i>
-                                            <span id="beforeSaving" class="btn-secondary-text">Save</span>
                                         </div> -->
+                                        <span id="beforeSaveSection2" class="btn-secondary-text">Save</span>
                                     </button>
                                 </div>
                             </div>
@@ -1272,14 +1264,16 @@
                                 </div>
 
                                 <div class="text-center py-4">
-                                    <button @click="updateInfo($event,section3Data,'/user/updateSec3Info')" disabled
-                                        id="sect3" type="button" class="btn px-md-4 py-1 px-3">
-                                        <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                    <button
+                                        @click="updateInfo($event,section3Data,'/user/updateSec3Info','beforeSaveSection3')"
+                                        disabled id="sect3" type="button" class="btn px-md-4 py-1 px-3">
+                                        <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
                                             <span class="link-text px-2">Saving Section 3...</span>
-                                        </div>
-                                        <span v-if="!showLoader" class="btn-secondary-text">Save</span>
+                                        </div> -->
+                                        <span id="beforeSaveSection3" class="btn-secondary-text">Save</span>
+                                        <!-- <span id="afterSave" class="btn-secondary-text d-none">Saving...</span> -->
                                     </button>
                                 </div>
 
@@ -1463,14 +1457,15 @@
                                 </div>
 
                                 <div class="text-center py-4">
-                                    <button @click="updateInfo($event,section4Data,'/user/updateSec4Info')" disabled
-                                        id="sect4" type="button" class="btn px-md-4 py-1 px-3">
-                                        <div v-if="showLoader" class="py-2 d-flex align-items-center">
+                                    <button
+                                        @click="updateInfo($event,section4Data,'/user/updateSec4Info','beforeSaveSection4')"
+                                        disabled id="sect4" type="button" class="btn px-md-4 py-1 px-3">
+                                        <!-- <div v-if="showLoader" class="py-2 d-flex align-items-center">
                                             <span class="spinner-border spinner-border-sm" role="status"
                                                 aria-hidden="true"></span>
                                             <span class="link-text px-2">Saving Section 4...</span>
-                                        </div>
-                                        <span v-if="!showLoader" class="btn-secondary-text">Save</span>
+                                        </div> -->
+                                        <span id="beforeSaveSection4" class="btn-secondary-text">Save</span>
                                     </button>
                                 </div>
                             </div>
