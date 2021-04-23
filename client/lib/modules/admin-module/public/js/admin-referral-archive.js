@@ -155,11 +155,12 @@ $(document).ready(function () {
             unArchive: function () {
                 if (this.referral_ids.length) {
                     $('#loader').show();
+                    var _self = this;
                     setTimeout(function () {
-                        var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'completed' });
+                        var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'completed' });
                         if (successData && Object.keys(successData)) {
-                            this.fetchReferral();
-                            this.successMessage = 'Referrals unarchive successfully';
+                            _self.fetchReferral();
+                            _self.successMessage = 'Referrals unarchive successfully';
                             $('#deletedSuccess').modal('show');
                             setTimeout(function () {
                                 $('#loader').hide();
@@ -206,10 +207,11 @@ $(document).ready(function () {
 
 function viewPdf(uuid, role) {
     $('#loader').show();
+    var _self = this;
     setTimeout(function () {
         var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
         if (successData && Object.keys(successData)) {
-            var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+            var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
             var isIE = false || !!document.documentMode;
             var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
             if (!isIE && !isSafari) {
