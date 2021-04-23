@@ -22,13 +22,13 @@ spec:
         image: ${PHR_REGISTRY}/$PHR_LIVERPOOL_NAMESPACE-phr:v${BUILD_NUMBER}
         env:
         - name: APP_PORT
-          value: '3001'
+          value: 3001
         - name: APP_NAME
           value: liverpool-phr
         - name: NODE_ENV
           value: development
         - name: NODE_TLS_REJECT_UNAUTHORIZED
-          value: '0'
+          value: 0
         - name: FROM_EMAIL
           value: $PHR_LIVERPOOL_FROM_EMAIL
         - name: JWT_SECRET

@@ -24,11 +24,11 @@ spec:
         - name: NODE_ENV
           value: development
         - name: PORT
-          value: '80'
+          value: 80
         - name: MONGO_STRING
           value: $PHR_LIVERPOOL_MONGO_STRING
         - name: SERVICE_PHR
-          value: https://phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr:3001
+          value: http://phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr:3001
         - name: NODE_TLS_REJECT_UNAUTHORIZED
           value: '0'
         - name: AZURE_ACCOUNT_NAME
