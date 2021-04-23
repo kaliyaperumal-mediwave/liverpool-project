@@ -64,6 +64,16 @@ module.exports = {
       })
     });
 
+    self.route('put', 'referralStatusUpdate', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referralStatusUpdate';
+      console.log('referralStatusUpdate put', url);
+      self.middleware.put(req, res, url, req.body).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
+
     self.route('get', 'getAllreferral', function (req, res) {
       console.log("get all referal")
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/getAllreferral';

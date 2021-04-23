@@ -108,14 +108,12 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">Please call <b><u>01512824911</u></b> to get
+                            <p class="question-font text-center m-0 py-2">Please call <b><u>01512 824911</u></b> to get
                                 help
                                 completing
                                 your referral</p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your previous
-                                answer to
-                                continue</p>
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Alternatively, change your previous answer to continue.</p>
                         </div>
                     </div>
                 </div>
@@ -1510,7 +1508,7 @@
             </form>
             {% endraw %}
             <div
-                v-if="(elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
+                v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
                 <div class="px-4 py-2 py-lg-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
