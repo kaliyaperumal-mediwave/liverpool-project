@@ -996,7 +996,7 @@
                     || !aboutObj.childLastName
                     || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
                     || (!aboutObj.childContactNumber || (aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)))
-                    || (!aboutObj.childAddress && !childManualAddress.length)
+                    || (!aboutObj.childAddress || (!aboutObj.childAddress && !childManualAddress.length))
                     || !aboutObj.sendPost
                     || !aboutObj.childGender
                     || !aboutObj.childIdentity
@@ -1041,6 +1041,7 @@
                     && aboutObj.childLastName
                     && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
                     && (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber))
+                    && (aboutObj.childAddress || (!aboutObj.childAddress && childManualAddress.length))
                     && aboutObj.sendPost
                     && aboutObj.childGender
                     && aboutObj.childIdentity
@@ -1072,8 +1073,8 @@
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </div>
                                     <p class="question-font text-center m-0 py-2">
-                                        Another section finished. Lets move on to education / employment & support
-                                        needs
+                                        Another section finished. Let's move on to education, employment and support
+                                        needs.
                                     </p>
                                 </div>
                             </div>
