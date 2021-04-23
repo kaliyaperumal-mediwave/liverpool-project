@@ -262,7 +262,7 @@ function updateStatus(uuid) {
   var status = $('#SelectedProviderStatus').val();
   var postData = {
     referral_id: uuid,
-    status
+    status: status
   }
   if (status === 'Referral to other team') {
     postData.other = $('#statusOther').val();
