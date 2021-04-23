@@ -149,12 +149,13 @@ $(document).ready(function () {
       },
       deleteReferral: function () {
         if (this.referral_ids.length) {
+          var _self = this;
           $('#loader').show();
           setTimeout(function () {
-            var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
+            var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'deleted' });
             if (successData && Object.keys(successData)) {
-              this.successMessage = 'Referrals deleted successfully'
-              this.fetchReferral();
+              _self.successMessage = 'Referrals deleted successfully'
+              _self.fetchReferral();
               $('#deletedSuccess').modal('show');
               setTimeout(function () {
                 $('#loader').hide();
@@ -166,13 +167,14 @@ $(document).ready(function () {
         }
       },
       archiveReferral: function () {
-        if (this.referral_ids.length) {
+        var _self = this;
+        if (_self.referral_ids.length) {
           $('#loader').show();
           setTimeout(function () {
-            var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
+            var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'archived' });
             if (successData && Object.keys(successData)) {
-              this.successMessage = 'Referrals archived successfully';
-              this.fetchReferral();
+              _self.successMessage = 'Referrals archived successfully';
+              _self.fetchReferral();
               $('#deletedSuccess').modal('show');
               setTimeout(function () {
                 $('#loader').hide();
@@ -215,11 +217,12 @@ $(document).ready(function () {
   });
 });
 function viewPdf(uuid, role) {
+  var _self = this;
   $('#loader').show();
   setTimeout(function () {
     var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
     if (successData && Object.keys(successData)) {
-      var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+      var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
       var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
       if (!isIE && !isSafari) {
@@ -259,7 +262,7 @@ function updateStatus(uuid) {
   var status = $('#SelectedProviderStatus').val();
   var postData = {
     referral_id: uuid,
-    status
+    status: status
   }
   if (status === 'Referral to other team') {
     postData.other = $('#statusOther').val();
