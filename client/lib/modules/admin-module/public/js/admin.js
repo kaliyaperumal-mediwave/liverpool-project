@@ -150,13 +150,13 @@ $(document).ready(function () {
       deleteReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
-          setTimeout(() => {
+          setTimeout(function () {
             var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
             if (successData && Object.keys(successData)) {
               this.successMessage = 'Referrals deleted successfully'
               this.fetchReferral();
               $('#deletedSuccess').modal('show');
-              setTimeout(() => {
+              setTimeout(function () {
                 $('#loader').hide();
               }, 500);
             } else {
@@ -168,13 +168,13 @@ $(document).ready(function () {
       archiveReferral: function () {
         if (this.referral_ids.length) {
           $('#loader').show();
-          setTimeout(() => {
+          setTimeout(function () {
             var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
             if (successData && Object.keys(successData)) {
               this.successMessage = 'Referrals archived successfully';
               this.fetchReferral();
               $('#deletedSuccess').modal('show');
-              setTimeout(() => {
+              setTimeout(function () {
                 $('#loader').hide();
               }, 500);
             } else {
@@ -249,7 +249,7 @@ function changeStatus(uuid, value, other_value) {
   }
   document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
   $('#changeStatusModal').modal('show');
-  setTimeout(() => {
+  setTimeout(function () {
     console.log(value);
     $("#SelectedProviderStatus").val(value);
   }, 500);
@@ -267,7 +267,7 @@ function updateStatus(uuid) {
 
   if (status && uuid) {
     $('#loader').show();
-    setTimeout(() => {
+    setTimeout(function () {
       var successData = apiCallPut('put', '/referralStatusUpdate', postData);
       if (successData && Object.keys(successData)) {
         $('.reload').trigger('click');
