@@ -1419,7 +1419,7 @@
                                         </div>
                                     </div>
                                     <div class="invalid-feedback d-none"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name) }">
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name),'invalid-modal-fields':!houseHoldData.name }">
                                         Please provide a first name.
                                     </div>
                                 </div>
@@ -1441,7 +1441,7 @@
                                         </div>
                                     </div>
                                     <div class="invalid-feedback d-none"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName) }">
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName),'invalid-modal-fields':!houseHoldData.lastName }">
                                         Please provide a last name.
                                     </div>
                                 </div>
@@ -1517,7 +1517,7 @@
                                             </div>
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.profession) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.profession),'invalid-modal-fields':!houseHoldData.manualAddress.profession }">
                                             Please provide a school/college/university.
                                         </div>
                                     </div>
@@ -1539,7 +1539,7 @@
                                             </div>
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.addressLine1) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.addressLine1),'invalid-modal-fields':!houseHoldData.manualAddress.addressLine1 }">
                                             Please provide an address.
                                         </div>
                                     </div>
@@ -1571,7 +1571,7 @@
                                                 placeholder="Enter city">
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.city) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.city), 'invalid-modal-fields':!houseHoldData.manualAddress.city}">
                                             Please provide a city name.
                                         </div>
                                     </div>
@@ -1604,30 +1604,15 @@
 
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.postCode) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.postCode),'invalid-modal-fields': !houseHoldData.manualAddress.postCode}">
                                             Please provide a postcode.
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))),'invalid-modal-fields': (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))}">
                                             Please provide a valid postcode.
                                         </div>
                                     </div>
                                     <!-- Postcode end -->
-                                    <div v-if="isHouseHoldFormSubmitted && (!houseHoldData.name || !houseHoldData.lastName || !houseHoldData.manualAddress.profession || !houseHoldData.manualAddress.addressLine1 ||
-                                    !houseHoldData.manualAddress.city || !houseHoldData.manualAddress.postCode || !postCodeRegex.test(houseHoldData.manualAddress.postCode))"
-                                        class="toster-container-white">
-                                        <div class="px-2 py-2">
-                                            <p class="text-center m-0 py-2">
-                                                <span style="color:#DD3939 !important">
-                                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                                </span>
-                                            </p>
-                                            <p class="question-font text-center text-danger m-0 py-2">
-                                                You have missed out a question on this form.
-                                            </p>
-                                        </div>
-                                    </div>
-
                                 </div>
 
                                 <div class="modal-footer">
