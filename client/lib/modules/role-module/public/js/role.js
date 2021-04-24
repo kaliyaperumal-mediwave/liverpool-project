@@ -64,6 +64,7 @@ $(document).ready(function () {
             date: null,
             dateWrap: true,
             showInputLoader: false,
+            showLoadingSpinner: false,
             showInputLoaderProf: false,
             options: {
                 //format: 'YYYY/MM/DD',
@@ -1340,8 +1341,8 @@ $(document).ready(function () {
                             console.log(data.Summaries)
                             _self.addressList = [];
                             for (i = 0; i < data.Summaries.length; i++) {
-                                console.log(data.Summaries[i].StreetAddress+','+searchPostCode)
-                                _self.addressList.push(data.Summaries[i].StreetAddress+','+searchPostCode);
+                                console.log(data.Summaries[i].StreetAddress + ',' + searchPostCode)
+                                _self.addressList.push(data.Summaries[i].StreetAddress + ',' + searchPostCode);
                             }
                             // var addList=[];
                             addList = _self.addressList;
@@ -1367,19 +1368,19 @@ $(document).ready(function () {
             customLabel(option) {
                 return option
             },
-            updateSelected(value) {
-                value.forEach((resource) => {
-                    this.selectedResources.push(resource)
-                })
 
+            updateSelected(value) {
+                if (value & value.length) {
+                    this.selectedResources.push(resource);
+                }
                 this.optionsProxy = []
             },
+
             cdnRequest(value) {
-                console.log("value=====", value);
-                this.addressOptions = []
-                if (value.length > 6);
-                {
+                this.addressOptions = [];
+                if (value && this.postCodeRegex.test(value)) {
                     var _self = this;
+                    _self.showLoadingSpinner = true;
                     var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
                         url: addressApi,
@@ -1391,23 +1392,32 @@ $(document).ready(function () {
                             "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
                         },
                         success: function (data) {
-                            console.log(data)
-                            for (i = 0; i < data.Summaries.length; i++) {
-                                _self.addressList.push(data.Summaries[i].Place+', '+data.Summaries[i].StreetAddress + ', ' + value);
+                            if (data.Error && Object.keys(data.Error).length) {
+                                _self.showLoadingSpinner = false;
+                                return false;
                             }
-                            _self.addressOptions = _self.addressList
+                            if (data.Summaries && data.Summaries.length) {
+                                for (i = 0; i < data.Summaries.length; i++) {
+                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                                }
+                                _self.addressOptions = _self.addressList;
+                                _self.showLoadingSpinner = false;
+                            } else {
+                                _self.showLoadingSpinner = false;
+                            }
                         },
                         error: function (error) {
-
+                            _self.showLoadingSpinner = false;
                         }
                     });
                 }
 
             },
+
             searchQuery(value) {
-                // GET
                 this.cdnRequest(value)
             },
+
             removeDependency(index) {
                 this.selectedResources.splice(index, 1)
             }
