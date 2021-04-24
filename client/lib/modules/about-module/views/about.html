@@ -186,7 +186,7 @@
                                 {{sec2dynamicLabel.addressLabel}}</label></div>
                         <multiselect :options="addressOptions" v-model="aboutObj.childAddress" @input="updateSelected"
                             @search-change="searchQuery" :searchable="true" :close-on-select="true" placeholder="Search"
-                            :custom-label="customLabel" :loading="showLoadingSpinner">
+                            :custom-label="customLabel" :loading="showLoadingSpinner"  class="multiselect custom-dropbox-hover themeSetDark">
                         </multiselect>
 
                         <p class="link-text text-right mb-0 mt-2 cursor-pointer"
@@ -363,7 +363,7 @@
                                         <a href="https://www.liverpoolcamhs.com/need-advice/gender-identity/"
                                             target="_blank">
                                             Learn
-                                            More about Gender Identity - LIverpool CAMHS
+                                            More about Gender Identity - Liverpool CAMHS
                                         </a>
                                     </p>
                                 </div>
@@ -894,7 +894,7 @@
                                 <multiselect :options="addressOptions" v-model="aboutFormData.parentOrCarrerAddress"
                                     @input="updateSelected" @search-change="searchQuery" :searchable="true"
                                     :close-on-select="true" placeholder="Search" :custom-label="customLabel"
-                                    :loading="showLoadingSpinner">
+                                    :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
                                 </multiselect>
 
                                 <!-- <div class="input-group-append">
