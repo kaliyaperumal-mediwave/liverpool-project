@@ -3844,10 +3844,17 @@ body .ui-widget .ui-menu-item {
   background-color: #e8edee; }
 
 .off .themeSetDark .multiselect__content-wrapper {
-  background-color: #e8edee; }
+  background-color: #e8edee;
+  color: #023047;
+  font-weight: 500; }
+
+.off .multiselect__content-wrapper {
+  margin: 1px 0px !important; }
 
 .off .themeSetDark .multiselect__tags .multiselect__single {
-  background-color: #e8edee; }
+  background-color: #e8edee;
+  color: #023047;
+  font-weight: 500; }
 
 .off .card-set-container-bg {
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -4002,7 +4009,8 @@ body .ui-widget .ui-menu-item {
   color: #023047; }
 
 .off .plain-select::after {
-  border-top: 6px solid #023047 !important; }
+  border-top: 6px solid #023047 !important;
+  z-index: 0 !important; }
 
 .off .option-font {
   color: #023047; }
@@ -4248,10 +4256,17 @@ body .ui-widget .ui-menu-item {
   background-color: #535454; }
 
 .on .themeSetDark .multiselect__content-wrapper {
-  background-color: #535454; }
+  background-color: #535454;
+  color: #fafafa;
+  font-weight: 500; }
+
+.on .multiselect__content-wrapper {
+  margin: 1px 0px !important; }
 
 .on .themeSetDark .multiselect__tags .multiselect__single {
-  background-color: #535454; }
+  background-color: #535454;
+  color: #fafafa;
+  font-weight: 500; }
 
 .on .card-set-container-bg {
   background: #353638 0% 0% no-repeat padding-box;
@@ -4406,7 +4421,8 @@ body .ui-widget .ui-menu-item {
   color: #fafafa; }
 
 .on .plain-select::after {
-  border-top: 6px solid #fafafa !important; }
+  border-top: 6px solid #fafafa !important;
+  z-index: 0 !important; }
 
 .on .option-font {
   color: #fafafa; }
@@ -5107,20 +5123,6 @@ div.collapse-container.collapsing {
   @media (min-width: 768px) {
     .fixedWidthSetLI {
       width: 154px; } }
-    
-.multiselect__option--highlight {
-  background: #ffb703 !important;
-  outline: none;
-  color: #033047 !important;
-}
-.multiselect__option--highlight:after {
-    background: #ffb703 !important;
-    color: #033047 !important;
-}
-
-.plain-select::after {
-  z-index: 1 !important;
-}
 
 .heightSetLabel {
   height: 40px !important; }
