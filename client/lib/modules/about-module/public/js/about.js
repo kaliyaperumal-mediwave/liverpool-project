@@ -7,6 +7,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             // options: [],
+            showLoadingSpinner: "",
             optionsProxy: [],
             selectedResources: [],
             addressOptions: [],
@@ -882,7 +883,7 @@ $(document).ready(function () {
                 }
             },
 
-            customLabel(option) {
+            customLabel: function (option) {
                 return option
             },
 
