@@ -9,6 +9,7 @@ $(document).ready(function () {
         el: '#role-form',
         components: { Multiselect: window.VueMultiselect.default },
         data: {
+            showLoadingSpinner: "",
             optionsProxy: [],
             selectedResources: [],
             addressOptions: [],
@@ -1364,9 +1365,8 @@ $(document).ready(function () {
                     });
                 }
             },
-
-            customLabel(option) {
-                return option
+            customLabel: function (option) {
+                return option;
             },
 
             updateSelected(value) {
