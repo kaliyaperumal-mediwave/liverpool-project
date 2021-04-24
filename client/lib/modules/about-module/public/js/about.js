@@ -7,7 +7,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             // options: [],
-            showLoadingSpinner:"",
+            showLoadingSpinner: "",
             optionsProxy: [],
             selectedResources: [],
             addressOptions: [],
@@ -55,6 +55,7 @@ $(document).ready(function () {
                 minDate: new Date(1950, 10, 25),
                 maxDate: moment().endOf('day').add(1, 'sec'),
             },
+            showLoadingSpinner: false,
             sec2dynamicLabel: {},
             houseHoldData: {
                 name: '',
@@ -580,6 +581,9 @@ $(document).ready(function () {
 
             //Adding and Updating a HouseHold logic
             upsertHouseHold: function () {
+                debugger
+                var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
+                console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
                 var modal = document.getElementById('closeModalRaj');
@@ -612,6 +616,8 @@ $(document).ready(function () {
 
                         } else {
                             modal.removeAttribute("data-dismiss", "modal");
+                            errorElements[0].previousElementSibling.querySelector('input').focus();
+                            errorElements[0].previousElementSibling.querySelector('input').select();
                             return;
                         }
                     } else {
@@ -640,6 +646,8 @@ $(document).ready(function () {
                     }
                 } else {
                     modal.removeAttribute("data-dismiss", "modal");
+                    errorElements[0].previousElementSibling.querySelector('input').focus();
+                    errorElements[0].previousElementSibling.querySelector('input').select();
                     return;
                 }
             },
@@ -875,17 +883,17 @@ $(document).ready(function () {
                 }
             },
 
-            customLabel:function (option) {
+            customLabel: function (option) {
                 return option
             },
-            updateSelected:function(value) {
+            updateSelected: function (value) {
                 value.forEach(function (resource) {
                     this.selectedResources.push(resource)
                 })
 
                 this.optionsProxy = []
             },
-            cdnRequest:function(value) {
+            cdnRequest: function (value) {
                 console.log("value=====", value);
                 this.addressOptions = []
                 if (value.length > 6);
@@ -904,7 +912,7 @@ $(document).ready(function () {
                         success: function (data) {
                             console.log(data)
                             for (i = 0; i < data.Summaries.length; i++) {
-                                _self.addressList.push(data.Summaries[i].Place+', '+data.Summaries[i].StreetAddress + ', ' + value);
+                                _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
                             }
                             _self.addressOptions = _self.addressList
                         },
@@ -915,12 +923,12 @@ $(document).ready(function () {
                 }
 
             },
-            searchQuery:function(value) {
+            searchQuery: function (value) {
                 // GET
                 this.cdnRequest(value)
             },
-            
-            removeDependency:function(index) {
+
+            removeDependency(index) {
                 this.selectedResources.splice(index, 1)
             }
         }
