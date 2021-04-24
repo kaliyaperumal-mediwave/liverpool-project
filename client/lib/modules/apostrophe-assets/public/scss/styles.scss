@@ -2905,12 +2905,16 @@ $color-scheme: (
     }
     .themeSetDark .multiselect__content-wrapper {
       background-color: $input-form-color;
+      color:$secondary;
+      font-weight: 500;
     }
     .multiselect__content-wrapper{
       margin: 1px 0px !important;
     }
     .themeSetDark .multiselect__tags .multiselect__single {
       background-color: $input-form-color;
+      color:$secondary;
+      font-weight: 500;
     }
     .card-set-container-bg {
       background: $primary 0% 0% no-repeat padding-box;
