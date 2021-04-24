@@ -3,11 +3,15 @@ var API_URI = "/modules/role-module";
 $(document).ready(function () {
 
     Vue.component('date-picker', VueBootstrapDatetimePicker);
+    Vue.component('vue-multiselect', window.VueMultiselect.default)
     var _self = this;
     var app = new Vue({
         el: '#role-form',
-
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            optionsProxy: [],
+            selectedResources: [],
+            addressOptions: [],
             gpListShow: [],
             elgibilityObj: {
                 role: '',
@@ -60,6 +64,7 @@ $(document).ready(function () {
             date: null,
             dateWrap: true,
             showInputLoader: false,
+            showLoadingSpinner: false,
             showInputLoaderProf: false,
             options: {
                 //format: 'YYYY/MM/DD',
@@ -92,6 +97,8 @@ $(document).ready(function () {
             gpFlag: false,
             date: '',
             dateFmt: '',
+            addressList: [],
+            //phoneRegex: /^[0-9,-]{10,15}$|^$/,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
@@ -137,19 +144,21 @@ $(document).ready(function () {
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
-            this.initMaps();
+            //this.initMaps();
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
         },
 
         methods: {
             initMaps: function () {
-                var _self = this;
-                professionalAddress = new google.maps.places.Autocomplete((document.getElementById('txtProfessionalAddress')), {
-                    types: ['geocode'],
-                });
-                google.maps.event.addListener(professionalAddress, 'place_changed', function () {
-                    _self.elgibilityObj.profAddress = professionalAddress.getPlace().formatted_address;
+                var availableTutorials = [
+                    "ActionScript",
+                    "Bootstrap",
+                    "C",
+                    "C++",
+                ];
+                $("#automplete-1").autocomplete({
+                    source: availableTutorials
                 });
             },
             fetchSavedData: function () {
@@ -1310,8 +1319,108 @@ $(document).ready(function () {
 
                 this.elgibilityObj[attributeValue] = "";
                 //document.getElementById(inputId).focus();
-            }
+            },
 
+            getAddressPostcode: function (e) {
+                var searchPostCode = e.target.value;
+                // console.log(this.getStringLength(searchPostCode))
+                if (searchPostCode.length > 6);
+                {
+                    var _self = this;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + searchPostCode + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            console.log(data.Summaries)
+                            _self.addressList = [];
+                            for (i = 0; i < data.Summaries.length; i++) {
+                                console.log(data.Summaries[i].StreetAddress + ',' + searchPostCode)
+                                _self.addressList.push(data.Summaries[i].StreetAddress + ',' + searchPostCode);
+                            }
+                            // var addList=[];
+                            addList = _self.addressList;
+                            console.log(addList)
+                            if (addList > 0) {
+                                $("#postCodeAddress").autocomplete({
+                                    source: addList,
+                                    select: function (event, ui) {
+                                        console.log(event)
+                                    },
+                                    close: function () {
+
+                                    }
+                                });
+                            }
+                        },
+                        error: function (error) {
+                        }
+                    });
+                }
+            },
+
+            customLabel(option) {
+                return option
+            },
+
+            updateSelected(value) {
+                if (value & value.length) {
+                    this.selectedResources.push(resource);
+                }
+                this.optionsProxy = []
+            },
+
+            cdnRequest(value) {
+                this.addressOptions = [];
+                if (value && this.postCodeRegex.test(value)) {
+                    var _self = this;
+                    _self.showLoadingSpinner = true;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            if (data.Error && Object.keys(data.Error).length) {
+                                _self.showLoadingSpinner = false;
+                                return false;
+                            }
+                            if (data.Summaries && data.Summaries.length) {
+                                for (i = 0; i < data.Summaries.length; i++) {
+                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                                }
+                                _self.addressOptions = _self.addressList;
+                                _self.showLoadingSpinner = false;
+                            } else {
+                                _self.showLoadingSpinner = false;
+                            }
+                        },
+                        error: function (error) {
+                            _self.showLoadingSpinner = false;
+                        }
+                    });
+                }
+
+            },
+
+            searchQuery(value) {
+                this.cdnRequest(value)
+            },
+
+            removeDependency(index) {
+                this.selectedResources.splice(index, 1)
+            }
         }
     })
 

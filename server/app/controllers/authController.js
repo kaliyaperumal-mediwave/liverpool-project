@@ -275,8 +275,11 @@ exports.changeEmail = async (ctx) => {
 
 exports.forgotPassword = async (ctx) => {
     const { error } = forgotPasswordValidation(ctx.request.body);
+    console.log('error-------', error);
     if (error) {
-        return ctx.body = error;
+        return ctx.res.badRequest({
+            message: reponseMessages[1020],
+        });
     }
     try {
         const {
