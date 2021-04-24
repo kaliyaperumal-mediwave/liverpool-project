@@ -1,9 +1,15 @@
 var API_URI = "/modules/about-module";
 $(document).ready(function () {
     Vue.component('date-picker', VueBootstrapDatetimePicker);
+    Vue.component('vue-multiselect', window.VueMultiselect.default)
     var app = new Vue({
         el: '#about-form',
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            // options: [],
+            optionsProxy: [],
+            selectedResources: [],
+            addressOptions: [],
             labelToDisplay: "",
             aboutObj: {
                 nhsNumber: "",
@@ -101,7 +107,8 @@ $(document).ready(function () {
             paramValues: [],
             editPatchFlag: false,
             storeDeleteData: null,
-            dateFmt: ''
+            dateFmt: '',
+            addressList: [],
         },
         beforeMount: function () {
             $('#loader').show();
@@ -113,7 +120,7 @@ $(document).ready(function () {
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.isFormSubmitted = false;
             this.fetchSavedData();
-            this.initMaps();
+            //  this.initMaps();
             $('#loader').hide();
         },
 
@@ -127,9 +134,9 @@ $(document).ready(function () {
                 var houseHoldAddress;
                 var parentAddress;
 
-                childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
-                    types: ['geocode'],
-                });
+                // childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
+                //     types: ['geocode'],
+                // });
 
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
                     types: ['establishment'],
@@ -866,6 +873,59 @@ $(document).ready(function () {
                     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 }
             },
+
+            customLabel(option) {
+                return option
+            },
+            updateSelected(value) {
+                value.forEach((resource) => {
+                    this.selectedResources.push(resource)
+                })
+
+                this.optionsProxy = []
+            },
+            cdnRequest(value) {
+                console.log("value=====", value);
+                this.addressOptions = []
+                if (value.length > 6);
+                {
+                    var _self = this;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            console.log(data)
+                            for (i = 0; i < data.Summaries.length; i++) {
+                                _self.addressList.push(data.Summaries[i].Place+', '+data.Summaries[i].StreetAddress + ', ' + value);
+                            }
+                            _self.addressOptions = _self.addressList
+                        },
+                        error: function (error) {
+
+                        }
+                    });
+                }
+
+            },
+            searchQuery(value) {
+                // GET
+                this.cdnRequest(value)
+            },
+            
+            removeDependency(index) {
+                this.selectedResources.splice(index, 1)
+            }
         }
     })
 });
+
+
+
+
