@@ -2906,6 +2906,9 @@ $color-scheme: (
     .themeSetDark .multiselect__content-wrapper {
       background-color: $input-form-color;
     }
+    .multiselect__content-wrapper{
+      margin: 1px 0px !important;
+    }
     .themeSetDark .multiselect__tags .multiselect__single {
       background-color: $input-form-color;
     }
@@ -3069,6 +3072,7 @@ $color-scheme: (
     }
     .plain-select::after {
       border-top: 6px solid $secondary !important;
+      z-index: 0 !important;
     }
     .option-font {
       color: $secondary;
