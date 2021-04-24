@@ -114,7 +114,7 @@ $(document).ready(function () {
                                 else if (_self.displayReferrals[i].referral_status == "Referral to other team") // 7
                                 {
                                     var refStatus = _self.displayReferrals[i].referral_status
-                                    refStatus = "Your referral has been passed on to " + _self.displayReferrals[i].referral_status_other
+                                    refStatus = "Your referral has been passed on to " + _self.displayReferrals[i].referral_provider_other
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
                                 else //3
@@ -271,7 +271,7 @@ $(document).ready(function () {
                             else if (_self.searchReferrals[0].referral_status == "Referral to other team") // 7
                             {
                                 var refStatus = _self.searchReferrals[0].referral_status
-                                refStatus = "Your referral has been passed on to " + referral_status
+                                refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
                                 _self.searchReferrals[0].referral_status = refStatus
                             }
                             else //3

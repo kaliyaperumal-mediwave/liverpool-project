@@ -253,6 +253,7 @@ function changeStatus(uuid, value, other_value) {
 }
 
 function updateStatus(uuid) {
+    $('#loader').show();
     var status = $('#SelectedProviderStatus').val();
     var postData = {
       referral_id: uuid,
@@ -262,11 +263,9 @@ function updateStatus(uuid) {
       postData.other = $('#statusOther').val();
     }
     if (status && uuid) {
-      $('#loader').show();
       setTimeout(function () {
         var successData = apiCallPut('put', '/referralStatusUpdate', postData);
         if (successData && Object.keys(successData)) {
-          $('.reload').trigger('click');
           $('#statusOther').val('')
           $('#changeStatusModal').modal('hide');
           $('#statusUpdatedSuccess').modal('show');
@@ -278,10 +277,9 @@ function updateStatus(uuid) {
           setTimeout(function () {
             $('#loader').hide();
           }, 500);
-          $('#deletedSuccess').modal('hide');
+          $('#changeStatusModal').modal('hide');
         }
       }, 500);
-  
     }
 }
 

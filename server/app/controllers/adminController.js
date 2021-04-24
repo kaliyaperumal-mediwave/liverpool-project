@@ -211,7 +211,7 @@ exports.getArchived = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'referral_provider',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'referral_provider', 'referral_provider_other', 'referral_status',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
@@ -265,7 +265,9 @@ exports.getArchived = ctx => {
                         gp_location: '',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
-                        referral_provider: refObj.referral_provider
+                        referral_provider: refObj.referral_provider,
+                        referral_provider_other: refObj.referral_provider_other,
+                        referral_status: refObj.referral_status,
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
@@ -309,7 +311,9 @@ exports.getArchived = ctx => {
                         gp_location: 'Liverpool',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
-                        referral_provider: refObj.referral_provider
+                        referral_provider: refObj.referral_provider,
+                        referral_provider_other: refObj.referral_provider_other,
+                        referral_status: refObj.referral_status,
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
