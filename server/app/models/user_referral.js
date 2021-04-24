@@ -153,6 +153,10 @@ module.exports = function modelUser(sequelize, types) {
     referral_complete_status:{
       type: types.TEXT
     },
+    referral_status: {
+      type: types.TEXT,
+      defaultValue: 'Nothing',
+    },
     contact_parent_camhs:{
       type: types.TEXT
     },

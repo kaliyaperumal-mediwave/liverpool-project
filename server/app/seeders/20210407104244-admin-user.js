@@ -16,13 +16,35 @@ module.exports = {
       user_role: 'admin',
       createdAt: new Date(),
       updatedAt: new Date()
+    },
+    {
+      first_name: 'Admin',
+      last_name: 'Sangavi',
+      uuid: uuidv4(),
+      email: 'sangavi+admin@mindwaveventures.com',
+      password: hashedPassword,
+      user_role: 'admin',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      first_name: 'Admin',
+      last_name: 'Satieshkumar',
+      uuid: uuidv4(),
+      email: 'satieshkumar+admin@mindwaveventures.com',
+      password: hashedPassword,
+      user_role: 'admin',
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {});
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('users', {
       email: [
-        'admin@mindwaveventures.com'
+        'admin@mindwaveventures.com',
+        'satieshkumar+admin@mindwaveventures.com',
+        'sangavi+admin@mindwaveventures.com'
       ],
     });
     /**

@@ -885,6 +885,7 @@ $(document).ready(function () {
             customLabel(option) {
                 return option
             },
+
             updateSelected(value) {
                 value.forEach((resource) => {
                     this.selectedResources.push(resource)
@@ -892,11 +893,12 @@ $(document).ready(function () {
 
                 this.optionsProxy = []
             },
+
             cdnRequest(value) {
                 console.log("value=====", value);
-                this.addressOptions = []
-                if (value.length > 6);
-                {
+                this.addressOptions = [];
+                this.showLoadingSpinner = true;
+                if (value && this.postCodeRegex.test(value)) {
                     var _self = this;
                     var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
@@ -909,21 +911,32 @@ $(document).ready(function () {
                             "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
                         },
                         success: function (data) {
-                            console.log(data)
-                            for (i = 0; i < data.Summaries.length; i++) {
-                                _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                            if (data.Error && Object.keys(data.Error).length) {
+                                _self.showLoadingSpinner = false;
+                                return false;
                             }
-                            _self.addressOptions = _self.addressList
+                            if (data.Summaries && data.Summaries.length) {
+                                for (i = 0; i < data.Summaries.length; i++) {
+                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                                }
+                                _self.addressOptions = _self.addressList;
+                                _self.showLoadingSpinner = false;
+                            } else {
+                                _self.showLoadingSpinner = false;
+                            }
+                            console.log(data)
                         },
                         error: function (error) {
-
+                            _self.showLoadingSpinner = false;
                         }
                     });
+                } else {
+                    this.showLoadingSpinner = false;
                 }
 
             },
+
             searchQuery(value) {
-                // GET
                 this.cdnRequest(value)
             },
 

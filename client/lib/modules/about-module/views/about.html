@@ -183,10 +183,11 @@
                     <!-- child address Start-->
                     <div class="form-group py-2 my-2">
                         <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
-                                {{sec2dynamicLabel.addressLabel}}</label></div>
+                                {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label></div>
                         <multiselect :options="addressOptions" v-model="aboutObj.childAddress" @input="updateSelected"
                             @search-change="searchQuery" :searchable="true" :close-on-select="true" placeholder="Search"
-                            :custom-label="customLabel" :loading="showLoadingSpinner"  class="multiselect custom-dropbox-hover themeSetDark">
+                            :custom-label="customLabel" :loading="showLoadingSpinner"
+                            class="multiselect custom-dropbox-hover themeSetDark">
                         </multiselect>
 
                         <p class="link-text text-right mb-0 mt-2 cursor-pointer"
@@ -884,7 +885,7 @@
                         class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="gpParentorCarerLocation" class="question-font">{{sec2dynamicLabel.guardAddress}}
-                                - <b>optional</b></label>
+                                - <b>optional. Please enter the full postcode.</b></label>
                             <div class="input-group" id="e97aa97c-34b6-4874-b2d0-b29c194dfdd2">
                                 <!-- <input type="text" class="form-control input-bg-form-control" inputmode="search"
                                     @input="getAddressPostcode($event)" name="parentPostCode"
@@ -990,52 +991,6 @@
 
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <div v-if="aboutFormData.sameHouse">
-                    <!-- <div class="px-2 px-lg-0 py-4" v-if="
-                    isFormSubmitted &&
-                    ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
-                    || !aboutObj.childFirstName
-                    || !aboutObj.childLastName
-                    || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
-                    || (!aboutObj.childContactNumber || (aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)))
-                    || (!aboutObj.childAddress || (!aboutObj.childAddress && !childManualAddress.length))
-                    || !aboutObj.sendPost
-                    || !aboutObj.childGender
-                    || !aboutObj.childIdentity
-                    || !aboutObj.childCareAdult
-                    || !aboutObj.parentFirstName
-                    || !aboutObj.parentLastName
-                    || (aboutFormData.parentialResponsibility =='yes' && (
-                            !aboutFormData.relationshipToYou
-                            || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
-                            || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
-                        ))
-                    || (aboutFormData.parentialResponsibility =='no' && (
-                            !aboutFormData.parentCarerFirstName
-                            || !aboutFormData.parentCarerLastName
-                            || ! aboutFormData.relationshipToYou
-                            || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
-                            || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
-                        ))
-                    || !aboutFormData.sameHouse
-                    || !aboutObj.sexAssignedAtBirth
-                    || !aboutObj.childNameTitle)
-                ">
-                        <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <div>
-                                    <div class="text-center m-0 py-2">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                    <p class="question-font text-center text-danger m-0 py-2">
-                                        You have missed out a section on this page
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="px-2 px-lg-0 py-4" v-if="
                     (!aboutObj.nhsNumber || (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)))
                     && aboutObj.childFirstName

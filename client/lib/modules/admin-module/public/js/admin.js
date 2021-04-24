@@ -72,7 +72,6 @@ $(document).ready(function () {
               targets: 8,
               orderable: true,
               render: function (data, type, i) {
-                console.log(data);
                 return data;
               }
             },
@@ -119,8 +118,10 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
-                  referralRes.data.data[i].referral_provider === 'Pending' ? 'Nothing' : referralRes.data.data[i].referral_provider,
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Change Status</button></div>"
+                  referralRes.data.data[i].referral_status == 'Ypas' ? 'Forwarded to partner agency - YPAS' : 
+                  referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' : 
+                  referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to '+ referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -195,7 +196,7 @@ $(document).ready(function () {
         $('#mailSentSuccess').modal('hide');
       },
       closeUpdateSuccessPopup: function () {
-        $('#example').DataTable().ajax.reload();
+        $('#adminReferral').DataTable().ajax.reload();
         $('#statusUpdatedSuccess').modal('hide');
       },
       fetchAllRef: function () {
@@ -244,21 +245,20 @@ function viewPdf(uuid, role) {
 }
 
 function changeStatus(uuid, value, other_value) {
-  console.log('Status button clicked');
   if (value === 'Referral to other team' && other_value != null) {
-    $('#SelectedProviderStatus').val(other_value);
+      $('#SelectedProviderStatus').val(other_value);
   } else {
     $('#SelectedProviderStatus').val('');
   }
   document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
   $('#changeStatusModal').modal('show');
   setTimeout(function () {
-    console.log(value);
     $("#SelectedProviderStatus").val(value);
   }, 500);
 }
 
 function updateStatus(uuid) {
+  $('#loader').show();
   var status = $('#SelectedProviderStatus').val();
   var postData = {
     referral_id: uuid,
@@ -267,13 +267,10 @@ function updateStatus(uuid) {
   if (status === 'Referral to other team') {
     postData.other = $('#statusOther').val();
   }
-
   if (status && uuid) {
-    $('#loader').show();
     setTimeout(function () {
       var successData = apiCallPut('put', '/referralStatusUpdate', postData);
       if (successData && Object.keys(successData)) {
-        $('.reload').trigger('click');
         $('#statusOther').val('')
         $('#changeStatusModal').modal('hide');
         $('#statusUpdatedSuccess').modal('show');
@@ -285,10 +282,9 @@ function updateStatus(uuid) {
         setTimeout(function () {
           $('#loader').hide();
         }, 500);
-        $('#deletedSuccess').modal('hide');
+        $('#changeStatusModal').modal('hide');
       }
     }, 500);
-
   }
 }
 
