@@ -54,6 +54,7 @@ $(document).ready(function () {
                 minDate: new Date(1950, 10, 25),
                 maxDate: moment().endOf('day').add(1, 'sec'),
             },
+            showLoadingSpinner: false,
             sec2dynamicLabel: {},
             houseHoldData: {
                 name: '',
@@ -120,7 +121,7 @@ $(document).ready(function () {
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.isFormSubmitted = false;
             this.fetchSavedData();
-            //  this.initMaps();
+            this.initMaps();
             $('#loader').hide();
         },
 
@@ -130,9 +131,9 @@ $(document).ready(function () {
             initMaps: function () {
                 $('#loader').hide();
                 var _self = this;
-                var childAddress;
+                //var childAddress;
                 var houseHoldAddress;
-                var parentAddress;
+                //var parentAddress;
 
                 // childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                 //     types: ['geocode'],
@@ -142,21 +143,21 @@ $(document).ready(function () {
                     types: ['establishment'],
                 });
 
-                parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
-                    types: ['geocode'],
-                });
+                // parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
+                //     types: ['geocode'],
+                // });
 
-                google.maps.event.addListener(childAddress, 'place_changed', function () {
-                    _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
-                });
+                // google.maps.event.addListener(childAddress, 'place_changed', function () {
+                //     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                // });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
 
-                google.maps.event.addListener(parentAddress, 'place_changed', function () {
-                    _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
-                });
+                // google.maps.event.addListener(parentAddress, 'place_changed', function () {
+                //     _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
+                // });
             },
 
             //Reset and Question Flow Logic
@@ -579,6 +580,9 @@ $(document).ready(function () {
 
             //Adding and Updating a HouseHold logic
             upsertHouseHold: function () {
+                debugger
+                var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
+                console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
                 var modal = document.getElementById('closeModalRaj');
@@ -611,6 +615,8 @@ $(document).ready(function () {
 
                         } else {
                             modal.removeAttribute("data-dismiss", "modal");
+                            errorElements[0].previousElementSibling.querySelector('input').focus();
+                            errorElements[0].previousElementSibling.querySelector('input').select();
                             return;
                         }
                     } else {
@@ -639,6 +645,8 @@ $(document).ready(function () {
                     }
                 } else {
                     modal.removeAttribute("data-dismiss", "modal");
+                    errorElements[0].previousElementSibling.querySelector('input').focus();
+                    errorElements[0].previousElementSibling.querySelector('input').select();
                     return;
                 }
             },
@@ -877,19 +885,19 @@ $(document).ready(function () {
             customLabel(option) {
                 return option
             },
-            updateSelected(value) {
-                value.forEach((resource) => {
-                    this.selectedResources.push(resource)
-                })
 
+            updateSelected(value) {
+                if (value & value.length) {
+                    this.selectedResources.push(resource);
+                }
                 this.optionsProxy = []
             },
+
             cdnRequest(value) {
-                console.log("value=====", value);
-                this.addressOptions = []
-                if (value.length > 6);
-                {
+                this.addressOptions = [];
+                if (value && this.postCodeRegex.test(value)) {
                     var _self = this;
+                    _self.showLoadingSpinner = true;
                     var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
                         url: addressApi,
@@ -901,24 +909,34 @@ $(document).ready(function () {
                             "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
                         },
                         success: function (data) {
-                            console.log(data)
-                            for (i = 0; i < data.Summaries.length; i++) {
-                                _self.addressList.push(data.Summaries[i].Place+', '+data.Summaries[i].StreetAddress + ', ' + value);
+                            if (data.Error && Object.keys(data.Error).length) {
+                                _self.showLoadingSpinner = false;
+                                return false;
                             }
-                            _self.addressOptions = _self.addressList
+                            if (data.Summaries && data.Summaries.length) {
+                                for (i = 0; i < data.Summaries.length; i++) {
+                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                                }
+                                _self.addressOptions = _self.addressList;
+                                _self.showLoadingSpinner = false;
+                            } else {
+                                _self.showLoadingSpinner = false;
+                            }
                         },
                         error: function (error) {
-
+                            _self.showLoadingSpinner = false;
                         }
                     });
+                } else {
+                    this.showLoadingSpinner = false;
                 }
 
             },
+
             searchQuery(value) {
-                // GET
                 this.cdnRequest(value)
             },
-            
+
             removeDependency(index) {
                 this.selectedResources.splice(index, 1)
             }
