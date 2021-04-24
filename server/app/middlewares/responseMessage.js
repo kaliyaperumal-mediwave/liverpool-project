@@ -17,6 +17,7 @@ const messageCodes = {
   1016: 'Data not found',
   1017: 'Referral details sent',
   1018: 'Unauthorized Access!',
-  1019: 'Invalid role for the user'
+  1019: 'Invalid role for the user',
+  1020: 'Invalid email address',
 };
 module.exports = messageCodes;
