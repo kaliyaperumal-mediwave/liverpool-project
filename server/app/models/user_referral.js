@@ -162,6 +162,9 @@ module.exports = function modelUser(sequelize, types) {
     referral_provider:{
       type: types.TEXT
     },
+    referral_provider_other:{
+      type: types.TEXT
+    },
     professional_address:{
       type: types.TEXT
     },

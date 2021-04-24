@@ -298,8 +298,8 @@
   display: none !important;
 }
 .btn-pdf {
-  width: 60px;
-  height: 40px;
+  // width: 60px;
+  // height: 40px;
   border-radius: 6px;
   background: #fdb732;
   border: none;
@@ -326,7 +326,7 @@ div.dataTables_wrapper div.dataTables_paginate {
   color: #112f45 !important;
   height: 40px !important;
 }
-.custom-table-nested .buttons-csv{
+.custom-table-nested .buttons-csv {
   height: 34px;
   border-radius: 6px;
   background: #fdb732;
@@ -338,10 +338,10 @@ div.dataTables_wrapper div.dataTables_paginate {
   align-items: center;
   justify-content: center;
 }
-.custom-table-nested .buttons-csv:hover{
+.custom-table-nested .buttons-csv:hover {
   height: 34px;
   border-radius: 6px;
-  background:#f0b037 !important;
+  background: #f0b037 !important;
   border: none !important;
   font-weight: 600;
   box-shadow: 0px 3px 6px #00000029;
@@ -350,15 +350,17 @@ div.dataTables_wrapper div.dataTables_paginate {
   align-items: center;
   justify-content: center;
 }
-#adminReferral_wrapper{
-overflow: auto;
+#adminReferral_wrapper {
+  overflow: auto;
 }
 div.dt-buttons {
   display: none;
 }
-table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
   border: 1px solid #8e8e8e;
 }
-table.dataTable tbody td.select-checkbox:before, table.dataTable tbody th.select-checkbox:before {
+table.dataTable tbody td.select-checkbox:before,
+table.dataTable tbody th.select-checkbox:before {
   margin-top: 0px;
 }

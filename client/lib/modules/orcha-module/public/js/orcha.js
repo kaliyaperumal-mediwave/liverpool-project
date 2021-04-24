@@ -94,6 +94,24 @@ $(document).ready(function () {
                         $(i).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                     }
                 });
+                swiper = new Swiper('.swiper-container', {
+                    direction: 'horizontal',
+                    loop: false,
+                    loopedSlides: 0,
+                    slidesPerView: '3',
+                    slidesOffsetAfter: 0,
+                    spaceBetween: 30,
+                    grabCursor: true,
+
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    nextButton: '.swiper-button-next',
+                    prevButton: '.swiper-button-prev',
+                    observer: true,
+                    observeParents: true
+                });
             },
         },
 
