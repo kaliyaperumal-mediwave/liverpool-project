@@ -1154,7 +1154,7 @@ exports.referralStatusUpdate = async (ctx) => {
         const referralModel = ctx.orm().Referral;
 
         let updateValue = {
-            referral_provider: ctx.request.body.status
+            referral_status: ctx.request.body.status
         }
 
         if(ctx.request.body.status === 'Referral to other team'){
