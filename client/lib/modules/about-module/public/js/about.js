@@ -7,6 +7,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             // options: [],
+            showLoadingSpinner:"",
             optionsProxy: [],
             selectedResources: [],
             addressOptions: [],
@@ -874,17 +875,17 @@ $(document).ready(function () {
                 }
             },
 
-            customLabel(option) {
+            customLabel:function (option) {
                 return option
             },
-            updateSelected(value) {
-                value.forEach((resource) => {
+            updateSelected:function(value) {
+                value.forEach(function (resource) {
                     this.selectedResources.push(resource)
                 })
 
                 this.optionsProxy = []
             },
-            cdnRequest(value) {
+            cdnRequest:function(value) {
                 console.log("value=====", value);
                 this.addressOptions = []
                 if (value.length > 6);
@@ -914,12 +915,12 @@ $(document).ready(function () {
                 }
 
             },
-            searchQuery(value) {
+            searchQuery:function(value) {
                 // GET
                 this.cdnRequest(value)
             },
             
-            removeDependency(index) {
+            removeDependency:function(index) {
                 this.selectedResources.splice(index, 1)
             }
         }
