@@ -965,7 +965,7 @@ table.dataTable tbody th.select-checkbox:before {
   border-radius: 100% !important;
   margin-left: 0.25rem;
   line-height: 1;
-  padding: 0px 0px 3px 2px !important;
+  padding: 0px !important;
   width: 34px;
   height: 34px;
   display: flex;
@@ -1178,7 +1178,8 @@ body {
     body .multiselect__strong {
       font-size: 12px; } }
   body .multiselect__tags {
-    padding: 8px 25px 0 4px !important; }
+    padding: 8px 25px 0 4px !important;
+    border: none !important; }
   body .multiselect__tag-icon:focus,
   body .multiselect__tag-icon:hover {
     background: #023047 !important; }

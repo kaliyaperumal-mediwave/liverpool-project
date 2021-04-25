@@ -38,13 +38,13 @@
 
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-7 col-xl-6 mx-auto">
             <div class="py-4" v-cloak>
-                <h2 class="px-2 px-lg-0 py-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                <h2 class="px-0 px-lg-0 py-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     {{sec2dynamicLabel.aboutYouLabel}}</h2>
 
-                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                <div class="p-0 px-lg-0  col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
 
                     <!-- child NHS Number Start-->
-                    <div class="form-group py-2 my-2">
+                    <div class="form-group ">
                         <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
                         <input type="text" class="form-control input-bg-form-control" id="nhs" inputmode="numeric"
                             v-model="aboutObj.nhsNumber" @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"

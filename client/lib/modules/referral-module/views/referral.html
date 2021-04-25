@@ -34,7 +34,7 @@
                     referral
                 </h2> -->
                 <div v-if="userRole == 'child'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_TitileChild', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -47,7 +47,7 @@
                     }
                     }) }}</div>
                 <div v-if="userRole == 'parent'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_Titileparent', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -60,7 +60,7 @@
                     }
                     }) }}</div>
                 <div v-if="userRole == 'professional'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_TitileProffessional', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -78,7 +78,7 @@
 
                 <!--  Support-Start-->
                 <form id="support-form" data-options="support">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="px-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.supportNeedsLabel}}</p>
                         <div class="d-flex form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
