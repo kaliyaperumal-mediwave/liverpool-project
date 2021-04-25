@@ -643,6 +643,9 @@ function logOut() {
         contentType: 'application/json',
         success: function (res) {
             $('#logoutModal').modal('hide');
+            if (localStorage.getItem("role") !== null) {
+                localStorage.removeItem("role");
+            }
             location.href = window.location.origin + '/users/login';
         },
         error: function (error) {
