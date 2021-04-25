@@ -2898,6 +2898,16 @@ $color-scheme: (
       color: $secondary !important;
       background-color: $input-form-color;
     }
+    .text_inside_play-store-orcha{
+      background-color: $primary;
+      color:$secondary;
+    }
+    .seemore{
+      color:$secondary
+    }
+    .titleQuestion{
+      color:$secondary
+    }
     .themeSetDark .multiselect__input {
       background-color: $input-form-color;
     }
