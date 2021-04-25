@@ -64,7 +64,7 @@ function getDynamicLabels(currentLocation) {
     allLabels.triggersPlaceHolder =
       "Is there anything that you or your child have noticed that makes this issue worse for them? Tell us about it here.";
     allLabels.disabilitiesLabel =
-      "Does the child have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
+      "Does the child/young person have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
 
     allLabels.disabilitiesPlaceHolder =
       "Tell us about any disabilities, difficulties, health conditions or challenging behaviours you might have.";
