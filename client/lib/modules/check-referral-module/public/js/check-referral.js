@@ -66,12 +66,14 @@ $(document).ready(function () {
 
             getUserReferral: function (referralType) {
                 //console.log("erer")
+                $('#loader').show();
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/getUserReferral/" + referralType,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
                         $('#loader').hide();
                         let setObj = {};
@@ -184,6 +186,7 @@ $(document).ready(function () {
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
                         if (refObj.referral_progress == "20") {
                             location.href = "/about";
@@ -235,6 +238,7 @@ $(document).ready(function () {
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
+                        cache: false,
                         success: function (data) {
                             _self.searchReferrals = data
 
@@ -298,12 +302,14 @@ $(document).ready(function () {
             searchReferalByCode: function (searchCode) {
                 var _self = this;
                 console.log(searchCode)
+                $('#loader').show();
                 var searchCodeUpperCase = searchCode.toUpperCase()
                 $.ajax({
                     url: API_URI + "/searchReferalByCode/" + searchCode,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
                         $('#loader').hide();
                         _self.searchReferrals = data;

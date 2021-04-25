@@ -117,7 +117,8 @@
                                 completing
                                 your referral.</p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> Alternatively, change your previous answer to continue.</p>
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Alternatively, change your
+                                previous answer to continue.</p>
                         </div>
                     </div>
                 </div>
@@ -951,7 +952,8 @@
                         </div>
                     </div>
                     <div class="form-group mb-1">
-                        <label for="yourAddress" class="question-font">Your address</label>
+                        <label for="yourAddress" class="question-font">Your address - <b>please enter the full
+                                postcode</b></label>
                         {% raw %}
                         <div class="input-group" id="c80236ab-b7d6-4ae8-9c0d-89c24c3c763a">
                             <!-- <input type="text" v-model="elgibilityObj.profAddress" inputmode="search"
@@ -959,12 +961,12 @@
                                 placeholder="Enter your address" class="form-control input-bg-form-control"
                                 id="postCodeAddress" autocomplete="off"> -->
 
-                                <multiselect :options="addressOptions" v-model="elgibilityObj.profAddress"
-                                    @input="updateSelected" @search-change="searchQuery" :searchable="true"
-                                    :close-on-select="true" placeholder="Search" :custom-label="customLabel"
-                                    :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
-                                </multiselect>
-<!-- 
+                            <multiselect :options="addressOptions" v-model="elgibilityObj.profAddress"
+                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                            </multiselect>
+                            <!-- 
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-map-marker fa-2x"></i>

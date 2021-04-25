@@ -190,6 +190,10 @@
                             class="multiselect custom-dropbox-hover themeSetDark">
                         </multiselect>
 
+                        <div class="text-validation invalid-feedback  d-none"
+                            v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),'invalid-fields':(!aboutObj.childAddress && !childManualAddress.length) }">
+                            You must provide a address.
+                        </div>
                         <p class="link-text text-right mb-0 mt-2 cursor-pointer"
                             id="bdeb1825-c05e-4949-974e-93514d3a85b4"
                             @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter

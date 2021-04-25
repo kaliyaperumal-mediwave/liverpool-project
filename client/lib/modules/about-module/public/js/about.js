@@ -7,6 +7,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             // options: [],
+            showLoadingSpinner: "",
             optionsProxy: [],
             selectedResources: [],
             addressOptions: [],
@@ -121,7 +122,7 @@ $(document).ready(function () {
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
             this.isFormSubmitted = false;
             this.fetchSavedData();
-            //  this.initMaps();
+            this.initMaps();
             $('#loader').hide();
         },
 
@@ -131,9 +132,9 @@ $(document).ready(function () {
             initMaps: function () {
                 $('#loader').hide();
                 var _self = this;
-                var childAddress;
+                //var childAddress;
                 var houseHoldAddress;
-                var parentAddress;
+                //var parentAddress;
 
                 // childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
                 //     types: ['geocode'],
@@ -143,21 +144,21 @@ $(document).ready(function () {
                     types: ['establishment'],
                 });
 
-                parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
-                    types: ['geocode'],
-                });
+                // parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
+                //     types: ['geocode'],
+                // });
 
-                google.maps.event.addListener(childAddress, 'place_changed', function () {
-                    _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
-                });
+                // google.maps.event.addListener(childAddress, 'place_changed', function () {
+                //     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                // });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
 
-                google.maps.event.addListener(parentAddress, 'place_changed', function () {
-                    _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
-                });
+                // google.maps.event.addListener(parentAddress, 'place_changed', function () {
+                //     _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
+                // });
             },
 
             //Reset and Question Flow Logic
@@ -882,24 +883,22 @@ $(document).ready(function () {
                 }
             },
 
-            customLabel(option) {
+            customLabel: function (option) {
                 return option
             },
 
             updateSelected(value) {
-                value.forEach((resource) => {
-                    this.selectedResources.push(resource)
-                })
-
+                if (value & value.length) {
+                    this.selectedResources.push(resource);
+                }
                 this.optionsProxy = []
             },
 
             cdnRequest(value) {
-                console.log("value=====", value);
                 this.addressOptions = [];
-                this.showLoadingSpinner = true;
                 if (value && this.postCodeRegex.test(value)) {
                     var _self = this;
+                    _self.showLoadingSpinner = true;
                     var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
                         url: addressApi,
@@ -924,7 +923,6 @@ $(document).ready(function () {
                             } else {
                                 _self.showLoadingSpinner = false;
                             }
-                            console.log(data)
                         },
                         error: function (error) {
                             _self.showLoadingSpinner = false;
