@@ -29,7 +29,7 @@
     </div>
     <!-- Loader end -->
     <div v-cloak class="top-arrow-container pd-container" id="searchBar">
-        <div class="col-md-8 col-lg-6 col-xl-6 col-11 px-0 mb-sm-3"><a href="{{data.bckBtn}}" class="previous-link"><i
+        <div class="col-12 px-0 mb-sm-3"><a href="{{data.bckBtn}}" class="previous-link"><i
                     class="fal fa-long-arrow-left fa-2x ham-icon "></i></a>
             {% raw %}
             <div v-if="showAppContent" class="resource_text pb-sm-0 pt-0"> {{ appObj.smallAppCardInfo.appName }}</div>
@@ -154,7 +154,7 @@
                     <div id="collapseAppDetails" class="collapse" aria-labelledby="headingAppDetails">
                         <div class="justify-content-between align-items-center">
                             <div class="d-flex my-2">
-                                <div class="titleQuestion">
+                                <div class="titleQuestion" style="width: 130px;">
                                     Category:
                                 </div>
                                 <div class="seemore">
@@ -310,7 +310,7 @@
                                     aria-label="Next slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
                                 <div class="swiper-button-prev custom-control-prev" tabindex="0" role="button"
                                     aria-label="Previous slide" aria-controls="swiper-wrapper-81093574348bf1075e"></div>
-                                <div class="swiper-scrollbar"></div>
+                                <!-- <div class="swiper-scrollbar"></div> -->
                                 <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                             </div>
                         </div>
