@@ -1399,16 +1399,39 @@
                                 </div>
 
 
-                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                <!-- <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font px-0 col-12 col-md-4" for="infoAb5">
                                         Info about issue:
                                     </label>
-                                    <textarea
+                                    <textarea id="reqTextArea"
                                         class="col-md-6 col-lg-6 col-xl-5 col-11 h-50 form-control  input-bg-form-control"
                                         name="infoTextAreas" id="infoAb5" rows="3"
                                         v-model="section4Data.referral_issues"
                                         @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
+
+                                    <small class="invalid-feedback d-none"
+                                        v-bind:class="{ 'd-block': (isSection4Submitted && !section4Data.referral_issues),'invalid-fields':!section4Data.referral_issues }">
+                                        You must provide an answer to this question.
+                                    </small>
+                                </div> -->
+
+                                <div class="py-3 w-100 mx-0 row align-items-center">
+                                    <label class="question-font pr-2 col-12 col-md-4 pl-0" for="profLastNameSec5">
+                                        Info about issue:
+                                    </label>
+                                    <div class="col-md-5 col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                        <textarea id="reqTextArea" class=" h-50 form-control input-bg-form-control"
+                                            name="infoTextAreas" id="infoAb5" rows="3"
+                                            v-model="section4Data.referral_issues"
+                                            @input="onDetectChange($event,'sect4','section4Data', 'referral_issues')">{{section4Data.referral_issues}}</textarea>
+
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection4Submitted && !section4Data.referral_issues),'invalid-fields':!section4Data.referral_issues }">
+                                            You must provide an answer to this question.
+                                        </small>
+                                    </div>
                                 </div>
+
 
                                 <div class="py-3 w-100 mx-0 row align-items-center">
                                     <label class="question-font px-0 col-12 col-md-4" for="hasHelp5">
@@ -1723,7 +1746,7 @@
 
 
                 <!-- Send Start -->
-                <div id="send" class="pt-4 pb-3 pt-md-4 pb-md-4">
+                <div id="send" class="">
                     <!-- <h2 class="py-2 px-3 m-0 question-header-font">
                         Send
                     </h2>
@@ -1732,7 +1755,7 @@
                         providing
                         are correct.
                     </p> -->
-                    <div class="review-header-font py-2 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
+                    <div class="review-header-font py-3 col-xl-10 col-lg-6 col-sm-12 col-12"> {{ apos.area(data.page,
                         'review_send', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -1747,7 +1770,7 @@
                         }) }}</div>
                 </div>
                 <!-- Send End -->
-                <div class="text-center pt-2 pb-1">
+                <div class="text-center pb-1">
                     <a>
                         <button @click="save()" type="button" class="btn px-md-4 py-1 px-3"><span
                                 class="btn-secondary-text">ACCEPT &
