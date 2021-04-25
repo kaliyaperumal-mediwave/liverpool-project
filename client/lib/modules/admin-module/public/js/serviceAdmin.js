@@ -17,7 +17,8 @@ $(document).ready(function () {
             searchRefObj: {},
             SelectedProviderType: 'Liverpool',
             SelectedProviderStatus: '',
-            statusOther: ''
+            statusOther: '',
+            role: ''
         },
 
         beforeMount: function () {
@@ -26,6 +27,10 @@ $(document).ready(function () {
 
         mounted: function () {
             // this.fetchAllRef();
+            if (localStorage.role) {
+                this.role = localStorage.role;
+                console.log(this.role);
+            }
             this.fetchReferral();
         },
 
