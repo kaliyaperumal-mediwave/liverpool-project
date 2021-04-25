@@ -105,12 +105,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.yourLastNameLabel = "What is your parent / carer’s last name?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter this person’s last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carers first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is your parent or carers last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carer's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is your parent or carer's last name?";
 
     if (responsibilityFlow === "no" || responsibilityFlow === "yes") {
       section2Labels.relationShipLabel =
-        "What is this persons relationship to you?";
+        "What is this person's relationship to you?";
       section2Labels.guardContactLabel = "What is their contact number?";
       section2Labels.guardContactPlacLabel =
         "Enter your parent/carer's phone number";
@@ -175,8 +175,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.yourLastNameLabel = "What is your last name?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter your last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carers first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carers last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
 
     if (responsibilityFlow === "no") {
       section2Labels.relationShipLabel =
@@ -266,8 +266,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.yourLastNameLabel = "What is the last name of the young person's parent / carer?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter the person’s last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carers first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carers last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
 
     if (responsibilityFlow === "no") {
       section2Labels.relationShipLabel =
