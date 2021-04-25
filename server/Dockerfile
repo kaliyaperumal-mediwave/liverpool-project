@@ -1,7 +1,6 @@
 FROM node:12.19.0-stretch
 # args
 
-RUN apt-get update && apt-get install vim
 ARG BUILD_DATE
 ARG PHR_VERSION
 ARG APP_RELEASE

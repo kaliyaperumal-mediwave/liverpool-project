@@ -19,16 +19,16 @@ spec:
     spec:
       containers:
       - name: phr-${PHR_LIVERPOOL_NAMESPACE}-liverpool-phr
-        image: ${RESEARCH_REGISTRY}/$PHR_LIVERPOOL_NAMESPACE-phr:v${BUILD_NUMBER}
+        image: ${PHR_REGISTRY}/$PHR_LIVERPOOL_NAMESPACE-phr:v${BUILD_NUMBER}
         env:
         - name: APP_PORT
-          value: '3001'
+          value: 3001
         - name: APP_NAME
           value: liverpool-phr
         - name: NODE_ENV
           value: development
         - name: NODE_TLS_REJECT_UNAUTHORIZED
-          value: '0'
+          value: 0
         - name: FROM_EMAIL
           value: $PHR_LIVERPOOL_FROM_EMAIL
         - name: JWT_SECRET
@@ -55,14 +55,32 @@ spec:
           value: $PHR_LIVERPOOL_SSL
         - name: TO_EMAIL
           value: $PHR_LIVERPOOL_TO_EMAIL
-        - name: YPAS_EMAIL 
-          value: $PHR_LIVERPOOL_TO_YPAS_EMAIL 
+        - name: YPAS_EMAIL
+          value: $PHR_LIVERPOOL_TO_YPAS_EMAIL
         - name: VENUS_EMAIL
           value: $PHR_LIVERPOOL_TO_VENUS_EMAIL
         - name: IAPTUS_EMAIL
           value: $PHR_LIVERPOOL_TO_IAPTUS_EMAIL
         - name: OTHER_EMAIL
           value: $PHR_LIVERPOOL_TO_OTHER_EMAIL
+        - name: USE_SENDGRID
+          value: $PHR_LIVERPOOL_USE_SENDGRID
+        - name: EMAIL_HOST
+          value: $PHR_LIVERPOOL_EMAIL_HOST
+        - name: EMAIL_PORT
+          value: $PHR_LIVERPOOL_EMAIL_PORT
+        - name: EMAIL_SECURE
+          value: $PHR_LIVERPOOL_EMAIL_SECURE
+        - name: EMAIL_AUTH_USERNAME
+          value: $PHR_LIVERPOOL_EMAIL_AUTH_USERNAME
+        - name: EMAIL_AUTH_PASSWORD
+          value: $PHR_LIVERPOOL_EMAIL_AUTH_PASSWORD
+        - name: ALDER_HEY_FORMS_EMAIL
+          value: $PHR_LIVERPOOL_TO_ALDER_HEY_FORMS_EMAIL
+        - name: MHST_EMAIL
+          value: $PHR_LIVERPOOL_TO_MHST_EMAIL
+        - name: PARENTING_EMAIL
+          value: $PHR_LIVERPOOL_TO_PARENTING_EMAIL
         ports:
         - containerPort: 3001
 ---
