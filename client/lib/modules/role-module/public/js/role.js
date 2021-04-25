@@ -1382,6 +1382,7 @@ $(document).ready(function () {
                 this.addressOptions = [];
                 if (value && this.postCodeRegex.test(value)) {
                     var _self = this;
+                    _self.addressList = [];
                     _self.showLoadingSpinner = true;
                     var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
