@@ -27,7 +27,7 @@ module.exports = {
 
       req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('about', {
-        headerContent: "About you & your household",
+        headerContent: "Section 2 of 5: About you & your household",
         headerDescription: "Now we need some personal details, such as name & contact details",
         backContent: '/role?' + decryptedUrl,
         home: false,

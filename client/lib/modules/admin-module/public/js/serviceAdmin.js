@@ -17,7 +17,8 @@ $(document).ready(function () {
             searchRefObj: {},
             SelectedProviderType: 'Liverpool',
             SelectedProviderStatus: '',
-            statusOther: ''
+            statusOther: '',
+            role: ''
         },
 
         beforeMount: function () {
@@ -26,6 +27,10 @@ $(document).ready(function () {
 
         mounted: function () {
             // this.fetchAllRef();
+            if (localStorage.role) {
+                this.role = localStorage.role;
+                console.log(this.role);
+            }
             this.fetchReferral();
         },
 
@@ -117,7 +122,7 @@ $(document).ready(function () {
                                     referralRes.data.data[i].gp_location,
                                     referralRes.data.data[i].referrer_type,
                                     referralRes.data.data[i].date,
-                                    referralRes.data.data[i].referral_status == 'Ypas' ? 'Forwarded to partner agency - YPAS' : 
+                                    referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' : 
                                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' : 
                                     referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to '+ referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
                                     "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>"

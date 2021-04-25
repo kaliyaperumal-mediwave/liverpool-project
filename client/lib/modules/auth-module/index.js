@@ -133,6 +133,7 @@ module.exports = {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/logOut';
       self.middleware.post(req, res, url, req.body).then((data) => {
         //console.log(data)
+        localStorage.removeItem("role");
         console.log(req.session.auth_token)
       //  req.session.destroy();
         return res.send(data);

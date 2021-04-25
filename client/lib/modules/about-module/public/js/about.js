@@ -887,17 +887,18 @@ $(document).ready(function () {
                 return option
             },
 
-            updateSelected(value) {
+            updateSelected: function (value) {
                 if (value & value.length) {
                     this.selectedResources.push(resource);
                 }
                 this.optionsProxy = []
             },
 
-            cdnRequest(value) {
+            cdnRequest: function (value) {
                 this.addressOptions = [];
                 if (value && this.postCodeRegex.test(value)) {
                     var _self = this;
+                    _self.addressList = [];
                     _self.showLoadingSpinner = true;
                     var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
                     $.ajax({
@@ -934,11 +935,11 @@ $(document).ready(function () {
 
             },
 
-            searchQuery(value) {
+            searchQuery: function (value) {
                 this.cdnRequest(value)
             },
 
-            removeDependency(index) {
+            removeDependency: function (index) {
                 this.selectedResources.splice(index, 1)
             }
         }

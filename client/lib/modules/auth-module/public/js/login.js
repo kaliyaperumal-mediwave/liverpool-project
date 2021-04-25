@@ -69,6 +69,7 @@ $(document).ready(function () {
                             if (successData.data.sendUserResult.role === 'admin') {
                                 location.href = "/admin";
                             } else {
+                                localStorage.setItem('role', successData.data.sendUserResult.service_admin_type);
                                 location.href = "/admin/serviceAdmin";
                             }
                             return false;
