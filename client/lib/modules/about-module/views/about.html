@@ -182,22 +182,24 @@
 
                     <!-- child address Start-->
                     <div class="form-group py-2 my-2">
-                        <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
-                                {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label></div>
-                        <multiselect :options="addressOptions" v-model="aboutObj.childAddress" @input="updateSelected"
-                            @search-change="searchQuery" :searchable="true" :close-on-select="true" placeholder="Search"
-                            :custom-label="customLabel" :loading="showLoadingSpinner"
-                            class="multiselect custom-dropbox-hover themeSetDark">
-                        </multiselect>
+                        <label for="txtChildAddress" class="question-font">
+                            {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label>
+                        <div id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
+                            <multiselect :options="addressOptions" v-model="aboutObj.childAddress"
+                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                            </multiselect>
 
-                        <div class="text-validation invalid-feedback  d-none"
-                            v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),'invalid-fields':(!aboutObj.childAddress && !childManualAddress.length) }">
-                            You must provide a address.
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),'invalid-fields':(!aboutObj.childAddress && !childManualAddress.length) }">
+                                You must provide a address.
+                            </div>
+                            <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                id="bdeb1825-c05e-4949-974e-93514d3a85b4"
+                                @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
+                                    manually</u></p>
                         </div>
-                        <p class="link-text text-right mb-0 mt-2 cursor-pointer"
-                            id="bdeb1825-c05e-4949-974e-93514d3a85b4"
-                            @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
-                                manually</u></p>
                     </div>
 
                     <div v-if="checkArrayLength(childManualAddress)">
@@ -210,11 +212,11 @@
                                     <div class="d-flex">
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#addressModal" @click="patchAddress(item,'child')">
-                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            <i class="fas fa-pencil fa-2x" aria-hidden="true">
                                             </i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
-                                                data-target="#deleteChildAddressModal" class="fa fa-trash-o fa-2x"
+                                                data-target="#deleteChildAddressModal" class="fas fa-trash-o fa-2x"
                                                 aria-hidden="true"></i>
                                         </span>
                                     </div>
@@ -422,12 +424,12 @@
                                     <div class="d-flex">
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#houseHoldModal" @click="patchHouseHold(item)">
-                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            <i class="fas fa-pencil fa-2x" aria-hidden="true">
                                             </i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
                                                 data-target="#deleteModalAbout" @click="openDeleteModal(item)"
-                                                class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                                                class="fas fa-trash-o fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>
