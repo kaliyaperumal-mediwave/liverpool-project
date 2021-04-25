@@ -887,14 +887,14 @@ $(document).ready(function () {
                 return option
             },
 
-            updateSelected(value) {
+            updateSelected: function (value) {
                 if (value & value.length) {
                     this.selectedResources.push(resource);
                 }
                 this.optionsProxy = []
             },
 
-            cdnRequest(value) {
+            cdnRequest: function (value) {
                 this.addressOptions = [];
                 if (value && this.postCodeRegex.test(value)) {
                     var _self = this;
@@ -934,11 +934,11 @@ $(document).ready(function () {
 
             },
 
-            searchQuery(value) {
+            searchQuery: function (value) {
                 this.cdnRequest(value)
             },
 
-            removeDependency(index) {
+            removeDependency: function (index) {
                 this.selectedResources.splice(index, 1)
             }
         }
