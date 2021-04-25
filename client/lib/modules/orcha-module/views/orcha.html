@@ -35,7 +35,7 @@
             <div v-if="showAppContent" class="resource_text pb-sm-0 pt-0"> {{ appObj.smallAppCardInfo.appName }}</div>
             {% endraw %}
         </div>
-        {% if data.bckBtn != '/orcha/orchahome'%}
+        {% if data.bckBtn != '/apps?b3JjaGFCYWNr'%}
         <input hidden id="resources" value="{{data.searchApps|dump}}">
         <div class="input-group home-primary-content-bg">
             <span class="input-group-prepend">
@@ -330,7 +330,7 @@
 
         {% endraw %}
 
-        {% if data.bckBtn != '/apps'%}
+        {% if data.bckBtn != '/apps?b3JjaGFCYWNr'%}
 
         {% if data .orchaApps and data.orchaApps.length > 1 %}
         <div class="selectSource">

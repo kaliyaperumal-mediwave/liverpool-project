@@ -159,8 +159,8 @@ endblock %} {% block extraHead %}
         <!-- Side Drawer Title -->
         <div class="header-slider d-flex align-items-center ">
           <!-- <div class="slider-header">LOGO</div> -->
-          <a href="/" class="text-decoration-none headlogo slider-header"><img
-             width="95" src="/modules/my-apostrophe-assets/img/liverpool_dark.svg"></a>
+          <a href="/" class="text-decoration-none headlogo slider-header"><img width="95"
+              src="/modules/my-apostrophe-assets/img/liverpool_dark.svg"></a>
 
           <i onclick="closeSideDrawer()" class="fa fa-times-thin close-slider color-white cursor-pointer"
             aria-hidden="true"></i>
@@ -189,8 +189,8 @@ endblock %} {% block extraHead %}
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.urgentHelpPage }}" class="text-decoration-none">Urgent help</a>
           </div>
-          <div class="inside-cont-slider cursor-pointer"  onclick="openApps()">
-            <a  class="text-decoration-none">Apps</a>
+          <div class="inside-cont-slider cursor-pointer" onclick="openApps()">
+            <a class="text-decoration-none">Apps</a>
           </div>
           <div class="inside-cont-slider cursor-pointer">
             <a href="{{ data.resourcesPage }}" class="text-decoration-none"> Resources</a>
@@ -241,7 +241,8 @@ endblock %} {% block extraHead %}
                 <a class="text-decoration-none" href="/account/change_email" class="cursor-pointer">Change email</a>
               </div>
               <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                <a class="text-decoration-none" href="/account/change_password" class="cursor-pointer"> Change password</a>
+                <a class="text-decoration-none" href="/account/change_password" class="cursor-pointer"> Change
+                  password</a>
               </div>
             </div>
           </div>
@@ -328,18 +329,18 @@ endblock %} {% block extraHead %}
 {{superAdmin}}
 {% if data.showHeader or data.adminPanel %}
 <div id='middleCont' class="middleContainer">
-{% else %}
+  {% else %}
   <div id='middleCont' class="removepadding middleContainer">
-{% endif %}
-  <div class="set-mid-padding">
+    {% endif %}
+    <div class="set-mid-padding">
 
-    <!-- {#
+      <!-- {#
     We recommend you use the beforeMain block for global page components
     like headers or navigation.
   #} -->
 
-    <!-- Loader start -->
-    <!-- <div class="overlay" id="loader">
+      <!-- Loader start -->
+      <!-- <div class="overlay" id="loader">
     <div class="overlay__inner">
       <div class="overlay__content">
         <div class="lds-spinner">
@@ -359,10 +360,10 @@ endblock %} {% block extraHead %}
       </div>
     </div>
   </div> -->
-    <!-- Loader end -->
+      <!-- Loader end -->
 
-    <!-- Delete Modal Start -->
-    <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
+      <!-- Delete Modal Start -->
+      <!-- <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-bg">
@@ -385,48 +386,48 @@ endblock %} {% block extraHead %}
         </div>
       </div>
     </div> -->
-    <!-- Delete Modal End -->
+      <!-- Delete Modal End -->
 
-    <!-- Error Modal Start -->
-    <div class="modal fade" id="errorCommon" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
-      aria-labelledby="errorCommonLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content modal-bg">
-          <div class="my-3">
-            <div class="d-flex justify-content-center m-0 cursor-pointer">
-              <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"
-                onclick="closeError()"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+      <!-- Error Modal Start -->
+      <div class="modal fade" id="errorCommon" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="errorCommonLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content modal-bg">
+            <div class="my-3">
+              <div class="d-flex justify-content-center m-0 cursor-pointer">
+                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"
+                  onclick="closeError()"><i class="fal fa-times fa-2x cursor-pointer"></i></i>
+              </div>
             </div>
-          </div>
-          <div class="px-4 py-2 text-center">
-            <span style="color:#DD3939 !important">
-              <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
-            </span>
-            <h5 id="errorContent" class="text-danger logout-font my-4">error content</h5>
-            <span class="d-none" id="74dae8ad-4a79-4a60-845b-603e8a643ceb"></span>
+            <div class="px-4 py-2 text-center">
+              <span style="color:#DD3939 !important">
+                <i class="fas fa-info-circle fa-2x" aria-hidden="true"></i>
+              </span>
+              <h5 id="errorContent" class="text-danger logout-font my-4">error content</h5>
+              <span class="d-none" id="74dae8ad-4a79-4a60-845b-603e8a643ceb"></span>
+            </div>
           </div>
         </div>
       </div>
+      <!-- Error Modal End -->
+
+
+      {% endblock %} {% block main %} {# Usually, your page templates in the
+      apostrophe-pages module will override this block. It is safe to assume this is
+      where your page-specific content should go. #} {% endblock %} {% block afterMain
+      %}
     </div>
-    <!-- Error Modal End -->
-
-
-    {% endblock %} {% block main %} {# Usually, your page templates in the
-    apostrophe-pages module will override this block. It is safe to assume this is
-    where your page-specific content should go. #} {% endblock %} {% block afterMain
-    %}
   </div>
-</div>
-<p id="logId" class="d-none">{{data.loginId}}</p>
-<p id="uRole" class="d-none">{{data.userRole}}</p>
-<p id="uUid" class="d-none">{{data.uuid}}</p>
-<p id="prof_data" class="d-none">{{data.prof_data}}</p>
-<!-- Dont remove this line. it is used in check a referral page -->
-<p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
-<p id="sessionExp">{{data.sessionExp}}</p>
+  <p id="logId" class="d-none">{{data.loginId}}</p>
+  <p id="uRole" class="d-none">{{data.userRole}}</p>
+  <p id="uUid" class="d-none">{{data.uuid}}</p>
+  <p id="prof_data" class="d-none">{{data.prof_data}}</p>
+  <!-- Dont remove this line. it is used in check a referral page -->
+  <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
+  <p id="sessionExp">{{data.sessionExp}}</p>
 
-<div class="footer-bg set-bottom-padding">
-  <!-- <div id="footer-placement" class="footer-bg footer set-bottom-padding">
+  <div class="footer-bg set-bottom-padding">
+    <!-- <div id="footer-placement" class="footer-bg footer set-bottom-padding">
     <div class="footer-container">
       <div>
         <a href="{{ data.aboutPage }}" class="text-decoration-none w-100 "> <span
@@ -458,32 +459,32 @@ endblock %} {% block extraHead %}
 
     </div>
   </div> -->
-  <div id="footer-placement" class="footer-bg footer set-bottom-padding">
-    <div class="footer-container">
-      <ul class="list-inline mb-0">
-        <li class="list-inline-item"> <a href="{{ data.aboutPage }}" class="text-decoration-none w-100 "> <span
-              class="footer-text cursor-pointer">About
-            </span>
-          </a></li>
-        <li class="list-inline-item"><a href="{{ data.termPage }}" class="text-decoration-none w-100 "> <span
-              class="footer-text cursor-pointer">T
-              &
-              Cs</span>
-          </a></li>
-        <li class="list-inline-item"> <a href="{{ data.privacyPage }}" class="text-decoration-none w-100 "> <span
-              class="footer-text cursor-pointer">Privacy</span>
-          </a></li>
-        <li class="list-inline-item"><a href="{{ data.feedbackPage }}" class="text-decoration-none w-100 "> <span
-              class="footer-text cursor-pointer">Feedback</span>
-          </a></li>
-        <li class="list-inline-item"> <a href="{{ data.contactPage }}" class="text-decoration-none w-100 "> <span
-              class="footer-text cursor-pointer">Contact</span>
-          </a></li>
-      </ul>
+    <div id="footer-placement" class="footer-bg footer set-bottom-padding">
+      <div class="footer-container">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item"> <a href="{{ data.aboutPage }}" class="text-decoration-none w-100 "> <span
+                class="footer-text cursor-pointer">About
+              </span>
+            </a></li>
+          <li class="list-inline-item"><a href="{{ data.termPage }}" class="text-decoration-none w-100 "> <span
+                class="footer-text cursor-pointer">T
+                &
+                Cs</span>
+            </a></li>
+          <li class="list-inline-item"> <a href="{{ data.privacyPage }}" class="text-decoration-none w-100 "> <span
+                class="footer-text cursor-pointer">Privacy</span>
+            </a></li>
+          <li class="list-inline-item"><a href="{{ data.feedbackPage }}" class="text-decoration-none w-100 "> <span
+                class="footer-text cursor-pointer">Feedback</span>
+            </a></li>
+          <li class="list-inline-item"> <a href="{{ data.contactPage }}" class="text-decoration-none w-100 "> <span
+                class="footer-text cursor-pointer">Contact</span>
+            </a></li>
+        </ul>
+      </div>
     </div>
-  </div>
 
-  <!-- {#
+    <!-- {#
     This would be a great place to put a global footer.
   #} -->
-  {% endblock %}
+    {% endblock %}

@@ -481,6 +481,8 @@ $(document).ready(function () {
                     this.upsertInforForm(this.payloadData, 3, e.currentTarget.id, beforeSaveElem);
                 }
                 else if (endpoint == "/user/updateSec4Info") {
+                    debugger
+                    var textAreaElem = document.getElementById('reqTextArea');
                     this.isSection4Submitted = true;
                     if (formData.referral_issues == "") {
                         scrollToInvalidInput();
