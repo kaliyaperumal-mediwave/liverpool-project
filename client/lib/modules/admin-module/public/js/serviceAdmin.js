@@ -205,6 +205,11 @@ $(document).ready(function () {
     $(document).on('change', '.tableCheckbox', function (e) {
         vueApp.selectcheck(e.target.checked, e.target.id);
     });
+
+    $(document).on('change', '.reload', function () {
+        console.log('Datatables reload');
+        vueApp.fetchReferral();
+    });
 });
 
 function viewPdf(uuid, role) {
@@ -301,6 +306,7 @@ function sendPdf(uuid, role, refCode, selectedProvider) {
     var referral_provider = $("#SelectedProvider").val();
     var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + referral_provider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {
+        $('.reload').trigger('click');
         $('#sendProviderModal').modal('hide');
         $('#mailSentSuccess').modal('show');
     }
