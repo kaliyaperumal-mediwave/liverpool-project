@@ -151,7 +151,7 @@ $(document).ready(function () {
                     var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
                     $('#loader').hide();
                     if (successData && Object.keys(successData)) {
-                        this.successMessage = 'Referrals archived successfully';
+                        this.successMessage = 'Unarchive successful';
                         $('#deletedSuccess').modal('show');
                     }
                 }
