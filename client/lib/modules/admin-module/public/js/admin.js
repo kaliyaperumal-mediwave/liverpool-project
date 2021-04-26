@@ -16,7 +16,9 @@ $(document).ready(function () {
       draw: 1,
       searchRefObj: {},
       SelectedProviderType: 'Liverpool',
-      loading: false
+      loading: false,
+      SelectedProviderStatus: '',
+      statusOther: ''
     },
     beforeMount: function () {
       $('#loader').show();
@@ -45,8 +47,8 @@ $(document).ready(function () {
       fetchReferral: function () {
         var _self = this;
         $('th').on("click", function (event) {
-          if($(event.target).is("div"))
-              event.stopImmediatePropagation();
+          if ($(event.target).is("div"))
+            event.stopImmediatePropagation();
         });
         var table = $('#adminReferral').DataTable({
           dom: 'lBfrtip',
@@ -66,7 +68,13 @@ $(document).ready(function () {
             { targets: 5, orderable: true },
             { targets: 6, orderable: true },
             { targets: 7, orderable: true, type: 'date-uk' },
-            { targets: 8, orderable: true },
+            {
+              targets: 8,
+              orderable: true,
+              render: function (data, type, i) {
+                return data;
+              }
+            },
             { targets: 9, orderable: false },
           ],
           lengthMenu: [[10, 50, 100, 250, -1], [10, 50, 100, 250, "All"]],
@@ -77,11 +85,12 @@ $(document).ready(function () {
             zeroRecords: 'No matching referrals found'
           },
           buttons: [
-            { extend: 'csv',
-              text: 'Export as CSV', 
+            {
+              extend: 'csv',
+              text: 'Export as CSV',
               title: 'Referrals Data export',
               exportOptions: {
-                columns: [ 1, 2, 3, 4, 5 , 6, 7, 8 ]
+                columns: [1, 2, 3, 4, 5, 6, 7, 8]
               }
             }
           ],
@@ -109,8 +118,10 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].date,
-                  referralRes.data.data[i].referral_provider != 'Pending'? 'Sent to ' + referralRes.data.data[i].referral_provider : referralRes.data.data[i].referral_provider,
-                  "<div class='d-flex'><button  onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button></div>"
+                  referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' : 
+                  referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' : 
+                  referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to '+ referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>"
                 ]);
               }
               return JSON.stringify(json);
@@ -139,14 +150,15 @@ $(document).ready(function () {
       },
       deleteReferral: function () {
         if (this.referral_ids.length) {
+          var _self = this;
           $('#loader').show();
-          setTimeout(() => {
-            var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'deleted' });
+          setTimeout(function () {
+            var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'deleted' });
             if (successData && Object.keys(successData)) {
-              this.successMessage = 'Referrals deleted successfully'
-              this.fetchReferral();
+              _self.successMessage = 'Referrals deleted successfully'
+              _self.fetchReferral();
               $('#deletedSuccess').modal('show');
-              setTimeout(() => {
+              setTimeout(function () {
                 $('#loader').hide();
               }, 500);
             } else {
@@ -156,15 +168,16 @@ $(document).ready(function () {
         }
       },
       archiveReferral: function () {
-        if (this.referral_ids.length) {
+        var _self = this;
+        if (_self.referral_ids.length) {
           $('#loader').show();
-          setTimeout(() => {
-            var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
+          setTimeout(function () {
+            var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'archived' });
             if (successData && Object.keys(successData)) {
-              this.successMessage = 'Referrals archived successfully';
-              this.fetchReferral();
+              _self.successMessage = 'Referrals archived successfully';
+              _self.fetchReferral();
               $('#deletedSuccess').modal('show');
-              setTimeout(() => {
+              setTimeout(function () {
                 $('#loader').hide();
               }, 500);
             } else {
@@ -182,6 +195,10 @@ $(document).ready(function () {
         $('#example').DataTable().ajax.reload();
         $('#mailSentSuccess').modal('hide');
       },
+      closeUpdateSuccessPopup: function () {
+        $('#adminReferral').DataTable().ajax.reload();
+        $('#statusUpdatedSuccess').modal('hide');
+      },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').hide();
@@ -193,39 +210,85 @@ $(document).ready(function () {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
   $(document).on('change', '.reload', function () {
-      console.log('Datatables reload');
-      vueApp.fetchReferral();
+    console.log('Datatables reload');
+    vueApp.fetchReferral();
   });
   $(document).on('click', '#ExportReporttoExcel', function () {
-     vueApp.resetReferral();
+    vueApp.resetReferral();
   });
 });
 function viewPdf(uuid, role) {
+  var _self = this;
   $('#loader').show();
-  setTimeout(() => {
+  setTimeout(function () {
     var successData = apiCallGet('get', '/downloadReferral/' + uuid + "/" + role, API_URI);
-    var blob = new Blob([this.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
-    var isIE = false || !!document.documentMode;
-    var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-    if(!isIE && !isSafari)
-    {
-      var link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.target = '_blank'
-      link.click();
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-    }
-    else
-    {
-      download(blob, uuid+".pdf", "application/pdf");
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
+    if (successData && Object.keys(successData)) {
+      var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
+      var isIE = false || !!document.documentMode;
+      var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+      if (!isIE && !isSafari) {
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.target = '_blank'
+        link.click();
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      } else {
+        download(blob, uuid + ".pdf", "application/pdf");
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
     }
   }, 500);
 }
+
+function changeStatus(uuid, value, other_value) {
+  if (value === 'Referral to other team' && other_value != null) {
+      $('#SelectedProviderStatus').val(other_value);
+  } else {
+    $('#SelectedProviderStatus').val('');
+  }
+  document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
+  $('#changeStatusModal').modal('show');
+  setTimeout(function () {
+    $("#SelectedProviderStatus").val(value);
+  }, 500);
+}
+
+function updateStatus(uuid) {
+  $('#loader').show();
+  var status = $('#SelectedProviderStatus').val();
+  var postData = {
+    referral_id: uuid,
+    status: status
+  }
+  if (status === 'Referral to other team') {
+    postData.other = $('#statusOther').val();
+  }
+  if (status && uuid) {
+    setTimeout(function () {
+      var successData = apiCallPut('put', '/referralStatusUpdate', postData);
+      if (successData && Object.keys(successData)) {
+        $('#statusOther').val('')
+        $('#changeStatusModal').modal('hide');
+        $('#statusUpdatedSuccess').modal('show');
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
+      else {
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+        $('#changeStatusModal').modal('hide');
+      }
+    }, 500);
+  }
+}
+
+
 function toArrayBuffer(buf) {
   var ab = new ArrayBuffer(buf.length);
   var view = new Uint8Array(ab);
@@ -236,7 +299,7 @@ function toArrayBuffer(buf) {
 }
 function sendPdf(uuid, role, refCode) {
   $('#loader').show();
-  setTimeout(() => {
+  setTimeout(function () {
     var selectedProvider = document.getElementById('SelectedProvider').value;
     var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
     if (successData && Object.keys(successData)) {

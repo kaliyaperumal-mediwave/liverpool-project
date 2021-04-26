@@ -3,11 +3,16 @@ var API_URI = "/modules/role-module";
 $(document).ready(function () {
 
     Vue.component('date-picker', VueBootstrapDatetimePicker);
+    Vue.component('vue-multiselect', window.VueMultiselect.default)
     var _self = this;
     var app = new Vue({
         el: '#role-form',
-
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            showLoadingSpinner: "",
+            optionsProxy: [],
+            selectedResources: [],
+            addressOptions: [],
             gpListShow: [],
             elgibilityObj: {
                 role: '',
@@ -60,6 +65,7 @@ $(document).ready(function () {
             date: null,
             dateWrap: true,
             showInputLoader: false,
+            showLoadingSpinner: false,
             showInputLoaderProf: false,
             options: {
                 //format: 'YYYY/MM/DD',
@@ -92,9 +98,11 @@ $(document).ready(function () {
             gpFlag: false,
             date: '',
             dateFmt: '',
+            addressList: [],
             //phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
-            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
+            //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
         },
 
@@ -103,6 +111,7 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            this.isSubmitted = false;
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
             var disableProfessional = document.getElementById('96dda9ca-9328-47e8-ac1a-8cdc972df4d0').lastElementChild;
@@ -136,19 +145,21 @@ $(document).ready(function () {
             this.elgibilityObj.uuid = document.getElementById('uUid').innerHTML;
             //console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
-            this.initMaps();
+            //this.initMaps();
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
         },
 
         methods: {
             initMaps: function () {
-                var _self = this;
-                professionalAddress = new google.maps.places.Autocomplete((document.getElementById('txtProfessionalAddress')), {
-                    types: ['geocode'],
-                });
-                google.maps.event.addListener(professionalAddress, 'place_changed', function () {
-                    _self.elgibilityObj.profAddress = professionalAddress.getPlace().formatted_address;
+                var availableTutorials = [
+                    "ActionScript",
+                    "Bootstrap",
+                    "C",
+                    "C++",
+                ];
+                $("#automplete-1").autocomplete({
+                    source: availableTutorials
                 });
             },
             fetchSavedData: function () {
@@ -1279,6 +1290,7 @@ $(document).ready(function () {
                 }
                 return ret_arr;
             },
+
             clearGP: function (e) {
                 if (e.target.value && !e.target.value.replace(/ /g, "").length) {
                     this.elgibilityObj.reason_contact_parent_camhs = e.target.value.trim();
@@ -1290,6 +1302,7 @@ $(document).ready(function () {
 
                 }
             },
+
             validatePostCode: function (postCode) {
                 var isRange = true;
                 if (postCode) {
@@ -1306,11 +1319,111 @@ $(document).ready(function () {
             },
 
             changePrevAns: function (attributeValue, inputId) {
-
                 this.elgibilityObj[attributeValue] = "";
                 //document.getElementById(inputId).focus();
-            }
+            },
 
+            getAddressPostcode: function (e) {
+                var searchPostCode = e.target.value;
+                // console.log(this.getStringLength(searchPostCode))
+                if (searchPostCode.length > 6);
+                {
+                    var _self = this;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + searchPostCode + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            console.log(data.Summaries)
+                            _self.addressList = [];
+                            for (i = 0; i < data.Summaries.length; i++) {
+                                console.log(data.Summaries[i].StreetAddress + ',' + searchPostCode)
+                                _self.addressList.push(data.Summaries[i].StreetAddress + ',' + searchPostCode);
+                            }
+                            // var addList=[];
+                            addList = _self.addressList;
+                            console.log(addList)
+                            if (addList > 0) {
+                                $("#postCodeAddress").autocomplete({
+                                    source: addList,
+                                    select: function (event, ui) {
+                                        console.log(event)
+                                    },
+                                    close: function () {
+
+                                    }
+                                });
+                            }
+                        },
+                        error: function (error) {
+                        }
+                    });
+                }
+            },
+
+            customLabel: function (option) {
+                return option;
+            },
+
+            updateSelected: function (value) {
+                if (value & value.length) {
+                    this.selectedResources.push(resource);
+                }
+                this.optionsProxy = []
+            },
+
+            cdnRequest: function (value) {
+                this.addressOptions = [];
+                if (value && this.postCodeRegex.test(value)) {
+                    var _self = this;
+                    _self.addressList = [];
+                    _self.showLoadingSpinner = true;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            if (data.Error && Object.keys(data.Error).length) {
+                                _self.showLoadingSpinner = false;
+                                return false;
+                            }
+                            if (data.Summaries && data.Summaries.length) {
+                                for (i = 0; i < data.Summaries.length; i++) {
+                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                                }
+                                _self.addressOptions = _self.addressList;
+                                _self.showLoadingSpinner = false;
+                            } else {
+                                _self.showLoadingSpinner = false;
+                            }
+                        },
+                        error: function (error) {
+                            _self.showLoadingSpinner = false;
+                        }
+                    });
+                }
+
+            },
+
+            searchQuery: function (value) {
+                this.cdnRequest(value)
+            },
+
+            removeDependency: function (index) {
+                this.selectedResources.splice(index, 1)
+            }
         }
     })
 

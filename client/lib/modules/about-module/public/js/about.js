@@ -1,9 +1,16 @@
 var API_URI = "/modules/about-module";
 $(document).ready(function () {
     Vue.component('date-picker', VueBootstrapDatetimePicker);
+    Vue.component('vue-multiselect', window.VueMultiselect.default)
     var app = new Vue({
         el: '#about-form',
+        components: { Multiselect: window.VueMultiselect.default },
         data: {
+            // options: [],
+            showLoadingSpinner: "",
+            optionsProxy: [],
+            selectedResources: [],
+            addressOptions: [],
             labelToDisplay: "",
             aboutObj: {
                 nhsNumber: "",
@@ -48,6 +55,7 @@ $(document).ready(function () {
                 minDate: new Date(1950, 10, 25),
                 maxDate: moment().endOf('day').add(1, 'sec'),
             },
+            showLoadingSpinner: false,
             sec2dynamicLabel: {},
             houseHoldData: {
                 name: '',
@@ -89,9 +97,9 @@ $(document).ready(function () {
             isFormSubmitted: false,
             isManualAddress: false,
             isHouseHoldFormSubmitted: false,
-            //phoneRegex: /^[0-9,-]{10,15}$|^$/,
+            phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
-            phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
+            // phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
             userRole: '',
@@ -101,7 +109,8 @@ $(document).ready(function () {
             paramValues: [],
             editPatchFlag: false,
             storeDeleteData: null,
-            dateFmt: ''
+            dateFmt: '',
+            addressList: [],
         },
         beforeMount: function () {
             $('#loader').show();
@@ -111,6 +120,7 @@ $(document).ready(function () {
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
+            this.isFormSubmitted = false;
             this.fetchSavedData();
             this.initMaps();
             $('#loader').hide();
@@ -122,33 +132,33 @@ $(document).ready(function () {
             initMaps: function () {
                 $('#loader').hide();
                 var _self = this;
-                var childAddress;
+                //var childAddress;
                 var houseHoldAddress;
-                var parentAddress;
+                //var parentAddress;
 
-                childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
-                    types: ['geocode'],
-                });
+                // childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
+                //     types: ['geocode'],
+                // });
 
                 houseHoldAddress = new google.maps.places.Autocomplete((document.getElementById('educLocation')), {
                     types: ['establishment'],
                 });
 
-                parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
-                    types: ['geocode'],
-                });
+                // parentAddress = new google.maps.places.Autocomplete((document.getElementById('gpParentorCarerLocation')), {
+                //     types: ['geocode'],
+                // });
 
-                google.maps.event.addListener(childAddress, 'place_changed', function () {
-                    _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
-                });
+                // google.maps.event.addListener(childAddress, 'place_changed', function () {
+                //     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                // });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
                 });
 
-                google.maps.event.addListener(parentAddress, 'place_changed', function () {
-                    _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
-                });
+                // google.maps.event.addListener(parentAddress, 'place_changed', function () {
+                //     _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
+                // });
             },
 
             //Reset and Question Flow Logic
@@ -373,9 +383,9 @@ $(document).ready(function () {
                     && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
                 ) {
                     if (formData.childAddress || this.childManualAddress.length) {
-                        if ((formData.parentialResponsibility == 'no' && !formData.parentCarerFirstName && !formData.parentCarerLastName) || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                        if (formData.parentialResponsibility == 'no' && (!formData.parentCarerFirstName || !formData.parentCarerLastName || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
                             || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
-                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress))) {
+                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
@@ -550,6 +560,7 @@ $(document).ready(function () {
             upsertAboutYouForm: function (payload) {
                 var responseData = apiCallPost('post', '/saveReferral', payload);
                 if (responseData && Object.keys(responseData)) {
+
                     $('#loader').hide();
                     if (this.paramValues != undefined) {
                         if (this.paramValues[0] == "sec5back") {
@@ -570,6 +581,9 @@ $(document).ready(function () {
 
             //Adding and Updating a HouseHold logic
             upsertHouseHold: function () {
+                debugger
+                var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
+                console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;
                 var houseHoldForm = this.houseHoldData;
                 var modal = document.getElementById('closeModalRaj');
@@ -602,6 +616,8 @@ $(document).ready(function () {
 
                         } else {
                             modal.removeAttribute("data-dismiss", "modal");
+                            errorElements[0].previousElementSibling.querySelector('input').focus();
+                            errorElements[0].previousElementSibling.querySelector('input').select();
                             return;
                         }
                     } else {
@@ -630,6 +646,8 @@ $(document).ready(function () {
                     }
                 } else {
                     modal.removeAttribute("data-dismiss", "modal");
+                    errorElements[0].previousElementSibling.querySelector('input').focus();
+                    errorElements[0].previousElementSibling.querySelector('input').select();
                     return;
                 }
             },
@@ -864,6 +882,70 @@ $(document).ready(function () {
                     return yyyy + '-' + (mmChars[1] ? mm : "0" + mmChars[0]) + '-' + (ddChars[1] ? dd : "0" + ddChars[0]);
                 }
             },
+
+            customLabel: function (option) {
+                return option
+            },
+
+            updateSelected: function (value) {
+                if (value & value.length) {
+                    this.selectedResources.push(resource);
+                }
+                this.optionsProxy = []
+            },
+
+            cdnRequest: function (value) {
+                this.addressOptions = [];
+                if (value && this.postCodeRegex.test(value)) {
+                    var _self = this;
+                    _self.addressList = [];
+                    _self.showLoadingSpinner = true;
+                    var addressApi = "https://samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com/ByPostcode/json?postcode=" + value + "&key=NRU3-OHKW-J8L2-38PX&username=guest"
+                    $.ajax({
+                        url: addressApi,
+                        type: 'get',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        "headers": {
+                            "x-rapidapi-key": "0bd50d58e7mshbf91d1bd48fd6ecp124a09jsn0ca995389a59",
+                            "x-rapidapi-host": "samsinfield-postcodes-4-u-uk-address-finder.p.rapidapi.com"
+                        },
+                        success: function (data) {
+                            if (data.Error && Object.keys(data.Error).length) {
+                                _self.showLoadingSpinner = false;
+                                return false;
+                            }
+                            if (data.Summaries && data.Summaries.length) {
+                                for (i = 0; i < data.Summaries.length; i++) {
+                                    _self.addressList.push(data.Summaries[i].Place + ', ' + data.Summaries[i].StreetAddress + ', ' + value);
+                                }
+                                _self.addressOptions = _self.addressList;
+                                _self.showLoadingSpinner = false;
+                            } else {
+                                _self.showLoadingSpinner = false;
+                            }
+                        },
+                        error: function (error) {
+                            _self.showLoadingSpinner = false;
+                        }
+                    });
+                } else {
+                    this.showLoadingSpinner = false;
+                }
+
+            },
+
+            searchQuery: function (value) {
+                this.cdnRequest(value)
+            },
+
+            removeDependency: function (index) {
+                this.selectedResources.splice(index, 1)
+            }
         }
     })
 });
+
+
+
+

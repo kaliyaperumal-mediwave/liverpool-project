@@ -21,6 +21,15 @@
 body {
   font-family: "century-gothic" !important;
 
+  // select:invalid,
+  // select option[value=""] {
+  //   color: #495057;
+  // }
+
+  // [hidden] {
+  //   display: none;
+  // }
+
   .multiselect {
     font-family: "century-gothic" !important;
     color: #023047;
@@ -54,6 +63,7 @@ body {
   }
   .multiselect__tags {
     padding: 8px 25px 0 4px !important;
+    border:none !important
   }
   .multiselect__tag-icon:focus,
   .multiselect__tag-icon:hover {
@@ -104,10 +114,6 @@ body {
       max-width: 60% !important;
     }
   }
-
-  // select option {
-  //   text-transform: capitalize !important;
-  // }
 
   .h-75px {
     @include set-dynamicHeight(75px);
@@ -1591,8 +1597,8 @@ a {
   font-size: 14px;
   border-bottom: 1px solid #112f45;
 }
-.collapse-body .inside-cont-slider{
-padding:16px 32px !important;
+.collapse-body .inside-cont-slider {
+  padding: 16px 32px !important;
 }
 // .collapse-body .inside-cont-slider:hover{
 //   background: #dee1e4;
@@ -1872,7 +1878,7 @@ select.selectIcon {
     padding: 7px 0px 0px 7px;
   }
   @include xl-screen {
-    width: 180px;
+    width: 154px;
   }
 }
 .collapse-title {
@@ -2900,9 +2906,16 @@ $color-scheme: (
     }
     .themeSetDark .multiselect__content-wrapper {
       background-color: $input-form-color;
+      color:$secondary;
+      font-weight: 500;
+    }
+    .multiselect__content-wrapper{
+      margin: 1px 0px !important;
     }
     .themeSetDark .multiselect__tags .multiselect__single {
       background-color: $input-form-color;
+      color:$secondary;
+      font-weight: 500;
     }
     .card-set-container-bg {
       background: $primary 0% 0% no-repeat padding-box;
@@ -3064,6 +3077,7 @@ $color-scheme: (
     }
     .plain-select::after {
       border-top: 6px solid $secondary !important;
+      z-index: 0 !important;
     }
     .option-font {
       color: $secondary;
@@ -3823,10 +3837,10 @@ div.collapse-container.collapsing {
     width: 154px;
   }
 }
-.heightSetLabel{
-height: 40px !important;
-@include sm-inc-screen{
-  height: auto !important;
-  min-height: 40px !important;
-}
+.heightSetLabel {
+  height: 40px !important;
+  @include sm-inc-screen {
+    height: auto !important;
+    min-height: 40px !important;
+  }
 }

@@ -71,8 +71,11 @@ exports.signup = async (ctx) => {
 }
 exports.login = async (ctx) => {
     const { error } = loginValidation(ctx.request.body);
+
     if (error) {
-        return ctx.body = error;
+        return ctx.res.badRequest({
+            message: reponseMessages[1004],
+        });
     } else {
         const user = ctx.orm().User;
         const userEmail = (ctx.request.body.email).toLowerCase();
@@ -83,7 +86,6 @@ exports.login = async (ctx) => {
             attributes: ['uuid', 'first_name', 'last_name', 'password', 'email', 'user_role', 'service_type']
         }).then(async (userResult) => {
             if (userResult) {
-                console.log(userResult);
                 const checkPassword = await bcrypt.compare(ctx.request.body.password, userResult.password)
                 if (checkPassword) {
                     const payload = { email: userResult.email, id: userResult.uuid, role: userResult.user_role };
@@ -273,8 +275,11 @@ exports.changeEmail = async (ctx) => {
 
 exports.forgotPassword = async (ctx) => {
     const { error } = forgotPasswordValidation(ctx.request.body);
+    console.log('error-------', error);
     if (error) {
-        return ctx.body = error;
+        return ctx.res.badRequest({
+            message: reponseMessages[1020],
+        });
     }
     try {
         const {

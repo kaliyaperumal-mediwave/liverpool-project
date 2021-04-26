@@ -36,12 +36,12 @@ module.exports = {
       req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
 
       return self.sendPage(req, self.renderer('education', {
-        headerContent: "Section 3 of 5: Education / employment & support needs",
-        headerDescription: "",
+        headerContent: "Section 3 of 5: Education, employment & support needs",
+        headerDescription: "We also need details about school & employment",
         backContent: '/about?' + decryptedUrl,
         home: false,
         showHeader: true,
-        completed: true,
+        //completed: true,
         hideRefButton: false,
       }));
     };

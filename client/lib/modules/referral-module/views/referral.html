@@ -34,7 +34,7 @@
                     referral
                 </h2> -->
                 <div v-if="userRole == 'child'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_TitileChild', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -47,7 +47,7 @@
                     }
                     }) }}</div>
                 <div v-if="userRole == 'parent'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_Titileparent', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -60,7 +60,7 @@
                     }
                     }) }}</div>
                 <div v-if="userRole == 'professional'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_TitileProffessional', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -78,7 +78,7 @@
 
                 <!--  Support-Start-->
                 <form id="support-form" data-options="support">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="px-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.supportNeedsLabel}}</p>
                         <div class="d-flex form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
@@ -197,7 +197,7 @@
                             <label for="mainEatDiff" class="question-font">Please give a brief outline of
                                 {{dynamicLabels.briefOutlineLabel}} daily food/fluid intake:</label>
                             <textarea class="h-112 form-control input-bg-form-control" name="briefOutlineInfo"
-                                id="mainEatDiff" placeholder="Tell us about diet,eating habits,quantities"
+                                id="mainEatDiff" placeholder="Tell us about diet, eating habits, quantities etc"
                                 @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
                                 rows="7"></textarea>
                         </div>
@@ -623,12 +623,8 @@
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </template>
                                 <template v-else>
@@ -657,18 +653,14 @@
                                     <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                 </div>
                                 <div v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <div class="text-center m-0 py-2">
@@ -686,7 +678,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="text-center py-4">
                         <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                 class="btn-secondary-text">SAVE &
@@ -713,12 +705,8 @@
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </template>
                                 <template v-else>
@@ -748,18 +736,14 @@
                                     <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                 </div>
                                 <div v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <div class="text-center m-0 py-2">
@@ -777,7 +761,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="text-center py-4">
                         <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                 class="btn-secondary-text">SAVE &
@@ -804,12 +788,8 @@
                                     </template>
                                 </p>
                                 <template v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </template>
                                 <template v-else>
@@ -838,18 +818,14 @@
                                     <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                 </div>
                                 <div v-if="referralData.referralInfo">
-                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least,
-                                        lets
-                                        get your
-                                        contact
-                                        preferences, and give you a chance to review
-                                        your answers.</p>
+                                    <p class="question-font text-center m-0 py-2">Fab. Last but not least, let's get
+                                        your contact preferences and give you a chance to review your answers.</p>
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
+                    <!-- <div class="px-4 py-4" v-if="isFormSubmitted && !referralData.referralInfo">
                         <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                             <div class="px-2 py-2">
                                 <div class="text-center m-0 py-2">
@@ -867,7 +843,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="text-center py-4">
                         <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
                                 class="btn-secondary-text">SAVE &
@@ -944,7 +920,7 @@
                                         outbursts of anger
                                     </h3>
                                     <p class="support-modal-link-text cursor-pointer text-left m-0 py-2"> <a
-                                            href="/mental-health">> Find out
+                                            href="/mental-health" target="_blank">> Find out
                                             more
                                             about mental
                                             health</a></p>

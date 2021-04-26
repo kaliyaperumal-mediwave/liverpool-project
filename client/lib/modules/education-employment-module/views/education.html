@@ -514,9 +514,8 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </div>
                             <div>
-                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the 1
-                                    reasons
+                                <p class="question-font text-center m-0 pt-2">Over halfway there. </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: reasons
                                     for
                                     your referral request.</p>
                             </div>
@@ -533,9 +532,8 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </div>
                             <div>
-                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the 1
-                                    reasons
+                                <p class="question-font text-center m-0 pt-2">Over halfway there. </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: reasons
                                     for
                                     your referral request.</p>
                             </div>
@@ -552,9 +550,8 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </div>
                             <div>
-                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the 1
-                                    reasons
+                                <p class="question-font text-center m-0 pt-2">Over halfway there. </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: reasons
                                     for
                                     your referral request.</p>
                             </div>
@@ -571,9 +568,8 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </div>
                             <div>
-                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the 1
-                                    reasons
+                                <p class="question-font text-center m-0 pt-2">Over halfway there.</p>
+                                <p class="question-font text-center m-0 pb-2">Next section: reasons
                                     for
                                     your referral request.</p>
                             </div>
@@ -583,7 +579,7 @@
                 </div>
 
                 <!-- Error Block for Yes start -->
-                <div class="px-4 py-4"
+                <!-- <div class="px-4 py-4"
                     v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -728,16 +724,14 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- Error Block for Yes start -->
 
                 <div class="text-center py-4" v-if="educAndEmpData.haveSocialWorker == 'yes'">
-                    <a>
-                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE</span></button>
-                    </a>
+                    <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            class="btn-secondary-text">SAVE &
+                            CONTINUE</span></button>
                 </div>
                 <!-- Dynamic Toaster start Scenario 1 End-->
 
@@ -751,9 +745,8 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </div>
                             <div>
-                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the 1
-                                    reasons
+                                <p class="question-font text-center m-0 pt-2">Over halfway there.</p>
+                                <p class="question-font text-center m-0 pb-2">Next section: reasons
                                     for
                                     your referral request.</p>
                             </div>
@@ -770,9 +763,8 @@
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </div>
                             <div>
-                                <p class="question-font text-center m-0 pt-2">Over half way there! </p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the 1
-                                    reasons
+                                <p class="question-font text-center m-0 pt-2">Over halfway there. </p>
+                                <p class="question-font text-center m-0 pb-2">Next section: reasons
                                     for
                                     your referral request.</p>
                             </div>
@@ -780,7 +772,7 @@
                     </div>
                 </div>
 
-                <div class="px-4 py-4"
+                <!-- <div class="px-4 py-4"
                     v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'no' && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
@@ -794,15 +786,12 @@
                                 page.</p>
                         </div>
                     </div>
-                </div>
-
+                </div> -->
 
                 <div v-if="educAndEmpData.haveSocialWorker == 'no'" class="text-center py-4">
-                    <a>
-                        <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
-                                class="btn-secondary-text">SAVE &
-                                CONTINUE</span></button>
-                    </a>
+                    <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span
+                            class="btn-secondary-text">SAVE &
+                            CONTINUE</span></button>
                 </div>
                 <!-- Dynamic Toaster start Scenario 2 End-->
 

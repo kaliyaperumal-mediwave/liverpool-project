@@ -35,8 +35,8 @@ module.exports = {
       // }
       req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('review', {
-        headerContent: "Section 5 of 5: Preferences and review",
-        headerDescription: "Finally please review all the information you have provided to check if anything needs changing",
+        headerContent: "Section 5 of 5: Form review & contact preferences",
+        headerDescription: "Check over your answers and let us know how to keep in touch",
         backContent: '/referral?' + decryptedUrl,
         home: false,
         showHeader: true,

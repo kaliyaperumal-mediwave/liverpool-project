@@ -3,6 +3,10 @@
 {% block extraBody %}
 <script src="/modules/about-module/js/labels.js"></script>
 <script src="/modules/about-module/js/about.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 {% endblock %}
 {% block main %}
 <div id="about-form">
@@ -34,13 +38,13 @@
 
         <div class="secondary-content-area col-md-6 col-sm-11 col-11 col-lg-7 col-xl-6 mx-auto">
             <div class="py-4" v-cloak>
-                <h2 class="px-2 px-lg-0 py-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                <h2 class="px-0 px-lg-0 py-2 m-0 question-header-font col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                     {{sec2dynamicLabel.aboutYouLabel}}</h2>
 
-                <div class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
+                <div class="p-0 px-lg-0  col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
 
                     <!-- child NHS Number Start-->
-                    <div class="form-group py-2 my-2">
+                    <div class="form-group ">
                         <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
                         <input type="text" class="form-control input-bg-form-control" id="nhs" inputmode="numeric"
                             v-model="aboutObj.nhsNumber" @input="trimWhiteSpace($event,'aboutObj','nhsNumber')"
@@ -178,27 +182,24 @@
 
                     <!-- child address Start-->
                     <div class="form-group py-2 my-2">
-                        <div id="navigateiside"> <label for="txtChildAddress" class="question-font">
-                                {{sec2dynamicLabel.addressLabel}}</label></div>
-                        <div class="input-group" id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
-                            <input type="text" class="form-control input-bg-form-control" inputmode="search"
-                                placeholder="Start typing to search"
-                                @input="trimWhiteSpace($event,'aboutObj','childAddress')" id="txtChildAddress"
-                                aria-label="location" v-model="aboutObj.childAddress">
-                            <div class="input-group-append">
-                                <span class="input-group-text px-3">
-                                    <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
-                                </span>
+                        <label for="txtChildAddress" class="question-font">
+                            {{sec2dynamicLabel.addressLabel}} - <b>please enter the full postcode</b></label>
+                        <div id="cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7">
+                            <multiselect :options="addressOptions" v-model="aboutObj.childAddress"
+                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                            </multiselect>
+
+                            <div class="text-validation invalid-feedback  d-none"
+                                v-bind:class="{ 'd-block':(isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),'invalid-fields':(!aboutObj.childAddress && !childManualAddress.length) }">
+                                You must provide a address.
                             </div>
-                            <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && (!aboutObj.childAddress && !childManualAddress.length)),
-                                'invalid-fields':!aboutObj.childAddress && !childManualAddress.length }">
-                                You must provide an address.
-                            </div>
+                            <p class="link-text text-right mb-0 mt-2 cursor-pointer"
+                                id="bdeb1825-c05e-4949-974e-93514d3a85b4"
+                                @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
+                                    manually</u></p>
                         </div>
-                        <p class="link-text text-right mb-0 mt-2 cursor-pointer"
-                            id="bdeb1825-c05e-4949-974e-93514d3a85b4"
-                            @click="getManualAddress('bdeb1825-c05e-4949-974e-93514d3a85b4')"><u>Enter
-                                manually</u></p>
                     </div>
 
                     <div v-if="checkArrayLength(childManualAddress)">
@@ -211,11 +212,11 @@
                                     <div class="d-flex">
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#addressModal" @click="patchAddress(item,'child')">
-                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            <i class="fas fa-pencil fa-2x" aria-hidden="true">
                                             </i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
-                                                data-target="#deleteChildAddressModal" class="fa fa-trash-o fa-2x"
+                                                data-target="#deleteChildAddressModal" class="fas fa-trash-o fa-2x"
                                                 aria-hidden="true"></i>
                                         </span>
                                     </div>
@@ -369,7 +370,7 @@
                                         <a href="https://www.liverpoolcamhs.com/need-advice/gender-identity/"
                                             target="_blank">
                                             Learn
-                                            More about Gender Identity - LIverpool CAMHS
+                                            More about Gender Identity - Liverpool CAMHS
                                         </a>
                                     </p>
                                 </div>
@@ -423,12 +424,12 @@
                                     <div class="d-flex">
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#houseHoldModal" @click="patchHouseHold(item)">
-                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
+                                            <i class="fas fa-pencil fa-2x" aria-hidden="true">
                                             </i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
                                                 data-target="#deleteModalAbout" @click="openDeleteModal(item)"
-                                                class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
+                                                class="fas fa-trash-o fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -890,17 +891,24 @@
                         class="px-2 px-lg-0 py-2 col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
                         <div class="form-group py-2 m-0">
                             <label for="gpParentorCarerLocation" class="question-font">{{sec2dynamicLabel.guardAddress}}
-                                - <b>optional</b></label>
+                                - <b>optional. Please enter the full postcode.</b></label>
                             <div class="input-group" id="e97aa97c-34b6-4874-b2d0-b29c194dfdd2">
-                                <input type="text" class="form-control input-bg-form-control" inputmode="search"
-                                    @input="trimWhiteSpace($event,'aboutFormData','parentOrCarrerAddress')"
+                                <!-- <input type="text" class="form-control input-bg-form-control" inputmode="search"
+                                    @input="getAddressPostcode($event)" name="parentPostCode"
                                     v-bind:placeholder="sec2dynamicLabel.guardPlacAddress" id="gpParentorCarerLocation"
-                                    aria-label="location" v-model="aboutFormData.parentOrCarrerAddress">
-                                <div class="input-group-append">
+                                    aria-label="location" v-model="aboutFormData.parentOrCarrerAddress"> -->
+
+                                <multiselect :options="addressOptions" v-model="aboutFormData.parentOrCarrerAddress"
+                                    @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                    :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                    :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                                </multiselect>
+
+                                <!-- <div class="input-group-append">
                                     <span class="input-group-text px-3">
                                         <i class="fa common-fa-fa fa-map-marker " aria-hidden="true"></i>
                                     </span>
-                                </div>
+                                </div> -->
                             </div>
                             <p class="link-text text-right mb-0 mt-2 cursor-pointer"
                                 id="ab0ea3ad-43c5-4f21-a449-e8087707654b"
@@ -990,57 +998,12 @@
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <div v-if="aboutFormData.sameHouse">
                     <div class="px-2 px-lg-0 py-4" v-if="
-                    isFormSubmitted &&
-                    ((aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber))
-                    || !aboutObj.childFirstName
-                    || !aboutObj.childLastName
-                    || (aboutObj.childEmail && !emailRegex.test(aboutObj.childEmail))
-                    || (!aboutObj.childContactNumber || (aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)))
-                    || (!aboutObj.childAddress && !childManualAddress.length)
-                    || !aboutObj.sendPost
-                    || !aboutObj.childGender
-                    || !aboutObj.childIdentity
-                    || !aboutObj.childCareAdult
-                    || !aboutObj.parentFirstName
-                    || !aboutObj.parentLastName
-                    || (aboutFormData.parentialResponsibility =='yes' && (
-                            !aboutFormData.relationshipToYou
-                            || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
-                            || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
-                        ))
-                    || (aboutFormData.parentialResponsibility =='no' && (
-                            !aboutFormData.parentCarerFirstName
-                            || !aboutFormData.parentCarerLastName
-                            || ! aboutFormData.relationshipToYou
-                            || (!aboutFormData.contactNumber || (aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)))
-                            || (aboutFormData.emailAddress && !emailRegex.test(aboutFormData.emailAddress))
-                        ))
-                    || !aboutFormData.sameHouse
-                    || !aboutObj.sexAssignedAtBirth
-                    || !aboutObj.childNameTitle)
-                ">
-                        <div class="col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto toster-container">
-                            <div class="px-2 py-2">
-                                <div>
-                                    <div class="text-center m-0 py-2">
-                                        <span style="color:#DD3939 !important">
-                                            <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
-                                    <p class="question-font text-center text-danger m-0 py-2">
-                                        You have missed out a section on this page
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="px-2 px-lg-0 py-4" v-if="
                     (!aboutObj.nhsNumber || (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)))
                     && aboutObj.childFirstName
                     && aboutObj.childLastName
                     && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
                     && (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber))
+                    && (aboutObj.childAddress || (!aboutObj.childAddress && childManualAddress.length))
                     && aboutObj.sendPost
                     && aboutObj.childGender
                     && aboutObj.childIdentity
@@ -1072,8 +1035,8 @@
                                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                                     </div>
                                     <p class="question-font text-center m-0 py-2">
-                                        Another section finished. Lets move on to education / employment & support
-                                        needs
+                                        Another section finished. Let's move on to education, employment and support
+                                        needs.
                                     </p>
                                 </div>
                             </div>
@@ -1417,7 +1380,7 @@
                                         </div>
                                     </div>
                                     <div class="invalid-feedback d-none"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name) }">
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.name),'invalid-modal-fields':!houseHoldData.name }">
                                         Please provide a first name.
                                     </div>
                                 </div>
@@ -1439,7 +1402,7 @@
                                         </div>
                                     </div>
                                     <div class="invalid-feedback d-none"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName) }">
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.lastName),'invalid-modal-fields':!houseHoldData.lastName }">
                                         Please provide a last name.
                                     </div>
                                 </div>
@@ -1515,7 +1478,7 @@
                                             </div>
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.profession) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.profession),'invalid-modal-fields':!houseHoldData.manualAddress.profession }">
                                             Please provide a school/college/university.
                                         </div>
                                     </div>
@@ -1537,7 +1500,7 @@
                                             </div>
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.addressLine1) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.addressLine1),'invalid-modal-fields':!houseHoldData.manualAddress.addressLine1 }">
                                             Please provide an address.
                                         </div>
                                     </div>
@@ -1569,7 +1532,7 @@
                                                 placeholder="Enter city">
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.city) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.city), 'invalid-modal-fields':!houseHoldData.manualAddress.city}">
                                             Please provide a city name.
                                         </div>
                                     </div>
@@ -1602,30 +1565,15 @@
 
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.postCode) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.postCode),'invalid-modal-fields': !houseHoldData.manualAddress.postCode}">
                                             Please provide a postcode.
                                         </div>
                                         <div class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))) }">
+                                            v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted && (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))),'invalid-modal-fields': (houseHoldData.manualAddress.postCode && !postCodeRegex.test(houseHoldData.manualAddress.postCode))}">
                                             Please provide a valid postcode.
                                         </div>
                                     </div>
                                     <!-- Postcode end -->
-                                    <div v-if="isHouseHoldFormSubmitted && (!houseHoldData.name || !houseHoldData.lastName || !houseHoldData.manualAddress.profession || !houseHoldData.manualAddress.addressLine1 ||
-                                    !houseHoldData.manualAddress.city || !houseHoldData.manualAddress.postCode || !postCodeRegex.test(houseHoldData.manualAddress.postCode))"
-                                        class="toster-container-white">
-                                        <div class="px-2 py-2">
-                                            <p class="text-center m-0 py-2">
-                                                <span style="color:#DD3939 !important">
-                                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                                </span>
-                                            </p>
-                                            <p class="question-font text-center text-danger m-0 py-2">
-                                                You have missed out a question on this form.
-                                            </p>
-                                        </div>
-                                    </div>
-
                                 </div>
 
                                 <div class="modal-footer">

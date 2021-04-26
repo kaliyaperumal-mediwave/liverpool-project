@@ -43,12 +43,12 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            $('#orchaLoader').show();
+            $('#orchaLoader').removeClass('d-none').addClass('d-block');
         },
         mounted: function () {
             //console.log(JSON.parse(localStorage.getItem("orFilData")));
             this.getAllDataForDropdown();
-            $('#orchaLoader').hide();
+            $('#orchaLoader').removeClass('d-block').addClass('d-none');
         },
 
         methods: {
@@ -67,53 +67,78 @@ $(document).ready(function () {
                     // var emptyPayload = {};
 
                     emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
-                   // console.log("isEmptyObj : "+ this.isEmptyObj(emptyPayload))
+                    // console.log("isEmptyObj : "+ this.isEmptyObj(emptyPayload))
                     var isEmpty = this.isEmptyObj(emptyPayload)
 
-                    if(!isEmpty)
-                    {
+                    if (!isEmpty) {
                         emptyPayload = JSON.parse(localStorage.getItem("orFilData"));
-                        if(emptyPayload.capabilities.length>0)
-                        {
+                        if (emptyPayload.capabilities.length > 0) {
+                            let self = this;
                             for (i = 0; i < emptyPayload.capabilities.length; i++) {
-                                this.patchCategory.push(this.capabilityList.find(capabilityList => capabilityList.id === (emptyPayload.capabilities[i])));
+                               // this.patchCategory.push(this.capabilityList.find(capabilityList => capabilityList.id === (emptyPayload.capabilities[i])));
+                                this.capabilityList.filter(function (item) {
+                                    if (item.id==emptyPayload.capabilities[i]) {
+                                        self.patchCategory.push(item)
+                                    }
+                                })
                             }
-                            this.capabilityValue = this.patchCategory;
+                            this.capabilityValue = self.patchCategory;
                         }
 
-                        if(emptyPayload.designedFor.length>0)
-                        {
+                        if (emptyPayload.designedFor.length > 0) {
+                            let self = this;
                             for (i = 0; i < emptyPayload.designedFor.length; i++) {
-                                this.patchDesignedFor.push(this.designedForList.find(designedForList => designedForList.id === (emptyPayload.designedFor[i])));
+                                //this.patchDesignedFor.push(this.designedForList.find(designedForList => designedForList.id === (emptyPayload.designedFor[i])));
+                                this.designedForList.filter(function (item) {
+                                    if (item.id==emptyPayload.designedFor[i]) {
+                                        self.patchDesignedFor.push(item)
+                                    }
+                                })
                             }
-                            this.designedForValue = this.patchDesignedFor;
+                            this.designedForValue = self.patchDesignedFor;
                         }
 
-                        if(emptyPayload.cost.length>0)
-                        {
+                        if (emptyPayload.cost.length > 0) {
+                            let self = this;
                             for (i = 0; i < emptyPayload.cost.length; i++) {
-                                this.patchCost.push(this.costList.find(costList => costList.id === (emptyPayload.cost[i])));
+                               // this.patchCost.push(this.costList.find(costList => costList.id === (emptyPayload.cost[i])));
+                                this.costList.filter(function (item) {
+                                    if (item.id==emptyPayload.cost[i]) {
+                                        self.patchCost.push(item)
+                                    }
+                                })
                             }
-                            this.costValue = this.patchCost;
+                            this.costValue = self.patchCost;
                         }
 
-                        this.categoryValue = this.categoryList.find(categoryList => categoryList.id === emptyPayload.subCategory);
-                        this.platformValue = this.platformList.find(platformList => platformList.id === emptyPayload.platform);
+                       // this.categoryValue = this.categoryList.find(categoryList => categoryList.id === emptyPayload.subCategory);
+                       let _self = this;
+                       this.categoryList.filter(function (item) {
+                        if (item.id==emptyPayload.subCategory) {
+                            _self.categoryValue = item;
+                        }
+                      })
+
+                        //this.platformValue = this.platformList.find(platformList => platformList.id === emptyPayload.platform);
+                        this.platformList.filter(function (item) {
+                            if (item.id==emptyPayload.platform) {
+                                _self.platformValue = item;
+                            }
+                          })
                         document.getElementById('clearFilterButton').removeAttribute('disabled');
                     }
-                    else
-                    {
+                    else {
                         emptyPayload = {};
                     }
                     this.getOrchaAppsData(emptyPayload);
 
                 } else {
-                    $('#orchaLoader').hide();
+                    $('#orchaLoader').removeClass('d-block').addClass('d-none');
                 }
             },
 
             resetFilters: function () {
-                $('#orchaLoader').show();
+                $('#orchaLoader').removeClass('d-none').addClass('d-block');
                 this.searchText = '';
                 this.categoryValue = null;
                 this.countryValue = null;
@@ -148,7 +173,7 @@ $(document).ready(function () {
 
             selectOptions: function (e, type) {
 
-                $('#orchaLoader').show();
+                $('#orchaLoader').removeClass('d-none').addClass('d-block');
                 if (type == 'category') {
                     this.payloadData.subCategory = e.id;
                 }
@@ -172,36 +197,78 @@ $(document).ready(function () {
                 this.getOrchaAppsData(this.payloadData)
             },
 
+            // getOrchaAppsData: function (payload) {
+            //      $('#orchaLoader').removeClass('d-none').addClass('d-block');
+            //     localStorage.setItem("orFilData", JSON.stringify(payload));
+            //     var successData = apiCallPost('post', '/getSearchData/', payload);
+            //     if (successData && Object.keys(successData)) {
+            //         if (successData.data.result.items.length) {
+            //             this.filteredAppsList = successData.data.result.items;
+            //         } else {
+            //             this.filteredAppsList = [];
+            //         }
+            //         if (successData.data.result.pagingInfo) {
+            //             this.paginationData.currentPage = successData.data.result.pagingInfo.currentPage;
+            //             this.paginationData.perPage = successData.data.result.pagingInfo.itemsPerPage;
+            //             this.paginationData.totalItems = successData.data.result.pagingInfo.totalItems;
+            //         } else {
+            //             this.paginationData.currentPage = null;
+            //             this.paginationData.perPage = null;
+            //             this.paginationData.totalItems = null;
+            //         }
+            //            $('#orchaLoader').removeClass('d-block').addClass('d-none');
+
+            //     } else {
+            //            $('#orchaLoader').removeClass('d-block').addClass('d-none');
+            //     }
+
+            // },
+
             getOrchaAppsData: function (payload) {
-                $('#orchaLoader').show();
-                //console.log(payload)
+                var _self = this;
                 localStorage.setItem("orFilData", JSON.stringify(payload));
-                var successData = apiCallPost('post', '/getSearchData/', payload);
-                if (successData && Object.keys(successData)) {
-                    if (successData.data.result.items.length) {
-                        this.filteredAppsList = successData.data.result.items;
-                    } else {
-                        this.filteredAppsList = [];
+                var trimmedPayload = trimObj(payload);
+                $.ajax({
+                    url: API_URI + '/getSearchData/',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    //async: false,
+                    data: JSON.stringify(trimmedPayload),
+                    cache: false,
+                    success: function (res) {
+                        var successData = res;
+                        if (successData && Object.keys(successData)) {
+                            if (successData.data.result.items.length) {
+                                _self.filteredAppsList = successData.data.result.items;
+                            } else {
+                                _self.filteredAppsList = [];
+                            }
+                            if (successData.data.result.pagingInfo) {
+                                _self.paginationData.currentPage = successData.data.result.pagingInfo.currentPage;
+                                _self.paginationData.perPage = successData.data.result.pagingInfo.itemsPerPage;
+                                _self.paginationData.totalItems = successData.data.result.pagingInfo.totalItems;
+                            } else {
+                                _self.paginationData.currentPage = null;
+                                _self.paginationData.perPage = null;
+                                _self.paginationData.totalItems = null;
+                            }
+                            $('#orchaLoader').removeClass('d-block').addClass('d-none');
+                        } else {
+                            $('#orchaLoader').removeClass('d-block').addClass('d-none');
+                        }
+                    },
+                    error: function (error) {
+                        $('#orchaLoader').removeClass('d-block').addClass('d-none');
+                        if (error) {
+                            showError(error.responseJSON.message, error.status);
+                        }
                     }
-                    if (successData.data.result.pagingInfo) {
-                        this.paginationData.currentPage = successData.data.result.pagingInfo.currentPage;
-                        this.paginationData.perPage = successData.data.result.pagingInfo.itemsPerPage;
-                        this.paginationData.totalItems = successData.data.result.pagingInfo.totalItems;
-                    } else {
-                        this.paginationData.currentPage = null;
-                        this.paginationData.perPage = null;
-                        this.paginationData.totalItems = null;
-                    }
-                    $('#orchaLoader').hide();
-
-                } else {
-                    $('#orchaLoader').hide();
-                }
-
+                });
             },
 
             removeOptions: function (option, type) {
-                $('#orchaLoader').show();
+                $('#orchaLoader').removeClass('d-none').addClass('d-block');
                 if (type == 'category') {
                     this.payloadData.subCategory = '';
                 }
@@ -248,21 +315,22 @@ $(document).ready(function () {
 
             searchOrchPage: function () {
                 if (this.searchText) {
-                    $('#orchaLoader').show();
                     var searchPayload = {
                         keyword: this.searchText
                     }
+                    $('#orchaLoader').removeClass('d-none').addClass('d-block');
                     this.getOrchaAppsData(searchPayload);
                 } else {
+                    $('#orchaLoader').removeClass('d-none').addClass('d-block');
+                    this.getOrchaAppsData(searchPayload);
                     document.getElementById("searchTxt").focus();
                     document.getElementById("searchTxt").select();
-
                 }
 
             },
 
             updatePage: function (page) {
-                $('#orchaLoader').show();
+                $('#orchaLoader').removeClass('d-none').addClass('d-block');
                 //console.log(page);
                 var pagePayload = {
                     pageNum: page,

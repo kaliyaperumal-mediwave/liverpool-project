@@ -2,6 +2,10 @@
 
 {% block extraBody %}
 <script src="/modules/role-module/js/role.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 {% endblock %}
 {% block main %}
 <div class="py-4 main-min-height">
@@ -108,14 +112,13 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 py-2">Please call <b><u>01512824911</u></b> to get
+                            <p class="question-font text-center m-0 py-2">Please call <b><u>01512 824911</u></b> to get
                                 help
                                 completing
-                                your referral</p>
+                                your referral.</p>
 
-                            <p class="link-text cursor-pointer text-center m-0 py-2"> Please change your previous
-                                answer to
-                                continue</p>
+                            <p class="link-text cursor-pointer text-center m-0 py-2"> Alternatively, change your
+                                previous answer to continue.</p>
                         </div>
                     </div>
                 </div>
@@ -678,12 +681,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished:You are
-                                eligible
-                                to
-                                continue
-                                with this
-                                referral. </p>
+                            <p class="question-font text-center m-0 pt-2">Great. That’s section 1 finished; you are
+                                eligible to continue with this referral. </p>
                             <!-- <p class="question-font text-center m-0 pb-2">You are
                                 eligible
                                 to
@@ -761,7 +760,7 @@
                     <div class="form-check pt-3 pb-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="alderLiverpool"
-                            value="Alder Hey – Liverpool CAMHS & EDYS" @change="onChange($event)">
+                            value="Alder Hey - Liverpool CAMHS - EDYS" @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
                             for="alderLiverpool">
                             Alder Hey – Liverpool CAMHS & EDYS
@@ -811,7 +810,7 @@
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
                             v-model="elgibilityObj.seftonService" id="alderSefton"
-                            value="Alder Hey – Sefton CAMHS & EDYS" @change="onChange($event)">
+                            value="Alder Hey - Sefton CAMHS - EDYS" @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
                             for="alderSefton">
                             Alder Hey – Sefton CAMHS & EDYS
@@ -953,18 +952,26 @@
                         </div>
                     </div>
                     <div class="form-group mb-1">
-                        <label for="yourAddress" class="question-font">Your address</label>
+                        <label for="yourAddress" class="question-font">Your address - <b>please enter the full
+                                postcode</b></label>
                         {% raw %}
                         <div class="input-group" id="c80236ab-b7d6-4ae8-9c0d-89c24c3c763a">
-                            <input type="text" v-model="elgibilityObj.profAddress" inputmode="search"
-                                @input="onVaueChange($event,'yourAddress','elgibilityObj','profAddress')"
+                            <!-- <input type="text" v-model="elgibilityObj.profAddress" inputmode="search"
+                                @input="getAddressPostcode($event)"
                                 placeholder="Enter your address" class="form-control input-bg-form-control"
-                                id="txtProfessionalAddress">
+                                id="postCodeAddress" autocomplete="off"> -->
+
+                            <multiselect :options="addressOptions" v-model="elgibilityObj.profAddress"
+                                @input="updateSelected" @search-change="searchQuery" :searchable="true"
+                                :close-on-select="true" placeholder="Search" :custom-label="customLabel"
+                                :loading="showLoadingSpinner" class="multiselect custom-dropbox-hover themeSetDark">
+                            </multiselect>
+                            <!-- 
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text px-3">
                                     <i aria-hidden="true" class="fa common-fa-fa fa-map-marker fa-2x"></i>
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="text-validation invalid-feedback  d-none"
                             v-bind:class="{ 'd-block':(isSubmitted && (!elgibilityObj.profAddress && !professionalManualAddress.length)),'invalid-fields':(!elgibilityObj.profAddress && !professionalManualAddress.length) }">
@@ -1492,12 +1499,8 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: You are
-                                eligible
-                                to
-                                continue
-                                with this
-                                referral.</p>
+                            <p class="question-font text-center m-0 pt-2">Great. That’s section 1 finished; you are
+                                eligible to continue with this referral.</p>
                         </div>
                     </div>
                 </div>
@@ -1509,19 +1512,15 @@
                             <p class="text-center m-0 py-2">
                                 <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                             </p>
-                            <p class="question-font text-center m-0 pt-2">Great! That’s section 1 finished: You are
-                                eligible
-                                to
-                                continue
-                                with this
-                                referral.</p>
+                            <p class="question-font text-center m-0 pt-2">Great. That’s section 1 finished; you are
+                                eligible to continue with this referral.</p>
                         </div>
                     </div>
                 </div>
                 <!-- toster-container start -->
             </form>
             {% endraw %}
-            <div
+            <!-- <div
                 v-if="isSubmitted && (elgibilityObj.role === 'professional'&& elgibilityObj.regProfGpTxt) && (!elgibilityObj.profFirstName || !elgibilityObj.proflastName || !elgibilityObj.profContactNumber || !phoneRegex.test(elgibilityObj.profContactNumber) || (!elgibilityObj.profAddress && !professionalManualAddress.length) || !elgibilityObj.profProfession || (elgibilityObj.profEmail && !emailRegex.test(elgibilityObj.profEmail))) && elgibilityObj.profChildDob!=null && elgibilityObj.gpSchool != 'Neither'">
                 <div class="px-4 py-2 py-lg-4">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
@@ -1538,7 +1537,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.gpNotCoveredProf==true &&  (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || elgibilityObj.gpNotCoveredProf==false)"
                 class="text-center pt-4 pb-2 pb-lg-1">
@@ -1566,16 +1565,10 @@
                     </div>
                     <div class="col-md-10 col-lg-8 col-xl-10 mx-auto col-sm-10 col-12">
                         <h3 class="support-modal-content-text text-left py-4">
-                            Consent is when one person agrees to or
-                            gives
-                            permission to another person to do something. Consent means agreeing to an action based on
-                            your knowledge of what that action involves, its likely consequences and having the option
-                            of saying no. The absence of no does not mean yes
-                            Consent is when one person agrees to or
-                            gives
-                            permission to another person to do something. Consent means agreeing to an action based on
-                            your knowledge of what that action involves, its likely consequences and having the option
-                            of saying no. The absence of no does not mean yes
+                            Consent is when one person agrees to or gives permission to another person to do something.
+                            Consent means agreeing to an action based on your knowledge of what that action involves,
+                            its likely consequences and having the option of saying no. The absence of no does not mean
+                            yes.
                         </h3>
                         <p class="support-modal-link-text cursor-pointer text-center m-0 py-2">
                             <a href="https://www.nhs.uk/conditions/consent-to-treatment/ " target="_blank">

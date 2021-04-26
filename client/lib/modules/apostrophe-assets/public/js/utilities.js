@@ -240,6 +240,7 @@ function backToPreviousPage(section, userId, userRole) {
 
 //Scroll to top for an Invalid Inputs
 function scrollToInvalidInput() {
+    debugger
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
     if (Array.from(errorElements).length) {
@@ -642,6 +643,9 @@ function logOut() {
         contentType: 'application/json',
         success: function (res) {
             $('#logoutModal').modal('hide');
+            if (localStorage.getItem("role") !== null) {
+                localStorage.removeItem("role");
+            }
             location.href = window.location.origin + '/users/login';
         },
         error: function (error) {
