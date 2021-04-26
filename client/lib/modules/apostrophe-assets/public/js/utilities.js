@@ -240,7 +240,6 @@ function backToPreviousPage(section, userId, userRole) {
 
 //Scroll to top for an Invalid Inputs
 function scrollToInvalidInput() {
-    debugger
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
     if (Array.from(errorElements).length) {
