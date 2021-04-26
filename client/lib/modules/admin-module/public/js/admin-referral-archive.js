@@ -144,18 +144,6 @@ $(document).ready(function () {
                     }
                 }
             },
-
-            archiveReferral: function () {
-                if (this.referral_ids.length) {
-                    $('#loader').show();
-                    var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
-                    $('#loader').hide();
-                    if (successData && Object.keys(successData)) {
-                        this.successMessage = 'Unarchive successful';
-                        $('#deletedSuccess').modal('show');
-                    }
-                }
-            },
             unArchive: function () {
                 if (this.referral_ids.length) {
                     $('#loader').show();
@@ -164,7 +152,7 @@ $(document).ready(function () {
                         var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'completed' });
                         if (successData && Object.keys(successData)) {
                             _self.fetchReferral();
-                            _self.successMessage = 'Referrals unarchive successfully';
+                            _self.successMessage = 'Unarchive successful';
                             $('#deletedSuccess').modal('show');
                             setTimeout(function () {
                                 $('#loader').hide();
