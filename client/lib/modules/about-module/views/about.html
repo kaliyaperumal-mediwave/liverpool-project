@@ -6,7 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
-<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
 {% endblock %}
 {% block main %}
 <div id="about-form">
@@ -212,12 +212,12 @@
                                     <div class="d-flex">
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#addressModal" @click="patchAddress(item,'child')">
-                                            <i class="fas fa-pencil fa-2x" aria-hidden="true">
+                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
                                             </i>
                                         </span>
-                                        <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
-                                                data-target="#deleteChildAddressModal" class="fas fa-trash-o fa-2x"
-                                                aria-hidden="true"></i>
+                                        <span class="badge badge-pill cursor-pointer" data-toggle="modal"
+                                            data-target="#deleteChildAddressModal">
+                                            <i class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -424,12 +424,12 @@
                                     <div class="d-flex">
                                         <span class="badge badge-pill cursor-pointer" data-toggle="modal"
                                             data-target="#houseHoldModal" @click="patchHouseHold(item)">
-                                            <i class="fas fa-pencil fa-2x" aria-hidden="true">
+                                            <i class="fa fa-pencil fa-2x" aria-hidden="true">
                                             </i>
                                         </span>
                                         <span class="badge badge-pill cursor-pointer"><i data-toggle="modal"
                                                 data-target="#deleteModalAbout" @click="openDeleteModal(item)"
-                                                class="fas fa-trash-o fa-2x" aria-hidden="true"></i>
+                                                class="fa fa-trash-o fa-2x" aria-hidden="true"></i>
                                         </span>
                                     </div>
                                 </div>

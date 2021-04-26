@@ -144,6 +144,13 @@ $(document).ready(function () {
                 window.speechSynthesis.resume();
             });
             var ssu = new SpeechSynthesisUtterance();
+            var myTimeout;
+            function myTimer() {
+                window.speechSynthesis.pause();
+                window.speechSynthesis.resume();
+                myTimeout = setTimeout(myTimer, 10000);
+            }
+
             function wrapper(stopFlag) {
                 if (stopFlag) {
                     ssu.text = ""
@@ -154,9 +161,11 @@ $(document).ready(function () {
                 ssu.text = description;
                 ssu.lang = "en-US";
                 window.speechSynthesis.cancel();
+                myTimeout = setTimeout(myTimer, 10000);
                 window.speechSynthesis.speak(ssu);
             }
             ssu.onend = function (e) {
+                clearTimeout(myTimeout);
                 document.getElementById('playButton').classList.add('active-border');
                 document.getElementById('stopButton').classList.remove('active-border')
                 document.getElementById('stopButton').setAttribute('disabled', true);
