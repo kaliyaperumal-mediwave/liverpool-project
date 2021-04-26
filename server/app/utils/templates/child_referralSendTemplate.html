@@ -194,7 +194,7 @@
         <div>
             <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 About you</h5>
-                <% if(body.section2.child_NHS!='' ){ %>
+                <% if(body.section2.child_NHS!='' && body.section2.child_NHS!=null ){ %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -244,7 +244,7 @@
                     </div>
                 </div>
             </div>
-            <% if(body.section2.child_email!='' ){ %>
+            <% if(body.section2.child_email!='' && body.section2.child_email!=null ){ %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -330,7 +330,7 @@
                     </div>
                 </div>
             </div>
-            <% if(body.section2.child_sexual_orientation !='' ) {%>
+            <% if(body.section2.child_sexual_orientation !='' && body.section2.child_sexual_orientation!=null ) {%>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -344,7 +344,7 @@
                 </div>
             </div>
             <% } %>
-            <% if(body.section2.child_ethnicity !='' ) {%>
+            <% if(body.section2.child_ethnicity !='' && body.section2.child_ethnicity!=null ) {%>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -478,7 +478,7 @@
                                 </div>
                             </div>
                             <% }%>
-                            <% if(body.section2.parent_email!='' ){ %>
+                            <% if(body.section2.parent_email!='' && body.section2.parent_email!=null ){ %>
                                 <div class="text-container">
                                     <div class="label-set">
                                         <label class="labelTitle">
@@ -504,7 +504,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <% if(body.section2.parent_address!='' ){ %>
+                                <% if(body.section2.parent_address!='' && body.section2.parent_email !=null  ){ %>
                                     <div class="text-container">
                                         <div class="label-set">
                                             <label class="labelTitle">
@@ -548,7 +548,7 @@
                         </div>
                     </div>
                 </div>
-            <% if(body.section3.child_education_place !='' ) {%>
+            <% if(body.section3.child_education_place !='' && body.section3.child_education_place !=null ) {%>
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
@@ -599,7 +599,7 @@
                             </div>
                         </div>
                     </div>
-                    <% if(body.section3.child_socialworker_firstname!='' ) {%>
+                    <% if(body.section3.child_socialworker_firstname!='' && body.section3.child_socialworker_firstname !=null ) {%>
                         <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
@@ -613,7 +613,7 @@
                             </div>
                         </div>
                         <% }%>
-                            <% if(body.section3.child_socialworker_lastname!='' ) {%>
+                            <% if(body.section3.child_socialworker_lastname!='' && body.section3.child_socialworker_lastname !=null ) {%>
                                 <div class="text-container">
                                     <div class="label-set">
                                         <label class="labelTitle">
@@ -627,7 +627,7 @@
                                     </div>
                                 </div>
                                 <% }%>
-                                <% if(body.section3.child_socialworker_contact !='' ) {%>
+                                <% if(body.section3.child_socialworker_contact !='' && body.section3.child_socialworker_contact !=null  ) {%>
                                     <div class="text-container">
                                         <div class="label-set">
                                             <label class="labelTitle">
@@ -659,7 +659,7 @@
                     </div>
                 </div>
             </div>
-            <% if(body.section4.is_covid!=''){ %>
+            <% if(body.section4.is_covid!='' && body.section4.is_covid !=null){ %>
                 <div class="text-container">
                     <div class="label-set">
                         <label class="labelTitle">
@@ -674,7 +674,7 @@
                 </div>
                 <%}%>
 
-                <% if(body.section4.eating_disorder_difficulties!=''){ %>
+                <% if(body.section4.eating_disorder_difficulties!='' &&  body.section4.eating_disorder_difficulties !=null){ %>
 
                     <div class="text-container">
                         <div class="label-set">
@@ -690,7 +690,7 @@
                     </div>
                     <%}%>
 
-                    <% if(body.section4.food_fluid_intake!=''){ %>
+                    <% if(body.section4.food_fluid_intake!='' &&  body.section4.food_fluid_intake !=null){ %>
 
                     <div class="text-container">
                         <div class="label-set">
@@ -706,7 +706,7 @@
                     </div>
                     <%}%>
 
-                    <% if(body.section4.height!=''){ %>
+                    <% if(body.section4.height!='' &&  body.section4.height !=null ){ %>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -720,7 +720,7 @@
                         </div>
                     </div>
                     <%}%>
-                    <% if(body.section4.weight!=''){ %>
+                    <% if(body.section4.weight!='' &&  body.section4.weight !=null  ){ %>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -735,7 +735,7 @@
                     </div>
                     <%}%>
 
-                    <% if(body.section4.reason_for_referral!=''){ %>
+                    <% if(body.section4.reason_for_referral!=''  &&  body.section4.reason_for_referral !=null){ %>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -750,7 +750,7 @@
                     </div>
 
                     <%}%>
-                    <% if(body.section4.referral_issues!=''){ %>
+                    <% if(body.section4.referral_issues!='' &&  body.section4.referral_issues !=null ){ %>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -764,7 +764,7 @@
                         </div>
                     </div>
                     <%}%>
-                    <% if(body.section4.has_anything_helped!=''){ %>
+                    <% if(body.section4.has_anything_helped!='' &&  body.section4.has_anything_helped !=null){ %>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -778,7 +778,7 @@
                         </div>
                     </div>
                     <%}%>
-                    <% if(body.section4.any_particular_trigger!=''){ %>
+                    <% if(body.section4.any_particular_trigger!='' &&  body.section4.any_particular_trigger !=null){ %>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
@@ -792,7 +792,7 @@
                         </div>
                     </div>
                     <%}%>
-                    <% if(body.section4.disabilities!=''){ %>
+                    <% if(body.section4.disabilities!='' &&  body.section4.disabilities !=null){ %>
                     <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
