@@ -162,6 +162,7 @@
         </div>
     </div>
     <!-- Send popup Start -->
+    <input type='checkbox' class='reload' style="display:none">
     <div class="modal fade" id="sendProviderModal" tabindex="-1" role="dialog" aria-labelledby="sendProviderModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -241,7 +242,7 @@
             <div class="modal-content modal-bg">
                 <div class="modal-header justify-content-center">
                     <h5 class="logout-font mt-3">Change status</h5>
-                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="modal-close" @click="closeStatusPopup()">
                         <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
                     </span>
                 </div>
