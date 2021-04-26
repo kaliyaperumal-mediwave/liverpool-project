@@ -189,8 +189,13 @@ $(document).ready(function () {
                 $('#mailSentSuccess').modal('hide');
             },
             closeUpdateSuccessPopup: function () {
+                this.SelectedProviderStatus = '';
                 $('#adminReferral').DataTable().ajax.reload();
                 $('#statusUpdatedSuccess').modal('hide');
+            },
+            closeStatusPopup: function () {
+                this.SelectedProviderStatus = '';
+                $('#changeStatusModal').modal('hide');
             },
             fetchAllRef: function () {
                 var successData = apiCallGet('get', '/getAllreferral', API_URI);
@@ -254,33 +259,31 @@ function changeStatus(uuid, value, other_value) {
 
 function updateStatus(uuid) {
     $('#loader').show();
-    var status = $('#SelectedProviderStatus').val();
-    var postData = {
-      referral_id: uuid,
-      status: status
-    }
-    if (status === 'Referral to other team') {
-      postData.other = $('#statusOther').val();
-    }
-    if (status && uuid) {
-      setTimeout(function () {
+    setTimeout(function () {
+        var status = $('#SelectedProviderStatus').val();
+        var postData = {
+        referral_id: uuid,
+        status: status
+        }
+        if (status === 'Referral to other team') {
+        postData.other = $('#statusOther').val();
+        }
         var successData = apiCallPut('put', '/referralStatusUpdate', postData);
         if (successData && Object.keys(successData)) {
-          $('#statusOther').val('')
-          $('#changeStatusModal').modal('hide');
-          $('#statusUpdatedSuccess').modal('show');
-          setTimeout(function () {
+            $('#statusOther').val('')
+            $('#changeStatusModal').modal('hide');
+            $('#statusUpdatedSuccess').modal('show');
+            setTimeout(function () {
             $('#loader').hide();
-          }, 500);
+            }, 500);
         }
         else {
-          setTimeout(function () {
+            setTimeout(function () {
             $('#loader').hide();
-          }, 500);
-          $('#changeStatusModal').modal('hide');
+            }, 500);
+            $('#changeStatusModal').modal('hide');
         }
-      }, 500);
-    }
+    }, 500);
 }
 
 function toArrayBuffer(buf) {
