@@ -81,8 +81,8 @@ $(document).ready(function () {
             openShowMoreOrLessFlag: true,
             storeDeleteData: null,
             listOfEatingDifficulties: [
-                { id: '4937fd43-79ae-4974-90d9-601966a9d3fb', value: 'Restricting food Intake' },
-                { id: 'bd8efbb4-6491-4520-aea7-8ab35f38a261', value: 'Restricting fluid Intake' },
+                { id: '4937fd43-79ae-4974-90d9-601966a9d3fb', value: 'Restricting food intake' },
+                { id: 'bd8efbb4-6491-4520-aea7-8ab35f38a261', value: 'Restricting fluid intake' },
                 { id: '6d31681e-a9b9-4cbe-a7e1-26bcbd17d9c3', value: 'Fear of being fat' },
                 { id: '14568ba7-78b0-4bca-aed3-560bdba83060', value: 'Increased preoccupation with weight and shape' },
                 { id: '73257df0-9c00-4125-8238-fe096bac4253', value: 'Excessive exercising' },
