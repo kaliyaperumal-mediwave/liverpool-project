@@ -2389,7 +2389,7 @@ exports.saveReview = ctx => {
         //   ctx.query.selectedProvider = "MHST";
         // }
         if (ctx.request.body.referral_provider != "") {
-          // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
+           console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
           if(ctx.request.body.referral_provider=="Mental Health Support Team")
           {
             ctx.query.selectedProvider = "MHST";
