@@ -190,7 +190,8 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.parenting_email
         } else if (ctx.request.body.emailToProvider == "IAPTUS") {
             toAddress = config.iaptus_email
-        } else {
+        }
+         else {
             toAddress = config.other_email
         }
         console.log('toAddress----------', toAddress);
