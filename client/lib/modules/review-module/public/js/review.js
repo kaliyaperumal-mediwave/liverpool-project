@@ -223,7 +223,7 @@ $(document).ready(function () {
                             this.payloadData.referral_provider = "MHST";
                         }
                         else {
-                            this.payloadData.referral_provider = "";
+                            this.payloadData.referral_provider = "AHSPA";
                         }
                         var successData = apiCallPost('post', '/saveReview', this.payloadData);
                         if (Object.keys(successData)) {
