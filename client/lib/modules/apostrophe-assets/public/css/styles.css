@@ -5151,3 +5151,6 @@ div.collapse-container.collapsing {
     .heightSetLabel {
       height: auto !important;
       min-height: 40px !important; } }
+
+.lock-scroll {
+  overflow: hidden; }
