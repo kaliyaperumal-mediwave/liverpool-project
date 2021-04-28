@@ -124,6 +124,7 @@ $(document).ready(function () {
                                     referralRes.data.data[i].date,
                                     referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' : 
                                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' : 
+                                    referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted by '+ referralRes.data.data[i].referral_provider_other : 
                                     referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to '+ referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
                                     "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>"
                                 ]);
@@ -245,7 +246,7 @@ function viewPdf(uuid, role) {
 }
 
 function changeStatus(uuid, value, other_value) {
-    if (value === 'Referral to other team' && other_value != null) {
+    if (value === 'Referral to other team' || value === 'Accepted by'  && other_value != null) {
         $('#SelectedProviderStatus').val(other_value);
     } else {
       $('#SelectedProviderStatus').val('');
@@ -265,8 +266,8 @@ function updateStatus(uuid) {
         referral_id: uuid,
         status: status
         }
-        if (status === 'Referral to other team') {
-        postData.other = $('#statusOther').val();
+        if (status === 'Referral to other team' || status === 'Accepted by') {
+            postData.other = $('#statusOther').val();
         }
         var successData = apiCallPut('put', '/referralStatusUpdate', postData);
         if (successData && Object.keys(successData)) {
