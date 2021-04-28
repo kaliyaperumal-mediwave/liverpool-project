@@ -88,7 +88,7 @@ $(document).ready(function () {
             {
               extend: 'csv',
               text: 'Export as CSV',
-              title: 'Referrals Data export',
+              title: 'referrals_data_export_'+(new Date().toISOString().slice(0, 10)),
               exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7, 8]
               }
