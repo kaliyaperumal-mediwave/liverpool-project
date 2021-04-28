@@ -98,7 +98,7 @@ $(document).ready(function () {
                                 else if (_self.displayReferrals[i].referral_status == "Duplicate referral") //4
                                 {
                                     var refStatus = _self.displayReferrals[i].referral_status
-                                    refStatus = "We have already had a referral which has been accepted thank you for this extra information"
+                                    refStatus = "We have already had a referral which has been accepted. Thank you for this extra information."
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
                                 else if (_self.displayReferrals[i].referral_status == "Rejected referral") // 5
@@ -117,6 +117,12 @@ $(document).ready(function () {
                                 {
                                     var refStatus = _self.displayReferrals[i].referral_status
                                     refStatus = "Your referral has been passed on to " + _self.displayReferrals[i].referral_provider_other
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else if (_self.displayReferrals[i].referral_status == "Accepted by") // 8
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = _self.displayReferrals[i].referral_provider_other+" have accepted your referral and will be in contact."; 
                                     _self.displayReferrals[i].referral_status = refStatus
                                 }
                                 else //3
@@ -257,7 +263,7 @@ $(document).ready(function () {
                             else if (_self.searchReferrals[0].referral_status == "Duplicate referral") //4
                             {
                                 var refStatus = _self.searchReferrals[0].referral_status
-                                refStatus = "We have already had a referral which has been accepted thank you for this extra information."
+                                refStatus = "We have already had a referral which has been accepted. Thank you for this extra information."
                                 _self.searchReferrals[0].referral_status = refStatus
                             }
                             else if (_self.searchReferrals[0].referral_status == "Rejected referral") // 5
@@ -277,6 +283,12 @@ $(document).ready(function () {
                                 var refStatus = _self.searchReferrals[0].referral_status
                                 refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
                                 _self.searchReferrals[0].referral_status = refStatus
+                            }
+                            else if (_self.displayReferrals[i].referral_status == "Accepted by") // 8
+                            {
+                                var refStatus = _self.displayReferrals[i].referral_status
+                                refStatus = _self.displayReferrals[i].referral_provider_other+" have accepted your referral and will be in contact."; 
+                                _self.displayReferrals[i].referral_status = refStatus
                             }
                             else //3
                             {
@@ -329,7 +341,7 @@ $(document).ready(function () {
                         else if (_self.searchReferrals[0].referral_status == "Duplicate referral") //4
                         {
                             var refStatus = _self.searchReferrals[0].referral_status
-                            refStatus = "We have already had a referral which has been accepted thank you for this extra information."
+                            refStatus = "We have already had a referral which has been accepted. Thank you for this extra information."
                             _self.searchReferrals[0].referral_status = refStatus
                         }
                         else if (_self.searchReferrals[0].referral_status == "Rejected referral") // 5
@@ -349,6 +361,12 @@ $(document).ready(function () {
                             var refStatus = _self.searchReferrals[0].referral_status
                             refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
                             _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        else if (_self.displayReferrals[i].referral_status == "Accepted by") // 8
+                        {
+                            var refStatus = _self.displayReferrals[i].referral_status
+                            refStatus = _self.displayReferrals[i].referral_provider_other+" have accepted your referral and will be in contact."; 
+                            _self.displayReferrals[i].referral_status = refStatus
                         }
                         else //3
                         {
