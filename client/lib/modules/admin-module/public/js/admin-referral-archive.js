@@ -55,7 +55,8 @@ $(document).ready(function () {
                         event.stopImmediatePropagation();
                 });
 
-                $('#adminReferral').DataTable({
+                var table = $('#adminReferral').DataTable({
+                    dom: 'lBfrtip',
                     select: {
                         style: 'multi',
                         selector: 'td:first-child .idcheck'
@@ -81,10 +82,16 @@ $(document).ready(function () {
                         emptyTable: 'No referrals to displays',
                         zeroRecords: 'No matching referrals found'
                     },
-                    dom: 'Bfrtip',
                     buttons: [
-                        'csv'
-                    ],
+                        {
+                          extend: 'csv',
+                          text: 'Export as CSV',
+                          title: 'archived_referrals_data_export_'+(new Date().toISOString().slice(0, 10)),
+                          exportOptions: {
+                            columns: [1, 2, 3, 4, 5, 6, 7, 8]
+                          }
+                        }
+                      ],
                     ajax: {
                         url: '/modules/admin-module/getArchived',
                         // url: '/modules/admin-module/getAllreferral',
@@ -120,6 +127,13 @@ $(document).ready(function () {
                         }
                     }
                 });
+                $("#ExportReporttoExcel").on("click", function () {
+                    table.button('.buttons-csv').trigger();
+                    table.rows().deselect();
+                    $('.idcheck').removeAttr('checked');
+                    this.referral_ids = [];
+                    console.log(this.referral_ids);
+                  });
                 this.referral_ids = [];
                 $('#loader').hide();
             },
