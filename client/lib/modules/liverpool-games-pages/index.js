@@ -29,21 +29,24 @@ module.exports = {
       })
 
       const pieces = [];
-      for (let index = 0; index < req.session.gamesArray.length; index++) {
-        if(req.session.gamesArray[index].createdAt) {
-          req.session.gamesArray[index].uploadTime = moment(req.session.gamesArray[index].createdAt).fromNow();
-        } else {
-          req.session.gamesArray[index].uploadTime = '';
-        }
-        if (req.query && req.query.piece_id) {
-          if (req.session.gamesArray[index]._id == req.query.piece_id) {
-            pieces.splice(0, 0, req.session.gamesArray[index]);
+      if( req.session.gamesArray!=undefined)
+      {
+        for (let index = 0; index < req.session.gamesArray.length; index++) {
+          if(req.session.gamesArray[index].createdAt) {
+            req.session.gamesArray[index].uploadTime = moment(req.session.gamesArray[index].createdAt).fromNow();
           } else {
-            pieces.push(req.session.gamesArray[index]);
+            req.session.gamesArray[index].uploadTime = '';
+          }
+          if (req.query && req.query.piece_id) {
+            if (req.session.gamesArray[index]._id == req.query.piece_id) {
+              pieces.splice(0, 0, req.session.gamesArray[index]);
+            } else {
+              pieces.push(req.session.gamesArray[index]);
+            }
           }
         }
-      }
-      req.data.pieces = pieces;
+      } 
+     req.data.pieces = pieces;
       self.checkCommonPageAuth(req).then((req) => {
         return beforeIndex(req, callback);
       }).catch(() => {

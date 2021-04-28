@@ -30,21 +30,24 @@ module.exports = {
         return item;
       })
       const pieces = [];
-      console.log( req.session.readArray);
-        for (let index = 0; index < req.session.readArray.length; index++) {
-          if(req.session.readArray[index].createdAt) {
-            req.session.readArray[index].uploadTime = moment(req.session.readArray[index].createdAt).fromNow();
+     // console.log( req.session.readArray);
+     if(req.session.readArray!=undefined)
+     {
+      for (let index = 0; index < req.session.readArray.length; index++) {
+        if(req.session.readArray[index].createdAt) {
+          req.session.readArray[index].uploadTime = moment(req.session.readArray[index].createdAt).fromNow();
+        } else {
+          req.session.readArray[index].uploadTime = '';
+        }
+        if (req.query && req.query.piece_id) {
+          if (req.session.readArray[index]._id == req.query.piece_id) {
+            pieces.splice(0, 0, req.session.readArray[index]);
           } else {
-            req.session.readArray[index].uploadTime = '';
-          }
-          if (req.query && req.query.piece_id) {
-            if (req.session.readArray[index]._id == req.query.piece_id) {
-              pieces.splice(0, 0, req.session.readArray[index]);
-            } else {
-              pieces.push(req.session.readArray[index]);
-            }
+            pieces.push(req.session.readArray[index]);
           }
         }
+      }
+     }
         req.data.pieces = pieces;
       require('../../middleware')(self, options);
       self.checkCommonPageAuth(req).then((req) => {
