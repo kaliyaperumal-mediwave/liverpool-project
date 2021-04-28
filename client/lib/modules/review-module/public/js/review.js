@@ -225,14 +225,36 @@ $(document).ready(function () {
                         else {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
                         }
-                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        if (Object.keys(successData)) {
-                            location.href = "/acknowledge";
-                            this.isFormSubmitted = false;
-                            $('#loader').hide();
-                        } else {
-                            $('#loader').hide();
-                        }
+
+                        var trimmedPayload = trimObj(this.payloadData);
+                        $.ajax({
+                            url: API_URI + "/saveReview",
+                            type: "post",
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(trimmedPayload),
+                            cache: false,
+                            success: function (res) {
+                                location.href = "/acknowledge";
+                                this.isFormSubmitted = false;
+                                //$('#loader').hide();
+                            },
+                            error: function (error) {
+                                $('#loader').removeClass('d-block').addClass('d-none');
+                                if (error) {
+                                    showError(error.responseJSON.message, error.status);
+                                }
+                            }
+                        });
+
+                        //var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        // if (Object.keys(successData)) {
+                        //     location.href = "/acknowledge";
+                        //     this.isFormSubmitted = false;
+                        //     $('#loader').hide();
+                        // } else {
+                        //     $('#loader').hide();
+                        // }
                     } else {
                         scrollToInvalidInput();
                         return false;
@@ -251,13 +273,33 @@ $(document).ready(function () {
                         else if(this.section1Data.selected_service ==""){
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
                         }
-                        var successData = apiCallPost('post', '/saveReview', this.payloadData);
-                        if (Object.keys(successData)) {
-                            location.href = "/acknowledge";
-                            this.isFormSubmitted = false;
-                        } else {
-                            $('#loader').hide();
-                        }
+                        var trimmedPayload = trimObj(this.payloadData);
+                        $.ajax({
+                            url: API_URI + "/saveReview",
+                            type: "post",
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify(trimmedPayload),
+                            cache: false,
+                            success: function (res) {
+                                location.href = "/acknowledge";
+                                this.isFormSubmitted = false;
+                                //$('#loader').hide();
+                            },
+                            error: function (error) {
+                                $('#loader').removeClass('d-block').addClass('d-none');
+                                if (error) {
+                                    showError(error.responseJSON.message, error.status);
+                                }
+                            }
+                        });
+                        // var successData = apiCallPost('post', '/saveReview', this.payloadData);
+                        // if (Object.keys(successData)) {
+                        //     location.href = "/acknowledge";
+                        //     this.isFormSubmitted = false;
+                        // } else {
+                        //     $('#loader').hide();
+                        // }
                     } else {
                         scrollToInvalidInput();
                         return false;
