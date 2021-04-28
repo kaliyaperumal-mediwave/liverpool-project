@@ -177,7 +177,7 @@ module.exports = {
           var Resources = await self.apos.modules["Resources-pages"].pieces
             .find(req, {})
             .toArray();
-            console.log('--------------resource data ---------',Resources);
+           // console.log('--------------resource data ---------',Resources);
           var ThingsToWatchArray = await self.apos.modules[
             "liverpool-watch-pages"
           ].pieces
