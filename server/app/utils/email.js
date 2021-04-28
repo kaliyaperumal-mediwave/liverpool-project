@@ -207,7 +207,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                     to: toAddress,
                     subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                     attachments: [{
-                        filename: ctx.request.body.refCode,
+                        filename: ctx.request.body.refCode + ".pdf",
                         content: sendReferralStatus,
                         contentType: 'application/pdf'
                     }],
