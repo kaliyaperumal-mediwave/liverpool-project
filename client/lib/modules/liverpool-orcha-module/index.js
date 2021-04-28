@@ -13,22 +13,25 @@ module.exports = {
     self.orcha = function (req, callback) {
       var appsName=[];
       var appTitle = {};
-      req.data.orchaApps = req.session.orchaApps;
-      var listOfApps = req.data.orchaApps;
-      for (var i = 0; i < listOfApps.length; i++) {
-        appTitle = {};
-        appTitle.title = listOfApps[i].appName;
-        appTitle.Topic = "Downloads"
-        appTitle.custom_url ='/downloads?app_id='+listOfApps[i].id;
-        appTitle.platform = listOfApps[i].platform;
-        appsName.push(appTitle);
-      }
-      console.log(appsName);
-      req.data.searchApps = appsName;
-      var allParameter = req.url.substring(req.url.indexOf("?") + 1);
-      var urlAppParamenter=allParameter.split("=")
-      var appId = urlAppParamenter[1];
-      req.data.currentApp = appId;
+      if(req.session.orchaApps!=undefined)
+      {
+          req.data.orchaApps = req.session.orchaApps;
+          var listOfApps = req.data.orchaApps;
+          for (var i = 0; i < listOfApps.length; i++) {
+            appTitle = {};
+            appTitle.title = listOfApps[i].appName;
+            appTitle.Topic = "Downloads"
+            appTitle.custom_url ='/downloads?app_id='+listOfApps[i].id;
+            appTitle.platform = listOfApps[i].platform;
+            appsName.push(appTitle);
+          }
+          console.log(appsName);
+          req.data.searchApps = appsName;
+          var allParameter = req.url.substring(req.url.indexOf("?") + 1);
+          var urlAppParamenter=allParameter.split("=")
+          var appId = urlAppParamenter[1];
+          req.data.currentApp = appId;
+       }
       console.log(appId)
       return self.sendPage(req, self.renderer('orcha', {
         showHeader: true,
