@@ -1161,7 +1161,7 @@ exports.referralStatusUpdate = async (ctx) => {
             referral_status: ctx.request.body.status
         }
 
-        if(ctx.request.body.status === 'Referral to other team'){
+        if(ctx.request.body.status === 'Referral to other team' || ctx.request.body.status  === 'Accepted by'){
             updateValue.referral_provider_other = ctx.request.body.other;
         }
 
