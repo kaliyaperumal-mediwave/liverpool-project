@@ -131,7 +131,7 @@ $(document).ready(function () {
                 $("#playButton").hide();
 
                 window.speechSynthesis.pause();
-
+                clearTimeout(myTimeout);
             });
             $('#resumeButton').on('click', function (e) {
                 document.getElementById('resumeButton').classList.add('d-none');
@@ -142,6 +142,7 @@ $(document).ready(function () {
                 $("#playButton").hide();
 
                 window.speechSynthesis.resume();
+                myTimeout = setTimeout(myTimer, 10000);
             });
             var ssu = new SpeechSynthesisUtterance();
             var myTimeout;
