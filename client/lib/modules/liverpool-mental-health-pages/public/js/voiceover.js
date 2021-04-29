@@ -174,6 +174,7 @@ $(document).ready(function () {
                 document.getElementById('playButton').removeAttribute('disabled');
                 document.getElementById('playButton').classList.remove('d-none');
                 document.getElementById('pauseButton').classList.add('d-none');
+                $("#playButton").show();
             };
 
 
