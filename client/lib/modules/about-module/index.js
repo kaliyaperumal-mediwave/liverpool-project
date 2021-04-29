@@ -25,17 +25,9 @@ module.exports = {
       const getParamsRedirect = "backbutton";
       decryptedUrl = btoa(getParamsRedirect);
 
-      if (req.session.user_role == 'child') {
-        labels = "Section 2 of 5: About you & your household";
-      } else if (req.session.user_role == 'parent') {
-        labels = "Section 2 of 5: About your child & their household";
-      }
-      else if (req.session.user_role == 'professional') {
-        labels = "Section 2 of 5: About the child /young person & their household";
-      }
       req.res.header('Cache-Control', 'no-cache, no-store'); //This will force the browser to obtain new copy of the page even when they hit "back".
       return self.sendPage(req, self.renderer('about', {
-        headerContent: labels,
+        headerContent: "Section 2 of 5: About you & your household",
         headerDescription: "Now we need some personal details, such as name & contact details",
         backContent: '/role?' + decryptedUrl,
         home: false,

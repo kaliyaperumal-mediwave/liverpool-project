@@ -64,10 +64,10 @@ function getDynamicLabels(currentLocation) {
     allLabels.triggersPlaceHolder =
       "Is there anything that you or your child have noticed that makes this issue worse for them? Tell us about it here.";
     allLabels.disabilitiesLabel =
-      "Do you have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
+      "Does the child/young person have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
 
     allLabels.disabilitiesPlaceHolder =
-      "Tell us about any disabilities, difficulties, health conditions or challenging behaviours you might have.";
+      "Tell us about any disabilities, difficulties, health conditions or challenging behaviours the child/young person might have.";
     allLabels.prevAccessedServiceLabel =
       "Has your child previously accessed any other services?";
     allLabels.listServiceLabel =
@@ -93,9 +93,9 @@ function getDynamicLabels(currentLocation) {
     allLabels.triggersPlaceHolder =
       "Is there anything that you or the child/young person have noticed that makes this issue worse for them? Tell us about it here.";
     allLabels.disabilitiesLabel =
-      "Do you have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
+      "Does the child/young person have any disabilities, difficulties, health conditions or challenging behaviours (diagnosed or under investigation)?";
     allLabels.disabilitiesPlaceHolder =
-      "Tell us about any disabilities, difficulties, health conditions or challenging behaviours you might have.";
+      "Tell us about any disabilities, difficulties, health conditions or challenging behaviours the child/young person might have.";
     allLabels.prevAccessedServiceLabel =
       "Has the child/young previously accessed any other services?";
     allLabels.listServiceLabel =

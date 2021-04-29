@@ -34,7 +34,7 @@
                     referral
                 </h2> -->
                 <div v-if="userRole == 'child'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_TitileChild', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -47,7 +47,7 @@
                     }
                     }) }}</div>
                 <div v-if="userRole == 'parent'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_Titileparent', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -60,7 +60,7 @@
                     }
                     }) }}</div>
                 <div v-if="userRole == 'professional'"
-                    class="px-4 py-2 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-1 pb-0 m-0 question-header-font col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                     {{ apos.area(data.page, 'referral_TitileProffessional', {
                     widgets: {
                     'apostrophe-rich-text': {
@@ -78,7 +78,7 @@
 
                 <!--  Support-Start-->
                 <form id="support-form" data-options="support">
-                    <div class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
+                    <div class="px-4 pb-2 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
                         <p class="question-font m-0">{{dynamicLabels.supportNeedsLabel}}</p>
                         <div class="d-flex form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" v-model="referralData.support" name="support"
@@ -197,7 +197,7 @@
                             <label for="mainEatDiff" class="question-font">Please give a brief outline of
                                 {{dynamicLabels.briefOutlineLabel}} daily food/fluid intake:</label>
                             <textarea class="h-112 form-control input-bg-form-control" name="briefOutlineInfo"
-                                id="mainEatDiff" placeholder="Tell us about diet,eating habits,quantities"
+                                id="mainEatDiff" placeholder="Tell us about diet, eating habits, quantities etc"
                                 @input="onValueEnter($event,'intake')" v-model="referralData.dailyIntakes"
                                 rows="7"></textarea>
                         </div>
@@ -242,7 +242,16 @@
 
                     <div v-if="(referralData.covid && (referralData.support == 'Mental health' || referralData.dailyIntakes))"
                         class="px-4 pt-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Main reason for making referral (please tick all that apply)</p>
+                        <div class="d-flex">
+                            <p class="question-font m-0 pr-2">Main reason for making referral (please tick all that
+                                apply)
+                            </p>
+                            <span id="8791f0c9-468a-44ea-92b4-57b96d260392" style="color: #D6D8D8;" class="px-2 d-none">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" id="toggleIconSect2" aria-expanded="true"
+                                    @click="showMoreOrLessList($event)"></i>
+                            </span>
+                        </div>
                         <div v-if="showMoreOrLess" class="checkboxWrapper">
                             <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
                                 :key="index">
@@ -920,7 +929,7 @@
                                         outbursts of anger
                                     </h3>
                                     <p class="support-modal-link-text cursor-pointer text-left m-0 py-2"> <a
-                                            href="/mental-health">> Find out
+                                            href="/mental-health" target="_blank">> Find out
                                             more
                                             about mental
                                             health</a></p>

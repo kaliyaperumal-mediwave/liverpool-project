@@ -28,6 +28,8 @@ module.exports = {
         return item;
       })
       const pieces = [];
+      if(req.session.partnerAgenciesArray!=undefined)
+      {
         for (let index = 0; index < req.session.partnerAgenciesArray.length; index++) {
           if(req.session.partnerAgenciesArray[index].createdAt) {
             req.session.partnerAgenciesArray[index].uploadTime = moment(req.session.partnerAgenciesArray[index].createdAt).fromNow();
@@ -42,6 +44,8 @@ module.exports = {
             }
           }
         }
+      }
+
         req.data.pieces = pieces;
       self.checkCommonPageAuth(req).then((req) => {
         return beforeIndex(req, callback);

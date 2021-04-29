@@ -22,30 +22,10 @@ module.exports = {
       const decodeValues = deCodeParameter.split("&");
       const getParamsRedirect = "backbutton";
       decryptedUrl = btoa(getParamsRedirect);
-      // if (decodeValues[2] == undefined) {
-      //   const getParamsRedirect = deCodeParameter + "&backbutton";
-      //   decryptedUrl = btoa(getParamsRedirect);
-      // }
-      // else if (decodeValues[2] == "backbutton") {
-      //   const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
-      //   decryptedUrl = btoa(getParamsRedirect);
-      // }
-      // else if (decodeValues[2] == "sec5back") {
-      //   const getParamsRedirect = decodeValues[0] + "&" + decodeValues[1] + "&backbutton";
-      //   decryptedUrl = btoa(getParamsRedirect);
-      // }
 
-      if (req.session.user_role == 'child') {
-        labels = "Section 4 of 5: Your Reason For Referral";
-      } else if (req.session.user_role == 'parent') {
-        labels = "Section 4 of 5: Your Reason For Referring your child";
-      }
-      else if (req.session.user_role == 'professional') {
-        labels = "Section 4 of 5: Your Reason For Referring the child/ young person";
-      }
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('referral', {
-        headerContent: labels,
+        headerContent: "Section 4 of 5: Reason for referral",
         headerDescription: "The most important part - why are you making a referral today?",
         backContent: '/education?' + decryptedUrl,
         home: false,

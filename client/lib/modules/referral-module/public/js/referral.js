@@ -81,8 +81,8 @@ $(document).ready(function () {
             openShowMoreOrLessFlag: true,
             storeDeleteData: null,
             listOfEatingDifficulties: [
-                { id: '4937fd43-79ae-4974-90d9-601966a9d3fb', value: 'Restricting Food Intake' },
-                { id: 'bd8efbb4-6491-4520-aea7-8ab35f38a261', value: 'Restricting Fluid Intake' },
+                { id: '4937fd43-79ae-4974-90d9-601966a9d3fb', value: 'Restricting food intake' },
+                { id: 'bd8efbb4-6491-4520-aea7-8ab35f38a261', value: 'Restricting fluid intake' },
                 { id: '6d31681e-a9b9-4cbe-a7e1-26bcbd17d9c3', value: 'Fear of being fat' },
                 { id: '14568ba7-78b0-4bca-aed3-560bdba83060', value: 'Increased preoccupation with weight and shape' },
                 { id: '73257df0-9c00-4125-8238-fe096bac4253', value: 'Excessive exercising' },
@@ -216,9 +216,10 @@ $(document).ready(function () {
                             resetValues(event.target.form, this, 'referralData');
                             this.reasonForReferral = [];
                         }
-                        //resetValues(event.target.form, this, 'referralData');
+                        $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-block').addClass('d-none');
                     } else {
-
+                        $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-none').addClass('d-block');
+                        //this.setDynamicReadyOnlyState();
                     }
                 }
                 else if (questionIdentifier === 'listService') {
@@ -324,55 +325,92 @@ $(document).ready(function () {
             //Function to trim space entered
             trimWhiteSpace: function (event, obj, key, hasShowLess) {
                 preventWhiteSpaces(event, this, obj, key);
-                if (hasShowLess) {
-                    var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
-                    var checkBoxCon = document.getElementsByClassName('checkboxWrapper');
-                    if (event.target.value) {
-                        if (this.reasonForReferral.length) {
-                            allCheckbox.map(function (input) {
-                                if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
-                                    var mainElem = input.parentElement.parentElement.parentElement;
-                                    $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
-                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
-                                    checkBoxCon[0].scrollIntoView();
+                // if (hasShowLess) {
+                //     var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+                //     var checkBoxCon = document.getElementsByClassName('checkboxWrapper');
+                //     if (event.target.value) {
+                //         if (this.reasonForReferral.length) {
+                //             allCheckbox.map(function (input) {
+                //                 if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
+                //                     var mainElem = input.parentElement.parentElement.parentElement;
+                //                     $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                //                     $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
+                //                     checkBoxCon[0].scrollIntoView();
 
-                                } else {
-                                    var mainElem = input.parentElement.parentElement.parentElement;
-                                    $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
-                                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
-                                }
-                            });
-                            checkBoxCon[0].scrollIntoView();
+                //                 } else {
+                //                     var mainElem = input.parentElement.parentElement.parentElement;
+                //                     $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                //                     $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
+                //                 }
+                //             });
+                //             checkBoxCon[0].scrollIntoView();
 
-                        } else {
-                            allCheckbox.map(function (input) {
-                                $(input).removeAttr("data-selected");
+                //         } else {
+                //             allCheckbox.map(function (input) {
+                //                 $(input).removeAttr("data-selected");
+                //                 var mainElem = input.parentElement.parentElement.parentElement;
+                //                 $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
+                //                 $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+                //                 checkBoxCon[0].scrollIntoView();
+                //             });
+                //         }
+                //     } else {
+                //         allCheckbox.map(function (input) {
+                //             var mainElem = input.parentElement.parentElement.parentElement;
+                //             $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                //             $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
+                //         });
+                //     }
+
+                // }
+            },
+
+            showMoreOrLessList: function (event) {
+                var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
+                var targetElem = event.target;
+                if (Array.from(targetElem.classList).indexOf('fa-chevron-circle-down') > -1) {
+                    $(targetElem).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    if (this.reasonForReferral.length) {
+                        allCheckbox.map(function (input) {
+                            if (input.getAttribute('data-selected') && input.getAttribute('data-selected') == 'selected') {
                                 var mainElem = input.parentElement.parentElement.parentElement;
-                                $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
-                                $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
-                                checkBoxCon[0].scrollIntoView();
-                            });
-                        }
+                                $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', 'none');
+                                $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
+
+                            } else {
+                                var mainElem = input.parentElement.parentElement.parentElement;
+                                $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none').removeAttr("data-selected");
+                                $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Click here to view full list & change the answer</u>');
+                            }
+                        });
                     } else {
                         allCheckbox.map(function (input) {
-                            // $(input).removeAttr("data-selected");
+                            $(input).removeAttr("data-selected");
                             var mainElem = input.parentElement.parentElement.parentElement;
-                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                            $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '').removeAttr("data-selected");
                             $('#showMoreOrLessText').removeClass('d-block').addClass('d-none').text('');
-                            //checkBoxCon[0].scrollIntoView();
                         });
                     }
-
+                } else if (Array.from(targetElem.classList).indexOf('fa-chevron-circle-up') > -1) {
+                    $(targetElem).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                    allCheckbox.map(function (input) {
+                        var mainElem = input.parentElement.parentElement.parentElement;
+                        $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
+                    });
+                    $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Show less list</u>');
                 }
+
             },
 
             toggleList: function (event) {
+                var arrowElem = $('#toggleIconSect2');
                 var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
                 if (event.target.textContent === 'Click here to view full list & change the answer') {
                     allCheckbox.map(function (input) {
                         var mainElem = input.parentElement.parentElement.parentElement;
                         $(mainElem).removeClass('d-block').addClass('d-flex').css('pointer-events', '');
                     });
+                    $(arrowElem).removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
                     $('#showMoreOrLessText').removeClass('d-none').addClass('d-block').html('<u>Show less list</u>');
                 } else if (event.target.textContent === 'Show less list') {
                     allCheckbox.map(function (input) {
@@ -385,6 +423,7 @@ $(document).ready(function () {
                             $(mainElem).removeClass('d-flex').addClass('d-none').css('pointer-events', 'none');
                         }
                     });
+                    $(arrowElem).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                     $('#showMoreOrLessText').html('<u>Click here to view full list & change the answer</u>');
                 }
 
@@ -437,10 +476,7 @@ $(document).ready(function () {
                     Vue.set(this.referralData, "dailyIntakes", data.food_fluid_intake);
                     Vue.set(this.referralData, "height", data.height);
                     Vue.set(this.referralData, "weight", data.weight);
-                    // Vue.set(this.referralData, "reasonForReferral", data.reason_for_referral);
                     Vue.set(this.referralData, "otherReasonsReferral", data.other_reasons_referral);
-
-
                     Vue.set(this.referralData, "referralInfo", data.referral_issues);
                     Vue.set(this.referralData, "hasAnythingInfo", data.has_anything_helped);
                     Vue.set(this.referralData, "triggerInfo", data.any_particular_trigger);
@@ -456,6 +492,9 @@ $(document).ready(function () {
 
             patchCheck: function () {
                 var _self = this;
+                $('#8791f0c9-468a-44ea-92b4-57b96d260392').removeClass('d-none').addClass('d-block');
+                var arrowElem = $('#toggleIconSect2');
+                $(arrowElem).removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
                 var allCheckbox = Array.from(document.getElementsByClassName('checkLogic'));
                 allCheckbox.map(function (input) {
                     if (_self.reasonForReferral.indexOf(input.value) != -1) {

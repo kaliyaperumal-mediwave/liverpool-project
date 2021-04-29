@@ -105,12 +105,12 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.yourLastNameLabel = "What is your parent / carer’s last name?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter this person’s last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carers first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is your parent or carers last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carer's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is your parent or carer's last name?";
 
     if (responsibilityFlow === "no" || responsibilityFlow === "yes") {
       section2Labels.relationShipLabel =
-        "What is this persons relationship to you?";
+        "What is this person's relationship to you?";
       section2Labels.guardContactLabel = "What is their contact number?";
       section2Labels.guardContactPlacLabel =
         "Enter your parent/carer's phone number";
@@ -175,8 +175,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.yourLastNameLabel = "What is your last name?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter your last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carers first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carers last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
 
     if (responsibilityFlow === "no") {
       section2Labels.relationShipLabel =
@@ -205,17 +205,17 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       section2Labels.guardAddress = "What is your address?";
       section2Labels.guardPlacAddress = "Enter your address";
       section2Labels.legalCareLabel =
-        "The child /young person's legal care status (“legal care status” means who has legal guardianship over the child/young person)";
+        "The child/young person's legal care status (“legal care status” means who has legal guardianship over the child/young person)";
       section2Labels.legalCarePlacLabel =
         "Select the child's legal care status";
     }
   } else if (currentLocation === "professional") {
     section2Labels.headerLabel =
-      "Section 2 of 5: About the child /young person & their household";
+      "Section 2 of 5: About the child/young person & their household";
     section2Labels.aboutYouLabel = "About the child/young person";
     section2Labels.houseHoldLabel = "The child/young person's household";
     section2Labels.houseHoldAddMemberLabel = "Add child/young person's household members";
-    section2Labels.carerLabel = "Child/Young person's parent/carer details";
+    section2Labels.carerLabel = "Child/young person's parent/carer details";
     section2Labels.nhsLabel = "The child/young person's NHS number";
     section2Labels.childTitleLabel = "What is the child/young person's title?";
     section2Labels.childTitlePlaceHoldTitle = "Select the child/young person's title"
@@ -232,28 +232,28 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       "Enter child / young person's contact number";
     section2Labels.addressLabel = "The child/young person's address";
     section2Labels.postLabel =
-      "Is the child /young person happy for the post to be sent to this address?";
+      "Is the child/young person happy for the post to be sent to this address?";
     section2Labels.genderLabel = "The child / young person’s gender";
     section2Labels.genderPlacLabel = "Enter the child / young person’s gender";
     section2Labels.identityLabel =
       "Does the child / young person identify with the gender they were assigned at birth?";
     section2Labels.sexAssignedLabel = "What sex was the child/young person assigned at birth?";
     section2Labels.sexOrientLabel =
-      "The child /young person's sexual orientation";
+      "The child/young person's sexual orientation";
     section2Labels.sexOrientPlacLabel =
-      "Enter the child /young person's sexual orientation (e.g. straight, pan, bi etc.)";
-    section2Labels.ethincityLabel = "The child /young person's  ethnicity";
+      "Enter the child/young person's sexual orientation (e.g. straight, pan, bi etc.)";
+    section2Labels.ethincityLabel = "The child/young person's  ethnicity";
     section2Labels.ethincityPlaceLabel =
-      "Enter the child /young person's ethnicity";
+      "Enter the child/young person's ethnicity";
     section2Labels.careAdultLabel =
-      "Does the child /young person care for an adult?";
+      "Does the child/young person care for an adult?";
     section2Labels.yourNameLabel =
       "What is the name of the young person's parent / carer?";
     section2Labels.yourNamePlacLabel = "Enter the person’s first and last name";
     section2Labels.parentalResLabel =
-      "Does this person have parental responsibility for the child /young person?";
+      "Does this person have parental responsibility for the child/young person?";
     section2Labels.responsibilityToastLabel =
-      "Please enter the details below for the person who has parental responsibility for the child /young person.";
+      "Please enter the details below for the person who has parental responsibility for the child/young person.";
     section2Labels.parentOrCarerNameLabel =
       "What is the parent or carers name?";
     section2Labels.firstNameLabel = "The child/young person's first name";
@@ -266,8 +266,8 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
     section2Labels.yourLastNameLabel = "What is the last name of the young person's parent / carer?";
     section2Labels.yourLastNameLabelPlacLabel = "Enter the person’s last name";
 
-    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carers first name?";
-    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carers last name?";
+    section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
+    section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
 
     if (responsibilityFlow === "no") {
       section2Labels.relationShipLabel =
@@ -277,7 +277,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       section2Labels.guardEmailLabel = "What is their email address?";
       section2Labels.guardEmailPlacLabel = "Enter their email address";
       section2Labels.sameHouseLabel =
-        "Do they live in the same house as the child /young person?";
+        "Do they live in the same house as the child/young person?";
       section2Labels.guardAddress = "What is their address?";
       section2Labels.guardPlacAddress = "Enter their address";
       section2Labels.legalCareLabel =
@@ -292,11 +292,11 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
       section2Labels.guardEmailLabel = "What is their email address?";
       section2Labels.guardEmailPlacLabel = "Enter their email address";
       section2Labels.sameHouseLabel =
-        "Do they live in the same house as the child /young person?";
+        "Do they live in the same house as the child/young person?";
       section2Labels.guardAddress = "What is their address?";
       section2Labels.guardPlacAddress = "Enter their address";
       section2Labels.legalCareLabel =
-        "The child /young person's legal care status (“legal care status” means who has legal guardianship over them)";
+        "The child/young person's legal care status (“legal care status” means who has legal guardianship over them)";
       section2Labels.legalCarePlacLabel =
         "Select the child/young person's legal care status";
     }

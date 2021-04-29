@@ -2360,7 +2360,7 @@ exports.saveReview = ctx => {
   const user = ctx.orm().Referral;
   var provider;
   ////console.log('\nSave Review Payload == ', ctx.request.body);
-  console.log("fdadfafafafafda " + ctx.request.body.contact_person)
+  //console.log("fdadfafafafafda " + ctx.request.body.referral_provider)
 
   return genetrateUniqueCode(ctx).then((uniqueNo) => {
     return user.update({
@@ -2389,14 +2389,22 @@ exports.saveReview = ctx => {
         //   ctx.query.selectedProvider = "MHST";
         // }
         if (ctx.request.body.referral_provider != "") {
-          // console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
-          ctx.query.selectedProvider = ctx.request.body.referral_provider;
+           console.log("ref ----------------------------------------------------- "+ ctx.request.body.referral_provider)
+          if(ctx.request.body.referral_provider=="Mental Health Support Team")
+          {
+            ctx.query.selectedProvider = "MHST";
+          }
+          else
+          {
+            ctx.query.selectedProvider = ctx.request.body.referral_provider;
+          }
+          
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
           return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
             return user.update({
-              referral_provider: ctx.request.body.referral_provider
+              referral_provider: ctx.query.selectedProvider
             },
               {
                 where:

@@ -965,7 +965,7 @@ table.dataTable tbody th.select-checkbox:before {
   border-radius: 100% !important;
   margin-left: 0.25rem;
   line-height: 1;
-  padding: 0px 0px 3px 2px !important;
+  padding: 0px !important;
   width: 34px;
   height: 34px;
   display: flex;
@@ -1178,7 +1178,8 @@ body {
     body .multiselect__strong {
       font-size: 12px; } }
   body .multiselect__tags {
-    padding: 8px 25px 0 4px !important; }
+    padding: 8px 25px 0 4px !important;
+    border: none !important; }
   body .multiselect__tag-icon:focus,
   body .multiselect__tag-icon:hover {
     background: #023047 !important; }
@@ -2945,7 +2946,7 @@ select.selectIcon {
       padding: 7px 0px 0px 7px; } }
   @media (min-width: 1200px) {
     .midTextRange {
-      width: 180px; } }
+      width: 154px; } }
 
 .collapse-title {
   font-size: 14px;
@@ -3837,6 +3838,16 @@ body .ui-widget .ui-menu-item {
   color: #023047 !important;
   background-color: #e8edee; }
 
+.off .text_inside_play-store-orcha {
+  background-color: #ffffff;
+  color: #023047; }
+
+.off .seemore {
+  color: #023047; }
+
+.off .titleQuestion {
+  color: #023047; }
+
 .off .themeSetDark .multiselect__input {
   background-color: #e8edee; }
 
@@ -3844,10 +3855,17 @@ body .ui-widget .ui-menu-item {
   background-color: #e8edee; }
 
 .off .themeSetDark .multiselect__content-wrapper {
-  background-color: #e8edee; }
+  background-color: #e8edee;
+  color: #023047;
+  font-weight: 500; }
+
+.off .multiselect__content-wrapper {
+  margin: 1px 0px !important; }
 
 .off .themeSetDark .multiselect__tags .multiselect__single {
-  background-color: #e8edee; }
+  background-color: #e8edee;
+  color: #023047;
+  font-weight: 500; }
 
 .off .card-set-container-bg {
   background: #ffffff 0% 0% no-repeat padding-box;
@@ -4002,7 +4020,8 @@ body .ui-widget .ui-menu-item {
   color: #023047; }
 
 .off .plain-select::after {
-  border-top: 6px solid #023047 !important; }
+  border-top: 6px solid #023047 !important;
+  z-index: 0 !important; }
 
 .off .option-font {
   color: #023047; }
@@ -4241,6 +4260,16 @@ body .ui-widget .ui-menu-item {
   color: #fafafa !important;
   background-color: #535454; }
 
+.on .text_inside_play-store-orcha {
+  background-color: #353638;
+  color: #fafafa; }
+
+.on .seemore {
+  color: #fafafa; }
+
+.on .titleQuestion {
+  color: #fafafa; }
+
 .on .themeSetDark .multiselect__input {
   background-color: #535454; }
 
@@ -4248,10 +4277,17 @@ body .ui-widget .ui-menu-item {
   background-color: #535454; }
 
 .on .themeSetDark .multiselect__content-wrapper {
-  background-color: #535454; }
+  background-color: #535454;
+  color: #fafafa;
+  font-weight: 500; }
+
+.on .multiselect__content-wrapper {
+  margin: 1px 0px !important; }
 
 .on .themeSetDark .multiselect__tags .multiselect__single {
-  background-color: #535454; }
+  background-color: #535454;
+  color: #fafafa;
+  font-weight: 500; }
 
 .on .card-set-container-bg {
   background: #353638 0% 0% no-repeat padding-box;
@@ -4406,7 +4442,8 @@ body .ui-widget .ui-menu-item {
   color: #fafafa; }
 
 .on .plain-select::after {
-  border-top: 6px solid #fafafa !important; }
+  border-top: 6px solid #fafafa !important;
+  z-index: 0 !important; }
 
 .on .option-font {
   color: #fafafa; }
@@ -5114,3 +5151,9 @@ div.collapse-container.collapsing {
     .heightSetLabel {
       height: auto !important;
       min-height: 40px !important; } }
+
+.lock-scroll {
+  overflow: hidden; }
+
+.stand-wid {
+  height: 130px; }

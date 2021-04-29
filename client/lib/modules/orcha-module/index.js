@@ -14,21 +14,25 @@ module.exports = {
     require('../../middleware')(self, options);
     self.orcha = function (req, callback) {
       req.data.orchaApps = req.session.orchaApps;
-      console.log(req.session.resUrl)
+     // console.log(req.session.orchaApps);
+      //console.log(req.session.resUrl);
      if(req.session.resUrl!='/apps?b3JjaGFCYWNr')
      {
       var appsName=[];
       var appTitle = {};
-      var listOfApps = req.data.orchaApps;
-      for (var i = 0; i < listOfApps.length; i++) {
-        appTitle = {};
-        appTitle.title = listOfApps[i].appName;
-        appTitle.Topic = "Downloads"
-        appTitle.custom_url ='/apps/details?app_id='+listOfApps[i].id;
-        appTitle.platform = listOfApps[i].platform;
-        appsName.push(appTitle);
+      var listOfApps = req.session.orchaApps;
+      if(listOfApps!=undefined)
+      {
+        for (var i = 0; i < listOfApps.length; i++) {
+          appTitle = {};
+          appTitle.title = listOfApps[i].appName;
+          appTitle.Topic = "Downloads"
+          appTitle.custom_url ='/apps/details?app_id='+listOfApps[i].id;
+          appTitle.platform = listOfApps[i].platform;
+          appsName.push(appTitle);
+        }
       }
-      console.log(appsName);
+      //console.log(appsName);
       req.data.searchApps = appsName;
      }
      //req.data.orchaApps = req.session.orchaApps;

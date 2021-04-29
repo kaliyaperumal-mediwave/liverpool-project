@@ -36,8 +36,7 @@ $(document).ready(function () {
             this.viewReferralObj.loginUserFlag = document.getElementById('loginUserFlag').innerHTML; // hide in layout.html
             this.viewReferralObj.loginFlg = document.getElementById('loginUserFlag').innerHTML;// hide in layout.html
             //CALL FETCH METHOD ONLY FOR LOGGED USER
-            if(this.viewReferralObj.loginFlg=='true')
-            {
+            if (this.viewReferralObj.loginFlg == 'true') {
                 this.getUserReferral(this.viewReferralObj.referralType);
             }
             $('#loader').hide();
@@ -67,12 +66,14 @@ $(document).ready(function () {
 
             getUserReferral: function (referralType) {
                 //console.log("erer")
+                $('#loader').show();
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/getUserReferral/" + referralType,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
                         $('#loader').hide();
                         let setObj = {};
@@ -81,50 +82,55 @@ $(document).ready(function () {
                         _self.viewReferralArray = [];
                         _self.referralDateArray = [];
                         for (var i = 0; i < _self.displayReferrals.length; i++) {
-                            if(referralType=='completed')
-                            {
-                               if(_self.displayReferrals[i].referral_provider=='Accepted - Alder Hey') //2
-                               {
-                                var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Alder hey have accepted your referral and they will be in contact"
-                                _self.displayReferrals[i].referral_provider = refStatus
-                               }
-                               else if( _self.displayReferrals[i].referral_provider == "Pending") // 1
-                               {
-                                var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Your referral has been sent successfully and will be reviewed shortly"
-                                _self.displayReferrals[i].referral_provider = refStatus
-                               }
-                               else if( _self.displayReferrals[i].referral_provider == "Duplicate referral") //4
-                               {
-                                var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "We have already had a referral which has been accepted thank you for this extra information"
-                                _self.displayReferrals[i].referral_provider = refStatus
-                               }
-                               else if( _self.displayReferrals[i].referral_provider == "Rejected referral") // 5
-                               {
-                                var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful resources"
-                                _self.displayReferrals[i].referral_provider = refStatus
-                               }
-                               else if( _self.displayReferrals[i].referral_provider == "Referral to Community Paeds required instead") // 6
-                               {
-                                var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Thank you for your referral. At this time we feel the community Paediatrics team can support you more appropriately"
-                                _self.displayReferrals[i].referral_provider = refStatus
-                               }
-                               else if( _self.displayReferrals[i].referral_provider == "Referral to other team") // 7
-                               {
-                                var refStatus = _self.displayReferrals[i].referral_provider
-                                refStatus= "Your referral has been passed on to " +  _self.displayReferrals[i].referral_provider_other
-                                _self.displayReferrals[i].referral_provider = refStatus
-                               }
-                               else //3
-                               {
-                                 var refStatus = _self.displayReferrals[i].referral_provider
-                                 refStatus= "Your referral has been forwarded to " + refStatus + " they will be in contact"
-                                 _self.displayReferrals[i].referral_provider = refStatus
-                               }
+                            if (referralType == 'completed') {
+                                if (_self.displayReferrals[i].referral_status == 'Accepted - Alder Hey') //2
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = "Alder Hey have accepted your referral and they will be in contact"
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else if (_self.displayReferrals[i].referral_status == "Nothing") // 1
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = "Your referral has been sent successfully and will be reviewed shortly"
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else if (_self.displayReferrals[i].referral_status == "Duplicate referral") //4
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = "We have already had a referral which has been accepted. Thank you for this extra information."
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else if (_self.displayReferrals[i].referral_status == "Rejected referral") // 5
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful resources"
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else if (_self.displayReferrals[i].referral_status == "Referral to Community Paeds required instead") // 6
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = "Thank you for your referral. At this time we feel the Community Paediatrics team can support you more appropriately."
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else if (_self.displayReferrals[i].referral_status == "Referral to other team") // 7
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = "Your referral has been passed on to " + _self.displayReferrals[i].referral_provider_other
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else if (_self.displayReferrals[i].referral_status == "Accepted by") // 8
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = _self.displayReferrals[i].referral_provider_other+" have accepted your referral and will be in contact."; 
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
+                                else //3
+                                {
+                                    var refStatus = _self.displayReferrals[i].referral_status
+                                    refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
+                                    _self.displayReferrals[i].referral_status = refStatus
+                                }
                             }
                             var date = _self.convertDate(_self.displayReferrals[i].createdAt);
                             // var date = _self.displayReferrals[i].createdAt;
@@ -186,6 +192,7 @@ $(document).ready(function () {
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
                         if (refObj.referral_progress == "20") {
                             location.href = "/about";
@@ -229,7 +236,7 @@ $(document).ready(function () {
 
             getReferalByCode: function (e) {
                 var _self = this;
-               // //console.log(e.target.value)
+                // //console.log(e.target.value)
                 var searchKey = e.target.value
                 if (searchKey.length > 0) {
                     $.ajax({
@@ -237,52 +244,59 @@ $(document).ready(function () {
                         type: 'get',
                         dataType: 'json',
                         contentType: 'application/json',
+                        cache: false,
                         success: function (data) {
                             _self.searchReferrals = data
-                            
-                               if(_self.searchReferrals[0].referral_provider=='Accepted') //2
-                               {
-                                var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "Alder hey have accepted your referral they will be in contact"
-                                _self.searchReferrals[0].referral_provider = refStatus
-                               }
-                               else if( _self.searchReferrals[0].referral_provider == "Pending" ||  _self.searchReferrals[0].referral_provider == "Nothing") // 1
-                               {
-                                var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "Your referral has been sent successfully and will be reviewed shortly"
-                                _self.searchReferrals[0].referral_provider = refStatus
-                               }
-                               else if( _self.searchReferrals[0].referral_provider == "Duplicate referral") //4
-                               {
-                                var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "We have already had a referral which has been accepted thank you for this extra information"
-                                _self.searchReferrals[0].referral_provider = refStatus
-                               }
-                               else if( _self.searchReferrals[0].referral_provider == "Rejected referral") // 5
-                               {
-                                var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful "
-                                _self.searchReferrals[0].referral_provider = refStatus
-                               }
-                               else if( _self.searchReferrals[0].referral_provider == "Referral to Community Paeds required instead") // 6
-                               {
-                                var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "Thank you for your referral. At this time we feel the community Paediatrics team can support you more appropriately"
-                                _self.searchReferrals[0].referral_provider = refStatus
-                               }
-                               else if( _self.searchReferrals[0].referral_provider == "Referral to other team") // 7
-                               {
-                                var refStatus = _self.searchReferrals[0].referral_provider
-                                refStatus= "Your referral has been passed on to " +  referral_provider
-                                _self.searchReferrals[0].referral_provider = refStatus
-                               }
-                               else //3
-                               {
-                                 var refStatus = _self.searchReferrals[0].referral_provider
-                                 refStatus= "Your referral has been forwarded to " + refStatus + " they will be in contact"
-                                 _self.searchReferrals[0].referral_provider = refStatus
-                               }
-                            
+
+                            if (_self.searchReferrals[0].referral_status == 'Accepted - Alder Hey') //2
+                            {
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = "Alder Hey have accepted your referral they will be in contact."
+                                _self.searchReferrals[0].referral_status = refStatus
+                            }
+                            else if (_self.searchReferrals[0].referral_status == "Nothing") // 1
+                            {
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = "Your referral has been sent successfully and will be reviewed shortly."
+                                _self.searchReferrals[0].referral_status = refStatus
+                            }
+                            else if (_self.searchReferrals[0].referral_status == "Duplicate referral") //4
+                            {
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = "We have already had a referral which has been accepted. Thank you for this extra information."
+                                _self.searchReferrals[0].referral_status = refStatus
+                            }
+                            else if (_self.searchReferrals[0].referral_status == "Rejected referral") // 5
+                            {
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful resources."
+                                _self.searchReferrals[0].referral_status = refStatus
+                            }
+                            else if (_self.searchReferrals[0].referral_status == "Referral to Community Paeds required instead.") // 6
+                            {
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = "Thank you for your referral. At this time we feel the Community Paediatrics team can support you more appropriately."
+                                _self.searchReferrals[0].referral_status = refStatus
+                            }
+                            else if (_self.searchReferrals[0].referral_status == "Referral to other team") // 7
+                            {
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
+                                _self.searchReferrals[0].referral_status = refStatus
+                            }
+                            else if (_self.displayReferrals[i].referral_status == "Accepted by") // 8
+                            {
+                                var refStatus = _self.displayReferrals[i].referral_status
+                                refStatus = _self.displayReferrals[i].referral_provider_other+" have accepted your referral and will be in contact."; 
+                                _self.displayReferrals[i].referral_status = refStatus
+                            }
+                            else //3
+                            {
+                                var refStatus = _self.searchReferrals[0].referral_status
+                                refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
+                                _self.searchReferrals[0].referral_status = refStatus
+                            }
+
 
                             //console.log(data)
                         },
@@ -299,22 +313,74 @@ $(document).ready(function () {
 
             searchReferalByCode: function (searchCode) {
                 var _self = this;
-               console.log(searchCode)
-               var searchCodeUpperCase = searchCode.toUpperCase()
+                console.log(searchCode)
+                $('#loader').show();
+                var searchCodeUpperCase = searchCode.toUpperCase()
                 $.ajax({
                     url: API_URI + "/searchReferalByCode/" + searchCode,
                     type: 'get',
                     dataType: 'json',
                     contentType: 'application/json',
+                    cache: false,
                     success: function (data) {
                         $('#loader').hide();
-                        _self.searchReferrals = data;
+                        _self.searchReferrals = data
+
+                        if (_self.searchReferrals[0].referral_status == 'Accepted - Alder Hey') //2
+                        {
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = "Alder Hey have accepted your referral they will be in contact."
+                            _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        else if (_self.searchReferrals[0].referral_status == "Nothing") // 1
+                        {
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = "Your referral has been sent successfully and will be reviewed shortly."
+                            _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        else if (_self.searchReferrals[0].referral_status == "Duplicate referral") //4
+                        {
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = "We have already had a referral which has been accepted. Thank you for this extra information."
+                            _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        else if (_self.searchReferrals[0].referral_status == "Rejected referral") // 5
+                        {
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful resources."
+                            _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        else if (_self.searchReferrals[0].referral_status == "Referral to Community Paeds required instead.") // 6
+                        {
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = "Thank you for your referral. At this time we feel the Community Paediatrics team can support you more appropriately."
+                            _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        else if (_self.searchReferrals[0].referral_status == "Referral to other team") // 7
+                        {
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = "Your referral has been passed on to " + _self.searchReferrals[0].referral_provider_other
+                            _self.searchReferrals[0].referral_status = refStatus
+                        }
+                        else if (_self.displayReferrals[i].referral_status == "Accepted by") // 8
+                        {
+                            var refStatus = _self.displayReferrals[i].referral_status
+                            refStatus = _self.displayReferrals[i].referral_provider_other+" have accepted your referral and will be in contact."; 
+                            _self.displayReferrals[i].referral_status = refStatus
+                        }
+                        else //3
+                        {
+                            var refStatus = _self.searchReferrals[0].referral_status
+                            refStatus = "Your referral has been forwarded to " + refStatus + " they will be in contact"
+                            _self.searchReferrals[0].referral_status = refStatus
+                        }
+
                         _self.viewReferralObj.searchTxt = searchCode;
-                     //   //console.log(data)
+                        //   //console.log(data)
                     },
                     error: function (error) {
                         if (error) {
-                          //  //console.log(error);
+                            //  //console.log(error);
                             $('#loader').hide();
                             showError(error.responseJSON.message, error.status);
                         }
