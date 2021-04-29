@@ -252,9 +252,9 @@
                             <select style="background: #fff !important;" v-model="SelectedProviderStatus" id="SelectedProviderStatus"
                                 class="custom-select form-control input-bg-form-control height-44">
                                 <option class='option-text' value="Nothing">Nothing</option>
-                                <option class='option-text' value="Accepted - Alder Hey">Accepted - Alder Hey</option>
-                                <option class='option-text' value="YPAS">Forwarded to partner agency - YPAS</option>
-                                <option class='option-text' value="Venus">Forwarded to partner agency - Venus</option>
+                                <option class='option-text' value="Accepted by">Accepted by</option>
+                                <!-- <option class='option-text' value="YPAS">Forwarded to partner agency - YPAS</option>
+                                <option class='option-text' value="Venus">Forwarded to partner agency - Venus</option> -->
                                 <option class='option-text' value="Duplicate referral">Duplicate referral</option>
                                 <option class='option-text' value="Rejected referral">Rejected referral</option>
                                 <option class='option-text' value="Referral to Community Paeds required instead">Referral to Community Paeds required instead</option>
@@ -263,7 +263,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="px-sm-5 px-4 py-2" v-if="SelectedProviderStatus === 'Referral to other team'">
+                <div class="px-sm-5 px-4 py-2" v-if="SelectedProviderStatus === 'Referral to other team' || SelectedProviderStatus === 'Accepted by'">
                     <div class="input-group w-100">
                         <input type="text" class="form-control" placeholder="Type here..." id="statusOther" v-model="statusOther" name="statusOther">
                     </div>

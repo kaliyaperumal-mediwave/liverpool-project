@@ -143,7 +143,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
     try {
         if (ctx.request.decryptedUser != undefined) {
             const data = {
-                from: 'info@mindwaveventures.com',
+                from:  config.email_from_address,
                 to: ctx.request.decryptedUser.email,
                 subject: 'Referral Confirmation',
                 html: '<p> Your referral code is <strong>' + ctx.request.body.ref_code + '</strong><p>',
@@ -190,7 +190,8 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.parenting_email
         } else if (ctx.request.body.emailToProvider == "IAPTUS") {
             toAddress = config.iaptus_email
-        } else {
+        }
+         else {
             toAddress = config.other_email
         }
         console.log('toAddress----------', toAddress);
@@ -206,7 +207,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                     to: toAddress,
                     subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                     attachments: [{
-                        filename: ctx.request.body.refCode,
+                        filename: ctx.request.body.refCode + ".pdf",
                         content: sendReferralStatus,
                         contentType: 'application/pdf'
                     }],
