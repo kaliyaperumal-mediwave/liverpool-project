@@ -143,7 +143,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
     try {
         if (ctx.request.decryptedUser != undefined) {
             const data = {
-                from: 'info@mindwaveventures.com',
+                from:  config.email_from_address,
                 to: ctx.request.decryptedUser.email,
                 subject: 'Referral Confirmation',
                 html: '<p> Your referral code is <strong>' + ctx.request.body.ref_code + '</strong><p>',
