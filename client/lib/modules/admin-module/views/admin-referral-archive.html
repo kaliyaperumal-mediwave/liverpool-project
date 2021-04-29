@@ -104,9 +104,14 @@
                     </div>
                 </div>
                 <div class="button-cont-admin row">
-                    <div class="py-2 set-div-width mx-auto d-flex align-center justify-content-center">
+                    <div class="py-2 set-div-width d-flex align-center justify-content-center col-12 col-sm-6">
                         <button type="button" class="btn-delete-admin" @click="unArchive()">
                             Unarchive
+                        </button>
+                    </div>
+                    <div class="py-2 set-div-width d-flex align-center justify-content-center col-12 col-sm-6">
+                        <button type="button" id="ExportReporttoExcel" class="btn-archive-admin">
+                            Download CSV
                         </button>
                     </div>
                 </div>
@@ -247,7 +252,7 @@
             <div class="modal-content modal-bg">
                 <div class="modal-header justify-content-center">
                     <h5 class="logout-font mt-3">Change status</h5>
-                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="modal-close" @click="closeStatusPopup()">
                         <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
                     </span>
                 </div>
@@ -258,8 +263,8 @@
                                 class="custom-select form-control input-bg-form-control height-44">
                                 <option class='option-text' value="Nothing">Nothing</option>
                                 <option class='option-text' value="Accepted - Alder Hey">Accepted - Alder Hey</option>
-                                <option class='option-text' value="YPAS">Forwarded to partner agency - YPAS</option>
-                                <option class='option-text' value="Venus">Forwarded to partner agency - Venus</option>
+                                <!-- <option class='option-text' value="YPAS">Forwarded to partner agency - YPAS</option>
+                                <option class='option-text' value="Venus">Forwarded to partner agency - Venus</option> -->
                                 <option class='option-text' value="Duplicate referral">Duplicate referral</option>
                                 <option class='option-text' value="Rejected referral">Rejected referral</option>
                                 <option class='option-text' value="Referral to Community Paeds required instead">Referral to Community Paeds required instead</option>

@@ -88,7 +88,7 @@ $(document).ready(function () {
             {
               extend: 'csv',
               text: 'Export as CSV',
-              title: 'Referrals Data export',
+              title: 'referrals_data_export_'+(new Date().toISOString().slice(0, 10)),
               exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7, 8]
               }
@@ -120,6 +120,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].date,
                   referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' : 
                   referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' : 
+                  referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted by '+ referralRes.data.data[i].referral_provider_other : 
                   referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to '+ referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
                   "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>"
                 ]);
@@ -196,8 +197,13 @@ $(document).ready(function () {
         $('#mailSentSuccess').modal('hide');
       },
       closeUpdateSuccessPopup: function () {
+        this.SelectedProviderStatus = '';
         $('#adminReferral').DataTable().ajax.reload();
         $('#statusUpdatedSuccess').modal('hide');
+      },
+      closeStatusPopup: function () {
+          this.SelectedProviderStatus = '';
+          $('#changeStatusModal').modal('hide');
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
@@ -259,33 +265,31 @@ function changeStatus(uuid, value, other_value) {
 
 function updateStatus(uuid) {
   $('#loader').show();
-  var status = $('#SelectedProviderStatus').val();
-  var postData = {
-    referral_id: uuid,
-    status: status
-  }
-  if (status === 'Referral to other team') {
-    postData.other = $('#statusOther').val();
-  }
-  if (status && uuid) {
-    setTimeout(function () {
+  setTimeout(function () {
+      var status = $('#SelectedProviderStatus').val();
+      var postData = {
+      referral_id: uuid,
+      status: status
+      }
+      if (status === 'Referral to other team') {
+      postData.other = $('#statusOther').val();
+      }
       var successData = apiCallPut('put', '/referralStatusUpdate', postData);
       if (successData && Object.keys(successData)) {
-        $('#statusOther').val('')
-        $('#changeStatusModal').modal('hide');
-        $('#statusUpdatedSuccess').modal('show');
-        setTimeout(function () {
+          $('#statusOther').val('')
+          $('#changeStatusModal').modal('hide');
+          $('#statusUpdatedSuccess').modal('show');
+          setTimeout(function () {
           $('#loader').hide();
-        }, 500);
+          }, 500);
       }
       else {
-        setTimeout(function () {
+          setTimeout(function () {
           $('#loader').hide();
-        }, 500);
-        $('#changeStatusModal').modal('hide');
+          }, 500);
+          $('#changeStatusModal').modal('hide');
       }
-    }, 500);
-  }
+  }, 500);
 }
 
 

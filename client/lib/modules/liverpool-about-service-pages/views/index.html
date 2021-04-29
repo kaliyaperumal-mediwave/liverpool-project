@@ -123,7 +123,7 @@
 
             {% if apos.images.first(piece.thumbnail) %} {% set img =
             apos.images.first(piece.thumbnail) %} {% endif %} {% if img %}
-            <img class="border-radius-10 h-2-182" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
+            <img class="border-radius-10 h-2-182 stand-wid" src="{{ apos.attachments.url(img, { size: 'max' }) }}" />
             {% endif %}
           </div>
         </a>

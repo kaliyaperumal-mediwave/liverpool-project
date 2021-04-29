@@ -581,7 +581,6 @@ $(document).ready(function () {
 
             //Adding and Updating a HouseHold logic
             upsertHouseHold: function () {
-                debugger
                 var errorElements = Array.from(document.getElementsByClassName("invalid-modal-fields"));
                 console.log(errorElements);
                 this.isHouseHoldFormSubmitted = true;

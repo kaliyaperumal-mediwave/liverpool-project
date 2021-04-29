@@ -242,7 +242,16 @@
 
                     <div v-if="(referralData.covid && (referralData.support == 'Mental health' || referralData.dailyIntakes))"
                         class="px-4 pt-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <p class="question-font m-0">Main reason for making referral (please tick all that apply)</p>
+                        <div class="d-flex">
+                            <p class="question-font m-0 pr-2">Main reason for making referral (please tick all that
+                                apply)
+                            </p>
+                            <span id="8791f0c9-468a-44ea-92b4-57b96d260392" style="color: #D6D8D8;" class="px-2 d-none">
+                                <i class="fas fa-chevron-circle-down fa-2x res_fontz arrowClass cursor-pointer w-35"
+                                    data-toggle="collapse" id="toggleIconSect2" aria-expanded="true"
+                                    @click="showMoreOrLessList($event)"></i>
+                            </span>
+                        </div>
                         <div v-if="showMoreOrLess" class="checkboxWrapper">
                             <div class="custom-form-group pt-3 pb-1 m-0" v-for="(item, index) in reasonForReferralList"
                                 :key="index">

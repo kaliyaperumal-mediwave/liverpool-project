@@ -3838,6 +3838,16 @@ body .ui-widget .ui-menu-item {
   color: #023047 !important;
   background-color: #e8edee; }
 
+.off .text_inside_play-store-orcha {
+  background-color: #ffffff;
+  color: #023047; }
+
+.off .seemore {
+  color: #023047; }
+
+.off .titleQuestion {
+  color: #023047; }
+
 .off .themeSetDark .multiselect__input {
   background-color: #e8edee; }
 
@@ -4249,6 +4259,16 @@ body .ui-widget .ui-menu-item {
 .on .themeSetDark {
   color: #fafafa !important;
   background-color: #535454; }
+
+.on .text_inside_play-store-orcha {
+  background-color: #353638;
+  color: #fafafa; }
+
+.on .seemore {
+  color: #fafafa; }
+
+.on .titleQuestion {
+  color: #fafafa; }
 
 .on .themeSetDark .multiselect__input {
   background-color: #535454; }
@@ -5131,3 +5151,9 @@ div.collapse-container.collapsing {
     .heightSetLabel {
       height: auto !important;
       min-height: 40px !important; } }
+
+.lock-scroll {
+  overflow: hidden; }
+
+.stand-wid {
+  height: 130px; }
