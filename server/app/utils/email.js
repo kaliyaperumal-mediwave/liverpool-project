@@ -24,8 +24,8 @@ if (process.env.USE_SENDGRID == 'true') {
     mailService = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
-        secure: process.env.EMAIL_SECURE, // use TLS
-        ignoreTLS: true,
+        secure: false, // use TLS
+        logger: true,
         auth: {
             user: process.env.EMAIL_AUTH_USERNAME,
             pass: process.env.EMAIL_AUTH_PASSWORD
