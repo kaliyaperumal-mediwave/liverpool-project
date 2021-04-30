@@ -220,7 +220,11 @@ $(document).ready(function () {
                     if (this.contact_person && this.contactPref.length) {
                         $('#loader').show();
                         if (this.section1Data.gp_school != "" && this.section1Data.gp_school != null) {
-                            this.payloadData.referral_provider = "MHST";
+                            if(this.section1Data.service_location === 'liverpool'){
+                                this.payloadData.referral_provider = "MHST Liverpool";
+                            } else {
+                                this.payloadData.referral_provider = "MHST Sefton";
+                            }
                         }
                         else {
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
@@ -265,7 +269,11 @@ $(document).ready(function () {
                     if (this.contact_person && this.contactPref.length) {
                         $('#loader').show();
                         if (this.section1Data.gp_school != "" && this.section1Data.gp_school != null) {
-                            this.payloadData.referral_provider = "MHST";
+                            if(this.section1Data.service_location === 'liverpool'){
+                                this.payloadData.referral_provider = "MHST Liverpool";
+                            } else {
+                                this.payloadData.referral_provider = "MHST Sefton";
+                            }
                         }
                         else if(this.section1Data.selected_service !=""){
                             this.payloadData.referral_provider = this.section1Data.selected_service;
