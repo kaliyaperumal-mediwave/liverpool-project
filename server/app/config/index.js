@@ -16,14 +16,20 @@ const configs = {
     orcha_api: process.env.ORCHA_API,
     orcha_user: process.env.ORCHA_USER,
     orcha_pass: process.env.ORCHA_PASS,
-    //Provider Email address to send completed referrals. 
-    ypas_email: process.env.YPAS_EMAIL,
-    venus_email: process.env.VENUS_EMAIL,
+    //Provider Email address to send completed referrals.
     iaptus_email: process.env.IAPTUS_EMAIL,
     other_email: process.env.OTHER_EMAIL,
-    mhst_email: process.env.MHST_EMAIL,
-    alder_hey_email: process.env.ALDER_HEY_FORMS_EMAIL,
+    alder_hey_liverpol: process.env.ALDER_HEY_LIVERPOOL,
+    ypas_email: process.env.YPAS_EMAIL,
+    liverpool_mhst_email: process.env.LIVERPOOL_MHST,
+    seedlings_email: process.env.SEEDLINGS,
+    wellbeing_clinics_email: process.env.WELLBEING_CLINICSE,
+    alder_hey_sefton: process.env.ALDER_HEY_SEFTON,
+    venus_email: process.env.VENUS_EMAIL,
     parenting_email: process.env.PARENTING_EMAIL,
+    sefton_mhst_email: process.env.SEFTON_MHST,
+    alder_hey_email: process.env.ALDER_HEY_FORMS_EMAIL,
+    mhst_email: process.env.MHST_EMAIL,
     use_sendgrid: process.env.USE_SENDGRID,
 
     orm: {
