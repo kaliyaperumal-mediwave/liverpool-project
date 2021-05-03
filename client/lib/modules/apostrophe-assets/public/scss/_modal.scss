@@ -18,6 +18,10 @@
 .modal-close {
   position: absolute;
   right: 20px;
+  font-size: 14px;
+  @include xxs-screen{
+    font-size: 14px !important;
+  }
 }
 
 // .modal-header-text {
