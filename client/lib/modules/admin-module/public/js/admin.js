@@ -283,7 +283,7 @@ function updateStatus(uuid) {
       }
       var successData = apiCallPut('put', '/referralStatusUpdate', postData);
       if (successData && Object.keys(successData)) {
-          $('#statusOther').val('')
+          document.getElementById("statusOther").value = '';
           $('#changeStatusModal').modal('hide');
           $('#statusUpdatedSuccess').modal('show');
           setTimeout(function () {
