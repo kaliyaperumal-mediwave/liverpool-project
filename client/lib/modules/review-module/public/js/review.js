@@ -281,6 +281,7 @@ $(document).ready(function () {
                         else if(this.section1Data.selected_service ==""){
                             this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
                         }
+
                         var trimmedPayload = trimObj(this.payloadData);
                         $.ajax({
                             url: API_URI + "/saveReview",
