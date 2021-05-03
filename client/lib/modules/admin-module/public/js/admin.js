@@ -149,6 +149,11 @@ $(document).ready(function () {
       resetReferral: function () {
         this.referral_ids = [];
       },
+      deletePopup() {
+        if (this.referral_ids && this.referral_ids.length) {
+          $('#deletePopup').modal('show');
+        }
+      },
       deleteReferral: function () {
         if (this.referral_ids.length) {
           var _self = this;
@@ -253,9 +258,10 @@ function viewPdf(uuid, role) {
 
 function changeStatus(uuid, value, other_value) {
   if (value === 'Referral to other team' && other_value != null) {
-      $('#SelectedProviderStatus').val(other_value);
+      $('#SelectedProviderStatus').val(value);
+      document.getElementById("statusOther").value = other_value;
   } else {
-    $('#SelectedProviderStatus').val('');
+    $('#otherTeam').hide();
   }
   document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
   $('#changeStatusModal').modal('show');
@@ -327,12 +333,14 @@ function openSendPopup(uuid, role, refCode, referral_provider) {
   $('#sendProviderModal').modal('show');
   document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
 }
-function deletePopup() {
-  $('#deletePopup').modal('show');
-}
-function deletePopupHide() {
-  $('#deletePopup').modal('hide');
-}
+
 function closeAlreadySentPopup() {
   $('#referralAlreadySent').modal('hide');
 }
+$(document).on('change', '#SelectedProviderStatus', function (e) {
+  if (e.target.value === 'Referral to other team') {
+    $('#otherTeam').show();
+  } else {
+    $('#otherTeam').hide();
+  }
+});
