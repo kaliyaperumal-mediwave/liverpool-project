@@ -1034,7 +1034,11 @@ table.dataTable tbody th.select-checkbox:before {
 
 .modal-close {
   position: absolute;
-  right: 20px; }
+  right: 20px;
+  font-size: 14px; }
+  @media (min-width: 320px) and (max-width: 575.98px) {
+    .modal-close {
+      font-size: 14px !important; } }
 
 .modal-content .form-control {
   background: #ebebeb 0% 0% no-repeat padding-box !important; }
@@ -3698,6 +3702,9 @@ body .ui-widget .ui-menu-item {
 .modal-dialog-centered {
   justify-content: center; }
 
+.modal-dialog {
+  max-width: 600px !important; }
+
 /* range slider */
 #slide-test-5 .range-labels .active {
   font-weight: 700; }
@@ -5157,3 +5164,13 @@ div.collapse-container.collapsing {
 
 .stand-wid {
   height: 130px; }
+
+.login-safe-pd-custom {
+  max-width: 590px !important;
+  padding: 24px; }
+  @media (min-width: 320px) and (max-width: 424px) {
+    .login-safe-pd-custom {
+      width: 320px !important; } }
+
+.font-weight {
+  font-weight: 600 !important; }

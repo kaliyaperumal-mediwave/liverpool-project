@@ -106,7 +106,7 @@
                 </div>
                 <div class="button-cont-admin row">
                     <div class="py-2 set-div-width d-flex align-center justify-content-center">
-                        <button type="button" class="btn-delete-admin" @click="deleteReferral()">
+                        <button type="button" class="btn-delete-admin" @click="deletePopup()">
                             Delete
                         </button>
                     </div>
@@ -213,7 +213,8 @@
                                     <option class='option-text' value="Alder Hey - Liverpool CAMHS - EDYS">Alder Hey -
                                         Liverpool CAMHS - EDYS </option>
                                     <option class='option-text' value="YPAS">YPAS</option>
-                                    <option class='option-text' value="MHST Liverpool">Mental Health Support Team</option>
+                                    <option class='option-text' value="MHST Liverpool">Mental Health Support Team
+                                    </option>
                                     <option class='option-text' value="Seedlings">Seedlings</option>
                                     <option class='option-text' value="Wellbeing Clinics">Wellbeing Clinics</option>
                                 </select>
@@ -266,7 +267,8 @@
                 <div class="px-sm-5 px-4 py-2">
                     <div class="input-group w-100">
                         <span class="plain-select">
-                            <select style="background: #fff !important;" v-model="SelectedProviderStatus" id="SelectedProviderStatus"
+                            <select style="background: #fff !important;" v-model="SelectedProviderStatus"
+                                id="SelectedProviderStatus"
                                 class="custom-select form-control input-bg-form-control height-44">
                                 <option class='option-text' value="Nothing">Nothing</option>
                                 <option class='option-text' value="Accepted - Alder Hey">Accepted - Alder Hey</option>
@@ -274,15 +276,18 @@
                                 <option class='option-text' value="Venus">Forwarded to partner agency - Venus</option> -->
                                 <option class='option-text' value="Duplicate referral">Duplicate referral</option>
                                 <option class='option-text' value="Rejected referral">Rejected referral</option>
-                                <option class='option-text' value="Referral to Community Paeds required instead">Referral to Community Paeds required instead</option>
-                                <option class='option-text' value="Referral to other team">Referral to other team</option>
+                                <option class='option-text' value="Referral to Community Paeds required instead">
+                                    Referral to Community Paeds required instead</option>
+                                <option class='option-text' value="Referral to other team">Referral to other team
+                                </option>
                             </select>
                         </span>
                     </div>
                 </div>
                 <div class="px-sm-5 px-4 py-2" v-if="SelectedProviderStatus === 'Referral to other team'">
                     <div class="input-group w-100">
-                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther" v-model="statusOther" name="statusOther">
+                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther"
+                            v-model="statusOther" name="statusOther">
                     </div>
                 </div>
                 <div class="modal-footer submit-btn-admin">
@@ -345,6 +350,39 @@
                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                     </p>
                     <h5 id="sentMsg" class="logout-font mt-3 text-center"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Succuss Modal End -->
+    <!-- Delete popup -->
+    <div class="modal fade" id="deletePopup" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+        aria-labelledby="deletePopupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd-custom">
+                <span aria-hidden="true" class="modal-close" onclick="deletePopupHide()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text pr-4">
+                    <h5 id="sentMsg" class="logout-font mt-3 text-center">Are you sure you want to delete?</h5>
+                    <div class="d-flex row m-0 p-0">
+                        <div class="col-12 col-sm-6 mt-2 d-flex align-items-center justify-content-center">
+                            <button @click="deleteReferral()"
+                                class="btn font-weight px-md-4 d-flex align-center justify-content-center"
+                                style="background-color: #219EBC !important;">
+                                Yes, delete
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-sm-6 mt-2 d-flex align-items-center justify-content-center">
+                            <button onclick="deletePopupHide()"
+                                class="btn px-md-4 font-weight d-flex align-center justify-content-center">
+                                No, do not delete
+                            </button>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </div>
