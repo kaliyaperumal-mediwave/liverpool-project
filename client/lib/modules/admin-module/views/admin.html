@@ -106,7 +106,7 @@
                 </div>
                 <div class="button-cont-admin row">
                     <div class="py-2 set-div-width d-flex align-center justify-content-center">
-                        <button type="button" class="btn-delete-admin" @click="deleteReferral()">
+                        <button type="button" class="btn-delete-admin" @click="deletePopup()">
                             Delete
                         </button>
                     </div>
@@ -345,6 +345,29 @@
                         <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
                     </p>
                     <h5 id="sentMsg" class="logout-font mt-3 text-center"></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Login Succuss Modal End -->
+    <!-- Delete popup -->
+    <div class="modal fade" id="deletePopup" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        role="dialog" aria-labelledby="deletePopupLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg login-safe-pd">
+                <span aria-hidden="true" class="modal-close" onclick="deletePopupHide()">
+                    <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                </span>
+                <div class="modal-header justify-content-center model-text-pd text">
+                    <h5 id="sentMsg" class="logout-font mt-3 text-center">Are you sure you want to delete?</h5>
+                    <button @click="deleteReferral()" class="btn mb-3 px-md-4 w-50 d-flex align-center justify-content-center"
+                        style="background-color: #219EBC !important;">
+                        <span class="btn-modal-text">Yes, delete</span>
+                    </button>
+                    <button onclick="deletePopupHide()" class="btn mb-3 px-md-4 w-50 d-flex align-center justify-content-center"
+                        style="background-color: #219EBC !important;">
+                        <span class="btn-modal-text">No, do not delete</span>
+                    </button>
                 </div>
             </div>
         </div>

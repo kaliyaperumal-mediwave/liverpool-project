@@ -158,6 +158,7 @@ $(document).ready(function () {
             if (successData && Object.keys(successData)) {
               _self.successMessage = 'Referrals deleted successfully'
               _self.fetchReferral();
+              $('#deletePopup').modal('hide');
               $('#deletedSuccess').modal('show');
               setTimeout(function () {
                 $('#loader').hide();
@@ -325,6 +326,12 @@ function sendPdf(uuid, role, refCode) {
 function openSendPopup(uuid, role, refCode, referral_provider) {
   $('#sendProviderModal').modal('show');
   document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+}
+function deletePopup() {
+  $('#deletePopup').modal('show');
+}
+function deletePopupHide() {
+  $('#deletePopup').modal('hide');
 }
 function closeAlreadySentPopup() {
   $('#referralAlreadySent').modal('hide');
