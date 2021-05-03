@@ -2683,7 +2683,9 @@ body .ui-widget .ui-menu-item {
 .modal-dialog-centered {
   justify-content: center;
 }
-
+.modal-dialog{
+  max-width: 600px !important;
+}
 /* range slider */
 // html #slide-test-5 {
 //   // --slider-active-color: black;
@@ -3860,4 +3862,14 @@ div.collapse-container.collapsing {
 
 .stand-wid{
     height: 130px;
+}
+.login-safe-pd-custom{
+  max-width: 590px !important;
+  padding: 24px;
+  @include xxs-screen-between{
+    width: 320px !important;
+  }
+}
+.font-weight{
+  font-weight: 600 !important;
 }
