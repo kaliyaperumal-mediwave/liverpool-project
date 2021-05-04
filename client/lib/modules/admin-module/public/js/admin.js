@@ -149,6 +149,11 @@ $(document).ready(function () {
       resetReferral: function () {
         this.referral_ids = [];
       },
+      deletePopup() {
+        if (this.referral_ids && this.referral_ids.length) {
+          $('#deletePopup').modal('show');
+        }
+      },
       deleteReferral: function () {
         if (this.referral_ids.length) {
           var _self = this;
@@ -158,6 +163,7 @@ $(document).ready(function () {
             if (successData && Object.keys(successData)) {
               _self.successMessage = 'Referrals deleted successfully'
               _self.fetchReferral();
+              $('#deletePopup').modal('hide');
               $('#deletedSuccess').modal('show');
               setTimeout(function () {
                 $('#loader').hide();
@@ -252,9 +258,10 @@ function viewPdf(uuid, role) {
 
 function changeStatus(uuid, value, other_value) {
   if (value === 'Referral to other team' && other_value != null) {
-      $('#SelectedProviderStatus').val(other_value);
+      $('#SelectedProviderStatus').val(value);
+      document.getElementById("statusOther").value = other_value;
   } else {
-    $('#SelectedProviderStatus').val('');
+    $('#otherTeam').hide();
   }
   document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
   $('#changeStatusModal').modal('show');
@@ -276,7 +283,7 @@ function updateStatus(uuid) {
       }
       var successData = apiCallPut('put', '/referralStatusUpdate', postData);
       if (successData && Object.keys(successData)) {
-          $('#statusOther').val('')
+          document.getElementById("statusOther").value = '';
           $('#changeStatusModal').modal('hide');
           $('#statusUpdatedSuccess').modal('show');
           setTimeout(function () {
@@ -326,6 +333,14 @@ function openSendPopup(uuid, role, refCode, referral_provider) {
   $('#sendProviderModal').modal('show');
   document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
 }
+
 function closeAlreadySentPopup() {
   $('#referralAlreadySent').modal('hide');
 }
+$(document).on('change', '#SelectedProviderStatus', function (e) {
+  if (e.target.value === 'Referral to other team') {
+    $('#otherTeam').show();
+  } else {
+    $('#otherTeam').hide();
+  }
+});

@@ -205,9 +205,9 @@
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
                                     <option class='option-text' value="Alder Hey - Liverpool CAMHS - EDYS">Alder Hey -
-                                        Liverpool CAMHS - EDYS</option>
+                                        Liverpool CAMHS - EDYS </option>
                                     <option class='option-text' value="YPAS">YPAS</option>
-                                    <option class='option-text' value="MHST">Mental Health Support Team</option>
+                                    <option class='option-text' value="MHST Liverpool">Mental Health Support Team</option>
                                     <option class='option-text' value="Seedlings">Seedlings</option>
                                     <option class='option-text' value="Wellbeing Clinics">Wellbeing Clinics</option>
                                 </select>
@@ -226,7 +226,7 @@
                                         Sefton CAMHS - EDYS</option>
                                     <option class='option-text' value="Venus">Venus</option>
                                     <option class='option-text' value="Parenting 2000">Parenting 2000</option>
-                                    <option class='option-text' value="MHST">Mental Health Support Team</option>
+                                    <option class='option-text' value="MHST Sefton">Mental Health Support Team</option>
                                     </option>
                                 </select>
                             </span>
@@ -273,9 +273,9 @@
                         </span>
                     </div>
                 </div>
-                <div class="px-sm-5 px-4 py-2" v-if="SelectedProviderStatus === 'Referral to other team'">
+                <div class="px-sm-5 px-4 py-2" id="otherTeam">
                     <div class="input-group w-100">
-                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther" v-model="statusOther" name="statusOther">
+                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther" name="statusOther">
                     </div>
                 </div>
                 <div class="modal-footer submit-btn-admin">

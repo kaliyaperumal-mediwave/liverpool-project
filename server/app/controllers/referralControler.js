@@ -2245,9 +2245,15 @@ exports.fetchReview = ctx => {
               },
               attributes: ['id']
             }).then((referralResult) => {
-              if (elgibilityObj.selected_service == 'MHST') {
-                elgibilityObj.selected_service = 'Mental Health Support Team'
-              }
+              // if (elgibilityObj.selected_service == 'MHST') {
+              //   elgibilityObj.selected_service = 'Mental Health Support Team'
+              // }
+              // if (elgibilityObj.selected_service == 'MHST Liverpool') {
+              //   elgibilityObj.selected_service = 'Liverpool - Mental Health Support Team'
+              // }
+              // if (elgibilityObj.selected_service == 'MHST Sefton') {
+              //   elgibilityObj.selected_service = 'Sefton - Mental Health Support Team'
+              // }
               const section1Obj = {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
@@ -2688,9 +2694,12 @@ exports.updateEligibilityInfo = ctx => {
           },
           attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service']
         }).then((professionalObj) => {
-          if (professionalObj.selected_service == 'MHST') {
-            professionalObj.selected_service = 'Mental Health Support Team'
-          }
+          // if (professionalObj.selected_service == 'MHST Liverpool') {
+          //   professionalObj.selected_service = 'Liverpool - Mental Health Support Team'
+          // }
+          // if (professionalObj.selected_service == 'MHST Sefton') {
+          //   professionalObj.selected_service = 'Sefton - Mental Health Support Team'
+          // }
           const section1Obj = {
             child_id: ctx.request.body.section1Data.child_id,
             child_dob: elgibilityObj.child_dob,

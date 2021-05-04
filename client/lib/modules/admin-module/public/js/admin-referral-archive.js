@@ -249,9 +249,10 @@ function viewPdf(uuid, role) {
 
 function changeStatus(uuid, value, other_value) {
     if (value === 'Referral to other team' && other_value != null) {
-        $('#SelectedProviderStatus').val(other_value);
+        $('#SelectedProviderStatus').val(value);
+        document.getElementById("statusOther").value = other_value;
     } else {
-        $('#SelectedProviderStatus').val('');
+      $('#otherTeam').hide();
     }
     document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
     $('#changeStatusModal').modal('show');
@@ -269,11 +270,11 @@ function updateStatus(uuid) {
         status: status
         }
         if (status === 'Referral to other team') {
-        postData.other = $('#statusOther').val();
+            postData.other = $('#statusOther').val();
         }
         var successData = apiCallPut('put', '/referralStatusUpdate', postData);
         if (successData && Object.keys(successData)) {
-            $('#statusOther').val('')
+            document.getElementById("statusOther").value = '';
             $('#changeStatusModal').modal('hide');
             $('#statusUpdatedSuccess').modal('show');
             setTimeout(function () {
@@ -334,3 +335,11 @@ function sendPdf(uuid, role, refCode) {
 function closeAlreadySentPopup() {
     $('#referralAlreadySent').modal('hide');
 }
+$(document).on('change', '#SelectedProviderStatus', function (e) {
+    if (e.target.value === 'Referral to other team') {
+      $('#otherTeam').show();
+    } else {
+      $('#otherTeam').hide();
+    }
+});
+  

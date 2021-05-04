@@ -197,7 +197,7 @@
                                         <option class='option-text' v-if="role != 'Alder Hey - Liverpool CAMHS - EDYS'" value="Alder Hey - Liverpool CAMHS - EDYS">Alder Hey -
                                         Liverpool CAMHS - EDYS</option>
                                         <option v-if="role != 'YPAS'" class='option-text' value="YPAS">YPAS</option>
-                                        <option v-if="role != 'MHST'" class='option-text' value="MHST">Mental Health Support Team</option>
+                                        <option v-if="role != 'MHST Liverpool'" class='option-text' value="MHST Liverpool">Mental Health Support Team</option>
                                         <option v-if="role != 'Seedlings'" class='option-text' value="Seedlings">Seedlings</option>
                                         <option v-if="role != 'Wellbeing Clinics'" class='option-text' value="Wellbeing Clinics">Wellbeing Clinics</option>
                                 </select>
@@ -215,7 +215,7 @@
                                     <option class='option-text' v-if="role != 'Alder Hey - Sefton CAMHS - EDYS'" value="Alder Hey - Sefton CAMHS - EDYS">Alder Hey - Sefton CAMHS - EDYS</option>
                                     <option class='option-text' v-if="role != 'Venus'" value="Venus">Venus</option>
                                     <option class='option-text' v-if="role != 'Parenting 2000'" value="Parenting 2000">Parenting 2000</option>
-                                    <option class='option-text' v-if="role != 'MHST'" value="MHST">Mental Health Support Team</option>
+                                    <option class='option-text' v-if="role != 'MHST Sefton'" value="MHST Sefton">Mental Health Support Team</option>
                                     </option>
                                 </select>
                             </span>
@@ -263,9 +263,9 @@
                         </span>
                     </div>
                 </div>
-                <div class="px-sm-5 px-4 py-2" v-if="SelectedProviderStatus === 'Referral to other team' || SelectedProviderStatus === 'Accepted by'">
+                <div class="px-sm-5 px-4 py-2"  id="otherTeam">
                     <div class="input-group w-100">
-                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther" v-model="statusOther" name="statusOther">
+                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther" name="statusOther">
                     </div>
                 </div>
                 <div class="modal-footer submit-btn-admin">

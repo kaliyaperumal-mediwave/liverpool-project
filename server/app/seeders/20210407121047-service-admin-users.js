@@ -116,7 +116,29 @@ module.exports = {
         service_type: 'Alder Hey - Liverpool CAMHS - EDYS',
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'MHST Liverpool',
+        uuid: uuidv4(),
+        email: 'selvakumar+liverpoolmhst@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'MHST Liverpool',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        first_name: 'Service Admin',
+        last_name: 'MHST Sefton',
+        uuid: uuidv4(),
+        email: 'selvakumar+seftonmhst@mindwaveventures.com',
+        password: hashedPassword,
+        user_role: 'service_admin',
+        service_type: 'MHST Sefton',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ], {});
   },
 
@@ -132,7 +154,9 @@ module.exports = {
         'selvakumar+wellbeingclinics@mindwaveventures.com',
         'selvakumar+parenting2000@mindwaveventures.com',
         'selvakumar+seftoncamhs@mindwaveventures.com',
-        'selvakumar+liverpoolcamhs@mindwaveventures.com'
+        'selvakumar+liverpoolcamhs@mindwaveventures.com',
+        'selvakumar+seftonmhst@mindwaveventures.com',
+        'selvakumar+liverpoolmhst@mindwaveventures.com'
       ],
     });
     /**

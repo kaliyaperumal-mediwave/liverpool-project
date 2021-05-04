@@ -81,6 +81,18 @@ spec:
           value: $PHR_LIVERPOOL_TO_MHST_EMAIL
         - name: PARENTING_EMAIL
           value: $PHR_LIVERPOOL_TO_PARENTING_EMAIL
+        - name: ALDER_HEY_LIVERPOOL
+          value: $PHR_LIVERPOOL_ALDER_HEY_LIVERPOOL
+        - name: LIVERPOOL_MHST
+          value: $PHR_LIVERPOOL_LIVERPOOL_MHST
+        - name: SEEDLINGS
+          value: $PHR_LIVERPOOL_SEEDLINGS
+        - name: WELLBEING_CLINICSE
+          value: $PHR_LIVERPOOL_WELLBEING_CLINICSE
+        - name: ALDER_HEY_SEFTON
+          value: $PHR_LIVERPOOL_ALDER_HEY_SEFTON
+        - name: SEFTON_MHST
+          value: $PHR_LIVERPOOL_SEFTON_MHST
         ports:
         - containerPort: 3001
 ---

@@ -178,14 +178,22 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
     try {
-        if (ctx.request.body.emailToProvider == "YPAS") {
+        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS"){
+            toAddress = config.alder_hey_liverpol
+        } else if (ctx.request.body.emailToProvider == "YPAS") {
             toAddress = config.ypas_email
+        } else if (ctx.request.body.emailToProvider == "MHST Liverpool") {
+            toAddress = config.liverpool_mhst_email
+        } else if (ctx.request.body.emailToProvider == "Seedlings") {
+            toAddress = config.seedlings_email
+        } else if (ctx.request.body.emailToProvider == "Wellbeing Clinics") {
+            toAddress = config.wellbeing_clinics_email
+        } else if (ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
+            toAddress = config.alder_hey_sefton
         } else if (ctx.request.body.emailToProvider == "Venus") {
             toAddress = config.venus_email
-        } else if (ctx.request.body.emailToProvider == "MHST") {
-            toAddress = config.mhst_email
-        } else if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
-            toAddress = config.alder_hey_email
+        } else if (ctx.request.body.emailToProvider == "MHST Sefton") {
+            toAddress = config.sefton_mhst_email
         } else if (ctx.request.body.emailToProvider == "Parenting 2000") {
             toAddress = config.parenting_email
         } else if (ctx.request.body.emailToProvider == "IAPTUS") {
