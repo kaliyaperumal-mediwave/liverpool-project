@@ -149,7 +149,7 @@ $(document).ready(function () {
       resetReferral: function () {
         this.referral_ids = [];
       },
-      deletePopup() {
+      deletePopup: function () {
         if (this.referral_ids && this.referral_ids.length) {
           $('#deletePopup').modal('show');
         }
