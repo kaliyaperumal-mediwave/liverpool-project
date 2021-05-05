@@ -37,6 +37,7 @@ $(document).ready(function () {
                         console.log(data);
                         document.getElementById('4fff7a7c-4fac-4e09-99cd-6ba1445321c5').style.pointerEvents = "none";
                         document.getElementById('4fff7a7c-4fac-4e09-99cd-6ba1445321c5').style.opacity = "0.5";
+                        window.open('/role');
                         //location.href = "/role";
                         // window.top.location= "/role";
                         // parent.location.href = "/role";
