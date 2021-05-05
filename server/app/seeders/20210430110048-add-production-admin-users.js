@@ -7,20 +7,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('users', [
       {
-        first_name: 'Admin',
-        last_name: 'User',
-        uuid: uuidv4(),
-        email: 'CAMHS.referrals@alderhey.nhs.uk',
-        password: await bcrypt.hash('C4MHSr3fferals!', saltRounds),
-        user_role: 'admin',
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
         first_name: 'Service Admin',
         last_name: 'CAMHS Referrals',
         uuid: uuidv4(),
-        email: 'CAMHS.referrals+1@alderhey.nhs.uk',
+        email: 'camhs.referrals+1@alderhey.nhs.uk',
         password: await bcrypt.hash('Ald3rHeyLp00l!', saltRounds),
         user_role: 'service_admin',
         service_type: 'Alder Hey - Liverpool CAMHS - EDYS',
@@ -75,7 +65,7 @@ module.exports = {
         first_name: 'Service Admin',
         last_name: 'Alder Hey - Sefton CAMHS - EDYS',
         uuid: uuidv4(),
-        email: 'CAMHS.referrals+2@alderhey.nhs.uk',
+        email: 'camhs.referrals+2@alderhey.nhs.uk',
         password: await bcrypt.hash('Ald3rHeySeft0n!', saltRounds),
         user_role: 'service_admin',
         service_type: 'Alder Hey - Sefton CAMHS - EDYS',
@@ -86,7 +76,7 @@ module.exports = {
         first_name: 'Service Admin',
         last_name: 'Parenting 2000',
         uuid: uuidv4(),
-        email: 'Victoria.Furfie@alderhey.nhs.uk',
+        email: 'victoria.furfie@alderhey.nhs.uk',
         password: await bcrypt.hash('Par3nting2000!', saltRounds),
         user_role: 'service_admin',
         service_type: 'Parenting 2000',
@@ -121,13 +111,13 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('users', {
       email: [
-        'CAMHS.referrals+1@alderhey.nhs.uk',
+        'camhs.referrals+1@alderhey.nhs.uk',
         'referrals.liverpoolypas+1@nhs.net',
         'referrals.liverpoolypas+2@nhs.net',
         'referrals.liverpoolypas+3@nhs.net',
         'referrals.liverpoolypas+4@nhs.net',
-        'CAMHS.referrals+2@alderhey.nhs.uk',
-        'Victoria.Furfie@alderhey.nhs.uk',
+        'camhs.referrals+2@alderhey.nhs.uk',
+        'victoria.furfie@alderhey.nhs.uk',
         'referrals@venuscharity.org',
         'sefton.mhst@alderhey.nhs.uk',
       ],
