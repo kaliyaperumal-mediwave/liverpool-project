@@ -42,7 +42,7 @@ var apos = require("apostrophe")({
       cookie: {
         path: '/',
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: 'none',
         // Default login lifetime between requests is one day
         maxAge: 86400000
