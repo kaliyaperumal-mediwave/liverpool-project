@@ -10,6 +10,8 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            document.getElementById('4fff7a7c-4fac-4e09-99cd-6ba1445321c5').style.pointerEvents = "auto";
+            document.getElementById('4fff7a7c-4fac-4e09-99cd-6ba1445321c5').style.opacity = "1";
             var isLoggedInUser = $('#loginUserFlag').text();
             if (isLoggedInUser == 'false') {
                 $('#8b91a47a-018a-4916-8804-0c2b197fdaa1').removeClass().addClass('py-2 d-block');
@@ -23,6 +25,7 @@ $(document).ready(function () {
         methods: {
 
             goToRole: function () {
+                debugger
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/setSessionRefHome/y",
@@ -31,14 +34,16 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
-                        //console.log("-------------------------------success block");
-                        location.href = "/role";
+                        console.log(data);
+                        document.getElementById('4fff7a7c-4fac-4e09-99cd-6ba1445321c5').style.pointerEvents = "none";
+                        document.getElementById('4fff7a7c-4fac-4e09-99cd-6ba1445321c5').style.opacity = "0.5";
+                        //location.href = "/role";
                         // window.top.location= "/role";
                         // parent.location.href = "/role";
-                        if (window != window.top) {
-                            // the page is inside an iframe
-                            // window.location.href = "/role"
-                        }
+                        // if (window != window.top) {
+                        // the page is inside an iframe
+                        // window.location.href = "/role"
+                        // }
                     },
                     error: function (error) {
                         //console.log(error)
