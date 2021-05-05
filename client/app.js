@@ -38,13 +38,7 @@ var apos = require("apostrophe")({
       minify: false
     },
     'apostrophe-express': {
-      csrf: false,
-      session: {
-        cookie: {
-          secure: true,
-          sameSite: 'none'
-        }
-      }
+      csrf: false
     },
     "apostrophe-attachments": {
       uploadfs: {
