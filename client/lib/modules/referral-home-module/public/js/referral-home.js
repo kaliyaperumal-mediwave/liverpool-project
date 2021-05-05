@@ -25,7 +25,6 @@ $(document).ready(function () {
         methods: {
 
             goToRole: function () {
-                debugger
                 var _self = this;
                 $.ajax({
                     url: API_URI + "/setSessionRefHome/y",
