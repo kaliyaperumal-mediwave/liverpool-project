@@ -39,6 +39,14 @@ var apos = require("apostrophe")({
     },
     'apostrophe-express': {
       csrf: false,
+      cookie: {
+        path: '/',
+        httpOnly: true,
+        secure: false,
+        sameSite: 'none',
+        // Default login lifetime between requests is one day
+        maxAge: 86400000
+      },
     },
     "apostrophe-attachments": {
       uploadfs: {

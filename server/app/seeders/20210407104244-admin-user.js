@@ -2,49 +2,26 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const { v4: uuidv4 } = require('uuid');
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const hashedPassword = await bcrypt.hash('Admin#123', saltRounds);
-
-    return queryInterface.bulkInsert('users', [{
-      first_name: 'Admin',
-      last_name: 'User',
-      uuid: uuidv4(),
-      email: 'admin@mindwaveventures.com',
-      password: hashedPassword,
-      user_role: 'admin',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      first_name: 'Admin',
-      last_name: 'Sangavi',
-      uuid: uuidv4(),
-      email: 'sangavi+admin@mindwaveventures.com',
-      password: hashedPassword,
-      user_role: 'admin',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },
-    {
-      first_name: 'Admin',
-      last_name: 'Satieshkumar',
-      uuid: uuidv4(),
-      email: 'satieshkumar+admin@mindwaveventures.com',
-      password: hashedPassword,
-      user_role: 'admin',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }], {});
+    return queryInterface.bulkInsert('users', [
+      {
+        first_name: 'Camhs referrals ',
+        last_name: 'Admin',
+        uuid: uuidv4(),
+        email: 'camhs.referrals@alderhey.nhs.uk',
+        password: await bcrypt.hash('C4MHSr3fferals!', saltRounds),
+        user_role: 'admin',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ], {});
   },
-
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('users', {
       email: [
-        'admin@mindwaveventures.com',
-        'satieshkumar+admin@mindwaveventures.com',
-        'sangavi+admin@mindwaveventures.com'
+        'camhs.referrals@alderhey.nhs.uk'
       ],
     });
     /**
