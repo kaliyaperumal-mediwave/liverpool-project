@@ -11,9 +11,9 @@ var apos = require("apostrophe")({
   modules: {
     // Apostrophe module configuration
 
-    'apostrophe-security-headers': {
-      'X-Frame-Options': 'DENY'
-    },
+    // 'apostrophe-security-headers': {
+    //   'X-Frame-Options': 'DENY'
+    // },
 
 
     // Note: most configuration occurs in the respective
@@ -39,16 +39,26 @@ var apos = require("apostrophe")({
     },
     'apostrophe-express': {
       csrf: false,
-      session: {
+      session: { 
+        // Do not save sessions until something is stored in them.
+        // Greatly reduces aposSessions collection size
+        saveUninitialized: true,
+        // The mongo store uses TTL which means we do need
+        // to signify that the session is still alive when someone
+        // views a page, even if their session has not changed
+        resave: true,
+        // Always update the cookie, so that each successive
+        // access revives your login session timeout
+        rolling: true,
+        secret: 'you should have a secret',
         cookie: {
           path: '/',
           httpOnly: true,
-          secure: true,
           sameSite: 'none',
-          // Default login lifetime between requests is one day
+          secure: false,
           maxAge: 86400000
         }
-      },
+      }
     },
     "apostrophe-attachments": {
       uploadfs: {
