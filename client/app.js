@@ -42,7 +42,7 @@ var apos = require("apostrophe")({
       session: { 
         // Do not save sessions until something is stored in them.
         // Greatly reduces aposSessions collection size
-        saveUninitialized: true,
+        saveUninitialized: false,
         // The mongo store uses TTL which means we do need
         // to signify that the session is still alive when someone
         // views a page, even if their session has not changed
@@ -54,7 +54,7 @@ var apos = require("apostrophe")({
         cookie: {
           path: '/',
           httpOnly: true,
-          secure: false,
+          secure: true,
           sameSite: 'none',
           maxAge: 86400000
         }
