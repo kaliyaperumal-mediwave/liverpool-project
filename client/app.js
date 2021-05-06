@@ -55,6 +55,7 @@ var apos = require("apostrophe")({
           path: '/',
           httpOnly: true,
           sameSite: 'none',
+          secure: false,
           maxAge: 86400000
         }
       }
