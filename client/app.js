@@ -54,7 +54,7 @@ var apos = require("apostrophe")({
         cookie: {
           path: '/',
           httpOnly: true,
-          secure: true,
+          secure: false,
           sameSite: 'none',
           maxAge: 86400000
         }
