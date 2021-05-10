@@ -4,7 +4,7 @@
   $(document).on("click", "a.previous-link", function () {
     var iFrameDetection = (window === window.parent) ? false : true;
     if(iFrameDetection){
-      history.go(-2);
+      history.go(-1);
     } else {
       parent.history.back();
     }
