@@ -2,7 +2,12 @@
 <script src="/modules/shared-referal-module/js/searchReferral.js"></script>
 <script>
   $(document).on("click", "a.previous-link", function () {
-    parent.history.back();
+    var iFrameDetection = (window === window.parent) ? false : true;
+    if(iFrameDetection){
+      history.go(-2);
+    } else {
+      parent.history.back();
+    }
     return false;
   });
 </script>
