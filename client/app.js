@@ -50,12 +50,11 @@ var apos = require("apostrophe")({
         // Always update the cookie, so that each successive
         // access revives your login session timeout
         rolling: true,
-        secret: 'you should have a secret',
         cookie: {
           path: '/',
           httpOnly: true,
           sameSite: 'none',
-          secure: false,
+          secure: true,
           maxAge: 86400000
         }
       }
