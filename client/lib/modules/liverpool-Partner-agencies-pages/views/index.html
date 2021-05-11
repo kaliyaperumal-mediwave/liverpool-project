@@ -1,7 +1,12 @@
 {% extends 'apostrophe-templates:layout.html' %} {% block extraBody %}
 <script>
   $(document).on("click", "a.previous-link", function () {
-    parent.history.back();
+    var iFrameDetection = (window === window.parent) ? false : true;
+    if(iFrameDetection){
+      history.go(-1);
+    } else {
+      parent.history.back();
+    }
     return false;
   });
 </script>

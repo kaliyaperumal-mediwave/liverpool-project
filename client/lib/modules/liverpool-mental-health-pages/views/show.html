@@ -8,7 +8,12 @@
     // document.getElementById('playButton').classList.add('active-border');
 
 
-    parent.history.back();
+    var iFrameDetection = (window === window.parent) ? false : true;
+    if(iFrameDetection){
+      history.go(-1);
+    } else {
+      parent.history.back();
+    }
     return false;
   });
 </script>
