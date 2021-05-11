@@ -83,7 +83,7 @@ endblock %} {% block extraHead %}
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
 <script>
-  document.cookie = "Secure";
+  document.cookie = "SameSite=None; Secure";
   $(document).ready(function () {
     $('#example-search-input').val('');
 

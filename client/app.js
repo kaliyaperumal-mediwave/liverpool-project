@@ -39,14 +39,15 @@ var apos = require("apostrophe")({
     },
     'apostrophe-express': {
       csrf: false,
-      session: {
-        cookie: {
-           secure: true,
-           sameSite: 'none',
-         },
-         trustProxy: true ,
-      },
-      trustProxy:true ,
+      // session: {
+      //   cookie: {
+      //      path: '/',
+      //      secure: false,
+      //      sameSite: 'none',
+      //    },
+      //    trustProxy: true ,
+      // },
+      // trustProxy:true ,
     },
     "apostrophe-attachments": {
       uploadfs: {
