@@ -39,25 +39,14 @@ var apos = require("apostrophe")({
     },
     'apostrophe-express': {
       csrf: false,
-      session: { 
-        // Do not save sessions until something is stored in them.
-        // Greatly reduces aposSessions collection size
-        saveUninitialized: true,
-        // The mongo store uses TTL which means we do need
-        // to signify that the session is still alive when someone
-        // views a page, even if their session has not changed
-        resave: true,
-        // Always update the cookie, so that each successive
-        // access revives your login session timeout
-        rolling: true,
+      session: {
         cookie: {
-          path: '/',
-          httpOnly: true,
-          sameSite: 'none',
-          secure: true,
-          maxAge: 86400000
-        }
-      }
+           secure: true,
+           sameSite: 'none',
+         },
+         trustProxy: true ,
+      },
+      trustProxy:true ,
     },
     "apostrophe-attachments": {
       uploadfs: {
