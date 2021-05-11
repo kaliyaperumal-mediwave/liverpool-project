@@ -272,7 +272,7 @@ $(document).ready(function () {
                                 refStatus = "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful resources."
                                 _self.searchReferrals[0].referral_status = refStatus
                             }
-                            else if (_self.searchReferrals[0].referral_status == "Referral to Community Paeds required instead.") // 6
+                            else if (_self.searchReferrals[0].referral_status == "Referral to Community Paeds required instead") // 6
                             {
                                 var refStatus = _self.searchReferrals[0].referral_status
                                 refStatus = "Thank you for your referral. At this time we feel the Community Paediatrics team can support you more appropriately."
@@ -350,7 +350,7 @@ $(document).ready(function () {
                             refStatus = "Thank you for contacting us - at this time we do not feel that you require our support but please use this platform to access some useful resources."
                             _self.searchReferrals[0].referral_status = refStatus
                         }
-                        else if (_self.searchReferrals[0].referral_status == "Referral to Community Paeds required instead.") // 6
+                        else if (_self.searchReferrals[0].referral_status == "Referral to Community Paeds required instead") // 6
                         {
                             var refStatus = _self.searchReferrals[0].referral_status
                             refStatus = "Thank you for your referral. At this time we feel the Community Paediatrics team can support you more appropriately."
