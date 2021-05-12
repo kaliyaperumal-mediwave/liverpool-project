@@ -11,9 +11,9 @@ var apos = require("apostrophe")({
   modules: {
     // Apostrophe module configuration
 
-    // 'apostrophe-security-headers': {
-    //   'X-Frame-Options': 'DENY'
-    // },
+    'apostrophe-security-headers': {
+      'X-Frame-Options': 'DENY'
+    },
 
 
     // Note: most configuration occurs in the respective
@@ -38,16 +38,7 @@ var apos = require("apostrophe")({
       minify: false
     },
     'apostrophe-express': {
-      csrf: false,
-      // session: {
-      //   cookie: {
-      //      path: '/',
-      //      secure: false,
-      //      sameSite: 'none',
-      //    },
-      //    trustProxy: true ,
-      // },
-      // trustProxy:true ,
+      csrf: false
     },
     "apostrophe-attachments": {
       uploadfs: {

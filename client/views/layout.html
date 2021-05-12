@@ -83,8 +83,11 @@ endblock %} {% block extraHead %}
 <script src="https://cdn.jsdelivr.net/npm/vue-bootstrap-datetimepicker@5"></script>
 
 <script>
-  document.cookie = "SameSite=None; Secure";
   $(document).ready(function () {
+    var iFrameDetection = (window === window.parent) ? false : true;
+    if(iFrameDetection){
+      $('.button-referral-link').attr('target', '_blank');
+    }
     $('#example-search-input').val('');
 
     $('body').on('keypress', function () {
@@ -148,7 +151,7 @@ endblock %} {% block extraHead %}
 
 
       {% if data.hideRefButton %}
-      <a href="{{ data.navigateMkeRfrl }}">
+      <a href="{{ data.navigateMkeRfrl }}" class="button-referral-link">
         <button class="button-referral">
           Make a referral
         </button>
@@ -184,7 +187,7 @@ endblock %} {% block extraHead %}
           <div class="collapse" id="collapseExample">
             <div class="collapse-body text-decoration-none">
               <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                <a class="text-decoration-none" href="{{ data.navigateMkeRfrl }}">Make a referral</a>
+                <a class="text-decoration-none button-referral-link" href="{{ data.navigateMkeRfrl }}">Make a referral</a>
               </div>
               {% if data.showLogout %}
               <div class="border-bottom-0 cursor-pointer inside-cont-slider">
