@@ -37,7 +37,6 @@ module.exports = {
      }
      //req.data.orchaApps = req.session.orchaApps;
      //req.data.orchaApps = req.session.orchaApps;
-     console.log('req.session.resUrl', req.headers.referer);
       return self.sendPage(req, self.renderer('orcha', {
         showHeader: true,
         home: true,
