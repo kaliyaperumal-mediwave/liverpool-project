@@ -3856,6 +3856,12 @@ div.collapse-container.collapsing {
     min-height: 40px !important;
   }
 }
+.heightSetCustom {
+  
+    height: auto !important;
+    min-height: 40px !important;
+  
+}
 .lock-scroll {
   overflow: hidden;
 }
@@ -3872,4 +3878,7 @@ div.collapse-container.collapsing {
 }
 .font-weight{
   font-weight: 600 !important;
+}
+.search-btn-set span{
+  color: black;
 }
