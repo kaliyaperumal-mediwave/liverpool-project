@@ -41,7 +41,7 @@ module.exports = {
         showHeader: true,
         home: true,
         hideRefButton: true,
-        bckBtn:req.session.resUrl,
+        bckBtn: req.session.resUrl ? req.session.resUrl : req.headers.referer,
       }));
     };
     self.orchaHome = function (req, callback) {
