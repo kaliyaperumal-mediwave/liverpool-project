@@ -4072,12 +4072,12 @@ body .ui-widget .ui-menu-item {
 
 .off .content-text {
   color: #023047; }
+  .off .content-text a {
+    color: #023047 !important; }
   .off .content-text p {
     color: #023047; }
     .off .content-text p strong {
       color: #023047; }
-      .off .content-text p strong a {
-        color: #023047 !important; }
 
 .off .content-header-text {
   color: #023047; }
@@ -4494,12 +4494,12 @@ body .ui-widget .ui-menu-item {
 
 .on .content-text {
   color: #fafafa; }
+  .on .content-text a {
+    color: #fafafa !important; }
   .on .content-text p {
     color: #fafafa; }
     .on .content-text p strong {
       color: #fafafa; }
-      .on .content-text p strong a {
-        color: #fafafa !important; }
 
 .on .content-header-text {
   color: #fafafa; }
