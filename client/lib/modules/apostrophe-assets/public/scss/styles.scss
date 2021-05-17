@@ -63,7 +63,7 @@ body {
   }
   .multiselect__tags {
     padding: 8px 25px 0 4px !important;
-    border:none !important
+    border: none !important;
   }
   .multiselect__tag-icon:focus,
   .multiselect__tag-icon:hover {
@@ -2683,7 +2683,7 @@ body .ui-widget .ui-menu-item {
 .modal-dialog-centered {
   justify-content: center;
 }
-.modal-dialog{
+.modal-dialog {
   max-width: 600px !important;
 }
 /* range slider */
@@ -2900,15 +2900,15 @@ $color-scheme: (
       color: $secondary !important;
       background-color: $input-form-color;
     }
-    .text_inside_play-store-orcha{
+    .text_inside_play-store-orcha {
       background-color: $primary;
-      color:$secondary;
+      color: $secondary;
     }
-    .seemore{
-      color:$secondary
+    .seemore {
+      color: $secondary;
     }
-    .titleQuestion{
-      color:$secondary
+    .titleQuestion {
+      color: $secondary;
     }
     .themeSetDark .multiselect__input {
       background-color: $input-form-color;
@@ -2918,15 +2918,15 @@ $color-scheme: (
     }
     .themeSetDark .multiselect__content-wrapper {
       background-color: $input-form-color;
-      color:$secondary;
+      color: $secondary;
       font-weight: 500;
     }
-    .multiselect__content-wrapper{
+    .multiselect__content-wrapper {
       margin: 1px 0px !important;
     }
     .themeSetDark .multiselect__tags .multiselect__single {
       background-color: $input-form-color;
-      color:$secondary;
+      color: $secondary;
       font-weight: 500;
     }
     .card-set-container-bg {
@@ -3138,13 +3138,14 @@ $color-scheme: (
     }
     .content-text {
       color: $secondary;
+      a {
+        color: $secondary !important;
+      }
       p {
         color: $secondary;
+
         strong {
           color: $secondary;
-          a {
-            color: $secondary !important;
-          }
         }
       }
     }
@@ -3856,20 +3857,27 @@ div.collapse-container.collapsing {
     min-height: 40px !important;
   }
 }
+.heightSetCustom {
+  height: auto !important;
+  min-height: 40px !important;
+}
 .lock-scroll {
   overflow: hidden;
 }
 
-.stand-wid{
-    height: 130px;
+.stand-wid {
+  height: 130px;
 }
-.login-safe-pd-custom{
+.login-safe-pd-custom {
   max-width: 590px !important;
   padding: 24px;
-  @include xxs-screen-between{
+  @include xxs-screen-between {
     width: 320px !important;
   }
 }
-.font-weight{
+.font-weight {
   font-weight: 600 !important;
+}
+.search-btn-set span {
+  color: black;
 }

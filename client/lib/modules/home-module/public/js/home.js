@@ -49,6 +49,13 @@ $(document).ready(function () {
             },
 
             navigatePage: function (route) {
+                if(route === '/users/login' || route === '/make-referral'){
+                    var iFrameDetection = (window === window.parent) ? false : true;
+                    if(iFrameDetection){
+                        window.open(this.location.origin + route, '_blank');
+                        return false;
+                    }
+                } 
                 this.location.href = this.location.origin + route;
             },
 
