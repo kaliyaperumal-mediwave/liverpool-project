@@ -49,7 +49,7 @@ $(document).ready(function () {
             },
 
             navigatePage: function (route) {
-                if(route === '/users/login' || route === '/make-referral'){
+                if(route === '/users/login' || route === '/make-referral'|| route === '/resources'){
                     var iFrameDetection = (window === window.parent) ? false : true;
                     if(iFrameDetection){
                         window.open(this.location.origin + route, '_blank');
