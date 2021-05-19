@@ -12,7 +12,7 @@ const gpCodes = [
         type: 'Liverpool',
         code: [
             'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', 'L11', 'L12', 'L13', 'L14', 'L15',
-            'L16', 'L17', 'L18', 'L19', 'L20', 'L24', 'L25', 'L26', 'L27', 'L28', 'L32', 'L33', 'L34', 'L35', 'L36', 'PR8', 'PR9'
+            'L16', 'L17', 'L18', 'L19', 'L20', 'L24', 'L25', 'L26', 'L27', 'L28', 'L32', 'L33', 'L34', 'L35', 'PR8', 'PR9'
         ]
     },
     { type: 'Sefton', code: ['L21', 'L22', 'L23', 'L29', 'L30', 'L31', 'L37', 'L38'] },
@@ -556,7 +556,7 @@ exports.downloadReferral = async ctx => {
 }
 
 exports.sendReferral = async ctx => {
-    console.log("ctx.request.body.referralData",ctx.query.refID+ ',' +ctx.query.refRole);
+    console.log("ctx.request.body.referralData", ctx.query.refID + ',' + ctx.query.refRole);
     let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
@@ -689,12 +689,12 @@ function getRefData(refID, refRole, ctx) {
                         }
                     }
 
-                    if(section2Obj.child_manual_address!=null && section2Obj.child_manual_address[0]!=null ){
-                        section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1+','+  section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ''  + section2Obj.child_manual_address[0].postCode
+                    if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
+                        section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + '' + section2Obj.child_manual_address[0].postCode
                     }
 
-                    if(section2Obj.parent_manual_address!=null && section2Obj.parent_manual_address[0]!=null ){
-                        section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
+                    if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
+                        section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + '' + section2Obj.parent_manual_address[0].postCode
                     }
 
                     console.log(educationObj.child_education_manual_address)
@@ -886,12 +886,12 @@ function getRefData(refID, refRole, ctx) {
                                 }
                             }
 
-                            if(section2Obj.child_manual_address!=null && section2Obj.child_manual_address[0]!=null ){
-                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1+','+  section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ''  + section2Obj.child_manual_address[0].postCode
+                            if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
+                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + '' + section2Obj.child_manual_address[0].postCode
                             }
 
-                            if(section2Obj.parent_manual_address!=null && section2Obj.parent_manual_address[0]!=null ){
-                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
+                            if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
+                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + '' + section2Obj.parent_manual_address[0].postCode
                             }
 
                             if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
@@ -950,7 +950,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: userObj.id,
                 },
-                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address','reference_code', 'contact_preferences', 'contact_person']
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person']
             }).then((elgibilityObj) => {
                 //return ctx.body = elgibilityObj.professional[0].child_parent[0];
                 var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -1102,23 +1102,23 @@ function getRefData(refID, refRole, ctx) {
                                     referralResult.referral_reason[0].eating_disorder_difficulties = referralResult.referral_reason[0].eating_disorder_difficulties + _referralResult.referral_reason[0].other_eating_difficulties;
                                 }
                             }
-                            
-                            if(section2Obj.child_manual_address!=null && section2Obj.child_manual_address[0]!=null ){
-                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1+','+  section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ''  + section2Obj.child_manual_address[0].postCode
+
+                            if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
+                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + '' + section2Obj.child_manual_address[0].postCode
                             }
 
-                            if(section2Obj.parent_manual_address!=null && section2Obj.parent_manual_address[0]!=null ){
-                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
+                            if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
+                                section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + '' + section2Obj.parent_manual_address[0].postCode
                             }
 
-                            if(section1Obj.professional_manual_address!=null && section1Obj.professional_manual_address[0]!=null ){
-                                section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1+','+  section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + ''  + section1Obj.professional_manual_address[0].postCode
+                            if (section1Obj.professional_manual_address != null && section1Obj.professional_manual_address[0] != null) {
+                                section1Obj.professional_address = section1Obj.professional_manual_address[0].addressLine1 + ',' + section1Obj.professional_manual_address[0].addressLine2 + ' ' + section1Obj.professional_manual_address[0].city + ',' + section1Obj.professional_manual_address[0].country + '' + section1Obj.professional_manual_address[0].postCode
                             }
 
                             if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
                                 section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school+',' + section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
                             }
-                            
+
                             const responseData = {
                                 userid: refID,
                                 section1: section1Obj,
@@ -1162,7 +1162,7 @@ exports.referralStatusUpdate = async (ctx) => {
             referral_status: ctx.request.body.status
         }
 
-        if(ctx.request.body.status === 'Referral to other team' || ctx.request.body.status  === 'Accepted by'){
+        if (ctx.request.body.status === 'Referral to other team' || ctx.request.body.status === 'Accepted by') {
             updateValue.referral_provider_other = ctx.request.body.other;
         }
 
@@ -1170,10 +1170,10 @@ exports.referralStatusUpdate = async (ctx) => {
         // return false;
         const updatereferral = await referralModel.update(
             updateValue,
-            {where: { uuid: ctx.request.body.referral_id }}
+            { where: { uuid: ctx.request.body.referral_id } }
         );
 
-        if(updatereferral){
+        if (updatereferral) {
             console.log('Update status success.......');
             ctx.res.ok({
                 message: reponseMessages[1001]
@@ -1191,8 +1191,8 @@ exports.referralStatusUpdate = async (ctx) => {
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-  
+}
+
 function convertDate(date) {
     var yyyy = date.getFullYear().toString();
     var mm = (date.getMonth() + 1).toString();
