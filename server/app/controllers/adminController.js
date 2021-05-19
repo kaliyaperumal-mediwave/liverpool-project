@@ -697,8 +697,9 @@ function getRefData(refID, refRole, ctx) {
                         section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1+','+  section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ''  + section2Obj.parent_manual_address[0].postCode
                     }
 
+                    console.log(educationObj.child_education_manual_address)
                     if(educationObj.child_education_manual_address!=null && educationObj.child_education_manual_address[0]!=null){
-                        educationObj.child_education_place = educationObj.child_education_manual_address[0].addressLine1+','+  educationObj.child_education_manual_address[0].addressLine2 + ' ' + educationObj.child_education_manual_address[0].city + ',' + educationObj.child_education_manual_address[0].country + ''  + educationObj.child_education_manual_address[0].postCode
+                        educationObj.child_education_place = educationObj.child_education_manual_address[0].school+','+ educationObj.child_education_manual_address[0].addressLine1+','+  educationObj.child_education_manual_address[0].addressLine2 + ' ' + educationObj.child_education_manual_address[0].city + ',' + educationObj.child_education_manual_address[0].country + ''  + educationObj.child_education_manual_address[0].postCode
                     }
 
 
@@ -894,7 +895,7 @@ function getRefData(refID, refRole, ctx) {
                             }
 
                             if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
-                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
+                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school+',' +section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
                             }
 
 
@@ -1115,7 +1116,7 @@ function getRefData(refID, refRole, ctx) {
                             }
 
                             if(section3Obj.child_education_manual_address!=null && section3Obj.child_education_manual_address[0]!=null){
-                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
+                                section3Obj.child_education_place = section3Obj.child_education_manual_address[0].school+',' + section3Obj.child_education_manual_address[0].addressLine1+','+  section3Obj.child_education_manual_address[0].addressLine2 + ' ' + section3Obj.child_education_manual_address[0].city + ',' + section3Obj.child_education_manual_address[0].country + ''  + section3Obj.child_education_manual_address[0].postCode
                             }
                             
                             const responseData = {
