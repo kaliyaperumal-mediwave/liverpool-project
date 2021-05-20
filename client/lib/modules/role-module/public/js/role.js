@@ -1308,8 +1308,10 @@ $(document).ready(function () {
                 if (postCode) {
                     var index = ((postCode).substring(0, postCode.indexOf(' '))).replace(/\D/g, '');
                     if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
-                        // //console.log("getPostCodeDigits L " + postCode);
-                        isRange = false
+                        isRange = false;
+                        if (index == 36) {
+                            isRange = true;
+                        }
                     }
                     else if (postCode.substring(0, 2) == "PR" && (index == 8 || index == 9)) {
                         isRange = false
