@@ -151,7 +151,7 @@ exports.getReferral = ctx => {
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
-                        console.log(splitLocation)
+                      //  console.log(splitLocation)
                         if (splitLocation.length > 1) {
                             if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Liverpool
