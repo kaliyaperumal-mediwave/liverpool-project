@@ -12,10 +12,9 @@ const gpCodes = [
         type: 'Liverpool',
         code: [
             'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', 'L11', 'L12', 'L13', 'L14', 'L15',
-            'L16', 'L17', 'L18', 'L19', 'L20', 'L24', 'L25', 'L26', 'L27', 'L28', 'L32', 'L33', 'L34', 'L35', 'PR8', 'PR9'
-        ]
+            'L16', 'L17', 'L18', 'L19','L24', 'L25', 'L27']
     },
-    { type: 'Sefton', code: ['L21', 'L22', 'L23', 'L29', 'L30', 'L31', 'L37', 'L38'] },
+    { type: 'Sefton', code: ['L20','L21', 'L22', 'L23', 'L29', 'L30', 'L31', 'L37', 'L38','PR8', 'PR9'] },
 ]
 
 exports.getReferral = ctx => {
@@ -152,6 +151,7 @@ exports.getReferral = ctx => {
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
+                      //  console.log(splitLocation)
                         if (splitLocation.length > 1) {
                             if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Liverpool
