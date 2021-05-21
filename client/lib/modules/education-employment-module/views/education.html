@@ -61,8 +61,11 @@
                 <!-- Which school / college / university / do you attend? Start  -->
                 <form id="attended-form" data-options="attendedInfo">
                     <div v-show="showInstitution" class="px-4 py-4 col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto">
-                        <div class="form-group mb-1" id="c4238c48-4dd6-405c-b3d9-cda7f17bdcb8">
-                            <label for="attendedLocation" class="question-font">{{dynamicLabels.locationLabel}}</label>
+                        <div class="form-group mb-2" id="c4238c48-4dd6-405c-b3d9-cda7f17bdcb8">
+                            <label for="attendedLocation" class="question-font mb-2">School/college/university name and
+                                address (Please make sure you include the
+                                institution name)</label>
+                            <!-- <label class="font-weight-bold question-font mb-2"></label> -->
                             <div class="input-group">
                                 <input type="text" class="form-control input-bg-form-control" inputmode="search"
                                     placeholder="Start typing to search"
