@@ -1309,7 +1309,7 @@ $(document).ready(function () {
                     var index = ((postCode).substring(0, postCode.indexOf(' '))).replace(/\D/g, '');
                     if ((postCode.substring(0, 1) == "L" && (postCode.substring(0, 1) == "L" && (postCode.substring(1, 2).toLowerCase() == postCode.substring(1, 2).toUpperCase()))) && (index >= 1 && index <= 38)) {
                         isRange = false;
-                        if (index == 36) {
+                        if (index== 26 || index== 28 || index== 32 || index== 33 || index== 34 || index== 35 || index== 36) {
                             isRange = true;
                         }
                     }
