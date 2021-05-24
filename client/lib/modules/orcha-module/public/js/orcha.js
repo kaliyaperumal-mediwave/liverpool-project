@@ -10,7 +10,8 @@ $(document).ready(function () {
             showSearchResults: false,
             resources: [],
             searchQueryToLower: null,
-            showAppContent: false
+            showAppContent: false,
+            showSearchBar:true
         },
         beforeMount: function () {
             $('#loader').show();
@@ -22,7 +23,10 @@ $(document).ready(function () {
             setTimeout(function () {
                 $('#loader').hide();
             }, 1000);
-
+            var iFrameDetection = (window === window.parent) ? false : true;
+            if(iFrameDetection){
+                this.showSearchBar = false
+            }
             try {
                 if (document.getElementById('resources') && document.getElementById('resources').value) {
                     this.resources = JSON.parse(document.getElementById('resources').value);
@@ -36,7 +40,6 @@ $(document).ready(function () {
         },
 
         methods: {
-
             getAppsDetail: function (appId) {
                 var successData = apiCallGet('get', '/getApp/' + appId, API_URI);
                 this.appObj = JSON.parse(JSON.stringify(successData.data.result));

@@ -37,7 +37,8 @@
         </div>
         {% if data.bckBtn != '/apps?b3JjaGFCYWNr'%}
         <input hidden id="resources" value="{{data.searchApps|dump}}">
-        <div class="input-group home-primary-content-bg">
+        {% raw %}
+        <div v-if="showSearchBar" class="input-group home-primary-content-bg">
             <span class="input-group-prepend">
                 <div class="home-primarySearch-bg input-group-text  border-right-0 height-44">
                     <span style="color: #023047 !important;">
@@ -58,6 +59,7 @@
               </form>
               </div> -->
         </div>
+        {% endraw %}
         {% endif %}
         <div id="hideserachblock" class="d-none">
             {% raw %}
