@@ -161,10 +161,14 @@ module.exports = {
             })
             .catch((error) => {
               console.log("---- error -------", error);
-              return res.status(error.statusCode).send(error.error);
+              return superBefore(req, callback);
+              //return res.status(error.statusCode).send(error.error);
             });
         })
-        .catch(() => {});
+        .catch((error) => {
+          console.log("---- error2 -------", error);
+          return superBefore(req, callback);
+        });
     };
 
     var beforeIndex = self.beforeIndex;

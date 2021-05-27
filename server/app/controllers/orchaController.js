@@ -7,39 +7,75 @@ const _ = require('lodash');
 //console.log(config.orcha_user)
 
 //console.log(config.orcha_pass)
-exports.getAllApps = ctx => new Promise((resolve, reject) => {
-    //console.log(ctx.request.body)
-    var data = {
-        "searchTerm": ctx.request.body.searchCategory,
-        "pageNumber": 1,
-        "pageSize": 50,
-        "platformId": "",
-        "subCategoryId": "",
-        "costIds": [],
-        "capabilityIds": [],
-        "designedForIds": [],
-        "countryIds": []
-    };
-    var config_api = {
-        method: 'post',
-        url: config.orcha_api + 'Review/SearchPagedReviews',
-        headers: { 'authorization': 'Bearer ' + ctx.response.body.orchaToken },
-        data: data
-    };
-    axios(config_api).then(function (apps) {
-        //console.log(apps.data)
-        ctx.res.ok({
+// exports.getAllApps2 = ctx => new Promise((resolve, reject) => {
+//     //console.log(ctx.request.body)
+//     var data = {
+//         "searchTerm": ctx.request.body.searchCategory,
+//         "pageNumber": 1,
+//         "pageSize": 50,
+//         "platformId": "",
+//         "subCategoryId": "",
+//         "costIds": [],
+//         "capabilityIds": [],
+//         "designedForIds": [],
+//         "countryIds": []
+//     };
+//     var config_api = {
+//         method: 'post',
+//         url: config.orcha_api + 'Review/SearchPagedReviews',
+//         headers: { 'authorization': 'Bearer ' + ctx.response.body.orchaToken },
+//         data: data
+//     };
+//     return ctx.res.ok({
+//         data: []
+//     })
+//     return axios(config_api).then(function (apps) {
+//         //console.log(apps.data)
+//         ctx.res.ok({
+//             data: apps.data
+//         });
+//         resolve();
+//     })
+//         .catch(function (error) {
+//             console.log(error)
+//             return reject(ctx.res.internalServerError({
+//                 message: 'gdfgsgfg',
+//             }));
+//         });
+// })
+
+
+exports.getAllApps = async (ctx) => {
+    try {
+        const data = {
+            "searchTerm": ctx.request.body.searchCategory,
+            "pageNumber": 1,
+            "pageSize": 50,
+            "platformId": null,
+            "subCategoryId": null,
+            "costIds": [],
+            "capabilityIds": [],
+            "designedForIds": [],
+            "countryIds": []
+        };
+        const config_api = {
+            method: 'post',
+            url: config.orcha_api + 'Review/SearchPagedReviews',
+            headers: { 'authorization': 'Bearer ' + ctx.response.body.orchaToken },
+            data: data
+        };
+        const apps = await axios(config_api);
+        return ctx.res.ok({
             data: apps.data
         });
-        resolve();
-    })
-        .catch(function (error) {
-            ctx.res.internalServerError({
-                message: 'gdfgsgfg',
-            });
-            reject();
+    } catch (error) {
+        console.log('Exception ', error)
+        return ctx.res.internalServerError({
+            message: 'Errored in getting all orcha apps',
         });
-})
+    }
+}
+
 
 exports.getApp = ctx => new Promise((resolve, reject) => {
     //console.log("orcha app");
@@ -89,13 +125,13 @@ exports.getFilterDropDwnData = async (ctx) => {
 exports.getSearchData = async (ctx) => {
     var appLengthFlag = false;
     try {
-       // //console.log('-----------getFiltersAndApps-----------', ctx.request.body);
+        // //console.log('-----------getFiltersAndApps-----------', ctx.request.body);
         let app_body = {
-            searchTerm: "",
+            searchTerm: null,
             pageNumber: 1,
             pageSize: 12,
-            platformId: "",
-            subCategoryId: "",
+            platformId: null,
+            subCategoryId: null,
             costIds: [],
             capabilityIds: [],
             designedForIds: [],
@@ -128,28 +164,26 @@ exports.getSearchData = async (ctx) => {
             app_body.pageNumber = ctx.request.body.pageNum
         }
         var appData = await get_apps(app_body, ctx.response.body.orchaToken)
-       // //console.log("appData : "+appData)
-        if(appData!="null")
-        {
+        // //console.log("appData : "+appData)
+        if (appData != "null") {
             appLengthFlag = !appLengthFlag ? appData.result.items.length ? true : false : appLengthFlag;
-        
+
             if (appLengthFlag) {
                 appData.result.pagingInfo = {
-                  totalItems: appData.result.totalCount,
-                  totalPages: Math.round(appData.result.totalCount / app_body.pageSize),
-                  currentPage: parseInt(app_body.pageNumber),
-                  itemsPerPage: app_body.pageSize
+                    totalItems: appData.result.totalCount,
+                    totalPages: Math.round(appData.result.totalCount / app_body.pageSize),
+                    currentPage: parseInt(app_body.pageNumber),
+                    itemsPerPage: app_body.pageSize
                 }
-              }
+            }
         }
-        else
-        {
+        else {
 
         }
 
         ctx.res.ok({
             data: appData,
-           
+
         })
 
     } catch (e) {
