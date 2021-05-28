@@ -100,7 +100,7 @@ $(document).ready(function () {
             type: 'GET',
             dataFilter: function (referralRes) {
               referralRes = jQuery.parseJSON(referralRes);
-              //   console.log(referralRes);
+               //  console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -117,12 +117,13 @@ $(document).ready(function () {
                   referralRes.data.data[i].referrer,
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
-                  referralRes.data.data[i].date,
+                  referralRes.data.data[i].refDate,
                   referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' : 
                   referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' : 
                   referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted by '+ referralRes.data.data[i].referral_provider_other : 
                   referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to '+ referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>"
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>",
+                  referralRes.data.data[i].date,
                 ]);
               }
               return JSON.stringify(json);
@@ -134,7 +135,7 @@ $(document).ready(function () {
           table.rows().deselect();
           $('.idcheck').removeAttr('checked');
           this.referral_ids = [];
-          console.log(this.referral_ids);
+          //console.log(this.referral_ids);
         });
         this.referral_ids = [];
         $('#loader').hide();
@@ -222,7 +223,7 @@ $(document).ready(function () {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
   $(document).on('change', '.reload', function () {
-    console.log('Datatables reload');
+   // console.log('Datatables reload');
     vueApp.fetchReferral();
   });
   $(document).on('click', '#ExportReporttoExcel', function () {

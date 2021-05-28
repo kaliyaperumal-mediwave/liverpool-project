@@ -18,7 +18,7 @@ const gpCodes = [
 ]
 
 exports.getReferral = ctx => {
-    // console.log('ctx-----------', ctx.request.decryptedUser);
+    console.log('ctx-----------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
             //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
@@ -43,13 +43,15 @@ exports.getReferral = ctx => {
                 else if (ctx.query.orderBy == '3') order.push(['reference_code', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
-                else if (ctx.query.orderBy == '7') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '9') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '8') order.push(['referral_provider', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '10') order.push(['createdAt', ctx.query.orderType.toUpperCase()]);
+                console.log(order)
             }
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'referral_provider', 'referral_provider_other', 'referral_status',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt','createdAt', 'referral_provider', 'referral_provider_other', 'referral_status',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
@@ -99,6 +101,7 @@ exports.getReferral = ctx => {
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        refDate: moment(refObj.createdAt).format('DD/MM/YYYY H:mm:ss'),
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
@@ -145,6 +148,7 @@ exports.getReferral = ctx => {
                         gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        refDate: moment(refObj.createdAt).format('DD/MM/YYYY H:mm:ss'),
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status
@@ -206,12 +210,13 @@ exports.getArchived = ctx => {
                 else if (ctx.query.orderBy == '3') order.push(['reference_code', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
-                else if (ctx.query.orderBy == '7') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '8') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '7') order.push(['createdAt', ctx.query.orderType.toUpperCase()]);
             }
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'referral_provider', 'referral_provider_other', 'referral_status',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt','createdAt', 'referral_provider', 'referral_provider_other', 'referral_status',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
@@ -265,6 +270,7 @@ exports.getArchived = ctx => {
                         gp_location: '',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        refDate: moment(refObj.createdAt).format('DD/MM/YYYY H:mm:ss'),
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
@@ -311,6 +317,7 @@ exports.getArchived = ctx => {
                         gp_location: 'Liverpool',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                        refDate: moment(refObj.createdAt).format('DD/MM/YYYY H:mm:ss'),
                         referral_provider: refObj.referral_provider,
                         referral_provider_other: refObj.referral_provider_other,
                         referral_status: refObj.referral_status,
