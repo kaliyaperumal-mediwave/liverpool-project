@@ -19,6 +19,12 @@ $(document).ready(function () {
                 aboutLabel: "",
                 referralLabel: ""
             },
+            refFeedbackData: {
+                comments: '',
+                ratings: '',
+            },
+            feedbackMessage: '',
+            isFeedBackFormSubmitted: false,
             contact_person: '',
             legalStatusArray: [
                 'Care of Parent',
@@ -203,13 +209,39 @@ $(document).ready(function () {
                 });
             },
 
-            blurMe: function () {
-                let spinner = document.querySelector("#loader")
-                if (spinner.classList.contains("blurred")) {
-                    spinner.classList.remove("blurred");
+            //Function to send feedback for referral form
+            sendReferralFeedback: function () {
+                this.isFeedBackFormSubmitted = true;
+                if (this.refFeedbackData.ratings) {
+                    $('#aa6a4e36-a655-4ebe-b072-2cb4d1a1f642').modal('hide');
+                    $('#loader').show();
+                    var feedbackObj = JSON.parse(JSON.stringify(this.refFeedbackData));
+                    var successData = apiCallPost('post', '/feedback', feedbackObj);
+                    if (successData && Object.keys(successData)) {
+                        $('#loader').hide();
+                        this.feedbackMessage = successData.message;
+                        $('#refFeedbackSuccess').modal('show');
+                        this.resetForm();
+
+                    } else {
+                        $('#loader').hide();
+                        this.feedbackMessage = 'something went wrong pleasse try again';
+                    }
                 } else {
-                    spinner.classList.add("blurred")
+                    scrollToInvalidInput();
+                    return false;
                 }
+            },
+
+            resetForm: function () {
+                this.isFeedBackFormSubmitted = "";
+                this.refFeedbackData.comments = "";
+                this.refFeedbackData.ratings = "";
+            },
+
+            //Function to trim space entered
+            trimWhiteSpace: function (event, obj, key) {
+                preventWhiteSpaces(event, this, obj, key)
             },
 
             save: function () {
@@ -260,7 +292,7 @@ $(document).ready(function () {
                         //     $('#loader').hide();
                         // }
                     } else {
-                        scrollToInvalidInput();
+                        // scrollToInvalidInput();
                         return false;
                     }
 
@@ -310,7 +342,7 @@ $(document).ready(function () {
                         //     $('#loader').hide();
                         // }
                     } else {
-                        scrollToInvalidInput();
+                        // scrollToInvalidInput();
                         return false;
                     }
                 }
