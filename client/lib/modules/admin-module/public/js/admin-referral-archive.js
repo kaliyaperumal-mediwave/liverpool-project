@@ -134,7 +134,7 @@ $(document).ready(function () {
                     table.rows().deselect();
                     $('.idcheck').removeAttr('checked');
                     this.referral_ids = [];
-                    console.log(this.referral_ids);
+                   // console.log(this.referral_ids);
                   });
                 this.referral_ids = [];
                 $('#loader').hide();
@@ -215,7 +215,7 @@ $(document).ready(function () {
     });
 
     $(document).on('change', '.reload', function () {
-        console.log('Datatables reload');
+       // console.log('Datatables reload');
         vueApp.fetchReferral();
     });
 });
