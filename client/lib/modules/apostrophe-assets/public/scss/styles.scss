@@ -949,6 +949,15 @@ a {
 
 .referral-feedback {
   @include set-titleStyles($support-header-font-size, bold, $primary-color);
+  @include xs-screen {
+    font-size: 15px;
+  }
+  @include sm-screen {
+    font-size: 16px;
+  }
+  @include md-screen {
+    font-size: 17px;
+  }
 }
 
 .completed-toast-header {
