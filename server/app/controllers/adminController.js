@@ -43,10 +43,10 @@ exports.getReferral = ctx => {
                 else if (ctx.query.orderBy == '3') order.push(['reference_code', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
-                else if (ctx.query.orderBy == '9') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '7') order.push(['createdAt', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '8') order.push(['referral_provider', ctx.query.orderType.toUpperCase()]);
-                else if (ctx.query.orderBy == '10') order.push(['createdAt', ctx.query.orderType.toUpperCase()]);
-                console.log(order)
+                else if (ctx.query.orderBy == '10') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
+                //console.log(order)
             }
 
             var referrals = await referralModel.findAll({
@@ -124,6 +124,7 @@ exports.getReferral = ctx => {
                         (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.refDate.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referral_provider.toLowerCase()).includes(ctx.query.searchValue)
                     ) {
                         filter_referrals.push(referralObj);
@@ -210,8 +211,9 @@ exports.getArchived = ctx => {
                 else if (ctx.query.orderBy == '3') order.push(['reference_code', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '4') order.push([sequelize.literal('referrer_name'), ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '6') order.push(['user_role', ctx.query.orderType.toUpperCase()]);
-                else if (ctx.query.orderBy == '8') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
                 else if (ctx.query.orderBy == '7') order.push(['createdAt', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '8') order.push(['referral_provider', ctx.query.orderType.toUpperCase()]);
+                else if (ctx.query.orderBy == '10') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
             }
 
             var referrals = await referralModel.findAll({
@@ -293,6 +295,7 @@ exports.getArchived = ctx => {
                         (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
+                        (referralObj.refDate.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referral_provider.toLowerCase()).includes(ctx.query.searchValue)
                     ) {
                         filter_referrals.push(referralObj);

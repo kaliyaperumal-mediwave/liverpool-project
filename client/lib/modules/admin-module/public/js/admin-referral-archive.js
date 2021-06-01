@@ -76,7 +76,7 @@ $(document).ready(function () {
                         { targets: 9, orderable: false },
                     ],
                     lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-                    order: [[7, 'desc']],
+                    order: [[10, 'desc']],
                     language: {
                         searchPlaceholder: 'Search referral',
                         emptyTable: 'No referrals to displays',
