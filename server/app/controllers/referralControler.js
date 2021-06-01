@@ -2375,7 +2375,8 @@ exports.saveReview = ctx => {
       reference_code: uniqueNo,
       contact_preferences: ctx.request.body.contactPreference,
       contact_person: ctx.request.body.contact_person,
-      referral_provider: "Pending"
+      referral_provider: "Pending",
+      createdAt:new Date()
     },
       {
         where:
