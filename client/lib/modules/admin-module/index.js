@@ -38,7 +38,6 @@ module.exports = {
         url += '&searchValue=' + req.query.search.value;
       }
       url += '&orderBy=' + req.query.order[0].column + '&orderType=' + req.query.order[0].dir;
-      console.log(url)
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
