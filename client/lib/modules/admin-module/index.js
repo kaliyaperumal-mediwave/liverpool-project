@@ -35,7 +35,7 @@ module.exports = {
      // console.log('\n\nget referral queries-----------------------------------------\n', req.query, '\n\n');
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referral?offset=' + (parseInt(req.query.start)/parseInt(req.query['length']) + 1) +'&limit=' + req.query['length'];
       if(req.query.search && req.query.search.value) {
-        url += '&searchValue=' + req.query.search.value;
+        url += '&searchValue=' + req.query.search.value.trim();
       }
       url += '&orderBy=' + req.query.order[0].column + '&orderType=' + req.query.order[0].dir;
       self.middleware.get(req, url).then((data) => {
