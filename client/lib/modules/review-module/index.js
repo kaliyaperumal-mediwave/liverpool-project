@@ -47,35 +47,35 @@ module.exports = {
     require('../../middleware')(self, options);
     self.route('get', 'fetchReview/:userid', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/fetchReview?user_id=' + req.params.userid;
-      console.log("-------");
-      //console.log(req.params.userid);
-      console.log(url);
-      console.log("-------");
+      //console.log("-------");
+      ////console.log(req.params.userid);
+      //console.log(url);
+      //console.log("-------");
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
-        //  console.log("---- error -------", error)
+        //  //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
     self.route('post', 'saveReview', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/saveReview';
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+        //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
 
     self.route('put', 'updateInfo', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + req.body.endPoint;
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
       self.middleware.put(req, res, url, req.body).then((data) => {
         if (req.session.redirectto) {
           data.redirectto = req.session.redirectto;
@@ -88,12 +88,12 @@ module.exports = {
     });
     self.route('post', 'feedback', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/refFeedback';
-      // console.log(req.body, "req.body=========");
+      // //console.log(req.body, "req.body=========");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        // console.log(data);
+        // //console.log(data);
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+        //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });

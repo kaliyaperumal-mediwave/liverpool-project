@@ -66,7 +66,7 @@ module.exports = {
 
     self.route('put', 'referralStatusUpdate', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/referralStatusUpdate';
-      console.log('referralStatusUpdate put', url);
+      //console.log('referralStatusUpdate put', url);
       self.middleware.put(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -75,7 +75,7 @@ module.exports = {
     });
 
     self.route('get', 'getAllreferral', function (req, res) {
-      console.log("get all referal")
+      //console.log("get all referal")
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/getAllreferral';
      //console.log(url);
       self.middleware.get(req, url).then((data) => {
@@ -87,9 +87,9 @@ module.exports = {
     });
 
     self.route('get', 'downloadReferral/:refID/:refRole', function (req, res) {
-      console.log("get all referal")
+     // console.log("get all referal")
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadReferral?refID=' + req.params.refID +'&refRole='+ req.params.refRole ;
-      console.log(url);
+      //console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -113,9 +113,9 @@ module.exports = {
      });
 
     self.route('get', 'sendReferral/:refID/:refRole/:selectedProvider/:refCode', function (req, res) {
-      console.log("get all referal")
+      //console.log("get all referal")
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID +'&refRole='+ req.params.refRole +'&selectedProvider=' + req.params.selectedProvider +'&refCode=' + req.params.refCode;
-      console.log(url);
+      //console.log(url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {

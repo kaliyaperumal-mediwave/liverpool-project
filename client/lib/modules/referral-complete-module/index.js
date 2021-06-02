@@ -26,13 +26,13 @@ module.exports = {
     require('../../middleware')(self, options);
     self.route('get', 'getRefNo/:userid', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/getRefNo?user_id=' + req.params.userid;
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
-        //  console.log("---- error -------", error)
+        //  //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
@@ -40,20 +40,20 @@ module.exports = {
     self.route('post', 'sendConfirmationMail', function (req, res) {
       //req.body.email = req.session.email
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendConfirmationMail'
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
-        //  console.log("---- error -------", error)
+        //  //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
 
     self.route('get', 'getReferalByCode/:reqCode', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getReferalByCode?reqCode=' + req.params.reqCode;
-      //console.log("------- URL --------", url);
+      ////console.log("------- URL --------", url);
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -75,18 +75,18 @@ module.exports = {
         }
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+        //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
     self.route('post', 'feedback', function (req, res) {
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/user/refFeedback';
-      // console.log(req.body, "req.body=========");
+      // //console.log(req.body, "req.body=========");
       self.middleware.post(req, res, url, req.body).then((data) => {
-        // console.log(data);
+        // //console.log(data);
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+        //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });

@@ -23,11 +23,11 @@ module.exports = {
     };
     require('../../middleware')(self, options);
     self.route('get', 'getUserReferral/:referralType', function (req, res) {
-     // console.log("----------------------------------------------------- " + req.params.referralType);
+     // //console.log("----------------------------------------------------- " + req.params.referralType);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getUserReferral?referralType=' + req.params.referralType;
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -36,11 +36,11 @@ module.exports = {
     });
 
     self.route('get', 'getReferalByCode/:seachTxt', function (req, res) {
-     // console.log("----------------------------------------------------- " + req.params.seachTxt);
+     // //console.log("----------------------------------------------------- " + req.params.seachTxt);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/getReferalByCode?reqCode=' + req.params.seachTxt;
-      console.log("-------");
-      console.log(url);
-      console.log("-------");
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -49,7 +49,7 @@ module.exports = {
     });
 
     self.route('get', 'searchReferalByCode/:reqCode', function (req, res) {
-     /// console.log("----------------------------------------------------- " + req.params.reqCode);
+     /// //console.log("----------------------------------------------------- " + req.params.reqCode);
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/searchReferalByCode?reqCode=' + req.params.reqCode
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
