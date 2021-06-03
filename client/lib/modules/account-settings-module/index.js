@@ -53,7 +53,7 @@ module.exports = {
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+        //console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
@@ -67,7 +67,7 @@ module.exports = {
         //req.session.destroy();
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+       // console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
@@ -78,7 +78,7 @@ module.exports = {
       //  console.log(data)
         return res.send(data);
       }).catch((error) => {
-        console.log("---- error -------", error)
+      //  console.log("---- error -------", error)
         return res.status(error.statusCode).send(error.error);
       });
     });
