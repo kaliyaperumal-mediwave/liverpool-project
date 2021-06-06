@@ -160,6 +160,7 @@ $(document).ready(function () {
             },
 
             archiveReferral: function () {
+                console.log(this.referral_ids.length)
                 if (this.referral_ids.length) {
                     $('#loader').show();
                     var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
