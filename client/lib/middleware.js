@@ -25,9 +25,9 @@ module.exports = function (self, options) {
             req.data.mentalHealth_servicePage = "mental-health/services";
             req.data.showLogout = true;
 
-            if(req.session.user_role === 'service_admin'){
+            if (req.session.user_role === 'service_admin') {
               return req.res.redirect("/admin/serviceAdmin")
-            } else if(req.session.user_role === 'admin'){
+            } else if (req.session.user_role === 'admin') {
               return req.res.redirect("/admin")
             }
             return next();
@@ -59,14 +59,14 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
-      
+
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
 
-            if(req.session.user_role === 'service_admin'){
+            if (req.session.user_role === 'service_admin') {
               return req.res.redirect("/admin/serviceAdmin")
-            } else if(req.session.user_role === 'admin'){
+            } else if (req.session.user_role === 'admin') {
               return req.res.redirect("/admin")
             }
 
@@ -147,9 +147,9 @@ module.exports = function (self, options) {
             req.data.logoPath = "/admin";
             req.data.referral = "/admin";
             req.data.archive = "/admin/archive";
-            if(req.session.user_role === 'service_admin'){
+            if (req.session.user_role === 'service_admin') {
               return req.res.redirect("/admin/serviceAdmin")
-            } else if(req.session.user_role === 'admin'){
+            } else if (req.session.user_role === 'admin') {
               return next();
             } else {
               return req.res.redirect("/dashboard")
@@ -168,12 +168,13 @@ module.exports = function (self, options) {
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
-            req.data.logoPath = "/admin/serviceAdmin";
-            req.data.archive = "/admin/serviceAdmin";
-            if(req.session.user_role === 'service_admin'){
+            req.data.archive = "/admin/archive";
+            if (req.session.user_role === 'service_admin') {
+              req.data.logoPath = "/admin/serviceAdmin";
               return next();
-            } else if(req.session.user_role === 'admin'){
-              return req.res.redirect("/admin")
+            } else if (req.session.user_role === 'admin') {
+              req.data.logoPath = "/admin";
+              return next();
             } else {
               return req.res.redirect("/dashboard")
             }
@@ -188,7 +189,7 @@ module.exports = function (self, options) {
     },
 
     post: function (req, res, url, body) {
-      //console.log("post method")
+      console.log("post request", url);
       return new Promise((resolve, reject) => {
         let options = {
           method: 'POST',
@@ -224,6 +225,7 @@ module.exports = function (self, options) {
     },
 
     get: function (req, url) {
+      console.log("get request", url);
       return new Promise((resolve, reject) => {
         let options = {
           method: 'GET',
@@ -252,6 +254,7 @@ module.exports = function (self, options) {
     },
 
     put: function (req, res, url, body) {
+      console.log("put request", url);
       return new Promise((resolve, reject) => {
         let options = {
           method: 'PUT',
@@ -287,6 +290,7 @@ module.exports = function (self, options) {
     },
 
     delete: function (req, res, url, body) {
+      console.log("delete request", url);
       return new Promise((resolve, reject) => {
         let options = {
           method: 'DELETE',
@@ -422,7 +426,7 @@ module.exports = function (self, options) {
         delete req.session.auth_token;
         delete req.session.loginFlag;
         delete req.session.prof_data;
-       // req.session.sessionExp = true;
+        // req.session.sessionExp = true;
         return reject(error);
       });
     });

@@ -7,10 +7,11 @@ module.exports = {
   construct: function (self, options) {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.middleware.checkAdminAuth, self.admin);
-      self.dispatch('/archive', self.middleware.checkAdminAuth, self.archive);
+      self.dispatch('/archive', self.middleware.checkServiceAdminAuth, self.archive);
       self.dispatch('/serviceAdmin', self.middleware.checkServiceAdminAuth, self.serviceAdmin);
     };
     self.archive = function (req, callback) {
+      console.log("page land admin archieve page")
       return self.sendPage(req, self.renderer('admin-referral-archive', {
         superAdmin: true,
         adminPanel: true
@@ -18,13 +19,14 @@ module.exports = {
     };
     self.serviceAdmin = function (req, callback) {
       return self.sendPage(req, self.renderer('serviceAdmin', {
-        superAdmin: false,
+        superAdmin: true,
         adminPanel: true
       }));
     };
     require('../../middleware')(self, options);
 
     self.admin = function (req, callback) {
+      console.log("page land admin  page")
       return self.sendPage(req, self.renderer('admin', {
         superAdmin: true,
         adminPanel: true

@@ -18,7 +18,7 @@ const gpCodes = [
 ]
 
 exports.getReferral = ctx => {
-    console.log('ctx-----------', ctx.request.decryptedUser);
+    console.log('ctx---gdfsgdsgdsgds--------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
             //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
@@ -79,6 +79,7 @@ exports.getReferral = ctx => {
             });
 
             referrals = JSON.parse(JSON.stringify(referrals));
+            
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
             // console.log(filteredReferrals);
@@ -198,10 +199,20 @@ exports.getReferral = ctx => {
 
 
 exports.getArchived = ctx => {
+    console.log(ctx.request.decryptedUser )
     return new Promise(async (resolve, reject) => {
         try {
             //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
+            var query = {
+                reference_code: {
+                    [sequelize.Op.ne]: null
+                },
+                referral_complete_status: 'archived'
+            }
+            if (ctx.request.decryptedUser && ctx.request.decryptedUser.service_type) {
+                query.referral_provider = ctx.request.decryptedUser.service_type;
+            }
 
             // sorting
             var order = [];
@@ -226,12 +237,7 @@ exports.getArchived = ctx => {
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
                 ],
-                where: {
-                    reference_code: {
-                        [sequelize.Op.ne]: null
-                    },
-                    referral_complete_status: 'archived'
-                },
+                where: query,
                 include: [
                     {
                         model: referralModel,
@@ -247,7 +253,7 @@ exports.getArchived = ctx => {
                         ]
                     },
                 ],
-                order: order
+                order: order 
             });
 
             referrals = JSON.parse(JSON.stringify(referrals));
