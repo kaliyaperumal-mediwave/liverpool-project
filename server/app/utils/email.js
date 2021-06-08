@@ -216,8 +216,6 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                     const csvHeader = ["Title", "Name"];
                     const dataCsv = getCSVData(ctx);
                     const csv = parse(dataCsv, csvHeader);
-                    // console.log(csv)
-
                     const data = {
                         from: config.email_from_address,
                         to: toAddress,
@@ -275,10 +273,8 @@ function getCSVData(ctx) {
             var name = ctx.request.body.referralData.section2.household_member[index].name;
             var lastName = ctx.request.body.referralData.section2.household_member[index].lastName
             var fullName = name + " " + lastName
-            console.log(fullName)
             householdMembers.push(fullName);
         }
-        console.log(householdMembers)
         csvData = [
             { //Section 1
                 "I am a": ctx.request.body.referralData.role,

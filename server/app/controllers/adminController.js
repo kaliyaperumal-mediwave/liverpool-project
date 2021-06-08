@@ -199,7 +199,6 @@ exports.getReferral = ctx => {
 
 
 exports.getArchived = ctx => {
-    console.log(ctx.request.decryptedUser)
     return new Promise(async (resolve, reject) => {
         try {
             //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
@@ -679,9 +678,6 @@ function getRefData(refID, refRole, ctx) {
                         parent_contact_type: aboutObj.parent[0].parent_contact_type,
                         legal_care_status: aboutObj.parent[0].legal_care_status,
                     }
-
-                    console.log(educationObj.referral_reason)
-
                     var services;
                     var displayServicesPdf;
                     if (educationObj.referral_reason[0].local_services) {
@@ -723,8 +719,6 @@ function getRefData(refID, refRole, ctx) {
                     if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
                         section2Obj.parent_address = section2Obj.parent_manual_address[0].addressLine1 + ',' + section2Obj.parent_manual_address[0].addressLine2 + ' ' + section2Obj.parent_manual_address[0].city + ',' + section2Obj.parent_manual_address[0].country + ',' + section2Obj.parent_manual_address[0].postCode
                     }
-
-                    console.log(educationObj.child_education_manual_address)
                     if (educationObj.child_education_manual_address != null && educationObj.child_education_manual_address[0] != null) {
                         educationObj.child_education_place = educationObj.child_education_manual_address[0].school + ',' + educationObj.child_education_manual_address[0].addressLine1 + ',' + educationObj.child_education_manual_address[0].addressLine2 + ' ' + educationObj.child_education_manual_address[0].city + ',' + educationObj.child_education_manual_address[0].country + ',' + educationObj.child_education_manual_address[0].postCode
                     }
