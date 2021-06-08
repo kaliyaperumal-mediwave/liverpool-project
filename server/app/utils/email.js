@@ -274,6 +274,15 @@ function getCSVData(ctx) {
     //console.log(ctx.request.body.referralData)
     var csvData
     if (ctx.request.body.referralData.role == "Parent" || ctx.request.body.referralData.role == "parent") {
+        var householdMembers = [];
+        for (let index = 0; index < ctx.request.body.referralData.section2.household_member.length; index++) {
+            var name = ctx.request.body.referralData.section2.household_member[index].name;
+            var lastName = ctx.request.body.referralData.section2.household_member[index].lastName
+            var fullName = name + " " + lastName
+            console.log(fullName)
+            householdMembers.push(fullName);
+
+        }
         csvData = [
             { //Section 1
                 "I am a": ctx.request.body.referralData.role,
@@ -297,6 +306,7 @@ function getCSVData(ctx) {
                 "Sexual orientation": ctx.request.body.referralData.section2.child_sexual_orientation ? ctx.request.body.referralData.section2.child_sexual_orientation : "-",
                 "Ethnicity": ctx.request.body.referralData.section2.child_ethnicity ? ctx.request.body.referralData.section2.child_ethnicity : "-",
                 "Cares for an adult": ctx.request.body.referralData.section2.child_care_adult,
+                "Household member": householdMembers.toString(),
                 "Parent / carer’s first name": ctx.request.body.referralData.section2.parent_name,
                 "Parent / carer’s last name:": ctx.request.body.referralData.section2.parent_lastname,
                 "Have a parental responsibility": ctx.request.body.referralData.section2.parental_responsibility,
@@ -334,6 +344,15 @@ function getCSVData(ctx) {
         ];
     }
     else if (ctx.request.body.referralData.role == "Child" || ctx.request.body.referralData.role == "child") {
+        var householdMembers = [];
+        for (let index = 0; index < ctx.request.body.referralData.section2.household_member.length; index++) {
+            var name = ctx.request.body.referralData.section2.household_member[index].name;
+            var lastName = ctx.request.body.referralData.section2.household_member[index].lastName
+            var fullName = name + " " + lastName
+            console.log(fullName)
+            householdMembers.push(fullName);
+
+        }
         csvData = [
             { //Section 1
                 "I am a": ctx.request.body.referralData.role,
@@ -359,6 +378,7 @@ function getCSVData(ctx) {
                 "Sexual orientation": ctx.request.body.referralData.section2.child_sexual_orientation ? ctx.request.body.referralData.section2.child_sexual_orientation : "-",
                 "Ethnicity": ctx.request.body.referralData.section2.child_ethnicity ? ctx.request.body.referralData.section2.child_ethnicity : "-",
                 "Cares for an adult": ctx.request.body.referralData.section2.child_care_adult,
+                "Household member": householdMembers.toString(),
                 "Parent / carer’s first name": ctx.request.body.referralData.section2.parent_name,
                 "Parent / carer’s last name:": ctx.request.body.referralData.section2.parent_lastname,
                 "Have a parental responsibility": ctx.request.body.referralData.section2.parental_responsibility,
@@ -396,6 +416,15 @@ function getCSVData(ctx) {
         ];
     }
     else {
+        var householdMembers=[];
+        for (let index = 0; index < ctx.request.body.referralData.section2.household_member.length; index++) {
+            var name = ctx.request.body.referralData.section2.household_member[index].name;
+            var lastName = ctx.request.body.referralData.section2.household_member[index].lastName
+            var fullName = name+" "+lastName
+            console.log(fullName)
+            householdMembers.push(fullName);
+            
+        }
         csvData = [
             { //Section 1
                 "I am a": ctx.request.body.referralData.role,
@@ -404,8 +433,8 @@ function getCSVData(ctx) {
                 "First name": ctx.request.body.referralData.section1.professional_name,
                 "Last name": ctx.request.body.referralData.professional_lastname,
                 "Email": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : "-",
-                "Contact_type" : ctx.request.body.referralData.section1.professional_contact_type,
-                "Contact number":  ctx.request.body.referralData.section1.professional_contact_number,
+                "Contact_type": ctx.request.body.referralData.section1.professional_contact_type,
+                "Contact number": ctx.request.body.referralData.section1.professional_contact_number,
                 "Address": ctx.request.body.referralData.section1.professional_address,
                 "Profession": ctx.request.body.referralData.section1.professional_profession,
                 "Child's D.O.B:": moment(ctx.request.body.referralData.section1.child_dob).format('DD/MM/YYYY'),
@@ -428,6 +457,7 @@ function getCSVData(ctx) {
                 "Sexual orientation": ctx.request.body.referralData.section2.child_sexual_orientation ? ctx.request.body.referralData.section2.child_sexual_orientation : "-",
                 "Ethnicity": ctx.request.body.referralData.section2.child_ethnicity ? ctx.request.body.referralData.section2.child_ethnicity : "-",
                 "Cares for an adult": ctx.request.body.referralData.section2.child_care_adult,
+                "Household member": householdMembers.toString(),
                 "Parent / carer’s first name": ctx.request.body.referralData.section2.parent_name,
                 "Parent / carer’s last name:": ctx.request.body.referralData.section2.parent_lastname,
                 "Have a parental responsibility": ctx.request.body.referralData.section2.parental_responsibility,
@@ -464,9 +494,6 @@ function getCSVData(ctx) {
             },
         ];
     }
-
-    console.log("======================================")
-    console.log(csvData)
     return csvData;
 }
 

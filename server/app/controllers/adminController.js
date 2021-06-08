@@ -79,7 +79,7 @@ exports.getReferral = ctx => {
             });
 
             referrals = JSON.parse(JSON.stringify(referrals));
-            console.log(referrals)
+            
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
             // console.log(filteredReferrals);
