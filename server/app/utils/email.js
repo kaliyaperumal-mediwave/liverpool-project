@@ -223,7 +223,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                     const data = {
                         from: config.email_from_address,
                         to: toAddress,
-                        subject: 'SAMPLE- [SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                        subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                         attachments: [{
                             filename: ctx.request.body.refCode + ".pdf",
                             content: sendReferralStatus,
