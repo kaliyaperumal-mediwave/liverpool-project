@@ -158,19 +158,25 @@ $(document).ready(function () {
                     }
                 }
             },
-
             archiveReferral: function () {
-                console.log(this.referral_ids.length)
-                if (this.referral_ids.length) {
-                    $('#loader').show();
-                    var successData = apiCallPut('put', '/referral', { referral_id: this.referral_ids, status: 'archived' });
-                    $('#loader').hide();
+                var _self = this;
+                if (_self.referral_ids.length) {
+                  $('#loader').show();
+                  setTimeout(function () {
+                    var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'archived' });
                     if (successData && Object.keys(successData)) {
-                        this.successMessage = 'Referrals archived successfully';
-                        $('#deletedSuccess').modal('show');
+                      _self.successMessage = 'Referrals archived successfully';
+                      _self.fetchReferral();
+                      $('#deletedSuccess').modal('show');
+                      setTimeout(function () {
+                        $('#loader').hide();
+                      }, 500);
+                    } else {
+                      $('#loader').hide();
                     }
+                  }, 500);
                 }
-            },
+              },
             unArchive: function () {
                 if (this.referral_ids.length) {
                     $('#loader').show();
