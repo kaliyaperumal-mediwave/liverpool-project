@@ -214,8 +214,8 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             if (sendReferralStatus) {
                 try {
                     const csvHeader = ["Title", "Name"];
-                    const dataCsv = getCSVData(ctx);
-                    const csv = parse(dataCsv, csvHeader);
+                   // const dataCsv = getCSVData(ctx);
+                   // const csv = parse(dataCsv, csvHeader);
                     const data = {
                         from: config.email_from_address,
                         to: toAddress,
@@ -224,10 +224,12 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                             filename: ctx.request.body.refCode + ".pdf",
                             content: sendReferralStatus,
                             contentType: 'application/pdf'
-                        }, {
-                            filename: ctx.request.body.refCode + ".csv",
-                            content: Buffer.from(csv).toString('base64'),
-                        },],
+                        },
+                        // {
+                        //     filename: ctx.request.body.refCode + ".csv",
+                        //     content: Buffer.from(csv).toString('base64'),
+                        // },
+                    ],
                         html: htmlTemplate,
                     };
 
@@ -235,20 +237,20 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
 
                         if (!err && res) {
                             ctx.res.ok({
-                                data: 'mail Successfully sent',
+                                message: 'mail Successfully sent',
                             });
                             resolve();
                         } else {
                             logger.error('Mail error', err);
                             ctx.res.internalServerError({
-                                data: 'mail not sent',
+                                message: 'mail not sent',
                             });
                             reject();
                         }
                     });
                 } catch (error) {
                     return resolve(ctx.res.internalServerError({
-                        data: 'Failed to sent mail',
+                        message: 'Failed to sent mail',
                     }));
                 }
 
