@@ -205,34 +205,11 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.other_email
         }
         console.log('toAddress----------', toAddress);
-        const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
-        let htmlTemplate = _.template(template);
-        htmlTemplate = htmlTemplate({
-            refCode: ctx.request.body.refCode,
-        });
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
                 try {
-                    const csvHeader = ["Title", "Name"];
-                   // const dataCsv = getCSVData(ctx);
-                   // const csv = parse(dataCsv, csvHeader);
-                    const data = {
-                        from: config.email_from_address,
-                        to: toAddress,
-                        subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
-                        attachments: [{
-                            filename: ctx.request.body.refCode + ".pdf",
-                            content: sendReferralStatus,
-                            contentType: 'application/pdf'
-                        },
-                        // {
-                        //     filename: ctx.request.body.refCode + ".csv",
-                        //     content: Buffer.from(csv).toString('base64'),
-                        // },
-                    ],
-                        html: htmlTemplate,
-                    };
 
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
@@ -241,6 +218,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                             });
                             resolve();
                         } else {
+                            console.log(err)
                             logger.error('Mail error', err);
                             ctx.res.internalServerError({
                                 message: 'mail not sent',
@@ -253,11 +231,9 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
                         message: 'Failed to sent mail',
                     }));
                 }
-
             }
 
         }).catch(error => {
-            console.log(error);
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
@@ -265,6 +241,60 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     }
 
 });
+
+
+function attachMailData(pdfReferral, ctx, toAddress) {
+    const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
+    let htmlTemplate = _.template(template);
+    htmlTemplate = htmlTemplate({
+        refCode: ctx.request.body.refCode,
+    });
+    var attachmentFiles = {};
+    try {
+
+        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
+            //Attach pdf and csv for alderhey admins
+            const csvHeader = ["Title", "Name"];
+            const dataCsv = getCSVData(ctx);
+            const csv = parse(dataCsv, csvHeader);
+            attachmentFiles = {
+                from: config.email_from_address,
+                to: toAddress,
+                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                attachments: [{
+                    filename: ctx.request.body.refCode + ".pdf",
+                    content: pdfReferral,
+                    contentType: 'application/pdf'
+                },
+                {
+                    filename: ctx.request.body.refCode + ".csv",
+                    content: Buffer.from(csv).toString('base64'),
+                },
+                ],
+                html: htmlTemplate,
+            };
+        }
+        else {
+            //Attach only pdf for other service admins
+            attachmentFiles = {
+                from: config.email_from_address,
+                to: toAddress,
+                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                attachments: [{
+                    filename: ctx.request.body.refCode + ".pdf",
+                    content: pdfReferral,
+                    contentType: 'application/pdf'
+                },],
+                html: htmlTemplate,
+            };
+        }
+
+        return attachmentFiles;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 
 function getCSVData(ctx) {
@@ -326,7 +356,7 @@ function getCSVData(ctx) {
                 "Support needs": ctx.request.body.referralData.section4.referral_type,
                 "Covid related": ctx.request.body.referralData.section4.is_covid,
                 "Main eating disorder difficult:": checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties),
-                "Food/fluid intake": ctx.request.body.referralData.section4.food_fluid_intake?ctx.request.body.referralData.section4.food_fluid_intake:"-",
+                "Food/fluid intake": ctx.request.body.referralData.section4.food_fluid_intake ? ctx.request.body.referralData.section4.food_fluid_intake : "-",
                 "Height": ctx.request.body.referralData.section4.height ? ctx.request.body.referralData.section4.height : "-",
                 "Weight": ctx.request.body.referralData.section4.weight ? ctx.request.body.referralData.section4.weight : "-",
                 "Main reason for making referral ": ctx.request.body.referralData.section4.reason_for_referral ? ctx.request.body.referralData.section4.reason_for_referral.toString() : "-",
@@ -401,7 +431,7 @@ function getCSVData(ctx) {
                 "Support needs": ctx.request.body.referralData.section4.referral_type,
                 "Covid related": ctx.request.body.referralData.section4.is_covid,
                 "Main eating disorder difficult:": checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties),
-                "Food/fluid intake": ctx.request.body.referralData.section4.food_fluid_intake?ctx.request.body.referralData.section4.food_fluid_intake:"-",
+                "Food/fluid intake": ctx.request.body.referralData.section4.food_fluid_intake ? ctx.request.body.referralData.section4.food_fluid_intake : "-",
                 "Height": ctx.request.body.referralData.section4.height ? ctx.request.body.referralData.section4.height : "-",
                 "Weight": ctx.request.body.referralData.section4.weight ? ctx.request.body.referralData.section4.weight : "-",
                 "Main reason for making referral ": ctx.request.body.referralData.section4.reason_for_referral ? ctx.request.body.referralData.section4.reason_for_referral : "-",
@@ -482,7 +512,7 @@ function getCSVData(ctx) {
                 "Support needs": ctx.request.body.referralData.section4.referral_type,
                 "Covid related": ctx.request.body.referralData.section4.is_covid,
                 "Main eating disorder difficult:": checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties),
-                "Food/fluid intake": ctx.request.body.referralData.section4.food_fluid_intake?ctx.request.body.referralData.section4.food_fluid_intake:"-",
+                "Food/fluid intake": ctx.request.body.referralData.section4.food_fluid_intake ? ctx.request.body.referralData.section4.food_fluid_intake : "-",
                 "Height": ctx.request.body.referralData.section4.height ? ctx.request.body.referralData.section4.height : "-",
                 "Weight": ctx.request.body.referralData.section4.weight ? ctx.request.body.referralData.section4.weight : "-",
                 "Main reason for making referral ": ctx.request.body.referralData.section4.reason_for_referral ? ctx.request.body.referralData.section4.reason_for_referral.toString() : "-",
