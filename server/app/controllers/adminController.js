@@ -110,9 +110,9 @@ exports.getReferral = ctx => {
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
                         if (splitLocation.length > 1) {
-                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1]!="L14 0JE" &&  gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1]!="L14 0JE" &&  gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
@@ -157,12 +157,12 @@ exports.getReferral = ctx => {
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
-                        //  console.log(splitLocation)
+                          //console.log(splitLocation)
                         if (splitLocation.length > 1) {
-                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1]!="L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Liverpool
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1]!="L14 0JE" && gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Sefton
                                 referralObj.gp_location = gpCodes[1].type;
                             }
@@ -274,7 +274,7 @@ exports.getArchived = ctx => {
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
-                        gp_location: '',
+                        gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
                         refDate: moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
@@ -285,9 +285,9 @@ exports.getArchived = ctx => {
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
                         if (splitLocation.length > 1) {
-                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1]!="L14 0JE" &&  gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1]!="L14 0JE" &&  gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
@@ -322,7 +322,7 @@ exports.getArchived = ctx => {
                         dob: refObj.dob ? moment(refObj.dob).format('DD/MM/YYYY') : '',
                         reference_code: refObj.reference_code,
                         referrer: refObj.referrer_name + " " + refObj.referrer_lastname,
-                        gp_location: 'Liverpool',
+                        gp_location: 'Local School',
                         referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
                         date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
                         refDate: moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
@@ -333,10 +333,10 @@ exports.getArchived = ctx => {
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
                         if (splitLocation.length > 1) {
-                            if (gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1]!="L14 0JE" &&  gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Liverpool
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1]!="L14 0JE" &&  gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Sefton
                                 referralObj.gp_location = gpCodes[1].type;
                             }
