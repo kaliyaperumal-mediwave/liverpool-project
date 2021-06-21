@@ -82,7 +82,6 @@ exports.getReferral = ctx => {
 
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            console.log(referrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
