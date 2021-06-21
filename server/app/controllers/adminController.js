@@ -51,13 +51,13 @@ exports.getReferral = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status','gp_school',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
-                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
                     [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
+                    [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
                 ],
                 where: query,
                 include: [
@@ -82,7 +82,7 @@ exports.getReferral = ctx => {
 
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            // console.log(filteredReferrals);
+            console.log(referrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
@@ -117,7 +117,6 @@ exports.getReferral = ctx => {
                             }
                         }
                     }
-                    //////console.log()(referralObj)
                     if ((referralObj.name.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.dob.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.reference_code.toLowerCase()).includes(ctx.query.searchValue) ||
@@ -125,9 +124,9 @@ exports.getReferral = ctx => {
                         (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
-                        (referralObj.refDate.toLowerCase()).includes(ctx.query.searchValue) ||
-                        (referralObj.referral_provider.toLowerCase()).includes(ctx.query.searchValue)
-                    ) {
+                        (referralObj.refDate.toLowerCase()).includes(ctx.query.searchValue)
+                    ) 
+                    {
                         filter_referrals.push(referralObj);
                     }
                 });
@@ -300,8 +299,7 @@ exports.getArchived = ctx => {
                         (referralObj.gp_location.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
-                        (referralObj.refDate.toLowerCase()).includes(ctx.query.searchValue) ||
-                        (referralObj.referral_provider.toLowerCase()).includes(ctx.query.searchValue)
+                        (referralObj.refDate.toLowerCase()).includes(ctx.query.searchValue)
                     ) {
                         filter_referrals.push(referralObj);
                     }
