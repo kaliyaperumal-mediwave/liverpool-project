@@ -14,13 +14,15 @@ module.exports = {
       console.log("page land admin archieve page")
       return self.sendPage(req, self.renderer('admin-referral-archive', {
         superAdmin: true,
-        adminPanel: true
+        adminPanel: true,
+        archivePge: true,
       }));
     };
     self.serviceAdmin = function (req, callback) {
       return self.sendPage(req, self.renderer('serviceAdmin', {
         superAdmin: true,
-        adminPanel: true
+        adminPanel: true,
+        archivePge: false,
       }));
     };
     require('../../middleware')(self, options);
@@ -29,7 +31,8 @@ module.exports = {
       console.log("page land admin  page")
       return self.sendPage(req, self.renderer('admin', {
         superAdmin: true,
-        adminPanel: true
+        adminPanel: true,
+        archivePge: false,
       }));
     };
 

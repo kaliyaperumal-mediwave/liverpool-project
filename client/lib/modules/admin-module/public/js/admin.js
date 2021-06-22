@@ -18,14 +18,25 @@ $(document).ready(function () {
       SelectedProviderType: 'Liverpool',
       loading: false,
       SelectedProviderStatus: '',
-      statusOther: ''
+      statusOther: '',
+      role: '',
+      archivePage: '',
+      urlToLoadData: ''
     },
     beforeMount: function () {
       $('#loader').show();
     },
     mounted: function () {
-      // this.fetchAllRef();
+      this.archivePage = document.getElementById('isItArchivePge').innerHTML;
+      console.log(this.archivePage)
+      if (this.archivePage == 'true') {
+        this.urlToLoadData = '/modules/admin-module/getArchived'
+      }
+      else {
+        this.urlToLoadData = '/modules/admin-module/referral'
+      }
       this.fetchReferral();
+
     },
     methods: {
       openToggle: function (toggle) {
@@ -46,6 +57,7 @@ $(document).ready(function () {
       },
       fetchReferral: function () {
         var _self = this;
+        console.log(_self.urlToLoadData)
         $('th').on("click", function (event) {
           if ($(event.target).is("div"))
             event.stopImmediatePropagation();
@@ -88,19 +100,20 @@ $(document).ready(function () {
             {
               extend: 'csv',
               text: 'Export as CSV',
-              title: 'referrals_data_export_'+(new Date().toISOString().slice(0, 10)),
+              title: 'referrals_data_export_' + (new Date().toISOString().slice(0, 10)),
               exportOptions: {
                 columns: [1, 2, 3, 4, 5, 6, 7, 8]
               }
             }
           ],
+
           ajax: {
-            url: '/modules/admin-module/referral',
+            url: _self.urlToLoadData,
             // url: '/modules/admin-module/getAllreferral',
             type: 'GET',
             dataFilter: function (referralRes) {
               referralRes = jQuery.parseJSON(referralRes);
-               //  console.log(referralRes);
+              //  console.log(referralRes);
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -118,10 +131,10 @@ $(document).ready(function () {
                   referralRes.data.data[i].gp_location,
                   referralRes.data.data[i].referrer_type,
                   referralRes.data.data[i].refDate,
-                  referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' : 
-                  referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' : 
-                  referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted by '+ referralRes.data.data[i].referral_provider_other : 
-                  referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to '+ referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
+                  referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                    referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                      referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted by ' + referralRes.data.data[i].referral_provider_other :
+                        referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
                   "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>",
                   referralRes.data.data[i].date,
                 ]);
@@ -158,42 +171,88 @@ $(document).ready(function () {
       deleteReferral: function () {
         if (this.referral_ids.length) {
           var _self = this;
-          $('#loader').show();
-          setTimeout(function () {
-            var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'deleted' });
-            if (successData && Object.keys(successData)) {
-              _self.successMessage = 'Referrals deleted successfully'
-              _self.fetchReferral();
-              $('#deletePopup').modal('hide');
-              $('#deletedSuccess').modal('show');
-              setTimeout(function () {
-                $('#loader').hide();
-              }, 500);
-            } else {
-              $('#loader').hide();
+          var payload = { referral_id: _self.referral_ids, status: 'deleted' }
+        }
+        var trimmedPayload = trimObj(payload);
+        $('#loader').show();
+        $.ajax({
+          url: API_URI + '/referral',
+          type: 'put',
+          dataType: 'json',
+          async: false,
+          contentType: 'application/json',
+          data: JSON.stringify(trimmedPayload),
+          success: function (res) {
+            _self.successMessage = 'Referrals deleted successfully';
+            _self.fetchReferral();
+            $('#loader').hide();
+          },
+          error: function (error) {
+            $('#loader').hide();
+            if (error) {
+              showError(error.responseJSON.message, error.status);
             }
-          }, 500);
+          }
+        });
+
+      },
+
+      unArchive: function () {
+        if (this.referral_ids.length) {
+          var _self = this;
+          var payload = { referral_id: _self.referral_ids, status: 'completed' }
+          var trimmedPayload = trimObj(payload);
+          $('#loader').show();
+          $.ajax({
+            url: API_URI + '/referral',
+            type: 'put',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(trimmedPayload),
+            success: function (res) {
+              _self.successMessage = 'Unarchive successful';
+              _self.fetchReferral();
+              $('#loader').hide();
+            },
+            error: function (error) {
+              $('#loader').hide();
+              if (error) {
+                showError(error.responseJSON.message, error.status);
+              }
+            }
+          });
         }
       },
+
       archiveReferral: function () {
         var _self = this;
         if (_self.referral_ids.length) {
+          var payload = { referral_id: _self.referral_ids, status: 'archived' }
+          var trimmedPayload = trimObj(payload);
           $('#loader').show();
-          setTimeout(function () {
-            var successData = apiCallPut('put', '/referral', { referral_id: _self.referral_ids, status: 'archived' });
-            if (successData && Object.keys(successData)) {
+          $.ajax({
+            url: API_URI + '/referral',
+            type: 'put',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            data: JSON.stringify(trimmedPayload),
+            success: function (res) {
               _self.successMessage = 'Referrals archived successfully';
               _self.fetchReferral();
-              $('#deletedSuccess').modal('show');
-              setTimeout(function () {
-                $('#loader').hide();
-              }, 500);
-            } else {
               $('#loader').hide();
+            },
+            error: function (error) {
+              $('#loader').hide();
+              if (error) {
+                showError(error.responseJSON.message, error.status);
+              }
             }
-          }, 500);
+          });
         }
       },
+
       closeModal: function () {
         $('#example').DataTable().ajax.reload();
         $('#deletedSuccess').modal('hide');
@@ -209,8 +268,8 @@ $(document).ready(function () {
         $('#statusUpdatedSuccess').modal('hide');
       },
       closeStatusPopup: function () {
-          this.SelectedProviderStatus = '';
-          $('#changeStatusModal').modal('hide');
+        this.SelectedProviderStatus = '';
+        $('#changeStatusModal').modal('hide');
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
@@ -223,7 +282,7 @@ $(document).ready(function () {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
   $(document).on('change', '.reload', function () {
-   // console.log('Datatables reload');
+    // console.log('Datatables reload');
     vueApp.fetchReferral();
   });
   $(document).on('click', '#ExportReporttoExcel', function () {
@@ -259,8 +318,8 @@ function viewPdf(uuid, role) {
 
 function changeStatus(uuid, value, other_value) {
   if (value === 'Referral to other team' && other_value != null) {
-      $('#SelectedProviderStatus').val(value);
-      document.getElementById("statusOther").value = other_value;
+    $('#SelectedProviderStatus').val(value);
+    document.getElementById("statusOther").value = other_value;
   } else {
     $('#otherTeam').hide();
   }
@@ -274,29 +333,29 @@ function changeStatus(uuid, value, other_value) {
 function updateStatus(uuid) {
   $('#loader').show();
   setTimeout(function () {
-      var status = $('#SelectedProviderStatus').val();
-      var postData = {
+    var status = $('#SelectedProviderStatus').val();
+    var postData = {
       referral_id: uuid,
       status: status
-      }
-      if (status === 'Referral to other team') {
+    }
+    if (status === 'Referral to other team') {
       postData.other = $('#statusOther').val();
-      }
-      var successData = apiCallPut('put', '/referralStatusUpdate', postData);
-      if (successData && Object.keys(successData)) {
-          document.getElementById("statusOther").value = '';
-          $('#changeStatusModal').modal('hide');
-          $('#statusUpdatedSuccess').modal('show');
-          setTimeout(function () {
-          $('#loader').hide();
-          }, 500);
-      }
-      else {
-          setTimeout(function () {
-          $('#loader').hide();
-          }, 500);
-          $('#changeStatusModal').modal('hide');
-      }
+    }
+    var successData = apiCallPut('put', '/referralStatusUpdate', postData);
+    if (successData && Object.keys(successData)) {
+      document.getElementById("statusOther").value = '';
+      $('#changeStatusModal').modal('hide');
+      $('#statusUpdatedSuccess').modal('show');
+      setTimeout(function () {
+        $('#loader').hide();
+      }, 500);
+    }
+    else {
+      setTimeout(function () {
+        $('#loader').hide();
+      }, 500);
+      $('#changeStatusModal').modal('hide');
+    }
   }, 500);
 }
 
@@ -345,3 +404,5 @@ $(document).on('change', '#SelectedProviderStatus', function (e) {
     $('#otherTeam').hide();
   }
 });
+
+
