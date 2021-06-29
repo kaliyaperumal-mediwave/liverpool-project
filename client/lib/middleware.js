@@ -171,9 +171,11 @@ module.exports = function (self, options) {
             req.data.archive = "/admin/archive";
             if (req.session.user_role === 'service_admin') {
               req.data.logoPath = "/admin/serviceAdmin";
+              req.data.referral ="/admin/serviceAdmin";
               return next();
             } else if (req.session.user_role === 'admin') {
               req.data.logoPath = "/admin";
+              req.data.referral ="/admin";
               return next();
             } else {
               return req.res.redirect("/dashboard")
