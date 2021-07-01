@@ -6,6 +6,7 @@ const sequelize = require('sequelize');
 const { req } = require('@kasa/koa-logging/lib/serializers');
 const email = require('../utils/email');
 const pdf = require('../utils/pdfgenerate');
+const callIaptusApi = require('../utils/sendReferralByApi');
 
 const gpCodes = [
     {
@@ -51,7 +52,7 @@ exports.getReferral = ctx => {
 
             var referrals = await referralModel.findAll({
                 attributes: [
-                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status','gp_school',
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school',
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
                     [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
@@ -110,9 +111,9 @@ exports.getReferral = ctx => {
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
                         if (splitLocation.length > 1) {
-                            if (splitLocation[1]!="L14 0JE" &&  gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (splitLocation[1]!="L14 0JE" &&  gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1] != "L14 0JE" && gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
@@ -125,8 +126,7 @@ exports.getReferral = ctx => {
                         (referralObj.referrer_type.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.date.toLowerCase()).includes(ctx.query.searchValue) ||
                         (referralObj.refDate.toLowerCase()).includes(ctx.query.searchValue)
-                    ) 
-                    {
+                    ) {
                         filter_referrals.push(referralObj);
                     }
                 });
@@ -156,12 +156,12 @@ exports.getReferral = ctx => {
                     }
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
-                          //console.log(splitLocation)
+                        //console.log(splitLocation)
                         if (splitLocation.length > 1) {
-                            if (splitLocation[1]!="L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Liverpool
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (splitLocation[1]!="L14 0JE" && gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1] != "L14 0JE" && gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Sefton
                                 referralObj.gp_location = gpCodes[1].type;
                             }
@@ -284,9 +284,9 @@ exports.getArchived = ctx => {
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
                         if (splitLocation.length > 1) {
-                            if (splitLocation[1]!="L14 0JE" &&  gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (splitLocation[1]!="L14 0JE" &&  gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1] != "L14 0JE" && gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[1].type;
                             }
                         }
@@ -331,10 +331,10 @@ exports.getArchived = ctx => {
                     if (refObj.gp_location) {
                         var splitLocation = refObj.gp_location.split(',');
                         if (splitLocation.length > 1) {
-                            if (splitLocation[1]!="L14 0JE" &&  gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Liverpool
                                 referralObj.gp_location = gpCodes[0].type;
-                            } else if (splitLocation[1]!="L14 0JE" &&  gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            } else if (splitLocation[1] != "L14 0JE" && gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                                 // Sefton
                                 referralObj.gp_location = gpCodes[1].type;
                             }
@@ -574,13 +574,44 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-    // console.log("referralData", ctx.request.body.referralData);
-    // console.log("emailToProvider" ,ctx.request.body.emailToProvider);
-    // console.log("refCode",ctx.request.body.refCode);
-    // return false;
     try {
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             //////console.log()(sendReferralStatus)
+            const referralModel = ctx.orm().Referral;
+            return referralModel.update({
+                referral_provider: ctx.query.selectedProvider
+            },
+                {
+                    where:
+                        { uuid: ctx.query.refID }
+                }
+            ).then((result) => {
+                return ctx.res.ok({
+                    message: reponseMessages[1017],
+                });
+            }).catch(error => {
+                //////console.log()(error);
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+
+        }).catch(error => {
+            //////console.log()(error, "error");
+            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+        });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+}
+
+
+exports.sendReferralByApi = async ctx => {
+    console.log("ctx.request.body.referralData", ctx.query.refID + ',' + ctx.query.refRole);
+    let referralData = await getRefData(ctx.query.refID, ctx.query.refRole, ctx);
+    ctx.request.body.referralData = referralData;
+    ctx.request.body.partnerService = ctx.query.selectedProvider;
+    ctx.request.body.refCode = ctx.query.refCode;
+    try {
+        return callIaptusApi.sendReferralData(ctx).then((apiResponse) => {
             const referralModel = ctx.orm().Referral;
             return referralModel.update({
                 referral_provider: ctx.query.selectedProvider
@@ -711,7 +742,26 @@ function getRefData(refID, refRole, ctx) {
                     }
 
                     if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
-                        section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode
+                        section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode;
+                         //Below code for iaptus api
+                         section2Obj.pat_address1 = section2Obj.child_manual_address[0].addressLine1;
+                         section2Obj.pat_address2 = section2Obj.child_manual_address[0].addressLine2;
+                         section2Obj.pat_town_city = section2Obj.child_manual_address[0].city;
+                         section2Obj.pat_county = section2Obj.child_manual_address[0].country;
+                         section2Obj.pat_postcode = section2Obj.child_manual_address[0].postCode;
+                    }
+                    else {
+                        var childAdrArray = [];
+                        childAdrArray = (section2Obj.child_address).split(',')
+                        console.log("--------------------------------------childAdrArray")
+                        console.log(childAdrArray)
+                        console.log("--------------------------------------childAdrArray")
+                        //Below code for iaptus api
+                        section2Obj.pat_address1 = childAdrArray[1];
+                        section2Obj.pat_address2 = "";
+                        section2Obj.pat_town_city = childAdrArray[0];
+                        section2Obj.pat_county = "";
+                        section2Obj.pat_postcode =childAdrArray[2];
                     }
 
                     if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
@@ -915,7 +965,26 @@ function getRefData(refID, refRole, ctx) {
                             }
 
                             if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
-                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode
+                                section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode;
+                                //Below code for iaptus api
+                                section2Obj.pat_address1 = section2Obj.child_manual_address[0].addressLine1;
+                                section2Obj.pat_address2 = section2Obj.child_manual_address[0].addressLine2;
+                                section2Obj.pat_town_city = section2Obj.child_manual_address[0].city;
+                                section2Obj.pat_county = section2Obj.child_manual_address[0].country;
+                                section2Obj.pat_postcode = section2Obj.child_manual_address[0].postCode;
+                            }
+                            else {
+                                var childAdrArray = [];
+                                childAdrArray = (section2Obj.child_address).split(',')
+                                console.log("--------------------------------------childAdrArray")
+                                console.log(childAdrArray)
+                                console.log("--------------------------------------childAdrArray")
+                                //Below code for iaptus api
+                                section2Obj.pat_address1 = childAdrArray[1];
+                                section2Obj.pat_address2 = "";
+                                section2Obj.pat_town_city = childAdrArray[0];
+                                section2Obj.pat_county = "";
+                                section2Obj.pat_postcode =childAdrArray[2];
                             }
 
                             if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
@@ -1142,6 +1211,25 @@ function getRefData(refID, refRole, ctx) {
 
                             if (section2Obj.child_manual_address != null && section2Obj.child_manual_address[0] != null) {
                                 section2Obj.child_address = section2Obj.child_manual_address[0].addressLine1 + ',' + section2Obj.child_manual_address[0].addressLine2 + ' ' + section2Obj.child_manual_address[0].city + ',' + section2Obj.child_manual_address[0].country + ',' + section2Obj.child_manual_address[0].postCode
+                                //Below code for iaptus api
+                                section2Obj.pat_address1 = section2Obj.child_manual_address[0].addressLine1;
+                                section2Obj.pat_address2 = section2Obj.child_manual_address[0].addressLine2;
+                                section2Obj.pat_town_city = section2Obj.child_manual_address[0].city;
+                                section2Obj.pat_county = section2Obj.child_manual_address[0].country;
+                                section2Obj.pat_postcode = section2Obj.child_manual_address[0].postCode;
+                            }
+                            else {
+                                var childAdrArray = [];
+                                childAdrArray = (section2Obj.child_address).split(',')
+                                console.log("--------------------------------------childAdrArray")
+                                console.log(childAdrArray)
+                                console.log("--------------------------------------childAdrArray")
+                                //Below code for iaptus api
+                                section2Obj.pat_address1 = childAdrArray[1];
+                                section2Obj.pat_address2 = "";
+                                section2Obj.pat_town_city = childAdrArray[0];
+                                section2Obj.pat_county = "";
+                                section2Obj.pat_postcode =childAdrArray[2];
                             }
 
                             if (section2Obj.parent_manual_address != null && section2Obj.parent_manual_address[0] != null) {
