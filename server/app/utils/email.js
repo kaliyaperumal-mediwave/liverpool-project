@@ -255,7 +255,7 @@ function attachMailData(pdfReferral, ctx, toAddress) {
         if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
             //Attach pdf and csv for alderhey admins
             const csvHeader = ["Title", "Name"];
-            const dataCsv = samplecsv(ctx);
+            const dataCsv = getCSVData(ctx);
             const csv = parse(dataCsv, csvHeader);
             attachmentFiles = {
                 from: config.email_from_address,
@@ -539,69 +539,3 @@ function checkArray(array) {
     }
 }
 
-
-function samplecsv(ctx)
-{
-    console.log(ctx.request.body.referralData.section1.contact_preferences)
-    csvData = [
-        { //Section 1
-            "00a_referrer": ctx.request.body.referralData.role,
-            "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
-            "06_professional_referral_service_selection": ctx.request.body.referralData.section1.service_location + " - " + ctx.request.body.referralData.section1.selected_service,
-            "07a_professional_name": ctx.request.body.referralData.section1.professional_name + " - " + ctx.request.body.referralData.section1.professional_lastname + " - " + ctx.request.body.referralData.section1.professional_profession,
-            "Professional E-mail": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : "-",
-            "07c_professional_contact_number": ctx.request.body.referralData.section1.professional_contact_type + " - " + ctx.request.body.referralData.section1.professional_contact_number,
-            "07b_professional_address": ctx.request.body.referralData.section1.professional_address,
-            "pat_dob:": moment(ctx.request.body.referralData.section1.child_dob).format('DD/MM/YYYY'),
-            "01_consent_from_child_to_share_with_camhs_partners": ctx.request.body.referralData.section1.consent_child,
-            "02_consent_from_parent_or_carer_to_share_with_camhs_partners": ctx.request.body.referralData.section1.consent_parent ? ctx.request.body.referralData.section1.consent_parent : "-",
-            "04_registered_gp": ctx.request.body.referralData.section1.registered_gp,
-            "05_registered_school": ctx.request.body.referralData.section1.gp_school ? ctx.request.body.referralData.section1.gp_school : "-",
-            //Section 2
-            "09_nhs_number_provided": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : "-",
-            "pat_title": ctx.request.body.referralData.section2.child_name_title,
-            "pat_firstname": ctx.request.body.referralData.section2.child_name,
-            "pat_lastname": ctx.request.body.referralData.section2.child_lastname,
-            "pat_email": ctx.request.body.referralData.section2.child_email ? ctx.request.body.referralData.section2.child_email : "-",
-            "pat_home_tel": ctx.request.body.referralData.section2.child_contact_type + " - " + ctx.request.body.referralData.section2.child_contact_number,
-            "pat_address1": ctx.request.body.referralData.section2.child_address,
-            "10_consent_to_contact_via_post": ctx.request.body.referralData.section2.can_send_post,
-            "08a_gender_child_indentifies_as": ctx.request.body.referralData.section2.child_gender,
-            "pat_gender": ctx.request.body.referralData.section2.sex_at_birth,
-            "08b_does_child_identify_with_birth_gender": ctx.request.body.referralData.section2.child_gender_birth,
-            "08c_sexual_orientation": ctx.request.body.referralData.section2.child_sexual_orientation ? ctx.request.body.referralData.section2.child_sexual_orientation : "-",
-            "08d_ethnicity": ctx.request.body.referralData.section2.child_ethnicity ? ctx.request.body.referralData.section2.child_ethnicity : "-",
-            "13_is_a_carer_for_an_adult": ctx.request.body.referralData.section2.child_care_adult,
-            //"12_household_members": checkArray(householdMembers),
-            "14a_parent_or_carer_details_with_parental_responsibility": ctx.request.body.referralData.section2.parent_name +" - " +ctx.request.body.referralData.section2.parent_lastname +"-"+ ctx.request.body.referralData.section2.child_parent_relationship,
-            "14b_parent_or_carer_contact_number": ctx.request.body.referralData.section2.parent_contact_type + " - " + ctx.request.body.referralData.section2.parent_contact_number,
-            "14c_parent_or_carer_email": ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : "-",
-            "14d_parent_or_carer_lives_at_childs_address": ctx.request.body.referralData.section2.parent_same_house,
-            "14e_parent_or_carer_address": ctx.request.body.referralData.section2.parent_address ? ctx.request.body.referralData.section2.parent_address : "-",
-            // //Section3
-            "17_profession_or_education_status": ctx.request.body.referralData.section3.child_profession,
-            "18_place_of_education": ctx.request.body.referralData.section3.child_education_place ? ctx.request.body.referralData.section3.child_education_place : "-",
-            "19a_education_and_health_care_plan_EHCP": ctx.request.body.referralData.section3.child_EHCP,
-            "19b_early_help_assessment_tool_EHAT": ctx.request.body.referralData.section3.child_EHAT,
-            "20_social_worker_information": ctx.request.body.referralData.section3.child_socialworker+" - " + ctx.request.body.referralData.section3.child_socialworker_firstname ? ctx.request.body.referralData.section3.child_socialworker_firstname : "nil" + " - " +ctx.request.body.referralData.section3.child_socialworker_lastname ? ctx.request.body.referralData.section3.child_socialworker_lastname : "nil" + " - " + ctx.request.body.referralData.section3.child_socialworker_contact_type ? ctx.request.body.referralData.section3.child_socialworker_contact_type : "nil" + " - "+ ctx.request.body.referralData.section3.child_socialworker_contact ? ctx.request.body.referralData.section3.child_socialworker_contact : "nil",
-            // //section4
-            //"Support needs": ctx.request.body.referralData.section4.referral_type,
-            "21_referral_related_to_covid": ctx.request.body.referralData.section4.is_covid,
-            "27_problem_eating_disorder_difficulties": checkArray(ctx.request.body.referralData.section4.eating_disorder_difficulties),
-            "28_problem_food_and_fluid_intake": ctx.request.body.referralData.section4.food_fluid_intake ? ctx.request.body.referralData.section4.food_fluid_intake : "-",
-            "29a_problem_height": ctx.request.body.referralData.section4.height ? ctx.request.body.referralData.section4.height : "-",
-            "29b_problem_weight": ctx.request.body.referralData.section4.weight ? ctx.request.body.referralData.section4.weight : "-",
-            "22a_reason_for_referral": ctx.request.body.referralData.section4.reason_for_referral ? ctx.request.body.referralData.section4.reason_for_referral.toString() : "-",
-            "22b_reason_for_referral": ctx.request.body.referralData.section4.referral_issues ? ctx.request.body.referralData.section4.referral_issues : "-",
-            "23_has_anything_helped": ctx.request.body.referralData.section4.has_anything_helped ? ctx.request.body.referralData.section4.has_anything_helped : "-",
-            "24_problem_any_particular_trigger": ctx.request.body.referralData.section4.any_particular_trigger ? ctx.request.body.referralData.section4.any_particular_trigger : "-",
-            "25_any_disabilities_difficulties_health_conditions_or_challenging_behaviours": ctx.request.body.referralData.section4.disabilities ? ctx.request.body.referralData.section4.disabilities : "-",
-            "26_previously_accessed_services": ctx.request.body.referralData.section4LocalService ? ctx.request.body.referralData.section4LocalService.toString() : "-",
-            // //Section5
-            "11_who_and_how_to_be_contacted_about_referral": ctx.request.body.referralData.section1.contact_person +" - "+ ctx.request.body.referralData.section1.contact_preferences.toString(),
-        },
-    ];
-
-    console.log(csvData);
-    return;
-}

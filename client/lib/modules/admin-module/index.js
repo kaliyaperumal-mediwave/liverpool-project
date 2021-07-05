@@ -128,5 +128,17 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       })
     });
+
+    self.route('get', 'sendReferralByApi/:refID/:refRole/:selectedProvider/:refCode', function (req, res) {
+      //console.log("get all referal")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID +'&refRole='+ req.params.refRole +'&selectedProvider=' + req.params.selectedProvider +'&refCode=' + req.params.refCode;
+      //console.log(url);
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+       // console.log(error)
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
   }
 }

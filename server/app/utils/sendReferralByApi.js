@@ -69,6 +69,10 @@ exports.sendReferralData = async ctx => {
 
         }
         var resultObj = createPayload(ctx)
+        console.log(resultObj)
+        return ctx.res.ok({
+            message: "block api call"
+        });
         try {
             const config_api = {
                 method: 'post',
@@ -109,6 +113,7 @@ function createPayload(ctx) {
     var concatString = ",";
     var payLoad = {};
     var householdMembers = [];
+   // console.log(ctx.request.body.referralData)
     for (let index = 0; index < ctx.request.body.referralData.section2.household_member.length; index++) {
         var name = ctx.request.body.referralData.section2.household_member[index].name;
         var lastName = ctx.request.body.referralData.section2.household_member[index].lastName
@@ -124,7 +129,7 @@ function createPayload(ctx) {
             "Professional E-mail": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : "",
             "07c_professional_contact_number": ctx.request.body.referralData.section1.professional_contact_type + concatString + ctx.request.body.referralData.section1.professional_contact_number,
             "07b_professional_address": ctx.request.body.referralData.section1.professional_address,
-            "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('DD/MM/YYYY'),
+            "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('YYYY-MM-DD'),
             "01_consent_from_child_to_share_with_camhs_partners": ctx.request.body.referralData.section1.consent_child,
             "02_consent_from_parent_or_carer_to_share_with_camhs_partners": ctx.request.body.referralData.section1.consent_parent ? ctx.request.body.referralData.section1.consent_parent : "",
             "04_registered_gp": ctx.request.body.referralData.section1.registered_gp,
@@ -135,7 +140,7 @@ function createPayload(ctx) {
             "pat_firstname": ctx.request.body.referralData.section2.child_name,
             "pat_lastname": ctx.request.body.referralData.section2.child_lastname,
             "pat_email": ctx.request.body.referralData.section2.child_email ? ctx.request.body.referralData.section2.child_email : "",
-            "pat_home_tel": ctx.request.body.referralData.section2.child_contact_type + concatString + ctx.request.body.referralData.section2.child_contact_number,
+            "pat_home_tel": ctx.request.body.referralData.section2.child_contact_number,
             "pat_address1": ctx.request.body.referralData.section2.pat_address1,
             "pat_address2": ctx.request.body.referralData.section2.pat_address2,
             "pat_town_city" :ctx.request.body.referralData.section2.pat_town_city,
@@ -176,6 +181,7 @@ function createPayload(ctx) {
             "26_previously_accessed_services": ctx.request.body.referralData.section4LocalService ? ctx.request.body.referralData.section4LocalService.toString() : "",
             // //Section5
             "11_who_and_how_to_be_contacted_about_referral": ctx.request.body.referralData.section1.contact_person + concatString + ctx.request.body.referralData.section1.contact_preferences.toString(),
+            "30_mindwave_id": ctx.request.body.referralData.section1.reference_code
         }
     }
 

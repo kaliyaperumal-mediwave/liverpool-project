@@ -370,24 +370,36 @@ function toArrayBuffer(buf) {
 }
 function sendPdf(uuid, role, refCode) {
   $('#loader').show();
-  setTimeout(function () {
-    var selectedProvider = document.getElementById('SelectedProvider').value;
-    var successData = apiCallGet('get', '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode, API_URI);
-    if (successData && Object.keys(successData)) {
+  var apiToSend;
+  var selectedProvider = document.getElementById('SelectedProvider').value;
+  if(selectedProvider=="YPAS" || selectedProvider == "Venus")
+  {
+    apiToSend =  '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  }
+  else
+  {
+    apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  }
+
+  $.ajax({
+    url: API_URI + apiToSend,
+    type: 'get',
+    dataType: 'json',
+    async: false,
+    contentType: 'application/json',
+    success: function (res) {
       $('.reload').trigger('click');
       $('#sendProviderModal').modal('hide');
       $('#mailSentSuccess').modal('show');
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
+      $('#loader').hide();
+    },
+    error: function (error) {
+      $('#loader').hide();
+      if (error) {
+        showError(error.responseJSON.message, error.status);
+      }
     }
-    else {
-      setTimeout(function () {
-        $('#loader').hide();
-      }, 500);
-      $('#sendProviderModal').modal('hide');
-    }
-  }, 500);
+  });
 }
 function openSendPopup(uuid, role, refCode, referral_provider) {
   $('#sendProviderModal').modal('show');
