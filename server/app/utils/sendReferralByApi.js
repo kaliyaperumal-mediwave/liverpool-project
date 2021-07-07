@@ -8,8 +8,7 @@ const errorHandler = require('../middlewares/errorHandler');
 exports.sendReferralData = async ctx =>{
     var apiToCall;
     try {
-
-        if (ctx.request.body.partnerService == "venus") {
+        if (ctx.request.body.partnerService == "Venus") {
             apiToCall = config.mayden_api_venus;
             //Mapping name title to match venus doc
             if (ctx.request.body.referralData.section2.child_name_title = "Mr") {
@@ -83,7 +82,7 @@ exports.sendReferralData = async ctx =>{
            
             const config_api = {
                 method: 'post',
-                url: config.mayden_api,
+                url: apiToCall,
                 headers: { 'authorization': 'API key ' + config.mayden_apiToken,'Content-Type': 'application/json' },
                 data: resultObj
             };
