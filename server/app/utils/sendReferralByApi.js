@@ -40,32 +40,32 @@ exports.sendReferralData = async ctx =>{
         }
         else {
             apiToCall = config.mayden_api_ypas;
-            //Mapping name title to match venus doc
+            //Mapping name title to match ypas doc
             if (ctx.request.body.referralData.section2.child_name_title = "Mr") {
-                ctx.request.body.referralData.section2.child_name_title = "1122655"
+                ctx.request.body.referralData.section2.child_name_title = "1072718"
             }
             else if (ctx.request.body.referralData.section2.child_name_title = "Miss") {
-                ctx.request.body.referralData.section2.child_name_title = "1122657"
+                ctx.request.body.referralData.section2.child_name_title = "1072720"
             }
             else if (ctx.request.body.referralData.section2.child_name_title = "Ms") {
-                ctx.request.body.referralData.section2.child_name_title = "1122658"
+                ctx.request.body.referralData.section2.child_name_title = "1072721"
             }
             else if (ctx.request.body.referralData.section2.child_name_title = "Mrs") {
-                ctx.request.body.referralData.section2.child_name_title = "1122656"
+                ctx.request.body.referralData.section2.child_name_title = "1072719"
             }
             else {
-                ctx.request.body.referralData.section2.child_name_title = "1142085"
+                ctx.request.body.referralData.section2.child_name_title = "1109049"
             }
 
-            //Mapping gender to match venus doc
+            //Mapping gender to match ypas doc
             if (ctx.request.body.referralData.section2.sex_at_birth = "Male") {
-                ctx.request.body.referralData.section2.sex_at_birth = "1122901"
+                ctx.request.body.referralData.section2.sex_at_birth = "1072964"
             }
             else if (ctx.request.body.referralData.section2.sex_at_birth = "Female") {
-                ctx.request.body.referralData.section2.sex_at_birth = "1122902"
+                ctx.request.body.referralData.section2.sex_at_birth = "1072965"
             }
             else {
-                ctx.request.body.referralData.section2.sex_at_birth = "1122903"
+                ctx.request.body.referralData.section2.sex_at_birth = "1072966"
             }
 
         }
@@ -174,7 +174,7 @@ function createPayload(ctx) {
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
             "06_professional_referral_service_selection": ctx.request.body.referralData.section1.service_location + concatString + ctx.request.body.referralData.section1.selected_service,
             "07a_professional_name": formatingInput(ctx.request.body.referralData.section1.professional_name) + concatString + formatingInput(ctx.request.body.referralData.section1.professional_lastname) + concatString + formatingInput(ctx.request.body.referralData.section1.professional_profession),
-            "Professional E-mail": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : alternativeBlankSpace,
+            "07d_professional_email": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : alternativeBlankSpace,
             "07c_professional_contact_number": formatingInput(ctx.request.body.referralData.section1.professional_contact_type) + concatString + ctx.request.body.referralData.section1.professional_contact_number,
             "07b_professional_address": formatingInput(ctx.request.body.referralData.section1.professional_address),
             "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('YYYY-MM-DD'),
