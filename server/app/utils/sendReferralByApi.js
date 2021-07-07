@@ -83,7 +83,7 @@ exports.sendReferralData = async ctx =>{
             const config_api = {
                 method: 'post',
                 url: apiToCall,
-                headers: { 'authorization': 'API key ' + config.mayden_apiToken,'Content-Type': 'application/json' },
+                headers: {  'api-key': config.mayden_apiToken,'Content-Type': 'application/json' },
                 data: resultObj
             };
             try {
