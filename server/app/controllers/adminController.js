@@ -613,8 +613,8 @@ exports.sendReferralByApi = async ctx => {
     try {
         return callIaptusApi.sendReferralData(ctx).then((apiResponse) => {
             console.log(" admin controller apiResponse")
-            console.log(apiResponse)
-            if(apiResponse)
+            console.log(ctx.res.successCodeApi)
+            if(ctx.res.successCodeApi==200)
             {
 
                 const referralModel = ctx.orm().Referral;
