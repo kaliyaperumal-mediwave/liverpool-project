@@ -68,7 +68,7 @@ router.put('/admin/referral',validateToken, adminController.updateReferral);
 router.put('/admin/referralStatusUpdate',validateToken, adminController.referralStatusUpdate);
 router.get('/admin/getAllreferral',validateToken, adminController.getAllReferral);
 router.get('/admin/downloadReferral',validateToken, adminController.downloadReferral);
-router.get('/admin/sendReferral',validateToken, adminController.sendReferralByApi);
+router.get('/admin/sendReferral',validateToken, adminController.sendReferral);
 router.get('/admin/sendReferralByApi',validateToken, adminController.sendReferralByApi);
 router.get('/admin/getArchived',validateToken, adminController.getArchived);
 

@@ -83,7 +83,7 @@ exports.getReferral = ctx => {
 
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            console.log(referrals);
+            //console.log(referrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
@@ -612,26 +612,38 @@ exports.sendReferralByApi = async ctx => {
     ctx.request.body.refCode = ctx.query.refCode;
     try {
         return callIaptusApi.sendReferralData(ctx).then((apiResponse) => {
-            const referralModel = ctx.orm().Referral;
-            return referralModel.update({
-                referral_provider: ctx.query.selectedProvider
-            },
-                {
-                    where:
-                        { uuid: ctx.query.refID }
-                }
-            ).then((result) => {
-                //---------------------here need add functionlaity for insert appoinment details
-                return ctx.res.ok({
-                    message: reponseMessages[1017],
-                });
-            }).catch(error => {
-                //////console.log()(error);
-                sequalizeErrorHandler.handleSequalizeError(ctx, error)
-            });
+            console.log(" admin controller apiResponse")
+            console.log(apiResponse)
+            if(apiResponse)
+            {
+
+                const referralModel = ctx.orm().Referral;
+                return referralModel.update({
+                    referral_provider: ctx.query.selectedProvider
+                },
+                    {
+                        where:
+                            { uuid: ctx.query.refID }
+                    }
+                ).then((result) => {
+                    //---------------------here need add functionlaity for insert appoinment details
+                    return ctx.res.ok({
+                        message: reponseMessages[1017],
+                    });
+                }).catch(error => {
+                    console.log(" admin controller apiResponse-error")
+                    console.log(error);
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });         
+            }
+            else
+            {
+                sequalizeErrorHandler.authorizationError()
+            }
 
         }).catch(error => {
-            //////console.log()(error, "error");
+            console.log(" admin controller error")
+            console.log(error, "error");
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {

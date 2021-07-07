@@ -130,7 +130,7 @@ module.exports = {
     });
 
     self.route('get', 'sendReferralByApi/:refID/:refRole/:selectedProvider/:refCode', function (req, res) {
-      //console.log("get all referal")
+      console.log("sendReferralByApi")
       var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID +'&refRole='+ req.params.refRole +'&selectedProvider=' + req.params.selectedProvider +'&refCode=' + req.params.refCode;
       //console.log(url);
       self.middleware.get(req, url).then((data) => {

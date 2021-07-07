@@ -395,6 +395,9 @@ function sendPdf(uuid, role, refCode) {
     },
     error: function (error) {
       $('#loader').hide();
+      console.log(error)
+      console.log(error.responseJSON.data.data)
+      $('#sendProviderModal').modal('hide');
       if (error) {
         showError(error.responseJSON.message, error.status);
       }

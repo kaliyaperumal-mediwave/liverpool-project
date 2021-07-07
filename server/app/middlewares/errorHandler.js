@@ -32,8 +32,8 @@ function errorHandler() {
 function authorizationError() {
     return async(ctx, next) => {
         await next().catch((err) => {
-            if (err.status === 401) {
-                ctx.status = 401;
+            if (err.status === 403) {
+                ctx.status = 403;
                 ctx.body = 'Protected resource, use Authorization header to get access\n';
             } else {
                 throw err;
@@ -51,8 +51,18 @@ function handleSequalizeError(ctx, error) {
 }
 
 
+function iaptusUnauthorizedError(ctx, error,payload) {
+    logger.info('\n\n\n--------------iaptusUnauthorizedError---------------\n\n\n\n', error, '\n\n\n\n\n');
+
+    return ctx.res.badRequest({
+        data:payload,
+        message: reponseMessages[1022],
+    });
+}
+
 module.exports = {
     errorHandler,
     authorizationError,
     handleSequalizeError,
+    iaptusUnauthorizedError,
 };
