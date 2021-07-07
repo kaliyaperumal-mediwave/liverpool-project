@@ -42,22 +42,16 @@
                 <!-- Side Drawer content -->
                 
                 <div class="slider-container">
-                    {% if data.superAdmin %}
                         <div class="inside-cont-slider cursor-pointer">
                             <a href="{{ data.referral }}" class="text-decoration-none">View referrals</a>
                         </div>
                         <div class="inside-cont-slider cursor-pointer">
                             <a href="{{ data.archive }}" class="text-decoration-none">View archived referrals</a>
                         </div>
-                    {% else %}
-                        <div class="inside-cont-slider cursor-pointer">
-                            <a href="{{ data.referral }}" class="text-decoration-none">View referrals</a>
-                        </div>
-                    {% endif %}
-
                     <div class="inside-cont-slider cursor-pointer">
                         <a href="javascript:void(0)" onclick="logOut()" class="text-decoration-none"> Log out</a>
                     </div>
+                    <p id="isItArchivePge" >{{data.archivePge}}</p>
                 </div>
             </div>
         </div>
