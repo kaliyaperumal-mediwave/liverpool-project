@@ -32,6 +32,7 @@ $(document).ready(function () {
                 parentFirstName: "",
                 parentLastName: "",
                 referral_progress: 40,
+                referral_mode: 1,
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -443,13 +444,8 @@ $(document).ready(function () {
                         this.payloadData.role = document.getElementById('uRole').innerHTML;
                         this.payloadData.userid = document.getElementById('uUid').innerHTML
                         this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                        if (this.editPatchFlag) {
-                            this.payloadData.editFlag = this.editPatchFlag
-                        }
-                        if (this.userMode === 'edit') {
-                            this.payloadData.userMode = 'edit';
-                        } else {
-                            this.payloadData.userMode = 'add';
+                        if (this.userRole == 'child' || this.userRole == 'parent' ) {
+                           delete this.payloadData.aboutData.referral_mode ;
                         }
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
                         this.payloadData.aboutData.childManualAddress = this.childManualAddress;
@@ -1014,7 +1010,3 @@ $(document).ready(function () {
         }
     })
 });
-
-
-
-

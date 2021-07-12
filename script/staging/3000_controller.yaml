@@ -93,6 +93,12 @@ spec:
           value: $PHR_LIVERPOOL_ALDER_HEY_SEFTON
         - name: SEFTON_MHST
           value: $PHR_LIVERPOOL_SEFTON_MHST
+        - name: mayden_api_ypas
+          value: $PHR_LIVERPOOL_MAYDEN_API_YPAS
+        - name: mayden_api_venus
+          value: $PHR_LIVERPOOL_MAYDEN_API_VENUS
+        - name: mayden_apiToken
+          value: $PHR_LIVERPOOL_MAYDEN_APITOKEN
         ports:
         - containerPort: 3001
 ---
