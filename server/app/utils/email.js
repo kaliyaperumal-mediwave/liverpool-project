@@ -260,7 +260,8 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                subject: '[SECURE] Sefton & Liverpool CAMHS - '+ serviceName+ ' Referral Details',
+                //subject: '[SECURE] Sefton & Liverpool CAMHS - '+ serviceName+ ' Referral Details',
+                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
@@ -279,7 +280,8 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                subject: '[SECURE] Sefton & Liverpool CAMHS - '+serviceName+ ' Referral Details',
+                //subject: '[SECURE] Sefton & Liverpool CAMHS - '+serviceName+ ' Referral Details',
+                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
