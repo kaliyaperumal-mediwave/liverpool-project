@@ -1198,7 +1198,7 @@ exports.profession = ctx => {
             {
               child_profession: ctx.request.body.educAndEmpData.position,
               child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
-              child_education_place_postcode: ctx.request.body.educAndEmpData.attendedInfoPostcode,
+              child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
               child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
               child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
               child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
@@ -1277,7 +1277,7 @@ exports.profession = ctx => {
             child_profession: ctx.request.body.educAndEmpData.position,
             child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
             child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
-            child_education_place_postcode: ctx.request.body.educAndEmpData.attendedInfoPostcode,
+            child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
             child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
             child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
 
@@ -1341,7 +1341,7 @@ exports.profession = ctx => {
         {
           child_profession: ctx.request.body.educAndEmpData.position,
           child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
-          child_education_place_postcode: ctx.request.body.educAndEmpData.attendedInfoPostcode,
+          child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
           child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
           child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
           child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
