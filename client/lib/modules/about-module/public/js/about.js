@@ -213,8 +213,8 @@ $(document).ready(function () {
                             Vue.set(this, "childManualAddress", data.child_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
-                        Vue.set(this.aboutObj, "childAddress", data.child_address);
-                        if(data.child_address.child_address_postcode)
+                        //Vue.set(this.aboutObj, "childAddress", data.child_address);
+                        if(data.child_address_postcode)
                         { // bind postcode column for new referrals
                             Vue.set(this.aboutObj, "childAddress", data.child_address +' ,'+ data.child_address_postcode );
                         }
@@ -252,9 +252,9 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
                        // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
-                        if(data[0].parent_address_postcode)
+                        if(data.parent[0].parent_address_postcode)
                         { // bind postcode column for new referrals
-                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address +' ,'+ data.parent_address_postcode );
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address +' ,'+ data.parent[0].parent_address_postcode );
                         }
                         else
                         {// leave postcode column for old referrals

@@ -238,7 +238,7 @@ function createPayload(ctx) {
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role,
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
-            "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('DD/MM/YYYY'),
+            "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('YYYY-MM-DD'),
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_child),
             "04_registered_gp": formatingInput(ctx.request.body.referralData.section1.registered_gp),
             "05_registered_school": formatingInput(ctx.request.body.referralData.section1.gp_school),
@@ -296,7 +296,7 @@ function createPayload(ctx) {
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role,
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
-            "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('DD/MM/YYYY'),
+            "pat_dob": moment(ctx.request.body.referralData.section1.child_dob).format('YYYY-MM-DD'),
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_child),
             "01_consent_from_child_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),
             "02_consent_from_parent_or_carer_to_share_with_camhs_partners": formatingInput(ctx.request.body.referralData.section1.consent_parent),

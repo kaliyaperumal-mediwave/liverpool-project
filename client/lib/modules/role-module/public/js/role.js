@@ -53,7 +53,8 @@ $(document).ready(function () {
                 seftonService: '',
                 gpSchool: '',
                 professional_contact_type: "mobile",
-                registered_gp_postcode:''
+                registered_gp_postcode:'',
+                profRegistered_gp_postcode:''
             },
             professionalManualAddress: [],
             addressData: {
@@ -273,7 +274,7 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
-                    //console.log(data[0])
+                    console.log(data[0])
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -295,16 +296,25 @@ $(document).ready(function () {
                         Vue.set(this, "professionalManualAddress", data[0].professional_manual_address);
                         this.setReadonlyState(true);
                     }
-                    Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
-                    Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
-                    //Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
-                    if(data[0].professional_address[0].registered_gp_postcode)
+                    //Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
+                    console.log(data[0].professional_address_postcode)
+                    if(data[0].professional_address_postcode)
                     { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional_address[0].registered_gp+','+data[0].professional_address[0].registered_gp_postcode, roleType));
+                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address +' ,'+ data[0].professional_address_postcode );
                     }
                     else
                     {// leave postcode column for old referrals
-                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional_address[0].registered_gp, roleType));
+                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
+                    }
+                    Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
+                    //Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
+                    if(data[0].professional[0].registered_gp_postcode)
+                    { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp+','+data[0].professional[0].registered_gp_postcode, roleType));
+                    }
+                    else
+                    {// leave postcode column for old referrals
+                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
                     }
                     if (data[0].professional[0].gp_school) {
                         Vue.set(this.elgibilityObj, "gpSchool", data[0].professional[0].gp_school);
@@ -1066,6 +1076,18 @@ $(document).ready(function () {
                             if (this.elgibilityObj.profEmail) {
                                 if (emailRegex.test(this.elgibilityObj.profEmail)) {
                                     $('#loader').show();
+                                    var gpArray = (this.elgibilityObj.regProfGpTxt).split(",");
+                                    this.elgibilityObj.profRegistered_gp_postcode = gpArray[1]
+                                    this.elgibilityObj.profregistered_gp = gpArray[0];
+
+                                    if(this.elgibilityObj.profAddress)
+                                    {
+                                        var profAddresArray= (this.elgibilityObj.profAddress).split(",");
+                                        this.elgibilityObj.profAddress_postcode = profAddresArray[2];
+                                        this.elgibilityObj.profAddress = profAddresArray[0]+","+profAddresArray[1];
+            
+                                    }
+
                                     this.apiRequest(this.elgibilityObj, role);
                                 } else {
                                     scrollToInvalidInput();
@@ -1092,7 +1114,10 @@ $(document).ready(function () {
                     this.apiRequest(this.elgibilityObj, role);
                 }
                 else if (role === 'child') {
-                    this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
+                    var gpArray = (this.elgibilityObj.regGpTxt).split(",");
+                    this.elgibilityObj.registered_gp_postcode = gpArray[1]
+                    this.elgibilityObj.registered_gp = gpArray[0];
+                    //this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
             },
