@@ -43,27 +43,27 @@
 
                 <div class="p-0 px-lg-0  col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
 
-                  <div class="px-2 px-lg-0 py-2 col-12 mx-auto">
-                      <p class="question-font m-0">Is this an urgent or routine referral?</p>
-                      <div class="form-check pt-3 pb-1 pl-0">
-                          <input class="form-check-input" type="radio" checked id="routine" value="1" name="referralName"
-                              v-model="aboutObj.referralName">
-                          <label class="form-check-label option-font d-flex align-items-center" for="routine">
-                              Routine
-                          </label>
-                      </div>
-                      <div class="form-check  py-2 pl-0">
-                          <input class="form-check-input" type="radio" name="referralName" id="urgent" value="2"
-                              v-model="aboutObj.referralName">
-                          <label class="form-check-label option-font d-flex align-items-center" for="urgent">
-                              Urgent
-                          </label>
-                      </div>
-                      <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.referralName),
-                          'invalid-fields':!aboutObj.referralName }">
+                    <div v-if="userRole == 'professional'" class="px-2 px-lg-0 py-2 col-12 mx-auto">
+                        <p class="question-font m-0">Is this an urgent or routine referral?</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" checked id="routine" value="1"
+                                name="referralMode" v-model="aboutObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="routine">
+                                Routine
+                            </label>
+                        </div>
+                        <div class="form-check  py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="referralMode" id="urgent" value="2"
+                                v-model="aboutObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="urgent">
+                                Urgent
+                            </label>
+                        </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.referral_mode),
+                          'invalid-fields':!aboutObj.referral_mode }">
                           You must provide an answer to this question to continue.
-                      </div>
-                  </div>
+                      </div> -->
+                    </div>
 
                     <!-- child NHS Number Start-->
                     <div class="form-group ">
@@ -1122,13 +1122,13 @@
 
                                 <!-- Address Line2 start -->
                                 <div class="form-group">
-                                    <label for="addressline2" inputmode="text" class="question-font">Address
+                                    <label for="childaddressline2" inputmode="text" class="question-font">Address
                                         line 2 -<b> optional</b></label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressData','addressLine2')"
-                                            id="addressline2" placeholder="Enter address line 2">
+                                            id="childaddressline2" placeholder="Enter address line 2">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1140,11 +1140,11 @@
 
                                 <!-- City start-->
                                 <div class="form-group">
-                                    <label for="cityInfo" inputmode="text" class="question-font">City</label>
+                                    <label for="childCityInfo" inputmode="text" class="question-font">City</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.city"
-                                            @input="trimWhiteSpace($event,'addressData','city')" id="cityInfo"
+                                            @input="trimWhiteSpace($event,'addressData','city')" id="childCityInfo"
                                             placeholder="Enter city">
                                         <!-- <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
@@ -1161,12 +1161,12 @@
 
                                 <!-- Country start-->
                                 <div class="form-group">
-                                    <label for="countryAdd" inputmode="text" class="question-font">Country -<b>
+                                    <label for="childCountryAdd" inputmode="text" class="question-font">Country -<b>
                                             optional</b></label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.country"
-                                            @input="trimWhiteSpace($event,'addressData','country')" id="countryAdd"
+                                            @input="trimWhiteSpace($event,'addressData','country')" id="childCountryAdd"
                                             placeholder="Enter country">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
@@ -1179,12 +1179,13 @@
 
                                 <!-- Postcode start-->
                                 <div class="form-group">
-                                    <label for="postCodeAdd" inputmode="text" class="question-font">Postcode</label>
+                                    <label for="postCodeAddChild" inputmode="text"
+                                        class="question-font">Postcode</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressData.postCode"
-                                            @input="trimWhiteSpace($event,'addressData','postCode')" id="postCodeAdd"
-                                            placeholder="Enter postcode">
+                                            @input="trimWhiteSpace($event,'addressData','postCode')"
+                                            id="postCodeAddChild" placeholder="Enter postcode">
                                         <!-- <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1272,13 +1273,13 @@
 
                                 <!-- Address Line2 start -->
                                 <div class="form-group">
-                                    <label for="addressline2" inputmode="text" class="question-font">Address
+                                    <label for="parentaddressline2" inputmode="text" class="question-font">Address
                                         line 2 -<b> optional</b></label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressParentData.addressLine2"
                                             @input="trimWhiteSpace($event,'addressParentData','addressLine2')"
-                                            id="addressline2" placeholder="Enter address line 2">
+                                            id="parentaddressline2" placeholder="Enter address line 2">
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1290,12 +1291,12 @@
 
                                 <!-- City start-->
                                 <div class="form-group">
-                                    <label for="cityInfo" inputmode="text" class="question-font">City</label>
+                                    <label for="parentCityInfo" inputmode="text" class="question-font">City</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressParentData.city"
-                                            @input="trimWhiteSpace($event,'addressParentData','city')" id="cityInfo"
-                                            placeholder="Enter city">
+                                            @input="trimWhiteSpace($event,'addressParentData','city')"
+                                            id="parentCityInfo" placeholder="Enter city">
                                     </div>
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted  && !addressParentData.city) }">
@@ -1324,12 +1325,13 @@
 
                                 <!-- Postcode start-->
                                 <div class="form-group">
-                                    <label for="postCodeAdd" inputmode="text" class="question-font">Postcode</label>
+                                    <label for="postCodeAddParent" inputmode="text"
+                                        class="question-font">Postcode</label>
                                     <div class="input-group">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="addressParentData.postCode"
                                             @input="trimWhiteSpace($event,'addressParentData','postCode')"
-                                            id="postCodeAdd" placeholder="Enter postcode">
+                                            id="postCodeAddParent" placeholder="Enter postcode">
                                     </div>
                                     <div class="invalid-feedback d-none"
                                         v-bind:class="{ 'd-block': ( isAddressFormParentSubmitted && !addressParentData.postCode) }">
@@ -1530,12 +1532,13 @@
 
                                     <!-- Address Line2 start -->
                                     <div class="form-group">
-                                        <label for="addressline2" inputmode="text" class="question-font">Address
+                                        <label for="houseHoldaddressline2" inputmode="text"
+                                            class="question-font">Address
                                             line 2 -<b> optional</b></label>
                                         <div class="input-group">
                                             <input type="text" class="form-control input-bg-form-control"
-                                                v-model="houseHoldData.manualAddress.addressLine2" id="addressline2"
-                                                placeholder="Enter address line 2">
+                                                v-model="houseHoldData.manualAddress.addressLine2"
+                                                id="houseHoldaddressline2" placeholder="Enter address line 2">
                                             <div class="input-group-append cursor-pointer">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                     <i class="fa fa-address-card-o" aria-hidden="true"></i>
@@ -1579,12 +1582,12 @@
 
                                     <!-- Postcode start-->
                                     <div class="form-group">
-                                        <label for="postCodeAdd" inputmode="text" class="question-font">Postcode</label>
+                                        <label for="postCodeAddHouseHold" inputmode="text"
+                                            class="question-font">Postcode</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control input-bg-form-control"
-                                                v-model="houseHoldData.manualAddress.postCode" id="postCodeAdd"
+                                                v-model="houseHoldData.manualAddress.postCode" id="postCodeAddHouseHold"
                                                 placeholder="Enter postcode">
-
                                         </div>
                                         <div class="invalid-feedback d-none"
                                             v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && !houseHoldData.manualAddress.postCode),'invalid-modal-fields': !houseHoldData.manualAddress.postCode}">
