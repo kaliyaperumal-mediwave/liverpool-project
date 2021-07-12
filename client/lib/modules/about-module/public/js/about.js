@@ -396,7 +396,7 @@ $(document).ready(function () {
                         this.payloadData.role = document.getElementById('uRole').innerHTML;
                         this.payloadData.userid = document.getElementById('uUid').innerHTML
                         this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                        if (this.userRole == 'child' && this.userRole == 'parent' ) {
+                        if (this.userRole == 'child' || this.userRole == 'parent' ) {
                            delete this.payloadData.aboutData.referral_mode ;
                         }
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
