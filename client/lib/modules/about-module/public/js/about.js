@@ -31,6 +31,7 @@ $(document).ready(function () {
                 parentFirstName: "",
                 parentLastName: "",
                 referral_progress: 40,
+                referralName: 1,
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -944,7 +945,3 @@ $(document).ready(function () {
         }
     })
 });
-
-
-
-

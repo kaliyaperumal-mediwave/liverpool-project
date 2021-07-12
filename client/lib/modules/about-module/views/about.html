@@ -43,6 +43,28 @@
 
                 <div class="p-0 px-lg-0  col-xl-6 col-lg-7 col-sm-11 col-12 mx-auto">
 
+                  <div class="px-2 px-lg-0 py-2 col-12 mx-auto">
+                      <p class="question-font m-0">{{sec2dynamicLabel.referralLabel}}</p>
+                      <div class="form-check pt-3 pb-1 pl-0">
+                          <input class="form-check-input" type="radio" checked id="routine" value="1" name="referralName"
+                              v-model="aboutObj.referralName">
+                          <label class="form-check-label option-font d-flex align-items-center" for="routine">
+                              Routine
+                          </label>
+                      </div>
+                      <div class="form-check  py-2 pl-0">
+                          <input class="form-check-input" type="radio" name="referralName" id="urgent" value="2"
+                              v-model="aboutObj.referralName">
+                          <label class="form-check-label option-font d-flex align-items-center" for="urgent">
+                              Urgent
+                          </label>
+                      </div>
+                      <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.referralName),
+                          'invalid-fields':!aboutObj.referralName }">
+                          You must provide an answer to this question to continue.
+                      </div>
+                  </div>
+
                     <!-- child NHS Number Start-->
                     <div class="form-group ">
                         <label for="nhs" class="question-font">{{sec2dynamicLabel.nhsLabel}} - <b>optional</b></label>
