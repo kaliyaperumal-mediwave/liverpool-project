@@ -166,7 +166,7 @@
                     <!-- <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
                         birth?
                     </p> -->
-                    <div v-show="elgibilityObj.role=='parent'" class="question-font m-0">
+                    <div v-show="elgibilityObj.role=='parent'" class="question-font mb-2">
                         {{ apos.area(data.page, 'referral1_titlechild', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -180,7 +180,7 @@
                     </div>
                     {% raw %}
 
-                    <div class="input-group">
+                    <div class="input-group" id="dummy">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.childDob" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
@@ -191,6 +191,82 @@
                             </span>
                         </div>
                     </div>
+                    <!-- <div class="row">
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="plain-select">
+                                    <select id="cars" class="custom-select form-control input-bg-form-control"
+                                        name="childNameTitle">
+                                        <option class='option-text' value="" disabled selected>
+                                            DD
+                                        </option>
+                                        <option value="Mr">1</option>
+                                        <option value="Miss">2</option>
+                                        <option value="Ms">3</option>
+                                        <option value="Mrs">4</option>
+                                        <option value="Mx">5</option>
+                                        <option value="Mx">6</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        name="childNameTitle">
+                                        <option class='option-text' value="" disabled selected>
+                                            MM
+                                        </option>
+                                        <option value="Mr">1</option>
+                                        <option value="Miss">2</option>
+                                        <option value="Ms">3</option>
+                                        <option value="Mrs">4</option>
+                                        <option value="Mx">5</option>
+                                        <option value="Mx">6</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <span class="plain-select">
+                                    <select class="custom-select form-control input-bg-form-control"
+                                        name="childNameTitle">
+                                        <option class='option-text' value="" disabled selected>
+                                            YYYY
+                                        </option>
+                                        <option value="Mr">1985</option>
+                                        <option value="Miss">1986</option>
+                                        <option value="Ms">1987</option>
+                                        <option value="Mrs">1988</option>
+                                        <option value="Mx">1989</option>
+                                        <option value="Mx">1995</option>
+                                        <option value="Mr">1985</option>
+                                        <option value="Miss">1986</option>
+                                        <option value="Ms">1987</option>
+                                        <option value="Mrs">1988</option>
+                                        <option value="Mx">1989</option>
+                                        <option value="Mx">1995</option>
+                                        <option value="Mr">1985</option>
+                                        <option value="Miss">1986</option>
+                                        <option value="Ms">1987</option>
+                                        <option value="Mrs">1988</option>
+                                        <option value="Mx">1989</option>
+                                        <option value="Mx">1995</option>
+                                        <option value="Mr">1985</option>
+                                        <option value="Miss">1986</option>
+                                        <option value="Ms">1987</option>
+                                        <option value="Mrs">1988</option>
+                                        <option value="Mx">1989</option>
+                                        <option value="Mx">1995</option>
+                                    </select>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div> -->
+
                     {% endraw %}
                 </div>
             </form>
@@ -775,7 +851,8 @@
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST Liverpool" @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST Liverpool"
+                            @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="MHST">
                             Mental Health Support Team (only school professionals can refer)
                         </label>
@@ -1429,7 +1506,8 @@
                 <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
                     class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="gpSchool" class="question-font mb-1">Where does the child/young person go to school?</label>
+                        <label for="gpSchool" class="question-font mb-1">Where does the child/young person go to
+                            school?</label>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
                                 v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"
