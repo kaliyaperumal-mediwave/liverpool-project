@@ -16,6 +16,7 @@ $(document).ready(function () {
                 referral_progress: 60,
             },
             socialWorkContactType: 'mobile',
+            childPostCodeOnly: '',
             yourAreIn: [{
                 id: 'c1035a21-07a4-407f-a8d0-dcc0e70c6e07',
                 value: 'Education'
@@ -76,6 +77,13 @@ $(document).ready(function () {
                     types: ['establishment'],
                 });
                 google.maps.event.addListener(autoCompleteChild, 'place_changed', function () {
+                    var addressData = autoCompleteChild.getPlace().address_components;
+                    addressData.map(function (i) {
+                        if (i.types[0] == "postal_code") {
+                            _self.childPostCodeOnly = i.long_name
+                        }
+
+                    })
                     _self.educAndEmpData.attendedInfo = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
                 });
             },
@@ -236,6 +244,7 @@ $(document).ready(function () {
                 }
                 var formData = this.educAndEmpData;
                 this.payloadData.educAndEmpData = JSON.parse(JSON.stringify(formData));
+                this.payloadData.educAndEmpData.child_education_place_postcode = this.childPostCodeOnly;
                 this.payloadData.role = this.userRole;
                 this.payloadData.userid = this.userId;
                 if (formData.haveSocialWorker === 'yes') {
