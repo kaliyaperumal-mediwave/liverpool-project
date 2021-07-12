@@ -248,6 +248,21 @@ module.exports = function modelUser(sequelize, types) {
     child_socialworker_contact_type: { 
       type: types.TEXT
     },
+    registered_gp_postcode: { 
+      type: types.TEXT
+    },
+    child_address_postcode: { 
+      type: types.TEXT
+    },
+    parent_address_postcode: { 
+      type: types.TEXT
+    },
+    professional_address_postcode: { 
+      type: types.TEXT
+    },
+    child_education_place_postcode: { 
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });
