@@ -118,7 +118,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            debugger
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
