@@ -108,7 +108,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
     section2Labels.parentOrCarerFirstNameLabel = "What is your parent or carer's first name?";
     section2Labels.parentOrCarerLastNameLabel = "What is your parent or carer's last name?";
-    section2Labels.referralLabel = "Is this an urgent or routine referral?";
+    // section2Labels.referralLabel = "Is this an urgent or routine referral?";
 
     if (responsibilityFlow === "no" || responsibilityFlow === "yes") {
       section2Labels.relationShipLabel =
@@ -179,7 +179,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
     section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
     section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
-    section2Labels.referralLabel = "Is this an urgent or routine referral?";
+    // section2Labels.referralLabel = "Is this an urgent or routine referral?";
 
     if (responsibilityFlow === "no") {
       section2Labels.relationShipLabel =
@@ -271,7 +271,7 @@ function getDynamicLabels(currentLocation, responsibilityFlow) {
 
     section2Labels.parentOrCarerFirstNameLabel = "What is the parent or carer's first name?";
     section2Labels.parentOrCarerLastNameLabel = "What is the parent or carer's last name?";
-    section2Labels.referralLabel = "Is this an urgent or routine referral?";
+    // section2Labels.referralLabel = "Is this an urgent or routine referral?";
 
     if (responsibilityFlow === "no") {
       section2Labels.relationShipLabel =
