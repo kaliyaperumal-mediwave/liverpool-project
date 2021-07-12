@@ -2533,7 +2533,7 @@ exports.updateAboutInfo = ctx => {
   return user.update({
     can_send_post: ctx.request.body.section2Data.can_send_post,
     child_NHS: ctx.request.body.section2Data.child_NHS,
-    child_address: ctx.request.body.section2Data.child_address,
+    //child_address: ctx.request.body.section2Data.child_address,
     child_manual_address: ctx.request.body.section2Data.child_manual_address,
     child_care_adult: ctx.request.body.section2Data.child_care_adult,
 
@@ -2561,7 +2561,7 @@ exports.updateAboutInfo = ctx => {
       return user.update(
         {
           legal_care_status: ctx.request.body.section2Data.legal_care_status,
-          parent_address: ctx.request.body.section2Data.parent_address,
+          //parent_address: ctx.request.body.section2Data.parent_address,
           parent_manual_address: ctx.request.body.section2Data.parent_manual_address,
           parent_contact_type: ctx.request.body.section2Data.parent_contact_type,
           parent_contact_number: ctx.request.body.section2Data.parent_contact_number,
@@ -2586,6 +2586,7 @@ exports.updateAboutInfo = ctx => {
           attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
         }).then((childResult) => {
 
+         
           return user.findOne({
             where: {
               id: ctx.request.body.section2Data.parent_id,
@@ -2625,6 +2626,7 @@ exports.updateAboutInfo = ctx => {
               parent_manual_address: parentResult.parent_manual_address,
               legal_care_status: parentResult.legal_care_status,
             }
+            console.log(section2Obj)
             return ctx.res.ok({
               data: section2Obj,
               message: reponseMessages[1001],
@@ -2736,13 +2738,13 @@ exports.updateEligibilityInfo = ctx => {
         where: {
           id: ctx.request.body.section1Data.child_id,
         },
-        attributes: ['id', 'child_dob', 'registered_gp']
+        attributes: ['id', 'child_dob', 'registered_gp','registered_gp_postcode','gp_school']
       }).then((elgibilityObj) => {
         return user.findOne({
           where: {
             id: ctx.request.body.section1Data.professional_id,
           },
-          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service']
+          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service','professional_address_postcode']
         }).then((professionalObj) => {
           // if (professionalObj.selected_service == 'MHST Liverpool') {
           //   professionalObj.selected_service = 'Liverpool - Mental Health Support Team'
@@ -2753,7 +2755,8 @@ exports.updateEligibilityInfo = ctx => {
           const section1Obj = {
             child_id: ctx.request.body.section1Data.child_id,
             child_dob: elgibilityObj.child_dob,
-            registered_gp: elgibilityObj.registered_gp,
+            registered_gp: elgibilityObj.registered_gp+','+elgibilityObj.registered_gp_postcode,
+            gp_school:elgibilityObj.gp_school,
             professional_id: ctx.request.body.section1Data.professional_id,
             consent_child: professionalObj.consent_child,
             consent_parent: professionalObj.consent_parent,
@@ -2762,7 +2765,7 @@ exports.updateEligibilityInfo = ctx => {
             professional_email: professionalObj.professional_email,
             professional_contact_number: professionalObj.professional_contact_number,
             professional_contact_type: professionalObj.professional_contact_type,
-            professional_address: professionalObj.professional_address,
+            professional_address: professionalObj.professional_address+','+professionalObj.professional_address_postcode,
             professional_manual_address: professionalObj.professional_manual_address,
             professional_profession: professionalObj.professional_profession,
             service_location: professionalObj.service_location,
