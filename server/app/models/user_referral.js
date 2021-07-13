@@ -238,7 +238,6 @@ module.exports = function modelUser(sequelize, types) {
     child_education_manual_address: {
       type: types.JSONB
     },
-
     parent_contact_type: {
       type: types.TEXT
     },
@@ -263,6 +262,9 @@ module.exports = function modelUser(sequelize, types) {
     child_education_place_postcode: { 
       type: types.TEXT
     },
+    // referral_mode: { 
+    //   type: types.TEXT
+    // },
   }, {
     tableName: 'referrals',
   });
