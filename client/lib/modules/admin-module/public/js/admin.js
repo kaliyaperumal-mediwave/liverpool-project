@@ -183,7 +183,9 @@ $(document).ready(function () {
           contentType: 'application/json',
           data: JSON.stringify(trimmedPayload),
           success: function (res) {
+            $('#deletePopup').modal('hide');
             _self.successMessage = 'Referrals deleted successfully';
+            $('#deletedSuccess').modal('show');
             _self.fetchReferral();
             $('#loader').hide();
           },
@@ -212,6 +214,7 @@ $(document).ready(function () {
             data: JSON.stringify(trimmedPayload),
             success: function (res) {
               _self.successMessage = 'Unarchive successful';
+              $('#deletedSuccess').modal('show');
               _self.fetchReferral();
               $('#loader').hide();
             },
@@ -240,6 +243,7 @@ $(document).ready(function () {
             data: JSON.stringify(trimmedPayload),
             success: function (res) {
               _self.successMessage = 'Referrals archived successfully';
+              $('#deletedSuccess').modal('show');
               _self.fetchReferral();
               $('#loader').hide();
             },
