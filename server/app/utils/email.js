@@ -473,6 +473,7 @@ function getCSVData(ctx) {
                 "GP": ctx.request.body.referralData.section1.registered_gp,
                 "Child school": ctx.request.body.referralData.section1.gp_school ? ctx.request.body.referralData.section1.gp_school : "-",
                 //Section 2
+                "Referral type": ctx.request.body.referralData.section2.referral_mode ? ctx.request.body.referralData.section2.referral_mode :"-" ,
                 "NHS number": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : "-",
                 "Title": ctx.request.body.referralData.section2.child_name_title,
                 "First name": ctx.request.body.referralData.section2.child_name,
