@@ -21,6 +21,7 @@ $(document).ready(function () {
                 contactMode: "mobile",
                 childContactNumber: "",
                 childAddress: "",
+                childAddressPostcode: "",
                 sendPost: "",
                 childGender: "",
                 childIdentity: "",
@@ -213,7 +214,15 @@ $(document).ready(function () {
                             Vue.set(this, "childManualAddress", data.child_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
-                        Vue.set(this.aboutObj, "childAddress", data.child_address);
+                        //Vue.set(this.aboutObj, "childAddress", data.child_address);
+                        if(data.child_address_postcode)
+                        { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "childAddress", data.child_address +' ,'+ data.child_address_postcode );
+                        }
+                        else
+                        {// leave postcode column for old referrals
+                            Vue.set(this.aboutObj, "childAddress", data.child_address);
+                        }
                         Vue.set(this.aboutObj, "sendPost", data.can_send_post);
                         Vue.set(this.aboutObj, "childGender", data.child_gender);
                         Vue.set(this.aboutObj, "childIdentity", data.child_gender_birth);
@@ -243,7 +252,15 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
-                        Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
+                       // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
+                        if(data.parent[0].parent_address_postcode)
+                        { // bind postcode column for new referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address +' ,'+ data.parent[0].parent_address_postcode );
+                        }
+                        else
+                        {// leave postcode column for old referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
+                        }
                         if (!data.parent[0].parent_address && data.parent[0].parent_manual_address && data.parent[0].parent_manual_address.length) {
                             Vue.set(this, "parentManualAddress", data.parent[0].parent_manual_address);
                             this.setReadonlyState(true, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
@@ -263,7 +280,15 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
-                        Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                        //Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                        if(data[0].parent[0].child_address_postcode)
+                        { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address +' ,'+ data[0].parent[0].child_address_postcode );
+                        }
+                        else
+                        {// leave postcode column for old referrals
+                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                        }
                         if (data[0].parent[0].child_manual_address && data[0].parent[0].child_manual_address.length) {
                             Vue.set(this, "childManualAddress", data[0].parent[0].child_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
@@ -298,7 +323,15 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "contactNumber", data[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
-                        Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
+                        //Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
+                        if(data[0].parent_address_postcode)
+                        { // bind postcode column for new referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address +' ,'+ data[0].parent_address_postcode );
+                        }
+                        else
+                        {// leave postcode column for old referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent[0].parent_address);
+                        }
                         if (!data[0].parent_address && data[0].parent_manual_address && data[0].parent_manual_address.length) {
                             Vue.set(this, "parentManualAddress", data[0].parent_manual_address);
                             this.setReadonlyState(true, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
@@ -324,7 +357,15 @@ $(document).ready(function () {
                             Vue.set(this, "childManualAddress", data[0].parent[0].child_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
-                        Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                       // Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                        if(data[0].parent[0].child_address_postcode)
+                        { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address +' ,'+ data[0].parent[0].child_address_postcode );
+                        }
+                        else
+                        {// leave postcode column for old referrals
+                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                        }
                         Vue.set(this.aboutObj, "sendPost", data[0].parent[0].can_send_post);
                         Vue.set(this.aboutObj, "childGender", data[0].parent[0].child_gender);
                         Vue.set(this.aboutObj, "childIdentity", data[0].parent[0].child_gender_birth);
@@ -366,7 +407,15 @@ $(document).ready(function () {
                             Vue.set(this, "parentManualAddress", data[0].parent_manual_address);
                             this.setReadonlyState(true, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
                         }
-                        Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
+                       // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
+                       if(data[0].parent_address_postcode)
+                       { // bind postcode column for new referrals
+                           Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address +' ,'+ data[0].parent_address_postcode );
+                       }
+                       else
+                       {// leave postcode column for old referrals
+                           Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent[0].parent_address);
+                       }
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                         Vue.set(this.aboutFormData, "parentUUID", data[0].uuid);
                         Vue.set(this.aboutObj, "referral_progress", data[0].prof_referral_progress == 20 ? 40 : data[0].prof_referral_progress);
@@ -401,6 +450,27 @@ $(document).ready(function () {
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
                         this.payloadData.aboutData.childManualAddress = this.childManualAddress;
                         this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
+                        console.log(this.payloadData.aboutData)
+                        if(this.payloadData.aboutData.childAddress)
+                        {
+                            var childAddresArray= (this.payloadData.aboutData.childAddress).split(",");
+                            console.log(childAddresArray)
+                            this.payloadData.aboutData.childAddressPostcode = childAddresArray[2];
+                            this.payloadData.aboutData.childAddress = childAddresArray[0]+","+childAddresArray[1];
+
+                        }
+                        if(this.payloadData.aboutData.parentOrCarrerAddress)
+                        {
+                            var parentAddresArray= (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
+                            console.log(parentAddresArray)
+                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = parentAddresArray[2];
+                            this.payloadData.aboutData.parentOrCarrerAddress = parentAddresArray[0]+","+parentAddresArray[1];
+                        }
+                        else
+                        {
+                            this.payloadData.aboutData.parentOrCarrerAddressPostcode = "";
+                        }
+                       
                         this.upsertAboutYouForm(this.payloadData);
                     } else {
                         scrollToInvalidInput();

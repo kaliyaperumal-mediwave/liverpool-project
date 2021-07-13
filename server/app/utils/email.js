@@ -209,7 +209,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             if (sendReferralStatus) {
                 try {
 
-                    const data = attachMailData(sendReferralStatus, ctx, toAddress);
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress,ctx.request.body.emailToProvider);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
@@ -243,7 +243,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
 });
 
 
-function attachMailData(pdfReferral, ctx, toAddress) {
+function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
     const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
     let htmlTemplate = _.template(template);
     htmlTemplate = htmlTemplate({
@@ -260,7 +260,7 @@ function attachMailData(pdfReferral, ctx, toAddress) {
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                subject: '[SECURE] Sefton & Liverpool CAMHS - '+ serviceName+ ' Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
@@ -279,7 +279,7 @@ function attachMailData(pdfReferral, ctx, toAddress) {
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                subject: '[SECURE] Sefton & Liverpool CAMHS - '+serviceName+ ' Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,

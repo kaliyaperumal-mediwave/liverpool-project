@@ -20,7 +20,8 @@ exports.eligibility = ctx => {
         registered_gp: ctx.request.body.registered_gp,
         contact_parent_camhs: ctx.request.body.contact_parent_camhs,
         reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
-        gp_school: ctx.request.body.gpSchool
+        gp_school: ctx.request.body.gpSchool,
+        registered_gp_postcode: ctx.request.body.registered_gp_postcode
       },
         {
           where:
@@ -53,7 +54,8 @@ exports.eligibility = ctx => {
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
-          referral_complete_status: 'incomplete'
+          referral_complete_status: 'incomplete',
+          registered_gp_postcode: ctx.request.body.registered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
@@ -80,7 +82,8 @@ exports.eligibility = ctx => {
           reason_contact_parent_camhs: ctx.request.body.reason_contact_parent_camhs,
           gp_school: ctx.request.body.gpSchool,
           referral_progress: 20,
-          referral_complete_status: 'incomplete'
+          referral_complete_status: 'incomplete',
+          registered_gp_postcode: ctx.request.body.registered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           const responseData = {
@@ -124,6 +127,7 @@ exports.eligibility = ctx => {
             child_dob: ctx.request.body.child_Dob,
             registered_gp: ctx.request.body.registered_gp,
             gp_school: ctx.request.body.gpSchool,
+            registered_gp_postcode: ctx.request.body.registered_gp_postcode
           },
             {
               where:
@@ -153,6 +157,7 @@ exports.eligibility = ctx => {
           child_dob: ctx.request.body.child_Dob,
           registered_gp: ctx.request.body.registered_gp,
           gp_school: ctx.request.body.gpSchool,
+          registered_gp_postcode: ctx.request.body.registered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -183,6 +188,7 @@ exports.eligibility = ctx => {
           child_dob: ctx.request.body.child_Dob,
           registered_gp: ctx.request.body.registered_gp,
           gp_school: ctx.request.body.gpSchool,
+          registered_gp_postcode: ctx.request.body.registered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -211,6 +217,7 @@ exports.eligibility = ctx => {
   }
 
   else if (ctx.request.body.role == "professional") {
+    console.log(ctx.request.body)
     //checking update operation or not
     if (ctx.request.body.editFlag != null) {
       return user.findOne({
@@ -238,6 +245,7 @@ exports.eligibility = ctx => {
             child_dob: ctx.request.body.prof_ChildDob,
             registered_gp: ctx.request.body.profregistered_gp,
             gp_school: ctx.request.body.gpSchool,
+            registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
           },
             {
               where:
@@ -250,6 +258,7 @@ exports.eligibility = ctx => {
                 professional_contact_number: ctx.request.body.profContactNumber,
                 professional_contact_type: ctx.request.body.professional_contact_type,
                 professional_address: ctx.request.body.profAddress,
+                professional_address_postcode: ctx.request.body.profAddress_postcode,
                 professional_profession: ctx.request.body.profProfession,
                 professional_manual_address: ctx.request.body.professionalManualAddress,
                 consent_parent: ctx.request.body.contactProfParent,
@@ -279,6 +288,7 @@ exports.eligibility = ctx => {
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
           gp_school: ctx.request.body.gpSchool,
+          registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -288,6 +298,7 @@ exports.eligibility = ctx => {
             professional_contact_type: ctx.request.body.professional_contact_type,
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_address: ctx.request.body.profAddress,
+            professional_address_postcode: ctx.request.body.profAddress_postcode,
             professional_profession: ctx.request.body.profProfession,
             professional_manual_address: ctx.request.body.professionalManualAddress,
             service_location: ctx.request.body.profDirectService,
@@ -328,6 +339,7 @@ exports.eligibility = ctx => {
           child_dob: ctx.request.body.prof_ChildDob,
           registered_gp: ctx.request.body.profregistered_gp,
           gp_school: ctx.request.body.gpSchool,
+          registered_gp_postcode: ctx.request.body.profRegistered_gp_postcode
         }).then((childUserInfo) => {
           childUserInfo.setType("1")
           return user.create({
@@ -337,6 +349,7 @@ exports.eligibility = ctx => {
             professional_contact_number: ctx.request.body.profContactNumber,
             professional_contact_type: ctx.request.body.professional_contact_type,
             professional_address: ctx.request.body.profAddress,
+            professional_address_postcode: ctx.request.body.profAddress_postcode,
             professional_manual_address: ctx.request.body.professionalManualAddress,
             professional_profession: ctx.request.body.profProfession,
             service_location: ctx.request.body.profDirectService,
@@ -518,6 +531,7 @@ exports.about = ctx => {
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
                 child_address: ctx.request.body.aboutData.childAddress,
+                child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
                 child_manual_address: ctx.request.body.aboutData.childManualAddress,
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.childGender,
@@ -549,6 +563,7 @@ exports.about = ctx => {
                   parent_email: ctx.request.body.aboutData.emailAddress,
                   parent_same_house: ctx.request.body.aboutData.sameHouse,
                   parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+                  parent_address_postcode:ctx.request.body.aboutData.parentOrCarrerAddressPostcode,
                   parent_manual_address: ctx.request.body.aboutData.parentManualAddress,
                   legal_care_status: ctx.request.body.aboutData.legalCareStatus,
                 },
@@ -615,6 +630,7 @@ exports.about = ctx => {
               child_NHS: ctx.request.body.aboutData.nhsNumber,
               child_email: ctx.request.body.aboutData.childEmail,
               child_contact_number: ctx.request.body.aboutData.childContactNumber,
+              child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
               child_address: ctx.request.body.aboutData.childAddress,
               child_manual_address: ctx.request.body.aboutData.childManualAddress,
               can_send_post: ctx.request.body.aboutData.sendPost,
@@ -654,6 +670,7 @@ exports.about = ctx => {
                 parent_email: ctx.request.body.aboutData.emailAddress,
                 parent_same_house: ctx.request.body.aboutData.sameHouse,
                 parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+                parent_address_postcode:ctx.request.body.aboutData.parentOrCarrerAddressPostcode,
                 parent_manual_address: ctx.request.body.aboutData.parentManualAddress,
                 legal_care_status: ctx.request.body.aboutData.legalCareStatus,
               }).then((parentUserInfo) => {
@@ -712,6 +729,7 @@ exports.about = ctx => {
             child_email: ctx.request.body.aboutData.childEmail,
             child_contact_number: ctx.request.body.aboutData.childContactNumber,
             child_address: ctx.request.body.aboutData.childAddress,
+            child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
             child_manual_address: ctx.request.body.aboutData.childManualAddress,
             can_send_post: ctx.request.body.aboutData.sendPost,
             child_gender: ctx.request.body.aboutData.childGender,
@@ -743,6 +761,7 @@ exports.about = ctx => {
             parent_email: ctx.request.body.aboutData.emailAddress,
             parent_same_house: ctx.request.body.aboutData.sameHouse,
             parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+            parent_address_postcode:ctx.request.body.aboutData.parentOrCarrerAddressPostcode,
             parent_manual_address: ctx.request.body.aboutData.parentManualAddress,
             legal_care_status: ctx.request.body.aboutData.legalCareStatus,
             referral_progress: ctx.request.body.aboutData.referral_progress
@@ -818,6 +837,7 @@ exports.about = ctx => {
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
                 child_address: ctx.request.body.aboutData.childAddress,
+                child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
                 child_manual_address: ctx.request.body.aboutData.childManualAddress,
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.childGender,
@@ -856,6 +876,7 @@ exports.about = ctx => {
                   parent_email: ctx.request.body.aboutData.emailAddress,
                   parent_same_house: ctx.request.body.aboutData.sameHouse,
                   parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+                  parent_address_postcode:ctx.request.body.aboutData.parentOrCarrerAddressPostcode,
                   parent_manual_address: ctx.request.body.aboutData.parentManualAddress,
                   legal_care_status: ctx.request.body.aboutData.legalCareStatus,
                 },
@@ -939,6 +960,7 @@ exports.about = ctx => {
                 child_email: ctx.request.body.aboutData.childEmail,
                 child_contact_number: ctx.request.body.aboutData.childContactNumber,
                 child_address: ctx.request.body.aboutData.childAddress,
+                child_address_postcode: ctx.request.body.aboutData.childAddressPostcode,
                 child_manual_address: ctx.request.body.aboutData.childManualAddress,
                 can_send_post: ctx.request.body.aboutData.sendPost,
                 child_gender: ctx.request.body.aboutData.childGender,
@@ -968,6 +990,7 @@ exports.about = ctx => {
                 parent_email: ctx.request.body.aboutData.emailAddress,
                 parent_same_house: ctx.request.body.aboutData.sameHouse,
                 parent_address: ctx.request.body.aboutData.parentOrCarrerAddress,
+                parent_address_postcode:ctx.request.body.aboutData.parentOrCarrerAddressPostcode,
                 parent_manual_address: ctx.request.body.aboutData.parentManualAddress,
                 legal_care_status: ctx.request.body.aboutData.legalCareStatus,
               },
@@ -1175,6 +1198,7 @@ exports.profession = ctx => {
             {
               child_profession: ctx.request.body.educAndEmpData.position,
               child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
+              child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
               child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
               child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
               child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
@@ -1253,6 +1277,7 @@ exports.profession = ctx => {
             child_profession: ctx.request.body.educAndEmpData.position,
             child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
             child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
+            child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
             child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
             child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
 
@@ -1316,6 +1341,7 @@ exports.profession = ctx => {
         {
           child_profession: ctx.request.body.educAndEmpData.position,
           child_education_place: ctx.request.body.educAndEmpData.attendedInfo,
+          child_education_place_postcode: ctx.request.body.educAndEmpData.child_education_place_postcode,
           child_education_manual_address: ctx.request.body.educAndEmpData.childEducationManualAddress,
           child_EHCP: ctx.request.body.educAndEmpData.haveEhcpPlan,
           child_EHAT: ctx.request.body.educAndEmpData.haveEhat,
@@ -1914,7 +1940,7 @@ exports.fetchReview = ctx => {
       where: {
         uuid: ctx.query.user_id,
       },
-      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp', 'contact_parent_camhs', 'reason_contact_parent_camhs', 'gp_school']
+      attributes: ['id', 'uuid', 'need_interpreter', 'child_dob', 'contact_parent', 'consent_child', 'registered_gp','registered_gp_postcode', 'contact_parent_camhs', 'reason_contact_parent_camhs', 'gp_school']
     }).then((eligibilityObj) => {
 
       return user.findOne({
@@ -1922,13 +1948,13 @@ exports.fetchReview = ctx => {
           {
             model: ctx.orm().Referral,
             as: 'parent',
-            attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status', 'parent_contact_type', 'parent_manual_address']
+            attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status', 'parent_contact_type', 'parent_manual_address','parent_address_postcode']
           },
         ],
         where: {
           id: eligibilityObj.id,
         },
-        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+        attributes: ['id', 'child_NHS', 'child_firstname', 'child_lastname', 'child_name_title', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address','child_address_postcode']
       }).then((aboutObj) => {
         return user.findOne({
           include: [
@@ -1943,8 +1969,8 @@ exports.fetchReview = ctx => {
           },
           attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
         }).then((educationObj) => {
-
-
+ 
+          eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp +', '+ eligibilityObj.registered_gp_postcode :eligibilityObj.registered_gp ;
           ////console.log(aboutObj)
           const section2Obj = {
             child_id: aboutObj.id,
@@ -1954,7 +1980,7 @@ exports.fetchReview = ctx => {
             child_name_title: aboutObj.child_name_title,
             child_email: aboutObj.child_email,
             child_contact_number: aboutObj.child_contact_number,
-            child_address: aboutObj.child_address,
+            child_address: aboutObj.child_address_postcode ? aboutObj.child_address + ',' + aboutObj.child_address_postcode : aboutObj.child_address,
             child_manual_address: aboutObj.child_manual_address,
             can_send_post: aboutObj.can_send_post,
             child_gender: aboutObj.child_gender,
@@ -1973,7 +1999,7 @@ exports.fetchReview = ctx => {
             parent_contact_number: aboutObj.parent[0].parent_contact_number,
             parent_email: aboutObj.parent[0].parent_email,
             parent_same_house: aboutObj.parent[0].parent_same_house,
-            parent_address: aboutObj.parent[0].parent_address,
+            parent_address: +aboutObj.parent[0].parent_address_postcode ? aboutObj.parent[0].parent_address +',' +aboutObj.parent[0].parent_address_postcode : aboutObj.parent[0].parent_address,
             parent_manual_address: aboutObj.parent[0].parent_manual_address,
             parent_contact_type: aboutObj.parent[0].parent_contact_type,
             legal_care_status: aboutObj.parent[0].legal_care_status,
@@ -2018,7 +2044,7 @@ exports.fetchReview = ctx => {
             model: ctx.orm().Referral,
             nested: true,
             as: 'parent',
-            attributes: ['id', 'child_dob', 'registered_gp', 'gp_school']
+            attributes: ['id', 'child_dob', 'registered_gp', 'gp_school','registered_gp_postcode']
           },
         ],
         where: {
@@ -2035,13 +2061,13 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address','child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
             },
           ],
           where: {
             id: elgibilityObj[0].id,
           },
-          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status', 'parent_contact_type', 'parent_manual_address']
+          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address','parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address']
         }).then((aboutObj) => {
           return user.findAll({
             include: [
@@ -2079,7 +2105,7 @@ exports.fetchReview = ctx => {
               const section1Obj = {
                 child_id: elgibilityObj[0].parent[0].id,
                 child_dob: elgibilityObj[0].parent[0].child_dob,
-                registered_gp: elgibilityObj[0].parent[0].registered_gp,
+                registered_gp: elgibilityObj[0].parent[0].registered_gp_postcode ? elgibilityObj[0].parent[0].registered_gp +','+ elgibilityObj[0].parent[0].registered_gp_postcode : elgibilityObj[0].parent[0].registered_gp,
                 parent_id: elgibilityObj[0].id,
                 consent_child: elgibilityObj[0].consent_child,
                 consent_parent: elgibilityObj[0].consent_parent,
@@ -2095,7 +2121,7 @@ exports.fetchReview = ctx => {
                 child_email: aboutObj[0].parent[0].child_email,
                 child_contact_number: aboutObj[0].parent[0].child_contact_number,
                 child_contact_type: aboutObj[0].parent[0].child_contact_type,
-                child_address: aboutObj[0].parent[0].child_address,
+                child_address: aboutObj[0].parent[0].child_address_postcode ?  aboutObj[0].parent[0].child_address +',' + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
                 child_manual_address: aboutObj[0].parent[0].child_manual_address,
                 can_send_post: aboutObj[0].parent[0].can_send_post,
                 child_gender: aboutObj[0].parent[0].child_gender,
@@ -2114,7 +2140,7 @@ exports.fetchReview = ctx => {
                 parent_contact_number: aboutObj[0].parent_contact_number,
                 parent_email: aboutObj[0].parent_email,
                 parent_same_house: aboutObj[0].parent_same_house,
-                parent_address: aboutObj[0].parent_address,
+                parent_address: aboutObj[0].parent_address_postcode ? aboutObj[0].parent_address +", "+ aboutObj[0].parent_address_postcode : aboutObj[0].parent_address ,
                 parent_manual_address: aboutObj[0].parent_manual_address,
                 parent_contact_type: aboutObj[0].parent_contact_type,
                 legal_care_status: aboutObj[0].legal_care_status,
@@ -2180,7 +2206,7 @@ exports.fetchReview = ctx => {
         include: [{
           model: ctx.orm().Referral,
           as: 'professional',
-          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school'],
+          attributes: ['id', 'child_dob', 'registered_gp', 'gp_school','registered_gp_postcode'],
           include: [{
             model: ctx.orm().Referral,
             as: 'child_parent',
@@ -2189,7 +2215,7 @@ exports.fetchReview = ctx => {
         where: {
           id: userObj.id,
         },
-        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address']
+        attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address','professional_address_postcode']
       }).then((elgibilityObj) => {
         //return ctx.body = elgibilityObj.professional[0].child_parent[0];
         var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -2206,13 +2232,13 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address','child_address_postcode']
             },
           ],
           where: {
             id: childIdNew,
           },
-          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status', 'parent_contact_type', 'parent_manual_address']
+          attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'legal_care_status', 'parent_contact_type', 'parent_manual_address','parent_address_postcode']
         }).then((aboutObj) => {
 
           return user.findAll({
@@ -2257,7 +2283,7 @@ exports.fetchReview = ctx => {
               const section1Obj = {
                 child_id: elgibilityObj.professional[0].id,
                 child_dob: elgibilityObj.professional[0].child_dob,
-                registered_gp: elgibilityObj.professional[0].registered_gp,
+                registered_gp: elgibilityObj.professional[0].registered_gp_postcode ? elgibilityObj.professional[0].registered_gp +',' + elgibilityObj.professional[0].registered_gp_postcode : elgibilityObj.professional[0].registered_gp,
                 gp_school: elgibilityObj.professional[0].gp_school,
                 professional_id: elgibilityObj.id,
                 consent_child: elgibilityObj.consent_child,
@@ -2267,7 +2293,7 @@ exports.fetchReview = ctx => {
                 professional_email: elgibilityObj.professional_email,
                 professional_contact_type: elgibilityObj.professional_contact_type,
                 professional_contact_number: elgibilityObj.professional_contact_number,
-                professional_address: elgibilityObj.professional_address,
+                professional_address: elgibilityObj.professional_address_postcode ? elgibilityObj.professional_address +', ' + elgibilityObj.professional_address_postcode : elgibilityObj.professional_address,
                 professional_manual_address: elgibilityObj.professional_manual_address,
                 professional_profession: elgibilityObj.professional_profession,
                 service_location: elgibilityObj.service_location,
@@ -2282,7 +2308,7 @@ exports.fetchReview = ctx => {
                 child_name_title: aboutObj[0].parent[0].child_name_title,
                 child_email: aboutObj[0].parent[0].child_email,
                 child_contact_number: aboutObj[0].parent[0].child_contact_number,
-                child_address: aboutObj[0].parent[0].child_address,
+                child_address: aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address+','+ aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
                 child_manual_address: aboutObj[0].parent[0].child_manual_address,
                 can_send_post: aboutObj[0].parent[0].can_send_post,
                 child_gender: aboutObj[0].parent[0].child_gender,
@@ -2302,7 +2328,7 @@ exports.fetchReview = ctx => {
                 parent_contact_number: aboutObj[0].parent_contact_number,
                 parent_email: aboutObj[0].parent_email,
                 parent_same_house: aboutObj[0].parent_same_house,
-                parent_address: aboutObj[0].parent_address,
+                parent_address: aboutObj[0].parent_address_postcode ? aboutObj[0].parent_address +', '+ aboutObj[0].parent_address_postcode : aboutObj[0].parent_address,
                 parent_manual_address: aboutObj[0].parent_manual_address,
                 legal_care_status: aboutObj[0].legal_care_status,
               }
@@ -2409,23 +2435,46 @@ exports.saveReview = ctx => {
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
-          return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
-            return user.update({
-              referral_provider: ctx.query.selectedProvider
-            },
-              {
-                where:
-                  { uuid: ctx.request.body.userid }
-              }
-            ).then((result) => {
-              return ctx.body = responseData;
-            }).catch(error => {
-              //////console.log()(error);
+          if(ctx.request.body.referral_provider=="YPAS" ||  ctx.request.body.referral_provider=="Venus")
+          {
+            return adminCtrl.sendReferralByApi(ctx).then((providermailStatus) => {
+              return user.update({
+                referral_provider: ctx.query.selectedProvider
+              },
+                {
+                  where:
+                    { uuid: ctx.request.body.userid }
+                }
+              ).then((result) => {
+                return ctx.body = responseData;
+              }).catch(error => {
+                //////console.log()(error);
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+              });
+            }).catch((error) => {
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
-          }).catch((error) => {
-            sequalizeErrorHandler.handleSequalizeError(ctx, error)
-          });
+          }
+          else
+          {
+            return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+              return user.update({
+                referral_provider: ctx.query.selectedProvider
+              },
+                {
+                  where:
+                    { uuid: ctx.request.body.userid }
+                }
+              ).then((result) => {
+                return ctx.body = responseData;
+              }).catch(error => {
+                //////console.log()(error);
+                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+              });
+            }).catch((error) => {
+              sequalizeErrorHandler.handleSequalizeError(ctx, error)
+            });
+          }
         }
         else {
           return ctx.body = responseData;
@@ -2484,7 +2533,7 @@ exports.updateAboutInfo = ctx => {
   return user.update({
     can_send_post: ctx.request.body.section2Data.can_send_post,
     child_NHS: ctx.request.body.section2Data.child_NHS,
-    child_address: ctx.request.body.section2Data.child_address,
+    //child_address: ctx.request.body.section2Data.child_address,
     child_manual_address: ctx.request.body.section2Data.child_manual_address,
     child_care_adult: ctx.request.body.section2Data.child_care_adult,
 
@@ -2512,7 +2561,7 @@ exports.updateAboutInfo = ctx => {
       return user.update(
         {
           legal_care_status: ctx.request.body.section2Data.legal_care_status,
-          parent_address: ctx.request.body.section2Data.parent_address,
+          //parent_address: ctx.request.body.section2Data.parent_address,
           parent_manual_address: ctx.request.body.section2Data.parent_manual_address,
           parent_contact_type: ctx.request.body.section2Data.parent_contact_type,
           parent_contact_number: ctx.request.body.section2Data.parent_contact_number,
@@ -2534,14 +2583,15 @@ exports.updateAboutInfo = ctx => {
           where: {
             id: ctx.request.body.section2Data.child_id,
           },
-          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth', 'child_manual_address','child_address_postcode']
         }).then((childResult) => {
 
+         
           return user.findOne({
             where: {
               id: ctx.request.body.section2Data.parent_id,
             },
-            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_firstname', 'parent_lastname', 'parent_same_house', 'parental_responsibility', 'child_parent_relationship', 'parent_contact_type', 'parent_manual_address']
+            attributes: ['id', 'uuid', 'legal_care_status', 'parent_address', 'parent_contact_number', 'parent_email', 'parent_firstname', 'parent_lastname', 'parent_same_house', 'parental_responsibility', 'child_parent_relationship', 'parent_contact_type', 'parent_manual_address','parent_address_postcode']
           }).then((parentResult) => {
 
             const section2Obj = {
@@ -2551,7 +2601,7 @@ exports.updateAboutInfo = ctx => {
               child_lastname: childResult.child_lastname,
               child_email: childResult.child_email,
               child_contact_number: childResult.child_contact_number,
-              child_address: childResult.child_address,
+              child_address:childResult.child_address_postcode ? childResult.child_address + ',' +childResult.child_address_postcode : childResult.child_address,
               child_manual_address: childResult.child_manual_address,
               can_send_post: childResult.can_send_post,
               child_gender: childResult.child_gender,
@@ -2572,10 +2622,11 @@ exports.updateAboutInfo = ctx => {
               parent_contact_number: parentResult.parent_contact_number,
               parent_email: parentResult.parent_email,
               parent_same_house: parentResult.parent_same_house,
-              parent_address: parentResult.parent_address,
+              parent_address: parentResult.parent_address_postcode ? parentResult.parent_address +','+parentResult.parent_address_postcode : parentResult.parent_address,
               parent_manual_address: parentResult.parent_manual_address,
               legal_care_status: parentResult.legal_care_status,
             }
+            console.log(section2Obj)
             return ctx.res.ok({
               data: section2Obj,
               message: reponseMessages[1001],
@@ -2687,13 +2738,13 @@ exports.updateEligibilityInfo = ctx => {
         where: {
           id: ctx.request.body.section1Data.child_id,
         },
-        attributes: ['id', 'child_dob', 'registered_gp']
+        attributes: ['id', 'child_dob', 'registered_gp','registered_gp_postcode','gp_school']
       }).then((elgibilityObj) => {
         return user.findOne({
           where: {
             id: ctx.request.body.section1Data.professional_id,
           },
-          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service']
+          attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_profession', 'professional_address', 'professional_contact_type', 'professional_manual_address', 'service_location', 'selected_service','professional_address_postcode']
         }).then((professionalObj) => {
           // if (professionalObj.selected_service == 'MHST Liverpool') {
           //   professionalObj.selected_service = 'Liverpool - Mental Health Support Team'
@@ -2704,7 +2755,8 @@ exports.updateEligibilityInfo = ctx => {
           const section1Obj = {
             child_id: ctx.request.body.section1Data.child_id,
             child_dob: elgibilityObj.child_dob,
-            registered_gp: elgibilityObj.registered_gp,
+            registered_gp: elgibilityObj.registered_gp_postcode ? elgibilityObj.registered_gp+','+elgibilityObj.registered_gp_postcode : elgibilityObj.registered_gp,
+            gp_school:elgibilityObj.gp_school,
             professional_id: ctx.request.body.section1Data.professional_id,
             consent_child: professionalObj.consent_child,
             consent_parent: professionalObj.consent_parent,
@@ -2713,7 +2765,7 @@ exports.updateEligibilityInfo = ctx => {
             professional_email: professionalObj.professional_email,
             professional_contact_number: professionalObj.professional_contact_number,
             professional_contact_type: professionalObj.professional_contact_type,
-            professional_address: professionalObj.professional_address,
+            professional_address: professionalObj.professional_address_postcode ? professionalObj.professional_address+','+professionalObj.professional_address_postcode : professionalObj.professional_address,
             professional_manual_address: professionalObj.professional_manual_address,
             professional_profession: professionalObj.professional_profession,
             service_location: professionalObj.service_location,
