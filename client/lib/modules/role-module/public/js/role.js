@@ -53,8 +53,8 @@ $(document).ready(function () {
                 seftonService: '',
                 gpSchool: '',
                 professional_contact_type: "mobile",
-                registered_gp_postcode:'',
-                profRegistered_gp_postcode:''
+                registered_gp_postcode: '',
+                profRegistered_gp_postcode: ''
             },
             professionalManualAddress: [],
             addressData: {
@@ -106,6 +106,10 @@ $(document).ready(function () {
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
+            dateArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11','12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            monthArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            yearArr: [],
+            dateVal: ""
         },
 
         beforeMount: function () {
@@ -113,6 +117,12 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var date = new Date().getFullYear();
+            for (var i = 1990; i <= date; i++) {
+                this.yearArr.push(i++);
+            }
+            this.yearArr.push(date);
+            console.log(this.yearArr);
             this.isSubmitted = false;
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
@@ -229,12 +239,10 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
-                    if(data.registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp+','+data.registered_gp_postcode));
+                    if (data.registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp + ',' + data.registered_gp_postcode));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
                     }
                     if (data.gp_school) {
@@ -256,15 +264,13 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contactParent", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
-                    if(data[0].parent[0].registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp+','+data[0].parent[0].registered_gp_postcode, roleType));
+                    if (data[0].parent[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp + ',' + data[0].parent[0].registered_gp_postcode, roleType));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
                     }
-                    
+
                     if (data[0].parent[0].gp_school) {
                         Vue.set(this.elgibilityObj, "gpSchool", data[0].parent[0].gp_school);
                         //Vue.set(this.elgibilityObj, "gpNotCovered",true);
@@ -298,22 +304,18 @@ $(document).ready(function () {
                     }
                     //Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     console.log(data[0].professional_address_postcode)
-                    if(data[0].professional_address_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address +' ,'+ data[0].professional_address_postcode );
+                    if (data[0].professional_address_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address + ' ,' + data[0].professional_address_postcode);
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     }
                     Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
                     //Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
-                    if(data[0].professional[0].registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp+','+data[0].professional[0].registered_gp_postcode, roleType));
+                    if (data[0].professional[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp + ',' + data[0].professional[0].registered_gp_postcode, roleType));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
                     }
                     if (data[0].professional[0].gp_school) {
@@ -1080,12 +1082,11 @@ $(document).ready(function () {
                                     this.elgibilityObj.profRegistered_gp_postcode = gpArray[1]
                                     this.elgibilityObj.profregistered_gp = gpArray[0];
 
-                                    if(this.elgibilityObj.profAddress)
-                                    {
-                                        var profAddresArray= (this.elgibilityObj.profAddress).split(",");
+                                    if (this.elgibilityObj.profAddress) {
+                                        var profAddresArray = (this.elgibilityObj.profAddress).split(",");
                                         this.elgibilityObj.profAddress_postcode = profAddresArray[2];
-                                        this.elgibilityObj.profAddress = profAddresArray[0]+","+profAddresArray[1];
-            
+                                        this.elgibilityObj.profAddress = profAddresArray[0] + "," + profAddresArray[1];
+
                                     }
 
                                     this.apiRequest(this.elgibilityObj, role);
