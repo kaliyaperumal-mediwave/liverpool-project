@@ -262,9 +262,9 @@ module.exports = function modelUser(sequelize, types) {
     child_education_place_postcode: { 
       type: types.TEXT
     },
-    // referral_mode: { 
-    //   type: types.TEXT
-    // },
+    referral_mode: { 
+      type: types.TEXT
+    },
   }, {
     tableName: 'referrals',
   });

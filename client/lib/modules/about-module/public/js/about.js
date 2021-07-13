@@ -379,7 +379,7 @@ $(document).ready(function () {
                         if (!data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         }
-
+                        Vue.set(this.aboutObj, "referral_mode", data[0].parent[0].referral_mode);
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
                             this.allHouseHoldMembers = data[0].parent[0].household_member;

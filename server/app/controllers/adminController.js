@@ -1115,7 +1115,7 @@ function getRefData(refID, refRole, ctx) {
                             model: ctx.orm().Referral,
                             nested: true,
                             as: 'parent',
-                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address']
+                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address','referral_mode']
                         },
                     ],
                     where: {
@@ -1188,6 +1188,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_address: aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ', ' + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
                                 child_manual_address: aboutObj[0].parent[0].child_manual_address,
                                 can_send_post: aboutObj[0].parent[0].can_send_post,
+                                referral_mode:aboutObj[0].parent[0].referral_mode == "1"? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" :"" ,
                                 child_gender: aboutObj[0].parent[0].child_gender,
                                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                                 child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
