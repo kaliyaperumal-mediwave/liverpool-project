@@ -723,7 +723,7 @@ function getRefData(refID, refRole, ctx) {
                     },
                     attributes: [['id', 'child_id'], 'child_profession', 'child_education_place', 'child_EHCP', 'child_EHAT', 'child_socialworker', 'child_socialworker_firstname', 'child_socialworker_lastname', 'child_socialworker_contact', 'child_socialworker_contact_type', 'child_education_manual_address']
                 }).then((educationObj) => {
-                    eligibilityObj.registered_gp = eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode;
+                    eligibilityObj.registered_gp = eligibilityObj.registered_gp_postcode ? eligibilityObj.registered_gp + ', ' + eligibilityObj.registered_gp_postcode : eligibilityObj.registered_gp;
                     const section2Obj = {
                         child_id: aboutObj.id,
                         child_NHS: aboutObj.child_NHS,
@@ -732,7 +732,7 @@ function getRefData(refID, refRole, ctx) {
                         child_name_title: aboutObj.child_name_title,
                         child_email: aboutObj.child_email,
                         child_contact_number: aboutObj.child_contact_number,
-                        child_address: aboutObj.child_address_postcode ? aboutObj.child_address + ',' + aboutObj.child_address_postcode : aboutObj.child_address,
+                        child_address: aboutObj.child_address_postcode ? aboutObj.child_address + ', ' + aboutObj.child_address_postcode : aboutObj.child_address,
                         child_manual_address: aboutObj.child_manual_address,
                         can_send_post: aboutObj.can_send_post,
                         child_gender: aboutObj.child_gender,
