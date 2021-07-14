@@ -191,13 +191,13 @@
                             </span>
                         </div>
                     </div>
-                    <!-- <div class="row">
+                    <div class="row">
                         <div class="col-md-4">
-                            <multiselect :options="dateArr" v-model="dateVal"
-                            showLabels ="false" selectedLabel=""  deselectLabel="" :searchable="true" :close-on-select="true" placeholder="DD"
-                               class="multiselect custom-dropbox-hover themeSetDark">
+                            <multiselect :options="dateArr" v-model="dateVal" showLabels="false" selectedLabel=""
+                                deselectLabel="" :searchable="true" :close-on-select="true" placeholder="DD"
+                                class="multiselect custom-dropbox-hover themeSetDark">
                             </multiselect>
-                            <div class="input-group">
+                            <!-- <div class="input-group">
                                 <span class="plain-select">
                                     <select id="cars" class="custom-select form-control input-bg-form-control"
                                         name="childNameTitle">
@@ -211,24 +211,15 @@
                                         <option value="Mx">5</option>
                                         <option value="Mx">6</option>
                                     </select>
-
-                                    <select id="cars" class="custom-select form-control input-bg-form-control"
-                                    name="childNameTitle">
-                                    <option class='option-text' value="" disabled selected>
-                                        DD
-                                    </option>
-                                    <option value="Mr">1</option>
-                                    <option value="Miss">2</option>
-                                    <option value="Ms">3</option>
-                                    <option value="Mrs">4</option>
-                                    <option value="Mx">5</option>
-                                    <option value="Mx">6</option>
-                                </select>
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-4">
-                            <div class="input-group">
+                            <multiselect :options="monthArr" v-model="monthVal" showLabels="false" selectedLabel=""
+                                deselectLabel="" :searchable="true" :close-on-select="true" placeholder="MM"
+                                class="multiselect custom-dropbox-hover themeSetDark">
+                            </multiselect>
+                            <!-- <div class="input-group">
                                 <span class="plain-select">
                                     <select class="custom-select form-control input-bg-form-control"
                                         name="childNameTitle">
@@ -243,10 +234,14 @@
                                         <option value="Mx">6</option>
                                     </select>
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="col-md-4">
-                            <div class="input-group">
+                            <multiselect :options="yearArr" v-model="yearVal" showLabels="false" selectedLabel=""
+                                deselectLabel="" :searchable="true" :close-on-select="true" placeholder="YYYY"
+                                class="multiselect custom-dropbox-hover themeSetDark">
+                            </multiselect>
+                            <!-- <div class="input-group">
                                 <span class="plain-select">
                                     <select class="custom-select form-control input-bg-form-control"
                                         name="childNameTitle">
@@ -279,10 +274,10 @@
                                         <option value="Mx">1995</option>
                                     </select>
                                 </span>
-                            </div>
+                            </div> -->
                         </div>
 
-                    </div> -->
+                    </div>
 
                     {% endraw %}
                 </div>
