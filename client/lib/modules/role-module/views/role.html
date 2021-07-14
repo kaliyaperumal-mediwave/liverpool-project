@@ -128,7 +128,7 @@
             <!-- calender start child-->
             <form id="child-Dob-form" data-options="childDob">
                 <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
-                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p> -->
                     <div v-show="elgibilityObj.role=='child'" class="question-font m-0">
@@ -155,6 +155,26 @@
                             </span>
                         </div>
                     </div> -->
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-md-4">
+                            <multiselect :options="monthArr" v-model="monthVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" :hide-selected="true" placeholder="MM"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-md-4">
+                            <multiselect :options="yearArr" v-model="yearVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="YYYY" :hide-selected="true"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                    </div>
                 </div>
             </form>
             <!-- calendar-end  child-->
@@ -193,90 +213,23 @@
                     </div> -->
                     <div class="row">
                         <div class="col-md-4">
-                            <multiselect :options="dateArr" v-model="dateVal" showLabels="false" selectedLabel=""
-                                deselectLabel="" :searchable="true" :close-on-select="true" placeholder="DD"
+                            <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
-                            <!-- <div class="input-group">
-                                <span class="plain-select">
-                                    <select id="cars" class="custom-select form-control input-bg-form-control"
-                                        name="childNameTitle">
-                                        <option class='option-text' value="" disabled selected>
-                                            DD
-                                        </option>
-                                        <option value="Mr">1</option>
-                                        <option value="Miss">2</option>
-                                        <option value="Ms">3</option>
-                                        <option value="Mrs">4</option>
-                                        <option value="Mx">5</option>
-                                        <option value="Mx">6</option>
-                                    </select>
-                                </span>
-                            </div> -->
                         </div>
                         <div class="col-md-4">
-                            <multiselect :options="monthArr" v-model="monthVal" showLabels="false" selectedLabel=""
-                                deselectLabel="" :searchable="true" :close-on-select="true" placeholder="MM"
+                            <multiselect :options="monthArr" v-model="monthVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" :hide-selected="true" placeholder="MM"
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
-                            <!-- <div class="input-group">
-                                <span class="plain-select">
-                                    <select class="custom-select form-control input-bg-form-control"
-                                        name="childNameTitle">
-                                        <option class='option-text' value="" disabled selected>
-                                            MM
-                                        </option>
-                                        <option value="Mr">1</option>
-                                        <option value="Miss">2</option>
-                                        <option value="Ms">3</option>
-                                        <option value="Mrs">4</option>
-                                        <option value="Mx">5</option>
-                                        <option value="Mx">6</option>
-                                    </select>
-                                </span>
-                            </div> -->
                         </div>
                         <div class="col-md-4">
-                            <multiselect :options="yearArr" v-model="yearVal" showLabels="false" selectedLabel=""
-                                deselectLabel="" :searchable="true" :close-on-select="true" placeholder="YYYY"
+                            <multiselect :options="yearArr" v-model="yearVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="YYYY" :hide-selected="true"
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
-                            <!-- <div class="input-group">
-                                <span class="plain-select">
-                                    <select class="custom-select form-control input-bg-form-control"
-                                        name="childNameTitle">
-                                        <option class='option-text' value="" disabled selected>
-                                            YYYY
-                                        </option>
-                                        <option value="Mr">1985</option>
-                                        <option value="Miss">1986</option>
-                                        <option value="Ms">1987</option>
-                                        <option value="Mrs">1988</option>
-                                        <option value="Mx">1989</option>
-                                        <option value="Mx">1995</option>
-                                        <option value="Mr">1985</option>
-                                        <option value="Miss">1986</option>
-                                        <option value="Ms">1987</option>
-                                        <option value="Mrs">1988</option>
-                                        <option value="Mx">1989</option>
-                                        <option value="Mx">1995</option>
-                                        <option value="Mr">1985</option>
-                                        <option value="Miss">1986</option>
-                                        <option value="Ms">1987</option>
-                                        <option value="Mrs">1988</option>
-                                        <option value="Mx">1989</option>
-                                        <option value="Mx">1995</option>
-                                        <option value="Mr">1985</option>
-                                        <option value="Miss">1986</option>
-                                        <option value="Ms">1987</option>
-                                        <option value="Mrs">1988</option>
-                                        <option value="Mx">1989</option>
-                                        <option value="Mx">1995</option>
-                                    </select>
-                                </span>
-                            </div> -->
                         </div>
-
                     </div>
 
                     {% endraw %}
@@ -1303,16 +1256,36 @@
                 <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
-                    <div class="input-group">
-                        <!-- <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
+                    <!-- <div class="input-group">
+                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options"
                             :wrap="dateWrap">
-                        </date-picker> -->
+                        </date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
+                        </div>
+                    </div> -->
+                    <div class="row mt-2">
+                        <div class="col-md-4">
+                            <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-md-4">
+                            <multiselect :options="monthArr" v-model="monthVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" :hide-selected="true" placeholder="MM"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-md-4">
+                            <multiselect :options="yearArr" v-model="yearVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="YYYY" :hide-selected="true"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
                         </div>
                     </div>
                 </div>
