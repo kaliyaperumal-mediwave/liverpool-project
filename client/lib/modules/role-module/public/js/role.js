@@ -111,7 +111,8 @@ $(document).ready(function () {
             yearArr: [],
             dateVal: "",
             monthVal: "",
-            yearVal: ""
+            yearVal: "",
+            dateRegex:/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
         },
 
         beforeMount: function () {
@@ -120,10 +121,10 @@ $(document).ready(function () {
 
         mounted: function () {
             var date = new Date().getFullYear();
-            for (var i = 1990; i <= date; i++) {
+            console.log(date)
+            for (var i = date; i > 1989; i--) {
                 this.yearArr.push(i);
             }
-            this.yearArr.push(date);
             console.log(this.yearArr);
             this.isSubmitted = false;
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
@@ -282,7 +283,7 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
-                    console.log(data[0])
+                    //console.log(data[0])
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -872,6 +873,16 @@ $(document).ready(function () {
                 ////console.log("erer")
             },
 
+            getDob: function () {
+                var selectedDate = this.dateVal+'/'+this.monthVal+'/'+this.yearVal
+                console.log(this.dateRegex.test(selectedDate));
+                if(this.dateRegex.test(selectedDate))
+                {
+                    this.elgibilityObj.childDob = selectedDate;
+                    this.changeDob("",selectedDate)
+                }
+            },
+
             changeDob: function (e, date) {
                 //  ////console.log(date);
                 if (this.patchFlag != true && date != null) {
@@ -1288,6 +1299,14 @@ $(document).ready(function () {
                     }
 
                 }
+               var dbFormatDate= moment(new Date()).format("DD/MM/YYYY")
+                var dateArray = dbFormatDate.split("/");
+                var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+                var date = new Date(toOldFmt)
+                this.yearVal = date.getFullYear().toString();
+                this.monthVal = (date.getMonth() + 1).toString();
+                this.dateVal = date.getDate().toString();
+
 
             },
 

@@ -180,7 +180,7 @@
                     </div>
                     {% raw %}
 
-                    <div class="input-group" id="dummy">
+                    <!-- <div class="input-group" id="dummy">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.childDob" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
@@ -190,12 +190,12 @@
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <div class="col-md-4">
                             <multiselect :options="dateArr" v-model="dateVal" showLabels="false" selectedLabel=""
                                 deselectLabel="" :searchable="true" :close-on-select="true" placeholder="DD"
-                                class="multiselect custom-dropbox-hover themeSetDark">
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
                             <!-- <div class="input-group">
                                 <span class="plain-select">
@@ -217,7 +217,7 @@
                         <div class="col-md-4">
                             <multiselect :options="monthArr" v-model="monthVal" showLabels="false" selectedLabel=""
                                 deselectLabel="" :searchable="true" :close-on-select="true" placeholder="MM"
-                                class="multiselect custom-dropbox-hover themeSetDark">
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
                             <!-- <div class="input-group">
                                 <span class="plain-select">
@@ -239,7 +239,7 @@
                         <div class="col-md-4">
                             <multiselect :options="yearArr" v-model="yearVal" showLabels="false" selectedLabel=""
                                 deselectLabel="" :searchable="true" :close-on-select="true" placeholder="YYYY"
-                                class="multiselect custom-dropbox-hover themeSetDark">
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
                             <!-- <div class="input-group">
                                 <span class="plain-select">
