@@ -263,7 +263,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data[0].parent[0].child_dob));
-                    this.fetchAgeLogic(data.child_dob, roleType)
+                    this.fetchAgeLogic(data[0].parent[0].child_dob)
                     Vue.set(this.elgibilityObj, "contactParent", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
@@ -875,7 +875,8 @@ $(document).ready(function () {
 
             getDob: function () {
                 var selectedDate = this.dateVal+'/'+this.monthVal+'/'+this.yearVal
-                console.log(this.dateRegex.test(selectedDate));
+                // console.log(selectedDate)
+                // console.log(this.dateRegex.test(selectedDate));
                 if(this.dateRegex.test(selectedDate))
                 {
                     this.elgibilityObj.childDob = selectedDate;
@@ -884,8 +885,7 @@ $(document).ready(function () {
             },
 
             changeDob: function (e, date) {
-                //  ////console.log(date);
-                if (this.patchFlag != true && date != null) {
+                if (date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
                     var selectedDate = new Date(this.dateFmt);
@@ -893,6 +893,7 @@ $(document).ready(function () {
                     // //console.log(age)
                     ////console.log(age > 19)
                     var roleText = this.elgibilityObj.role;
+                    console.log(roleText)
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
                     }
@@ -963,6 +964,7 @@ $(document).ready(function () {
                     }
 
                     else if (roleText == 'parent') {
+                        console.log(age)
                         if (age > 18) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.contactParent = "";
@@ -1242,7 +1244,10 @@ $(document).ready(function () {
             fetchAgeLogic: function (dbdob, roleText) {
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
+               // console.log(selectedDate)
+                this.formatDateToString(selectedDate)
                 var age = this.diff_years(today, selectedDate);
+                console.log(age)
                 if (roleText == 'child') {
                     if (age < 14) {
 
@@ -1299,16 +1304,25 @@ $(document).ready(function () {
                     }
 
                 }
-               var dbFormatDate= moment(new Date()).format("DD/MM/YYYY")
-                var dateArray = dbFormatDate.split("/");
-                var toOldFmt = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
-                var date = new Date(toOldFmt)
-                this.yearVal = date.getFullYear().toString();
-                this.monthVal = (date.getMonth() + 1).toString();
-                this.dateVal = date.getDate().toString();
+              
 
 
             },
+
+             formatDateToString:function(inputdate){
+               //  console.log(inputdate)
+                var date = new Date(inputdate)
+               // console.log(date)
+                // 01, 02, 03, ... 29, 30, 31
+                this.dateVal = (date.getDate() < 10 ? '0' : '') + date.getDate();
+                // 01, 02, 03, ... 10, 11, 12
+                this.monthVal = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+                // 1970, 1971, ... 2015, 2016, ...
+                this.yearVal = date.getFullYear();
+             
+                // create the format you want
+                //return (dd + "-" + MM + "-" + yyyy);
+             },
 
             bindGpAddress: function (gpAddress, role) {
                 if (role == "professional") {

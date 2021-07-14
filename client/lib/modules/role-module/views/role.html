@@ -144,7 +144,7 @@
                         }
                         }) }}
                         {{elgibilityObj.maxDate}}</div>
-                    <div class="input-group" id="dobRoleCal">
+                    <!-- <div class="input-group" id="dobRoleCal">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.childDob" autocomplete="off" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
@@ -154,7 +154,7 @@
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             <!-- calendar-end  child-->
@@ -182,8 +182,8 @@
 
                     <!-- <div class="input-group" id="dummy">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
-                            v-model="elgibilityObj.childDob" @dp-show="resetFlag($event)"
-                            @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
+                          
+                           :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
@@ -1304,11 +1304,11 @@
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
-                        <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
+                        <!-- <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options"
                             :wrap="dateWrap">
-                        </date-picker>
+                        </date-picker> -->
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
