@@ -211,7 +211,7 @@ function createPayload(ctx) {
             "14c_parent_or_carer_email": ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
             "14d_parent_or_carer_lives_at_childs_address": formatingInput(ctx.request.body.referralData.section2.parent_same_house),
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
-            "15_other_parent_or_carer_details":formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname),
+            "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility=="no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
             "17_profession_or_education_status": formatingInput(ctx.request.body.referralData.section3.child_profession),
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
@@ -272,7 +272,7 @@ function createPayload(ctx) {
             "14c_parent_or_carer_email": ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
             "14d_parent_or_carer_lives_at_childs_address": formatingInput(ctx.request.body.referralData.section2.parent_same_house),
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
-            "15_other_parent_or_carer_details":formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname),
+            "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility=="no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
             "17_profession_or_education_status": formatingInput(ctx.request.body.referralData.section3.child_profession),
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
@@ -334,7 +334,7 @@ function createPayload(ctx) {
             "14c_parent_or_carer_email": ctx.request.body.referralData.section2.parent_email ? ctx.request.body.referralData.section2.parent_email : alternativeBlankSpace,
             "14d_parent_or_carer_lives_at_childs_address": formatingInput(ctx.request.body.referralData.section2.parent_same_house),
             "14e_parent_or_carer_address": formatingInput(ctx.request.body.referralData.section2.parent_address),
-            "15_other_parent_or_carer_details":formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname),
+            "15_other_parent_or_carer_details": ctx.request.body.referralData.section2.parental_responsibility=="no" ? formatingInput(ctx.request.body.referralData.section2.responsibility_parent_firstname)+ concatString + formatingInput(ctx.request.body.referralData.section2.responsibility_parent_lastname) : alternativeBlankSpace,
             // //Section3
             "17_profession_or_education_status": formatingInput(ctx.request.body.referralData.section3.child_profession),
             "18_place_of_education": formatingInput(ctx.request.body.referralData.section3.child_education_place),
