@@ -36,6 +36,19 @@ exports.getReferral = ctx => {
 
             if (ctx.request.decryptedUser && ctx.request.decryptedUser.service_type) {
                 query.referral_provider = ctx.request.decryptedUser.service_type;
+                if(ctx.request.decryptedUser.service_type=="Alder Hey - Liverpool CAMHS")
+                {
+                    var inArray = [ctx.request.decryptedUser.service_type,'Alder Hey - Liverpool EDYS']
+                    query.referral_provider= {
+                        [sequelize.Op.in] : inArray}
+                    
+                }
+                else if(ctx.request.decryptedUser.service_type=="Alder Hey - Sefton CAMHS")
+                {
+                    var inArray = [ctx.request.decryptedUser.service_type,'Alder Hey - Sefton EDYS']
+                    query.referral_provider= {
+                        [sequelize.Op.in] : inArray}
+                }
             }
 
             if (ctx.query && ctx.query.orderBy) {
@@ -49,6 +62,8 @@ exports.getReferral = ctx => {
                 else if (ctx.query.orderBy == '10') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
                 //console.log(order)
             }
+
+            console.log(query)
 
             var referrals = await referralModel.findAll({
                 attributes: [

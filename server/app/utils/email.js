@@ -179,8 +179,9 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
+    console.log(ctx.request.body.emailToProvider)
     try {
-        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS") {
+        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Liverpool EDYS") {
             toAddress = config.alder_hey_liverpol
         } else if (ctx.request.body.emailToProvider == "YPAS") {
             toAddress = config.ypas_email
@@ -190,7 +191,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.seedlings_email
         } else if (ctx.request.body.emailToProvider == "Wellbeing Clinics") {
             toAddress = config.wellbeing_clinics_email
-        } else if (ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
+        } else if (ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton EDYS") {
             toAddress = config.alder_hey_sefton
         } else if (ctx.request.body.emailToProvider == "Venus") {
             toAddress = config.venus_email
@@ -252,7 +253,7 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
     var attachmentFiles = {};
     try {
 
-        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
+        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Liverpool EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton EDYS") {
             //Attach pdf and csv for alderhey admins
             const csvHeader = ["Title", "Name"];
             const dataCsv = getCSVData(ctx);
