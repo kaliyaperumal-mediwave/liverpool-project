@@ -21,7 +21,7 @@ $(document).ready(function () {
       statusOther: '',
       role: '',
       archivePage: '',
-      urlToLoadData: ''
+      urlToLoadData: '',
     },
     beforeMount: function () {
       $('#loader').show();
@@ -34,6 +34,10 @@ $(document).ready(function () {
       }
       else {
         this.urlToLoadData = '/modules/admin-module/referral'
+      }
+      if (localStorage.role) {
+        this.role = localStorage.role;
+        //console.log(this.role);
       }
       this.fetchReferral();
 
@@ -376,12 +380,10 @@ function sendPdf(uuid, role, refCode) {
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  if(selectedProvider=="YPAS" || selectedProvider == "Venus")
-  {
-    apiToSend =  '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  if (selectedProvider == "YPAS" || selectedProvider == "Venus") {
+    apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   }
-  else
-  {
+  else {
     apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   }
 
