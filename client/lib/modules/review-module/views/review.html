@@ -541,6 +541,23 @@
                         </div>
                         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                             data-parent="#accordionExample">
+                            <div v-if="userRole == 'professional'" class="py-3 w-100 mx-0 row align-items-center">
+                                <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
+                                    Referral type:
+                                </label>
+                                <div class="col-md-6 col-lg-6 col-xl-5 col-11 px-0">
+                                    <span class="plain-select">
+                                        <select class="custom-select h-50px    input-bg-form-control"
+                                            @change="onDetectChange($event,'sect2')"
+                                            v-model="section2Data.referral_mode">
+                                            <option class='option-text' value="1">Routine
+                                            </option>
+                                            <option class='option-text' value="2">Urgent
+                                            </option>
+                                        </select>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="py-1 py-md-2">
                                 <!-- NHS Number Start -->
                                 <div class="py-3 w-100 mx-0 row align-items-center">
