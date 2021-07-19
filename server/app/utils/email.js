@@ -179,8 +179,9 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
 
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
+    console.log(ctx.request.body.emailToProvider)
     try {
-        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS") {
+        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Liverpool EDYS") {
             toAddress = config.alder_hey_liverpol
         } else if (ctx.request.body.emailToProvider == "YPAS") {
             toAddress = config.ypas_email
@@ -190,7 +191,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.seedlings_email
         } else if (ctx.request.body.emailToProvider == "Wellbeing Clinics") {
             toAddress = config.wellbeing_clinics_email
-        } else if (ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
+        } else if (ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton EDYS") {
             toAddress = config.alder_hey_sefton
         } else if (ctx.request.body.emailToProvider == "Venus") {
             toAddress = config.venus_email
@@ -252,7 +253,7 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
     var attachmentFiles = {};
     try {
 
-        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS - EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS - EDYS") {
+        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Liverpool EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton EDYS") {
             //Attach pdf and csv for alderhey admins
             const csvHeader = ["Title", "Name"];
             const dataCsv = getCSVData(ctx);
@@ -260,8 +261,7 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                //subject: '[SECURE] Sefton & Liverpool CAMHS - '+ serviceName+ ' Referral Details',
-                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                subject: '[SECURE] Sefton & Liverpool CAMHS - '+ serviceName+ ' Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
@@ -280,8 +280,7 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                //subject: '[SECURE] Sefton & Liverpool CAMHS - '+serviceName+ ' Referral Details',
-                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
+                subject: '[SECURE] Sefton & Liverpool CAMHS - '+serviceName+ ' Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
@@ -475,6 +474,7 @@ function getCSVData(ctx) {
                 "GP": ctx.request.body.referralData.section1.registered_gp,
                 "Child school": ctx.request.body.referralData.section1.gp_school ? ctx.request.body.referralData.section1.gp_school : "-",
                 //Section 2
+                "Referral type": ctx.request.body.referralData.section2.referral_mode ? ctx.request.body.referralData.section2.referral_mode :"-" ,
                 "NHS number": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : "-",
                 "Title": ctx.request.body.referralData.section2.child_name_title,
                 "First name": ctx.request.body.referralData.section2.child_name,

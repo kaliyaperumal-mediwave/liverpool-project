@@ -850,6 +850,7 @@ exports.about = ctx => {
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
                 child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
+                referral_mode: ctx.request.body.aboutData.referral_mode
               },
               {
                 where:
@@ -972,6 +973,7 @@ exports.about = ctx => {
                 child_care_adult: ctx.request.body.aboutData.childCareAdult,
                 child_contact_type: ctx.request.body.aboutData.contactMode,
                 sex_at_birth: ctx.request.body.aboutData.sexAssignedAtBirth,
+                referral_mode: ctx.request.body.aboutData.referral_mode
               },
               {
                 where:
@@ -2232,7 +2234,7 @@ exports.fetchReview = ctx => {
               model: ctx.orm().Referral,
               nested: true,
               as: 'parent',
-              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address','child_address_postcode']
+              attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address','child_address_postcode','referral_mode']
             },
           ],
           where: {
@@ -2331,6 +2333,7 @@ exports.fetchReview = ctx => {
                 parent_address: aboutObj[0].parent_address_postcode ? aboutObj[0].parent_address +', '+ aboutObj[0].parent_address_postcode : aboutObj[0].parent_address,
                 parent_manual_address: aboutObj[0].parent_manual_address,
                 legal_care_status: aboutObj[0].legal_care_status,
+                referral_mode:aboutObj[0].parent[0].referral_mode
               }
 
               const section3Obj = {
@@ -2551,6 +2554,7 @@ exports.updateAboutInfo = ctx => {
 
     contact_type: ctx.request.body.section2Data.contact_type,
     sex_at_birth: ctx.request.body.section2Data.sex_at_birth,
+    referral_mode: ctx.request.body.section2Data.referral_mode,
   },
     {
       where: {
@@ -2583,7 +2587,7 @@ exports.updateAboutInfo = ctx => {
           where: {
             id: ctx.request.body.section2Data.child_id,
           },
-          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth', 'child_manual_address','child_address_postcode']
+          attributes: ['id', 'uuid', 'can_send_post', 'child_NHS', 'child_address', 'child_care_adult', 'child_contact_number', 'child_email', 'child_ethnicity', 'child_gender', 'child_gender_birth', 'child_firstname', 'child_lastname', 'child_parent_relationship', 'child_sexual_orientation', 'household_member', 'child_name_title', 'child_contact_type', 'sex_at_birth', 'child_manual_address','child_address_postcode','referral_mode']
         }).then((childResult) => {
 
          
@@ -2625,6 +2629,7 @@ exports.updateAboutInfo = ctx => {
               parent_address: parentResult.parent_address_postcode ? parentResult.parent_address +','+parentResult.parent_address_postcode : parentResult.parent_address,
               parent_manual_address: parentResult.parent_manual_address,
               legal_care_status: parentResult.legal_care_status,
+              referral_mode:childResult.referral_mode,
             }
             console.log(section2Obj)
             return ctx.res.ok({
