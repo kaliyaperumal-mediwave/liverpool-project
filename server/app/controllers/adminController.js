@@ -22,7 +22,7 @@ exports.getReferral = ctx => {
     console.log('ctx---gdfsgdsgdsgds--------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
-            console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
+           // console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
 
             // sorting
@@ -36,6 +36,19 @@ exports.getReferral = ctx => {
 
             if (ctx.request.decryptedUser && ctx.request.decryptedUser.service_type) {
                 query.referral_provider = ctx.request.decryptedUser.service_type;
+                if(ctx.request.decryptedUser.service_type=="Alder Hey - Liverpool CAMHS")
+                {
+                    var inArray = [ctx.request.decryptedUser.service_type,'Alder Hey - Liverpool EDYS']
+                    query.referral_provider= {
+                        [sequelize.Op.in] : inArray}
+                    
+                }
+                else if(ctx.request.decryptedUser.service_type=="Alder Hey - Sefton CAMHS")
+                {
+                    var inArray = [ctx.request.decryptedUser.service_type,'Alder Hey - Sefton EDYS']
+                    query.referral_provider= {
+                        [sequelize.Op.in] : inArray}
+                }
             }
 
             if (ctx.query && ctx.query.orderBy) {
@@ -49,6 +62,8 @@ exports.getReferral = ctx => {
                 else if (ctx.query.orderBy == '10') order.push(['updatedAt', ctx.query.orderType.toUpperCase()]);
                 //console.log(order)
             }
+
+            console.log(query)
 
             var referrals = await referralModel.findAll({
                 attributes: [
@@ -85,11 +100,11 @@ exports.getReferral = ctx => {
 
             var totalReferrals = referrals.length;
             var filteredReferrals = referrals.length;
-            console.log(referrals);
+            //console.log(referrals);
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
-                console.log(ctx.query.searchValue)
+               // console.log(ctx.query.searchValue)
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
                     if (refObj.referral_provider == null) {
@@ -168,7 +183,7 @@ exports.getReferral = ctx => {
                         referral_status: refObj.referral_status
                     }
                     if (refObj.gp_location) {
-                        console.log(refObj.gp_location_postcode)
+                      //  console.log(refObj.gp_location_postcode)
                         if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
                             if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
@@ -702,7 +717,7 @@ function getRefData(refID, refRole, ctx) {
                     {
                         model: ctx.orm().Referral,
                         as: 'parent',
-                        attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address']
+                        attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address','responsibility_parent_lastname']
                     },
                 ],
                 where: {
@@ -747,6 +762,8 @@ function getRefData(refID, refRole, ctx) {
                         parent_name: aboutObj.parent[0].parent_firstname,
                         parent_lastname: aboutObj.parent[0].parent_lastname,
                         parental_responsibility: aboutObj.parent[0].parental_responsibility,
+                        responsibility_parent_firstname: aboutObj.parent[0].responsibility_parent_firstname,
+                        responsibility_parent_lastname: aboutObj.parent[0].responsibility_parent_lastname,
                         child_parent_relationship: aboutObj.parent[0].child_parent_relationship,
                         parent_contact_number: aboutObj.parent[0].parent_contact_number,
                         parent_email: aboutObj.parent[0].parent_email,
@@ -886,7 +903,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: elgibilityObj[0].id,
                     },
-                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address', 'reference_code', 'contact_preferences', 'contact_person']
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address', 'reference_code', 'contact_preferences', 'contact_person','responsibility_parent_lastname']
                 }).then((aboutObj) => {
                     return user.findAll({
                         include: [
@@ -955,6 +972,8 @@ function getRefData(refID, refRole, ctx) {
                                 parent_name: aboutObj[0].parent_firstname,
                                 parent_lastname: aboutObj[0].parent_lastname,
                                 parental_responsibility: aboutObj[0].parental_responsibility,
+                                responsibility_parent_firstname: aboutObj[0].responsibility_parent_firstname,
+                                responsibility_parent_lastname: aboutObj[0].responsibility_parent_lastname,
                                 child_parent_relationship: aboutObj[0].child_parent_relationship,
                                 parent_contact_number: aboutObj[0].parent_contact_number,
                                 parent_email: aboutObj[0].parent_email,
@@ -1121,7 +1140,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: childIdNew,
                     },
-                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address']
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address','responsibility_parent_lastname']
                 }).then((aboutObj) => {
 
                     return user.findAll({
@@ -1201,6 +1220,8 @@ function getRefData(refID, refRole, ctx) {
                                 parent_name: aboutObj[0].parent_firstname,
                                 parent_lastname: aboutObj[0].parent_lastname,
                                 parental_responsibility: aboutObj[0].parental_responsibility,
+                                responsibility_parent_firstname: aboutObj[0].responsibility_parent_firstname,
+                                responsibility_parent_lastname: aboutObj[0].responsibility_parent_lastname,
                                 child_parent_relationship: aboutObj[0].child_parent_relationship,
                                 parent_contact_type: aboutObj[0].parent_contact_type,
                                 parent_contact_number: aboutObj[0].parent_contact_number,

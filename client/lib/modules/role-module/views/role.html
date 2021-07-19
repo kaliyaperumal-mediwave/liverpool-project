@@ -800,13 +800,24 @@
                     </div>
                     <div class="form-check pt-3 pb-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="alderLiverpool"
-                            value="Alder Hey - Liverpool CAMHS - EDYS" @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="alderLiverpoolCamhs"
+                            value="Alder Hey - Liverpool CAMHS" @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
-                            for="alderLiverpool">
-                            Alder Hey – Liverpool CAMHS & EDYS
+                            for="alderLiverpoolCamhs">
+                            Alder Hey/Liverpool CAMHS
                         </label>
                     </div>
+
+                    <div class="form-check pt-3 pb-2 pl-0">
+                        <input class="form-check-input" type="radio" name="liverpoolService"
+                            v-model="elgibilityObj.liverpoolService" id="alderLiverpoolEdys"
+                            value="Alder Hey - Liverpool EDYS" @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderLiverpoolEdys">
+                            Alder Hey/Liverpool EDYS
+                        </label>
+                    </div>
+
                     <div class="form-check py-2 pb-md-3 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
                             v-model="elgibilityObj.liverpoolService" id="ypas" value="YPAS" @change="onChange($event)">
@@ -851,11 +862,20 @@
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="alderSefton"
-                            value="Alder Hey - Sefton CAMHS - EDYS" @change="onChange($event)">
+                            v-model="elgibilityObj.seftonService" id="alderSeftonCamhs"
+                            value="Alder Hey - Sefton CAMHS" @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
-                            for="alderSefton">
-                            Alder Hey – Sefton CAMHS & EDYS
+                            for="alderSeftonCamhs">
+                            Alder Hey/Sefton CAMHS
+                        </label>
+                    </div>
+                    <div class="form-check pt-3 pb-1 pl-0">
+                        <input class="form-check-input" type="radio" name="seftonService"
+                            v-model="elgibilityObj.seftonService" id="alderSeftonEdys"
+                            value="Alder Hey - Sefton EDYS" @change="onChange($event)">
+                        <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
+                            for="alderSeftonEdys">
+                            Alder Hey/Sefton EDYS
                         </label>
                     </div>
                     <div class="form-check py-2 pl-0">
