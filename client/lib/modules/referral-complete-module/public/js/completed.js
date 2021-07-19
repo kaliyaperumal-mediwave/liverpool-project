@@ -4,7 +4,7 @@ $(document).ready(function () {
     var app = new Vue({
         el: '#completed-form',
         data: {
-            ackObj: { refCode: '123' },
+            ackObj: { refCode: '123', role: '', professional_email: '',refPdfCode : "",referralCode:"" },
             refSignUpData: {
                 first_name: '',
                 last_name: '',
@@ -106,11 +106,36 @@ $(document).ready(function () {
                     dataType: 'json',
                     contentType: 'application/json',
                     success: function (data) {
+                      //  console.log(data)
                         _self.reference_code = data.reference_code;
                         _self.sendObj.ref_code = data.reference_code;
+                        _self.ackObj.role = data.user_role;
+                        _self.ackObj.professional_email = data.professional_email;
+                        _self.ackObj.refPdfCode = data.uuid;
+                        _self.ackObj.referralCode = data.reference_code;
                         //console.log("logi flag ", _self.loginFlag)
                         _self.getSignUpData();
                         $('#loader').hide();
+                    },
+                    error: function (error) {
+                        $('#loader').hide();
+                        showError(error.responseJSON.message, error.status);
+                    }
+                });
+            },
+
+            sendReferralToMe: function () {
+                var _self = this;
+                console.log("working")
+                $.ajax({
+                    url: API_URI + "/sendReferralToMe/" + _self.ackObj.role + "/" + _self.ackObj.professional_email + "/" + _self.ackObj.refPdfCode + "/" + _self.ackObj.referralCode,
+                    type: 'get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                  //      console.log(data)
+                        $('#loader').hide();
+                        $('#referralSentSuccess').modal('show');
                     },
                     error: function (error) {
                         $('#loader').hide();
@@ -152,7 +177,11 @@ $(document).ready(function () {
             gotoDashboard: function (token) {
                 $('#signInSuccess').modal('hide');
                 location.href = "/dashboard";
-            }
+            },
+            closeReferralSentSuccess: function () {
+                $('#referralSentSuccess').modal('hide');
+            },
+
         }
     })
 });

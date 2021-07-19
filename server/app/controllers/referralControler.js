@@ -2526,7 +2526,7 @@ exports.getRefNo = ctx => {
     where: {
       uuid: ctx.query.user_id,
     },
-    attributes: ['id', 'uuid', 'reference_code']
+    attributes: ['id', 'uuid', 'reference_code','user_role','professional_email']
   }).then((result) => {
     return ctx.body = result;
   })
@@ -3088,4 +3088,32 @@ exports.getProfReferral = async (ctx) => {
   } catch (e) {
     return sequalizeErrorHandler.handleSequalizeError(ctx, e);
   }
+}
+
+exports.sendReferralToMe = ctx => {
+
+  console.log("ctx.query------------------------------------------------------")
+  console.log(ctx.query)
+
+
+  return adminCtrl.sendReferralCopy(ctx).then((providermailStatus) => {
+    console.log("----------------------------------------------providermailStatus")
+    console.log(providermailStatus)
+    if(providermailStatus==false)
+    {
+      ctx.res.internalServerError({
+        message: reponseMessages[1002],
+    });
+    }
+    else
+    {
+      return ctx.res.ok({
+        message: reponseMessages[1017],
+    });
+    }
+  }).catch((error) => {
+    console.log("hit here")
+    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+  });;
+
 }

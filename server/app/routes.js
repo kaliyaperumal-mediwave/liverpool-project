@@ -50,7 +50,7 @@ router.get('/referral/searchReferalByCode/', validateToken, referralControler.se
 
 router.get('/referral/profReferral', validateToken, referralControler.getProfReferral);
 
-// router.post('/referral/sendConfirmationMail/', validateToken, emailController.sendReferralConfirmation);
+router.get('/referral/sendReferralToMe/', validateToken, referralControler.sendReferralToMe);
 
 router.post('/user/changePassword', validateToken, authController.changePassword);
 router.post('/user/changeEmail', validateToken, authController.changeEmail);
