@@ -1387,6 +1387,31 @@ exports.referralStatusUpdate = async (ctx) => {
 
 }
 
+
+
+exports.sendReferralCopy = async ctx => {
+    console.log("ctx.request.body.referralData", ctx.query.refPdfCode + ',' + ctx.query.role + ','+ ctx.query.profEmail);
+    let referralData = await getRefData(ctx.query.refPdfCode, ctx.query.role, ctx);
+    ctx.request.body.referralData = referralData;
+    ctx.request.body.emailToProvider = ctx.query.profEmail;
+    ctx.request.body.refCode = ctx.query.refCode;
+    try {
+        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+            console.log(sendReferralStatus)
+            return ctx.res.ok({
+                message: reponseMessages[1017],
+            });
+        }).catch(error => {
+            //////console.log()(error, "error");
+           console.log("false")
+          return false;
+        });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+}
+
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
