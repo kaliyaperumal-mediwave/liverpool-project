@@ -90,5 +90,20 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       });
     });
+
+    self.route('get', 'sendReferralToMe/:role/:profEmail/:refPdfCode/:referralCode', function (req, res) {
+      //req.body.email = req.session.email
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendReferralToMe?role=' + req.params.role +'&profEmail='+ req.params.profEmail +'&refPdfCode='+ req.params.refPdfCode +'&referralCode='+ req.params.referralCode;
+      //console.log("-------");
+      //console.log(url);
+      //console.log("-------");
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        console.log("---- error -------", error)
+        return res.status(error.statusCode).send(error.error);
+      });
+    });
+
   }
 }

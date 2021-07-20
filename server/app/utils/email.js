@@ -177,9 +177,10 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
     }
 });
 
+var sendProf = false;
+
 exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
     var toAddress;
-    console.log(ctx.request.body.emailToProvider)
     try {
         if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Liverpool EDYS") {
             toAddress = config.alder_hey_liverpol
@@ -203,14 +204,16 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             toAddress = config.iaptus_email
         }
         else {
-            toAddress = config.other_email
+            toAddress = ctx.request.body.emailToProvider;
+            ctx.request.body.refCode =ctx.query.referralCode
+            sendProf = true;
         }
         console.log('toAddress----------', toAddress);
         return pdf.generatePdf(ctx).then((sendReferralStatus) => {
             if (sendReferralStatus) {
                 try {
 
-                    const data = attachMailData(sendReferralStatus, ctx, toAddress,ctx.request.body.emailToProvider);
+                    const data = attachMailData(sendReferralStatus, ctx, toAddress, ctx.request.body.emailToProvider);
                     mailService.sendMail(data, (err, res) => {
 
                         if (!err && res) {
@@ -244,7 +247,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
 });
 
 
-function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
+function attachMailData(pdfReferral, ctx, toAddress, serviceName) {
     const template = fs.readFileSync(path.join(`${__dirname}/./templates/sendReferralTemplate.html`), 'utf8');
     let htmlTemplate = _.template(template);
     htmlTemplate = htmlTemplate({
@@ -253,15 +256,14 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
     var attachmentFiles = {};
     try {
 
-        if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Liverpool EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton EDYS") {
-            //Attach pdf and csv for alderhey admins
+        if (sendProf) {
             const csvHeader = ["Title", "Name"];
             const dataCsv = getCSVData(ctx);
             const csv = parse(dataCsv, csvHeader);
             attachmentFiles = {
                 from: config.email_from_address,
                 to: toAddress,
-                subject: '[SECURE] Sefton & Liverpool CAMHS - '+ serviceName+ ' Referral Details',
+                subject: '[SECURE] Sefton & Liverpool CAMHS - Referral Details',
                 attachments: [{
                     filename: ctx.request.body.refCode + ".pdf",
                     content: pdfReferral,
@@ -276,18 +278,42 @@ function attachMailData(pdfReferral, ctx, toAddress,serviceName) {
             };
         }
         else {
-            //Attach only pdf for other service admins
-            attachmentFiles = {
-                from: config.email_from_address,
-                to: toAddress,
-                subject: '[SECURE] Sefton & Liverpool CAMHS - '+serviceName+ ' Referral Details',
-                attachments: [{
-                    filename: ctx.request.body.refCode + ".pdf",
-                    content: pdfReferral,
-                    contentType: 'application/pdf'
-                },],
-                html: htmlTemplate,
-            };
+            if (ctx.request.body.emailToProvider == "Alder Hey - Liverpool CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Liverpool EDYS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton CAMHS" || ctx.request.body.emailToProvider == "Alder Hey - Sefton EDYS") {
+                //Attach pdf and csv for alderhey admins
+                const csvHeader = ["Title", "Name"];
+                const dataCsv = getCSVData(ctx);
+                const csv = parse(dataCsv, csvHeader);
+                attachmentFiles = {
+                    from: config.email_from_address,
+                    to: toAddress,
+                    subject: '[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
+                    attachments: [{
+                        filename: ctx.request.body.refCode + ".pdf",
+                        content: pdfReferral,
+                        contentType: 'application/pdf'
+                    },
+                    {
+                        filename: ctx.request.body.refCode + ".csv",
+                        content: Buffer.from(csv).toString('base64'),
+                    },
+                    ],
+                    html: htmlTemplate,
+                };
+            }
+            else {
+                //Attach only pdf for other service admins
+                attachmentFiles = {
+                    from: config.email_from_address,
+                    to: toAddress,
+                    subject: '[SECURE] Sefton & Liverpool CAMHS - ' + serviceName + ' Referral Details',
+                    attachments: [{
+                        filename: ctx.request.body.refCode + ".pdf",
+                        content: pdfReferral,
+                        contentType: 'application/pdf'
+                    },],
+                    html: htmlTemplate,
+                };
+            }
         }
 
         return attachmentFiles;
@@ -474,7 +500,7 @@ function getCSVData(ctx) {
                 "GP": ctx.request.body.referralData.section1.registered_gp,
                 "Child school": ctx.request.body.referralData.section1.gp_school ? ctx.request.body.referralData.section1.gp_school : "-",
                 //Section 2
-                "Referral type": ctx.request.body.referralData.section2.referral_mode ? ctx.request.body.referralData.section2.referral_mode :"-" ,
+                "Referral type": ctx.request.body.referralData.section2.referral_mode ? ctx.request.body.referralData.section2.referral_mode : "-",
                 "NHS number": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : "-",
                 "Title": ctx.request.body.referralData.section2.child_name_title,
                 "First name": ctx.request.body.referralData.section2.child_name,
