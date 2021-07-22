@@ -432,6 +432,12 @@ $(document).ready(function () {
                             scrollToInvalidInput();
                             return false;
                         }
+                        if (formData.parentialResponsibility == 'yes' && (!formData.parentCarerFirstName || !formData.parentCarerLastName || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
                         $('#loader').show();
                         this.payloadData.aboutData = JSON.parse(JSON.stringify(formData));
                         this.payloadData.role = document.getElementById('uRole').innerHTML;
