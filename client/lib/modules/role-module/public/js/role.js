@@ -1415,7 +1415,7 @@ $(document).ready(function () {
 
             changePrevAns: function (attributeValue, inputId) {
                 this.elgibilityObj[attributeValue] = "";
-                //document.getElementById(inputId).focus();
+                document.getElementById(inputId).focus();
             },
 
             getAddressPostcode: function (e) {
