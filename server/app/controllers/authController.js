@@ -60,10 +60,11 @@ exports.signup = async (ctx) => {
                     data: sendSignupResult,
                 });
             }).catch((error) => {
+                console.log(error)
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             })
         }).catch((error) => {
-            //console.log(error)
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
