@@ -260,7 +260,7 @@ $(document).ready(function () {
                             }
                         }
                         else {
-                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
+                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
 
                         var trimmedPayload = trimObj(this.payloadData);
@@ -312,7 +312,7 @@ $(document).ready(function () {
                             this.payloadData.referral_provider = this.section1Data.selected_service;
                         }
                         else if (this.section1Data.selected_service == "") {
-                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
+                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
 
                         var trimmedPayload = trimObj(this.payloadData);
