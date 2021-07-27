@@ -158,6 +158,8 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
                     });
                     resolve();
                 } else {
+                    console.log(err)
+                    console.log(res)
                     ctx.res.internalServerError({
                         message: 'Failed to sent mail',
                     });
@@ -171,6 +173,7 @@ exports.sendReferralConfirmationMail = async ctx => new Promise((resolve, reject
             resolve();
         }
     } catch (e) {
+        console.log(e)
         return resolve(ctx.res.internalServerError({
             data: 'Failed to sent mail',
         }));
@@ -241,6 +244,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
     } catch (e) {
+        console.log(e)
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 
