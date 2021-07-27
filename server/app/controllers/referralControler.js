@@ -2019,16 +2019,16 @@ exports.fetchReview = ctx => {
 
         }).catch((error) => {
           ////console.log("1")
-          ////console.log(error)
+          console.log(error)
           sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
       }).catch((error) => {
-        ////console.log("2")
+        console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
 
     }).catch((error) => {
-      ////console.log(error)
+      console.log(error)
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }
@@ -2483,15 +2483,15 @@ exports.saveReview = ctx => {
           return ctx.body = responseData;
         }
       }).catch((error) => {
-        ////console.log('\n\n\nERROR - check code: ', error);
+        console.log('\n\n\nERROR - check code: ', error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
       });
     }).catch((error) => {
-      ////console.log('\n\n\nERROR - update code: ', error);
+      console.log('\n\n\nERROR - update code: ', error);
       sequalizeErrorHandler.handleSequalizeError(ctx, error)
     });
   }).catch((error) => {
-    ////console.log('\n\n\nERROR - check code: ', error);
+    console.log('\n\n\nERROR - check code: ', error);
     sequalizeErrorHandler.handleSequalizeError(ctx, error)
   });
 }

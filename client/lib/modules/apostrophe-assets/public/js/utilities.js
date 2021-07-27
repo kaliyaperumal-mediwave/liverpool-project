@@ -309,6 +309,7 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
+            console.log(error)
             $('#loader').removeClass('d-block').addClass('d-none');
             if (endPoint == '/resetEmail') {
                 return;
