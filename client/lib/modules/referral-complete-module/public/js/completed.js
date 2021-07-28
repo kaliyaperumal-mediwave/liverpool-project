@@ -133,7 +133,6 @@ $(document).ready(function () {
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
-                    async: false,
                     data: JSON.stringify(_self.ackObj),
                     cache: false,
                     success: function (res) {
