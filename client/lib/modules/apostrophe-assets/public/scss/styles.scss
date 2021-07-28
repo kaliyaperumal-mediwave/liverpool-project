@@ -47,6 +47,10 @@ body {
     border-color: #023047 transparent transparent !important;
   }
 
+  .multiselect__spinner {
+    background-color: #e8edee;
+  }
+
   .multiselect__tag {
     background: #023047;
     width: 100px !important;
@@ -2906,6 +2910,10 @@ $color-scheme: (
       border-color: $secondary transparent transparent !important;
     }
     .themeSetDark {
+      color: $secondary !important;
+      background-color: $input-form-color;
+    }
+    .multiselect__spinner {
       color: $secondary !important;
       background-color: $input-form-color;
     }
