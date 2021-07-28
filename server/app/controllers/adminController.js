@@ -1390,11 +1390,13 @@ exports.referralStatusUpdate = async (ctx) => {
 
 
 exports.sendReferralCopy = async ctx => {
-    console.log("ctx.request.body.referralData", ctx.query.refPdfCode + ',' + ctx.query.role + ','+ ctx.query.profEmail);
-    let referralData = await getRefData(ctx.query.refPdfCode, ctx.query.role, ctx);
+    console.log(ctx.request.body)
+    console.log("ctx.request.body.referralData", ctx.request.body.refPdfCode + ',' + ctx.request.body.role + ','+ ctx.request.body.professional_email);
+    let referralData = await getRefData(ctx.request.body.refPdfCode, ctx.request.body.role, ctx);
     ctx.request.body.referralData = referralData;
-    ctx.request.body.emailToProvider = ctx.query.profEmail;
-    ctx.request.body.refCode = ctx.query.refCode;
+    ctx.request.body.emailToProvider = ctx.request.body.professional_email;
+   // ctx.request.body.referralCode = ctx.request.body.referralCode;
+   ctx.request.body.sendProf = true;
     try {
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             console.log(sendReferralStatus)
@@ -1402,7 +1404,7 @@ exports.sendReferralCopy = async ctx => {
                 message: reponseMessages[1017],
             });
         }).catch(error => {
-            //////console.log()(error, "error");
+            console.log(error, "error");
            console.log("false")
           return false;
         });

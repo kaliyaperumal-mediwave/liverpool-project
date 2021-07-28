@@ -3092,8 +3092,8 @@ exports.getProfReferral = async (ctx) => {
 
 exports.sendReferralToMe = ctx => {
 
-  console.log("ctx.query------------------------------------------------------")
-  console.log(ctx.query)
+  console.log("ctx.body------------------------------------------------------")
+  console.log(ctx.request.body)
 
 
   return adminCtrl.sendReferralCopy(ctx).then((providermailStatus) => {
