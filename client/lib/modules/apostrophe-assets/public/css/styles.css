@@ -1046,14 +1046,6 @@ table.dataTable tbody th.select-checkbox:before {
 .modal-content .btn {
   background: #ffffff 0% 0% no-repeat padding-box !important; }
 
-::placeholder {
-  text-align: left;
-  font-size: 16px;
-  font-weight: normal;
-  letter-spacing: 0px;
-  color: #023047;
-  opacity: 0.3; }
-
 .overlay {
   left: 0;
   top: 0;
@@ -1170,6 +1162,8 @@ body {
     text-overflow: ellipsis; }
   body .multiselect__select:before {
     border-color: #023047 transparent transparent !important; }
+  body .multiselect__spinner {
+    background-color: #e8edee; }
   body .multiselect__tag {
     background: #023047;
     width: 100px !important;
@@ -3854,6 +3848,10 @@ body .ui-widget .ui-menu-item {
   color: #023047 !important;
   background-color: #e8edee; }
 
+.off .multiselect__spinner {
+  color: #023047 !important;
+  background-color: #e8edee; }
+
 .off .text_inside_play-store-orcha {
   background-color: #ffffff;
   color: #023047; }
@@ -4273,6 +4271,10 @@ body .ui-widget .ui-menu-item {
   border-color: #fafafa transparent transparent !important; }
 
 .on .themeSetDark {
+  color: #fafafa !important;
+  background-color: #535454; }
+
+.on .multiselect__spinner {
   color: #fafafa !important;
   background-color: #535454; }
 
