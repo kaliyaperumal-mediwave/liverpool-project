@@ -16,6 +16,7 @@ endblock %} {% block extraHead %}
 <link rel="icon" type="image/png" sizes="512x512" href="/modules/my-apostrophe-assets/img/android-chrome-512x512.png">
 <link rel="shortcut icon" href="/modules/my-apostrophe-assets/img/favicons.ico">
 <meta property="og:image" content="/modules/my-apostrophe-assets/img/favicon-32x32.png">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 <!--Font Family Cdn-->
 <link rel="stylesheet" href="https://use.typekit.net/htu8woz.css" />
@@ -86,7 +87,7 @@ endblock %} {% block extraHead %}
 <script>
   $(document).ready(function () {
     var iFrameDetection = (window === window.parent) ? false : true;
-    if(iFrameDetection){
+    if (iFrameDetection) {
       $('.button-referral-link').attr('target', '_blank');
     }
     $('#example-search-input').val('');
@@ -188,7 +189,8 @@ endblock %} {% block extraHead %}
           <div class="collapse" id="collapseExample">
             <div class="collapse-body text-decoration-none">
               <div class="border-bottom-0 cursor-pointer inside-cont-slider">
-                <a class="text-decoration-none button-referral-link" href="{{ data.navigateMkeRfrl }}">Make a referral</a>
+                <a class="text-decoration-none button-referral-link" href="{{ data.navigateMkeRfrl }}">Make a
+                  referral</a>
               </div>
               {% if data.showLogout %}
               <div class="border-bottom-0 cursor-pointer inside-cont-slider">
