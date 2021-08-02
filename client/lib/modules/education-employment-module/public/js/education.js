@@ -49,7 +49,8 @@ $(document).ready(function () {
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             aboutYourSelf: [],
-            showInstitution: false
+            showInstitution: false,
+            isGoogleAddressSelected: false,
         },
 
         beforeMount: function () {
@@ -85,6 +86,7 @@ $(document).ready(function () {
 
                     })
                     _self.educAndEmpData.attendedInfo = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
+                    _self.isGoogleAddressSelected = true;
                 });
             },
 
@@ -254,6 +256,10 @@ $(document).ready(function () {
                     } else {
                         if (this.showInstitution) {
                             if (formData.attendedInfo || this.educationManualAddressData.length) {
+                                if (this.educAndEmpData.attendedInfo && !this.isGoogleAddressSelected) {
+                                    scrollToInvalidInput();
+                                    return false;
+                                }
                                 $('#loaderEduc').show();
                                 this.payloadData.educAndEmpData.childEducationManualAddress = this.educationManualAddressData;
                                 this.upsertEducationForm(this.payloadData);
@@ -296,6 +302,10 @@ $(document).ready(function () {
                 else if (formData.haveSocialWorker === 'no') {
                     if (this.showInstitution) {
                         if (formData.attendedInfo || this.educationManualAddressData.length) {
+                            if (this.educAndEmpData.attendedInfo && !this.isGoogleAddressSelected) {
+                                scrollToInvalidInput();
+                                return false;
+                            }
                             $('#loaderEduc').show();
                             this.payloadData.educAndEmpData.childEducationManualAddress = this.educationManualAddressData;
                             this.upsertEducationForm(this.payloadData);
@@ -395,6 +405,9 @@ $(document).ready(function () {
             //Function to trim space entered
             trimWhiteSpace: function (event, obj, key) {
                 preventWhiteSpaces(event, this, obj, key)
+                if (!this.educAndEmpData.attendedInfo) {
+                    this.isGoogleAddressSelected = false;
+                }
             },
 
             //Patching the value logic
