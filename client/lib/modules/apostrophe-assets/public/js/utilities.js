@@ -536,20 +536,22 @@ function setTheme() {
     var logoElem = document.getElementById('logoBgHome');
     var placeholderImg = document.getElementsByClassName('toggle-img-placehold');
     var theme = localStorage.getItem('theme');
-    if (theme == 'light') {
+    if (theme && theme == 'light') {
         $('body').removeClass().addClass('net off').addClass('body-bg');
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool.svg";
             placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder.svg";
         }
         localStorage.setItem('theme', 'light');
-    } else if (theme == 'dark') {
+    } else if (theme && theme == 'dark') {
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool_dark.svg";
             placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder_white.svg";
         }
         $('body').removeClass().addClass('net on').addClass('body-bg');
         localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
     }
 }
 
@@ -622,8 +624,8 @@ function openSideDrawer() {
     document.getElementById("side-drawer").style.left = "0";
     document.getElementById("side-drawer-void").classList.add("d-block");
     document.getElementById("side-drawer-void").classList.remove("d-none");
-    if(window.innerWidth < 768){
-    document.body.classList.toggle('lock-scroll');
+    if (window.innerWidth < 768) {
+        document.body.classList.toggle('lock-scroll');
     }
 }
 
@@ -631,8 +633,8 @@ function closeSideDrawer() {
     document.getElementById("side-drawer").style.left = "-336px";
     document.getElementById("side-drawer-void").classList.add("d-none");
     document.getElementById("side-drawer-void").classList.remove("d-block");
-    if(window.innerWidth < 768){
-    document.body.classList.toggle('lock-scroll');
+    if (window.innerWidth < 768) {
+        document.body.classList.toggle('lock-scroll');
     }
 }
 

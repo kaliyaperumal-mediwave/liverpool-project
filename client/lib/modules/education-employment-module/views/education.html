@@ -81,6 +81,10 @@
                                     v-bind:class="{ 'd-block': (isFormSubmitted && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)),'invalid-fields': (!educAndEmpData.attendedInfo && !educationManualAddressData.length) }">
                                     You must provide a address.
                                 </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && (educAndEmpData.attendedInfo && !isGoogleAddressSelected)),'invalid-fields': (educAndEmpData.attendedInfo && !isGoogleAddressSelected) }">
+                                    You must provide a valid address.
+                                </div>
                             </div>
                         </div>
                         <p class="link-text text-right mb-0 mt-2 cursor-pointer"

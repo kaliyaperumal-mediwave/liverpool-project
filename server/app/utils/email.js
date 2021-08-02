@@ -208,7 +208,7 @@ exports.sendReferralWithData = async ctx => new Promise((resolve, reject) => {
         }
         else {
             toAddress = ctx.request.body.emailToProvider;
-            ctx.request.body.refCode =ctx.query.referralCode
+            ctx.request.body.refCode =ctx.request.body.referralCode
             sendProf = true;
         }
         console.log('toAddress----------', toAddress);
@@ -260,7 +260,7 @@ function attachMailData(pdfReferral, ctx, toAddress, serviceName) {
     var attachmentFiles = {};
     try {
 
-        if (sendProf) {
+        if (ctx.request.body.sendProf) {
             const csvHeader = ["Title", "Name"];
             const dataCsv = getCSVData(ctx);
             const csv = parse(dataCsv, csvHeader);

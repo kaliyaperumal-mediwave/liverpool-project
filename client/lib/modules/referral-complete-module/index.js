@@ -91,13 +91,14 @@ module.exports = {
       });
     });
 
-    self.route('get', 'sendReferralToMe/:role/:profEmail/:refPdfCode/:referralCode', function (req, res) {
+    self.route('post', 'sendReferralToMe/', function (req, res) {
       //req.body.email = req.session.email
-      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendReferralToMe?role=' + req.params.role +'&profEmail='+ req.params.profEmail +'&refPdfCode='+ req.params.refPdfCode +'&referralCode='+ req.params.referralCode;
+    //  var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendReferralToMe?role=' + req.params.role +'&profEmail='+ req.params.profEmail +'&refPdfCode='+ req.params.refPdfCode +'&referralCode='+ req.params.referralCode;
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/referral/sendReferralToMe';
       //console.log("-------");
       //console.log(url);
       //console.log("-------");
-      self.middleware.get(req, url).then((data) => {
+      self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
         console.log("---- error -------", error)

@@ -127,21 +127,40 @@ $(document).ready(function () {
             sendReferralToMe: function () {
                 var _self = this;
                 console.log("working")
+                $('#loader').show();
                 $.ajax({
-                    url: API_URI + "/sendReferralToMe/" + _self.ackObj.role + "/" + _self.ackObj.professional_email + "/" + _self.ackObj.refPdfCode + "/" + _self.ackObj.referralCode,
-                    type: 'get',
+                    url: API_URI + "/sendReferralToMe/" ,
+                    type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
-                    success: function (data) {
-                  //      console.log(data)
+                    data: JSON.stringify(_self.ackObj),
+                    cache: false,
+                    success: function (res) {
                         $('#loader').hide();
                         $('#referralSentSuccess').modal('show');
                     },
                     error: function (error) {
+                        console.log(error)
                         $('#loader').hide();
                         showError(error.responseJSON.message, error.status);
                     }
                 });
+                // return;
+                // $.ajax({
+                //     url: API_URI + "/sendReferralToMe/" + _self.ackObj.role + "/" + _self.ackObj.professional_email + "/" + _self.ackObj.refPdfCode + "/" + _self.ackObj.referralCode,
+                //     type: 'post',
+                //     dataType: 'json',
+                //     contentType: 'application/json',
+                //     success: function (data) {
+                //   //      console.log(data)
+                //         $('#loader').hide();
+                //         $('#referralSentSuccess').modal('show');
+                //     },
+                //     error: function (error) {
+                //         $('#loader').hide();
+                //         showError(error.responseJSON.message, error.status);
+                //     }
+                // });
             },
 
             noLoginSignUp: function () {

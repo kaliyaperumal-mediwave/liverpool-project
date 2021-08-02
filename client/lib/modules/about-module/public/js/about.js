@@ -114,6 +114,7 @@ $(document).ready(function () {
             currentSection: 'about',
             paramValues: [],
             editPatchFlag: false,
+            isGoogleAddressSelected: false,
             storeDeleteData: null,
             dateFmt: '',
             addressList: [],
@@ -172,11 +173,18 @@ $(document).ready(function () {
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
+                    _self.isGoogleAddressSelected = true;
                 });
 
                 // google.maps.event.addListener(parentAddress, 'place_changed', function () {
                 //     _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
                 // });
+            },
+
+            checkValid: function () {
+                if (!this.houseHoldData.profession) {
+                    this.isGoogleAddressSelected = false;
+                }
             },
 
             //Reset and Question Flow Logic
@@ -699,6 +707,10 @@ $(document).ready(function () {
                     } else {
                         //this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                         if (houseHoldForm.mode === 'update') {
+                            if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
                             this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                 if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                     it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -712,6 +724,10 @@ $(document).ready(function () {
                             });
                             this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                         } else {
+                            if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
                             houseHoldForm.id = uuidV4();
                             houseHoldForm.mode = 'add';
                             this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
@@ -889,6 +905,7 @@ $(document).ready(function () {
             //Resetting the modal values of service data
             resetModalValues: function () {
                 this.isHouseHoldFormSubmitted = false;
+                this.isGoogleAddressSelected = false;
                 this.houseHoldData.name = '';
                 this.houseHoldData.lastName = '';
                 this.houseHoldData.relationShip = '';
