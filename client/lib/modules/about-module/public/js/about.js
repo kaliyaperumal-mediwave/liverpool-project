@@ -115,7 +115,7 @@ $(document).ready(function () {
             currentSection: 'about',
             paramValues: [],
             editPatchFlag: false,
-            isGoogleAddressSelected: false,
+            isGoogleAddressSelected: true,
             storeDeleteData: null,
             dateFmt: '',
             addressList: [],
@@ -783,6 +783,7 @@ $(document).ready(function () {
                 houseHoldForm.year = houseHold.year;
                 houseHoldForm.profession = houseHold.profession;
                 houseHoldForm.id = houseHold.id;
+                this.isGoogleAddressSelected = true;
                 if (houseHold.manualAddress.profession) {
                     houseHoldForm.manualAddress.profession = houseHold.manualAddress.profession;
                 }
