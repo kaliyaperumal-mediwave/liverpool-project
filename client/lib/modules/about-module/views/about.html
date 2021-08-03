@@ -194,9 +194,14 @@
                                 You must provide a number.
                             </div>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)),
-                                'invalid-fields':(aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)) }">
-                                You must provide a valid number.
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.childContactNumber)),
+                                'invalid-fields':(aboutObj.childContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.childContactNumber)) }">
+                                You must provide a valid mobile number.
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.childContactNumber)),
+                            'invalid-fields':(aboutObj.childContactNumber &&  aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.childContactNumber)) }">
+                                You must provide a valid landline number.
                             </div>
                         </div>
                     </div>
@@ -845,9 +850,14 @@
                                     You must provide a number.
                                 </div>
                                 <div class="invalid-feedback d-none"
-                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)),
-                                    'invalid-fields':(aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) }">
-                                    You must provide a valid number.
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && parentContactMode =='mobile' && !phoneRegex.test(aboutFormData.contactNumber)),
+                                    'invalid-fields':(aboutFormData.contactNumber &&  parentContactMode =='mobile' && !phoneRegex.test(aboutFormData.contactNumber)) }">
+                                    You must provide a valid mobile number.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && parentContactMode == 'landline' && !landlineRegex.test(aboutFormData.contactNumber)),
+                                'invalid-fields':(aboutFormData.contactNumber &&  parentContactMode == 'landline' && !landlineRegex.test(aboutFormData.contactNumber)) }">
+                                    You must provide a valid landline number.
                                 </div>
                             </div>
                         </div>

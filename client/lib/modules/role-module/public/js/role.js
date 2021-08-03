@@ -103,6 +103,7 @@ $(document).ready(function () {
             addressList: [],
             //phoneRegex: /^[0-9,-]{10,15}$|^$/,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
+            landlineRegex: /^0[0-9]{10}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
@@ -112,7 +113,7 @@ $(document).ready(function () {
             dateVal: "",
             monthVal: "",
             yearVal: "",
-            dateRegex:/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
         },
 
         beforeMount: function () {
@@ -874,13 +875,12 @@ $(document).ready(function () {
             },
 
             getDob: function () {
-                var selectedDate = this.dateVal+'/'+this.monthVal+'/'+this.yearVal
+                var selectedDate = this.dateVal + '/' + this.monthVal + '/' + this.yearVal
                 // console.log(selectedDate)
                 // console.log(this.dateRegex.test(selectedDate));
-                if(this.dateRegex.test(selectedDate))
-                {
+                if (this.dateRegex.test(selectedDate)) {
                     this.elgibilityObj.childDob = selectedDate;
-                    this.changeDob("",selectedDate)
+                    this.changeDob("", selectedDate)
                 }
             },
 
@@ -1084,10 +1084,16 @@ $(document).ready(function () {
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
+                var dynamicRegexPattern;
+                if (this.elgibilityObj.professional_contact_type == "mobile") {
+                    dynamicRegexPattern = this.phoneRegex
+                } else if (this.elgibilityObj.professional_contact_type == "landline") {
+                    dynamicRegexPattern = this.landlineRegex;
+                }
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.phoneRegex.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
@@ -1244,7 +1250,7 @@ $(document).ready(function () {
             fetchAgeLogic: function (dbdob, roleText) {
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
-               // console.log(selectedDate)
+                // console.log(selectedDate)
                 this.formatDateToString(selectedDate)
                 var age = this.diff_years(today, selectedDate);
                 console.log(age)
@@ -1304,25 +1310,25 @@ $(document).ready(function () {
                     }
 
                 }
-              
+
 
 
             },
 
-             formatDateToString:function(inputdate){
-               //  console.log(inputdate)
+            formatDateToString: function (inputdate) {
+                //  console.log(inputdate)
                 var date = new Date(inputdate)
-               // console.log(date)
+                // console.log(date)
                 // 01, 02, 03, ... 29, 30, 31
                 this.dateVal = (date.getDate() < 10 ? '0' : '') + date.getDate();
                 // 01, 02, 03, ... 10, 11, 12
                 this.monthVal = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
                 // 1970, 1971, ... 2015, 2016, ...
                 this.yearVal = date.getFullYear();
-             
+
                 // create the format you want
                 //return (dd + "-" + MM + "-" + yyyy);
-             },
+            },
 
             bindGpAddress: function (gpAddress, role) {
                 if (role == "professional") {
