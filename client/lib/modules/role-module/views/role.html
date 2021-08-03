@@ -128,7 +128,7 @@
             <!-- calender start child-->
             <form id="child-Dob-form" data-options="childDob">
                 <div v-show="elgibilityObj.role == 'child' && elgibilityObj.interpreter == 'no'"
-                    class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+                    class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <!-- <p v-show="elgibilityObj.role=='child'" class="question-font m-0">What is your date of birth?
                         {{elgibilityObj.maxDate}}</p> -->
                     <div v-show="elgibilityObj.role=='child'" class="question-font m-0">
@@ -144,7 +144,7 @@
                         }
                         }) }}
                         {{elgibilityObj.maxDate}}</div>
-                    <div class="input-group" id="dobRoleCal">
+                    <!-- <div class="input-group" id="dobRoleCal">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.childDob" autocomplete="off" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
@@ -153,6 +153,26 @@
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
+                        </div>
+                    </div> -->
+                    <div class="row mt-2">
+                        <div class="col-4 pr-1 pr-md-0 col-md-3">
+                            <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-4 pr-1 pr-md-0 col-md-3">
+                            <multiselect :options="monthArr" v-model="monthVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" :hide-selected="true" placeholder="MM"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-4 col-md-4">
+                            <multiselect :options="yearArr" v-model="yearVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="YYYY" :hide-selected="true"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
                         </div>
                     </div>
                 </div>
@@ -166,7 +186,7 @@
                     <!-- <p v-show="elgibilityObj.role=='parent'" class="question-font m-0">What is your child’s date of
                         birth?
                     </p> -->
-                    <div v-show="elgibilityObj.role=='parent'" class="question-font m-0">
+                    <div v-show="elgibilityObj.role=='parent'" class="question-font mb-2">
                         {{ apos.area(data.page, 'referral1_titlechild', {
                         widgets: {
                         'apostrophe-rich-text': {
@@ -180,17 +200,38 @@
                     </div>
                     {% raw %}
 
-                    <div class="input-group">
+                    <!-- <div class="input-group" id="dummy">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
-                            v-model="elgibilityObj.childDob" @dp-show="resetFlag($event)"
-                            @dp-change="changeDob($event,elgibilityObj.childDob)" :config="options" :wrap="dateWrap">
+                          
+                           :config="options" :wrap="dateWrap">
                         </date-picker>
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-4 pr-1 pr-md-0 col-md-3">
+                            <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-4 pr-1 pr-md-0 col-md-3">
+                            <multiselect :options="monthArr" v-model="monthVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" :hide-selected="true" placeholder="MM"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-4 col-md-4">
+                            <multiselect :options="yearArr" v-model="yearVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="YYYY" :hide-selected="true"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
                     </div>
+
                     {% endraw %}
                 </div>
             </form>
@@ -786,7 +827,8 @@
                     </div>
                     <div class="form-check py-2 pl-0">
                         <input class="form-check-input" type="radio" name="liverpoolService"
-                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST Liverpool" @change="onChange($event)">
+                            v-model="elgibilityObj.liverpoolService" id="MHST" value="MHST Liverpool"
+                            @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center" for="MHST">
                             Mental Health Support Team (only school professionals can refer)
                         </label>
@@ -1234,7 +1276,7 @@
                 <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
-                    <div class="input-group">
+                    <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
                             @dp-change="changeDob($event,elgibilityObj.profChildDob)" :config="options"
@@ -1244,6 +1286,26 @@
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
+                        </div>
+                    </div> -->
+                    <div class="row mt-2">
+                        <div class="col-4 pr-1 pr-md-0 col-md-3">
+                            <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-4 pr-1 pr-md-0 col-md-3">
+                            <multiselect :options="monthArr" v-model="monthVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" :hide-selected="true" placeholder="MM"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
+                        </div>
+                        <div class="col-4 col-md-4">
+                            <multiselect :options="yearArr" v-model="yearVal" :show-labels="false" :searchable="true"
+                                :close-on-select="true" placeholder="YYYY" :hide-selected="true"
+                                class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
+                            </multiselect>
                         </div>
                     </div>
                 </div>
@@ -1449,7 +1511,8 @@
                 <div v-show="(elgibilityObj.role=='professional' && elgibilityObj.profChildDob!=null && getStringLength(elgibilityObj.regProfGpTxt) > 3 && elgibilityObj.gpNotCoveredProf == true)"
                     class="px-4 py-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="form-group">
-                        <label for="gpSchool" class="question-font mb-1">Where does the child/young person go to school?</label>
+                        <label for="gpSchool" class="question-font mb-1">Where does the child/young person go to
+                            school?</label>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" name="gpAttendSchool"
                                 v-model="elgibilityObj.gpSchool" id="liverpoolSchool" value="Liverpool"

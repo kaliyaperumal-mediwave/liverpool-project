@@ -63,6 +63,9 @@ $(document).ready(function () {
                 name: '',
                 lastName: '',
                 relationShip: '',
+                day: '',
+                month: '',
+                year: '',
                 dob: '',
                 profession: '',
                 manualAddress: {
@@ -94,6 +97,7 @@ $(document).ready(function () {
             showFlagHouseHold: false,
             allHouseHoldMembers: [],
             showManualAddressHouseHold: false,
+            showHouseHoldAddress: false,
             isAddressFormSubmitted: false,
             isAddressFormParentSubmitted: false,
             isFormSubmitted: false,
@@ -114,12 +118,24 @@ $(document).ready(function () {
             storeDeleteData: null,
             dateFmt: '',
             addressList: [],
+            dateArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            monthArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            yearArr: [],
+            dateVal: "",
+            monthVal: "",
+            yearVal: "",
+            dobString: "",
+            dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
         },
         beforeMount: function () {
             $('#loader').show();
         },
 
         mounted: function () {
+            var date = new Date().getFullYear();
+            for (var i = date; i > 1989; i--) {
+                this.yearArr.push(i);
+            }
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
@@ -749,6 +765,9 @@ $(document).ready(function () {
                 houseHoldForm.lastName = houseHold.lastName;
                 houseHoldForm.relationShip = houseHold.relationShip;
                 houseHoldForm.dob = houseHold.dob;
+                houseHoldForm.day = houseHold.day;
+                houseHoldForm.month = houseHold.month;
+                houseHoldForm.year = houseHold.year;
                 houseHoldForm.profession = houseHold.profession;
                 houseHoldForm.id = houseHold.id;
                 if (houseHold.manualAddress.profession) {
@@ -890,6 +909,9 @@ $(document).ready(function () {
                 this.houseHoldData.name = '';
                 this.houseHoldData.lastName = '';
                 this.houseHoldData.relationShip = '';
+                this.houseHoldData.day = '';
+                this.houseHoldData.month = '';
+                this.houseHoldData.year = '';
                 this.houseHoldData.dob = '';
                 this.houseHoldData.profession = '';
                 this.houseHoldData.mode = '';
@@ -929,6 +951,33 @@ $(document).ready(function () {
                 if (this.getAge(date) > 19) {
                     this.houseHoldData.profession = "";
                 }
+            },
+
+            getDob: function () {
+                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
+                var selectedDate = this.houseHoldData.day + '/' + this.houseHoldData.month + '/' + this.houseHoldData.year
+                if (this.houseHoldData.day && this.houseHoldData.month && this.houseHoldData.year) {
+                    if (this.getAge(selectedDate) < 19) {
+                        this.houseHoldData.dob = selectedDate;
+                        this.showHouseHoldAddress = true;
+                    } else {
+                        this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                        this.showManualAddressHouseHold = false;
+                        manualHouseHoldText.innerText = 'Enter manually';
+                        this.showHouseHoldAddress = false;
+                        this.houseHoldData.profession = "";
+                        this.resetHouseholdManualAddressValue();
+                    }
+
+                } else {
+                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                    this.showManualAddressHouseHold = false;
+                    manualHouseHoldText.innerText = 'Enter manually';
+                    this.showHouseHoldAddress = false;
+                    this.houseHoldData.profession = "";
+                    this.resetHouseholdManualAddressValue();
+                }
+
             },
 
             getAge: function (dateString) {
