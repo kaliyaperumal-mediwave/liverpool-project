@@ -127,6 +127,8 @@ $(document).ready(function () {
             yearVal: "",
             dobString: "",
             dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dynamicRegexChild: /^\+{0,1}[0-9 ]{10,16}$/,
+            dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
         },
         beforeMount: function () {
             $('#loader').show();
@@ -443,34 +445,34 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
-                var dynamicRegexChild;
-                var dynamicRegexParent;
+                // var dynamicRegexChild;
+                // var dynamicRegexParent;
                 if (this.aboutObj.contactMode == "mobile") {
-                    dynamicRegexChild = this.phoneRegex
+                    this.dynamicRegexChild = this.phoneRegex
                 } else if (this.aboutObj.contactMode == "landline") {
-                    dynamicRegexChild = this.landlineRegex;
+                    this.dynamicRegexChild = this.landlineRegex;
                 }
                 if (this.parentContactMode == "mobile") {
-                    dynamicRegexParent = this.phoneRegex
+                    this.dynamicRegexParent = this.phoneRegex
                 } else if (this.parentContactMode == "landline") {
-                    dynamicRegexParent = this.landlineRegex;
+                    this.dynamicRegexParent = this.landlineRegex;
                 }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
                     formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
-                    && dynamicRegexParent.test(formData.contactNumber) && dynamicRegexChild.test(formData.childContactNumber)
+                    && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexChild.test(formData.childContactNumber)
                 ) {
                     if (formData.childAddress || this.childManualAddress.length) {
                         if (formData.parentialResponsibility == 'no' && (!formData.parentCarerFirstName || !formData.parentCarerLastName || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !dynamicRegexChild.test(formData.childContactNumber))
-                            || (formData.contactNumber && !dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
                         if (formData.parentialResponsibility == 'yes' && ((formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !dynamicRegexChild.test(formData.childContactNumber))
-                            || (formData.contactNumber && !dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
@@ -512,6 +514,22 @@ $(document).ready(function () {
                 } else {
                     scrollToInvalidInput();
                     return false;
+                }
+            },
+
+            selectContactTypeChild: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexChild = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexChild = this.landlineRegex;
+                }
+            },
+
+            selectContactTypeParent: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexParent = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexParent = this.landlineRegex;
                 }
             },
 
@@ -1026,6 +1044,8 @@ $(document).ready(function () {
             customLabel: function (option) {
                 return option
             },
+
+
 
             updateSelected: function (value) {
                 if (value & value.length) {

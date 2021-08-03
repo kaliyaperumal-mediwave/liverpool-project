@@ -987,6 +987,7 @@
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select custom-mobile-place">
                                     <select v-model="elgibilityObj.professional_contact_type"
+                                        @change="selectContactTypeProfessional(elgibilityObj.professional_contact_type)"
                                         class="custom-select form-control input-bg-form-control">
                                         <option selected="selected" value="mobile">Mobile</option>
                                         <option value="landline">Landline</option>
@@ -1579,7 +1580,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1592,7 +1593,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">

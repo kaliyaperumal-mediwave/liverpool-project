@@ -52,6 +52,7 @@ $(document).ready(function () {
             aboutYourSelf: [],
             showInstitution: false,
             isGoogleAddressSelected: true,
+            dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
         },
 
         beforeMount: function () {
@@ -242,11 +243,11 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
-                var dynamicRegexPattern;
+                // var dynamicRegexPattern;
                 if (this.socialWorkContactType == "mobile") {
-                    dynamicRegexPattern = this.phoneRegex
+                    this.dynamicRegexPattern = this.phoneRegex
                 } else if (this.socialWorkContactType == "landline") {
-                    dynamicRegexPattern = this.landlineRegex;
+                    this.dynamicRegexPattern = this.landlineRegex;
                 }
                 if (this.educAndEmpData.haveSocialWorker === 'yes') {
                     this.educAndEmpData.socialWorkContactType = this.socialWorkContactType;
@@ -257,7 +258,7 @@ $(document).ready(function () {
                 this.payloadData.role = this.userRole;
                 this.payloadData.userid = this.userId;
                 if (formData.haveSocialWorker === 'yes') {
-                    if (formData.socialWorkContact && !dynamicRegexPattern.test(formData.socialWorkContact)) {
+                    if (formData.socialWorkContact && !this.dynamicRegexPattern.test(formData.socialWorkContact)) {
                         scrollToInvalidInput();
                         return false;
                     } else {
@@ -309,6 +310,14 @@ $(document).ready(function () {
                     this.upsertEducationForm(this.payloadData);
                 }
 
+            },
+
+            selectContactTypeProfessional: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
             },
 
             //Section 3(Education) Save and Service call with navigation's Logic
