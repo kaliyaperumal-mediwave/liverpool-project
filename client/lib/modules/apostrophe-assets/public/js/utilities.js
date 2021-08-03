@@ -239,28 +239,35 @@ function backToPreviousPage(section, userId, userRole) {
 
 
 //Scroll to top for an Invalid Inputs
-function scrollToInvalidInput() {
+function scrollToInvalidInput(type) {
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
+
     if (Array.from(errorElements).length) {
-        if (errorElements[0].parentElement) {
-            errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+        if (type) {
+            if (errorElements[1].parentElement) {
+                errorElements[1].parentElement.scrollIntoView(true, { behavior: "smooth", });
+            } else {
+                errorElements[1].scrollIntoView(true, { behavior: "smooth", });
+            }
+            var scrolledY = window.scrollY;
+            if (scrolledY) {
+                window.scroll(0, scrolledY - headerHeight);
+            }
         } else {
-            errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+            if (errorElements[0].parentElement) {
+                errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+            } else {
+                errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+            }
+            var scrolledY = window.scrollY;
+            if (scrolledY) {
+                window.scroll(0, scrolledY - headerHeight);
+            }
         }
-        var scrolledY = window.scrollY;
-        if (scrolledY) {
-            window.scroll(0, scrolledY - headerHeight);
-        }
+
     }
-    // errorElements[0].scrollIntoView(true, { behavior: 'smooth' })
-    // setTimeout(function () {
-    //     window.scroll({
-    //         top: errorElements[0].offsetTop - headerHeight,
-    //         left: 0,
-    //         behavior: "smooth"
-    //     });
-    // }, 200)
+
 
 };
 
