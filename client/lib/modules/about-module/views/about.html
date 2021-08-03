@@ -1456,7 +1456,7 @@
                                 <!-- Household D.O.B start -->
                                 <div class="form-group">
                                     <label for="dob" class="question-font">Date of birth - <b>optional</b></label>
-                                    <div class="input-group" id="dobAboutCal">
+                                    <!-- <div class="input-group" id="dobAboutCal">
                                         <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
                                             @dp-show="setCalendarHeight($event)"
                                             @dp-change="toggleHouseHoldManualAddress($event)"
@@ -1467,8 +1467,8 @@
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
                                         </div>
-                                    </div>
-                                    <!-- <div class="row">
+                                    </div> -->
+                                    <div class="row">
                                         <div class="col-4 pr-1 pr-md-0 col-md-3">
                                             <multiselect :options="dateArr" v-model="houseHoldData.day"
                                                 :show-labels="false" :searchable="true" :close-on-select="true"
@@ -1494,7 +1494,7 @@
                                     <div class="invalid-feedback d-none mt-2"
                                         v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (!houseHoldData.day || !houseHoldData.month || !houseHoldData.year)),'invalid-modal-fields': (!houseHoldData.day || !houseHoldData.month || !houseHoldData.year) }">
                                         Please provide a valid date.
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <!-- Household D.O.B end -->
 
