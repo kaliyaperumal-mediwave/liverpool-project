@@ -558,8 +558,12 @@
                                             You must provide the 11 digit contact number.
                                         </div> -->
                                         <div class="text-validation invalid-feedback  d-none"
-                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && serviceData.contact && !phoneRegex.test(serviceData.contact))}">
-                                            You must provide a real 11 digit contact number.
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && serviceData.contact && serviceData.contactMode == 'mobile' && !phoneRegex.test(serviceData.contact))}">
+                                            You must provide a valid mobile number.
+                                        </div>
+                                        <div class="text-validation invalid-feedback  d-none"
+                                            v-bind:class="{ 'd-block': (hasSubmittedServiceForm && serviceData.contact && serviceData.contactMode == 'landline' && !landlineRegex.test(serviceData.contact))}">
+                                            You must provide a valid landline number.
                                         </div>
                                     </div>
                                 </form>

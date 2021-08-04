@@ -174,7 +174,7 @@
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select custom-mobile-place">
                                     <select class="custom-select form-control input-bg-form-control"
-                                        v-model="aboutObj.contactMode">
+                                        @change="selectContactTypeChild(aboutObj.contactMode)" v-model="aboutObj.contactMode">
                                         <option selected="selected" value="mobile">Mobile</option>
                                         <option value="landline">Landline</option>
                                     </select>
@@ -829,7 +829,7 @@
                                     <div class="input-group-prepend cursor-pointer">
                                         <span class="plain-select custom-mobile-place">
                                             <select v-model="parentContactMode"
-                                                class="custom-select form-control input-bg-form-control">
+                                            @change="selectContactTypeParent(parentContactMode)" class="custom-select form-control input-bg-form-control">
                                                 <option selected="selected" value="mobile">Mobile</option>
                                                 <option value="landline">Landline</option>
                                             </select>
@@ -1034,7 +1034,7 @@
                     && aboutObj.childFirstName
                     && aboutObj.childLastName
                     && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
-                    && (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber))
+                    && (aboutObj.childContactNumber && dynamicRegexChild.test(aboutObj.childContactNumber))
                     && (aboutObj.childAddress || (!aboutObj.childAddress && childManualAddress.length))
                     && aboutObj.sendPost
                     && aboutObj.childGender
@@ -1045,14 +1045,14 @@
                     && (
                             (aboutFormData.parentialResponsibility =='yes' && (
                                 aboutFormData.relationshipToYou
-                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (aboutFormData.contactNumber && dynamicRegexParent.test(aboutFormData.contactNumber))
                                 && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
                             ))
                         || (aboutFormData.parentialResponsibility =='no' && (
                                 aboutFormData.parentCarerFirstName
                                 && aboutFormData.parentCarerLastName
                                 && aboutFormData.relationshipToYou
-                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (aboutFormData.contactNumber && dynamicRegexParent.test(aboutFormData.contactNumber))
                                 && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
                             ))
                         )
@@ -1499,7 +1499,7 @@
                                 <!-- Household D.O.B end -->
 
                                 <!-- Household School/College/Employment start -->
-                                <div class="form-group" v-show="showHouseHoldAddress">
+                                <div class="form-group" v-show="getAge(houseHoldData.dob) < 19">
                                     <div id="94a4bca4-a05e-44d6-974b-0f09e2e4c576">
                                         <label for="educLocation" style="word-break: break-word;" inputmode="search"
                                             class="question-font">School/College/Employment-<b>optional</b></label>

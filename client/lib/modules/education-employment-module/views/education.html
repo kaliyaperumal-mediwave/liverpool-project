@@ -316,6 +316,7 @@
                                 <div class="input-group-prepend cursor-pointer">
                                     <span class="plain-select custom-mobile-place">
                                         <select v-model="socialWorkContactType"
+                                            @change="selectContactTypeProfessional(socialWorkContactType)"
                                             class="custom-select form-control input-bg-form-control">
                                             <option selected="selected" value="mobile">Mobile</option>
                                             <option value="landline">Landline</option>
@@ -371,7 +372,7 @@
                 </div>
 
                 <div class="px-4 py-4"
-                    v-if="educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                    v-if="educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && dynamicRegexPattern.test(educAndEmpData.socialWorkContact))">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <div class="text-center m-0 pt-2 pb-1">
@@ -389,7 +390,7 @@
                 </div>
 
                 <div class="px-4 py-4"
-                    v-if="educAndEmpData.haveSocialWorker == 'yes' && !showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                    v-if="educAndEmpData.haveSocialWorker == 'yes' && !showInstitution && (educAndEmpData.socialWorkContact && dynamicRegexPattern.test(educAndEmpData.socialWorkContact))">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <div class="text-center m-0 pt-2 pb-1">

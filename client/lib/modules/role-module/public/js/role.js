@@ -114,6 +114,7 @@ $(document).ready(function () {
             monthVal: "",
             yearVal: "",
             dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
         },
 
         beforeMount: function () {
@@ -1084,16 +1085,16 @@ $(document).ready(function () {
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
-                var dynamicRegexPattern;
+                //var dynamicRegexPattern;
                 if (this.elgibilityObj.professional_contact_type == "mobile") {
-                    dynamicRegexPattern = this.phoneRegex
+                    this.dynamicRegexPattern = this.phoneRegex
                 } else if (this.elgibilityObj.professional_contact_type == "landline") {
-                    dynamicRegexPattern = this.landlineRegex;
+                    this.dynamicRegexPattern = this.landlineRegex;
                 }
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
@@ -1141,6 +1142,14 @@ $(document).ready(function () {
                     this.elgibilityObj.registered_gp = gpArray[0];
                     //this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
+                }
+            },
+
+            selectContactTypeProfessional: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
                 }
             },
 
