@@ -239,12 +239,12 @@ $(document).ready(function () {
                     success: function (res) {
                         var successData = res;
                         if (successData && Object.keys(successData)) {
-                            if (successData.data.result.items.length) {
+                            if (successData.data && successData.data.result.items.length) {
                                 _self.filteredAppsList = successData.data.result.items;
                             } else {
                                 _self.filteredAppsList = [];
                             }
-                            if (successData.data.result.pagingInfo) {
+                            if ( successData.data  && successData.data.result.pagingInfo) {
                                 _self.paginationData.currentPage = successData.data.result.pagingInfo.currentPage;
                                 _self.paginationData.perPage = successData.data.result.pagingInfo.itemsPerPage;
                                 _self.paginationData.totalItems = successData.data.result.pagingInfo.totalItems;
