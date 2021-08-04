@@ -141,6 +141,7 @@ body {
     }
     textarea {
       color: #8f979e !important;
+     // height: 70px !important;
     }
     @include placeholder(#8f979e);
   }

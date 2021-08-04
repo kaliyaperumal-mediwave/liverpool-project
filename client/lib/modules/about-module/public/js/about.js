@@ -63,6 +63,9 @@ $(document).ready(function () {
                 name: '',
                 lastName: '',
                 relationShip: '',
+                day: '',
+                month: '',
+                year: '',
                 dob: '',
                 profession: '',
                 manualAddress: {
@@ -94,6 +97,7 @@ $(document).ready(function () {
             showFlagHouseHold: false,
             allHouseHoldMembers: [],
             showManualAddressHouseHold: false,
+            showHouseHoldAddress: false,
             isAddressFormSubmitted: false,
             isAddressFormParentSubmitted: false,
             isFormSubmitted: false,
@@ -101,6 +105,7 @@ $(document).ready(function () {
             isHouseHoldFormSubmitted: false,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
+            landlineRegex: /^0[0-9]{10}$/,
             // phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -110,16 +115,30 @@ $(document).ready(function () {
             currentSection: 'about',
             paramValues: [],
             editPatchFlag: false,
-            isGoogleAddressSelected: false,
+            isGoogleAddressSelected: true,
             storeDeleteData: null,
             dateFmt: '',
             addressList: [],
+            dateArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            monthArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            yearArr: [],
+            dateVal: "",
+            monthVal: "",
+            yearVal: "",
+            dobString: "",
+            dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dynamicRegexChild: /^\+{0,1}[0-9 ]{10,16}$/,
+            dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
         },
         beforeMount: function () {
             $('#loader').show();
         },
 
         mounted: function () {
+            var date = new Date().getFullYear();
+            for (var i = date; i > 1989; i--) {
+                this.yearArr.push(i);
+            }
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
@@ -426,22 +445,34 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
+                // var dynamicRegexChild;
+                // var dynamicRegexParent;
+                if (this.aboutObj.contactMode == "mobile") {
+                    this.dynamicRegexChild = this.phoneRegex
+                } else if (this.aboutObj.contactMode == "landline") {
+                    this.dynamicRegexChild = this.landlineRegex;
+                }
+                if (this.parentContactMode == "mobile") {
+                    this.dynamicRegexParent = this.phoneRegex
+                } else if (this.parentContactMode == "landline") {
+                    this.dynamicRegexParent = this.landlineRegex;
+                }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
                     formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
-                    && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
+                    && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexChild.test(formData.childContactNumber)
                 ) {
                     if (formData.childAddress || this.childManualAddress.length) {
                         if (formData.parentialResponsibility == 'no' && (!formData.parentCarerFirstName || !formData.parentCarerLastName || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
-                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
                         if (formData.parentialResponsibility == 'yes' && ((formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
-                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
@@ -483,6 +514,22 @@ $(document).ready(function () {
                 } else {
                     scrollToInvalidInput();
                     return false;
+                }
+            },
+
+            selectContactTypeChild: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexChild = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexChild = this.landlineRegex;
+                }
+            },
+
+            selectContactTypeParent: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexParent = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexParent = this.landlineRegex;
                 }
             },
 
@@ -749,8 +796,12 @@ $(document).ready(function () {
                 houseHoldForm.lastName = houseHold.lastName;
                 houseHoldForm.relationShip = houseHold.relationShip;
                 houseHoldForm.dob = houseHold.dob;
+                houseHoldForm.day = houseHold.day;
+                houseHoldForm.month = houseHold.month;
+                houseHoldForm.year = houseHold.year;
                 houseHoldForm.profession = houseHold.profession;
                 houseHoldForm.id = houseHold.id;
+                this.isGoogleAddressSelected = true;
                 if (houseHold.manualAddress.profession) {
                     houseHoldForm.manualAddress.profession = houseHold.manualAddress.profession;
                 }
@@ -890,6 +941,9 @@ $(document).ready(function () {
                 this.houseHoldData.name = '';
                 this.houseHoldData.lastName = '';
                 this.houseHoldData.relationShip = '';
+                this.houseHoldData.day = '';
+                this.houseHoldData.month = '';
+                this.houseHoldData.year = '';
                 this.houseHoldData.dob = '';
                 this.houseHoldData.profession = '';
                 this.houseHoldData.mode = '';
@@ -931,6 +985,33 @@ $(document).ready(function () {
                 }
             },
 
+            getDob: function () {
+                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
+                var selectedDate = this.houseHoldData.day + '/' + this.houseHoldData.month + '/' + this.houseHoldData.year
+                if (this.houseHoldData.day && this.houseHoldData.month && this.houseHoldData.year) {
+                    if (this.getAge(selectedDate) < 19) {
+                        this.houseHoldData.dob = selectedDate;
+                        this.showHouseHoldAddress = true;
+                    } else {
+                        this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                        this.showManualAddressHouseHold = false;
+                        manualHouseHoldText.innerText = 'Enter manually';
+                        this.showHouseHoldAddress = false;
+                        this.houseHoldData.profession = "";
+                        this.resetHouseholdManualAddressValue();
+                    }
+
+                } else {
+                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                    this.showManualAddressHouseHold = false;
+                    manualHouseHoldText.innerText = 'Enter manually';
+                    this.showHouseHoldAddress = false;
+                    this.houseHoldData.profession = "";
+                    this.resetHouseholdManualAddressValue();
+                }
+
+            },
+
             getAge: function (dateString) {
                 if (dateString != "") {
                     var today = new Date();
@@ -963,6 +1044,8 @@ $(document).ready(function () {
             customLabel: function (option) {
                 return option
             },
+
+
 
             updateSelected: function (value) {
                 if (value & value.length) {

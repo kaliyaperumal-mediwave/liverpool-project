@@ -53,8 +53,8 @@ $(document).ready(function () {
                 seftonService: '',
                 gpSchool: '',
                 professional_contact_type: "mobile",
-                registered_gp_postcode:'',
-                profRegistered_gp_postcode:''
+                registered_gp_postcode: '',
+                profRegistered_gp_postcode: ''
             },
             professionalManualAddress: [],
             addressData: {
@@ -103,9 +103,18 @@ $(document).ready(function () {
             addressList: [],
             //phoneRegex: /^[0-9,-]{10,15}$|^$/,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
+            landlineRegex: /^0[0-9]{10}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
+            dateArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            monthArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            yearArr: [],
+            dateVal: "",
+            monthVal: "",
+            yearVal: "",
+            dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
         },
 
         beforeMount: function () {
@@ -113,6 +122,12 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var date = new Date().getFullYear();
+            console.log(date)
+            for (var i = date; i > 1989; i--) {
+                this.yearArr.push(i);
+            }
+            console.log(this.yearArr);
             this.isSubmitted = false;
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
@@ -229,12 +244,10 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
-                    if(data.registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp+','+data.registered_gp_postcode));
+                    if (data.registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp + ',' + data.registered_gp_postcode));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
                     }
                     if (data.gp_school) {
@@ -252,19 +265,17 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data[0].parent[0].child_dob));
-                    this.fetchAgeLogic(data.child_dob, roleType)
+                    this.fetchAgeLogic(data[0].parent[0].child_dob)
                     Vue.set(this.elgibilityObj, "contactParent", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
-                    if(data[0].parent[0].registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp+','+data[0].parent[0].registered_gp_postcode, roleType));
+                    if (data[0].parent[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp + ',' + data[0].parent[0].registered_gp_postcode, roleType));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
                     }
-                    
+
                     if (data[0].parent[0].gp_school) {
                         Vue.set(this.elgibilityObj, "gpSchool", data[0].parent[0].gp_school);
                         //Vue.set(this.elgibilityObj, "gpNotCovered",true);
@@ -274,7 +285,7 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
-                    console.log(data[0])
+                    //console.log(data[0])
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -298,22 +309,18 @@ $(document).ready(function () {
                     }
                     //Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     console.log(data[0].professional_address_postcode)
-                    if(data[0].professional_address_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address +' ,'+ data[0].professional_address_postcode );
+                    if (data[0].professional_address_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address + ' ,' + data[0].professional_address_postcode);
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     }
                     Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
                     //Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
-                    if(data[0].professional[0].registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp+','+data[0].professional[0].registered_gp_postcode, roleType));
+                    if (data[0].professional[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp + ',' + data[0].professional[0].registered_gp_postcode, roleType));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
                     }
                     if (data[0].professional[0].gp_school) {
@@ -868,9 +875,18 @@ $(document).ready(function () {
                 ////console.log("erer")
             },
 
+            getDob: function () {
+                var selectedDate = this.dateVal + '/' + this.monthVal + '/' + this.yearVal
+                // console.log(selectedDate)
+                // console.log(this.dateRegex.test(selectedDate));
+                if (this.dateRegex.test(selectedDate)) {
+                    this.elgibilityObj.childDob = selectedDate;
+                    this.changeDob("", selectedDate)
+                }
+            },
+
             changeDob: function (e, date) {
-                //  ////console.log(date);
-                if (this.patchFlag != true && date != null) {
+                if (date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
                     var selectedDate = new Date(this.dateFmt);
@@ -878,6 +894,7 @@ $(document).ready(function () {
                     // //console.log(age)
                     ////console.log(age > 19)
                     var roleText = this.elgibilityObj.role;
+                    console.log(roleText)
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
                     }
@@ -948,6 +965,7 @@ $(document).ready(function () {
                     }
 
                     else if (roleText == 'parent') {
+                        console.log(age)
                         if (age > 18) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.contactParent = "";
@@ -1067,10 +1085,16 @@ $(document).ready(function () {
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
+                //var dynamicRegexPattern;
+                if (this.elgibilityObj.professional_contact_type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (this.elgibilityObj.professional_contact_type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.phoneRegex.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
@@ -1080,12 +1104,11 @@ $(document).ready(function () {
                                     this.elgibilityObj.profRegistered_gp_postcode = gpArray[1]
                                     this.elgibilityObj.profregistered_gp = gpArray[0];
 
-                                    if(this.elgibilityObj.profAddress)
-                                    {
-                                        var profAddresArray= (this.elgibilityObj.profAddress).split(",");
+                                    if (this.elgibilityObj.profAddress) {
+                                        var profAddresArray = (this.elgibilityObj.profAddress).split(",");
                                         this.elgibilityObj.profAddress_postcode = profAddresArray[2];
-                                        this.elgibilityObj.profAddress = profAddresArray[0]+","+profAddresArray[1];
-            
+                                        this.elgibilityObj.profAddress = profAddresArray[0] + "," + profAddresArray[1];
+
                                     }
 
                                     this.apiRequest(this.elgibilityObj, role);
@@ -1119,6 +1142,14 @@ $(document).ready(function () {
                     this.elgibilityObj.registered_gp = gpArray[0];
                     //this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
+                }
+            },
+
+            selectContactTypeProfessional: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
                 }
             },
 
@@ -1228,7 +1259,10 @@ $(document).ready(function () {
             fetchAgeLogic: function (dbdob, roleText) {
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
+                // console.log(selectedDate)
+                this.formatDateToString(selectedDate)
                 var age = this.diff_years(today, selectedDate);
+                console.log(age)
                 if (roleText == 'child') {
                     if (age < 14) {
 
@@ -1286,6 +1320,23 @@ $(document).ready(function () {
 
                 }
 
+
+
+            },
+
+            formatDateToString: function (inputdate) {
+                //  console.log(inputdate)
+                var date = new Date(inputdate)
+                // console.log(date)
+                // 01, 02, 03, ... 29, 30, 31
+                this.dateVal = (date.getDate() < 10 ? '0' : '') + date.getDate();
+                // 01, 02, 03, ... 10, 11, 12
+                this.monthVal = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+                // 1970, 1971, ... 2015, 2016, ...
+                this.yearVal = date.getFullYear();
+
+                // create the format you want
+                //return (dd + "-" + MM + "-" + yyyy);
             },
 
             bindGpAddress: function (gpAddress, role) {
