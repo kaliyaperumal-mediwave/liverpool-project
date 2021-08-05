@@ -1473,6 +1473,10 @@
                                             </span>
                                         </div>
                                     </div>
+                                    <div class="invalid-feedback d-none mt-2"
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(formatter))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(formatter)) }">
+                                        Please provide a valid date.
+                                    </div>
                                     <!-- <div class="row">
                                         <div class="col-4 pr-1 pr-md-0 col-md-3">
                                             <multiselect :options="dateArr" v-model="houseHoldData.day"
