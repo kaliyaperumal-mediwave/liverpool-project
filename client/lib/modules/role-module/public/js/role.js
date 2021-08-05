@@ -1239,6 +1239,7 @@ $(document).ready(function () {
                         this.elgibilityObj.reason_contact_parent_camhs = ""
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
                     }
                     else {  //parent
                         this.elgibilityObj.aboveLimit = "";
@@ -1246,6 +1247,7 @@ $(document).ready(function () {
                         this.elgibilityObj.submitForm = "";
                         this.elgibilityObj.belowAgeLimit = "";
                         this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
                     }
 
                 }
