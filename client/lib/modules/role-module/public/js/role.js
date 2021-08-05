@@ -1203,14 +1203,17 @@ $(document).ready(function () {
                     return v.length == 2 && i < 2 ? v + '/' : v;
                 });
                 if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
-                    this.elgibilityObj.childDob = output.join('').substr(0, 14);
+                    this.elgibilityObj.childDob = copyOutput.join('').substr(0, 14);
                 }
                 else {
-                    this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+                    this.elgibilityObj.profChildDob = copyOutput.join('').substr(0, 14);
                 }
+                console.log("-----------child---------parent----------" + this.elgibilityObj.childDob);
+                console.log("-----------prof-------------------" + this.elgibilityObj.profChildDob)
                 // this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
                 var formatter = copyOutput.join('').substr(0, 14);
                 e.target.value = output.join('').substr(0, 14);
+                console.log(formatter)
                 if (this.dateRegex.test(formatter)) {
                     if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
                         this.changeDob("", this.elgibilityObj.childDob)
