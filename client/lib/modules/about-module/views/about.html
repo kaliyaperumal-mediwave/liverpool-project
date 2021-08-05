@@ -174,7 +174,8 @@
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select custom-mobile-place">
                                     <select class="custom-select form-control input-bg-form-control"
-                                        @change="selectContactTypeChild(aboutObj.contactMode)" v-model="aboutObj.contactMode">
+                                        @change="selectContactTypeChild(aboutObj.contactMode)"
+                                        v-model="aboutObj.contactMode">
                                         <option selected="selected" value="mobile">Mobile</option>
                                         <option value="landline">Landline</option>
                                     </select>
@@ -829,7 +830,8 @@
                                     <div class="input-group-prepend cursor-pointer">
                                         <span class="plain-select custom-mobile-place">
                                             <select v-model="parentContactMode"
-                                            @change="selectContactTypeParent(parentContactMode)" class="custom-select form-control input-bg-form-control">
+                                                @change="selectContactTypeParent(parentContactMode)"
+                                                class="custom-select form-control input-bg-form-control">
                                                 <option selected="selected" value="mobile">Mobile</option>
                                                 <option value="landline">Landline</option>
                                             </select>
@@ -1457,11 +1459,14 @@
                                 <div class="form-group">
                                     <label for="dob" class="question-font">Date of birth - <b>optional</b></label>
                                     <div class="input-group" id="dobAboutCal">
-                                        <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.dob" @input="checkValidDate($event)"
+                                            autocomplete="off" id="dob" placeholder="DD/MM/YYYY">
+                                        <!-- <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
                                             @dp-show="setCalendarHeight($event)"
                                             @dp-change="toggleHouseHoldManualAddress($event)"
                                             @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
-                                            :config="options" :wrap="dateWrap"></date-picker>
+                                            :config="options" :wrap="dateWrap"></date-picker> -->
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -1499,7 +1504,8 @@
                                 <!-- Household D.O.B end -->
 
                                 <!-- Household School/College/Employment start -->
-                                <div class="form-group" v-show="getAge(houseHoldData.dob) < 19">
+                                <div class="form-group"
+                                    v-show="dateRegex.test(formatter) && getAge(houseHoldData.dob) < 19">
                                     <div id="94a4bca4-a05e-44d6-974b-0f09e2e4c576">
                                         <label for="educLocation" style="word-break: break-word;" inputmode="search"
                                             class="question-font">School/College/Employment-<b>optional</b></label>

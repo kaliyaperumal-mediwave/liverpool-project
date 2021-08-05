@@ -129,6 +129,7 @@ $(document).ready(function () {
             dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
             dynamicRegexChild: /^\+{0,1}[0-9 ]{10,16}$/,
             dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
+            formatter: ''
         },
         beforeMount: function () {
             $('#loader').show();
@@ -772,6 +773,65 @@ $(document).ready(function () {
                     errorElements[0].previousElementSibling.querySelector('input').focus();
                     errorElements[0].previousElementSibling.querySelector('input').select();
                     return;
+                }
+            },
+
+            //All Dob auto format related logic
+            checkValue: function (str, max) {
+                if (str.charAt(0) !== '0' || str == '00') {
+                    var num = parseInt(str);
+                    if (isNaN(num) || num <= 0 || num > max) num = 1;
+                    str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+                };
+                return str;
+            },
+
+            preventFutureYear: function (str, val) {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+                var currentDate = mm + '/' + dd + '/' + yyyy;
+                if (str.length === 4 && Number(str) >= Number(yyyy)) {
+                    val[2] = yyyy;
+                    if (yyyy == 2021) {
+                        if (val[0] != dd) {
+                            val[0] = dd;
+                        }
+                        if (val[1] != mm) {
+                            val[1] = mm;
+                        }
+                    }
+                }
+                if (str.length > 4) {
+                    val[2] = yyyy;
+                }
+                return val[2];
+            },
+
+            checkValidDate: function (e) {
+                var input = e.target.value;
+                if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+                var values = input.split('/').map(function (v) {
+                    return v.replace(/\D/g, '')
+                });
+                if (values[0]) values[0] = this.checkValue(values[0], 31);
+                if (values[1]) values[1] = this.checkValue(values[1], 12);
+                if (values[2]) values[2] = this.preventFutureYear(values[2], values)
+                var output = values.map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + ' / ' : v;
+                });
+                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + '/' : v;
+                });
+                this.isGoogleAddressSelected = false;
+                this.houseHoldData.dob = output.join('').substr(0, 14);
+                this.formatter = copyOutput.join('').substr(0, 14);
+                e.target.value = output.join('').substr(0, 14);
+                if (this.dateRegex.test(this.formatter)) {
+                    this.houseHoldData.dob = this.houseHoldData.dob
+                } else {
+                    this.houseHoldData.profession = '';
                 }
             },
 
