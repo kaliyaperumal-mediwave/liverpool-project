@@ -709,6 +709,14 @@ $(document).ready(function () {
                             houseHoldForm.manualAddress.postCode && this.postCodeRegex.test(houseHoldForm.manualAddress.postCode)) {
                             this.showFlagHouseHold = true;
                             if (houseHoldForm.mode === 'update') {
+                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                    modal.removeAttribute("data-dismiss", "modal");
+                                    return false;
+                                }
+                                if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                                    modal.removeAttribute("data-dismiss", "modal");
+                                    return false;
+                                }
                                 this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                     if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                         it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -722,6 +730,10 @@ $(document).ready(function () {
                                 });
                                 this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                             } else {
+                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                    modal.removeAttribute("data-dismiss", "modal");
+                                    return false;
+                                }
                                 houseHoldForm.id = uuidV4();
                                 houseHoldForm.mode = 'add';
                                 this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
@@ -739,6 +751,10 @@ $(document).ready(function () {
                     } else {
                         //this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                         if (houseHoldForm.mode === 'update') {
+                            if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
                             if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
@@ -756,6 +772,10 @@ $(document).ready(function () {
                             });
                             this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                         } else {
+                            if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
                             if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
