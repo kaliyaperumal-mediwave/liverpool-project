@@ -178,7 +178,7 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate()" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
+                            @input="checkValidDate($event)" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
