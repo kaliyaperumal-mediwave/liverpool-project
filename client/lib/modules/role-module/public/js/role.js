@@ -115,6 +115,7 @@ $(document).ready(function () {
             yearVal: "",
             dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
             dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
+            duplicateYearArray: ''
         },
 
         beforeMount: function () {
@@ -127,7 +128,6 @@ $(document).ready(function () {
             for (var i = date; i > 1989; i--) {
                 this.yearArr.push(i);
             }
-            console.log(this.yearArr);
             this.isSubmitted = false;
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
@@ -300,6 +300,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "professional_contact_type", data[0].professional_contact_type);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
+                    this.duplicateYearArray = this.elgibilityObj.profChildDob.slice(this.elgibilityObj.profChildDob.length - 4);
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
@@ -1151,6 +1152,187 @@ $(document).ready(function () {
                 } else if (type == "landline") {
                     this.dynamicRegexPattern = this.landlineRegex;
                 }
+            },
+
+            //All Dob auto format related logic
+            checkValue: function (str, max) {
+                if (str.charAt(0) !== '0' || str == '00') {
+                    var num = parseInt(str);
+                    if (isNaN(num) || num <= 0 || num > max) num = 1;
+                    str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+                };
+                return str;
+            },
+
+            preventFutureYear: function (str, val) {
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                var yyyy = today.getFullYear();
+                var currentDate = mm + '/' + dd + '/' + yyyy;
+                if (str.length === 4 && Number(str) >= Number(yyyy)) {
+                    val[2] = yyyy;
+                    if (yyyy == 2021) {
+                        if (val[0] != dd) {
+                            val[0] = dd;
+                        }
+                        if (val[1] != mm) {
+                            val[1] = mm;
+                        }
+                    }
+                }
+                if (str.length > 4) {
+                    val[2] = yyyy;
+                }
+                return val[2];
+            },
+
+            checkValidDate: function (e) {
+                var input = e.target.value;
+                if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+                var values = input.split('/').map(function (v) {
+                    return v.replace(/\D/g, '')
+                });
+                if (values[0]) values[0] = this.checkValue(values[0], 31);
+                if (values[1]) values[1] = this.checkValue(values[1], 12);
+                if (values[2]) values[2] = this.preventFutureYear(values[2], values)
+                var output = values.map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + ' / ' : v;
+                });
+                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + '/' : v;
+                });
+                if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                    this.elgibilityObj.childDob = output.join('').substr(0, 14);
+                }
+                else {
+                    this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+                }
+                // this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+                var formatter = copyOutput.join('').substr(0, 14);
+                e.target.value = output.join('').substr(0, 14);
+                if (this.dateRegex.test(formatter)) {
+                    if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                        this.changeDob("", this.elgibilityObj.childDob)
+                    }
+                    else {
+                        this.changeDob("", this.elgibilityObj.profChildDob)
+                    }
+
+                }
+                else {
+                    if (this.elgibilityObj.role == 'professional') {
+                        this.elgibilityObj.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.contactProfParent = "";
+                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.submitProfForm = "";
+                        this.elgibilityObj.regProfGpTxt = "";
+                    }
+                    else if (this.elgibilityObj.role == 'child') {
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contact_parent_camhs = "";
+                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+                    else {  //parent
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+
+                }
+            },
+
+            onBlurCheckValidDate: function (e) {
+                var yyyy = new Date().getFullYear();
+                var input = e.target.value;
+                var values = input.split('/').map(function (v, i) {
+                    return v.replace(/\D/g, '')
+                });
+                var output = '';
+                var copyOutput = '';
+                if (values.length == 3 && values[0] && values[1] && values[2]) {
+                    //var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
+                    if (values[2].length <= 3) {
+                        values[2] = this.duplicateYearArray;
+                    } else if ((values[2].length === 4 && Number(values[2]) <= Number(yyyy))) {
+                        values[2] = values[2];
+                    }
+                    var year = values[2];
+                    var month = parseInt(values[1]);
+                    var day = parseInt(values[0]);
+                    var dates = [day, month, year];
+                    output = dates.map(function (v) {
+                        v = v.toString();
+                        return v.length == 1 ? '0' + v : v;
+                    }).join('/');
+                    copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+                        return v.length == 2 && i < 2 ? v + '/' : v;
+                    });
+                } else {
+                    e.target.value = ''
+                    if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                        this.elgibilityObj.childDob = '';
+                    }
+                    else {
+                        this.elgibilityObj.profChildDob = '';
+                    }
+                }
+                e.target.value = output;
+                var formatter = copyOutput.join('').substr(0, 14);
+                if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                    this.elgibilityObj.childDob = '';
+                    this.elgibilityObj.childDob = output;
+                }
+                else {
+                    this.elgibilityObj.profChildDob = output;
+                }
+                // if (this.dateRegex.test(formatter)) {
+                //     if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                //         this.changeDob("", this.elgibilityObj.childDob)
+                //     }
+                //     else {
+                //         this.changeDob("", this.elgibilityObj.profChildDob)
+                //     }
+                // }
+                // else {
+                //     if (this.elgibilityObj.role == 'professional') {
+                //         this.elgibilityObj.profBelowAgeLimit = "";
+                //         this.elgibilityObj.profaboveLimit = "";
+                //         this.elgibilityObj.parentConcern = "";
+                //         this.elgibilityObj.contactProfParent = "";
+                //         this.elgibilityObj.parentConcernInformation = "";
+                //         this.elgibilityObj.childConcernInformation = "";
+                //         this.elgibilityObj.submitProfForm = "";
+                //         this.elgibilityObj.regProfGpTxt = "";
+                //     }
+                //     else if (this.elgibilityObj.role == 'child') {
+                //         this.elgibilityObj.belowAgeLimit = "";
+                //         this.elgibilityObj.aboveLimit = "";
+                //         this.elgibilityObj.contactParent = "";
+                //         this.elgibilityObj.contact_parent_camhs = "";
+                //         this.elgibilityObj.reason_contact_parent_camhs = ""
+                //         this.elgibilityObj.submitForm = "";
+                //         this.elgibilityObj.regGpTxt = "";
+                //     }
+                //     else {  //parent
+                //         this.elgibilityObj.aboveLimit = "";
+                //         this.elgibilityObj.contactParent = "";
+                //         this.elgibilityObj.submitForm = "";
+                //         this.elgibilityObj.belowAgeLimit = "";
+                //         this.elgibilityObj.regGpTxt = "";
+                //     }
+                // }
             },
 
             apiRequest: function (payload, role) {
