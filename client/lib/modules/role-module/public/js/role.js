@@ -1186,7 +1186,9 @@ $(document).ready(function () {
             },
 
             checkValidDate: function () {
+
                 var input = this.elgibilityObj.profChildDob;
+                console.log("emty")
                 if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
                 var values = input.split('/').map(function (v) {
                     return v.replace(/\D/g, '')
@@ -1198,6 +1200,20 @@ $(document).ready(function () {
                     return v.length == 2 && i < 2 ? v + '/' : v;
                 });
                 this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+                if (this.dateRegex.test(this.elgibilityObj.profChildDob)) {
+                    this.changeDob("", this.elgibilityObj.profChildDob)
+                }
+                else {
+                    console.log(this.elgibilityObj)
+                    this.elgibilityObj.profBelowAgeLimit = "";
+                    this.elgibilityObj.profaboveLimit = "";
+                    this.elgibilityObj.parentConcern = "";
+                    this.elgibilityObj.contactProfParent = "";
+                    this.elgibilityObj.parentConcernInformation = "";
+                    this.elgibilityObj.childConcernInformation = "";
+                    this.elgibilityObj.submitProfForm = "";
+                    this.elgibilityObj.regProfGpTxt = "";
+                }
             },
 
             onBlurCheckValidDate: function () {
@@ -1232,6 +1248,20 @@ $(document).ready(function () {
                     // };
                 };
                 this.elgibilityObj.profChildDob = output;
+                if (this.dateRegex.test(this.elgibilityObj.profChildDob)) {
+                    this.changeDob("", this.elgibilityObj.profChildDob)
+                }
+                else {
+                    console.log(this.elgibilityObj)
+                    this.elgibilityObj.profBelowAgeLimit = "";
+                    this.elgibilityObj.profaboveLimit = "";
+                    this.elgibilityObj.parentConcern = "";
+                    this.elgibilityObj.contactProfParent = "";
+                    this.elgibilityObj.parentConcernInformation = "";
+                    this.elgibilityObj.childConcernInformation = "";
+                    this.elgibilityObj.submitProfForm = "";
+                    this.elgibilityObj.regProfGpTxt = "";
+                }
             },
 
             apiRequest: function (payload, role) {

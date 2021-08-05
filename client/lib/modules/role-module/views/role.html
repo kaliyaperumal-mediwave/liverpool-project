@@ -1330,7 +1330,7 @@
 
             {% raw %}
             <form id="profBelowAgeLimit-form" data-options="profBelowAgeLimit">
-                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=null"
+                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=''"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you have consent from the child/young person's parent/carer for
