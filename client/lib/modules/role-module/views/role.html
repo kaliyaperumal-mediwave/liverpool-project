@@ -177,14 +177,14 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.childDob" @input="checkValidDate()"
-                            @blur="onBlurCheckValidDate()" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
-                            <div class="input-group-append cursor-pointer">
-                                <span class="input-group-text p-16">
-                                    <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
-                                </span>
-                            </div>
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                            @input="checkValidDate()" @blur="onBlurCheckValidDate()" autocomplete="off" id="date"
+                            placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
+                            <span class="input-group-text p-16">
+                                <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </form>
@@ -244,14 +244,14 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.childDob" @input="checkValidDate()"
-                            @blur="onBlurCheckValidDate()" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
-                            <div class="input-group-append cursor-pointer">
-                                <span class="input-group-text p-16">
-                                    <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
-                                </span>
-                            </div>
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                            @input="checkValidDate($event)" @blur="onBlurCheckValidDate($event)" autocomplete="off"
+                            id="date" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
+                            <span class="input-group-text p-16">
+                                <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                            </span>
+                        </div>
                     </div>
 
                     {% endraw %}
@@ -1306,13 +1306,13 @@
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.profChildDob" @input="checkValidDate()"
-                            @blur="onBlurCheckValidDate()" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
-                            <div class="input-group-append cursor-pointer">
-                                <span class="input-group-text p-16">
-                                    <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
-                                </span>
-                            </div>
+                            v-model="elgibilityObj.profChildDob" @input="checkValidDate($event)"
+                            @blur="onBlurCheckValidDate($event)" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
+                            <span class="input-group-text p-16">
+                                <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                            </span>
+                        </div>
                     </div>
                     <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"

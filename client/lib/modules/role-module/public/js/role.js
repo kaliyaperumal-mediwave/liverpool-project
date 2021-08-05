@@ -1182,17 +1182,14 @@ $(document).ready(function () {
                         }
                     }
                 }
+                if (str.length > 4) {
+                    val[2] = yyyy;
+                }
                 return val[2];
             },
 
-            checkValidDate: function () {
-                var input;
-                if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
-                    input = this.elgibilityObj.childDob;
-                }
-                else {
-                    input = this.elgibilityObj.profChildDob;
-                }
+            checkValidDate: function (e) {
+                var input = e.target.value;
                 if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
                 var values = input.split('/').map(function (v) {
                     return v.replace(/\D/g, '')
@@ -1201,11 +1198,28 @@ $(document).ready(function () {
                 if (values[1]) values[1] = this.checkValue(values[1], 12);
                 if (values[2]) values[2] = this.preventFutureYear(values[2], values)
                 var output = values.map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + ' / ' : v;
+                });
+                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + '/' : v;
                 });
-                this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
-                if (this.dateRegex.test(this.elgibilityObj.profChildDob)) {
-                    this.changeDob("", this.elgibilityObj.profChildDob)
+                if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                    this.elgibilityObj.childDob = output.join('').substr(0, 14);
+                }
+                else {
+                    this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+                }
+                // this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+                var formatter = copyOutput.join('').substr(0, 14);
+                e.target.value = output.join('').substr(0, 14);
+                if (this.dateRegex.test(formatter)) {
+                    if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                        this.changeDob("", this.elgibilityObj.childDob)
+                    }
+                    else {
+                        this.changeDob("", this.elgibilityObj.profChildDob)
+                    }
+
                 }
                 else {
                     if (this.elgibilityObj.role == 'professional') {
@@ -1238,9 +1252,9 @@ $(document).ready(function () {
                 }
             },
 
-            onBlurCheckValidDate: function () {
+            onBlurCheckValidDate: function (e) {
                 var yyyy = new Date().getFullYear();
-                var input = this.elgibilityObj.profChildDob;
+                var input = e.target.value;
                 var values = input.split('/').map(function (v, i) {
                     return v.replace(/\D/g, '')
                 });
@@ -1260,18 +1274,34 @@ $(document).ready(function () {
                         v = v.toString();
                         return v.length == 1 ? '0' + v : v;
                     }).join('/');
-                    // var d = new Date(year, month, day);
-                    // if (!isNaN(d)) {
-                    //     var dates = [d.getDate(), d.getMonth(), d.getFullYear()];
-                    //     output = dates.map(function (v) {
-                    //         v = v.toString();
-                    //         return v.length == 1 ? '0' + v : v;
-                    //     }).join('/');
-                    // };
-                };
-                this.elgibilityObj.profChildDob = output;
-                if (this.dateRegex.test(this.elgibilityObj.profChildDob)) {
-                    this.changeDob("", this.elgibilityObj.profChildDob)
+                    copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+                        return v.length == 2 && i < 2 ? v + '/' : v;
+                    });
+                } else {
+                    e.target.value = ''
+                    if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                        this.elgibilityObj.childDob = '';
+                    }
+                    else {
+                        this.elgibilityObj.profChildDob = '';
+                    }
+                }
+                e.target.value = output;
+                var formatter = copyOutput.join('').substr(0, 14);
+                if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                    this.elgibilityObj.childDob = '';
+                    this.elgibilityObj.childDob = output;
+                }
+                else {
+                    this.elgibilityObj.profChildDob = output;
+                }
+                if (this.dateRegex.test(formatter)) {
+                    if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                        this.changeDob("", this.elgibilityObj.childDob)
+                    }
+                    else {
+                        this.changeDob("", this.elgibilityObj.profChildDob)
+                    }
                 }
                 else {
                     if (this.elgibilityObj.role == 'professional') {
