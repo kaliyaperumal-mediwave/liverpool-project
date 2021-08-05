@@ -1186,9 +1186,13 @@ $(document).ready(function () {
             },
 
             checkValidDate: function () {
-
-                var input = this.elgibilityObj.profChildDob;
-                console.log("emty")
+                var input;
+                if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                    input = this.elgibilityObj.childDob;
+                }
+                else {
+                    input = this.elgibilityObj.profChildDob;
+                }
                 if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
                 var values = input.split('/').map(function (v) {
                     return v.replace(/\D/g, '')
@@ -1204,15 +1208,33 @@ $(document).ready(function () {
                     this.changeDob("", this.elgibilityObj.profChildDob)
                 }
                 else {
-                    console.log(this.elgibilityObj)
-                    this.elgibilityObj.profBelowAgeLimit = "";
-                    this.elgibilityObj.profaboveLimit = "";
-                    this.elgibilityObj.parentConcern = "";
-                    this.elgibilityObj.contactProfParent = "";
-                    this.elgibilityObj.parentConcernInformation = "";
-                    this.elgibilityObj.childConcernInformation = "";
-                    this.elgibilityObj.submitProfForm = "";
-                    this.elgibilityObj.regProfGpTxt = "";
+                    if (this.elgibilityObj.role == 'professional') {
+                        this.elgibilityObj.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.contactProfParent = "";
+                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.submitProfForm = "";
+                        this.elgibilityObj.regProfGpTxt = "";
+                    }
+                    else if (this.elgibilityObj.role == 'child') {
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contact_parent_camhs = "";
+                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.regGpTxt = "";
+                    }
+                    else {  //parent
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.regGpTxt = "";
+                    }
+
                 }
             },
 
@@ -1252,15 +1274,32 @@ $(document).ready(function () {
                     this.changeDob("", this.elgibilityObj.profChildDob)
                 }
                 else {
-                    console.log(this.elgibilityObj)
-                    this.elgibilityObj.profBelowAgeLimit = "";
-                    this.elgibilityObj.profaboveLimit = "";
-                    this.elgibilityObj.parentConcern = "";
-                    this.elgibilityObj.contactProfParent = "";
-                    this.elgibilityObj.parentConcernInformation = "";
-                    this.elgibilityObj.childConcernInformation = "";
-                    this.elgibilityObj.submitProfForm = "";
-                    this.elgibilityObj.regProfGpTxt = "";
+                    if (this.elgibilityObj.role == 'professional') {
+                        this.elgibilityObj.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.contactProfParent = "";
+                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.submitProfForm = "";
+                        this.elgibilityObj.regProfGpTxt = "";
+                    }
+                    else if (this.elgibilityObj.role == 'child') {
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contact_parent_camhs = "";
+                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.regGpTxt = "";
+                    }
+                    else {  //parent
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.regGpTxt = "";
+                    }
                 }
             },
 
