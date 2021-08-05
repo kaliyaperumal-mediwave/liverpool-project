@@ -123,7 +123,6 @@ $(document).ready(function () {
         },
 
         mounted: function () {
-            debugger
             var date = new Date().getFullYear();
             console.log(date)
             for (var i = date; i > 1989; i--) {
@@ -1259,6 +1258,7 @@ $(document).ready(function () {
                     return v.replace(/\D/g, '')
                 });
                 var output = '';
+                var copyOutput = '';
                 if (values.length == 3 && values[0] && values[1] && values[2]) {
                     //var year = values[2].length !== 4 ? parseInt(values[2]) + 2000 : parseInt(values[2]);
                     if (values[2].length <= 3) {
@@ -1295,42 +1295,42 @@ $(document).ready(function () {
                 else {
                     this.elgibilityObj.profChildDob = output;
                 }
-                if (this.dateRegex.test(formatter)) {
-                    if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
-                        this.changeDob("", this.elgibilityObj.childDob)
-                    }
-                    else {
-                        this.changeDob("", this.elgibilityObj.profChildDob)
-                    }
-                }
-                else {
-                    if (this.elgibilityObj.role == 'professional') {
-                        this.elgibilityObj.profBelowAgeLimit = "";
-                        this.elgibilityObj.profaboveLimit = "";
-                        this.elgibilityObj.parentConcern = "";
-                        this.elgibilityObj.contactProfParent = "";
-                        this.elgibilityObj.parentConcernInformation = "";
-                        this.elgibilityObj.childConcernInformation = "";
-                        this.elgibilityObj.submitProfForm = "";
-                        this.elgibilityObj.regProfGpTxt = "";
-                    }
-                    else if (this.elgibilityObj.role == 'child') {
-                        this.elgibilityObj.belowAgeLimit = "";
-                        this.elgibilityObj.aboveLimit = "";
-                        this.elgibilityObj.contactParent = "";
-                        this.elgibilityObj.contact_parent_camhs = "";
-                        this.elgibilityObj.reason_contact_parent_camhs = ""
-                        this.elgibilityObj.submitForm = "";
-                        this.elgibilityObj.regGpTxt = "";
-                    }
-                    else {  //parent
-                        this.elgibilityObj.aboveLimit = "";
-                        this.elgibilityObj.contactParent = "";
-                        this.elgibilityObj.submitForm = "";
-                        this.elgibilityObj.belowAgeLimit = "";
-                        this.elgibilityObj.regGpTxt = "";
-                    }
-                }
+                // if (this.dateRegex.test(formatter)) {
+                //     if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+                //         this.changeDob("", this.elgibilityObj.childDob)
+                //     }
+                //     else {
+                //         this.changeDob("", this.elgibilityObj.profChildDob)
+                //     }
+                // }
+                // else {
+                //     if (this.elgibilityObj.role == 'professional') {
+                //         this.elgibilityObj.profBelowAgeLimit = "";
+                //         this.elgibilityObj.profaboveLimit = "";
+                //         this.elgibilityObj.parentConcern = "";
+                //         this.elgibilityObj.contactProfParent = "";
+                //         this.elgibilityObj.parentConcernInformation = "";
+                //         this.elgibilityObj.childConcernInformation = "";
+                //         this.elgibilityObj.submitProfForm = "";
+                //         this.elgibilityObj.regProfGpTxt = "";
+                //     }
+                //     else if (this.elgibilityObj.role == 'child') {
+                //         this.elgibilityObj.belowAgeLimit = "";
+                //         this.elgibilityObj.aboveLimit = "";
+                //         this.elgibilityObj.contactParent = "";
+                //         this.elgibilityObj.contact_parent_camhs = "";
+                //         this.elgibilityObj.reason_contact_parent_camhs = ""
+                //         this.elgibilityObj.submitForm = "";
+                //         this.elgibilityObj.regGpTxt = "";
+                //     }
+                //     else {  //parent
+                //         this.elgibilityObj.aboveLimit = "";
+                //         this.elgibilityObj.contactParent = "";
+                //         this.elgibilityObj.submitForm = "";
+                //         this.elgibilityObj.belowAgeLimit = "";
+                //         this.elgibilityObj.regGpTxt = "";
+                //     }
+                // }
             },
 
             apiRequest: function (payload, role) {
