@@ -1154,7 +1154,6 @@ $(document).ready(function () {
                 }
             },
 
-            //All Dob auto format related logic
             checkValue: function (str, max) {
                 if (str.charAt(0) !== '0' || str == '00') {
                     var num = parseInt(str);
@@ -1169,7 +1168,6 @@ $(document).ready(function () {
                 var dd = String(today.getDate()).padStart(2, '0');
                 var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
                 var yyyy = today.getFullYear();
-                var currentDate = mm + '/' + dd + '/' + yyyy;
                 if (str.length === 4 && Number(str) >= Number(yyyy)) {
                     val[2] = yyyy;
                     if (yyyy == 2021) {
@@ -1187,38 +1185,48 @@ $(document).ready(function () {
                 return val[2];
             },
 
-            checkValidDate: function (e) {
-                var input = e.target.value;
+            checkValidDate: function (id, obj, key) {
+                var dateElement = document.querySelector(id);
+                var input = dateElement.value;
                 if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
                 var values = input.split('/').map(function (v) {
                     return v.replace(/\D/g, '')
                 });
-                if (values[0]) values[0] = this.checkValue(values[0], 31);
-                if (values[1]) values[1] = this.checkValue(values[1], 12);
-                if (values[2]) values[2] = this.preventFutureYear(values[2], values)
+                var currentDate = {
+                    year: new Date().getFullYear(),
+                    month: parseInt(new Date().getMonth()) + 1,
+                    date: new Date().getDate()
+                }
+                if (values[0]) {
+                    if (values[2]) {
+                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
+                        values[0] = ("0" + values[0]).slice(-2)
+                    }
+                    values[0] = this.checkValue(values[0], 31);
+                }
+                if (values[1]) {
+                    if (values[2]) {
+                        values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
+                        values[1] = ("0" + values[1]).slice(-2)
+                    }
+                    values[1] = this.checkValue(values[1], 12);
+                }
+                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
+                    values[2] = 2021;
+                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
+                    values[2] = 1900;
+                }
                 var output = values.map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + ' / ' : v;
                 });
                 copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + '/' : v;
                 });
-                if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
-                    this.elgibilityObj.childDob = output.join('').substr(0, 14);
-                }
-                else {
-                    this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
-                }
-                // this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+                dateElement.value = copyOutput.join('').substr(0, 14);
+                this[obj][key] = output.join('').substr(0, 14);
                 var formatter = copyOutput.join('').substr(0, 14);
-                e.target.value = output.join('').substr(0, 14);
                 if (this.dateRegex.test(formatter)) {
-                    if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
-                        this.changeDob("", this.elgibilityObj.childDob)
-                    }
-                    else {
-                        this.changeDob("", this.elgibilityObj.profChildDob)
-                    }
-
+                    this.changeDob("", this[obj][key])
                 }
                 else {
                     if (this.elgibilityObj.role == 'professional') {
@@ -1241,7 +1249,7 @@ $(document).ready(function () {
                         this.elgibilityObj.regGpTxt = "";
                         this.elgibilityObj.isInformation = "";
                     }
-                    else {  //parent
+                    else {
                         this.elgibilityObj.aboveLimit = "";
                         this.elgibilityObj.contactParent = "";
                         this.elgibilityObj.submitForm = "";
@@ -1251,7 +1259,74 @@ $(document).ready(function () {
                     }
 
                 }
+
             },
+
+            // checkValidDate: function (e) {
+            //     var input = e.target.value;
+            //     if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+            //     var values = input.split('/').map(function (v) {
+            //         return v.replace(/\D/g, '')
+            //     });
+            //     if (values[0]) values[0] = this.checkValue(values[0], 31);
+            //     if (values[1]) values[1] = this.checkValue(values[1], 12);
+            //     if (values[2]) values[2] = this.preventFutureYear(values[2], values)
+            //     var output = values.map(function (v, i) {
+            //         return v.length == 2 && i < 2 ? v + ' / ' : v;
+            //     });
+            //     copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+            //         return v.length == 2 && i < 2 ? v + '/' : v;
+            //     });
+            //     if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+            //         this.elgibilityObj.childDob = output.join('').substr(0, 14);
+            //     }
+            //     else {
+            //         this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+            //     }
+            //     // this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
+            //     var formatter = copyOutput.join('').substr(0, 14);
+            //     e.target.value = output.join('').substr(0, 14);
+            //     if (this.dateRegex.test(formatter)) {
+            //         if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
+            //             this.changeDob("", this.elgibilityObj.childDob)
+            //         }
+            //         else {
+            //             this.changeDob("", this.elgibilityObj.profChildDob)
+            //         }
+
+            //     }
+            //     else {
+            //         if (this.elgibilityObj.role == 'professional') {
+            //             this.elgibilityObj.profBelowAgeLimit = "";
+            //             this.elgibilityObj.profaboveLimit = "";
+            //             this.elgibilityObj.parentConcern = "";
+            //             this.elgibilityObj.contactProfParent = "";
+            //             this.elgibilityObj.parentConcernInformation = "";
+            //             this.elgibilityObj.childConcernInformation = "";
+            //             this.elgibilityObj.submitProfForm = "";
+            //             this.elgibilityObj.regProfGpTxt = "";
+            //         }
+            //         else if (this.elgibilityObj.role == 'child') {
+            //             this.elgibilityObj.belowAgeLimit = "";
+            //             this.elgibilityObj.aboveLimit = "";
+            //             this.elgibilityObj.contactParent = "";
+            //             this.elgibilityObj.contact_parent_camhs = "";
+            //             this.elgibilityObj.reason_contact_parent_camhs = ""
+            //             this.elgibilityObj.submitForm = "";
+            //             this.elgibilityObj.regGpTxt = "";
+            //             this.elgibilityObj.isInformation = "";
+            //         }
+            //         else {  //parent
+            //             this.elgibilityObj.aboveLimit = "";
+            //             this.elgibilityObj.contactParent = "";
+            //             this.elgibilityObj.submitForm = "";
+            //             this.elgibilityObj.belowAgeLimit = "";
+            //             this.elgibilityObj.regGpTxt = "";
+            //             this.elgibilityObj.isInformation = "";
+            //         }
+
+            //     }
+            // },
 
             onBlurCheckValidDate: function (e) {
                 var yyyy = new Date().getFullYear();
