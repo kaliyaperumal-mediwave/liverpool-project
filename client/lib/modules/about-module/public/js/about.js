@@ -176,8 +176,10 @@ $(document).ready(function () {
                 // });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
-                    //_self.isGoogleAddressSelected = true;
+                    if (houseHoldAddress.getPlace().formatted_address) {
+                        _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
+                        //_self.isGoogleAddressSelected = true;
+                    }
                 });
 
                 // google.maps.event.addListener(parentAddress, 'place_changed', function () {

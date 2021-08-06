@@ -430,15 +430,19 @@ $(document).ready(function () {
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
                     this.professionalManualAddress = [];
+                    //  this.elgibilityObj.profaboveLimit = "";
                     this.setReadonlyState(false);
                     this.resetValues(event.target.form);
-                    // this.elgibilityObj.profFirstName = "";
-                    // this.elgibilityObj.profEmail = "";
-                    // this.elgibilityObj.profContactNumber = "";
-                    // this.elgibilityObj.profChildDob = "";
-                    // this.elgibilityObj.proflastName = "";
-                    // this.elgibilityObj.profAddress = "";
-                    // this.elgibilityObj.profProfession = "";
+                    if (!document.getElementById('prof_data').innerHTML) {
+                        this.elgibilityObj.profFirstName = "";
+                        this.elgibilityObj.profEmail = "";
+                        this.elgibilityObj.profContactNumber = "";
+                        this.elgibilityObj.profChildDob = "";
+                        this.elgibilityObj.proflastName = "";
+                        this.elgibilityObj.profAddress = "";
+                        this.elgibilityObj.profProfession = "";
+                    }
+
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
