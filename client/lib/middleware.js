@@ -96,6 +96,7 @@ module.exports = function (self, options) {
     //to clear uuid and userrole in referrance home page.
 
     clearSessionReferral: function (req, res, next) {
+      console.log("clearSessionHt")
       req.data.aboutPage = "/pages/about";
       req.data.termPage = "/pages/terms";
       req.data.privacyPage = "/pages/privacy";

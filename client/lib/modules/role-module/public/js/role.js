@@ -429,15 +429,19 @@ $(document).ready(function () {
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
                     this.professionalManualAddress = [];
+                  //  this.elgibilityObj.profaboveLimit = "";
                     this.setReadonlyState(false);
                     this.resetValues(event.target.form);
-                    // this.elgibilityObj.profFirstName = "";
-                    // this.elgibilityObj.profEmail = "";
-                    // this.elgibilityObj.profContactNumber = "";
-                    // this.elgibilityObj.profChildDob = "";
-                    // this.elgibilityObj.proflastName = "";
-                    // this.elgibilityObj.profAddress = "";
-                    // this.elgibilityObj.profProfession = "";
+                    if (!document.getElementById('prof_data').innerHTML) {
+                        this.elgibilityObj.profFirstName = "";
+                        this.elgibilityObj.profEmail = "";
+                        this.elgibilityObj.profContactNumber = "";
+                        this.elgibilityObj.profChildDob = "";
+                        this.elgibilityObj.proflastName = "";
+                        this.elgibilityObj.profAddress = "";
+                        this.elgibilityObj.profProfession = "";
+                    }
+
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
@@ -1208,12 +1212,12 @@ $(document).ready(function () {
                 else {
                     this.elgibilityObj.profChildDob = copyOutput.join('').substr(0, 14);
                 }
-                console.log("-----------child---------parent----------" + this.elgibilityObj.childDob);
-                console.log("-----------prof-------------------" + this.elgibilityObj.profChildDob)
+                //console.log("-----------child---------parent----------" + this.elgibilityObj.childDob);
+               // console.log("-----------prof-------------------" + this.elgibilityObj.profChildDob)
                 // this.elgibilityObj.profChildDob = output.join('').substr(0, 14);
                 var formatter = copyOutput.join('').substr(0, 14);
                 e.target.value = output.join('').substr(0, 14);
-                console.log(formatter)
+                //console.log(formatter)
                 if (this.dateRegex.test(formatter)) {
                     if (this.elgibilityObj.role == 'child' || this.elgibilityObj.role == 'parent') {
                         this.changeDob("", this.elgibilityObj.childDob)
