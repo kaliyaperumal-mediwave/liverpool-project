@@ -854,33 +854,6 @@ $(document).ready(function () {
 
             },
 
-
-            // checkValidDate: function (e) {
-            //     var input = e.target.value;
-            //     if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
-            //     var values = input.split('/').map(function (v) {
-            //         return v.replace(/\D/g, '')
-            //     });
-            //     if (values[0]) values[0] = this.checkValue(values[0], 31);
-            //     if (values[1]) values[1] = this.checkValue(values[1], 12);
-            //     if (values[2]) values[2] = this.preventFutureYear(values[2], values)
-            //     var output = values.map(function (v, i) {
-            //         return v.length == 2 && i < 2 ? v + ' / ' : v;
-            //     });
-            //     copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
-            //         return v.length == 2 && i < 2 ? v + '/' : v;
-            //     });
-            //     this.isGoogleAddressSelected = false;
-            //     this.houseHoldData.dob = output.join('').substr(0, 14);
-            //     this.formatter = copyOutput.join('').substr(0, 14);
-            //     e.target.value = output.join('').substr(0, 14);
-            //     if (this.dateRegex.test(this.formatter)) {
-            //         this.houseHoldData.dob = this.houseHoldData.dob
-            //     } else {
-            //         this.houseHoldData.profession = '';
-            //     }
-            // },
-
             toggleHouseHoldManualAddress: function (e) {
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
                 var calcAge = this.getAge(this.houseHoldData.dob);
