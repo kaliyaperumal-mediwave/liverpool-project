@@ -177,7 +177,7 @@ $(document).ready(function () {
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
                     _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
-                    _self.isGoogleAddressSelected = true;
+                    //_self.isGoogleAddressSelected = true;
                 });
 
                 // google.maps.event.addListener(parentAddress, 'place_changed', function () {
@@ -713,10 +713,10 @@ $(document).ready(function () {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }
-                                if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                                    modal.removeAttribute("data-dismiss", "modal");
-                                    return false;
-                                }
+                                // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                                //     modal.removeAttribute("data-dismiss", "modal");
+                                //     return false;
+                                // }
                                 this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                     if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                         it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -755,10 +755,10 @@ $(document).ready(function () {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                                modal.removeAttribute("data-dismiss", "modal");
-                                return false;
-                            }
+                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                            //     modal.removeAttribute("data-dismiss", "modal");
+                            //     return false;
+                            // }
                             this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                 if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                     it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -776,10 +776,10 @@ $(document).ready(function () {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                                modal.removeAttribute("data-dismiss", "modal");
-                                return false;
-                            }
+                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                            //     modal.removeAttribute("data-dismiss", "modal");
+                            //     return false;
+                            // }
                             houseHoldForm.id = uuidV4();
                             houseHoldForm.mode = 'add';
                             this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
@@ -844,7 +844,7 @@ $(document).ready(function () {
                 copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + '/' : v;
                 });
-                this.isGoogleAddressSelected = false;
+                // this.isGoogleAddressSelected = false;
                 dateElement.value = copyOutput.join('').substr(0, 14);
                 this[obj][key] = output.join('').substr(0, 14);
                 this.formatter = copyOutput.join('').substr(0, 14);
@@ -907,7 +907,7 @@ $(document).ready(function () {
                 houseHoldForm.year = houseHold.year;
                 houseHoldForm.profession = houseHold.profession;
                 houseHoldForm.id = houseHold.id;
-                this.isGoogleAddressSelected = true;
+                //this.isGoogleAddressSelected = true;
                 if (houseHold.manualAddress.profession) {
                     houseHoldForm.manualAddress.profession = houseHold.manualAddress.profession;
                 }
@@ -1043,7 +1043,7 @@ $(document).ready(function () {
             //Resetting the modal values of service data
             resetModalValues: function () {
                 this.isHouseHoldFormSubmitted = false;
-                this.isGoogleAddressSelected = false;
+                //this.isGoogleAddressSelected = false;
                 this.houseHoldData.name = '';
                 this.houseHoldData.lastName = '';
                 this.houseHoldData.relationShip = '';
