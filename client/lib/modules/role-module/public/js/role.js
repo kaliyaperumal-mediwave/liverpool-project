@@ -115,7 +115,8 @@ $(document).ready(function () {
             yearVal: "",
             dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
             dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
-            duplicateYearArray: ''
+            duplicateYearArray: '',
+            formatter: ''
         },
 
         beforeMount: function () {
@@ -1083,6 +1084,7 @@ $(document).ready(function () {
             },
 
             save: function () {
+                debugger;
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
@@ -1112,6 +1114,14 @@ $(document).ready(function () {
 
                                     }
 
+                                    if (this.elgibilityObj.childDob) {
+                                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                                    }
+                                    if (this.elgibilityObj.profChildDob) {
+                                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                    }
+
+
                                     this.apiRequest(this.elgibilityObj, role);
                                 } else {
                                     scrollToInvalidInput();
@@ -1119,6 +1129,12 @@ $(document).ready(function () {
                                 }
                             } else {
                                 $('#loader').show();
+                                if (this.elgibilityObj.childDob) {
+                                    this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                                }
+                                if (this.elgibilityObj.profChildDob) {
+                                    this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                }
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -1131,6 +1147,14 @@ $(document).ready(function () {
                         return false;
                     }
                 } else if (role === 'parent') {
+                    debugger
+                    if (this.elgibilityObj.childDob) {
+                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                    }
+                    if (this.elgibilityObj.profChildDob) {
+                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                    }
+
                     var gpArray = (this.elgibilityObj.regGpTxt).split(",");
                     this.elgibilityObj.registered_gp_postcode = gpArray[1]
                     this.elgibilityObj.registered_gp = gpArray[0];
@@ -1138,6 +1162,12 @@ $(document).ready(function () {
                     this.apiRequest(this.elgibilityObj, role);
                 }
                 else if (role === 'child') {
+                    if (this.elgibilityObj.childDob) {
+                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                    }
+                    if (this.elgibilityObj.profChildDob) {
+                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                    }
                     var gpArray = (this.elgibilityObj.regGpTxt).split(",");
                     this.elgibilityObj.registered_gp_postcode = gpArray[1]
                     this.elgibilityObj.registered_gp = gpArray[0];
@@ -1224,8 +1254,8 @@ $(document).ready(function () {
                 });
                 dateElement.value = copyOutput.join('').substr(0, 14);
                 this[obj][key] = output.join('').substr(0, 14);
-                var formatter = copyOutput.join('').substr(0, 14);
-                if (this.dateRegex.test(formatter)) {
+                this.formatter = copyOutput.join('').substr(0, 14);
+                if (this.dateRegex.test(this.formatter)) {
                     this.changeDob("", this[obj][key])
                 }
                 else {
