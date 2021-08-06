@@ -1254,7 +1254,7 @@ $(document).ready(function () {
                 this[obj][key] = output.join('').substr(0, 14);
                 this.formatter = copyOutput.join('').substr(0, 14);
                 if (this.dateRegex.test(this.formatter)) {
-                    this.changeDob("", this[obj][key])
+                    this.changeDob("", this.formatter)
                 }
                 else {
                     if (this.elgibilityObj.role == 'professional') {
