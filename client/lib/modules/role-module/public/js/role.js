@@ -1084,7 +1084,6 @@ $(document).ready(function () {
             },
 
             save: function () {
-                debugger;
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
@@ -1147,7 +1146,6 @@ $(document).ready(function () {
                         return false;
                     }
                 } else if (role === 'parent') {
-                    debugger
                     if (this.elgibilityObj.childDob) {
                         this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
                     }
