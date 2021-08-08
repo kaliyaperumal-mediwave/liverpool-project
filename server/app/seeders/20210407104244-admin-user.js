@@ -7,11 +7,11 @@ module.exports = {
     const hashedPassword = await bcrypt.hash('Admin#123', saltRounds);
     return queryInterface.bulkInsert('users', [
       {
-        first_name: 'Camhs referrals ',
-        last_name: 'Admin',
+        first_name: 'Admin',
+        last_name: 'User',
         uuid: uuidv4(),
-        email: 'camhs.referrals@alderhey.nhs.uk',
-        password: await bcrypt.hash('C4MHSr3fferals!', saltRounds),
+        email: 'admin@mindwaveventures.com',
+        password: hashedPassword,
         user_role: 'admin',
         createdAt: new Date(),
         updatedAt: new Date()
@@ -21,14 +21,8 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('users', {
       email: [
-        'camhs.referrals@alderhey.nhs.uk'
+        'admin@mindwaveventures.com'
       ],
     });
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
   }
 };

@@ -172,7 +172,9 @@ $(document).ready(function () {
                 { id: 'fefa3e54-a2ad-43a7-88cc-3fe4abe06533', value: 'Other' },
             ],
             paramValues: [],
-            updateFlag: false
+            updateFlag: false,
+            landlineRegex: /^0[0-9]{10}$/,
+            dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
         },
         methods: {
 
@@ -518,8 +520,13 @@ $(document).ready(function () {
                 this.hasSubmittedServiceForm = true;
                 var serviceForm = this.serviceData;
                 var modal = document.getElementById('closeModal');
+                if (serviceForm.contactMode == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (serviceForm.contactMode == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
                 if (serviceForm.name) {
-                    if (serviceForm.contact && !this.phoneRegex.test(serviceForm.contact)) {
+                    if (serviceForm.contact && !this.dynamicRegexPattern.test(serviceForm.contact)) {
                         modal.removeAttribute("data-dismiss", "modal");
                         return;
                     } else {

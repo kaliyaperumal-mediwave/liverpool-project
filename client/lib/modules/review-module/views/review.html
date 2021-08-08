@@ -77,7 +77,7 @@
                         <label class="half" for="halfstar"></label>
                     </fieldset>
                     <div class="invalid-feedback d-none m-0 float-left text-left px-2"
-                        v-bind:class="{ 'd-block':(isFeedBackFormSubmitted && !refFeedbackData.ratings),'invalid-fields':!refFeedbackData.ratings }">
+                        v-bind:class="{ 'd-block':(isFeedBackFormSubmitted && !refFeedbackData.ratings),'invalid-fields': !refFeedbackData.ratings }">
                         You must provide rating.
                     </div>
                 </div>
@@ -311,9 +311,14 @@
                                                 You must provide a number.
                                             </small>
                                             <small class="invalid-feedback d-none"
-                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)),
-                                                'invalid-fields':(section1Data.professional_contact_number && !phoneRegex.test(section1Data.professional_contact_number)) }">
-                                                You must provide a valid number.
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && section1Data.professional_contact_type =='mobile' && !phoneRegex.test(section1Data.professional_contact_number)),
+                                                'invalid-fields':(section1Data.professional_contact_number && section1Data.professional_contact_type =='mobile' && !phoneRegex.test(section1Data.professional_contact_number)) }">
+                                                You must provide a valid mobile number.
+                                            </small>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection1Submitted && section1Data.professional_contact_number && section1Data.professional_contact_type =='landline' && !landlineRegex.test(section1Data.professional_contact_number)),
+                                            'invalid-fields':(section1Data.professional_contact_number && section1Data.professional_contact_type =='landline' && !landlineRegex.test(section1Data.professional_contact_number)) }">
+                                                You must provide a valid landline number.
                                             </small>
                                         </div>
                                         </p>
@@ -737,9 +742,14 @@
                                         </small>
 
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_contact_number && !phoneRegex.test(section2Data.child_contact_number)),
-                                                'invalid-fields':(section2Data.child_contact_number && !phoneRegex.test(section2Data.child_contact_number)) }">
-                                            You must provide a valid number.
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_contact_number && section2Data.child_contact_type =='mobile' && !phoneRegex.test(section2Data.child_contact_number)),
+                                                'invalid-fields':(section2Data.child_contact_number && section2Data.child_contact_type =='mobile' && !phoneRegex.test(section2Data.child_contact_number)) }">
+                                            You must provide a valid mobile number.
+                                        </small>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.child_contact_number && section2Data.child_contact_type =='landline' && !landlineRegex.test(section2Data.child_contact_number)),
+                                            'invalid-fields':(section2Data.child_contact_number &&  section2Data.child_contact_type =='landline' && !landlineRegex.test(section2Data.child_contact_number)) }">
+                                            You must provide a valid landline number.
                                         </small>
                                     </div>
                                 </div>
@@ -1036,9 +1046,14 @@
                                             You must provide a number.
                                         </small>
                                         <small class="invalid-feedback d-none"
-                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && !phoneRegex.test(section2Data.parent_contact_number)),
-                                    'invalid-fields':(section2Data.parent_contact_number && !phoneRegex.test(section2Data.parent_contact_number)) }">
-                                            You must provide a valid number.
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='mobile' && !phoneRegex.test(section2Data.parent_contact_number)),
+                                    'invalid-fields':(section2Data.parent_contact_number && section2Data.parent_contact_type =='mobile' && !phoneRegex.test(section2Data.parent_contact_number)) }">
+                                            You must provide a valid mobile number.
+                                        </small>
+                                        <small class="invalid-feedback d-none"
+                                            v-bind:class="{ 'd-block': (isSection2Submitted && section2Data.parent_contact_number && section2Data.parent_contact_type =='landline' && !landlineRegex.test(section2Data.parent_contact_number)),
+                                'invalid-fields':(section2Data.parent_contact_number && section2Data.parent_contact_type =='landline' && !landlineRegex.test(section2Data.parent_contact_number)) }">
+                                            You must provide a valid landline number.
                                         </small>
                                     </div>
                                 </div>
@@ -1371,9 +1386,14 @@
                                                 You must provide a number.
                                             </small> -->
                                             <small class="invalid-feedback d-none"
-                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && !phoneRegex.test(section3Data.child_socialworker_contact)),
-                                                'invalid-fields':(section3Data.child_socialworker_contact && !phoneRegex.test(section3Data.child_socialworker_contact)) }">
-                                                You must provide a valid number.
+                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.child_socialworker_contact)),
+                                                'invalid-fields':(section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='mobile' && !phoneRegex.test(section3Data.child_socialworker_contact)) }">
+                                                You must provide a valid mobile number.
+                                            </small>
+                                            <small class="invalid-feedback d-none"
+                                                v-bind:class="{ 'd-block': (isSection3Submitted && section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.child_socialworker_contact)),
+                                            'invalid-fields':(section3Data.child_socialworker_contact && section3Data.child_socialworker_contact_type =='landline' && !landlineRegex.test(section3Data.child_socialworker_contact)) }">
+                                                You must provide a valid landline number.
                                             </small>
                                         </div>
                                     </div>

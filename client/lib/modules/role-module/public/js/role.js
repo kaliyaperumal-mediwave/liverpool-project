@@ -103,6 +103,7 @@ $(document).ready(function () {
             addressList: [],
             //phoneRegex: /^[0-9,-]{10,15}$|^$/,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
+            landlineRegex: /^0[0-9]{10}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
@@ -112,7 +113,10 @@ $(document).ready(function () {
             dateVal: "",
             monthVal: "",
             yearVal: "",
-            dateRegex:/^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
+            duplicateYearArray: '',
+            formatter: ''
         },
 
         beforeMount: function () {
@@ -125,7 +129,6 @@ $(document).ready(function () {
             for (var i = date; i > 1989; i--) {
                 this.yearArr.push(i);
             }
-            console.log(this.yearArr);
             this.isSubmitted = false;
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
@@ -298,6 +301,7 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "professional_contact_type", data[0].professional_contact_type);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
+                    this.duplicateYearArray = this.elgibilityObj.profChildDob.slice(this.elgibilityObj.profChildDob.length - 4);
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
@@ -426,15 +430,19 @@ $(document).ready(function () {
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
                     this.professionalManualAddress = [];
+                    //  this.elgibilityObj.profaboveLimit = "";
                     this.setReadonlyState(false);
                     this.resetValues(event.target.form);
-                    // this.elgibilityObj.profFirstName = "";
-                    // this.elgibilityObj.profEmail = "";
-                    // this.elgibilityObj.profContactNumber = "";
-                    // this.elgibilityObj.profChildDob = "";
-                    // this.elgibilityObj.proflastName = "";
-                    // this.elgibilityObj.profAddress = "";
-                    // this.elgibilityObj.profProfession = "";
+                    if (!document.getElementById('prof_data').innerHTML) {
+                        this.elgibilityObj.profFirstName = "";
+                        this.elgibilityObj.profEmail = "";
+                        this.elgibilityObj.profContactNumber = "";
+                        this.elgibilityObj.profChildDob = "";
+                        this.elgibilityObj.proflastName = "";
+                        this.elgibilityObj.profAddress = "";
+                        this.elgibilityObj.profProfession = "";
+                    }
+
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
@@ -874,13 +882,12 @@ $(document).ready(function () {
             },
 
             getDob: function () {
-                var selectedDate = this.dateVal+'/'+this.monthVal+'/'+this.yearVal
+                var selectedDate = this.dateVal + '/' + this.monthVal + '/' + this.yearVal
                 // console.log(selectedDate)
                 // console.log(this.dateRegex.test(selectedDate));
-                if(this.dateRegex.test(selectedDate))
-                {
+                if (this.dateRegex.test(selectedDate)) {
                     this.elgibilityObj.childDob = selectedDate;
-                    this.changeDob("",selectedDate)
+                    this.changeDob("", selectedDate)
                 }
             },
 
@@ -1084,10 +1091,16 @@ $(document).ready(function () {
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
+                //var dynamicRegexPattern;
+                if (this.elgibilityObj.professional_contact_type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (this.elgibilityObj.professional_contact_type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.phoneRegex.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
@@ -1104,6 +1117,14 @@ $(document).ready(function () {
 
                                     }
 
+                                    if (this.elgibilityObj.childDob) {
+                                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                                    }
+                                    if (this.elgibilityObj.profChildDob) {
+                                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                    }
+
+
                                     this.apiRequest(this.elgibilityObj, role);
                                 } else {
                                     scrollToInvalidInput();
@@ -1111,6 +1132,12 @@ $(document).ready(function () {
                                 }
                             } else {
                                 $('#loader').show();
+                                if (this.elgibilityObj.childDob) {
+                                    this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                                }
+                                if (this.elgibilityObj.profChildDob) {
+                                    this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                }
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -1123,6 +1150,13 @@ $(document).ready(function () {
                         return false;
                     }
                 } else if (role === 'parent') {
+                    if (this.elgibilityObj.childDob) {
+                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                    }
+                    if (this.elgibilityObj.profChildDob) {
+                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                    }
+
                     var gpArray = (this.elgibilityObj.regGpTxt).split(",");
                     this.elgibilityObj.registered_gp_postcode = gpArray[1]
                     this.elgibilityObj.registered_gp = gpArray[0];
@@ -1130,12 +1164,112 @@ $(document).ready(function () {
                     this.apiRequest(this.elgibilityObj, role);
                 }
                 else if (role === 'child') {
+                    if (this.elgibilityObj.childDob) {
+                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                    }
+                    if (this.elgibilityObj.profChildDob) {
+                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                    }
                     var gpArray = (this.elgibilityObj.regGpTxt).split(",");
                     this.elgibilityObj.registered_gp_postcode = gpArray[1]
                     this.elgibilityObj.registered_gp = gpArray[0];
                     //this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
+            },
+
+            selectContactTypeProfessional: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
+            },
+
+            checkValue: function (str, max) {
+                if (str.charAt(0) !== '0' || str == '00') {
+                    var num = parseInt(str);
+                    if (isNaN(num) || num <= 0 || num > max) num = 1;
+                    str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+                };
+                return str;
+            },
+
+            checkValidDate: function (id, obj, key) {
+                var dateElement = document.querySelector(id);
+                var input = dateElement.value;
+                if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+                var values = input.split('/').map(function (v) {
+                    return v.replace(/\D/g, '')
+                });
+                var currentDate = {
+                    year: new Date().getFullYear(),
+                    month: parseInt(new Date().getMonth()) + 1,
+                    date: new Date().getDate()
+                }
+                if (values[0]) {
+                    if (values[2]) {
+                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
+                        values[0] = ("0" + values[0]).slice(-2)
+                    }
+                    values[0] = this.checkValue(values[0], 31);
+                }
+                if (values[1]) {
+                    if (values[2]) {
+                        values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
+                        values[1] = ("0" + values[1]).slice(-2)
+                    }
+                    values[1] = this.checkValue(values[1], 12);
+                }
+                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
+                    values[2] = 2021;
+                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
+                    values[2] = 1900;
+                }
+                var output = values.map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + ' / ' : v;
+                });
+                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + '/' : v;
+                });
+                dateElement.value = copyOutput.join('').substr(0, 14);
+                this[obj][key] = output.join('').substr(0, 14);
+                this.formatter = copyOutput.join('').substr(0, 14);
+                if (this.dateRegex.test(this.formatter)) {
+                    this.changeDob("", this.formatter)
+                }
+                else {
+                    if (this.elgibilityObj.role == 'professional') {
+                        this.elgibilityObj.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.contactProfParent = "";
+                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.submitProfForm = "";
+                        this.elgibilityObj.regProfGpTxt = "";
+                    }
+                    else if (this.elgibilityObj.role == 'child') {
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contact_parent_camhs = "";
+                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+                    else {
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+
+                }
+
             },
 
             apiRequest: function (payload, role) {
@@ -1244,7 +1378,7 @@ $(document).ready(function () {
             fetchAgeLogic: function (dbdob, roleText) {
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
-               // console.log(selectedDate)
+                // console.log(selectedDate)
                 this.formatDateToString(selectedDate)
                 var age = this.diff_years(today, selectedDate);
                 console.log(age)
@@ -1304,25 +1438,25 @@ $(document).ready(function () {
                     }
 
                 }
-              
+
 
 
             },
 
-             formatDateToString:function(inputdate){
-               //  console.log(inputdate)
+            formatDateToString: function (inputdate) {
+                //  console.log(inputdate)
                 var date = new Date(inputdate)
-               // console.log(date)
+                // console.log(date)
                 // 01, 02, 03, ... 29, 30, 31
                 this.dateVal = (date.getDate() < 10 ? '0' : '') + date.getDate();
                 // 01, 02, 03, ... 10, 11, 12
                 this.monthVal = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
                 // 1970, 1971, ... 2015, 2016, ...
                 this.yearVal = date.getFullYear();
-             
+
                 // create the format you want
                 //return (dd + "-" + MM + "-" + yyyy);
-             },
+            },
 
             bindGpAddress: function (gpAddress, role) {
                 if (role == "professional") {

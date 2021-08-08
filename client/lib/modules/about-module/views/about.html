@@ -174,6 +174,7 @@
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select custom-mobile-place">
                                     <select class="custom-select form-control input-bg-form-control"
+                                        @change="selectContactTypeChild(aboutObj.contactMode)"
                                         v-model="aboutObj.contactMode">
                                         <option selected="selected" value="mobile">Mobile</option>
                                         <option value="landline">Landline</option>
@@ -194,9 +195,14 @@
                                 You must provide a number.
                             </div>
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)),
-                                'invalid-fields':(aboutObj.childContactNumber && !phoneRegex.test(aboutObj.childContactNumber)) }">
-                                You must provide a valid number.
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.childContactNumber)),
+                                'invalid-fields':(aboutObj.childContactNumber && aboutObj.contactMode =='mobile' && !phoneRegex.test(aboutObj.childContactNumber)) }">
+                                You must provide a valid mobile number.
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && aboutObj.childContactNumber && aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.childContactNumber)),
+                            'invalid-fields':(aboutObj.childContactNumber &&  aboutObj.contactMode =='landline' && !landlineRegex.test(aboutObj.childContactNumber)) }">
+                                You must provide a valid landline number.
                             </div>
                         </div>
                     </div>
@@ -824,6 +830,7 @@
                                     <div class="input-group-prepend cursor-pointer">
                                         <span class="plain-select custom-mobile-place">
                                             <select v-model="parentContactMode"
+                                                @change="selectContactTypeParent(parentContactMode)"
                                                 class="custom-select form-control input-bg-form-control">
                                                 <option selected="selected" value="mobile">Mobile</option>
                                                 <option value="landline">Landline</option>
@@ -845,9 +852,14 @@
                                     You must provide a number.
                                 </div>
                                 <div class="invalid-feedback d-none"
-                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)),
-                                    'invalid-fields':(aboutFormData.contactNumber && !phoneRegex.test(aboutFormData.contactNumber)) }">
-                                    You must provide a valid number.
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && parentContactMode =='mobile' && !phoneRegex.test(aboutFormData.contactNumber)),
+                                    'invalid-fields':(aboutFormData.contactNumber &&  parentContactMode =='mobile' && !phoneRegex.test(aboutFormData.contactNumber)) }">
+                                    You must provide a valid mobile number.
+                                </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && aboutFormData.contactNumber && parentContactMode == 'landline' && !landlineRegex.test(aboutFormData.contactNumber)),
+                                'invalid-fields':(aboutFormData.contactNumber &&  parentContactMode == 'landline' && !landlineRegex.test(aboutFormData.contactNumber)) }">
+                                    You must provide a valid landline number.
                                 </div>
                             </div>
                         </div>
@@ -1020,11 +1032,11 @@
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <div v-if="aboutFormData.sameHouse">
                     <div class="px-2 px-lg-0 py-4" v-if="
-                    (!aboutObj.nhsNumber || (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)))
+                    (!aboutObj.nhsNumber || (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)))
                     && aboutObj.childFirstName
                     && aboutObj.childLastName
                     && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
-                    && (aboutObj.childContactNumber && phoneRegex.test(aboutObj.childContactNumber))
+                    && (aboutObj.childContactNumber && dynamicRegexChild.test(aboutObj.childContactNumber))
                     && (aboutObj.childAddress || (!aboutObj.childAddress && childManualAddress.length))
                     && aboutObj.sendPost
                     && aboutObj.childGender
@@ -1035,14 +1047,14 @@
                     && (
                             (aboutFormData.parentialResponsibility =='yes' && (
                                 aboutFormData.relationshipToYou
-                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (aboutFormData.contactNumber && dynamicRegexParent.test(aboutFormData.contactNumber))
                                 && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
                             ))
                         || (aboutFormData.parentialResponsibility =='no' && (
                                 aboutFormData.parentCarerFirstName
                                 && aboutFormData.parentCarerLastName
                                 && aboutFormData.relationshipToYou
-                                && (aboutFormData.contactNumber && phoneRegex.test(aboutFormData.contactNumber))
+                                && (aboutFormData.contactNumber && dynamicRegexParent.test(aboutFormData.contactNumber))
                                 && (!aboutFormData.emailAddress || (aboutFormData.emailAddress && emailRegex.test(aboutFormData.emailAddress)))
                             ))
                         )
@@ -1445,67 +1457,50 @@
 
                                 <!-- Household D.O.B start -->
                                 <div class="form-group">
-                                    <label for="dob" class="question-font">Date of birth - <b>optional</b></label>
-                                    <!-- <div class="input-group" id="dobAboutCal">
-                                        <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
+                                    <label for="manualDobHouseHold" class="question-font">Date of birth -
+                                        <b>optional</b></label>
+                                    <div class="input-group" id="dobAboutCal">
+                                        <input type="text" class="form-control input-bg-form-control"
+                                            v-model="houseHoldData.dob"
+                                            @input="checkValidDate('#manualDobHouseHold','houseHoldData','dob')"
+                                            autocomplete="off" id="manualDobHouseHold" placeholder="DD/MM/YYYY">
+                                        <!-- <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
                                             @dp-show="setCalendarHeight($event)"
                                             @dp-change="toggleHouseHoldManualAddress($event)"
                                             @dp-hide="resetAge($event,houseHoldData.dob)" v-model="houseHoldData.dob"
-                                            :config="options" :wrap="dateWrap"></date-picker>
+                                            :config="options" :wrap="dateWrap"></date-picker> -->
                                         <div class="input-group-append cursor-pointer">
                                             <span class="input-group-text input-group-secondary-text px-3 font-23">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
                                         </div>
-                                    </div> -->
-                                    <div class="row">
-                                        <div class="col-4 pr-1 pr-md-0 col-md-3">
-                                            <multiselect :options="dateArr" v-model="houseHoldData.day"
-                                                :show-labels="false" :searchable="true" :close-on-select="true"
-                                                placeholder="DD" class="multiselect custom-dropbox-hover themeSetDark"
-                                                @input="getDob">
-                                            </multiselect>
-                                        </div>
-                                        <div class="col-4 pr-1 pr-md-0 col-md-3">
-                                            <multiselect :options="monthArr" v-model="houseHoldData.month"
-                                                :show-labels="false" :searchable="true" :close-on-select="true"
-                                                placeholder="MM" class="multiselect custom-dropbox-hover themeSetDark"
-                                                @input="getDob">
-                                            </multiselect>
-                                        </div>
-                                        <div class="col-4 col-md-4">
-                                            <multiselect :options="yearArr" v-model="houseHoldData.year"
-                                                :show-labels="false" :searchable="true" :close-on-select="true"
-                                                placeholder="YYYY" class="multiselect custom-dropbox-hover themeSetDark"
-                                                @input="getDob">
-                                            </multiselect>
-                                        </div>
                                     </div>
                                     <div class="invalid-feedback d-none mt-2"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (!houseHoldData.day || !houseHoldData.month || !houseHoldData.year)),'invalid-modal-fields': (!houseHoldData.day || !houseHoldData.month || !houseHoldData.year) }">
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
                                         Please provide a valid date.
                                     </div>
                                 </div>
                                 <!-- Household D.O.B end -->
 
                                 <!-- Household School/College/Employment start -->
-                                <div class="form-group" v-show="showHouseHoldAddress">
+                                <div class="form-group"
+                                    v-show="setDatePattern(houseHoldData.dob) && getAge(houseHoldData.dob) < 19">
                                     <div id="94a4bca4-a05e-44d6-974b-0f09e2e4c576">
                                         <label for="educLocation" style="word-break: break-word;" inputmode="search"
                                             class="question-font">School/College/Employment-<b>optional</b></label>
                                         <div class="input-group">
                                             <input type="text" class="form-control input-bg-form-control"
-                                                @input="checkValid()" placeholder="Start typing to search"
-                                                id="educLocation" v-model="houseHoldData.profession">
+                                                placeholder="Start typing to search" id="educLocation"
+                                                v-model="houseHoldData.profession">
                                             <div class="input-group-append">
                                                 <span class="input-group-text input-group-secondary-text px-3 font-25">
                                                     <i class="fa common-fa-fa fa-map-marker" aria-hidden="true"></i>
                                                 </span>
                                             </div>
-                                            <div class="invalid-feedback d-none"
+                                            <!-- <div class="invalid-feedback d-none"
                                                 v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && houseHoldData.profession && !this.isGoogleAddressSelected),'invalid-modal-fields':houseHoldData.profession && !this.isGoogleAddressSelected }">
                                                 Please provide a valid address.
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                     <p class="link-text text-right mb-0 mt-2 cursor-pointer"

@@ -155,10 +155,10 @@
                             </span>
                         </div>
                     </div> -->
-                    <div class="row mt-2">
+                    <!-- <div class="row mt-2">
                         <div class="col-4 pr-1 pr-md-0 col-md-3">
                             <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
-                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true"
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
                         </div>
@@ -173,6 +173,17 @@
                                 :close-on-select="true" placeholder="YYYY" :hide-selected="true"
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
+                        </div>
+                    </div> -->
+
+                    <div class="input-group">
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                            @input="checkValidDate('#manualDatePickerParent','elgibilityObj','childDob')"
+                            autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
+                            <span class="input-group-text p-16">
+                                <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -211,10 +222,10 @@
                             </span>
                         </div>
                     </div> -->
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-4 pr-1 pr-md-0 col-md-3">
                             <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
-                                :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
+                                :close-on-select="true" placeholder="DD" :hide-selected="true"
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
                         </div>
@@ -229,6 +240,17 @@
                                 :close-on-select="true" placeholder="YYYY" :hide-selected="true"
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
+                        </div>
+                    </div> -->
+
+                    <div class="input-group">
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                            @input="checkValidDate('#manualDatePickerChild','elgibilityObj','childDob')" autocomplete="off"
+                            id="manualDatePickerChild" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
+                            <span class="input-group-text p-16">
+                                <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                            </span>
                         </div>
                     </div>
 
@@ -614,7 +636,7 @@
                 <div v-show="(elgibilityObj.role=='parent' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true) || (elgibilityObj.role=='child' && elgibilityObj.childDob!=null && getStringLength(elgibilityObj.regGpTxt) > 3 && elgibilityObj.gpNotCovered == true)"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto"> -->
 
-                    <!-- <div class="form-group question-font">
+            <!-- <div class="form-group question-font">
                         <p v-show="elgibilityObj.role=='child'" for="gpSchool">Where do you go
                             to school?</p>
                         <p v-show="elgibilityObj.role=='parent'" for="gpSchool">Where does
@@ -645,7 +667,7 @@
                         </div>
                     </div> -->
 
-                    <!-- <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
+            <!-- <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <p class="text-center m-0 py-2">
                                 <span style="color:#023087 ;">
@@ -667,7 +689,7 @@
                                 answer </p>
                         </div>
                     </div> -->
-                <!-- </div>
+            <!-- </div>
             </form> -->
             {% endraw %}
             <!-- toster-gp school start -->
@@ -862,8 +884,8 @@
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="alderSeftonCamhs"
-                            value="Alder Hey - Sefton CAMHS" @change="onChange($event)">
+                            v-model="elgibilityObj.seftonService" id="alderSeftonCamhs" value="Alder Hey - Sefton CAMHS"
+                            @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
                             for="alderSeftonCamhs">
                             Alder Hey/Sefton CAMHS
@@ -871,8 +893,8 @@
                     </div>
                     <div class="form-check pt-3 pb-1 pl-0">
                         <input class="form-check-input" type="radio" name="seftonService"
-                            v-model="elgibilityObj.seftonService" id="alderSeftonEdys"
-                            value="Alder Hey - Sefton EDYS" @change="onChange($event)">
+                            v-model="elgibilityObj.seftonService" id="alderSeftonEdys" value="Alder Hey - Sefton EDYS"
+                            @change="onChange($event)">
                         <label class="form-check-label heightSetLabel option-font d-flex align-items-center"
                             for="alderSeftonEdys">
                             Alder Hey/Sefton EDYS
@@ -987,6 +1009,7 @@
                             <div class="input-group-prepend cursor-pointer">
                                 <span class="plain-select custom-mobile-place">
                                     <select v-model="elgibilityObj.professional_contact_type"
+                                        @change="selectContactTypeProfessional(elgibilityObj.professional_contact_type)"
                                         class="custom-select form-control input-bg-form-control">
                                         <option selected="selected" value="mobile">Mobile</option>
                                         <option value="landline">Landline</option>
@@ -1008,9 +1031,14 @@
                             You must provide a number.
                         </div>
                         <div class="invalid-feedback d-none"
-                            v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && !phoneRegex.test(elgibilityObj.profContactNumber)),
-                            'invalid-fields':(elgibilityObj.profContactNumber && !phoneRegex.test(elgibilityObj.profContactNumber)) }">
-                            You must provide a valid number.
+                            v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'mobile' && !phoneRegex.test(elgibilityObj.profContactNumber)),
+                            'invalid-fields':(elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'mobile' && !phoneRegex.test(elgibilityObj.profContactNumber)) }">
+                            You must provide a valid mobile number.
+                        </div>
+                        <div class="invalid-feedback d-none"
+                            v-bind:class="{ 'd-block': (isSubmitted && elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'landline' && !landlineRegex.test(elgibilityObj.profContactNumber)),
+                        'invalid-fields':(elgibilityObj.profContactNumber && elgibilityObj.professional_contact_type == 'landline' && !landlineRegex.test(elgibilityObj.profContactNumber)) }">
+                            You must provide a valid landline number.
                         </div>
                     </div>
                     <div class="form-group mb-1">
@@ -1276,6 +1304,17 @@
                 <div v-show="elgibilityObj.role == 'professional' &&  (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
+                    <div class="input-group">
+                        <input type="text" class="form-control input-bg-form-control"
+                            v-model="elgibilityObj.profChildDob"
+                            @input="checkValidDate('#manualDatePicker','elgibilityObj','profChildDob')"
+                            autocomplete="off" id="manualDatePicker" placeholder="DD/MM/YYYY">
+                        <div class="input-group-append cursor-pointer">
+                            <span class="input-group-text p-16">
+                                <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
                     <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
                             v-model="elgibilityObj.profChildDob" @dp-show="resetFlag($event)"
@@ -1288,7 +1327,7 @@
                             </span>
                         </div>
                     </div> -->
-                    <div class="row mt-2">
+                    <!-- <div class="row mt-2">
                         <div class="col-4 pr-1 pr-md-0 col-md-3">
                             <multiselect :options="dateArr" v-model="dateVal" :show-labels="false" :searchable="true"
                                 :close-on-select="true" placeholder="DD" :hide-selected="true" showNoResults="false"
@@ -1307,14 +1346,14 @@
                                 class="multiselect custom-dropbox-hover themeSetDark" @input="getDob">
                             </multiselect>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </form>
             {% endraw %}
 
             {% raw %}
             <form id="profBelowAgeLimit-form" data-options="profBelowAgeLimit">
-                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=null"
+                <div v-show="elgibilityObj.role == 'professional' &&  elgibilityObj.profBelowAgeLimit == 'yes' && elgibilityObj.profChildDob!=''"
                     class="px-4 py-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <div class="d-flex align-items-start">
                         <p class="question-font m-0">Do you have consent from the child/young person's parent/carer for
@@ -1574,7 +1613,7 @@
             <!-- toster-container start -->
             {% raw %}
             <form id="submitFormTrue-form1" data-options="submitProfForm">
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) && (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && !elgibilityObj.profEmail &&  (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == ''))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
@@ -1587,7 +1626,7 @@
                     </div>
                 </div>
 
-                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName &&elgibilityObj.proflastName && elgibilityObj.profContactNumber && phoneRegex.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
+                <div v-show="elgibilityObj.role === 'professional' && elgibilityObj.submitProfForm == 'true' && (elgibilityObj.profFirstName && elgibilityObj.proflastName && elgibilityObj.profContactNumber && dynamicRegexPattern.test(elgibilityObj.profContactNumber) &&  (elgibilityObj.profAddress || professionalManualAddress.length) && elgibilityObj.profProfession )  && elgibilityObj.profChildDob!=null && elgibilityObj.regProfGpTxt && getStringLength(elgibilityObj.regProfGpTxt) > 3 && (elgibilityObj.profEmail && emailRegex.test(elgibilityObj.profEmail) && (elgibilityObj.gpNotCoveredProf==true && (elgibilityObj.gpSchool == 'Liverpool' || elgibilityObj.gpSchool == 'Sefton') || (elgibilityObj.gpNotCoveredProf==false && elgibilityObj.gpSchool == '')))"
                     class="px-4 py-2">
                     <div class="col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto toster-container p-l-r-2">
                         <div class="">
