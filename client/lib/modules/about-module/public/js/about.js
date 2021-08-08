@@ -711,7 +711,7 @@ $(document).ready(function () {
                             houseHoldForm.manualAddress.postCode && this.postCodeRegex.test(houseHoldForm.manualAddress.postCode)) {
                             this.showFlagHouseHold = true;
                             if (houseHoldForm.mode === 'update') {
-                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }
@@ -753,7 +753,7 @@ $(document).ready(function () {
                     } else {
                         //this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                         if (houseHoldForm.mode === 'update') {
-                            if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                            if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
@@ -774,7 +774,7 @@ $(document).ready(function () {
                             });
                             this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                         } else {
-                            if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                            if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
@@ -811,6 +811,8 @@ $(document).ready(function () {
 
             checkValidDate: function (id, obj, key) {
                 var dateElement = document.querySelector(id);
+                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
+
                 var input = dateElement.value;
                 if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
                 var values = input.split('/').map(function (v) {
@@ -852,8 +854,22 @@ $(document).ready(function () {
                 this.formatter = copyOutput.join('').substr(0, 14);
                 if (!this.dateRegex.test(this.formatter)) {
                     this.houseHoldData.profession = '';
+                    manualHouseHoldText.innerText = "Enter manually";
+                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                    this.showManualAddressHouseHold = false;
+                    this.resetHouseholdManualAddressValue();
+                } else {
+                    this.houseHoldData.dob = this.formatter;
                 }
 
+            },
+
+            setDatePattern: function (pattern) {
+                if (this.dateRegex.test(pattern)) {
+                    return true;
+                } else {
+                    return false;
+                }
             },
 
             toggleHouseHoldManualAddress: function (e) {
@@ -876,7 +892,7 @@ $(document).ready(function () {
                 houseHoldForm.name = houseHold.name;
                 houseHoldForm.lastName = houseHold.lastName;
                 houseHoldForm.relationShip = houseHold.relationShip;
-                houseHoldForm.dob = houseHold.dob;
+                houseHoldForm.dob = houseHold.dob.replace(/\s/g, "");;
                 houseHoldForm.day = houseHold.day;
                 houseHoldForm.month = houseHold.month;
                 houseHoldForm.year = houseHold.year;
