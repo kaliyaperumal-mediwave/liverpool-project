@@ -1032,7 +1032,7 @@
                 <!-- Dynamic Toaster Scenario 1 start -->
                 <div v-if="aboutFormData.sameHouse">
                     <div class="px-2 px-lg-0 py-4" v-if="
-                    (!aboutObj.nhsNumber || (aboutObj.nhsNumber && !nhsRegex.test(aboutObj.nhsNumber)))
+                    (!aboutObj.nhsNumber || (aboutObj.nhsNumber && nhsRegex.test(aboutObj.nhsNumber)))
                     && aboutObj.childFirstName
                     && aboutObj.childLastName
                     && (!aboutObj.childEmail || (aboutObj.childEmail && emailRegex.test(aboutObj.childEmail)))
@@ -1476,7 +1476,7 @@
                                         </div>
                                     </div>
                                     <div class="invalid-feedback d-none mt-2"
-                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(formatter))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(formatter)) }">
+                                        v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
                                         Please provide a valid date.
                                     </div>
                                 </div>
