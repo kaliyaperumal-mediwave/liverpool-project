@@ -19,5 +19,6 @@ const messageCodes = {
   1018: 'Unauthorized Access!',
   1019: 'Invalid role for the user',
   1020: 'Invalid email address',
+  1021: 'Activities retrived successfully'
 };
 module.exports = messageCodes;

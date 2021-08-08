@@ -2,10 +2,19 @@ var API_URI = "/modules/admin-module";
 $(document).ready(function () {
   $('#uniqueLogo').hide();
   $('#footer-placement').hide()
+  Vue.component('fromdate-picker', VueBootstrapDatetimePicker);
+  Vue.component('todate-picker', VueBootstrapDatetimePicker);
+  if (window.VueMultiselect) {
+    Vue.component('vue-multiselect', window.VueMultiselect.default)
+  }
   var vueApp = new Vue({
     el: '#admin',
+    components: { Multiselect: window.VueMultiselect?.default },
     data: {
       searchTxt: "",
+      fromcsvDate: {},
+      tocsvDate: {},
+      dateWrap: true,
       toggle: true,
       referralData: [],
       pageLimit: 10,
@@ -22,11 +31,25 @@ $(document).ready(function () {
       role: '',
       archivePage: '',
       urlToLoadData: '',
+      dateArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+      monthArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+      yearArr: [],
+      dateVal: "",
+      monthVal: "",
+      yearVal: "",
+      fromdateString: "",
+      todateString: "",
+      dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+      groupByActivityDate: [],
     },
     beforeMount: function () {
       $('#loader').show();
     },
     mounted: function () {
+      var date = new Date().getFullYear();
+      for (var i = date; i > 1989; i--) {
+        this.yearArr.push(i);
+      }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
       if (this.archivePage == 'true') {
@@ -117,7 +140,7 @@ $(document).ready(function () {
             type: 'GET',
             dataFilter: function (referralRes) {
               referralRes = jQuery.parseJSON(referralRes);
-              //  console.log(referralRes);
+              console.log(referralRes, "referralRes");
               var json = {
                 draw: _self.draw,
                 data: [],
@@ -139,7 +162,7 @@ $(document).ready(function () {
                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted by ' + referralRes.data.data[i].referral_provider_other :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
                   referralRes.data.data[i].date,
                 ]);
               }
@@ -148,11 +171,44 @@ $(document).ready(function () {
           }
         });
         $("#ExportReporttoExcel").on("click", function () {
-          table.button('.buttons-csv').trigger();
+          let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
+          var rows = []
+          rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
+          for (var i = 0; i < result.data.filter_referrals.length; i++) {
+            rows.push([
+              result.data.filter_referrals[i].name,
+              result.data.filter_referrals[i].dob,
+              result.data.filter_referrals[i].reference_code,
+              result.data.filter_referrals[i].referrer,
+              result.data.filter_referrals[i].gp_location,
+              result.data.filter_referrals[i].referrer_type,
+              result.data.filter_referrals[i].refDate,
+              result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                  result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted by ' + result.data.filter_referrals[i].referral_provider_other :
+                    result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
+              result.data.filter_referrals[i].date,
+              result.data.filter_referrals[i].activity_date,
+              result.data.filter_referrals[i].activity_time,
+              result.data.filter_referrals[i].activity_user,
+              result.data.filter_referrals[i].activity_action,
+            ]);
+          }
+          let csvContent = "data:text/csv;charset=utf-8,"
+            + rows.map(e => e.join(",")).join("\n");
+          var encodedUri = encodeURI(csvContent);
+          var link = document.createElement("a");
+          link.setAttribute("href", encodedUri);
+          link.setAttribute("download", "my_data.csv");
+          document.body.appendChild(link); // Required for FF
+
+          link.click(); // This will download the data file named "my_data.csv".
           table.rows().deselect();
           $('.idcheck').removeAttr('checked');
           this.referral_ids = [];
-          //console.log(this.referral_ids);
+          _self.closeStatusPopup();
+          _self.fromcsvDate = {};
+          _self.tocsvDate = {};
         });
         this.referral_ids = [];
         $('#loader').hide();
@@ -200,6 +256,32 @@ $(document).ready(function () {
             }
           }
         });
+
+      },
+      getDob: function () {
+        var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
+        var selectedDate = this.houseHoldData.day + '/' + this.houseHoldData.month + '/' + this.houseHoldData.year
+        if (this.houseHoldData.day && this.houseHoldData.month && this.houseHoldData.year) {
+          if (this.getAge(selectedDate) < 19) {
+            this.houseHoldData.dob = selectedDate;
+            this.showHouseHoldAddress = true;
+          } else {
+            this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+            this.showManualAddressHouseHold = false;
+            manualHouseHoldText.innerText = 'Enter manually';
+            this.showHouseHoldAddress = false;
+            this.houseHoldData.profession = "";
+            this.resetHouseholdManualAddressValue();
+          }
+
+        } else {
+          this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+          this.showManualAddressHouseHold = false;
+          manualHouseHoldText.innerText = 'Enter manually';
+          this.showHouseHoldAddress = false;
+          this.houseHoldData.profession = "";
+          this.resetHouseholdManualAddressValue();
+        }
 
       },
 
@@ -278,14 +360,28 @@ $(document).ready(function () {
       closeStatusPopup: function () {
         this.SelectedProviderStatus = '';
         $('#changeStatusModal').modal('hide');
+        $('#actionlogModal').modal('hide');
+        $('#downloadCSV').modal('hide');
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
         $('#loader').hide();
         //console.log()(successData)
       },
+      getActivity: function (uuid) {
+        let result = apiCallGet('get', '/getActivity', API_URI);
+        let specificReferral = _.filter(result.data.activity_referrals, function (o) {
+          o['date'] = moment(o.createdAt).format('L')
+          o['time'] = moment(o.createdAt).format('h:mm:ss')
+          return o.ReferralId == uuid;
+        })
+        console.log(specificReferral, "specificReferral");
+        this.groupByActivityDate = _.groupBy(specificReferral, 'date');
+        console.log(this.groupByActivityDate);
+      }
     },
   })
+
   $(document).on('change', '.idcheck', function (e) {
     vueApp.selectcheck(e.target.checked, e.target.value);
   });
@@ -296,8 +392,16 @@ $(document).ready(function () {
   $(document).on('click', '#ExportReporttoExcel', function () {
     vueApp.resetReferral();
   });
+
+  actionlog = function (uuid, value, other_value) {
+    document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
+    vueApp.getActivity(uuid);
+    $('#actionlogModal').modal('show');
+  }
 });
+
 function viewPdf(uuid, role) {
+  createActivity("Referral viewed", uuid);
   var _self = this;
   $('#loader').show();
   setTimeout(function () {
@@ -336,6 +440,13 @@ function changeStatus(uuid, value, other_value) {
   setTimeout(function () {
     $("#SelectedProviderStatus").val(value);
   }, 500);
+}
+
+
+
+function downloadCSV(uuid, value, other_value) {
+  document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
+  $('#downloadCSV').modal('show');
 }
 
 function updateStatus(uuid) {
@@ -394,6 +505,7 @@ function sendPdf(uuid, role, refCode) {
     async: false,
     contentType: 'application/json',
     success: function (res) {
+      createActivity("Referral sent - " + selectedProvider, uuid);
       $('.reload').trigger('click');
       $('#sendProviderModal').modal('hide');
       $('#mailSentSuccess').modal('show');
@@ -426,4 +538,11 @@ $(document).on('change', '#SelectedProviderStatus', function (e) {
   }
 });
 
-
+function createActivity(activity, referral) {
+  let postData = {};
+  postData.activity = {
+    activity: activity,
+    referral: referral
+  }
+  apiCallPut('put', '/referralStatusUpdate', postData);
+}
