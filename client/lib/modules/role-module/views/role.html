@@ -178,7 +178,8 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate($event)" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
+                            @input="checkValidDate('#manualDatePickerParent','elgibilityObj','childDob')"
+                            autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -244,7 +245,8 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate($event)" autocomplete="off" id="date" placeholder="DD/MM/YYYY">
+                            @input="checkValidDate('#manualDatePickerChild','elgibilityObj','childDob')" autocomplete="off"
+                            id="manualDatePickerChild" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -1304,8 +1306,9 @@
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.profChildDob" @input="checkValidDate($event)" autocomplete="off"
-                            id="date" placeholder="DD/MM/YYYY">
+                            v-model="elgibilityObj.profChildDob"
+                            @input="checkValidDate('#manualDatePicker','elgibilityObj','profChildDob')"
+                            autocomplete="off" id="manualDatePicker" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>

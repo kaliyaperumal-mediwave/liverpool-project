@@ -176,10 +176,9 @@ $(document).ready(function () {
                 // });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    if(houseHoldAddress.getPlace().formatted_address)
-                    {
+                    if (houseHoldAddress.getPlace().formatted_address) {
                         _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
-                        _self.isGoogleAddressSelected = true;
+                        //_self.isGoogleAddressSelected = true;
                     }
                 });
 
@@ -712,14 +711,14 @@ $(document).ready(function () {
                             houseHoldForm.manualAddress.postCode && this.postCodeRegex.test(houseHoldForm.manualAddress.postCode)) {
                             this.showFlagHouseHold = true;
                             if (houseHoldForm.mode === 'update') {
-                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }
-                                if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                                    modal.removeAttribute("data-dismiss", "modal");
-                                    return false;
-                                }
+                                // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                                //     modal.removeAttribute("data-dismiss", "modal");
+                                //     return false;
+                                // }
                                 this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                     if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                         it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -754,14 +753,14 @@ $(document).ready(function () {
                     } else {
                         //this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                         if (houseHoldForm.mode === 'update') {
-                            if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                            if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                                modal.removeAttribute("data-dismiss", "modal");
-                                return false;
-                            }
+                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                            //     modal.removeAttribute("data-dismiss", "modal");
+                            //     return false;
+                            // }
                             this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                 if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                     it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -775,14 +774,14 @@ $(document).ready(function () {
                             });
                             this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                         } else {
-                            if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                            if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
-                            if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                                modal.removeAttribute("data-dismiss", "modal");
-                                return false;
-                            }
+                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                            //     modal.removeAttribute("data-dismiss", "modal");
+                            //     return false;
+                            // }
                             houseHoldForm.id = uuidV4();
                             houseHoldForm.mode = 'add';
                             this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
@@ -809,52 +808,67 @@ $(document).ready(function () {
                 return str;
             },
 
-            preventFutureYear: function (str, val) {
-                var today = new Date();
-                var dd = String(today.getDate()).padStart(2, '0');
-                var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                var yyyy = today.getFullYear();
-                var currentDate = mm + '/' + dd + '/' + yyyy;
-                if (str.length === 4 && Number(str) >= Number(yyyy)) {
-                    val[2] = yyyy;
-                    if (yyyy == 2021) {
-                        if (val[0] != dd) {
-                            val[0] = dd;
-                        }
-                        if (val[1] != mm) {
-                            val[1] = mm;
-                        }
-                    }
-                }
-                if (str.length > 4) {
-                    val[2] = yyyy;
-                }
-                return val[2];
-            },
 
-            checkValidDate: function (e) {
-                var input = e.target.value;
+            checkValidDate: function (id, obj, key) {
+                var dateElement = document.querySelector(id);
+                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
+
+                var input = dateElement.value;
                 if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
                 var values = input.split('/').map(function (v) {
                     return v.replace(/\D/g, '')
                 });
-                if (values[0]) values[0] = this.checkValue(values[0], 31);
-                if (values[1]) values[1] = this.checkValue(values[1], 12);
-                if (values[2]) values[2] = this.preventFutureYear(values[2], values)
+                var currentDate = {
+                    year: new Date().getFullYear(),
+                    month: parseInt(new Date().getMonth()) + 1,
+                    date: new Date().getDate()
+                }
+                if (values[0]) {
+                    if (values[2]) {
+                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
+                        values[0] = ("0" + values[0]).slice(-2)
+                    }
+                    values[0] = this.checkValue(values[0], 31);
+                }
+                if (values[1]) {
+                    if (values[2]) {
+                        values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
+                        values[1] = ("0" + values[1]).slice(-2)
+                    }
+                    values[1] = this.checkValue(values[1], 12);
+                }
+                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
+                    values[2] = 2021;
+                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
+                    values[2] = 1900;
+                }
                 var output = values.map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + ' / ' : v;
                 });
                 copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + '/' : v;
                 });
-                this.isGoogleAddressSelected = false;
-                this.houseHoldData.dob = output.join('').substr(0, 14);
+                // this.isGoogleAddressSelected = false;
+                dateElement.value = copyOutput.join('').substr(0, 14);
+                this[obj][key] = output.join('').substr(0, 14);
                 this.formatter = copyOutput.join('').substr(0, 14);
-                e.target.value = output.join('').substr(0, 14);
-                if (this.dateRegex.test(this.formatter)) {
-                    this.houseHoldData.dob = this.houseHoldData.dob
-                } else {
+                if (!this.dateRegex.test(this.formatter)) {
                     this.houseHoldData.profession = '';
+                    manualHouseHoldText.innerText = "Enter manually";
+                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                    this.showManualAddressHouseHold = false;
+                    this.resetHouseholdManualAddressValue();
+                } else {
+                    this.houseHoldData.dob = this.formatter;
+                }
+
+            },
+
+            setDatePattern: function (pattern) {
+                if (this.dateRegex.test(pattern)) {
+                    return true;
+                } else {
+                    return false;
                 }
             },
 
@@ -878,13 +892,13 @@ $(document).ready(function () {
                 houseHoldForm.name = houseHold.name;
                 houseHoldForm.lastName = houseHold.lastName;
                 houseHoldForm.relationShip = houseHold.relationShip;
-                houseHoldForm.dob = houseHold.dob;
+                houseHoldForm.dob = houseHold.dob.replace(/\s/g, "");;
                 houseHoldForm.day = houseHold.day;
                 houseHoldForm.month = houseHold.month;
                 houseHoldForm.year = houseHold.year;
                 houseHoldForm.profession = houseHold.profession;
                 houseHoldForm.id = houseHold.id;
-                this.isGoogleAddressSelected = true;
+                //this.isGoogleAddressSelected = true;
                 if (houseHold.manualAddress.profession) {
                     houseHoldForm.manualAddress.profession = houseHold.manualAddress.profession;
                 }
@@ -1020,7 +1034,7 @@ $(document).ready(function () {
             //Resetting the modal values of service data
             resetModalValues: function () {
                 this.isHouseHoldFormSubmitted = false;
-                this.isGoogleAddressSelected = false;
+                //this.isGoogleAddressSelected = false;
                 this.houseHoldData.name = '';
                 this.houseHoldData.lastName = '';
                 this.houseHoldData.relationShip = '';
