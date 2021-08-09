@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-    await queryInterface.createTable('referral_activity', {
+    await queryInterface.createTable('referralActivity', {
       id: Sequelize.INTEGER,
       uuid: {
         type: Sequelize.UUID,
@@ -42,7 +42,7 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('referral_activity');
+    await queryInterface.dropTable('referralActivity');
   }
 };
 
