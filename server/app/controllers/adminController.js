@@ -22,9 +22,9 @@ exports.getReferral = ctx => {
     console.log('ctx---gdfsgdsgdsgds--------', ctx.request.decryptedUser);
     return new Promise(async (resolve, reject) => {
         try {
-           // console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
+            // console.log('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
-
+            const referralActivityModel = ctx.orm().referralActivity;
             // sorting
             var order = [];
             var query = {
@@ -36,18 +36,18 @@ exports.getReferral = ctx => {
 
             if (ctx.request.decryptedUser && ctx.request.decryptedUser.service_type) {
                 query.referral_provider = ctx.request.decryptedUser.service_type;
-                if(ctx.request.decryptedUser.service_type=="Alder Hey - Liverpool CAMHS")
-                {
-                    var inArray = [ctx.request.decryptedUser.service_type,'Alder Hey - Liverpool EDYS']
-                    query.referral_provider= {
-                        [sequelize.Op.in] : inArray}
-                    
+                if (ctx.request.decryptedUser.service_type == "Alder Hey - Liverpool CAMHS") {
+                    var inArray = [ctx.request.decryptedUser.service_type, 'Alder Hey - Liverpool EDYS']
+                    query.referral_provider = {
+                        [sequelize.Op.in]: inArray
+                    }
+
                 }
-                else if(ctx.request.decryptedUser.service_type=="Alder Hey - Sefton CAMHS")
-                {
-                    var inArray = [ctx.request.decryptedUser.service_type,'Alder Hey - Sefton EDYS']
-                    query.referral_provider= {
-                        [sequelize.Op.in] : inArray}
+                else if (ctx.request.decryptedUser.service_type == "Alder Hey - Sefton CAMHS") {
+                    var inArray = [ctx.request.decryptedUser.service_type, 'Alder Hey - Sefton EDYS']
+                    query.referral_provider = {
+                        [sequelize.Op.in]: inArray
+                    }
                 }
             }
 
@@ -94,8 +94,8 @@ exports.getReferral = ctx => {
                     },
                 ],
                 order: order
-            });
-
+            })
+            var referralsActivity = await referralActivityModel.findAll({}).catch((err) => { console.log(err, "err") })
             referrals = JSON.parse(JSON.stringify(referrals));
 
             var totalReferrals = referrals.length;
@@ -104,7 +104,7 @@ exports.getReferral = ctx => {
             // with search
             if (ctx.query.searchValue) {
                 ctx.query.searchValue = ctx.query.searchValue.toLowerCase();
-               // console.log(ctx.query.searchValue)
+                // console.log(ctx.query.searchValue)
                 let filter_referrals = [];
                 _.forEach(referrals, function (refObj, index) {
                     if (refObj.referral_provider == null) {
@@ -183,7 +183,7 @@ exports.getReferral = ctx => {
                         referral_status: refObj.referral_status
                     }
                     if (refObj.gp_location) {
-                      //  console.log(refObj.gp_location_postcode)
+                        //  console.log(refObj.gp_location_postcode)
                         if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
                             if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
                                 referralObj.gp_location = gpCodes[0].type;
@@ -218,7 +218,8 @@ exports.getReferral = ctx => {
                     data: {
                         totalReferrals: totalReferrals,
                         filteredReferrals: filteredReferrals,
-                        data: referrals
+                        data: referrals,
+                        activity: referralsActivity
                     }
                 })
             );
@@ -237,6 +238,7 @@ exports.getArchived = ctx => {
         try {
             //////console.log()('\n\nget referral queries-----------------------------------------\n', ctx.query, '\n\n');
             const referralModel = ctx.orm().Referral;
+            const referralActivityModel = ctx.orm().referralActivity;
             var query = {
                 reference_code: {
                     [sequelize.Op.ne]: null
@@ -424,27 +426,46 @@ exports.getArchived = ctx => {
 
 exports.updateReferral = ctx => {
     return new Promise(async (resolve, reject) => {
+        const t = await ctx.orm().sequelize.transaction();
         try {
             if (ctx.request.body.referral_id && ctx.request.body.referral_id.length && ctx.request.body.status) {
                 const referralModel = ctx.orm().Referral;
+                const referralActivityModel = ctx.orm().referralActivity;
 
                 await referralModel.update(
                     {
-                        referral_complete_status: ctx.request.body.status
+                        referral_complete_status: ctx.request.body.status,
+
                     },
                     {
                         where: {
                             uuid: ctx.request.body.referral_id
                         }
-                    }
-                );
+                    }, { transaction: t }
+                ).then((referral) => {
+                    // console.log(referral, "update====")
+                });
 
+
+                let activity = [];
+                _.map(ctx.request.body.referral_id, function name(ref) {
+                    let activityObj = {
+                        activity: ctx.request.body.status == 'deleted' ? 'Referral Deleted' : ctx.request.body.status == 'archived' ? 'Referral Archived' : ctx.request.body.status == 'completed' ? 'Referral UnArchived' : '',
+                        ReferralId: ref,
+                        doneBy: ctx.request.decryptedUser.id
+                    }
+                    activity.push(activityObj)
+                })
+                const audit = await referralActivityModel.bulkCreate(activity, { transaction: t })
                 resolve(
                     ctx.res.ok({
                         message: reponseMessages[1001]
                     })
                 );
+                await t.commit();
+
             } else {
+                await t.rollback()
                 resolve(
                     ctx.res.badRequest({
                         message: reponseMessages[1002]
@@ -452,6 +473,7 @@ exports.updateReferral = ctx => {
                 );
             }
         } catch (error) {
+            await t.rollback()
             //////console.log()(error);
             reject(
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -717,7 +739,7 @@ function getRefData(refID, refRole, ctx) {
                     {
                         model: ctx.orm().Referral,
                         as: 'parent',
-                        attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address','responsibility_parent_lastname']
+                        attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address', 'responsibility_parent_lastname']
                     },
                 ],
                 where: {
@@ -903,7 +925,7 @@ function getRefData(refID, refRole, ctx) {
                     where: {
                         id: elgibilityObj[0].id,
                     },
-                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address', 'reference_code', 'contact_preferences', 'contact_person','responsibility_parent_lastname']
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'responsibility_parent_lastname']
                 }).then((aboutObj) => {
                     return user.findAll({
                         include: [
@@ -1134,13 +1156,13 @@ function getRefData(refID, refRole, ctx) {
                             model: ctx.orm().Referral,
                             nested: true,
                             as: 'parent',
-                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address','referral_mode']
+                            attributes: ['id', 'child_NHS', 'child_firstname', 'child_name_title', 'child_lastname', 'child_email', 'child_contact_number', 'child_address', 'child_address_postcode', 'can_send_post', 'child_gender', 'child_gender_birth', 'child_sexual_orientation', 'child_ethnicity', 'child_care_adult', 'household_member', 'child_contact_type', 'sex_at_birth', 'child_manual_address', 'referral_mode']
                         },
                     ],
                     where: {
                         id: childIdNew,
                     },
-                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address','responsibility_parent_lastname']
+                    attributes: ['id', 'parent_firstname', 'parent_lastname', 'parental_responsibility', 'responsibility_parent_firstname', 'child_parent_relationship', 'parent_contact_number', 'parent_email', 'parent_same_house', 'parent_address', 'parent_address_postcode', 'legal_care_status', 'parent_contact_type', 'parent_manual_address', 'responsibility_parent_lastname']
                 }).then((aboutObj) => {
 
                     return user.findAll({
@@ -1207,7 +1229,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_address: aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ', ' + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
                                 child_manual_address: aboutObj[0].parent[0].child_manual_address,
                                 can_send_post: aboutObj[0].parent[0].can_send_post,
-                                referral_mode:aboutObj[0].parent[0].referral_mode == "1"? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" :"" ,
+                                referral_mode: aboutObj[0].parent[0].referral_mode == "1" ? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" : "",
                                 child_gender: aboutObj[0].parent[0].child_gender,
                                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                                 child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
@@ -1352,10 +1374,10 @@ function getRefData(refID, refRole, ctx) {
 }
 
 exports.referralStatusUpdate = async (ctx) => {
-
+    const t = await ctx.orm().sequelize.transaction();
     try {
         const referralModel = ctx.orm().Referral;
-
+        const referralActivityModel = ctx.orm().referralActivity;
         let updateValue = {
             referral_status: ctx.request.body.status
         }
@@ -1364,39 +1386,61 @@ exports.referralStatusUpdate = async (ctx) => {
             updateValue.referral_provider_other = ctx.request.body.other;
         }
 
-        console.log(updateValue);
+        if (ctx.request.body.activity && ctx.request.body.activity.activity === 'Referral viewed') {
+            console.log("came in", updateValue.activity);
+            updateValue.activity = {
+                activity: 'Referral viewed',
+                ReferralId: ctx.request.body.activity.referral,
+                doneBy: ctx.request.decryptedUser.id
+            }
+            console.log(updateValue, "in");
+        } else if (ctx.request.body.status) {
+            updateValue.activity = {
+                activity: "Referral changed - " + ctx.request.body.status + ((ctx.request.body.other) ? ("-" + ctx.request.body.other) : ''),
+                ReferralId: ctx.request.body.referral_id,
+                doneBy: ctx.request.decryptedUser.id
+            }
+        } else {
+            updateValue.activity = {
+                activity: ctx.request.body.activity.activity,
+                ReferralId: ctx.request.body.activity.referral,
+                doneBy: ctx.request.decryptedUser.id
+            }
+        }
         // return false;
         const updatereferral = await referralModel.update(
             updateValue,
-            { where: { uuid: ctx.request.body.referral_id } }
+            { where: { uuid: ctx.request.body.referral_id } },
+            { transaction: t }
         );
-
+        const audit = await referralActivityModel.create(updateValue.activity, { transaction: t })
         if (updatereferral) {
             console.log('Update status success.......');
+            await t.commit();
             ctx.res.ok({
                 message: reponseMessages[1001]
             })
         } else {
+            await t.commit();
             ctx.res.ok({
                 message: reponseMessages[1002]
             })
         }
     } catch (error) {
+        await t.rollback();
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     }
 
 }
 
-
-
 exports.sendReferralCopy = async ctx => {
     console.log(ctx.request.body)
-    console.log("ctx.request.body.referralData", ctx.request.body.refPdfCode + ',' + ctx.request.body.role + ','+ ctx.request.body.professional_email);
+    console.log("ctx.request.body.referralData", ctx.request.body.refPdfCode + ',' + ctx.request.body.role + ',' + ctx.request.body.professional_email);
     let referralData = await getRefData(ctx.request.body.refPdfCode, ctx.request.body.role, ctx);
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.request.body.professional_email;
-   // ctx.request.body.referralCode = ctx.request.body.referralCode;
-   ctx.request.body.sendProf = true;
+    // ctx.request.body.referralCode = ctx.request.body.referralCode;
+    ctx.request.body.sendProf = true;
     try {
         return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
             console.log(sendReferralStatus)
@@ -1405,8 +1449,8 @@ exports.sendReferralCopy = async ctx => {
             });
         }).catch(error => {
             console.log(error, "error");
-           console.log("false")
-          return false;
+            console.log("false")
+            return false;
         });
     } catch (e) {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
@@ -1438,3 +1482,113 @@ function calculateAge(birthDate) {
     return years;
 }
 
+exports.getActivity = async (ctx) => {
+    const referralActivityModel = ctx.orm().referralActivity;
+    var query = {}
+    if (ctx.query.fromDate && ctx.query.endDate) {
+        query = {
+            createdAt: {
+                [sequelize.Op.gte]: moment(ctx.query.fromDate).toDate(),
+                [sequelize.Op.lte]: moment(ctx.query.endDate).toDate(),
+            }
+        }
+    }
+    console.log(query, "query========");
+    return referralActivityModel.findAll({
+        where: query,
+        include: [
+            { model: ctx.orm().User, as: 'userInfo' },
+            {
+                model: ctx.orm().Referral, as: 'referralInfo', attributes: [
+                    'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'registered_gp_postcode',
+                    [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_firstname'), sequelize.col('referralInfo.professional.child_firstname'), sequelize.col('referralInfo.child_firstname')), 'name'],
+                    [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_lastname'), sequelize.col('referralInfo.professional.child_lastname'), sequelize.col('referralInfo.child_lastname')), 'lastname'],
+                    [sequelize.fn('CONCAT', sequelize.col('referralInfo.registered_gp'), sequelize.col('referralInfo.parent.registered_gp'), sequelize.col('referralInfo.professional.registered_gp')), 'gp_location'],
+                    [sequelize.fn('CONCAT', sequelize.col('referralInfo.parent.child_dob'), sequelize.col('referralInfo.professional.child_dob'), sequelize.col('referralInfo.child_dob')), 'dob'],
+                    [sequelize.fn('CONCAT', sequelize.col('referralInfo.child_firstname'), sequelize.col('referralInfo.professional_firstname'), sequelize.col('referralInfo.parent_firstname')), 'referrer_name'],
+                    [sequelize.fn('CONCAT', sequelize.col('referralInfo.child_lastname'), sequelize.col('referralInfo.professional_lastname'), sequelize.col('referralInfo.parent_lastname')), 'referrer_lastname'],
+                    [sequelize.fn('CONCAT', sequelize.col('referralInfo.registered_gp_postcode'), sequelize.col('referralInfo.parent.registered_gp_postcode'), sequelize.col('referralInfo.professional.registered_gp_postcode')), 'gp_location_postcode'],
+                ],
+                include: [
+                    {
+                        model: ctx.orm().Referral,
+                        as: 'parent',
+                        attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                        ]
+                    },
+                    {
+                        model: ctx.orm().Referral,
+                        as: 'professional',
+                        attributes: [
+                            'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                        ]
+                    },
+                ],
+            },
+        ],
+    }).then((data) => {
+        let filter_referrals = [];
+        console.log(data, "data===");
+        _.forEach(data, function (obj, index) {
+            refObj = obj.referralInfo
+            console.log(obj.userInfo, "refObj===");
+            if (refObj.referral_provider == null) {
+                refObj.referral_provider = "Archived"
+            } else {
+                refObj.referral_provider = refObj.referral_provider
+            }
+            console.log(refObj, refObj.uuid, refObj.dataValues.name);
+
+            var referralObj = {
+                uuid: refObj.uuid,
+                name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
+                dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
+                reference_code: refObj.reference_code,
+                referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
+                gp_location: 'Local School',
+                referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
+                refDate: moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
+                referral_provider: refObj.referral_provider,
+                referral_provider_other: refObj.referral_provider_other,
+                referral_status: refObj.referral_status,
+                activity_date: moment(obj.createdAt).format('DD/MM/YYYY'),
+                activity_time: moment(obj.createdAt).format('h:mm:ss'),
+                activity_user: obj.userInfo.first_name + ' ' + obj.userInfo.last_name,
+                activity_action: obj.activity
+            }
+            if (refObj.gp_location) {
+                if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
+                    if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                        referralObj.gp_location = gpCodes[0].type;
+                    } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                        referralObj.gp_location = gpCodes[1].type;
+                    }
+                }
+                else {
+                    var splitLocation = refObj.gp_location.split(',');
+                    if (splitLocation.length > 1) {
+                        if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            referralObj.gp_location = gpCodes[0].type;
+                        } else if (splitLocation[1] != "L14 0JE" && gpCodes[1].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
+                            referralObj.gp_location = gpCodes[1].type;
+                        }
+                    }
+                }
+            }
+            filter_referrals.push(referralObj);
+        });
+        return ctx.res.ok({
+            status: "success",
+            message: reponseMessages[1021],
+            data: filter_referrals,
+            data: {
+                filter_referrals: filter_referrals,
+                activity_referrals: data
+            }
+        });
+    }).catch((error) => {
+        console.log(error);
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    })
+}

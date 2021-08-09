@@ -179,7 +179,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
                             @input="checkValidDate('#manualDatePickerParent','elgibilityObj','childDob')"
-                            autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
+                            inputmode="numeric" autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -245,8 +245,8 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate('#manualDatePickerChild','elgibilityObj','childDob')" autocomplete="off"
-                            id="manualDatePickerChild" placeholder="DD/MM/YYYY">
+                            @input="checkValidDate('#manualDatePickerChild','elgibilityObj','childDob')"
+                            autocomplete="off" id="manualDatePickerChild" inputmode="numeric" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -1306,7 +1306,7 @@
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.profChildDob"
+                            v-model="elgibilityObj.profChildDob" inputmode="numeric"
                             @input="checkValidDate('#manualDatePicker','elgibilityObj','profChildDob')"
                             autocomplete="off" id="manualDatePicker" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">

@@ -823,13 +823,12 @@ $(document).ready(function () {
                     month: parseInt(new Date().getMonth()) + 1,
                     date: new Date().getDate()
                 }
-                if (values[0]) {
-                    if (values[2]) {
-                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
-                        values[0] = ("0" + values[0]).slice(-2)
-                    }
-                    values[0] = this.checkValue(values[0], 31);
+                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
+                    values[2] = 2021;
+                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
+                    values[2] = 1900;
                 }
+
                 if (values[1]) {
                     if (values[2]) {
                         values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
@@ -837,11 +836,15 @@ $(document).ready(function () {
                     }
                     values[1] = this.checkValue(values[1], 12);
                 }
-                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
-                    values[2] = 2021;
-                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
-                    values[2] = 1900;
+
+                if (values[0]) {
+                    if (values[2]) {
+                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
+                        values[0] = ("0" + values[0]).slice(-2)
+                    }
+                    values[0] = this.checkValue(values[0], 31);
                 }
+
                 var output = values.map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + ' / ' : v;
                 });
