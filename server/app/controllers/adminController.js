@@ -1490,8 +1490,8 @@ exports.getActivity = async (ctx) => {
     if (ctx.query.fromDate && ctx.query.endDate) {
         query = {
             createdAt: {
-                [sequelize.Op.gte]: moment(ctx.query.fromDate).toDate(),
-                [sequelize.Op.lte]: moment(ctx.query.endDate).toDate(),
+                [sequelize.Op.gte]: moment(ctx.query.fromDate).startOf('day').toDate(),
+                [sequelize.Op.lte]: moment(ctx.query.endDate).endOf('day').toDate(),
             }
         }
     }
