@@ -1490,8 +1490,8 @@ exports.getActivity = async (ctx) => {
     if (ctx.query.fromDate && ctx.query.endDate) {
         query = {
             createdAt: {
-                [sequelize.Op.gte]: moment(ctx.query.fromDate).toDate(),
-                [sequelize.Op.lte]: moment(ctx.query.endDate).toDate(),
+                [sequelize.Op.gte]: moment(ctx.query.fromDate).startOf('day').toDate(),
+                [sequelize.Op.lte]: moment(ctx.query.endDate).endOf('day').toDate(),
             }
         }
     }
@@ -1555,7 +1555,9 @@ exports.getActivity = async (ctx) => {
                 referral_provider_other: refObj.referral_provider_other,
                 referral_status: refObj.referral_status,
                 activity_date: moment(obj.createdAt).format('DD/MM/YYYY'),
-                activity_time: moment(obj.createdAt).format('h:mm:ss'),
+                //activity_time: moment(obj.createdAt).format('h:mm:ss'),
+                //moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
+                activity_time: moment(moment(obj.createdAt).tz('Europe/London')).format('H:mm:ss'),
                 activity_user: obj.userInfo.first_name + ' ' + obj.userInfo.last_name,
                 activity_action: obj.activity
             }
