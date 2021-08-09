@@ -1387,7 +1387,6 @@ exports.referralStatusUpdate = async (ctx) => {
         }
 
         if (ctx.request.body.activity && ctx.request.body.activity.activity === 'Referral viewed') {
-            console.log("came in", updateValue.activity);
             updateValue.activity = {
                 activity: 'Referral viewed',
                 ReferralId: ctx.request.body.activity.referral,
@@ -1413,7 +1412,9 @@ exports.referralStatusUpdate = async (ctx) => {
             { where: { uuid: ctx.request.body.referral_id } },
             { transaction: t }
         );
-        const audit = await referralActivityModel.create(updateValue.activity, { transaction: t })
+        const audit = await referralActivityModel.create(updateValue.activity, { transaction: t }).catch((err) => {
+            console.log("error===", err);
+        })
         if (updatereferral) {
             console.log('Update status success.......');
             await t.commit();
@@ -1427,6 +1428,7 @@ exports.referralStatusUpdate = async (ctx) => {
             })
         }
     } catch (error) {
+        console.log(error, "error====");
         await t.rollback();
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     }
