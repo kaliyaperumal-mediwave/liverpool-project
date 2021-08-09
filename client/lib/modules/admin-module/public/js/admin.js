@@ -476,7 +476,7 @@ $(document).ready(function () {
       getActivity: function (uuid) {
         let result = apiCallGet('get', '/getActivity', API_URI);
         let specificReferral = _.filter(result.data.activity_referrals, function (o) {
-          o['date'] = moment(o.createdAt).format('L')
+          o['date'] = moment(o.createdAt).format('DD/MM/YYYY')
           o['time'] = moment(o.createdAt).format('h:mm:ss')
           return o.ReferralId == uuid;
         })
