@@ -4,7 +4,10 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
 
     await queryInterface.createTable('referralActivity', {
-      id: Sequelize.INTEGER,
+      id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+      },
       uuid: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
