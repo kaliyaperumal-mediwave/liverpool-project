@@ -183,9 +183,16 @@ $(document).ready(function () {
           _self.isCsvDownloadSubmitted = true;
           _self.fromDateCsv = _self.fromDateCsv.replace(/\s/g, "");
           _self.toDateCsv = _self.toDateCsv.replace(/\s/g, "");
+          var fromDateArr = _self.fromDateCsv.split('/');
+          var toDateCsv = _self.toDateCsv.split('/');
+          fromDateArr.move(0, 1);
+          toDateCsv.move(0, 1);
+          var finalFromRes = fromDateArr.join('/');
+          var finalToRes = toDateCsv.join('/');
+          console.log(finalFromRes, finalToRes)
           if (_self.fromDateCsv && _self.toDateCsv) {
             if (_self.dateRegex.test(_self.fromDateCsv) && _self.dateRegex.test(_self.toDateCsv)) {
-              if (new Date(_self.toDateCsv) >= new Date(_self.fromDateCsv)) {
+              if (new Date(finalToRes).getTime() >= new Date(finalFromRes).getTime()) {
                 _self.showInvalidToDate = false;
                 var getFromData = _self.fromDateCsv.split('/');
                 var getToData = _self.toDateCsv.split('/');
