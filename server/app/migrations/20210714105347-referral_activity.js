@@ -27,7 +27,7 @@ module.exports = {
       ReferralId: {
         type: Sequelize.UUID,
         references: {
-          model: Sequelize.models.Referral,
+          model: 'referrals',
           key: 'uuid',
         },
       },
