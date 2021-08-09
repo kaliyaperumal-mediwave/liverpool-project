@@ -41,10 +41,18 @@ $(document).ready(function () {
       todateString: "",
       dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
       groupByActivityDate: [],
+      fromDateCsv: '',
+      toDateCsv: '',
+      copyFromDateCsv: '',
+      copyToDateCsv: '',
+      isCsvDownloadSubmitted: false,
+      showInvalidToDate: false
     },
+
     beforeMount: function () {
       $('#loader').show();
     },
+
     mounted: function () {
       var date = new Date().getFullYear();
       for (var i = date; i > 1989; i--) {
@@ -170,49 +178,83 @@ $(document).ready(function () {
             }
           }
         });
-        $("#ExportReporttoExcel").on("click", function () {
-          let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
-          var rows = []
-          rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
-          for (var i = 0; i < result.data.filter_referrals.length; i++) {
-            rows.push([
-              result.data.filter_referrals[i].name,
-              result.data.filter_referrals[i].dob,
-              result.data.filter_referrals[i].reference_code,
-              result.data.filter_referrals[i].referrer,
-              result.data.filter_referrals[i].gp_location,
-              result.data.filter_referrals[i].referrer_type,
-              result.data.filter_referrals[i].refDate,
-              result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
-                result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                  result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted by ' + result.data.filter_referrals[i].referral_provider_other :
-                    result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
-              result.data.filter_referrals[i].date,
-              result.data.filter_referrals[i].activity_date,
-              result.data.filter_referrals[i].activity_time,
-              result.data.filter_referrals[i].activity_user,
-              result.data.filter_referrals[i].activity_action,
-            ]);
-          }
-          let csvContent = "data:text/csv;charset=utf-8,"
-            + rows.map(e => e.join(",")).join("\n");
-          var encodedUri = encodeURI(csvContent);
-          var link = document.createElement("a");
-          link.setAttribute("href", encodedUri);
-          link.setAttribute("download", "my_data.csv");
-          document.body.appendChild(link); // Required for FF
 
-          link.click(); // This will download the data file named "my_data.csv".
-          table.rows().deselect();
-          $('.idcheck').removeAttr('checked');
-          this.referral_ids = [];
-          _self.closeStatusPopup();
-          _self.fromcsvDate = {};
-          _self.tocsvDate = {};
+        $("#ExportReporttoExcel").on("click", function () {
+          _self.isCsvDownloadSubmitted = true;
+          _self.fromDateCsv = _self.fromDateCsv.replace(/\s/g, "");
+          _self.toDateCsv = _self.toDateCsv.replace(/\s/g, "");
+          if (_self.fromDateCsv && _self.toDateCsv) {
+            if (_self.dateRegex.test(_self.fromDateCsv) && _self.dateRegex.test(_self.toDateCsv)) {
+              if (new Date(_self.toDateCsv) >= new Date(_self.fromDateCsv)) {
+                _self.showInvalidToDate = false;
+                var getFromData = _self.fromDateCsv.split('/');
+                var getToData = _self.toDateCsv.split('/');
+                console.log('from and to', getFromData, getToData)
+                //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
+                let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
+                var rows = []
+                rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
+                for (var i = 0; i < result.data.filter_referrals.length; i++) {
+                  rows.push([
+                    result.data.filter_referrals[i].name,
+                    result.data.filter_referrals[i].dob,
+                    result.data.filter_referrals[i].reference_code,
+                    result.data.filter_referrals[i].referrer,
+                    result.data.filter_referrals[i].gp_location,
+                    result.data.filter_referrals[i].referrer_type,
+                    result.data.filter_referrals[i].refDate,
+                    result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
+                      result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
+                        result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted by ' + result.data.filter_referrals[i].referral_provider_other :
+                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
+                    result.data.filter_referrals[i].date,
+                    result.data.filter_referrals[i].activity_date,
+                    result.data.filter_referrals[i].activity_time,
+                    result.data.filter_referrals[i].activity_user,
+                    result.data.filter_referrals[i].activity_action,
+                  ]);
+                }
+                let csvContent = "data:text/csv;charset=utf-8,"
+                  + rows.map(e => e.join(",")).join("\n");
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "my_data.csv");
+                document.body.appendChild(link); // Required for FF
+
+                link.click(); // This will download the data file named "my_data.csv".
+                table.rows().deselect();
+                $('.idcheck').removeAttr('checked');
+                this.referral_ids = [];
+                _self.closeStatusPopup();
+                _self.fromDateCsv = "";
+                _self.toDateCsv = "";
+                _self.isCsvDownloadSubmitted = false;
+                _self.showInvalidToDate = false;
+                // _self.fromcsvDate = {};
+                // _self.tocsvDate = {};
+              } else {
+                _self.showInvalidToDate = true;
+                $('#downloadCSV').modal('show');
+                return false;
+              }
+
+            } else {
+              $('#downloadCSV').modal('show');
+              return false;
+            }
+
+          } else {
+            $('#downloadCSV').modal('show');
+            return false;
+          }
+
         });
+
         this.referral_ids = [];
         $('#loader').hide();
       },
+
       selectcheck: function (checked, id) {
         if (checked) {
           this.referral_ids.push(id);
@@ -343,6 +385,58 @@ $(document).ready(function () {
         }
       },
 
+      checkValue: function (str, max) {
+        if (str.charAt(0) !== '0' || str == '00') {
+          var num = parseInt(str);
+          if (isNaN(num) || num <= 0 || num > max) num = 1;
+          str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+        };
+        return str;
+      },
+
+      checkValidDate: function (id, key, duplicateKey) {
+        var dateElement = document.querySelector(id);
+        var input = dateElement.value;
+        if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+        var values = input.split('/').map(function (v) {
+          return v.replace(/\D/g, '')
+        });
+        var currentDate = {
+          year: new Date().getFullYear(),
+          month: parseInt(new Date().getMonth()) + 1,
+          date: new Date().getDate()
+        }
+        if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
+          values[2] = 2021;
+        } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
+          values[2] = 1900;
+        }
+        if (values[1]) {
+          if (values[2]) {
+            values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
+            values[1] = ("0" + values[1]).slice(-2)
+          }
+          values[1] = this.checkValue(values[1], 12);
+        }
+        if (values[0]) {
+          if (values[2]) {
+            values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
+            values[0] = ("0" + values[0]).slice(-2)
+          }
+          values[0] = this.checkValue(values[0], 31);
+        }
+        var output = values.map(function (v, i) {
+          return v.length == 2 && i < 2 ? v + ' / ' : v;
+        });
+        copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+          return v.length == 2 && i < 2 ? v + '/' : v;
+        });
+        dateElement.value = copyOutput.join('').substr(0, 14);
+        this[key] = output.join('').substr(0, 14);
+        this[duplicateKey] = copyOutput.join('').substr(0, 14);
+      },
+
+
       closeModal: function () {
         $('#example').DataTable().ajax.reload();
         $('#deletedSuccess').modal('hide');
@@ -362,6 +456,10 @@ $(document).ready(function () {
         $('#changeStatusModal').modal('hide');
         $('#actionlogModal').modal('hide');
         $('#downloadCSV').modal('hide');
+        this.fromDateCsv = "";
+        this.toDateCsv = "";
+        this.isCsvDownloadSubmitted = false;
+        this.showInvalidToDate = false;
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
