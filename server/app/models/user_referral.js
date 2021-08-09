@@ -144,35 +144,35 @@ module.exports = function modelUser(sequelize, types) {
     professional_contact_number: {
       type: types.TEXT
     },
-    contact_preferences:{
+    contact_preferences: {
       type: types.JSONB
     },
-    household_member:{
+    household_member: {
       type: types.JSONB
     },
-    referral_complete_status:{
+    referral_complete_status: {
       type: types.TEXT
     },
     referral_status: {
       type: types.TEXT,
       defaultValue: 'Nothing',
     },
-    contact_parent_camhs:{
+    contact_parent_camhs: {
       type: types.TEXT
     },
-    reason_contact_parent_camhs:{
+    reason_contact_parent_camhs: {
       type: types.TEXT
     },
-    referral_provider:{
+    referral_provider: {
       type: types.TEXT
     },
-    referral_provider_other:{
+    referral_provider_other: {
       type: types.TEXT
     },
-    professional_address:{
+    professional_address: {
       type: types.TEXT
     },
-    professional_profession:{
+    professional_profession: {
       type: types.TEXT
     },
     child_lastname: {
@@ -244,25 +244,25 @@ module.exports = function modelUser(sequelize, types) {
     professional_contact_type: {
       type: types.TEXT
     },
-    child_socialworker_contact_type: { 
+    child_socialworker_contact_type: {
       type: types.TEXT
     },
-    registered_gp_postcode: { 
+    registered_gp_postcode: {
       type: types.TEXT
     },
-    child_address_postcode: { 
+    child_address_postcode: {
       type: types.TEXT
     },
-    parent_address_postcode: { 
+    parent_address_postcode: {
       type: types.TEXT
     },
-    professional_address_postcode: { 
+    professional_address_postcode: {
       type: types.TEXT
     },
-    child_education_place_postcode: { 
+    child_education_place_postcode: {
       type: types.TEXT
     },
-    referral_mode: { 
+    referral_mode: {
       type: types.TEXT
     },
   }, {
@@ -271,6 +271,11 @@ module.exports = function modelUser(sequelize, types) {
   Referral.belongsToMany(sequelize.models.Type, {
     as: 'type',
     through: 'UserType',
+  });
+  Referral.belongsToMany(sequelize.models.referralActivity, {
+    as: 'activity',
+    through: 'ReferralreferralActivity',
+    foreignKey: 'ReferralId'
   });
   Referral.belongsToMany(sequelize.models.Reason, {
     as: 'referral_reason',
