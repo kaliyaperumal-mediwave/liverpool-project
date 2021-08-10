@@ -1232,7 +1232,7 @@ $(document).ready(function () {
                 copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
                     return v.length == 2 && i < 2 ? v + '/' : v;
                 });
-                dateElement.value = copyOutput.join('').substr(0, 14);
+                dateElement.value = output.join('').substr(0, 14);
                 this[obj][key] = output.join('').substr(0, 14);
                 this.formatter = copyOutput.join('').substr(0, 14);
                 if (this.dateRegex.test(this.formatter)) {
