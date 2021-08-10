@@ -9,7 +9,7 @@ $(document).ready(function () {
   }
   var vueApp = new Vue({
     el: '#admin',
-    components: { Multiselect: window.VueMultiselect?.default },
+   // components: { Multiselect: window.VueMultiselect?.default },
     data: {
       searchTxt: "",
       fromcsvDate: {},
@@ -221,15 +221,14 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].activity_action,
                   ]);
                 }
-                let csvContent = "data:text/csv;charset=utf-8,"
-                  + rows.map(e => e.join(",")).join("\n");
+                //download(blob, uuid + ".pdf", "application/pdf");
+                 let csvContent = rows.map( function (e) { return e.join(",")}).join("\n");
+                   console.log(rows.map( function (e) { return e.join(",")}).join("\n"))
+                   console.log(rows)
                 var encodedUri = encodeURI(csvContent);
-                var link = document.createElement("a");
-                link.setAttribute("href", encodedUri);
-                link.setAttribute("download", "my_data.csv");
-                document.body.appendChild(link); // Required for FF
-
-                link.click(); // This will download the data file named "my_data.csv".
+                console.log(csvContent)
+                var blob = new Blob([csvContent], { type: "application/pdf" });
+                download(blob,  "mydata.csv", "text/csv");
                 table.rows().deselect();
                 $('.idcheck').removeAttr('checked');
                 this.referral_ids = [];
@@ -238,6 +237,22 @@ $(document).ready(function () {
                 _self.toDateCsv = "";
                 _self.isCsvDownloadSubmitted = false;
                 _self.showInvalidToDate = false;
+               
+                // var link = document.createElement("a");
+
+                // link.setAttribute("href", encodedUri);
+                // link.setAttribute("download", "my_data.csv");
+                // document.body.appendChild(link); // Required for FF
+
+                // link.click(); // This will download the data file named "my_data.csv".
+                // table.rows().deselect();
+                // $('.idcheck').removeAttr('checked');
+                // this.referral_ids = [];
+                // _self.closeStatusPopup();
+                // _self.fromDateCsv = "";
+                // _self.toDateCsv = "";
+                // _self.isCsvDownloadSubmitted = false;
+                // _self.showInvalidToDate = false;
                 // _self.fromcsvDate = {};
                 // _self.tocsvDate = {};
               } else {
