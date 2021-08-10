@@ -9,7 +9,7 @@ $(document).ready(function () {
   }
   var vueApp = new Vue({
     el: '#admin',
-   // components: { Multiselect: window.VueMultiselect?.default },
+    // components: { Multiselect: window.VueMultiselect?.default },
     data: {
       searchTxt: "",
       fromcsvDate: {},
@@ -222,13 +222,13 @@ $(document).ready(function () {
                   ]);
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
-                 let csvContent = rows.map( function (e) { return e.join(",")}).join("\n");
-                   console.log(rows.map( function (e) { return e.join(",")}).join("\n"))
-                   console.log(rows)
+                let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
+                console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
+                console.log(rows)
                 var encodedUri = encodeURI(csvContent);
                 console.log(csvContent)
                 var blob = new Blob([csvContent], { type: "application/pdf" });
-                download(blob,  "mydata.csv", "text/csv");
+                download(blob, "ReferralActivities" + moment().format("DD-MM-YYYY") + ".csv", "text/csv");
                 table.rows().deselect();
                 $('.idcheck').removeAttr('checked');
                 this.referral_ids = [];
@@ -237,7 +237,7 @@ $(document).ready(function () {
                 _self.toDateCsv = "";
                 _self.isCsvDownloadSubmitted = false;
                 _self.showInvalidToDate = false;
-               
+
                 // var link = document.createElement("a");
 
                 // link.setAttribute("href", encodedUri);
@@ -494,8 +494,8 @@ $(document).ready(function () {
           o['date'] = moment(o.createdAt).format('DD/MM/YYYY')
           o['time'] = moment(moment(o.createdAt).tz('Europe/London')).format('H:mm:ss')
 
-         // o['time'] = moment(o.createdAt).format('h:mm:ss')
-         //console.log(moment(o.createdAt).format('h:mm:ss'))
+          // o['time'] = moment(o.createdAt).format('h:mm:ss')
+          //console.log(moment(o.createdAt).format('h:mm:ss'))
           return o.ReferralId == uuid;
         })
         console.log(specificReferral, "specificReferral");
