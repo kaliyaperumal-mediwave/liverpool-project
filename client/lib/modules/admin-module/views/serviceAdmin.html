@@ -271,23 +271,29 @@
                     </span>
                 </div>
                 <div class="actionloginfo">
+
                     <div class="actionlogdata">
-                        <!-- {{groupByActivityDate}} -->
-                        <div v-for="(item,key,count) in groupByActivityDate">
-                            <h6>{{key}}</h6>
-                            <div v-for="val in item">
-                                <div class="actionlogbody">
-                                    <div class="actionloguser_info">
-                                        <label>Time:</label>
-                                        <p>{{val.time }}</p>
-                                    </div>
-                                    <div class="actionloguser_info">
-                                        <label>User:</label>
-                                        <p>{{val.userInfo.first_name}}</p>
-                                    </div>
-                                    <div class="actionloguser_info">
-                                        <label>Action:</label>
-                                        <p>{{val.activity}}</p>
+
+                        <div v-if="Object.keys(groupByActivityDate).length === 0">
+                            <p class="logout-font mt-3 text-center">No actions yet</p>
+                        </div>
+                        <div v-else>
+                            <div v-for="(item,key,count) in groupByActivityDate">
+                                <h6>{{key}}</h6>
+                                <div v-for="val in item">
+                                    <div class="actionlogbody">
+                                        <div class="actionloguser_info">
+                                            <label>Time:</label>
+                                            <p>{{val.time }}</p>
+                                        </div>
+                                        <div class="actionloguser_info">
+                                            <label>User:</label>
+                                            <p>{{val.userInfo.first_name}} {{val.userInfo.last_name}}</p>
+                                        </div>
+                                        <div class="actionloguser_info">
+                                            <label>Action:</label>
+                                            <p>{{val.activity}}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

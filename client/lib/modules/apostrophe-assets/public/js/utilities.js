@@ -338,6 +338,7 @@ function apiCallGet(reqType, endPoint, API_URI) {
         type: reqType,
         dataType: 'json',
         async: false,
+        cache: false,
         contentType: 'application/json',
         success: function (res) {
             response = res;

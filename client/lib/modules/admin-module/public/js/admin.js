@@ -146,6 +146,7 @@ $(document).ready(function () {
             url: _self.urlToLoadData,
             // url: '/modules/admin-module/getAllreferral',
             type: 'GET',
+            cache: false,
             dataFilter: function (referralRes) {
               referralRes = jQuery.parseJSON(referralRes);
               console.log(referralRes, "referralRes");
