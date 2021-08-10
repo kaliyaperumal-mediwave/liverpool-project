@@ -95,6 +95,7 @@ exports.getReferral = ctx => {
                 ],
                 order: order
             })
+            console.log(referrals.length, referrals, "referrals====");
             var referralsActivity = await referralActivityModel.findAll({}).catch((err) => { console.log(err, "err") })
             referrals = JSON.parse(JSON.stringify(referrals));
 
@@ -1486,6 +1487,8 @@ function calculateAge(birthDate) {
 
 exports.getActivity = async (ctx) => {
     const referralActivityModel = ctx.orm().referralActivity;
+    const referralModel = ctx.orm().Referral;
+
     var query = {}
     if (ctx.query.fromDate && ctx.query.endDate) {
         query = {
@@ -1528,27 +1531,76 @@ exports.getActivity = async (ctx) => {
                 ],
             },
         ],
-    }).then((data) => {
+    }).then(async (data) => {
         let filter_referrals = [];
         console.log(data, "data===");
-        _.forEach(data, function (obj, index) {
-            refObj = obj.referralInfo
-            console.log(obj.userInfo, "refObj===");
+        var query = {
+            reference_code: {
+                [sequelize.Op.ne]: null
+            },
+            referral_complete_status: 'completed'
+        }
+        var referrals = await referralModel.findAll({
+            attributes: [
+                'id', 'uuid', 'reference_code', 'child_dob', 'user_role', 'registered_gp', 'updatedAt', 'createdAt', 'referral_provider', 'referral_provider_other', 'referral_status', 'gp_school', 'registered_gp_postcode',
+                [sequelize.fn('CONCAT', sequelize.col('parent.child_firstname'), sequelize.col('professional.child_firstname'), sequelize.col('Referral.child_firstname')), 'name'],
+                [sequelize.fn('CONCAT', sequelize.col('parent.child_lastname'), sequelize.col('professional.child_lastname'), sequelize.col('Referral.child_lastname')), 'lastname'],
+                [sequelize.fn('CONCAT', sequelize.col('parent.child_dob'), sequelize.col('professional.child_dob'), sequelize.col('Referral.child_dob')), 'dob'],
+                [sequelize.fn('CONCAT', sequelize.col('Referral.child_firstname'), sequelize.col('Referral.professional_firstname'), sequelize.col('Referral.parent_firstname')), 'referrer_name'],
+                [sequelize.fn('CONCAT', sequelize.col('Referral.child_lastname'), sequelize.col('Referral.professional_lastname'), sequelize.col('Referral.parent_lastname')), 'referrer_lastname'],
+                [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp'), sequelize.col('parent.registered_gp'), sequelize.col('professional.registered_gp')), 'gp_location'],
+                [sequelize.fn('CONCAT', sequelize.col('Referral.registered_gp_postcode'), sequelize.col('parent.registered_gp_postcode'), sequelize.col('professional.registered_gp_postcode')), 'gp_location_postcode'],
+
+            ],
+            where: query,
+            include: [
+                {
+                    model: referralModel,
+                    as: 'parent',
+                    attributes: ['id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                    ]
+                },
+                {
+                    model: referralModel,
+                    as: 'professional',
+                    attributes: [
+                        'id', 'uuid', 'child_firstname', 'child_lastname', 'child_dob', 'registered_gp', 'registered_gp_postcode'
+                    ]
+                },
+            ],
+        })
+        // console.log(referrals.length, referrals);
+
+        var referalActivityArray = data;
+        let mappedReferralData = _.map(referrals, function (p) {
+            return {
+                ...p,
+                ReferralId: p.uuid
+            }
+        });
+        const nonCommonValues = _.xorBy(mappedReferralData, referalActivityArray, 'ReferralId');
+        var allReferralData = _.concat(nonCommonValues, data)
+        console.log(allReferralData.length, referrals.length, data.length, "allReferralData")
+
+        _.forEach(allReferralData, function (obj, index) {
+            refObj = obj.referralInfo ? obj.referralInfo : obj
+
+            console.log(refObj, refObj.user_role, refObj.dataValues.user_role, "refObj===", (obj.referralInfo ? true : false));
+
             if (refObj.referral_provider == null) {
                 refObj.referral_provider = "Archived"
             } else {
                 refObj.referral_provider = refObj.referral_provider
             }
-            console.log(refObj, refObj.uuid, refObj.dataValues.name);
 
             var referralObj = {
                 uuid: refObj.uuid,
                 name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
                 dob: refObj.dataValues.dob ? moment(refObj.dataValues.dob).format('DD/MM/YYYY') : '',
-                reference_code: refObj.reference_code,
+                reference_code: refObj.dataValues.reference_code,
                 referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
                 gp_location: 'Local School',
-                referrer_type: refObj.user_role.charAt(0).toUpperCase() + refObj.user_role.slice(1),
+                referrer_type: refObj.dataValues.user_role.charAt(0).toUpperCase() + refObj.dataValues.user_role.slice(1),
                 date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
                 refDate: moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
                 referral_provider: refObj.referral_provider,
@@ -1556,8 +1608,8 @@ exports.getActivity = async (ctx) => {
                 referral_status: refObj.referral_status,
                 activity_date: moment(obj.createdAt).format('DD/MM/YYYY'),
                 activity_time: moment(obj.createdAt).format('h:mm:ss'),
-                activity_user: obj.userInfo.first_name + ' ' + obj.userInfo.last_name,
-                activity_action: obj.activity
+                activity_user: obj.referralInfo ? (obj.userInfo.first_name + ' ' + obj.userInfo.last_name) : '',
+                activity_action: obj.referralInfo ? obj.activity : 'Referral received'
             }
             if (refObj.gp_location) {
                 if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
@@ -1578,6 +1630,7 @@ exports.getActivity = async (ctx) => {
                     }
                 }
             }
+
             filter_referrals.push(referralObj);
         });
         return ctx.res.ok({
