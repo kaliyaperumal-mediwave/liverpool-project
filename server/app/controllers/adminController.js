@@ -1561,16 +1561,16 @@ exports.getActivity = async (ctx) => {
                 activity_user: obj.userInfo.first_name + ' ' + obj.userInfo.last_name,
                 activity_action: obj.activity
             }
-            if (refObj.gp_location) {
-                if (refObj.gp_location_postcode || refObj.gp_location_postcode != '') {
-                    if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+            if (refObj.dataValues.gp_location) {
+                if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
+                    if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[0].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                         referralObj.gp_location = gpCodes[0].type;
-                    } else if (refObj.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.gp_location_postcode.split(' ')[0]) >= 0) {
+                    } else if (refObj.dataValues.gp_location_postcode != "L14 0JE" && gpCodes[1].code.indexOf(refObj.dataValues.gp_location_postcode.split(' ')[0]) >= 0) {
                         referralObj.gp_location = gpCodes[1].type;
                     }
                 }
                 else {
-                    var splitLocation = refObj.gp_location.split(',');
+                    var splitLocation = refObj.dataValues.gp_location.split(',');
                     if (splitLocation.length > 1) {
                         if (splitLocation[1] != "L14 0JE" && gpCodes[0].code.indexOf(splitLocation[1].split(' ')[0]) >= 0) {
                             referralObj.gp_location = gpCodes[0].type;
