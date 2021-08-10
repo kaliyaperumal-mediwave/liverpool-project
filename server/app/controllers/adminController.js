@@ -93,9 +93,9 @@ exports.getReferral = ctx => {
                         ]
                     },
                 ],
-                order: order
+                order: order 
             })
-            var referralsActivity = await referralActivityModel.findAll({}).catch((err) => { console.log(err, "err") })
+           var referralsActivity = await referralActivityModel.findAll({}).catch((err) => { console.log(err, "err") })
             referrals = JSON.parse(JSON.stringify(referrals));
 
             var totalReferrals = referrals.length;
@@ -1528,6 +1528,7 @@ exports.getActivity = async (ctx) => {
                 ],
             },
         ],
+        order:[['createdAt','DESC' ]]
     }).then((data) => {
         let filter_referrals = [];
         console.log(data, "data===");
