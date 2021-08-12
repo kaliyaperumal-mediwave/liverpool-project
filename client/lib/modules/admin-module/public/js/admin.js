@@ -534,7 +534,8 @@ function viewPdf(uuid, role) {
       var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
       var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-      if (!isIE && !isSafari) {
+      var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i)
+      if (!isIE && !isSafari && !isSamsungBrowser) {
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.target = '_blank'
