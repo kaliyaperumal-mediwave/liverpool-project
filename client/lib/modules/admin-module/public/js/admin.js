@@ -536,32 +536,12 @@ function viewPdf(uuid, role) {
       var isIE = false || !!document.documentMode;
       var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
       var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i)
-      var iphone=userAgent.match(/iPhone/i);
-      var ipad=userAgent.match(/iPad/i); 
+      var iphone = navigator.userAgent.match(/iPhone/i);
+      var ipad = navigator.userAgent.match(/iPad/i);
       if (!isIE && !isSafari && !isSamsungBrowser && !iphone && !ipad) {
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.target = '_blank'
-        link.click();
-        setTimeout(function () {
-          $('#loader').hide();
-        }, 500);
-      }
-      else if(iphone)
-      {
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        //link.target = '_blank'
-        link.click();
-        setTimeout(function () {
-          $('#loader').hide();
-        }, 500);
-      }
-      else if(ipad)
-      {
-        var link = document.createElement('a');
-        link.href = window.URL.createObjectURL(blob);
-        //link.target = '_blank'
         link.click();
         setTimeout(function () {
           $('#loader').hide();
