@@ -547,6 +547,26 @@ function viewPdf(uuid, role) {
           $('#loader').hide();
         }, 500);
       }
+      else if(iphone)
+      {
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        //link.target = '_blank'
+        link.click();
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
+      else if(ipad)
+      {
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        //link.target = '_blank'
+        link.click();
+        setTimeout(function () {
+          $('#loader').hide();
+        }, 500);
+      }
       else {
         download(blob, uuid + ".pdf", "application/pdf");
         setTimeout(function () {
