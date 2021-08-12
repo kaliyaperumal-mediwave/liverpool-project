@@ -224,7 +224,7 @@ $(document).ready(function () {
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
                 let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
-               // console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
+                // console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
                 //console.log(rows)
                 var encodedUri = encodeURI(csvContent);
                 //console.log(csvContent)
@@ -536,7 +536,9 @@ function viewPdf(uuid, role) {
       var isIE = false || !!document.documentMode;
       var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
       var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i)
-      if (!isIE && !isSafari && !isSamsungBrowser) {
+      var iphone=userAgent.match(/iPhone/i);
+      var ipad=userAgent.match(/iPad/i); 
+      if (!isIE && !isSafari && !isSamsungBrowser && !iphone && !ipad) {
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.target = '_blank'
@@ -544,7 +546,8 @@ function viewPdf(uuid, role) {
         setTimeout(function () {
           $('#loader').hide();
         }, 500);
-      } else {
+      }
+      else {
         download(blob, uuid + ".pdf", "application/pdf");
         setTimeout(function () {
           $('#loader').hide();
