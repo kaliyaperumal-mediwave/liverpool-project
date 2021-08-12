@@ -224,11 +224,12 @@ $(document).ready(function () {
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
                 let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
-                console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
-                console.log(rows)
+               // console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
+                //console.log(rows)
                 var encodedUri = encodeURI(csvContent);
-                console.log(csvContent)
-                var blob = new Blob([csvContent], { type: "application/pdf" });
+                //console.log(csvContent)
+                var blob = new Blob([csvContent], { type: "text/csv" });
+                //console.log(blob)
                 download(blob, "ReferralActivities" + moment().format("DD-MM-YYYY") + ".csv", "text/csv");
                 table.rows().deselect();
                 $('.idcheck').removeAttr('checked');
