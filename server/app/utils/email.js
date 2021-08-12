@@ -16,6 +16,7 @@ let mailService;
 // Sendgrid disabled on SMTP requirement
 if (process.env.USE_SENDGRID == 'true') {
     console.log('Sendgrid is active for mails.');
+    console.log(process.env.SENDGRID_API_KEY)
     mailService = nodemailer.createTransport(
         nodemailerSendgrid({
             apiKey: process.env.SENDGRID_API_KEY

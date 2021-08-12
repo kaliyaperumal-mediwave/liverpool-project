@@ -38,6 +38,7 @@ module.exports = {
         delete req.session.uuid;
         delete req.session.user_role;
         delete req.session.prof_data;
+        delete req.session.referralCode
         req.data.uuid = "";
         req.data.userRole = "";
        }
