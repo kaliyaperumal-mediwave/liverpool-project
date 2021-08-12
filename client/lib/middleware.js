@@ -119,6 +119,7 @@ module.exports = function (self, options) {
             req.data.userRole = req.session.user_role;
             req.data.prof_data = req.session.prof_data;
             delete req.session.uuid;
+            delete req.session.referralCode
             req.data.uuid = "";
             req.data.logoPath = "/dashboard"
             req.data.showLogout = true;
@@ -135,6 +136,7 @@ module.exports = function (self, options) {
         delete req.session.uuid;
         delete req.session.user_role;
         delete req.session.prof_data;
+        delete req.session.referralCode
         req.data.uuid = "";
         req.data.userRole = "";
         return next();
