@@ -18,6 +18,10 @@ module.exports = {
       if (!req.session.frm_ref_home) {
         return req.res.redirect("/")
       }
+      if(req.session.referralCode)
+      {
+        return req.res.redirect("/acknowledge")
+      }
       req.res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       return self.sendPage(req, self.renderer('role', {
         headerContent: "Section 1 of 5: Eligibility",

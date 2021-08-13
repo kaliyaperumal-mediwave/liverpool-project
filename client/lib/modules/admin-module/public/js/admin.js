@@ -224,11 +224,12 @@ $(document).ready(function () {
                 }
                 //download(blob, uuid + ".pdf", "application/pdf");
                 let csvContent = rows.map(function (e) { return e.join(",") }).join("\n");
-                console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
-                console.log(rows)
+                // console.log(rows.map(function (e) { return e.join(",") }).join("\n"))
+                //console.log(rows)
                 var encodedUri = encodeURI(csvContent);
-                console.log(csvContent)
-                var blob = new Blob([csvContent], { type: "application/pdf" });
+                //console.log(csvContent)
+                var blob = new Blob([csvContent], { type: "text/csv" });
+                //console.log(blob)
                 download(blob, "ReferralActivities" + moment().format("DD-MM-YYYY") + ".csv", "text/csv");
                 table.rows().deselect();
                 $('.idcheck').removeAttr('checked');
@@ -534,7 +535,10 @@ function viewPdf(uuid, role) {
       var blob = new Blob([_self.toArrayBuffer(successData.data.data)], { type: "application/pdf" });
       var isIE = false || !!document.documentMode;
       var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-      if (!isIE && !isSafari) {
+      var isSamsungBrowser = navigator.userAgent.match(/SamsungBrowser/i)
+      var iphone = navigator.userAgent.match(/iPhone/i);
+      var ipad = navigator.userAgent.match(/iPad/i);
+      if (!isIE && !isSafari && !isSamsungBrowser && !iphone && !ipad) {
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.target = '_blank'
@@ -542,7 +546,8 @@ function viewPdf(uuid, role) {
         setTimeout(function () {
           $('#loader').hide();
         }, 500);
-      } else {
+      }
+      else {
         download(blob, uuid + ".pdf", "application/pdf");
         setTimeout(function () {
           $('#loader').hide();

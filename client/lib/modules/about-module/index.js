@@ -15,6 +15,10 @@ module.exports = {
       if (!req.session.user_role) {
         return req.res.redirect("/")
       }
+      if(req.session.referralCode)
+      {
+        return req.res.redirect("/acknowledge")
+      }
       const getParamsData = req.url.substring(req.url.indexOf("?") + 1);
       var base64Matcher = new RegExp("^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$");
       let labels;
