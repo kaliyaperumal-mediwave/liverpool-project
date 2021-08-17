@@ -1462,6 +1462,7 @@
                                     <div class="input-group" id="dobAboutCal">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="houseHoldData.dob" inputmode="numeric"
+                                            @keypress="preventRefresh($event)"
                                             @input="checkValidDate('#manualDobHouseHold','houseHoldData','dob')"
                                             autocomplete="off" id="manualDobHouseHold" placeholder="DD/MM/YYYY">
                                         <!-- <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"

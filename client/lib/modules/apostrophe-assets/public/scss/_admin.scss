@@ -326,6 +326,11 @@ div.dataTables_wrapper div.dataTables_paginate {
   color: #112f45 !important;
   height: 40px !important;
 }
+@media (max-width: 575.98px) {
+  .submit-btn-admin button {
+    width: 60% !important;
+  }
+}
 .custom-table-nested .buttons-csv {
   height: 34px;
   border-radius: 6px;
