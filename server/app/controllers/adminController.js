@@ -1606,10 +1606,10 @@ exports.getActivity = async (ctx) => {
                 referral_provider: refObj.referral_provider,
                 referral_provider_other: refObj.referral_provider_other,
                 referral_status: refObj.dataValues.referral_status,
-                activity_date: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('DD/MM/YYYY') : '',
-                activity_time: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('H:mm:ss') : '',
+                activity_date: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('DD/MM/YYYY') : moment(moment(refObj.dataValues.createdAt).tz('Europe/London')).format('DD/MM/YYYY'),
+                activity_time: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('H:mm:ss') : moment(moment(refObj.dataValues.createdAt).tz('Europe/London')).format('H:mm:ss'),
                 activity_user: obj.referralInfo ? (obj.userInfo.first_name + ' ' + obj.userInfo.last_name) : '',
-                activity_action: obj.referralInfo ? obj.activity : ''
+                activity_action: obj.referralInfo ? obj.activity : 'Referral received'
             }
             if (refObj.dataValues.gp_location) {
                 if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
