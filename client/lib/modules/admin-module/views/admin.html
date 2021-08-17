@@ -378,7 +378,8 @@
                         <div class="input-group mb-2">
                             <input type="text" class="form-control input-bg-form-control" v-model="fromDateCsv"
                                 inputmode="numeric" @input="checkValidDate('#fromDate','fromDateCsv','copyFromDateCsv')"
-                                autocomplete="off" id="fromDate" placeholder="DD/MM/YYYY">
+                                @keypress="preventRefresh($event)" autocomplete="off" id="fromDate"
+                                placeholder="DD/MM/YYYY">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text p-16">
                                     <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -399,7 +400,8 @@
                             <div class="input-group">
                                 <input type="text" class="form-control input-bg-form-control" v-model="toDateCsv"
                                     inputmode="numeric" @input="checkValidDate('#toDate','toDateCsv','copyToDateCsv')"
-                                    autocomplete="off" id="toDate" placeholder="DD/MM/YYYY">
+                                    @keypress="preventRefresh($event)" autocomplete="off" id="toDate"
+                                    placeholder="DD/MM/YYYY">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text p-16">
                                         <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>

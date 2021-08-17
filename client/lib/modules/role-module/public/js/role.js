@@ -1195,7 +1195,11 @@ $(document).ready(function () {
                 return str;
             },
 
-            checkValidDate: function (id, obj, key) {
+            preventRefresh: function (e) {
+                stopRefresh(e);
+            },
+
+            checkValidDate: function (id, obj, key, e) {
                 var dateElement = document.querySelector(id);
                 var input = dateElement.value;
                 if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
