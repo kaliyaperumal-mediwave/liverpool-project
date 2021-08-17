@@ -71,7 +71,13 @@ exports.signup = async (ctx) => {
     }
 }
 exports.login = async (ctx) => {
-    const { error } = loginValidation(ctx.request.body);
+    // const { error } = loginValidation(ctx.request.body);
+
+    var doc = parser.parseXls2Json(`${__dirname}/assets/GPList.xlsx`);
+    // //print the data of the first sheet
+     console.log(doc[0]);
+  //  const res = pathName.split(path.sep).slice(-1)[0];
+   // console.log(`${__dirname}/../utils/assets/GPList.xlsx`)
 
     if (error) {
         return ctx.res.badRequest({
@@ -108,7 +114,7 @@ exports.login = async (ctx) => {
                             role: userResult.user_role,
                             token: token,
                         }
-                        if(userResult.user_role === 'service_admin') {
+                        if (userResult.user_role === 'service_admin') {
                             sendUserResult.service_admin_type = userResult.service_type;
                         }
                         if (userResult.user_role === 'professional') {

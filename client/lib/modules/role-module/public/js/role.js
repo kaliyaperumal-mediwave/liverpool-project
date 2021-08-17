@@ -164,6 +164,7 @@ $(document).ready(function () {
             //console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
             //this.initMaps();
+            console.log(fetchJSONFile())
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
         },

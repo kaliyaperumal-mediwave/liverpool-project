@@ -153,5 +153,18 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       })
     });
+
+    //Api end point to downlaod json file
+    self.route('get', 'downloadJson', function (req, res) {
+      console.log("downloadJson")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadJson';
+      //console.log(url);
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        // console.log(error)
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
   }
 }
