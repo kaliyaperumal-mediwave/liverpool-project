@@ -1538,7 +1538,11 @@ exports.getActivity = async (ctx) => {
             reference_code: {
                 [sequelize.Op.ne]: null
             },
-            referral_complete_status: 'completed'
+            referral_complete_status: 'completed',
+            createdAt: {
+                [sequelize.Op.gte]: moment(ctx.query.fromDate).startOf('day').toDate(),
+                [sequelize.Op.lte]: moment(ctx.query.endDate).endOf('day').toDate(),
+            }
         }
         var referrals = await referralModel.findAll({
             attributes: [
