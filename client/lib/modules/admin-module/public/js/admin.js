@@ -419,6 +419,10 @@ $(document).ready(function () {
         return str;
       },
 
+      preventRefresh: function (e) {
+        stopRefresh(e);
+      },
+
       checkValidDate: function (id, key, duplicateKey) {
         var dateElement = document.querySelector(id);
         var input = dateElement.value;

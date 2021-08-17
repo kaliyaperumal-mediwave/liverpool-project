@@ -367,7 +367,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-bg">
                 <div class="modal-header justify-content-center">
-                    <h5 class="logout-font mt-3">Pick a date</h5>
+                    <h5 class="logout-font mt-3">Enter a date</h5>
                     <span aria-hidden="true" class="modal-close" @click="closeStatusPopup()">
                         <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
                     </span>
@@ -378,7 +378,8 @@
                         <div class="input-group mb-2">
                             <input type="text" class="form-control input-bg-form-control" v-model="fromDateCsv"
                                 inputmode="numeric" @input="checkValidDate('#fromDate','fromDateCsv','copyFromDateCsv')"
-                                autocomplete="off" id="fromDate" placeholder="DD/MM/YYYY">
+                                @keypress="preventRefresh($event)" autocomplete="off" id="fromDate"
+                                placeholder="DD/MM/YYYY">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text p-16">
                                     <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -399,7 +400,8 @@
                             <div class="input-group">
                                 <input type="text" class="form-control input-bg-form-control" v-model="toDateCsv"
                                     inputmode="numeric" @input="checkValidDate('#toDate','toDateCsv','copyToDateCsv')"
-                                    autocomplete="off" id="toDate" placeholder="DD/MM/YYYY">
+                                    @keypress="preventRefresh($event)" autocomplete="off" id="toDate"
+                                    placeholder="DD/MM/YYYY">
                                 <div class="input-group-append cursor-pointer">
                                     <span class="input-group-text p-16">
                                         <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>

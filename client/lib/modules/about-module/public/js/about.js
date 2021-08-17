@@ -808,6 +808,9 @@ $(document).ready(function () {
                 return str;
             },
 
+            preventRefresh: function (e) {
+                stopRefresh(e);
+            },
 
             checkValidDate: function (id, obj, key) {
                 var dateElement = document.querySelector(id);
