@@ -1592,7 +1592,7 @@ exports.getActivity = async (ctx) => {
             } else {
                 refObj.referral_provider = refObj.referral_provider
             }
-
+            console.log(refObj.updatedAt, "refObj.updatedAt");
             var referralObj = {
                 uuid: refObj.uuid,
                 name: refObj.dataValues.name + " " + refObj.dataValues.lastname,
@@ -1601,15 +1601,15 @@ exports.getActivity = async (ctx) => {
                 referrer: refObj.dataValues.referrer_name + " " + refObj.dataValues.referrer_lastname,
                 gp_location: 'Local School',
                 referrer_type: refObj.dataValues.user_role.charAt(0).toUpperCase() + refObj.dataValues.user_role.slice(1),
-                date: moment(refObj.updatedAt).format('DD/MM/YYYY'),
-                refDate: moment(moment(refObj.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
+                date: moment(moment(refObj.dataValues.updatedAt).tz('Europe/London')).format('DD/MM/YYYY'),
+                refDate: moment(moment(refObj.dataValues.createdAt).tz('Europe/London')).format('DD/MM/YYYY H:mm:ss'),
                 referral_provider: refObj.referral_provider,
                 referral_provider_other: refObj.referral_provider_other,
-                referral_status: refObj.referral_status,
-                activity_date: moment(obj.createdAt).format('DD/MM/YYYY'),
-                activity_time: moment(moment(obj.createdAt).tz('Europe/London')).format('H:mm:ss'),
+                referral_status: refObj.dataValues.referral_status,
+                activity_date: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('DD/MM/YYYY') : '',
+                activity_time: obj.referralInfo ? moment(moment(obj.createdAt).tz('Europe/London')).format('H:mm:ss') : '',
                 activity_user: obj.referralInfo ? (obj.userInfo.first_name + ' ' + obj.userInfo.last_name) : '',
-                activity_action: obj.referralInfo ? obj.activity : 'Referral received'
+                activity_action: obj.referralInfo ? obj.activity : ''
             }
             if (refObj.dataValues.gp_location) {
                 if (refObj.dataValues.gp_location_postcode || refObj.dataValues.gp_location_postcode != '') {
