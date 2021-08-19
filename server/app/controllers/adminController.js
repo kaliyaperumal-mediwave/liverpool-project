@@ -1582,8 +1582,13 @@ exports.getActivity = async (ctx) => {
                 ReferralId: p.uuid
             }
         });
-        const nonCommonValues = _.xorBy(mappedReferralData, referalActivityArray, 'ReferralId');
-        var allReferralData = _.concat(nonCommonValues, data)
+        // const nonCommonValues = _.xorBy(mappedReferralData, referalActivityArray, 'ReferralId');
+        // let ReceivedArray =[];
+        // let mappedReferralData = _.map(referalActivityArray, function (p) {
+
+        // });
+
+        var allReferralData = _.concat(mappedReferralData, referalActivityArray)
         console.log(allReferralData.length, referrals.length, data.length, "allReferralData")
 
         _.forEach(allReferralData, function (obj, index) {
