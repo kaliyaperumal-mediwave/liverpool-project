@@ -214,7 +214,7 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].refDate,
                     result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                       result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                      referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted':
+                      result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted':
                           result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
                     result.data.filter_referrals[i].activity_date,
