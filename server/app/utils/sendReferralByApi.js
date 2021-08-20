@@ -186,6 +186,7 @@ function createPayload(ctx) {
             "04_registered_gp": formatingInput(ctx.request.body.referralData.section1.registered_gp),
             "05_registered_school": formatingInput(ctx.request.body.referralData.section1.gp_school),
             //Section 2
+            "referral_mode":ctx.request.body.referralData.section2.referral_mode,
             "09_nhs_number_provided": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : alternativeBlankSpace,
             "pat_title": formatingInput(ctx.request.body.referralData.section2.child_name_title),
             "pat_firstname": formatingInput(ctx.request.body.referralData.section2.child_name),
