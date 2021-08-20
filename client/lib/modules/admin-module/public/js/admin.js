@@ -169,7 +169,7 @@ $(document).ready(function () {
                   referralRes.data.data[i].refDate,
                   referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                    referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted':
+                      referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
                   "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
                   referralRes.data.data[i].date,
@@ -214,7 +214,7 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].refDate,
                     result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                       result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                      result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted':
+                        result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
                           result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
                     result.data.filter_referrals[i].activity_date,
@@ -622,16 +622,19 @@ function toArrayBuffer(buf) {
   return ab;
 }
 function sendPdf(uuid, role, refCode) {
+  var useAPI = false;
+  if (document.querySelector('.messageCheckbox:checked') != null) {
+    useAPI = document.querySelector('.messageCheckbox:checked').value;
+  }
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  if (selectedProvider == "YPAS" || selectedProvider == "Venus") {
+  if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
     apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   }
   else {
     apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   }
-
   $.ajax({
     url: API_URI + apiToSend,
     type: 'get',
