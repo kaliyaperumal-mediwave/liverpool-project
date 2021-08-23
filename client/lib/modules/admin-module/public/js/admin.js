@@ -169,9 +169,9 @@ $(document).ready(function () {
                   referralRes.data.data[i].refDate,
                   referralRes.data.data[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                      referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted by ' + referralRes.data.data[i].referral_provider_other :
+                    referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted':
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].refDate + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
                   referralRes.data.data[i].date,
                 ]);
               }
@@ -214,7 +214,7 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].refDate,
                     result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                       result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
-                        result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted by ' + result.data.filter_referrals[i].referral_provider_other :
+                      result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted':
                           result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
                     result.data.filter_referrals[i].activity_date,
@@ -419,6 +419,10 @@ $(document).ready(function () {
         return str;
       },
 
+      preventRefresh: function (e) {
+        stopRefresh(e);
+      },
+
       checkValidDate: function (id, key, duplicateKey) {
         var dateElement = document.querySelector(id);
         var input = dateElement.value;
@@ -491,7 +495,7 @@ $(document).ready(function () {
         $('#loader').hide();
         //console.log()(successData)
       },
-      getActivity: function (uuid) {
+      getActivity: function (uuid, value) {
         let result = apiCallGet('get', '/getActivity', API_URI);
         let specificReferral = _.filter(result.data.activity_referrals, function (o) {
           o['date'] = moment(o.createdAt).format('DD/MM/YYYY')
@@ -501,6 +505,7 @@ $(document).ready(function () {
           //console.log(moment(o.createdAt).format('h:mm:ss'))
           return o.ReferralId == uuid;
         })
+        specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
         console.log(specificReferral, "specificReferral");
         this.groupByActivityDate = _.groupBy(specificReferral, 'date');
         console.log(this.groupByActivityDate);
@@ -521,7 +526,7 @@ $(document).ready(function () {
 
   actionlog = function (uuid, value, other_value) {
     document.getElementById('updateStatus').setAttribute('onclick', 'updateStatus(\'' + uuid + '\')');
-    vueApp.getActivity(uuid);
+    vueApp.getActivity(uuid, value);
     $('#actionlogModal').modal('show');
   }
 });

@@ -540,6 +540,12 @@ function setTextSize() {
     }
 }
 
+function stopRefresh(e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+    }
+}
+
 function setTheme() {
     var logoElem = document.getElementById('logoBgHome');
     var placeholderImg = document.getElementsByClassName('toggle-img-placehold');
