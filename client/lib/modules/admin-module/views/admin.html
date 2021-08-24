@@ -349,10 +349,8 @@
 
                     <div class="actionlogdata">
 
-                        <div v-if="Object.keys(groupByActivityDate).length === 0">
-                            <p class="logout-font mt-3 text-center">No actions yet</p>
-                        </div>
-                        <div v-else>
+
+                        <div>
                             <div v-for="(item,key,count) in groupByActivityDate">
                                 <h6>{{key}}</h6>
                                 <div v-for="val in item">
@@ -361,9 +359,10 @@
                                             <label>Time:</label>
                                             <p>{{val.time }}</p>
                                         </div>
-                                        <div class="actionloguser_info">
+                                        <div class="actionloguser_info" v-if="val.userInfo.length !== 0">
                                             <label>User:</label>
-                                            <p>{{val.userInfo.first_name}} {{val.userInfo.last_name}}</p>
+                                            <p>{{val.userInfo.first_name}} {{val.userInfo.last_name}}
+                                            </p>
                                         </div>
                                         <div class="actionloguser_info">
                                             <label>Action:</label>
