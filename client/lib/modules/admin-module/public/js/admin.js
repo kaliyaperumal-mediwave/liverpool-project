@@ -171,7 +171,7 @@ $(document).ready(function () {
                     referralRes.data.data[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
                       referralRes.data.data[i].referral_status == 'Accepted by' ? 'Accepted' :
                         referralRes.data.data[i].referral_status == 'Referral to other team' ? 'Referral to ' + referralRes.data.data[i].referral_provider_other : referralRes.data.data[i].referral_status,
-                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
+                  "<div class='d-flex'><button onclick='viewPdf(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")'  class='btn-pdf'>View</button><button onclick='changeStatus(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Change Status</button><button onclick='openSendPopup(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referrer_type + "\" ,\"" + referralRes.data.data[i].reference_code + "\",\"" + referralRes.data.data[i].referral_provider + "\")' class='btn-pdf send-pdf'>Send</button><button onclick='actionlog(\"" + referralRes.data.data[i].uuid + "\",\"" + referralRes.data.data[i].referral_status + "\",\"" + referralRes.data.data[i].referral_provider_other + "\")' class='btn-pdf send-pdf'>Action Log</button></div>",
                   referralRes.data.data[i].date,
                 ]);
               }
@@ -191,6 +191,8 @@ $(document).ready(function () {
           var finalFromRes = fromDateArr.join('/');
           var finalToRes = toDateCsv.join('/');
           console.log(finalFromRes, finalToRes)
+          finalFromRes= "08/01/2021";
+          finalToRes = "08/20/2021";
           if (_self.fromDateCsv && _self.toDateCsv) {
             if (_self.dateRegex.test(_self.fromDateCsv) && _self.dateRegex.test(_self.toDateCsv)) {
               if (new Date(finalToRes).getTime() >= new Date(finalFromRes).getTime()) {
@@ -200,6 +202,7 @@ $(document).ready(function () {
                 console.log('from and to', getFromData, getToData)
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
                 let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
+                console.log(result)
                 var rows = []
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
                 rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
