@@ -29,7 +29,9 @@ var apos = require("apostrophe")({
       alias: "LIVERPOOLMODULE",
       // NOTE: LIVE ENV FILE . Comment when working in local.
       "phr-module": process.env.SERVICE_PHR,
-      // 'phr-module': 'https://192.168.0.67:3010'
+       // 'phr-module': 'https://192.168.0.67:3010'
+      "useVenusIaptusAPI": process.env.useVenusIaptusAPI,
+     
     },
     "apostrophe-db": {
       uri: process.env.MONGO_STRING,

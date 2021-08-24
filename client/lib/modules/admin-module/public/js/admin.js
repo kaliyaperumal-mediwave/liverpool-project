@@ -635,7 +635,13 @@ function sendPdf(uuid, role, refCode) {
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
+  // if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
+  //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
+  // else {
+  //   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
+  if (selectedProvider == "YPAS") {
     apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   }
   else {
