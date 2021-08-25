@@ -46,7 +46,8 @@ $(document).ready(function () {
       copyFromDateCsv: '',
       copyToDateCsv: '',
       isCsvDownloadSubmitted: false,
-      showInvalidToDate: false
+      showInvalidToDate: false,
+      integrationData: ""
     },
 
     beforeMount: function () {
@@ -54,6 +55,14 @@ $(document).ready(function () {
     },
 
     mounted: function () {
+      var switchElem = document.getElementById('switchIntegration');
+      if (localStorage.getItem('integration') && localStorage.getItem('integration') == 'true') {
+        switchElem.value = localStorage.getItem('integration');
+        switchElem.checked = true;
+
+      } else {
+        switchElem.checked = false;
+      }
       var date = new Date().getFullYear();
       for (var i = date; i > 1989; i--) {
         this.yearArr.push(i);
@@ -514,7 +523,15 @@ $(document).ready(function () {
         console.log(specificReferral, "specificReferral");
         this.groupByActivityDate = _.groupBy(specificReferral, 'date');
         console.log(this.groupByActivityDate);
-      }
+      },
+      setIntegration: function (e) {
+        if (e.target.checked) {
+          localStorage.setItem('integration', 'true');
+        }
+        else {
+          localStorage.setItem('integration', 'false');
+        }
+      },
     },
   })
 
@@ -628,25 +645,27 @@ function toArrayBuffer(buf) {
   return ab;
 }
 function sendPdf(uuid, role, refCode) {
-  var useAPI = true;
+  var buttonElem = document.querySelector('#sendRef');
+  buttonElem.disabled = true;
+  var useAPI
   if (document.querySelector('.messageCheckbox:checked') != null) {
     useAPI = document.querySelector('.messageCheckbox:checked').value;
   }
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  // if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
-  //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
-  // }
-  // else {
-  //   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
-  // }
-  if (selectedProvider == "YPAS") {
+  if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
     apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   }
   else {
     apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   }
+  // if (selectedProvider == "YPAS") {
+  //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
+  // else {
+  //   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
   $.ajax({
     url: API_URI + apiToSend,
     type: 'get',
@@ -662,6 +681,7 @@ function sendPdf(uuid, role, refCode) {
     },
     error: function (error) {
       $('#loader').hide();
+      buttonElem.disabled = false;
       console.log(error)
       console.log(error.responseJSON.data.data)
       $('#sendProviderModal').modal('hide');
@@ -674,6 +694,8 @@ function sendPdf(uuid, role, refCode) {
 function openSendPopup(uuid, role, refCode, referral_provider) {
   $('#sendProviderModal').modal('show');
   document.getElementById('sendRef').setAttribute('onclick', 'sendPdf(\'' + uuid + '\',\'' + role + '\',\'' + refCode + '\')');
+  var buttonElem = document.querySelector('#sendRef');
+  buttonElem.disabled = false;
 }
 
 function closeAlreadySentPopup() {
