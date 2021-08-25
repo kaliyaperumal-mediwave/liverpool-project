@@ -628,7 +628,7 @@ function toArrayBuffer(buf) {
   return ab;
 }
 function sendPdf(uuid, role, refCode) {
-  var useAPI = false;
+  var useAPI = true;
   if (document.querySelector('.messageCheckbox:checked') != null) {
     useAPI = document.querySelector('.messageCheckbox:checked').value;
   }

@@ -1208,7 +1208,7 @@ function getRefData(refID, refRole, ctx) {
                                 professional_email: elgibilityObj.professional_email,
                                 professional_contact_type: elgibilityObj.professional_contact_type,
                                 professional_contact_number: elgibilityObj.professional_contact_number,
-                                professional_address: elgibilityObj.professional_address_postcode ? elgibilityObj.professional_address + ', ' + elgibilityObj.professional_address_postcode : elgibilityObj.professional_address,
+                                professional_address: elgibilityObj.professional_address_postcode ? elgibilityObj.professional_address + ',' + elgibilityObj.professional_address_postcode : elgibilityObj.professional_address,
                                 professional_manual_address: elgibilityObj.professional_manual_address,
                                 professional_profession: elgibilityObj.professional_profession,
                                 service_location: capitalizeFirstLetter(elgibilityObj.service_location),
@@ -1253,7 +1253,7 @@ function getRefData(refID, refRole, ctx) {
                                 parent_manual_address: aboutObj[0].parent_manual_address,
                                 legal_care_status: aboutObj[0].legal_care_status,
                             }
-
+                            
                             const section3Obj = {
                                 child_id: edu_empObj[0].professional[0].id,
                                 child_profession: edu_empObj[0].professional[0].child_profession,
