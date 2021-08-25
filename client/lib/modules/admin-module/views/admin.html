@@ -106,7 +106,7 @@
                         <h2 class="admin-referral-primary mb-2 mb-md-3 ">Referrals</h2>
                         <p class="admin-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
                     </div>
-                    <div class="col-md-4 d-none">
+                    <div class="col-md-4">
                         <div class="home-primary-content">
                             <h5 class="admin-referral-primar mb-2 mb-md-3 font-weight-bold d-inline-block">
                                 Enable/Disable Integrations
@@ -116,8 +116,8 @@
                             </h5>
 
                             <div class="checkbox switcher d-inline-block">
-                                <label for="switchVoice">
-                                    <input class="messageCheckbox" type="checkbox" id="switchVoice" value='true'>
+                                <label for="switchIntegration">
+                                    <input class="messageCheckbox" type="checkbox" id="switchIntegration" value='true' @change="setIntegration($event)" v-model="integrationData">
                                     <span><small></small></span>
                                 </label>
                             </div>

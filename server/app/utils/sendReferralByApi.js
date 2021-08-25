@@ -87,6 +87,7 @@ exports.sendReferralData = async ctx =>{
                 headers: {  'api-key': config.mayden_apiToken,'Content-Type': 'application/json' },
                 data: JSON.stringify(resultObj)
             };
+            console.log(config_api)
             try {
                 console.log("--------------------------------------apiResponse-----------start------------------------")
                 return await axios(config_api)
