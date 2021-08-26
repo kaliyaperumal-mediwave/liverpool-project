@@ -2392,6 +2392,7 @@ exports.fetchReview = ctx => {
 }
 
 exports.saveReview = ctx => {
+  console.log(ctx.request.body.venusApi)
   const user = ctx.orm().Referral;
   var provider;
   ////console.log('\nSave Review Payload == ', ctx.request.body);
@@ -2436,7 +2437,7 @@ exports.saveReview = ctx => {
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
-          if (ctx.request.body.referral_provider == "YPAS" || ctx.request.body.referral_provider == "Venus") {
+          if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
             return adminCtrl.sendReferralByApi(ctx).then((providermailStatus) => {
               return user.update({
                 referral_provider: ctx.query.selectedProvider
