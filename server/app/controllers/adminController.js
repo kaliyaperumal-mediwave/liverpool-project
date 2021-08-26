@@ -1395,7 +1395,7 @@ exports.referralStatusUpdate = async (ctx) => {
             console.log(updateValue, "in");
         } else if (ctx.request.body.status) {
             updateValue.activity = {
-                activity: "Referral changed - " + ctx.request.body.status + ((ctx.request.body.other) ? ("-" + ctx.request.body.other) : ''),
+                activity: "Status changed - " + ctx.request.body.status + ((ctx.request.body.other) ? ("-" + ctx.request.body.other) : ''),
                 ReferralId: ctx.request.body.referral_id,
                 doneBy: ctx.request.decryptedUser.id
             }

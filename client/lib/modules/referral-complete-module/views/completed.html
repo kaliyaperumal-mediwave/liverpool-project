@@ -120,7 +120,7 @@
             </p>
         </div>
 
-        <div v-if="ackObj.role=='professional' && ackObj.professional_email" class="pt-4 pt-md-4 pb-2 pb-md-4 text-center mb-0">
+        <div v-if="ackObj.role=='professional' && ackObj.professional_email" class="pt-4 pt-md-4 pb-2 pb-md-4 text-center mb-0 d-none">
             <button type="button" @click="sendReferralToMe()"
                 class="btn px-md-4 py-2 py-md-1 px-1 px-sm-3 col-md-4 col-lg-6 col-xl-6 col-sm-9 col-9">
                 <span class="btn-quaternary-text">Send me a copy

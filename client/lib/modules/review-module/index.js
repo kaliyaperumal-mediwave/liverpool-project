@@ -67,6 +67,8 @@ module.exports = {
       //console.log("-------");
       //console.log(url);
       //console.log("-------");
+      req.body.venusApi = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
+      //console.log(req.body)
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {
