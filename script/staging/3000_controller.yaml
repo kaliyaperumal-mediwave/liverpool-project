@@ -99,8 +99,7 @@ spec:
           value: $PHR_LIVERPOOL_MAYDEN_API_VENUS
         - name: mayden_apiToken
           value: $PHR_LIVERPOOL_MAYDEN_APITOKEN
-        - name: useVenusIaptusAPI
-          value: $PHR_LIVERPOOL_USERVENUSIAPTUSAPI
+      
         ports:
         - containerPort: 3001
 ---
