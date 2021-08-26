@@ -247,6 +247,8 @@ $(document).ready(function () {
             },
 
             save: function () {
+                var buttonElem = document.querySelector('#acceptBtn');
+                buttonElem.disabled = true;
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
                 this.payloadData.contact_person = this.contact_person;
@@ -279,6 +281,7 @@ $(document).ready(function () {
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
+                                buttonElem.disabled = false;
                                 if (error) {
                                     showError(error.responseJSON.message, error.status);
                                 }
@@ -331,6 +334,7 @@ $(document).ready(function () {
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
+                                buttonElem.disabled = true;
                                 if (error) {
                                     showError(error.responseJSON.message, error.status);
                                 }
@@ -345,6 +349,7 @@ $(document).ready(function () {
                         // }
                     } else {
                         // scrollToInvalidInput();
+                        buttonElem.disabled = true;
                         return false;
                     }
                 }
