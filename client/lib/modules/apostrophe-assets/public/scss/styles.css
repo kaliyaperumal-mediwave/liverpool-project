@@ -1193,8 +1193,7 @@ a {
 
 .logout-font {
   font-size: 22px;
-  font-weight: bold;
-  color: #023047; }
+  font-weight: bold; }
   @media (max-width: 575.98px) {
     .logout-font {
       font-size: 18px !important; } }
