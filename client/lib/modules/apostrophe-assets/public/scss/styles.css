@@ -1194,7 +1194,7 @@ a {
 .logout-font {
   font-size: 22px;
   font-weight: bold;
-  color: #023047; }
+  margin-bottom: 0;}
   @media (max-width: 575.98px) {
     .logout-font {
       font-size: 18px !important; } }
@@ -1896,7 +1896,7 @@ a {
       .question-font h2 {
         font-size: 20px; } }
   .question-font p {
-    font-size: 22px;
+    font-size: 18px;
     font-weight: normal;
     color: #023047; }
     @media (max-width: 575.98px) {
