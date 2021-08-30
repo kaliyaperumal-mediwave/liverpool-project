@@ -439,6 +439,10 @@ endblock %} {% block extraHead %}
   <p id="loginUserFlag" class="d-none">{{data.showLogout}}</p>
   <p id="sessionExp">{{data.sessionExp}}</p>
 
+  <div class="d-none">
+    <button type="button" onclick="downloadJson()">Download Json!</button>
+  </div>
+
   <div class="footer-bg set-bottom-padding">
     <!-- <div id="footer-placement" class="footer-bg footer set-bottom-padding">
     <div class="footer-container">
@@ -496,7 +500,6 @@ endblock %} {% block extraHead %}
         </ul>
       </div>
     </div>
-
     <!-- {#
     This would be a great place to put a global footer.
   #} -->

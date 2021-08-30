@@ -7,6 +7,7 @@ const { req } = require('@kasa/koa-logging/lib/serializers');
 const email = require('../utils/email');
 const pdf = require('../utils/pdfgenerate');
 const callIaptusApi = require('../utils/sendReferralByApi');
+const convertToJson = require('../utils/convertCsvTOJson');
 
 const gpCodes = [
     {
@@ -1139,7 +1140,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: userObj.id,
                 },
-                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person']
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person','referral_mode']
             }).then((elgibilityObj) => {
                 //return ctx.body = elgibilityObj.professional[0].child_parent[0];
                 var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -1203,6 +1204,7 @@ function getRefData(refID, refRole, ctx) {
                                 professional_id: elgibilityObj.id,
                                 consent_child: elgibilityObj.consent_child,
                                 consent_parent: elgibilityObj.consent_parent,
+                                referral_mode: elgibilityObj.referral_mode == "1" ? "Routine" : elgibilityObj.referral_mode == "2" ? "Urgent" : "",
                                 professional_name: elgibilityObj.professional_firstname,
                                 professional_lastname: elgibilityObj.professional_lastname,
                                 professional_email: elgibilityObj.professional_email,
@@ -1229,7 +1231,7 @@ function getRefData(refID, refRole, ctx) {
                                 child_address: aboutObj[0].parent[0].child_address_postcode ? aboutObj[0].parent[0].child_address + ', ' + aboutObj[0].parent[0].child_address_postcode : aboutObj[0].parent[0].child_address,
                                 child_manual_address: aboutObj[0].parent[0].child_manual_address,
                                 can_send_post: aboutObj[0].parent[0].can_send_post,
-                                referral_mode: aboutObj[0].parent[0].referral_mode == "1" ? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" : "",
+                                //referral_mode: aboutObj[0].parent[0].referral_mode == "1" ? "Routine" : aboutObj[0].parent[0].referral_mode == "2" ? "Urgent" : "",
                                 child_gender: aboutObj[0].parent[0].child_gender,
                                 child_gender_birth: aboutObj[0].parent[0].child_gender_birth,
                                 child_sexual_orientation: aboutObj[0].parent[0].child_sexual_orientation,
@@ -1655,4 +1657,25 @@ exports.getActivity = async (ctx) => {
         console.log(error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     })
+}
+
+exports.toJson = async (ctx) => {
+
+    try {
+        return convertToJson.doConversionToJson(ctx).then((sendReferralStatus) => {
+
+            console.log(ctx.res.JSONData)
+            return ctx.res.ok({
+                data: ctx.res.JSONData,
+                message: reponseMessages[1017],
+            });
+        }).catch(error => {
+            console.log(error, "error");
+            console.log("false")
+            return false;
+        });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+
 }

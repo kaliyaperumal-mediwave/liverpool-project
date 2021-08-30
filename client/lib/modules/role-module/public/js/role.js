@@ -14,6 +14,8 @@ $(document).ready(function () {
             selectedResources: [],
             addressOptions: [],
             gpListShow: [],
+            gpListJson:[],
+            gpListJsonPostCode:[],
             elgibilityObj: {
                 role: '',
                 interpreter: '',
@@ -54,7 +56,8 @@ $(document).ready(function () {
                 gpSchool: '',
                 professional_contact_type: "mobile",
                 registered_gp_postcode: '',
-                profRegistered_gp_postcode: ''
+                profRegistered_gp_postcode: '',
+                referral_mode: 1
             },
             professionalManualAddress: [],
             addressData: {
@@ -164,8 +167,29 @@ $(document).ready(function () {
             //console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
             //this.initMaps();
+            // console.log(fetchJSONFile('/modules/role-module/js/data/gplist.json',undefined))
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
+            var gpArray = [];
+            // this.getJsonGP();
+            // this.getJsonGPPostCode();
+            // console.log(this.gpListJson)
+            // fetchJSONFile('/modules/role-module/js/data/gplist.json', function(data){
+            //     // do something with your data
+            //     console.log(data);
+            //     gpArray = data
+            // });
+
+            // async function asyncCall() {
+            //    await  fetchJSONFile('/modules/role-module/js/data/gplist.json', function(data){
+            //     // do something with your data
+            //     console.log(data);
+            //     gpArray = data
+            // });
+            //   }
+
+            //  console.log(asyncCall())
+            //  console.log(gpArray)
         },
 
         methods: {
@@ -286,7 +310,6 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
-                    //console.log(data[0])
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -305,6 +328,12 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
+
+                    if (data[0].selected_service == 'Alder Hey - Liverpool CAMHS' || data[0].selected_service == 'Alder Hey - Liverpool EDYS' || data[0].selected_service == 'Alder Hey - Sefton CAMHS' || data[0].selected_service == 'Alder Hey - Sefton EDYS') {
+                        Vue.set(this.elgibilityObj, "referral_mode", data[0].referral_mode);
+                    }
+
+
                     if (data[0].professional_manual_address && data[0].professional_manual_address.length) {
                         Vue.set(this, "professionalManualAddress", data[0].professional_manual_address);
                         this.setReadonlyState(true);
@@ -425,7 +454,6 @@ $(document).ready(function () {
             },
 
             onChange: function (event) {
-                console.log('manual array', this.professionalManualAddress);
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
@@ -534,7 +562,7 @@ $(document).ready(function () {
                     app.elgibilityObj.gpNotCovered = false;
                     //app.elgibilityObj.submitForm = "true";
                     if (searchTxt.length > 2) {
-                        var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
+                        var gpLink = API_URI + "/getGpByName/" + searchTxt;
                         $('#showInputLoaderProf').removeClass("d-none").addClass("d-block");
                         $('#addOpacityProf').css('opacity', '0.2');
                         $.ajax({
@@ -542,23 +570,25 @@ $(document).ready(function () {
                             type: 'get',
                             async: false,
                             success: function (response) {
+                                console.log(response)
                                 _self.gpListName = [];
                                 //app.elgibilityObj.gpErrMsg = "";
-                                _self.gpListShow = response.Organisations;
-                                if (response.Organisations.length <= 0) {
-                                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
+                                _self.gpListShow = response;
+                                if (response.length <= 0) {
+                                    var gpLink = API_URI + "/getGpByPostCode/" + searchTxt;
                                     $.ajax({
                                         url: gpLink,
                                         type: 'get',
                                         async: false,
                                         success: function (response) {
+                                            console.log(response)
                                             _self.gpListName = [];
                                             //app.elgibilityObj.gpErrMsg = "";
-                                            _self.gpListShow = response.Organisations;
+                                            _self.gpListShow = response
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // //console.log(_self.gpListShow[i].PostCode)
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                                _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                                _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].Postcode);
                                             }
                                             if (_self.gpListName.length == 0) {
                                                 app.elgibilityObj.gpErrMsg = "";
@@ -606,10 +636,10 @@ $(document).ready(function () {
 
                                 }
                                 else {
-                                    _self.gpListShow = response.Organisations;
+                                    _self.gpListShow = response;
                                     for (i = 0; i < _self.gpListShow.length; i++) {
                                         //  if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                        _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                        _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].Postcode);
                                     }
                                     if (_self.gpListName.length == 0) {
                                         app.elgibilityObj.gpErrMsg = "";
@@ -744,7 +774,7 @@ $(document).ready(function () {
                     if (searchTxt.length > 2) {
                         $('#showInputLoader').removeClass("d-none").addClass("d-block");
                         $('#addOpacity').css('opacity', '0.2');
-                        var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
+                        var gpLink = API_URI + "/getGpByName/" + searchTxt;
                         $.ajax({
                             url: gpLink,
                             type: 'get',
@@ -753,9 +783,9 @@ $(document).ready(function () {
                                 _self.gpListShow = [];
                                 _self.gpProfListName = [];
                                 //app.elgibilityObj.gpErrMsg = "";
-                                _self.gpListShow = response.Organisations;
-                                if (response.Organisations.length <= 0) {
-                                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
+                                _self.gpListShow = response;
+                                if (response.length <= 0) {
+                                    var gpLink =  API_URI + "/getGpByPostCode/" + searchTxt;
                                     $.ajax({
                                         url: gpLink,
                                         type: 'get',
@@ -764,10 +794,10 @@ $(document).ready(function () {
                                             _self.gpListShow = [];
                                             _self.gpProfListName = [];
                                             // app.elgibilityObj.gpErrMsg = "";
-                                            _self.gpListShow = response.Organisations;
+                                            _self.gpListShow = response;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                                _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                                _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].Postcode);
                                             }
                                             if (_self.gpProfListName.length == 0) {
                                                 app.elgibilityObj.gpErrMsg = "Please enter valid GP address or postcode";
@@ -812,11 +842,11 @@ $(document).ready(function () {
 
                                 }
                                 else {
-                                    _self.gpListShow = response.Organisations;
+                                    _self.gpListShow = response;
                                     if (_self.gpListShow.length > 0) {
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                            _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                            _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].Postcode);
                                         }
                                         if (_self.gpProfListName.length == 0) {
                                             app.elgibilityObj.gpErrMsg = "";
@@ -1122,6 +1152,10 @@ $(document).ready(function () {
                                     }
                                     if (this.elgibilityObj.profChildDob) {
                                         this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                    }
+
+                                    if (this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool CAMHS' && this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool EDYS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton CAMHS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton EDYS') {
+                                        this.elgibilityObj.referral_mode = null;
                                     }
 
 
@@ -1656,7 +1690,50 @@ $(document).ready(function () {
 
             removeDependency: function (index) {
                 this.selectedResources.splice(index, 1)
-            }
+            },
+
+            // getJsonGP: function (refObj) {
+            //     var _self = this;
+            //     ////console.log(refObj);
+            //     $.ajax({
+            //         url: API_URI + "/getGpByName/liv",
+            //         type: 'get',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         cache: false,
+            //         success: function (data) {
+            //             console.log(data)
+            //             _self.gpListJson = data;
+            //         },
+            //         error: function (error) {
+            //             if (error) {
+            //                 console.log(error)
+            //                 showError(error.responseJSON.message, error.status);
+            //             }
+            //         }
+            //     });
+            // },
+            // getJsonGPPostCode: function (refObj) {
+            //     var _self = this;
+            //     ////console.log(refObj);
+            //     $.ajax({
+            //         url: API_URI + "/getGpByPostCode/L20",
+            //         type: 'get',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         cache: false,
+            //         success: function (data) {
+            //             console.log(data)
+            //             _self.gpListJsonPostCode = data;
+            //         },
+            //         error: function (error) {
+            //             if (error) {
+            //                 console.log(error)
+            //                 showError(error.responseJSON.message, error.status);
+            //             }
+            //         }
+            //     });
+            // },
         }
     })
 

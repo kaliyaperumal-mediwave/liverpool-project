@@ -126,6 +126,20 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section1.referral_mode!='' && body.section1.referral_mode!=null ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Referral type:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.referral_mode %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -271,21 +285,6 @@
         <div>
             <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 About the child</h5>
-
-            <% if(body.section2.referral_mode!='' && body.section2.referral_mode!=null ){ %>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            Referral type:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section2.referral_mode %>
-                        </div>
-                    </div>
-                </div>
-                <% } %>
                     <% if(body.section2.child_NHS!='' && body.section2.child_NHS!=null ){ %>
                         <div class="text-container">
                             <div class="label-set">
