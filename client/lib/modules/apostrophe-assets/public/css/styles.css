@@ -316,7 +316,8 @@ div.radio.switcher label {
 
 .admin-referral-primary {
   font-size: 30px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .admin-referral-primary {
       font-size: 26px !important; } }
@@ -330,6 +331,7 @@ div.radio.switcher label {
 .admin-inside-text {
   font-size: 18px;
   font-weight: bold;
+  color: #023047;
   font-size: 16px;
   font-weight: 400 !important; }
   @media (min-width: 1200px) {
@@ -990,7 +992,8 @@ table.dataTable tbody th.select-checkbox:before {
 
 .btn-quaternary-text {
   font-size: 26px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .btn-quaternary-text {
       font-size: 17px; } }
@@ -1452,7 +1455,8 @@ a {
 
 .logout-font {
   font-size: 22px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .logout-font {
       font-size: 18px !important; } }
@@ -1516,7 +1520,8 @@ a {
 /* Landing Page style start */
 .home-header-primary {
   font-size: 28px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .home-header-primary {
       font-size: 20px;
@@ -1532,7 +1537,8 @@ a {
   .home-header-primary h2 {
     margin-bottom: 0px !important;
     font-size: 28px;
-    font-weight: bold; }
+    font-weight: bold;
+    color: #023047; }
     @media (max-width: 575.98px) {
       .home-header-primary h2 {
         font-size: 20px;
@@ -1548,7 +1554,8 @@ a {
   .home-header-primary p {
     margin-bottom: 0px !important;
     font-size: 28px;
-    font-weight: bold; }
+    font-weight: bold;
+    color: #023047; }
     @media (max-width: 575.98px) {
       .home-header-primary p {
         font-size: 20px;
@@ -1564,7 +1571,8 @@ a {
 
 .home-header-secondary {
   font-size: 22px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .home-header-secondary {
       font-size: 16px;
@@ -1580,7 +1588,8 @@ a {
 
 .home-header-secondary-description {
   font-size: 24px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .home-header-secondary-description {
       font-size: 16px;
@@ -1597,6 +1606,7 @@ a {
 .home-primary-content {
   font-size: 22px;
   font-weight: bold;
+  color: #023047;
   line-height: 27px !important; }
   @media (max-width: 575.98px) {
     .home-primary-content {
@@ -1610,6 +1620,7 @@ a {
   .home-primary-content h3 {
     font-size: 22px;
     font-weight: bold;
+    color: #023047;
     margin-bottom: 0px; }
     @media (max-width: 575.98px) {
       .home-primary-content h3 {
@@ -1623,6 +1634,7 @@ a {
   .home-primary-content h4 {
     font-size: 18px;
     font-weight: bold;
+    color: #023047;
     margin-bottom: 0px; }
     @media (max-width: 575.98px) {
       .home-primary-content h4 {
@@ -1636,7 +1648,8 @@ a {
   .home-primary-content p {
     margin-bottom: 0px;
     font-size: 20px;
-    font-weight: bold; }
+    font-weight: bold;
+    color: #023047; }
     @media (max-width: 575.98px) {
       .home-primary-content p {
         font-size: 15px; } }
@@ -1649,7 +1662,8 @@ a {
 
 .home-secondary-content {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #fafafa; }
   @media (max-width: 575.98px) {
     .home-secondary-content {
       font-size: 15px; } }
@@ -1665,7 +1679,8 @@ a {
 
 .home-referral-primary {
   font-size: 30px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #fafafa; }
   @media (max-width: 575.98px) {
     .home-referral-primary {
       font-size: 26px; } }
@@ -1678,7 +1693,8 @@ a {
 
 .home-referral-secondary {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #fafafa; }
   @media (max-width: 575.98px) {
     .home-referral-secondary {
       font-size: 14px; } }
@@ -1692,6 +1708,7 @@ a {
 .referral-inside-text {
   font-size: 18px;
   font-weight: bold;
+  color: #fafafa;
   font-size: 16px;
   font-weight: 400 !important; }
   @media (min-width: 1200px) {
@@ -1777,6 +1794,7 @@ a {
 .auth-font {
   font-size: 18px;
   font-weight: bold;
+  color: #023047;
   letter-spacing: 0.9px !important; }
   @media (max-width: 575.98px) {
     .auth-font {
@@ -1796,6 +1814,7 @@ a {
 .auth-link {
   font-size: 18px;
   font-weight: bold;
+  color: #023047;
   letter-spacing: 0.9px !important; }
   @media (max-width: 575.98px) {
     .auth-link {
@@ -1809,7 +1828,8 @@ a {
 
 .orcha-link {
   font-size: 15px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 /* Auth Pages  style end */
 /* Urgent Help style start */
@@ -1818,7 +1838,8 @@ a {
 
 .urgent-help-text {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .urgent-help-text {
       font-size: 15px; } }
@@ -1834,6 +1855,7 @@ a {
 .footer-content {
   font-size: 20px;
   font-weight: normal;
+  color: #023047;
   line-height: 25px !important; }
   @media (max-width: 575.98px) {
     .footer-content {
@@ -1850,7 +1872,8 @@ a {
 
 .footer-content-secondary {
   font-size: 28px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .footer-content-secondary {
       font-size: 22px; } }
@@ -1865,7 +1888,8 @@ a {
 /* Referral Home page style end */
 .header-title {
   font-size: 22px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #ffffff; }
   @media (min-width: 320px) and (max-width: 575.98px) {
     .header-title {
       font-size: 15px; } }
@@ -1897,7 +1921,8 @@ a {
 
 .authorization-font {
   font-size: 28px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .authorization-font {
       font-size: 18px; } }
@@ -1910,6 +1935,7 @@ a {
   .authorization-font h2 {
     font-size: 32px;
     font-weight: bold;
+    color: #023047;
     margin-bottom: 0px; }
     @media (max-width: 575.98px) {
       .authorization-font h2 {
@@ -1923,6 +1949,7 @@ a {
   .authorization-font p {
     font-size: 24px;
     font-weight: bold;
+    color: #023047;
     margin-bottom: 0px; }
     @media (max-width: 575.98px) {
       .authorization-font p {
@@ -1936,7 +1963,8 @@ a {
 
 .secondary-header-title {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #ffffff; }
   @media (max-width: 575.98px) {
     .secondary-header-title {
       font-size: 15px; } }
@@ -1949,7 +1977,8 @@ a {
 
 .content-secondary-header-text {
   font-size: 24px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .content-secondary-header-text {
       font-size: 16px; } }
@@ -1967,6 +1996,7 @@ a {
 .content-text {
   font-size: 18px;
   font-weight: normal;
+  color: #023047;
   line-height: 23px !important; }
   @media (max-width: 575.98px) {
     .content-text {
@@ -1985,7 +2015,8 @@ a {
 
 .question-header-font {
   font-size: 20px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (min-width: 320px) and (max-width: 575.98px) {
     .question-header-font {
       font-size: 15px; } }
@@ -2001,7 +2032,8 @@ a {
 
 .back-text {
   font-size: 16px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #ffffff; }
   @media (max-width: 575.98px) {
     .back-text {
       font-size: 15px; } }
@@ -2014,11 +2046,13 @@ a {
 
 .completed-toast-text {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .referral-feedback {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .referral-feedback {
       font-size: 15px; } }
@@ -2031,7 +2065,8 @@ a {
 
 .completed-toast-header {
   font-size: 28px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .completed-toast-header {
       font-size: 18px; } }
@@ -2048,15 +2083,18 @@ a {
 
 .send-font {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .sub-header-title {
   font-size: 32px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #ffffff; }
 
 .content-header-text {
   font-size: 22px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .content-header-text {
       font-size: 15px; } }
@@ -2069,31 +2107,38 @@ a {
 
 .hint-text {
   font-size: 14px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .support-modal-header-text {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .support-modal-link-text {
   font-size: 15px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023087; }
 
 .support-modal-content-text {
   font-size: 15px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023087; }
 
 .link-text {
   font-size: 17px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .link-secondary {
   font-size: 16px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .btn-txt {
   font-size: 26px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 #primarySmallButton .btn {
   background: #ffb703 !important; }
@@ -2106,7 +2151,8 @@ a {
 
 .btn-secondary-text {
   font-size: 26px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .btn-sec5 {
   background: #219ebc 0% 0% no-repeat padding-box !important;
@@ -2117,11 +2163,13 @@ a {
 
 .btn-terirary-text {
   font-size: 22px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .btn-modal-text {
   font-size: 20px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #0b181e; }
 
 .footer-text {
   color: #feffff;
@@ -2136,7 +2184,8 @@ a {
 
 .question-font {
   font-size: 18px;
-  font-weight: normal; }
+  font-weight: normal;
+  color: #023047; }
   @media (max-width: 575.98px) {
     .question-font {
       font-size: 15px; } }
@@ -2148,7 +2197,8 @@ a {
       font-size: 17px; } }
   .question-font h2 {
     font-size: 22px;
-    font-weight: normal; }
+    font-weight: normal;
+    color: #023047; }
     @media (max-width: 575.98px) {
       .question-font h2 {
         font-size: 18px; } }
@@ -2161,7 +2211,8 @@ a {
   .question-font p {
     margin-bottom: 0px;
     font-size: 22px;
-    font-weight: normal; }
+    font-weight: normal;
+    color: #023047; }
     @media (max-width: 575.98px) {
       .question-font p {
         font-size: 15px; } }
@@ -2177,7 +2228,8 @@ a {
 
 .review-header-font {
   font-size: 20px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
   @media (min-width: 320px) and (max-width: 575.98px) {
     .review-header-font {
       font-size: 15px; } }
@@ -2192,7 +2244,8 @@ a {
       font-size: 19px; } }
   .review-header-font h2 {
     font-size: 22px;
-    font-weight: bold; }
+    font-weight: bold;
+    color: #023047; }
     @media (min-width: 320px) and (max-width: 575.98px) {
       .review-header-font h2 {
         font-size: 15px; } }
@@ -2208,7 +2261,8 @@ a {
   .review-header-font p {
     margin-bottom: 0px !important;
     font-size: 22px;
-    font-weight: bold; }
+    font-weight: bold;
+    color: #023047; }
     @media (min-width: 320px) and (max-width: 575.98px) {
       .review-header-font p {
         font-size: 15px; } }
@@ -2221,14 +2275,19 @@ a {
     @media (min-width: 768px) and (max-width: 991.98px) {
       .review-header-font p {
         font-size: 19px; } }
+    @media (min-width: 992px) {
+      .review-header-font p {
+        font-size: 19px; } }
 
 .option-font {
   font-size: 17px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .add-more-hint {
   font-size: 18px;
-  font-weight: bold; }
+  font-weight: bold;
+  color: #023047; }
 
 .header-bg {
   background: #54b7e6 0% 0% no-repeat padding-box !important;
@@ -3836,6 +3895,9 @@ body .ui-widget .ui-menu-item {
   background: #ffffff 0% 0% no-repeat padding-box;
   color: #023047; }
 
+.off .logout-font {
+  color: #023047; }
+
 .off .video-title-top {
   color: #023047; }
 
@@ -4260,6 +4322,9 @@ body .ui-widget .ui-menu-item {
 
 .on .card-set-container-bg {
   background: #353638 0% 0% no-repeat padding-box;
+  color: #fafafa; }
+
+.on .logout-font {
   color: #fafafa; }
 
 .on .video-title-top {
