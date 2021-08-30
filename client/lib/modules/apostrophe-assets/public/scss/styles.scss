@@ -1076,6 +1076,7 @@ a {
   }
 }
 
+
 .question-font {
   @include set-titleStyles($quaternary-font-size, normal, $primary-color);
   @include xs-screen {
@@ -1110,6 +1111,9 @@ a {
       font-size: 16px;
     }
     @include md-screen {
+      font-size: 18px;
+    }
+    @include md-screen-min {
       font-size: 18px;
     }
   }
@@ -1160,6 +1164,10 @@ a {
     @include md-screen {
       font-size: 19px;
     }
+    @include md-screen-min {
+      font-size: 19px;
+    }
+
   }
 }
 
