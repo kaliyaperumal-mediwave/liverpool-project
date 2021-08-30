@@ -134,12 +134,13 @@ module.exports = {
 
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
-      if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
-        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      }
-      else {
-        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      }
+      url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
+      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // }
+      // else {
+      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // }
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -185,5 +186,37 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       })
     });
+
+    self.route('get', 'validateIntegration/:password', function (req, res) {
+      console.log("validateIntegration")
+      var mindwavePassword=self.apos.LIVERPOOLMODULE.getOption(req, 'apiIntegrationPassword');
+      if(mindwavePassword==req.params.password)
+      {
+        var data={
+          statusCode:200,
+          successMsg:"Integration password matched."
+        }
+        return res.send(data);
+      }
+      else
+      {
+        var data={
+          statusCode:500,
+          successMsg:"Integration password not matched."
+        }
+        return res.send(data);
+      }
+
+
+      // var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadJson';
+      // //console.log(url);
+      // self.middleware.get(req, url).then((data) => {
+      //   return res.send(data);
+      // }).catch((error) => {
+      //   // console.log(error)
+      //   return res.status(error.statusCode).send(error.error);
+      // })
+    });
+
   }
 }

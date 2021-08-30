@@ -2441,26 +2441,7 @@ exports.saveReview = ctx => {
           ctx.query.refCode = uniqueNo;
           ctx.query.refID = ctx.request.body.userid;
           ctx.query.refRole = ctx.request.body.role;
-          if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
-            return adminCtrl.sendReferralByApi(ctx).then((providermailStatus) => {
-              return user.update({
-                referral_provider: ctx.query.selectedProvider
-              },
-                {
-                  where:
-                    { uuid: ctx.request.body.userid }
-                }
-              ).then((result) => {
-                return ctx.body = responseData;
-              }).catch(error => {
-                //////console.log()(error);
-                sequalizeErrorHandler.handleSequalizeError(ctx, error)
-              });
-            }).catch((error) => {
-              sequalizeErrorHandler.handleSequalizeError(ctx, error)
-            });
-          }
-          else {
+         // if (ctx.request.body.referral_provider == "YPAS" || (ctx.request.body.referral_provider == "Venus" && ctx.request.body.venusApi=='true')) {
             return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
               return user.update({
                 referral_provider: ctx.query.selectedProvider
@@ -2478,7 +2459,26 @@ exports.saveReview = ctx => {
             }).catch((error) => {
               sequalizeErrorHandler.handleSequalizeError(ctx, error)
             });
-          }
+         // }
+          // else {
+          //   return adminCtrl.sendReferral(ctx).then((providermailStatus) => {
+          //     return user.update({
+          //       referral_provider: ctx.query.selectedProvider
+          //     },
+          //       {
+          //         where:
+          //           { uuid: ctx.request.body.userid }
+          //       }
+          //     ).then((result) => {
+          //       return ctx.body = responseData;
+          //     }).catch(error => {
+          //       //////console.log()(error);
+          //       sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          //     });
+          //   }).catch((error) => {
+          //     sequalizeErrorHandler.handleSequalizeError(ctx, error)
+          //   });
+          // }
         }
         else {
           return ctx.body = responseData;
