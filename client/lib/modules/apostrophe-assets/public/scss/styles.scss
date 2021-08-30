@@ -1104,13 +1104,13 @@ a {
     margin-bottom: 0px;
     @include set-titleStyles($tertiary-mdFont-size, normal, $primary-color);
     @include xs-screen {
-      font-size: 18px;
+      font-size: 15px;
     }
     @include sm-screen {
-      font-size: 19px;
+      font-size: 16px;
     }
     @include md-screen {
-      font-size: 20px;
+      font-size: 18px;
     }
   }
 }

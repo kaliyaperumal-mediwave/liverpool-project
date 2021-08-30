@@ -2215,13 +2215,13 @@ a {
     color: #023047; }
     @media (max-width: 575.98px) {
       .question-font p {
-        font-size: 18px; } }
+        font-size: 15px; } }
     @media (min-width: 576px) and (max-width: 767.98px) {
       .question-font p {
-        font-size: 19px; } }
+        font-size: 16px; } }
     @media (min-width: 768px) and (max-width: 991.98px) {
       .question-font p {
-        font-size: 20px; } }
+        font-size: 18px; } }
 
 .review-header-font {
   font-size: 20px;
