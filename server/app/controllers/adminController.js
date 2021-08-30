@@ -7,6 +7,7 @@ const { req } = require('@kasa/koa-logging/lib/serializers');
 const email = require('../utils/email');
 const pdf = require('../utils/pdfgenerate');
 const callIaptusApi = require('../utils/sendReferralByApi');
+const convertToJson = require('../utils/convertCsvTOJson');
 
 const gpCodes = [
     {
@@ -1656,4 +1657,25 @@ exports.getActivity = async (ctx) => {
         console.log(error);
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
     })
+}
+
+exports.toJson = async (ctx) => {
+
+    try {
+        return convertToJson.doConversionToJson(ctx).then((sendReferralStatus) => {
+
+            console.log(ctx.res.JSONData)
+            return ctx.res.ok({
+                data: ctx.res.JSONData,
+                message: reponseMessages[1017],
+            });
+        }).catch(error => {
+            console.log(error, "error");
+            console.log("false")
+            return false;
+        });
+    } catch (e) {
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
+
 }
