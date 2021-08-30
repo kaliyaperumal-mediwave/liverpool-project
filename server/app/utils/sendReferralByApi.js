@@ -176,6 +176,7 @@ function createPayload(ctx) {
         payLoad = { //Section 1
             "00a_referrer": ctx.request.body.referralData.role,
             "00b_referral_type": ctx.request.body.referralData.section4.referral_type,
+            "00c_referral_mode":ctx.request.body.referralData.section1.referral_mode ? ctx.request.body.referralData.section1.referral_mode: alternativeBlankSpace,
             "06_professional_referral_service_selection": ctx.request.body.referralData.section1.service_location + concatString + ctx.request.body.referralData.section1.selected_service,
             "07a_professional_name": formatingInput(ctx.request.body.referralData.section1.professional_name) + concatString + formatingInput(ctx.request.body.referralData.section1.professional_lastname) + concatString + formatingInput(ctx.request.body.referralData.section1.professional_profession),
             "07d_professional_email": ctx.request.body.referralData.section1.professional_email ? ctx.request.body.referralData.section1.professional_email : alternativeBlankSpace,
@@ -187,7 +188,7 @@ function createPayload(ctx) {
             "04_registered_gp": formatingInput(ctx.request.body.referralData.section1.registered_gp),
             "05_registered_school": formatingInput(ctx.request.body.referralData.section1.gp_school),
             //Section 2
-            "00c_referral_mode":ctx.request.body.referralData.section2.referral_mode,
+            //"00c_referral_mode":ctx.request.body.referralData.section2.referral_mode,
             "09_nhs_number_provided": ctx.request.body.referralData.section2.child_NHS ? ctx.request.body.referralData.section2.child_NHS : alternativeBlankSpace,
             "pat_title": formatingInput(ctx.request.body.referralData.section2.child_name_title),
             "pat_firstname": formatingInput(ctx.request.body.referralData.section2.child_name),

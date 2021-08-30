@@ -934,12 +934,35 @@
 
             {% endraw %}
 
-            <!-- Professional select service directly end -->
+            <!-- Professional select service directly end  v-if="userRole == 'professional'" -->
 
-
+        
             <form id="professionalInfo-form" data-options="professionalForm">
                 <div v-show="elgibilityObj.role === 'professional' && (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 pt-4 pb-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
+
+                    <div v-if="elgibilityObj.liverpoolService=='Alder Hey - Liverpool CAMHS' || elgibilityObj.liverpoolService=='Alder Hey - Liverpool EDYS' || elgibilityObj.seftonService =='Alder Hey - Sefton CAMHS' || elgibilityObj.seftonService =='Alder Hey - Sefton EDYS'  " class="px-2 px-lg-0 py-2 col-12 mx-auto">
+                        <p class="question-font m-0">Is this an urgent or routine referral?</p>
+                        <div class="form-check pt-3 pb-1 pl-0">
+                            <input class="form-check-input" type="radio" checked id="routine" value="1"
+                                name="referralMode" v-model="elgibilityObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="routine">
+                                Routine
+                            </label>
+                        </div>
+                        <div class="form-check  py-2 pl-0">
+                            <input class="form-check-input" type="radio" name="referralMode" id="urgent" value="2"
+                                v-model="elgibilityObj.referral_mode">
+                            <label class="form-check-label option-font d-flex align-items-center" for="urgent">
+                                Urgent
+                            </label>
+                        </div>
+                        <!-- <div class="invalid-feedback d-none" v-bind:class="{ 'd-block': (isFormSubmitted && !aboutObj.referral_mode),
+                          'invalid-fields':!aboutObj.referral_mode }">
+                          You must provide an answer to this question to continue.
+                      </div> -->
+                    </div>
+
                     <div class="form-group">
                         <label for="firstName" class="question-font">Your first name</label>
                         {% raw %}

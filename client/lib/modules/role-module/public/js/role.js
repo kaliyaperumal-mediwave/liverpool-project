@@ -54,7 +54,8 @@ $(document).ready(function () {
                 gpSchool: '',
                 professional_contact_type: "mobile",
                 registered_gp_postcode: '',
-                profRegistered_gp_postcode: ''
+                profRegistered_gp_postcode: '',
+                referral_mode: 1
             },
             professionalManualAddress: [],
             addressData: {
@@ -286,7 +287,6 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
-                    //console.log(data[0])
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -305,6 +305,12 @@ $(document).ready(function () {
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
+
+                    if (data[0].selected_service == 'Alder Hey - Liverpool CAMHS' || data[0].selected_service == 'Alder Hey - Liverpool EDYS' || data[0].selected_service == 'Alder Hey - Sefton CAMHS' || data[0].selected_service == 'Alder Hey - Sefton EDYS') {
+                        Vue.set(this.elgibilityObj, "referral_mode", data[0].referral_mode);
+                    }
+
+
                     if (data[0].professional_manual_address && data[0].professional_manual_address.length) {
                         Vue.set(this, "professionalManualAddress", data[0].professional_manual_address);
                         this.setReadonlyState(true);
@@ -1122,6 +1128,10 @@ $(document).ready(function () {
                                     }
                                     if (this.elgibilityObj.profChildDob) {
                                         this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                    }
+
+                                    if (this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool CAMHS' && this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool EDYS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton CAMHS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton EDYS') {
+                                        this.elgibilityObj.referral_mode = null;
                                     }
 
 
