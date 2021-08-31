@@ -143,12 +143,13 @@ module.exports = {
 
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
-      if (useVenusIaptusAPI == 'true' && req.params.selectedProvider == 'Venus') {
-        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      }
-      else {
-        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      }
+      url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
+      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // }
+      // else {
+      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      // }
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -161,13 +162,14 @@ module.exports = {
 
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
-      if (useVenusIaptusAPI == 'true' && req.params.selectedProvider == 'Venus') {
+      if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
-      else if (useVenusIaptusAPI == 'false' && req.params.selectedProvider == 'Venus') {
+      else if(useVenusIaptusAPI=='false' && req.params.selectedProvider == 'Venus') {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
-      else {
+      else
+      {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
 

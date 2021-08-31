@@ -669,27 +669,54 @@ exports.sendReferral = async ctx => {
                     console.log(ctx.res.successCodeApi)
                     if (ctx.res.successCodeApi == 200) {
 
-                        const referralModel = ctx.orm().Referral;
-                        return referralModel.update({
-                            referral_provider: ctx.query.selectedProvider
-                        },
-                            {
-                                where:
-                                    { uuid: ctx.query.refID }
-                            }
-                        ).then((result) => {
-                            //---------------------here need add functionlaity for insert appoinment details
-                            return ctx.res.ok({
-                                message: reponseMessages[1017],
+                        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+                            //////console.log()(sendReferralStatus)
+                            const referralModel = ctx.orm().Referral;
+                            return referralModel.update({
+                                referral_provider: ctx.query.selectedProvider
+                            },
+                                {
+                                    where:
+                                        { uuid: ctx.query.refID }
+                                }
+                            ).then((result) => {
+                                return ctx.res.ok({
+                                    message: reponseMessages[1017],
+                                });
+                            }).catch(error => {
+                                //////console.log()(error);
+                                sequalizeErrorHandler.handleSequalizeError(ctx, error)
                             });
+        
                         }).catch(error => {
-                            console.log(" admin controller apiResponse-error")
-                            console.log(error);
+                            //////console.log()(error, "error");
                             sequalizeErrorHandler.handleSequalizeError(ctx, error)
                         });
                     }
                     else {
-                        sequalizeErrorHandler.authorizationError()
+                        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+                            //////console.log()(sendReferralStatus)
+                            const referralModel = ctx.orm().Referral;
+                            return referralModel.update({
+                                referral_provider: ctx.query.selectedProvider
+                            },
+                                {
+                                    where:
+                                        { uuid: ctx.query.refID }
+                                }
+                            ).then((result) => {
+                                return ctx.res.ok({
+                                    message: reponseMessages[1017],
+                                });
+                            }).catch(error => {
+                                //////console.log()(error);
+                                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                            });
+        
+                        }).catch(error => {
+                            //////console.log()(error, "error");
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                        });
                     }
 
                 }).catch(error => {
