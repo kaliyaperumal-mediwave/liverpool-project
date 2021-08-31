@@ -55,14 +55,14 @@ $(document).ready(function () {
     },
 
     mounted: function () {
-      var switchElem = document.getElementById('switchIntegration');
-      if (localStorage.getItem('integration') && localStorage.getItem('integration') == 'true') {
-        switchElem.value = localStorage.getItem('integration');
-        switchElem.checked = true;
+      // var switchElem = document.getElementById('switchIntegration');
+      // if (localStorage.getItem('integration') && localStorage.getItem('integration') == 'true') {
+      //   switchElem.value = localStorage.getItem('integration');
+      //   switchElem.checked = true;
 
-      } else {
-        switchElem.checked = false;
-      }
+      // } else {
+      //   switchElem.checked = false;
+      // }
       var date = new Date().getFullYear();
       for (var i = date; i > 1989; i--) {
         this.yearArr.push(i);
