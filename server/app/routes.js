@@ -81,5 +81,7 @@ router.post('/orcha/getSearchData/', auth.checkOrchaToken, orchaController.getSe
 
 //Utils
 router.get('/admin/downloadJson', validateToken, adminController.toJson);
+router.put('/admin/updateApiValue', validateToken, adminController.updateApiValue);
+router.get('/admin/getApiService', validateToken, adminController.getApiService);
 
 module.exports = router;

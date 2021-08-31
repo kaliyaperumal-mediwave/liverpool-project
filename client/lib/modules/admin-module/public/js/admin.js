@@ -654,12 +654,13 @@ function sendPdf(uuid, role, refCode) {
   $('#loader').show();
   var apiToSend;
   var selectedProvider = document.getElementById('SelectedProvider').value;
-  if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
-    apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
-  }
-  else {
-    apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
-  }
+  apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // if (useAPI && (selectedProvider == "YPAS" || selectedProvider == "Venus")) {
+  //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
+  // else {
+  //   apiToSend = '/sendReferral/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
+  // }
   // if (selectedProvider == "YPAS") {
   //   apiToSend = '/sendReferralByApi/' + uuid + "/" + role + "/" + selectedProvider + "/" + refCode
   // }

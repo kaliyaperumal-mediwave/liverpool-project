@@ -649,33 +649,120 @@ exports.sendReferral = async ctx => {
     ctx.request.body.referralData = referralData;
     ctx.request.body.emailToProvider = ctx.query.selectedProvider;
     ctx.request.body.refCode = ctx.query.refCode;
-    try {
-        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
-            //////console.log()(sendReferralStatus)
-            const referralModel = ctx.orm().Referral;
-            return referralModel.update({
-                referral_provider: ctx.query.selectedProvider
-            },
-                {
-                    where:
-                        { uuid: ctx.query.refID }
-                }
-            ).then((result) => {
-                return ctx.res.ok({
-                    message: reponseMessages[1017],
-                });
-            }).catch(error => {
-                //////console.log()(error);
-                sequalizeErrorHandler.handleSequalizeError(ctx, error)
-            });
 
-        }).catch(error => {
-            //////console.log()(error, "error");
-            sequalizeErrorHandler.handleSequalizeError(ctx, error)
-        });
-    } catch (e) {
-        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
-    }
+    console.log(ctx.request.body.emailToProvider == 'YPAS')
+    console.log(ctx.request.body.emailToProvider == 'Venus')
+    console.log("--------------------------------------------------------------------------")
+
+    const flagTbl = ctx.orm().miscellaneousFlag;
+    return flagTbl.findOne({
+        attributes: ['flag', 'value'],
+
+        where: {
+            flag: 'useApiService',
+        },
+    }).then((result) => {
+        if (result.dataValues.value == 'true' && (ctx.request.body.emailToProvider == 'YPAS' || ctx.request.body.emailToProvider == 'Venus')) {
+            try {
+                return callIaptusApi.sendReferralData(ctx).then((apiResponse) => {
+                    console.log(" admin controller apiResponse")
+                    console.log(ctx.res.successCodeApi)
+                    if (ctx.res.successCodeApi == 200) {
+
+                        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+                            //////console.log()(sendReferralStatus)
+                            const referralModel = ctx.orm().Referral;
+                            return referralModel.update({
+                                referral_provider: ctx.query.selectedProvider
+                            },
+                                {
+                                    where:
+                                        { uuid: ctx.query.refID }
+                                }
+                            ).then((result) => {
+                                return ctx.res.ok({
+                                    message: reponseMessages[1017],
+                                });
+                            }).catch(error => {
+                                //////console.log()(error);
+                                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                            });
+        
+                        }).catch(error => {
+                            //////console.log()(error, "error");
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                        });
+                    }
+                    else {
+                        return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+                            //////console.log()(sendReferralStatus)
+                            const referralModel = ctx.orm().Referral;
+                            return referralModel.update({
+                                referral_provider: ctx.query.selectedProvider
+                            },
+                                {
+                                    where:
+                                        { uuid: ctx.query.refID }
+                                }
+                            ).then((result) => {
+                                return ctx.res.ok({
+                                    message: reponseMessages[1017],
+                                });
+                            }).catch(error => {
+                                //////console.log()(error);
+                                sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                            });
+        
+                        }).catch(error => {
+                            //////console.log()(error, "error");
+                            sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                        });
+                    }
+
+                }).catch(error => {
+                    console.log(" admin controller error")
+                    console.log(error, "error");
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+            } catch (e) {
+                return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+            }
+        }
+        else {
+            try {
+                return email.sendReferralWithData(ctx).then((sendReferralStatus) => {
+                    //////console.log()(sendReferralStatus)
+                    const referralModel = ctx.orm().Referral;
+                    return referralModel.update({
+                        referral_provider: ctx.query.selectedProvider
+                    },
+                        {
+                            where:
+                                { uuid: ctx.query.refID }
+                        }
+                    ).then((result) => {
+                        return ctx.res.ok({
+                            message: reponseMessages[1017],
+                        });
+                    }).catch(error => {
+                        //////console.log()(error);
+                        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                    });
+
+                }).catch(error => {
+                    //////console.log()(error, "error");
+                    sequalizeErrorHandler.handleSequalizeError(ctx, error)
+                });
+            } catch (e) {
+                return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+            }
+        }
+        // return ctx.body = result
+    }).catch((error) => {
+        console.log(error)
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+
 }
 
 
@@ -1140,7 +1227,7 @@ function getRefData(refID, refRole, ctx) {
                 where: {
                     id: userObj.id,
                 },
-                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person','referral_mode']
+                attributes: ['id', 'uuid', 'professional_firstname', 'professional_lastname', 'professional_email', 'professional_contact_number', 'consent_child', 'consent_parent', 'professional_address', 'professional_address_postcode', 'professional_profession', 'service_location', 'selected_service', 'professional_contact_type', 'professional_manual_address', 'reference_code', 'contact_preferences', 'contact_person', 'referral_mode']
             }).then((elgibilityObj) => {
                 //return ctx.body = elgibilityObj.professional[0].child_parent[0];
                 var childIdNew = elgibilityObj.professional[0].child_parent[0].id;
@@ -1255,7 +1342,7 @@ function getRefData(refID, refRole, ctx) {
                                 parent_manual_address: aboutObj[0].parent_manual_address,
                                 legal_care_status: aboutObj[0].legal_care_status,
                             }
-                            
+
                             const section3Obj = {
                                 child_id: edu_empObj[0].professional[0].id,
                                 child_profession: edu_empObj[0].professional[0].child_profession,
@@ -1678,4 +1765,55 @@ exports.toJson = async (ctx) => {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 
+}
+
+exports.updateApiValue = async (ctx) => {
+    console.log(ctx.request.body)
+    const flagTbl = ctx.orm().miscellaneousFlag;
+    return flagTbl.update({
+        value: ctx.request.body.updateValue
+    },
+        {
+            where:
+                { id: 1 }
+        }
+    ).then((result) => {
+        //---------------------here need add functionlaity for insert appoinment details
+        return ctx.res.ok({
+            message: reponseMessages[1017],
+        });
+    }).catch(error => {
+        console.log(" admin controller apiResponse-error")
+        console.log(error);
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+}
+
+exports.getApiService = async (ctx) => {
+
+    try {
+        const flagTbl = ctx.orm().miscellaneousFlag;
+
+        return flagTbl.findOne({
+            where: {
+                id: 1,
+            },
+        }).then((data) => {
+            console.log(data.value)
+            if (data) {
+                return ctx.res.ok({
+                    data: { flagValue: data.dataValues.value }
+                });
+            } else {
+                return ctx.res.ok({
+                    message: reponseMessages[1009]
+                });
+            }
+        }).catch(error => { 
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+    } catch (e) {
+        console.log(e)
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
 }
