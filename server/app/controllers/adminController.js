@@ -721,7 +721,7 @@ exports.sendReferral = async ctx => {
                         //////console.log()(error);
                         sequalizeErrorHandler.handleSequalizeError(ctx, error)
                     });
-        
+
                 }).catch(error => {
                     //////console.log()(error, "error");
                     sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -730,7 +730,7 @@ exports.sendReferral = async ctx => {
                 return sequalizeErrorHandler.handleSequalizeError(ctx, e);
             }
         }
-       // return ctx.body = result
+        // return ctx.body = result
     }).catch((error) => {
         console.log(error)
         sequalizeErrorHandler.handleSequalizeError(ctx, error)
@@ -1738,4 +1738,55 @@ exports.toJson = async (ctx) => {
         return sequalizeErrorHandler.handleSequalizeError(ctx, e);
     }
 
+}
+
+exports.updateApiValue = async (ctx) => {
+    console.log(ctx.request.body)
+    const flagTbl = ctx.orm().miscellaneousFlag;
+    return flagTbl.update({
+        value: ctx.request.body.updateValue
+    },
+        {
+            where:
+                { id: 1 }
+        }
+    ).then((result) => {
+        //---------------------here need add functionlaity for insert appoinment details
+        return ctx.res.ok({
+            message: reponseMessages[1017],
+        });
+    }).catch(error => {
+        console.log(" admin controller apiResponse-error")
+        console.log(error);
+        sequalizeErrorHandler.handleSequalizeError(ctx, error)
+    });
+}
+
+exports.getApiService = async (ctx) => {
+
+    try {
+        const flagTbl = ctx.orm().miscellaneousFlag;
+
+        return flagTbl.findOne({
+            where: {
+                id: 1,
+            },
+        }).then((data) => {
+            console.log(data.value)
+            if (data) {
+                return ctx.res.ok({
+                    data: { flagValue: data.dataValues.value }
+                });
+            } else {
+                return ctx.res.ok({
+                    message: reponseMessages[1009]
+                });
+            }
+        }).catch(error => { 
+            console.log(error)
+            sequalizeErrorHandler.handleSequalizeError(ctx, error) });
+    } catch (e) {
+        console.log(e)
+        return sequalizeErrorHandler.handleSequalizeError(ctx, e);
+    }
 }

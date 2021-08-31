@@ -1,12 +1,10 @@
-var API_URI = "/modules/account-settings-module";
+var API_URI = "/modules/admin-module";
 $(document).ready(function () {
     new Vue({
         el: '#changePassword',
         data: {
-            changePasswordData: {
-                oldPassword: "",
-                newPassword: "",
-            },
+            passwordTointegrate: '',
+            integrationData: '',
             visibleOldPassword: false,
             visibleNewPassword: false,
             isFormSubmitted: false,
@@ -19,6 +17,7 @@ $(document).ready(function () {
 
         mounted: function () {
             var _self = this;
+            this.getToggleValue();
             setTimeout(function () {
                 _self.resetForm();
                 $('#loader').hide();
@@ -27,31 +26,49 @@ $(document).ready(function () {
 
         methods: {
 
-            changePassword: function () {
-                var formData = this.changePasswordData;
+            validatePassword: function () {
+                console.log("btn clickec")
+                var formData = {};
+                formData.password = this.passwordTointegrate;
                 this.isFormSubmitted = true;
-                if ((formData.oldPassword && this.passwordRegex.test(formData.oldPassword)) && (formData.newPassword && this.passwordRegex.test(formData.newPassword))) {
+                console.log(formData)
+                if (formData.password) {
                     // console.log('payload', formData);
                     $('#loader').show();
-                    var successData = apiCallPost('post', '/changePassword', formData);
-                    if (successData && Object.keys(successData)) {
-                        $('#loader').hide();
-                        if (successData && Object.keys(successData)) {
-                            $('#loader').removeClass('d-block').addClass('d-none');
-                            this.resetForm();
-                            $('#changePasswordSuccess').modal('show');
-                        } else {
-                            $('#loader').removeClass('d-block').addClass('d-none');
-                        }
-
-                    } else {
+                    var successData = apiCallPost('post', '/validateIntegration', formData);
+                    console.log(successData)
+                    if (successData.statusCode == 200) {
+                        console.log("password matched")
                         $('#loader').hide();
                     }
-
+                    else {
+                        console.log("password not matched")
+                        $('#loader').hide();
+                    }
                 } else {
                     return false;
                 }
             },
+
+            setIntegration: function (e) {
+                console.log(e.target.checked)
+                var postData = {};
+                postData.updateValue = e.target.checked;
+                if (e.target.checked) {
+                    var successData = apiCallPut('put', '/updateApiValue', postData);
+                    //localStorage.setItem('integration', 'true');
+                }
+                else {
+                    var successData = apiCallPut('put', '/updateApiValue', postData);
+                }
+            },
+
+
+            getToggleValue: function (e) {
+                let result = apiCallGet('get', '/getApiService', API_URI);
+                this.integrationData = (result.data.flagValue === 'true');
+            },
+
 
             toggleVisibility: function (elem, toggleFlag) {
                 this[toggleFlag] = !this[toggleFlag];
@@ -64,8 +81,7 @@ $(document).ready(function () {
 
             resetForm: function () {
                 this.isFormSubmitted = false;
-                this.changePasswordData.oldPassword = '';
-                this.changePasswordData.newPassword = '';
+                this.passwordTointegrate = '';
             },
 
             gotoLogin: function () {

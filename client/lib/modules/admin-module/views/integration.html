@@ -46,7 +46,7 @@
                         <div id="authForm">
                             <div class="input-group">
                                 <input type="password" placeholder="Enter your old password" autocomplete="off"
-                                    class="form-control auth-border input-bg-form-control" id="changeOldPasswd">
+                                    class="form-control auth-border input-bg-form-control" id="changeOldPasswd" v-model="passwordTointegrate">
                                 <span class="input-group-append">
                                     <div class="input-group-text px-3">
                                         <span style="color: #023047 !important;" class="cursor-pointer font-23">
@@ -79,8 +79,8 @@
 
                 <div class="py-4 text-center">
                     <div class="py-2">
-                        <button type="button" id="secondary"
-                            class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10"><span
+                        <button  @click="validatePassword()" type="button" id="secondary"
+                            class="btn px-md-4 py-2 py-md-1 px-3 col-md-10 col-10" ><span
                                 class="btn-quaternary-text">SUBMIT
                             </span></button>
                     </div>

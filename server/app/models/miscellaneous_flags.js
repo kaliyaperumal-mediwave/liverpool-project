@@ -12,6 +12,14 @@ module.exports = function modelType(sequelize, types) {
         value: {
             type: types.TEXT
         },
+        createdAt: {
+            type: types.DATE,
+            defaultValue: types.NOW
+        },
+        updatedAt: {
+            type: types.DATE,
+            defaultValue: types.NOW
+        }
     }, {
         tableName: 'miscellaneousFlag',
     });

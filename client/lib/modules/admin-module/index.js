@@ -8,7 +8,7 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.middleware.checkAdminAuth, self.admin);
       self.dispatch('/archive', self.middleware.checkServiceAdminAuth, self.archive);
-      self.dispatch('/integration', self.middleware.checkServiceAdminAuth, self.integration);
+      self.dispatch('/integration', self.integration);
       self.dispatch('/serviceAdmin', self.middleware.checkServiceAdminAuth, self.serviceAdmin);
     };
     self.integration = function (req, callback) {
@@ -193,11 +193,11 @@ module.exports = {
         return res.status(error.statusCode).send(error.error);
       })
     });
-
-    self.route('get', 'validateIntegration/:password', function (req, res) {
+    self.route('post', 'validateIntegration', function (req, res) {
       console.log("validateIntegration")
+      console.log(req.body)
       var mindwavePassword=self.apos.LIVERPOOLMODULE.getOption(req, 'apiIntegrationPassword');
-      if(mindwavePassword==req.params.password)
+      if(mindwavePassword==req.body.password)
       {
         var data={
           statusCode:200,
@@ -213,16 +213,28 @@ module.exports = {
         }
         return res.send(data);
       }
+    });
 
+    self.route('put', 'updateApiValue', function (req, res) {
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/updateApiValue';
+      //console.log('referralStatusUpdate put', url);
+      self.middleware.put(req, res, url, req.body).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        return res.status(error.statusCode).send(error.error);
+      })
+    });
 
-      // var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/downloadJson';
-      // //console.log(url);
-      // self.middleware.get(req, url).then((data) => {
-      //   return res.send(data);
-      // }).catch((error) => {
-      //   // console.log(error)
-      //   return res.status(error.statusCode).send(error.error);
-      // })
+    self.route('get', 'getApiService', function (req, res) {
+      console.log("downloadJson")
+      var url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/getApiService';
+      //console.log(url);
+      self.middleware.get(req, url).then((data) => {
+        return res.send(data);
+      }).catch((error) => {
+        // console.log(error)
+        return res.status(error.statusCode).send(error.error);
+      })
     });
 
   }
