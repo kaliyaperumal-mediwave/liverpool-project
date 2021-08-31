@@ -8,7 +8,16 @@ module.exports = {
     self.addDispatchRoutes = function () {
       self.dispatch('/', self.middleware.checkAdminAuth, self.admin);
       self.dispatch('/archive', self.middleware.checkServiceAdminAuth, self.archive);
+      self.dispatch('/integration', self.middleware.checkServiceAdminAuth, self.integration);
       self.dispatch('/serviceAdmin', self.middleware.checkServiceAdminAuth, self.serviceAdmin);
+    };
+    self.integration = function (req, callback) {
+      console.log("page land admin integration page")
+      return self.sendPage(req, self.renderer('integration', {
+        superAdmin: true,
+        adminPanel: true,
+        archivePge: true,
+      }));
     };
     self.archive = function (req, callback) {
       console.log("page land admin archieve page")
@@ -134,13 +143,12 @@ module.exports = {
 
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
-      url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      // if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
-      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      // }
-      // else {
-      //   url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
-      // }
+      if (useVenusIaptusAPI == 'true' && req.params.selectedProvider == 'Venus') {
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      }
+      else {
+        url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
+      }
       self.middleware.get(req, url).then((data) => {
         return res.send(data);
       }).catch((error) => {
@@ -153,14 +161,13 @@ module.exports = {
 
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
-      if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
+      if (useVenusIaptusAPI == 'true' && req.params.selectedProvider == 'Venus') {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
-      else if(useVenusIaptusAPI=='false' && req.params.selectedProvider == 'Venus') {
+      else if (useVenusIaptusAPI == 'false' && req.params.selectedProvider == 'Venus') {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
-      else
-      {
+      else {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
 
