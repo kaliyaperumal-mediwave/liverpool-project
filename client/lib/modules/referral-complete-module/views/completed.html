@@ -120,6 +120,14 @@
             </p>
         </div>
 
+        <div v-if="ackObj.role=='professional' && ackObj.professional_email" class="pt-4 pt-md-4 pb-2 pb-md-4 text-center mb-0 d-none">
+            <button type="button" @click="sendReferralToMe()"
+                class="btn px-md-4 py-2 py-md-1 px-1 px-sm-3 col-md-4 col-lg-6 col-xl-6 col-sm-9 col-9">
+                <span class="btn-quaternary-text">Send me a copy
+                </span>
+            </button>
+        </div>
+
 
         <div v-if="showSignUpForm" class="pt-2 pb-2 pt-md-4 pb-md-1">
             <div class="px-1 px-sm-2 py-2 col-md-10 col-sm-12 col-12 mx-auto">
@@ -388,6 +396,25 @@
             </div>
         </div>
         <!-- Change Email Succuss Modal End -->
+
+        <!-- Referral copy sent  Succuss Modal Start -->
+        <div class="modal fade" id="referralSentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
+            role="dialog" aria-labelledby="referralSentSuccessLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content modal-bg login-safe-pd">
+                    <span aria-hidden="true" class="modal-close" @click="closeReferralSentSuccess()">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                    <div class="modal-header justify-content-center model-text-pd text">
+                        <p class="text-center m-0 py-2">
+                            <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
+                        </p>
+                        <h5 id="successMsg" class="logout-font mt-3 text-center">Copy of referral form has been sent to your email.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Referral copy sent  Succuss Modal end -->
 
     </div>
     {% endraw %}

@@ -7,7 +7,7 @@ $(document).ready(function () {
             if (Number(change) >= Number(currentTextSize)) {
                 var inc = Number(change) - Number(currentTextSize);
                // console.log('---inc', inc)
-                $('p,h1,h2,h3,h4,h5,label,span,button,input,a,div').each(function (res) {
+                $('p,h1,h2,h3,h4,h5,label,span,button,input,a,div,select,option').each(function (res) {
                     var fontsize = parseInt($(this).css('font-size'));
                     var setLineHeight = Number(fontsize + inc) + 6;
                     var newFontsize = (fontsize + inc) + 'px';

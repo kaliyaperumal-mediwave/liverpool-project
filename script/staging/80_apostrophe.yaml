@@ -47,8 +47,13 @@ spec:
           value: '$PHR_LIVERPOOL_AZURE_CONTAINER_NAME'
         - name: IMG_UPLOAD_DOMAIN
           value: '$PHR_LIVERPOOL_IMG_UPLOAD_DOMAIN'
+<<<<<<< HEAD
         - name: apiIntegrationPassword
           value: $PHR_LIVERPOOL_apiIntegrationPassword
+=======
+        - name: useVenusIaptusAPI
+          value: $PHR_LIVERPOOL_USERVENUSIAPTUSAPI
+>>>>>>> 49187315eecdfbc700706aed5c31535a12f6803f
         ports:
         - containerPort: 80
         imagePullPolicy: Always

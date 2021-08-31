@@ -12,7 +12,10 @@
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
-
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
 {% endblock %}
 {% block main%}
 {% include "../../shared-referal-module/views/adminHeader.html" %}
@@ -98,10 +101,27 @@
                     </div>
                 </div> -->
 
-                <div>
-                    <div>
+                <div class="row">
+                    <div class="col-md-8">
                         <h2 class="admin-referral-primary mb-2 mb-md-3 ">Referrals</h2>
                         <p class="admin-inside-text my-2 my-md-3">Check and view the status of your referrals</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="home-primary-content">
+                            <h5 class="admin-referral-primar mb-2 mb-md-3 font-weight-bold d-inline-block">
+                                Enable/Disable Integrations
+                                <span class="admin-inside-text mb-2 mb-md-3 font-weight-bold d-inline-block">
+                                    (For testing purpose only)
+                                </span>
+                            </h5>
+
+                            <div class="checkbox switcher d-inline-block">
+                                <label for="switchIntegration">
+                                    <input class="messageCheckbox" type="checkbox" id="switchIntegration" value='true' @change="setIntegration($event)" v-model="integrationData">
+                                    <span><small></small></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="button-cont-admin row">
@@ -116,7 +136,7 @@
                         </button>
                     </div>
                     <div class=" py-2 set-div-width d-flex align-center justify-content-center">
-                        <button type="button" id="ExportReporttoExcel" class="btn-archive-admin">
+                        <button type="button" onclick='downloadCSV()' class="btn-archive-admin">
                             Download CSV
                         </button>
                     </div>
@@ -213,8 +233,10 @@
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey - Liverpool CAMHS - EDYS">Alder Hey -
-                                        Liverpool CAMHS - EDYS </option>
+                                    <option class='option-text' value="Alder Hey - Liverpool CAMHS">Alder Hey/Liverpool
+                                        CAMHS</option>
+                                    <option class='option-text' value="Alder Hey - Liverpool EDYS">Alder Hey/Liverpool
+                                        EDYS</option>
                                     <option class='option-text' value="YPAS">YPAS</option>
                                     <option class='option-text' value="MHST Liverpool">Mental Health Support Team
                                     </option>
@@ -232,8 +254,10 @@
                             <span class="plain-select">
                                 <select style="background: #fff !important;" id="SelectedProvider"
                                     class="custom-select form-control input-bg-form-control height-44">
-                                    <option class='option-text' value="Alder Hey - Sefton CAMHS - EDYS">Alder Hey -
-                                        Sefton CAMHS - EDYS</option>
+                                    <option class='option-text' value="Alder Hey - Sefton CAMHS">Alder Hey/Sefton CAMHS
+                                    </option>
+                                    <option class='option-text' value="Alder Hey - Sefton EDYS">Alder Hey/Sefton EDYS
+                                    </option>
                                     <option class='option-text' value="Venus">Venus</option>
                                     <option class='option-text' value="Parenting 2000">Parenting 2000</option>
                                     <option class='option-text' value="MHST Sefton">Mental Health Support Team</option>
@@ -243,6 +267,13 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- <div class="checkbox switcher">
+                    <label for="switchVoice">
+                        <input class="messageCheckbox" type="checkbox" id="switchVoice" value='true'>
+                        <span><small></small></span>
+                    </label>
+                </div> -->
 
                 <div class="modal-footer submit-btn-admin">
                     <button type="submit" class="btn mb-3 px-md-4 w-50 d-flex align-center justify-content-center"
@@ -289,7 +320,8 @@
                 </div>
                 <div class="px-sm-5 px-4 py-2" id="otherTeam">
                     <div class="input-group w-100">
-                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther" name="statusOther">
+                        <input type="text" class="form-control" placeholder="Type here..." id="statusOther"
+                            name="statusOther">
                     </div>
                 </div>
                 <div class="modal-footer submit-btn-admin">
@@ -302,6 +334,127 @@
         </div>
     </div>
     <!-- Send popup End -->
+    <!-- Actionlog Start -->
+    <div class="modal fade" id="actionlogModal" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="logout-font mt-3">Action Log</h5>
+                    <span aria-hidden="true" class="modal-close" @click="closeStatusPopup()">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="actionloginfo">
+
+                    <div class="actionlogdata">
+
+
+                        <div>
+                            <div v-for="(item,key,count) in groupByActivityDate">
+                                <h6>{{key}}</h6>
+                                <div v-for="val in item">
+                                    <div class="actionlogbody">
+                                        <div class="actionloguser_info">
+                                            <label>Time:</label>
+                                            <p>{{val.time }}</p>
+                                        </div>
+                                        <div class="actionloguser_info" v-if="val.userInfo.length !== 0">
+                                            <label>User:</label>
+                                            <p>{{val.userInfo.first_name}} {{val.userInfo.last_name}}
+                                            </p>
+                                        </div>
+                                        <div class="actionloguser_info">
+                                            <label>Action:</label>
+                                            <p>{{val.activity}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Actionlog End -->
+
+    <!-- DownloadCSV Start -->
+    <div class="modal fade" id="downloadCSV" tabindex="-1" role="dialog" aria-labelledby="changeStatusModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="logout-font mt-3">Enter a date</h5>
+                    <span aria-hidden="true" class="modal-close" @click="closeStatusPopup()">
+                        <i class="fal fa-times fa-2x cursor-pointer" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="downloadCSV-div">
+                    <div class="form-group">
+                        <label for="fromDate" class="question-font">Enter From date</label>
+                        <div class="input-group mb-2">
+                            <input type="text" class="form-control input-bg-form-control" v-model="fromDateCsv"
+                                inputmode="numeric" @input="checkValidDate('#fromDate','fromDateCsv','copyFromDateCsv')"
+                                @keypress="preventRefresh($event)" autocomplete="off" id="fromDate"
+                                placeholder="DD/MM/YYYY">
+                            <div class="input-group-append cursor-pointer">
+                                <span class="input-group-text p-16">
+                                    <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="invalid-feedback d-none mt-2"
+                            v-bind:class="{ 'd-block': (isCsvDownloadSubmitted && !fromDateCsv),'invalid-modal-fields': (isCsvDownloadSubmitted && !fromDateCsv) }">
+                            Please provide a valid from date.
+                        </div>
+                        <div class="invalid-feedback d-none mt-2"
+                            v-bind:class="{ 'd-block': ( isCsvDownloadSubmitted  && (fromDateCsv && !dateRegex.test(copyFromDateCsv))),'invalid-modal-fields': (fromDateCsv && !dateRegex.test(copyFromDateCsv)) }">
+                            Please provide a valid from date.
+                        </div>
+
+                        <div class="mt-3">
+                            <label for="toDate" class="question-font">Enter to date</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control input-bg-form-control" v-model="toDateCsv"
+                                    inputmode="numeric" @input="checkValidDate('#toDate','toDateCsv','copyToDateCsv')"
+                                    @keypress="preventRefresh($event)" autocomplete="off" id="toDate"
+                                    placeholder="DD/MM/YYYY">
+                                <div class="input-group-append cursor-pointer">
+                                    <span class="input-group-text p-16">
+                                        <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="invalid-feedback d-none mt-2"
+                                v-bind:class="{ 'd-block': (isCsvDownloadSubmitted && !toDateCsv),'invalid-modal-fields': (isCsvDownloadSubmitted && !toDateCsv) }">
+                                Please provide a valid to date.
+                            </div>
+                            <div class="invalid-feedback d-none mt-2"
+                                v-bind:class="{ 'd-block': ( isCsvDownloadSubmitted  && (toDateCsv && !dateRegex.test(copyToDateCsv))),'invalid-modal-fields': (toDateCsv && !dateRegex.test(copyToDateCsv)) }">
+                                Please provide a valid to date.
+                            </div>
+                            <div class="invalid-feedback d-none mt-2"
+                                v-bind:class="{ 'd-block': ( isCsvDownloadSubmitted && dateRegex.test(copyToDateCsv) && showInvalidToDate),'invalid-modal-fields': showInvalidToDate && dateRegex.test(copyToDateCsv) }">
+                                Please provide a valid to date.
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-flex"><button type="button" id="ExportReporttoExcel" class="download-csv-btn">Download
+                            CSV</button></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- DownloadCSV End -->
+
 
     <!-- Mail Succuss Modal Start -->
     <div class="modal fade" id="mailSentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1"
@@ -391,36 +544,38 @@
     </div> -->
     <!-- Login Succuss Modal End -->
     <!-- Delete Modal Start -->
-    <div class="modal fade" id="deletePopup" tabindex="-1" role="dialog"
-    aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content modal-bg">
-            <div class="modal-header justify-content-center">
-                <h5 class="question-header-font" id="deleteModalLabel">Delete referrals</h5>
-                <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
-                        class="fal fa-times fa-2x cursor-pointer"></i></i>
-            </div>
-            <div class="modal-body py-1 px-4">
-                <h5 class="support-modal-header-text text-center" id="exampleModalLongTitle">Are you sure you want to delete?</h5>
-            </div>
-            <div class="modal-footer">
-                <!-- <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
+    <div class="modal fade" id="deletePopup" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-bg">
+                <div class="modal-header justify-content-center">
+                    <h5 class="question-header-font" id="deleteModalLabel">Delete referrals</h5>
+                    <span aria-hidden="true" class="modal-close" data-dismiss="modal" aria-label="Close"><i
+                            class="fal fa-times fa-2x cursor-pointer"></i></i>
+                </div>
+                <div class="modal-body py-1 px-4">
+                    <h5 class="support-modal-header-text text-center" id="exampleModalLongTitle">Are you sure you want
+                        to delete?</h5>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn px-md-4 w-25" data-dismiss="modal">
                     <span class="btn-modal-text">No, do not delete
                     </span>
                 </button> -->
-                <button type="submit" class="btn px-md-4 w-50" id="closeModalDeleteAbout"
-                    @click="deleteReferral()" style="background-color: #219EBC !important;">
-                    <span class="btn-modal-text" >Yes, delete
-                    </span>
-                </button>
-                <div class="clearfix"></div>
-                <button type="button" class="btn px-md-4 w-50" data-dismiss="modal" style="background: none !important;box-shadow: none !important;margin-top: 10px;">
-                    <span>No, do not delete
-                    </span>
-                </button>
+                    <button type="submit" class="btn px-md-4 w-50" id="closeModalDeleteAbout" @click="deleteReferral()"
+                        style="background-color: #219EBC !important;">
+                        <span class="btn-modal-text">Yes, delete
+                        </span>
+                    </button>
+                    <div class="clearfix"></div>
+                    <button type="button" class="btn px-md-4 w-50" data-dismiss="modal"
+                        style="background: none !important;box-shadow: none !important;margin-top: 10px;">
+                        <span>No, do not delete
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <!-- Delete Modal End -->
 </div>

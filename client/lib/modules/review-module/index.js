@@ -15,6 +15,10 @@ module.exports = {
       if (!req.session.user_role) {
         return req.res.redirect("/")
       }
+      if(req.session.referralCode)
+      {
+        return req.res.redirect("/acknowledge")
+      }
       let decryptedUrl;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeParameter = atob(getParams);
@@ -63,6 +67,8 @@ module.exports = {
       //console.log("-------");
       //console.log(url);
       //console.log("-------");
+      req.body.venusApi = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
+      //console.log(req.body)
       self.middleware.post(req, res, url, req.body).then((data) => {
         return res.send(data);
       }).catch((error) => {

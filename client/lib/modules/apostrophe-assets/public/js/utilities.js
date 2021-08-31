@@ -239,28 +239,35 @@ function backToPreviousPage(section, userId, userRole) {
 
 
 //Scroll to top for an Invalid Inputs
-function scrollToInvalidInput() {
+function scrollToInvalidInput(type) {
     var headerHeight = document.querySelector('.headerTop').clientHeight;
     var errorElements = $('.invalid-fields');
+
     if (Array.from(errorElements).length) {
-        if (errorElements[0].parentElement) {
-            errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+        if (type) {
+            if (errorElements[1].parentElement) {
+                errorElements[1].parentElement.scrollIntoView(true, { behavior: "smooth", });
+            } else {
+                errorElements[1].scrollIntoView(true, { behavior: "smooth", });
+            }
+            var scrolledY = window.scrollY;
+            if (scrolledY) {
+                window.scroll(0, scrolledY - headerHeight);
+            }
         } else {
-            errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+            if (errorElements[0].parentElement) {
+                errorElements[0].parentElement.scrollIntoView(true, { behavior: "smooth", });
+            } else {
+                errorElements[0].scrollIntoView(true, { behavior: "smooth", });
+            }
+            var scrolledY = window.scrollY;
+            if (scrolledY) {
+                window.scroll(0, scrolledY - headerHeight);
+            }
         }
-        var scrolledY = window.scrollY;
-        if (scrolledY) {
-            window.scroll(0, scrolledY - headerHeight);
-        }
+
     }
-    // errorElements[0].scrollIntoView(true, { behavior: 'smooth' })
-    // setTimeout(function () {
-    //     window.scroll({
-    //         top: errorElements[0].offsetTop - headerHeight,
-    //         left: 0,
-    //         behavior: "smooth"
-    //     });
-    // }, 200)
+
 
 };
 
@@ -309,6 +316,7 @@ function apiCallPost(reqType, endPoint, payload) {
             response = res;
         },
         error: function (error) {
+            console.log(error)
             $('#loader').removeClass('d-block').addClass('d-none');
             if (endPoint == '/resetEmail') {
                 return;
@@ -330,6 +338,7 @@ function apiCallGet(reqType, endPoint, API_URI) {
         type: reqType,
         dataType: 'json',
         async: false,
+        cache: false,
         contentType: 'application/json',
         success: function (res) {
             response = res;
@@ -531,24 +540,32 @@ function setTextSize() {
     }
 }
 
+function stopRefresh(e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+    }
+}
+
 function setTheme() {
     var logoElem = document.getElementById('logoBgHome');
     var placeholderImg = document.getElementsByClassName('toggle-img-placehold');
     var theme = localStorage.getItem('theme');
-    if (theme == 'light') {
+    if (theme && theme == 'light') {
         $('body').removeClass().addClass('net off').addClass('body-bg');
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool.svg";
             placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder.svg";
         }
         localStorage.setItem('theme', 'light');
-    } else if (theme == 'dark') {
+    } else if (theme && theme == 'dark') {
         if (logoElem) {
             logoElem.src = "/modules/my-apostrophe-assets/img/liverpool_dark.svg";
             placeholderImg.src = "/modules/my-apostrophe-assets/img/placeholder_white.svg";
         }
         $('body').removeClass().addClass('net on').addClass('body-bg');
         localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
     }
 }
 
@@ -602,6 +619,9 @@ $(document).ready(function () {
     String.prototype.capitalize = function () {
         return this.charAt(0).toUpperCase() + this.slice(1);
     };
+    Array.prototype.move = function (from, to) {
+        this.splice(to, 0, this.splice(from, 1)[0]);
+    };
 })
 
 //window resize function
@@ -621,8 +641,8 @@ function openSideDrawer() {
     document.getElementById("side-drawer").style.left = "0";
     document.getElementById("side-drawer-void").classList.add("d-block");
     document.getElementById("side-drawer-void").classList.remove("d-none");
-    if(window.innerWidth < 768){
-    document.body.classList.toggle('lock-scroll');
+    if (window.innerWidth < 768) {
+        document.body.classList.toggle('lock-scroll');
     }
 }
 
@@ -630,8 +650,8 @@ function closeSideDrawer() {
     document.getElementById("side-drawer").style.left = "-336px";
     document.getElementById("side-drawer-void").classList.add("d-none");
     document.getElementById("side-drawer-void").classList.remove("d-block");
-    if(window.innerWidth < 768){
-    document.body.classList.toggle('lock-scroll');
+    if (window.innerWidth < 768) {
+        document.body.classList.toggle('lock-scroll');
     }
 }
 
@@ -702,4 +722,20 @@ function topFunction() {
 function openApps() {
     localStorage.removeItem("orFilData");
     location.href = window.location.origin + '/apps';
+}
+
+function downloadJson() {
+    var API_URI = "/modules/admin-module";
+    console.log("4343");
+    var successData = apiCallGet('get', '/downloadJson', API_URI);
+    console.log(successData)
+    downloadTextFile(JSON.stringify(successData.data), 'myObj.json');
+}
+
+function downloadTextFile(text, name) {
+    const a = document.createElement('a');
+    const type = name.split(".").pop();
+    a.href = URL.createObjectURL(new Blob([text], { type: `text/${type === "txt" ? "plain" : type}` }));
+    a.download = name;
+    a.click();
 }

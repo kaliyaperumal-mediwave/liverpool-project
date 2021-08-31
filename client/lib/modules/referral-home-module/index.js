@@ -33,6 +33,20 @@ module.exports = {
           return res.status(error.statusCode).send(error.error);
         });
       } else {
+       if(req.session && req.session.loginFlag != 'true')
+       {
+        delete req.session.uuid;
+        delete req.session.user_role;
+        delete req.session.prof_data;
+        delete req.session.referralCode
+        req.data.uuid = "";
+        req.data.userRole = "";
+       }
+       else
+       {
+        delete req.session.uuid;
+        req.data.uuid = "";
+       }
         return res.send({data: {success:'true',message:'session ref_home set'}});
       }
     });

@@ -69,7 +69,7 @@ module.exports = {
         email: 'selvakumar+seftoncamhs@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'Alder Hey - Sefton CAMHS - EDYS',
+        service_type: 'Alder Hey - Sefton CAMHS',
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -113,7 +113,7 @@ module.exports = {
         email: 'selvakumar+liverpoolcamhs@mindwaveventures.com',
         password: hashedPassword,
         user_role: 'service_admin',
-        service_type: 'Alder Hey - Liverpool CAMHS - EDYS',
+        service_type: 'Alder Hey - Liverpool CAMHS',
         createdAt: new Date(),
         updatedAt: new Date()
       },

@@ -60,10 +60,11 @@ exports.signup = async (ctx) => {
                     data: sendSignupResult,
                 });
             }).catch((error) => {
+                console.log(error)
                 sequalizeErrorHandler.handleSequalizeError(ctx, error)
             })
         }).catch((error) => {
-            //console.log(error)
+            console.log(error)
             sequalizeErrorHandler.handleSequalizeError(ctx, error)
         });
 
@@ -71,7 +72,6 @@ exports.signup = async (ctx) => {
 }
 exports.login = async (ctx) => {
     const { error } = loginValidation(ctx.request.body);
-
     if (error) {
         return ctx.res.badRequest({
             message: reponseMessages[1004],
@@ -107,7 +107,7 @@ exports.login = async (ctx) => {
                             role: userResult.user_role,
                             token: token,
                         }
-                        if(userResult.user_role === 'service_admin') {
+                        if (userResult.user_role === 'service_admin') {
                             sendUserResult.service_admin_type = userResult.service_type;
                         }
                         if (userResult.user_role === 'professional') {

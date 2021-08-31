@@ -58,6 +58,7 @@ $(document).ready(function () {
             selectProvider: 'No',
             sendRef: '',
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
+            landlineRegex: /^0[0-9]{10}$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -115,6 +116,7 @@ $(document).ready(function () {
                     contentType: 'application/json',
                     cache: false,
                     success: function (data) {
+                        //console.log(data)
                         _self.allSectionData = data;
                         _self.section1Data = data.section1;
                         _self.section2Data = data.section2;
@@ -245,6 +247,8 @@ $(document).ready(function () {
             },
 
             save: function () {
+                var buttonElem = document.querySelector('#acceptBtn');
+                buttonElem.disabled = true;
                 this.isFormSubmitted = true;
                 this.payloadData.contactPreference = this.contactPref;
                 this.payloadData.contact_person = this.contact_person;
@@ -259,7 +263,7 @@ $(document).ready(function () {
                             }
                         }
                         else {
-                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
+                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
 
                         var trimmedPayload = trimObj(this.payloadData);
@@ -277,6 +281,7 @@ $(document).ready(function () {
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
+                                buttonElem.disabled = false;
                                 if (error) {
                                     showError(error.responseJSON.message, error.status);
                                 }
@@ -311,7 +316,7 @@ $(document).ready(function () {
                             this.payloadData.referral_provider = this.section1Data.selected_service;
                         }
                         else if (this.section1Data.selected_service == "") {
-                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS - EDYS";
+                            this.payloadData.referral_provider = "Alder Hey - Liverpool CAMHS";
                         }
 
                         var trimmedPayload = trimObj(this.payloadData);
@@ -329,6 +334,7 @@ $(document).ready(function () {
                             },
                             error: function (error) {
                                 $('#loader').removeClass('d-block').addClass('d-none');
+                                buttonElem.disabled = true;
                                 if (error) {
                                     showError(error.responseJSON.message, error.status);
                                 }
@@ -343,6 +349,7 @@ $(document).ready(function () {
                         // }
                     } else {
                         // scrollToInvalidInput();
+                        buttonElem.disabled = true;
                         return false;
                     }
                 }
@@ -507,29 +514,42 @@ $(document).ready(function () {
                 var beforeSaveElem = $('#' + saveButtonId);
                 if (endpoint == "/user/updateAboutInfo") {
                     this.isSection2Submitted = true;
+                    var dynamicRegexChild;
+                    var dynamicRegexParent;
+                    if (formData.child_contact_type == "mobile") {
+                        dynamicRegexChild = this.phoneRegex
+                    } else if (formData.child_contact_type == "landline") {
+                        dynamicRegexChild = this.landlineRegex;
+                    }
+                    if (formData.parent_contact_type == "mobile") {
+                        dynamicRegexParent = this.phoneRegex
+                    } else if (formData.parent_contact_type == "landline") {
+                        dynamicRegexParent = this.landlineRegex;
+                    }
+
                     if (formData.child_name && formData.child_lastname && formData.child_contact_number &&
                         formData.child_gender && formData.parent_name && formData.parent_lastname && formData.child_parent_relationship && formData.parent_contact_number
-                        && this.phoneRegex.test(formData.child_contact_number) && this.phoneRegex.test(formData.parent_contact_number)
+                        && dynamicRegexChild.test(formData.child_contact_number) && dynamicRegexParent.test(formData.parent_contact_number)
                     ) {
 
                         if ((formData.child_NHS && !this.nhsRegex.test(formData.child_NHS))) {
-                            scrollToInvalidInput();
+                            scrollToInvalidInput('remove');
                             return false;
                         }
 
                         if ((formData.child_email && !this.emailRegex.test(formData.child_email))) {
-                            scrollToInvalidInput();
+                            scrollToInvalidInput('remove');
                             return false;
                         }
 
-                        if ((formData.parent_contact_number && !this.phoneRegex.test(formData.parent_contact_number))) {
-                            scrollToInvalidInput();
+                        if ((formData.parent_contact_number && !dynamicRegexParent.test(formData.parent_contact_number))) {
+                            scrollToInvalidInput('remove');
                             return false;
                         }
 
 
                         if ((formData.parent_email && !this.emailRegex.test(formData.parent_email))) {
-                            scrollToInvalidInput();
+                            scrollToInvalidInput('remove');
                             return false;
                         }
                         beforeSaveElem.text("Saving...");
@@ -545,18 +565,24 @@ $(document).ready(function () {
                         this.upsertInforForm(this.payloadData, 2, e.currentTarget.id, beforeSaveElem);
 
                     } else {
-                        scrollToInvalidInput();
+                        scrollToInvalidInput('remove');
                         return false;
                     }
                 }
                 else if (endpoint == "/user/updateSec3Info") {
                     this.isSection3Submitted = true;
+                    var dynamicRegexPattern;
+                    if (formData.child_socialworker_contact_type == "mobile") {
+                        dynamicRegexPattern = this.phoneRegex
+                    } else if (formData.child_socialworker_contact_type == "landline") {
+                        dynamicRegexPattern = this.landlineRegex;
+                    }
                     if (formData.child_socialworker == 'yes' && formData.child_socialworker_name == "") {
-                        scrollToInvalidInput();
+                        scrollToInvalidInput('remove');
                         return false;
                     }
-                    if (formData.child_socialworker == 'yes' && (formData.child_socialworker_contact && !this.phoneRegex.test(formData.child_socialworker_contact))) {
-                        scrollToInvalidInput();
+                    if (formData.child_socialworker == 'yes' && (formData.child_socialworker_contact && !dynamicRegexPattern.test(formData.child_socialworker_contact))) {
+                        scrollToInvalidInput('remove');
                         return false;
                     }
                     beforeSaveElem.text("Saving...");
@@ -569,7 +595,7 @@ $(document).ready(function () {
                 else if (endpoint == "/user/updateSec4Info") {
                     this.isSection4Submitted = true;
                     if (formData.referral_issues == "") {
-                        scrollToInvalidInput();
+                        scrollToInvalidInput('remove');
                         return false;
                     }
                     beforeSaveElem.text("Saving...");
@@ -583,10 +609,16 @@ $(document).ready(function () {
                 }
                 else if (endpoint == "/user/updateEligibilityInfo") {
                     this.isSection1Submitted = true;
+                    var dynamicRegexPattern;
+                    if (formData.professional_contact_type == "mobile") {
+                        dynamicRegexPattern = this.phoneRegex
+                    } else if (formData.professional_contact_type == "landline") {
+                        dynamicRegexPattern = this.landlineRegex;
+                    }
                     if (formData.professional_name && formData.professional_lastname && formData.professional_contact_number &&
-                        this.phoneRegex.test(formData.professional_contact_number) && formData.professional_profession) {
+                        dynamicRegexPattern.test(formData.professional_contact_number) && formData.professional_profession) {
                         if (formData.professional_email && !this.emailRegex.test(formData.professional_email)) {
-                            scrollToInvalidInput();
+                            scrollToInvalidInput('remove');
                             return false;
                         }
                         beforeSaveElem.text("Saving...");
@@ -597,7 +629,7 @@ $(document).ready(function () {
                         this.upsertInforForm(this.payloadData, 1, e.currentTarget.id, beforeSaveElem);
 
                     } else {
-                        scrollToInvalidInput();
+                        scrollToInvalidInput('remove');
                         return false;
                     }
                 }

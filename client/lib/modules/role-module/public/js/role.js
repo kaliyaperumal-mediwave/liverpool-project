@@ -14,6 +14,8 @@ $(document).ready(function () {
             selectedResources: [],
             addressOptions: [],
             gpListShow: [],
+            gpListJson:[],
+            gpListJsonPostCode:[],
             elgibilityObj: {
                 role: '',
                 interpreter: '',
@@ -53,8 +55,9 @@ $(document).ready(function () {
                 seftonService: '',
                 gpSchool: '',
                 professional_contact_type: "mobile",
-                registered_gp_postcode:'',
-                profRegistered_gp_postcode:''
+                registered_gp_postcode: '',
+                profRegistered_gp_postcode: '',
+                referral_mode: 1
             },
             professionalManualAddress: [],
             addressData: {
@@ -103,9 +106,20 @@ $(document).ready(function () {
             addressList: [],
             //phoneRegex: /^[0-9,-]{10,15}$|^$/,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
+            landlineRegex: /^0[0-9]{10}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
+            dateArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            monthArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            yearArr: [],
+            dateVal: "",
+            monthVal: "",
+            yearVal: "",
+            dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
+            duplicateYearArray: '',
+            formatter: ''
         },
 
         beforeMount: function () {
@@ -113,6 +127,11 @@ $(document).ready(function () {
         },
 
         mounted: function () {
+            var date = new Date().getFullYear();
+            console.log(date)
+            for (var i = date; i > 1989; i--) {
+                this.yearArr.push(i);
+            }
             this.isSubmitted = false;
             var disableChild = document.getElementById('1752a966-f49a-4443-baae-ed131ebb477b').lastElementChild;
             var disableParent = document.getElementById('398a82d9-59fe-459c-8d1e-85f803d0319c').lastElementChild;
@@ -148,8 +167,29 @@ $(document).ready(function () {
             //console.log(this.elgibilityObj.uuid)
             this.fetchSavedData();
             //this.initMaps();
+            // console.log(fetchJSONFile('/modules/role-module/js/data/gplist.json',undefined))
             this.paramValues = getParameter(location.href);
             $('#loader').hide();
+            var gpArray = [];
+            // this.getJsonGP();
+            // this.getJsonGPPostCode();
+            // console.log(this.gpListJson)
+            // fetchJSONFile('/modules/role-module/js/data/gplist.json', function(data){
+            //     // do something with your data
+            //     console.log(data);
+            //     gpArray = data
+            // });
+
+            // async function asyncCall() {
+            //    await  fetchJSONFile('/modules/role-module/js/data/gplist.json', function(data){
+            //     // do something with your data
+            //     console.log(data);
+            //     gpArray = data
+            // });
+            //   }
+
+            //  console.log(asyncCall())
+            //  console.log(gpArray)
         },
 
         methods: {
@@ -229,12 +269,10 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "contact_parent_camhs", data.contact_parent_camhs);
                     Vue.set(this.elgibilityObj, "reason_contact_parent_camhs", data.reason_contact_parent_camhs);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
-                    if(data.registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp+','+data.registered_gp_postcode));
+                    if (data.registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp + ',' + data.registered_gp_postcode));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data.registered_gp));
                     }
                     if (data.gp_school) {
@@ -252,19 +290,17 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "interpreter", data[0].need_interpreter);
                     Vue.set(this.elgibilityObj, "childDob", this.convertDate(data[0].parent[0].child_dob));
-                    this.fetchAgeLogic(data.child_dob, roleType)
+                    this.fetchAgeLogic(data[0].parent[0].child_dob)
                     Vue.set(this.elgibilityObj, "contactParent", data[0].consent_child);
                     Vue.set(this.elgibilityObj, "isInformation", data[0].consent_child);
                     //Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
-                    if(data[0].parent[0].registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp+','+data[0].parent[0].registered_gp_postcode, roleType));
+                    if (data[0].parent[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp + ',' + data[0].parent[0].registered_gp_postcode, roleType));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regGpTxt", this.bindGpAddress(data[0].parent[0].registered_gp, roleType));
                     }
-                    
+
                     if (data[0].parent[0].gp_school) {
                         Vue.set(this.elgibilityObj, "gpSchool", data[0].parent[0].gp_school);
                         //Vue.set(this.elgibilityObj, "gpNotCovered",true);
@@ -274,7 +310,6 @@ $(document).ready(function () {
                     this.elgibilityObj.editFlag = "editFlag";
                 }
                 else if (roleType == "professional") {
-                    console.log(data[0])
                     Vue.set(this.elgibilityObj, "role", roleType);
                     Vue.set(this.elgibilityObj, "profDirectService", data[0].service_location);
                     if (data[0].service_location == 'liverpool') {
@@ -289,31 +324,34 @@ $(document).ready(function () {
                     Vue.set(this.elgibilityObj, "professional_contact_type", data[0].professional_contact_type);
                     Vue.set(this.elgibilityObj, "profContactNumber", data[0].professional_contact_number);
                     Vue.set(this.elgibilityObj, "profChildDob", this.convertDate(data[0].professional[0].child_dob));
+                    this.duplicateYearArray = this.elgibilityObj.profChildDob.slice(this.elgibilityObj.profChildDob.length - 4);
                     this.fetchAgeLogic(data[0].professional[0].child_dob, roleType)
                     Vue.set(this.elgibilityObj, "contactProfParent", data[0].consent_parent);
                     Vue.set(this.elgibilityObj, "parentConcernInformation", data[0].consent_child);
+
+                    if (data[0].selected_service == 'Alder Hey - Liverpool CAMHS' || data[0].selected_service == 'Alder Hey - Liverpool EDYS' || data[0].selected_service == 'Alder Hey - Sefton CAMHS' || data[0].selected_service == 'Alder Hey - Sefton EDYS') {
+                        Vue.set(this.elgibilityObj, "referral_mode", data[0].referral_mode);
+                    }
+
+
                     if (data[0].professional_manual_address && data[0].professional_manual_address.length) {
                         Vue.set(this, "professionalManualAddress", data[0].professional_manual_address);
                         this.setReadonlyState(true);
                     }
                     //Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     console.log(data[0].professional_address_postcode)
-                    if(data[0].professional_address_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address +' ,'+ data[0].professional_address_postcode );
+                    if (data[0].professional_address_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address + ' ,' + data[0].professional_address_postcode);
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "profAddress", data[0].professional_address);
                     }
                     Vue.set(this.elgibilityObj, "profProfession", data[0].professional_profession);
                     //Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
-                    if(data[0].professional[0].registered_gp_postcode)
-                    { // bind postcode column for new referrals
-                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp+','+data[0].professional[0].registered_gp_postcode, roleType));
+                    if (data[0].professional[0].registered_gp_postcode) { // bind postcode column for new referrals
+                        Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp + ',' + data[0].professional[0].registered_gp_postcode, roleType));
                     }
-                    else
-                    {// leave postcode column for old referrals
+                    else {// leave postcode column for old referrals
                         Vue.set(this.elgibilityObj, "regProfGpTxt", this.bindGpAddress(data[0].professional[0].registered_gp, roleType));
                     }
                     if (data[0].professional[0].gp_school) {
@@ -416,20 +454,23 @@ $(document).ready(function () {
             },
 
             onChange: function (event) {
-                console.log('manual array', this.professionalManualAddress);
                 var questionIdentifier = event.target.name;
                 var optionValue = event.target.value;
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
                     this.professionalManualAddress = [];
+                    //  this.elgibilityObj.profaboveLimit = "";
                     this.setReadonlyState(false);
                     this.resetValues(event.target.form);
-                    // this.elgibilityObj.profFirstName = "";
-                    // this.elgibilityObj.profEmail = "";
-                    // this.elgibilityObj.profContactNumber = "";
-                    // this.elgibilityObj.profChildDob = "";
-                    // this.elgibilityObj.proflastName = "";
-                    // this.elgibilityObj.profAddress = "";
-                    // this.elgibilityObj.profProfession = "";
+                    if (!document.getElementById('prof_data').innerHTML) {
+                        this.elgibilityObj.profFirstName = "";
+                        this.elgibilityObj.profEmail = "";
+                        this.elgibilityObj.profContactNumber = "";
+                        this.elgibilityObj.profChildDob = "";
+                        this.elgibilityObj.proflastName = "";
+                        this.elgibilityObj.profAddress = "";
+                        this.elgibilityObj.profProfession = "";
+                    }
+
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
@@ -521,7 +562,7 @@ $(document).ready(function () {
                     app.elgibilityObj.gpNotCovered = false;
                     //app.elgibilityObj.submitForm = "true";
                     if (searchTxt.length > 2) {
-                        var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
+                        var gpLink = API_URI + "/getGpByName/" + searchTxt;
                         $('#showInputLoaderProf').removeClass("d-none").addClass("d-block");
                         $('#addOpacityProf').css('opacity', '0.2');
                         $.ajax({
@@ -529,23 +570,25 @@ $(document).ready(function () {
                             type: 'get',
                             async: false,
                             success: function (response) {
+                                console.log(response)
                                 _self.gpListName = [];
                                 //app.elgibilityObj.gpErrMsg = "";
-                                _self.gpListShow = response.Organisations;
-                                if (response.Organisations.length <= 0) {
-                                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
+                                _self.gpListShow = response;
+                                if (response.length <= 0) {
+                                    var gpLink = API_URI + "/getGpByPostCode/" + searchTxt;
                                     $.ajax({
                                         url: gpLink,
                                         type: 'get',
                                         async: false,
                                         success: function (response) {
+                                            console.log(response)
                                             _self.gpListName = [];
                                             //app.elgibilityObj.gpErrMsg = "";
-                                            _self.gpListShow = response.Organisations;
+                                            _self.gpListShow = response
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // //console.log(_self.gpListShow[i].PostCode)
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                                _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                                _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].Postcode);
                                             }
                                             if (_self.gpListName.length == 0) {
                                                 app.elgibilityObj.gpErrMsg = "";
@@ -593,10 +636,10 @@ $(document).ready(function () {
 
                                 }
                                 else {
-                                    _self.gpListShow = response.Organisations;
+                                    _self.gpListShow = response;
                                     for (i = 0; i < _self.gpListShow.length; i++) {
                                         //  if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                        _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].PostCode);
+                                        _self.gpListName.push(_self.gpListShow[i].Name + "," + _self.gpListShow[i].Postcode);
                                     }
                                     if (_self.gpListName.length == 0) {
                                         app.elgibilityObj.gpErrMsg = "";
@@ -731,7 +774,7 @@ $(document).ready(function () {
                     if (searchTxt.length > 2) {
                         $('#showInputLoader').removeClass("d-none").addClass("d-block");
                         $('#addOpacity').css('opacity', '0.2');
-                        var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?Name=" + searchTxt;
+                        var gpLink = API_URI + "/getGpByName/" + searchTxt;
                         $.ajax({
                             url: gpLink,
                             type: 'get',
@@ -740,9 +783,9 @@ $(document).ready(function () {
                                 _self.gpListShow = [];
                                 _self.gpProfListName = [];
                                 //app.elgibilityObj.gpErrMsg = "";
-                                _self.gpListShow = response.Organisations;
-                                if (response.Organisations.length <= 0) {
-                                    var gpLink = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations?PostCode=" + searchTxt;
+                                _self.gpListShow = response;
+                                if (response.length <= 0) {
+                                    var gpLink =  API_URI + "/getGpByPostCode/" + searchTxt;
                                     $.ajax({
                                         url: gpLink,
                                         type: 'get',
@@ -751,10 +794,10 @@ $(document).ready(function () {
                                             _self.gpListShow = [];
                                             _self.gpProfListName = [];
                                             // app.elgibilityObj.gpErrMsg = "";
-                                            _self.gpListShow = response.Organisations;
+                                            _self.gpListShow = response;
                                             for (i = 0; i < _self.gpListShow.length; i++) {
                                                 // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                                _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                                _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].Postcode);
                                             }
                                             if (_self.gpProfListName.length == 0) {
                                                 app.elgibilityObj.gpErrMsg = "Please enter valid GP address or postcode";
@@ -799,11 +842,11 @@ $(document).ready(function () {
 
                                 }
                                 else {
-                                    _self.gpListShow = response.Organisations;
+                                    _self.gpListShow = response;
                                     if (_self.gpListShow.length > 0) {
                                         for (i = 0; i < _self.gpListShow.length; i++) {
                                             // if (_self.validatePostCode(_self.gpListShow[i].PostCode)) // find postcode fall in within range
-                                            _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].PostCode);
+                                            _self.gpProfListName.push(_self.gpListShow[i].Name + ',' + _self.gpListShow[i].Postcode);
                                         }
                                         if (_self.gpProfListName.length == 0) {
                                             app.elgibilityObj.gpErrMsg = "";
@@ -868,9 +911,18 @@ $(document).ready(function () {
                 ////console.log("erer")
             },
 
+            getDob: function () {
+                var selectedDate = this.dateVal + '/' + this.monthVal + '/' + this.yearVal
+                // console.log(selectedDate)
+                // console.log(this.dateRegex.test(selectedDate));
+                if (this.dateRegex.test(selectedDate)) {
+                    this.elgibilityObj.childDob = selectedDate;
+                    this.changeDob("", selectedDate)
+                }
+            },
+
             changeDob: function (e, date) {
-                //  ////console.log(date);
-                if (this.patchFlag != true && date != null) {
+                if (date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
                     var selectedDate = new Date(this.dateFmt);
@@ -878,6 +930,7 @@ $(document).ready(function () {
                     // //console.log(age)
                     ////console.log(age > 19)
                     var roleText = this.elgibilityObj.role;
+                    console.log(roleText)
                     if (this.elgibilityObj.isInformation != undefined) {
                         this.elgibilityObj.isInformation = "";
                     }
@@ -948,6 +1001,7 @@ $(document).ready(function () {
                     }
 
                     else if (roleText == 'parent') {
+                        console.log(age)
                         if (age > 18) {
                             this.elgibilityObj.aboveLimit = "yes";
                             this.elgibilityObj.contactParent = "";
@@ -1067,10 +1121,16 @@ $(document).ready(function () {
                 // this.elgibilityObj.login_id = "4218d0fb-59df-4454-9908-33c564802059";
                 var emailRegex = new RegExp(/^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i);
                 this.isSubmitted = true;
+                //var dynamicRegexPattern;
+                if (this.elgibilityObj.professional_contact_type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (this.elgibilityObj.professional_contact_type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
                 var role = this.elgibilityObj.role;
                 if (role === 'professional') {
                     this.elgibilityObj.profregistered_gp = this.elgibilityObj.regProfGpTxt;
-                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.phoneRegex.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
+                    if (this.elgibilityObj.profFirstName && this.elgibilityObj.proflastName && this.elgibilityObj.profContactNumber && this.dynamicRegexPattern.test(this.elgibilityObj.profContactNumber) && this.elgibilityObj.profProfession) {
                         if (this.elgibilityObj.profAddress || this.professionalManualAddress.length) {
                             this.elgibilityObj.professionalManualAddress = this.professionalManualAddress;
                             if (this.elgibilityObj.profEmail) {
@@ -1080,13 +1140,24 @@ $(document).ready(function () {
                                     this.elgibilityObj.profRegistered_gp_postcode = gpArray[1]
                                     this.elgibilityObj.profregistered_gp = gpArray[0];
 
-                                    if(this.elgibilityObj.profAddress)
-                                    {
-                                        var profAddresArray= (this.elgibilityObj.profAddress).split(",");
+                                    if (this.elgibilityObj.profAddress) {
+                                        var profAddresArray = (this.elgibilityObj.profAddress).split(",");
                                         this.elgibilityObj.profAddress_postcode = profAddresArray[2];
-                                        this.elgibilityObj.profAddress = profAddresArray[0]+","+profAddresArray[1];
-            
+                                        this.elgibilityObj.profAddress = profAddresArray[0] + "," + profAddresArray[1];
+
                                     }
+
+                                    if (this.elgibilityObj.childDob) {
+                                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                                    }
+                                    if (this.elgibilityObj.profChildDob) {
+                                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                    }
+
+                                    if (this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool CAMHS' && this.elgibilityObj.liverpoolService != 'Alder Hey - Liverpool EDYS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton CAMHS' && this.elgibilityObj.seftonService != 'Alder Hey - Sefton EDYS') {
+                                        this.elgibilityObj.referral_mode = null;
+                                    }
+
 
                                     this.apiRequest(this.elgibilityObj, role);
                                 } else {
@@ -1095,6 +1166,12 @@ $(document).ready(function () {
                                 }
                             } else {
                                 $('#loader').show();
+                                if (this.elgibilityObj.childDob) {
+                                    this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                                }
+                                if (this.elgibilityObj.profChildDob) {
+                                    this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                                }
                                 this.apiRequest(this.elgibilityObj, role);
                             }
                         }
@@ -1107,6 +1184,13 @@ $(document).ready(function () {
                         return false;
                     }
                 } else if (role === 'parent') {
+                    if (this.elgibilityObj.childDob) {
+                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                    }
+                    if (this.elgibilityObj.profChildDob) {
+                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                    }
+
                     var gpArray = (this.elgibilityObj.regGpTxt).split(",");
                     this.elgibilityObj.registered_gp_postcode = gpArray[1]
                     this.elgibilityObj.registered_gp = gpArray[0];
@@ -1114,12 +1198,116 @@ $(document).ready(function () {
                     this.apiRequest(this.elgibilityObj, role);
                 }
                 else if (role === 'child') {
+                    if (this.elgibilityObj.childDob) {
+                        this.elgibilityObj.childDob = this.elgibilityObj.childDob.replace(/\s/g, "");
+                    }
+                    if (this.elgibilityObj.profChildDob) {
+                        this.elgibilityObj.profChildDob = this.elgibilityObj.profChildDob.replace(/\s/g, "");
+                    }
                     var gpArray = (this.elgibilityObj.regGpTxt).split(",");
                     this.elgibilityObj.registered_gp_postcode = gpArray[1]
                     this.elgibilityObj.registered_gp = gpArray[0];
                     //this.elgibilityObj.registered_gp = this.elgibilityObj.regGpTxt;
                     this.apiRequest(this.elgibilityObj, role);
                 }
+            },
+
+            selectContactTypeProfessional: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
+            },
+
+            checkValue: function (str, max) {
+                if (str.charAt(0) !== '0' || str == '00') {
+                    var num = parseInt(str);
+                    if (isNaN(num) || num <= 0 || num > max) num = 1;
+                    str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+                };
+                return str;
+            },
+
+            preventRefresh: function (e) {
+                stopRefresh(e);
+            },
+
+            checkValidDate: function (id, obj, key, e) {
+                var dateElement = document.querySelector(id);
+                var input = dateElement.value;
+                if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+                var values = input.split('/').map(function (v) {
+                    return v.replace(/\D/g, '')
+                });
+                var currentDate = {
+                    year: new Date().getFullYear(),
+                    month: parseInt(new Date().getMonth()) + 1,
+                    date: new Date().getDate()
+                }
+                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
+                    values[2] = 2021;
+                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
+                    values[2] = 1900;
+                }
+                if (values[1]) {
+                    if (values[2]) {
+                        values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
+                        values[1] = ("0" + values[1]).slice(-2)
+                    }
+                    values[1] = this.checkValue(values[1], 12);
+                }
+                if (values[0]) {
+                    if (values[2]) {
+                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
+                        values[0] = ("0" + values[0]).slice(-2)
+                    }
+                    values[0] = this.checkValue(values[0], 31);
+                }
+                var output = values.map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + ' / ' : v;
+                });
+                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + '/' : v;
+                });
+                dateElement.value = output.join('').substr(0, 14);
+                this[obj][key] = output.join('').substr(0, 14);
+                this.formatter = copyOutput.join('').substr(0, 14);
+                if (this.dateRegex.test(this.formatter)) {
+                    this.changeDob("", this.formatter)
+                }
+                else {
+                    if (this.elgibilityObj.role == 'professional') {
+                        this.elgibilityObj.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.contactProfParent = "";
+                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.submitProfForm = "";
+                        this.elgibilityObj.regProfGpTxt = "";
+                    }
+                    else if (this.elgibilityObj.role == 'child') {
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contact_parent_camhs = "";
+                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+                    else {
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+
+                }
+
             },
 
             apiRequest: function (payload, role) {
@@ -1228,7 +1416,10 @@ $(document).ready(function () {
             fetchAgeLogic: function (dbdob, roleText) {
                 var today = new Date();
                 var selectedDate = new Date(dbdob);
+                // console.log(selectedDate)
+                this.formatDateToString(selectedDate)
                 var age = this.diff_years(today, selectedDate);
+                console.log(age)
                 if (roleText == 'child') {
                     if (age < 14) {
 
@@ -1286,6 +1477,23 @@ $(document).ready(function () {
 
                 }
 
+
+
+            },
+
+            formatDateToString: function (inputdate) {
+                //  console.log(inputdate)
+                var date = new Date(inputdate)
+                // console.log(date)
+                // 01, 02, 03, ... 29, 30, 31
+                this.dateVal = (date.getDate() < 10 ? '0' : '') + date.getDate();
+                // 01, 02, 03, ... 10, 11, 12
+                this.monthVal = ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1);
+                // 1970, 1971, ... 2015, 2016, ...
+                this.yearVal = date.getFullYear();
+
+                // create the format you want
+                //return (dd + "-" + MM + "-" + yyyy);
             },
 
             bindGpAddress: function (gpAddress, role) {
@@ -1379,7 +1587,7 @@ $(document).ready(function () {
 
             changePrevAns: function (attributeValue, inputId) {
                 this.elgibilityObj[attributeValue] = "";
-                //document.getElementById(inputId).focus();
+                document.getElementById(inputId).focus();
             },
 
             getAddressPostcode: function (e) {
@@ -1482,7 +1690,50 @@ $(document).ready(function () {
 
             removeDependency: function (index) {
                 this.selectedResources.splice(index, 1)
-            }
+            },
+
+            // getJsonGP: function (refObj) {
+            //     var _self = this;
+            //     ////console.log(refObj);
+            //     $.ajax({
+            //         url: API_URI + "/getGpByName/liv",
+            //         type: 'get',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         cache: false,
+            //         success: function (data) {
+            //             console.log(data)
+            //             _self.gpListJson = data;
+            //         },
+            //         error: function (error) {
+            //             if (error) {
+            //                 console.log(error)
+            //                 showError(error.responseJSON.message, error.status);
+            //             }
+            //         }
+            //     });
+            // },
+            // getJsonGPPostCode: function (refObj) {
+            //     var _self = this;
+            //     ////console.log(refObj);
+            //     $.ajax({
+            //         url: API_URI + "/getGpByPostCode/L20",
+            //         type: 'get',
+            //         dataType: 'json',
+            //         contentType: 'application/json',
+            //         cache: false,
+            //         success: function (data) {
+            //             console.log(data)
+            //             _self.gpListJsonPostCode = data;
+            //         },
+            //         error: function (error) {
+            //             if (error) {
+            //                 console.log(error)
+            //                 showError(error.responseJSON.message, error.status);
+            //             }
+            //         }
+            //     });
+            // },
         }
     })
 

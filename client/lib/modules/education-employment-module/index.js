@@ -15,6 +15,10 @@ module.exports = {
       if (!req.session.user_role) {
         return req.res.redirect("/")
       }
+      if(req.session.referralCode)
+      {
+        return req.res.redirect("/acknowledge")
+      }
       let decryptedUrl;
       const getParams = req.url.substring(req.url.indexOf("?") + 1);
       const deCodeParameter = atob(getParams)

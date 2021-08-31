@@ -20,6 +20,11 @@
 
         }
 
+        html,
+        body {
+            height: 99%;
+        }
+
         .labelTitle {
             font-size: 10px;
             line-height: 16px;
@@ -121,6 +126,20 @@
                     </div>
                 </div>
             </div>
+            <% if(body.section1.referral_mode!='' && body.section1.referral_mode!=null ){ %>
+                <div class="text-container">
+                    <div class="label-set">
+                        <label class="labelTitle">
+                            Referral type:
+                        </label>
+                    </div>
+                    <div class="label-set">
+                        <div class="duplicate_text">
+                            <%= body.section1.referral_mode %>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
             <div class="text-container">
                 <div class="label-set">
                     <label class="labelTitle">
@@ -266,276 +285,201 @@
         <div>
             <h5 style="font-size: 14px;color: #023047;font-weight: bold;letter-spacing: 1px;margin: 8px 0px;">
                 About the child</h5>
-            <% if(body.section2.child_NHS!='' && body.section2.child_NHS!=null ){ %>
-                <div class="text-container">
-                    <div class="label-set">
-                        <label class="labelTitle">
-                            NHS number:
-                        </label>
-                    </div>
-                    <div class="label-set">
-                        <div class="duplicate_text">
-                            <%= body.section2.child_NHS %>
-                        </div>
-                    </div>
-                </div>
-                <% } %>
-                    <div class="text-container">
-                        <div class="label-set">
-                            <label class="labelTitle">
-                                Title:
-                            </label>
-                        </div>
-                        <div class="label-set">
-                            <div class="duplicate_text">
-                                <%= body.section2.child_name_title %>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-container">
-                        <div class="label-set">
-                            <label class="labelTitle">
-                                First name:
-                            </label>
-                        </div>
-                        <div class="label-set">
-                            <div class="duplicate_text">
-                                <%= body.section2.child_name %>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-container">
-                        <div class="label-set">
-                            <label class="labelTitle">
-                                Last name:
-                            </label>
-                        </div>
-                        <div class="label-set">
-                            <div class="duplicate_text">
-                                <%= body.section2.child_lastname %>
-                            </div>
-                        </div>
-                    </div>
-                    <% if(body.section2.child_email !='' && body.section2.child_email !=null ) {%>
+                    <% if(body.section2.child_NHS!='' && body.section2.child_NHS!=null ){ %>
                         <div class="text-container">
                             <div class="label-set">
                                 <label class="labelTitle">
-                                    E-mail:
+                                    NHS number:
                                 </label>
                             </div>
                             <div class="label-set">
-                                <div class="email_text">
-                                    <%= body.section2.child_email %>
+                                <div class="duplicate_text">
+                                    <%= body.section2.child_NHS %>
                                 </div>
                             </div>
                         </div>
-                        <% }%>
+                        <% } %>
                             <div class="text-container">
                                 <div class="label-set">
                                     <label class="labelTitle">
-                                        Contact number:
+                                        Title:
                                     </label>
                                 </div>
                                 <div class="label-set">
                                     <div class="duplicate_text">
-                                        <%= body.section2.child_contact_type %> - <%= body.section2.child_contact_number
-                                                %>
+                                        <%= body.section2.child_name_title %>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-container">
                                 <div class="label-set">
                                     <label class="labelTitle">
-                                        Child Address:
+                                        First name:
                                     </label>
                                 </div>
                                 <div class="label-set">
                                     <div class="duplicate_text">
-                                        <%= body.section2.child_address %>
+                                        <%= body.section2.child_name %>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-container">
                                 <div class="label-set">
                                     <label class="labelTitle">
-                                        Happy for post to be send:
+                                        Last name:
                                     </label>
                                 </div>
                                 <div class="label-set">
                                     <div class="duplicate_text">
-                                        <%= body.section2.can_send_post %>
+                                        <%= body.section2.child_lastname %>
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-container">
-                                <div class="label-set">
-                                    <label class="labelTitle">
-                                        Gender:
-                                    </label>
-                                </div>
-                                <div class="label-set">
-                                    <div class="duplicate_text">
-                                        <%= body.section2.child_gender %>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-container">
-                                <div class="label-set">
-                                    <label class="labelTitle">
-                                        Sex at birth:
-                                    </label>
-                                </div>
-                                <div class="label-set">
-                                    <div class="duplicate_text">
-                                        <%= body.section2.sex_at_birth %>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-container">
-                                <div class="label-set">
-                                    <label class="labelTitle">
-                                        Identifies with gender of birth:
-                                    </label>
-                                </div>
-                                <div class="label-set">
-                                    <div class="duplicate_text">
-                                        <%= body.section2.child_gender_birth %>
-                                    </div>
-                                </div>
-                            </div>
-                            <% if(body.section2.child_sexual_orientation !='' && body.section2.child_sexual_orientation
-                                !=null) {%>
+                            <% if(body.section2.child_email !='' && body.section2.child_email !=null ) {%>
                                 <div class="text-container">
                                     <div class="label-set">
                                         <label class="labelTitle">
-                                            Sexual orientation:
+                                            E-mail:
                                         </label>
                                     </div>
                                     <div class="label-set">
-                                        <div class="duplicate_text">
-                                            <%= body.section2.child_sexual_orientation %>
+                                        <div class="email_text">
+                                            <%= body.section2.child_email %>
                                         </div>
                                     </div>
                                 </div>
                                 <% }%>
-                                    <% if(body.section2.child_ethnicity !='' && body.section2.child_ethnicity !=null )
-                                        {%>
+                                    <div class="text-container">
+                                        <div class="label-set">
+                                            <label class="labelTitle">
+                                                Contact number:
+                                            </label>
+                                        </div>
+                                        <div class="label-set">
+                                            <div class="duplicate_text">
+                                                <%= body.section2.child_contact_type %> - <%=
+                                                        body.section2.child_contact_number %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-container">
+                                        <div class="label-set">
+                                            <label class="labelTitle">
+                                                Child Address:
+                                            </label>
+                                        </div>
+                                        <div class="label-set">
+                                            <div class="duplicate_text">
+                                                <%= body.section2.child_address %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-container">
+                                        <div class="label-set">
+                                            <label class="labelTitle">
+                                                Happy for post to be send:
+                                            </label>
+                                        </div>
+                                        <div class="label-set">
+                                            <div class="duplicate_text">
+                                                <%= body.section2.can_send_post %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-container">
+                                        <div class="label-set">
+                                            <label class="labelTitle">
+                                                Gender:
+                                            </label>
+                                        </div>
+                                        <div class="label-set">
+                                            <div class="duplicate_text">
+                                                <%= body.section2.child_gender %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-container">
+                                        <div class="label-set">
+                                            <label class="labelTitle">
+                                                Sex at birth:
+                                            </label>
+                                        </div>
+                                        <div class="label-set">
+                                            <div class="duplicate_text">
+                                                <%= body.section2.sex_at_birth %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-container">
+                                        <div class="label-set">
+                                            <label class="labelTitle">
+                                                Identifies with gender of birth:
+                                            </label>
+                                        </div>
+                                        <div class="label-set">
+                                            <div class="duplicate_text">
+                                                <%= body.section2.child_gender_birth %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% if(body.section2.child_sexual_orientation !='' &&
+                                        body.section2.child_sexual_orientation !=null) {%>
                                         <div class="text-container">
                                             <div class="label-set">
                                                 <label class="labelTitle">
-                                                    Ethnicity
+                                                    Sexual orientation:
                                                 </label>
                                             </div>
                                             <div class="label-set">
                                                 <div class="duplicate_text">
-                                                    <%= body.section2.child_ethnicity %>
+                                                    <%= body.section2.child_sexual_orientation %>
                                                 </div>
                                             </div>
                                         </div>
                                         <% }%>
-                                            <div class="text-container">
-                                                <div class="label-set">
-                                                    <label class="labelTitle">
-                                                        Cares for an adult:
-                                                    </label>
-                                                </div>
-                                                <div class="label-set">
-                                                    <div class="duplicate_text">
-                                                        <%= body.section2.child_care_adult %>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <% if(body.section2.household_member.length>0 ){ %>
+                                            <% if(body.section2.child_ethnicity !='' && body.section2.child_ethnicity
+                                                !=null ) {%>
                                                 <div class="text-container">
                                                     <div class="label-set">
                                                         <label class="labelTitle">
-                                                            Household member:
+                                                            Ethnicity
                                                         </label>
                                                     </div>
                                                     <div class="label-set">
                                                         <div class="duplicate_text">
-                                                            <% for (i=0; i < body.section2.household_member.length;
-                                                                i++){ %>
-                                                                <%= body.section2.household_member[i].name %>
-                                                                    <%= body.section2.household_member[i].lastName %>
-                                                                        <br>
-                                                                        <% } %>
+                                                            <%= body.section2.child_ethnicity %>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <% } %>
+                                                <% }%>
                                                     <div class="text-container">
                                                         <div class="label-set">
                                                             <label class="labelTitle">
-                                                                Parent / carer’s first name:
+                                                                Cares for an adult:
                                                             </label>
                                                         </div>
                                                         <div class="label-set">
                                                             <div class="duplicate_text">
-                                                                <%= body.section2.parent_name %>
+                                                                <%= body.section2.child_care_adult %>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="text-container">
-                                                        <div class="label-set">
-                                                            <label class="labelTitle">
-                                                                Parent / carer’s last name:
-                                                            </label>
-                                                        </div>
-                                                        <div class="label-set">
-                                                            <div class="duplicate_text">
-                                                                <%= body.section2.parent_lastname %>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-container">
-                                                        <div class="label-set">
-                                                            <label class="labelTitle">
-                                                                Have a parental responsibility:
-                                                            </label>
-                                                        </div>
-                                                        <div class="label-set">
-                                                            <div class="duplicate_text">
-                                                                <%= body.section2.parental_responsibility %>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-container">
-                                                        <div class="label-set">
-                                                            <label class="labelTitle">
-                                                                Relationship:
-                                                            </label>
-                                                        </div>
-                                                        <div class="label-set">
-                                                            <div class="duplicate_text">
-                                                                <%= body.section2.child_parent_relationship %>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="text-container">
-                                                        <div class="label-set">
-                                                            <label class="labelTitle">
-                                                                Parent contact number
-                                                            </label>
-                                                        </div>
-                                                        <div class="label-set">
-                                                            <div class="duplicate_text">
-                                                                <%= body.section2.parent_contact_type %> - <%=
-                                                                        body.section2.parent_contact_number %>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <% if(body.section2.parent_email !='' && body.section2.parent_email
-                                                        !=null ) {%>
+                                                    <% if(body.section2.household_member && body.section2.household_member.length>0 ){ %>
                                                         <div class="text-container">
                                                             <div class="label-set">
                                                                 <label class="labelTitle">
-                                                                    Parent email address:
+                                                                    Household member:
                                                                 </label>
                                                             </div>
                                                             <div class="label-set">
-                                                                <div class="email_text">
-                                                                    <%= body.section2.parent_email %>
+                                                                <div class="duplicate_text">
+                                                                    <% for (i=0; i <
+                                                                        body.section2.household_member.length; i++){ %>
+                                                                        <%= body.section2.household_member[i].name %>
+                                                                            <%= body.section2.household_member[i].lastName
+                                                                                %>
+                                                                                <br>
+                                                                                <% } %>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -543,31 +487,107 @@
                                                             <div class="text-container">
                                                                 <div class="label-set">
                                                                     <label class="labelTitle">
-                                                                        Lives in same house:
+                                                                        Parent / carer’s first name:
                                                                     </label>
                                                                 </div>
                                                                 <div class="label-set">
                                                                     <div class="duplicate_text">
-                                                                        <%= body.section2.parent_same_house %>
+                                                                        <%= body.section2.parent_name %>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <% if(body.section2.parent_address !='' &&
-                                                                body.section2.parent_address !=null ) {%>
+                                                            <div class="text-container">
+                                                                <div class="label-set">
+                                                                    <label class="labelTitle">
+                                                                        Parent / carer’s last name:
+                                                                    </label>
+                                                                </div>
+                                                                <div class="label-set">
+                                                                    <div class="duplicate_text">
+                                                                        <%= body.section2.parent_lastname %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-container">
+                                                                <div class="label-set">
+                                                                    <label class="labelTitle">
+                                                                        Have a parental responsibility:
+                                                                    </label>
+                                                                </div>
+                                                                <div class="label-set">
+                                                                    <div class="duplicate_text">
+                                                                        <%= body.section2.parental_responsibility %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-container">
+                                                                <div class="label-set">
+                                                                    <label class="labelTitle">
+                                                                        Relationship:
+                                                                    </label>
+                                                                </div>
+                                                                <div class="label-set">
+                                                                    <div class="duplicate_text">
+                                                                        <%= body.section2.child_parent_relationship %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="text-container">
+                                                                <div class="label-set">
+                                                                    <label class="labelTitle">
+                                                                        Parent contact number
+                                                                    </label>
+                                                                </div>
+                                                                <div class="label-set">
+                                                                    <div class="duplicate_text">
+                                                                        <%= body.section2.parent_contact_type %> - <%=
+                                                                                body.section2.parent_contact_number %>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <% if(body.section2.parent_email !='' &&
+                                                                body.section2.parent_email !=null ) {%>
                                                                 <div class="text-container">
                                                                     <div class="label-set">
                                                                         <label class="labelTitle">
-                                                                            Parent address:
+                                                                            Parent email address:
                                                                         </label>
                                                                     </div>
                                                                     <div class="label-set">
-                                                                        <div class="duplicate_text">
-                                                                            <%= body.section2.parent_address %>
+                                                                        <div class="email_text">
+                                                                            <%= body.section2.parent_email %>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <% } %>
-                                                                    <!-- <div class="text-container">
+                                                                    <div class="text-container">
+                                                                        <div class="label-set">
+                                                                            <label class="labelTitle">
+                                                                                Lives in same house:
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="label-set">
+                                                                            <div class="duplicate_text">
+                                                                                <%= body.section2.parent_same_house %>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <% if(body.section2.parent_address !='' &&
+                                                                        body.section2.parent_address !=null ) {%>
+                                                                        <div class="text-container">
+                                                                            <div class="label-set">
+                                                                                <label class="labelTitle">
+                                                                                    Parent address:
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="label-set">
+                                                                                <div class="duplicate_text">
+                                                                                    <%= body.section2.parent_address %>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <% } %>
+                                                                            <!-- <div class="text-container">
                         <div class="label-set">
                             <label class="labelTitle">
                                 The child's legal care status:

@@ -32,6 +32,7 @@ $(document).ready(function () {
                 parentFirstName: "",
                 parentLastName: "",
                 referral_progress: 40,
+                referral_mode: 1,
             },
             aboutFormData: {
                 parentialResponsibility: "",
@@ -62,6 +63,9 @@ $(document).ready(function () {
                 name: '',
                 lastName: '',
                 relationShip: '',
+                day: '',
+                month: '',
+                year: '',
                 dob: '',
                 profession: '',
                 manualAddress: {
@@ -93,6 +97,7 @@ $(document).ready(function () {
             showFlagHouseHold: false,
             allHouseHoldMembers: [],
             showManualAddressHouseHold: false,
+            showHouseHoldAddress: false,
             isAddressFormSubmitted: false,
             isAddressFormParentSubmitted: false,
             isFormSubmitted: false,
@@ -100,6 +105,7 @@ $(document).ready(function () {
             isHouseHoldFormSubmitted: false,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
+            landlineRegex: /^0[0-9]{10}$/,
             // phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             emailRegex: /^[a-z-0-9_+.-]+\@([a-z0-9-]+\.)+[a-z0-9]{2,7}$/i,
             nhsRegex: /^[0-9]{10}$/,
@@ -109,15 +115,31 @@ $(document).ready(function () {
             currentSection: 'about',
             paramValues: [],
             editPatchFlag: false,
+            isGoogleAddressSelected: true,
             storeDeleteData: null,
             dateFmt: '',
             addressList: [],
+            dateArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+            monthArr: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+            yearArr: [],
+            dateVal: "",
+            monthVal: "",
+            yearVal: "",
+            dobString: "",
+            dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
+            dynamicRegexChild: /^\+{0,1}[0-9 ]{10,16}$/,
+            dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
+            formatter: ''
         },
         beforeMount: function () {
             $('#loader').show();
         },
 
         mounted: function () {
+            var date = new Date().getFullYear();
+            for (var i = date; i > 1989; i--) {
+                this.yearArr.push(i);
+            }
             this.paramValues = getParameter(location.href);
             this.userRole = document.getElementById('uRole').innerHTML;
             this.sec2dynamicLabel = getDynamicLabels(this.userRole, undefined);
@@ -154,12 +176,21 @@ $(document).ready(function () {
                 // });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
-                    _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
+                    if (houseHoldAddress.getPlace().formatted_address) {
+                        _self.houseHoldData.profession = houseHoldAddress.getPlace().name + ',' + houseHoldAddress.getPlace().formatted_address;
+                        //_self.isGoogleAddressSelected = true;
+                    }
                 });
 
                 // google.maps.event.addListener(parentAddress, 'place_changed', function () {
                 //     _self.aboutFormData.parentOrCarrerAddress = parentAddress.getPlace().formatted_address;
                 // });
+            },
+
+            checkValid: function () {
+                if (!this.houseHoldData.profession) {
+                    this.isGoogleAddressSelected = false;
+                }
             },
 
             //Reset and Question Flow Logic
@@ -214,12 +245,10 @@ $(document).ready(function () {
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
                         //Vue.set(this.aboutObj, "childAddress", data.child_address);
-                        if(data.child_address_postcode)
-                        { // bind postcode column for new referrals
-                            Vue.set(this.aboutObj, "childAddress", data.child_address +' ,'+ data.child_address_postcode );
+                        if (data.child_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "childAddress", data.child_address + ' ,' + data.child_address_postcode);
                         }
-                        else
-                        {// leave postcode column for old referrals
+                        else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "childAddress", data.child_address);
                         }
                         Vue.set(this.aboutObj, "sendPost", data.can_send_post);
@@ -251,13 +280,11 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "contactNumber", data.parent[0].parent_contact_number);
                         Vue.set(this.aboutFormData, "emailAddress", data.parent[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data.parent[0].parent_same_house);
-                       // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
-                        if(data.parent[0].parent_address_postcode)
-                        { // bind postcode column for new referrals
-                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address +' ,'+ data.parent[0].parent_address_postcode );
+                        // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
+                        if (data.parent[0].parent_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address + ' ,' + data.parent[0].parent_address_postcode);
                         }
-                        else
-                        {// leave postcode column for old referrals
+                        else {// leave postcode column for old referrals
                             Vue.set(this.aboutFormData, "parentOrCarrerAddress", data.parent[0].parent_address);
                         }
                         if (!data.parent[0].parent_address && data.parent[0].parent_manual_address && data.parent[0].parent_manual_address.length) {
@@ -280,12 +307,10 @@ $(document).ready(function () {
                         Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
                         Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
                         //Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
-                        if(data[0].parent[0].child_address_postcode)
-                        { // bind postcode column for new referrals
-                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address +' ,'+ data[0].parent[0].child_address_postcode );
+                        if (data[0].parent[0].child_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address + ' ,' + data[0].parent[0].child_address_postcode);
                         }
-                        else
-                        {// leave postcode column for old referrals
+                        else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
                         }
                         if (data[0].parent[0].child_manual_address && data[0].parent[0].child_manual_address.length) {
@@ -323,12 +348,10 @@ $(document).ready(function () {
                         Vue.set(this.aboutFormData, "emailAddress", data[0].parent_email);
                         Vue.set(this.aboutFormData, "sameHouse", data[0].parent_same_house);
                         //Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
-                        if(data[0].parent_address_postcode)
-                        { // bind postcode column for new referrals
-                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address +' ,'+ data[0].parent_address_postcode );
+                        if (data[0].parent_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address + ' ,' + data[0].parent_address_postcode);
                         }
-                        else
-                        {// leave postcode column for old referrals
+                        else {// leave postcode column for old referrals
                             Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent[0].parent_address);
                         }
                         if (!data[0].parent_address && data[0].parent_manual_address && data[0].parent_manual_address.length) {
@@ -356,13 +379,11 @@ $(document).ready(function () {
                             Vue.set(this, "childManualAddress", data[0].parent[0].child_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
-                       // Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
-                        if(data[0].parent[0].child_address_postcode)
-                        { // bind postcode column for new referrals
-                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address +' ,'+ data[0].parent[0].child_address_postcode );
+                        // Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                        if (data[0].parent[0].child_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address + ' ,' + data[0].parent[0].child_address_postcode);
                         }
-                        else
-                        {// leave postcode column for old referrals
+                        else {// leave postcode column for old referrals
                             Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
                         }
                         Vue.set(this.aboutObj, "sendPost", data[0].parent[0].can_send_post);
@@ -378,7 +399,11 @@ $(document).ready(function () {
                         if (!data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
                         }
-
+                        if (data[0].parent[0].referral_mode) {
+                            Vue.set(this.aboutObj, "referral_mode", data[0].parent[0].referral_mode);
+                        } else {
+                            Vue.set(this.aboutObj, "referral_mode", 1);
+                        }
                         Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
                         if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
                             this.allHouseHoldMembers = data[0].parent[0].household_member;
@@ -406,15 +431,13 @@ $(document).ready(function () {
                             Vue.set(this, "parentManualAddress", data[0].parent_manual_address);
                             this.setReadonlyState(true, 'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
                         }
-                       // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
-                       if(data[0].parent_address_postcode)
-                       { // bind postcode column for new referrals
-                           Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address +' ,'+ data[0].parent_address_postcode );
-                       }
-                       else
-                       {// leave postcode column for old referrals
-                           Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent[0].parent_address);
-                       }
+                        // Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address);
+                        if (data[0].parent_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent_address + ' ,' + data[0].parent_address_postcode);
+                        }
+                        else {// leave postcode column for old referrals
+                            Vue.set(this.aboutFormData, "parentOrCarrerAddress", data[0].parent[0].parent_address);
+                        }
                         Vue.set(this.aboutFormData, "legalCareStatus", data[0].legal_care_status);
                         Vue.set(this.aboutFormData, "parentUUID", data[0].uuid);
                         Vue.set(this.aboutObj, "referral_progress", data[0].prof_referral_progress == 20 ? 40 : data[0].prof_referral_progress);
@@ -425,16 +448,34 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
+                // var dynamicRegexChild;
+                // var dynamicRegexParent;
+                if (this.aboutObj.contactMode == "mobile") {
+                    this.dynamicRegexChild = this.phoneRegex
+                } else if (this.aboutObj.contactMode == "landline") {
+                    this.dynamicRegexChild = this.landlineRegex;
+                }
+                if (this.parentContactMode == "mobile") {
+                    this.dynamicRegexParent = this.phoneRegex
+                } else if (this.parentContactMode == "landline") {
+                    this.dynamicRegexParent = this.landlineRegex;
+                }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
                 if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
                     formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
                     formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
-                    && this.phoneRegex.test(formData.contactNumber) && this.phoneRegex.test(formData.childContactNumber)
+                    && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexChild.test(formData.childContactNumber)
                 ) {
                     if (formData.childAddress || this.childManualAddress.length) {
                         if (formData.parentialResponsibility == 'no' && (!formData.parentCarerFirstName || !formData.parentCarerLastName || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.phoneRegex.test(formData.childContactNumber))
-                            || (formData.contactNumber && !this.phoneRegex.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
+                            scrollToInvalidInput();
+                            return false;
+                        }
+                        if (formData.parentialResponsibility == 'yes' && ((formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
+                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
@@ -443,38 +484,30 @@ $(document).ready(function () {
                         this.payloadData.role = document.getElementById('uRole').innerHTML;
                         this.payloadData.userid = document.getElementById('uUid').innerHTML
                         this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                        if (this.editPatchFlag) {
-                            this.payloadData.editFlag = this.editPatchFlag
-                        }
-                        if (this.userMode === 'edit') {
-                            this.payloadData.userMode = 'edit';
-                        } else {
-                            this.payloadData.userMode = 'add';
+                        if (this.userRole == 'child' || this.userRole == 'parent') {
+                            delete this.payloadData.aboutData.referral_mode;
                         }
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
                         this.payloadData.aboutData.childManualAddress = this.childManualAddress;
                         this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
                         console.log(this.payloadData.aboutData)
-                        if(this.payloadData.aboutData.childAddress)
-                        {
-                            var childAddresArray= (this.payloadData.aboutData.childAddress).split(",");
+                        if (this.payloadData.aboutData.childAddress) {
+                            var childAddresArray = (this.payloadData.aboutData.childAddress).split(",");
                             console.log(childAddresArray)
                             this.payloadData.aboutData.childAddressPostcode = childAddresArray[2];
-                            this.payloadData.aboutData.childAddress = childAddresArray[0]+","+childAddresArray[1];
+                            this.payloadData.aboutData.childAddress = childAddresArray[0] + "," + childAddresArray[1];
 
                         }
-                        if(this.payloadData.aboutData.parentOrCarrerAddress)
-                        {
-                            var parentAddresArray= (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
+                        if (this.payloadData.aboutData.parentOrCarrerAddress) {
+                            var parentAddresArray = (this.payloadData.aboutData.parentOrCarrerAddress).split(",");
                             console.log(parentAddresArray)
                             this.payloadData.aboutData.parentOrCarrerAddressPostcode = parentAddresArray[2];
-                            this.payloadData.aboutData.parentOrCarrerAddress = parentAddresArray[0]+","+parentAddresArray[1];
+                            this.payloadData.aboutData.parentOrCarrerAddress = parentAddresArray[0] + "," + parentAddresArray[1];
                         }
-                        else
-                        {
+                        else {
                             this.payloadData.aboutData.parentOrCarrerAddressPostcode = "";
                         }
-                       
+
                         this.upsertAboutYouForm(this.payloadData);
                     } else {
                         scrollToInvalidInput();
@@ -484,6 +517,22 @@ $(document).ready(function () {
                 } else {
                     scrollToInvalidInput();
                     return false;
+                }
+            },
+
+            selectContactTypeChild: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexChild = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexChild = this.landlineRegex;
+                }
+            },
+
+            selectContactTypeParent: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexParent = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexParent = this.landlineRegex;
                 }
             },
 
@@ -662,6 +711,14 @@ $(document).ready(function () {
                             houseHoldForm.manualAddress.postCode && this.postCodeRegex.test(houseHoldForm.manualAddress.postCode)) {
                             this.showFlagHouseHold = true;
                             if (houseHoldForm.mode === 'update') {
+                                if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
+                                    modal.removeAttribute("data-dismiss", "modal");
+                                    return false;
+                                }
+                                // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                                //     modal.removeAttribute("data-dismiss", "modal");
+                                //     return false;
+                                // }
                                 this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                     if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                         it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -675,6 +732,10 @@ $(document).ready(function () {
                                 });
                                 this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                             } else {
+                                if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                    modal.removeAttribute("data-dismiss", "modal");
+                                    return false;
+                                }
                                 houseHoldForm.id = uuidV4();
                                 houseHoldForm.mode = 'add';
                                 this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
@@ -692,6 +753,14 @@ $(document).ready(function () {
                     } else {
                         //this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
                         if (houseHoldForm.mode === 'update') {
+                            if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
+                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                            //     modal.removeAttribute("data-dismiss", "modal");
+                            //     return false;
+                            // }
                             this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                 if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                     it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -705,6 +774,14 @@ $(document).ready(function () {
                             });
                             this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                         } else {
+                            if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
+                            // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
+                            //     modal.removeAttribute("data-dismiss", "modal");
+                            //     return false;
+                            // }
                             houseHoldForm.id = uuidV4();
                             houseHoldForm.mode = 'add';
                             this.allHouseHoldMembers.push(JSON.parse(JSON.stringify(houseHoldForm)));
@@ -718,6 +795,86 @@ $(document).ready(function () {
                     errorElements[0].previousElementSibling.querySelector('input').focus();
                     errorElements[0].previousElementSibling.querySelector('input').select();
                     return;
+                }
+            },
+
+            //All Dob auto format related logic
+            checkValue: function (str, max) {
+                if (str.charAt(0) !== '0' || str == '00') {
+                    var num = parseInt(str);
+                    if (isNaN(num) || num <= 0 || num > max) num = 1;
+                    str = num > parseInt(max.toString().charAt(0)) && num.toString().length == 1 ? '0' + num : num.toString();
+                };
+                return str;
+            },
+
+            preventRefresh: function (e) {
+                stopRefresh(e);
+            },
+
+            checkValidDate: function (id, obj, key) {
+                var dateElement = document.querySelector(id);
+                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
+
+                var input = dateElement.value;
+                if (/\D\/$/.test(input)) input = input.substr(0, input.length - 3);
+                var values = input.split('/').map(function (v) {
+                    return v.replace(/\D/g, '')
+                });
+                var currentDate = {
+                    year: new Date().getFullYear(),
+                    month: parseInt(new Date().getMonth()) + 1,
+                    date: new Date().getDate()
+                }
+                if ((values[2] && values[2] > 2021) || (parseInt(values[2]) === 0)) {
+                    values[2] = 2021;
+                } else if (values[2] && values[2].length == 4 && values[2] < 1900) {
+                    values[2] = 1900;
+                }
+
+                if (values[1]) {
+                    if (values[2]) {
+                        values[1] = (values[1] > currentDate.month && values[2] >= currentDate.year) ? currentDate.month : values[1];
+                        values[1] = ("0" + values[1]).slice(-2)
+                    }
+                    values[1] = this.checkValue(values[1], 12);
+                }
+
+                if (values[0]) {
+                    if (values[2]) {
+                        values[0] = (values[0] > currentDate.date && values[1] >= currentDate.month && values[2] >= currentDate.year) ? currentDate.date : values[0];
+                        values[0] = ("0" + values[0]).slice(-2)
+                    }
+                    values[0] = this.checkValue(values[0], 31);
+                }
+
+                var output = values.map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + ' / ' : v;
+                });
+                copyOutput = JSON.parse(JSON.stringify(values)).map(function (v, i) {
+                    return v.length == 2 && i < 2 ? v + '/' : v;
+                });
+                // this.isGoogleAddressSelected = false;
+                dateElement.value = copyOutput.join('').substr(0, 14);
+                this[obj][key] = output.join('').substr(0, 14);
+                this.formatter = copyOutput.join('').substr(0, 14);
+                if (!this.dateRegex.test(this.formatter)) {
+                    this.houseHoldData.profession = '';
+                    manualHouseHoldText.innerText = "Enter manually";
+                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                    this.showManualAddressHouseHold = false;
+                    this.resetHouseholdManualAddressValue();
+                } else {
+                    this.houseHoldData.dob = this.formatter;
+                }
+
+            },
+
+            setDatePattern: function (pattern) {
+                if (this.dateRegex.test(pattern)) {
+                    return true;
+                } else {
+                    return false;
                 }
             },
 
@@ -741,9 +898,13 @@ $(document).ready(function () {
                 houseHoldForm.name = houseHold.name;
                 houseHoldForm.lastName = houseHold.lastName;
                 houseHoldForm.relationShip = houseHold.relationShip;
-                houseHoldForm.dob = houseHold.dob;
+                houseHoldForm.dob = houseHold.dob.replace(/\s/g, "");;
+                houseHoldForm.day = houseHold.day;
+                houseHoldForm.month = houseHold.month;
+                houseHoldForm.year = houseHold.year;
                 houseHoldForm.profession = houseHold.profession;
                 houseHoldForm.id = houseHold.id;
+                //this.isGoogleAddressSelected = true;
                 if (houseHold.manualAddress.profession) {
                     houseHoldForm.manualAddress.profession = houseHold.manualAddress.profession;
                 }
@@ -879,9 +1040,13 @@ $(document).ready(function () {
             //Resetting the modal values of service data
             resetModalValues: function () {
                 this.isHouseHoldFormSubmitted = false;
+                //this.isGoogleAddressSelected = false;
                 this.houseHoldData.name = '';
                 this.houseHoldData.lastName = '';
                 this.houseHoldData.relationShip = '';
+                this.houseHoldData.day = '';
+                this.houseHoldData.month = '';
+                this.houseHoldData.year = '';
                 this.houseHoldData.dob = '';
                 this.houseHoldData.profession = '';
                 this.houseHoldData.mode = '';
@@ -923,6 +1088,33 @@ $(document).ready(function () {
                 }
             },
 
+            getDob: function () {
+                var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
+                var selectedDate = this.houseHoldData.day + '/' + this.houseHoldData.month + '/' + this.houseHoldData.year
+                if (this.houseHoldData.day && this.houseHoldData.month && this.houseHoldData.year) {
+                    if (this.getAge(selectedDate) < 19) {
+                        this.houseHoldData.dob = selectedDate;
+                        this.showHouseHoldAddress = true;
+                    } else {
+                        this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                        this.showManualAddressHouseHold = false;
+                        manualHouseHoldText.innerText = 'Enter manually';
+                        this.showHouseHoldAddress = false;
+                        this.houseHoldData.profession = "";
+                        this.resetHouseholdManualAddressValue();
+                    }
+
+                } else {
+                    this.setReadonlyStateHouseHold(false, '7a53ccec-e9fc-422b-b410-6c5ec82377d7', '94a4bca4-a05e-44d6-974b-0f09e2e4c576');
+                    this.showManualAddressHouseHold = false;
+                    manualHouseHoldText.innerText = 'Enter manually';
+                    this.showHouseHoldAddress = false;
+                    this.houseHoldData.profession = "";
+                    this.resetHouseholdManualAddressValue();
+                }
+
+            },
+
             getAge: function (dateString) {
                 if (dateString != "") {
                     var today = new Date();
@@ -955,6 +1147,8 @@ $(document).ready(function () {
             customLabel: function (option) {
                 return option
             },
+
+
 
             updateSelected: function (value) {
                 if (value & value.length) {
@@ -1014,7 +1208,3 @@ $(document).ready(function () {
         }
     })
 });
-
-
-
-

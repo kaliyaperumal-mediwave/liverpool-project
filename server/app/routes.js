@@ -50,7 +50,7 @@ router.get('/referral/searchReferalByCode/', validateToken, referralControler.se
 
 router.get('/referral/profReferral', validateToken, referralControler.getProfReferral);
 
-// router.post('/referral/sendConfirmationMail/', validateToken, emailController.sendReferralConfirmation);
+router.post('/referral/sendReferralToMe/', validateToken, referralControler.sendReferralToMe);
 
 router.post('/user/changePassword', validateToken, authController.changePassword);
 router.post('/user/changeEmail', validateToken, authController.changeEmail);
@@ -64,18 +64,24 @@ router.post('/user/refFeedback', validateToken, authController.sendReferralFeedb
 router.post('/addUser', validateToken, userController.addAdminUsers);
 
 router.get('/admin/referral', validateToken, adminController.getReferral);
-router.put('/admin/referral',validateToken, adminController.updateReferral);
-router.put('/admin/referralStatusUpdate',validateToken, adminController.referralStatusUpdate);
-router.get('/admin/getAllreferral',validateToken, adminController.getAllReferral);
-router.get('/admin/downloadReferral',validateToken, adminController.downloadReferral);
-router.get('/admin/sendReferral',validateToken, adminController.sendReferral);
-router.get('/admin/sendReferralByApi',validateToken, adminController.sendReferralByApi);
-router.get('/admin/getArchived',validateToken, adminController.getArchived);
-
+router.put('/admin/referral', validateToken, adminController.updateReferral);
+router.put('/admin/referralStatusUpdate', validateToken, adminController.referralStatusUpdate);
+router.get('/admin/getAllreferral', validateToken, adminController.getAllReferral);
+router.get('/admin/downloadReferral', validateToken, adminController.downloadReferral);
+router.get('/admin/sendReferral', validateToken, adminController.sendReferral);
+router.get('/admin/sendReferralByApi', validateToken, adminController.sendReferralByApi);
+router.get('/admin/getArchived', validateToken, adminController.getArchived);
+router.get('/getActivity', validateToken, adminController.getActivity);
 
 //orcha
 router.post('/orcha/getAllApps', auth.checkOrchaToken, orchaController.getAllApps);
 router.get('/orcha/getApp/', auth.checkOrchaToken, orchaController.getApp);
 router.get('/orcha/getFilterData/', auth.checkOrchaToken, orchaController.getFilterDropDwnData);
 router.post('/orcha/getSearchData/', auth.checkOrchaToken, orchaController.getSearchData);
+
+//Utils
+router.get('/admin/downloadJson', validateToken, adminController.toJson);
+router.put('/admin/updateApiValue', validateToken, adminController.updateApiValue);
+router.get('/admin/getApiService', validateToken, adminController.getApiService);
+
 module.exports = router;

@@ -81,6 +81,10 @@
                                     v-bind:class="{ 'd-block': (isFormSubmitted && (!educAndEmpData.attendedInfo && !educationManualAddressData.length)),'invalid-fields': (!educAndEmpData.attendedInfo && !educationManualAddressData.length) }">
                                     You must provide a address.
                                 </div>
+                                <div class="invalid-feedback d-none"
+                                    v-bind:class="{ 'd-block': (isFormSubmitted && (educAndEmpData.attendedInfo && !isGoogleAddressSelected)),'invalid-fields': (educAndEmpData.attendedInfo && !isGoogleAddressSelected) }">
+                                    You must provide a valid address.
+                                </div>
                             </div>
                         </div>
                         <p class="link-text text-right mb-0 mt-2 cursor-pointer"
@@ -312,6 +316,7 @@
                                 <div class="input-group-prepend cursor-pointer">
                                     <span class="plain-select custom-mobile-place">
                                         <select v-model="socialWorkContactType"
+                                            @change="selectContactTypeProfessional(socialWorkContactType)"
                                             class="custom-select form-control input-bg-form-control">
                                             <option selected="selected" value="mobile">Mobile</option>
                                             <option value="landline">Landline</option>
@@ -334,180 +339,19 @@
                                 You must provide a number.
                             </div> -->
                             <div class="invalid-feedback d-none"
-                                v-bind:class="{ 'd-block': (isFormSubmitted && educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact)),'invalid-fields':(educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact)) }">
-                                You must provide a valid number.
+                                v-bind:class="{ 'd-block': (isFormSubmitted && educAndEmpData.socialWorkContact && socialWorkContactType == 'mobile' && !phoneRegex.test(educAndEmpData.socialWorkContact)),
+                                'invalid-fields':(educAndEmpData.socialWorkContact && socialWorkContactType == 'mobile' && !phoneRegex.test(educAndEmpData.socialWorkContact)) }">
+                                You must provide a valid mobile number.
+                            </div>
+                            <div class="invalid-feedback d-none"
+                                v-bind:class="{ 'd-block': (isFormSubmitted && educAndEmpData.socialWorkContact && socialWorkContactType == 'landline' && !landlineRegex.test(educAndEmpData.socialWorkContact)),
+                                'invalid-fields':(educAndEmpData.socialWorkContact && socialWorkContactType == 'landline' && !landlineRegex.test(educAndEmpData.socialWorkContact)) }">
+                                You must provide a valid mobile number.
                             </div>
                         </div>
                     </div>
                 </form>
                 <!-- Social Worker Contact End -->
-
-                <!-- Dynamic Toaster start Scenario 1 Start-->
-                <!-- <div class="px-4 py-4" v-if="educAndEmpData.haveSocialWorker == 'yes'">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <p class="text-center m-0 py-2">
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                </template>
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                </template>
-                                <template
-                                    v-if="!showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                </template>
-                                <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
-                                    <img src="/modules/my-apostrophe-assets/img/4.svg" alt="">
-                                </template>
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </template>
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </template>
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </template>
-                                <template
-                                    v-if="!showInstitution && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </template>
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </template>
-
-                                <template
-                                    v-if="showInstitution && (educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </template>
-
-                                <template
-                                    v-if="showInstitution && (!educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                    <span style="color:#DD3939 !important">
-                                        <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                    </span>
-                                </template>
-                            </p>
-                            <template
-                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the
-                                    reasons
-                                    for
-                                    your referral request.</p>
-                            </template>
-
-                            <template
-                                v-if="showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the
-                                    reasons
-                                    for
-                                    your referral request.</p>
-                            </template>
-
-                            <template v-if="!showInstitution && !educAndEmpData.socialWorkContact">
-                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the
-                                    reasons
-                                    for
-                                    your referral request.</p>
-                            </template>
-
-                            <template
-                                v-if="!showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center m-0 pt-2">Over half way there!</p>
-                                <p class="question-font text-center m-0 pb-2">Next section: the
-                                    reasons
-                                    for
-                                    your referral request.</p>
-                            </template>
-
-
-                            <template
-                                v-if="showInstitution && (educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </template>
-
-                            <template
-                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </template>
-
-                            <template
-                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </template>
-
-                            <template
-                                v-if="showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </template>
-
-                            <template
-                                v-if="!showInstitution && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </template>
-
-                            <template
-                                v-if="showInstitution && (educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </template>
-
-                            <template
-                                v-if="showInstitution && (!educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </template>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="px-4 py-4"
                     v-if="educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
@@ -528,7 +372,7 @@
                 </div>
 
                 <div class="px-4 py-4"
-                    v-if="educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                    v-if="educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (educAndEmpData.attendedInfo || educationManualAddressData.length) && (educAndEmpData.socialWorkContact && dynamicRegexPattern.test(educAndEmpData.socialWorkContact))">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <div class="text-center m-0 pt-2 pb-1">
@@ -546,7 +390,7 @@
                 </div>
 
                 <div class="px-4 py-4"
-                    v-if="educAndEmpData.haveSocialWorker == 'yes' && !showInstitution && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
+                    v-if="educAndEmpData.haveSocialWorker == 'yes' && !showInstitution && (educAndEmpData.socialWorkContact && dynamicRegexPattern.test(educAndEmpData.socialWorkContact))">
                     <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
                         <div class="px-2 py-2">
                             <div class="text-center m-0 pt-2 pb-1">
@@ -580,156 +424,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Error Block for Yes start -->
-                <!-- <div class="px-4 py-4"
-                    v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && !educAndEmpData.socialWorkContact">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <div class="text-center m-0 pt-2 pb-1">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-4 py-4"
-                    v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && phoneRegex.test(educAndEmpData.socialWorkContact))">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <div class="text-center m-0 pt-2 pb-1">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-4 py-4"
-                    v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <div class="text-center m-0 pt-2 pb-1">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-4 py-4"
-                    v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' && !showInstitution && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <div class="text-center m-0 pt-2 pb-1">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-4 py-4"
-                    v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (!educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <div class="text-center m-0 pt-2 pb-1">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-4 py-4"
-                    v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' && showInstitution && (educAndEmpData.attendedInfo && !educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <div class="text-center m-0 pt-2 pb-1">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="px-4 py-4"
-                    v-if="isFormSubmitted && educAndEmpData.haveSocialWorker == 'yes' &&  showInstitution && (!educAndEmpData.attendedInfo && educationManualAddressData.length) && (educAndEmpData.socialWorkContact && !phoneRegex.test(educAndEmpData.socialWorkContact))">
-                    <div class="col-xl-6 col-lg-6 col-sm-12 col-12 mx-auto toster-container">
-                        <div class="px-2 py-2">
-                            <div class="text-center m-0 pt-2 pb-1">
-                                <span style="color:#DD3939 !important">
-                                    <i class="fa fa-times-circle fa-2x" aria-hidden="true"></i>
-                                </span>
-                            </div>
-                            <div>
-                                <p class="question-font text-center text-danger m-0 py-2">You have missed out a
-                                    section on
-                                    this
-                                    page.
-                                </p>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
-
-                <!-- Error Block for Yes start -->
 
                 <div class="text-center py-4" v-if="educAndEmpData.haveSocialWorker == 'yes'">
                     <button @click="saveAndContinue()" type="button" class="btn px-md-4 py-1 px-3"><span

@@ -46,10 +46,13 @@ $(document).ready(function () {
             isFormSubmitted: false,
             isAddressFormSubmitted: false,
             phoneRegex: /^\+{0,1}[0-9 ]{10,16}$/,
+            landlineRegex: /^0[0-9]{10}$/,
             postCodeRegex: /^([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})$/,
             //phoneRegex: /(\s*\(?(0|\+44)(\s*|-)\d{4}\)?(\s*|-)\d{3}(\s*|-)\d{3}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\)?(\s*|-)\d{3}(\s*|-)\d{4}\s*)|(\s*\(?(0|\+44)(\s*|-)\d{2}\)?(\s*|-)\d{4}(\s*|-)\d{4}\s*)|(\s*(7|8)(\d{7}|\d{3}(\-|\s{1})\d{4})\s*)|(\s*\(?(0|\+44)(\s*|-)\d{3}\s\d{2}\)?(\s*|-)\d{4,5}\s*)/,
             aboutYourSelf: [],
-            showInstitution: false
+            showInstitution: false,
+            isGoogleAddressSelected: true,
+            dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
         },
 
         beforeMount: function () {
@@ -85,6 +88,7 @@ $(document).ready(function () {
 
                     })
                     _self.educAndEmpData.attendedInfo = autoCompleteChild.getPlace().name + ',' + autoCompleteChild.getPlace().formatted_address;
+                    _self.isGoogleAddressSelected = true;
                 });
             },
 
@@ -239,6 +243,12 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
+                // var dynamicRegexPattern;
+                if (this.socialWorkContactType == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (this.socialWorkContactType == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
                 if (this.educAndEmpData.haveSocialWorker === 'yes') {
                     this.educAndEmpData.socialWorkContactType = this.socialWorkContactType;
                 }
@@ -248,12 +258,16 @@ $(document).ready(function () {
                 this.payloadData.role = this.userRole;
                 this.payloadData.userid = this.userId;
                 if (formData.haveSocialWorker === 'yes') {
-                    if (formData.socialWorkContact && !this.phoneRegex.test(formData.socialWorkContact)) {
+                    if (formData.socialWorkContact && !this.dynamicRegexPattern.test(formData.socialWorkContact)) {
                         scrollToInvalidInput();
                         return false;
                     } else {
                         if (this.showInstitution) {
                             if (formData.attendedInfo || this.educationManualAddressData.length) {
+                                if (this.educAndEmpData.attendedInfo && !this.isGoogleAddressSelected) {
+                                    scrollToInvalidInput();
+                                    return false;
+                                }
                                 $('#loaderEduc').show();
                                 this.payloadData.educAndEmpData.childEducationManualAddress = this.educationManualAddressData;
                                 this.upsertEducationForm(this.payloadData);
@@ -268,34 +282,14 @@ $(document).ready(function () {
                             this.upsertEducationForm(this.payloadData);
                         }
                     }
-
-
-                    // if (!formData.socialWorkName && !formData.socialWorkContact && this.phoneRegex.test(formData.socialWorkContact)) {
-                    //     if (this.showInstitution) {
-                    //         if (formData.attendedInfo) {
-                    //             $('#loaderEduc').show();
-                    //             this.upsertEducationForm(this.payloadData);
-                    //         } else {
-                    //             scrollToInvalidInput();
-                    //             return false;
-                    //         }
-
-                    //     }
-                    //     else {
-                    //         $('#loaderEduc').show();
-                    //         this.upsertEducationForm(this.payloadData);
-                    //     }
-
-                    // } else {
-                    //     scrollToInvalidInput();
-                    //     return false;
-                    // }
-
-
                 }
                 else if (formData.haveSocialWorker === 'no') {
                     if (this.showInstitution) {
                         if (formData.attendedInfo || this.educationManualAddressData.length) {
+                            if (this.educAndEmpData.attendedInfo && !this.isGoogleAddressSelected) {
+                                scrollToInvalidInput();
+                                return false;
+                            }
                             $('#loaderEduc').show();
                             this.payloadData.educAndEmpData.childEducationManualAddress = this.educationManualAddressData;
                             this.upsertEducationForm(this.payloadData);
@@ -309,42 +303,6 @@ $(document).ready(function () {
                         $('#loaderEduc').show();
                         this.upsertEducationForm(this.payloadData);
                     }
-
-
-
-                    // if (this.aboutYourSelf[0] == "Neither") {
-                    //     $('#loaderEduc').show();
-                    //     this.upsertEducationForm(this.payloadData);
-
-                    // } else {
-                    //     if (this.showInstitution) {
-                    //         if (formData.attendedInfo) {
-                    //             $('#loaderEduc').show();
-                    //             this.upsertEducationForm(this.payloadData);
-                    //         } else {
-                    //             scrollToInvalidInput();
-                    //             return false;
-                    //         }
-
-                    //     }
-                    //     else {
-                    //         $('#loaderEduc').show();
-                    //         this.upsertEducationForm(this.payloadData);
-                    //     }
-                    // }
-
-                    // if (formData.position === 'education' && formData.attendedInfo) {
-                    //     $('#loaderEduc').show();
-                    //     this.upsertEducationForm(this.payloadData);
-                    // }
-                    // else if (formData.position != 'education') {
-                    //     $('#loaderEduc').show();
-                    //     this.upsertEducationForm(this.payloadData);
-                    // }
-                    // else {
-                    //     scrollToInvalidInput();
-                    //     return false;
-                    // }
                 }
 
                 else {
@@ -352,6 +310,14 @@ $(document).ready(function () {
                     this.upsertEducationForm(this.payloadData);
                 }
 
+            },
+
+            selectContactTypeProfessional: function (type) {
+                if (type == "mobile") {
+                    this.dynamicRegexPattern = this.phoneRegex
+                } else if (type == "landline") {
+                    this.dynamicRegexPattern = this.landlineRegex;
+                }
             },
 
             //Section 3(Education) Save and Service call with navigation's Logic
@@ -395,6 +361,9 @@ $(document).ready(function () {
             //Function to trim space entered
             trimWhiteSpace: function (event, obj, key) {
                 preventWhiteSpaces(event, this, obj, key)
+                if (!this.educAndEmpData.attendedInfo) {
+                    this.isGoogleAddressSelected = false;
+                }
             },
 
             //Patching the value logic
