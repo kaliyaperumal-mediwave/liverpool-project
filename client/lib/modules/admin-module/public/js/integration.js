@@ -3,11 +3,12 @@ $(document).ready(function () {
     new Vue({
         el: '#changePassword',
         data: {
-            passwordTointegrate: '',
+            passwordToIntegrate: '',
             integrationData: '',
-            visibleOldPassword: false,
+            visibleIntPassword: false,
             visibleNewPassword: false,
             isFormSubmitted: false,
+            responseText: '',
             passwordRegex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&?*-])\S{7,}.$/
         },
 
@@ -29,7 +30,8 @@ $(document).ready(function () {
             validatePassword: function () {
                 console.log("btn clickec")
                 var formData = {};
-                formData.password = this.passwordTointegrate;
+                var integrationElem = document.getElementById('toggleIntDisable');
+                formData.password = this.passwordToIntegrate;
                 this.isFormSubmitted = true;
                 console.log(formData)
                 if (formData.password) {
@@ -38,11 +40,21 @@ $(document).ready(function () {
                     var successData = apiCallPost('post', '/validateIntegration', formData);
                     console.log(successData)
                     if (successData.statusCode == 200) {
+                        this.isFormSubmitted = false;
                         console.log("password matched")
+                        this.responseText = "Password matched";
+                        integrationElem.style.opacity = 1;
+                        integrationElem.style.pointerEvents = 'auto';
+                        $('#integrationPasswordSucess').modal('show')
                         $('#loader').hide();
                     }
                     else {
+                        this.isFormSubmitted = false;
                         console.log("password not matched")
+                        this.responseText = "Password not matched";
+                        integrationElem.style.opacity = 0.7;
+                        integrationElem.style.pointerEvents = 'none';
+                        $('#integrationPasswordSucess').modal('show');
                         $('#loader').hide();
                     }
                 } else {
@@ -65,8 +77,16 @@ $(document).ready(function () {
 
 
             getToggleValue: function (e) {
+                var integrationElem = document.getElementById('toggleIntDisable');
                 let result = apiCallGet('get', '/getApiService', API_URI);
-                this.integrationData = (result.data.flagValue === 'true');
+                if (result.data.flagValue === 'true') {
+                    integrationElem.style.opacity = 1;
+                    integrationElem.style.pointerEvents = 'auto'
+                    this.integrationData = (result.data.flagValue === 'true');
+                } else {
+                    integrationElem.style.opacity = 0.7;
+                    integrationElem.style.pointerEvents = 'none'
+                }
             },
 
 
@@ -81,7 +101,7 @@ $(document).ready(function () {
 
             resetForm: function () {
                 this.isFormSubmitted = false;
-                this.passwordTointegrate = '';
+                this.passwordToIntegrate = '';
             },
 
             gotoLogin: function () {
