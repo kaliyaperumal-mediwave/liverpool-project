@@ -81,14 +81,15 @@ $(document).ready(function () {
             getToggleValue: function (e) {
                 var integrationElem = document.getElementById('toggleIntDisable');
                 let result = apiCallGet('get', '/getApiService', API_URI);
-                if (result.data.flagValue === 'true') {
-                    integrationElem.style.opacity = 1;
-                    integrationElem.style.pointerEvents = 'auto'
-                    this.integrationData = (result.data.flagValue === 'true');
-                } else {
-                    integrationElem.style.opacity = 0.7;
-                    integrationElem.style.pointerEvents = 'none'
-                }
+                this.integrationData = (result.data.flagValue === 'true');
+                // if (result.data.flagValue === 'true') {
+                //     integrationElem.style.opacity = 1;
+                //     integrationElem.style.pointerEvents = 'auto'
+                //     this.integrationData = (result.data.flagValue === 'true');
+                // } else {
+                //     integrationElem.style.opacity = 0.7;
+                //     integrationElem.style.pointerEvents = 'none'
+                // }
             },
 
 
