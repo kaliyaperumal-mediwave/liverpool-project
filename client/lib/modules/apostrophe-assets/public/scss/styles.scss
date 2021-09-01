@@ -4001,3 +4001,9 @@ div.collapse-container.collapsing {
 .home-primary-content label{
   margin-bottom: 0;
 }
+@media (max-width: 400px) {
+#feedBackStars.rating {
+    margin-left: -15px;
+    width: calc(100% + 15px);
+}
+}
