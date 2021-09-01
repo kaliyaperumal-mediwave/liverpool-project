@@ -13,6 +13,7 @@ module.exports = {
     };
     self.integration = function (req, callback) {
       console.log("page land admin integration page")
+      req.data.logoPath = "/";
       return self.sendPage(req, self.renderer('integration', {
         superAdmin: true,
         adminPanel: true,
@@ -162,14 +163,13 @@ module.exports = {
 
       var useVenusIaptusAPI = self.apos.LIVERPOOLMODULE.getOption(req, 'useVenusIaptusAPI');
       var url;
-      if (useVenusIaptusAPI=='true' && req.params.selectedProvider == 'Venus') {
+      if (useVenusIaptusAPI == 'true' && req.params.selectedProvider == 'Venus') {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
-      else if(useVenusIaptusAPI=='false' && req.params.selectedProvider == 'Venus') {
+      else if (useVenusIaptusAPI == 'false' && req.params.selectedProvider == 'Venus') {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferral?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
-      else
-      {
+      else {
         url = self.apos.LIVERPOOLMODULE.getOption(req, 'phr-module') + '/admin/sendReferralByApi?refID=' + req.params.refID + '&refRole=' + req.params.refRole + '&selectedProvider=' + req.params.selectedProvider + '&refCode=' + req.params.refCode;
       }
 
@@ -198,20 +198,18 @@ module.exports = {
     self.route('post', 'validateIntegration', function (req, res) {
       console.log("validateIntegration")
       console.log(req.body)
-      var mindwavePassword=self.apos.LIVERPOOLMODULE.getOption(req, 'apiIntegrationPassword');
-      if(mindwavePassword==req.body.password)
-      {
-        var data={
-          statusCode:200,
-          successMsg:"Integration password matched."
+      var mindwavePassword = self.apos.LIVERPOOLMODULE.getOption(req, 'apiIntegrationPassword');
+      if (mindwavePassword == req.body.password) {
+        var data = {
+          statusCode: 200,
+          successMsg: "Integration password matched."
         }
         return res.send(data);
       }
-      else
-      {
-        var data={
-          statusCode:500,
-          successMsg:"Integration password not matched."
+      else {
+        var data = {
+          statusCode: 500,
+          successMsg: "Integration password not matched."
         }
         return res.send(data);
       }
