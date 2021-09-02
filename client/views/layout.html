@@ -179,9 +179,11 @@ endblock %} {% block extraHead %}
         </div>
         <!-- Side Drawer content -->
         <div class="slider-container">
-          <div class="inside-cont-slider cursor-pointer">
+          {% if data.showHome %}
+          <div class="inside-cont-slider cursor-pointer" >
             <a href="{{ data.logoPath }}" class="text-decoration-none">Home</a>
           </div>
+          {% endif %}
           <div class="inside-cont-slider" data-toggle="collapse" href="#collapseExample" role="button"
             aria-expanded="false" aria-controls="collapseExample">
             <a class="text-decoration-none">Referrals</a>

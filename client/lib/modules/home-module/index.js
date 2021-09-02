@@ -17,6 +17,7 @@ module.exports = {
       }
       else {
         //req.session.destroy();
+        req.data.showHome = false;
         return self.sendPage(req, self.renderer('home', {
           showHeader: true,
           //piecesArray: piecesArray

@@ -59,6 +59,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      req.data.showHome = true;
 
       if (req.session.auth_token) {
         self.verifyToken(req)
@@ -111,6 +112,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      req.data.showHome = true;
       //console.log(req.session.auth_token)
       if (req.session.auth_token) {
         self.verifyToken(req)
@@ -378,6 +380,7 @@ module.exports = function (self, options) {
       req.data.mentalHealth_peoplePage = "mental-health/people";
       req.data.mentalHealth_servicePage = "mental-health/services";
       req.data.path = "/role";
+      req.data.showHome = true;
       if (req.session.auth_token) {
         self.verifyToken(req)
           .then((data) => {
