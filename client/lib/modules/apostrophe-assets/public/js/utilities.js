@@ -724,18 +724,18 @@ function openApps() {
     location.href = window.location.origin + '/apps';
 }
 
-function downloadJson() {
-    var API_URI = "/modules/admin-module";
-    console.log("4343");
-    var successData = apiCallGet('get', '/downloadJson', API_URI);
-    console.log(successData)
-    downloadTextFile(JSON.stringify(successData.data), 'myObj.json');
-}
+// function downloadJson() {
+//     var API_URI = "/modules/admin-module";
+//     console.log("4343");
+//     var successData = apiCallGet('get', '/downloadJson', API_URI);
+//     console.log(successData)
+//     downloadTextFile(JSON.stringify(successData.data), 'myObj.json');
+// }
 
-function downloadTextFile(text, name) {
-    const a = document.createElement('a');
-    const type = name.split(".").pop();
-    a.href = URL.createObjectURL(new Blob([text], { type: `text/${type === "txt" ? "plain" : type}` }));
-    a.download = name;
-    a.click();
-}
+// function downloadTextFile(text, name) {
+//     const a = document.createElement('a');
+//     const type = name.split(".").pop();
+//     a.href = URL.createObjectURL(new Blob([text], { type: `text/${type === "txt" ? "plain" : type}` }));
+//     a.download = name;
+//     a.click();
+// }
