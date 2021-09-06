@@ -304,7 +304,7 @@
                                             <label>Time:</label>
                                             <p>{{val.time }}</p>
                                         </div>
-                                        <div class="actionloguser_info">
+                                        <div class="actionloguser_info" v-if="val.userInfo.first_name">
                                             <label>User:</label>
                                             <p>{{val.userInfo.first_name}} {{val.userInfo.last_name}}</p>
                                         </div>
