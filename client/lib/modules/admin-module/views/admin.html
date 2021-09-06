@@ -397,7 +397,7 @@
                 </div>
                 <div class="downloadCSV-div">
                     <div class="form-group">
-                        <label for="fromDate" class="question-font">Enter From date</label>
+                        <label for="fromDate" class="question-font">Enter From date (DD/MM/YYY)</label>
                         <div class="input-group mb-2">
                             <input type="text" class="form-control input-bg-form-control" v-model="fromDateCsv"
                                 inputmode="numeric" @input="checkValidDateMine($event,'hasValidDate1')"
@@ -411,7 +411,7 @@
                         </div>
                         <div class="invalid-feedback d-none mt-2"
                             v-bind:class="{ 'd-block':hasValidDate1,'invalid-fields':hasValidDate1 }">
-                            Please provide a valid date (add in this format dd/mm/yyyy).
+                            Please make sure the DOB is entered in the correct format DD/MM/YYY.
                         </div>
                         <div class="invalid-feedback d-none mt-2"
                             v-bind:class="{ 'd-block': (isCsvDownloadSubmitted && !fromDateCsv),'invalid-modal-fields': (isCsvDownloadSubmitted && !fromDateCsv) }">
@@ -423,7 +423,7 @@
                         </div> -->
 
                         <div class="mt-3">
-                            <label for="toDate" class="question-font">Enter to date</label>
+                            <label for="toDate" class="question-font">Enter to date (DD/MM/YYY)</label>
                             <div class="input-group">
                                 <input type="text" class="form-control input-bg-form-control" v-model="toDateCsv"
                                     inputmode="numeric" @input="checkValidDateMine($event,'hasValidDate2')"
@@ -437,7 +437,7 @@
                             </div>
                             <div class="invalid-feedback d-none mt-2"
                                 v-bind:class="{ 'd-block':hasValidDate2,'invalid-fields':hasValidDate2 }">
-                                Please provide a valid date (add in this format dd/mm/yyyy).
+                                Please make sure the DOB is entered in the correct format DD/MM/YYY.
                             </div>
                             <div class="invalid-feedback d-none mt-2"
                                 v-bind:class="{ 'd-block': (isCsvDownloadSubmitted && !toDateCsv),'invalid-modal-fields': (isCsvDownloadSubmitted && !toDateCsv) }">
