@@ -460,6 +460,7 @@ $(document).ready(function () {
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
                     this.professionalManualAddress = [];
                     //  this.elgibilityObj.profaboveLimit = "";
+                    this.hasValidDate = false;
                     this.setReadonlyState(false);
                     this.resetValues(event.target.form);
                     if (!document.getElementById('prof_data').innerHTML) {
@@ -475,6 +476,7 @@ $(document).ready(function () {
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
+                    this.hasValidDate = false;
                 }
                 else if (questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
