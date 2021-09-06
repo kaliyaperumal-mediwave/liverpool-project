@@ -13,7 +13,6 @@ $(document).ready(function () {
         },
 
         beforeMount: function () {
-            debugger
             document.getElementById('hideBurgerMenu').style.visibility = 'hidden';
             $('#loader').show();
         },
