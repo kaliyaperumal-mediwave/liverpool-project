@@ -178,14 +178,17 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate('#manualDatePickerParent','elgibilityObj','childDob',$event)"
-                            @keypress="preventRefresh($event)" inputmode="numeric" autocomplete="off"
-                            id="manualDatePickerParent" placeholder="DD/MM/YYYY">
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" inputmode="numeric"
+                            autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                       Please make sure the DOB is entered in the correct format DD/MM/YYY.
                     </div>
                 </div>
             </form>
@@ -246,14 +249,17 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDate('#manualDatePickerChild','elgibilityObj','childDob',$event)"
-                            @keypress="preventRefresh($event)" autocomplete="off" id="manualDatePickerChild"
-                            inputmode="numeric" placeholder="DD/MM/YYYY">
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
+                            id="manualDatePickerChild" inputmode="numeric" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                       Please make sure the DOB is entered in the correct format DD/MM/YYY.
                     </div>
 
                     {% endraw %}
@@ -936,12 +942,13 @@
 
             <!-- Professional select service directly end  v-if="userRole == 'professional'" -->
 
-        
+
             <form id="professionalInfo-form" data-options="professionalForm">
                 <div v-show="elgibilityObj.role === 'professional' && (elgibilityObj.liverpoolService || elgibilityObj.seftonService || elgibilityObj.profDirectService == 'I do not want to select a service')"
                     class="px-4 pt-4 pb-2 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
 
-                    <div v-if="elgibilityObj.liverpoolService=='Alder Hey - Liverpool CAMHS' || elgibilityObj.liverpoolService=='Alder Hey - Liverpool EDYS' || elgibilityObj.seftonService =='Alder Hey - Sefton CAMHS' || elgibilityObj.seftonService =='Alder Hey - Sefton EDYS'  " class="px-2 px-lg-0 py-2 col-12 mx-auto">
+                    <div v-if="elgibilityObj.liverpoolService=='Alder Hey - Liverpool CAMHS' || elgibilityObj.liverpoolService=='Alder Hey - Liverpool EDYS' || elgibilityObj.seftonService =='Alder Hey - Sefton CAMHS' || elgibilityObj.seftonService =='Alder Hey - Sefton EDYS'  "
+                        class="px-2 px-lg-0 py-2 col-12 mx-auto">
                         <p class="question-font m-0">Is this an urgent or routine referral?</p>
                         <div class="form-check pt-3 pb-1 pl-0">
                             <input class="form-check-input" type="radio" checked id="routine" value="1"
@@ -1332,13 +1339,17 @@
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control"
                             v-model="elgibilityObj.profChildDob" inputmode="numeric" @keypress="preventRefresh($event)"
-                            @input="checkValidDate('#manualDatePicker','elgibilityObj','profChildDob',$event)"
-                            autocomplete="off" id="manualDatePicker" placeholder="DD/MM/YYYY">
+                            @input="checkValidDateMine($event)" autocomplete="off" id="manualDatePicker"
+                            placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                       Please make sure the DOB is entered in the correct format DD/MM/YYY.
                     </div>
                     <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"

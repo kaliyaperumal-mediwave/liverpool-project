@@ -14,8 +14,8 @@ $(document).ready(function () {
             selectedResources: [],
             addressOptions: [],
             gpListShow: [],
-            gpListJson:[],
-            gpListJsonPostCode:[],
+            gpListJson: [],
+            gpListJsonPostCode: [],
             elgibilityObj: {
                 role: '',
                 interpreter: '',
@@ -119,7 +119,8 @@ $(document).ready(function () {
             dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
             dynamicRegexPattern: /^\+{0,1}[0-9 ]{10,16}$/,
             duplicateYearArray: '',
-            formatter: ''
+            formatter: '',
+            hasValidDate: false
         },
 
         beforeMount: function () {
@@ -459,6 +460,7 @@ $(document).ready(function () {
                 if (questionIdentifier == "role" || questionIdentifier == "directServices") {
                     this.professionalManualAddress = [];
                     //  this.elgibilityObj.profaboveLimit = "";
+                    this.hasValidDate = false;
                     this.setReadonlyState(false);
                     this.resetValues(event.target.form);
                     if (!document.getElementById('prof_data').innerHTML) {
@@ -474,6 +476,7 @@ $(document).ready(function () {
                 }
                 if (questionIdentifier != "role" && questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
+                    this.hasValidDate = false;
                 }
                 else if (questionIdentifier == "interpreter" && optionValue == "yes") {
                     this.resetValues(event.target.form);
@@ -785,7 +788,7 @@ $(document).ready(function () {
                                 //app.elgibilityObj.gpErrMsg = "";
                                 _self.gpListShow = response;
                                 if (response.length <= 0) {
-                                    var gpLink =  API_URI + "/getGpByPostCode/" + searchTxt;
+                                    var gpLink = API_URI + "/getGpByPostCode/" + searchTxt;
                                     $.ajax({
                                         url: gpLink,
                                         type: 'get',
@@ -1231,6 +1234,70 @@ $(document).ready(function () {
 
             preventRefresh: function (e) {
                 stopRefresh(e);
+            },
+
+            isValidDate: function (sText) {
+                var reDate = /(?:0[1-9]|[12][0-9]|3[01])\/(?:0[1-9]|1[0-2])\/(?:19|20\d{2})/;
+                return reDate.test(sText);
+            },
+
+            isFutureDate: function (idate) {
+                var today = new Date().getTime(),
+                    idate = idate.split("/");
+                idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
+                return (today - idate) < 0 ? true : false;
+            },
+
+            checkValidDateMine: function (e) {
+                if (this.isValidDate(e.target.value)) {
+                    var dateValue = e.target.value;
+                    var currentYear = new Date().getFullYear();
+                    var setYearValue = dateValue.split('/');
+                    var getYearValue = setYearValue[2];
+                    if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+                        if (this.isFutureDate(e.target.value)) {
+                            this.hasValidDate = true;
+                        } else {
+                            this.hasValidDate = false;
+                            this.changeDob("", this.formatter)
+                        }
+
+                    } else {
+                        this.hasValidDate = true;
+                    }
+
+                } else {
+                    this.hasValidDate = true;
+                    if (this.elgibilityObj.role == 'professional') {
+                        this.elgibilityObj.profBelowAgeLimit = "";
+                        this.elgibilityObj.profaboveLimit = "";
+                        this.elgibilityObj.parentConcern = "";
+                        this.elgibilityObj.contactProfParent = "";
+                        this.elgibilityObj.parentConcernInformation = "";
+                        this.elgibilityObj.childConcernInformation = "";
+                        this.elgibilityObj.submitProfForm = "";
+                        this.elgibilityObj.regProfGpTxt = "";
+                    }
+                    else if (this.elgibilityObj.role == 'child') {
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.contact_parent_camhs = "";
+                        this.elgibilityObj.reason_contact_parent_camhs = ""
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+                    else {
+                        this.elgibilityObj.aboveLimit = "";
+                        this.elgibilityObj.contactParent = "";
+                        this.elgibilityObj.submitForm = "";
+                        this.elgibilityObj.belowAgeLimit = "";
+                        this.elgibilityObj.regGpTxt = "";
+                        this.elgibilityObj.isInformation = "";
+                    }
+
+                }
             },
 
             checkValidDate: function (id, obj, key, e) {
