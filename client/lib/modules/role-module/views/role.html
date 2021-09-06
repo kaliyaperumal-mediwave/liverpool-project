@@ -186,6 +186,10 @@
                             </span>
                         </div>
                     </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                        You must provide a valid date.
+                    </div>
                 </div>
             </form>
             <!-- calendar-end  child-->
@@ -1342,6 +1346,10 @@
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-validation invalid-feedback  d-none"
+                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                        You must provide a valid date.
                     </div>
                     <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"
