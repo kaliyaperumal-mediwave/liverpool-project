@@ -47,7 +47,8 @@ $(document).ready(function () {
       copyToDateCsv: '',
       isCsvDownloadSubmitted: false,
       showInvalidToDate: false,
-      integrationData: ""
+      integrationData: "",
+      loggedServiceAdmin:""
     },
 
     beforeMount: function () {
@@ -69,6 +70,7 @@ $(document).ready(function () {
       }
       this.archivePage = document.getElementById('isItArchivePge').innerHTML;
       console.log(this.archivePage)
+      this.loggedServiceAdmin = "Accepted - " + document.getElementById('loginAsAdmin').innerHTML;
       if (this.archivePage == 'true') {
         this.urlToLoadData = '/modules/admin-module/getArchived'
       }
