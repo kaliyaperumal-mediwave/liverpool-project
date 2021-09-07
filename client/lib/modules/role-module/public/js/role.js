@@ -522,6 +522,7 @@ $(document).ready(function () {
                         this.setReadonlyState(false);
                     }
                     this.elgibilityObj.profChildDob = "";
+                    this.hasValidDate = false;
                 }
             },
 
@@ -1258,6 +1259,34 @@ $(document).ready(function () {
                     if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
                         if (this.isFutureDate(e.target.value)) {
                             this.hasValidDate = true;
+                            if (this.elgibilityObj.role == 'professional') {
+                                this.elgibilityObj.profBelowAgeLimit = "";
+                                this.elgibilityObj.profaboveLimit = "";
+                                this.elgibilityObj.parentConcern = "";
+                                this.elgibilityObj.contactProfParent = "";
+                                this.elgibilityObj.parentConcernInformation = "";
+                                this.elgibilityObj.childConcernInformation = "";
+                                this.elgibilityObj.submitProfForm = "";
+                                this.elgibilityObj.regProfGpTxt = "";
+                            }
+                            else if (this.elgibilityObj.role == 'child') {
+                                this.elgibilityObj.belowAgeLimit = "";
+                                this.elgibilityObj.aboveLimit = "";
+                                this.elgibilityObj.contactParent = "";
+                                this.elgibilityObj.contact_parent_camhs = "";
+                                this.elgibilityObj.reason_contact_parent_camhs = ""
+                                this.elgibilityObj.submitForm = "";
+                                this.elgibilityObj.regGpTxt = "";
+                                this.elgibilityObj.isInformation = "";
+                            }
+                            else {
+                                this.elgibilityObj.aboveLimit = "";
+                                this.elgibilityObj.contactParent = "";
+                                this.elgibilityObj.submitForm = "";
+                                this.elgibilityObj.belowAgeLimit = "";
+                                this.elgibilityObj.regGpTxt = "";
+                                this.elgibilityObj.isInformation = "";
+                            }
                         } else {
                             this.hasValidDate = false;
                             this.changeDob("", dateValue)
@@ -1265,6 +1294,34 @@ $(document).ready(function () {
 
                     } else {
                         this.hasValidDate = true;
+                        if (this.elgibilityObj.role == 'professional') {
+                            this.elgibilityObj.profBelowAgeLimit = "";
+                            this.elgibilityObj.profaboveLimit = "";
+                            this.elgibilityObj.parentConcern = "";
+                            this.elgibilityObj.contactProfParent = "";
+                            this.elgibilityObj.parentConcernInformation = "";
+                            this.elgibilityObj.childConcernInformation = "";
+                            this.elgibilityObj.submitProfForm = "";
+                            this.elgibilityObj.regProfGpTxt = "";
+                        }
+                        else if (this.elgibilityObj.role == 'child') {
+                            this.elgibilityObj.belowAgeLimit = "";
+                            this.elgibilityObj.aboveLimit = "";
+                            this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.contact_parent_camhs = "";
+                            this.elgibilityObj.reason_contact_parent_camhs = ""
+                            this.elgibilityObj.submitForm = "";
+                            this.elgibilityObj.regGpTxt = "";
+                            this.elgibilityObj.isInformation = "";
+                        }
+                        else {
+                            this.elgibilityObj.aboveLimit = "";
+                            this.elgibilityObj.contactParent = "";
+                            this.elgibilityObj.submitForm = "";
+                            this.elgibilityObj.belowAgeLimit = "";
+                            this.elgibilityObj.regGpTxt = "";
+                            this.elgibilityObj.isInformation = "";
+                        }
                     }
 
                 } else {

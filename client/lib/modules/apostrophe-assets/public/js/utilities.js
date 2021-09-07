@@ -204,7 +204,7 @@ function dynamicSeparator(obj, separator, isOrganization) {
 //Common Modal for API error messages
 function showError(content, statusCode) {
     if (!content) {
-        content = "Something went wrong.Please try again"
+        content = "Something went wrong. Please try again."
     }
     $('#errorContent').text(content);
     if (statusCode) {
