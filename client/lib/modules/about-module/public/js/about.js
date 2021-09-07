@@ -716,10 +716,10 @@ $(document).ready(function () {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }
-                                // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
-                                //     modal.removeAttribute("data-dismiss", "modal");
-                                //     return false;
-                                // }
+                                if (houseHoldForm.dob && this.dateRegex.test(houseHoldForm.dob) && this.hasValidDate) {
+                                    modal.removeAttribute("data-dismiss", "modal");
+                                    return false;
+                                }
                                 this.allHouseHoldMembers = this.allHouseHoldMembers.map(function (it) {
                                     if (it.mode === 'update' && it.id === houseHoldForm.id) {
                                         it = JSON.parse(JSON.stringify(houseHoldForm));
@@ -734,6 +734,10 @@ $(document).ready(function () {
                                 this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                             } else {
                                 if (houseHoldForm.dob && !this.dateRegex.test(this.formatter)) {
+                                    modal.removeAttribute("data-dismiss", "modal");
+                                    return false;
+                                }
+                                if (houseHoldForm.dob && this.dateRegex.test(houseHoldForm.dob) && this.hasValidDate) {
                                     modal.removeAttribute("data-dismiss", "modal");
                                     return false;
                                 }
@@ -758,6 +762,10 @@ $(document).ready(function () {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
+                            if (houseHoldForm.dob && this.dateRegex.test(houseHoldForm.dob) && this.hasValidDate) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
                             // if (houseHoldForm.profession && !this.isGoogleAddressSelected) {
                             //     modal.removeAttribute("data-dismiss", "modal");
                             //     return false;
@@ -776,6 +784,10 @@ $(document).ready(function () {
                             this.prevHouseHoldData = JSON.parse(JSON.stringify(this.allHouseHoldMembers));
                         } else {
                             if (houseHoldForm.dob && !this.dateRegex.test(houseHoldForm.dob)) {
+                                modal.removeAttribute("data-dismiss", "modal");
+                                return false;
+                            }
+                            if (houseHoldForm.dob && this.dateRegex.test(houseHoldForm.dob) && this.hasValidDate) {
                                 modal.removeAttribute("data-dismiss", "modal");
                                 return false;
                             }
