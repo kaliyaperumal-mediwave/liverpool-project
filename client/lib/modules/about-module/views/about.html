@@ -6,6 +6,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
 <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
 {% endblock %}
 {% block main %}
@@ -1461,7 +1462,7 @@
                                         <b>optional</b> (DD/MM/YYYY)</label>
                                     <div class="input-group" id="dobAboutCal">
                                         <input type="text" class="form-control input-bg-form-control"
-                                            v-model="houseHoldData.dob" inputmode="numeric"
+                                            v-maska="'##/##/####'" v-model="houseHoldData.dob"
                                             @keypress="preventRefresh($event)" @input="checkValidDateMine($event)"
                                             autocomplete="off" id="manualDobHouseHold" placeholder="DD/MM/YYYY">
                                         <!-- <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
