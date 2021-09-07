@@ -925,6 +925,7 @@ $(document).ready(function () {
             },
 
             changeDob: function (e, date) {
+                console.log(date)
                 if (date != null) {
                     var today = new Date();
                     this.dateFmt = this.setDate(date)
@@ -1259,7 +1260,7 @@ $(document).ready(function () {
                             this.hasValidDate = true;
                         } else {
                             this.hasValidDate = false;
-                            this.changeDob("", this.formatter)
+                            this.changeDob("", dateValue)
                         }
 
                     } else {
