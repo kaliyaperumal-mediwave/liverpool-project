@@ -48,7 +48,9 @@ $(document).ready(function () {
       isCsvDownloadSubmitted: false,
       showInvalidToDate: false,
       integrationData: "",
-      loggedServiceAdmin:""
+      loggedServiceAdmin:"",
+      hasValidDate1: false,
+      hasValidDate2: false
     },
 
     beforeMount: function () {
@@ -446,6 +448,41 @@ $(document).ready(function () {
         stopRefresh(e);
       },
 
+      isValidDate: function (sText) {
+        var reDate = /(?:0[1-9]|[12][0-9]|3[01])\/(?:0[1-9]|1[0-2])\/(?:19|20\d{2})/;
+        return reDate.test(sText);
+      },
+
+      isFutureDate: function (idate) {
+        var today = new Date().getTime(),
+          idate = idate.split("/");
+        idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
+        return (today - idate) < 0 ? true : false;
+      },
+
+      checkValidDateMine: function (e, type) {
+        if (this.isValidDate(e.target.value)) {
+          var dateValue = e.target.value;
+          var currentYear = new Date().getFullYear();
+          var setYearValue = dateValue.split('/');
+          var getYearValue = setYearValue[2];
+          if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
+            if (this.isFutureDate(e.target.value)) {
+              this[type] = true;
+            } else {
+              this[type] = false;
+            }
+
+          } else {
+            this[type] = true;
+          }
+
+        } else {
+          this[type] = true;
+
+        }
+      },
+
       checkValidDate: function (id, key, duplicateKey) {
         var dateElement = document.querySelector(id);
         var input = dateElement.value;
@@ -512,6 +549,8 @@ $(document).ready(function () {
         this.toDateCsv = "";
         this.isCsvDownloadSubmitted = false;
         this.showInvalidToDate = false;
+        this.hasValidDate1 = false;
+        this.hasValidDate2 = false;
       },
       fetchAllRef: function () {
         var successData = apiCallGet('get', '/getAllreferral', API_URI);
@@ -529,9 +568,9 @@ $(document).ready(function () {
           return o.ReferralId == uuid;
         })
         specificReferral.push({ date: value.split(" ")[0], time: value.split(" ")[1], activity: 'Referral received', userInfo: [] })
-      //  console.log(specificReferral, "specificReferral");
+        //  console.log(specificReferral, "specificReferral");
         this.groupByActivityDate = _.groupBy(specificReferral, 'date');
-       // console.log(this.groupByActivityDate);
+        // console.log(this.groupByActivityDate);
       },
       setIntegration: function (e) {
         if (e.target.checked) {

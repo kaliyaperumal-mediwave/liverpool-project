@@ -1462,8 +1462,7 @@
                                     <div class="input-group" id="dobAboutCal">
                                         <input type="text" class="form-control input-bg-form-control"
                                             v-model="houseHoldData.dob" inputmode="numeric"
-                                            @keypress="preventRefresh($event)"
-                                            @input="checkValidDate('#manualDobHouseHold','houseHoldData','dob')"
+                                            @keypress="preventRefresh($event)" @input="checkValidDateMine($event)"
                                             autocomplete="off" id="manualDobHouseHold" placeholder="DD/MM/YYYY">
                                         <!-- <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
                                             @dp-show="setCalendarHeight($event)"
@@ -1476,16 +1475,20 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="invalid-feedback d-none mt-2"
+                                    <!-- <div class="invalid-feedback d-none mt-2"
                                         v-bind:class="{ 'd-block': ( isHouseHoldFormSubmitted  && (houseHoldData.dob && !dateRegex.test(houseHoldData.dob))),'invalid-modal-fields': (houseHoldData.dob && !dateRegex.test(houseHoldData.dob)) }">
                                         Please provide a valid date.
+                                    </div> -->
+                                    <div class="text-validation invalid-feedback  d-none"
+                                        v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
+                                       Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                                     </div>
                                 </div>
                                 <!-- Household D.O.B end -->
 
                                 <!-- Household School/College/Employment start -->
                                 <div class="form-group"
-                                    v-show="setDatePattern(houseHoldData.dob) && getAge(houseHoldData.dob) < 19">
+                                    v-show="setDatePattern(houseHoldData.dob) && !hasValidDate && getAge(houseHoldData.dob) < 19">
                                     <div id="94a4bca4-a05e-44d6-974b-0f09e2e4c576">
                                         <label for="educLocation" style="word-break: break-word;" inputmode="search"
                                             class="question-font">School/College/Employment-<b>optional</b></label>
