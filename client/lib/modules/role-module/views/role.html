@@ -5,6 +5,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
 <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+<script src="https://cdn.jsdelivr.net/npm/maska@latest/dist/maska.js"></script>
 <!-- <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script> -->
 {% endblock %}
 {% block main %}
@@ -178,7 +179,7 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" inputmode="numeric"
+                            v-maska="dateMask" @input="checkValidDateMine($event)" @keypress="preventRefresh($event)"
                             autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
@@ -188,7 +189,7 @@
                     </div>
                     <div class="text-validation invalid-feedback  d-none"
                         v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
-                       Please make sure the DOB is entered in the correct format DD/MM/YYYY.
+                        Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
                 </div>
             </form>
@@ -248,9 +249,10 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
-                            id="manualDatePickerChild" inputmode="numeric" placeholder="DD/MM/YYYY">
+                        <input type="text" class="form-control input-bg-form-control" v-maska="dateMask"
+                            v-model="elgibilityObj.childDob" @input="checkValidDateMine($event)"
+                            @keypress="preventRefresh($event)" autocomplete="off" id="manualDatePickerChild"
+                            placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -259,7 +261,7 @@
                     </div>
                     <div class="text-validation invalid-feedback  d-none"
                         v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
-                       Please make sure the DOB is entered in the correct format DD/MM/YYYY.
+                        Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
 
                     {% endraw %}
@@ -1337,8 +1339,8 @@
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control"
-                            v-model="elgibilityObj.profChildDob" inputmode="numeric" @keypress="preventRefresh($event)"
+                        <input type="text" class="form-control input-bg-form-control" v-maska="dateMask"
+                            v-model="elgibilityObj.profChildDob" @keypress="preventRefresh($event)"
                             @input="checkValidDateMine($event)" autocomplete="off" id="manualDatePicker"
                             placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
@@ -1349,7 +1351,7 @@
                     </div>
                     <div class="text-validation invalid-feedback  d-none"
                         v-bind:class="{ 'd-block':hasValidDate,'invalid-fields':hasValidDate }">
-                       Please make sure the DOB is entered in the correct format DD/MM/YYYY.
+                        Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                     </div>
                     <!-- <div class="input-group">
                         <date-picker placeholder="Enter D.O.B" class="input-bg-form-control" name="date"

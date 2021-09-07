@@ -10,6 +10,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             showLoadingSpinner: "",
+            dateMask: "##/##/####",
             optionsProxy: [],
             selectedResources: [],
             addressOptions: [],
