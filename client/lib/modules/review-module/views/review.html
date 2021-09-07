@@ -199,7 +199,7 @@
                                             readonly type="text" v-model="section1Data.selected_service"
                                             id="selectedService">
                                     </div>
-                                    <div v-if="userRole == 'professional'"
+                                    <div v-if="userRole == 'professional' && section1Data.referral_mode"
                                         class="py-3 w-100 mx-0 row align-items-center">
                                         <label class="question-font pr-2 col-12 col-md-4 pl-0" for="postSent5">
                                             Referral type:
