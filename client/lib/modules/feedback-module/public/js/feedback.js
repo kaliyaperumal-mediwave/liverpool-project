@@ -43,7 +43,7 @@ $(document).ready(function () {
                         $('#feedbackSuccess').modal('show');
                     } else {
                         $('#loader').removeClass('d-block').addClass('d-none');
-                        this.feedbackMessage = 'something went wrong pleasse try again';
+                        this.feedbackMessage = 'Something went wrong. Please try again.';
                     }
                 } else {
                     scrollToInvalidInput();

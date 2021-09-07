@@ -227,7 +227,7 @@ $(document).ready(function () {
 
                     } else {
                         $('#loader').hide();
-                        this.feedbackMessage = 'something went wrong pleasse try again';
+                        this.feedbackMessage = 'Something went wrong. Please try again.';
                     }
                 } else {
                     scrollToInvalidInput();
