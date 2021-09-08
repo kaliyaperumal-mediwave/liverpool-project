@@ -225,15 +225,15 @@ $(document).ready(function () {
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
                 rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
                 for (var i = 0; i < result.data.filter_referrals.length; i++) {
-                  if(result.data.filter_referrals[i].referral_provider_other)
+                  if(result.data.filter_referrals[i].activity_action!="Referral received")
                   {
                     alterOtherTeam = 'Referral to ' + result.data.filter_referrals[i].referral_provider_other
                   }
                   else
                   {
-                    alterOtherTeam = result.data.filter_referrals[i].referral_status
+                    alterOtherTeam = "";
                   }
-                  console.log("alterOtherTeam: "+alterOtherTeam)
+                  console.log(result.data.filter_referrals[i].activity_action)
                   rows.push([
                     result.data.filter_referrals[i].name,
                     result.data.filter_referrals[i].dob,
