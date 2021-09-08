@@ -470,16 +470,20 @@ $(document).ready(function () {
           if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
             if (this.isFutureDate(e.target.value) || !isUtc) {
               this[type] = true;
+              this.showInvalidToDate = false;
             } else {
               this[type] = false;
+              this.showInvalidToDate = false;
             }
 
           } else {
             this[type] = true;
+            this.showInvalidToDate = false;
           }
 
         } else {
           this[type] = true;
+          this.showInvalidToDate = false;
 
         }
       },
