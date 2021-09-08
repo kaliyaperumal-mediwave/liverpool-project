@@ -179,8 +179,8 @@
 
                     <div class="input-group">
                         <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
-                            v-maska="dateMask" @input="checkValidDateMine($event)" @keypress="preventRefresh($event)"
-                            autocomplete="off" id="manualDatePickerParent" placeholder="DD/MM/YYYY">
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
+                            id="manualDatePickerParent" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -249,10 +249,9 @@
                     </div> -->
 
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-maska="dateMask"
-                            v-model="elgibilityObj.childDob" @input="checkValidDateMine($event)"
-                            @keypress="preventRefresh($event)" autocomplete="off" id="manualDatePickerChild"
-                            placeholder="DD/MM/YYYY">
+                        <input type="text" class="form-control input-bg-form-control" v-model="elgibilityObj.childDob"
+                            @input="checkValidDateMine($event)" @keypress="preventRefresh($event)" autocomplete="off"
+                            id="manualDatePickerChild" placeholder="DD/MM/YYYY">
                         <div class="input-group-append cursor-pointer">
                             <span class="input-group-text p-16">
                                 <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -1339,7 +1338,7 @@
                     class="px-4 pt-2 pb-4 col-xl-6 col-lg-8 col-sm-12 col-12 mx-auto">
                     <p class="question-font mb-1">What is the child / young person’s date of birth?</p>
                     <div class="input-group">
-                        <input type="text" class="form-control input-bg-form-control" v-maska="dateMask"
+                        <input type="text" class="form-control input-bg-form-control"
                             v-model="elgibilityObj.profChildDob" @keypress="preventRefresh($event)"
                             @input="checkValidDateMine($event)" autocomplete="off" id="manualDatePicker"
                             placeholder="DD/MM/YYYY">

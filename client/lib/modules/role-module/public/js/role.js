@@ -10,7 +10,7 @@ $(document).ready(function () {
         components: { Multiselect: window.VueMultiselect.default },
         data: {
             showLoadingSpinner: "",
-            dateMask: "##/##/####",
+            //dateMask: "##/##/####",
             optionsProxy: [],
             selectedResources: [],
             addressOptions: [],
@@ -122,6 +122,12 @@ $(document).ready(function () {
             duplicateYearArray: '',
             formatter: '',
             hasValidDate: false
+        },
+
+        computed: {
+            dateMask: function () {
+                return '##/##/####'
+            }
         },
 
         beforeMount: function () {
@@ -1236,6 +1242,9 @@ $(document).ready(function () {
             },
 
             preventRefresh: function (e) {
+                if (e.which == 32) {
+                    e.preventDefault();
+                }
                 stopRefresh(e);
             },
 

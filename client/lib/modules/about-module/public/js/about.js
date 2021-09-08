@@ -822,6 +822,9 @@ $(document).ready(function () {
             },
 
             preventRefresh: function (e) {
+                if (e.which == 32) {
+                    e.preventDefault();
+                }
                 stopRefresh(e);
             },
 
@@ -1008,6 +1011,7 @@ $(document).ready(function () {
 
             //Clear House Hold
             clearHouseHoldData: function () {
+                this.hasValidDate = false;
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
                 if (this.houseHoldData.mode && this.houseHoldData.mode === 'add') {
                     this.resetModalValues();
@@ -1032,7 +1036,6 @@ $(document).ready(function () {
                 if (manualHouseHoldText.innerText == 'Enter manually') {
                     this.houseHoldData.profession = "";
                     this.isHouseHoldFormSubmitted = false;
-                    this.hasValidDate = false;
                     this.showManualAddressHouseHold = true;
                     this.isManualAddress = true;
                     manualHouseHoldText.innerText = "Clear manual";
