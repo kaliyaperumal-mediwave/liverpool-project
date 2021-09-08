@@ -206,6 +206,10 @@ $(document).ready(function () {
           console.log(finalFromRes, finalToRes)
           // finalFromRes= "08/01/2021";
           // finalToRes = "08/20/2021";
+          if(_self.hasValidDate1 || _self.hasValidDate2)
+          {
+            return false;
+          }
           if (_self.fromDateCsv && _self.toDateCsv) {
             if (_self.dateRegex.test(_self.fromDateCsv) && _self.dateRegex.test(_self.toDateCsv)) {
               if (new Date(finalToRes).getTime() >= new Date(finalFromRes).getTime()) {
