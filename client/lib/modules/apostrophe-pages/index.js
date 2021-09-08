@@ -115,7 +115,13 @@ module.exports = {
     {
       name: 'liverpool-about-service-pages',
       label: 'About-Service-Page'
+    },
+    {
+      name: 'young-referral-module',
+      label: 'Young Referral Module'
     }
+
+
 
 
     // Add more page types here, but make sure you create a corresponding
