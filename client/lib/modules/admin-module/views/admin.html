@@ -412,7 +412,7 @@
                         </div>
                         <div class="invalid-feedback d-none mt-2"
                             v-bind:class="{ 'd-block':(hasValidDate1 && fromDateCsv),'invalid-fields':(hasValidDate1 && fromDateCsv) }">
-                            Please make sure the DOB is entered in the correct format DD/MM/YYYY.
+                            Please provide a valid to date.
                         </div>
                         <div class="invalid-feedback d-none mt-2"
                             v-bind:class="{ 'd-block': (isCsvDownloadSubmitted && !fromDateCsv),'invalid-modal-fields': (isCsvDownloadSubmitted && !fromDateCsv) }">
@@ -438,8 +438,7 @@
                             </div>
                             <div class="invalid-feedback d-none mt-2"
                                 v-bind:class="{ 'd-block':(hasValidDate2 && toDateCsv),'invalid-fields':(hasValidDate2 && toDateCsv)  }">
-                                Please make sure the DOB is entered in the correct format DD/MM/YYYY.
-                            </div>
+                                Please provide a valid to date. </div>
                             <div class="invalid-feedback d-none mt-2"
                                 v-bind:class="{ 'd-block': (isCsvDownloadSubmitted && !toDateCsv),'invalid-modal-fields': (isCsvDownloadSubmitted && !toDateCsv) }">
                                 Please provide a valid to date.
