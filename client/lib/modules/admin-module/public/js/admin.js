@@ -464,7 +464,7 @@ $(document).ready(function () {
           var setYearValue = dateValue.split('/');
           var getYearValue = setYearValue[2];
           if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-            if (this.isFutureDate(e.target.value) || isUtc) {
+            if (this.isFutureDate(e.target.value) || !isUtc) {
               this[type] = true;
             } else {
               this[type] = false;
