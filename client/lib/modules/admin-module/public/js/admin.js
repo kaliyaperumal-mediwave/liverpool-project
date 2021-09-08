@@ -457,11 +457,14 @@ $(document).ready(function () {
       checkValidDateMine: function (e, type) {
         if (this.isValidDate(e.target.value)) {
           var dateValue = e.target.value;
+          var dateFormat = "DD/MM/YYYY"
+          var utc = moment(dateValue, dateFormat, true)
+          var isUtc = utc.isValid();
           var currentYear = new Date().getFullYear();
           var setYearValue = dateValue.split('/');
           var getYearValue = setYearValue[2];
           if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-            if (this.isFutureDate(e.target.value)) {
+            if (this.isFutureDate(e.target.value) || isUtc) {
               this[type] = true;
             } else {
               this[type] = false;

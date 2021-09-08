@@ -844,11 +844,14 @@ $(document).ready(function () {
                 var manualHouseHoldText = document.getElementById('7a53ccec-e9fc-422b-b410-6c5ec82377d7');
                 if (this.isValidDate(e.target.value)) {
                     var dateValue = e.target.value;
+                    var dateFormat = "DD/MM/YYYY"
+                    var utc = moment(dateValue, dateFormat, true)
+                    var isUtc = utc.isValid();
                     var currentYear = new Date().getFullYear();
                     var setYearValue = dateValue.split('/');
                     var getYearValue = setYearValue[2];
                     if (currentYear >= Number(getYearValue) && Number(getYearValue) > 1900) {
-                        if (this.isFutureDate(e.target.value)) {
+                        if (this.isFutureDate(e.target.value) || !isUtc) {
                             this.hasValidDate = true;
                             this.houseHoldData.dob = e.target.value;
                         } else {
