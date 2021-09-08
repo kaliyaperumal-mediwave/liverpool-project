@@ -436,6 +436,9 @@ $(document).ready(function () {
       },
 
       preventRefresh: function (e) {
+        if (e.which == 32) {
+          e.preventDefault();
+        }
         stopRefresh(e);
       },
 

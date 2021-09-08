@@ -1261,7 +1261,6 @@ $(document).ready(function () {
             },
 
             checkValidDateMine: function (e) {
-                debugger;
                 if (this.isValidDate(e.target.value)) {
                     var dateValue = e.target.value;
                     var currentYear = new Date().getFullYear();

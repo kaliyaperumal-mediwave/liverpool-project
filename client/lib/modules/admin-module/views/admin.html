@@ -402,9 +402,8 @@
                         <label for="fromDate" class="question-font">Enter From date (DD/MM/YYYY)</label>
                         <div class="input-group mb-2">
                             <input type="text" class="form-control input-bg-form-control" v-model="fromDateCsv"
-                                v-maska="'##/##/####'" @input="checkValidDateMine($event,'hasValidDate1')"
-                                @keypress="preventRefresh($event)" autocomplete="off" id="fromDate"
-                                placeholder="DD/MM/YYYY">
+                                @input="checkValidDateMine($event,'hasValidDate1')" @keypress="preventRefresh($event)"
+                                autocomplete="off" id="fromDate" placeholder="DD/MM/YYYY">
                             <div class="input-group-append cursor-pointer">
                                 <span class="input-group-text p-16">
                                     <i class="fa common-fa-fa fa-calendar" aria-hidden="true"></i>
@@ -412,7 +411,7 @@
                             </div>
                         </div>
                         <div class="invalid-feedback d-none mt-2"
-                            v-bind:class="{ 'd-block':hasValidDate1,'invalid-fields':hasValidDate1 }">
+                            v-bind:class="{ 'd-block':(hasValidDate1 && fromDateCsv),'invalid-fields':(hasValidDate1 && fromDateCsv) }">
                             Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                         </div>
                         <div class="invalid-feedback d-none mt-2"
@@ -428,7 +427,7 @@
                             <label for="toDate" class="question-font">Enter to date (DD/MM/YYYY)</label>
                             <div class="input-group">
                                 <input type="text" class="form-control input-bg-form-control" v-model="toDateCsv"
-                                    v-maska="'##/##/####'" @input="checkValidDateMine($event,'hasValidDate2')"
+                                    @input="checkValidDateMine($event,'hasValidDate2')"
                                     @keypress="preventRefresh($event)" autocomplete="off" id="toDate"
                                     placeholder="DD/MM/YYYY">
                                 <div class="input-group-append cursor-pointer">
@@ -438,7 +437,7 @@
                                 </div>
                             </div>
                             <div class="invalid-feedback d-none mt-2"
-                                v-bind:class="{ 'd-block':hasValidDate2,'invalid-fields':hasValidDate2 }">
+                                v-bind:class="{ 'd-block':(hasValidDate2 && toDateCsv),'invalid-fields':(hasValidDate2 && toDateCsv)  }">
                                 Please make sure the DOB is entered in the correct format DD/MM/YYYY.
                             </div>
                             <div class="invalid-feedback d-none mt-2"
