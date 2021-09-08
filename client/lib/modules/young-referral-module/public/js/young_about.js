@@ -14,21 +14,21 @@ $(document).ready(function () {
             labelToDisplay: "",
             aboutObj: {
                 nhsNumber: "",
-                childNameTitle: "",
-                childFirstName: "",
-                childLastName: "",
-                childEmail: "",
+                youngNameTitle: "",
+                youngFirstName: "",
+                youngLastName: "",
+                youngEmail: "",
                 contactMode: "mobile",
-                childContactNumber: "",
-                childAddress: "",
-                childAddressPostcode: "",
+                youngContactNumber: "",
+                youngAddress: "",
+                youngAddressPostcode: "",
                 sendPost: "",
-                childGender: "",
-                childIdentity: "",
+                youngGender: "",
+                youngIdentity: "",
                 sexAssignedAtBirth: "",
-                childSexualOrientation: "",
-                childEthnicity: "",
-                childCareAdult: "",
+                youngSexualOrientation: "",
+                youngEthnicity: "",
+                youngCareAdult: "",
                 parentFirstName: "",
                 parentLastName: "",
                 referral_progress: 40,
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 legalCareStatus: ""
             },
             parentContactMode: "mobile",
-            prevChildAddressData: null,
+            prevyoungAddressData: null,
             prevParentAddressData: null,
             dateWrap: true,
             options: {
@@ -78,7 +78,7 @@ $(document).ready(function () {
 
                 }
             },
-            childManualAddress: [],
+            youngManualAddress: [],
             addressData: {
                 addressLine1: '',
                 addressLine2: '',
@@ -127,7 +127,7 @@ $(document).ready(function () {
             yearVal: "",
             dobString: "",
             dateRegex: /^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$/,
-            dynamicRegexChild: /^\+{0,1}[0-9 ]{10,16}$/,
+            dynamicRegexyoung: /^\+{0,1}[0-9 ]{10,16}$/,
             dynamicRegexParent: /^\+{0,1}[0-9 ]{10,16}$/,
             formatter: '',
             hasValidDate: false
@@ -156,11 +156,11 @@ $(document).ready(function () {
             initMaps: function () {
                 $('#loader').hide();
                 var _self = this;
-                //var childAddress;
+                //var youngAddress;
                 var houseHoldAddress;
                 //var parentAddress;
 
-                // childAddress = new google.maps.places.Autocomplete((document.getElementById('txtChildAddress')), {
+                // youngAddress = new google.maps.places.Autocomplete((document.getElementById('txtyoungAddress')), {
                 //     types: ['geocode'],
                 // });
 
@@ -172,8 +172,8 @@ $(document).ready(function () {
                 //     types: ['geocode'],
                 // });
 
-                // google.maps.event.addListener(childAddress, 'place_changed', function () {
-                //     _self.aboutObj.childAddress = childAddress.getPlace().formatted_address;
+                // google.maps.event.addListener(youngAddress, 'place_changed', function () {
+                //     _self.aboutObj.youngAddress = youngAddress.getPlace().formatted_address;
                 // });
 
                 google.maps.event.addListener(houseHoldAddress, 'place_changed', function () {
@@ -229,35 +229,35 @@ $(document).ready(function () {
             //Setting values Logic for Edit and Update
             patchValue: function (data) {
                 this.userRole = document.getElementById('uRole').innerHTML;
-                if (this.userRole == "child") {
+                if (this.userRole == "young") {
                     if (data.parent[0] != undefined) {
                         this.editPatchFlag = true;
-                        Vue.set(this.aboutObj, "nhsNumber", data.child_NHS);
-                        if (data.child_name_title != null) {
-                            Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
+                        Vue.set(this.aboutObj, "nhsNumber", data.young_NHS);
+                        if (data.young_name_title != null) {
+                            Vue.set(this.aboutObj, "youngNameTitle", data.young_name_title);
                         }
-                        Vue.set(this.aboutObj, "childNameTitle", data.child_name_title);
-                        Vue.set(this.aboutObj, "childFirstName", data.child_firstname);
-                        Vue.set(this.aboutObj, "childLastName", data.child_lastname);
-                        Vue.set(this.aboutObj, "childEmail", data.child_email);
-                        Vue.set(this.aboutObj, "childContactNumber", data.child_contact_number);
-                        if (data.child_manual_address && data.child_manual_address.length) {
-                            Vue.set(this, "childManualAddress", data.child_manual_address);
+                        Vue.set(this.aboutObj, "youngNameTitle", data.young_name_title);
+                        Vue.set(this.aboutObj, "youngFirstName", data.young_firstname);
+                        Vue.set(this.aboutObj, "youngLastName", data.young_lastname);
+                        Vue.set(this.aboutObj, "youngEmail", data.young_email);
+                        Vue.set(this.aboutObj, "youngContactNumber", data.young_contact_number);
+                        if (data.young_manual_address && data.young_manual_address.length) {
+                            Vue.set(this, "youngManualAddress", data.young_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
-                        //Vue.set(this.aboutObj, "childAddress", data.child_address);
-                        if (data.child_address_postcode) { // bind postcode column for new referrals
-                            Vue.set(this.aboutObj, "childAddress", data.child_address + ' ,' + data.child_address_postcode);
+                        //Vue.set(this.aboutObj, "youngAddress", data.young_address);
+                        if (data.young_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "youngAddress", data.young_address + ' ,' + data.young_address_postcode);
                         }
                         else {// leave postcode column for old referrals
-                            Vue.set(this.aboutObj, "childAddress", data.child_address);
+                            Vue.set(this.aboutObj, "youngAddress", data.young_address);
                         }
                         Vue.set(this.aboutObj, "sendPost", data.can_send_post);
-                        Vue.set(this.aboutObj, "childGender", data.child_gender);
-                        Vue.set(this.aboutObj, "childIdentity", data.child_gender_birth);
-                        Vue.set(this.aboutObj, "childSexualOrientation", data.child_sexual_orientation);
-                        Vue.set(this.aboutObj, "childEthnicity", data.child_ethnicity);
-                        Vue.set(this.aboutObj, "childCareAdult", data.child_care_adult);
+                        Vue.set(this.aboutObj, "youngGender", data.young_gender);
+                        Vue.set(this.aboutObj, "youngIdentity", data.young_gender_birth);
+                        Vue.set(this.aboutObj, "youngSexualOrientation", data.young_sexual_orientation);
+                        Vue.set(this.aboutObj, "youngEthnicity", data.young_ethnicity);
+                        Vue.set(this.aboutObj, "youngCareAdult", data.young_care_adult);
                         if (data.contact_type != null) {
                             Vue.set(this.aboutObj, "contactMode", data.contact_type);
                         }
@@ -272,7 +272,7 @@ $(document).ready(function () {
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data.parent[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data.parent[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data.parent[0].responsibility_parent_lastname);
-                        Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].child_parent_relationship);
+                        Vue.set(this.aboutFormData, "relationshipToYou", data.parent[0].young_parent_relationship);
                         if (data.parent[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data.parent[0].parent_contact_type);
                         } else {
@@ -297,36 +297,36 @@ $(document).ready(function () {
                     }
                 }
                 else if (this.userRole == "parent") {
-                    if (data[0].parent[0].child_firstname != null) {
+                    if (data[0].parent[0].young_firstname != null) {
                         this.editPatchFlag = true;
-                        Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
-                        if (data[0].parent[0].child_name_title != null) {
-                            Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].young_NHS);
+                        if (data[0].parent[0].young_name_title != null) {
+                            Vue.set(this.aboutObj, "youngNameTitle", data[0].parent[0].young_name_title);
                         }
-                        Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
-                        Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
-                        Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
-                        Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
-                        //Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
-                        if (data[0].parent[0].child_address_postcode) { // bind postcode column for new referrals
-                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address + ' ,' + data[0].parent[0].child_address_postcode);
+                        Vue.set(this.aboutObj, "youngFirstName", data[0].parent[0].young_firstname);
+                        Vue.set(this.aboutObj, "youngLastName", data[0].parent[0].young_lastname);
+                        Vue.set(this.aboutObj, "youngEmail", data[0].parent[0].young_email);
+                        Vue.set(this.aboutObj, "youngContactNumber", data[0].parent[0].young_contact_number);
+                        //Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
+                        if (data[0].parent[0].young_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address + ' ,' + data[0].parent[0].young_address_postcode);
                         }
                         else {// leave postcode column for old referrals
-                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                            Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
                         }
-                        if (data[0].parent[0].child_manual_address && data[0].parent[0].child_manual_address.length) {
-                            Vue.set(this, "childManualAddress", data[0].parent[0].child_manual_address);
+                        if (data[0].parent[0].young_manual_address && data[0].parent[0].young_manual_address.length) {
+                            Vue.set(this, "youngManualAddress", data[0].parent[0].young_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
                         Vue.set(this.aboutObj, "sendPost", data[0].parent[0].can_send_post);
-                        Vue.set(this.aboutObj, "childGender", data[0].parent[0].child_gender);
-                        Vue.set(this.aboutObj, "childIdentity", data[0].parent[0].child_gender_birth);
-                        Vue.set(this.aboutObj, "childSexualOrientation", data[0].parent[0].child_sexual_orientation);
-                        Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
-                        Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
-                        Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
-                        if (data[0].parent[0].child_contact_type != null) {
-                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].child_contact_type);
+                        Vue.set(this.aboutObj, "youngGender", data[0].parent[0].young_gender);
+                        Vue.set(this.aboutObj, "youngIdentity", data[0].parent[0].young_gender_birth);
+                        Vue.set(this.aboutObj, "youngSexualOrientation", data[0].parent[0].young_sexual_orientation);
+                        Vue.set(this.aboutObj, "youngEthnicity", data[0].parent[0].young_ethnicity);
+                        Vue.set(this.aboutObj, "youngCareAdult", data[0].parent[0].young_care_adult);
+                        Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].young_household_name);
+                        if (data[0].parent[0].young_contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].young_contact_type);
                         }
                         if (data[0].parent[0].sex_at_birth != null) {
                             Vue.set(this.aboutObj, "sexAssignedAtBirth", data[0].parent[0].sex_at_birth);
@@ -339,7 +339,7 @@ $(document).ready(function () {
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
-                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
+                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].young_parent_relationship);
                         if (data[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         } else {
@@ -368,33 +368,33 @@ $(document).ready(function () {
                 else if (this.userRole == "professional") {
                     if (data[0] != undefined && data[0].parent[0] != undefined) {
                         this.editPatchFlag = true;
-                        Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].child_NHS);
-                        if (data[0].parent[0].child_name_title != null) {
-                            Vue.set(this.aboutObj, "childNameTitle", data[0].parent[0].child_name_title);
+                        Vue.set(this.aboutObj, "nhsNumber", data[0].parent[0].young_NHS);
+                        if (data[0].parent[0].young_name_title != null) {
+                            Vue.set(this.aboutObj, "youngNameTitle", data[0].parent[0].young_name_title);
                         }
-                        Vue.set(this.aboutObj, "childFirstName", data[0].parent[0].child_firstname);
-                        Vue.set(this.aboutObj, "childLastName", data[0].parent[0].child_lastname);
-                        Vue.set(this.aboutObj, "childEmail", data[0].parent[0].child_email);
-                        Vue.set(this.aboutObj, "childContactNumber", data[0].parent[0].child_contact_number);
-                        if (data[0].parent[0].child_manual_address && data[0].parent[0].child_manual_address.length) {
-                            Vue.set(this, "childManualAddress", data[0].parent[0].child_manual_address);
+                        Vue.set(this.aboutObj, "youngFirstName", data[0].parent[0].young_firstname);
+                        Vue.set(this.aboutObj, "youngLastName", data[0].parent[0].young_lastname);
+                        Vue.set(this.aboutObj, "youngEmail", data[0].parent[0].young_email);
+                        Vue.set(this.aboutObj, "youngContactNumber", data[0].parent[0].young_contact_number);
+                        if (data[0].parent[0].young_manual_address && data[0].parent[0].young_manual_address.length) {
+                            Vue.set(this, "youngManualAddress", data[0].parent[0].young_manual_address);
                             this.setReadonlyState(true, 'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                         }
-                        // Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
-                        if (data[0].parent[0].child_address_postcode) { // bind postcode column for new referrals
-                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address + ' ,' + data[0].parent[0].child_address_postcode);
+                        // Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
+                        if (data[0].parent[0].young_address_postcode) { // bind postcode column for new referrals
+                            Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address + ' ,' + data[0].parent[0].young_address_postcode);
                         }
                         else {// leave postcode column for old referrals
-                            Vue.set(this.aboutObj, "childAddress", data[0].parent[0].child_address);
+                            Vue.set(this.aboutObj, "youngAddress", data[0].parent[0].young_address);
                         }
                         Vue.set(this.aboutObj, "sendPost", data[0].parent[0].can_send_post);
-                        Vue.set(this.aboutObj, "childGender", data[0].parent[0].child_gender);
-                        Vue.set(this.aboutObj, "childIdentity", data[0].parent[0].child_gender_birth);
-                        Vue.set(this.aboutObj, "childSexualOrientation", data[0].parent[0].child_sexual_orientation);
-                        Vue.set(this.aboutObj, "childEthnicity", data[0].parent[0].child_ethnicity);
-                        Vue.set(this.aboutObj, "childCareAdult", data[0].parent[0].child_care_adult);
-                        if (data[0].parent[0].child_contact_type != null) {
-                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].child_contact_type);
+                        Vue.set(this.aboutObj, "youngGender", data[0].parent[0].young_gender);
+                        Vue.set(this.aboutObj, "youngIdentity", data[0].parent[0].young_gender_birth);
+                        Vue.set(this.aboutObj, "youngSexualOrientation", data[0].parent[0].young_sexual_orientation);
+                        Vue.set(this.aboutObj, "youngEthnicity", data[0].parent[0].young_ethnicity);
+                        Vue.set(this.aboutObj, "youngCareAdult", data[0].parent[0].young_care_adult);
+                        if (data[0].parent[0].young_contact_type != null) {
+                            Vue.set(this.aboutObj, "contactMode", data[0].parent[0].young_contact_type);
                         }
 
                         if (!data[0].parent[0].sex_at_birth != null) {
@@ -405,7 +405,7 @@ $(document).ready(function () {
                         } else {
                             Vue.set(this.aboutObj, "referral_mode", 1);
                         }
-                        Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].child_household_name);
+                        Vue.set(this.aboutObj, "houseHoldName", data[0].parent[0].young_household_name);
                         if (data[0] && data[0].parent[0] && data[0].parent[0].household_member) {
                             this.allHouseHoldMembers = data[0].parent[0].household_member;
                             this.prevHouseHoldData = data[0].parent[0].household_member;
@@ -419,7 +419,7 @@ $(document).ready(function () {
                         this.sec2dynamicLabel = getDynamicLabels(this.userRole, data[0].parental_responsibility)
                         Vue.set(this.aboutFormData, "parentCarerFirstName", data[0].responsibility_parent_firstname);
                         Vue.set(this.aboutFormData, "parentCarerLastName", data[0].responsibility_parent_lastname);
-                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].child_parent_relationship);
+                        Vue.set(this.aboutFormData, "relationshipToYou", data[0].young_parent_relationship);
                         if (data[0].parent_contact_type) {
                             Vue.set(this, "parentContactMode", data[0].parent_contact_type);
                         } else {
@@ -449,12 +449,12 @@ $(document).ready(function () {
             //Form Submission of Section-4(Referral) with validation logic
             saveAndContinue: function () {
                 this.isFormSubmitted = true;
-                // var dynamicRegexChild;
+                // var dynamicRegexyoung;
                 // var dynamicRegexParent;
                 if (this.aboutObj.contactMode == "mobile") {
-                    this.dynamicRegexChild = this.phoneRegex
+                    this.dynamicRegexyoung = this.phoneRegex
                 } else if (this.aboutObj.contactMode == "landline") {
-                    this.dynamicRegexChild = this.landlineRegex;
+                    this.dynamicRegexyoung = this.landlineRegex;
                 }
                 if (this.parentContactMode == "mobile") {
                     this.dynamicRegexParent = this.phoneRegex
@@ -462,20 +462,20 @@ $(document).ready(function () {
                     this.dynamicRegexParent = this.landlineRegex;
                 }
                 var formData = _.merge({}, this.aboutObj, this.aboutFormData);
-                if (formData.childNameTitle && formData.contactNumber && formData.relationshipToYou &&
-                    formData.childCareAdult && formData.parentialResponsibility && formData.childGender && formData.parentFirstName && formData.parentLastName &&
-                    formData.childIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.childFirstName && formData.childLastName && formData.childContactNumber
-                    && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexChild.test(formData.childContactNumber)
+                if (formData.youngNameTitle && formData.contactNumber && formData.relationshipToYou &&
+                    formData.youngCareAdult && formData.parentialResponsibility && formData.youngGender && formData.parentFirstName && formData.parentLastName &&
+                    formData.youngIdentity && formData.sexAssignedAtBirth && formData.sendPost && formData.youngFirstName && formData.youngLastName && formData.youngContactNumber
+                    && this.dynamicRegexParent.test(formData.contactNumber) && this.dynamicRegexyoung.test(formData.youngContactNumber)
                 ) {
-                    if (formData.childAddress || this.childManualAddress.length) {
+                    if (formData.youngAddress || this.youngManualAddress.length) {
                         if (formData.parentialResponsibility == 'no' && (!formData.parentCarerFirstName || !formData.parentCarerLastName || (formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.youngEmail && !this.emailRegex.test(formData.youngEmail)) || (formData.youngContactNumber && !this.dynamicRegexyoung.test(formData.youngContactNumber))
                             || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
                         }
                         if (formData.parentialResponsibility == 'yes' && ((formData.nhsNumber && !this.nhsRegex.test(formData.nhsNumber))
-                            || (formData.childEmail && !this.emailRegex.test(formData.childEmail)) || (formData.childContactNumber && !this.dynamicRegexChild.test(formData.childContactNumber))
+                            || (formData.youngEmail && !this.emailRegex.test(formData.youngEmail)) || (formData.youngContactNumber && !this.dynamicRegexyoung.test(formData.youngContactNumber))
                             || (formData.contactNumber && !this.dynamicRegexParent.test(formData.contactNumber)) || (formData.emailAddress && !this.emailRegex.test(formData.emailAddress)))) {
                             scrollToInvalidInput();
                             return false;
@@ -485,18 +485,18 @@ $(document).ready(function () {
                         this.payloadData.role = document.getElementById('uRole').innerHTML;
                         this.payloadData.userid = document.getElementById('uUid').innerHTML
                         this.payloadData.allHouseHoldMembers = this.allHouseHoldMembers;
-                        if (this.userRole == 'child' || this.userRole == 'parent') {
+                        if (this.userRole == 'young' || this.userRole == 'parent') {
                             delete this.payloadData.aboutData.referral_mode;
                         }
                         this.payloadData.aboutData.parentContactMode = this.parentContactMode;
-                        this.payloadData.aboutData.childManualAddress = this.childManualAddress;
+                        this.payloadData.aboutData.youngManualAddress = this.youngManualAddress;
                         this.payloadData.aboutData.parentManualAddress = this.parentManualAddress;
                         console.log(this.payloadData.aboutData)
-                        if (this.payloadData.aboutData.childAddress) {
-                            var childAddresArray = (this.payloadData.aboutData.childAddress).split(",");
-                            console.log(childAddresArray)
-                            this.payloadData.aboutData.childAddressPostcode = childAddresArray[2];
-                            this.payloadData.aboutData.childAddress = childAddresArray[0] + "," + childAddresArray[1];
+                        if (this.payloadData.aboutData.youngAddress) {
+                            var youngAddresArray = (this.payloadData.aboutData.youngAddress).split(",");
+                            console.log(youngAddresArray)
+                            this.payloadData.aboutData.youngAddressPostcode = youngAddresArray[2];
+                            this.payloadData.aboutData.youngAddress = youngAddresArray[0] + "," + youngAddresArray[1];
 
                         }
                         if (this.payloadData.aboutData.parentOrCarrerAddress) {
@@ -521,11 +521,11 @@ $(document).ready(function () {
                 }
             },
 
-            selectContactTypeChild: function (type) {
+            selectContactTypeyoung: function (type) {
                 if (type == "mobile") {
-                    this.dynamicRegexChild = this.phoneRegex
+                    this.dynamicRegexyoung = this.phoneRegex
                 } else if (type == "landline") {
-                    this.dynamicRegexChild = this.landlineRegex;
+                    this.dynamicRegexyoung = this.landlineRegex;
                 }
             },
 
@@ -550,7 +550,7 @@ $(document).ready(function () {
             getManualAddress: function (modelId) {
                 if (modelId === 'bdeb1825-c05e-4949-974e-93514d3a85b4') {
                     $('#addressModal').modal('show');
-                    this.resetChildAddressModalValues();
+                    this.resetyoungAddressModalValues();
                 }
                 else if (modelId === 'ab0ea3ad-43c5-4f21-a449-e8087707654b') {
                     $('#addressParentModal').modal('show');
@@ -560,9 +560,9 @@ $(document).ready(function () {
 
             //Adding and Updating a address logic
             upsertAddress: function (role) {
-                if (role == 'child') {
-                    manualAddressLogic(this, 'addressData', 'childManualAddress', 'addressModal', false, role);
-                    this.aboutObj.childAddress = "";
+                if (role == 'young') {
+                    manualAddressLogic(this, 'addressData', 'youngManualAddress', 'addressModal', false, role);
+                    this.aboutObj.youngAddress = "";
                     document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.pointerEvents = "none";
                     document.getElementById('cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7').style.opacity = 0.7;
                     document.getElementById('bdeb1825-c05e-4949-974e-93514d3a85b4').style.pointerEvents = "none";
@@ -598,9 +598,9 @@ $(document).ready(function () {
 
             //Patching the HouseHold logic
             patchAddress: function (address, role) {
-                if (role == 'child') {
-                    patchManualAddress(this, 'addressData', address, 'childManualAddress');
-                    this.prevChildAddressData = JSON.parse(JSON.stringify(this.childManualAddress));
+                if (role == 'young') {
+                    patchManualAddress(this, 'addressData', address, 'youngManualAddress');
+                    this.prevyoungAddressData = JSON.parse(JSON.stringify(this.youngManualAddress));
                 } else if (role == 'parent') {
                     patchManualAddress(this, 'addressParentData', address, 'parentManualAddress');
                     this.prevParentAddressData = JSON.parse(JSON.stringify(this.parentManualAddress));
@@ -608,22 +608,22 @@ $(document).ready(function () {
 
             },
 
-            //reset child address value
-            resetChildAddressValue: function (data) {
+            //reset young address value
+            resetyoungAddressValue: function (data) {
                 if (this.addressData.mode && this.addressData.mode === 'add') {
-                    this.resetChildAddressModalValues();
+                    this.resetyoungAddressModalValues();
                 } else if (this.addressData.mode && this.addressData.mode === 'update') {
-                    var prevChildAddressObj = convertArrayToObj(this.prevChildAddressData);
+                    var prevyoungAddressObj = convertArrayToObj(this.prevyoungAddressData);
                     if (this.addressData.mode === 'update') {
-                        if (_.isEqual(this.addressData, prevChildAddressObj)) {
+                        if (_.isEqual(this.addressData, prevyoungAddressObj)) {
                             this.addressData = this.addressData;
                         } else {
-                            this.childManualAddress = [];
-                            this.childManualAddress.push(prevChildAddressObj);
+                            this.youngManualAddress = [];
+                            this.youngManualAddress.push(prevyoungAddressObj);
                         }
                         return true;
                     } else {
-                        this.resetChildAddressModalValues();
+                        this.resetyoungAddressModalValues();
                     }
                 } else {
                     this.isAddressFormSubmitted = false;
@@ -634,7 +634,7 @@ $(document).ready(function () {
             //reset parent address value
             resetParentAddressValue: function () {
                 if (this.addressParentData.mode && this.addressParentData.mode === 'add') {
-                    this.resetChildAddressModalValues();
+                    this.resetyoungAddressModalValues();
                 } else if (this.addressParentData.mode && this.addressParentData.mode === 'update') {
                     var prevParentAddressObj = convertArrayToObj(this.prevParentAddressData);
                     if (this.addressParentData.mode === 'update') {
@@ -655,7 +655,7 @@ $(document).ready(function () {
             },
 
             //Resetting the modal values of service data
-            resetChildAddressModalValues: function () {
+            resetyoungAddressModalValues: function () {
                 this.isAddressFormSubmitted = false;
                 this.addressData.addressLine1 = '';
                 this.addressData.addressLine2 = '';
@@ -1094,11 +1094,11 @@ $(document).ready(function () {
 
             //Delete service logic
             deleteManualAddress: function (role) {
-                if (role == 'child') {
-                    deleteLogicManualAddress(this.childManualAddress, this.addressData, this, 'childManualAddress',
+                if (role == 'young') {
+                    deleteLogicManualAddress(this.youngManualAddress, this.addressData, this, 'youngManualAddress',
                         'cd079a4d-c79d-4d38-a245-e0ba6d6ff8b7', 'bdeb1825-c05e-4949-974e-93514d3a85b4');
                     this.isAddressFormSubmitted = false;
-                    $('#deleteChildAddressModal').modal('hide');
+                    $('#deleteyoungAddressModal').modal('hide');
                 } else if (role == 'parent') {
                     deleteLogicManualAddress(this.parentManualAddress, this.addressParentData, this, 'parentManualAddress',
                         'ab0ea3ad-43c5-4f21-a449-e8087707654b', 'e97aa97c-34b6-4874-b2d0-b29c194dfdd2');
@@ -1141,8 +1141,8 @@ $(document).ready(function () {
             },
 
             setCalendarHeight: function (e) {
-                e.currentTarget.firstElementChild.setAttribute('inputmode', 'none');
-                e.currentTarget.firstElementChild.setAttribute('autocomplete', 'off');
+                e.currentTarget.firstElementyoung.setAttribute('inputmode', 'none');
+                e.currentTarget.firstElementyoung.setAttribute('autocomplete', 'off');
                 var dynamicHeight;
                 var mainWidth = document.getElementById('dobAboutCal').clientWidth;
                 if (mainWidth <= 350) {
