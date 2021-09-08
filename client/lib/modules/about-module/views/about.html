@@ -1462,9 +1462,9 @@
                                         <b>optional</b> (DD/MM/YYYY)</label>
                                     <div class="input-group" id="dobAboutCal">
                                         <input type="text" class="form-control input-bg-form-control"
-                                            v-maska="'##/##/####'" v-model="houseHoldData.dob"
-                                            @keypress="preventRefresh($event)" @input="checkValidDateMine($event)"
-                                            autocomplete="off" id="manualDobHouseHold" placeholder="DD/MM/YYYY">
+                                            v-model="houseHoldData.dob" @keypress="preventRefresh($event)"
+                                            @input="checkValidDateMine($event)" autocomplete="off"
+                                            id="manualDobHouseHold" placeholder="DD/MM/YYYY">
                                         <!-- <date-picker name="date" placeholder="Enter D.O.B" class="input-bg-form-control"
                                             @dp-show="setCalendarHeight($event)"
                                             @dp-change="toggleHouseHoldManualAddress($event)"
