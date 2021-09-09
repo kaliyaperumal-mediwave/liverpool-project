@@ -217,6 +217,7 @@ $(document).ready(function () {
                 var getFromData = _self.fromDateCsv.split('/');
                 var getToData = _self.toDateCsv.split('/');
                 console.log('from and to', getFromData, getToData)
+                var alterOtherTeam;
                 //let result = apiCallGet('get', '/getActivity?fromDate=' + _self.fromcsvDate.mm + '/' + _self.fromcsvDate.dd + '/' + _self.fromcsvDate.yy + '&endDate=' + _self.tocsvDate.mm + '/' + _self.tocsvDate.dd + '/' + _self.tocsvDate.yy, API_URI);
                 let result = apiCallGet('get', '/getActivity?fromDate=' + getFromData[1] + '/' + getFromData[0] + '/' + getFromData[2] + '&endDate=' + getToData[1] + '/' + getToData[0] + '/' + getToData[2], API_URI);
                 console.log(result)
@@ -224,6 +225,15 @@ $(document).ready(function () {
                 result.data.filter_referrals = _.sortBy(result.data.filter_referrals, ['date', 'reference_code', 'activity_user'])
                 rows.push(['Name', 'DOB', 'Unique code', 'Referrer', 'GP location', 'Referrer type', 'Referral date', 'Status', 'Last updated', 'Activity date', 'Activity time', 'Activity user', 'Activity action'])
                 for (var i = 0; i < result.data.filter_referrals.length; i++) {
+                  if(result.data.filter_referrals[i].referral_provider_other)
+                  {
+                    alterOtherTeam = 'Referral to ' + result.data.filter_referrals[i].referral_provider_other
+                  }
+                  else
+                  {
+                    alterOtherTeam = result.data.filter_referrals[i].referral_status
+                  }
+                  console.log(result.data.filter_referrals[i].activity_action)
                   rows.push([
                     result.data.filter_referrals[i].name,
                     result.data.filter_referrals[i].dob,
@@ -235,7 +245,7 @@ $(document).ready(function () {
                     result.data.filter_referrals[i].referral_status == 'YPAS' ? 'Forwarded to partner agency - YPAS' :
                       result.data.filter_referrals[i].referral_status == 'Venus' ? 'Forwarded to partner agency - Venus' :
                         result.data.filter_referrals[i].referral_status == 'Accepted by' ? 'Accepted' :
-                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? 'Referral to ' + result.data.filter_referrals[i].referral_provider_other : result.data.filter_referrals[i].referral_status,
+                          result.data.filter_referrals[i].referral_status == 'Referral to other team' ? alterOtherTeam : result.data.filter_referrals[i].referral_status,
                     result.data.filter_referrals[i].date,
                     result.data.filter_referrals[i].activity_date,
                     result.data.filter_referrals[i].activity_time,
